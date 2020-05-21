@@ -23,5 +23,37 @@ object StaticLifecycle {
     if (getDerivedStateFromProps != null) __obj.updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2(getDerivedStateFromProps))
     __obj.asInstanceOf[StaticLifecycle[P, S]]
   }
+  @scala.inline
+  implicit class StaticLifecycleOps[Self[p, s] <: StaticLifecycle[p, s], P, S] (val x: Self[P, S]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[P, S] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, S]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): (Self[P, S]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S]) with Other]
+    @scala.inline
+    def withGetDerivedStateFromError(getDerivedStateFromError: /* error */ js.Any => Partial[S] | Null): Self[P, S] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (getDerivedStateFromError != null) ret.updateDynamic("getDerivedStateFromError")(js.Any.fromFunction1(getDerivedStateFromError))
+        ret.asInstanceOf[Self[P, S]]
+    }
+    @scala.inline
+    def withoutGetDerivedStateFromError: Self[P, S] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "getDerivedStateFromError")
+        ret.asInstanceOf[Self[P, S]]
+    }
+    @scala.inline
+    def withGetDerivedStateFromProps(getDerivedStateFromProps: (P, S) => Partial[S] | Null): Self[P, S] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (getDerivedStateFromProps != null) ret.updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2(getDerivedStateFromProps))
+        ret.asInstanceOf[Self[P, S]]
+    }
+    @scala.inline
+    def withoutGetDerivedStateFromProps: Self[P, S] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "getDerivedStateFromProps")
+        ret.asInstanceOf[Self[P, S]]
+    }
+  }
+  
 }
 

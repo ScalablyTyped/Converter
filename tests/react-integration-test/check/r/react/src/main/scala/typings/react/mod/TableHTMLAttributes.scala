@@ -406,5 +406,49 @@ object TableHTMLAttributes {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[TableHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class TableHTMLAttributesOps[Self[t] <: TableHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withCellPadding(cellPadding: Double | String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (cellPadding != null) ret.updateDynamic("cellPadding")(cellPadding.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutCellPadding: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "cellPadding")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withCellSpacing(cellSpacing: Double | String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (cellSpacing != null) ret.updateDynamic("cellSpacing")(cellSpacing.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutCellSpacing: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "cellSpacing")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withSummary(summary: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (summary != null) ret.updateDynamic("summary")(summary.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutSummary: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "summary")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

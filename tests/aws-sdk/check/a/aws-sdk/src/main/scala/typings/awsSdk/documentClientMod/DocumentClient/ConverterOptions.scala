@@ -30,5 +30,37 @@ object ConverterOptions {
     if (!js.isUndefined(wrapNumbers)) __obj.updateDynamic("wrapNumbers")(wrapNumbers.asInstanceOf[js.Any])
     __obj.asInstanceOf[ConverterOptions]
   }
+  @scala.inline
+  implicit class ConverterOptionsOps[Self <: ConverterOptions] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withConvertEmptyValues(convertEmptyValues: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(convertEmptyValues)) ret.updateDynamic("convertEmptyValues")(convertEmptyValues.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutConvertEmptyValues: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "convertEmptyValues")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withWrapNumbers(wrapNumbers: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(wrapNumbers)) ret.updateDynamic("wrapNumbers")(wrapNumbers.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutWrapNumbers: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "wrapNumbers")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

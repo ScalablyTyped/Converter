@@ -46,5 +46,97 @@ object StrictContainerProps {
     if (textAlign != null) __obj.updateDynamic("textAlign")(textAlign.asInstanceOf[js.Any])
     __obj.asInstanceOf[StrictContainerProps]
   }
+  @scala.inline
+  implicit class StrictContainerPropsOps[Self <: StrictContainerProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withAs(as: js.Any): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (as != null) ret.updateDynamic("as")(as.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutAs: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "as")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withChildren(children: TagMod[Any]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (children != null) ret.updateDynamic("children")(children.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutChildren: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "children")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withClassName(className: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (className != null) ret.updateDynamic("className")(className.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutClassName: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "className")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withContent(content: SemanticShorthandContent): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (content != null) ret.updateDynamic("content")(content.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutContent: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "content")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withFluid(fluid: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(fluid)) ret.updateDynamic("fluid")(fluid.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutFluid: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "fluid")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withText(text: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(text)) ret.updateDynamic("text")(text.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutText: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "text")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withTextAlign(textAlign: SemanticTEXTALIGNMENTS): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (textAlign != null) ret.updateDynamic("textAlign")(textAlign.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutTextAlign: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "textAlign")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

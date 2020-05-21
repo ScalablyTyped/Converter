@@ -17,5 +17,31 @@ object Story {
     val __obj = js.Dynamic.literal(add = js.Any.fromFunction2(add), addDecorator = js.Any.fromFunction1(addDecorator), kind = kind.asInstanceOf[js.Any])
     __obj.asInstanceOf[Story]
   }
+  @scala.inline
+  implicit class StoryOps[Self <: Story] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withAdd(add: (String, StoryFunction) => Story): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("add")(js.Any.fromFunction2(add))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withAddDecorator(addDecorator: StoryDecorator => Story): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("addDecorator")(js.Any.fromFunction1(addDecorator))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withKind(kind: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("kind")(kind.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

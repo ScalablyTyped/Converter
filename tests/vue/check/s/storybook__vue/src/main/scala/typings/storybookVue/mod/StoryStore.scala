@@ -18,5 +18,37 @@ object StoryStore {
     if (fileName != null) __obj.updateDynamic("fileName")(fileName.asInstanceOf[js.Any])
     __obj.asInstanceOf[StoryStore]
   }
+  @scala.inline
+  implicit class StoryStoreOps[Self <: StoryStore] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withKind(kind: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("kind")(kind.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withStories(stories: js.Array[StoryObject]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("stories")(stories.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withFileName(fileName: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (fileName != null) ret.updateDynamic("fileName")(fileName.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutFileName: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "fileName")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

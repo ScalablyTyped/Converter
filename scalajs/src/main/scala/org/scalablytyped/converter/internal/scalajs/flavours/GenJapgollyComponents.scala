@@ -159,10 +159,9 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
     IArray(keyParam -> keyUpdate, overridesParam -> overridesUpdate)
   }
 
-  object memberToProp extends MemberToProp {
+  object memberToProp extends MemberToProp.Default(Some(ToJapgollyTypes)) {
     override def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
-      MemberToProp
-        .Default(scope, x, isInherited)
+      default(scope, x, isInherited)
         .map(_.rewrite(toScalaJsReact(scope)))
 
     def toScalaJsReact(scope: TreeScope)(param: Prop.Variant): Prop.Variant = {
@@ -184,15 +183,16 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
               s"""${name.value}.foreach(p => ${obj.value}.updateDynamic("${name.unescaped}")(p.toJsFn))""",
             )
           Prop.Variant(
-            tree   = pt.copy(tpe = TypeRef.UndefOr(CallbackTo(retType)), default = ExprTree.undefined),
-            asExpr = Right(fn),
+            tree        = pt.copy(tpe = TypeRef.UndefOr(CallbackTo(retType)), default = ExprTree.undefined),
+            asExpr      = Right(fn),
+            isRewritten = true,
           )
 
         case pt @ ParamTree(name, _, _, TypeRef.ScalaFunction(Empty, StripWildcards(retType)), NotImplemented, _) =>
           def fn(obj: Name): ExprTree =
             ExprTree.Custom(s"""${obj.value}.updateDynamic("${name.unescaped}")(${name.value}.toJsFn)""")
 
-          Prop.Variant(tree = pt.copy(tpe = CallbackTo(retType)), asExpr = Right(fn))
+          Prop.Variant(tree = pt.copy(tpe = CallbackTo(retType)), asExpr = Right(fn), isRewritten = true)
 
         case pt @ ParamTree(
               name,
@@ -228,7 +228,8 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
           Prop.Variant(
             tree = pt
               .copy(tpe = newRetType, default = if (defaultValue === NotImplemented) NotImplemented else ExprTree.Null),
-            asExpr = Right(fn),
+            asExpr      = Right(fn),
+            isRewritten = true,
           )
 
         case pt @ ParamTree(name, _, _, TypeRef(reactNames.ReactElement, _, _), _, _) =>
@@ -237,8 +238,9 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
               s"""if (${name.value} != null) ${obj.unescaped}.updateDynamic("${name.unescaped}")(${name.value}.rawElement.asInstanceOf[js.Any])""",
             )
           Prop.Variant(
-            tree   = pt.copy(tpe = TypeRef(japgolly.vdomReactElement)),
-            asExpr = Right(fn),
+            tree        = pt.copy(tpe = TypeRef(japgolly.vdomReactElement)),
+            asExpr      = Right(fn),
+            isRewritten = true,
           )
 
         case pt @ ParamTree(name, _, _, TypeRef(reactNames.ReactNode, _, _), _, _) =>
@@ -247,8 +249,9 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
               s"""if (${name.value} != null) ${obj.unescaped}.updateDynamic("${name.unescaped}")(${name.value}.rawNode.asInstanceOf[js.Any])""",
             )
           Prop.Variant(
-            tree   = pt.copy(tpe = TypeRef(japgolly.vdomVdomNode)),
-            asExpr = Right(fn),
+            tree        = pt.copy(tpe = TypeRef(japgolly.vdomVdomNode)),
+            asExpr      = Right(fn),
+            isRewritten = true,
           )
 
         case _ => param
@@ -457,16 +460,16 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
 
     val (refTypes, declaredChildren, _, _optionals, requireds, Empty) = {
       props.partitionCollect5(
-        { case Prop(Prop.Variant(ParamTree(names.ref, _, _, tpe, _, _), _), _, _) => tpe }, //refTypes
+        { case Prop(Prop.Variant(ParamTree(names.ref, _, _, tpe, _, _), _, _), _, _, _) => tpe }, //refTypes
         // take note of declared children, but saying `ReactNode` should be a noop
         {
-          case p @ Prop(Prop.Variant(ParamTree(names.children, _, _, tpe, _, _), _), _, _)
+          case p @ Prop(Prop.Variant(ParamTree(names.children, _, _, tpe, _, _), _, _), _, _, _)
               if !isVdomNode(tpe.typeName) =>
             p
         }, //declaredChildren
-        { case Prop(Prop.Variant(paramTree, _), _, _) if shouldIgnore(paramTree) => null },
-        { case Prop(Prop.Variant(p, Right(f)), _, _)                             => p -> f }, //optionals
-        { case Prop(Prop.Variant(p, Left(expr)), _, _)                           => p -> expr }, //requireds
+        { case Prop(Prop.Variant(paramTree, _, _), _, _, _) if shouldIgnore(paramTree) => null },
+        { case Prop(Prop.Variant(p, Right(f), _), _, _, _)                             => p -> f }, //optionals
+        { case Prop(Prop.Variant(p, Left(expr), _), _, _, _)                           => p -> expr }, //requireds
       )
     }
 
@@ -535,9 +538,9 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
       /* The children value can go in one of three places, depending... */
       val (requireds2, optionals2, varargsChildren: Option[IArray[Arg]]) =
         declaredChildren.headOption match {
-          case Some(Prop(Prop.Variant(p, Left(expr)), _, _)) => ((p -> expr) +: requireds, optionals, None)
-          case Some(Prop(Prop.Variant(p, Right(f)), _, _))   => (requireds, (p -> f) +: optionals, None)
-          case None                                          => (requireds, optionals, Some(IArray(Arg.Variable(Ref(Name("children"))))))
+          case Some(Prop(Prop.Variant(p, Left(expr), _), _, _, _)) => ((p -> expr) +: requireds, optionals, None)
+          case Some(Prop(Prop.Variant(p, Right(f), _), _, _, _))   => (requireds, (p -> f) +: optionals, None)
+          case None                                                => (requireds, optionals, Some(IArray(Arg.Variable(Ref(Name("children"))))))
         }
 
       val objName = Name("__obj")

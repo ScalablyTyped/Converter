@@ -17,5 +17,31 @@ object ReactSVG {
     val __obj = js.Dynamic.literal(animate = animate.asInstanceOf[js.Any], circle = circle.asInstanceOf[js.Any], clipPath = clipPath.asInstanceOf[js.Any])
     __obj.asInstanceOf[ReactSVG]
   }
+  @scala.inline
+  implicit class ReactSVGOps[Self <: ReactSVG] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withAnimate(animate: SVGFactory): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("animate")(animate.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withCircle(circle: SVGFactory): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("circle")(circle.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withClipPath(clipPath: SVGFactory): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("clipPath")(clipPath.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

@@ -115,5 +115,277 @@ object StrictButtonGroupProps {
     if (widths != null) __obj.updateDynamic("widths")(widths.asInstanceOf[js.Any])
     __obj.asInstanceOf[StrictButtonGroupProps]
   }
+  @scala.inline
+  implicit class StrictButtonGroupPropsOps[Self <: StrictButtonGroupProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withAs(as: js.Any): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (as != null) ret.updateDynamic("as")(as.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutAs: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "as")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withAttached(attached: Boolean | left | right | top | bottom): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (attached != null) ret.updateDynamic("attached")(attached.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutAttached: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "attached")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withBasic(basic: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(basic)) ret.updateDynamic("basic")(basic.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutBasic: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "basic")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withButtons(buttons: SemanticShorthandCollection[ButtonProps]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (buttons != null) ret.updateDynamic("buttons")(buttons.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutButtons: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "buttons")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withChildren(children: TagMod[Any]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (children != null) ret.updateDynamic("children")(children.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutChildren: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "children")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withClassName(className: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (className != null) ret.updateDynamic("className")(className.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutClassName: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "className")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withColor(color: SemanticCOLORS): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (color != null) ret.updateDynamic("color")(color.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutColor: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "color")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withCompact(compact: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(compact)) ret.updateDynamic("compact")(compact.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutCompact: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "compact")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withContent(content: SemanticShorthandContent): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (content != null) ret.updateDynamic("content")(content.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutContent: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "content")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withFloated(floated: SemanticFLOATS): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (floated != null) ret.updateDynamic("floated")(floated.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutFloated: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "floated")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withFluid(fluid: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(fluid)) ret.updateDynamic("fluid")(fluid.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutFluid: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "fluid")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withIcon(icon: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(icon)) ret.updateDynamic("icon")(icon.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutIcon: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "icon")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withInverted(inverted: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(inverted)) ret.updateDynamic("inverted")(inverted.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutInverted: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "inverted")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withLabeled(labeled: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(labeled)) ret.updateDynamic("labeled")(labeled.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutLabeled: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "labeled")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withNegative(negative: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(negative)) ret.updateDynamic("negative")(negative.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutNegative: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "negative")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withPositive(positive: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(positive)) ret.updateDynamic("positive")(positive.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutPositive: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "positive")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withPrimary(primary: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(primary)) ret.updateDynamic("primary")(primary.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutPrimary: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "primary")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withSecondary(secondary: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(secondary)) ret.updateDynamic("secondary")(secondary.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutSecondary: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "secondary")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withSize(size: SemanticSIZES): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (size != null) ret.updateDynamic("size")(size.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutSize: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "size")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withToggle(toggle: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(toggle)) ret.updateDynamic("toggle")(toggle.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutToggle: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "toggle")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withVertical(vertical: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(vertical)) ret.updateDynamic("vertical")(vertical.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutVertical: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "vertical")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withWidths(widths: SemanticWIDTHS): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (widths != null) ret.updateDynamic("widths")(widths.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutWidths: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "widths")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

@@ -5,10 +5,14 @@ package flavours
 import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl.ReactFlavourImpl
 import org.scalablytyped.converter.internal.scalajs.transforms.Adapter
 
-case class SlinkyFlavour(outputPkg: Name) extends ReactFlavourImpl {
+case class SlinkyFlavour(outputPkg: Name, enableImplicitOps: Boolean) extends ReactFlavourImpl {
 
   override val dependencies: Set[Dep] =
     Set(Versions.runtime, Versions.slinkyWeb)
+
+  val rewriter      = SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true)
+  val memberToProp  = new MemberToProp.Default(Some(rewriter))
+  val genCompanions = new GenCompanions(memberToProp, findProps, enableImplicitOps)
 
   private var cached = Option.empty[SlinkyWeb]
 
@@ -24,18 +28,17 @@ case class SlinkyFlavour(outputPkg: Name) extends ReactFlavourImpl {
           slinkyWeb
       }
 
-    val withCompanions =
-      new GenCompanions(MemberToProp.Default, findProps).visitPackageTree(scope)(tree)
+    val withCompanions = genCompanions.visitPackageTree(scope)(tree)
 
     val withComponents = if (involvesReact(scope)) {
       val components: IArray[Component] =
         identifyComponents.oneOfEach(scope / withCompanions, withCompanions)
 
-      val gen = new GenSlinkyComponents(GenSlinkyComponents.Web(slinkyWebOpt), MemberToProp.Default, findProps)
+      val gen = new GenSlinkyComponents(GenSlinkyComponents.Web(slinkyWebOpt), memberToProp, findProps)
 
       Adapter(scope)((t, s) => gen(s, t, components))(withCompanions)
     } else withCompanions
 
-    SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true).visitPackageTree(scope)(withComponents)
+    rewriter.visitPackageTree(scope)(withComponents)
   }
 }

@@ -33,5 +33,37 @@ object DocumentClientOptions {
     if (!js.isUndefined(wrapNumbers)) __obj.updateDynamic("wrapNumbers")(wrapNumbers.asInstanceOf[js.Any])
     __obj.asInstanceOf[DocumentClientOptions]
   }
+  @scala.inline
+  implicit class DocumentClientOptionsOps[Self <: DocumentClientOptions] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withParams(params: StringDictionary[js.Any]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (params != null) ret.updateDynamic("params")(params.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutParams: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "params")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withService(service: ^): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (service != null) ret.updateDynamic("service")(service.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutService: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "service")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

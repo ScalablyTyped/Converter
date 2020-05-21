@@ -418,5 +418,37 @@ object OptgroupHTMLAttributes {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[OptgroupHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class OptgroupHTMLAttributesOps[Self[t] <: OptgroupHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withDisabled(disabled: js.UndefOr[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(disabled)) ret.updateDynamic("disabled")(disabled.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutDisabled: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "disabled")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withLabel(label: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (label != null) ret.updateDynamic("label")(label.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutLabel: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "label")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

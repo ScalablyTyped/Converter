@@ -422,5 +422,25 @@ object DropzoneRootProps {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[DropzoneRootProps]
   }
+  @scala.inline
+  implicit class DropzoneRootPropsOps[Self <: DropzoneRootProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withRefKey(refKey: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (refKey != null) ret.updateDynamic("refKey")(refKey.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutRefKey: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "refKey")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

@@ -69,6 +69,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
       ignoredModulePrefixes = ignored.map(_.split("/").toList),
       versions              = versions,
       organization          = "org.scalablytyped",
+      enableImplicitOps     = stExperimentalEnableImplicitOps.value,
     )
 
     val fromFolder = InFolder(os.Path((Compile / npmUpdate / crossTarget).value / "node_modules"))

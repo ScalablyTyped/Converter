@@ -21,5 +21,37 @@ object HttpInterceptor {
     if (response != null) __obj.updateDynamic("response")(js.Any.fromFunction1(response))
     __obj.asInstanceOf[HttpInterceptor]
   }
+  @scala.inline
+  implicit class HttpInterceptorOps[Self <: HttpInterceptor] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withRequest(request: /* request */ HttpOptions => HttpOptions): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (request != null) ret.updateDynamic("request")(js.Any.fromFunction1(request))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutRequest: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "request")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withResponse(response: /* response */ HttpResponse => HttpResponse): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (response != null) ret.updateDynamic("response")(js.Any.fromFunction1(response))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutResponse: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "response")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

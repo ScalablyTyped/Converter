@@ -79,7 +79,7 @@ trait ImporterHarness extends AnyFunSuite {
             compiler                   = bloop,
             targetFolder               = targetFolder,
             organization               = "org.scalablytyped",
-            publisherOpt             = Some(BinTrayPublisher.Dummy),
+            publisherOpt               = Some(BinTrayPublisher.Dummy),
             publishLocalFolder         = publishLocalFolder,
             metadataFetcher            = Npmjs.No,
             softWrites                 = true,
@@ -118,7 +118,8 @@ trait ImporterHarness extends AnyFunSuite {
       flavour: FlavourImpl = FlavourImpl.Normal(
         shouldGenerateComponents = true,
         shouldUseScalaJsDomTypes = false,
-        Name.typings,
+        enableImplicitOps        = true,
+        outputPkg                = Name.typings,
       ),
   ): Assertion = {
     val testFolder   = findTestFolder(testName)

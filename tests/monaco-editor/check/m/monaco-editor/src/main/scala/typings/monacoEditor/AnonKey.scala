@@ -17,5 +17,25 @@ object AnonKey {
     val __obj = js.Dynamic.literal(key = key.asInstanceOf[js.Any], value = value.asInstanceOf[js.Any])
     __obj.asInstanceOf[AnonKey[T]]
   }
+  @scala.inline
+  implicit class AnonKeyOps[Self[t] <: AnonKey[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withKey(key: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("key")(key.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withValue(value: Promise[T, _]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("value")(value.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

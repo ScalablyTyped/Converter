@@ -16,5 +16,25 @@ object ndarray {
     val __obj = js.Dynamic.literal(T = T.asInstanceOf[js.Any], data = data.asInstanceOf[js.Any])
     __obj.asInstanceOf[ndarray[T]]
   }
+  @scala.inline
+  implicit class ndarrayOps[Self[t] <: ndarray[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withT(T: ndarray[T]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("T")(T.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withData(data: Data[T]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("data")(data.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

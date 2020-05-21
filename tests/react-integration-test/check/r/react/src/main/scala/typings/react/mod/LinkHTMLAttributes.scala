@@ -424,5 +424,121 @@ object LinkHTMLAttributes {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[LinkHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class LinkHTMLAttributesOps[Self[t] <: LinkHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withAs(as: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (as != null) ret.updateDynamic("as")(as.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutAs: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "as")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withCrossOrigin(crossOrigin: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (crossOrigin != null) ret.updateDynamic("crossOrigin")(crossOrigin.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutCrossOrigin: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "crossOrigin")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withHref(href: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (href != null) ret.updateDynamic("href")(href.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutHref: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "href")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withHrefLang(hrefLang: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (hrefLang != null) ret.updateDynamic("hrefLang")(hrefLang.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutHrefLang: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "hrefLang")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withIntegrity(integrity: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (integrity != null) ret.updateDynamic("integrity")(integrity.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutIntegrity: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "integrity")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withMedia(media: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (media != null) ret.updateDynamic("media")(media.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutMedia: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "media")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withRel(rel: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (rel != null) ret.updateDynamic("rel")(rel.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutRel: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "rel")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withSizes(sizes: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (sizes != null) ret.updateDynamic("sizes")(sizes.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutSizes: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "sizes")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withType(`type`: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (`type` != null) ret.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutType: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "type")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

@@ -39,5 +39,73 @@ object ButtonGroupProps {
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical.asInstanceOf[js.Any])
     __obj.asInstanceOf[ButtonGroupProps]
   }
+  @scala.inline
+  implicit class ButtonGroupPropsOps[Self <: ButtonGroupProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withBlock(block: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(block)) ret.updateDynamic("block")(block.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutBlock: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "block")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withBsSize(bsSize: Sizes): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (bsSize != null) ret.updateDynamic("bsSize")(bsSize.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutBsSize: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "bsSize")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withBsStyle(bsStyle: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (bsStyle != null) ret.updateDynamic("bsStyle")(bsStyle.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutBsStyle: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "bsStyle")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withJustified(justified: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(justified)) ret.updateDynamic("justified")(justified.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutJustified: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "justified")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withVertical(vertical: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(vertical)) ret.updateDynamic("vertical")(vertical.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutVertical: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "vertical")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

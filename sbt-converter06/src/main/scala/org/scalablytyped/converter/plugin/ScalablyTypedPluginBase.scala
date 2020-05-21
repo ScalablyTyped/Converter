@@ -100,6 +100,8 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     val stQuiet = settingKey[Boolean]("remove all output")
 
     val stInternalExpandTypeMappings = settingKey[Selection[String]]("Experimental: enable type mapping expansion")
+
+    val stExperimentalEnableImplicitOps = settingKey[Boolean]("implicit ops for most traits")
   }
 
   override def requires = JvmPlugin && PlatformDepsPlugin
@@ -127,6 +129,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stTypescriptVersion := "3.8",
       stUseScalaJsDom := true,
       stInternalZincCompiler := ZincCompiler.task.value,
+      stExperimentalEnableImplicitOps := false,
     )
 
   override lazy val globalSettings =

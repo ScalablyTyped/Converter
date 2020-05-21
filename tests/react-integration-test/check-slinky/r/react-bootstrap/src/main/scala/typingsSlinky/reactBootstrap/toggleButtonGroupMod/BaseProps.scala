@@ -26,5 +26,37 @@ object BaseProps {
     if (value != null) __obj.updateDynamic("value")(value.asInstanceOf[js.Any])
     __obj.asInstanceOf[BaseProps]
   }
+  @scala.inline
+  implicit class BasePropsOps[Self <: BaseProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withDefaultValue(defaultValue: js.Any): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (defaultValue != null) ret.updateDynamic("defaultValue")(defaultValue.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutDefaultValue: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "defaultValue")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withValue(value: js.Any): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (value != null) ret.updateDynamic("value")(value.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutValue: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "value")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

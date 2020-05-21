@@ -15,5 +15,19 @@ object AnonMethod {
     val __obj = js.Dynamic.literal(method = method.asInstanceOf[js.Any])
     __obj.asInstanceOf[AnonMethod]
   }
+  @scala.inline
+  implicit class AnonMethodOps[Self <: AnonMethod] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withMethod(method: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("method")(method.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

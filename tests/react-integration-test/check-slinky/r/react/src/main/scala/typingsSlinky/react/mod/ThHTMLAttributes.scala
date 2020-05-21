@@ -430,5 +430,73 @@ object ThHTMLAttributes {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[ThHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class ThHTMLAttributesOps[Self[t] <: ThHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withAlign(align: left | center | right | justify | char): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (align != null) ret.updateDynamic("align")(align.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutAlign: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "align")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withColSpan(colSpan: Int | Double): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (colSpan != null) ret.updateDynamic("colSpan")(colSpan.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutColSpan: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "colSpan")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withHeaders(headers: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (headers != null) ret.updateDynamic("headers")(headers.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutHeaders: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "headers")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withRowSpan(rowSpan: Int | Double): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (rowSpan != null) ret.updateDynamic("rowSpan")(rowSpan.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutRowSpan: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "rowSpan")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withScope(scope: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (scope != null) ret.updateDynamic("scope")(scope.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutScope: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "scope")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

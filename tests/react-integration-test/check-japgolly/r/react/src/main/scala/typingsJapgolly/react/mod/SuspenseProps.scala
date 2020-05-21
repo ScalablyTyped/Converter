@@ -1,6 +1,7 @@
 package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -24,5 +25,45 @@ object SuspenseProps {
     if (fallback != null) __obj.updateDynamic("fallback")(fallback.asInstanceOf[js.Any])
     __obj.asInstanceOf[SuspenseProps]
   }
+  @scala.inline
+  implicit class SuspensePropsOps[Self <: SuspenseProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withChildrenVdomElement(children: VdomElement): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (children != null) ret.updateDynamic("children")(children.rawElement.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withChildren(children: VdomNode): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (children != null) ret.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutChildren: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "children")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withFallback(
+      fallback: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any
+    ): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (fallback != null) ret.updateDynamic("fallback")(fallback.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutFallback: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "fallback")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

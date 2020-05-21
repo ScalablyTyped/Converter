@@ -2,19 +2,23 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
+import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
+
 trait MemberToProp {
+  def rewriterOpt: Option[TypeRewriterCast]
+
   def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop]
 }
 
 object MemberToProp {
   import ExprTree._
 
-  object Default extends MemberToProp {
+  class Default(val rewriterOpt: Option[TypeRewriterCast]) extends MemberToProp {
     override def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
       default(scope, x, isInherited)
 
     /* yeah, i know. We'll refactor if we'll do many more rewrites */
-    def default(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
+    final def default(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
       x match {
         /* fix irritating type inference issue with `js.UndefOr[Double]` where you provide an `Int` */
         case f @ FieldTree(_, name, origTpe, _, _, _, _, _) =>
@@ -32,19 +36,18 @@ object MemberToProp {
                   None,
                 )
 
-              val tpe = TypeRef.Union(IArray(TypeRef.Int, TypeRef.Double), sort = false)
               val param = ParamTree(
                 name       = name,
                 isImplicit = false,
                 isVal      = false,
-                tpe        = tpe,
+                tpe        = TypeRef.Union(IArray(TypeRef.Int, TypeRef.Double), sort = false),
                 default    = defaultedTo,
                 comments   = NoComments,
               )
 
-              val main = Prop.Variant(param, Right(fn))
-
-              Some(Prop(main, isInherited, Right(f)))
+              Some(
+                Prop(Prop.Variant(param, Right(fn), isRewritten = true), isInherited, IArray(Prop.Undefined), Right(f)),
+              )
 
             case Optional(dealiased) if TypeRef.Primitive(TypeRef(Erasure.simplify(scope / x, dealiased))) =>
               val param = ParamTree(
@@ -66,9 +69,14 @@ object MemberToProp {
                   ifFalse = None,
                 )
 
-              val main = Prop.Variant(param, Right(fn))
-
-              Some(Prop(main, isInherited, Right(f)))
+              Some(
+                Prop(
+                  Prop.Variant(param, Right(fn), isRewritten = false),
+                  isInherited,
+                  IArray(Prop.Undefined),
+                  Right(f),
+                ),
+              )
 
             case Optional(TypeRef.Function(paramTypes, retType)) =>
               if (paramTypes.contains(TypeRef.Nothing)) None // edge case which doesnt work
@@ -97,12 +105,13 @@ object MemberToProp {
                   Right(obj =>
                     If(pred = BinaryOp(Ref(name), "!=", defaultedTo), ifTrue = setFunction(obj), ifFalse = None),
                   ),
+                  isRewritten = true,
                 )
 
-                Some(Prop(main, isInherited, Right(f)))
+                Some(Prop(main, isInherited, IArray(Prop.Undefined), Right(f)))
               }
 
-            case Optional(_) =>
+            case Optional(dealiased) =>
               /* Undo effect of FollowAliases above */
               val tpe = Optional.unapply(origTpe).getOrElse(origTpe) match {
                 case TypeRef.Wildcard => TypeRef.Any
@@ -131,9 +140,20 @@ object MemberToProp {
                   ifFalse = None,
                 )
 
-              val main = Prop.Variant(param, Right(fn))
+              val main = Prop.Variant(param, Right(fn), isRewritten = false)
 
-              Some(Prop(main, isInherited, Right(f)))
+              val variants: IArray[Prop.VariantLike] =
+                dealiased match {
+                  case TypeRef.Union(types) =>
+                    val nested = types
+                      .mapNotNone(tpe => apply(scope, f.copy(tpe = tpe), isInherited))
+                      .map(x => x.main)
+
+                    nested :+ Prop.Undefined
+                  case _ => IArray(Prop.Undefined)
+                }
+
+              Some(Prop(main, isInherited, variants, Right(f)))
 
             case TypeRef.Function(paramTypes, retType) =>
               if (paramTypes.contains(TypeRef.Nothing)) None
@@ -148,6 +168,7 @@ object MemberToProp {
                 )
                 val convertedTarget =
                   Call(Ref(QualifiedName.AnyFromFunction(paramTypes.length)), IArray(IArray(Ref(name))))
+
                 val expr: Either[ExprTree.Arg.Named, Name => ExprTree] =
                   if (!name.isEscaped && f.originalName === name)
                     Left(ExprTree.Arg.Named(name, convertedTarget))
@@ -162,10 +183,11 @@ object MemberToProp {
                       ),
                     )
 
-                val main = Prop.Variant(param, expr)
-                Some(Prop(main, isInherited, Right(f)))
+                val main = Prop.Variant(param, expr, isRewritten = true)
+                Some(Prop(main, isInherited, Empty, Right(f)))
               }
-            case _ =>
+
+            case dealiased =>
               val param = ParamTree(
                 name       = name,
                 isImplicit = false,
@@ -189,9 +211,16 @@ object MemberToProp {
                     ),
                   )
 
-              val main = Prop.Variant(param, asExpr)
+              val variants: IArray[Prop.VariantLike] =
+                dealiased match {
+                  case TypeRef.Union(types) =>
+                    types
+                      .mapNotNone(tpe => apply(scope, f.copy(tpe = tpe), isInherited))
+                      .map(_.main)
+                  case _ => Empty
+                }
 
-              Some(Prop(main, isInherited, Right(f)))
+              Some(Prop(Prop.Variant(param, asExpr, isRewritten = false), isInherited, variants, Right(f)))
           }
 
         case _m: MethodTree =>
@@ -222,8 +251,8 @@ object MemberToProp {
               if (!m.name.isEscaped && m.originalName === m.name) Left(Arg.Named(m.name, convertedTarget))
               else Right(fn)
 
-            val main = Prop.Variant(param, expr)
-            Some(Prop(main, isInherited, Right(m)))
+            val main = Prop.Variant(param, expr, isRewritten = true)
+            Some(Prop(main, isInherited, Empty, Right(m)))
           }
       }
   }

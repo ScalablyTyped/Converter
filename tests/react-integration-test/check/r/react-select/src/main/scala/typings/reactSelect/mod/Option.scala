@@ -31,5 +31,25 @@ object Option {
     if (value != null) __obj.updateDynamic("value")(value.asInstanceOf[js.Any])
     __obj.asInstanceOf[Option[TValue]]
   }
+  @scala.inline
+  implicit class OptionOps[Self[tvalue] <: Option[tvalue], TValue] (val x: Self[TValue]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[TValue] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[TValue]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[TValue] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[TValue] with Other]
+    @scala.inline
+    def withValue(value: TValue): Self[TValue] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (value != null) ret.updateDynamic("value")(value.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[TValue]]
+    }
+    @scala.inline
+    def withoutValue: Self[TValue] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "value")
+        ret.asInstanceOf[Self[TValue]]
+    }
+  }
+  
 }
 

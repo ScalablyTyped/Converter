@@ -74,5 +74,169 @@ object StrictTestContainerProps {
     if (textAlign != null) __obj.updateDynamic("textAlign")(textAlign.asInstanceOf[js.Any])
     __obj.asInstanceOf[StrictTestContainerProps]
   }
+  @scala.inline
+  implicit class StrictTestContainerPropsOps[Self <: StrictTestContainerProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withRequiredFn0Number(requiredFn0Number: () => Double): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("requiredFn0Number")(js.Any.fromFunction0(requiredFn0Number))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withRequiredFn0Void(requiredFn0Void: () => Unit): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("requiredFn0Void")(js.Any.fromFunction0(requiredFn0Void))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withRequiredFn1Number(requiredFn1Number: Double => Double): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("requiredFn1Number")(js.Any.fromFunction1(requiredFn1Number))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withRequiredFn1Void(requiredFn1Void: Double => Unit): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("requiredFn1Void")(js.Any.fromFunction1(requiredFn1Void))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withAs(as: js.Any): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (as != null) ret.updateDynamic("as")(as.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutAs: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "as")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withChildren(children: TagMod[Any]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (children != null) ret.updateDynamic("children")(children.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutChildren: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "children")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withClassName(className: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (className != null) ret.updateDynamic("className")(className.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutClassName: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "className")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withContent(content: SemanticShorthandContent): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (content != null) ret.updateDynamic("content")(content.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutContent: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "content")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withFluid(fluid: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(fluid)) ret.updateDynamic("fluid")(fluid.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutFluid: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "fluid")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOptFn0Number(optFn0Number: () => Double): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (optFn0Number != null) ret.updateDynamic("optFn0Number")(js.Any.fromFunction0(optFn0Number))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutOptFn0Number: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "optFn0Number")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOptFn0Void(optFn0Void: () => Unit): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (optFn0Void != null) ret.updateDynamic("optFn0Void")(js.Any.fromFunction0(optFn0Void))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutOptFn0Void: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "optFn0Void")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOptFn1Number(optFn1Number: /* x */ Double => Double): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (optFn1Number != null) ret.updateDynamic("optFn1Number")(js.Any.fromFunction1(optFn1Number))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutOptFn1Number: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "optFn1Number")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOptFn1Void(optFn1Void: /* x */ Double => Unit): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (optFn1Void != null) ret.updateDynamic("optFn1Void")(js.Any.fromFunction1(optFn1Void))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutOptFn1Void: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "optFn1Void")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withText(text: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(text)) ret.updateDynamic("text")(text.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutText: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "text")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withTextAlign(textAlign: SemanticTEXTALIGNMENTS): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (textAlign != null) ret.updateDynamic("textAlign")(textAlign.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutTextAlign: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "textAlign")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

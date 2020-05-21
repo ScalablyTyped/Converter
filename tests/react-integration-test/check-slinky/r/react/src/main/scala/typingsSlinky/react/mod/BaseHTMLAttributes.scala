@@ -416,5 +416,37 @@ object BaseHTMLAttributes {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[BaseHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class BaseHTMLAttributesOps[Self[t] <: BaseHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withHref(href: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (href != null) ret.updateDynamic("href")(href.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutHref: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "href")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withTarget(target: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (target != null) ret.updateDynamic("target")(target.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutTarget: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "target")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

@@ -440,5 +440,133 @@ object MediaHTMLAttributes {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[MediaHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class MediaHTMLAttributesOps[Self[t] <: MediaHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withAutoPlay(autoPlay: js.UndefOr[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(autoPlay)) ret.updateDynamic("autoPlay")(autoPlay.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutAutoPlay: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "autoPlay")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withControls(controls: js.UndefOr[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(controls)) ret.updateDynamic("controls")(controls.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutControls: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "controls")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withControlsList(controlsList: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (controlsList != null) ret.updateDynamic("controlsList")(controlsList.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutControlsList: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "controlsList")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withCrossOrigin(crossOrigin: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (crossOrigin != null) ret.updateDynamic("crossOrigin")(crossOrigin.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutCrossOrigin: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "crossOrigin")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withLoop(loop: js.UndefOr[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(loop)) ret.updateDynamic("loop")(loop.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutLoop: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "loop")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withMediaGroup(mediaGroup: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (mediaGroup != null) ret.updateDynamic("mediaGroup")(mediaGroup.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutMediaGroup: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "mediaGroup")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withMuted(muted: js.UndefOr[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(muted)) ret.updateDynamic("muted")(muted.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutMuted: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "muted")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withPlaysinline(playsinline: js.UndefOr[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(playsinline)) ret.updateDynamic("playsinline")(playsinline.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutPlaysinline: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "playsinline")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withPreload(preload: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (preload != null) ret.updateDynamic("preload")(preload.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutPreload: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "preload")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withSrc(src: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (src != null) ret.updateDynamic("src")(src.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutSrc: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "src")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

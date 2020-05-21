@@ -48,6 +48,7 @@ object Main {
     expandTypeMappings    = EnabledTypeMappingExpansion.DefaultSelection,
     versions              = Versions(Versions.Scala213, Versions.ScalaJs1),
     organization          = "org.scalablytyped",
+    enableImplicitOps     = false,
   )
 
   case class Config(
@@ -162,6 +163,9 @@ object Main {
       opt[Seq[TsIdentLibrary]]("ignoredLibs")
         .action((x, c) => c.mapConversion(_.copy(ignoredLibs = x.toSet)))
         .text(s"Libraries you want to ignore"),
+      opt[Boolean]("experimentalEnableImplicitOps.value")
+        .action((x, c) => c.mapConversion(_.copy(enableImplicitOps = x)))
+        .text(s"Enable implicit ops"),
       opt[ProjectName]("publish-to-bintray-repo")
         .action((x, c) => c.copy(publishBintrayRepo = Some(x)))
         .text(

@@ -16,5 +16,19 @@ object EsModuleComponent {
     val __obj = js.Dynamic.literal(default = default.asInstanceOf[js.Any])
     __obj.asInstanceOf[EsModuleComponent]
   }
+  @scala.inline
+  implicit class EsModuleComponentOps[Self <: EsModuleComponent] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withDefault(default: Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("default")(default.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

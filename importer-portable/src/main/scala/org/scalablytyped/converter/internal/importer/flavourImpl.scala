@@ -8,23 +8,25 @@ object flavourImpl {
   def apply(
       flavour:                  Flavour,
       shouldUseScalaJsDomTypes: Boolean,
-      outputPackage:            Name,
+      outputPkg:                Name,
+      enableImplicitOps:        Boolean,
   ): FlavourImpl =
     flavour match {
       case Flavour.Normal =>
         FlavourImpl.Normal(
           shouldGenerateComponents = true,
-          shouldUseScalaJsDomTypes = shouldUseScalaJsDomTypes,
-          outputPkg                = outputPackage,
+          shouldUseScalaJsDomTypes,
+          enableImplicitOps,
+          outputPkg,
         )
       case Flavour.Slinky =>
-        SlinkyFlavour(outputPkg = outputPackage)
+        SlinkyFlavour(outputPkg, enableImplicitOps)
       case Flavour.SlinkyNative =>
-        FlavourImpl.SlinkyNative(outputPkg = outputPackage)
+        FlavourImpl.SlinkyNative(outputPkg, enableImplicitOps)
       case Flavour.Japgolly =>
-        FlavourImpl.Japgolly(outputPkg = outputPackage)
+        FlavourImpl.Japgolly(outputPkg, enableImplicitOps)
     }
 
   def forConversion(co: ConversionOptions): FlavourImpl =
-    apply(co.flavour, co.useScalaJsDomTypes, co.outputPackage)
+    apply(co.flavour, co.useScalaJsDomTypes, co.outputPackage, co.enableImplicitOps)
 }

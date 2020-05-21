@@ -2,6 +2,8 @@ package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
+import japgolly.scalajs.react.ReactTouchEventFrom
+import org.scalajs.dom.raw.Element
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
 import scala.scalajs.js
@@ -60,5 +62,61 @@ object TouchEvent {
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[TouchEvent[T]]
   }
+  @scala.inline
+  implicit class TouchEventOps[Self[t] <: ReactTouchEventFrom[t with Element], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withAltKey(altKey: Boolean): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("altKey")(altKey.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withChangedTouches(changedTouches: TouchList): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("changedTouches")(changedTouches.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withCtrlKey(ctrlKey: Boolean): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("ctrlKey")(ctrlKey.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withGetModifierState(getModifierState: String => CallbackTo[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("getModifierState")(js.Any.fromFunction1((t0: String) => getModifierState(t0).runNow()))
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withMetaKey(metaKey: Boolean): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("metaKey")(metaKey.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withShiftKey(shiftKey: Boolean): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("shiftKey")(shiftKey.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withTargetTouches(targetTouches: TouchList): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("targetTouches")(targetTouches.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withTouches(touches: TouchList): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("touches")(touches.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

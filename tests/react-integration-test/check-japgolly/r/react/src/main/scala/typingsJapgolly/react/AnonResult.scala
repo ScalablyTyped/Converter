@@ -16,5 +16,19 @@ object AnonResult {
     val __obj = js.Dynamic.literal(_result = _result.asInstanceOf[js.Any])
     __obj.asInstanceOf[AnonResult[T]]
   }
+  @scala.inline
+  implicit class AnonResultOps[Self[t /* <: typingsJapgolly.react.mod.ComponentType[_] */] <: AnonResult[t], T <: ComponentType[_]] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def with_result(_result: T): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("_result")(_result.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

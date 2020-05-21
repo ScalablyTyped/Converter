@@ -424,5 +424,61 @@ object MetaHTMLAttributes {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[MetaHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class MetaHTMLAttributesOps[Self[t] <: MetaHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withCharSet(charSet: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (charSet != null) ret.updateDynamic("charSet")(charSet.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutCharSet: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "charSet")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withContent(content: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (content != null) ret.updateDynamic("content")(content.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutContent: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "content")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withHttpEquiv(httpEquiv: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (httpEquiv != null) ret.updateDynamic("httpEquiv")(httpEquiv.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutHttpEquiv: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "httpEquiv")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withName(name: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (name != null) ret.updateDynamic("name")(name.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutName: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "name")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

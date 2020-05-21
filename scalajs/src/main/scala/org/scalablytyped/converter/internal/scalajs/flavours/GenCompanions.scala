@@ -28,7 +28,8 @@ object AvailableName {
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
   */
-final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) extends TreeTransformation {
+final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps, enableImplicitOps: Boolean)
+    extends TreeTransformation {
   override def leaveContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree =
     // Native JS objects cannot contain inner Scala traits, classes or objects (i.e., not extending js.Any)
     if (scope.stack.exists { case mod: ModuleTree => mod.isNative; case _ => false })
@@ -63,6 +64,15 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) exte
                     ModuleTree(Empty, cls.name, Empty, IArray(method), NoComments, cls.codePath, isOverride = false)
                   }
                   .filter(ensureNotTooManyStrings(scope))
+                  .map {
+                    case mod if enableImplicitOps =>
+                      ImplicitOpsClass(cls, props, mod.codePath, scope) match {
+                        case Some(opsClass) =>
+                          mod.copy(members = mod.members :+ opsClass)
+                        case None => mod
+                      }
+                    case mod => mod
+                  }
 
               IArray.fromOptions(Some(cls), modOpt)
 
@@ -120,8 +130,8 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) exte
       case Empty => None
       case props =>
         val (optionals, inLiterals, Empty) = props.partitionCollect2(
-          { case Prop(Prop.Variant(_, Right(f)), _, _)  => f },
-          { case Prop(Prop.Variant(_, Left(str)), _, _) => str },
+          { case Prop(Prop.Variant(_, Right(f), _), _, _, _)  => f },
+          { case Prop(Prop.Variant(_, Left(str), _), _, _, _) => str },
         )
         val typeName = typeCp.parts.last
 

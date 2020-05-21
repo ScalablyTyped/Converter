@@ -22,5 +22,37 @@ object RadioProps {
     if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction1((t0: /* value */ js.Any) => onChange(t0).runNow()))
     __obj.asInstanceOf[RadioProps]
   }
+  @scala.inline
+  implicit class RadioPropsOps[Self <: RadioProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withName(name: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("name")(name.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withType(`type`: radio): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOnChange(onChange: /* value */ js.Any => Callback): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (onChange != null) ret.updateDynamic("onChange")(js.Any.fromFunction1((t0: /* value */ js.Any) => onChange(t0).runNow()))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutOnChange: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "onChange")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

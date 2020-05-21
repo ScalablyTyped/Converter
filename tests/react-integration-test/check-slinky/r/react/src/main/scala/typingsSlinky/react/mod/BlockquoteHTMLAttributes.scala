@@ -413,5 +413,25 @@ object BlockquoteHTMLAttributes {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[BlockquoteHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class BlockquoteHTMLAttributesOps[Self[t] <: BlockquoteHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withCite(cite: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (cite != null) ret.updateDynamic("cite")(cite.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutCite: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "cite")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 
