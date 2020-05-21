@@ -1,6 +1,6 @@
 ---
 id: cli
-title: Getting started - command line tool
+title: Command line tool
 ---
 
 - [I want to use sbt with scalajs-bundler (recommended)](plugin-no-bundler.md)
@@ -80,3 +80,7 @@ Note, we use the name of the current directory as the library name.
 You might have to [tell webpack](https://webpack.js.org/configuration/resolve/#resolvealias)
  where to actually find it.
  
+
+# Now what?
+
+Have a look at [Where do I start?](usage.md)

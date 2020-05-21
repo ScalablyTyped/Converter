@@ -80,4 +80,11 @@ object NormalizeFunctions extends TransformMembers with TransformClassMembers {
         sigs.map(sig => TsDeclFunction(cs, declared, name, sig, jsLocation, codePath))
       case other => IArray(other)
     }
+
+  override def enterTsFunParam(t: TsTreeScope)(x: TsFunParam): TsFunParam =
+    x.tpe match {
+      case Some(TsTypeUnion(types)) if types.contains(TsTypeRef.undefined) =>
+        x.copy(isOptional = true, tpe = Some(TsTypeUnion.simplified(types.filterNot(_ == TsTypeRef.undefined))))
+      case _ => x
+    }
 }

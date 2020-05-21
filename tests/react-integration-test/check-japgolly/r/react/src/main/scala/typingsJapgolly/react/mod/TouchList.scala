@@ -15,17 +15,28 @@ trait TouchList extends /* index */ NumberDictionary[Touch] {
 
 object TouchList {
   @scala.inline
-  def apply(
-    identifiedTouch: Double => CallbackTo[Touch],
-    item: Double => CallbackTo[Touch],
-    length: Double,
-    NumberDictionary: /* index */ NumberDictionary[Touch] = null
-  ): TouchList = {
-    val __obj = js.Dynamic.literal(length = length.asInstanceOf[js.Any])
-    __obj.updateDynamic("identifiedTouch")(js.Any.fromFunction1((t0: Double) => identifiedTouch(t0).runNow()))
-    __obj.updateDynamic("item")(js.Any.fromFunction1((t0: Double) => item(t0).runNow()))
-    if (NumberDictionary != null) js.Dynamic.global.Object.assign(__obj, NumberDictionary)
+  def apply(identifiedTouch: Double => CallbackTo[Touch], item: Double => CallbackTo[Touch], length: Double): TouchList = {
+    val __obj = js.Dynamic.literal(identifiedTouch = js.Any.fromFunction1((t0: Double) => identifiedTouch(t0).runNow()), item = js.Any.fromFunction1((t0: Double) => item(t0).runNow()), length = length.asInstanceOf[js.Any])
     __obj.asInstanceOf[TouchList]
   }
+  @scala.inline
+  implicit class TouchListOps[Self <: TouchList] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setIdentifiedTouch(value: Double => CallbackTo[Touch]): Self = this.set("identifiedTouch", js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
+    @scala.inline
+    def setItem(value: Double => CallbackTo[Touch]): Self = this.set("item", js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
+    @scala.inline
+    def setLength(value: Double): Self = this.set("length", value.asInstanceOf[js.Any])
+  }
+  
 }
 

@@ -71,10 +71,11 @@ object QualifiedName {
   val STRING_LITERAL:            QualifiedName = QualifiedName(IArray(Name.STRING_LITERAL))
   val NUMBER_LITERAL:            QualifiedName = QualifiedName(IArray(Name.NUMBER_LITERAL))
   val BOOLEAN_LITERAL:           QualifiedName = QualifiedName(IArray(Name.BOOLEAN_LITERAL))
-  val THIS_TYPE:                 QualifiedName = QualifiedName(IArray(Name.THIS))
+  val THIS:                      QualifiedName = QualifiedName(IArray(Name.THIS))
   val WILDCARD:                  QualifiedName = QualifiedName(IArray(Name.WILDCARD))
   val REPEATED:                  QualifiedName = QualifiedName(IArray(Name.REPEATED))
   val SINGLETON:                 QualifiedName = QualifiedName(IArray(Name.SINGLETON))
+  val UNDEFINED:                 QualifiedName = QualifiedName(IArray(Name.UNDEFINED))
 
   def AnyFromFunction(n: Int): QualifiedName = Any + Name(s"fromFunction$n")
 

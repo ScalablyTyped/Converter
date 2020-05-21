@@ -51,6 +51,7 @@ object Ci {
       debugMode:        Boolean,
       projectName:      ProjectName,
       repo:             URI,
+      benchmark:        Boolean,
   ) {
     // change in source code for now, lazy...
     val parallelLibraries = 20
@@ -123,9 +124,10 @@ object Ci {
                 expandTypeMappings    = EnabledTypeMappingExpansion.DefaultSelection,
                 versions = Versions(
                   if (flags contains "-scala212") Versions.Scala212 else Versions.Scala213,
-                  if (flags contains ("-scalajs1")) Versions.ScalaJs1 else Versions.ScalaJs06,
+                  if (flags contains ("-scalajs06")) Versions.ScalaJs06 else Versions.ScalaJs1,
                 ),
-                organization = organization,
+                organization      = organization,
+                enableImplicitOps = flags contains "-enableImplicitOps",
               ),
               wantedLibs       = wantedLibNames,
               enablePublish    = flags contains "-publish",
@@ -140,6 +142,7 @@ object Ci {
               debugMode        = wantedLibNames.nonEmpty || (flags contains "-debugMode"),
               projectName      = projectName,
               repo             = repo,
+              benchmark        = flags contains "-benchmark",
             ),
           )
       }
@@ -148,7 +151,6 @@ object Ci {
 
 class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoinPool, ec: ExecutionContext) {
   val RunId                      = constants.DateTimePattern format LocalDateTime.now
-  val t0                         = System.currentTimeMillis
   private val storingErrorLogger = logging.storing()
   private val logsFolder         = files.existing(paths.cacheFolder / 'logs)
 
@@ -223,53 +225,53 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
     }
   }
 
-  def run(): Unit = {
-    val compilerF: Future[BloopCompiler] =
-      BloopCompiler(
-        logger                = logger.filter(LogLevel.debug).void,
-        v                     = config.conversion.versions,
-        failureCacheFolderOpt = Some((paths.cacheFolder / 'compileFailures).toNIO),
-      )(ec)
+  val compilerF: Future[BloopCompiler] =
+    BloopCompiler(
+      logger                = logger.filter(LogLevel.debug).void,
+      v                     = config.conversion.versions,
+      failureCacheFolderOpt = Some((paths.cacheFolder / 'compileFailures).toNIO),
+    )(ec)
 
-    val dtFolderF: Future[InFolder] =
-      Future(
-        DTUpToDate(interfaceCmd, config.offline, paths.cacheFolder, constants.DefinitelyTypedRepo),
-      )(ec)
+  val dtFolderF: Future[InFolder] =
+    Future(
+      DTUpToDate(interfaceCmd, config.offline, paths.cacheFolder, constants.DefinitelyTypedRepo),
+    )(ec)
 
-    val externalsFolderF: Future[InFolder] =
-      dtFolderF.map { dtFolder =>
-        val external: NotNeededPackages =
-          Json.force[NotNeededPackages](dtFolder.path / os.up / "notNeededPackages.json")
+  val externalsFolderF: Future[InFolder] =
+    dtFolderF.map { dtFolder =>
+      val external: NotNeededPackages =
+        Json.force[NotNeededPackages](dtFolder.path / os.up / "notNeededPackages.json")
 
-        UpToDateExternals(
-          interfaceLogger,
-          interfaceCmd,
-          files.existing(paths.cacheFolder / 'npm),
-          external.packages
-            .map(_.typingsPackageName)
-            .toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
-          config.conversion.ignoredLibs,
-          config.conserveSpace,
-          config.offline,
-        )
-      }(ec)
-
-    val lastChangedIndexF: Future[DTLastChangedIndex] =
-      dtFolderF.map { dtFolder =>
-        interfaceLogger.warn(s"Indexing ${dtFolder.path / os.up}")
-        DTLastChangedIndex(interfaceCmd, dtFolder.path / os.up)
-      }(ec)
-
-    val localCleaningF = Future {
-      if (config.conserveSpace) {
-        interfaceLogger.warn(s"Cleaning old artifacts in ${paths.publishLocalFolder}")
-        LocalCleanup(paths.publishLocalFolder, config.conversion.organization, keepNum = 1)
-      }
+      UpToDateExternals(
+        interfaceLogger,
+        interfaceCmd,
+        files.existing(paths.cacheFolder / 'npm),
+        external.packages
+          .map(_.typingsPackageName)
+          .toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
+        config.conversion.ignoredLibs,
+        config.conserveSpace,
+        config.offline,
+      )
     }(ec)
 
-    val updatedTargetDirF = updatedTargetDir()
-    val tsSourcesFF       = tsSourcesF(externalsFolderF, dtFolderF, updatedTargetDirF)
+  val lastChangedIndexF: Future[DTLastChangedIndex] =
+    dtFolderF.map { dtFolder =>
+      interfaceLogger.warn(s"Indexing ${dtFolder.path / os.up}")
+      DTLastChangedIndex(interfaceCmd, dtFolder.path / os.up)
+    }(ec)
 
+  val localCleaningF = Future {
+    if (config.conserveSpace) {
+      interfaceLogger.warn(s"Cleaning old artifacts in ${paths.publishLocalFolder}")
+      LocalCleanup(paths.publishLocalFolder, config.conversion.organization, keepNum = 1)
+    }
+  }(ec)
+
+  val updatedTargetDirF = updatedTargetDir()
+  val tsSourcesFF       = tsSourcesF(externalsFolderF, dtFolderF, updatedTargetDirF)
+
+  def run(): Option[Long] = {
     val externalsFolder                           = Await.result(externalsFolderF, Duration.Inf)
     val dtFolder                                  = Await.result(dtFolderF, Duration.Inf)
     val lastChangedIndex                          = Await.result(lastChangedIndexF, Duration.Inf)
@@ -291,7 +293,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
       )
     }
 
-    val flavour = flavourImpl.forConversion(config.conversion)
+    val t0 = System.currentTimeMillis
 
     val Pipeline: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]
@@ -316,7 +318,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
           ),
           "scala.js",
         )
-        .next(new PhaseFlavour(flavour), flavour.toString)
+        .next(new PhaseFlavour(config.conversion.flavourImpl), config.conversion.flavourImpl.toString)
         .next(
           new Phase3Compile(
             resolve                    = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder), Some(InFolder(facadeFolder))),
@@ -328,7 +330,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
             publishLocalFolder         = paths.publishLocalFolder,
             metadataFetcher            = NpmjsFetcher(paths.npmjs)(ec),
             softWrites                 = config.softWrites,
-            flavour                    = flavour,
+            flavour                    = config.conversion.flavourImpl,
             generateScalaJsBundlerFile = true,
             ensureSourceFilesWritten   = true,
           ),
@@ -351,6 +353,10 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
             .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
             .toMap
       }
+
+    if (config.benchmark) {
+      return Some(System.currentTimeMillis - t0)
+    }
 
     val successes: Map[Source, PublishedSbtProject] = {
       def go(source: Source, p: PublishedSbtProject): Map[Source, PublishedSbtProject] =
@@ -390,8 +396,6 @@ target/
       Summary.formatDiff(diff)
     }
     interfaceLogger.warn(formattedDiff)
-    val td = System.currentTimeMillis - t0
-    interfaceLogger warn td
 
     if (config.debugMode && !config.forceCommit) {
       interfaceLogger warn s"Not committing because of non-empty args ${config.wantedLibs.mkString(", ")}"
@@ -451,5 +455,6 @@ target/
             }
         }
     }
+    None
   }
 }

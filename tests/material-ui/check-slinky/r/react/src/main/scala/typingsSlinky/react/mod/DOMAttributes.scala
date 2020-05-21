@@ -1,7 +1,7 @@
 package typingsSlinky.react.mod
 
 import slinky.core.TagMod
-import typingsSlinky.react.AnonHtml
+import typingsSlinky.react.anon.Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -9,16 +9,42 @@ import scala.scalajs.js.annotation._
 @js.native
 trait DOMAttributes[T] extends js.Object {
   var children: js.UndefOr[TagMod[Any]] = js.native
-  var dangerouslySetInnerHTML: js.UndefOr[AnonHtml] = js.native
+  var dangerouslySetInnerHTML: js.UndefOr[Html] = js.native
+  var onClick: js.UndefOr[Double | (js.Function1[/* x */ String, Unit])] = js.native
 }
 
 object DOMAttributes {
   @scala.inline
-  def apply[T](children: TagMod[Any] = null, dangerouslySetInnerHTML: AnonHtml = null): DOMAttributes[T] = {
+  def apply[T](): DOMAttributes[T] = {
     val __obj = js.Dynamic.literal()
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
-    if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
     __obj.asInstanceOf[DOMAttributes[T]]
   }
+  @scala.inline
+  implicit class DOMAttributesOps[Self <: DOMAttributes[_], T] (val x: Self with DOMAttributes[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setChildren(value: TagMod[Any]): Self = this.set("children", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteChildren: Self = this.set("children", js.undefined)
+    @scala.inline
+    def setDangerouslySetInnerHTML(value: Html): Self = this.set("dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteDangerouslySetInnerHTML: Self = this.set("dangerouslySetInnerHTML", js.undefined)
+    @scala.inline
+    def setOnClickFunction1(value: /* x */ String => Unit): Self = this.set("onClick", js.Any.fromFunction1(value))
+    @scala.inline
+    def setOnClick(value: Double | (js.Function1[/* x */ String, Unit])): Self = this.set("onClick", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteOnClick: Self = this.set("onClick", js.undefined)
+  }
+  
 }
 

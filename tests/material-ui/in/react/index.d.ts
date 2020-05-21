@@ -33,6 +33,7 @@ declare namespace React {
 
     interface DOMAttributes<T> {
         children?: ReactNode;
+        onClick?: number | ((x: string) => void);
         dangerouslySetInnerHTML?: {
             __html: string;
         };

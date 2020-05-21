@@ -1,11 +1,8 @@
 package typingsSlinky.reactDropzone.components
 
-import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLElement
-import slinky.core.BuildingComponent
-import slinky.core.ExternalComponentWithAttributesWithRefType
-import slinky.core.TagMod
 import slinky.web.html.`*`.tag
+import typingsSlinky.StBuildingComponent
 import typingsSlinky.react.mod.DragEvent
 import typingsSlinky.react.mod.Ref
 import typingsSlinky.react.mod.RefAttributes
@@ -16,62 +13,70 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object ReactDropzone
-  extends ExternalComponentWithAttributesWithRefType[tag.type, Ref[js.Any] with js.Object] {
+object ReactDropzone {
   @JSImport("react-dropzone", JSImport.Default)
   @js.native
-  object componentImport extends js.Object
+  object component extends js.Object
   
-  override val component: String | js.Object = this.componentImport
-  /* The following DOM/SVG props were specified: disabled, multiple */
-  def apply(
-    accept: String | js.Array[String] = null,
-    getFilesFromEvent: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _ = null,
-    maxSize: Int | Double = null,
-    minSize: Int | Double = null,
-    noClick: js.UndefOr[Boolean] = js.undefined,
-    noDrag: js.UndefOr[Boolean] = js.undefined,
-    noDragEventsBubbling: js.UndefOr[Boolean] = js.undefined,
-    noKeyboard: js.UndefOr[Boolean] = js.undefined,
-    onDragEnter: DragEvent[HTMLElement] => Unit = null,
-    onDragLeave: DragEvent[HTMLElement] => Unit = null,
-    onDragOver: DragEvent[HTMLElement] => Unit = null,
-    onDrop: (/* acceptedFiles */ js.Array[
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
-    ], /* rejectedFiles */ js.Array[
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
-    ], /* event */ DropEvent) => Unit = null,
-    onDropAccepted: (/* files */ js.Array[
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
-    ], /* event */ DropEvent) => Unit = null,
-    onDropRejected: (/* files */ js.Array[
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
-    ], /* event */ DropEvent) => Unit = null,
-    onFileDialogCancel: () => Unit = null,
-    preventDropOnDocument: js.UndefOr[Boolean] = js.undefined,
-    _overrides: StringDictionary[js.Any] = null
-  ): BuildingComponent[tag.type, Ref[js.Any] with js.Object] = {
-    val __obj = js.Dynamic.literal()
-    if (accept != null) __obj.updateDynamic("accept")(accept.asInstanceOf[js.Any])
-    if (getFilesFromEvent != null) __obj.updateDynamic("getFilesFromEvent")(js.Any.fromFunction1(getFilesFromEvent))
-    if (maxSize != null) __obj.updateDynamic("maxSize")(maxSize.asInstanceOf[js.Any])
-    if (minSize != null) __obj.updateDynamic("minSize")(minSize.asInstanceOf[js.Any])
-    if (!js.isUndefined(noClick)) __obj.updateDynamic("noClick")(noClick.asInstanceOf[js.Any])
-    if (!js.isUndefined(noDrag)) __obj.updateDynamic("noDrag")(noDrag.asInstanceOf[js.Any])
-    if (!js.isUndefined(noDragEventsBubbling)) __obj.updateDynamic("noDragEventsBubbling")(noDragEventsBubbling.asInstanceOf[js.Any])
-    if (!js.isUndefined(noKeyboard)) __obj.updateDynamic("noKeyboard")(noKeyboard.asInstanceOf[js.Any])
-    if (onDragEnter != null) __obj.updateDynamic("onDragEnter")(js.Any.fromFunction1(onDragEnter))
-    if (onDragLeave != null) __obj.updateDynamic("onDragLeave")(js.Any.fromFunction1(onDragLeave))
-    if (onDragOver != null) __obj.updateDynamic("onDragOver")(js.Any.fromFunction1(onDragOver))
-    if (onDrop != null) __obj.updateDynamic("onDrop")(js.Any.fromFunction3(onDrop))
-    if (onDropAccepted != null) __obj.updateDynamic("onDropAccepted")(js.Any.fromFunction2(onDropAccepted))
-    if (onDropRejected != null) __obj.updateDynamic("onDropRejected")(js.Any.fromFunction2(onDropRejected))
-    if (onFileDialogCancel != null) __obj.updateDynamic("onFileDialogCancel")(js.Any.fromFunction0(onFileDialogCancel))
-    if (!js.isUndefined(preventDropOnDocument)) __obj.updateDynamic("preventDropOnDocument")(preventDropOnDocument.asInstanceOf[js.Any])
-    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    super.apply(__obj.asInstanceOf[Props])
+  @scala.inline
+  class Builder (val args: js.Array[js.Any])
+    extends AnyVal
+       with StBuildingComponent[tag.type, Ref[js.Any] with js.Object] {
+    @scala.inline
+    def accept(value: String | js.Array[String]): this.type = set("accept", value.asInstanceOf[js.Any])
+    @scala.inline
+    def disabled(value: Boolean): this.type = set("disabled", value.asInstanceOf[js.Any])
+    @scala.inline
+    def getFilesFromEvent(
+      value: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
+    ): this.type = set("getFilesFromEvent", js.Any.fromFunction1(value))
+    @scala.inline
+    def maxSize(value: Double): this.type = set("maxSize", value.asInstanceOf[js.Any])
+    @scala.inline
+    def minSize(value: Double): this.type = set("minSize", value.asInstanceOf[js.Any])
+    @scala.inline
+    def multiple(value: Boolean): this.type = set("multiple", value.asInstanceOf[js.Any])
+    @scala.inline
+    def noClick(value: Boolean): this.type = set("noClick", value.asInstanceOf[js.Any])
+    @scala.inline
+    def noDrag(value: Boolean): this.type = set("noDrag", value.asInstanceOf[js.Any])
+    @scala.inline
+    def noDragEventsBubbling(value: Boolean): this.type = set("noDragEventsBubbling", value.asInstanceOf[js.Any])
+    @scala.inline
+    def noKeyboard(value: Boolean): this.type = set("noKeyboard", value.asInstanceOf[js.Any])
+    @scala.inline
+    def onDragEnter(value: DragEvent[HTMLElement] => Unit): this.type = set("onDragEnter", js.Any.fromFunction1(value))
+    @scala.inline
+    def onDragLeave(value: DragEvent[HTMLElement] => Unit): this.type = set("onDragLeave", js.Any.fromFunction1(value))
+    @scala.inline
+    def onDragOver(value: DragEvent[HTMLElement] => Unit): this.type = set("onDragOver", js.Any.fromFunction1(value))
+    @scala.inline
+    def onDrop(
+      value: (/* acceptedFiles */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+        ], /* rejectedFiles */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+        ], /* event */ DropEvent) => Unit
+    ): this.type = set("onDrop", js.Any.fromFunction3(value))
+    @scala.inline
+    def onDropAccepted(
+      value: (/* files */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+        ], /* event */ DropEvent) => Unit
+    ): this.type = set("onDropAccepted", js.Any.fromFunction2(value))
+    @scala.inline
+    def onDropRejected(
+      value: (/* files */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+        ], /* event */ DropEvent) => Unit
+    ): this.type = set("onDropRejected", js.Any.fromFunction2(value))
+    @scala.inline
+    def onFileDialogCancel(value: () => Unit): this.type = set("onFileDialogCancel", js.Any.fromFunction0(value))
+    @scala.inline
+    def preventDropOnDocument(value: Boolean): this.type = set("preventDropOnDocument", value.asInstanceOf[js.Any])
   }
-  def apply(mods: TagMod[tag.type]*): BuildingComponent[tag.type, Ref[js.Any] with js.Object] = new BuildingComponent[tag.type, Ref[js.Any] with js.Object](js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods :_*)
-  type Props = DropzoneProps with RefAttributes[DropzoneRef]
+  
+  def withProps(p: DropzoneProps with RefAttributes[DropzoneRef]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  implicit def make(companion: ReactDropzone.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
 }
 

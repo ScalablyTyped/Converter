@@ -3,8 +3,9 @@ package scalajs
 package flavours
 
 import io.circe013.Decoder
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.QualifiedName.StdNames
-import org.scalablytyped.converter.internal.scalajs.flavours.GenSlinkyComponents.names.{
+import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.names.{
   AnyHtmlElement,
   SlinkyHtmlElement,
   SlinkySvgElement,
@@ -18,6 +19,7 @@ object SlinkyTagsLoader {
       reactNames:      ReactNames,
       scalaJsDomNames: ScalaJsDomNames,
       scope:           TreeScope,
+      parentsResolver: ParentsResolver,
   ): Map[TagName, CombinedTag] = {
 
     val stdHtmlTags: Map[TagName, TypeRef] = extractStdTags(scope, stdNames.HTMLElementTagNameMap)
@@ -27,6 +29,7 @@ object SlinkyTagsLoader {
       scope                = scope,
       jsxIntrinsicElements = reactNames.JsxIntrinsicElements,
       stdRefByTag          = stdSvgTags ++ stdHtmlTags,
+      parentsResolver,
     )
 
     val ret = html.groupBy(_.tagName) map { case (name, IArray.first(ct)) => name -> ct }
@@ -36,9 +39,7 @@ object SlinkyTagsLoader {
         val x = FillInTParams(_x, newScope, IArray(TypeRef(stdNames.Element)), Empty)
 
         val parentMembers: IArray[Tree] =
-          IArray
-            .fromTraversable(ParentsResolver(newScope, x).transitiveParents.values)
-            .flatMap(_.members)
+          parentsResolver(newScope, x).transitiveParents.flatMapToIArray { case (_, v) => v.members }
 
         val attrs = parentMembers ++ x.members collect {
           case FieldTree(_, name, Optional(tpe), _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
@@ -73,6 +74,7 @@ object SlinkyTagsLoader {
       scope:                TreeScope,
       jsxIntrinsicElements: QualifiedName,
       stdRefByTag:          Map[TagName, TypeRef],
+      parentsResolver:      ParentsResolver,
   ): IArray[CombinedTag] = {
     def go(newScope: TreeScope, tagName: TagName.Concrete, tagInterfaceRef: TypeRef): Option[CombinedTag] =
       newScope
@@ -81,7 +83,7 @@ object SlinkyTagsLoader {
           case (_ta: TypeAliasTree, newnewScope) =>
             val ta = FillInTParams(_ta, newnewScope, tagInterfaceRef.targs, Empty)
             ta.alias match {
-              case TypeRef.Intersection(types) =>
+              case TypeRef.Intersection(types, _) =>
                 types
                   .mapNotNone(tpe => go(newnewScope, tagName, tpe))
                   .reduceOption((ct1, ct2) => ct1.copy(attributes = ct1.attributes ++ ct2.attributes))
@@ -97,9 +99,7 @@ object SlinkyTagsLoader {
             val (_, attrs)       = slinkyAttrsByTag(tagName)
 
             val parentMembers: IArray[Tree] =
-              IArray
-                .fromTraversable(ParentsResolver(newnewScope, tagInterface).transitiveParents.values)
-                .flatMap(_.members)
+              parentsResolver(newnewScope, tagInterface).transitiveParents.flatMapToIArray { case (_, v) => v.members }
 
             val members: IArray[(Name, TypeRef)] =
               parentMembers ++ tagInterface.members collect {

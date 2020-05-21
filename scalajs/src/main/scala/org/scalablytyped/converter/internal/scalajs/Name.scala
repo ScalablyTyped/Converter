@@ -15,6 +15,7 @@ final case class Name(unescaped: String) {
 object Name {
   val std:        Name = Name("std")
   val typings:    Name = Name("typings")
+  val global:     Name = Name("global")
   val dummy:      Name = Name("dummy")
   val Any:        Name = Name("Any")
   val AnyVal:     Name = Name("AnyVal")
@@ -57,6 +58,7 @@ object Name {
   val THIS:            Name = Name("<this>")
   val SUPER:           Name = Name("<super>")
   val WILDCARD:        Name = Name("<wildcard>")
+  val UNDEFINED:       Name = Name("<undefined>")
   val REPEATED:        Name = Name("*")
 
   def FunctionArity(isThis: Boolean, arity: Int): Name =
@@ -74,6 +76,7 @@ object Name {
     WILDCARD,
     REPEATED,
     APPLY,
+    UNDEFINED,
   )
 
   implicit val NameSuffix: ToSuffix[Name] = {

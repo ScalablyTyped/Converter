@@ -225,5 +225,226 @@ object HTMLElementTagNameMap {
     __obj.updateDynamic("var")(`var`.asInstanceOf[js.Any])
     __obj.asInstanceOf[HTMLElementTagNameMap]
   }
+  @scala.inline
+  implicit class HTMLElementTagNameMapOps[Self <: HTMLElementTagNameMap] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setA(value: HTMLAnchorElement): Self = this.set("a", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setAbbr(value: HTMLElement): Self = this.set("abbr", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setAddress(value: HTMLElement): Self = this.set("address", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setArea(value: HTMLAreaElement): Self = this.set("area", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setArticle(value: HTMLElement): Self = this.set("article", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setAside(value: HTMLElement): Self = this.set("aside", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setAudio(value: HTMLAudioElement): Self = this.set("audio", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setB(value: HTMLElement): Self = this.set("b", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setBase(value: HTMLBaseElement): Self = this.set("base", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setBdi(value: HTMLElement): Self = this.set("bdi", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setBdo(value: HTMLElement): Self = this.set("bdo", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setBlockquote(value: HTMLQuoteElement): Self = this.set("blockquote", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setBody(value: HTMLBodyElement): Self = this.set("body", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setBr(value: HTMLBRElement): Self = this.set("br", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setButton(value: HTMLButtonElement): Self = this.set("button", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setCanvas(value: HTMLCanvasElement): Self = this.set("canvas", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setCite(value: HTMLElement): Self = this.set("cite", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setCode(value: HTMLElement): Self = this.set("code", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setCol(value: HTMLTableColElement): Self = this.set("col", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setColgroup(value: HTMLTableColElement): Self = this.set("colgroup", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setData(value: HTMLDataElement): Self = this.set("data", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setDatalist(value: HTMLDataListElement): Self = this.set("datalist", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setDd(value: HTMLElement): Self = this.set("dd", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setDel(value: HTMLModElement): Self = this.set("del", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setDfn(value: HTMLElement): Self = this.set("dfn", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setDialog(value: HTMLDialogElement): Self = this.set("dialog", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setDiv(value: HTMLDivElement): Self = this.set("div", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setDl(value: HTMLDListElement): Self = this.set("dl", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setDt(value: HTMLElement): Self = this.set("dt", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setEm(value: HTMLElement): Self = this.set("em", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setEmbed(value: HTMLEmbedElement): Self = this.set("embed", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setFieldset(value: HTMLFieldSetElement): Self = this.set("fieldset", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setFigcaption(value: HTMLElement): Self = this.set("figcaption", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setFigure(value: HTMLElement): Self = this.set("figure", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setFooter(value: HTMLElement): Self = this.set("footer", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setForm(value: HTMLFormElement): Self = this.set("form", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setH1(value: HTMLHeadingElement): Self = this.set("h1", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setH2(value: HTMLHeadingElement): Self = this.set("h2", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setH3(value: HTMLHeadingElement): Self = this.set("h3", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setH4(value: HTMLHeadingElement): Self = this.set("h4", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setH5(value: HTMLHeadingElement): Self = this.set("h5", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setH6(value: HTMLHeadingElement): Self = this.set("h6", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setHead(value: HTMLHeadElement): Self = this.set("head", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setHeader(value: HTMLElement): Self = this.set("header", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setHgroup(value: HTMLElement): Self = this.set("hgroup", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setHr(value: HTMLHRElement): Self = this.set("hr", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setHtml(value: HTMLHtmlElement): Self = this.set("html", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setI(value: HTMLElement): Self = this.set("i", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setIframe(value: HTMLIFrameElement): Self = this.set("iframe", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setImg(value: HTMLImageElement): Self = this.set("img", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setInput(value: HTMLInputElement): Self = this.set("input", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setIns(value: HTMLModElement): Self = this.set("ins", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setKbd(value: HTMLElement): Self = this.set("kbd", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setLabel(value: HTMLLabelElement): Self = this.set("label", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setLegend(value: HTMLLegendElement): Self = this.set("legend", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setLi(value: HTMLLIElement): Self = this.set("li", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setLink(value: HTMLLinkElement): Self = this.set("link", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setMain(value: HTMLElement): Self = this.set("main", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setMap(value: HTMLMapElement): Self = this.set("map", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setMark(value: HTMLElement): Self = this.set("mark", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setMeta(value: HTMLMetaElement): Self = this.set("meta", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setNav(value: HTMLElement): Self = this.set("nav", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setNoscript(value: HTMLElement): Self = this.set("noscript", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setObject(value: HTMLObjectElement): Self = this.set("object", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setOl(value: HTMLOListElement): Self = this.set("ol", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setOptgroup(value: HTMLOptGroupElement): Self = this.set("optgroup", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setOption(value: HTMLOptionElement): Self = this.set("option", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setP(value: HTMLParagraphElement): Self = this.set("p", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setParam(value: HTMLParamElement): Self = this.set("param", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setPre(value: HTMLPreElement): Self = this.set("pre", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setProgress(value: HTMLProgressElement): Self = this.set("progress", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setQ(value: HTMLQuoteElement): Self = this.set("q", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setRp(value: HTMLElement): Self = this.set("rp", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setRt(value: HTMLElement): Self = this.set("rt", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setRuby(value: HTMLElement): Self = this.set("ruby", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setS(value: HTMLElement): Self = this.set("s", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setSamp(value: HTMLElement): Self = this.set("samp", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setScript(value: HTMLScriptElement): Self = this.set("script", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setSection(value: HTMLElement): Self = this.set("section", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setSelect(value: HTMLSelectElement): Self = this.set("select", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setSmall(value: HTMLElement): Self = this.set("small", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setSource(value: HTMLSourceElement): Self = this.set("source", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setSpan(value: HTMLSpanElement): Self = this.set("span", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setStrong(value: HTMLElement): Self = this.set("strong", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setStyle(value: HTMLStyleElement): Self = this.set("style", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setSub(value: HTMLElement): Self = this.set("sub", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setSummary(value: HTMLElement): Self = this.set("summary", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setSup(value: HTMLElement): Self = this.set("sup", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setTable(value: HTMLTableElement): Self = this.set("table", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setTbody(value: HTMLTableSectionElement): Self = this.set("tbody", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setTd(value: HTMLTableDataCellElement): Self = this.set("td", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setTemplate(value: HTMLTemplateElement): Self = this.set("template", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setTextarea(value: HTMLTextAreaElement): Self = this.set("textarea", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setTfoot(value: HTMLTableSectionElement): Self = this.set("tfoot", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setTh(value: HTMLTableHeaderCellElement): Self = this.set("th", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setThead(value: HTMLTableSectionElement): Self = this.set("thead", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setTitle(value: HTMLTitleElement): Self = this.set("title", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setTr(value: HTMLTableRowElement): Self = this.set("tr", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setTrack(value: HTMLTrackElement): Self = this.set("track", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setU(value: HTMLElement): Self = this.set("u", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setUl(value: HTMLUListElement): Self = this.set("ul", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setVar(value: HTMLElement): Self = this.set("var", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setVideo(value: HTMLVideoElement): Self = this.set("video", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setWbr(value: HTMLElement): Self = this.set("wbr", value.asInstanceOf[js.Any])
+  }
+  
 }
 

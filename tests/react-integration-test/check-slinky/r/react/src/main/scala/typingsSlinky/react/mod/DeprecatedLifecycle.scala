@@ -100,22 +100,46 @@ trait DeprecatedLifecycle[P, S] extends js.Object {
 
 object DeprecatedLifecycle {
   @scala.inline
-  def apply[P, S](
-    UNSAFE_componentWillMount: () => Unit = null,
-    UNSAFE_componentWillReceiveProps: (/* nextProps */ P, /* nextContext */ js.Any) => Unit = null,
-    UNSAFE_componentWillUpdate: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Unit = null,
-    componentWillMount: () => Unit = null,
-    componentWillReceiveProps: (/* nextProps */ P, /* nextContext */ js.Any) => Unit = null,
-    componentWillUpdate: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Unit = null
-  ): DeprecatedLifecycle[P, S] = {
+  def apply[P, S](): DeprecatedLifecycle[P, S] = {
     val __obj = js.Dynamic.literal()
-    if (UNSAFE_componentWillMount != null) __obj.updateDynamic("UNSAFE_componentWillMount")(js.Any.fromFunction0(UNSAFE_componentWillMount))
-    if (UNSAFE_componentWillReceiveProps != null) __obj.updateDynamic("UNSAFE_componentWillReceiveProps")(js.Any.fromFunction2(UNSAFE_componentWillReceiveProps))
-    if (UNSAFE_componentWillUpdate != null) __obj.updateDynamic("UNSAFE_componentWillUpdate")(js.Any.fromFunction3(UNSAFE_componentWillUpdate))
-    if (componentWillMount != null) __obj.updateDynamic("componentWillMount")(js.Any.fromFunction0(componentWillMount))
-    if (componentWillReceiveProps != null) __obj.updateDynamic("componentWillReceiveProps")(js.Any.fromFunction2(componentWillReceiveProps))
-    if (componentWillUpdate != null) __obj.updateDynamic("componentWillUpdate")(js.Any.fromFunction3(componentWillUpdate))
     __obj.asInstanceOf[DeprecatedLifecycle[P, S]]
   }
+  @scala.inline
+  implicit class DeprecatedLifecycleOps[Self <: DeprecatedLifecycle[_, _], P, S] (val x: Self with (DeprecatedLifecycle[P, S])) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setUNSAFE_componentWillMount(value: () => Unit): Self = this.set("UNSAFE_componentWillMount", js.Any.fromFunction0(value))
+    @scala.inline
+    def deleteUNSAFE_componentWillMount: Self = this.set("UNSAFE_componentWillMount", js.undefined)
+    @scala.inline
+    def setUNSAFE_componentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ js.Any) => Unit): Self = this.set("UNSAFE_componentWillReceiveProps", js.Any.fromFunction2(value))
+    @scala.inline
+    def deleteUNSAFE_componentWillReceiveProps: Self = this.set("UNSAFE_componentWillReceiveProps", js.undefined)
+    @scala.inline
+    def setUNSAFE_componentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Unit): Self = this.set("UNSAFE_componentWillUpdate", js.Any.fromFunction3(value))
+    @scala.inline
+    def deleteUNSAFE_componentWillUpdate: Self = this.set("UNSAFE_componentWillUpdate", js.undefined)
+    @scala.inline
+    def setComponentWillMount(value: () => Unit): Self = this.set("componentWillMount", js.Any.fromFunction0(value))
+    @scala.inline
+    def deleteComponentWillMount: Self = this.set("componentWillMount", js.undefined)
+    @scala.inline
+    def setComponentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ js.Any) => Unit): Self = this.set("componentWillReceiveProps", js.Any.fromFunction2(value))
+    @scala.inline
+    def deleteComponentWillReceiveProps: Self = this.set("componentWillReceiveProps", js.undefined)
+    @scala.inline
+    def setComponentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Unit): Self = this.set("componentWillUpdate", js.Any.fromFunction3(value))
+    @scala.inline
+    def deleteComponentWillUpdate: Self = this.set("componentWillUpdate", js.undefined)
+  }
+  
 }
 

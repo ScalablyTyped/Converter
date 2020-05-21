@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
+import org.scalablytyped.converter.internal.maps._
 import scala.collection.mutable
 
 object ShortenNames {
@@ -9,7 +10,9 @@ object ShortenNames {
 
   case class ImportTree(imported: QualifiedName)
 
-  def apply(owner: ContainerTree, scope: TreeScope)(members: IArray[Tree]): (IArray[ImportTree], IArray[Tree]) = {
+  def apply(owner: ContainerTree, scope: TreeScope, parentsResolver: ParentsResolver)(
+      members:     IArray[Tree],
+  ): (IArray[ImportTree], IArray[Tree]) = {
     val collectedImports = mutable.Map.empty[Name, QualifiedName]
 
     object V extends TreeTransformation {
@@ -49,9 +52,7 @@ object ShortenNames {
         }
 
         val shortName = longName.parts.last
-        if (longName === QualifiedName(IArray(Name("x"), Name("duplicate")))) {
-          print(1)
-        }
+
         val rewrittenOpt: Option[QualifiedName] = {
           if (!Name.Internal(shortName) &&
               longName.parts.head =/= Name.THIS &&
@@ -64,7 +65,7 @@ object ShortenNames {
               !TypeRef.ScalaFunction.is(longName) &&
               !longName.startsWith(QualifiedName.scala_js) &&
               /* keep more expensive check last */
-              !nameCollision(scope, longName, methodsAreConflict = methodsAreConflict)) {
+              !nameCollision(scope, parentsResolver, longName, methodsAreConflict = methodsAreConflict)) {
 
             collectedImports.get(shortName) match {
               case Some(alreadyImported) =>
@@ -86,12 +87,8 @@ object ShortenNames {
     val newMembers = members.map(V.visitTree(scope))
 
     val imports: IArray[ImportTree] =
-      IArray
-        .fromTraversable(
-          collectedImports.values
-            .filterNot(_.startsWith(QualifiedName.scala))
-            .filterNot(_.startsWith(QualifiedName.java_lang)),
-        )
+      collectedImports
+        .toIArrayValues(keep = qn => !qn.startsWith(QualifiedName.scala) && !qn.startsWith(QualifiedName.java_lang))
         .sortBy(Printer.formatQN)
         .map(ImportTree.apply)
 
@@ -119,31 +116,37 @@ object ShortenNames {
     }
 
   object nameCollision {
-    def apply(scope: TreeScope, longName: QualifiedName, methodsAreConflict: Boolean): Boolean =
+    def apply(
+        scope:              TreeScope,
+        parentsResolver:    ParentsResolver,
+        longName:           QualifiedName,
+        methodsAreConflict: Boolean,
+    ): Boolean = {
+      val shortName = longName.parts.last
+
       dropOuterPackages(scope).exists {
         case x: InheritanceTree =>
-          val ctorClash = x match {
-            case c: ClassTree => c.ctors.exists(_.params.exists(_.name === longName.parts.head))
+          def ctorClash = x match {
+            case c: ClassTree => c.ctors.exists(_.params.exists(_.name === shortName))
             case _ => false
           }
-
-          (x.name === longName.parts.last && x.codePath =/= longName) ||
+          (x.name === shortName && x.codePath =/= longName) ||
           among(x.index, longName, methodsAreConflict) ||
-          amongParents(scope, x, longName, methodsAreConflict) ||
+          amongParents(scope, parentsResolver, x, longName, methodsAreConflict) ||
           ctorClash
+
         case x: PackageTree =>
-          (x.name === longName.parts.last && x.codePath =/= longName) || among(
-            x.index,
-            longName,
-            methodsAreConflict = true,
-          )
+          (x.name === shortName && x.codePath =/= longName) ||
+            among(x.index, longName, methodsAreConflict = true)
         case x: TypeAliasTree =>
-          (x.name === longName.parts.last && x.codePath =/= longName)
+          (x.name === shortName && x.codePath =/= longName) ||
+            x.tparams.exists(_.name === shortName)
         case x: FieldTree =>
-          (x.name === longName.parts.last && x.codePath =/= longName)
+          (x.name === shortName && x.codePath =/= longName)
         case x: MethodTree =>
-          (x.name === longName.parts.last && x.codePath =/= longName) ||
-            (methodsAreConflict && x.params.exists(_.exists(_.name === longName.parts.last)))
+          (x.name === shortName && x.codePath =/= longName) ||
+            (methodsAreConflict && x.params.exists(_.exists(_.name === shortName))) ||
+            x.tparams.exists(_.name === shortName)
         case x: ExprTree.Block =>
           x.expressions.exists {
             case ExprTree.Val(name, _) => longName.parts.head === name
@@ -151,14 +154,16 @@ object ShortenNames {
           }
         case _ => false
       }
+    }
 
     private def amongParents(
         scope:              TreeScope,
+        parentsResolver:    ParentsResolver,
         x:                  InheritanceTree,
         longName:           QualifiedName,
         methodsAreConflict: Boolean,
     ): Boolean =
-      ParentsResolver(scope, x).transitiveParents.exists {
+      parentsResolver(scope, x).transitiveParents.exists {
         case (_, cls) => among(cls.index, longName, methodsAreConflict)
       }
 

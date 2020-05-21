@@ -58,6 +58,7 @@ final case class TsParsedFile(
 }
 
 sealed trait TsDeclNamespaceOrModule extends TsContainer with TsNamedValueDecl with HasJsLocation
+sealed trait TsDeclModuleLike extends TsDeclNamespaceOrModule
 
 final case class TsDeclNamespace(
     comments:   Comments,
@@ -89,7 +90,7 @@ final case class TsDeclModule(
     members:    IArray[TsContainerOrDecl],
     codePath:   CodePath,
     jsLocation: JsLocation,
-) extends TsDeclNamespaceOrModule {
+) extends TsDeclModuleLike {
 
   override def withMembers(newMembers: IArray[TsContainerOrDecl]): TsDeclModule =
     copy(members = newMembers)
@@ -109,7 +110,7 @@ final case class TsAugmentedModule(
     members:    IArray[TsContainerOrDecl],
     codePath:   CodePath,
     jsLocation: JsLocation,
-) extends TsDeclNamespaceOrModule {
+) extends TsDeclModuleLike {
   override def withMembers(newMembers: IArray[TsContainerOrDecl]): TsAugmentedModule =
     copy(members = newMembers)
 
@@ -393,8 +394,10 @@ object TsIdent {
   def unapply(ident: TsIdent): Some[String] =
     Some(ident.value)
 
-  val `this`:        TsIdentSimple = TsIdent("this")
-  val Apply:         TsIdentSimple = TsIdent("<apply>")
+  val `this`: TsIdentSimple = TsIdent("this")
+  val Apply:  TsIdentSimple = TsIdent("<apply>")
+  val Global: TsIdentSimple = TsIdent("<global>")
+
   val update:        TsIdentSimple = TsIdent("update")
   val prototype:     TsIdentSimple = TsIdent("prototype")
   val constructor:   TsIdentSimple = TsIdent("constructor")
@@ -402,7 +405,6 @@ object TsIdent {
   val namespaced:    TsIdentSimple = TsIdent("^")
   val namespacedCls: TsIdentSimple = TsIdent("Class")
   val Symbol:        TsIdentSimple = TsIdent("Symbol")
-  val Global:        TsIdentSimple = TsIdent("_Global_")
   val dummy:         TsIdentSimple = TsIdent("dummy")
 
   val dummyLibrary: TsIdentLibrary = TsIdentLibrarySimple("dummyLibrary")

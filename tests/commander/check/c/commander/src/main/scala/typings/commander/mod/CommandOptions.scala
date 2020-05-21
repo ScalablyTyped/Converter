@@ -12,11 +12,30 @@ trait CommandOptions extends js.Object {
 
 object CommandOptions {
   @scala.inline
-  def apply(isDefault: js.UndefOr[Boolean] = js.undefined, noHelp: js.UndefOr[Boolean] = js.undefined): CommandOptions = {
+  def apply(): CommandOptions = {
     val __obj = js.Dynamic.literal()
-    if (!js.isUndefined(isDefault)) __obj.updateDynamic("isDefault")(isDefault.asInstanceOf[js.Any])
-    if (!js.isUndefined(noHelp)) __obj.updateDynamic("noHelp")(noHelp.asInstanceOf[js.Any])
     __obj.asInstanceOf[CommandOptions]
   }
+  @scala.inline
+  implicit class CommandOptionsOps[Self <: CommandOptions] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setIsDefault(value: Boolean): Self = this.set("isDefault", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteIsDefault: Self = this.set("isDefault", js.undefined)
+    @scala.inline
+    def setNoHelp(value: Boolean): Self = this.set("noHelp", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteNoHelp: Self = this.set("noHelp", js.undefined)
+  }
+  
 }
 

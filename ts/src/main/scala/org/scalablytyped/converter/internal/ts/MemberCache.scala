@@ -50,7 +50,7 @@ trait MemberCache {
       case _ => ()
     }
 
-    ret.toMap.mapValues(IArray.fromTraversable)
+    ret.mapValues(IArray.fromTraversable).toMap
   }
 
   lazy val membersByName: Map[TsIdent, IArray[TsNamedDecl]] =

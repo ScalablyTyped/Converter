@@ -25,29 +25,44 @@ object Erasure {
 
   def simplify(scope: TreeScope, tpe: TypeRef): QualifiedName =
     tpe.typeName match {
+      case QualifiedName.UNDEFINED => QualifiedName.`|`
       case QualifiedName.UndefOr   => QualifiedName.`|`
-      case QualifiedName.WILDCARD  => QualifiedName.ScalaAny
-      case QualifiedName.THIS_TYPE => QualifiedName.THIS_TYPE
       case QualifiedName.UNION     => QualifiedName.`|`
+      case QualifiedName.WILDCARD  => QualifiedName.ScalaAny
+      case QualifiedName.THIS      => QualifiedName.THIS
       case QualifiedName.REPEATED  => QualifiedName.JArray
       // the way we fake literal means these are true enough
       case QualifiedName.STRING_LITERAL  => tpe.targs.head.typeName
       case QualifiedName.NUMBER_LITERAL  => tpe.targs.head.typeName
       case QualifiedName.BOOLEAN_LITERAL => tpe.targs.head.typeName
 
+      /* approximate intersections. scalac seems to use the first type, unless that is a supertype of a later mentioned type */
       case QualifiedName.INTERSECTION =>
         val primitive = tpe.targs.collectFirst {
           case tr @ (TypeRef.String | TypeRef.Boolean | TypeRef.Double) => tr.typeName
         }
-        primitive.getOrElse(
-          simplify(scope, tpe.targs.filterNot(_.typeName === QualifiedName.Object).head),
-        )
+
+        primitive.getOrElse {
+          simplify(scope, tpe.targs.head) match {
+            case QualifiedName.Any if tpe.targs.length > 1 =>
+              simplify(scope, tpe.targs(1)) match {
+                case QualifiedName.ScalaAny => QualifiedName.Any
+                case other                  => other
+              }
+            case QualifiedName.Object if tpe.targs.length > 1 =>
+              simplify(scope, tpe.targs(1)) match {
+                case QualifiedName.ScalaAny => QualifiedName.Object
+                case other                  => other
+              }
+            case other => other
+          }
+        }
 
       // if this is a type parameter
       case QualifiedName(IArray.exactlyOne(head)) if scope.tparams.contains(head) => QualifiedName.ScalaAny
 
       // if run after FakeSingletons
-      case name @ QualifiedName(parts) if parts.length > 2 && (tpe.comments eq FakeLiterals.LiteralTokenComment) => name
+      case name @ QualifiedName(parts) if parts.length > 2 && (tpe.comments.has[FakeLiterals.WasLiteral]) => name
 
       case other =>
         scope

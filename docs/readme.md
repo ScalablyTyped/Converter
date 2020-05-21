@@ -5,19 +5,18 @@ title: The Javascript ecosystem for Scala.js!
 
 Typescript is now used to describe almost all useful Javascript libraries.
 
-This project extends all that work to Scala.js.  
+This project aims to make all of that useful from Scala.js by converting typescript type definitions automatically in your build.   
 
-## Beta release announcement
-The sbt plugin is now public and open source (GPL v3)! 
-Have a look at the [release announcement](release-announcement.md).
 
 ## Getting started
 The most flexible way of using ScalablyTyped is through the sbt plugin.
 
 [Getting started with SBT plugin](plugin.md) 
 
+<video autoplay="autoplay" src="http://olvind.com/videos/getting_started.mp4" height="744px" width="874"></video>
+
 ## Development
-Help us! [Development Documentation](devel/about.md)
+Help wanted! [Development Documentation](devel/about.md)
 
 ## Derived work
 This project took [scala-js-ts-importer](http://github.com/sjrd/scala-js-ts-importer/) as a starting point,

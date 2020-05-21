@@ -13,10 +13,28 @@ trait ConsumerProps[T] extends js.Object {
 
 object ConsumerProps {
   @scala.inline
-  def apply[T](children: T => TagMod[Any], unstable_observedBits: Int | Double = null): ConsumerProps[T] = {
+  def apply[T](children: T => TagMod[Any]): ConsumerProps[T] = {
     val __obj = js.Dynamic.literal(children = js.Any.fromFunction1(children))
-    if (unstable_observedBits != null) __obj.updateDynamic("unstable_observedBits")(unstable_observedBits.asInstanceOf[js.Any])
     __obj.asInstanceOf[ConsumerProps[T]]
   }
+  @scala.inline
+  implicit class ConsumerPropsOps[Self <: ConsumerProps[_], T] (val x: Self with ConsumerProps[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setChildren(value: T => TagMod[Any]): Self = this.set("children", js.Any.fromFunction1(value))
+    @scala.inline
+    def setUnstable_observedBits(value: Double): Self = this.set("unstable_observedBits", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteUnstable_observedBits: Self = this.set("unstable_observedBits", js.undefined)
+  }
+  
 }
 

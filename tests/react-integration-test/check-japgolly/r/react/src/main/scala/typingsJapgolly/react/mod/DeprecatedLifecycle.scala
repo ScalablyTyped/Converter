@@ -101,22 +101,46 @@ trait DeprecatedLifecycle[P, S] extends js.Object {
 
 object DeprecatedLifecycle {
   @scala.inline
-  def apply[P, S](
-    UNSAFE_componentWillMount: js.UndefOr[Callback] = js.undefined,
-    UNSAFE_componentWillReceiveProps: (/* nextProps */ P, /* nextContext */ js.Any) => Callback = null,
-    UNSAFE_componentWillUpdate: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Callback = null,
-    componentWillMount: js.UndefOr[Callback] = js.undefined,
-    componentWillReceiveProps: (/* nextProps */ P, /* nextContext */ js.Any) => Callback = null,
-    componentWillUpdate: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Callback = null
-  ): DeprecatedLifecycle[P, S] = {
+  def apply[P, S](): DeprecatedLifecycle[P, S] = {
     val __obj = js.Dynamic.literal()
-    UNSAFE_componentWillMount.foreach(p => __obj.updateDynamic("UNSAFE_componentWillMount")(p.toJsFn))
-    if (UNSAFE_componentWillReceiveProps != null) __obj.updateDynamic("UNSAFE_componentWillReceiveProps")(js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => UNSAFE_componentWillReceiveProps(t0, t1).runNow()))
-    if (UNSAFE_componentWillUpdate != null) __obj.updateDynamic("UNSAFE_componentWillUpdate")(js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => UNSAFE_componentWillUpdate(t0, t1, t2).runNow()))
-    componentWillMount.foreach(p => __obj.updateDynamic("componentWillMount")(p.toJsFn))
-    if (componentWillReceiveProps != null) __obj.updateDynamic("componentWillReceiveProps")(js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => componentWillReceiveProps(t0, t1).runNow()))
-    if (componentWillUpdate != null) __obj.updateDynamic("componentWillUpdate")(js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => componentWillUpdate(t0, t1, t2).runNow()))
     __obj.asInstanceOf[DeprecatedLifecycle[P, S]]
   }
+  @scala.inline
+  implicit class DeprecatedLifecycleOps[Self <: DeprecatedLifecycle[_, _], P, S] (val x: Self with (DeprecatedLifecycle[P, S])) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setUNSAFE_componentWillMount(value: Callback): Self = this.set("UNSAFE_componentWillMount", value.toJsFn)
+    @scala.inline
+    def deleteUNSAFE_componentWillMount: Self = this.set("UNSAFE_componentWillMount", js.undefined)
+    @scala.inline
+    def setUNSAFE_componentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ js.Any) => Callback): Self = this.set("UNSAFE_componentWillReceiveProps", js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => (value(t0, t1)).runNow()))
+    @scala.inline
+    def deleteUNSAFE_componentWillReceiveProps: Self = this.set("UNSAFE_componentWillReceiveProps", js.undefined)
+    @scala.inline
+    def setUNSAFE_componentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Callback): Self = this.set("UNSAFE_componentWillUpdate", js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => (value(t0, t1, t2)).runNow()))
+    @scala.inline
+    def deleteUNSAFE_componentWillUpdate: Self = this.set("UNSAFE_componentWillUpdate", js.undefined)
+    @scala.inline
+    def setComponentWillMount(value: Callback): Self = this.set("componentWillMount", value.toJsFn)
+    @scala.inline
+    def deleteComponentWillMount: Self = this.set("componentWillMount", js.undefined)
+    @scala.inline
+    def setComponentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ js.Any) => Callback): Self = this.set("componentWillReceiveProps", js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => (value(t0, t1)).runNow()))
+    @scala.inline
+    def deleteComponentWillReceiveProps: Self = this.set("componentWillReceiveProps", js.undefined)
+    @scala.inline
+    def setComponentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Callback): Self = this.set("componentWillUpdate", js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => (value(t0, t1, t2)).runNow()))
+    @scala.inline
+    def deleteComponentWillUpdate: Self = this.set("componentWillUpdate", js.undefined)
+  }
+  
 }
 

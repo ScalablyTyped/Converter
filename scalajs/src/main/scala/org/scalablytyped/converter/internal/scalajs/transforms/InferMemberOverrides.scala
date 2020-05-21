@@ -2,13 +2,14 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.maps.sum
 
 /**
   * When a class inherits the same method/field from two ancestors,
-  *  we need to provide an override
+  * we need to provide an override
   */
-object InferMemberOverrides extends TreeTransformation {
+class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransformation {
 
   override def leaveModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree =
     if (mod.parents.length > 1 && mod.isNative)
@@ -21,7 +22,7 @@ object InferMemberOverrides extends TreeTransformation {
     else cls
 
   private def newMembers(scope: TreeScope, tree: InheritanceTree, members: IArray[Tree]): IArray[Tree] = {
-    val root = ParentsResolver(scope, tree)
+    val root = parentsResolver(scope, tree)
 
     val (methods, fields, _) = members.partitionCollect2(
       { case x: MethodTree => x },
@@ -45,29 +46,32 @@ object InferMemberOverrides extends TreeTransformation {
       }
 
     val addedFields: IArray[FieldTree] =
-      IArray.fromTraversable(inheritedFields) collect {
-        case (name, fs) if !fieldsByName.contains(name) =>
-          val head    = fs.head._1
-          val newType = TypeRef.Intersection(fs.map(_._1.tpe))
+      inheritedFields.mapToIArray(
+        {
+          case (name, fs) if !fieldsByName.contains(name) =>
+            val head    = fs.head._1
+            val newType = TypeRef.Intersection(fs.map(_._1.tpe), NoComments)
 
-          head.copy(
-            isOverride = true,
-            tpe        = newType,
-            isReadOnly = fs.forall { case (f, _) => f.isReadOnly },
-            impl       = updatedImpl(fs.map(_._1.impl), Some(newType), tree.isScalaJsDefined),
-            comments   = head.comments + Comment("/* InferMemberOverrides */\n"),
-          )
-      }
+            head.copy(
+              isOverride = true,
+              tpe        = newType,
+              isReadOnly = fs.forall { case (f, _) => f.isReadOnly },
+              impl       = updatedImpl(fs.map(_._1.impl), Some(newType), tree.isScalaJsDefined),
+              comments   = head.comments + Comment("/* InferMemberOverrides */\n"),
+            )
+        },
+        keep = { case (name, _) => !fieldsByName.contains(name) },
+      )
 
     val inheritedMethods: IArray[MethodTree] =
-      IArray.fromTraversable(root.transitiveParents.values) flatMap (_.members collect { case c: MethodTree => c })
+      root.transitiveParents.flatMapToIArray { case (_, v) => v.members collect { case c: MethodTree => c } }
 
     val addedMethods: IArray[MethodTree] =
       IArray.fromTraversable(inheritedMethods groupBy Erasure.base(scope)) collect {
         case (base, fs) if fs.length > 1 && !methodsByBase.contains(base) =>
           fs.head.copy(
             isOverride = true,
-            resultType = TypeRef.Intersection(fs.map(_.resultType)),
+            resultType = TypeRef.Intersection(fs.map(_.resultType), NoComments),
             impl       = updatedImpl(fs.map(_.impl), None, tree.isScalaJsDefined),
             comments   = fs.head.comments + Comment("/* InferMemberOverrides */\n"),
           )
@@ -86,8 +90,8 @@ object InferMemberOverrides extends TreeTransformation {
     tpe match {
       case TypeRef(QualifiedName.UndefOr, _, _) => true
       case TypeRef.undefined                    => true
-      case TypeRef.Intersection(types)          => types forall canBeUndefined
-      case TypeRef.Union(types)                 => types exists canBeUndefined
+      case TypeRef.Intersection(types, _)       => types forall canBeUndefined
+      case TypeRef.Union(types, _)              => types exists canBeUndefined
       case _                                    => false
     }
 

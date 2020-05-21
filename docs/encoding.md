@@ -1,6 +1,6 @@
 ---
 id: encoding
-title: Anticipated questions about encoding
+title: Encoding
 ---
 
 Finding a working encoding within the strict limits of Scala.js was hard, 

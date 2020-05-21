@@ -30,9 +30,8 @@ sealed trait ContainerTree extends Tree with HasCodePath {
 
 sealed trait InheritanceTree extends Tree with HasCodePath {
   def annotations: IArray[ClassAnnotation]
-  def isScalaJsDefined: Boolean = annotations contains Annotation.ScalaJSDefined
-  def receivesCompanion: Boolean =
-    isScalaJsDefined || comments.extract { case Markers.CouldBeScalaJsDefined => () }.nonEmpty
+  def isScalaJsDefined:  Boolean = annotations contains Annotation.ScalaJSDefined
+  def receivesCompanion: Boolean = isScalaJsDefined || comments.has[Markers.CouldBeScalaJsDefined.type]
   val index: Map[Name, IArray[Tree]]
 
   def isNative: Boolean =
@@ -117,6 +116,7 @@ sealed trait MemberTree extends Tree with HasCodePath {
   val annotations: IArray[MemberAnnotation]
   def withCodePath(newCodePath: QualifiedName): MemberTree
   def renamed(newName:          Name):          MemberTree
+  def originalName: Name
 }
 
 final case class FieldTree(
@@ -158,6 +158,7 @@ final case class MethodTree(
     isOverride:  Boolean,
     comments:    Comments,
     codePath:    QualifiedName,
+    isImplicit:  Boolean,
 ) extends MemberTree {
   def withSuffix[T: ToSuffix](t: T): MethodTree =
     renamed(name withSuffix t)
@@ -215,7 +216,7 @@ final case class TypeRef(typeName: QualifiedName, targs: IArray[TypeRef], commen
     if (optional) TypeRef.UndefOr(this) else this
 
   def withComments(cs: Comments): TypeRef =
-    TypeRef(typeName, targs, comments ++ cs)
+    if (cs.cs.isEmpty) this else TypeRef(typeName, targs, comments ++ cs)
 }
 
 object TypeRef {
@@ -243,8 +244,8 @@ object TypeRef {
   val Unit         = TypeRef(QualifiedName.Unit, Empty, NoComments)
   val FunctionBase = TypeRef(QualifiedName.Function, Empty, NoComments)
 
-  val `null`    = TypeRef(QualifiedName(IArray(Name("null"))), Empty, NoComments)
-  val undefined = TypeRef(QualifiedName(IArray(Name("js.undefined"))), Empty, NoComments)
+  /* we represent `js.UndefOr` as this fake type ref inside a union type. Note that t can also appear on it's own */
+  val undefined = TypeRef(QualifiedName.UNDEFINED, Empty, NoComments)
 
   val Primitive = Set(Double, Int, Long, Boolean, Unit, Nothing)
 
@@ -270,7 +271,7 @@ object TypeRef {
       val rewriteRepeated: IArray[TypeRef] =
         typeParams.lastOption match {
           case Some(Repeated(underlying, _)) =>
-            val commented = underlying.withComments(underlying.comments + Comment("/* repeated */"))
+            val commented = underlying.withComments(Comments(Comment("/* repeated */")))
             typeParams.dropRight(1) :+ commented
           case _ =>
             typeParams
@@ -297,7 +298,7 @@ object TypeRef {
       val rewriteRepeated: IArray[TypeRef] =
         typeParams.lastOption match {
           case Some(Repeated(underlying, _)) =>
-            val commented = underlying.withComments(underlying.comments + Comment("/* repeated */"))
+            val commented = underlying.withComments(Comments(Comment("/* repeated */")))
             typeParams.dropRight(1) :+ commented
           case _ =>
             typeParams
@@ -342,11 +343,11 @@ object TypeRef {
   object Intersection {
     private def flattened(types: IArray[TypeRef]): IArray[TypeRef] =
       types flatMap {
-        case Intersection(inner) => inner
-        case other               => IArray(other)
+        case Intersection(inner, _) => inner
+        case other                  => IArray(other)
       }
 
-    def apply(types: IArray[TypeRef]): TypeRef = {
+    def apply(types: IArray[TypeRef], comments: Comments): TypeRef = {
       val base: IArray[TypeRef] =
         flattened(types).distinct.partitionCollect { case TypeRef.Wildcard => TypeRef.Wildcard } match {
           // keep wildcard only if there is nothing else
@@ -354,17 +355,19 @@ object TypeRef {
           case (_, rest)          => rest
         }
 
-      base match {
+      val ret = base match {
         case IArray.Empty           => TypeRef.Nothing
         case IArray.exactlyOne(one) => one
         case more                   => TypeRef(QualifiedName.INTERSECTION, more, NoComments)
       }
+
+      ret.withComments(comments)
     }
 
-    def unapply(typeRef: TypeRef): Option[IArray[TypeRef]] =
+    def unapply(typeRef: TypeRef): Option[(IArray[TypeRef], Comments)] =
       typeRef match {
-        case TypeRef(QualifiedName.INTERSECTION, types, _) =>
-          Some(types)
+        case TypeRef(QualifiedName.INTERSECTION, types, cs) =>
+          Some((types, cs))
 
         case _ => None
       }
@@ -372,17 +375,17 @@ object TypeRef {
 
   object UndefOr {
     def apply(tpe: TypeRef): TypeRef =
-      Union(IArray(undefined, tpe), sort = false)
+      Union(IArray(undefined, tpe), NoComments, sort = false)
 
-    def unapply(typeRef: TypeRef): Option[TypeRef] =
+    def unapply(typeRef: TypeRef): Option[(TypeRef, Comments)] =
       typeRef match {
-        case Union(types) if types.contains(undefined) =>
+        case Union(types, cs) if types.contains(undefined) =>
           val rest = types.filterNot(x => x === undefined || x === TypeRef.Nothing) match {
             case IArray.Empty           => TypeRef.Nothing
             case IArray.exactlyOne(one) => one
-            case more                   => Union(more, sort = false)
+            case more                   => Union(more, NoComments, sort = false)
           }
-          Some(rest)
+          Some((rest, cs))
         case _ => None
       }
   }
@@ -400,39 +403,41 @@ object TypeRef {
       * What we do for now is that when we construct a union type it's sorted (for consistent builds),
       *  and when we encounter an existing we don't change it
       */
-    def apply(types: IArray[TypeRef], sort: Boolean): TypeRef = {
-      val flattened = flatten(types) match {
-        case toSort if sort => toSort.sortBy(_.typeName.parts.last.unescaped)
-        case otherwise      => otherwise
-      }
+    def apply(types: IArray[TypeRef], comments: Comments, sort: Boolean): TypeRef = {
+      val flattened: IArray[TypeRef] =
+        flatten(types) match {
+          case toSort if sort => toSort.sortBy(_.typeName.parts.last.unescaped)
+          case otherwise      => otherwise
+        }
 
       /* "a" | "a" | Foo[A] | Foo[B] => "a" | Foo[A | B] */
       val compressed: IArray[TypeRef] = {
         val byName = flattened.filterNot(tr => Name.Internal(tr.name)).groupBy(_.typeName)
 
-        flattened.zipWithIndex.flatMap {
+        flattened.zipWithIndex.mapNotNone {
           case (tr, idx) =>
             byName.get(tr.typeName) match {
               case Some(more) if more.length > 1 =>
                 val isFirst = flattened.indexWhere(_.typeName === tr.typeName) === idx
-                if (isFirst) IArray(tr.copy(targs = more.map(_.targs).transpose.map(Union(_, sort = true))))
-                else Empty
-              case _ => IArray(tr)
+                if (isFirst) Some(tr.copy(targs = more.map(_.targs).transpose.map(Union(_, NoComments, sort = true))))
+                else None
+              case _ => Some(tr)
             }
         }.distinct
       }
 
-      compressed match {
+      val ret = compressed match {
         case Empty                  => TypeRef.Nothing
         case IArray.exactlyOne(one) => one
         case more                   => TypeRef(QualifiedName.UNION, more, NoComments)
       }
+      ret.withComments(comments)
     }
 
-    def unapply(typeRef: TypeRef): Option[IArray[TypeRef]] =
+    def unapply(typeRef: TypeRef): Option[(IArray[TypeRef], Comments)] =
       typeRef match {
-        case TypeRef(QualifiedName.UNION, types, _) =>
-          Some(types)
+        case TypeRef(QualifiedName.UNION, types, comments) =>
+          Some((types, comments))
 
         case _ => None
       }
@@ -481,11 +486,11 @@ object TypeRef {
 
   object ThisType {
     def apply(comments: Comments): TypeRef =
-      TypeRef(QualifiedName.THIS_TYPE, Empty, comments)
+      TypeRef(QualifiedName.THIS, Empty, comments)
 
     def unapply(typeRef: TypeRef): Option[Comments] =
       typeRef match {
-        case TypeRef(QualifiedName.THIS_TYPE, _, comments) =>
+        case TypeRef(QualifiedName.THIS, _, comments) =>
           Some(comments)
         case _ => None
       }
@@ -515,17 +520,29 @@ object ExprTree {
   case class BinaryOp(one:          ExprTree, op: String, two: ExprTree) extends ExprTree
   case class Block(expressions:     IArray[ExprTree]) extends ExprTree
   case class Call(function:         ExprTree, params: IArray[IArray[Arg]]) extends ExprTree
-  case class Cast(one:              ExprTree, as: TypeRef) extends ExprTree
-  case class Custom(impl:           String) extends ExprTree
   case class If(pred:               ExprTree, ifTrue: ExprTree, ifFalse: Option[ExprTree]) extends ExprTree
   case class Lambda(params:         IArray[ParamTree], body: ExprTree) extends ExprTree
   case class New(expr:              TypeRef, params: IArray[ExprTree]) extends ExprTree
   case class Ref(value:             QualifiedName) extends ExprTree
   case class Select(from:           ExprTree, path: Name) extends ExprTree
-  case class TApply(ref:            Ref, targs: IArray[TypeRef]) extends ExprTree
+  case class TApply(ref:            ExprTree, targs: IArray[TypeRef]) extends ExprTree
   case class Unary(op:              String, expr: ExprTree) extends ExprTree
   case class Val(override val name: Name, value: ExprTree) extends ExprTree
+  case class Throw(expr:            ExprTree) extends ExprTree
 
+  def InstanceOf(target: ExprTree, of: TypeRef): ExprTree =
+    TApply(Select(target, Name("isInstanceOf")), IArray(of))
+
+  object Cast {
+    def apply(target: ExprTree, of: TypeRef): ExprTree =
+      TApply(Select(target, Name("asInstanceOf")), IArray(of))
+
+    def unapply(expr: ExprTree): Option[(ExprTree, TypeRef)] =
+      expr match {
+        case TApply(Select(target, Name("asInstanceOf")), IArray.exactlyOne(of)) => Some((target, of))
+        case _                                                                   => None
+      }
+  }
   sealed trait Lit extends ExprTree
   case class BooleanLit(value: Boolean) extends Lit
   case class NumberLit(value:  String) extends Lit

@@ -16,7 +16,7 @@ import seqs._
   * of the members.
   */
 object DeriveNonConflictingName {
-  val Anon          = "Anon"
+  val Anon          = ""
   val Fn            = "Fn"
   val isMeaningless = Set(Anon, Fn)
 

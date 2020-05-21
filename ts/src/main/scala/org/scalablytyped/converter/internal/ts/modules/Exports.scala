@@ -202,8 +202,8 @@ object Exports {
     (jsLocation, ms) match {
       case (m: JsLocation.Module, spec) => m.copy(spec = spec)
       case (JsLocation.Global(jsPath), ModuleSpec.Specified(idents)) => JsLocation.Global(jsPath ++ idents)
-      case (JsLocation.Global(jsPath), other)                        => sys.error(s"Unexpected $jsPath and $other")
       case (JsLocation.Zero, _)                                      => JsLocation.Zero
+      case other                                                     => sys.error(s"Unexpected $other")
     }
 
   def lookupExportFrom[T <: TsNamedDecl](

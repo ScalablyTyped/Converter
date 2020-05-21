@@ -1,5 +1,6 @@
 package typingsSlinky.react.mod
 
+import slinky.core.facade.ReactRef
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -11,10 +12,26 @@ trait RefObject[T] extends js.Object {
 
 object RefObject {
   @scala.inline
-  def apply[T](current: T = null): RefObject[T] = {
+  def apply[T](): RefObject[T] = {
     val __obj = js.Dynamic.literal()
-    if (current != null) __obj.updateDynamic("current")(current.asInstanceOf[js.Any])
     __obj.asInstanceOf[RefObject[T]]
   }
+  @scala.inline
+  implicit class RefObjectOps[Self <: ReactRef[_], T] (val x: Self with ReactRef[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setCurrent(value: T): Self = this.set("current", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setCurrentNull: Self = this.set("current", null)
+  }
+  
 }
 

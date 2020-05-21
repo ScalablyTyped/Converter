@@ -2,13 +2,14 @@ package org.scalablytyped.converter.internal
 package ts
 
 import com.olvind.logging.{Formatter, Logger}
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 import org.scalablytyped.converter.internal.ts.modules.{ExpandedMod, Exports, Imports}
 import org.scalablytyped.converter.internal.ts.transforms.ExpandTypeMappings
 import sourcecode.{Enclosing, File, Line, Text}
 
 import scala.collection.mutable
-import scala.util.hashing.MurmurHash3.productHash
+import scala.util.hashing.MurmurHash3.{finalizeHash, mix, productHash}
 
 /**
   * The facility for looking up types and terms in a given tree.
@@ -127,8 +128,6 @@ sealed trait TsTreeScope {
       case _ => false
     }
 
-  override lazy val hashCode: Int = (13 * root.libName.hashCode) * stack.hashCode
-
   override def equals(obj: Any): Boolean =
     obj match {
       case that: TsTreeScope if root.libName === that.root.libName && hashCode === that.hashCode => stack === that.stack
@@ -196,6 +195,9 @@ object TsTreeScope {
       val cache:             Option[Cache],
       val lookupUnqualified: Boolean,
   ) extends TsTreeScope {
+
+    override def hashCode: Int = libName.hashCode
+
     override val root    = this
     override def stack   = Nil
     override def tparams = Map.empty
@@ -254,8 +256,8 @@ object TsTreeScope {
             .map { case (_, lib, libScope) => search(libScope, picker, lib, fragments, loopDetector) }
             .getOrElse(Empty) match {
             case Empty =>
-              IArray.fromTraversable(depScopes.values) flatMap {
-                case (_, lib, libScope) => search(libScope, picker, lib, fragments, loopDetector)
+              depScopes.flatMapToIArray {
+                case (_, (_, lib, libScope)) => search(libScope, picker, lib, fragments, loopDetector)
               }
             case found => found
           }
@@ -272,6 +274,17 @@ object TsTreeScope {
 
   final class Scoped private[TsTreeScope] (val outer: TsTreeScope, val current: TsTree, val lookupUnqualified: Boolean)
       extends TsTreeScope {
+
+    // lazy val with no locking
+    private var hasHash = false
+    private var hash: Int = _
+    override def hashCode: Int = {
+      if (!hasHash) {
+        hasHash = true
+        hash    = finalizeHash(mix(mix(2, outer.##), current.##), 2)
+      }
+      hash
+    }
 
     var _stack: List[TsTree] = null
     override def stack = {

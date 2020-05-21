@@ -81,7 +81,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         }
 
       case ta @ TsDeclTypeAlias(comments, declared, name, tparams, alias, codePath)
-          if !comments.has(Markers.IsTrivial) && !pointsToConcreteType(scope, alias) =>
+          if !comments.has[Markers.IsTrivial.type] && !pointsToConcreteType(scope, alias) =>
         AllMembersFor.forType(scope, LoopDetector.initial)(alias) match {
           case Problems(_) =>
             evaluateKeys(scope, LoopDetector.initial)(alias) match {
@@ -219,7 +219,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
 
           foundType getOrElse {
             scope.logger.info(s"Could not replace key $key = $name")
-            TsTypeRef.any
+            ResolveTypeLookups.optional(TsTypeRef.any, true)
           }
         case other => other
       }

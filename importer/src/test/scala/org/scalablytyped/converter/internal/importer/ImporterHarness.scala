@@ -13,7 +13,13 @@ import org.scalablytyped.converter.internal.importer.build.{BinTrayPublisher, Bl
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
-import org.scalablytyped.converter.internal.scalajs.flavours.{FlavourImpl, SlinkyFlavour}
+import org.scalablytyped.converter.internal.scalajs.flavours.{
+  FlavourImpl,
+  JapgollyFlavour,
+  NormalFlavour,
+  SlinkyFlavour,
+  SlinkyNativeFlavour,
+}
 import org.scalablytyped.converter.internal.ts._
 import org.scalatest.Assertion
 import org.scalatest.funsuite.AnyFunSuite
@@ -31,7 +37,7 @@ trait ImporterHarness extends AnyFunSuite {
   os.makeDir.all(failureCacheDir)
 
   private val testLogger = logging.stdout.filter(LogLevel.error)
-  private val version    = Versions(Versions.Scala213, Versions.ScalaJs06)
+  private val version    = Versions(Versions.Scala213, Versions.ScalaJs1)
 
   private val bloop = Await.result(
     BloopCompiler(testLogger, version, Some(failureCacheDir.toNIO))(ExecutionContext.Implicits.global),
@@ -79,7 +85,7 @@ trait ImporterHarness extends AnyFunSuite {
             compiler                   = bloop,
             targetFolder               = targetFolder,
             organization               = "org.scalablytyped",
-            publisherOpt             = Some(BinTrayPublisher.Dummy),
+            publisherOpt               = Some(BinTrayPublisher.Dummy),
             publishLocalFolder         = publishLocalFolder,
             metadataFetcher            = Npmjs.No,
             softWrites                 = true,
@@ -115,20 +121,22 @@ trait ImporterHarness extends AnyFunSuite {
       testName: String,
       pedantic: Boolean,
       update:   Boolean,
-      flavour: FlavourImpl = FlavourImpl.Normal(
+      flavour: FlavourImpl = NormalFlavour(
         shouldGenerateComponents = true,
         shouldUseScalaJsDomTypes = false,
-        Name.typings,
+        enableImplicitOps        = true,
+        outputPkg                = Name.typings,
       ),
   ): Assertion = {
     val testFolder   = findTestFolder(testName)
     val source       = InFolder(testFolder.path / 'in)
     val targetFolder = os.Path(Files.createTempDirectory("scalablytyped-test-"))
     val checkFolder = testFolder.path / (flavour match {
-      case _: FlavourImpl.Normal       => "check"
-      case _: SlinkyFlavour            => "check-slinky"
-      case _: FlavourImpl.SlinkyNative => "check-slinky-native"
-      case _: FlavourImpl.Japgolly     => "check-japgolly"
+      case _: NormalFlavour       => "check"
+      case _: SlinkyFlavour       => "check-slinky"
+      case _: SlinkyNativeFlavour => "check-slinky-native"
+      case _: JapgollyFlavour     => "check-japgolly"
+      case other => sys.error(s"Unexpected $other")
     })
 
     val logRegistry =

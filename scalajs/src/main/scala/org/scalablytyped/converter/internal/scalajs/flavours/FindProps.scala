@@ -10,7 +10,7 @@ object FindProps {
   /* javascript limitation */
   val MaxParamsForMethod = 254
 
-  sealed trait Res[T] {
+  sealed trait Res[+E, +T] {
     def headOption: Option[T] = this match {
       case Res.One(_, value) => Some(value)
       case Res.Many(values)  => Some(values.head._2)
@@ -23,28 +23,34 @@ object FindProps {
       case Res.Error(_)         => Map.empty
     }
 
-    def map[U](f: T => U): Res[U] = this match {
+    def map[U](f: T => U): Res[E, U] = this match {
       case Res.Error(msg)       => Res.Error(msg)
       case Res.One(name, value) => Res.One(name, f(value))
       case Res.Many(values)     => Res.Many(values.mapValues(f))
     }
+
+    def mapError[EE](f: E => EE): Res[EE, T] = this match {
+      case Res.Error(e)         => Res.Error(f(e))
+      case Res.One(name, value) => Res.One(name, value)
+      case Res.Many(values)     => Res.Many(values)
+    }
   }
 
   object Res {
-    sealed trait Success[T] extends Res[T]
+    sealed trait Success[+T] extends Res[Nothing, T]
     object Success {
-      def unapply[T](arg: Res[T]): Option[Success[T]] = arg match {
+      def unapply[E, T](arg: Res[E, T]): Option[Success[T]] = arg match {
         case success: Success[T] => Some(success)
         case Error(_) => None
       }
     }
-    case class Error[T](msg:   String) extends Res[T]
+    case class Error[E](msg:   E) extends Res[E, Nothing]
     case class One[T](name:    TypeRef, value: T) extends Success[T]
     case class Many[T](values: Map[TypeRef, T]) extends Success[T]
 
-    def combine[T](ress: IArray[Res[T]]): Res[T] =
+    def combine[E <: AnyRef, T](ress: IArray[Res[IArray[E], T]]): Res[IArray[E], T] =
       ress.partitionCollect3(
-        { case Error(msg)       => msg },
+        { case Error(es)        => es },
         { case One(name, value) => name -> value },
         { case Many(values)     => values },
       ) match {
@@ -53,65 +59,56 @@ object FindProps {
           val all            = ones.toMap ++ maps.smash(manies)
           val distinctByName = all.map { case (tr, t) => tr.name -> ((tr, t)) }.map { case (_, (tr, t)) => tr -> t }
           Many(distinctByName)
-        case (errors, _, _, _) => Error(errors.mkString(", "))
+        case (errors, _, _, _) => Error(errors.flatten)
       }
   }
 
-  def parentParameter(name: Name, ref: TypeRef, isRequired: Boolean): (Name, Prop) = {
-    val param = ParamTree(
-      name       = name,
-      isImplicit = false,
-      isVal      = false,
-      tpe        = ref,
-      default    = if (isRequired) NotImplemented else ExprTree.Null,
-      comments   = NoComments,
-    )
+  def parentParameter(name: Name, typeRef: TypeRef, isRequired: Boolean): (Name, Prop) = {
     import ExprTree._
-
-    def fn(obj: Name): ExprTree = {
-      val assign = Call(Ref(QualifiedName.DynamicGlobalObjectAssign), IArray(IArray(Ref(obj), Ref(name))))
-      if (isRequired) assign else If(BinaryOp(Ref(name), "!=", Null), assign, None)
-    }
-
-    val main = Prop.Variant(param, Right(fn))
-    name -> Prop(main, isInherited = true, Left(ref))
+    name -> Prop.CompressedProp(
+      name,
+      typeRef,
+      ref => Call(Ref(QualifiedName.DynamicGlobalObjectAssign), IArray(IArray(ref, Ref(name)))),
+      isRequired,
+    )
   }
-
-  case class Filtered[No](yes: IArray[Prop], no: No)
-
-  def keepAll(p: IArray[Prop]): (IArray[Prop], Unit) = (p, ())
 }
 
-final class FindProps(cleanIllegalNames: CleanIllegalNames) {
+final class FindProps(
+    cleanIllegalNames: CleanIllegalNames,
+    memberToProp:      MemberToProp,
+    parentsResolver:   ParentsResolver,
+) {
 
-  def forType[No](
+  def forType(
       typeRef:            TypeRef,
       tparams:            IArray[TypeParamTree],
       scope:              TreeScope,
-      memberToProp:       MemberToProp,
       maxNum:             Int,
       acceptNativeTraits: Boolean,
-      keep:               IArray[Prop] => (IArray[Prop], No),
-  ): Res[FindProps.Filtered[No]] =
+  ): Res[IArray[String], IArray[Prop]] =
     FollowAliases(scope)(typeRef) match {
-      case TypeRef.Intersection(types) =>
-        val results: IArray[Res[FindProps.Filtered[No]]] =
-          types.map(tpe => forType(tpe, tparams, scope, memberToProp, maxNum, acceptNativeTraits, keep))
+      case TypeRef.Intersection(types, _) =>
+        val results: IArray[Res[IArray[String], IArray[Prop]]] =
+          types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits))
 
         results.partitionCollect3({ case x @ Res.Error(_) => x }, { case x @ Res.Many(_) => x }, {
           case x @ Res.One(_, _)                          => x
         }) match {
           case (Empty, Empty, ones, _) =>
-            val yes = ones.flatMap(_.value.yes).sorted.distinctBy(_.main.tree.name)
-            val no  = ones.head.value.no
-            Res.One(typeRef, FindProps.Filtered(yes, no))
+            Res.One(typeRef, ones.flatMap(_.value).sorted.distinctBy(_.name))
           case (Empty, _, _, _) =>
-            Res.Error("Support for combinations of intersection and union types not implemented")
+            Res.Error(IArray("Support for combinations of intersection and union types not implemented"))
           case (errors, _, _, _) =>
-            Res.Error(s"Couldn't find props for $typeRef because: ${errors.map(_.msg).mkString(", ")}")
+            Res.Error(
+              IArray(
+                s"Couldn't find props for ${Printer.formatTypeRef(0)(typeRef)} because: ${errors.map(_.msg).mkString(", ")}",
+              ),
+            )
         }
-      case TypeRef.Union(types) =>
-        Res.combine(types.map(tpe => forType(tpe, tparams, scope, memberToProp, maxNum, acceptNativeTraits, keep)))
+
+      case TypeRef.Union(types, _) =>
+        Res.combine(types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits)))
 
       case other =>
         val retOpt = scope lookup other.typeName collectFirst {
@@ -120,26 +117,25 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
             forClassTree(
               cls,
               scope / cls,
-              memberToProp,
               maxNum             = maxNum,
               acceptNativeTraits = acceptNativeTraits,
-              keep               = keep,
               selfRef            = other,
             )
         }
 
-        retOpt.getOrElse(Res.Error(s"Could't extract props from $other because couldn't resolve ClassTree."))
+        retOpt.getOrElse {
+          val msg = s"Could't extract props from ${Printer.formatTypeRef(0)(other)} because couldn't resolve ClassTree."
+          Res.Error(IArray(msg))
+        },
     }
 
-  def forClassTree[No](
+  def forClassTree(
       cls:                ClassTree,
       scope:              TreeScope,
-      memberToProp:       MemberToProp,
       maxNum:             Int,
       acceptNativeTraits: Boolean,
-      keep:               IArray[Prop] => (IArray[Prop], No),
       selfRef:            TypeRef,
-  ): Res[FindProps.Filtered[No]] =
+  ): Res[IArray[String], IArray[Prop]] =
     cls.comments.extract { case UnionToInheritance.WasUnion(subclassRefs) => subclassRefs } match {
       case Some((subclassRefs, _)) =>
         Res.combine(subclassRefs.map { subClsRef =>
@@ -148,16 +144,19 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
             .collectFirst {
               case (subCls: ClassTree, _) =>
                 val subCls_ = FillInTParams(subCls, scope, subClsRef.targs, cls.tparams)
-                forClassTree(subCls_, scope, memberToProp, maxNum, acceptNativeTraits, keep, subClsRef)
+                forClassTree(subCls_, scope, maxNum, acceptNativeTraits, subClsRef)
             }
-            .getOrElse(Res.Error(s"Could not find ${subClsRef.typeName}"))
+            .getOrElse {
+              val msg = s"Could not find ${Printer.formatTypeRef(0)(subClsRef)}"
+              Res.Error(IArray(msg))
+            }
         })
 
       case None =>
-        if (cls.classType =/= ClassType.Trait) Res.Error("Not a trait")
-        else if (!acceptNativeTraits && !cls.receivesCompanion) Res.Error("Not a @ScalaJSDefined trait")
+        if (cls.classType =/= ClassType.Trait) Res.Error(IArray("Not a trait"))
+        else if (!acceptNativeTraits && !cls.receivesCompanion) Res.Error(IArray("Not a @ScalaJSDefined trait"))
         else {
-          val parents = ParentsResolver(scope, cls)
+          val parents = parentsResolver(scope, cls)
 
           /* treat dictionaries specially, as they have no declared members */
           val (treatAsUnresolved, keptDirectParents) =
@@ -180,6 +179,11 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
               .visitClassTree(scope)(cls)
               .members
               .collect { case x: MemberTree => x }
+              /* worthless and for instance `(???: js.UndefOr[Nothing]).get` doesn't compile */
+              .filter {
+                case FieldTree(_, _, Optionality(_, TypeRef.Nothing), _, _, _, _, _) => false
+                case _                                                               => true
+              }
               .groupBy(x => realNameFrom(x.annotations, x.name))
               .collect {
                 case (name, ms) if name =/= Name.APPLY && name =/= Name.namespaced => name -> combine(ms).renamed(name)
@@ -193,7 +197,7 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
             *
             * Compressing in this context means to take a whole object which corresponds to a parent type
             */
-          val propsStream: Stream[FindProps.Filtered[No]] =
+          val propsStream: Stream[IArray[Prop]] =
             Stream.range(0, keptDirectParents.length + 1).reverse.map { n =>
               val inlineParents     = keptDirectParents.take(n)
               val compressedParents = keptDirectParents.drop(n)
@@ -219,15 +223,14 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
               /** It's not *the* most precise way of going about this (will lose useful overloads),
                 *  but has the nice property that it keeps the closest/most specific definition of a member
                 * */
-              val all       = inlinedPropsFromParent ++ unresolvedProps ++ compressedProps ++ ownProps
-              val (yes, no) = keep(IArray.fromTraversable(all).map(_._2))
+              val all = inlinedPropsFromParent ++ unresolvedProps ++ compressedProps ++ ownProps
 
-              FindProps.Filtered(yes.sorted, no)
+              all.toIArrayValues.sorted
             }
 
-          val valid: Option[FindProps.Filtered[No]] =
-            propsStream.find(_.yes.length <= maxNum) orElse
-              propsStream.lastOption.map(filtered => filtered.copy(yes = filtered.yes.take(maxNum)))
+          val valid: Option[IArray[Prop]] =
+            propsStream.find(_.length <= maxNum) orElse
+              propsStream.lastOption.map(filtered => filtered.take(maxNum))
 
           valid match {
             case Some(props) => Res.One(selfRef, props)
@@ -249,13 +252,13 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
               paramsForMethods.map(paramsForMethod =>
                 if (paramsForMethod.isDefinedAt(idx)) paramsForMethod(idx).tpe else TypeRef.undefined,
               )
-            param.copy(tpe = TypeRef.Union(forIdx, sort = true))
+            param.copy(tpe = TypeRef.Union(forIdx, NoComments, sort = true))
         }
-        val resultType = TypeRef.Union(methods.map(_.resultType), sort = true)
+        val resultType = TypeRef.Union(methods.map(_.resultType), NoComments, sort = true)
         methods.head.copy(tparams = tparams, params = IArray(params), resultType = resultType)
       case (IArray.exactlyOne(field), _, IArray.Empty) => field
       case (fields, _, IArray.Empty) if fields.nonEmpty =>
-        fields.head.copy(tpe = TypeRef.Union(fields.map(_.tpe), sort = true))
+        fields.head.copy(tpe = TypeRef.Union(fields.map(_.tpe), NoComments, sort = true))
 
       case other => sys.error(s"Unexpected: ${other}")
     }
@@ -263,9 +266,9 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
   private def realNameFrom(anns: IArray[Annotation], fallback: Name): Name =
     anns
       .collectFirst {
-        case Annotation.JsName(name)                       => name
-        case Annotation.JsImport(_, Imported.Named(names)) => names.last
-        case Annotation.JsGlobal(qname)                    => qname.parts.last
+        case Annotation.JsName(name)                          => name
+        case Annotation.JsImport(_, Imported.Named(names), _) => names.last
+        case Annotation.JsGlobal(qname)                       => qname.parts.last
       }
       .filterNot(cleanIllegalNames.Illegal)
       .map(Name.necessaryRewrite)

@@ -10,9 +10,8 @@ trait VNodeChildrenArrayContents extends /* x */ NumberDictionary[VNode | String
 
 object VNodeChildrenArrayContents {
   @scala.inline
-  def apply(NumberDictionary: /* x */ NumberDictionary[VNode | String | VNodeChildren] = null): VNodeChildrenArrayContents = {
+  def apply(): VNodeChildrenArrayContents = {
     val __obj = js.Dynamic.literal()
-    if (NumberDictionary != null) js.Dynamic.global.Object.assign(__obj, NumberDictionary)
     __obj.asInstanceOf[VNodeChildrenArrayContents]
   }
 }

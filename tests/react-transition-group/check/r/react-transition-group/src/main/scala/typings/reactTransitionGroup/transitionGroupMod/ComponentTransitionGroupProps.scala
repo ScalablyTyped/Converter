@@ -12,9 +12,24 @@ trait ComponentTransitionGroupProps[T /* <: ReactType[_] */] extends js.Object {
 
 object ComponentTransitionGroupProps {
   @scala.inline
-  def apply[T /* <: ReactType[_] */](component: T): ComponentTransitionGroupProps[T] = {
+  def apply[T](component: T): ComponentTransitionGroupProps[T] = {
     val __obj = js.Dynamic.literal(component = component.asInstanceOf[js.Any])
     __obj.asInstanceOf[ComponentTransitionGroupProps[T]]
   }
+  @scala.inline
+  implicit class ComponentTransitionGroupPropsOps[Self <: ComponentTransitionGroupProps[_], T] (val x: Self with ComponentTransitionGroupProps[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setComponent(value: T): Self = this.set("component", value.asInstanceOf[js.Any])
+  }
+  
 }
 

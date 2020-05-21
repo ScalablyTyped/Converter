@@ -2,6 +2,7 @@ package typingsSlinky.react.mod
 
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
+import slinky.web.SyntheticAnimationEvent
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -39,5 +40,24 @@ object AnimationEvent {
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[AnimationEvent[T]]
   }
+  @scala.inline
+  implicit class AnimationEventOps[Self <: SyntheticAnimationEvent[_], T] (val x: Self with SyntheticAnimationEvent[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setAnimationName(value: String): Self = this.set("animationName", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setElapsedTime(value: Double): Self = this.set("elapsedTime", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setPseudoElement(value: String): Self = this.set("pseudoElement", value.asInstanceOf[js.Any])
+  }
+  
 }
 

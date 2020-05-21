@@ -62,5 +62,42 @@ object KeyboardEvent {
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[KeyboardEvent[T]]
   }
+  @scala.inline
+  implicit class KeyboardEventOps[Self <: KeyboardEvent[_], T] (val x: Self with KeyboardEvent[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setAltKey(value: Boolean): Self = this.set("altKey", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setCharCode(value: Double): Self = this.set("charCode", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setCtrlKey(value: Boolean): Self = this.set("ctrlKey", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setGetModifierState(value: String => Boolean): Self = this.set("getModifierState", js.Any.fromFunction1(value))
+    @scala.inline
+    def setKey(value: String): Self = this.set("key", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setKeyCode(value: Double): Self = this.set("keyCode", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setLocale(value: String): Self = this.set("locale", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setLocation(value: Double): Self = this.set("location", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setMetaKey(value: Boolean): Self = this.set("metaKey", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setRepeat(value: Boolean): Self = this.set("repeat", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setShiftKey(value: Boolean): Self = this.set("shiftKey", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setWhich(value: Double): Self = this.set("which", value.asInstanceOf[js.Any])
+  }
+  
 }
 

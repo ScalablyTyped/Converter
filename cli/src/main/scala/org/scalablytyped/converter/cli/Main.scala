@@ -48,6 +48,7 @@ object Main {
     expandTypeMappings    = EnabledTypeMappingExpansion.DefaultSelection,
     versions              = Versions(Versions.Scala213, Versions.ScalaJs1),
     organization          = "org.scalablytyped",
+    enableImplicitOps     = false,
   )
 
   case class Config(
@@ -162,6 +163,9 @@ object Main {
       opt[Seq[TsIdentLibrary]]("ignoredLibs")
         .action((x, c) => c.mapConversion(_.copy(ignoredLibs = x.toSet)))
         .text(s"Libraries you want to ignore"),
+      opt[Boolean]("experimentalEnableImplicitOps")
+        .action((x, c) => c.mapConversion(_.copy(enableImplicitOps = x)))
+        .text(s"Enable implicit ops"),
       opt[ProjectName]("publish-to-bintray-repo")
         .action((x, c) => c.copy(publishBintrayRepo = Some(x)))
         .text(
@@ -243,6 +247,7 @@ object Main {
 //            "ignoredModulePrefixes" -> conversion.ignoredModulePrefixes.toString,
             "versions" -> conversion.versions.toString,
             "organization" -> conversion.organization,
+            "experimentalEnableImplicitOps" -> conversion.enableImplicitOps.toString,
           ),
         )
 
@@ -255,8 +260,6 @@ object Main {
           Source.fromNodeModules(InFolder(nodeModulesPath), conversion, wantedLibs)
 
         val sources = _sources ++ projectSource
-        val flavour = flavourImpl.forConversion(conversion)
-
         val Pipeline: RecPhase[Source, PublishedSbtProject] =
           RecPhase[Source]
             .next(
@@ -280,7 +283,7 @@ object Main {
               ),
               "scala.js",
             )
-            .next(new PhaseFlavour(flavour), flavour.toString)
+            .next(new PhaseFlavour(conversion.flavourImpl), conversion.flavourImpl.toString)
             .next(
               new Phase3Compile(
                 resolve                    = libraryResolver,
@@ -292,7 +295,7 @@ object Main {
                 publishLocalFolder         = constants.defaultLocalPublishFolder,
                 metadataFetcher            = Npmjs.No,
                 softWrites                 = true,
-                flavour                    = flavour,
+                flavour                    = conversion.flavourImpl,
                 generateScalaJsBundlerFile = false,
                 ensureSourceFilesWritten   = true,
               ),

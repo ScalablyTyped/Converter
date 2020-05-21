@@ -2,7 +2,9 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-class IdentifyReactComponents(reactNames: ReactNames) {
+import org.scalablytyped.converter.internal.maps._
+
+class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsResolver) {
   def length(qualifiedName: QualifiedName): Int =
     qualifiedName.parts.foldLeft(0)(_ + _.unescaped.length)
 
@@ -19,9 +21,9 @@ class IdentifyReactComponents(reactNames: ReactNames) {
     val preferDefault = c.scalaRef.name === Name.Default
     /* because some libraries expect you to use top-level imports. shame for the tree shakers */
     val preferShortModuleName = c.location match {
-      case Annotation.JsGlobalScope       => 0
-      case Annotation.JsImport(module, _) => -module.length
-      case Annotation.JsGlobal(name)      => -length(name)
+      case Annotation.JsGlobalScope          => 0
+      case Annotation.JsImport(module, _, _) => -module.length
+      case Annotation.JsGlobal(name)         => -length(name)
     }
 
     (preferNotSrc, preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
@@ -63,12 +65,9 @@ class IdentifyReactComponents(reactNames: ReactNames) {
 
   /* just one of each component (determined by name), which one is chosen by the `Ordering` implicit above */
   def oneOfEach(scope: TreeScope, tree: ContainerTree): IArray[Component] =
-    IArray
-      .fromTraversable(
-        all(scope, tree)
-          .groupBy(_.fullName)
-          .map { case (_, sameName) => sameName.max },
-      )
+    all(scope, tree)
+      .groupBy(_.fullName)
+      .mapToIArray { case (_, sameName) => sameName.max }
       .sortBy(_.fullName)
 
   val Unnamed = Set(Name.Default, Name.namespaced, Name.APPLY)
@@ -77,16 +76,19 @@ class IdentifyReactComponents(reactNames: ReactNames) {
     def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
       if (reactNames.isElement(current.typeName)) Some(current)
       else if (scope.isAbstract(current)) None
-      else {
-        scope
-          .lookup(current.typeName)
-          .firstDefined {
-            case (x: TypeAliasTree, newScope) =>
-              val rewritten = FillInTParams(x, newScope, current.targs, Empty)
-              returnsElement(scope, rewritten.alias)
-            case _ => None
-          }
-      }
+      else
+        current match {
+          case Optionality(opt, base) if opt =/= Optionality.No => returnsElement(scope, base)
+          case _ =>
+            scope
+              .lookup(current.typeName)
+              .firstDefined {
+                case (x: TypeAliasTree, newScope) =>
+                  val rewritten = FillInTParams(x, newScope, current.targs, Empty)
+                  returnsElement(scope, rewritten.alias)
+                case _ => None
+              }
+        }
 
     val flattenedParams = method.params.flatten
 
@@ -145,7 +147,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
           .firstDefined {
             case (x: ClassTree, newScope) =>
               val rewritten = FillInTParams(x, newScope, current.targs, Empty)
-              ParentsResolver(newScope, rewritten).transitiveParents.collectFirst {
+              parentsResolver(newScope, rewritten).transitiveParents.collectFirst {
                 case (tr, _) => pointsAtComponentType(newScope, tr)
               }.flatten
             case (x: TypeAliasTree, newScope) =>
@@ -187,6 +189,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
               isOverride = false,
               comments   = field.comments,
               codePath   = field.codePath,
+              isImplicit = false,
             ),
             owner,
             scope,
@@ -200,7 +203,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
   def maybeClassComponent(cls: ClassTree, owner: ContainerTree, scope: TreeScope): Option[Component] =
     if (cls.classType =/= ClassType.Class) None
     else
-      ParentsResolver(scope, cls).transitiveParents.collectFirst {
+      parentsResolver(scope, cls).transitiveParents.collectFirst {
         case (tr @ TypeRef(_, IArray.first(props), _), _) if reactNames isComponent tr =>
           Component(
             location        = locationFrom(scope),
@@ -255,7 +258,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
       */
     def extractPrefix(scope: TreeScope): IArray[Name] = {
 
-      val containers  = scope.stack.dropRight(2).collect { case x: ContainerTree => x } // drop typings and lib
+      val containers  = scope.stack.dropRight(2).collect { case x: ContainerTree if x.name =/= Name.global => x } // drop typings and lib
       val kept        = IArray.Builder.empty[Name]
       var idx         = 0
       var seenUnnamed = false
@@ -288,9 +291,9 @@ class IdentifyReactComponents(reactNames: ReactNames) {
 
     def fromAnnotations(anns: IArray[Annotation]): Option[Name] =
       anns collectFirst {
-        case Annotation.JsName(name)                                               => name
-        case Annotation.JsImport(_, Imported.Named(names)) if !Unnamed(names.last) => names.last
-        case Annotation.JsImport(mod, _) =>
+        case Annotation.JsName(name)                                                  => name
+        case Annotation.JsImport(_, Imported.Named(names), _) if !Unnamed(names.last) => names.last
+        case Annotation.JsImport(mod, _, _) =>
           Name.necessaryRewrite(Name(mod.split("/").filterNot(x => Unnamed(Name(x))).last))
         case Annotation.JsGlobal(qname) => qname.parts.last
       }
@@ -337,27 +340,33 @@ class IdentifyReactComponents(reactNames: ReactNames) {
       idx += 1
     }
 
-    val ret = baseLocationOpt match {
-      case Some(baseLocation) =>
-        after.foldLeft(baseLocation) {
-          case (ann, tree) if tree.name === Name.APPLY => ann
-          case (Annotation.JsImport(mod, imported), tree) =>
-            val newImported: Imported =
-              imported match {
-                case Imported.Namespace =>
-                  tree.name match {
-                    case Name.Default => Imported.Default
-                    case other        => Imported.Named(IArray(other))
-                  }
-                case Imported.Default     => Imported.Named(IArray(Name.Default, tree.name))
-                case Imported.Named(name) => Imported.Named(name :+ tree.name)
-              }
-            Annotation.JsImport(mod, newImported)
-          case (Annotation.JsGlobal(name), tree) => Annotation.JsGlobal(name + tree.name)
-          case (Annotation.JsGlobalScope, tree)  => Annotation.JsGlobal(QualifiedName(IArray(tree.name)))
+    def addTreeToImport(`import`: LocationAnnotation, tree: Tree): LocationAnnotation =
+      (`import`, tree) match {
+        case (ann, tree) if tree.name === Name.APPLY => ann
+        case (Annotation.JsImport(mod, imported, globalOpt), tree) =>
+          val newImported: Imported =
+            imported match {
+              case Imported.Namespace =>
+                tree.name match {
+                  case Name.Default => Imported.Default
+                  case other        => Imported.Named(IArray(other))
+                }
+              case Imported.Default     => Imported.Named(IArray(Name.Default, tree.name))
+              case Imported.Named(name) => Imported.Named(name :+ tree.name)
+            }
 
-        }
-      case None => sys.error("Couldnt find base location for component")
+          val newGlobal = globalOpt map {
+            case Annotation.JsGlobal(old) => Annotation.JsGlobal(old + tree.name)
+          }
+
+          Annotation.JsImport(mod, newImported, newGlobal)
+        case (Annotation.JsGlobal(name), tree) => Annotation.JsGlobal(name + tree.name)
+        case (Annotation.JsGlobalScope, tree)  => Annotation.JsGlobal(QualifiedName(IArray(tree.name)))
+
+      }
+    val ret = baseLocationOpt match {
+      case Some(baseLocation) => after.foldLeft(baseLocation)(addTreeToImport)
+      case None               => sys.error("Couldnt find base location for component")
     }
     ret
   }

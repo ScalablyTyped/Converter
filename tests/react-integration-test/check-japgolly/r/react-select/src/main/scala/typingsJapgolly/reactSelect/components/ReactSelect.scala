@@ -15,14 +15,14 @@ import scala.scalajs.js.annotation._
 object ReactSelect {
   def apply[TValue](
     addLabelText: String = null,
-    key: js.UndefOr[Key] = js.undefined,
+    key: Key = null,
     _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[ReactSelectProps[TValue], default[TValue], Unit, ReactSelectProps[TValue]] = {
     val __obj = js.Dynamic.literal()
     if (addLabelText != null) __obj.updateDynamic("addLabelText")(addLabelText.asInstanceOf[js.Any])
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     val f = force[ReactSelectProps[TValue], Varargs, default[TValue]](this.componentImport)
     f(__obj.asInstanceOf[ReactSelectProps[TValue]])(children :_*)

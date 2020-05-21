@@ -34,32 +34,70 @@ trait Options extends js.Object {
 
 object Options {
   @scala.inline
-  def apply(
-    cancelable: js.UndefOr[Boolean] = js.undefined,
-    container: String | Element = null,
-    duration: Int | Double = null,
-    easing: String = null,
-    el: String | Element = null,
-    element: String | Element = null,
-    offset: Int | Double = null,
-    onCancel: js.Function0[Unit] | `false` = null,
-    onDone: js.Function0[Unit] | `false` = null,
-    x: js.UndefOr[Boolean] = js.undefined,
-    y: js.UndefOr[Boolean] = js.undefined
-  ): Options = {
+  def apply(): Options = {
     val __obj = js.Dynamic.literal()
-    if (!js.isUndefined(cancelable)) __obj.updateDynamic("cancelable")(cancelable.asInstanceOf[js.Any])
-    if (container != null) __obj.updateDynamic("container")(container.asInstanceOf[js.Any])
-    if (duration != null) __obj.updateDynamic("duration")(duration.asInstanceOf[js.Any])
-    if (easing != null) __obj.updateDynamic("easing")(easing.asInstanceOf[js.Any])
-    if (el != null) __obj.updateDynamic("el")(el.asInstanceOf[js.Any])
-    if (element != null) __obj.updateDynamic("element")(element.asInstanceOf[js.Any])
-    if (offset != null) __obj.updateDynamic("offset")(offset.asInstanceOf[js.Any])
-    if (onCancel != null) __obj.updateDynamic("onCancel")(onCancel.asInstanceOf[js.Any])
-    if (onDone != null) __obj.updateDynamic("onDone")(onDone.asInstanceOf[js.Any])
-    if (!js.isUndefined(x)) __obj.updateDynamic("x")(x.asInstanceOf[js.Any])
-    if (!js.isUndefined(y)) __obj.updateDynamic("y")(y.asInstanceOf[js.Any])
     __obj.asInstanceOf[Options]
   }
+  @scala.inline
+  implicit class OptionsOps[Self <: Options] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setCancelable(value: Boolean): Self = this.set("cancelable", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteCancelable: Self = this.set("cancelable", js.undefined)
+    @scala.inline
+    def setContainer(value: String | Element): Self = this.set("container", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteContainer: Self = this.set("container", js.undefined)
+    @scala.inline
+    def setDuration(value: Double): Self = this.set("duration", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteDuration: Self = this.set("duration", js.undefined)
+    @scala.inline
+    def setEasing(value: String): Self = this.set("easing", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteEasing: Self = this.set("easing", js.undefined)
+    @scala.inline
+    def setEl(value: String | Element): Self = this.set("el", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteEl: Self = this.set("el", js.undefined)
+    @scala.inline
+    def setElement(value: String | Element): Self = this.set("element", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteElement: Self = this.set("element", js.undefined)
+    @scala.inline
+    def setOffset(value: Double): Self = this.set("offset", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteOffset: Self = this.set("offset", js.undefined)
+    @scala.inline
+    def setOnCancelFunction0(value: () => Unit): Self = this.set("onCancel", js.Any.fromFunction0(value))
+    @scala.inline
+    def setOnCancel(value: js.Function0[Unit] | `false`): Self = this.set("onCancel", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteOnCancel: Self = this.set("onCancel", js.undefined)
+    @scala.inline
+    def setOnDoneFunction0(value: () => Unit): Self = this.set("onDone", js.Any.fromFunction0(value))
+    @scala.inline
+    def setOnDone(value: js.Function0[Unit] | `false`): Self = this.set("onDone", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteOnDone: Self = this.set("onDone", js.undefined)
+    @scala.inline
+    def setX(value: Boolean): Self = this.set("x", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteX: Self = this.set("x", js.undefined)
+    @scala.inline
+    def setY(value: Boolean): Self = this.set("y", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteY: Self = this.set("y", js.undefined)
+  }
+  
 }
 

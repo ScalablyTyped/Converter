@@ -14,18 +14,44 @@ trait PropOptions[T] extends js.Object {
 
 object PropOptions {
   @scala.inline
-  def apply[T](
-    default: T | js.Function0[js.Object] = null,
-    required: js.UndefOr[Boolean] = js.undefined,
-    `type`: Prop[T] | js.Array[Prop[T]] = null,
-    validator: /* value */ T => Boolean = null
-  ): PropOptions[T] = {
+  def apply[T](): PropOptions[T] = {
     val __obj = js.Dynamic.literal()
-    if (default != null) __obj.updateDynamic("default")(default.asInstanceOf[js.Any])
-    if (!js.isUndefined(required)) __obj.updateDynamic("required")(required.asInstanceOf[js.Any])
-    if (`type` != null) __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    if (validator != null) __obj.updateDynamic("validator")(js.Any.fromFunction1(validator))
     __obj.asInstanceOf[PropOptions[T]]
   }
+  @scala.inline
+  implicit class PropOptionsOps[Self <: PropOptions[_], T] (val x: Self with PropOptions[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setDefaultFunction0(value: () => js.Object): Self = this.set("default", js.Any.fromFunction0(value))
+    @scala.inline
+    def setDefault(value: T | js.Function0[js.Object]): Self = this.set("default", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteDefault: Self = this.set("default", js.undefined)
+    @scala.inline
+    def setDefaultNull: Self = this.set("default", null)
+    @scala.inline
+    def setRequired(value: Boolean): Self = this.set("required", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteRequired: Self = this.set("required", js.undefined)
+    @scala.inline
+    def setTypeFunction0(value: () => T): Self = this.set("type", js.Any.fromFunction0(value))
+    @scala.inline
+    def setType(value: Prop[T] | js.Array[Prop[T]]): Self = this.set("type", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteType: Self = this.set("type", js.undefined)
+    @scala.inline
+    def setValidator(value: /* value */ T => Boolean): Self = this.set("validator", js.Any.fromFunction1(value))
+    @scala.inline
+    def deleteValidator: Self = this.set("validator", js.undefined)
+  }
+  
 }
 

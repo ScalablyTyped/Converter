@@ -1,6 +1,7 @@
 package typingsJapgolly.reactContextmenu.mod
 
 import japgolly.scalajs.react.CallbackTo
+import japgolly.scalajs.react.raw.React.ComponentClassP
 import typingsJapgolly.react.mod.HTMLAttributes
 import typingsJapgolly.react.mod.ReactType
 import scala.scalajs.js
@@ -19,21 +20,46 @@ trait ContextMenuTriggerProps extends js.Object {
 
 object ContextMenuTriggerProps {
   @scala.inline
-  def apply(
-    id: String,
-    attributes: HTMLAttributes[_] = null,
-    collect: /* data */ js.Any => CallbackTo[js.Any] = null,
-    disable: js.UndefOr[Boolean] = js.undefined,
-    holdToDisplay: Int | Double = null,
-    renderTag: ReactType[_] = null
-  ): ContextMenuTriggerProps = {
+  def apply(id: String): ContextMenuTriggerProps = {
     val __obj = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
-    if (attributes != null) __obj.updateDynamic("attributes")(attributes.asInstanceOf[js.Any])
-    if (collect != null) __obj.updateDynamic("collect")(js.Any.fromFunction1((t0: /* data */ js.Any) => collect(t0).runNow()))
-    if (!js.isUndefined(disable)) __obj.updateDynamic("disable")(disable.asInstanceOf[js.Any])
-    if (holdToDisplay != null) __obj.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
-    if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag.asInstanceOf[js.Any])
     __obj.asInstanceOf[ContextMenuTriggerProps]
   }
+  @scala.inline
+  implicit class ContextMenuTriggerPropsOps[Self <: ContextMenuTriggerProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setId(value: String): Self = this.set("id", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setAttributes(value: HTMLAttributes[_]): Self = this.set("attributes", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteAttributes: Self = this.set("attributes", js.undefined)
+    @scala.inline
+    def setCollect(value: /* data */ js.Any => CallbackTo[js.Any]): Self = this.set("collect", js.Any.fromFunction1((t0: /* data */ js.Any) => value(t0).runNow()))
+    @scala.inline
+    def deleteCollect: Self = this.set("collect", js.undefined)
+    @scala.inline
+    def setDisable(value: Boolean): Self = this.set("disable", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteDisable: Self = this.set("disable", js.undefined)
+    @scala.inline
+    def setHoldToDisplay(value: Double): Self = this.set("holdToDisplay", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteHoldToDisplay: Self = this.set("holdToDisplay", js.undefined)
+    @scala.inline
+    def setRenderTagComponentClass(value: ComponentClassP[js.Object]): Self = this.set("renderTag", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setRenderTag(value: ReactType[_]): Self = this.set("renderTag", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteRenderTag: Self = this.set("renderTag", js.undefined)
+  }
+  
 }
 

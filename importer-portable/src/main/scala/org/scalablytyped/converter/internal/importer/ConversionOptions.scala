@@ -3,7 +3,7 @@ package internal
 package importer
 
 import io.circe013.{Decoder, Encoder}
-import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
+import org.scalablytyped.converter.internal.scalajs.{flavours, Name, Versions}
 
 case class ConversionOptions(
     useScalaJsDomTypes:    Boolean,
@@ -16,7 +16,21 @@ case class ConversionOptions(
     ignoredModulePrefixes: Set[List[String]],
     versions:              Versions,
     organization:          String,
-)
+    enableImplicitOps:     Boolean,
+) {
+  val flavourImpl: flavours.FlavourImpl =
+    flavour match {
+      case Flavour.Normal =>
+        flavours.NormalFlavour(shouldGenerateComponents = true, useScalaJsDomTypes, enableImplicitOps, outputPackage)
+      case Flavour.Slinky =>
+        flavours.SlinkyFlavour(outputPackage, enableImplicitOps)
+      case Flavour.SlinkyNative =>
+        flavours.SlinkyNativeFlavour(outputPackage, enableImplicitOps)
+      case Flavour.Japgolly =>
+        flavours.JapgollyFlavour(outputPackage, enableImplicitOps)
+    }
+
+}
 
 object ConversionOptions {
   import io.circe013.generic.auto._

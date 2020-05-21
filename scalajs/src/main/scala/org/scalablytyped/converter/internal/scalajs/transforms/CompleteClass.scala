@@ -2,27 +2,30 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
+import org.scalablytyped.converter.internal.maps._
+import CompleteClass._
+
 /**
   * With @ScalaJSDefined traits we don't implement members.
   * Scalac complains about that for classes, so we provide implementations.
   *
   * We lookup all parents until we reach a class, because at that point
-  *  we know everything will be implemented.
+  * we know everything will be implemented.
   *
   * We also forward constructors from parent class, as in typescript
-  *  it seems you can instantiate a class with a parents constructor,
-  *  weirdly enough.
+  * it seems you can instantiate a class with a parents constructor,
+  * weirdly enough.
   *
   */
-object CompleteClass extends TreeTransformation {
+class CompleteClass(parentsResolver: ParentsResolver) extends TreeTransformation {
 
   override def leaveModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree =
     mod.copy(
-      members = mod.members ++ implementations(scope, mod, ParentsResolver(scope, mod)),
+      members = mod.members ++ implementations(scope, mod, parentsResolver(scope, mod)),
     )
 
   override def leaveClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
-    val parents = ParentsResolver(scope, cls)
+    val parents = parentsResolver(scope, cls)
 
     val newImplementations: IArray[MemberTree] =
       if (cls.classType === ClassType.Trait) Empty else implementations(scope, cls, parents)
@@ -30,6 +33,30 @@ object CompleteClass extends TreeTransformation {
     cls.copy(members = cls.members ++ newImplementations)
   }
 
+  private def implementations(
+      scope:   TreeScope,
+      c:       InheritanceTree,
+      parents: ParentsResolver.Parents,
+  ): IArray[MemberTree] = {
+
+    val ret = parents.pruneClasses.transitiveParents
+      .flatMapToIArray { case (_, v) => v.members }
+      .collect {
+        case x: FieldTree if x.impl === NotImplemented && !c.index.contains(x.name) =>
+          x.copy(isOverride = true, impl = ExprTree.native, comments = x.comments + Comment("/* CompleteClass */\n"))
+        case x: MethodTree if x.impl === NotImplemented && !isAlreadyImplemented(scope, x, c.index.get(x.name)) =>
+          x.copy(isOverride = true, impl = ExprTree.native, comments = x.comments + Comment("/* CompleteClass */\n"))
+      }
+      .carefulDistinct
+
+    if (ret.nonEmpty)
+      scope.logger.info(s"Completed implementations ${ret.map(_.name.value)}")
+
+    ret
+  }
+}
+
+object CompleteClass {
   def isAlreadyImplemented(scope: TreeScope, potential: MethodTree, existing: Option[IArray[Tree]]): Boolean = {
     lazy val currentErasure = Erasure.base(scope)(potential)
     existing match {
@@ -56,26 +83,4 @@ object CompleteClass extends TreeTransformation {
     }
   }
 
-  private def implementations(
-      scope:   TreeScope,
-      c:       InheritanceTree,
-      parents: ParentsResolver.Parents,
-  ): IArray[MemberTree] = {
-
-    val ret = IArray
-      .fromTraversable(parents.pruneClasses.transitiveParents)
-      .flatMap(_._2.members)
-      .collect {
-        case x: FieldTree if x.impl === NotImplemented && !c.index.contains(x.name) =>
-          x.copy(isOverride = true, impl = ExprTree.native, comments = x.comments + Comment("/* CompleteClass */\n"))
-        case x: MethodTree if x.impl === NotImplemented && !isAlreadyImplemented(scope, x, c.index.get(x.name)) =>
-          x.copy(isOverride = true, impl = ExprTree.native, comments = x.comments + Comment("/* CompleteClass */\n"))
-      }
-      .carefulDistinct
-
-    if (ret.nonEmpty)
-      scope.logger.info(s"Completed implementations ${ret.map(_.name.value)}")
-
-    ret
-  }
 }

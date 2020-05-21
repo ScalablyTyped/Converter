@@ -3,7 +3,7 @@ package scalajs
 
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.internal.scalajs.TypeRef.ThisType
-import org.scalablytyped.converter.internal.scalajs.flavours.{GenJapgollyComponents, GenSlinkyComponents}
+import org.scalablytyped.converter.internal.scalajs.flavours.{JapgollyGenComponents, SlinkyGenComponents}
 
 sealed abstract class TreeScope { outer =>
   def stack: List[Tree]
@@ -86,8 +86,8 @@ object TreeScope {
     private val ExternalsPrefixes: Set[Name] = Set(
       Name.scala,
       Name.java,
-      GenJapgollyComponents.names.japgolly,
-      GenSlinkyComponents.slinkyName,
+      JapgollyGenComponents.names.japgolly,
+      SlinkyGenComponents.slinkyName,
     ) ++ Name.Internal
     private val org = Name("org")
 

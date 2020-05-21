@@ -1,6 +1,6 @@
 import scala.sys.process.stringToProcess
 
-lazy val latestTag = "git tag -l --sort=committerdate".!!.linesIterator.toVector.last.drop(/* 'v' */ 1)
+lazy val latestTag = "git tag -l --sort=committerdate".!!.linesIterator.toVector.last.drop( /* 'v' */ 1)
 
 lazy val utils = project
   .configure(baseSettings, publicationSettings)
@@ -11,7 +11,7 @@ lazy val logging = project
   .settings(libraryDependencies ++= Seq(Deps.sourcecode, Deps.fansi))
 
 lazy val ts = project
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings, publicationSettings, optimize)
   .dependsOn(utils, logging)
   .settings(libraryDependencies += Deps.parserCombinators)
 
@@ -26,15 +26,15 @@ lazy val docs = project
 
 lazy val scalajs = project
   .dependsOn(utils, logging)
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings, publicationSettings, optimize)
   .settings(libraryDependencies ++= Seq(Deps.scalaXml))
 
 lazy val phases = project
   .dependsOn(utils, logging)
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings, publicationSettings, optimize)
 
 lazy val `importer-portable` = project
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings, publicationSettings, optimize)
   .dependsOn(ts, scalajs, phases)
   .enablePlugins(BuildInfoPlugin)
   .settings(
@@ -47,7 +47,7 @@ lazy val `importer-portable` = project
 
 lazy val importer = project
   .dependsOn(`importer-portable`)
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings, publicationSettings, optimize)
   .settings(
     libraryDependencies ++= Seq(
       Deps.bloop,
@@ -74,22 +74,33 @@ lazy val `sbt-converter06` = project
   .configure(pluginSettings, baseSettings, publicationSettings)
   .settings(
     name := "sbt-converter06",
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler-sjs06" % "0.17.0"),
+    Compile / unmanagedSourceDirectories += (`sbt-converter` / Compile / sourceDirectory).value,
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler-sjs06" % "0.18.0"),
   )
 
 lazy val `sbt-converter` = project
   .configure(pluginSettings, baseSettings, publicationSettings)
   .settings(
     name := "sbt-converter",
-    Compile / unmanagedSourceDirectories += (`sbt-converter06` / Compile / sourceDirectory).value,
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.17.0"),
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.18.0"),
   )
 
 lazy val root = project
   .in(file("."))
   .settings(name := "converter-root")
   .configure(baseSettings, preventPublication)
-  .aggregate(logging, utils, phases, ts, scalajs, `importer-portable`, `sbt-converter06`, `sbt-converter`, importer, cli)
+  .aggregate(
+    logging,
+    utils,
+    phases,
+    ts,
+    scalajs,
+    `importer-portable`,
+    `sbt-converter06`,
+    `sbt-converter`,
+    importer,
+    cli,
+  )
 
 lazy val pluginSettings: Project => Project =
   _.dependsOn(`importer-portable`)
@@ -117,7 +128,24 @@ lazy val baseSettings: Project => Project =
     /* disable scaladoc */
     sources in (Compile, doc) := Nil,
     publishArtifact in (Compile, packageDoc) := false,
-    resolvers += Resolver.bintrayRepo("oyvindberg", "converter")
+    resolvers += Resolver.bintrayRepo("oyvindberg", "converter"),
+  )
+
+lazy val optimize: Project => Project =
+  _.settings(
+    scalacOptions ++= Seq(
+      "-opt:l:inline",
+      "-opt:l:method",
+      "-opt:simplify-jumps",
+      "-opt:compact-locals",
+      "-opt:copy-propagation",
+      "-opt:redundant-casts",
+      "-opt:box-unbox",
+      "-opt:nullness-tracking",
+      //      "-opt:closure-invocations",
+      "-opt-inline-from:**",
+      "-opt-warnings",
+    ),
   )
 
 lazy val publicationSettings: Project => Project = _.settings(

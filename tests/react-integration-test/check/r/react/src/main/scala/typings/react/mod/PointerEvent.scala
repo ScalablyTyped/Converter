@@ -67,5 +67,34 @@ object PointerEvent {
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[PointerEvent[T]]
   }
+  @scala.inline
+  implicit class PointerEventOps[Self <: PointerEvent[_], T] (val x: Self with PointerEvent[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setHeight(value: Double): Self = this.set("height", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setIsPrimary(value: Boolean): Self = this.set("isPrimary", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setPointerId(value: Double): Self = this.set("pointerId", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setPointerType(value: mouse | pen | touch): Self = this.set("pointerType", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setPressure(value: Double): Self = this.set("pressure", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setTiltX(value: Double): Self = this.set("tiltX", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setTiltY(value: Double): Self = this.set("tiltY", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setWidth(value: Double): Self = this.set("width", value.asInstanceOf[js.Any])
+  }
+  
 }
 

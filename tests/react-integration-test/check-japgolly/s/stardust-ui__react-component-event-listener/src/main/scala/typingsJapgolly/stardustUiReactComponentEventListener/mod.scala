@@ -1,6 +1,8 @@
 package typingsJapgolly.stardustUiReactComponentEventListener
 
 import japgolly.scalajs.react.raw.React.RefHandle
+import typingsJapgolly.stardustUiReactComponentEventListener.anon.Capture
+import typingsJapgolly.stardustUiReactComponentEventListener.anon.Listener
 import typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventListenerOptions
 import typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventTypes
 import scala.scalajs.js
@@ -20,7 +22,7 @@ object mod extends js.Object {
   @js.native
   object EventListener extends js.Object {
     var displayName: String = js.native
-    var propTypes: AnonCapture | AnonListener = js.native
+    var propTypes: Capture | Listener = js.native
     def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = js.native
     @js.native
     object defaultProps extends js.Object {

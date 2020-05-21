@@ -1,5 +1,7 @@
 package typings.stardustUiReactComponentEventListener
 
+import typings.stardustUiReactComponentEventListener.anon.Capture
+import typings.stardustUiReactComponentEventListener.anon.Listener
 import typings.stardustUiReactComponentEventListener.typesMod.EventListenerOptions
 import typings.stardustUiReactComponentEventListener.typesMod.EventTypes
 import typings.stardustUiReactComponentEventListener.typesMod.TargetRef
@@ -16,7 +18,7 @@ object mod extends js.Object {
   @js.native
   object EventListener extends js.Object {
     var displayName: String = js.native
-    var propTypes: AnonCapture | AnonListener = js.native
+    var propTypes: Capture | Listener = js.native
     def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = js.native
     @js.native
     object defaultProps extends js.Object {

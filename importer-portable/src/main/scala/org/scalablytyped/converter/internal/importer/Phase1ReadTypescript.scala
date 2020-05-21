@@ -3,6 +3,7 @@ package importer
 
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.Selection
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.importer.Phase1Res._
 import org.scalablytyped.converter.internal.importer.Source.TsSource
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
@@ -154,12 +155,11 @@ class Phase1ReadTypescript(
                 TsTreeScope(source.libName, pedantic, deps.map { case (source, lib) => source -> lib.parsed }, logger)
 
               val preprocessed: IArray[TsParsedFile] =
-                IArray.fromTraversable(libParts) map {
+                libParts.mapToIArray {
                   case (helperSource, file) =>
                     logger.info(s"Preprocessing $helperSource")
                     val _1 = modules.InferredDefaultModule(file.file, helperSource.moduleNames.head, logger)
-                    val _2 =
-                      FlattenTrees(_1 +: IArray.fromTraversable(file.toInline).filterNot(_._2.isModule).map(_._2))
+                    val _2 = FlattenTrees(_1 +: file.toInline.toIArrayValues(keep = !_.isModule))
 
                     val _3 = helperSource.moduleNames match {
                       case IArray.exactlyOne(_) => _2
@@ -230,6 +230,7 @@ object Phase1ReadTypescript {
       modules.AugmentModules(scope.caching),
       T.ResolveTypeQueries.visitTsParsedFile(scope.enableUnqualifiedLookup.caching), // before ReplaceExports
       new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.enableUnqualifiedLookup.caching),
+      modules.MoveGlobals.apply,
       FlattenTrees.apply,
       T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
       T.InlineTrivialParents.visitTsParsedFile(scope.caching), //after FlattenTrees and DefaultedTypeArguments
@@ -250,7 +251,7 @@ object Phase1ReadTypescript {
       ).visitTsParsedFile(scope.caching),
       T.ResolveTypeLookups
         .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams
-      T.ExtractInterfaces(libName, scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
+      T.ExtractInterfaces(libName, TsIdent("anon"), scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
       (
         if (involvesReact) T.ExtractClasses
         else T.ExtractClasses >> T.ExpandCallables

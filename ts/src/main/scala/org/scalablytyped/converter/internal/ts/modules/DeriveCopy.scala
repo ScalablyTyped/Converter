@@ -14,16 +14,10 @@ object DeriveCopy {
 
     def codePathFor(name: TsIdent) = ownerCp match {
       case NoPath => x.codePath
-      case hasPath: HasPath => hasPath / name
+      case hasPath: HasPath => hasPath + name
     }
 
     (x, x.name, x.codePath, ownerCp) match {
-      case (x: TsDeclFunction, _, _, ownerCodePath: CodePath.HasPath) =>
-        IArray(SetCodePath.visitTsDeclFunction(ownerCodePath)(rename.foldLeft(x)(_ withName _)))
-
-      case (x: TsDeclVar, _, _, ownerCodePath: CodePath.HasPath) =>
-        IArray(SetCodePath.visitTsDeclVar(ownerCodePath)(rename.foldLeft(x)(_ withName _)))
-
       case (x, _, xCp: HasPath, ownerCp: HasPath)
           if xCp.codePath.parts.length === ownerCp.codePath.parts.length + 1 &&
             xCp.codePath.parts.startsWith(ownerCp.codePath.parts) &&
@@ -35,8 +29,8 @@ object DeriveCopy {
       case (x: TsDeclModule, _, _, ownerCp) =>
         IArray(updatedContainer(ownerCp, x))
 
-      case (x: TsAugmentedModule, name, _, ownerCp) if rename.isEmpty =>
-        IArray(updatedContainer(ownerCp, x.copy(codePath = codePathFor(name))))
+      case (x: TsAugmentedModule, _, _, ownerCp) if rename.isEmpty =>
+        IArray(updatedContainer(ownerCp, x))
       case (_: TsAugmentedModule, _, _, _) if rename.isEmpty =>
         Empty
 
@@ -121,7 +115,7 @@ object DeriveCopy {
       }
 
     (ownerCp, x.withMembers(newMembers)) match {
-      case (p:                   HasPath, xx: TsNamedDecl) => SetCodePath.enterTsNamedDecl(p)(xx)
+      case (p:                   HasPath, xx: TsNamedDecl) => SetCodePath.visitTsNamedDecl(p)(xx)
       case (CodePath.NoPath, xx: TsNamedDecl) => xx
       case wrong => sys.error(s"Unexpected $wrong")
     }

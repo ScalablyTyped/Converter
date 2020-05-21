@@ -7,9 +7,9 @@ import org.scalablytyped.converter.internal.seqs._
 
 /**
   * Sort parents to ensure that if we inherit from a class it
-  *  goes first, and traits are mixins
+  * goes first, and traits are mixins
   */
-object RemoveMultipleInheritance extends TreeTransformation {
+class RemoveMultipleInheritance(parentsResolver: ParentsResolver) extends TreeTransformation {
 
   final case class Dropped(typeRef: TypeRef, because: String, members: IArray[Tree])
 
@@ -32,7 +32,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
   }
 
   def findNewParents(scope: TreeScope, c: InheritanceTree): (Comments, IArray[TypeRef], IArray[Tree]) = {
-    val allParents = ParentsResolver(scope, c)
+    val allParents = parentsResolver(scope, c)
     val first      = firstReferringToClass(allParents) orElse longestInheritance(allParents)
     val remaining  = IArray.fromOption(first) ++ (allParents.directParents filterNot first.contains)
     val (changes, ps) =

@@ -2,6 +2,7 @@ package typingsSlinky.react.mod
 
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
+import slinky.web.SyntheticWheelEvent
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -57,5 +58,26 @@ object WheelEvent {
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[WheelEvent[T]]
   }
+  @scala.inline
+  implicit class WheelEventOps[Self <: SyntheticWheelEvent[_], T] (val x: Self with SyntheticWheelEvent[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setDeltaMode(value: Double): Self = this.set("deltaMode", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setDeltaX(value: Double): Self = this.set("deltaX", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setDeltaY(value: Double): Self = this.set("deltaY", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setDeltaZ(value: Double): Self = this.set("deltaZ", value.asInstanceOf[js.Any])
+  }
+  
 }
 

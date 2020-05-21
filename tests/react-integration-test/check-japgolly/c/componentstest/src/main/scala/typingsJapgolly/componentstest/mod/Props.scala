@@ -14,14 +14,12 @@ trait Props extends js.Object
 object Props {
   @scala.inline
   def A(aCallback: CallbackTo[Double], aMember: Double): Props = {
-    val __obj = js.Dynamic.literal(aMember = aMember.asInstanceOf[js.Any])
-    __obj.updateDynamic("aCallback")(aCallback.toJsFn)
+    val __obj = js.Dynamic.literal(aCallback = aCallback.toJsFn, aMember = aMember.asInstanceOf[js.Any])
     __obj.asInstanceOf[Props]
   }
   @scala.inline
-  def B(bMember: String, bCallback: js.UndefOr[CallbackTo[String]] = js.undefined): Props = {
+  def B(bMember: String): Props = {
     val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
-    bCallback.foreach(p => __obj.updateDynamic("bCallback")(p.toJsFn))
     __obj.asInstanceOf[Props]
   }
 }

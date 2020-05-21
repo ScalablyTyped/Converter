@@ -1,6 +1,5 @@
 package typings.react.mod
 
-import typings.react.AnonHtml
 import typings.react.reactStrings.foo
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -16,25 +15,31 @@ trait HTMLProps[T] extends AllHTMLAttributes[T] {
 
 object HTMLProps {
   @scala.inline
-  def apply[T](
-    defaultValue: foo,
-    onChange: foo,
-    `type`: foo,
-    value: foo,
-    accept: String = null,
-    acceptCharset: String = null,
-    children: ReactNode = null,
-    dangerouslySetInnerHTML: AnonHtml = null,
-    defaultChecked: js.UndefOr[Boolean] = js.undefined
-  ): HTMLProps[T] = {
+  def apply[T](defaultValue: foo, onChange: foo, `type`: foo, value: foo): HTMLProps[T] = {
     val __obj = js.Dynamic.literal(defaultValue = defaultValue.asInstanceOf[js.Any], onChange = onChange.asInstanceOf[js.Any], value = value.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    if (accept != null) __obj.updateDynamic("accept")(accept.asInstanceOf[js.Any])
-    if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset.asInstanceOf[js.Any])
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
-    if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
-    if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked.asInstanceOf[js.Any])
     __obj.asInstanceOf[HTMLProps[T]]
   }
+  @scala.inline
+  implicit class HTMLPropsOps[Self <: HTMLProps[_], T] (val x: Self with HTMLProps[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setDefaultValue(value: foo): Self = this.set("defaultValue", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setOnChange(value: foo): Self = this.set("onChange", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setType(value: foo): Self = this.set("type", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setValue(value: foo): Self = this.set("value", value.asInstanceOf[js.Any])
+  }
+  
 }
 

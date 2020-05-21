@@ -2,35 +2,52 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
+import org.scalablytyped.converter.internal.maps._
 import scala.collection.mutable
 
 object ExtractInterfaces {
+  def apply(inLibrary: TsIdentLibrary, into: TsIdentSimple, scope: TsTreeScope)(file: TsParsedFile): TsParsedFile = {
+    val store   = new ConflictHandlingStore(inLibrary, into)
+    val newFile = new LiftTypeObjects(store).visitTsParsedFile(scope)(file)
 
-  def apply(inLibrary: TsIdentLibrary, scope: TsTreeScope)(file: TsParsedFile): TsParsedFile = {
-    val store = new ConflictHandlingStore(inLibrary)
-    val V     = new LiftTypeObjects(store)
-    val asd   = V.visitTsParsedFile(scope)(file)
-
-    asd.copy(members = asd.members ++ IArray.fromTraversable(store.interfaces.values))
+    store.interfaces.toIArrayValues match {
+      case Empty => newFile
+      case nonEmpty =>
+        newFile.copy(members = newFile.members :+
+          TsDeclNamespace(
+            NoComments,
+            declared = false,
+            into,
+            nonEmpty,
+            CodePath.HasPath(inLibrary, TsQIdent.of(into)),
+            JsLocation.Zero,
+          ),
+        )
+    }
   }
 
-  class ConflictHandlingStore(inLibrary: TsIdent) {
+  class ConflictHandlingStore(inLibrary: TsIdent, into: TsIdentSimple) {
     val interfaces = mutable.Map.empty[TsIdent, TsDeclInterface]
 
-    def addInterface(scope: TsTreeScope, prefix: String, members: IArray[TsMember])(
-        construct:          TsIdentSimple => TsDeclInterface,
+    def addInterface(
+        scope:             TsTreeScope,
+        prefix:            String,
+        members:           IArray[TsMember],
+        referencedTparams: IArray[TsTypeParam],
+    )(
+        construct: TsIdentSimple => TsDeclInterface,
     ): CodePath.HasPath = {
-      val interface = DeriveNonConflictingName(prefix, members) { name =>
-        val interface = construct(name) withCodePath CodePath.HasPath(inLibrary, TsQIdent.of(name))
+      val interface = DeriveNonConflictingName(prefix, members) {
+        case conflict if referencedTparams.exists(_.name === conflict) => None
+        case name =>
+          val interface = construct(name) withCodePath CodePath.HasPath(inLibrary, TsQIdent(IArray(into, name)))
 
-        interfaces get name match {
-          case Some(existing)
-              if existing.members =/= interface.members ||
-                existing.tparams =/= interface.tparams =>
-            None
-          case Some(_) => Some(interface)
-          case None    => Some(interface)
-        }
+          interfaces get name match {
+            case Some(existing) if existing.members =/= interface.members || existing.tparams =/= interface.tparams =>
+              None
+            case Some(_) => Some(interface)
+            case None    => Some(interface)
+          }
 
       }
       interfaces.put(interface.name, interface)
@@ -79,7 +96,7 @@ object ExtractInterfaces {
             }
           }
 
-          val codePath = store.addInterface(scope, prefix, obj.members) { name =>
+          val codePath = store.addInterface(scope, prefix, obj.members, referencedTparams) { name =>
             TsDeclInterface(
               obj.comments.extract { case Markers.NameHint(hint) => hint }.fold(obj.comments)(_._2),
               declared = true,

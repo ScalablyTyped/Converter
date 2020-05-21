@@ -15,7 +15,7 @@ package object typeMappings {
     */ typings.typeMappings.typeMappingsStrings.Proxify with org.scalablytyped.runtime.TopLevel[js.Any]
   type ReturnedPerson = typings.std.ReturnType[js.Function0[typings.typeMappings.Person]]
   type T = typings.std.Pick[
-    typings.typeMappings.AnonName | typings.typeMappings.AnonAge, 
+    typings.typeMappings.anon.Name | typings.typeMappings.anon.Age, 
     typings.typeMappings.typeMappingsStrings.name with typings.typeMappings.typeMappingsStrings.age
   ]
 }

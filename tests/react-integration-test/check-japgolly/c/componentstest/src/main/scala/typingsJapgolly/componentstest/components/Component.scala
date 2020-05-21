@@ -13,9 +13,9 @@ import scala.scalajs.js.annotation._
 
 object Component {
   def A(
-    aMember: Double,
     aCallback: CallbackTo[Double],
-    key: js.UndefOr[Key] = js.undefined,
+    aMember: Double,
+    key: Key = null,
     _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
@@ -25,9 +25,8 @@ object Component {
     Unit, 
     typingsJapgolly.componentstest.mod.A
   ] = {
-    val __obj = js.Dynamic.literal(aMember = aMember.asInstanceOf[js.Any])
-    __obj.updateDynamic("aCallback")(aCallback.toJsFn)
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    val __obj = js.Dynamic.literal(aCallback = aCallback.toJsFn, aMember = aMember.asInstanceOf[js.Any])
+    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     val f = force[typingsJapgolly.componentstest.mod.A, Varargs, typingsJapgolly.componentstest.mod.Component](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.componentstest.mod.A])(children :_*)
@@ -35,7 +34,7 @@ object Component {
   def B(
     bMember: String,
     bCallback: js.UndefOr[CallbackTo[String]] = js.undefined,
-    key: js.UndefOr[Key] = js.undefined,
+    key: Key = null,
     _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
@@ -46,8 +45,8 @@ object Component {
     typingsJapgolly.componentstest.mod.B
   ] = {
     val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
-    bCallback.foreach(p => __obj.updateDynamic("bCallback")(p.toJsFn))
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (!js.isUndefined(bCallback)) __obj.updateDynamic("bCallback")(bCallback.get.toJsFn)
+    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     val f = force[typingsJapgolly.componentstest.mod.B, Varargs, typingsJapgolly.componentstest.mod.Component](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.componentstest.mod.B])(children :_*)

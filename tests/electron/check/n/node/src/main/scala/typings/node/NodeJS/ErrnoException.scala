@@ -15,20 +15,38 @@ trait ErrnoException extends Error {
 
 object ErrnoException {
   @scala.inline
-  def apply(
-    code: String = null,
-    errno: Int | Double = null,
-    path: String = null,
-    stack: String = null,
-    syscall: String = null
-  ): ErrnoException = {
+  def apply(): ErrnoException = {
     val __obj = js.Dynamic.literal()
-    if (code != null) __obj.updateDynamic("code")(code.asInstanceOf[js.Any])
-    if (errno != null) __obj.updateDynamic("errno")(errno.asInstanceOf[js.Any])
-    if (path != null) __obj.updateDynamic("path")(path.asInstanceOf[js.Any])
-    if (stack != null) __obj.updateDynamic("stack")(stack.asInstanceOf[js.Any])
-    if (syscall != null) __obj.updateDynamic("syscall")(syscall.asInstanceOf[js.Any])
     __obj.asInstanceOf[ErrnoException]
   }
+  @scala.inline
+  implicit class ErrnoExceptionOps[Self <: ErrnoException] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setCode(value: String): Self = this.set("code", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteCode: Self = this.set("code", js.undefined)
+    @scala.inline
+    def setErrno(value: Double): Self = this.set("errno", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteErrno: Self = this.set("errno", js.undefined)
+    @scala.inline
+    def setPath(value: String): Self = this.set("path", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deletePath: Self = this.set("path", js.undefined)
+    @scala.inline
+    def setSyscall(value: String): Self = this.set("syscall", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteSyscall: Self = this.set("syscall", js.undefined)
+  }
+  
 }
 

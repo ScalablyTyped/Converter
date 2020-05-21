@@ -53,34 +53,40 @@ trait ComponentLifecycle[P, S, SS]
 
 object ComponentLifecycle {
   @scala.inline
-  def apply[P, S, SS](
-    UNSAFE_componentWillMount: js.UndefOr[Callback] = js.undefined,
-    UNSAFE_componentWillReceiveProps: (P, /* nextContext */ js.Any) => Callback = null,
-    UNSAFE_componentWillUpdate: (P, S, /* nextContext */ js.Any) => Callback = null,
-    componentDidCatch: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Callback = null,
-    componentDidMount: js.UndefOr[Callback] = js.undefined,
-    componentDidUpdate: (P, S, /* snapshot */ js.UndefOr[SS]) => Callback = null,
-    componentWillMount: js.UndefOr[Callback] = js.undefined,
-    componentWillReceiveProps: (P, /* nextContext */ js.Any) => Callback = null,
-    componentWillUnmount: js.UndefOr[Callback] = js.undefined,
-    componentWillUpdate: (P, S, /* nextContext */ js.Any) => Callback = null,
-    getSnapshotBeforeUpdate: (P, S) => CallbackTo[SS | Null] = null,
-    shouldComponentUpdate: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => CallbackTo[Boolean] = null
-  ): ComponentLifecycle[P, S, SS] = {
+  def apply[P, S, SS](): ComponentLifecycle[P, S, SS] = {
     val __obj = js.Dynamic.literal()
-    UNSAFE_componentWillMount.foreach(p => __obj.updateDynamic("UNSAFE_componentWillMount")(p.toJsFn))
-    if (UNSAFE_componentWillReceiveProps != null) __obj.updateDynamic("UNSAFE_componentWillReceiveProps")(js.Any.fromFunction2((t0: P, t1: /* nextContext */ js.Any) => UNSAFE_componentWillReceiveProps(t0, t1).runNow()))
-    if (UNSAFE_componentWillUpdate != null) __obj.updateDynamic("UNSAFE_componentWillUpdate")(js.Any.fromFunction3((t0: P, t1: S, t2: /* nextContext */ js.Any) => UNSAFE_componentWillUpdate(t0, t1, t2).runNow()))
-    if (componentDidCatch != null) __obj.updateDynamic("componentDidCatch")(js.Any.fromFunction2((t0: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, t1: /* errorInfo */ ErrorInfo) => componentDidCatch(t0, t1).runNow()))
-    componentDidMount.foreach(p => __obj.updateDynamic("componentDidMount")(p.toJsFn))
-    if (componentDidUpdate != null) __obj.updateDynamic("componentDidUpdate")(js.Any.fromFunction3((t0: P, t1: S, t2: /* snapshot */ js.UndefOr[SS]) => componentDidUpdate(t0, t1, t2).runNow()))
-    componentWillMount.foreach(p => __obj.updateDynamic("componentWillMount")(p.toJsFn))
-    if (componentWillReceiveProps != null) __obj.updateDynamic("componentWillReceiveProps")(js.Any.fromFunction2((t0: P, t1: /* nextContext */ js.Any) => componentWillReceiveProps(t0, t1).runNow()))
-    componentWillUnmount.foreach(p => __obj.updateDynamic("componentWillUnmount")(p.toJsFn))
-    if (componentWillUpdate != null) __obj.updateDynamic("componentWillUpdate")(js.Any.fromFunction3((t0: P, t1: S, t2: /* nextContext */ js.Any) => componentWillUpdate(t0, t1, t2).runNow()))
-    if (getSnapshotBeforeUpdate != null) __obj.updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2((t0: P, t1: S) => getSnapshotBeforeUpdate(t0, t1).runNow()))
-    if (shouldComponentUpdate != null) __obj.updateDynamic("shouldComponentUpdate")(js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => shouldComponentUpdate(t0, t1, t2).runNow()))
     __obj.asInstanceOf[ComponentLifecycle[P, S, SS]]
   }
+  @scala.inline
+  implicit class ComponentLifecycleOps[Self <: ComponentLifecycle[_, _, _], P, S, SS] (val x: Self with (ComponentLifecycle[P, S, SS])) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setComponentDidCatch(
+      value: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Callback
+    ): Self = this.set("componentDidCatch", js.Any.fromFunction2((t0: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, t1: /* errorInfo */ ErrorInfo) => (value(t0, t1)).runNow()))
+    @scala.inline
+    def deleteComponentDidCatch: Self = this.set("componentDidCatch", js.undefined)
+    @scala.inline
+    def setComponentDidMount(value: Callback): Self = this.set("componentDidMount", value.toJsFn)
+    @scala.inline
+    def deleteComponentDidMount: Self = this.set("componentDidMount", js.undefined)
+    @scala.inline
+    def setComponentWillUnmount(value: Callback): Self = this.set("componentWillUnmount", value.toJsFn)
+    @scala.inline
+    def deleteComponentWillUnmount: Self = this.set("componentWillUnmount", js.undefined)
+    @scala.inline
+    def setShouldComponentUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => CallbackTo[Boolean]): Self = this.set("shouldComponentUpdate", js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => (value(t0, t1, t2)).runNow()))
+    @scala.inline
+    def deleteShouldComponentUpdate: Self = this.set("shouldComponentUpdate", js.undefined)
+  }
+  
 }
 

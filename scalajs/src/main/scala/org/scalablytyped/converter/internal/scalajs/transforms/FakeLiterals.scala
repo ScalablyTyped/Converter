@@ -7,7 +7,7 @@ import scala.util.{Success, Try}
 
 object FakeLiterals {
   /* hack: I needed some out of band communication that a TypeRef is actually to a fake literal type. We use reference equality */
-  val LiteralTokenComment: Comments = new Comments(Nil)
+  case class WasLiteral(lit: ExprTree.Lit) extends Comment.Data
 
   def apply(outputPkg: Name, scope: TreeScope, illegalNames: CleanIllegalNames)(tree: ContainerTree): ContainerTree =
     LiteralRewriter(outputPkg, illegalNames, tree, scope).output
@@ -81,6 +81,7 @@ object FakeLiterals {
                   isOverride = false,
                   comments   = NoComments,
                   codePath,
+                  isImplicit = false,
                 )
               List(`trait`, `def`)
           }
@@ -102,13 +103,23 @@ object FakeLiterals {
       s match {
         case TypeRef.StringLiteral(underlying) =>
           val name = calculateName(underlying)
-          collectedStrings(ExprTree.StringLit(underlying)) = name
-          TypeRef(QualifiedName(IArray(outputPkg, tree.name, StringModuleName, name)), Empty, LiteralTokenComment)
+          val lit  = ExprTree.StringLit(underlying)
+          collectedStrings(lit) = name
+          TypeRef(
+            QualifiedName(IArray(outputPkg, tree.name, StringModuleName, name)),
+            Empty,
+            Comments(CommentData(WasLiteral(lit))),
+          )
 
         case TypeRef.BooleanLiteral(underlying) =>
           val name = Name(underlying)
-          collectedBooleans(ExprTree.BooleanLit(underlying.toBoolean)) = name
-          TypeRef(QualifiedName(IArray(outputPkg, tree.name, BooleansModuleName, name)), Empty, LiteralTokenComment)
+          val lit  = ExprTree.BooleanLit(underlying.toBoolean)
+          collectedBooleans(lit) = name
+          TypeRef(
+            QualifiedName(IArray(outputPkg, tree.name, BooleansModuleName, name)),
+            Empty,
+            Comments(CommentData(WasLiteral(lit))),
+          )
 
         case TypeRef.NumberLiteral(underlying) =>
           val (newUnderlying, name) =
@@ -118,8 +129,13 @@ object FakeLiterals {
               case (baseName, _) => (underlying, Name(baseName))
             }
 
-          collectedNumbers(ExprTree.NumberLit(newUnderlying)) = name
-          TypeRef(QualifiedName(IArray(outputPkg, tree.name, NumbersModuleName, name)), Empty, LiteralTokenComment)
+          val lit = ExprTree.NumberLit(newUnderlying)
+          collectedNumbers(lit) = name
+          TypeRef(
+            QualifiedName(IArray(outputPkg, tree.name, NumbersModuleName, name)),
+            Empty,
+            Comments(CommentData(WasLiteral(lit))),
+          )
 
         case other =>
           other

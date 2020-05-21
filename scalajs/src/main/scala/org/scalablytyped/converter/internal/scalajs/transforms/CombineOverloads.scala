@@ -2,6 +2,8 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
+import org.scalablytyped.converter.internal.maps._
+
 /**
   * The scala compiler inherits erasure by the JVM, which is not a problem in javascript.
   * All the overloads we present in typed languages are all backed by one implementation anyway.
@@ -72,7 +74,10 @@ object CombineOverloads extends TreeTransformation {
 
   private def combineSameErasure(_methods: IArray[MethodTree], scope: TreeScope): IArray[MethodTree] = {
     val grouped: IArray[((IArray[TypeParamTree], QualifiedName), IArray[MethodTree])] =
-      IArray.fromTraversable(_methods.groupBy(m => (m.tparams, m.resultType.typeName))).sortBy(_._1._1.length)
+      _methods
+        .groupBy(m => (m.tparams, m.resultType.typeName))
+        .toIArray
+        .sortBy(_._1._1.length)
 
     val default: MethodTree =
       combineSameErasureSameTypeParams(grouped.head._2, None)
@@ -103,16 +108,20 @@ object CombineOverloads extends TreeTransformation {
         val typeName = sameTypeName.head.typeName
 
         if (typeName === QualifiedName.UNION)
-          TypeRef.Union(sameTypeName.flatMap(_.targs), sort = true)
+          TypeRef.Union(sameTypeName.flatMap(_.targs), NoComments, sort = true)
         else if (typeName === QualifiedName.INTERSECTION)
-          TypeRef.Intersection(sameTypeName.flatMap(_.targs))
+          TypeRef.Intersection(sameTypeName.flatMap(_.targs), NoComments)
         else {
           val combinedTArgs: IArray[TypeRef] = sameTypeName.map(_.targs).transpose.map(asUnionType)
           TypeRef(typeName, combinedTArgs, Comments.flatten(sameTypeName)(_.comments))
         }
 
       case types =>
-        TypeRef.Union(IArray.fromTraversable(types.groupBy(_.typeName).values).map(asUnionType), sort = true)
+        TypeRef.Union(
+          types.groupBy(_.typeName).mapToIArray { case (_, v) => asUnionType(v) },
+          NoComments,
+          sort = true,
+        )
     }
 
   def combineOverloads(scope: TreeScope, methods: IArray[MethodTree]): IArray[MethodTree] = {
@@ -120,7 +129,7 @@ object CombineOverloads extends TreeTransformation {
     val methodsByBase = methods.groupBy(Erasure.base(scope))
 
     val newMethods: IArray[MethodTree] =
-      IArray.fromTraversable(methodsByBase).flatMap {
+      methodsByBase.flatMapToIArray {
         case (_, IArray.exactlyOne(one)) => IArray(one)
         case (_, sameErasure)            => combineSameErasure(sameErasure, scope)
       }
@@ -159,21 +168,22 @@ object CombineOverloads extends TreeTransformation {
           IArray(ctor.params),
           ExprTree.native,
           TypeRef.Nothing,
-          false,
+          isOverride = false,
           ctor.comments,
           QualifiedName(IArray.Empty),
+          isImplicit = false,
         ),
       )
     val ret = combineOverloads(scope, asMethods)
     ret.map {
-      case MethodTree(_, level, _, _, params, _, _, _, comments, _) =>
+      case MethodTree(_, level, _, _, params, _, _, _, comments, _, _) =>
         CtorTree(level, params.head, comments)
     }
   }
 
   def unifyFields(fields: IArray[FieldTree]): IArray[FieldTree] =
-    IArray.fromTraversable(fields.groupBy(_.name).map {
+    fields.groupBy(_.name).mapToIArray {
       case (_, IArray.exactlyOne(one)) => one
       case (_, sameName)               => sameName.head.copy(tpe = asUnionType(sameName.map(_.tpe)))
-    })
+    }
 }

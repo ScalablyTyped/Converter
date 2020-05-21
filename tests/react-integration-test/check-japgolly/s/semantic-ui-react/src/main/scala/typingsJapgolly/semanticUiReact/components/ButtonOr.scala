@@ -19,7 +19,7 @@ object ButtonOr {
     as: js.Any = null,
     className: String = null,
     text: Double | String = null,
-    key: js.UndefOr[Key] = js.undefined,
+    key: Key = null,
     _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
@@ -32,7 +32,7 @@ object ButtonOr {
     if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
     if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
     if (text != null) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     val f = JsComponent[ButtonOrProps, Varargs, js.Object](this.componentImport)
     f(__obj.asInstanceOf[ButtonOrProps])(children :_*)

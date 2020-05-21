@@ -15,9 +15,10 @@ import japgolly.scalajs.react.ReactTransitionEventFrom
 import japgolly.scalajs.react.ReactUIEventFrom
 import japgolly.scalajs.react.ReactWheelEventFrom
 import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalajs.dom.raw.Element
-import typingsJapgolly.react.AnonHtml
+import typingsJapgolly.react.anon.Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -25,7 +26,7 @@ import scala.scalajs.js.annotation._
 @js.native
 trait DOMAttributes[T] extends js.Object {
   var children: js.UndefOr[Node] = js.native
-  var dangerouslySetInnerHTML: js.UndefOr[AnonHtml] = js.native
+  var dangerouslySetInnerHTML: js.UndefOr[Html] = js.native
   // Media Events
   var onAbort: js.UndefOr[ReactEventHandler[T]] = js.native
   var onAnimationEnd: js.UndefOr[AnimationEventHandler[T]] = js.native
@@ -125,172 +126,348 @@ trait DOMAttributes[T] extends js.Object {
 
 object DOMAttributes {
   @scala.inline
-  def apply[T](
-    children: VdomNode = null,
-    dangerouslySetInnerHTML: AnonHtml = null,
-    onAbort: ReactEventFrom[T with Element] => Callback = null,
-    onAnimationEnd: ReactAnimationEventFrom[T with Element] => Callback = null,
-    onAnimationIteration: ReactAnimationEventFrom[T with Element] => Callback = null,
-    onAnimationStart: ReactAnimationEventFrom[T with Element] => Callback = null,
-    onAuxClick: ReactMouseEventFrom[T with Element] => Callback = null,
-    onBeforeInput: ReactEventFrom[T with Element] => Callback = null,
-    onBlur: ReactFocusEventFrom[T with Element] => Callback = null,
-    onCanPlay: ReactEventFrom[T with Element] => Callback = null,
-    onCanPlayThrough: ReactEventFrom[T with Element] => Callback = null,
-    onChange: ReactEventFrom[T with Element] => Callback = null,
-    onClick: ReactMouseEventFrom[T with Element] => Callback = null,
-    onCompositionEnd: ReactCompositionEventFrom[T with Element] => Callback = null,
-    onCompositionStart: ReactCompositionEventFrom[T with Element] => Callback = null,
-    onCompositionUpdate: ReactCompositionEventFrom[T with Element] => Callback = null,
-    onContextMenu: ReactMouseEventFrom[T with Element] => Callback = null,
-    onCopy: ReactClipboardEventFrom[T with Element] => Callback = null,
-    onCut: ReactClipboardEventFrom[T with Element] => Callback = null,
-    onDoubleClick: ReactMouseEventFrom[T with Element] => Callback = null,
-    onDrag: ReactDragEventFrom[T with Element] => Callback = null,
-    onDragEnd: ReactDragEventFrom[T with Element] => Callback = null,
-    onDragEnter: ReactDragEventFrom[T with Element] => Callback = null,
-    onDragExit: ReactDragEventFrom[T with Element] => Callback = null,
-    onDragLeave: ReactDragEventFrom[T with Element] => Callback = null,
-    onDragOver: ReactDragEventFrom[T with Element] => Callback = null,
-    onDragStart: ReactDragEventFrom[T with Element] => Callback = null,
-    onDrop: ReactDragEventFrom[T with Element] => Callback = null,
-    onDurationChange: ReactEventFrom[T with Element] => Callback = null,
-    onEmptied: ReactEventFrom[T with Element] => Callback = null,
-    onEncrypted: ReactEventFrom[T with Element] => Callback = null,
-    onEnded: ReactEventFrom[T with Element] => Callback = null,
-    onError: ReactEventFrom[T with Element] => Callback = null,
-    onFocus: ReactFocusEventFrom[T with Element] => Callback = null,
-    onInput: ReactEventFrom[T with Element] => Callback = null,
-    onInvalid: ReactEventFrom[T with Element] => Callback = null,
-    onKeyDown: ReactKeyboardEventFrom[T with Element] => Callback = null,
-    onKeyPress: ReactKeyboardEventFrom[T with Element] => Callback = null,
-    onKeyUp: ReactKeyboardEventFrom[T with Element] => Callback = null,
-    onLoad: ReactEventFrom[T with Element] => Callback = null,
-    onLoadStart: ReactEventFrom[T with Element] => Callback = null,
-    onLoadedData: ReactEventFrom[T with Element] => Callback = null,
-    onLoadedMetadata: ReactEventFrom[T with Element] => Callback = null,
-    onMouseDown: ReactMouseEventFrom[T with Element] => Callback = null,
-    onMouseEnter: ReactMouseEventFrom[T with Element] => Callback = null,
-    onMouseLeave: ReactMouseEventFrom[T with Element] => Callback = null,
-    onMouseMove: ReactMouseEventFrom[T with Element] => Callback = null,
-    onMouseOut: ReactMouseEventFrom[T with Element] => Callback = null,
-    onMouseOver: ReactMouseEventFrom[T with Element] => Callback = null,
-    onMouseUp: ReactMouseEventFrom[T with Element] => Callback = null,
-    onPaste: ReactClipboardEventFrom[T with Element] => Callback = null,
-    onPause: ReactEventFrom[T with Element] => Callback = null,
-    onPlay: ReactEventFrom[T with Element] => Callback = null,
-    onPlaying: ReactEventFrom[T with Element] => Callback = null,
-    onPointerCancel: ReactPointerEventFrom[T with Element] => Callback = null,
-    onPointerDown: ReactPointerEventFrom[T with Element] => Callback = null,
-    onPointerEnter: ReactPointerEventFrom[T with Element] => Callback = null,
-    onPointerLeave: ReactPointerEventFrom[T with Element] => Callback = null,
-    onPointerMove: ReactPointerEventFrom[T with Element] => Callback = null,
-    onPointerOut: ReactPointerEventFrom[T with Element] => Callback = null,
-    onPointerOver: ReactPointerEventFrom[T with Element] => Callback = null,
-    onPointerUp: ReactPointerEventFrom[T with Element] => Callback = null,
-    onProgress: ReactEventFrom[T with Element] => Callback = null,
-    onRateChange: ReactEventFrom[T with Element] => Callback = null,
-    onReset: ReactEventFrom[T with Element] => Callback = null,
-    onScroll: ReactUIEventFrom[T with Element] => Callback = null,
-    onSeeked: ReactEventFrom[T with Element] => Callback = null,
-    onSeeking: ReactEventFrom[T with Element] => Callback = null,
-    onSelect: ReactEventFrom[T with Element] => Callback = null,
-    onStalled: ReactEventFrom[T with Element] => Callback = null,
-    onSubmit: ReactEventFrom[T with Element] => Callback = null,
-    onSuspend: ReactEventFrom[T with Element] => Callback = null,
-    onTimeUpdate: ReactEventFrom[T with Element] => Callback = null,
-    onTouchCancel: ReactTouchEventFrom[T with Element] => Callback = null,
-    onTouchEnd: ReactTouchEventFrom[T with Element] => Callback = null,
-    onTouchMove: ReactTouchEventFrom[T with Element] => Callback = null,
-    onTouchStart: ReactTouchEventFrom[T with Element] => Callback = null,
-    onTransitionEnd: ReactTransitionEventFrom[T with Element] => Callback = null,
-    onVolumeChange: ReactEventFrom[T with Element] => Callback = null,
-    onWaiting: ReactEventFrom[T with Element] => Callback = null,
-    onWheel: ReactWheelEventFrom[T with Element] => Callback = null
-  ): DOMAttributes[T] = {
+  def apply[T](): DOMAttributes[T] = {
     val __obj = js.Dynamic.literal()
-    if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
-    if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
-    if (onAbort != null) __obj.updateDynamic("onAbort")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onAbort(t0).runNow()))
-    if (onAnimationEnd != null) __obj.updateDynamic("onAnimationEnd")(js.Any.fromFunction1((t0: ReactAnimationEventFrom[T with Element]) => onAnimationEnd(t0).runNow()))
-    if (onAnimationIteration != null) __obj.updateDynamic("onAnimationIteration")(js.Any.fromFunction1((t0: ReactAnimationEventFrom[T with Element]) => onAnimationIteration(t0).runNow()))
-    if (onAnimationStart != null) __obj.updateDynamic("onAnimationStart")(js.Any.fromFunction1((t0: ReactAnimationEventFrom[T with Element]) => onAnimationStart(t0).runNow()))
-    if (onAuxClick != null) __obj.updateDynamic("onAuxClick")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => onAuxClick(t0).runNow()))
-    if (onBeforeInput != null) __obj.updateDynamic("onBeforeInput")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onBeforeInput(t0).runNow()))
-    if (onBlur != null) __obj.updateDynamic("onBlur")(js.Any.fromFunction1((t0: ReactFocusEventFrom[T with Element]) => onBlur(t0).runNow()))
-    if (onCanPlay != null) __obj.updateDynamic("onCanPlay")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onCanPlay(t0).runNow()))
-    if (onCanPlayThrough != null) __obj.updateDynamic("onCanPlayThrough")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onCanPlayThrough(t0).runNow()))
-    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onChange(t0).runNow()))
-    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => onClick(t0).runNow()))
-    if (onCompositionEnd != null) __obj.updateDynamic("onCompositionEnd")(js.Any.fromFunction1((t0: ReactCompositionEventFrom[T with Element]) => onCompositionEnd(t0).runNow()))
-    if (onCompositionStart != null) __obj.updateDynamic("onCompositionStart")(js.Any.fromFunction1((t0: ReactCompositionEventFrom[T with Element]) => onCompositionStart(t0).runNow()))
-    if (onCompositionUpdate != null) __obj.updateDynamic("onCompositionUpdate")(js.Any.fromFunction1((t0: ReactCompositionEventFrom[T with Element]) => onCompositionUpdate(t0).runNow()))
-    if (onContextMenu != null) __obj.updateDynamic("onContextMenu")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => onContextMenu(t0).runNow()))
-    if (onCopy != null) __obj.updateDynamic("onCopy")(js.Any.fromFunction1((t0: ReactClipboardEventFrom[T with Element]) => onCopy(t0).runNow()))
-    if (onCut != null) __obj.updateDynamic("onCut")(js.Any.fromFunction1((t0: ReactClipboardEventFrom[T with Element]) => onCut(t0).runNow()))
-    if (onDoubleClick != null) __obj.updateDynamic("onDoubleClick")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => onDoubleClick(t0).runNow()))
-    if (onDrag != null) __obj.updateDynamic("onDrag")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => onDrag(t0).runNow()))
-    if (onDragEnd != null) __obj.updateDynamic("onDragEnd")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => onDragEnd(t0).runNow()))
-    if (onDragEnter != null) __obj.updateDynamic("onDragEnter")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => onDragEnter(t0).runNow()))
-    if (onDragExit != null) __obj.updateDynamic("onDragExit")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => onDragExit(t0).runNow()))
-    if (onDragLeave != null) __obj.updateDynamic("onDragLeave")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => onDragLeave(t0).runNow()))
-    if (onDragOver != null) __obj.updateDynamic("onDragOver")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => onDragOver(t0).runNow()))
-    if (onDragStart != null) __obj.updateDynamic("onDragStart")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => onDragStart(t0).runNow()))
-    if (onDrop != null) __obj.updateDynamic("onDrop")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => onDrop(t0).runNow()))
-    if (onDurationChange != null) __obj.updateDynamic("onDurationChange")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onDurationChange(t0).runNow()))
-    if (onEmptied != null) __obj.updateDynamic("onEmptied")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onEmptied(t0).runNow()))
-    if (onEncrypted != null) __obj.updateDynamic("onEncrypted")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onEncrypted(t0).runNow()))
-    if (onEnded != null) __obj.updateDynamic("onEnded")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onEnded(t0).runNow()))
-    if (onError != null) __obj.updateDynamic("onError")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onError(t0).runNow()))
-    if (onFocus != null) __obj.updateDynamic("onFocus")(js.Any.fromFunction1((t0: ReactFocusEventFrom[T with Element]) => onFocus(t0).runNow()))
-    if (onInput != null) __obj.updateDynamic("onInput")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onInput(t0).runNow()))
-    if (onInvalid != null) __obj.updateDynamic("onInvalid")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onInvalid(t0).runNow()))
-    if (onKeyDown != null) __obj.updateDynamic("onKeyDown")(js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T with Element]) => onKeyDown(t0).runNow()))
-    if (onKeyPress != null) __obj.updateDynamic("onKeyPress")(js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T with Element]) => onKeyPress(t0).runNow()))
-    if (onKeyUp != null) __obj.updateDynamic("onKeyUp")(js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T with Element]) => onKeyUp(t0).runNow()))
-    if (onLoad != null) __obj.updateDynamic("onLoad")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onLoad(t0).runNow()))
-    if (onLoadStart != null) __obj.updateDynamic("onLoadStart")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onLoadStart(t0).runNow()))
-    if (onLoadedData != null) __obj.updateDynamic("onLoadedData")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onLoadedData(t0).runNow()))
-    if (onLoadedMetadata != null) __obj.updateDynamic("onLoadedMetadata")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onLoadedMetadata(t0).runNow()))
-    if (onMouseDown != null) __obj.updateDynamic("onMouseDown")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => onMouseDown(t0).runNow()))
-    if (onMouseEnter != null) __obj.updateDynamic("onMouseEnter")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => onMouseEnter(t0).runNow()))
-    if (onMouseLeave != null) __obj.updateDynamic("onMouseLeave")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => onMouseLeave(t0).runNow()))
-    if (onMouseMove != null) __obj.updateDynamic("onMouseMove")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => onMouseMove(t0).runNow()))
-    if (onMouseOut != null) __obj.updateDynamic("onMouseOut")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => onMouseOut(t0).runNow()))
-    if (onMouseOver != null) __obj.updateDynamic("onMouseOver")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => onMouseOver(t0).runNow()))
-    if (onMouseUp != null) __obj.updateDynamic("onMouseUp")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => onMouseUp(t0).runNow()))
-    if (onPaste != null) __obj.updateDynamic("onPaste")(js.Any.fromFunction1((t0: ReactClipboardEventFrom[T with Element]) => onPaste(t0).runNow()))
-    if (onPause != null) __obj.updateDynamic("onPause")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onPause(t0).runNow()))
-    if (onPlay != null) __obj.updateDynamic("onPlay")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onPlay(t0).runNow()))
-    if (onPlaying != null) __obj.updateDynamic("onPlaying")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onPlaying(t0).runNow()))
-    if (onPointerCancel != null) __obj.updateDynamic("onPointerCancel")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => onPointerCancel(t0).runNow()))
-    if (onPointerDown != null) __obj.updateDynamic("onPointerDown")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => onPointerDown(t0).runNow()))
-    if (onPointerEnter != null) __obj.updateDynamic("onPointerEnter")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => onPointerEnter(t0).runNow()))
-    if (onPointerLeave != null) __obj.updateDynamic("onPointerLeave")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => onPointerLeave(t0).runNow()))
-    if (onPointerMove != null) __obj.updateDynamic("onPointerMove")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => onPointerMove(t0).runNow()))
-    if (onPointerOut != null) __obj.updateDynamic("onPointerOut")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => onPointerOut(t0).runNow()))
-    if (onPointerOver != null) __obj.updateDynamic("onPointerOver")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => onPointerOver(t0).runNow()))
-    if (onPointerUp != null) __obj.updateDynamic("onPointerUp")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => onPointerUp(t0).runNow()))
-    if (onProgress != null) __obj.updateDynamic("onProgress")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onProgress(t0).runNow()))
-    if (onRateChange != null) __obj.updateDynamic("onRateChange")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onRateChange(t0).runNow()))
-    if (onReset != null) __obj.updateDynamic("onReset")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onReset(t0).runNow()))
-    if (onScroll != null) __obj.updateDynamic("onScroll")(js.Any.fromFunction1((t0: ReactUIEventFrom[T with Element]) => onScroll(t0).runNow()))
-    if (onSeeked != null) __obj.updateDynamic("onSeeked")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onSeeked(t0).runNow()))
-    if (onSeeking != null) __obj.updateDynamic("onSeeking")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onSeeking(t0).runNow()))
-    if (onSelect != null) __obj.updateDynamic("onSelect")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onSelect(t0).runNow()))
-    if (onStalled != null) __obj.updateDynamic("onStalled")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onStalled(t0).runNow()))
-    if (onSubmit != null) __obj.updateDynamic("onSubmit")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onSubmit(t0).runNow()))
-    if (onSuspend != null) __obj.updateDynamic("onSuspend")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onSuspend(t0).runNow()))
-    if (onTimeUpdate != null) __obj.updateDynamic("onTimeUpdate")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onTimeUpdate(t0).runNow()))
-    if (onTouchCancel != null) __obj.updateDynamic("onTouchCancel")(js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => onTouchCancel(t0).runNow()))
-    if (onTouchEnd != null) __obj.updateDynamic("onTouchEnd")(js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => onTouchEnd(t0).runNow()))
-    if (onTouchMove != null) __obj.updateDynamic("onTouchMove")(js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => onTouchMove(t0).runNow()))
-    if (onTouchStart != null) __obj.updateDynamic("onTouchStart")(js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => onTouchStart(t0).runNow()))
-    if (onTransitionEnd != null) __obj.updateDynamic("onTransitionEnd")(js.Any.fromFunction1((t0: ReactTransitionEventFrom[T with Element]) => onTransitionEnd(t0).runNow()))
-    if (onVolumeChange != null) __obj.updateDynamic("onVolumeChange")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onVolumeChange(t0).runNow()))
-    if (onWaiting != null) __obj.updateDynamic("onWaiting")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => onWaiting(t0).runNow()))
-    if (onWheel != null) __obj.updateDynamic("onWheel")(js.Any.fromFunction1((t0: ReactWheelEventFrom[T with Element]) => onWheel(t0).runNow()))
     __obj.asInstanceOf[DOMAttributes[T]]
   }
+  @scala.inline
+  implicit class DOMAttributesOps[Self <: DOMAttributes[_], T] (val x: Self with DOMAttributes[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setChildrenVdomElement(value: VdomElement): Self = this.set("children", value.rawElement.asInstanceOf[js.Any])
+    @scala.inline
+    def setChildren(value: VdomNode): Self = this.set("children", value.rawNode.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteChildren: Self = this.set("children", js.undefined)
+    @scala.inline
+    def setDangerouslySetInnerHTML(value: Html): Self = this.set("dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteDangerouslySetInnerHTML: Self = this.set("dangerouslySetInnerHTML", js.undefined)
+    @scala.inline
+    def setOnAbort(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onAbort", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnAbort: Self = this.set("onAbort", js.undefined)
+    @scala.inline
+    def setOnAnimationEnd(value: ReactAnimationEventFrom[T with Element] => Callback): Self = this.set("onAnimationEnd", js.Any.fromFunction1((t0: ReactAnimationEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnAnimationEnd: Self = this.set("onAnimationEnd", js.undefined)
+    @scala.inline
+    def setOnAnimationIteration(value: ReactAnimationEventFrom[T with Element] => Callback): Self = this.set("onAnimationIteration", js.Any.fromFunction1((t0: ReactAnimationEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnAnimationIteration: Self = this.set("onAnimationIteration", js.undefined)
+    @scala.inline
+    def setOnAnimationStart(value: ReactAnimationEventFrom[T with Element] => Callback): Self = this.set("onAnimationStart", js.Any.fromFunction1((t0: ReactAnimationEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnAnimationStart: Self = this.set("onAnimationStart", js.undefined)
+    @scala.inline
+    def setOnAuxClick(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onAuxClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnAuxClick: Self = this.set("onAuxClick", js.undefined)
+    @scala.inline
+    def setOnBeforeInput(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onBeforeInput", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnBeforeInput: Self = this.set("onBeforeInput", js.undefined)
+    @scala.inline
+    def setOnBlur(value: ReactFocusEventFrom[T with Element] => Callback): Self = this.set("onBlur", js.Any.fromFunction1((t0: ReactFocusEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnBlur: Self = this.set("onBlur", js.undefined)
+    @scala.inline
+    def setOnCanPlay(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onCanPlay", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnCanPlay: Self = this.set("onCanPlay", js.undefined)
+    @scala.inline
+    def setOnCanPlayThrough(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onCanPlayThrough", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnCanPlayThrough: Self = this.set("onCanPlayThrough", js.undefined)
+    @scala.inline
+    def setOnChange(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onChange", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnChange: Self = this.set("onChange", js.undefined)
+    @scala.inline
+    def setOnClick(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnClick: Self = this.set("onClick", js.undefined)
+    @scala.inline
+    def setOnCompositionEnd(value: ReactCompositionEventFrom[T with Element] => Callback): Self = this.set("onCompositionEnd", js.Any.fromFunction1((t0: ReactCompositionEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnCompositionEnd: Self = this.set("onCompositionEnd", js.undefined)
+    @scala.inline
+    def setOnCompositionStart(value: ReactCompositionEventFrom[T with Element] => Callback): Self = this.set("onCompositionStart", js.Any.fromFunction1((t0: ReactCompositionEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnCompositionStart: Self = this.set("onCompositionStart", js.undefined)
+    @scala.inline
+    def setOnCompositionUpdate(value: ReactCompositionEventFrom[T with Element] => Callback): Self = this.set("onCompositionUpdate", js.Any.fromFunction1((t0: ReactCompositionEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnCompositionUpdate: Self = this.set("onCompositionUpdate", js.undefined)
+    @scala.inline
+    def setOnContextMenu(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onContextMenu", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnContextMenu: Self = this.set("onContextMenu", js.undefined)
+    @scala.inline
+    def setOnCopy(value: ReactClipboardEventFrom[T with Element] => Callback): Self = this.set("onCopy", js.Any.fromFunction1((t0: ReactClipboardEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnCopy: Self = this.set("onCopy", js.undefined)
+    @scala.inline
+    def setOnCut(value: ReactClipboardEventFrom[T with Element] => Callback): Self = this.set("onCut", js.Any.fromFunction1((t0: ReactClipboardEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnCut: Self = this.set("onCut", js.undefined)
+    @scala.inline
+    def setOnDoubleClick(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onDoubleClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnDoubleClick: Self = this.set("onDoubleClick", js.undefined)
+    @scala.inline
+    def setOnDrag(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDrag", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnDrag: Self = this.set("onDrag", js.undefined)
+    @scala.inline
+    def setOnDragEnd(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDragEnd", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnDragEnd: Self = this.set("onDragEnd", js.undefined)
+    @scala.inline
+    def setOnDragEnter(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnDragEnter: Self = this.set("onDragEnter", js.undefined)
+    @scala.inline
+    def setOnDragExit(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDragExit", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnDragExit: Self = this.set("onDragExit", js.undefined)
+    @scala.inline
+    def setOnDragLeave(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnDragLeave: Self = this.set("onDragLeave", js.undefined)
+    @scala.inline
+    def setOnDragOver(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnDragOver: Self = this.set("onDragOver", js.undefined)
+    @scala.inline
+    def setOnDragStart(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDragStart", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnDragStart: Self = this.set("onDragStart", js.undefined)
+    @scala.inline
+    def setOnDrop(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDrop", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnDrop: Self = this.set("onDrop", js.undefined)
+    @scala.inline
+    def setOnDurationChange(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onDurationChange", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnDurationChange: Self = this.set("onDurationChange", js.undefined)
+    @scala.inline
+    def setOnEmptied(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onEmptied", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnEmptied: Self = this.set("onEmptied", js.undefined)
+    @scala.inline
+    def setOnEncrypted(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onEncrypted", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnEncrypted: Self = this.set("onEncrypted", js.undefined)
+    @scala.inline
+    def setOnEnded(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onEnded", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnEnded: Self = this.set("onEnded", js.undefined)
+    @scala.inline
+    def setOnError(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onError", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnError: Self = this.set("onError", js.undefined)
+    @scala.inline
+    def setOnFocus(value: ReactFocusEventFrom[T with Element] => Callback): Self = this.set("onFocus", js.Any.fromFunction1((t0: ReactFocusEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnFocus: Self = this.set("onFocus", js.undefined)
+    @scala.inline
+    def setOnInput(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onInput", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnInput: Self = this.set("onInput", js.undefined)
+    @scala.inline
+    def setOnInvalid(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onInvalid", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnInvalid: Self = this.set("onInvalid", js.undefined)
+    @scala.inline
+    def setOnKeyDown(value: ReactKeyboardEventFrom[T with Element] => Callback): Self = this.set("onKeyDown", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnKeyDown: Self = this.set("onKeyDown", js.undefined)
+    @scala.inline
+    def setOnKeyPress(value: ReactKeyboardEventFrom[T with Element] => Callback): Self = this.set("onKeyPress", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnKeyPress: Self = this.set("onKeyPress", js.undefined)
+    @scala.inline
+    def setOnKeyUp(value: ReactKeyboardEventFrom[T with Element] => Callback): Self = this.set("onKeyUp", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnKeyUp: Self = this.set("onKeyUp", js.undefined)
+    @scala.inline
+    def setOnLoad(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onLoad", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnLoad: Self = this.set("onLoad", js.undefined)
+    @scala.inline
+    def setOnLoadStart(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onLoadStart", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnLoadStart: Self = this.set("onLoadStart", js.undefined)
+    @scala.inline
+    def setOnLoadedData(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onLoadedData", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnLoadedData: Self = this.set("onLoadedData", js.undefined)
+    @scala.inline
+    def setOnLoadedMetadata(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onLoadedMetadata", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnLoadedMetadata: Self = this.set("onLoadedMetadata", js.undefined)
+    @scala.inline
+    def setOnMouseDown(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseDown", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnMouseDown: Self = this.set("onMouseDown", js.undefined)
+    @scala.inline
+    def setOnMouseEnter(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseEnter", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnMouseEnter: Self = this.set("onMouseEnter", js.undefined)
+    @scala.inline
+    def setOnMouseLeave(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseLeave", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnMouseLeave: Self = this.set("onMouseLeave", js.undefined)
+    @scala.inline
+    def setOnMouseMove(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseMove", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnMouseMove: Self = this.set("onMouseMove", js.undefined)
+    @scala.inline
+    def setOnMouseOut(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseOut", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnMouseOut: Self = this.set("onMouseOut", js.undefined)
+    @scala.inline
+    def setOnMouseOver(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseOver", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnMouseOver: Self = this.set("onMouseOver", js.undefined)
+    @scala.inline
+    def setOnMouseUp(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseUp", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnMouseUp: Self = this.set("onMouseUp", js.undefined)
+    @scala.inline
+    def setOnPaste(value: ReactClipboardEventFrom[T with Element] => Callback): Self = this.set("onPaste", js.Any.fromFunction1((t0: ReactClipboardEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnPaste: Self = this.set("onPaste", js.undefined)
+    @scala.inline
+    def setOnPause(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onPause", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnPause: Self = this.set("onPause", js.undefined)
+    @scala.inline
+    def setOnPlay(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onPlay", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnPlay: Self = this.set("onPlay", js.undefined)
+    @scala.inline
+    def setOnPlaying(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onPlaying", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnPlaying: Self = this.set("onPlaying", js.undefined)
+    @scala.inline
+    def setOnPointerCancel(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerCancel", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnPointerCancel: Self = this.set("onPointerCancel", js.undefined)
+    @scala.inline
+    def setOnPointerDown(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerDown", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnPointerDown: Self = this.set("onPointerDown", js.undefined)
+    @scala.inline
+    def setOnPointerEnter(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerEnter", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnPointerEnter: Self = this.set("onPointerEnter", js.undefined)
+    @scala.inline
+    def setOnPointerLeave(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerLeave", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnPointerLeave: Self = this.set("onPointerLeave", js.undefined)
+    @scala.inline
+    def setOnPointerMove(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerMove", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnPointerMove: Self = this.set("onPointerMove", js.undefined)
+    @scala.inline
+    def setOnPointerOut(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerOut", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnPointerOut: Self = this.set("onPointerOut", js.undefined)
+    @scala.inline
+    def setOnPointerOver(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerOver", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnPointerOver: Self = this.set("onPointerOver", js.undefined)
+    @scala.inline
+    def setOnPointerUp(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerUp", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnPointerUp: Self = this.set("onPointerUp", js.undefined)
+    @scala.inline
+    def setOnProgress(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onProgress", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnProgress: Self = this.set("onProgress", js.undefined)
+    @scala.inline
+    def setOnRateChange(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onRateChange", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnRateChange: Self = this.set("onRateChange", js.undefined)
+    @scala.inline
+    def setOnReset(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onReset", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnReset: Self = this.set("onReset", js.undefined)
+    @scala.inline
+    def setOnScroll(value: ReactUIEventFrom[T with Element] => Callback): Self = this.set("onScroll", js.Any.fromFunction1((t0: ReactUIEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnScroll: Self = this.set("onScroll", js.undefined)
+    @scala.inline
+    def setOnSeeked(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onSeeked", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnSeeked: Self = this.set("onSeeked", js.undefined)
+    @scala.inline
+    def setOnSeeking(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onSeeking", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnSeeking: Self = this.set("onSeeking", js.undefined)
+    @scala.inline
+    def setOnSelect(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onSelect", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnSelect: Self = this.set("onSelect", js.undefined)
+    @scala.inline
+    def setOnStalled(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onStalled", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnStalled: Self = this.set("onStalled", js.undefined)
+    @scala.inline
+    def setOnSubmit(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onSubmit", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnSubmit: Self = this.set("onSubmit", js.undefined)
+    @scala.inline
+    def setOnSuspend(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onSuspend", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnSuspend: Self = this.set("onSuspend", js.undefined)
+    @scala.inline
+    def setOnTimeUpdate(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onTimeUpdate", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnTimeUpdate: Self = this.set("onTimeUpdate", js.undefined)
+    @scala.inline
+    def setOnTouchCancel(value: ReactTouchEventFrom[T with Element] => Callback): Self = this.set("onTouchCancel", js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnTouchCancel: Self = this.set("onTouchCancel", js.undefined)
+    @scala.inline
+    def setOnTouchEnd(value: ReactTouchEventFrom[T with Element] => Callback): Self = this.set("onTouchEnd", js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnTouchEnd: Self = this.set("onTouchEnd", js.undefined)
+    @scala.inline
+    def setOnTouchMove(value: ReactTouchEventFrom[T with Element] => Callback): Self = this.set("onTouchMove", js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnTouchMove: Self = this.set("onTouchMove", js.undefined)
+    @scala.inline
+    def setOnTouchStart(value: ReactTouchEventFrom[T with Element] => Callback): Self = this.set("onTouchStart", js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnTouchStart: Self = this.set("onTouchStart", js.undefined)
+    @scala.inline
+    def setOnTransitionEnd(value: ReactTransitionEventFrom[T with Element] => Callback): Self = this.set("onTransitionEnd", js.Any.fromFunction1((t0: ReactTransitionEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnTransitionEnd: Self = this.set("onTransitionEnd", js.undefined)
+    @scala.inline
+    def setOnVolumeChange(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onVolumeChange", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnVolumeChange: Self = this.set("onVolumeChange", js.undefined)
+    @scala.inline
+    def setOnWaiting(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onWaiting", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnWaiting: Self = this.set("onWaiting", js.undefined)
+    @scala.inline
+    def setOnWheel(value: ReactWheelEventFrom[T with Element] => Callback): Self = this.set("onWheel", js.Any.fromFunction1((t0: ReactWheelEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnWheel: Self = this.set("onWheel", js.undefined)
+  }
+  
 }
 

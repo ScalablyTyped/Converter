@@ -1,6 +1,6 @@
 package typings.vueResource.vuejs
 
-import typings.vueResource.HttpOptionsrootstring
+import typings.vueResource.anon.HttpOptionsrootstring
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

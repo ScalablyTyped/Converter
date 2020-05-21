@@ -5,7 +5,6 @@ import java.io._
 
 import org.scalablytyped.converter.internal.scalajs.transforms.ShortenNames
 import org.scalablytyped.converter.internal.stringUtils.quote
-
 import scala.collection.mutable
 
 object Printer {
@@ -30,15 +29,16 @@ object Printer {
       fs.toMap
   }
 
-  def apply(scope: TreeScope, tree: ContainerTree): Map[os.RelPath, Array[Byte]] = {
+  def apply(scope: TreeScope, parentsResolver: ParentsResolver, tree: ContainerTree): Map[os.RelPath, Array[Byte]] = {
     val reg = new Registry()
 
     apply(
-      _scope       = scope,
-      reg          = reg,
-      packages     = IArray(tree.name),
-      targetFolder = os.RelPath(tree.name.value),
-      tree         = tree,
+      _scope          = scope,
+      parentsResolver = parentsResolver,
+      reg             = reg,
+      packages        = IArray(tree.name),
+      targetFolder    = os.RelPath(tree.name.value),
+      tree            = tree,
     )
 
     reg.result
@@ -50,11 +50,12 @@ object Printer {
        |import scala.scalajs.js.annotation._""".stripMargin
 
   def apply(
-      _scope:       TreeScope,
-      reg:          Registry,
-      packages:     IArray[Name],
-      targetFolder: os.RelPath,
-      tree:         ContainerTree,
+      _scope:          TreeScope,
+      parentsResolver: ParentsResolver,
+      reg:             Registry,
+      packages:        IArray[Name],
+      targetFolder:    os.RelPath,
+      tree:            ContainerTree,
   ): Unit = {
     val files: Map[ScalaOutput, IArray[Tree]] = tree match {
       case _: PackageTree => tree.members groupBy ScalaOutput.outputAs
@@ -65,7 +66,9 @@ object Printer {
     val packageScalaFileName: String = {
       val normal  = "package"
       val escaped = "package_"
+
       def toEscape(name: String) = name.toLowerCase() == normal
+
       val shouldBeEscaped = files.exists {
         case (scalaOutput, _) =>
           scalaOutput match {
@@ -81,19 +84,28 @@ object Printer {
     files foreach {
       case (ScalaOutput.File(name), members: IArray[Tree]) =>
         reg.write(targetFolder / os.RelPath(s"${name.unescaped}.scala")) { writer =>
-          val (imports, shortenedMembers) = ShortenNames(tree, scope)(members)
+          val (imports, shortenedMembers) = ShortenNames(tree, scope, parentsResolver)(members)
           writer println s"package ${formatQN(QualifiedName(packages))}"
           writer.println("")
           imports.foreach(i => writer.println(s"import ${formatQN(i.imported)}"))
           writer.println(Imports)
           writer.println("")
-          shortenedMembers foreach printTree(scope, reg, Indenter(writer), packages, targetFolder, 0)
+          shortenedMembers foreach printTree(
+            scope,
+            parentsResolver,
+            reg,
+            Indenter(writer),
+            packages,
+            targetFolder,
+            0,
+            isNative = true,
+          )
         }
 
       case (ScalaOutput.Package(name), pkgs) =>
         pkgs foreach {
           case pkg: PackageTree =>
-            apply(scope, reg, packages :+ name, targetFolder / os.RelPath(name.unescaped), pkg)
+            apply(scope, parentsResolver, reg, packages :+ name, targetFolder / os.RelPath(name.unescaped), pkg)
           case _ => sys.error("i was too lazy to prove this with types")
         }
 
@@ -109,7 +121,16 @@ object Printer {
           writer.println(Imports)
           writer.println("")
           writer.println("package object " + formatName(tree.name) + " {")
-          members foreach printTree(scope, reg, Indenter(writer), packages, targetFolder, 2)
+          members foreach printTree(
+            scope,
+            parentsResolver,
+            reg,
+            Indenter(writer),
+            packages,
+            targetFolder,
+            2,
+            isNative = true,
+          )
           writer.println("}")
         }
     }
@@ -142,19 +163,18 @@ object Printer {
   }
 
   def printTree(
-      _scope:       TreeScope,
-      reg:          Registry,
-      w:            Indenter,
-      packageNames: IArray[Name],
-      folder:       os.RelPath,
-      indent:       Int,
+      _scope:          TreeScope,
+      parentsResolver: ParentsResolver,
+      reg:             Registry,
+      w:               Indenter,
+      packageNames:    IArray[Name],
+      folder:          os.RelPath,
+      indent:          Int,
+      isNative:        Boolean,
   )(
       tree: Tree,
   ): Unit = {
     val scope = _scope / tree
-
-    val printSym: Tree => Unit =
-      printTree(scope, reg, w, packageNames, folder, indent + 2)
 
     def print(ss: String*): Unit =
       ss foreach w.print(indent)
@@ -166,16 +186,18 @@ object Printer {
 
     tree match {
       case tree: PackageTree =>
-        apply(scope, reg, packageNames :+ tree.name, folder / os.RelPath(tree.name.value), tree)
+        apply(scope, parentsResolver, reg, packageNames :+ tree.name, folder / os.RelPath(tree.name.value), tree)
 
       case c @ ClassTree(isImplicit, anns, name, tparams, parents, ctors, members, classType, isSealed, comments, _) =>
         print(Comments.format(comments))
         print(formatAnns(anns))
 
+        val isNative = c.isNative // shadows isNative
+
         val (defaultCtor, restCtors) = ctors.sortBy(_.params.length).toList match {
-          case Nil                                                  => (CtorTree.defaultPublic, Nil)
-          case head :: tail if (head.params.isEmpty || !c.isNative) => (head, tail)
-          case all                                                  => (CtorTree.defaultProtected, all)
+          case Nil                                                => (CtorTree.defaultPublic, Nil)
+          case head :: tail if (head.params.isEmpty || !isNative) => (head, tail)
+          case all                                                => (CtorTree.defaultProtected, all)
         }
 
         print(Comments.format(defaultCtor.comments))
@@ -188,7 +210,7 @@ object Printer {
         )
 
         if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamTree(c.isNative, indent) mkString ", ", "]")
+          print("[", tparams map formatTypeParamTree(isNative, indent) mkString ", ", "]")
 
         if (classType =/= ClassType.Trait) {
           print(" ")
@@ -196,15 +218,15 @@ object Printer {
           print(formatParams(indent + 2)(defaultCtor.params))
         }
 
-        print(extendsClause(parents, isNative = c.isNative, indent))
+        print(extendsClause(parents, isNative, indent))
 
         if (members.nonEmpty || restCtors.nonEmpty) {
           println(" {")
 
           if (classType =/= ClassType.Trait)
-            restCtors foreach printSym
+            restCtors foreach printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative)
 
-          members foreach printSym
+          members foreach printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative)
           println("}")
         } else
           println()
@@ -215,17 +237,18 @@ object Printer {
         print(Comments.format(comments))
         print(formatAnns(anns))
 
+        val isNative = m.isNative // shadows isNative
         print(
           if (isOverride) "override " else "",
           "object ",
           formatName(name),
-          extendsClause(parents, m.isNative, indent),
+          extendsClause(parents, isNative, indent),
         )
 
         if (members.nonEmpty) {
           println(" {")
 
-          members foreach printTree(scope, reg, w, packageNames, folder, indent + 2)
+          members foreach printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative)
           println("}")
         } else
           println()
@@ -234,8 +257,10 @@ object Printer {
       case TypeAliasTree(name, tparams, alias, comments, _) =>
         print(Comments.format(comments))
         print("type ", formatName(name))
-        if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamTree(isNative = true, indent) mkString ", ", "]")
+        if (tparams.nonEmpty) {
+          val isNative = true // need this for compatibility with GenReactFacadeComponents. Another reason to delete it
+          print("[", tparams map formatTypeParamTree(isNative, indent) mkString ", ", "]")
+        }
 
         println(s" = ", formatTypeRef(indent)(alias))
 
@@ -253,17 +278,18 @@ object Printer {
 
         println(formatImpl(indent)(impl))
 
-      case MethodTree(anns, level, name, tparams, params, impl, resultType, isOverride, comments, _) =>
+      case MethodTree(anns, level, name, tparams, params, impl, resultType, isOverride, comments, _, isImplicit) =>
         print(Comments.format(comments))
         print(formatAnns(anns))
 
         print(formatProtectionLevel(level, isCtor = false))
+        print(if (isImplicit) "implicit " else "")
         print(s"${if (isOverride) "override " else ""}def ")
 
         val tparamString =
           if (tparams.isEmpty) ""
           else
-            tparams.map(formatTypeParamTree(isNative = true, indent)).mkString("[", ", ", "]")
+            tparams.map(formatTypeParamTree(isNative, indent)).mkString("[", ", ", "]")
 
         var paramString = params.map(_.map(formatParamTree(indent)).mkString("(", ", ", ")"))
         if (paramString.toList.map(_.length).sum > 100) {
@@ -310,7 +336,7 @@ object Printer {
   def formatTypeParams(isNative: Boolean, indent: Int)(tparams: IArray[TypeParamTree]): String =
     if (tparams.isEmpty) ""
     else
-      tparams.map(formatTypeParamTree(isNative = true, indent)).mkString("[", ", ", "]")
+      tparams.map(formatTypeParamTree(isNative, indent)).mkString("[", ", ", "]")
 
   def formatTypeParamTree(isNative: Boolean, indent: Int)(tree: TypeParamTree): String =
     Comments.format(tree.comments) |+|
@@ -330,13 +356,6 @@ object Printer {
       typeAnnotation(formatName(tree.name), indent + 2, tree.tpe),
       formatImpl(indent)(tree.default),
     ).mkString
-
-  def formatDefaultedTypeRef(indent: Int)(ref: TypeRef): String =
-    ref match {
-      case TypeRef.`null`    => "null"
-      case TypeRef.undefined => "js.undefined"
-      case other             => formatTypeRef(indent + 2)(other)
-    }
 
   def formatQN(q: QualifiedName): String =
     if (q.startsWith(QualifiedName.scala_js))
@@ -374,17 +393,16 @@ object Printer {
         case TypeRef.Wildcard              => "_"
         case TypeRef.Singleton(underlying) => formatTypeRef(indent)(underlying) |+| ".type"
 
-        case TypeRef.Intersection(types) =>
-          /* ensure we have ran the logic in the apply method */
-          TypeRef.Intersection(types) match {
-            case TypeRef.Intersection(types) => types map formatTypeRef(indent) map paramsIfNeeded mkString " with "
-            case other                       => formatTypeRef(indent)(other)
-          }
+        case TypeRef.Intersection(types, _) =>
+          types map formatTypeRef(indent) map paramsIfNeeded mkString " with "
 
-        case TypeRef.UndefOr(tpe) =>
+        case TypeRef.UndefOr(tpe, _) =>
           formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, IArray(tpe), NoComments))
 
-        case TypeRef.Union(types) =>
+        case TypeRef.undefined => // keep this line after TypeRef.UndefOr. This line covers if it appears outside a union type
+          formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, IArray(TypeRef.Nothing), NoComments))
+
+        case TypeRef.Union(types, _) =>
           types map formatTypeRef(indent) map paramsIfNeeded mkString " | "
 
         case TypeRef.StringLiteral(underlying)  => stringUtils.quote(underlying)
@@ -438,13 +456,14 @@ object Printer {
         s"@JSName(${quote(name.unescaped)})"
       case Annotation.JsNameSymbol(name) =>
         s"@JSName(${formatQN(name)})"
-      case Annotation.JsImport(module, imported) =>
+      case Annotation.JsImport(module, imported, globalOpt) =>
         val importedString = imported match {
           case Imported.Namespace    => "JSImport.Namespace"
           case Imported.Default      => "JSImport.Default"
           case Imported.Named(names) => quote(names.map(_.unescaped).mkString("."))
         }
-        s"@JSImport(${quote(module)}, $importedString)"
+        val global = globalOpt.fold("")(g => ", " + quote(g.name.parts.map(_.unescaped).mkString(".")))
+        s"@JSImport(${quote(module)}, $importedString$global)"
       case Annotation.ScalaJSDefined =>
         "" //"@ScalaJSDefined"
       case Annotation.JsGlobal(name: QualifiedName) =>
@@ -481,8 +500,6 @@ object Printer {
         value
       case ExprTree.BooleanLit(value) =>
         value.toString
-      case ExprTree.Cast(one, as) =>
-        s"${paramsIfNeeded(formatExpr(indent)(one))}.asInstanceOf[${formatTypeRef(indent)(as)}]"
       case ExprTree.Unary(op, expr) =>
         s"$op${formatExpr(indent)(expr)}"
       case ExprTree.BinaryOp(one, op, two) =>
@@ -497,15 +514,15 @@ object Printer {
         val ps = paramss.map(params => params.map(formatExpr(indent)).mkString("(", ", ", ")")).mkString
         s"${formatExpr(indent)(function)}$ps"
       case ExprTree.Select(from, path) =>
-        s"${formatExpr(indent)(from)}.${formatName(path)}"
+        s"${paramsIfNeeded(formatExpr(indent)(from))}.${formatName(path)}"
       case ExprTree.Arg.Named(name, expr) =>
         s"${formatName(name)} = ${formatExpr(indent)(expr)}"
       case ExprTree.Arg.Pos(expr) =>
         formatExpr(indent)(expr)
       case ExprTree.Arg.Variable(expr) =>
         s"${formatExpr(indent)(expr)} :_*"
-      case ExprTree.Custom(impl) =>
-        impl
+      case ExprTree.Throw(expr) =>
+        s"throw ${formatExpr(indent)(expr)}"
     }
 
   def formatImpl(indent: Int)(e: ImplTree): String =

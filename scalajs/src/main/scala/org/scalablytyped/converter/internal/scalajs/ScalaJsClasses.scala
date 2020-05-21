@@ -33,8 +33,8 @@ object ScalaJsClasses {
       ),
       IArray(
         FieldTree(Empty, Name("length"), TypeRef.Int, ExprTree.native, isReadOnly = false, isOverride = false, NoComments, QualifiedName.Function + Name("length")),
-        MethodTree(Empty, ProtectionLevel.Default, Name("call"), Empty, IArray(IArray(ParamTree(Name("thisArg"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments), ParamTree(Name("argArray"), isImplicit = false, isVal = false, TypeRef.Repeated(TypeRef.Dynamic, NoComments), NotImplemented, NoComments))), ExprTree.native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("call")),
-        MethodTree(Empty, ProtectionLevel.Default, Name("bind"), Empty, IArray(IArray(ParamTree(Name("thisArg"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments), ParamTree(Name("argArray"), isImplicit = false, isVal = false, TypeRef.Repeated(TypeRef.Dynamic, NoComments), NotImplemented, NoComments))), ExprTree.native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("bind")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("call"), Empty, IArray(IArray(ParamTree(Name("thisArg"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments), ParamTree(Name("argArray"), isImplicit = false, isVal = false, TypeRef.Repeated(TypeRef.Dynamic, NoComments), NotImplemented, NoComments))), ExprTree.native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("call"), false),
+        MethodTree(Empty, ProtectionLevel.Default, Name("bind"), Empty, IArray(IArray(ParamTree(Name("thisArg"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments), ParamTree(Name("argArray"), isImplicit = false, isVal = false, TypeRef.Repeated(TypeRef.Dynamic, NoComments), NotImplemented, NoComments))), ExprTree.native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("bind"), false),
       ),
       ClassType.Class,
       isSealed = false,
@@ -70,6 +70,7 @@ object ScalaJsClasses {
         isOverride  = false,
         comments    = NoComments,
         codePath    = codePath + Name.APPLY,
+        isImplicit  = false,
       )
 
     val ThisTParam: IArray[TypeParamTree] =
@@ -137,7 +138,5 @@ object ScalaJsClasses {
       ObjectMembers.ScalaObject,
       StringDictionary,
       NumberDictionary,
-      flavours.GenSlinkyComponents.classDefs.ExternalComponentNoPropsCls,
-      flavours.GenSlinkyComponents.classDefs.ExternalComponentPropsCls,
     )).map(x => x.codePath -> x).toMap
 }

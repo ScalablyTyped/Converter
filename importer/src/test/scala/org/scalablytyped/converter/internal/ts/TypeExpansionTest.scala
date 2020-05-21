@@ -82,7 +82,13 @@ export declare type PickerMode = Exclude<PanelMode, 'datetime' | 'decade'>;
             IArray(
               TsTypeRef(
                 NoComments,
-                TsQIdent(IArray(TsIdentLibrarySimple("testing"), TsIdentSimple("ToJsonOutputnamestring"))),
+                TsQIdent(
+                  IArray(
+                    TsIdentLibrarySimple("testing"),
+                    TsIdentSimple("anon"),
+                    TsIdentSimple("ToJsonOutputnamestring"),
+                  ),
+                ),
                 IArray(),
               ),
             ),

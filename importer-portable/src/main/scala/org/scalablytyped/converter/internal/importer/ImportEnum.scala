@@ -15,7 +15,7 @@ object ImportEnum {
           case _: TsLiteralBoolean => TypeRef.Boolean
         }
     }
-    TypeRef.Union(found, sort = true)
+    TypeRef.Union(found, NoComments, sort = true)
   }
 
   def apply(
@@ -46,23 +46,27 @@ object ImportEnum {
         )
 
         def module = {
-          val newMembers = members.map {
-            case TsEnumMember(memberCs, ImportName(memberName), exprOpt) =>
-              val expr = exprOpt.getOrElse(sys.error("Expression cannot be empty here"))
-              val tpe  = importType(Wildcards.No, scope, importName)(TsExpr.typeOf(expr))
-              MethodTree(
-                IArray(Annotation.Inline),
-                ProtectionLevel.Default,
-                memberName,
-                Empty,
-                Empty,
-                ExprTree.Cast(importExpr(expr, scope), tpe),
-                tpe,
-                isOverride = false,
-                memberCs,
-                importedCodePath + memberName,
-              )
-          }
+          val newMembers = members
+            .map {
+              case TsEnumMember(memberCs, ImportName(memberName), exprOpt) =>
+                val expr            = exprOpt.getOrElse(sys.error("Expression cannot be empty here"))
+                val tpe             = importType(Wildcards.No, scope, importName)(TsExpr.typeOf(expr))
+                val memberNameFixed = if (illegalNames.Illegal(memberName)) memberName.withSuffix("") else memberName
+                MethodTree(
+                  IArray(Annotation.Inline),
+                  ProtectionLevel.Default,
+                  memberNameFixed,
+                  Empty,
+                  Empty,
+                  ExprTree.Cast(importExpr(expr, scope), tpe),
+                  tpe,
+                  isOverride = false,
+                  memberCs,
+                  importedCodePath + memberNameFixed,
+                  isImplicit = false,
+                )
+            }
+            .distinctBy(_.name.unescaped)
 
           /* keep module members when minimizing */
           val related = Comments(CommentData(Minimization.Related(newMembers.map(m => TypeRef(m.codePath)))))
@@ -130,10 +134,11 @@ object ImportEnum {
                   tparams     = Empty,
                   params      = IArray(IArray(applyParam)),
                   impl        = ExprTree.native,
-                  resultType  = TypeRef.Intersection(IArray(baseInterface, underlying)).withOptional(true),
+                  resultType  = TypeRef.Intersection(IArray(baseInterface, underlying), NoComments).withOptional(true),
                   isOverride  = false,
                   comments    = NoComments,
                   codePath    = importedCodePath + Name.APPLY,
+                  isImplicit  = false,
                 ),
               )
             } else None
@@ -176,7 +181,7 @@ object ImportEnum {
                       FieldTree(
                         annotations = anns,
                         name        = name,
-                        tpe         = TypeRef.Intersection(IArray(memberTypeRef, underlying)),
+                        tpe         = TypeRef.Intersection(IArray(memberTypeRef, underlying), NoComments),
                         impl        = ExprTree.native,
                         isReadOnly  = true,
                         isOverride  = false,

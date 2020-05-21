@@ -399,7 +399,11 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         declared = true,
         TsIdentModule(None, List("esri", "renderers", "smartMapping", "creators", "type")),
         IArray(
-          TsImport(typeOnly = true, IArray(), TsImporteeLocal(TsQIdent(IArray(TsIdentSimple("__esri"), TsIdentSimple("type"))))),
+          TsImport(
+            typeOnly = true,
+            IArray(),
+            TsImporteeLocal(TsQIdent(IArray(TsIdentSimple("__esri"), TsIdentSimple("type")))),
+          ),
           TsExport(
             NoComments,
             typeOnly = false,

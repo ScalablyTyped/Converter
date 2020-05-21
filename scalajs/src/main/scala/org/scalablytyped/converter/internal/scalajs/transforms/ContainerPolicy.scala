@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
+import org.scalablytyped.converter.internal.maps._
 import cats.data.Ior
 import cats.instances.list._
 import cats.syntax.alternative._
@@ -97,8 +98,9 @@ object ContainerPolicy extends TreeTransformation {
       def requiresCustomImport = {
         def check(anns: IArray[Annotation], name: Name) =
           anns exists {
-            case Annotation.JsGlobalScope => true
-            case Annotation.JsImport(_, i) =>
+            case Annotation.JsGlobalScope           => true
+            case Annotation.JsImport(_, _, Some(_)) => true
+            case Annotation.JsImport(_, i, _) =>
               i match {
                 case Imported.Namespace => true
                 case Imported.Default   => name =/= Name.Default
@@ -108,10 +110,7 @@ object ContainerPolicy extends TreeTransformation {
             case _                      => false
           }
 
-        def failsOnScalaJs1 =
-          mod.annotations.contains(Annotation.JsGlobalScope) && mod.members.exists(_.isInstanceOf[ModuleTree])
-
-        failsOnScalaJs1 || mod.members.exists {
+        mod.members.exists {
           case x: InheritanceTree => check(x.annotations, x.name)
           case x: ContainerTree   => check(x.annotations, x.name)
           case x: FieldTree       => check(x.annotations, x.name)
@@ -128,7 +127,7 @@ object ContainerPolicy extends TreeTransformation {
             case (n, _) => n
           }
 
-        if (mod.comments.has(Markers.EnumObject)) false
+        if (mod.comments.has[Markers.EnumObject.type]) false
         else countClasses(mod) > 20
       }
 
@@ -141,13 +140,13 @@ object ContainerPolicy extends TreeTransformation {
   def stripLocationAnns(tree: Tree): Tree = {
     def filterAnns(anns: IArray[ClassAnnotation]): IArray[ClassAnnotation] =
       anns.filter {
-        case Annotation.JsNative       => true
-        case Annotation.ScalaJSDefined => true
-        case Annotation.JsGlobalScope  => false
-        case Annotation.JsName(_)      => false
-        case Annotation.JsImport(_, _) => false
-        case Annotation.JsGlobal(_)    => false
-        case Annotation.Inline         => false
+        case Annotation.JsNative          => true
+        case Annotation.ScalaJSDefined    => true
+        case Annotation.JsGlobalScope     => false
+        case Annotation.JsName(_)         => false
+        case Annotation.JsImport(_, _, _) => false
+        case Annotation.JsGlobal(_)       => false
+        case Annotation.Inline            => false
       }
 
     tree match {
@@ -168,7 +167,7 @@ object ContainerPolicy extends TreeTransformation {
           members zip members.map(_.comments extract { case ClassAnnotations(anns) => anns }) map {
             case (f @ FieldTree(_, name, tpe, _, isReadonly, isOverride, _, codePath), extracted) =>
               extracted match {
-                case Some((anns, restCs)) if tpe.typeName =/= QualifiedName.THIS_TYPE =>
+                case Some((anns, restCs)) if tpe.typeName =/= QualifiedName.THIS =>
                   val mod = ModuleTree(anns, name, IArray(TypeRef.TopLevel(tpe)), Empty, restCs, codePath, isOverride)
                   if (isReadonly) Ior.Right(mod)
                   else Ior.Both(f, mod)
@@ -215,26 +214,24 @@ object ContainerPolicy extends TreeTransformation {
 
   def combineModules(s: ContainerTree): ContainerTree = {
     val withCombinedModules: IArray[Tree] =
-      IArray
-        .fromTraversable(s.index)
-        .flatMap {
-          case (_, ts) =>
-            val (mods, rest) = ts partitionCollect { case x: ModuleTree => x }
-            val combinedModules: Option[ModuleTree] =
-              mods.reduceOption { (mod1, mod2) =>
-                ModuleTree(
-                  annotations = mod1.annotations,
-                  name        = mod1.name,
-                  parents     = (mod1.parents ++ mod2.parents).distinct,
-                  members     = (mod1.members ++ mod2.members).distinct,
-                  comments    = mod1.comments ++ mod2.comments,
-                  codePath    = mod1.codePath,
-                  isOverride  = false,
-                )
-              }
+      s.index.flatMapToIArray {
+        case (_, ts) =>
+          val (mods, rest) = ts partitionCollect { case x: ModuleTree => x }
+          val combinedModules: Option[ModuleTree] =
+            mods.reduceOption { (mod1, mod2) =>
+              ModuleTree(
+                annotations = mod1.annotations,
+                name        = mod1.name,
+                parents     = (mod1.parents ++ mod2.parents).distinct,
+                members     = (mod1.members ++ mod2.members).distinct,
+                comments    = mod1.comments ++ mod2.comments,
+                codePath    = mod1.codePath,
+                isOverride  = false,
+              )
+            }
 
-            rest ++ IArray.fromOption(combinedModules)
-        }
+          rest ++ IArray.fromOption(combinedModules)
+      }
 
     s.withMembers(withCombinedModules)
   }

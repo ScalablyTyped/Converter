@@ -68,9 +68,11 @@ class TreeTransformation { self =>
           ExprTree.Null
         case ExprTree.Val(name, value) =>
           ExprTree.Val(name, visitExprTree(childrenScope)(value))
+        case ExprTree.Throw(expr) =>
+          ExprTree.Throw(visitExprTree(childrenScope)(expr))
         case ExprTree.TApply(ref, targs) =>
           ExprTree.TApply(
-            visitExprRefTree(childrenScope)(ref),
+            visitExprTree(childrenScope)(ref),
             targs map visitTypeRef(childrenScope),
           )
         case ExprTree.If(pred, ifTrue, ifFalse) =>
@@ -81,7 +83,6 @@ class TreeTransformation { self =>
           )
         case ExprTree.Block(expressions) => ExprTree.Block(expressions map visitExprTree(childrenScope))
         case ExprTree.Select(from, path) => ExprTree.Select(visitExprTree(childrenScope)(from), path)
-        case ExprTree.Cast(one, as)      => ExprTree.Cast(visitExprTree(childrenScope)(one), visitTypeRef(childrenScope)(as))
         case ExprTree.Call(function, params) =>
           ExprTree.Call(
             visitExprTree(childrenScope)(function),
@@ -101,7 +102,6 @@ class TreeTransformation { self =>
           ExprTree.Arg.Pos(visitExprTree(childrenScope)(expr))
         case ExprTree.Arg.Variable(expr) =>
           ExprTree.Arg.Variable(visitExprTree(childrenScope)(expr))
-        case x: ExprTree.Custom     => x
         case x: ExprTree.Ref        => x
         case x: ExprTree.NumberLit  => x
         case x: ExprTree.StringLit  => x
@@ -190,6 +190,7 @@ class TreeTransformation { self =>
     val updatedChildren =
       s.copy(
         upperBound = s.upperBound map visitTypeRef(childrenScope),
+        params     = s.params map visitTypeParamTree(childrenScope),
       )
 
     leaveTypeParamTree(scope / updatedChildren)(updatedChildren)

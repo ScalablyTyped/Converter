@@ -1,13 +1,14 @@
-package org.scalablytyped.converter.internal
+package org.scalablytyped.converter
+package internal
 package importer
 
 import com.olvind.logging.Logger
-import org.scalablytyped.converter.{internal, Selection}
 import org.scalablytyped.converter.internal.importer.Phase1Res.{LibTs, LibraryPart}
 import org.scalablytyped.converter.internal.importer.Phase2Res.LibScalaJs
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
-import org.scalablytyped.converter.internal.scalajs.{Name, PackageTree, QualifiedName, TreeScope, transforms => S}
+import org.scalablytyped.converter.internal.scalajs.{Name, PackageTree, ParentsResolver, TreeScope, transforms => S}
 import org.scalablytyped.converter.internal.ts.{TsIdentLibrary, TsTreeTraverse}
 
 import scala.collection.immutable.SortedSet
@@ -53,25 +54,26 @@ class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdent
 
             val ScalaTransforms = List[PackageTree => PackageTree](
               S.ContainerPolicy visitPackageTree scope,
-              S.RemoveDuplicateInheritance >>
+              new S.RemoveDuplicateInheritance(new ParentsResolver) >>
                 S.CleanupTypeAliases >>
                 cleanIllegalNames >>
                 S.Deduplicator visitPackageTree scope,
               Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s, cleanIllegalNames)(tree)),
               Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals
               S.LimitUnionLength visitPackageTree scope, // after UnionToInheritance
-              (S.AvoidMacroParadiseBug >> S.RemoveMultipleInheritance) visitPackageTree scope,
+              (S.AvoidMacroParadiseBug >> new S.RemoveMultipleInheritance(new ParentsResolver)) visitPackageTree scope,
               S.CombineOverloads visitPackageTree scope, //must have stable types, so FakeLiterals run before
-              S.FilterMemberOverrides visitPackageTree scope, //
-              S.InferMemberOverrides visitPackageTree scope, //runs in phase after FilterMemberOverrides
-              S.CompleteClass >> //after FilterMemberOverrides
+              new S.FilterMemberOverrides(new ParentsResolver) visitPackageTree scope, //
+              new S.InferMemberOverrides(new ParentsResolver) visitPackageTree scope, //runs in phase after FilterMemberOverrides
+              new S.CompleteClass(new ParentsResolver) >> //after FilterMemberOverrides
                 S.Sorter visitPackageTree scope,
             )
 
             val importName = AdaptiveNamingImport(
               outputPkg,
               lib.parsed,
-              IArray.fromTraversable(scalaDeps.map { case (_, lib) => lib.names }),
+              scalaDeps.mapToIArray { case (_, v) => v.names },
+              cleanIllegalNames,
             )
 
             val importType = new ImportType(new internal.scalajs.QualifiedName.StdNames(outputPkg))
@@ -83,13 +85,15 @@ class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdent
               new ImportExpr(importType, importName),
               enableScalaJsDefined(lib.name),
             )
-            val rewrittenTree = ScalaTransforms.foldLeft(importTree(lib, logger)) { case (acc, f) => f(acc) }
+
+            val scalaTree            = importTree(lib, logger)
+            val transformedScalaTree = ScalaTransforms.foldLeft(scalaTree) { case (acc, f) => f(acc) }
 
             LibScalaJs(lib.source)(
               libName      = lib.name.`__value`.replaceAll("\\.", "_dot_"),
               scalaName    = scalaName,
               libVersion   = lib.version,
-              packageTree  = rewrittenTree,
+              packageTree  = transformedScalaTree,
               dependencies = scalaDeps,
               isStdLib     = lib.parsed.isStdLib,
               facades      = lib.facades ++ facades,

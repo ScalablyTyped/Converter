@@ -15,14 +15,30 @@ trait StaticLifecycle[P, S] extends js.Object {
 
 object StaticLifecycle {
   @scala.inline
-  def apply[P, S](
-    getDerivedStateFromError: /* error */ js.Any => CallbackTo[Partial[S] | Null] = null,
-    getDerivedStateFromProps: (P, S) => CallbackTo[Partial[S] | Null] = null
-  ): StaticLifecycle[P, S] = {
+  def apply[P, S](): StaticLifecycle[P, S] = {
     val __obj = js.Dynamic.literal()
-    if (getDerivedStateFromError != null) __obj.updateDynamic("getDerivedStateFromError")(js.Any.fromFunction1((t0: /* error */ js.Any) => getDerivedStateFromError(t0).runNow()))
-    if (getDerivedStateFromProps != null) __obj.updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2((t0: P, t1: S) => getDerivedStateFromProps(t0, t1).runNow()))
     __obj.asInstanceOf[StaticLifecycle[P, S]]
   }
+  @scala.inline
+  implicit class StaticLifecycleOps[Self <: StaticLifecycle[_, _], P, S] (val x: Self with (StaticLifecycle[P, S])) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setGetDerivedStateFromError(value: /* error */ js.Any => CallbackTo[Partial[S] | Null]): Self = this.set("getDerivedStateFromError", js.Any.fromFunction1((t0: /* error */ js.Any) => value(t0).runNow()))
+    @scala.inline
+    def deleteGetDerivedStateFromError: Self = this.set("getDerivedStateFromError", js.undefined)
+    @scala.inline
+    def setGetDerivedStateFromProps(value: (P, S) => CallbackTo[Partial[S] | Null]): Self = this.set("getDerivedStateFromProps", js.Any.fromFunction2((t0: P, t1: S) => (value(t0, t1)).runNow()))
+    @scala.inline
+    def deleteGetDerivedStateFromProps: Self = this.set("getDerivedStateFromProps", js.undefined)
+  }
+  
 }
 

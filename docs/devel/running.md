@@ -3,7 +3,9 @@ id: running
 title: Running
 ---
 
-In batch mode ScalablyTypedConverter will process all files from the [DefinitelyTyped](http://definitelytyped.org/) project, as well as a selection of libraries from npm.
+*Not a developer? Check out [the command line tool](../cli.md) instead.*
+
+In batch mode the converter will process all files from the [DefinitelyTyped](http://definitelytyped.org/) project, as well as a selection of libraries from npm.
 
 You can run the [main](https://github.com/ScalablyTyped/Converter/blob/master/importer/src/main/scala/org/scalablytyped/converter/Main.scala) 
  directly from from sbt (`importer/run`) or intellij. Since it's used both for development and for CI,
@@ -25,7 +27,7 @@ For development you'll always use "debug mode".
 | `-enableParseCache`   | The Typescript parser is somewhat slow. Enabling this uses java serialization to cache when possible 
 | `-forceCommit`        | Commit and build sbt plugin in debug mode 
 | `-scala212`           | Build libraries with Scala 2.12 instead of 2.13
-| `-scalajs1`           | Build libraries with Scala.js 1 instead of 0.6 
+| `-scalajs06`          | Build libraries with Scala.js 0.6 instead of 1 
 | `-offline`            | Skip pulling newest DefinitelyTyped and running `npm update`
 | `-parallel`           | Faster, but with some [issues](https://github.com/oyvindberg/ScalablyTypedConverter/issues/74). May deadlock or produce unrepeatable builds for now
 | `-pedantic`           | Make the converter more strict. Most things don't work yet in this mode
@@ -35,6 +37,8 @@ For development you'll always use "debug mode".
 | `-flavourSlinky`      | Use slinky flavour, integrate with scala-js-dom, and generate slinky components 
 | `-flavourJapgolly`    | Use scalajs-react flavour, integrate with scala-js-dom, and generate scalajs-react components 
 | `-useScalaJsDomTypes` | Rewrite types to use scala-js-dom types when using `-flavourNormal`  
+| `-benchmark`          | Run a benchmark run. Typically use with `-demoSet`. Let it first run once to build/parsecache everything  
+| `-enableImplicitOps`  | Enable implicit ops  
 
 ### Directories
 By default, all files will be written to `~/.cache/scalablytyped`. The only exception is the ivy artifacts, which are local-published

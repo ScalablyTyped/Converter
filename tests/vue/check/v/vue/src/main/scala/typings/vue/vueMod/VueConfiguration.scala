@@ -36,5 +36,36 @@ object VueConfiguration {
     val __obj = js.Dynamic.literal(devtools = devtools.asInstanceOf[js.Any], errorHandler = js.Any.fromFunction3(errorHandler), ignoredElements = ignoredElements.asInstanceOf[js.Any], keyCodes = keyCodes.asInstanceOf[js.Any], optionMergeStrategies = optionMergeStrategies.asInstanceOf[js.Any], performance = performance.asInstanceOf[js.Any], productionTip = productionTip.asInstanceOf[js.Any], silent = silent.asInstanceOf[js.Any], warnHandler = js.Any.fromFunction3(warnHandler))
     __obj.asInstanceOf[VueConfiguration]
   }
+  @scala.inline
+  implicit class VueConfigurationOps[Self <: VueConfiguration] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setDevtools(value: Boolean): Self = this.set("devtools", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setErrorHandler(value: (Error, Vue, String) => Unit): Self = this.set("errorHandler", js.Any.fromFunction3(value))
+    @scala.inline
+    def setIgnoredElements(value: js.Array[String | RegExp]): Self = this.set("ignoredElements", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setKeyCodes(value: StringDictionary[Double | js.Array[Double]]): Self = this.set("keyCodes", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setOptionMergeStrategies(value: js.Any): Self = this.set("optionMergeStrategies", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setPerformance(value: Boolean): Self = this.set("performance", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setProductionTip(value: Boolean): Self = this.set("productionTip", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setSilent(value: Boolean): Self = this.set("silent", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setWarnHandler(value: (String, Vue, String) => Unit): Self = this.set("warnHandler", js.Any.fromFunction3(value))
+  }
+  
 }
 

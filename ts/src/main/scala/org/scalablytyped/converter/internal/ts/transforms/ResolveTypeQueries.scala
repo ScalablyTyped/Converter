@@ -20,8 +20,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
             isReadOnly,
             isOptional,
           ) if !TsQIdent.Primitive(wanted) =>
-        val founds = scope
-          .lookupBase(Picker.NamedValues, wanted)
+        val founds = lookup(scope, Picker.NamedValues, wanted)
           .map {
             case (found: TsDeclVar, _) =>
               target.copy(comments = cs ++ found.comments, tpe = found.tpe)
@@ -61,12 +60,10 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           case _ => JsLocation.Zero
         }
 
-        val founds = scope
-          .lookupBase(Picker.NamedValues, expr)
-          .flatMap {
-            case (found, _) =>
-              DeriveCopy(found, tree.codePath, Some(name)).map { SetJsLocation.visitTsNamedDecl(ownerLoc) }
-          }
+        val founds = lookup(scope, Picker.NamedValues, expr).flatMap {
+          case (found, _) =>
+            DeriveCopy(found, tree.codePath, Some(name)).map { SetJsLocation.visitTsNamedDecl(ownerLoc) }
+        }
 
         founds match {
           case Empty =>
@@ -199,13 +196,13 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
 
           case wanted if TsQIdent.Primitive(wanted) => TsTypeRef(NoComments, wanted, Empty)
           case wanted =>
-            val found = scope
-              .lookupBase(P(target), wanted)
-              .mapNotNone { case (x, newScope) => typeOf(x, newScope, loopDetector) }
+            val found = lookup(scope, P(target), wanted).mapNotNone {
+              case (x, newScope) => typeOf(x, newScope, loopDetector)
+            }
 
             found match {
               case Empty =>
-                scope.lookupBase(Picker.All, wanted)
+                lookup(scope, P(target), wanted)
                 val msg = s"Couldn't resolve ${TsTypeFormatter(target)}"
                 scope.logger.warn(msg)
                 TsTypeRef.any.copy(comments = Comments(Comment.warning(msg)))
@@ -287,4 +284,17 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
       Some(TsTypeObject(Comments(CommentData(Markers.NameHint(namehint))), rewritten))
     }
   }
+
+  /* handle that the value we're looking for might have been moved into the `global` object */
+  def lookup[T <: TsNamedDecl](scope: TsTreeScope, picker: Picker[T], wanted: TsQIdent): IArray[(T, TsTreeScope)] =
+    scope.lookupInternal(picker, wanted.parts, LoopDetector.initial) match {
+      case Empty =>
+        val patchedWanted = wanted.parts match {
+          case IArray.headTail(lib: TsIdentLibrary, rest) => IArray(lib, TsIdent.Global) ++ rest
+          case unqualified => TsIdent.Global +: unqualified
+        }
+
+        scope.lookupInternal(picker, patchedWanted, LoopDetector.initial)
+      case ok => ok
+    }
 }

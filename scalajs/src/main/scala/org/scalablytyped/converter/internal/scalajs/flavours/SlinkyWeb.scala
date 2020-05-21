@@ -2,13 +2,12 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyWeb.{CombinedTag, TagName}
 
 final class SlinkyWeb(val reactNames: ReactNames, val tags: Map[TagName, CombinedTag]) {
   val tagsByStdRef: Map[TypeRef, IArray[CombinedTag]] =
-    tags.groupBy(_._2.stdRef).map {
-      case (stdRef, maps) => stdRef -> IArray.fromTraversable(maps.map { case (_, ct) => ct })
-    }
+    tags.groupBy(_._2.stdRef).map { case (stdRef, maps) => stdRef -> maps.toIArrayValues }
 
   val uniqueTagsByStdRef: Map[TypeRef, CombinedTag] =
     tagsByStdRef.collect {

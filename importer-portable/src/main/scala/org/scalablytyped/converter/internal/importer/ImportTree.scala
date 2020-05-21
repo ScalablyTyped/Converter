@@ -35,7 +35,7 @@ class ImportTree(
       val libName = ImportName(lib.name)
       val name    = Name(libName.unescaped + "Require")
       ModuleTree(
-        IArray(Annotation.JsImport(lib.name.value, Imported.Namespace), Annotation.JsNative),
+        IArray(Annotation.JsImport(lib.name.value, Imported.Namespace, None), Annotation.JsNative),
         name,
         Empty,
         Empty,
@@ -446,7 +446,7 @@ class ImportTree(
                   ),
                 )
               case other =>
-                scope.logger.warn(s"Dropping $other")
+                scope.logger.info(s"Dropping $other")
                 Empty
             }
         }
@@ -493,9 +493,9 @@ class ImportTree(
         val importedType = importType.orAny(Wildcards.No, scope, importName)(tpeOpt).withOptional(m.isOptional)
         val impl: ImplTree =
           (scalaJsDefined, importedType) match {
-            case (true, TypeRef.UndefOr(_)) => ExprTree.undefined
-            case (true, _)                  => NotImplemented
-            case (false, _)                 => ExprTree.native
+            case (true, TypeRef.UndefOr(_, _)) => ExprTree.undefined
+            case (true, _)                     => NotImplemented
+            case (false, _)                    => ExprTree.native
           }
 
         IArray
@@ -588,6 +588,7 @@ class ImportTree(
       isOverride  = false,
       comments    = cs ++ sig.comments,
       codePath    = ownerCP + name,
+      isImplicit  = false,
     )
 
     if (name === Name.APPLY || name === Name.namespaced) ret

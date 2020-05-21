@@ -34,7 +34,7 @@ object TestContainer {
     optFn1Void: /* x */ Double => Callback = null,
     text: js.UndefOr[Boolean] = js.undefined,
     textAlign: SemanticTEXTALIGNMENTS = null,
-    key: js.UndefOr[Key] = js.undefined,
+    key: Key = null,
     _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
@@ -42,23 +42,19 @@ object TestContainer {
     TestContainerProps, 
     MountedWithRawType[TestContainerProps, js.Object, RawMounted[TestContainerProps, js.Object]]
   ] = {
-    val __obj = js.Dynamic.literal()
-    __obj.updateDynamic("requiredFn0Number")(requiredFn0Number.toJsFn)
-    __obj.updateDynamic("requiredFn0Void")(requiredFn0Void.toJsFn)
-    __obj.updateDynamic("requiredFn1Number")(js.Any.fromFunction1((t0: Double) => requiredFn1Number(t0).runNow()))
-    __obj.updateDynamic("requiredFn1Void")(js.Any.fromFunction1((t0: Double) => requiredFn1Void(t0).runNow()))
+    val __obj = js.Dynamic.literal(requiredFn0Number = requiredFn0Number.toJsFn, requiredFn0Void = requiredFn0Void.toJsFn, requiredFn1Number = js.Any.fromFunction1((t0: Double) => requiredFn1Number(t0).runNow()), requiredFn1Void = js.Any.fromFunction1((t0: Double) => requiredFn1Void(t0).runNow()))
     if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
     if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
-    if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid.asInstanceOf[js.Any])
-    optFn0Number.foreach(p => __obj.updateDynamic("optFn0Number")(p.toJsFn))
-    optFn0Void.foreach(p => __obj.updateDynamic("optFn0Void")(p.toJsFn))
+    if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid.get.asInstanceOf[js.Any])
+    if (!js.isUndefined(optFn0Number)) __obj.updateDynamic("optFn0Number")(optFn0Number.get.toJsFn)
+    if (!js.isUndefined(optFn0Void)) __obj.updateDynamic("optFn0Void")(optFn0Void.get.toJsFn)
     if (optFn1Number != null) __obj.updateDynamic("optFn1Number")(js.Any.fromFunction1((t0: /* x */ Double) => optFn1Number(t0).runNow()))
     if (optFn1Void != null) __obj.updateDynamic("optFn1Void")(js.Any.fromFunction1((t0: /* x */ Double) => optFn1Void(t0).runNow()))
-    if (!js.isUndefined(text)) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])
+    if (!js.isUndefined(text)) __obj.updateDynamic("text")(text.get.asInstanceOf[js.Any])
     if (textAlign != null) __obj.updateDynamic("textAlign")(textAlign.asInstanceOf[js.Any])
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     val f = JsComponent[TestContainerProps, Varargs, js.Object](this.componentImport)
     f(__obj.asInstanceOf[TestContainerProps])(children :_*)

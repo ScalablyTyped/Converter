@@ -19,7 +19,7 @@ class ReactNames(val outputPkg: Name) {
   val ComponentClass       = mod + Name("ComponentClass")
   val ReactDOM             = mod + Name("ReactDOM")
   val ComponentState       = mod + Name("ComponentState")
-  val Jsx                  = mod + Name("_Global_") + Name("JSX")
+  val Jsx                  = mod + Name.global + Name("JSX")
   val JsxIntrinsicElements = Jsx + Name("IntrinsicElements")
   val JsxReactElement      = Jsx + Name("Element")
   val isElement            = Set(ReactElement, JsxReactElement)
@@ -49,8 +49,8 @@ class ReactNames(val outputPkg: Name) {
 
   def isComponent(tr: TypeRef): Boolean =
     tr match {
-      case TypeRef.Intersection(types) => types.exists(isComponent)
-      case other                       => ComponentQNames(other.typeName)
+      case TypeRef.Intersection(types, _) => types.exists(isComponent)
+      case other                          => ComponentQNames(other.typeName)
     }
 
   // events

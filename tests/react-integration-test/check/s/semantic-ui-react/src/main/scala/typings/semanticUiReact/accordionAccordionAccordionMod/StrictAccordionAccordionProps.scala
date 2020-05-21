@@ -44,26 +44,56 @@ trait StrictAccordionAccordionProps extends js.Object {
 
 object StrictAccordionAccordionProps {
   @scala.inline
-  def apply(
-    activeIndex: Double | js.Array[Double] = null,
-    as: js.Any = null,
-    children: ReactNode = null,
-    className: String = null,
-    defaultActiveIndex: Double | js.Array[Double] = null,
-    exclusive: js.UndefOr[Boolean] = js.undefined,
-    onTitleClick: (/* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], /* data */ AccordionTitleProps) => Unit = null,
-    panels: SemanticShorthandCollection[AccordionPanelProps] = null
-  ): StrictAccordionAccordionProps = {
+  def apply(): StrictAccordionAccordionProps = {
     val __obj = js.Dynamic.literal()
-    if (activeIndex != null) __obj.updateDynamic("activeIndex")(activeIndex.asInstanceOf[js.Any])
-    if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
-    if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    if (defaultActiveIndex != null) __obj.updateDynamic("defaultActiveIndex")(defaultActiveIndex.asInstanceOf[js.Any])
-    if (!js.isUndefined(exclusive)) __obj.updateDynamic("exclusive")(exclusive.asInstanceOf[js.Any])
-    if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(onTitleClick))
-    if (panels != null) __obj.updateDynamic("panels")(panels.asInstanceOf[js.Any])
     __obj.asInstanceOf[StrictAccordionAccordionProps]
   }
+  @scala.inline
+  implicit class StrictAccordionAccordionPropsOps[Self <: StrictAccordionAccordionProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setActiveIndex(value: Double | js.Array[Double]): Self = this.set("activeIndex", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteActiveIndex: Self = this.set("activeIndex", js.undefined)
+    @scala.inline
+    def setAs(value: js.Any): Self = this.set("as", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteAs: Self = this.set("as", js.undefined)
+    @scala.inline
+    def setChildren(value: ReactNode): Self = this.set("children", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteChildren: Self = this.set("children", js.undefined)
+    @scala.inline
+    def setClassName(value: String): Self = this.set("className", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteClassName: Self = this.set("className", js.undefined)
+    @scala.inline
+    def setDefaultActiveIndex(value: Double | js.Array[Double]): Self = this.set("defaultActiveIndex", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteDefaultActiveIndex: Self = this.set("defaultActiveIndex", js.undefined)
+    @scala.inline
+    def setExclusive(value: Boolean): Self = this.set("exclusive", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteExclusive: Self = this.set("exclusive", js.undefined)
+    @scala.inline
+    def setOnTitleClick(
+      value: (/* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], /* data */ AccordionTitleProps) => Unit
+    ): Self = this.set("onTitleClick", js.Any.fromFunction2(value))
+    @scala.inline
+    def deleteOnTitleClick: Self = this.set("onTitleClick", js.undefined)
+    @scala.inline
+    def setPanels(value: SemanticShorthandCollection[AccordionPanelProps]): Self = this.set("panels", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deletePanels: Self = this.set("panels", js.undefined)
+  }
+  
 }
 

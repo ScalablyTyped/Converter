@@ -1,6 +1,17 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
+import org.scalablytyped.converter.internal.scalajs.ParentsResolver.{
+  findParentRefs,
+  recurse,
+  typeParams,
+  Parents,
+  Resolved,
+  Unresolved,
+}
+
+import scala.collection.mutable
+
 /**
   * @deprecated This doesn't handle any of `Name.Internal`.
   *
@@ -51,17 +62,7 @@ object ParentsResolver {
     }
   }
 
-  def apply(scope: TreeScope, tree: InheritanceTree): Parents = {
-    val ld = new LoopDetector
-    val (roots, unresolved, _) =
-      parentRefs(tree)
-        .map(tr => recurse(scope, tr :: Nil, ld, typeParams(tree)))
-        .partitionCollect2({ case x: Resolved => x }, { case u: Unresolved => u })
-
-    Parents(roots.map(_.nr), unresolved.flatMap(_.tr))
-  }
-
-  private def parentRefs(tree: InheritanceTree): IArray[TypeRef] =
+  private def findParentRefs(tree: InheritanceTree): IArray[TypeRef] =
     tree match {
       case x: ClassTree  => x.parents
       case x: ModuleTree => x.parents
@@ -98,7 +99,7 @@ object ParentsResolver {
           case (cls: ClassTree, foundInScope) =>
             val rewritten = FillInTParams(cls, scope, typeRefs.head.targs, newTParams)
             val (parents, unresolved, circular) =
-              parentRefs(rewritten)
+              findParentRefs(rewritten)
                 .map(tr => recurse(foundInScope, tr :: Nil, newLd, newTParams))
                 .partitionCollect2({ case x: Resolved => x }, { case u: Unresolved => u })
 
@@ -118,4 +119,27 @@ object ParentsResolver {
             recurse(foundInScope, rewritten.alias :: typeRefs, newLd, newTParams)
         } getOrElse Unresolved(IArray.fromTraversable(typeRefs))
     }
+}
+
+class ParentsResolver {
+  private val cache = mutable.HashMap.empty[IArray[TypeRef], Parents]
+
+  def apply(scope: TreeScope, tree: InheritanceTree): Parents = {
+    val parentRefs: IArray[TypeRef] = findParentRefs(tree)
+    val ld = new LoopDetector
+
+    cache.get(parentRefs) match {
+      case Some(cached) => cached
+      case None =>
+        val (roots, unresolved, _) =
+          parentRefs
+            .map(tr => recurse(scope, tr :: Nil, ld, typeParams(tree)))
+            .partitionCollect2({ case x: Resolved => x }, { case u: Unresolved => u })
+
+        val ret = Parents(roots.map(_.nr), unresolved.flatMap(_.tr))
+        cache(parentRefs) = ret
+        ret
+    }
+  }
+
 }

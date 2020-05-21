@@ -17,19 +17,40 @@ trait VNodeComponentOptions extends js.Object {
 
 object VNodeComponentOptions {
   @scala.inline
-  def apply(
-    Ctor: VueConstructor[Vue],
-    children: VNodeChildren = null,
-    listeners: js.Object = null,
-    propsData: js.Object = null,
-    tag: String = null
-  ): VNodeComponentOptions = {
+  def apply(Ctor: VueConstructor[Vue]): VNodeComponentOptions = {
     val __obj = js.Dynamic.literal(Ctor = Ctor.asInstanceOf[js.Any])
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
-    if (listeners != null) __obj.updateDynamic("listeners")(listeners.asInstanceOf[js.Any])
-    if (propsData != null) __obj.updateDynamic("propsData")(propsData.asInstanceOf[js.Any])
-    if (tag != null) __obj.updateDynamic("tag")(tag.asInstanceOf[js.Any])
     __obj.asInstanceOf[VNodeComponentOptions]
   }
+  @scala.inline
+  implicit class VNodeComponentOptionsOps[Self <: VNodeComponentOptions] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setCtor(value: VueConstructor[Vue]): Self = this.set("Ctor", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setChildren(value: VNodeChildren): Self = this.set("children", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteChildren: Self = this.set("children", js.undefined)
+    @scala.inline
+    def setListeners(value: js.Object): Self = this.set("listeners", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteListeners: Self = this.set("listeners", js.undefined)
+    @scala.inline
+    def setPropsData(value: js.Object): Self = this.set("propsData", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deletePropsData: Self = this.set("propsData", js.undefined)
+    @scala.inline
+    def setTag(value: String): Self = this.set("tag", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteTag: Self = this.set("tag", js.undefined)
+  }
+  
 }
 
