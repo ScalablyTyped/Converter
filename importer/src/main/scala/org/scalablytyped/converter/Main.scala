@@ -36,8 +36,9 @@ object Main {
             val parseCacheOpt: Option[Path] = parseCachePathOpt orElse {
               if (config.enableParseCache) Some((defaultCacheFolder / "parse").toNIO) else None
             }
-            val paths = Ci.Paths(npmjsPath, parseCacheOpt, defaultCacheFolder, publishFolder)
-            val ci    = new Ci(config, paths, publisher, pool, ec)
+            val paths =
+              Ci.Paths(npmjsPath, parseCacheOpt, defaultCacheFolder, publishFolder, defaultCacheFolder / "git")
+            val ci = new Ci(config, paths, publisher, pool, ec)
             if (config.benchmark) {
               println(ci.run())
               println(ci.run())

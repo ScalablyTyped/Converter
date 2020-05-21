@@ -1,9 +1,13 @@
 package org.scalablytyped.converter.internal.importer
 
+import java.io.File
+
+import com.olvind.logging.Logger.DevNull
+
 import scala.collection.mutable
 
-sealed trait DTLastChangedIndex {
-  def apply(path: os.Path): Long
+sealed trait DTLastChangedIndex extends Serializable {
+  def apply(path: File): Long
 }
 
 /**
@@ -30,46 +34,50 @@ object DTLastChangedIndex {
       os.RelPath(relPath.segments.take(n), 0)
     }
   final case object No extends DTLastChangedIndex {
-    def apply(path: os.Path): Long = 0L
+    def apply(path: File): Long = 0L
   }
 
-  final case class Impl(values: Map[os.Path, Long]) extends DTLastChangedIndex {
-    def apply(path: os.Path): Long = values(path)
+  final case class Impl(values: Map[File, Long]) extends DTLastChangedIndex {
+    def apply(path: File): Long = values(path)
   }
 
-  def apply(cmd: Cmd, repo: os.Path): DTLastChangedIndex = {
+  def apply(cmd: Cmd, repo: os.Path, cacheDir: os.Path): DTLastChangedIndex = {
     implicit val wd = repo
 
-    val res         = cmd.run git ('log, "--raw", "--pretty=format:%ct")
-    var changedTime = System.currentTimeMillis() / 1000L
-    val lastChanged = mutable.Map.empty[os.RelPath, Long]
+    val head = cmd.run.git("rev-parse", "HEAD").out.lines.head
 
-    res.out.lines.map(_.split(" ")).foreach {
-      // empty
-      case Array("") =>
-        ()
+    FileLocking.cachedValue((cacheDir / head).toNIO, DevNull) {
+      val res         = cmd.run git ('log, "--raw", "--pretty=format:%ct")
+      var changedTime = System.currentTimeMillis() / 1000L
+      val lastChanged = mutable.Map.empty[os.RelPath, Long]
 
-      //determined by `--pretty:format` in the git command. This is just a unix timestamp
-      case Array(ExtractLong(date)) =>
-        changedTime = date
+      res.out.lines.map(_.split(" ")).foreach {
+        // empty
+        case Array("") =>
+          ()
 
-      //:000000 100644 0000000000 2a575c9267 A  types/filenamify-url/filenamify-url-tests.ts
-      case Array(_, _, _, _, filenamesString) =>
-        /** First fragment after split will be the column with `A` above.
-          * There might be more than one tab-separated file name, in that case it's a rename `from to`.
-          *
-          * In any case it should be alright to always take the last filename
-          */
-        val filename = filenamesString.split("\\t").last
+        //determined by `--pretty:format` in the git command. This is just a unix timestamp
+        case Array(ExtractLong(date)) =>
+          changedTime = date
 
-        withParentParts(os.RelPath(filename)).foreach { path =>
-          if (!lastChanged.contains(path)) {
-            lastChanged(path) = changedTime
+        //:000000 100644 0000000000 2a575c9267 A  types/filenamify-url/filenamify-url-tests.ts
+        case Array(_, _, _, _, filenamesString) =>
+          /** First fragment after split will be the column with `A` above.
+            * There might be more than one tab-separated file name, in that case it's a rename `from to`.
+            *
+            * In any case it should be alright to always take the last filename
+            */
+          val filename = filenamesString.split("\\t").last
+
+          withParentParts(os.RelPath(filename)).foreach { path =>
+            if (!lastChanged.contains(path)) {
+              lastChanged(path) = changedTime
+            }
           }
-        }
-      case _ =>
-    }
+        case _ =>
+      }
 
-    Impl(lastChanged.map { case (relPath, long) => repo / relPath -> long }(collection.breakOut))
+      Impl(lastChanged.map { case (relPath, long) => (repo / relPath).toIO -> long }(collection.breakOut))
+    }
   }
 }

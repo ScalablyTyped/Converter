@@ -33,6 +33,7 @@ object Ci {
       parseCache:         Option[Path],
       cacheFolder:        os.Path,
       publishLocalFolder: os.Path,
+      gitCache:           os.Path,
   )
 
   case class Config(
@@ -247,7 +248,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
   val lastChangedIndexF: Future[DTLastChangedIndex] =
     dtFolderF.map { dtFolder =>
       interfaceLogger.warn(s"Indexing ${dtFolder.path / os.up}")
-      DTLastChangedIndex(interfaceCmd, dtFolder.path / os.up)
+      DTLastChangedIndex(interfaceCmd, dtFolder.path / os.up, paths.gitCache)
     }(ec)
 
   val localCleaningF = Future {

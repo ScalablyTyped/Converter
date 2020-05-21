@@ -36,7 +36,7 @@ class DTVersions(lastChangedIndex: DTLastChangedIndex) extends CalculateLibraryV
           None
         case Success(uri) =>
           val lastModified = ZonedDateTime.ofInstant(
-            Instant.ofEpochSecond(lastChangedIndex(sourceFolder.path)),
+            Instant.ofEpochSecond(lastChangedIndex(sourceFolder.path.toIO)),
             constants.TimeZone,
           )
           Some(InGit(uri, uri === constants.DefinitelyTypedRepo, lastModified))

@@ -36,26 +36,27 @@ object FileLocking {
     }
   }
 
-  def persistingFunction[K, V <: Serializable](cachedFileFor: K => Path, logger: Logger[Unit])(f: K => V): K => V = {
-    key: K =>
-      val path = cachedFileFor(key)
+  def persistingFunction[K, V <: Serializable](cachedFileFor: K => Path, logger: Logger[Unit])(f: K => V): K => V =
+    (key: K) => cachedValue[V](cachedFileFor(key), logger)(f(key))
 
-      def onExists(channel: FileChannel, contents: () => ByteBuffer): V =
-        Serializer.deserialize[V](contents().array) match {
-          case Failure(error) =>
-            logger.warn(s"Couldn't decode cached file $path: $error")
-            val ret = f(key)
-            channel.write(ByteBuffer.wrap(Serializer.serialize(ret)))
-            ret
-          case Success(value) =>
-            value
-        }
-      def onNotExists(channel: FileChannel): V = {
-        val ret = f(key)
-        channel.write(ByteBuffer.wrap(Serializer.serialize(ret)))
-        ret
+  def cachedValue[V <: Serializable](path: Path, logger: Logger[Unit])(value: => V): V = {
+    def onExists(channel: FileChannel, contents: () => ByteBuffer): V =
+      Serializer.deserialize[V](contents().array) match {
+        case Failure(error) =>
+          logger.warn(s"Couldn't decode cached file $path: $error")
+          val ret = value
+          channel.write(ByteBuffer.wrap(Serializer.serialize(ret)))
+          ret
+        case Success(value) =>
+          value
       }
-      tryWrite[V](path, onExists = onExists, onNotExists = onNotExists)
+    def onNotExists(channel: FileChannel): V = {
+      val ret = value
+      channel.write(ByteBuffer.wrap(Serializer.serialize(ret)))
+      ret
+    }
+
+    tryWrite[V](path, onExists = onExists, onNotExists = onNotExists)
   }
 
   def tryWrite[T](path: Path, onExists: (FileChannel, () => ByteBuffer) => T, onNotExists: FileChannel => T): T =
