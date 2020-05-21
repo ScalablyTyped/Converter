@@ -81,7 +81,7 @@ object SlinkyTagsLoader {
           case (_ta: TypeAliasTree, newnewScope) =>
             val ta = FillInTParams(_ta, newnewScope, tagInterfaceRef.targs, Empty)
             ta.alias match {
-              case TypeRef.Intersection(types) =>
+              case TypeRef.Intersection(types, _) =>
                 types
                   .mapNotNone(tpe => go(newnewScope, tagName, tpe))
                   .reduceOption((ct1, ct2) => ct1.copy(attributes = ct1.attributes ++ ct2.attributes))

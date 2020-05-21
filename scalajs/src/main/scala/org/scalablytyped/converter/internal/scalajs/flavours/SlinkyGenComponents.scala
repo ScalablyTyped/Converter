@@ -503,7 +503,7 @@ class SlinkyGenComponents(mode: Mode[Unit, Option[SlinkyWeb]], findProps: FindPr
           scope
             .lookup(value.typeName)
             .collectFirst { case (_: ClassTree, _) => value }
-            .getOrElse(TypeRef.Intersection(IArray(value, TypeRef.Object)))
+            .getOrElse(TypeRef.Intersection(IArray(value, TypeRef.Object), NoComments))
         case None => TypeRef.Object
       }
     }
@@ -645,7 +645,7 @@ class SlinkyGenComponents(mode: Mode[Unit, Option[SlinkyWeb]], findProps: FindPr
       FieldTree(
         annotations = Empty,
         name        = names.component,
-        tpe         = TypeRef.Union(IArray(TypeRef.String, TypeRef.Object), sort = false),
+        tpe         = TypeRef.Union(IArray(TypeRef.String, TypeRef.Object), NoComments, sort = false),
         impl        = ExprTree.Ref(QualifiedName(IArray(Name.THIS, names.componentImport))),
         isReadOnly  = true,
         isOverride  = true,

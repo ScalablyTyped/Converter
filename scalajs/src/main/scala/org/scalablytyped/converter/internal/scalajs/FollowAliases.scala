@@ -6,10 +6,10 @@ object FollowAliases {
     tpe match {
       case TypeRef.Wildcard    => TypeRef.Any
       case TypeRef.TopLevel(x) => apply(scope)(x)
-      case TypeRef.Union(types) =>
-        TypeRef.Union(types map FollowAliases(scope), sort = false)
-      case TypeRef.Intersection(types) =>
-        TypeRef.Intersection(types map FollowAliases(scope))
+      case TypeRef.Union(types, cs) =>
+        TypeRef.Union(types map FollowAliases(scope), cs, sort = false)
+      case TypeRef.Intersection(types, cs) =>
+        TypeRef.Intersection(types map FollowAliases(scope), cs)
       case other if TypeRef.Primitive(other) => other
       case other if scope.isAbstract(other)  => other
       case TypeRef.undefined                 => TypeRef.undefined

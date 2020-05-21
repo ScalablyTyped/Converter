@@ -57,6 +57,11 @@ sealed class Comments(val cs: List[Comment]) extends Serializable {
     }
     ret
   }
+  def ++?(thatOpt: Option[Comments]): Comments =
+    thatOpt match {
+      case Some(that) => this ++ that
+      case None       => this
+    }
 
   def +(c: Comment): Comments =
     new Comments(cs :+ c)

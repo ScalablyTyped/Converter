@@ -49,8 +49,8 @@ class ReactNames(val outputPkg: Name) {
 
   def isComponent(tr: TypeRef): Boolean =
     tr match {
-      case TypeRef.Intersection(types) => types.exists(isComponent)
-      case other                       => ComponentQNames(other.typeName)
+      case TypeRef.Intersection(types, _) => types.exists(isComponent)
+      case other                          => ComponentQNames(other.typeName)
     }
 
   // events

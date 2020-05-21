@@ -15,7 +15,7 @@ object ImportEnum {
           case _: TsLiteralBoolean => TypeRef.Boolean
         }
     }
-    TypeRef.Union(found, sort = true)
+    TypeRef.Union(found, NoComments, sort = true)
   }
 
   def apply(
@@ -130,7 +130,7 @@ object ImportEnum {
                   tparams     = Empty,
                   params      = IArray(IArray(applyParam)),
                   impl        = ExprTree.native,
-                  resultType  = TypeRef.Intersection(IArray(baseInterface, underlying)).withOptional(true),
+                  resultType  = TypeRef.Intersection(IArray(baseInterface, underlying), NoComments).withOptional(true),
                   isOverride  = false,
                   comments    = NoComments,
                   codePath    = importedCodePath + Name.APPLY,
@@ -176,7 +176,7 @@ object ImportEnum {
                       FieldTree(
                         annotations = anns,
                         name        = name,
-                        tpe         = TypeRef.Intersection(IArray(memberTypeRef, underlying)),
+                        tpe         = TypeRef.Intersection(IArray(memberTypeRef, underlying), NoComments),
                         impl        = ExprTree.native,
                         isReadOnly  = true,
                         isOverride  = false,

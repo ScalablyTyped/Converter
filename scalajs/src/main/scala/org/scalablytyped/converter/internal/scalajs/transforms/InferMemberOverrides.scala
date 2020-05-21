@@ -48,7 +48,7 @@ object InferMemberOverrides extends TreeTransformation {
       IArray.fromTraversable(inheritedFields) collect {
         case (name, fs) if !fieldsByName.contains(name) =>
           val head    = fs.head._1
-          val newType = TypeRef.Intersection(fs.map(_._1.tpe))
+          val newType = TypeRef.Intersection(fs.map(_._1.tpe), NoComments)
 
           head.copy(
             isOverride = true,
@@ -67,7 +67,7 @@ object InferMemberOverrides extends TreeTransformation {
         case (base, fs) if fs.length > 1 && !methodsByBase.contains(base) =>
           fs.head.copy(
             isOverride = true,
-            resultType = TypeRef.Intersection(fs.map(_.resultType)),
+            resultType = TypeRef.Intersection(fs.map(_.resultType), NoComments),
             impl       = updatedImpl(fs.map(_.impl), None, tree.isScalaJsDefined),
             comments   = fs.head.comments + Comment("/* InferMemberOverrides */\n"),
           )
@@ -86,8 +86,8 @@ object InferMemberOverrides extends TreeTransformation {
     tpe match {
       case TypeRef(QualifiedName.UndefOr, _, _) => true
       case TypeRef.undefined                    => true
-      case TypeRef.Intersection(types)          => types forall canBeUndefined
-      case TypeRef.Union(types)                 => types exists canBeUndefined
+      case TypeRef.Intersection(types, _)       => types forall canBeUndefined
+      case TypeRef.Union(types, _)              => types exists canBeUndefined
       case _                                    => false
     }
 

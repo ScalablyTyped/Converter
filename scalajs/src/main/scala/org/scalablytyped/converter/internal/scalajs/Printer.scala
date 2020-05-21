@@ -374,17 +374,13 @@ object Printer {
         case TypeRef.Wildcard              => "_"
         case TypeRef.Singleton(underlying) => formatTypeRef(indent)(underlying) |+| ".type"
 
-        case TypeRef.Intersection(types) =>
-          /* ensure we have ran the logic in the apply method */
-          TypeRef.Intersection(types) match {
-            case TypeRef.Intersection(types) => types map formatTypeRef(indent) map paramsIfNeeded mkString " with "
-            case other                       => formatTypeRef(indent)(other)
-          }
+        case TypeRef.Intersection(types, _) =>
+          types map formatTypeRef(indent) map paramsIfNeeded mkString " with "
 
-        case TypeRef.UndefOr(tpe) =>
+        case TypeRef.UndefOr(tpe, _) =>
           formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, IArray(tpe), NoComments))
 
-        case TypeRef.Union(types) =>
+        case TypeRef.Union(types, _) =>
           types map formatTypeRef(indent) map paramsIfNeeded mkString " | "
 
         case TypeRef.StringLiteral(underlying)  => stringUtils.quote(underlying)

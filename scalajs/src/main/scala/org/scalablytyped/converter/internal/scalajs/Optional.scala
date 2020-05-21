@@ -7,10 +7,10 @@ object Optional {
 
   def unapply(tpe: TypeRef): Option[TypeRef] =
     tpe match {
-      case TypeRef.Union(types) =>
+      case TypeRef.Union(types, cs) =>
         types partition nulls match {
           case (IArray.Empty, _) => None
-          case (_, remaining)    => Some(TypeRef.Union(remaining, sort = false))
+          case (_, remaining)    => Some(TypeRef.Union(remaining, cs, sort = false))
         }
       case _ => None
     }

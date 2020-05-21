@@ -124,7 +124,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           case x: TsDeclTypeAlias if x.codePath.forceHasPath.codePath === TsQIdent.Std.Record =>
             TypeRef.StringDictionary(TypeRef(ImportName(x.tparams(1).name)), NoComments)
           case x: TsNamedDecl =>
-            TypeRef.Intersection(IArray(TypeRef.StringLiteral(x.name.value), TypeRef.TopLevel(base))).withComments(c)
+            TypeRef.Intersection(IArray(TypeRef.StringLiteral(x.name.value), TypeRef.TopLevel(base)), c)
         } getOrElse base.withComments(c)
 
       case TsTypeObject(_, ms) if ExtractInterfaces.isDictionary(ms) =>
@@ -142,7 +142,10 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           case some =>
             Some(
               TypeRef
-                .StringDictionary(TypeRef.Intersection(some.map(_._2)), Comments.flatten(some.map(_._1))(identity)),
+                .StringDictionary(
+                  TypeRef.Intersection(some.map(_._2), NoComments),
+                  Comments.flatten(some.map(_._1))(identity),
+                ),
             )
         }
         val translatedNumbers = numbers.collect {
@@ -154,10 +157,13 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           case some =>
             Some(
               TypeRef
-                .NumberDictionary(TypeRef.Intersection(some.map(_._2)), Comments.flatten(some.map(_._1))(identity)),
+                .NumberDictionary(
+                  TypeRef.Intersection(some.map(_._2), NoComments),
+                  Comments.flatten(some.map(_._1))(identity),
+                ),
             )
         }
-        TypeRef.Intersection(IArray.fromOptions(stringDict, numberDict))
+        TypeRef.Intersection(IArray.fromOptions(stringDict, numberDict), NoComments)
 
       case TsTypeFunction(sig) =>
         if (sig.params.length > 22) TypeRef.FunctionBase
@@ -195,22 +201,24 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           case TsTypeRef.undefined => TypeRef.undefined
           case other               => apply(wildcards, scope, importName)(other)
         }
-        TypeRef.Union(rewritten, sort = false)
+        TypeRef.Union(rewritten, NoComments, sort = false)
 
       case TsTypeIntersect(types) =>
-        TypeRef.Intersection(types map apply(Wildcards.No, scope, importName))
+        TypeRef.Intersection(types map apply(Wildcards.No, scope, importName), NoComments)
 
       case TsTypeConstructor(TsTypeFunction(sig)) =>
         newableFunction(scope, importName, sig, NoComments)
 
       case keyof @ TsTypeKeyOf(of) =>
-        AllMembersFor.forType(scope, LoopDetector.initial)(of).collect {
+        val ret = AllMembersFor.forType(scope, LoopDetector.initial)(of).collect {
           case x: TsMemberFunction => x.name
           case x: TsMemberProperty => x.name
         } match {
-          case Empty => TypeRef.String.withComments(Comments(Comment(s"/* ${TsTypeFormatter(keyof)} */")))
-          case names => TypeRef.Union(names.map(n => TypeRef.StringLiteral(n.value)), sort = true)
+          case Empty => TypeRef.String
+          case names => TypeRef.Union(names.map(n => TypeRef.StringLiteral(n.value)), NoComments, sort = true)
         }
+
+        ret.withComments(Comments(Comment(s"/* ${TsTypeFormatter(keyof)} */")))
 
       case TsTypeTuple(targs) =>
         targs match {

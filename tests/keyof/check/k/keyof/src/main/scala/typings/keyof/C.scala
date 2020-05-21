@@ -9,6 +9,6 @@ import scala.scalajs.js.annotation._
 @JSGlobal("C")
 @js.native
 object C extends js.Object {
-  def bar(p: c | b): String = js.native
+  def bar(p: /* keyof keyof.PickAcb */ c | b): String = js.native
 }
 

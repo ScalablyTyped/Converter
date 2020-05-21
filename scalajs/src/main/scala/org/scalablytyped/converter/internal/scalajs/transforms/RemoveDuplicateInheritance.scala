@@ -31,7 +31,7 @@ object RemoveDuplicateInheritance extends TreeTransformation {
           case (name, sameParentRef: IArray[TypeRef]) =>
             name -> TypeRef(
               name,
-              sameParentRef.map(_.targs).transpose.map(ts => TypeRef.Union(ts, true)),
+              sameParentRef.map(_.targs).transpose.map(ts => TypeRef.Union(ts, NoComments, true)),
               Comments.flatten(sameParentRef)(_.comments),
             )
         }

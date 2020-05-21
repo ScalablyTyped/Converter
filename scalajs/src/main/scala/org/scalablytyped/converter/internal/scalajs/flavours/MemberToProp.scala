@@ -37,7 +37,7 @@ object MemberToProp {
                 name       = name,
                 isImplicit = false,
                 isVal      = false,
-                tpe        = TypeRef.Union(IArray(TypeRef.Int, TypeRef.Double), sort = false),
+                tpe        = TypeRef.Union(IArray(TypeRef.Int, TypeRef.Double), NoComments, sort = false),
                 default    = defaultedTo,
                 comments   = NoComments,
               )
@@ -141,7 +141,7 @@ object MemberToProp {
 
               val variants: IArray[Prop.VariantLike] =
                 dealiased match {
-                  case TypeRef.Union(types) =>
+                  case TypeRef.Union(types, _) =>
                     val nested = types
                       .mapNotNone(tpe => apply(scope, f.copy(tpe = tpe), isInherited))
                       .map(x => x.main)
@@ -210,7 +210,7 @@ object MemberToProp {
 
               val variants: IArray[Prop.VariantLike] =
                 dealiased match {
-                  case TypeRef.Union(types) =>
+                  case TypeRef.Union(types, _) =>
                     types
                       .mapNotNone(tpe => apply(scope, f.copy(tpe = tpe), isInherited))
                       .map(_.main)

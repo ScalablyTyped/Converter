@@ -97,10 +97,10 @@ object UnionToInheritance {
         IArray(typesToInterfaces(p, indexedRewrites, newParentsByCodePath))
 
       case ta: TypeAliasTree if indexedRewrites.contains(ta.codePath) =>
-        val comment = ta.alias match {
-          case TypeRef.Union(tps) =>
+        val commentsOpt = ta.alias match {
+          case TypeRef.Union(tps, cs) =>
             val strings = tps.map(Printer.formatTypeRef(0)).map("  - " + _)
-            Some(Comment(s"/* Rewritten from type alias, can be one of: \n${strings.mkString("\n")}\n*/\n"))
+            Some(cs + Comment(s"/* Rewritten from type alias, can be one of: \n${strings.mkString("\n")}\n*/\n"))
           case _ => None
         }
 
@@ -116,7 +116,7 @@ object UnionToInheritance {
               Empty,
               ClassType.Trait,
               isSealed = false,
-              ta.comments +? comment + CommentData(Minimization.Related(asInheritance)) +
+              ta.comments ++? commentsOpt + CommentData(Minimization.Related(asInheritance)) +
                 CommentData(WasUnion(asInheritance)),
               ta.codePath,
             )
@@ -142,9 +142,10 @@ object UnionToInheritance {
             val newTa = ta.copy(
               alias = TypeRef.Union(
                 TypeRef(patchedTa.codePath, TypeParamTree.asTypeArgs(patchedTa.tparams), NoComments) +: noRewrites,
+                NoComments,
                 sort = false,
               ),
-              comments = ta.comments +? comment,
+              comments = ta.comments ++? commentsOpt,
             )
             IArray(cls, newTa)
         }
@@ -214,7 +215,7 @@ object UnionToInheritance {
 
     def canRewrite(inLib: Name, ta: TypeAliasTree, scope: TreeScope): Option[Rewrite] =
       ta.alias match {
-        case TypeRef.Union(types) =>
+        case TypeRef.Union(types, _) =>
           def legalTarget(tr: TypeRef): Boolean =
             scope.lookup(tr.typeName).exists {
               case (_:  ClassTree, _)     => true
