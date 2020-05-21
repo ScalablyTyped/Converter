@@ -19,7 +19,7 @@ object GenImplicitOpsClass {
     val clsCodePath = ownerCp + clsName
 
     /* we need to add a few type parameter names into an unknown set, so this avoids collisions */
-    val mutableAllocateTypeName = AvailableName(original.tparams.map(_.name))
+    val mutableAllocateTypeName = AvailableName(original.tparams.map(_.name), IArray(original.name))
 
     /**
       * We generate a Self type like this:
@@ -281,9 +281,9 @@ object GenImplicitOpsClass {
   }
 
   object AvailableName {
-    def apply(usedNames: IArray[Name]): AvailableName = {
+    def apply(usedNamess: IArray[Name]*): AvailableName = {
       val m = mutable.HashSet.empty[Name]
-      usedNames.foreach(m += _)
+      usedNamess.foreach(usedNames => usedNames.foreach(m += _))
       new AvailableName(m)
     }
   }
