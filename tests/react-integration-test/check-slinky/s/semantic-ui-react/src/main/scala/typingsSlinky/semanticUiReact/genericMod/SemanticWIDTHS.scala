@@ -1,21 +1,5 @@
 package typingsSlinky.semanticUiReact.genericMod
 
-import typingsSlinky.semanticUiReact.semanticUiReactNumbers.`11`
-import typingsSlinky.semanticUiReact.semanticUiReactNumbers.`12`
-import typingsSlinky.semanticUiReact.semanticUiReactNumbers.`15`
-import typingsSlinky.semanticUiReact.semanticUiReactNumbers.`16`
-import typingsSlinky.semanticUiReact.semanticUiReactNumbers.`1`
-import typingsSlinky.semanticUiReact.semanticUiReactNumbers.`4`
-import typingsSlinky.semanticUiReact.semanticUiReactNumbers.`5`
-import typingsSlinky.semanticUiReact.semanticUiReactNumbers.`8`
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.`10`
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.`13`
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.`14`
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.`2`
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.`3`
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.`6`
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.`7`
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.`9`
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -74,85 +58,37 @@ trait SemanticWIDTHS extends js.Object
 
 object SemanticWIDTHS {
   @scala.inline
-  def `1`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`1` = "1".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`1`]
+  def `1`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`1` = 1.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`1`]
   @scala.inline
   def `10`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`10` = 10.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`10`]
-  @JSName("10")
   @scala.inline
-  def `10_10`: `10` = "10".asInstanceOf[`10`]
+  def `11`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`11` = 11.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`11`]
   @scala.inline
-  def `11`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`11` = "11".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`11`]
-  @JSName("11")
-  @scala.inline
-  def `11_11`: `11` = 11.asInstanceOf[`11`]
-  @scala.inline
-  def `12`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`12` = "12".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`12`]
-  @JSName("12")
-  @scala.inline
-  def `12_12`: `12` = 12.asInstanceOf[`12`]
+  def `12`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`12` = 12.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`12`]
   @scala.inline
   def `13`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`13` = 13.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`13`]
-  @JSName("13")
-  @scala.inline
-  def `13_13`: `13` = "13".asInstanceOf[`13`]
   @scala.inline
   def `14`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`14` = 14.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`14`]
-  @JSName("14")
   @scala.inline
-  def `14_14`: `14` = "14".asInstanceOf[`14`]
+  def `15`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`15` = 15.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`15`]
   @scala.inline
-  def `15`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`15` = "15".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`15`]
-  @JSName("15")
-  @scala.inline
-  def `15_15`: `15` = 15.asInstanceOf[`15`]
-  @scala.inline
-  def `16`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`16` = "16".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`16`]
-  @JSName("16")
-  @scala.inline
-  def `16_16`: `16` = 16.asInstanceOf[`16`]
-  @JSName("1")
-  @scala.inline
-  def `1_1`: `1` = 1.asInstanceOf[`1`]
+  def `16`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`16` = 16.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`16`]
   @scala.inline
   def `2`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`2` = 2.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`2`]
-  @JSName("2")
-  @scala.inline
-  def `2_2`: `2` = "2".asInstanceOf[`2`]
   @scala.inline
   def `3`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`3` = 3.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`3`]
-  @JSName("3")
   @scala.inline
-  def `3_3`: `3` = "3".asInstanceOf[`3`]
+  def `4`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`4` = 4.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`4`]
   @scala.inline
-  def `4`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`4` = "4".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`4`]
-  @JSName("4")
-  @scala.inline
-  def `4_4`: `4` = 4.asInstanceOf[`4`]
-  @scala.inline
-  def `5`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`5` = "5".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`5`]
-  @JSName("5")
-  @scala.inline
-  def `5_5`: `5` = 5.asInstanceOf[`5`]
+  def `5`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`5` = 5.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`5`]
   @scala.inline
   def `6`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`6` = 6.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`6`]
-  @JSName("6")
-  @scala.inline
-  def `6_6`: `6` = "6".asInstanceOf[`6`]
   @scala.inline
   def `7`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`7` = 7.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`7`]
-  @JSName("7")
   @scala.inline
-  def `7_7`: `7` = "7".asInstanceOf[`7`]
-  @scala.inline
-  def `8`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`8` = "8".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`8`]
-  @JSName("8")
-  @scala.inline
-  def `8_8`: `8` = 8.asInstanceOf[`8`]
+  def `8`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`8` = 8.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`8`]
   @scala.inline
   def `9`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`9` = 9.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`9`]
-  @JSName("9")
-  @scala.inline
-  def `9_9`: `9` = "9".asInstanceOf[`9`]
   @scala.inline
   def eight: typingsSlinky.semanticUiReact.semanticUiReactStrings.eight = "eight".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.eight]
   @scala.inline

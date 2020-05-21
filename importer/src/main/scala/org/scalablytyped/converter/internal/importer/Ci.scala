@@ -124,7 +124,7 @@ object Ci {
                 expandTypeMappings    = EnabledTypeMappingExpansion.DefaultSelection,
                 versions = Versions(
                   if (flags contains "-scala212") Versions.Scala212 else Versions.Scala213,
-                  if (flags contains ("-scalajs1")) Versions.ScalaJs1 else Versions.ScalaJs06,
+                  if (flags contains ("-scalajs06")) Versions.ScalaJs06 else Versions.ScalaJs1,
                 ),
                 organization      = organization,
                 enableImplicitOps = flags contains "-enableImplicitOps",

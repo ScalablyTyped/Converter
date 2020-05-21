@@ -46,24 +46,27 @@ object ImportEnum {
         )
 
         def module = {
-          val newMembers = members.map {
-            case TsEnumMember(memberCs, ImportName(memberName), exprOpt) =>
-              val expr = exprOpt.getOrElse(sys.error("Expression cannot be empty here"))
-              val tpe  = importType(Wildcards.No, scope, importName)(TsExpr.typeOf(expr))
-              MethodTree(
-                IArray(Annotation.Inline),
-                ProtectionLevel.Default,
-                memberName,
-                Empty,
-                Empty,
-                ExprTree.Cast(importExpr(expr, scope), tpe),
-                tpe,
-                isOverride = false,
-                memberCs,
-                importedCodePath + memberName,
-                isImplicit = false,
-              )
-          }
+          val newMembers = members
+            .map {
+              case TsEnumMember(memberCs, ImportName(memberName), exprOpt) =>
+                val expr            = exprOpt.getOrElse(sys.error("Expression cannot be empty here"))
+                val tpe             = importType(Wildcards.No, scope, importName)(TsExpr.typeOf(expr))
+                val memberNameFixed = if (illegalNames.Illegal(memberName)) memberName.withSuffix("") else memberName
+                MethodTree(
+                  IArray(Annotation.Inline),
+                  ProtectionLevel.Default,
+                  memberNameFixed,
+                  Empty,
+                  Empty,
+                  ExprTree.Cast(importExpr(expr, scope), tpe),
+                  tpe,
+                  isOverride = false,
+                  memberCs,
+                  importedCodePath + memberNameFixed,
+                  isImplicit = false,
+                )
+            }
+            .distinctBy(_.name.unescaped)
 
           /* keep module members when minimizing */
           val related = Comments(CommentData(Minimization.Related(newMembers.map(m => TypeRef(m.codePath)))))

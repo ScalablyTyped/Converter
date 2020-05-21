@@ -1,13 +1,13 @@
 package org.scalablytyped.converter.internal.scalajs
 
 object Versions {
-  val sbtVersion = "1.3.8"
+  val sbtVersion = "1.3.10"
 
   val runtime      = Dep.ScalaJs("com.olvind", "scalablytyped-runtime", "2.1.0")
   val scalaJsDom   = Dep.ScalaJs("org.scala-js", "scalajs-dom", "1.0.0")
   val slinkyWeb    = Dep.ScalaJs("me.shadaj", "slinky-web", "0.6.5")
   val slinkyNative = Dep.ScalaJs("me.shadaj", "slinky-native", "0.6.5")
-  val scalajsReact = Dep.ScalaJs("com.github.japgolly.scalajs-react", "core", "1.5.0")
+  val scalajsReact = Dep.ScalaJs("com.github.japgolly.scalajs-react", "core", "1.7.0")
 
   private val StableVersion = "(\\d+).(\\d+).(\\d+)".r
 
@@ -22,9 +22,9 @@ object Versions {
     }
   }
 
-  val Scala212 = Scala("2.12.10")
+  val Scala212 = Scala("2.12.11")
 
-  val Scala213 = Scala("2.13.1")
+  val Scala213 = Scala("2.13.2")
 
   case class ScalaJs(scalaJsVersion: String) {
     val scalaJsBinVersion: String =
@@ -47,8 +47,8 @@ object Versions {
     val sbtPlugin     = Dep.Scala(scalaJsOrganization, "sbt-scalajs", scalaJsVersion)
   }
 
-  val ScalaJs1  = ScalaJs("1.0.0")
-  val ScalaJs06 = ScalaJs("0.6.32")
+  val ScalaJs1  = ScalaJs("1.1.0")
+  val ScalaJs06 = ScalaJs("0.6.33")
 }
 
 case class Versions(scala: Versions.Scala, scalaJs: Versions.ScalaJs) {

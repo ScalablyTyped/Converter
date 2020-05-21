@@ -66,11 +66,11 @@ class ContentForPublishTest extends AnyFunSuite with Matchers {
         <artifact name="sbtprojectartifactid_sjs1_2.13" type="src" ext="jar" conf="compile" e:classifier="sources"/>
       </publications>
       <dependencies>
-        <dependency org="org.scala-lang" name="scala-compiler" rev="2.13.1" conf="scala-tool-&gt;default,optional(default)"/>
-        <dependency org="org.scala-lang" name="scala-library" rev="2.13.1" conf="scala-tool-&gt;default,optional(default);compile-&gt;default(compile)"/>
-        <dependency org="org.scala-js" name="scalajs-compiler_2.13.1" rev="1.0.0" conf="plugin-&gt;default(compile)"/>
-        <dependency org="org.scala-js" name="scalajs-library_2.13" rev="1.0.0" conf="compile-&gt;default(compile)"/>
-        <dependency org="org.scala-js" name="scalajs-test-interface_2.13" rev="1.0.0" conf="test-&gt;default(compile)"/>
+        <dependency org="org.scala-lang" name="scala-compiler" rev="2.13.2" conf="scala-tool-&gt;default,optional(default)"/>
+        <dependency org="org.scala-lang" name="scala-library" rev="2.13.2" conf="scala-tool-&gt;default,optional(default);compile-&gt;default(compile)"/>
+        <dependency org="org.scala-js" name="scalajs-compiler_2.13.2" rev="1.1.0" conf="plugin-&gt;default(compile)"/>
+        <dependency org="org.scala-js" name="scalajs-library_2.13" rev="1.1.0" conf="compile-&gt;default(compile)"/>
+        <dependency org="org.scala-js" name="scalajs-test-interface_2.13" rev="1.1.0" conf="test-&gt;default(compile)"/>
         <dependency org="com.olvind" name="scalablytyped-runtime_sjs1_2.13" rev="2.1.0" conf="compile-&gt;default(compile)"/>
         <dependency org="deporg" name="departifactid_sjs1_2.13" rev="depversion" conf="compile-&gt;default(compile)"/>
         <dependency org="externaldeporg" name="externaldepartifact_sjs1_2.13" rev="externaldepversion" conf="compile-&gt;default(compile)"/>
@@ -97,17 +97,17 @@ class ContentForPublishTest extends AnyFunSuite with Matchers {
         <dependency>
       <groupId>org.scala-lang</groupId>
       <artifactId>scala-library</artifactId>
-      <version>2.13.1</version>
+      <version>2.13.2</version>
     </dependency>
         <dependency>
       <groupId>org.scala-js</groupId>
       <artifactId>scalajs-library_2.13</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0</version>
     </dependency>
         <dependency>
       <groupId>org.scala-js</groupId>
       <artifactId>scalajs-test-interface_2.13</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0</version>
       <scope>test</scope>
     </dependency>
         <dependency>
