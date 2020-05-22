@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>What do I do now? · ScalablyTyped</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;br/&gt;"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="What do I do now? · ScalablyTyped"/><meta property="og:type" content="website"/><meta property="og:url" content="https://scalablytyped.org/"/><meta property="og:description" content="&lt;br/&gt;"/><meta property="og:image" content="https://scalablytyped.org/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://scalablytyped.org/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/undefined"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><h2 class="headerTitle">ScalablyTyped</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://github.com/ScalablyTyped/Converter" target="_self">Github</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Getting started</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">ScalablyTyped<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/readme">The Javascript ecosystem for Scala.js!</a></li><li class="navListItem"><a class="navItem" href="/docs/flavour">Flavour</a></li><li class="navListItem"><a class="navItem" href="/docs/encoding">Encoding</a></li><li class="navListItem"><a class="navItem" href="/docs/changelog">Changelog</a></li><li class="navListItem"><a class="navItem" href="/docs/import-problems">What if I hit problems importing libraries?</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Getting started<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/plugin">SBT plugin</a></li><li class="navListItem"><a class="navItem" href="/docs/plugin-no-bundler">SBT plugin without scalajs-bundler</a></li><li class="navListItem"><a class="navItem" href="/docs/cli">Command line tool</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/usage">What do I do now?</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Development<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/devel/about">Development</a></li><li class="navListItem"><a class="navItem" href="/docs/devel/running">Running</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">What do I do now?</h1></header><article><div><span><p><br/>
+<strong>TL;DR</strong>: Using a react flavour? look in <code>typings.&lt;lib&gt;.components</code>. Else look in <code>typings.&lt;lib&gt;.mod</code>.</p>
+<p><br/></p>
+<p>Ok, you generated thousands of lines of code. Great! Now how to use it?
+(If you haven't, check <a href="/docs/plugin">how to setup the plugin</a>)</p>
+<h2><a class="anchor" aria-hidden="true" id="have-a-look-around"></a><a href="#have-a-look-around" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Have a look around!</h2>
+<p>The converter plugin generates source jars which are attached to your IDE,
+as such you can browse just as any other library.</p>
+<video autoplay="autoplay" src="http://olvind.com/videos/navigation.mp4" height="744px" width="874"></video>
+<h2><a class="anchor" aria-hidden="true" id="anatomy-of-a-typing-library"></a><a href="#anatomy-of-a-typing-library" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Anatomy of a typing library</h2>
+<p>All typing libraries follow the same hierarchy. Not all libraries will have all these entities, and many will have
+a substantial amount of top-level traits in the root folder as well.</p>
+<pre><code class="hljs css language-text">typings
+  foo
+    anon/
+    components/
+    mod/
+    *Mod/
+    global/
+    fooStrings.scala
+    fooNumbers.scala
+    fooBooleans.scala
+    fooRequire.scala
+    ... top-level types
+</code></pre>
+<p>For react it can look like this:</p>
+<pre><code class="hljs css language-text">typings
+  react
+    anon
+    components
+    experimentalMod
+    mod
+    package.scala
+    reactBooleans.scala
+    reactRequire.scala
+    reactStrings.scala
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="modules"></a><a href="#modules" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Modules</h3>
+<p>Typically, you'll want to use Javascript modules.
+The key thing to note is that every possible Javascript module name get its own Scala package/object in ScalablyTyped.</p>
+<p>React has two modules, <code>'react'</code> and <code>'react/experimental'</code>. The module which corresponds to the library itself
+(<code>'react'</code> here) by convention ends up as <code>mod</code>. Since most Javascript libraries export most things up to the top,
+that's where you should look first.</p>
+<p>All the other modules receive names ending in <code>Mod</code>. Since there was considerable pushback against directly translated
+long package names (<code>reactExperimentalMod</code> in this case) they are abbreviated.</p>
+<p>In this case <code>'react/experimental'</code> ends up as just <code>experimentalMod</code>.</p>
+<h3><a class="anchor" aria-hidden="true" id="globals"></a><a href="#globals" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Globals</h3>
+<p>Some libraries such as std, node, electron and others offer some/all functionality through the global namespace.
+To clarify when you make use of it, all global references are reachable through <code>typings.&lt;lib&gt;.global</code>
+(possibly with <code>_</code> suffix, in case of name clashes).</p>
+<h3><a class="anchor" aria-hidden="true" id="react-components"></a><a href="#react-components" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>React components</h3>
+<p>If you use a <a href="/docs/flavour">react flavour</a>, all generated components will be put in tje <code>typings.&lt;lib&gt;.components</code> package.</p>
+<h3><a class="anchor" aria-hidden="true" id="anonymous-interfaces"></a><a href="#anonymous-interfaces" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Anonymous interfaces</h3>
+<p>Typescript has a lot of unnamed types, which we try to give a name in ScalablyTyped.
+Since these are not stable in the same sense as named API is stable, they are extracted into the <code>typings.&lt;lib&gt;.anon</code> package.
+You won't always have a choice, but try to limit use of these.</p>
+<h3><a class="anchor" aria-hidden="true" id="extracted-literals"></a><a href="#extracted-literals" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extracted literals</h3>
+<p>Whenever concrete strings, numbers or booleans appear in source code, they are collected into objects and reused for
+the entire typing library, see <a href="/docs/encoding#whatsup-with-strings">encoding</a>.</p>
+<p>These end up in for instance <code>typings.react.reactStrings</code>.</p>
+<h2><a class="anchor" aria-hidden="true" id="i-still-cannot-find-out-where-to-start"></a><a href="#i-still-cannot-find-out-where-to-start" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>I still cannot find out where to start!</h2>
+<p>Javascript libraries can work in so many different ways. Look at typescript examples and try to translate.</p>
+<p>Here is one concrete pattern you might come across:</p>
+<h3><a class="anchor" aria-hidden="true" id="jqueryui"></a><a href="#jqueryui" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>jqueryui</h3>
+<p>This is one of many libraries which work by monkey-patching jquery when loaded, as such there isn't really an &quot;entry point&quot;,
+like most other libraries. In Typescript this is modelled with interface augmentation, which we don't have in Scala.js.</p>
+<p>Your only hint from the code itself is that it has a <a href="https://github.com/ScalablyTyped/Distribution/blob/master/j/jqueryui/src/main/scala/typings/jqueryui/JQuery.scala"><code>JQuery</code></a>
+trait, same as <code>jquery</code> itself. The solution here is to ensure jqueryui is loaded by touching <code>typings.jqueryui.jqueryuiRequire</code>, and casting
+<code>typings.jquery.JQuery</code> to <code>typings.jqueryui.JQuery</code>.</p>
+<p>See an entire solution in the <a href="https://github.com/ScalablyTyped/Demos/blob/master/jquery/src/main/scala/demo/JQueryDemo.scala">demo</a></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/cli"><span class="arrow-prev">← </span><span>Command line tool</span></a><a class="docs-next button" href="/docs/devel/about"><span>Development</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#have-a-look-around">Have a look around!</a></li><li><a href="#anatomy-of-a-typing-library">Anatomy of a typing library</a><ul class="toc-headings"><li><a href="#modules">Modules</a></li><li><a href="#globals">Globals</a></li><li><a href="#react-components">React components</a></li><li><a href="#anonymous-interfaces">Anonymous interfaces</a></li><li><a href="#extracted-literals">Extracted literals</a></li></ul></li><li><a href="#i-still-cannot-find-out-where-to-start">I still cannot find out where to start!</a><ul class="toc-headings"><li><a href="#jqueryui">jqueryui</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"></a><div><h5>Community</h5><a href="https://gitter.im/ScalablyTyped/community/">Project Chat</a></div><div><h5>More</h5><a href="https://github.com/oyvindberg/ScalablyTypedConverter/">GitHub</a><a class="github-button" href="https://github.com/ScalablyTyped/Converter/" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 Øyvind Raddum Berg</section></footer></div></body></html>
