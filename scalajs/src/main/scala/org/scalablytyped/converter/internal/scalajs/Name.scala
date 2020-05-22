@@ -46,6 +46,8 @@ object Name {
   val Dynamic:    Name = Name("Dynamic")
   val namespaced: Name = Name("^")
   val underscore: Name = Name("_")
+  val org:        Name = Name("org")
+  val com:        Name = Name("com")
 
   val APPLY:           Name = Name("<apply>")
   val CONSTRUCTOR:     Name = Name("<init>")

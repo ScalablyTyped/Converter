@@ -6,7 +6,7 @@ import org.scalablytyped.converter.internal.maps._
 import scala.collection.mutable
 
 object ShortenNames {
-  val Forbidden: Set[Name] = Set(Name("|"), Name("_"), Name("scala"), Name("js"), Name("com"), Name("org"))
+  val Forbidden: Set[Name] = Set(Name("|"), Name.underscore, Name.scala, Name.js, Name.com, Name.org)
 
   case class ImportTree(imported: QualifiedName)
 
@@ -59,6 +59,7 @@ object ShortenNames {
               longName.parts.head =/= Name.SUPER &&
               !Forbidden.contains(shortName) &&
               owner.name =/= shortName &&
+              !longName.startsWith(QualifiedName.linkingInfo) && //unstable path cannot be imported
               longName.parts.length > 1 &&
               /* the printer has special logic for these */
               longName =/= TypeRef.Nothing.typeName &&

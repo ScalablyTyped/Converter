@@ -358,18 +358,23 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
       val args0              = Call(compArgs, IArray(IArray(NumberLit("0"))))
       val reactRawName       = Ref(ReactRaw.name)
       val createElementApply = Select(Select(reactRawName, Name("createElement")), Name("applyDynamic"))
+      val ret                = Name("ret")
 
-      val ret = Name("ret")
+      def inDevMode(expr: ExprTree) =
+        If(Unary("!", Ref(QualifiedName.linkingInfo_productionMode)), Block(expr), None)
+
       val impl = Block(
-        If(
-          BinaryOp(args0, "==", Null),
-          Throw(
-            New(
-              TypeRef(QualifiedName("java.lang.IllegalStateException")),
-              IArray(StringLit("This component has already been built into a ReactElement, and cannot be reused")),
+        inDevMode(
+          If(
+            BinaryOp(args0, "==", Null),
+            Throw(
+              New(
+                TypeRef(QualifiedName("java.lang.IllegalStateException")),
+                IArray(StringLit("This component has already been built into a ReactElement, and cannot be reused")),
+              ),
             ),
+            None,
           ),
-          None,
         ),
         Val(
           ret,
@@ -378,7 +383,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
             TypeRef(SlinkyGenComponents.names.ReactElement),
           ),
         ),
-        Call(Select(compArgs, Name("update")), IArray(IArray(NumberLit("0"), Null))),
+        inDevMode(Call(Select(compArgs, Name("update")), IArray(IArray(NumberLit("0"), Null)))),
         Ref(ret),
       )
 

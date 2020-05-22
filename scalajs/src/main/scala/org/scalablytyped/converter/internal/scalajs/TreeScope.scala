@@ -89,12 +89,11 @@ object TreeScope {
       JapgollyGenComponents.names.japgolly,
       SlinkyGenComponents.slinkyName,
     ) ++ Name.Internal
-    private val org = Name("org")
 
     def apply(wanted: QualifiedName): Boolean =
       if (wanted.parts.isEmpty) false
       else if (ExternalsPrefixes(wanted.parts(0))) true
-      else if (wanted.parts(0) === org)
+      else if (wanted.parts(0) === Name.org)
         wanted.parts.startsWith(QualifiedName.Runtime.parts) || wanted.parts.startsWith(QualifiedName.ScalaJsDom.parts)
       else false
   }

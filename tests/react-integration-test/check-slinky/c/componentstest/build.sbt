@@ -1,12 +1,12 @@
 organization := "org.scalablytyped"
 name := "componentstest"
-version := "0.0-unknown-711374"
+version := "0.0-unknown-6c54f6"
 scalaVersion := "2.13.2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
   "me.shadaj" %%% "slinky-web" % "0.6.5",
-  "org.scalablytyped" %%% "react" % "16.9.2-ea2abb",
+  "org.scalablytyped" %%% "react" % "16.9.2-55ad54",
   "org.scalablytyped" %%% "std" % "0.0-unknown-d0ed57")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-feature", "-g:notailcalls", "-language:implicitConversions", "-language:higherKinds", "-language:existentials")
