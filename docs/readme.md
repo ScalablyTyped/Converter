@@ -13,7 +13,7 @@ The most flexible way of using ScalablyTyped is through the sbt plugin.
 
 [Getting started with SBT plugin](plugin.md) 
 
-<video autoplay="autoplay" src="https://olvind.com/videos/getting_started.mp4" height="744px" width="874"></video>
+<video autoplay="autoplay" controls="true" muted="true" src="https://olvind.com/videos/getting_started.mp4" height="744px" width="874"></video>
 
 ## Development
 Help wanted! [Development Documentation](devel/about.md)

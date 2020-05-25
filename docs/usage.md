@@ -17,7 +17,7 @@ Ok, you generated thousands of lines of code. Great! Now how to use it?
 The converter plugin generates source jars which are attached to your IDE, 
  as such you can browse just as any other library.
  
-<video autoplay="autoplay" src="https://olvind.com/videos/navigation.mp4" height="744px" width="874"></video>
+<video autoplay="autoplay" controls="true" muted="true" src="https://olvind.com/videos/navigation.mp4" height="744px" width="874"></video>
 
 ## Anatomy of a typing library
 
