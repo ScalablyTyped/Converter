@@ -5,7 +5,7 @@ title: Running
 
 *Not a developer? Check out [the command line tool](../cli.md) instead.*
 
-In batch mode the converter will process all files from the [DefinitelyTyped](http://definitelytyped.org/) project, as well as a selection of libraries from npm.
+In batch mode the converter will process all files from the [DefinitelyTyped](https://definitelytyped.org/) project, as well as a selection of libraries from npm.
 
 You can run the [main](https://github.com/ScalablyTyped/Converter/blob/master/importer/src/main/scala/org/scalablytyped/converter/Main.scala) 
  directly from from sbt (`importer/run`) or intellij. Since it's used both for development and for CI,

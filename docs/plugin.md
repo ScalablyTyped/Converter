@@ -158,7 +158,7 @@ project.settings(
 
 ### `stEnableScalaJsDefined` 
 
-As explained in the corresponding [Scala.js documentation page](http://www.scala-js.org/doc/interoperability/sjs-defined-js-classes.html),
+As explained in the corresponding [Scala.js documentation page](https://www.scala-js.org/doc/interoperability/sjs-defined-js-classes.html),
 `@ScalaJSDefined` traits are more convenient because they can be `new`ed, extended and so on.
 
 However, there an imperfection somewhere in Scala.js and/or scalac with handling huge amounts of annotations 

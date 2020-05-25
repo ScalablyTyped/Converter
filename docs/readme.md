@@ -13,13 +13,13 @@ The most flexible way of using ScalablyTyped is through the sbt plugin.
 
 [Getting started with SBT plugin](plugin.md) 
 
-<video autoplay="autoplay" src="http://olvind.com/videos/getting_started.mp4" height="744px" width="874"></video>
+<video autoplay="autoplay" src="https://olvind.com/videos/getting_started.mp4" height="744px" width="874"></video>
 
 ## Development
 Help wanted! [Development Documentation](devel/about.md)
 
 ## Derived work
-This project took [scala-js-ts-importer](http://github.com/sjrd/scala-js-ts-importer/) as a starting point,
+This project took [scala-js-ts-importer](https://github.com/sjrd/scala-js-ts-importer/) as a starting point,
 and inherited a lot of decisions from it.
 
 ## License

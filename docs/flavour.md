@@ -27,4 +27,4 @@ They all work quite similarly:
 
 The following video showcases how the Slinky flavour works:
 
-<video autoplay="autoplay" src="http://olvind.com/videos/slinky_demo.mp4" height="744px" width="874"></video>
+<video autoplay="autoplay" src="https://olvind.com/videos/slinky_demo.mp4" height="744px" width="874"></video>
