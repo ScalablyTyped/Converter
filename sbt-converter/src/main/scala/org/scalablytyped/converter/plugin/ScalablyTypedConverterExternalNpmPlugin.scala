@@ -7,7 +7,7 @@ import com.olvind.logging
 import com.olvind.logging.{Formatter, LogLevel}
 import org.scalablytyped.converter.internal.importer.ConversionOptions
 import org.scalablytyped.converter.internal.importer.jsonCodecs.PackageJsonDepsDecoder
-import org.scalablytyped.converter.internal.scalajs.{Dep, Name, Versions}
+import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
 import org.scalablytyped.converter.internal.{
   constants,
@@ -20,25 +20,32 @@ import org.scalablytyped.converter.internal.{
   InFolder,
   Json,
   WrapSbtLogger,
+  ZincCompiler,
 }
+import org.scalajs.sbtplugin.ScalaJSPlugin
 import sbt.Keys._
 import sbt._
+import sbt.librarymanagement.ModuleID
 
 import scala.util.Try
 
 object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
-  implicit val PathFormatter: Formatter[Path] = _.toString
+  private implicit val PathFormatter: Formatter[Path] = _.toString
+
+  private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
   object autoImport {
+    val stImport    = taskKey[Set[ModuleID]]("Imports all the bundled npm and generates bindings")
     val externalNpm = taskKey[File]("Runs npm and returns the folder with package.json and node_modules")
   }
 
+  import ScalaJSPlugin.autoImport._
   import ScalablyTypedPluginBase.autoImport._
   import autoImport._
 
-  override def requires = ScalablyTypedPluginBase
+  override val requires = ScalablyTypedPluginBase && ScalaJSPlugin
 
-  lazy val stImportTask = Def.taskDyn {
+  private[plugin] lazy val stImportTask = Def.taskDyn {
     val projectName     = name.value
     val folder          = os.Path(externalNpm.value)
     val packageJsonFile = folder / "package.json"
@@ -58,7 +65,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
 
     val versions = Versions(
       Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),
-      Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion),
+      Versions.ScalaJs(scalaJSVersion),
     )
 
     val conversion = ConversionOptions(
@@ -101,7 +108,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
             input              = input,
             logger             = stLogger,
             parseCacheDirOpt   = Some(cacheDir.toPath resolve "parse"),
-            compiler           = ScalablyTypedPluginBase.stInternalZincCompiler.value,
+            compiler           = stInternalZincCompiler.value,
             publishLocalFolder = ivyPaths.value.ivyHome.fold(constants.defaultLocalPublishFolder)(os.Path(_) / "local"),
           ) match {
             case Right(output) =>
@@ -122,5 +129,10 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
   }
 
   override lazy val projectSettings =
-    Seq(stImport := stImportTask.value)
+    Seq(
+      stImport := stImportTask.value,
+      /* This is where we add our generated artifacts to the project for compilation */
+      allDependencies ++= stImport.value.toSeq,
+      stInternalZincCompiler := ZincCompiler.task.value,
+    )
 }

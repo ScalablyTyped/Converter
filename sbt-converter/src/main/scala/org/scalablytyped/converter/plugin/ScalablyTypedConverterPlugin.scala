@@ -20,22 +20,32 @@ import org.scalablytyped.converter.internal.{
   InFolder,
   Json,
   WrapSbtLogger,
+  ZincCompiler,
 }
 import sbt.Keys._
 import sbt._
+import sbt.librarymanagement.ModuleID
 import scalajsbundler.sbtplugin.{PackageJsonTasks, ScalaJSBundlerPlugin}
 
+import scala.org.scalablytyped.converter.internal.ScalaJsBundlerHack
 import scala.util.Try
 
 object ScalablyTypedConverterPlugin extends AutoPlugin {
-  implicit val PathFormatter: Formatter[Path] = _.toString
+  private implicit val PathFormatter: Formatter[Path] = _.toString
 
   override def requires = ScalablyTypedPluginBase && ScalaJSBundlerPlugin
 
+  private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
+
+  object autoImport {
+    val stImport = taskKey[Set[ModuleID]]("Imports all the bundled npm and generates bindings")
+  }
+
   import ScalablyTypedPluginBase.autoImport._
+  import autoImport._
   import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
 
-  val stImportTask = Def.taskDyn[Set[ModuleID]] {
+  private[plugin] val stImportTask = Def.taskDyn[Set[ModuleID]] {
     val projectName   = name.value
     val ignored       = stIgnore.value.to[Set]
     val sbtLog        = streams.value.log
@@ -102,7 +112,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
             input              = input,
             logger             = stLogger,
             parseCacheDirOpt   = Some(cacheDir.toPath resolve "parse"),
-            compiler           = ScalablyTypedPluginBase.stInternalZincCompiler.value,
+            compiler           = stInternalZincCompiler.value,
             publishLocalFolder = ivyPaths.value.ivyHome.fold(constants.defaultLocalPublishFolder)(os.Path(_) / "local"),
           ) match {
             case Right(output) =>
@@ -132,28 +142,11 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
       )
 
     Seq(
+      /* This is where we add our generated artifacts to the project for compilation */
+      allDependencies ++= stImport.value.toSeq,
       stImport := stImportTask.value,
-      Compile / scalaJSBundlerPackageJson := {
-        val deps = (Compile / npmDependencies).value
-        /* Make sure we always include typescript for the stdlib if it wasnt already added */
-        val withTypescript: Seq[(String, String)] =
-          if (deps.exists { case (lib, _) => lib == "typescript" }) deps
-          else deps :+ ("typescript" -> stTypescriptVersion.value)
-
-        PackageJsonTasks.writePackageJson(
-          (Compile / npmUpdate / crossTarget).value,
-          withTypescript,
-          (Compile / npmDevDependencies).value,
-          (Compile / npmResolutions).value,
-          (Compile / additionalNpmConfig).value,
-          fullClasspath = Nil,
-          Compile,
-          (Compile / webpack / version).value,
-          (Compile / startWebpackDevServer / version).value,
-          (Compile / webpackCliVersion).value,
-          (Compile / scalaJSBundlerPackageJson / streams).value,
-        )
-      },
+      stInternalZincCompiler := ZincCompiler.task.value,
+      ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
     )
   }
 }

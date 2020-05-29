@@ -4,17 +4,14 @@ import java.io.File
 
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
+import org.scalablytyped.converter.internal.constants
 import org.scalablytyped.converter.internal.importer.EnabledTypeMappingExpansion
-import org.scalablytyped.converter.internal.{constants, ZincCompiler}
 import sbt.Tags.Tag
 import sbt._
-import sbt.librarymanagement.ModuleID
 import sbt.plugins.JvmPlugin
 import xsbti.compile.{CompileOrder => _, ScalaInstance => _}
 
 object ScalablyTypedPluginBase extends AutoPlugin {
-
-  private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
   object autoImport {
     type Selection[T] = converter.Selection[T]
@@ -24,7 +21,6 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
     val ScalablyTypedTag: Tag = Tag("ScalablyTyped")
 
-    val stImport  = taskKey[Set[ModuleID]]("Imports all the bundled npm and generates bindings")
     val stDir     = settingKey[File]("Directory used for caches, built artifacts and so on")
     val stIgnore  = settingKey[List[String]]("completely ignore libraries or modules")
     val stFlavour = settingKey[Flavour]("The type of react binding to use")
@@ -111,8 +107,6 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
   override lazy val projectSettings =
     Seq(
-      /* This is where we add our generated artifacts to the project for compilation */
-      Keys.allDependencies ++= stImport.value.toSeq,
       Keys.scalacOptions ++= {
         val isScalaJs1 = !scalaJSVersion.startsWith("0.6")
 
@@ -128,7 +122,6 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stStdlib := List("es6"),
       stTypescriptVersion := "3.8",
       stUseScalaJsDom := true,
-      stInternalZincCompiler := ZincCompiler.task.value,
       stExperimentalEnableImplicitOps := false,
     )
 
