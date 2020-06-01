@@ -37,21 +37,36 @@ object SlinkyGenComponents {
   final case class Native[N, W](native: N) extends Mode[N, W]
   final case class Web[N, W](web:       W) extends Mode[N, W]
 
-  final case class SplitProps(_props: IArray[Prop]) {
-    val (refTypes, _, props) = {
+  final case class SplitProps(refTypes: IArray[TypeRef], props: IArray[Prop]) {
+    val hasRequiredProps = props.exists(_.isRequired)
+  }
+
+  def SplitProps(reactNames: ReactNames)(_props: IArray[Prop]): SplitProps = {
+    def shouldIgnoreProp(name: Name, tpe: TypeRef): Boolean =
+      (name, tpe) match {
+        /* we always add our own override string dictionary to all components */
+        case (_, TypeRef(QualifiedName.StringDictionary, _, _)) => true
+        /* we have special syntax already for `withKey` */
+        case (names.key, _) => true
+        /* we have special syntax for passing children already, as long as they are react nodes */
+        case (names.children, TypeRef(reactNames.ReactNode | reactNames.ReactElement, _, _)) => true
+        case _                                                                               => false
+      }
+
+    val (refTypes: IArray[TypeRef], _, props: IArray[Prop]) = {
       (_props)
         .partitionCollect2(
           //refTypes
           { case n: Prop.Normal if n.name.unescaped === "ref" => n.main.tpe },
           // ignored
           {
-            case n: Prop.Normal if SlinkyGenComponents.shouldIgnoreProp(n.name, n.main.tpe)    => null
-            case n: Prop.CompressedProp if SlinkyGenComponents.shouldIgnoreProp(n.name, n.tpe) => null
+            case n: Prop.Normal if shouldIgnoreProp(n.name, n.main.tpe)    => null
+            case n: Prop.CompressedProp if shouldIgnoreProp(n.name, n.tpe) => null
           },
         )
     }
 
-    val hasRequiredProps = props.exists(_.isRequired)
+    SplitProps(refTypes, props)
   }
 
   final case class PropsDom(propsRef: TypeRef, splitProps: Res[IArray[String], SplitProps], domInfo: Mode[Unit, DomTag])
@@ -76,6 +91,8 @@ object SlinkyGenComponents {
     val RefType      = Name("RefType")
     val component    = Name("component")
     val ComponentRef = Name("ComponentRef")
+    val key          = Name("key")
+    val children     = Name("children")
 
     /* Fully qualified references to slinky types */
     val slinky                      = QualifiedName(IArray(SlinkyGenComponents.slinkyName))
@@ -92,8 +109,6 @@ object SlinkyGenComponents {
     val ReactElement                = SlinkyCoreFacade + Name("ReactElement")
     val ReactRef                    = SlinkyCoreFacade + Name("ReactRef")
 
-    val ignoredNames = Set(Name("key"), Name("children"))
-
     val slinkyWeb     = SlinkyGenComponents.names.slinky + Name("web")
     val slinkyWebSvg  = slinkyWeb + Name("svg")
     val slinkyWebHtml = slinkyWeb + Name("html")
@@ -106,13 +121,6 @@ object SlinkyGenComponents {
 
     val AnyHtmlElement: TypeRef = SlinkyHtmlElement(TagName.Any)
     val AnySvgElement:  TypeRef = SlinkySvgElement(TagName.Any)
-  }
-
-  def shouldIgnoreProp(name: Name, tpe: TypeRef): Boolean = {
-    val byName = names.ignoredNames(name)
-    /* we always add our own override string dictionary to all components */
-    val byType = tpe.typeName === QualifiedName.StringDictionary
-    byName || byType
   }
 
   trait GenBuilder {
@@ -148,6 +156,7 @@ class SlinkyGenComponents(
     mode:         Mode[Unit, Option[SlinkyWeb]],
     findProps:    FindProps,
     genStBuilder: SlinkyGenStBuildingComponent,
+    reactNames:   ReactNames,
 ) {
   import SlinkyGenComponents._
 
@@ -302,7 +311,7 @@ class SlinkyGenComponents(
 
         withDomProps match {
           case Native(()) =>
-            PropsDom(propsRef, resProps.map(SplitProps.apply), Native(()))
+            PropsDom(propsRef, resProps.map(SplitProps(reactNames)), Native(()))
 
           case Web(slinkyWeb: SlinkyWeb) =>
             val domInfo: Web[Unit, DomTag] = {
@@ -311,7 +320,7 @@ class SlinkyGenComponents(
               Web(DomTag(slinkyWeb.tags(inferredTagName).slinkyTagRef))
             }
 
-            PropsDom(propsRef, resProps.map(SplitProps.apply), domInfo)
+            PropsDom(propsRef, resProps.map(SplitProps(reactNames)), domInfo)
         }
 
       case None =>
@@ -319,7 +328,7 @@ class SlinkyGenComponents(
           mode.forWeb(_ => DomTag(names.AnyHtmlElement))
 
         val value: Res[IArray[String], SplitProps] =
-          Res.One(TypeRef.Object, SplitProps(Empty))
+          Res.One(TypeRef.Object, SplitProps(Empty, Empty))
 
         PropsDom(TypeRef.Object, value, domInfo)
     }
@@ -393,7 +402,7 @@ class SlinkyGenComponents(
     val members = IArray.fromOptions(
       builder.include,
       Some(genPropsMethod(Name.APPLY, componentCp, propsRef, c.tparams, builder.ref)),
-      genImplicitConversionOpt(Name("make"), componentCp, c.tparams, props = SplitProps(Empty), builder.ref),
+      genImplicitConversionOpt(Name("make"), componentCp, c.tparams, props = SplitProps(Empty, Empty), builder.ref),
     )
 
     val errorComment =

@@ -35,7 +35,8 @@ case class SlinkyFlavour(outputPkg: Name, enableImplicitOps: Boolean) extends Fl
       val components: IArray[Component] =
         identifyComponents.oneOfEach(scope / withCompanions, withCompanions)
 
-      val gen = new SlinkyGenComponents(SlinkyGenComponents.Web(slinkyWebOpt), findProps, genStBuildingComponent)
+      val gen =
+        new SlinkyGenComponents(SlinkyGenComponents.Web(slinkyWebOpt), findProps, genStBuildingComponent, reactNames)
 
       val ret = Adapter(scope)((t, s) => gen(s, t, components))(withCompanions)
 
