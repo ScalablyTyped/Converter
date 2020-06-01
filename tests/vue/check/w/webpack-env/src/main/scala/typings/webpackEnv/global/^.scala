@@ -3,7 +3,6 @@ package typings.webpackEnv.global
 import typings.webpackEnv.NodeJS.Process
 import typings.webpackEnv.NodeModule
 import typings.webpackEnv.NodeRequire
-import typings.webpackEnv.WebpackModuleApi.RequireLambda
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -30,18 +29,6 @@ object ^ extends js.Object {
     */
   @JSName("__resourceQuery")
   var resourceQuery: String = js.native
-  /**
-    * The internal chunk loading function
-    *
-    * @param chunkId The id for the chunk to load.
-    * @param callback A callback function called once the chunk is loaded.
-    */
-  @JSName("__webpack_chunk_load__")
-  var webpackChunkLoad: js.Function2[
-    /* chunkId */ js.Any, 
-    /* callback */ js.Function1[/* require */ RequireLambda, Unit], 
-    Unit
-  ] = js.native
   /**
     * Access to the hash of the compilation.
     *
