@@ -1338,6 +1338,22 @@ object SVGAttributes {
     def setY1(value: Double | String): Self = this.set("y1", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteY1: Self = this.set("y1", js.undefined)
+    @scala.inline
+    def setY2(value: Double | String): Self = this.set("y2", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteY2: Self = this.set("y2", js.undefined)
+    @scala.inline
+    def setYChannelSelector(value: String): Self = this.set("yChannelSelector", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteYChannelSelector: Self = this.set("yChannelSelector", js.undefined)
+    @scala.inline
+    def setZ(value: Double | String): Self = this.set("z", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteZ: Self = this.set("z", js.undefined)
+    @scala.inline
+    def setZoomAndPan(value: String): Self = this.set("zoomAndPan", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteZoomAndPan: Self = this.set("zoomAndPan", js.undefined)
   }
   
 }

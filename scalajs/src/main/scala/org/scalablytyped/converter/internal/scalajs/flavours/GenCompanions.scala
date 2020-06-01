@@ -27,7 +27,22 @@ final class GenCompanions(findProps: FindProps, enableImplicitOps: Boolean) exte
 
           val clsRef = TypeRef(cls.codePath, asTypeArgs(unboundedTParams), NoComments)
 
-          val generatedMembers: IArray[Tree] =
+          val geneatedImplicitOps: Option[ClassTree] =
+            if (!enableImplicitOps) None
+            else {
+              findProps.forClassTree(
+                cls                = cls,
+                scope              = scope / cls,
+                maxNum             = Int.MaxValue,
+                acceptNativeTraits = false,
+                selfRef            = clsRef,
+              ) match {
+                case Res.One(_, props) if props.nonEmpty => GenImplicitOpsClass(cls, props, cls.codePath, scope)
+                case _                                   => None
+              }
+            }
+
+          val generatedCreators: IArray[Tree] =
             findProps.forClassTree(
               cls                = cls,
               scope              = scope / cls,
@@ -40,38 +55,31 @@ final class GenCompanions(findProps: FindProps, enableImplicitOps: Boolean) exte
 
               case Res.One(_, props) if props.isEmpty => Empty
               case Res.One(_, props) =>
-                if (enableImplicitOps) {
-                  val requiredProps = props.filter(_.optionality === Optionality.No)
-                  IArray.fromOptions(
-                    Some(generateCreator(Name.APPLY, requiredProps, cls.codePath, unboundedTParams))
-                      .filter(ensureNotTooManyStrings(scope)),
-                    GenImplicitOpsClass(cls, props, cls.codePath, scope),
-                  )
-                } else {
-                  IArray.fromOptions(
-                    Some(generateCreator(Name.APPLY, props, cls.codePath, unboundedTParams))
-                      .filter(_.params.nonEmpty)
-                      .filter(ensureNotTooManyStrings(scope)),
-                  )
-                }
+                val requiredProps =
+                  if (enableImplicitOps) props.filter(_.optionality === Optionality.No)
+                  else props
+
+                IArray.fromOptions(
+                  Some(generateCreator(Name.APPLY, requiredProps, cls.codePath, unboundedTParams))
+                    .filter(_.params.nonEmpty)
+                    .filter(ensureNotTooManyStrings(scope)),
+                )
 
               case Res.Many(propsMap) =>
                 propsMap.toIArray.mapNotNone {
                   case (_, props) if props.isEmpty => None
                   case (propsRef, props) =>
-                    if (enableImplicitOps) {
-                      val requiredProps = props.filter(_.optionality === Optionality.No)
-                      Some(generateCreator(propsRef.name, requiredProps, cls.codePath, unboundedTParams))
-                        .filter(ensureNotTooManyStrings(scope))
-                    } else {
-                      Some(generateCreator(propsRef.name, props, cls.codePath, unboundedTParams))
-                        .filter(_.params.nonEmpty)
-                        .filter(ensureNotTooManyStrings(scope))
-                    }
+                    val requiredProps =
+                      if (enableImplicitOps) props.filter(_.optionality === Optionality.No)
+                      else props
+
+                    Some(generateCreator(propsRef.name, requiredProps, cls.codePath, unboundedTParams))
+                      .filter(_.params.nonEmpty)
+                      .filter(ensureNotTooManyStrings(scope))
                 }
             }
 
-          generatedMembers match {
+          generatedCreators ++ IArray.fromOption(geneatedImplicitOps) match {
             case Empty => IArray(cls)
             case some =>
               val mod = ModuleTree(Empty, cls.name, Empty, some, NoComments, cls.codePath, isOverride = false)
