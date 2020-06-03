@@ -1,12 +1,12 @@
 package typingsSlinky.reactTransitionGroup.transitionGroupMod
 
-import slinky.core.ReactComponentClass
+import typingsSlinky.react.mod.ReactType
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait ComponentTransitionGroupProps[T /* <: ReactComponentClass[_] */] extends js.Object {
+trait ComponentTransitionGroupProps[T /* <: ReactType[_] */] extends js.Object {
   var component: T = js.native
 }
 
