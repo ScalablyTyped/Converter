@@ -105,7 +105,7 @@ object ImportTypingsGenSources {
                   Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
                 } else lib.packageTree
 
-              val outFiles = Printer(globalScope, new ParentsResolver, minimized) map {
+              val outFiles = Printer(globalScope, new ParentsResolver, minimized, conversion.outputPackage) map {
                 case (relPath, content) => targetFolder / relPath -> content
               }
               val minimizedMessage = if (willMinimize) "minimized " else ""

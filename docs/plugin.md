@@ -198,11 +198,10 @@ You can adjust the top-level package into which we put the generated code.
        
 ```scala
 project.settings(
-  stOutputPackage := "mypackage",
+  stOutputPackage := "org.awesome.sauce",
 )
 ```
 
-Note that this is a singular package name. Nested packages are not supported for now.
 
 ### `stUseScalaJsDom`
 When `true` (which is the default) uses scala-js-dom types when possible instead of types we translate from typescript in `std`.
