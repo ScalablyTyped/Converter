@@ -167,12 +167,14 @@ class SlinkyGenComponents(
              It's used for a lot of things, so it's important to get right */
         val pkgCp = tree.codePath + SlinkyGenComponents.names.components
 
+        /* since we generate a lot of scala code the bounds are not commented out, so remove them */
+        val allComponentsStrippedBounds = allComponents.map(c => c.copy(tparams = stripBounds(c.tparams)))
+
         /** We group components on what essentially means they have the same interface.
           * When there is more than one they'll share some of the generated code
           */
         val grouped: Map[(Option[TypeRef], Boolean, IArray[TypeParamTree]), IArray[Component]] =
-          allComponents
-            .groupBy(c => (c.props, c.referenceTo.isDefined, c.tparams))
+          allComponentsStrippedBounds.groupBy(c => (c.props, c.referenceTo.isDefined, c.tparams))
 
         val generatedCode: IArray[Tree] =
           grouped.flatMapToIArray {
