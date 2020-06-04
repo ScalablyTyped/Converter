@@ -11,11 +11,13 @@ import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) {
   import JapgollyGenComponents._
 
-  def apply(scope: TreeScope, tree: ContainerTree, components: IArray[Component]): ContainerTree = {
+  def apply(scope: TreeScope, tree: ContainerTree, allComponents: IArray[Component]): ContainerTree = {
     val pkgCp = tree.codePath + names.components
 
+    val allComponentsStrippedBounds = allComponents.map(c => c.copy(tparams = stripBounds(c.tparams)))
+
     val generatedCode: IArray[Tree] =
-      components
+      allComponentsStrippedBounds
         .groupBy(c => (c.props, c.referenceTo.isDefined, stripBounds(c.tparams)))
         .mapToIArray {
           case ((propsRefOpt, hasKnownRef, tparams), components) =>
