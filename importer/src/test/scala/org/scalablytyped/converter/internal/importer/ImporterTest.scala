@@ -49,6 +49,7 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   test("firebase-admin")(assertImportsOk("firebase-admin", pedantic                 = true, update  = update))
   test("properties")(assertImportsOk("properties", pedantic                         = true, update  = update))
   test("keyof")(assertImportsOk("keyof", pedantic                                   = true, update  = update))
+  test("antd")(assertImportsOk("antd", pedantic                                     = true, update  = update))
 
   test("material-ui-slinky")(
     assertImportsOk("material-ui", pedantic = true, update = update, flavour = Slinky),

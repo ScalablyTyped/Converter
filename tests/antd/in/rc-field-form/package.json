@@ -1,0 +1,15 @@
+{
+  "name": "rc-field-form",
+  "version": "1.4.4",
+  "description": "React Form Component",
+  "typings": "es/index.d.ts",
+  "files": [
+    "lib",
+    "es",
+    "dist",
+    "assets/*.css"
+  ],
+  "license": "MIT",
+  "main": "./lib/index",
+  "module": "./es/index"
+}
