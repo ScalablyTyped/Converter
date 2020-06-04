@@ -102,7 +102,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
             logger             = stLogger,
             parseCacheDirOpt   = Some(cacheDir.toPath resolve "parse"),
             compiler           = ScalablyTypedPluginBase.stInternalZincCompiler.value,
-            publishLocalFolder = constants.defaultLocalPublishFolder,
+            publishLocalFolder = ivyPaths.value.ivyHome.fold(constants.defaultLocalPublishFolder)(os.Path(_) / "local"),
           ) match {
             case Right(output) =>
               Json.persist[InOut](runCache)((input, output))
