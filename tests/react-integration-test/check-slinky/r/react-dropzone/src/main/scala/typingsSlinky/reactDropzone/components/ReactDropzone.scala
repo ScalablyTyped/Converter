@@ -1,6 +1,7 @@
 package typingsSlinky.reactDropzone.components
 
 import org.scalajs.dom.raw.HTMLElement
+import slinky.core.facade.ReactElement
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
 import typingsSlinky.react.mod.DragEvent
@@ -9,6 +10,7 @@ import typingsSlinky.react.mod.RefAttributes
 import typingsSlinky.reactDropzone.mod.DropEvent
 import typingsSlinky.reactDropzone.mod.DropzoneProps
 import typingsSlinky.reactDropzone.mod.DropzoneRef
+import typingsSlinky.reactDropzone.mod.DropzoneState
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -24,6 +26,8 @@ object ReactDropzone {
        with StBuildingComponent[tag.type, Ref[js.Any] with js.Object] {
     @scala.inline
     def accept(value: String | js.Array[String]): this.type = set("accept", value.asInstanceOf[js.Any])
+    @scala.inline
+    def children(value: /* state */ DropzoneState => ReactElement): this.type = set("children", js.Any.fromFunction1(value))
     @scala.inline
     def disabled(value: Boolean): this.type = set("disabled", value.asInstanceOf[js.Any])
     @scala.inline

@@ -14,7 +14,7 @@ case class SlinkyNativeFlavour(outputPkg: Name, enableImplicitOps: Boolean) exte
   val memberToProp           = new MemberToProp.Default(Some(rewriter))
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
   val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg)
-  val gen                    = new SlinkyGenComponents(SlinkyGenComponents.Native(()), findProps, genStBuildingComponent)
+  val gen                    = new SlinkyGenComponents(SlinkyGenComponents.Native(()), findProps, genStBuildingComponent, reactNames)
   val genCompanions          = new GenCompanions(findProps, enableImplicitOps)
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {

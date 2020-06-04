@@ -12,6 +12,10 @@ object BottomNavigationItem {
   object component extends js.Object
   
   def withProps(p: BottomNavigationItemProps): SharedBuilder_BottomNavigationItemProps_1638895878[default] = new SharedBuilder_BottomNavigationItemProps_1638895878[default](js.Array(this.component, p.asInstanceOf[js.Any]))
-  implicit def make(companion: BottomNavigationItem.type): SharedBuilder_BottomNavigationItemProps_1638895878[default] = new SharedBuilder_BottomNavigationItemProps_1638895878[default](js.Array(this.component, js.Dictionary.empty))()
+  @scala.inline
+  def apply(children: Double): SharedBuilder_BottomNavigationItemProps_1638895878[default] = {
+    val __props = js.Dynamic.literal(children = children.asInstanceOf[js.Any])
+    new SharedBuilder_BottomNavigationItemProps_1638895878[default](js.Array(this.component, __props.asInstanceOf[BottomNavigationItemProps]))
+  }
 }
 
