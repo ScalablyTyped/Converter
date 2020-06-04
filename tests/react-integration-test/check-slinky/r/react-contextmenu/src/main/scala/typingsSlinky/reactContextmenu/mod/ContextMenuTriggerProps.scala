@@ -2,6 +2,7 @@ package typingsSlinky.reactContextmenu.mod
 
 import slinky.core.ReactComponentClass
 import typingsSlinky.react.mod.HTMLAttributes
+import typingsSlinky.react.mod.ReactType
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -13,7 +14,7 @@ trait ContextMenuTriggerProps extends js.Object {
   var disable: js.UndefOr[Boolean] = js.native
   var holdToDisplay: js.UndefOr[Double] = js.native
   var id: String = js.native
-  var renderTag: js.UndefOr[ReactComponentClass[_]] = js.native
+  var renderTag: js.UndefOr[ReactType[_]] = js.native
 }
 
 object ContextMenuTriggerProps {
@@ -56,7 +57,7 @@ object ContextMenuTriggerProps {
     @scala.inline
     def setRenderTagComponentClass(value: ReactComponentClass[_]): Self = this.set("renderTag", value.asInstanceOf[js.Any])
     @scala.inline
-    def setRenderTag(value: ReactComponentClass[_]): Self = this.set("renderTag", value.asInstanceOf[js.Any])
+    def setRenderTag(value: ReactType[_]): Self = this.set("renderTag", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteRenderTag: Self = this.set("renderTag", js.undefined)
   }

@@ -9,7 +9,7 @@ package object genericMod {
   type SemanticShorthandContent = slinky.core.TagMod[scala.Any]
   type SemanticShorthandItem[TProps] = slinky.core.TagMod[scala.Any] | TProps | typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItemFunc[TProps]
   type SemanticShorthandItemFunc[TProps] = js.Function3[
-    /* component */ slinky.core.ReactComponentClass[TProps], 
+    /* component */ typingsSlinky.react.mod.ReactType[TProps], 
     /* props */ TProps, 
     /* children */ js.UndefOr[slinky.core.TagMod[scala.Any] | typingsSlinky.react.mod.ReactNodeArray], 
     slinky.core.facade.ReactElement | scala.Null
