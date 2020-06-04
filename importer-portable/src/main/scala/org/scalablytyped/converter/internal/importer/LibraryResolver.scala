@@ -54,7 +54,21 @@ object LibraryResolver {
       )
     }
 
-    IArray.fromOptions(shortened, Some(longName))
+    val ret = IArray.fromOptions(shortened, Some(longName))
+
+    /* some libraries contain multiple directory trees with type definitions, and refer to just one of them through
+     * `typings` in package.json for instance.
+     *
+     * Remarkably it can reach into one of the other trees even if the current tree has everything needed.
+     * This resolves the most common case, and fixes antd 4 in particular */
+    val inParallelDirectory = ret.collect {
+      case TsIdentModule(scopeOpt, fragments) if fragments.contains("lib") =>
+        TsIdentModule(scopeOpt, fragments.map { case "lib" => "es"; case other => other })
+      case TsIdentModule(scopeOpt, fragments) if fragments.contains("es") =>
+        TsIdentModule(scopeOpt, fragments.map { case "es" => "lib"; case other => other })
+    }
+
+    ret ++ inParallelDirectory
   }
 
   def file(folder: InFolder, fragment: String): Option[InFile] =
