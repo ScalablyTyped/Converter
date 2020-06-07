@@ -1,7 +1,25 @@
 {
   "docs": {
-    "ScalablyTyped": ["readme", "flavour", "encoding", "changelog","import-problems"],
-    "Getting started": ["plugin", "plugin-no-bundler", "cli", "usage"],
-    "Development": ["devel/about", "devel/running"]
+    "ScalablyTyped": [
+      "readme",
+      "usage",
+      "conversion-options",
+      "flavour",
+      "encoding",
+      "changelog",
+      "import-problems"
+    ],
+    "Getting started (application)": [
+      "plugin",
+      "plugin-no-bundler",
+      "cli"
+    ],
+    "Getting started (library)": [
+      "library-developer"
+    ],
+    "Development": [
+      "devel/about",
+      "devel/running"
+    ]
   }
 }

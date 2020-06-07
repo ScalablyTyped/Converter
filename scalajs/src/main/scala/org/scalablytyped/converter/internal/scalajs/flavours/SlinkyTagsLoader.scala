@@ -12,6 +12,11 @@ import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents
 }
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyWeb.{CombinedTag, TagName}
 
+import scala.util.control.NonFatal
+
+@deprecated(
+  "We should make all slinky components `*` and delete this, it's a lot of complexity for nothing with the new encoding",
+)
 object SlinkyTagsLoader {
 
   def apply(
@@ -20,46 +25,51 @@ object SlinkyTagsLoader {
       scalaJsDomNames: ScalaJsDomNames,
       scope:           TreeScope,
       parentsResolver: ParentsResolver,
-  ): Map[TagName, CombinedTag] = {
+  ): Map[TagName, CombinedTag] =
+    try {
 
-    val stdHtmlTags: Map[TagName, TypeRef] = extractStdTags(scope, stdNames.HTMLElementTagNameMap)
-    val stdSvgTags:  Map[TagName, TypeRef] = extractStdTags(scope, stdNames.SVGElementTagNameMap)
+      val stdHtmlTags: Map[TagName, TypeRef] = extractStdTags(scope, stdNames.HTMLElementTagNameMap)
+      val stdSvgTags:  Map[TagName, TypeRef] = extractStdTags(scope, stdNames.SVGElementTagNameMap)
 
-    val html = combinedTags(
-      scope                = scope,
-      jsxIntrinsicElements = reactNames.JsxIntrinsicElements,
-      stdRefByTag          = stdSvgTags ++ stdHtmlTags,
-      parentsResolver,
-    )
+      val html = combinedTags(
+        scope                = scope,
+        jsxIntrinsicElements = reactNames.JsxIntrinsicElements,
+        stdRefByTag          = stdSvgTags ++ stdHtmlTags,
+        parentsResolver,
+      )
 
-    val ret = html.groupBy(_.tagName) map { case (name, IArray.first(ct)) => name -> ct }
+      val ret = html.groupBy(_.tagName) map { case (name, IArray.first(ct)) => name -> ct }
 
-    val fallbackOpt = scope.lookup(reactNames.AllHTMLAttributes).collectFirst {
-      case (_x: ClassTree, newScope) =>
-        val x = FillInTParams(_x, newScope, IArray(TypeRef(stdNames.Element)), Empty)
+      val fallbackOpt = scope.lookup(reactNames.AllHTMLAttributes).collectFirst {
+        case (_x: ClassTree, newScope) =>
+          val x = FillInTParams(_x, newScope, IArray(TypeRef(stdNames.Element)), Empty)
 
-        val parentMembers: IArray[Tree] =
-          parentsResolver(newScope, x).transitiveParents.flatMapToIArray { case (_, v) => v.members }
+          val parentMembers: IArray[Tree] =
+            parentsResolver(newScope, x).transitiveParents.flatMapToIArray { case (_, v) => v.members }
 
-        val attrs = parentMembers ++ x.members collect {
-          case FieldTree(_, name, Optional(tpe), _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
-            name -> FollowAliases(newScope)(tpe)
-          case FieldTree(_, name, tpe, _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
-            name -> FollowAliases(newScope)(tpe)
-        }
+          val attrs = parentMembers ++ x.members collect {
+            case FieldTree(_, name, Optional(tpe), _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
+              name -> FollowAliases(newScope)(tpe)
+            case FieldTree(_, name, tpe, _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
+              name -> FollowAliases(newScope)(tpe)
+          }
 
-        CombinedTag(
-          TagName.Any,
-          AnyHtmlElement,
-          TypeRef(stdNames.Element),
-          attrs.toMap,
-        )
+          CombinedTag(
+            TagName.Any,
+            AnyHtmlElement,
+            TypeRef(stdNames.Element),
+            attrs.toMap,
+          )
+      }
+
+      val withFallback = fallbackOpt.foldLeft(ret) { case (map, ct) => map.updated(TagName.Any, ct) }
+
+      withFallback
+    } catch {
+      case NonFatal(th) =>
+        scope.logger.warn(s"Couldn't extract slinky tags, probably because of minimized react build, ${th.getMessage}")
+        Map()
     }
-
-    val withFallback = fallbackOpt.foldLeft(ret) { case (map, ct) => map.updated(TagName.Any, ct) }
-
-    withFallback
-  }
 
   private def extractStdTags(scope: TreeScope, qname: QualifiedName): Map[TagName, TypeRef] =
     scope
