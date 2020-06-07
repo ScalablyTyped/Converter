@@ -6,26 +6,12 @@ import java.time.Instant
 
 import com.olvind.logging
 import com.olvind.logging.{Formatter, LogLevel}
-import org.scalablytyped.converter.internal.importer.ConversionOptions
-import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
-import org.scalablytyped.converter.internal.{
-  constants,
-  files,
-  BuildInfo,
-  Deps,
-  Digest,
-  IArray,
-  ImportTypings,
-  InFolder,
-  Json,
-  WrapSbtLogger,
-  ZincCompiler,
-}
+import org.scalablytyped.converter.internal._
 import sbt.Keys._
 import sbt._
 import sbt.librarymanagement.ModuleID
-import scalajsbundler.sbtplugin.{PackageJsonTasks, ScalaJSBundlerPlugin}
+import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
 import scala.org.scalablytyped.converter.internal.ScalaJsBundlerHack
 import scala.util.Try
@@ -46,11 +32,9 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
   import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
 
   private[plugin] val stImportTask = Def.taskDyn[Set[ModuleID]] {
-    val projectName   = name.value
-    val ignored       = stIgnore.value.to[Set]
-    val sbtLog        = streams.value.log
-    val cacheDir      = (Global / stDir).value
-    val outputPackage = Name(stOutputPackage.value)
+    val projectName = name.value
+    val sbtLog      = streams.value.log
+    val cacheDir    = (Global / stDir).value
 
     val stLogger: logging.Logger[Unit] =
       if ((Global / stQuiet).value) logging.Logger.DevNull
@@ -61,26 +45,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
     val wantedLibs: Set[TsIdentLibrary] =
       allDeps.map(_._1).to[Set].map(TsIdentLibrary.apply)
 
-    val ScalaVersion = Versions.Scala(
-      scalaVersion = (Compile / Keys.scalaVersion).value,
-    )
-    val ScalaJsVersion = Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion)
-
-    val versions = Versions(ScalaVersion, ScalaJsVersion)
-
-    val conversion = ConversionOptions(
-      useScalaJsDomTypes    = stUseScalaJsDom.value,
-      flavour               = stFlavour.value,
-      outputPackage         = outputPackage,
-      enableScalaJsDefined  = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
-      stdLibs               = IArray.fromTraversable(stStdlib.value),
-      expandTypeMappings    = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
-      ignoredLibs           = ignored.map(TsIdentLibrary.apply),
-      ignoredModulePrefixes = ignored.map(_.split("/").toList),
-      versions              = versions,
-      organization          = "org.scalablytyped",
-      enableImplicitOps     = stExperimentalEnableImplicitOps.value,
-    )
+    val conversion = stConversionOptions.value
 
     val fromFolder = InFolder(os.Path((Compile / npmUpdate / crossTarget).value / "node_modules"))
 
@@ -101,7 +66,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
       case Some((`input`, output)) if output.allJars.forall(files.exists) =>
         Def.task {
           stLogger.withContext(runCache).info(s"Using cached result :)")
-          output.deps.map(Deps.asModuleID(versions))
+          output.deps.map(Deps.asModuleID(conversion.versions))
         }
 
       case _ =>
@@ -117,7 +82,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
           ) match {
             case Right(output) =>
               Json.persist[InOut](runCache)((input, output))
-              output.deps.map(Deps.asModuleID(versions))
+              output.deps.map(Deps.asModuleID(conversion.versions))
             case Left(errors) =>
               errors.foreach {
                 case (_, Left(th)) => throw th
@@ -132,15 +97,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
     }
   }
 
-  override lazy val projectSettings = {
-    /* workaround private definition */
-    val scalaJSBundlerPackageJson =
-      TaskKey[BundlerFile.PackageJson](
-        "scalaJSBundlerPackageJson",
-        "Write a package.json file defining the NPM dependencies of project",
-        KeyRanks.Invisible,
-      )
-
+  override lazy val projectSettings =
     Seq(
       /* This is where we add our generated artifacts to the project for compilation */
       allDependencies ++= stImport.value.toSeq,
@@ -148,5 +105,4 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
       stInternalZincCompiler := ZincCompiler.task.value,
       ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
     )
-  }
 }

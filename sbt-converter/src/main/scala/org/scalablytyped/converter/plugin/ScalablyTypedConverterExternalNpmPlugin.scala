@@ -5,23 +5,9 @@ import java.time.Instant
 
 import com.olvind.logging
 import com.olvind.logging.{Formatter, LogLevel}
-import org.scalablytyped.converter.internal.importer.ConversionOptions
 import org.scalablytyped.converter.internal.importer.jsonCodecs.PackageJsonDepsDecoder
-import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
-import org.scalablytyped.converter.internal.{
-  constants,
-  files,
-  BuildInfo,
-  Deps,
-  Digest,
-  IArray,
-  ImportTypings,
-  InFolder,
-  Json,
-  WrapSbtLogger,
-  ZincCompiler,
-}
+import org.scalablytyped.converter.internal._
 import org.scalajs.sbtplugin.ScalaJSPlugin
 import sbt.Keys._
 import sbt._
@@ -39,7 +25,6 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
     val externalNpm = taskKey[File]("Runs npm and returns the folder with package.json and node_modules")
   }
 
-  import ScalaJSPlugin.autoImport._
   import ScalablyTypedPluginBase.autoImport._
   import autoImport._
 
@@ -50,11 +35,9 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
     val folder          = os.Path(externalNpm.value)
     val packageJsonFile = folder / "package.json"
     val nodeModules     = InFolder(folder / "node_modules")
-    val ignored         = stIgnore.value.to[Set]
     val sbtLog          = streams.value.log
     val outputDir       = os.Path(streams.value.cacheDirectory)
     val cacheDir        = (Global / stDir).value
-    val outputPackage   = Name(stOutputPackage.value)
 
     val stLogger: logging.Logger[Unit] =
       if ((Global / stQuiet).value) logging.Logger.DevNull
@@ -63,24 +46,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
     val wantedLibs: Set[TsIdentLibrary] =
       Json.force[PackageJsonDeps](packageJsonFile).dependencies.getOrElse(Map()).keys.to[Set].map(TsIdentLibrary.apply)
 
-    val versions = Versions(
-      Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),
-      Versions.ScalaJs(scalaJSVersion),
-    )
-
-    val conversion = ConversionOptions(
-      useScalaJsDomTypes    = stUseScalaJsDom.value,
-      flavour               = stFlavour.value,
-      outputPackage         = outputPackage,
-      enableScalaJsDefined  = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
-      stdLibs               = IArray.fromTraversable(stStdlib.value),
-      expandTypeMappings    = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
-      ignoredLibs           = ignored.map(TsIdentLibrary.apply),
-      ignoredModulePrefixes = ignored.map(_.split("/").toList),
-      versions              = versions,
-      organization          = "org.scalablytyped",
-      enableImplicitOps     = stExperimentalEnableImplicitOps.value,
-    )
+    val conversion = stConversionOptions.value
 
     val input = ImportTypings.Input(
       converterVersion = BuildInfo.version,
@@ -99,7 +65,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
       case Some((`input`, output)) if output.allJars.forall(files.exists) =>
         Def.task {
           stLogger.withContext(runCache).info(s"Using cached result :)")
-          output.deps.map(Deps.asModuleID(versions))
+          output.deps.map(Deps.asModuleID(conversion.versions))
         }
 
       case _ =>
@@ -113,7 +79,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
           ) match {
             case Right(output) =>
               Json.persist[InOut](runCache)((input, output))
-              output.deps.map(Deps.asModuleID(versions))
+              output.deps.map(Deps.asModuleID(conversion.versions))
             case Left(errors) =>
               errors.foreach {
                 case (_, Left(th)) => throw th

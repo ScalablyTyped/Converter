@@ -4,12 +4,13 @@ import java.io.File
 
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
-import org.scalablytyped.converter.internal.constants
-import org.scalablytyped.converter.internal.importer.EnabledTypeMappingExpansion
+import org.scalablytyped.converter.internal.importer.{ConversionOptions, EnabledTypeMappingExpansion}
+import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
+import org.scalablytyped.converter.internal.ts.TsIdentLibrary
+import org.scalablytyped.converter.internal.{constants, IArray}
 import sbt.Tags.Tag
 import sbt._
 import sbt.plugins.JvmPlugin
-import xsbti.compile.{CompileOrder => _, ScalaInstance => _}
 
 object ScalablyTypedPluginBase extends AutoPlugin {
 
@@ -20,6 +21,8 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     val Flavour = converter.Flavour
 
     val ScalablyTypedTag: Tag = Tag("ScalablyTyped")
+
+    private[plugin] val stConversionOptions = settingKey[ConversionOptions]("All conversion options")
 
     val stDir     = settingKey[File]("Directory used for caches, built artifacts and so on")
     val stIgnore  = settingKey[List[String]]("completely ignore libraries or modules")
@@ -118,11 +121,33 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stEnableScalaJsDefined := converter.Selection.None,
       stFlavour := converter.Flavour.Normal,
       stIgnore := List("typescript"),
-      stOutputPackage := "typings",
+      stOutputPackage := Name.typings.unescaped,
       stStdlib := List("es6"),
       stTypescriptVersion := "3.8",
       stUseScalaJsDom := true,
       stExperimentalEnableImplicitOps := false,
+      stConversionOptions := {
+        val versions = Versions(
+          Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),
+          Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion),
+        )
+
+        val ignored = stIgnore.value.to[Set]
+
+        ConversionOptions(
+          useScalaJsDomTypes    = stUseScalaJsDom.value,
+          flavour               = stFlavour.value,
+          outputPackage         = Name(stOutputPackage.value),
+          enableScalaJsDefined  = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
+          stdLibs               = IArray.fromTraversable(stStdlib.value),
+          expandTypeMappings    = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
+          ignoredLibs           = ignored.map(TsIdentLibrary.apply),
+          ignoredModulePrefixes = ignored.map(_.split("/").toList),
+          versions              = versions,
+          organization          = "org.scalablytyped",
+          enableImplicitOps     = stExperimentalEnableImplicitOps.value,
+        )
+      },
     )
 
   override lazy val globalSettings =

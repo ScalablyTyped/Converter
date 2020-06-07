@@ -5,19 +5,10 @@ import java.time.Instant
 
 import com.olvind.logging
 import com.olvind.logging.LogLevel
-import org.scalablytyped.converter.internal.importer.ConversionOptions
 import org.scalablytyped.converter.internal.importer.jsonCodecs.{FileDecoder, FileEncoder}
-import org.scalablytyped.converter.internal.scalajs.{Name, QualifiedName, Versions}
+import org.scalablytyped.converter.internal.scalajs.QualifiedName
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
-import org.scalablytyped.converter.internal.{
-  BuildInfo,
-  Deps,
-  IArray,
-  ImportTypingsGenSources,
-  InFolder,
-  Json,
-  WrapSbtLogger,
-}
+import org.scalablytyped.converter.internal._
 import sbt.Keys._
 import sbt._
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
@@ -27,8 +18,6 @@ import scala.util.Try
 
 object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
   override def requires = ScalablyTypedPluginBase && ScalaJSBundlerPlugin
-
-  val stConversionOptions = settingKey[ConversionOptions]("")
 
   object autoImport {
 
@@ -64,28 +53,6 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       stMinimizeKeep := Nil,
       ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
       ScalaJsBundlerHack.adaptNpmInstallJSResources,
-      stConversionOptions := {
-        val versions = Versions(
-          Versions.Scala(scalaVersion = (Compile / scalaVersion).value),
-          Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion),
-        )
-
-        val ignored = stIgnore.value.to[Set]
-
-        ConversionOptions(
-          useScalaJsDomTypes    = stUseScalaJsDom.value,
-          flavour               = stFlavour.value,
-          outputPackage         = Name(stOutputPackage.value),
-          enableScalaJsDefined  = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
-          stdLibs               = IArray.fromTraversable(stStdlib.value),
-          expandTypeMappings    = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
-          ignoredLibs           = ignored.map(TsIdentLibrary.apply),
-          ignoredModulePrefixes = ignored.map(_.split("/").toList),
-          versions              = versions,
-          organization          = "org.scalablytyped",
-          enableImplicitOps     = stExperimentalEnableImplicitOps.value,
-        )
-      },
       stImport := {
         val logger: logging.Logger[Unit] = {
           val projectName = name.value
