@@ -134,17 +134,24 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
         val ignored = stIgnore.value.to[Set]
 
+        val outputPackage = Name(stOutputPackage.value)
+        val organization =
+          outputPackage match {
+            case Name.typings    => "org.scalablytyped"
+            case Name(unescaped) => s"org.scalablytyped.$unescaped"
+          }
+
         ConversionOptions(
           useScalaJsDomTypes    = stUseScalaJsDom.value,
           flavour               = stFlavour.value,
-          outputPackage         = Name(stOutputPackage.value),
+          outputPackage         = outputPackage,
           enableScalaJsDefined  = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
           stdLibs               = IArray.fromTraversable(stStdlib.value),
           expandTypeMappings    = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
           ignoredLibs           = ignored.map(TsIdentLibrary.apply),
           ignoredModulePrefixes = ignored.map(_.split("/").toList),
           versions              = versions,
-          organization          = "org.scalablytyped",
+          organization          = organization,
           enableImplicitOps     = stExperimentalEnableImplicitOps.value,
         )
       },
