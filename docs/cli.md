@@ -7,14 +7,15 @@ title: Command line tool
 - [I want to use sbt without scalajs-bundler](cli.md)
 
 The command line is the same functionality as the sbt plugin just without sbt.
-You provide a directory with a package.json and a node_modules, optionally
-change some conversion options, and then start the conversion.
+You provide a directory where you have installed javascript packages so it has a `package.json` and a `node_modules`, 
+optionally change some conversion options, 
+and then start the conversion.
 
-The output is a set of locally publishes jar files which you can paste into sbt 
+The output is a set of locally published jar files which you can paste into sbt 
 or your build tool of choice.
 
 You can also use the tool to publish directly to a bintray repository if you
- want to share the artifacats.
+ want to share the artifacts.
  
 ## Running
 The easiest way to run is with coursier's excellent runner.
@@ -61,6 +62,8 @@ Only publishing to bintray is supported for now
 user = username
 password = token
 ```
+Create the file if missing
+
 3) Run the cli tool with at least the following parameters:
 `--publish-to-bintray-repo=mymavenreponame`
 `--publish-git-repo-link=https://github.com/foo`

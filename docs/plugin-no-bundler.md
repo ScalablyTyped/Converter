@@ -34,8 +34,11 @@ project.settings(
 The rest of [Getting started with SBT plugin](plugin.md) applies.
 
 You can check out the `storybook-react` and `react-native` demos in 
-[SlinkyTypedDemos](https://github.com/oyvindberg/SlinkyTypedDemos/) 
+[SlinkyDemos](https://github.com/ScalablyTyped/SlinkyDemos) 
 for complete examples.
+
+## Customize the generated code
+While optional, it's recommended to have a look at [conversion options](conversion-options.md) to see what the possibilities are. 
 
 # Now what?
 
