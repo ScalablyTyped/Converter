@@ -8,6 +8,12 @@ The normal approach of using ScalablyTyped is geared towards writing application
 If you want to distribute code written on top of ScalablyTyped, so there is now another workflow 
 for producing free-standing libraries based on the generated code.
 
+## Example project
+
+Have a look at [mobx-slinky](https://github.com/ScalablyTyped/mobx-slinky)
+ to get a taste of what's possible. It's published through bintray so you can test it
+ in any Scala.js project.
+
 # Setup
 
 ## Requirements
