@@ -53,7 +53,7 @@ object PathsFromTsLibSource {
 
     IArray.fromTraversable(
       os.walk(bound.path, skip)
-        .filter(_.last.endsWith(".d.ts"))
+        .filter(path => path.last.endsWith(".d.ts") && os.isFile(path))
         .filterNot(_.last.contains(".src.")) // filter out files like highlight.src.d.ts,
         .map(InFile.apply),
     )
