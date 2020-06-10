@@ -23,7 +23,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   /** enable direct use of parsers with strings **/
   implicit def FromString[T](p: Parser[T]): String => ParseResult[T] =
-    (str: String) => phrase(p)(new lexical.Scanner(str))
+    (str: String) => phrase(p)(new lexical.Scanner(str.trim))
 
   def memo[P](p: Parser[P]): Parser[P] =
     path match {

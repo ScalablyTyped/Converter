@@ -2733,6 +2733,12 @@ export {};
     )
   }
 
+  test("empty file with just a linebreak") {
+    shouldParseAs("\n", TsParser.parsedTsFile)(
+      TsParsedFile(NoComments, Empty, Empty, CodePath.NoPath),
+    )
+  }
+
   test("properties") {
     val content = """declare class Test {
     _prop: number;
