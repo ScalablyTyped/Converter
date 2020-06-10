@@ -68,11 +68,6 @@ object PhaseRunner {
               )
 
             listener.on(next.name, id, PhaseListener.Started(next.name))
-
-            ret match {
-              case PhaseRes.Failure(errors) => logger.warn((s"Failed because of", errors))
-              case _                        => ()
-            }
             ret
           }
 
@@ -82,19 +77,16 @@ object PhaseRunner {
             )
 
           result match {
-            case res @ PhaseRes.Ok(_) =>
+            case PhaseRes.Ok(_) =>
               listener.on(next.name, id, PhaseListener.Success(next.name))
-              logger.debug("Success")
-              p.success(res)
-            case res @ PhaseRes.Failure(errors) =>
+            case PhaseRes.Failure(_) =>
               listener.on(next.name, id, PhaseListener.Failure(next.name))
-              logger.error(("Failure", errors))
-              p.success(res)
-            case res @ PhaseRes.Ignore() =>
+            case PhaseRes.Ignore() =>
               listener.on(next.name, id, PhaseListener.Ignored())
-              logger.debug("Ignored")
-              p.success(res)
           }
+
+          p.success(result)
+
         } catch {
           case x: FileLockInterruptionException => throw x
           case x: InterruptedException => throw x
