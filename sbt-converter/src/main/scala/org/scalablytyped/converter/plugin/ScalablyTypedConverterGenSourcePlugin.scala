@@ -6,7 +6,7 @@ import java.time.Instant
 import com.olvind.logging
 import com.olvind.logging.LogLevel
 import org.scalablytyped.converter.internal.importer.jsonCodecs.{FileDecoder, FileEncoder}
-import org.scalablytyped.converter.internal.scalajs.QualifiedName
+import org.scalablytyped.converter.internal.scalajs.{Name, QualifiedName}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import org.scalablytyped.converter.internal._
 import sbt.Keys._
@@ -62,6 +62,10 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
           else WrapSbtLogger(sbtLog, Instant.now).filter(LogLevel.warn).void.withContext("project", projectName)
         }
         val conversion = stConversionOptions.value
+
+        if (conversion.outputPackage == Name.typings) {
+          logger.fatal("You must set `stOutputPackage` to a custom package")
+        }
 
         val minimizeKeep = IArray
           .fromTraversable(stMinimizeKeep.value)
