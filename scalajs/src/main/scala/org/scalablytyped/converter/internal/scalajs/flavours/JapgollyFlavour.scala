@@ -24,4 +24,6 @@ case class JapgollyFlavour(outputPkg: Name, enableImplicitOps: Boolean) extends 
 
     rewriter.visitPackageTree(scope)(withComponents)
   }
+
+  override val rewritesOpt: Option[CastConversion.TypeRewriterCast] = Some(rewriter)
 }

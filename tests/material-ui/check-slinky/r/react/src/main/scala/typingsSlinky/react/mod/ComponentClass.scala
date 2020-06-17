@@ -10,8 +10,7 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait ComponentClass[P]
-  extends ComponentType[P]
-     with Instantiable1[/* props */ P, ReactComponentClass[P]]
+  extends Instantiable1[/* props */ P, ReactComponentClass[P]]
      with Instantiable2[/* props */ P, /* context */ js.Any, ReactComponentClass[P]] {
   var defaultProps: js.UndefOr[Partial[P]] = js.native
   var displayName: js.UndefOr[String] = js.native

@@ -6,6 +6,7 @@ import scala.scalajs.js.annotation._
 
 package object mod {
   type ComponentState = js.Object
+  type ComponentType[P] = slinky.core.ReactComponentClass[P]
   type DetailedHTMLProps[E /* <: typingsSlinky.react.mod.HTMLAttributes[T] */, T] = typingsSlinky.react.mod.ClassAttributes[T] with E
   type Key = java.lang.String | scala.Double
   type NativeAnimationEvent = org.scalajs.dom.raw.AnimationEvent

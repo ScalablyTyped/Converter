@@ -48,4 +48,6 @@ case class SlinkyFlavour(outputPkg: Name, enableImplicitOps: Boolean) extends Fl
 
     rewriter.visitPackageTree(scope)(withComponents)
   }
+
+  override val rewritesOpt: Option[CastConversion.TypeRewriterCast] = Some(rewriter)
 }

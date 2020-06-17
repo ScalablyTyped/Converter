@@ -8,7 +8,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait StatelessComponent[P] extends ComponentType[P] {
+trait StatelessComponent[P] extends js.Object {
   var defaultProps: js.UndefOr[Partial[P]] = js.native
   var displayName: js.UndefOr[String] = js.native
   def apply(props: P with Children): Element | Null = js.native

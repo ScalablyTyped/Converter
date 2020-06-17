@@ -74,7 +74,12 @@ trait ImporterHarness extends AnyFunSuite {
           "typescript",
         )
         .next(
-          new Phase2ToScalaJs(pedantic, enableScalaJsDefined = Selection.None, outputPkg = flavour.outputPkg),
+          new Phase2ToScalaJs(
+            pedantic,
+            enableScalaJsDefined = Selection.None,
+            outputPkg            = flavour.outputPkg,
+            flavour              = flavour,
+          ),
           "scala.js",
         )
         .next(new PhaseFlavour(flavour), flavour.toString)

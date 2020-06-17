@@ -66,9 +66,10 @@ object ImportTypingsGenSources {
       )
       .next(
         new Phase2ToScalaJs(
-          pedantic = false,
-          input.conversion.enableScalaJsDefined,
-          outputPkg = conversion.outputPackage,
+          pedantic             = false,
+          enableScalaJsDefined = input.conversion.enableScalaJsDefined,
+          outputPkg            = conversion.outputPackage,
+          flavour              = input.conversion.flavourImpl,
         ),
         "scala.js",
       )

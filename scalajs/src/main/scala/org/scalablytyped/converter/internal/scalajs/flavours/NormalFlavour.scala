@@ -13,17 +13,18 @@ case class NormalFlavour(
 
   override val dependencies =
     if (shouldUseScalaJsDomTypes) Set(Versions.scalaJsDom, Versions.runtime) else Set(Versions.runtime)
-  val rewriterOpt   = if (shouldUseScalaJsDomTypes) Some(new TypeRewriterCast(scalaJsDomNames.All)) else None
-  val memberToProp  = new MemberToProp.Default(rewriterOpt)
-  val findProps     = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
-  val genCompanions = new GenCompanions(findProps, enableImplicitOps)
+  override val rewritesOpt = if (shouldUseScalaJsDomTypes) Some(new TypeRewriterCast(scalaJsDomNames.All)) else None
+  val memberToProp         = new MemberToProp.Default(rewritesOpt)
+  val findProps            = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
+  val genCompanions        = new GenCompanions(findProps, enableImplicitOps)
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
     val withCompanions = genCompanions.visitPackageTree(scope)(tree)
 
-    rewriterOpt match {
+    rewritesOpt match {
       case Some(rewriter) => rewriter.visitPackageTree(scope)(withCompanions)
       case _              => withCompanions
     }
   }
+
 }

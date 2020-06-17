@@ -79,6 +79,7 @@ object ImportTypings {
           pedantic             = false,
           enableScalaJsDefined = input.conversion.enableScalaJsDefined,
           outputPkg            = input.conversion.outputPackage,
+          flavour              = input.conversion.flavourImpl,
         ),
         "scala.js",
       )

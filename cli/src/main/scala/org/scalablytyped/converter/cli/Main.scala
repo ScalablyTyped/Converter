@@ -280,6 +280,7 @@ object Main {
                 pedantic             = false,
                 enableScalaJsDefined = conversion.enableScalaJsDefined,
                 outputPkg            = conversion.outputPackage,
+                flavour              = conversion.flavourImpl,
               ),
               "scala.js",
             )

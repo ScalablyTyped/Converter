@@ -305,6 +305,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
             config.pedantic,
             enableScalaJsDefined = config.conversion.enableScalaJsDefined,
             outputPkg            = config.conversion.outputPackage,
+            flavour              = config.conversion.flavourImpl,
           ),
           "scala.js",
         )

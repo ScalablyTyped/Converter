@@ -6,6 +6,7 @@ import scala.scalajs.js.annotation._
 
 package object mod {
   type ComponentState = js.Object
+  type ComponentType[P] = (japgolly.scalajs.react.raw.React.ComponentClassP[P with js.Object]) | typingsJapgolly.react.mod.StatelessComponent[P]
   type DetailedHTMLProps[E /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T] = typingsJapgolly.react.mod.ClassAttributes[T] with E
   type Key = java.lang.String | scala.Double
   type NativeAnimationEvent = org.scalajs.dom.raw.AnimationEvent

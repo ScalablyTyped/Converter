@@ -7,6 +7,8 @@ trait FlavourImpl {
   def dependencies: Set[Dep]
   val outputPkg: Name
 
+  val rewritesOpt: Option[CastConversion.TypeRewriterCast]
+
   override val toString = getClass.getSimpleName
 }
 

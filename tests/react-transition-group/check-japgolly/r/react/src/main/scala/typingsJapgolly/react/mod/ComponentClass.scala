@@ -9,8 +9,7 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait ComponentClass[P]
-  extends ComponentType[P]
-     with Instantiable1[
+  extends Instantiable1[
       /* props */ P, 
       japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object]
     ]
