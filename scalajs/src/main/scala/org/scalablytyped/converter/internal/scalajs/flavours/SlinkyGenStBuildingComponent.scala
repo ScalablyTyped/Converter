@@ -407,7 +407,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
       StBuildingComponent,
       Empty,
       IArray(ReactRaw, make, Default),
-      NoComments,
+      Minimization.KeepMarker,
       builderCp,
       isOverride = false,
     )

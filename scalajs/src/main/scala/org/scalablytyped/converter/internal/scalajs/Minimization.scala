@@ -6,8 +6,12 @@ import com.olvind.logging.Logger
 import scala.collection.mutable
 
 object Minimization {
+  val KeepMarker = Comments(CommentData(Minimization.Keep(Empty)))
 
-  final case class Keep(related:    IArray[TypeRef]) extends Comment.Data
+  /* Disable the minimizer for object with this marker */
+  final case class Keep(related: IArray[TypeRef]) extends Comment.Data
+
+  /* Similar to above, but it's conditional. If the object with this marker is included, only then include the related objects as well */
   final case class Related(related: IArray[TypeRef]) extends Comment.Data
 
   def findReferences(

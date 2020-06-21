@@ -79,9 +79,6 @@ object SlinkyGenComponents {
       case Web(domInfo) => domInfo.domType
     }
 
-  /* Disable the minimizer for component objects */
-  val Keep = Comments(CommentData(Minimization.Keep(Empty)))
-
   val slinkyName = Name("slinky")
 
   object names {
@@ -386,7 +383,7 @@ class SlinkyGenComponents(
           name        = c.fullName,
           parents     = Empty,
           members     = members,
-          comments    = Comments(CommentData(Minimization.Keep(Empty))),
+          comments    = Minimization.KeepMarker,
           codePath    = componentCp,
           isOverride  = false,
         )
@@ -418,7 +415,7 @@ class SlinkyGenComponents(
       name        = c.fullName,
       parents     = Empty,
       members     = IArray(genImportModule(c, componentCp)) ++ members,
-      comments    = Comments(List(CommentData(Minimization.Keep(Empty)), errorComment)),
+      comments    = Minimization.KeepMarker ++ Comments(errorComment),
       codePath    = componentCp,
       isOverride  = false,
     )
@@ -447,7 +444,7 @@ class SlinkyGenComponents(
       name        = name,
       parents     = Empty,
       members     = members,
-      comments    = Comments(CommentData(Minimization.Keep(Empty))),
+      comments    = Minimization.KeepMarker,
       codePath    = ownerCp,
       isOverride  = false,
     )

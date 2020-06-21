@@ -82,7 +82,10 @@ final class GenCompanions(findProps: FindProps, enableImplicitOps: Boolean) exte
           generatedCreators ++ IArray.fromOption(geneatedImplicitOps) match {
             case Empty => IArray(cls)
             case some =>
-              val mod = ModuleTree(Empty, cls.name, Empty, some, NoComments, cls.codePath, isOverride = false)
+              val dontMinimize = Comments(CommentData(Minimization.Related(some.collect {
+                case m: HasCodePath => TypeRef(m.codePath)
+              })))
+              val mod = ModuleTree(Empty, cls.name, Empty, some, dontMinimize, cls.codePath, isOverride = false)
               IArray(cls, mod)
           }
 

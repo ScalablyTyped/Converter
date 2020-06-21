@@ -111,7 +111,7 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
       name        = c.fullName,
       parents     = Empty,
       members     = methods :+ componentRef,
-      comments    = Comments(CommentData(Minimization.Keep(Empty))),
+      comments    = Minimization.KeepMarker,
       codePath    = componentCp,
       isOverride  = false,
     )
@@ -190,7 +190,7 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
       parents =
         IArray(TypeRef(propsClass.codePath, IArray.fromOption(c.referenceTo.map(TypeRef.stripTargs)), NoComments)),
       members    = IArray(componentRef),
-      comments   = Comments(CommentData(Minimization.Keep(Empty))),
+      comments   = Minimization.KeepMarker,
       codePath   = componentCp,
       isOverride = false,
     )
