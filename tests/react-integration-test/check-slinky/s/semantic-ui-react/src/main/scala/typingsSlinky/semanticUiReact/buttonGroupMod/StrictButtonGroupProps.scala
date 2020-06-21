@@ -1,6 +1,5 @@
 package typingsSlinky.semanticUiReact.buttonGroupMod
 
-import slinky.core.TagMod
 import slinky.core.facade.ReactElement
 import typingsSlinky.semanticUiReact.buttonMod.ButtonProps
 import typingsSlinky.semanticUiReact.genericMod.SemanticCOLORS
@@ -28,7 +27,7 @@ trait StrictButtonGroupProps extends js.Object {
   /** Array of shorthand Button values. */
   var buttons: js.UndefOr[SemanticShorthandCollection[ButtonProps]] = js.native
   /** Primary content. */
-  var children: js.UndefOr[TagMod[Any]] = js.native
+  var children: js.UndefOr[ReactElement] = js.native
   /** Additional classes. */
   var className: js.UndefOr[String] = js.native
   /** Groups can have a shared color. */
@@ -101,7 +100,7 @@ object StrictButtonGroupProps {
     @scala.inline
     def setChildrenReactElement(value: ReactElement): Self = this.set("children", value.asInstanceOf[js.Any])
     @scala.inline
-    def setChildren(value: TagMod[Any]): Self = this.set("children", value.asInstanceOf[js.Any])
+    def setChildren(value: ReactElement): Self = this.set("children", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteChildren: Self = this.set("children", js.undefined)
     @scala.inline

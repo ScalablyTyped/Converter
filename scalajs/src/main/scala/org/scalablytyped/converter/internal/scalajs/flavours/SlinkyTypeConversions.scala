@@ -12,7 +12,7 @@ object SlinkyTypeConversions {
 //        CastConversion(reactNames.ReactType, ReactComponentClass, _1),
         CastConversion(reactNames.ComponentState, QualifiedName.Object),
         CastConversion(reactNames.ReactDOM, QualifiedName.Any),
-        CastConversion(reactNames.ReactNode, TagMod, Ref(TypeRef.ScalaAny)),
+        CastConversion(reactNames.ReactNode, ReactElement),
         CastConversion(reactNames.RefObject, ReactRef, _1),
         //        CastConversion(reactNames.Component, rawReactComponent, _1, TypeRef.Object),
         //        CastConversion(reactNames.ComponentClass, rawReactComponentClassP, _1Object),

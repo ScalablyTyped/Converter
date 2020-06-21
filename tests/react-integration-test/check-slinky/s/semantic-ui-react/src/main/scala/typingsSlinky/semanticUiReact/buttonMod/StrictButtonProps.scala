@@ -1,7 +1,6 @@
 package typingsSlinky.semanticUiReact.buttonMod
 
 import org.scalajs.dom.raw.HTMLButtonElement
-import slinky.core.TagMod
 import slinky.core.facade.ReactElement
 import slinky.web.SyntheticMouseEvent
 import typingsSlinky.react.mod.ButtonHTMLAttributes
@@ -169,7 +168,7 @@ object StrictButtonProps {
     def setIconFunction3(
       value: (/* component */ ReactType[
           /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
-        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _, /* children */ js.UndefOr[TagMod[Any] | ReactNodeArray]) => ReactElement | Null
+        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
     ): Self = this.set("icon", js.Any.fromFunction3(value))
     @scala.inline
     def setIcon(
@@ -189,7 +188,7 @@ object StrictButtonProps {
     def setLabelFunction3(
       value: (/* component */ ReactType[
           /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
-        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _, /* children */ js.UndefOr[TagMod[Any] | ReactNodeArray]) => ReactElement | Null
+        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
     ): Self = this.set("label", js.Any.fromFunction3(value))
     @scala.inline
     def setLabel(

@@ -1,6 +1,5 @@
 package typingsSlinky.react.mod
 
-import slinky.core.TagMod
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -8,12 +7,12 @@ import scala.scalajs.js.annotation._
 @js.native
 trait ConsumerProps[T] extends js.Object {
   var unstable_observedBits: js.UndefOr[Double] = js.native
-  def children(value: T): TagMod[Any] = js.native
+  def children(value: T): slinky.core.facade.ReactElement = js.native
 }
 
 object ConsumerProps {
   @scala.inline
-  def apply[T](children: T => TagMod[Any]): ConsumerProps[T] = {
+  def apply[T](children: T => slinky.core.facade.ReactElement): ConsumerProps[T] = {
     val __obj = js.Dynamic.literal(children = js.Any.fromFunction1(children))
     __obj.asInstanceOf[ConsumerProps[T]]
   }
@@ -29,7 +28,7 @@ object ConsumerProps {
         x
     }
     @scala.inline
-    def setChildren(value: T => TagMod[Any]): Self = this.set("children", js.Any.fromFunction1(value))
+    def setChildren(value: T => slinky.core.facade.ReactElement): Self = this.set("children", js.Any.fromFunction1(value))
     @scala.inline
     def setUnstable_observedBits(value: Double): Self = this.set("unstable_observedBits", value.asInstanceOf[js.Any])
     @scala.inline

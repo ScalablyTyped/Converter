@@ -1,13 +1,12 @@
 package typingsSlinky.react.mod
 
-import slinky.core.TagMod
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
 trait SuspenseProps extends js.Object {
-  var children: js.UndefOr[TagMod[Any]] = js.native
+  var children: js.UndefOr[slinky.core.facade.ReactElement] = js.native
   /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
   var fallback: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any) | Null = js.native
 }
@@ -32,7 +31,7 @@ object SuspenseProps {
     @scala.inline
     def setChildrenReactElement(value: slinky.core.facade.ReactElement): Self = this.set("children", value.asInstanceOf[js.Any])
     @scala.inline
-    def setChildren(value: TagMod[Any]): Self = this.set("children", value.asInstanceOf[js.Any])
+    def setChildren(value: slinky.core.facade.ReactElement): Self = this.set("children", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteChildren: Self = this.set("children", js.undefined)
     @scala.inline

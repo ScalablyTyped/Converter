@@ -1,7 +1,6 @@
 package typingsSlinky.semanticUiReact.inputInputMod
 
 import org.scalajs.dom.raw.HTMLInputElement
-import slinky.core.TagMod
 import slinky.core.facade.ReactElement
 import typingsSlinky.react.mod.ChangeEvent
 import typingsSlinky.react.mod.InputHTMLAttributes
@@ -120,7 +119,7 @@ object StrictInputProps {
     def setIconReactElement(value: ReactElement): Self = this.set("icon", value.asInstanceOf[js.Any])
     @scala.inline
     def setIconFunction3(
-      value: (/* component */ ReactType[InputProps], InputProps, /* children */ js.UndefOr[TagMod[Any] | ReactNodeArray]) => ReactElement | Null
+      value: (/* component */ ReactType[InputProps], InputProps, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
     ): Self = this.set("icon", js.Any.fromFunction3(value))
     @scala.inline
     def setIcon(value: js.Any | SemanticShorthandItem[InputProps]): Self = this.set("icon", value.asInstanceOf[js.Any])
@@ -134,7 +133,7 @@ object StrictInputProps {
     def setInputReactElement(value: ReactElement): Self = this.set("input", value.asInstanceOf[js.Any])
     @scala.inline
     def setInputFunction3(
-      value: (/* component */ ReactType[HtmlInputrops], HtmlInputrops, /* children */ js.UndefOr[TagMod[Any] | ReactNodeArray]) => ReactElement | Null
+      value: (/* component */ ReactType[HtmlInputrops], HtmlInputrops, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
     ): Self = this.set("input", js.Any.fromFunction3(value))
     @scala.inline
     def setInput(value: SemanticShorthandItem[HtmlInputrops]): Self = this.set("input", value.asInstanceOf[js.Any])
@@ -150,7 +149,7 @@ object StrictInputProps {
     def setLabelFunction3(
       value: (/* component */ ReactType[
           /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
-        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _, /* children */ js.UndefOr[TagMod[Any] | ReactNodeArray]) => ReactElement | Null
+        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
     ): Self = this.set("label", js.Any.fromFunction3(value))
     @scala.inline
     def setLabel(

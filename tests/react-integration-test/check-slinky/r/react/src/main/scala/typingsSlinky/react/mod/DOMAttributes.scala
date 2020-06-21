@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
-import slinky.core.TagMod
 import slinky.web.SyntheticAnimationEvent
 import slinky.web.SyntheticClipboardEvent
 import slinky.web.SyntheticCompositionEvent
@@ -21,7 +20,7 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait DOMAttributes[T] extends js.Object {
-  var children: js.UndefOr[TagMod[Any]] = js.native
+  var children: js.UndefOr[slinky.core.facade.ReactElement] = js.native
   var dangerouslySetInnerHTML: js.UndefOr[Html] = js.native
   // Media Events
   var onAbort: js.UndefOr[ReactEventHandler[T]] = js.native
@@ -140,7 +139,7 @@ object DOMAttributes {
     @scala.inline
     def setChildrenReactElement(value: slinky.core.facade.ReactElement): Self = this.set("children", value.asInstanceOf[js.Any])
     @scala.inline
-    def setChildren(value: TagMod[Any]): Self = this.set("children", value.asInstanceOf[js.Any])
+    def setChildren(value: slinky.core.facade.ReactElement): Self = this.set("children", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteChildren: Self = this.set("children", js.undefined)
     @scala.inline

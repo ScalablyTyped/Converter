@@ -1,6 +1,5 @@
 package typingsSlinky.react.mod
 
-import slinky.core.TagMod
 import typingsSlinky.react.anon.Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -8,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait DOMAttributes[T] extends js.Object {
-  var children: js.UndefOr[TagMod[Any]] = js.native
+  var children: js.UndefOr[slinky.core.facade.ReactElement] = js.native
   var dangerouslySetInnerHTML: js.UndefOr[Html] = js.native
   var onClick: js.UndefOr[Double | (js.Function1[/* x */ String, Unit])] = js.native
 }
@@ -31,7 +30,7 @@ object DOMAttributes {
         x
     }
     @scala.inline
-    def setChildren(value: TagMod[Any]): Self = this.set("children", value.asInstanceOf[js.Any])
+    def setChildren(value: slinky.core.facade.ReactElement): Self = this.set("children", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteChildren: Self = this.set("children", js.undefined)
     @scala.inline
