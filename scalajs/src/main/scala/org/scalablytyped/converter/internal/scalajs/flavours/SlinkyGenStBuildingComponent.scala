@@ -333,7 +333,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
         name,
         IArray(TypeRef.Object),
         IArray(createElementField),
-        NoComments,
+        Minimization.KeepMarker,
         ReactRawCp,
         isOverride = false,
       )
