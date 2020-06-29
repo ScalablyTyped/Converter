@@ -319,6 +319,15 @@ object Main {
           println(
             Color.Red(s"Failure: You might try --ignoredLibs ${failures.keys.map(_.libName.value).mkString(", ")}"),
           )
+
+          failures.foreach {
+            case (source, Left(value)) =>
+              println(s"${source.libName.value}:")
+              value.printStackTrace()
+            case (source, Right(value)) =>
+              println(s"${source.libName.value}: $value")
+          }
+
           System.exit(1)
         } else {
           val allSuccesses: Map[Source, PublishedSbtProject] = {
