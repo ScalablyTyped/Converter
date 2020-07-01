@@ -139,7 +139,6 @@ object ImportTypingsGenSources {
       Set(),
       Versions(Versions.Scala213, Versions.ScalaJs1),
       "org.scalablytyped",
-      enableImplicitOps = true,
     )
 
     println(

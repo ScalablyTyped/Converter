@@ -3,12 +3,6 @@ id: conversion-options
 title: Customize the generated code.
 ---
 
-### `stExperimentalEnableImplicitOps`
-Enable this to get builder-like functionality for generated companion objects.
-This will be the default soon, and it'll be better incorporated into the documentation.
-
-For now see [release notes for 1.0.0-beta13](https://github.com/ScalablyTyped/Converter/releases/tag/v1.0.0-beta13)
-
 ### `stIgnore`
 There are a few reasons you might want to ignore things:
 - A dependency of a library you want to use might fail conversion/compilation and you can try to salvage the situation by ignoring it.

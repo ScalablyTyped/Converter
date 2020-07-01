@@ -100,6 +100,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
     val stInternalExpandTypeMappings = settingKey[Selection[String]]("Experimental: enable type mapping expansion")
 
+    @deprecated("This setting is now does nothing, because it became the default encoding")
     val stExperimentalEnableImplicitOps = settingKey[Boolean]("implicit ops for most traits")
   }
 
@@ -125,7 +126,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stStdlib := List("es6"),
       stTypescriptVersion := "3.8",
       stUseScalaJsDom := true,
-      stExperimentalEnableImplicitOps := false,
+      stExperimentalEnableImplicitOps := true,
       stConversionOptions := {
         val versions = Versions(
           Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),
@@ -152,7 +153,6 @@ object ScalablyTypedPluginBase extends AutoPlugin {
           ignoredModulePrefixes = ignored.map(_.split("/").toList),
           versions              = versions,
           organization          = organization,
-          enableImplicitOps     = stExperimentalEnableImplicitOps.value,
         )
       },
     )

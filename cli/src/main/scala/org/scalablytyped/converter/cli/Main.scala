@@ -48,7 +48,6 @@ object Main {
     expandTypeMappings    = EnabledTypeMappingExpansion.DefaultSelection,
     versions              = Versions(Versions.Scala213, Versions.ScalaJs1),
     organization          = "org.scalablytyped",
-    enableImplicitOps     = false,
   )
 
   case class Config(
@@ -164,8 +163,11 @@ object Main {
         .action((x, c) => c.mapConversion(_.copy(ignoredLibs = x.toSet)))
         .text(s"Libraries you want to ignore"),
       opt[Boolean]("experimentalEnableImplicitOps")
-        .action((x, c) => c.mapConversion(_.copy(enableImplicitOps = x)))
-        .text(s"Enable implicit ops"),
+        .action { (x, c) =>
+          logger.warn("--experimentalEnableImplicitOps has no effect since it became the default encoding")
+          c
+        }
+        .text(s"Deprecated, doesn't do anything anymore"),
       opt[ProjectName]("publish-to-bintray-repo")
         .action((x, c) => c.copy(publishBintrayRepo = Some(x)))
         .text(
@@ -247,7 +249,6 @@ object Main {
 //            "ignoredModulePrefixes" -> conversion.ignoredModulePrefixes.toString,
             "versions" -> conversion.versions.toString,
             "organization" -> conversion.organization,
-            "experimentalEnableImplicitOps" -> conversion.enableImplicitOps.toString,
           ),
         )
 
