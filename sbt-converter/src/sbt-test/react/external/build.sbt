@@ -15,4 +15,3 @@ lazy val testProject =
       scalaVersion := "2.13.2",
       organization := "net.leibman",
     )
-         

@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "stardust-ui__react-component-event-listener"
-version := "0.38.0-dc344e"
+version := "0.38.0-8f5a38"
 scalaVersion := "2.13.2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
