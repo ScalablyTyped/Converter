@@ -16,18 +16,17 @@ case class ConversionOptions(
     ignoredModulePrefixes: Set[List[String]],
     versions:              Versions,
     organization:          String,
-    enableImplicitOps:     Boolean,
 ) {
   val flavourImpl: flavours.FlavourImpl =
     flavour match {
       case Flavour.Normal =>
-        flavours.NormalFlavour(useScalaJsDomTypes, enableImplicitOps, outputPackage)
+        flavours.NormalFlavour(useScalaJsDomTypes, outputPackage)
       case Flavour.Slinky =>
-        flavours.SlinkyFlavour(outputPackage, enableImplicitOps)
+        flavours.SlinkyFlavour(outputPackage)
       case Flavour.SlinkyNative =>
-        flavours.SlinkyNativeFlavour(outputPackage, enableImplicitOps)
+        flavours.SlinkyNativeFlavour(outputPackage)
       case Flavour.Japgolly =>
-        flavours.JapgollyFlavour(outputPackage, enableImplicitOps)
+        flavours.JapgollyFlavour(outputPackage)
     }
 
 }

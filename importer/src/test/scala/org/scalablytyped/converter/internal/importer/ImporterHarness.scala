@@ -126,11 +126,7 @@ trait ImporterHarness extends AnyFunSuite {
       testName: String,
       pedantic: Boolean,
       update:   Boolean,
-      flavour: FlavourImpl = NormalFlavour(
-        shouldUseScalaJsDomTypes = false,
-        enableImplicitOps        = true,
-        outputPkg                = Name.typings,
-      ),
+      flavour:  FlavourImpl = NormalFlavour(shouldUseScalaJsDomTypes = false, outputPkg = Name.typings),
   ): Assertion = {
     val testFolder   = findTestFolder(testName)
     val source       = InFolder(testFolder.path / 'in)
