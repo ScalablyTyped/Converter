@@ -53,7 +53,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
             RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))
         }
 
-      case m @ TsMemberFunction(_, _, name, MethodType.Normal, sig, _, _, _) =>
+      case m @ TsMemberFunction(_, _, name, MethodType.Normal, sig, _, _) =>
         expandTParams(scope / m, sig) match {
           case None => IArray(m)
           case Some(nonEmpty) =>
@@ -161,7 +161,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
         val members = AllMembersFor(scope, LoopDetector.initial)(ref)
 
         members.collect {
-          case TsMemberProperty(_, _, TsIdentSimple(n), Some(tpe), _, false, _, _) =>
+          case TsMemberProperty(_, _, TsIdentSimple(n), Some(tpe), _, false, _) =>
             val rewrites = Map[TsType, TsType](
               TsTypeRef(exp.typeParam) -> TsTypeLiteral(TsLiteralString(n)),
               TsTypeLookup(ref, TsTypeLiteral(TsLiteralString(n))) -> tpe,

@@ -24,7 +24,6 @@ object InferReturnTypes extends TreeTransformationScopedChanges {
                     TsFunSig(_, _, thoseParams, Some(resultType)),
                     _,
                     _,
-                    _,
                     ) if thoseParams.length === params.length =>
                   x.copy(signature = x.signature.copy(resultType = Some(resultType)))
               }

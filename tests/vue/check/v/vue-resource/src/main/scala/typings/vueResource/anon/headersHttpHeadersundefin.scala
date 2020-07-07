@@ -6,30 +6,30 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* Inlined {  headers ? :vue-resource.vuejs.HttpHeaders, [key: string] : any} & vue-resource.vuejs.HttpOptions */
+/* Inlined {  headers :vue-resource.vuejs.HttpHeaders | undefined, [key: string] : any} & vue-resource.vuejs.HttpOptions */
 @js.native
-trait headersHttpHeaderskeystri
+trait headersHttpHeadersundefin
   extends /* key */ StringDictionary[js.Any] {
   var before: js.UndefOr[js.Function1[/* request */ js.Any, _]] = js.native
   var body: js.UndefOr[js.Any] = js.native
   var credentials: js.UndefOr[Boolean] = js.native
   var emulateHTTP: js.UndefOr[Boolean] = js.native
   var emulateJSON: js.UndefOr[Boolean] = js.native
-  var headers: js.UndefOr[HttpHeaders with js.Any] = js.native
+  var headers: js.UndefOr[HttpHeaders] with js.UndefOr[js.Any] = js.native
   var method: js.UndefOr[String] = js.native
   var params: js.UndefOr[js.Any] = js.native
   var progress: js.UndefOr[js.Function1[/* event */ js.Any, _]] = js.native
   var url: js.UndefOr[String] = js.native
 }
 
-object headersHttpHeaderskeystri {
+object headersHttpHeadersundefin {
   @scala.inline
-  def apply(): headersHttpHeaderskeystri = {
-    val __obj = js.Dynamic.literal()
-    __obj.asInstanceOf[headersHttpHeaderskeystri]
+  def apply(headers: js.UndefOr[HttpHeaders] with js.UndefOr[js.Any]): headersHttpHeadersundefin = {
+    val __obj = js.Dynamic.literal(headers = headers.asInstanceOf[js.Any])
+    __obj.asInstanceOf[headersHttpHeadersundefin]
   }
   @scala.inline
-  implicit class headersHttpHeaderskeystriOps[Self <: headersHttpHeaderskeystri] (val x: Self) extends AnyVal {
+  implicit class headersHttpHeadersundefinOps[Self <: headersHttpHeadersundefin] (val x: Self) extends AnyVal {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
@@ -39,6 +39,8 @@ object headersHttpHeaderskeystri {
         x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
         x
     }
+    @scala.inline
+    def setHeaders(value: js.UndefOr[HttpHeaders] with js.UndefOr[js.Any]): Self = this.set("headers", value.asInstanceOf[js.Any])
     @scala.inline
     def setBefore(value: /* request */ js.Any => _): Self = this.set("before", js.Any.fromFunction1(value))
     @scala.inline
@@ -59,10 +61,6 @@ object headersHttpHeaderskeystri {
     def setEmulateJSON(value: Boolean): Self = this.set("emulateJSON", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteEmulateJSON: Self = this.set("emulateJSON", js.undefined)
-    @scala.inline
-    def setHeaders(value: HttpHeaders with js.Any): Self = this.set("headers", value.asInstanceOf[js.Any])
-    @scala.inline
-    def deleteHeaders: Self = this.set("headers", js.undefined)
     @scala.inline
     def setMethod(value: String): Self = this.set("method", value.asInstanceOf[js.Any])
     @scala.inline

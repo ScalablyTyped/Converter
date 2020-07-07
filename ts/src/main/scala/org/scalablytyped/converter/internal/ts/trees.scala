@@ -13,9 +13,9 @@ sealed trait TsTree extends Serializable with Product {
   lazy val asString: String = {
     val name = this match {
       case named: TsNamedDecl => named.name.value
-      case TsMemberProperty(_, _, TsIdent(str), _, _, _, _, _) => str
-      case TsMemberFunction(_, _, TsIdent(str), _, _, _, _, _) => str
-      case _                                                   => ""
+      case TsMemberProperty(_, _, TsIdent(str), _, _, _, _) => str
+      case TsMemberFunction(_, _, TsIdent(str), _, _, _, _) => str
+      case _                                                => ""
     }
     s"${getClass.getSimpleName}($name)"
   }
@@ -218,7 +218,6 @@ final case class TsDeclVar(
     expr:       Option[TsExpr],
     jsLocation: JsLocation,
     codePath:   CodePath,
-    isOptional: Boolean,
 ) extends TsNamedValueDecl
     with HasJsLocation
     with TsNamedDecl {
@@ -278,18 +277,15 @@ final case class TsFunSig(
     resultType: Option[TsType],
 ) extends TsTree
 
-final case class TsFunParam(comments: Comments, name: TsIdentSimple, tpe: Option[TsType], isOptional: Boolean)
-    extends TsTree {
+final case class TsFunParam(comments: Comments, name: TsIdentSimple, tpe: Option[TsType]) extends TsTree {
 
   override def equals(obj: Any): Boolean =
     obj match {
-      case that: TsFunParam =>
-        tpe === that.tpe && isOptional === that.isOptional
+      case that: TsFunParam => tpe === that.tpe
       case _ => false
     }
 
-  override lazy val hashCode: Int =
-    (7 + tpe.##) * 31 + isOptional.##
+  override lazy val hashCode: Int = tpe.hashCode
 }
 
 final case class TsTypeParam(
@@ -574,17 +570,6 @@ sealed abstract class TsMember extends TsTree {
   def level: ProtectionLevel
 }
 
-object TsMember {
-  def optional(isOptional: Boolean)(m: TsMember): TsMember = m match {
-    case x: TsMemberCall       => x
-    case x: TsMemberCtor       => x
-    case x: TsMemberTypeMapped => x
-    case x: TsMemberFunction   => x.copy(isOptional = isOptional)
-    case x: TsMemberIndex      => x.copy(isOptional = isOptional)
-    case x: TsMemberProperty   => x.copy(isOptional = isOptional)
-  }
-}
-
 final case class TsMemberCall(comments: Comments, level: ProtectionLevel, signature: TsFunSig) extends TsMember
 
 final case class TsMemberCtor(comments: Comments, level: ProtectionLevel, signature: TsFunSig) extends TsMember
@@ -597,7 +582,6 @@ final case class TsMemberFunction(
     signature:  TsFunSig,
     isStatic:   Boolean,
     isReadOnly: Boolean,
-    isOptional: Boolean,
 ) extends TsMember
 
 sealed trait Indexing extends TsTree
@@ -609,16 +593,19 @@ final case class TsMemberIndex(
     isReadOnly: Boolean,
     level:      ProtectionLevel,
     indexing:   Indexing,
-    isOptional: Boolean,
     valueType:  Option[TsType],
 ) extends TsMember
 
 sealed trait OptionalModifier {
-  def apply(wasOptional: Boolean): Boolean =
+  def apply(tpe: TsType): TsType =
     this match {
-      case OptionalModifier.Noop          => wasOptional
-      case OptionalModifier.Optionalize   => true
-      case OptionalModifier.Deoptionalize => false
+      case OptionalModifier.Noop        => tpe
+      case OptionalModifier.Optionalize => OptionalType(tpe)
+      case OptionalModifier.Deoptionalize =>
+        tpe match {
+          case OptionalType(rest) => rest
+          case other              => other
+        }
     }
 }
 
@@ -661,7 +648,6 @@ final case class TsMemberProperty(
     expr:       Option[TsExpr],
     isStatic:   Boolean,
     isReadOnly: Boolean,
-    isOptional: Boolean,
 ) extends TsMember
 
 //imports

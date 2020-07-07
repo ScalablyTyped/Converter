@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 /* Inlined std.Partial<type-mappings.Person> */
 @js.native
 trait PartialPerson extends js.Object {
-  var age: js.UndefOr[scala.Double] = js.native
+  var age: js.UndefOr[scala.Double | Null] = js.native
   var name: js.UndefOr[String] = js.native
 }
 
@@ -32,6 +32,8 @@ object PartialPerson {
     def setAge(value: scala.Double): Self = this.set("age", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteAge: Self = this.set("age", js.undefined)
+    @scala.inline
+    def setAgeNull: Self = this.set("age", null)
     @scala.inline
     def setName(value: String): Self = this.set("name", value.asInstanceOf[js.Any])
     @scala.inline

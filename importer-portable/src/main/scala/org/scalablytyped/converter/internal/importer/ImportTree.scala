@@ -110,7 +110,7 @@ class ImportTree(
           ),
         )
 
-      case TsDeclVar(cs, _, _, _, Some(TsTypeObject(_, members)), None, location, codePath, false) =>
+      case TsDeclVar(cs, _, _, _, Some(TsTypeObject(_, members)), None, location, codePath) =>
         val newCodePath = importName(codePath)
         val MemberRet(ctors, ms, inheritance, statics) =
           members flatMap tsMember(scope, scalaJsDefined = false, importName, newCodePath)
@@ -140,9 +140,8 @@ class ImportTree(
           _,
           jsLocation,
           importName.withJsNameAnnotation((codePath, annOpt)),
-          isOptional,
           ) =>
-        val tpe  = importType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt).withOptional(isOptional)
+        val tpe  = importType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt)
         val name = codePath.parts.last
 
         if (name === Name.Symbol) {
@@ -358,7 +357,7 @@ class ImportTree(
       case TsMemberCtor(cs, _, _sig) =>
         IArray(MemberRet.Inheritance(importType.newableFunction(scope, importName, _sig, cs)))
 
-      case f @ TsMemberFunction(cs, level, TsIdent.constructor, methodType, sig, false, _, _) =>
+      case f @ TsMemberFunction(cs, level, TsIdent.constructor, methodType, sig, false, _) =>
         if (methodType =/= MethodType.Normal) {
           sys.error(s"unexpected $f")
         }
@@ -371,24 +370,14 @@ class ImportTree(
       case m: TsMemberProperty =>
         tsMemberProperty(scope, scalaJsDefined, importName, ownerCP)(m)
 
-      case f @ TsMemberFunction(cs, level, name, methodType, signature, isStatic, isReadOnly, isOptional) =>
-        if (isOptional) {
-          if (methodType =/= MethodType.Normal) {
-            sys.error(s"unexpected $f")
-          }
-          val asFunction =
-            TsMemberProperty(cs, level, name, Some(TsTypeFunction(signature)), None, isStatic, isReadOnly, isOptional)
-
-          tsMemberProperty(scope.`..`, scalaJsDefined, importName, ownerCP)(asFunction)
-        } else {
-          val (newName, annOpt) = ImportName.withJsNameAnnotation(name)
-          IArray(
-            MemberRet(
-              tsMethod(scope, importName, level, newName, annOpt, cs, methodType, signature, scalaJsDefined, ownerCP),
-              isStatic,
-            ),
-          )
-        }
+      case TsMemberFunction(cs, level, name, methodType, signature, isStatic, isReadOnly @ _) =>
+        val (newName, annOpt) = ImportName.withJsNameAnnotation(name)
+        IArray(
+          MemberRet(
+            tsMethod(scope, importName, level, newName, annOpt, cs, methodType, signature, scalaJsDefined, ownerCP),
+            isStatic,
+          ),
+        )
 
       case m: TsMemberIndex =>
         m.indexing match {
@@ -420,11 +409,11 @@ class ImportTree(
             )
             name.parts match {
               case IArray.exactlyTwo(TsIdent.Symbol, sym) if KnownSymbols(sym.value) =>
-                val symName = ImportName.skipConversion(sym)
-                val a       = Annotation.JsNameSymbol(QualifiedName.Symbol + symName)
-
+                val symName    = ImportName.skipConversion(sym)
+                val a          = Annotation.JsNameSymbol(QualifiedName.Symbol + symName)
+                val isOptional = m.valueType.exists(tpe => OptionalType.unapply(tpe).isDefined)
                 val fieldType: ImplTree =
-                  (scalaJsDefined, m.isOptional) match {
+                  (scalaJsDefined, isOptional) match {
                     case (true, true)  => ExprTree.undefined
                     case (true, false) => NotImplemented
                     case _             => ExprTree.native
@@ -435,7 +424,7 @@ class ImportTree(
                     FieldTree(
                       annotations = IArray(a),
                       name        = symName,
-                      tpe         = importType.orAny(Wildcards.No, scope, importName)(m.valueType).withOptional(m.isOptional),
+                      tpe         = importType.orAny(Wildcards.No, scope, importName)(m.valueType),
                       impl        = fieldType,
                       isReadOnly  = m.isReadOnly,
                       isOverride  = false,
@@ -468,7 +457,7 @@ class ImportTree(
         scope.logger.info(s"Dropping $m")
         Empty
       case (ImportName.withJsNameAnnotation((name, annOpt)), Some(TsTypeObject(_, members)))
-          if !m.isOptional && members.forall(_.isInstanceOf[TsMemberCall]) =>
+          if members.forall(_.isInstanceOf[TsMemberCall]) =>
         // alternative notation for overload methods
         members.collect { case x: TsMemberCall => x } map (
             call =>
@@ -490,7 +479,7 @@ class ImportTree(
           )
 
       case (ImportName.withJsNameAnnotation(name, annOpt), tpeOpt: Option[TsType]) =>
-        val importedType = importType.orAny(Wildcards.No, scope, importName)(tpeOpt).withOptional(m.isOptional)
+        val importedType = importType.orAny(Wildcards.No, scope, importName)(tpeOpt)
         val impl: ImplTree =
           (scalaJsDefined, importedType) match {
             case (true, TypeRef.UndefOr(_, _)) => ExprTree.undefined
@@ -537,9 +526,8 @@ class ImportTree(
 
   def tsFunParams(scope: TsTreeScope, importName: AdaptiveNamingImport, params: IArray[TsFunParam]): IArray[ParamTree] =
     params map { param =>
-      val tpe       = importType.orAny(Wildcards.No, scope / param, importName)(param.tpe)
-      val undefType = tpe.withOptional(param.isOptional)
-      ParamTree(ImportName(param.name), isImplicit = false, isVal = false, undefType, NotImplemented, param.comments)
+      val tpe = importType.orAny(Wildcards.No, scope / param, importName)(param.tpe)
+      ParamTree(ImportName(param.name), isImplicit = false, isVal = false, tpe, NotImplemented, param.comments)
     }
 
   def tsMethod(

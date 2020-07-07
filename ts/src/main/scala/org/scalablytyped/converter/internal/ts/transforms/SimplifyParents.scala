@@ -29,8 +29,8 @@ object SimplifyParents extends TreeTransformationScopedChanges {
       scope.lookupType(parentRef.name, skipValidation = true) match {
         case Empty =>
           scope.lookupBase(Picker.Vars, parentRef.name, skipValidation = true).headOption match {
-            case Some((TsDeclVar(_, _, _, _, Some(tpe), _, _, _, _), newScope)) => lift(newScope, parentRef, tpe)
-            case _                                                              => IArray(parentRef)
+            case Some((TsDeclVar(_, _, _, _, Some(tpe), _, _, _), newScope)) => lift(newScope, parentRef, tpe)
+            case _                                                           => IArray(parentRef)
           }
         case _ => IArray(parentRef)
       }

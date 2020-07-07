@@ -299,7 +299,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       case cs ~ declared ~ isReadonly ~ vars =>
         vars.map {
           case name ~ tpe ~ expr =>
-            TsDeclVar(cs, declared, isReadonly, name, tpe, expr, JsLocation.Zero, CodePath.NoPath, isOptional = false)
+            TsDeclVar(cs, declared, isReadonly, name, tpe, expr, JsLocation.Zero, CodePath.NoPath)
         }
     }
   }
@@ -384,8 +384,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     /** **/
     case ps if ps.count(_.name.value === "has") > 1 =>
       ps.zipWithIndex.map {
-        case (p @ TsFunParam(_, TsIdentSimple("has"), _, _), idx) => p.copy(name = TsIdent("has" + idx))
-        case (other, _)                                           => other
+        case (p @ TsFunParam(_, TsIdentSimple("has"), _), idx) => p.copy(name = TsIdent("has" + idx))
+        case (other, _)                                        => other
       }
     case ok => ok
   }
@@ -412,13 +412,13 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       ',',
     ).? ^^ {
       case cs ~ false ~ i ~ o ~ t ~ oc =>
-        TsFunParam(cs +? oc.flatten, i, t, o)
+        TsFunParam(cs +? oc.flatten, i, t.map(OptionalType.maybe(_, o)))
       case cs ~ _ ~ i ~ _ ~ Some(ArrayType(t)) ~ oc =>
-        TsFunParam(cs +? oc.flatten, i, Some(TsTypeRepeated(t)), isOptional = false)
+        TsFunParam(cs +? oc.flatten, i, Some(TsTypeRepeated(t)))
       case cs ~ _ ~ i ~ o ~ t ~ oc =>
         val warning =
           s"Dropping repeated marker of param ${i.value} because its type ${t.fold("<none>")(tpe => TsTypeFormatter(tpe))} is not an array type"
-        TsFunParam(cs +? oc.flatten + Comment.warning(warning), i, t, o)
+        TsFunParam(cs +? oc.flatten + Comment.warning(warning), i, t.map(OptionalType.maybe(_, o)))
     }
   }
 
@@ -546,16 +546,18 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
           (level, name, static, readonly, methodType)
       }
 
-    val function: Parser[TsMemberFunction] =
+    val function: Parser[TsMember] =
       comments ~ intro ~ "?".isDefined ~ functionSignature ^^ {
-        case cs ~ ((level, name, static, readOnly, methodType)) ~ isOptional ~ sig =>
-          TsMemberFunction(cs, level, name, methodType, sig, static, readOnly, isOptional)
+        case cs ~ ((level, name, static, readOnly, methodType)) ~ false ~ sig =>
+          TsMemberFunction(cs, level, name, methodType, sig, static, readOnly)
+        case cs ~ ((level, name, static, readOnly, MethodType.Normal)) ~ true ~ sig =>
+          TsMemberProperty(cs, level, name, Some(OptionalType(TsTypeFunction(sig))), None, static, readOnly)
       }
 
     val field: Parser[TsMemberProperty] =
       comments ~ intro ~ "?".isDefined ~ typeAnnotationOpt ~ ("=" ~> expr).? ^^ {
         case cs ~ ((level, name, static, readonly, _)) ~ optional ~ tpe ~ expr =>
-          TsMemberProperty(cs, level, name, tpe, expr, static, readonly, optional)
+          TsMemberProperty(cs, level, name, tpe.map(OptionalType.maybe(_, optional)), expr, static, readonly)
       }
 
     function | field
@@ -597,7 +599,10 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       typeAnnotation | (functionSignature ^^ TsTypeFunction)
 
     val tsMemberIndex: Parser[TsMemberIndex] =
-      comments ~ "readonly".isDefined ~ (protectionLevel <~ "readonly".isDefined) ~ indexing ~ "?".isDefined ~ indexedType.? ^^ TsMemberIndex
+      comments ~ "readonly".isDefined ~ (protectionLevel <~ "readonly".isDefined) ~ indexing ~ "?".isDefined ~ indexedType.? ^^ {
+        case cs ~ readOnly ~ level ~ indexing ~ isOptional ~ valueType =>
+          TsMemberIndex(cs, readOnly, level, indexing, valueType.map(OptionalType.maybe(_, isOptional)))
+      }
 
     tsMemberTypeMapped | tsMemberCall | tsMemberCtor | tsMemberIndex | tsMemberNamed
   }

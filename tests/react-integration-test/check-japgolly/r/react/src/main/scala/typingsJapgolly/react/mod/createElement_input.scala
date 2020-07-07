@@ -12,12 +12,12 @@ import scala.scalajs.js.annotation._
 object createElement_input extends js.Object {
   // DOM Elements
   // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
-  def apply(`type`: input): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = js.native
-  def apply(`type`: input, children: Node*): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = js.native
   def apply(
     `type`: input,
     props: InputHTMLAttributes[HTMLInputElement] with ClassAttributes[HTMLInputElement],
     children: Node*
   ): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = js.native
+  def apply(`type`: input, props: js.UndefOr[scala.Nothing], children: Node*): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = js.native
+  def apply(`type`: input, props: Null, children: Node*): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = js.native
 }
 

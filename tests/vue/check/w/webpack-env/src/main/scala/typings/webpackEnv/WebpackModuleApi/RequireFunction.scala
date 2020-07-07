@@ -22,6 +22,7 @@ trait RequireFunction extends js.Object {
     */
   def apply(paths: js.Array[String], callback: js.Function1[/* repeated */ js.Any, Unit]): Unit = js.native
   def context(path: String): RequireContext = js.native
+  def context(path: String, deep: js.UndefOr[scala.Nothing], filter: RegExp): RequireContext = js.native
   def context(path: String, deep: Boolean): RequireContext = js.native
   def context(path: String, deep: Boolean, filter: RegExp): RequireContext = js.native
   /**

@@ -149,7 +149,6 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
                       None,
                       mod.jsLocation + newName,
                       mod.codePath + newName,
-                      isOptional = false,
                     ),
                   ),
                 )

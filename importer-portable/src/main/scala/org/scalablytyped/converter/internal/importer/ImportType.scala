@@ -129,13 +129,13 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
       case TsTypeObject(_, ms) if ExtractInterfaces.isDictionary(ms) =>
         val (numbers, strings, Empty) = ms.partitionCollect2(
-          { case x @ TsMemberIndex(_, _, _, IndexingDict(_, TsTypeRef.number), _, _) => x },
-          { case x @ TsMemberIndex(_, _, _, IndexingDict(_, _), _, _)                => x },
+          { case x @ TsMemberIndex(_, _, _, IndexingDict(_, TsTypeRef.number), _) => x },
+          { case x @ TsMemberIndex(_, _, _, IndexingDict(_, _), _)                => x },
         )
 
         val translatedStrings = strings.collect {
-          case TsMemberIndex(cs, _, _, IndexingDict(_, _), isOptional, valueType) =>
-            (cs, orAny(wildcards, scope, importName)(valueType).withOptional(isOptional))
+          case TsMemberIndex(cs, _, _, IndexingDict(_, _), valueType) =>
+            (cs, orAny(wildcards, scope, importName)(valueType))
         }
         val stringDict = translatedStrings match {
           case Empty => None
@@ -149,8 +149,8 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             )
         }
         val translatedNumbers = numbers.collect {
-          case TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.number), isOptional, valueType) =>
-            (cs, orAny(wildcards, scope, importName)(valueType).withOptional(isOptional))
+          case TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.number), valueType) =>
+            (cs, orAny(wildcards, scope, importName)(valueType))
         }
         val numberDict = translatedNumbers match {
           case Empty => None
@@ -307,9 +307,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
         val comment = Comment(s"/* ${param.name.value}${if (isRepeated) " (repeated)" else ""} */")
 
-        orAny(Wildcards.Prohibit, scope, importName)(baseType)
-          .withComments(Comments(comment))
-          .withOptional(param.isOptional)
+        orAny(Wildcards.Prohibit, scope, importName)(baseType).withComments(Comments(comment))
       }
 
     val ret: TypeRef =
@@ -325,7 +323,5 @@ class ImportType(stdNames: QualifiedName.StdNames) {
   private def funParam(wildcards: Wildcards, scope: TsTreeScope, importName: AdaptiveNamingImport)(
       param:                      TsFunParam,
   ): TypeRef =
-    orAny(wildcards, scope / param, importName)(param.tpe) withOptional param.isOptional withComments Comments(
-      s"/* ${param.name.value} */",
-    )
+    orAny(wildcards, scope / param, importName)(param.tpe).withComments(Comments(s"/* ${param.name.value} */"))
 }

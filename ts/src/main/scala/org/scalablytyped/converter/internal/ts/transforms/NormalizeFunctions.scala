@@ -38,21 +38,8 @@ object NormalizeFunctions extends TransformMembers with TransformClassMembers {
 
   override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): IArray[TsMember] =
     x.members.flatMap {
-      case m @ TsMemberFunction(comments, level, name, MethodType.Normal, signature, isStatic, _, true) =>
-        IArray(
-          TsMemberProperty(
-            comments,
-            level,
-            name,
-            Some(TsTypeFunction(signature)),
-            None,
-            isStatic,
-            m.isReadOnly,
-            m.isOptional,
-          ),
-        )
-      case TsMemberProperty(cs, level, name, Some(ToRewrite(sigs)), None, isStatic, isReadOnly, isOptional) =>
-        sigs.map(sig => TsMemberFunction(cs, level, name, MethodType.Normal, sig, isStatic, isReadOnly, isOptional))
+      case TsMemberProperty(cs, level, name, Some(ToRewrite(sigs)), None, isStatic, isReadOnly) =>
+        sigs.map(sig => TsMemberFunction(cs, level, name, MethodType.Normal, sig, isStatic, isReadOnly))
       case other => IArray(other)
     }
 
@@ -76,15 +63,8 @@ object NormalizeFunctions extends TransformMembers with TransformClassMembers {
 
   private def rewriteDecl(d: TsDecl): IArray[TsDecl] =
     d match {
-      case TsDeclVar(cs, declared, true, name, Some(ToRewrite(sigs)), None, jsLocation, codePath, _) =>
+      case TsDeclVar(cs, declared, true, name, Some(ToRewrite(sigs)), None, jsLocation, codePath) =>
         sigs.map(sig => TsDeclFunction(cs, declared, name, sig, jsLocation, codePath))
       case other => IArray(other)
-    }
-
-  override def enterTsFunParam(t: TsTreeScope)(x: TsFunParam): TsFunParam =
-    x.tpe match {
-      case Some(TsTypeUnion(types)) if types.contains(TsTypeRef.undefined) =>
-        x.copy(isOptional = true, tpe = Some(TsTypeUnion.simplified(types.filterNot(_ == TsTypeRef.undefined))))
-      case _ => x
     }
 }

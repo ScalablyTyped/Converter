@@ -24,7 +24,7 @@ type AA = Partial<A>
 """).extract[TsDeclInterface]("AA")
 
     val isOptionals = out.members.collect[java.lang.Boolean] {
-      case TsMemberProperty(_, _, _, _, _, _, _, isOptional) => isOptional
+      case TsMemberProperty(_, _, _, Some(OptionalType(_)), _, _, _) => true
     }
 
     isOptionals.shouldBe(IArray[java.lang.Boolean](true, true, true, true, true, true))
@@ -76,20 +76,22 @@ export declare type PickerMode = Exclude<PanelMode, 'datetime' | 'decade'>;
         ProtectionLevel.Default,
         TsIdentSimple("children"),
         Some(
-          TsTypeRef(
-            NoComments,
-            TsQIdent(IArray(TsIdentLibrarySimple("testing"), TsIdentSimple("Array"))),
-            IArray(
-              TsTypeRef(
-                NoComments,
-                TsQIdent(
-                  IArray(
-                    TsIdentLibrarySimple("testing"),
-                    TsIdentSimple("anon"),
-                    TsIdentSimple("ToJsonOutputnamestring"),
+          OptionalType(
+            TsTypeRef(
+              NoComments,
+              TsQIdent(IArray(TsIdentLibrarySimple("testing"), TsIdentSimple("Array"))),
+              IArray(
+                TsTypeRef(
+                  NoComments,
+                  TsQIdent(
+                    IArray(
+                      TsIdentLibrarySimple("testing"),
+                      TsIdentSimple("anon"),
+                      TsIdentSimple("ToJsonOutputnamestringund"),
+                    ),
                   ),
+                  IArray(),
                 ),
-                IArray(),
               ),
             ),
           ),
@@ -97,9 +99,9 @@ export declare type PickerMode = Exclude<PanelMode, 'datetime' | 'decade'>;
         None,
         false,
         false,
-        true,
       )
 
     out.membersByName(TsIdent("children")).shouldBe(IArray(expected))
   }
+
 }

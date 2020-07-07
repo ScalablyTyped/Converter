@@ -112,6 +112,7 @@ trait Command
     * @returns {Command} the new command
     */
   def command(name: String): Command = js.native
+  def command(name: String, desc: js.UndefOr[scala.Nothing], opts: CommandOptions): Command = js.native
   def command(name: String, desc: String): Command = js.native
   def command(name: String, desc: String, opts: CommandOptions): Command = js.native
   def description(): String = js.native
@@ -188,8 +189,29 @@ trait Command
     * @returns {Command} for chaining
     */
   def option(flags: String): Command = js.native
+  def option(flags: String, description: js.UndefOr[scala.Nothing], defaultValue: js.Any): Command = js.native
+  def option(
+    flags: String,
+    description: js.UndefOr[scala.Nothing],
+    fn: js.UndefOr[scala.Nothing],
+    defaultValue: js.Any
+  ): Command = js.native
+  def option(
+    flags: String,
+    description: js.UndefOr[scala.Nothing],
+    fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, Unit]
+  ): Command = js.native
+  def option(
+    flags: String,
+    description: js.UndefOr[scala.Nothing],
+    fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, Unit],
+    defaultValue: js.Any
+  ): Command = js.native
+  def option(flags: String, description: js.UndefOr[scala.Nothing], fn: RegExp): Command = js.native
+  def option(flags: String, description: js.UndefOr[scala.Nothing], fn: RegExp, defaultValue: js.Any): Command = js.native
   def option(flags: String, description: String): Command = js.native
   def option(flags: String, description: String, defaultValue: js.Any): Command = js.native
+  def option(flags: String, description: String, fn: js.UndefOr[scala.Nothing], defaultValue: js.Any): Command = js.native
   def option(flags: String, description: String, fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, Unit]): Command = js.native
   def option(
     flags: String,

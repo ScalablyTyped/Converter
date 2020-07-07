@@ -192,8 +192,8 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsDeclVar(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsDeclVar(_1, _2, _3, _4, _5, _6, _7, _8, _9) =>
-        TsDeclVar(_1, _2, _3, _4, _5 map visitTsType(tt), _6, _7, _8, _9)
+      case TsDeclVar(_1, _2, _3, _4, _5, _6, _7, _8) =>
+        TsDeclVar(_1, _2, _3, _4, _5 map visitTsType(tt), _6, _7, _8)
     }
   }
   final def visitTsEnumMember(t: T)(x: TsEnumMember): TsEnumMember = {
@@ -237,8 +237,8 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsFunParam(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsFunParam(_1, _2, _3, _4) =>
-        TsFunParam(_1, _2, _3 map visitTsType(tt), _4)
+      case TsFunParam(_1, _2, _3) =>
+        TsFunParam(_1, _2, _3 map visitTsType(tt))
     }
   }
   final def visitTsFunSig(t: T)(x: TsFunSig): TsFunSig = {
@@ -300,24 +300,24 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsMemberFunction(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsMemberFunction(_1, _2, _3, _4, _5, _6, _7, _8) =>
-        TsMemberFunction(_1, _2, _3, _4, visitTsFunSig(tt)(_5), _6, _7, _8)
+      case TsMemberFunction(_1, _2, _3, _4, _5, _6, _7) =>
+        TsMemberFunction(_1, _2, _3, _4, visitTsFunSig(tt)(_5), _6, _7)
     }
   }
   final def visitTsMemberIndex(t: T)(x: TsMemberIndex): TsMemberIndex = {
     val xx = enterTsMemberIndex(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsMemberIndex(_1, _2, _3, _4, _5, _6) =>
-        TsMemberIndex(_1, _2, _3, visitIndexing(tt)(_4), _5, _6.map(visitTsType(tt)))
+      case TsMemberIndex(_1, _2, _3, _4, _5) =>
+        TsMemberIndex(_1, _2, _3, visitIndexing(tt)(_4), _5.map(visitTsType(tt)))
     }
   }
   final def visitTsMemberProperty(t: T)(x: TsMemberProperty): TsMemberProperty = {
     val xx = enterTsMemberProperty(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsMemberProperty(_1, _2, _3, _4, _5, _6, _7, _8) =>
-        TsMemberProperty(_1, _2, _3, _4 map visitTsType(tt), _5, _6, _7, _8)
+      case TsMemberProperty(_1, _2, _3, _4, _5, _6, _7) =>
+        TsMemberProperty(_1, _2, _3, _4 map visitTsType(tt), _5, _6, _7)
     }
   }
   final def visitTsMemberTypeMapped(t: T)(x: TsMemberTypeMapped): TsMemberTypeMapped = {

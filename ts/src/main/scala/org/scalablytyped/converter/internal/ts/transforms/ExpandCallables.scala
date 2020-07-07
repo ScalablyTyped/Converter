@@ -29,7 +29,7 @@ import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 object ExpandCallables extends TransformClassMembers {
   override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): IArray[TsMember] =
     x.members.flatMap {
-      case m @ TsMemberProperty(cs, level, name, Some(tpe), None, isStatic, isReadonly, false) =>
+      case m @ TsMemberProperty(cs, level, name, Some(tpe), None, isStatic, isReadonly) =>
         callableTypes(scope)(tpe) match {
           case Expand(callables, keepOriginalMember) if callables.nonEmpty =>
             val keptOpt: Option[TsMemberProperty] =
@@ -49,7 +49,6 @@ object ExpandCallables extends TransformClassMembers {
                     sig,
                     isStatic,
                     isReadOnly = true,
-                    isOptional = false,
                   )
               }
 

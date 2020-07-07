@@ -28,12 +28,8 @@ class TsTypeFormatter(val keepComments: Boolean) {
 
   def param(p: TsFunParam): String =
     p match {
-      case TsFunParam(_, name, tpe, isOptional) =>
-        List[Option[String]](
-          Some(name.value),
-          if (isOptional) Some("?") else None,
-          tpe.map(x => s": ${apply(x)}"),
-        ).flatten.mkString(" ")
+      case TsFunParam(_, name, tpe) =>
+        List[Option[String]](Some(name.value), tpe.map(x => s": ${apply(x)}")).flatten.mkString(" ")
     }
 
   def tparams[T <: AnyRef](ts: IArray[T])(f: T => String): Option[String] =
@@ -51,7 +47,7 @@ class TsTypeFormatter(val keepComments: Boolean) {
       s"${level(l)} ${sig(s)}"
     case TsMemberCtor(_, _, s) =>
       s"new ${sig(s)}"
-    case TsMemberFunction(_, l, name, methodType, s, isStatic, isReadOnly, isOptional) =>
+    case TsMemberFunction(_, l, name, methodType, s, isStatic, isReadOnly) =>
       List[Option[String]](
         level(l),
         methodType match {
@@ -62,23 +58,21 @@ class TsTypeFormatter(val keepComments: Boolean) {
         if (isStatic) Some("static") else None,
         if (isReadOnly) Some("readonly") else None,
         Some(name.value),
-        if (isOptional) Some("?") else None,
         Some(sig(s)),
       ).flatten.mkString(" ")
 
-    case TsMemberProperty(_, l, name, tpe, expr, isStatic, isReadOnly, isOptional) =>
+    case TsMemberProperty(_, l, name, tpe, expr, isStatic, isReadOnly) =>
       List[Option[String]](
         level(l),
         Some(if (isStatic) "static" else ""),
         Some(if (isReadOnly) "readonly" else ""),
         Some(name.value),
-        Some(if (isOptional) "?" else ""),
         tpe.map(apply).map(":" + _),
         expr.map(l => "= " + TsExpr.format(l)),
       ).flatten.mkString(" ")
 
     // lazy
-    case TsMemberIndex(_, isReadOnly, l, indexing, isOptional, valueType) =>
+    case TsMemberIndex(_, isReadOnly, l, indexing, valueType) =>
       List[Option[String]](
         if (isReadOnly) Some("readonly") else None,
         level(l),
@@ -86,7 +80,6 @@ class TsTypeFormatter(val keepComments: Boolean) {
           case IndexingDict(name, tpe) => s"[${name.value}: ${apply(tpe)}]"
           case IndexingSingle(name)    => s"[${qident(name)}]"
         }),
-        if (isOptional) Some("?") else None,
         valueType.map(tpe => s": ${apply(tpe)}"),
       ).flatten.mkString(" ").replaceAllLiterally(" ?", "?")
 

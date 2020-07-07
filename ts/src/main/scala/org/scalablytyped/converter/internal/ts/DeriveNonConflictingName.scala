@@ -38,7 +38,7 @@ object DeriveNonConflictingName {
         case x: TsMemberProperty =>
           val short = Detail.pretty(x.name.value)
           Detail(short, IArray.fromOptions(Some(short), Detail.prettyType(x.tpe)).mkString)
-        case TsMemberIndex(_, _, _, IndexingSingle(qname), _, tpe) =>
+        case TsMemberIndex(_, _, _, IndexingSingle(qname), tpe) =>
           val short = Detail.pretty(qname.parts.last.value)
           Detail(short, IArray.fromOptions(Some(short), Detail.prettyType(tpe)).mkString)
         case x: TsMemberFunction => Detail(Detail.pretty(x.name.value))
@@ -57,11 +57,10 @@ object DeriveNonConflictingName {
     val fromDict: Option[Detail] =
       members
         .collectFirst {
-          case TsMemberIndex(_, _, _, IndexingDict(name, inType), isOptional, outType) =>
-            val optStr = if (isOptional) Some("Opt") else None
-            val short  = Detail.pretty("Dict" + name.value)
+          case TsMemberIndex(_, _, _, IndexingDict(name, inType), outType) =>
+            val short = Detail.pretty("Dict" + name.value)
             val long = IArray
-              .fromOptions(Some(short), Some(Detail.prettyType(inType)), optStr, Detail.prettyType(outType))
+              .fromOptions(Some(short), Some(Detail.prettyType(inType)), Detail.prettyType(outType))
               .mkString
             Detail(short, long)
         }

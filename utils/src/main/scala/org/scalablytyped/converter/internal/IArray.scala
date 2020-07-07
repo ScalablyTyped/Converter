@@ -983,6 +983,16 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
     sb.toString
   }
 
+  def updated[B >: A <: AnyRef](index: Int, elem: B): IArray[B] = {
+    require(index >= 0)
+    require(index < length)
+    if (length == 0) return IArray.Empty
+    val ret = Array.ofDim[AnyRef](length)
+    System.arraycopy(array, 0, ret, 0, length)
+    ret(index) = elem
+    fromArrayAndSize[A](ret, length)
+  }
+
   def mkString: String =
     mkString("", "", "")
 

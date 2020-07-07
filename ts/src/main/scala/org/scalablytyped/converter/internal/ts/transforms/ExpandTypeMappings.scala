@@ -201,16 +201,10 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
             AllMembersFor.forType(scope / from, ld)(from) match {
               case Ok(members, _) =>
                 members collectFirst {
-                  case TsMemberProperty(_, _, TsIdent(name.literal), tpeOpt, _, false, _, isOptional) =>
-                    ResolveTypeLookups.optional(
-                      tpeOpt.fold[TsType](TsTypeRef.any)(visitTsType(scope)),
-                      isOptional,
-                    )
-                  case TsMemberFunction(_, _, TsIdent(name.literal), _, signature, false, _, isOptional) =>
-                    ResolveTypeLookups.optional(
-                      visitTsType(scope)(TsTypeFunction(signature)),
-                      isOptional,
-                    )
+                  case TsMemberProperty(_, _, TsIdent(name.literal), tpeOpt, _, false, _) =>
+                    tpeOpt.fold[TsType](TsTypeRef.any)(visitTsType(scope))
+                  case TsMemberFunction(_, _, TsIdent(name.literal), _, signature, false, _) =>
+                    visitTsType(scope)(TsTypeFunction(signature))
                 }
               case Problems(ps) =>
                 ps.foreach(p => scope.logger.info(s"Could not replace key $key = $name: $p"))
@@ -219,7 +213,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
 
           foundType getOrElse {
             scope.logger.info(s"Could not replace key $key = $name")
-            ResolveTypeLookups.optional(TsTypeRef.any, true)
+            OptionalType(TsTypeRef.any)
           }
         case other => other
       }
@@ -241,8 +235,8 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
               evaluateKeys(scope, ld)(FillInTParams(x, tr.tparams).alias)
             case (x: TsDeclInterface, _) =>
               val names = FillInTParams(x, tr.tparams).members.collect {
-                case TsMemberProperty(_, _, name, _, _, _, _, _) => TsLiteralString(name.value)
-                case TsMemberFunction(_, _, name, _, _, _, _, _) => TsLiteralString(name.value)
+                case TsMemberProperty(_, _, name, _, _, _, _) => TsLiteralString(name.value)
+                case TsMemberFunction(_, _, name, _, _, _, _) => TsLiteralString(name.value)
               }
               Ok(names.toSet, wasRewritten = false)
             case (x: TsDeclEnum, _) if x.isConst =>
@@ -317,20 +311,14 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
             val all = IArray.fromTraversable(keys).map { key =>
               val replaced   = Replace(TsTypeRef(keyRef), key, ld).visitTsType(scope)(to)
               val memberType = ResolveTypeLookups.visitTsType(scope)(replaced)
-              val (base, wasOptional) = memberType match {
-                case OptionalType(unwrapped) => (unwrapped, true)
-                case other                   => (other, false)
-              }
-
               TsMemberProperty(
                 comments   = NoComments,
                 level      = level,
                 name       = TsIdent(key.literal),
-                tpe        = Some(base),
+                tpe        = Some(optionalize(memberType)),
                 expr       = None,
                 isStatic   = false,
                 isReadOnly = readOnly(false), //todo!
-                isOptional = optionalize(wasOptional),
               )
             }
 

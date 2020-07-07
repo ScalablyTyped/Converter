@@ -16,10 +16,6 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
 
   private val toIgnore = Set[TsType](TsTypeRef.never, TsTypeRef.any, TsTypeRef.`object`)
 
-  def optional(tpe: TsType, isOptional: Boolean): TsType =
-    if (isOptional) TsTypeUnion.simplified(IArray(tpe, TsTypeRef.undefined))
-    else tpe
-
   def expandLookupType(scope: TsTreeScope, lookup: TsTypeLookup): Option[TsType] =
     ExpandTypeMappings.evaluateKeys(scope, LoopDetector.initial)(lookup.key) match {
       case ExpandTypeMappings.Ok(keys, _) =>
@@ -47,8 +43,7 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
   def pick(members: IArray[TsMember], strings: Set[TsLiteral]): Option[TsType] =
     if (strings.isEmpty) {
       members.collectFirst {
-        case TsMemberIndex(_, _, _, _, isOptional, valueType) =>
-          optional(valueType.getOrElse(TsTypeRef.any), isOptional)
+        case TsMemberIndex(_, _, _, _, valueType) => valueType.getOrElse(TsTypeRef.any)
       }
     } else
       TsTypeUnion.simplified(IArray.fromTraversable(strings.map(x => pick(members, x))) filterNot toIgnore) match {
@@ -58,11 +53,8 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
 
   def pick(members: IArray[TsMember], wanted: TsLiteral): TsType = {
     val (functions, fields, _) = members.partitionCollect2(
-      { case TsMemberFunction(_, _, TsIdent(wanted.literal), MethodType.Normal, sig, NonStatic, _, false) => sig }, {
-        case TsMemberProperty(_, _, TsIdent(wanted.literal), tpeOpt, _, NonStatic, _, isOptional) =>
-          optional(tpeOpt getOrElse TsTypeRef.any, isOptional)
-        case TsMemberFunction(_, _, TsIdent(wanted.literal), MethodType.Normal, sig, NonStatic, _, _) =>
-          TsTypeFunction(sig)
+      { case TsMemberFunction(_, _, TsIdent(wanted.literal), MethodType.Normal, sig, NonStatic, _) => sig }, {
+        case TsMemberProperty(_, _, TsIdent(wanted.literal), tpeOpt, _, NonStatic, _)              => tpeOpt getOrElse TsTypeRef.any
       },
     )
     val combinedFunctions: Option[TsType] = functions.distinct match {

@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 /* Inlined std.Readonly<type-mappings.Person> */
 @js.native
 trait ReadonlyPerson extends js.Object {
-  val age: js.UndefOr[scala.Double] = js.native
+  val age: js.UndefOr[scala.Double | Null] = js.native
   val name: String = js.native
 }
 
@@ -34,6 +34,8 @@ object ReadonlyPerson {
     def setAge(value: scala.Double): Self = this.set("age", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteAge: Self = this.set("age", js.undefined)
+    @scala.inline
+    def setAgeNull: Self = this.set("age", null)
   }
   
 }
