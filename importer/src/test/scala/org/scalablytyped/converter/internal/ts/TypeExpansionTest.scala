@@ -134,4 +134,35 @@ type VictoryStyleObject = { [K in keyof CSSProperties]: StringOrNumberOrCallback
 
     out.membersByName(TsIdent("alignContent")).shouldBe(IArray(expected))
   }
+
+  test("Required") {
+    val out = run(s"""
+type Required<T> = {
+    [P in keyof T]-?: T[P];
+};
+type Pick<T, K extends keyof T> = {
+    [P in K]: T[P];
+};
+
+interface CSSProperties {
+  fontFamily?: string;
+  fontSize?: string;
+  fontWeight?: string;
+  color?: string;
+}
+type Test = Required<Pick<CSSProperties, 'fontFamily' | 'fontSize' | 'fontWeight' | 'color'>>
+""").extract[TsDeclInterface]("Test")
+
+    val expected = TsMemberProperty(
+      NoComments,
+      ProtectionLevel.Default,
+      TsIdentSimple("color"),
+      Some(TsTypeRef.string),
+      None,
+      isStatic   = false,
+      isReadOnly = false,
+    )
+
+    out.membersByName(TsIdent("color")).shouldBe(IArray(expected))
+  }
 }

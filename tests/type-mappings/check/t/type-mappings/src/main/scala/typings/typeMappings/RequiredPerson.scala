@@ -7,14 +7,14 @@ import scala.scalajs.js.annotation._
 /* Inlined std.Required<type-mappings.Person> */
 @js.native
 trait RequiredPerson extends js.Object {
-  var age: js.UndefOr[scala.Double | Null] = js.native
+  var age: scala.Double = js.native
   var name: String = js.native
 }
 
 object RequiredPerson {
   @scala.inline
-  def apply(name: String): RequiredPerson = {
-    val __obj = js.Dynamic.literal(name = name.asInstanceOf[js.Any])
+  def apply(age: scala.Double, name: String): RequiredPerson = {
+    val __obj = js.Dynamic.literal(age = age.asInstanceOf[js.Any], name = name.asInstanceOf[js.Any])
     __obj.asInstanceOf[RequiredPerson]
   }
   @scala.inline
@@ -29,13 +29,9 @@ object RequiredPerson {
         x
     }
     @scala.inline
-    def setName(value: String): Self = this.set("name", value.asInstanceOf[js.Any])
-    @scala.inline
     def setAge(value: scala.Double): Self = this.set("age", value.asInstanceOf[js.Any])
     @scala.inline
-    def deleteAge: Self = this.set("age", js.undefined)
-    @scala.inline
-    def setAgeNull: Self = this.set("age", null)
+    def setName(value: String): Self = this.set("name", value.asInstanceOf[js.Any])
   }
   
 }
