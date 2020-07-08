@@ -16,7 +16,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
   val builderRef          = TypeRef(builderCp, TypeParamTree.asTypeArgs(builderTparams), NoComments)
 
   //  def args: js.Array[js.Any]
-  val args = {
+  val args: MethodTree = {
     val name: Name = Name("args")
     MethodTree(
       IArray(Annotation.Inline),
@@ -111,7 +111,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
     )
   }
 
-  val Trait = {
+  val Trait: ClassTree = {
 
 //  @inline final def apply(mods: slinky.core.TagMod[E]*): this.type = {
 //    mods.foreach((mod: slinky.core.TagMod[E]) =>
@@ -273,7 +273,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
     )
   }
 
-  val Default = {
+  val Default: ClassTree = {
     val ctor = CtorTree(
       ProtectionLevel.Default,
       IArray(
@@ -305,7 +305,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
     )
   }
 
-  val Object = {
+  val Object: ModuleTree = {
     //    @js.native
     //    @JSImport("react", JSImport.Namespace, "React")
     //    object ReactRaw extends js.Object {
@@ -351,7 +351,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
 //      comp.args.update(0, null)
 //      ret
 //    }
-    val make = {
+    val make: MethodTree = {
       val compParam          = ParamTree(Name("comp"), false, false, builderRef, NotImplemented, NoComments)
       val name               = Name("make")
       val compArgs           = Select(Ref(compParam.name), Name("args"))

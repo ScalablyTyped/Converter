@@ -83,38 +83,25 @@ object SlinkyGenComponents {
 
   object names {
     val components   = Name("components")
-    val Props        = Name("Props")
-    val Element      = Name("Element")
-    val RefType      = Name("RefType")
     val component    = Name("component")
     val ComponentRef = Name("ComponentRef")
     val key          = Name("key")
     val children     = Name("children")
 
-    /* Fully qualified references to slinky types */
-    val slinky                      = QualifiedName(IArray(SlinkyGenComponents.slinkyName))
-    val slinkyCore                  = slinky + Name("core")
-    val ReactComponentClass         = slinkyCore + Name("ReactComponentClass")
-    val TagMod                      = slinkyCore + Name("TagMod")
-    val BuildingComponent           = slinkyCore + Name("BuildingComponent")
-    val TagElement                  = slinkyCore + Name("TagElement")
-    val SlinkyCoreFacade            = slinkyCore + Name("facade")
-    val ExternalPropsWriterProvider = slinkyCore + Name("ExternalPropsWriterProvider")
-    val SyntheticEvent              = slinkyCore + Name("SyntheticEvent")
-    val AttrPair                    = slinkyCore + Name("AttrPair")
-    val OptionalAttrPair            = slinkyCore + Name("OptionalAttrPair")
-    val ReactElement                = SlinkyCoreFacade + Name("ReactElement")
-    val ReactRef                    = SlinkyCoreFacade + Name("ReactRef")
-
-    val slinkyWeb     = SlinkyGenComponents.names.slinky + Name("web")
-    val slinkyWebSvg  = slinkyWeb + Name("svg")
-    val slinkyWebHtml = slinkyWeb + Name("html")
+    val ReactComponentClass = QualifiedName("slinky.core.ReactComponentClass")
+    val TagMod              = QualifiedName("slinky.core.TagMod")
+    val TagElement          = QualifiedName("slinky.core.TagElement")
+    val SyntheticEvent      = QualifiedName("slinky.core.SyntheticEvent")
+    val AttrPair            = QualifiedName("slinky.core.AttrPair")
+    val OptionalAttrPair    = QualifiedName("slinky.core.OptionalAttrPair")
+    val ReactElement        = QualifiedName("slinky.core.facade.ReactElement")
+    val ReactRef            = QualifiedName("slinky.core.facade.ReactRef")
 
     def SlinkyHtmlElement(tag: TagName): TypeRef =
-      TypeRef.Singleton(TypeRef(slinkyWebHtml + tag.asName + Name("tag"), Empty, NoComments))
+      TypeRef.Singleton(TypeRef(QualifiedName(s"slinky.web.html.${tag.asName.unescaped}.tag"), Empty, NoComments))
 
     def SlinkySvgElement(tag: TagName): TypeRef =
-      TypeRef.Singleton(TypeRef(slinkyWebSvg + tag.asName + Name("tag"), Empty, NoComments))
+      TypeRef.Singleton(TypeRef(QualifiedName(s"slinky.web.svg.${tag.asName.unescaped}.tag"), Empty, NoComments))
 
     val AnyHtmlElement: TypeRef = SlinkyHtmlElement(TagName.Any)
     val AnySvgElement:  TypeRef = SlinkySvgElement(TagName.Any)
