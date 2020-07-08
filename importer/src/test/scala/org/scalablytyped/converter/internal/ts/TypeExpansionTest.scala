@@ -104,4 +104,34 @@ export declare type PickerMode = Exclude<PanelMode, 'datetime' | 'decade'>;
     out.membersByName(TsIdent("children")).shouldBe(IArray(expected))
   }
 
+  test("bug") {
+    val out = run(s"""
+interface CSSProperties {
+  alignContent?: number;
+}
+
+type StringOrNumberOrCallback = string | number | ((args: any) => string | number);
+type VictoryStyleObject = { [K in keyof CSSProperties]: StringOrNumberOrCallback };
+""").extract[TsDeclInterface]("VictoryStyleObject")
+
+    val expected = TsMemberProperty(
+      NoComments,
+      ProtectionLevel.Default,
+      TsIdentSimple("alignContent"),
+      Some(
+        OptionalType(
+          TsTypeRef(
+            NoComments,
+            TsQIdent(IArray(TsIdentLibrarySimple("testing"), TsIdentSimple("StringOrNumberOrCallback"))),
+            IArray(),
+          ),
+        ),
+      ),
+      None,
+      isStatic   = false,
+      isReadOnly = false,
+    )
+
+    out.membersByName(TsIdent("alignContent")).shouldBe(IArray(expected))
+  }
 }

@@ -9,14 +9,14 @@ import scala.scalajs.js.annotation._
 /* Inlined parent type-mappings.Proxify<type-mappings.Person> */
 @js.native
 trait IProxiedPerson extends js.Object {
-  var age: Get = js.native
+  var age: js.UndefOr[Get] = js.native
   var name: Set = js.native
 }
 
 object IProxiedPerson {
   @scala.inline
-  def apply(age: Get, name: Set): IProxiedPerson = {
-    val __obj = js.Dynamic.literal(age = age.asInstanceOf[js.Any], name = name.asInstanceOf[js.Any])
+  def apply(name: Set): IProxiedPerson = {
+    val __obj = js.Dynamic.literal(name = name.asInstanceOf[js.Any])
     __obj.asInstanceOf[IProxiedPerson]
   }
   @scala.inline
@@ -31,9 +31,11 @@ object IProxiedPerson {
         x
     }
     @scala.inline
+    def setName(value: Set): Self = this.set("name", value.asInstanceOf[js.Any])
+    @scala.inline
     def setAge(value: Get): Self = this.set("age", value.asInstanceOf[js.Any])
     @scala.inline
-    def setName(value: Set): Self = this.set("name", value.asInstanceOf[js.Any])
+    def deleteAge: Self = this.set("age", js.undefined)
   }
   
 }

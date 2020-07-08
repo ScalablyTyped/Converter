@@ -3,6 +3,7 @@ package ts
 package transforms
 
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
+import org.scalablytyped.converter.internal.ts.transforms.ExpandTypeMappings.TaggedLiteral
 
 object ResolveTypeLookups extends TreeTransformationScopedChanges {
   override def leaveTsType(scope: TsTreeScope)(x: TsType): TsType =
@@ -40,13 +41,13 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
 
   val NonStatic = false
 
-  def pick(members: IArray[TsMember], strings: Set[TsLiteral]): Option[TsType] =
+  def pick(members: IArray[TsMember], strings: Set[TaggedLiteral]): Option[TsType] =
     if (strings.isEmpty) {
       members.collectFirst {
         case TsMemberIndex(_, _, _, _, valueType) => valueType.getOrElse(TsTypeRef.any)
       }
     } else
-      TsTypeUnion.simplified(IArray.fromTraversable(strings.map(x => pick(members, x))) filterNot toIgnore) match {
+      TsTypeUnion.simplified(IArray.fromTraversable(strings.map(x => pick(members, x.lit))) filterNot toIgnore) match {
         case TsTypeRef.never => None
         case other           => Some(other)
       }
