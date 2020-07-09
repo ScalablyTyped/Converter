@@ -19,7 +19,7 @@ object JapgollyTypeConversions {
       CastConversion(reactNames.RefObject, QualifiedName("japgolly.scalajs.react.raw.React.RefHandle"), TParam._1),
       CastConversion(reactNames.Component, QualifiedName("japgolly.scalajs.react.raw.React.Component"), _1Object, TypeRef.Object),
       CastConversion(reactNames.ComponentClass, QualifiedName("japgolly.scalajs.react.raw.React.ComponentClassP"), _1Object),
-      CastConversion(reactNames.ReactElement, QualifiedName("japgolly.scalajs.react.raw.React.Element")),
+      CastConversion(reactNames.ReactElement, JapgollyGenComponents.japgolly.reactElement),
       CastConversion(reactNames.DOMElement, QualifiedName("japgolly.scalajs.react.raw.React.DomElement")),
       CastConversion(reactNames.ElementType, QualifiedName("japgolly.scalajs.react.raw.React.ElementType")),
       CastConversion(reactNames.BaseSyntheticEvent, QualifiedName("japgolly.scalajs.react.ReactEventFrom"), _2Element),

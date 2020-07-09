@@ -354,30 +354,26 @@ object JapgollyGenComponents {
     names.ignoredNames(paramTree.name)
 
   object japgolly {
-    val reactCallback:        QualifiedName = QualifiedName("japgolly.scalajs.react.Callback")
-    val reactCallbackTo:      QualifiedName = QualifiedName("japgolly.scalajs.react.CallbackTo")
-    val reactChildrenNone:    QualifiedName = QualifiedName("japgolly.scalajs.react.Children.None")
-    val reactChildrenVarargs: QualifiedName = QualifiedName("japgolly.scalajs.react.Children.Varargs")
-    val reactJsComponent:     QualifiedName = QualifiedName("japgolly.scalajs.react.JsComponent")
-    val reactJsForwardRefComponentForce: QualifiedName = QualifiedName(
-      "japgolly.scalajs.react.JsForwardRefComponent.force",
-    )
-    val reactChildArg: QualifiedName = QualifiedName("japgolly.scalajs.react.CtorType.ChildArg")
-    val componentUnmountedWithRoot: QualifiedName = QualifiedName(
-      "japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot",
-    )
-    val componentJsUnmountedSimple: QualifiedName = QualifiedName("japgolly.scalajs.react.component.Js.UnmountedSimple")
-    val componentJsMountedWithRawType: QualifiedName = QualifiedName(
-      "japgolly.scalajs.react.component.Js.MountedWithRawType",
-    )
-    val componentJsRawMounted: QualifiedName = QualifiedName("japgolly.scalajs.react.component.Js.RawMounted")
-    val vdomTagMod:            QualifiedName = QualifiedName("japgolly.scalajs.react.vdom.TagMod")
-    val vdomTagOf:             QualifiedName = QualifiedName("japgolly.scalajs.react.vdom.TagOf")
-    val VdomAttr:              QualifiedName = QualifiedName("japgolly.scalajs.react.vdom.VdomAttr")
-    val vdomReactElement:      QualifiedName = QualifiedName("japgolly.scalajs.react.vdom.VdomElement")
-    val vdomArray:             QualifiedName = QualifiedName("japgolly.scalajs.react.vdom.VdomArray")
-    val vdomVdomNode:          QualifiedName = QualifiedName("japgolly.scalajs.react.vdom.VdomNode")
-    val reactKey:              QualifiedName = QualifiedName("japgolly.scalajs.react.Key")
+    val reactCallback                   = QualifiedName("japgolly.scalajs.react.Callback")
+    val reactCallbackTo                 = QualifiedName("japgolly.scalajs.react.CallbackTo")
+    val reactChildrenNone               = QualifiedName("japgolly.scalajs.react.Children.None")
+    val reactChildrenVarargs            = QualifiedName("japgolly.scalajs.react.Children.Varargs")
+    val reactJsComponent                = QualifiedName("japgolly.scalajs.react.JsComponent")
+    val reactJsForwardRefComponentForce = QualifiedName("japgolly.scalajs.react.JsForwardRefComponent.force")
+    val reactChildArg                   = QualifiedName("japgolly.scalajs.react.CtorType.ChildArg")
+    val RefSimple                       = QualifiedName("japgolly.scalajs.react.Ref.Simple")
+    val componentUnmountedWithRoot      = QualifiedName("japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot")
+    val componentJsUnmountedSimple      = QualifiedName("japgolly.scalajs.react.component.Js.UnmountedSimple")
+    val componentJsMountedWithRawType   = QualifiedName("japgolly.scalajs.react.component.Js.MountedWithRawType")
+    val componentJsRawMounted           = QualifiedName("japgolly.scalajs.react.component.Js.RawMounted")
+    val vdomTagMod                      = QualifiedName("japgolly.scalajs.react.vdom.TagMod")
+    val vdomTagOf                       = QualifiedName("japgolly.scalajs.react.vdom.TagOf")
+    val VdomAttr                        = QualifiedName("japgolly.scalajs.react.vdom.VdomAttr")
+    val vdomReactElement                = QualifiedName("japgolly.scalajs.react.vdom.VdomElement")
+    val vdomArray                       = QualifiedName("japgolly.scalajs.react.vdom.VdomArray")
+    val vdomVdomNode                    = QualifiedName("japgolly.scalajs.react.vdom.VdomNode")
+    val reactKey                        = QualifiedName("japgolly.scalajs.react.Key")
+    val reactElement                    = QualifiedName("japgolly.scalajs.react.raw.React.Element")
   }
 
   def withAdditionalProps(existing: IArray[Prop]): IArray[Prop] = {
