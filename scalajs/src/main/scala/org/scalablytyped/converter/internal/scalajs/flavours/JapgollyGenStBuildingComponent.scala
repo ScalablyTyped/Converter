@@ -115,7 +115,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name) {
 //    this
 //  }
     val `apply` = {
-      val VdomNode = TypeRef(JapgollyGenComponents.japgolly.vdomVdomNode)
+      val VdomNode = TypeRef(JapgollyNames.vdom.VdomNode)
       val modsParam = ParamTree(
         name       = Name("mods"),
         isImplicit = false,
@@ -161,7 +161,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name) {
         Name("key"),
         isImplicit = false,
         isVal      = false,
-        TypeRef(JapgollyGenComponents.japgolly.reactKey),
+        TypeRef(JapgollyNames.Key),
         NotImplemented,
         NoComments,
       )
@@ -204,7 +204,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name) {
     //
     //  @inline final def withRef(ref: japgolly.scalajs.react.Ref.Simple[R]): this.type = set("ref", ref.rawSetFn)
     val withRef2 = {
-      val tpe   = TypeRef(JapgollyGenComponents.japgolly.RefSimple, IArray(TypeRef(R.name)), NoComments)
+      val tpe   = TypeRef(JapgollyNames.RefSimple, IArray(TypeRef(R.name)), NoComments)
       val param = ParamTree(Name("ref"), isImplicit = false, isVal = false, tpe, NotImplemented, NoComments)
       val name  = Name("withRef")
       MethodTree(
@@ -347,11 +347,11 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name) {
           ret,
           Cast(
             Call(createElementApply, IArray(IArray(StringLit("apply")), IArray(reactRawName, compArgs))),
-            TypeRef(JapgollyGenComponents.japgolly.reactElement),
+            TypeRef(JapgollyNames.rawReact.Element),
           ),
         ),
         inDevMode(Call(Select(compArgs, Name("update")), IArray(IArray(NumberLit("0"), Null)))),
-        Call(Ref(JapgollyGenComponents.japgolly.vdomReactElement), IArray(IArray(Ref(ret)))),
+        Call(Ref(JapgollyNames.vdom.ReactElement), IArray(IArray(Ref(ret)))),
       )
 
       MethodTree(
@@ -361,7 +361,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name) {
         builderTparams,
         IArray(IArray(compParam)),
         impl,
-        TypeRef(JapgollyGenComponents.japgolly.vdomReactElement),
+        TypeRef(JapgollyNames.vdom.ReactElement),
         isOverride = false,
         NoComments,
         builderCp + name,

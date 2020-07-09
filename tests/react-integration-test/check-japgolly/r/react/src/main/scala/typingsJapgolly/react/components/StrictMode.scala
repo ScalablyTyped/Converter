@@ -1,13 +1,17 @@
 package typingsJapgolly.react.components
 
+import typingsJapgolly.StBuildingComponent.Default
+import typingsJapgolly.react.anon.Children
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object StrictMode extends SharedApply_Children827722549 {
+object StrictMode {
   @JSImport("react", "StrictMode")
   @js.native
-  override object componentImport extends js.Object
+  object component extends js.Object
   
+  def withProps(p: Children): Default[js.Object] = new Default[js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
+  implicit def make(companion: StrictMode.type): Default[js.Object] = new Default[js.Object](js.Array(this.component, js.Dictionary.empty))()
 }
 

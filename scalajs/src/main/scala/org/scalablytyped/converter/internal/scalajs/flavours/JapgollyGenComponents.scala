@@ -3,411 +3,661 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.maps._
+import org.scalablytyped.converter.internal.scalajs.ExprTree._
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
+import org.scalablytyped.converter.internal.scalajs.flavours.GenImplicitOpsClass.AvailableName
+
+object JapgollyGenComponents {
+  final case class SplitProps(refTypes: IArray[TypeRef], props: IArray[Prop]) {
+    val hasRequiredProps = props.exists(_.isRequired)
+  }
+
+  def SplitProps(reactNames: ReactNames)(_props: IArray[Prop]): SplitProps = {
+    val isVdomNode = Set(
+      reactNames.ReactNode,
+      reactNames.ReactElement,
+      JapgollyNames.vdom.VdomNode,
+      JapgollyNames.vdom.ReactElement,
+      JapgollyNames.vdom.Array,
+      JapgollyNames.vdom.TagOf,
+    )
+
+    def shouldIgnoreProp(name: Name, tpe: TypeRef): Boolean =
+      (name, tpe) match {
+        /* we always add our own override string dictionary to all components */
+        case (_, TypeRef(QualifiedName.StringDictionary, _, _)) => true
+        /* we have special syntax already for `withKey` */
+        case (names.key, _) => true
+        /* we have special syntax for passing children already, as long as they are react nodes */
+        case (names.children, TypeRef(qname, _, _)) => isVdomNode(qname)
+        case _                                      => false
+      }
+
+    val (refTypes: IArray[TypeRef], _, props: IArray[Prop]) = {
+      (_props)
+        .partitionCollect2(
+          //refTypes
+          { case n: Prop.Normal if n.name.unescaped === "ref" => n.main.tpe },
+          // ignored
+          {
+            case n: Prop.Normal if shouldIgnoreProp(n.name, n.main.tpe)    => null
+            case n: Prop.CompressedProp if shouldIgnoreProp(n.name, n.tpe) => null
+          },
+        )
+    }
+
+    SplitProps(refTypes, props)
+  }
+
+  final case class PropsDom(propsRef: TypeRef, splitProps: Res[IArray[String], SplitProps])
+
+  object names {
+    val components   = Name("components")
+    val component    = Name("component")
+    val ComponentRef = Name("ComponentRef")
+    val key          = Name("key")
+    val children     = Name("children")
+  }
+
+  trait GenBuilder {
+    def apply(ownerCp: QualifiedName, component: Component): Builder
+  }
+
+  sealed trait Builder {
+    val ref: TypeRef =
+      this match {
+        case Builder.External(ref) => ref
+        case Builder.Include(cls)  => TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments)
+      }
+
+    def include: Option[ClassTree] =
+      this match {
+        case Builder.External(_)  => None
+        case Builder.Include(cls) => Some(cls)
+      }
+  }
+
+  object Builder {
+    case class External(typeRef: TypeRef) extends Builder
+    case class Include(cls:      ClassTree) extends Builder
+  }
+
+  case class SharedBuilder(cls: ClassTree, needRef: Boolean)
+}
 
 /**
-  * Generate a package with japgolly's scalajs-react compatible react components
+  * Generate a package with scalajs-react compatible react components
   */
-final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) {
+class JapgollyGenComponents(
+    findProps:    FindProps,
+    genStBuilder: JapgollyGenStBuildingComponent,
+    reactNames:   ReactNames,
+) {
   import JapgollyGenComponents._
 
   def apply(scope: TreeScope, tree: ContainerTree, allComponents: IArray[Component]): ContainerTree = {
-    val pkgCp = tree.codePath + names.components
+    /* Every tree knows it's own location (called `CodePath`).
+           It's used for a lot of things, so it's important to get right */
+    val pkgCp = tree.codePath + JapgollyGenComponents.names.components
 
+    /* since we generate a lot of scala code the bounds are not commented out, so remove them */
     val allComponentsStrippedBounds = allComponents.map(c => c.copy(tparams = stripBounds(c.tparams)))
 
+    /** We group components on what essentially means they have the same interface.
+      * When there is more than one they'll share some of the generated code
+      */
+    val grouped: Map[(Option[TypeRef], Boolean, IArray[TypeParamTree]), IArray[Component]] =
+      allComponentsStrippedBounds.groupBy(c => (c.props, c.referenceTo.isDefined, c.tparams))
+
     val generatedCode: IArray[Tree] =
-      allComponentsStrippedBounds
-        .groupBy(c => (c.props, c.referenceTo.isDefined, stripBounds(c.tparams)))
-        .mapToIArray {
-          case ((propsRefOpt, hasKnownRef, tparams), components) =>
-            val (propsRef, resProps): (TypeRef, Res[IArray[String], IArray[Prop]]) =
-              propsRefOpt match {
-                case Some(propsRef) =>
-                  val resProps: Res[IArray[String], IArray[Prop]] =
-                    findProps.forType(
-                      propsRef,
-                      tparams,
-                      scope,
-                      maxNum             = FindProps.MaxParamsForMethod - 2 /* withAdditionalProps.length */ - /* children*/ 1,
-                      acceptNativeTraits = true,
-                    )
+      grouped.flatMapToIArray {
+        case ((propsRefOpt, canBeReferenced, tparams), components) =>
+          val PropsDom(propsRef, resProps) =
+            findPropsAndInferDomInfo(scope, propsRefOpt, tparams)
 
-                  propsRef -> resProps
+          val resPropsSharedBuilders: Res[IArray[String], (SplitProps, Option[SharedBuilder])] = resProps.map {
+            case splitProps if components.length > 1 =>
+              val sharedBuilder: Option[SharedBuilder] = {
+                val name = Name(
+                  s"SharedBuilder_${nameFor(propsRef)}${(propsRef, canBeReferenced, tparams).hashCode}"
+                    .replaceAllLiterally("-", "_"),
+                )
+                val hasRef = canBeReferenced || refFromProps(resProps).isDefined
+                if (hasRef) {
+                  val RR           = genStBuilder.R.copy(name = AvailableName(tparams.map(_.name))(genStBuilder.R.name))
+                  val typeArgs     = IArray(TypeRef(RR.name))
+                  val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
+                  genBuilderClass(pkgCp, name, RR +: tparams, stBuilderRef, splitProps.props)
+                    .map(cls => SharedBuilder(cls, needRef = true))
 
-                case None =>
-                  TypeRef.Object -> Res.One(TypeRef.Object, Empty)
+                } else {
+                  val typeArgs     = IArray(TypeRef.Nothing)
+                  val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
+                  genBuilderClass(pkgCp, name, tparams, stBuilderRef, splitProps.props)
+                    .map(cls => SharedBuilder(cls, needRef = false))
+                }
               }
+              splitProps -> sharedBuilder
+            case splitProps => splitProps -> None
+          }
 
-            resProps.map(withAdditionalProps) match {
-              case Res.Success(props) =>
-                components match {
-                  case IArray.exactlyOne(one) =>
-                    IArray(genComponent(pkgCp, props, one.referenceTo, tparams, one))
-                  case many =>
-                    /** We share `apply` methods for each props type in abstract classes to limit compilation time.
-                      *  References causes some trouble, so if the component knows it we thread it through a type param.
-                      */
-                    val knownRefRewritten = if (hasKnownRef) Some(TypeRef(names.ComponentRef)) else None
-                    val propsCls          = genSharedPropsClass(pkgCp, propsRef, props, knownRefRewritten, tparams)
-                    IArray(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls))
+          val resPropsAndBuilders = resPropsSharedBuilders
+            .mapError { errors =>
+              val genBuilder: GenBuilder =
+                (ownerCp: QualifiedName, c: Component) => {
+                  val typeArgs     = IArray(effectiveRef(scope, resProps, c.referenceTo))
+                  val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
+
+                  genBuilderClass(ownerCp, Name("Builder"), tparams, stBuilderRef, Empty) match {
+                    case Some(b) => Builder.Include(b)
+                    case None =>
+                      Builder.External(TypeRef(genStBuilder.Default.codePath, typeArgs, NoComments))
+                  }
                 }
-              case Res.Error(es) =>
-                components.map { c =>
-                  val propsWithObject = TypeRef.Intersection(IArray(propsRef, TypeRef.Object), NoComments)
-                  val (_, prop)       = FindProps.parentParameter(Name("props"), propsWithObject, isRequired = true)
-                  val mod =
-                    genComponent(pkgCp, Res.One(propsWithObject, IArray(prop)), c.referenceTo, tparams, c)
-                  val comment = Comment(
-                    s"/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar: ${es
-                      .mkString(", ")}. */\n",
-                  )
-                  mod.copy(comments = mod.comments + comment)
-                }
+
+              errors -> genBuilder
             }
-        }
-        .flatten
+            .map {
+              case (splitProps, sharedBuilderOpt) =>
+                val genBuilder: GenBuilder =
+                  (ownerCp: QualifiedName, c: Component) =>
+                    sharedBuilderOpt match {
+                      case Some(SharedBuilder(cls, needsRef)) =>
+                        val targs: IArray[TypeRef] =
+                          (needsRef, TypeParamTree.asTypeArgs(c.tparams)) match {
+                            case (true, rest) => effectiveRef(scope, resProps, c.referenceTo) +: rest
+                            case (false, all) => all
+                          }
 
+                        Builder.External(TypeRef(cls.codePath, targs, NoComments))
+                      case None =>
+                        val typeArgs     = IArray(effectiveRef(scope, resProps, c.referenceTo))
+                        val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
+
+                        genBuilderClass(ownerCp, Name("Builder"), tparams, stBuilderRef, splitProps.props) match {
+                          case Some(b) => Builder.Include(b)
+                          case None =>
+                            Builder.External(TypeRef(genStBuilder.Default.codePath, typeArgs, NoComments))
+                        }
+                    }
+
+                splitProps -> genBuilder
+            }
+
+          val componentModules: IArray[ModuleTree] =
+            components.map(genComponent(pkgCp, propsRef, resPropsAndBuilders))
+
+          val sharedBuilders: IArray[ClassTree] =
+            resPropsSharedBuilders.asMap
+              .flatMapToIArray {
+                case (_, (_, Some(SharedBuilder(sharedBuilder, _)))) => IArray(sharedBuilder)
+                case _                                               => Empty
+              }
+              .distinctBy(_.name)
+
+          componentModules ++ sharedBuilders
+      }
+
+    /* Only generate the package if we have mapped any components */
     generatedCode match {
       case IArray.Empty => tree
       case nonEmpty =>
         val newPackage = setCodePath(pkgCp, PackageTree(Empty, names.components, nonEmpty, NoComments, pkgCp))
-        tree.withMembers(members = tree.members :+ newPackage)
+        tree.withMembers(tree.members :+ newPackage)
     }
   }
 
+  def refFromProps[E](resProps: Res[E, SplitProps]): Option[TypeRef] =
+    resProps.asMap.flatMapToIArray { case (_, v) => v.refTypes }.headOption
+
+  def effectiveRef(
+      scope:             TreeScope,
+      resProps:          Res[IArray[String], SplitProps],
+      classComponentRef: Option[TypeRef],
+  ): TypeRef =
+    classComponentRef orElse refFromProps(resProps) map TypeRef.stripTargs match {
+      case Some(x @ TypeRef(QualifiedName(IArray.exactlyOne(names.ComponentRef)), _, _)) => x
+      /* Observe type bound of :< js.Object */
+      case Some(value) =>
+        scope
+          .lookup(value.typeName)
+          .collectFirst { case (_: ClassTree, _) => value }
+          .getOrElse(TypeRef.Intersection(IArray(value, TypeRef.Object), NoComments))
+      case None => TypeRef.Object
+    }
+
+  def findPropsAndInferDomInfo(
+      scope:       TreeScope,
+      propsRefOpt: Option[TypeRef],
+      tparams:     IArray[TypeParamTree],
+  ): PropsDom =
+    propsRefOpt match {
+      case Some(propsRef) =>
+        val resProps: Res[IArray[String], IArray[Prop]] =
+          findProps.forType(
+            propsRef,
+            tparams,
+            scope,
+            maxNum             = Int.MaxValue,
+            acceptNativeTraits = true,
+          )
+
+        PropsDom(propsRef, resProps.map(SplitProps(reactNames)))
+
+      case None =>
+        val value: Res[IArray[String], SplitProps] =
+          Res.One(TypeRef.Object, SplitProps(Empty, Empty))
+
+        PropsDom(TypeRef.Object, value)
+    }
+
   def genComponent(
-      pkgCodePath:       QualifiedName,
-      resProps:          Res.Success[IArray[Prop]],
-      knownRefRewritten: Option[TypeRef],
-      tparams:           IArray[TypeParamTree],
-      c:                 Component,
+      pkgCp:    QualifiedName,
+      propsRef: TypeRef,
+      resProps: Res[(IArray[String], GenBuilder), (SplitProps, GenBuilder)],
+  )(c:          Component): ModuleTree = {
+    val componentCp = pkgCp + c.fullName
+
+    resProps match {
+      case Res.Error((errors, genBuilder)) =>
+        errorModule(propsRef, c, componentCp, errors, genBuilder)
+
+      case Res.One(propsRef, (splitProps, genBuilder)) =>
+        componentModule(
+          c.fullName,
+          c,
+          componentCp,
+          propsRef,
+          splitProps,
+          genBuilder,
+        )
+
+      case Res.Many(values) =>
+        val members = values.mapToIArray {
+          case (propsRef, (splitProps, genBuilder: GenBuilder)) =>
+            val name = Name(nameFor(propsRef))
+            componentModule(name, c, componentCp + name, propsRef, splitProps, genBuilder)
+        }
+
+        ModuleTree(
+          annotations = Empty,
+          name        = c.fullName,
+          parents     = Empty,
+          members     = members,
+          comments    = Minimization.KeepMarker,
+          codePath    = componentCp,
+          isOverride  = false,
+        )
+    }
+  }
+
+  def errorModule(
+      propsRef:    TypeRef,
+      c:           flavours.Component,
+      componentCp: QualifiedName,
+      errors:      IArray[String],
+      genBuilder:  GenBuilder,
   ): ModuleTree = {
-    val componentCp = pkgCodePath + c.fullName
-
-    val methods: IArray[MemberTree] =
-      resProps match {
-        case Res.One(propsRef, props) =>
-          IArray(genCreator(Name.APPLY, propsRef, props, knownRefRewritten, tparams, componentCp))
-        case Res.Many(propss) =>
-          propss.mapToIArray {
-            case (propsRef, props) =>
-              genCreator(propsRef.name, propsRef, props, knownRefRewritten, tparams, componentCp)
-          }
-      }
-
-    val componentRef = ModuleTree(
-      annotations = IArray(Annotation.JsNative, c.location),
-      name        = names.componentImport,
-      parents     = Empty,
-      members     = Empty,
-      comments    = NoComments,
-      codePath    = componentCp + names.componentImport,
-      isOverride  = false,
+    val builder = genBuilder(componentCp, c)
+    val members = IArray.fromOptions(
+      builder.include,
+      Some(genPropsMethod(Name.APPLY, componentCp, propsRef, c.tparams, builder.ref)),
+      genImplicitConversionOpt(Name("make"), componentCp, c.tparams, props = SplitProps(Empty, Empty), builder.ref),
     )
+
+    val errorComment =
+      Comment(
+        s"/* The props of this component has an unsupported shape. You can use `set` manually to use it, but with no compiler support :/ . ${errors
+          .mkString(", ")} */\n",
+      )
 
     ModuleTree(
       annotations = Empty,
       name        = c.fullName,
       parents     = Empty,
-      members     = methods :+ componentRef,
-      comments    = Minimization.KeepMarker,
+      members     = IArray(genImportModule(c, componentCp)) ++ members,
+      comments    = Minimization.KeepMarker ++ Comments(errorComment),
       codePath    = componentCp,
       isOverride  = false,
     )
   }
 
-  def genSharedPropsClass(
-      pkgCodePath:       QualifiedName,
-      propsRef:          TypeRef,
-      resProps:          Res.Success[IArray[Prop]],
-      knownRefRewritten: Option[TypeRef],
-      tparams:           IArray[TypeParamTree],
-  ): ClassTree = {
-    // todo: improve on this, but ensure unique
-    val name = Name(
-      s"SharedApply_${nameFor(propsRef)}${(propsRef, knownRefRewritten, tparams).hashCode}"
-        .replaceAllLiterally("-", "_"),
-    )
-    val classCp = pkgCodePath + name
+  def componentModule(
+      name:       Name,
+      c:          Component,
+      ownerCp:    QualifiedName,
+      propsRef:   TypeRef,
+      splitProps: SplitProps,
+      genBuilder: GenBuilder,
+  ): ModuleTree = {
+    val builder = genBuilder(ownerCp, c)
 
-    val componentRef = FieldTree(
-      annotations = Empty,
-      name        = names.componentImport,
-      tpe         = TypeRef.Any,
-      impl        = NotImplemented,
-      isReadOnly  = true,
-      isOverride  = false,
-      comments    = NoComments,
-      codePath    = classCp + names.componentImport,
-    )
-
-    val methods: IArray[MemberTree] =
-      resProps match {
-        case Res.One(propsRef, props) =>
-          IArray(genCreator(Name.APPLY, propsRef, props, knownRefRewritten, tparams, classCp))
-        case Res.Many(propss) =>
-          propss.mapToIArray {
-            case (propsRef, props) =>
-              genCreator(Name(nameFor(propsRef)), propsRef, props, knownRefRewritten, tparams, classCp)
-          }
-      }
-
-    val refInTParams =
-      IArray.fromOption(knownRefRewritten.map(_ => TypeParamTree(names.ComponentRef, Empty, None, NoComments)))
-
-    ClassTree(
-      isImplicit  = false,
-      annotations = Empty,
-      name        = classCp.parts.last,
-      tparams     = refInTParams,
-      parents     = Empty,
-      ctors       = Empty,
-      members     = IArray(componentRef) ++ methods,
-      classType   = ClassType.AbstractClass,
-      isSealed    = false,
-      comments    = NoComments,
-      codePath    = classCp,
-    )
-  }
-
-  def genComponentForSharedProps(pkgCodePath: QualifiedName, propsClass: ClassTree)(c: Component): ModuleTree = {
-    val componentCp = pkgCodePath + c.fullName
-
-    val componentRef = ModuleTree(
-      annotations = IArray(Annotation.JsNative, c.location),
-      name        = names.componentImport,
-      parents     = Empty,
-      members     = Empty,
-      comments    = NoComments,
-      codePath    = componentCp + names.componentImport,
-      isOverride  = true,
+    val members = IArray.fromOptions(
+      Some(genImportModule(c, ownerCp)),
+      builder.include,
+      Some(genPropsMethod(Name("withProps"), ownerCp, propsRef, c.tparams, builder.ref)),
+      genApplyMethodOpt(Name.APPLY, ownerCp, propsRef, splitProps, c.tparams, builder.ref),
+      genImplicitConversionOpt(Name("make"), ownerCp, c.tparams, splitProps, builder.ref),
     )
 
     ModuleTree(
       annotations = Empty,
-      name        = c.fullName,
-      parents =
-        IArray(TypeRef(propsClass.codePath, IArray.fromOption(c.referenceTo.map(TypeRef.stripTargs)), NoComments)),
-      members    = IArray(componentRef),
-      comments   = Minimization.KeepMarker,
-      codePath   = componentCp,
-      isOverride = false,
+      name        = name,
+      parents     = Empty,
+      members     = members,
+      comments    = Minimization.KeepMarker,
+      codePath    = ownerCp,
+      isOverride  = false,
     )
   }
 
-  val isVdomNode = Set(
-    reactNames.ReactNode,
-    reactNames.ReactElement,
-    japgolly.vdomVdomNode,
-    japgolly.vdomReactElement,
-    japgolly.vdomArray,
-    japgolly.vdomTagOf,
-  )
+  /* only necessary if there are required props */
+  def genApplyMethodOpt(
+      name:       Name,
+      ownerCp:    QualifiedName,
+      propsRef:   TypeRef,
+      splitProps: SplitProps,
+      tparams:    IArray[TypeParamTree],
+      builderRef: TypeRef,
+  ): Option[MethodTree] = {
+    val props = splitProps.props.filter(_.isRequired)
 
-  def genCreator(
-      name:              Name,
-      propsRef:          TypeRef,
-      props:             IArray[Prop],
-      knownRefRewritten: Option[TypeRef],
-      tparams:           IArray[TypeParamTree],
-      ownerCp:           QualifiedName,
-  ): MethodTree = {
-    val interpretedProps: IArray[(ObjectUpdater, ParamTree)] =
-      props.map(defaultInterpretation.apply)
+    val interpretedProps = props.map(defaultInterpretation.apply)
 
-    val (refTypes, declaredChildren, _, optionals, requireds, Empty) = {
-      interpretedProps.partitionCollect5(
-        //refTypes
-        { case (_, ParamTree(names.ref, _, _, tpe, _, _)) => tpe },
-        // declaredChildren: take note of declared children, but saying `ReactNode` should be a noop
-        { case (either, p @ ParamTree(names.children, _, _, tpe, _, _)) if !isVdomNode(tpe.typeName) => p -> either },
-        // ignored
-        { case (_, paramTree) if shouldIgnore(paramTree) => null },
-        // optionals
-        { case (x: Mutator, p) => p -> x },
-        //requireds
-        { case (x: Initializer, p) => p -> x },
-      )
-    }
-
-    /** Specified children different from react node? - Use `Children.None` and thread the value through the normal props.
-      * The reason is that not all values are react nodes, and the API is limiting
-      */
-    val reactChildren = TypeRef(
-      if (declaredChildren.isEmpty) japgolly.reactChildrenVarargs else japgolly.reactChildrenNone,
+    val (mutators, initializers, Empty) = interpretedProps.partitionCollect2(
+      { case (x: Mutator, _)     => x },
+      { case (x: Initializer, _) => x },
     )
 
-    val (createWrapper, resultType) = knownRefRewritten orElse refTypes.headOption match {
-      case Some(refType) =>
-        val c = ExprTree.TApply(
-          ExprTree.Ref(japgolly.reactJsForwardRefComponentForce),
-          IArray(propsRef, reactChildren, refType),
-        )
-        val r =
-          TypeRef(japgolly.componentUnmountedWithRoot, IArray(propsRef, refType, TypeRef.Unit, propsRef), NoComments)
-        (c, r)
-      case None =>
-        val c =
-          ExprTree.TApply(ExprTree.Ref(japgolly.reactJsComponent), IArray(propsRef, reactChildren, TypeRef.Object))
-        val r = TypeRef(
-          japgolly.componentJsUnmountedSimple,
-          IArray(
-            propsRef,
-            TypeRef(
-              japgolly.componentJsMountedWithRawType,
+    val impl: ExprTree = {
+      val objName = Name("__props")
+
+      val newed = New(
+        builderRef,
+        IArray(
+          Call(
+            Ref(QualifiedName.Array),
+            IArray(
               IArray(
-                propsRef,
-                TypeRef.Object,
-                TypeRef(japgolly.componentJsRawMounted, IArray(propsRef, TypeRef.Object), NoComments),
+                Ref(QualifiedName(IArray(Name.THIS, names.component))),
+                Cast(Ref(QualifiedName(IArray(objName))), propsRef),
               ),
-              NoComments,
             ),
           ),
-          NoComments,
-        )
-        (c, r)
-    }
+        ),
+      )
 
-    val firstParameterList: IArray[ParamTree] =
-      requireds.map(_._1) ++ optionals.map(_._1) filterNot (_.name === names.children)
-
-    val secondParameterList: IArray[ParamTree] = {
-      IArray(
-        declaredChildren.headOption match {
-          case Some((p, _)) => p
-          case None =>
-            ParamTree(
-              name       = names.children,
-              isImplicit = false,
-              isVal      = false,
-              tpe        = TypeRef.Repeated(TypeRef(japgolly.reactChildArg), NoComments),
-              default    = NotImplemented,
-              comments   = NoComments,
-            )
-        },
+      Block.flatten(
+        IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(initializers.map(_.value))))),
+        mutators.map(f => f.value(Ref(objName))),
+        IArray(newed),
       )
     }
 
-    val impl = {
-      import ExprTree._
-      /* The children value can go in one of three places, depending... */
-      val (
-        initializers2:   IArray[(ParamTree, Initializer)],
-        mutators2:       IArray[(ParamTree, Mutator)],
-        varargsChildren: Option[IArray[Arg]],
-      ) =
-        declaredChildren.headOption match {
-          case Some((p, x: Initializer)) => ((p -> x) +: requireds, optionals, None)
-          case Some((p, x: Mutator))     => (requireds, (p -> x) +: optionals, None)
-          case None => (requireds, optionals, Some(IArray(Arg.Variable(Ref(Name("children"))))))
+    val paramsOpt: Option[IArray[IArray[ParamTree]]] =
+      interpretedProps.map(_._2) match {
+        case Empty if tparams.nonEmpty => Some(IArray(IArray())) // allow nullary apply if there are type parameters
+        case Empty                     => None
+        case nonEmpty                  => Some(IArray(nonEmpty))
+      }
+
+    paramsOpt.map(params =>
+      MethodTree(
+        annotations = IArray(Annotation.Inline),
+        level       = ProtectionLevel.Default,
+        name        = name,
+        tparams     = tparams,
+        params      = params,
+        impl        = impl,
+        resultType  = builderRef,
+        isOverride  = false,
+        comments    = NoComments,
+        codePath    = ownerCp + name,
+        isImplicit  = false,
+      ),
+    )
+  }
+
+  /* support directly using the companion as a builder if no required props */
+  def genImplicitConversionOpt(
+      conversionName: Name,
+      ownerCp:        QualifiedName,
+      tparams:        IArray[TypeParamTree],
+      props:          SplitProps,
+      builderRef:     TypeRef,
+  ): Option[MethodTree] =
+    if (props.hasRequiredProps) None
+    else {
+      val implicitConversion = {
+        val param =
+          ParamTree(
+            Name("companion"),
+            isImplicit = false,
+            isVal      = false,
+            TypeRef.Singleton(TypeRef(ownerCp.parts.last)),
+            NotImplemented,
+            NoComments,
+          )
+
+        val impl = {
+          val newed = New(
+            builderRef,
+            IArray(
+              Call(
+                Ref(QualifiedName.Array),
+                IArray(
+                  IArray(Ref(QualifiedName(IArray(Name.THIS, names.component))), Ref(QualifiedName.DictionaryEmpty)),
+                ),
+              ),
+            ),
+          )
+          Call(newed, IArray(IArray()))
         }
 
-      val objName = Name("__obj")
-      val f       = Name("f")
+        MethodTree(
+          annotations = Empty,
+          level       = ProtectionLevel.Default,
+          name        = conversionName,
+          tparams     = tparams,
+          params      = IArray(IArray(param)),
+          impl        = impl,
+          resultType  = builderRef,
+          isOverride  = false,
+          comments    = NoComments,
+          codePath    = ownerCp + conversionName,
+          isImplicit  = true,
+        )
 
-      Block.flatten(
-        IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(initializers2.map(_._2.value))))),
-        mutators2.map { case (_, mut) => mut.value(Ref(objName)) },
+      }
+
+      Some(implicitConversion)
+    }
+
+  def genPropsMethod(
+      name:       Name,
+      ownerCp:    QualifiedName,
+      propsRef:   TypeRef,
+      tparams:    IArray[TypeParamTree],
+      builderRef: TypeRef,
+  ): MethodTree = {
+    val param = ParamTree(
+      name       = Name("p"),
+      isImplicit = false,
+      isVal      = false,
+      tpe        = propsRef,
+      default    = NotImplemented,
+      comments   = NoComments,
+    )
+    val impl = {
+      New(
+        builderRef,
         IArray(
-          Val(
-            f,
-            Call(createWrapper, IArray(IArray(Ref(QualifiedName(IArray(Name.THIS, names.componentImport)))))),
+          Call(
+            Ref(QualifiedName.Array),
+            IArray(IArray(Ref(QualifiedName(IArray(Name.THIS, names.component))), Cast(Ref(param.name), TypeRef.Any))),
           ),
-          Call(Ref(f), IArray.fromOptions(Some(IArray(Cast(Ref(objName), propsRef))), varargsChildren)),
         ),
       )
     }
-
     MethodTree(
       annotations = Empty,
       level       = ProtectionLevel.Default,
       name        = name,
       tparams     = tparams,
-      params      = IArray(firstParameterList, secondParameterList),
+      params      = IArray(IArray(param)),
       impl        = impl,
-      resultType  = resultType,
+      resultType  = builderRef,
       isOverride  = false,
       comments    = NoComments,
       codePath    = ownerCp + name,
       isImplicit  = false,
     )
   }
-}
 
-object JapgollyGenComponents {
+  def genImportModule(c: Component, componentCp: QualifiedName): ModuleTree =
+    ModuleTree(
+      annotations = IArray(Annotation.JsNative, c.location),
+      name        = names.component,
+      parents     = Empty,
+      members     = Empty,
+      comments    = NoComments,
+      codePath    = componentCp + names.component,
+      isOverride  = false,
+    )
 
-  object names {
-    val japgolly        = Name("japgolly")
-    val components      = Name("components")
-    val children        = Name("children")
-    val ref             = Name("ref")
-    val key             = Name("key")
-    val overrides       = Name("_overrides")
-    val componentImport = Name("componentImport")
-    val ComponentRef    = Name("ComponentRef")
+  def genBuilderClass(
+      owner:                QualifiedName,
+      name:                 Name,
+      tparams:              IArray[TypeParamTree],
+      buildingComponentRef: TypeRef,
+      props:                IArray[Prop],
+  ): Option[ClassTree] = {
+    val clsCodePath = owner + name
 
-    val ignoredNames = Set(children)
-  }
+    val members: IArray[MethodTree] =
+      props.filterNot(_.isRequired).flatMap {
+        case Prop.CompressedProp(name, tpe, asExpr, isRequired) =>
+          val args1 = Call(Ref(genStBuilder.args.name), IArray(IArray(NumberLit("1"))))
 
-  def shouldIgnore(paramTree: ParamTree): Boolean =
-    names.ignoredNames(paramTree.name)
+          val (default, update) =
+            if (isRequired) (NotImplemented, asExpr(args1))
+            else (Null, If(BinaryOp(Ref(name), "!=", Null), asExpr(args1), None))
 
-  object japgolly {
-    val reactCallback                   = QualifiedName("japgolly.scalajs.react.Callback")
-    val reactCallbackTo                 = QualifiedName("japgolly.scalajs.react.CallbackTo")
-    val reactChildrenNone               = QualifiedName("japgolly.scalajs.react.Children.None")
-    val reactChildrenVarargs            = QualifiedName("japgolly.scalajs.react.Children.Varargs")
-    val reactJsComponent                = QualifiedName("japgolly.scalajs.react.JsComponent")
-    val reactJsForwardRefComponentForce = QualifiedName("japgolly.scalajs.react.JsForwardRefComponent.force")
-    val reactChildArg                   = QualifiedName("japgolly.scalajs.react.CtorType.ChildArg")
-    val RefSimple                       = QualifiedName("japgolly.scalajs.react.Ref.Simple")
-    val componentUnmountedWithRoot      = QualifiedName("japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot")
-    val componentJsUnmountedSimple      = QualifiedName("japgolly.scalajs.react.component.Js.UnmountedSimple")
-    val componentJsMountedWithRawType   = QualifiedName("japgolly.scalajs.react.component.Js.MountedWithRawType")
-    val componentJsRawMounted           = QualifiedName("japgolly.scalajs.react.component.Js.RawMounted")
-    val vdomTagMod                      = QualifiedName("japgolly.scalajs.react.vdom.TagMod")
-    val vdomTagOf                       = QualifiedName("japgolly.scalajs.react.vdom.TagOf")
-    val VdomAttr                        = QualifiedName("japgolly.scalajs.react.vdom.VdomAttr")
-    val vdomReactElement                = QualifiedName("japgolly.scalajs.react.vdom.VdomElement")
-    val vdomArray                       = QualifiedName("japgolly.scalajs.react.vdom.VdomArray")
-    val vdomVdomNode                    = QualifiedName("japgolly.scalajs.react.vdom.VdomNode")
-    val reactKey                        = QualifiedName("japgolly.scalajs.react.Key")
-    val reactElement                    = QualifiedName("japgolly.scalajs.react.raw.React.Element")
-  }
+          val impl = Block(update, Ref(QualifiedName.THIS))
 
-  def withAdditionalProps(existing: IArray[Prop]): IArray[Prop] = {
-    import ExprTree._
+          val param = ParamTree(name, isImplicit = false, isVal = false, tpe, default, NoComments)
 
-    val keyProp: Prop.Normal = {
-      val keyType = TypeRef(japgolly.reactKey)
-      Prop.Normal(
-        Prop.Variant(keyType, ref => Cast(ref, TypeRef.Any), isRewritten = false, extendsAnyVal = false),
-        isInherited = false,
-        Optionality.Undef,
-        Empty,
-        FieldTree(
-          Empty,
-          names.key,
-          keyType,
+          IArray(
+            MethodTree(
+              annotations = IArray(Annotation.Inline),
+              level       = ProtectionLevel.Default,
+              name        = name,
+              tparams     = Empty,
+              params      = IArray(IArray(param)),
+              impl        = impl,
+              resultType  = TypeRef.ThisType(NoComments),
+              isOverride  = false,
+              comments    = NoComments,
+              codePath    = clsCodePath + name,
+              isImplicit  = false,
+            ),
+          )
+
+        case prop: Prop.Normal =>
+          val variantsForProp: Map[Name, Prop.Variant] = {
+            val fromVariants: Map[Name, Prop.Variant] =
+              prop.variants.filter(_.isRewritten).groupBy(param => nameFor(param.tpe)).map {
+                case (alternativeName, IArray.first(one)) =>
+                  Name(s"${prop.name.unescaped}${alternativeName.capitalize}") -> one
+              }
+
+            fromVariants.updated(prop.name, prop.main)
+          }
+
+          val variantsMethods: IArray[MethodTree] = variantsForProp.mapToIArray {
+            case (methodName, Prop.Variant(tpe, asExpr, _, _)) =>
+              val param = ParamTree(Name("value"), isImplicit = false, isVal = false, tpe, NotImplemented, NoComments)
+              val impl = Call(
+                Ref(genStBuilder.set.name),
+                IArray(IArray(StringLit(prop.originalName.unescaped), asExpr(Ref(param.name)))),
+              )
+              MethodTree(
+                annotations = IArray(Annotation.Inline),
+                level       = ProtectionLevel.Default,
+                name        = methodName,
+                tparams     = Empty,
+                params      = IArray(IArray(param)),
+                impl        = impl,
+                resultType  = TypeRef.ThisType(NoComments),
+                isOverride  = false,
+                comments    = NoComments,
+                codePath    = clsCodePath + methodName,
+                isImplicit  = false,
+              )
+          }
+
+          val nullCaseOpt: Option[MethodTree] = prop.optionality match {
+            case Optionality.Null | Optionality.NullOrUndef =>
+              val impl = Call(
+                Ref(genStBuilder.set.name),
+                IArray(IArray(StringLit(prop.originalName.unescaped), Null)),
+              )
+
+              val name = Name(s"${prop.name.unescaped}Null")
+              Some(
+                MethodTree(
+                  annotations = IArray(Annotation.Inline),
+                  level       = ProtectionLevel.Default,
+                  name        = name,
+                  tparams     = Empty,
+                  params      = Empty,
+                  impl        = impl,
+                  resultType  = TypeRef.ThisType(NoComments),
+                  isOverride  = false,
+                  comments    = NoComments,
+                  codePath    = clsCodePath + name,
+                  isImplicit  = false,
+                ),
+              )
+
+            case _ => None
+          }
+
+          variantsMethods ++ IArray.fromOptions(nullCaseOpt)
+        case _ => Empty
+      }
+
+    def ctor = CtorTree(
+      ProtectionLevel.Default,
+      IArray(
+        ParamTree(
+          Name("args"),
+          isImplicit = false,
+          isVal      = true,
+          TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments),
           NotImplemented,
-          isReadOnly = true,
-          isOverride = false,
           NoComments,
-          QualifiedName(Empty),
         ),
-      )
-    }
-    val overridesProp = {
-      Prop.CompressedProp(
-        names.overrides,
-        TypeRef.StringDictionary(TypeRef.Any, NoComments),
-        ref => Call(Ref(QualifiedName.DynamicGlobalObjectAssign), IArray(IArray(ref, Ref(names.overrides)))),
-        isRequired = false,
-      )
-    }
-    val newProps = IArray(keyProp, overridesProp)
+      ),
+      NoComments,
+    )
 
-    existing.filterNot(p => newProps.exists(_.name === p.name)) ++ newProps
+    if (members.isEmpty && tparams.isEmpty) None
+    else
+      Some(
+        ClassTree(
+          isImplicit  = false,
+          annotations = IArray(Annotation.Inline),
+          name        = name,
+          tparams     = tparams,
+          parents     = IArray(TypeRef.AnyVal, buildingComponentRef),
+          ctors       = IArray(ctor),
+          members     = members.distinctBy(_.name.unescaped.toLowerCase),
+          classType   = ClassType.Class,
+          isSealed    = false,
+          comments    = NoComments,
+          codePath    = clsCodePath,
+        ),
+      ),
   }
 }

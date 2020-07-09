@@ -1,13 +1,7 @@
 package typingsJapgolly.semanticUiReact.components
 
-import japgolly.scalajs.react.Children.Varargs
-import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.JsComponent
-import japgolly.scalajs.react.Key
-import japgolly.scalajs.react.component.Js.MountedWithRawType
-import japgolly.scalajs.react.component.Js.RawMounted
-import japgolly.scalajs.react.component.Js.UnmountedSimple
-import org.scalablytyped.runtime.StringDictionary
+import japgolly.scalajs.react.vdom.VdomElement
+import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.semanticUiReact.buttonGroupMod.ButtonGroupProps
 import typingsJapgolly.semanticUiReact.buttonMod.ButtonProps
 import typingsJapgolly.semanticUiReact.genericMod.SemanticCOLORS
@@ -25,68 +19,61 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object ButtonGroup {
-  def apply(
-    StringDictionary: /* key */ StringDictionary[js.Any] = null,
-    as: js.Any = null,
-    attached: Boolean | left | right | top | bottom = null,
-    basic: js.UndefOr[Boolean] = js.undefined,
-    buttons: SemanticShorthandCollection[ButtonProps] = null,
-    className: String = null,
-    color: SemanticCOLORS = null,
-    compact: js.UndefOr[Boolean] = js.undefined,
-    content: SemanticShorthandContent = null,
-    floated: SemanticFLOATS = null,
-    fluid: js.UndefOr[Boolean] = js.undefined,
-    icon: js.UndefOr[Boolean] = js.undefined,
-    inverted: js.UndefOr[Boolean] = js.undefined,
-    labeled: js.UndefOr[Boolean] = js.undefined,
-    negative: js.UndefOr[Boolean] = js.undefined,
-    positive: js.UndefOr[Boolean] = js.undefined,
-    primary: js.UndefOr[Boolean] = js.undefined,
-    secondary: js.UndefOr[Boolean] = js.undefined,
-    size: SemanticSIZES = null,
-    toggle: js.UndefOr[Boolean] = js.undefined,
-    vertical: js.UndefOr[Boolean] = js.undefined,
-    widths: SemanticWIDTHS = null,
-    key: Key = null,
-    _overrides: StringDictionary[js.Any] = null
-  )(
-    children: ChildArg*
-  ): UnmountedSimple[
-    ButtonGroupProps, 
-    MountedWithRawType[ButtonGroupProps, js.Object, RawMounted[ButtonGroupProps, js.Object]]
-  ] = {
-    val __obj = js.Dynamic.literal()
-    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
-    if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
-    if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
-    if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic.get.asInstanceOf[js.Any])
-    if (buttons != null) __obj.updateDynamic("buttons")(buttons.asInstanceOf[js.Any])
-    if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    if (color != null) __obj.updateDynamic("color")(color.asInstanceOf[js.Any])
-    if (!js.isUndefined(compact)) __obj.updateDynamic("compact")(compact.get.asInstanceOf[js.Any])
-    if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
-    if (floated != null) __obj.updateDynamic("floated")(floated.asInstanceOf[js.Any])
-    if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(icon)) __obj.updateDynamic("icon")(icon.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(labeled)) __obj.updateDynamic("labeled")(labeled.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(negative)) __obj.updateDynamic("negative")(negative.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(positive)) __obj.updateDynamic("positive")(positive.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(primary)) __obj.updateDynamic("primary")(primary.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(secondary)) __obj.updateDynamic("secondary")(secondary.get.asInstanceOf[js.Any])
-    if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
-    if (!js.isUndefined(toggle)) __obj.updateDynamic("toggle")(toggle.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical.get.asInstanceOf[js.Any])
-    if (widths != null) __obj.updateDynamic("widths")(widths.asInstanceOf[js.Any])
-    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
-    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    val f = JsComponent[ButtonGroupProps, Varargs, js.Object](this.componentImport)
-    f(__obj.asInstanceOf[ButtonGroupProps])(children :_*)
-  }
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonGroup", JSImport.Default)
   @js.native
-  object componentImport extends js.Object
+  object component extends js.Object
   
+  @scala.inline
+  class Builder (val args: js.Array[js.Any])
+    extends AnyVal
+       with StBuildingComponent[js.Object] {
+    @scala.inline
+    def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
+    @scala.inline
+    def attached(value: Boolean | left | right | top | bottom): this.type = set("attached", value.asInstanceOf[js.Any])
+    @scala.inline
+    def basic(value: Boolean): this.type = set("basic", value.asInstanceOf[js.Any])
+    @scala.inline
+    def buttons(value: SemanticShorthandCollection[ButtonProps]): this.type = set("buttons", value.asInstanceOf[js.Any])
+    @scala.inline
+    def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
+    @scala.inline
+    def color(value: SemanticCOLORS): this.type = set("color", value.asInstanceOf[js.Any])
+    @scala.inline
+    def compact(value: Boolean): this.type = set("compact", value.asInstanceOf[js.Any])
+    @scala.inline
+    def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
+    @scala.inline
+    def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
+    @scala.inline
+    def floated(value: SemanticFLOATS): this.type = set("floated", value.asInstanceOf[js.Any])
+    @scala.inline
+    def fluid(value: Boolean): this.type = set("fluid", value.asInstanceOf[js.Any])
+    @scala.inline
+    def icon(value: Boolean): this.type = set("icon", value.asInstanceOf[js.Any])
+    @scala.inline
+    def inverted(value: Boolean): this.type = set("inverted", value.asInstanceOf[js.Any])
+    @scala.inline
+    def labeled(value: Boolean): this.type = set("labeled", value.asInstanceOf[js.Any])
+    @scala.inline
+    def negative(value: Boolean): this.type = set("negative", value.asInstanceOf[js.Any])
+    @scala.inline
+    def positive(value: Boolean): this.type = set("positive", value.asInstanceOf[js.Any])
+    @scala.inline
+    def primary(value: Boolean): this.type = set("primary", value.asInstanceOf[js.Any])
+    @scala.inline
+    def secondary(value: Boolean): this.type = set("secondary", value.asInstanceOf[js.Any])
+    @scala.inline
+    def size(value: SemanticSIZES): this.type = set("size", value.asInstanceOf[js.Any])
+    @scala.inline
+    def toggle(value: Boolean): this.type = set("toggle", value.asInstanceOf[js.Any])
+    @scala.inline
+    def vertical(value: Boolean): this.type = set("vertical", value.asInstanceOf[js.Any])
+    @scala.inline
+    def widths(value: SemanticWIDTHS): this.type = set("widths", value.asInstanceOf[js.Any])
+  }
+  
+  def withProps(p: ButtonGroupProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  implicit def make(companion: ButtonGroup.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
 }
 

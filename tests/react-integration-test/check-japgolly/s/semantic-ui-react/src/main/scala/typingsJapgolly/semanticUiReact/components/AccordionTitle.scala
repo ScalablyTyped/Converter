@@ -1,14 +1,15 @@
 package typingsJapgolly.semanticUiReact.components
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.Children.Varargs
-import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.JsForwardRefComponent.force
-import japgolly.scalajs.react.Key
+import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactMouseEventFrom
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
-import org.scalablytyped.runtime.StringDictionary
+import japgolly.scalajs.react.raw.React.Element
+import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.vdom.VdomElement
 import org.scalajs.dom.raw.HTMLDivElement
+import typingsJapgolly.StBuildingComponent
+import typingsJapgolly.react.mod.ReactNodeArray
+import typingsJapgolly.react.mod.ReactType
 import typingsJapgolly.semanticUiReact.accordionTitleMod.AccordionTitleProps
 import typingsJapgolly.semanticUiReact.accordionTitleMod.default
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
@@ -18,39 +19,45 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object AccordionTitle {
-  def apply(
-    StringDictionary: /* key */ StringDictionary[js.Any] = null,
-    active: js.UndefOr[Boolean] = js.undefined,
-    as: js.Any = null,
-    className: String = null,
-    content: SemanticShorthandContent = null,
-    icon: SemanticShorthandItem[
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
-    ] = null,
-    index: Double | String = null,
-    onClick: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback = null,
-    key: Key = null,
-    _overrides: StringDictionary[js.Any] = null
-  )(
-    children: ChildArg*
-  ): UnmountedWithRoot[AccordionTitleProps, default, Unit, AccordionTitleProps] = {
-    val __obj = js.Dynamic.literal()
-    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
-    if (!js.isUndefined(active)) __obj.updateDynamic("active")(active.get.asInstanceOf[js.Any])
-    if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
-    if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
-    if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
-    if (index != null) __obj.updateDynamic("index")(index.asInstanceOf[js.Any])
-    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => (onClick(t0, t1)).runNow()))
-    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
-    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    val f = force[AccordionTitleProps, Varargs, default](this.componentImport)
-    f(__obj.asInstanceOf[AccordionTitleProps])(children :_*)
-  }
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionTitle", JSImport.Default)
   @js.native
-  object componentImport extends js.Object
+  object component extends js.Object
   
+  @scala.inline
+  class Builder (val args: js.Array[js.Any])
+    extends AnyVal
+       with StBuildingComponent[default] {
+    @scala.inline
+    def active(value: Boolean): this.type = set("active", value.asInstanceOf[js.Any])
+    @scala.inline
+    def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
+    @scala.inline
+    def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
+    @scala.inline
+    def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
+    @scala.inline
+    def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
+    @scala.inline
+    def iconVdomElement(value: VdomElement): this.type = set("icon", value.rawElement.asInstanceOf[js.Any])
+    @scala.inline
+    def iconFunction3(
+      value: (/* component */ ReactType[js.Any], js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => CallbackTo[Element | Null]
+    ): this.type = set("icon", js.Any.fromFunction3((t0: /* component */ ReactType[js.Any], t1: js.Any, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => (value(t0, t1, t2)).runNow()))
+    @scala.inline
+    def icon(
+      value: SemanticShorthandItem[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
+        ]
+    ): this.type = set("icon", value.asInstanceOf[js.Any])
+    @scala.inline
+    def index(value: Double | String): this.type = set("index", value.asInstanceOf[js.Any])
+    @scala.inline
+    def onClick(
+      value: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
+    ): this.type = set("onClick", js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => (value(t0, t1)).runNow()))
+  }
+  
+  def withProps(p: AccordionTitleProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  implicit def make(companion: AccordionTitle.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
 }
 

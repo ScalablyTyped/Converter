@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "react-transition-group"
-version := "2.0-3c94e4"
+version := "2.0-6814a7"
 scalaVersion := "2.13.2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

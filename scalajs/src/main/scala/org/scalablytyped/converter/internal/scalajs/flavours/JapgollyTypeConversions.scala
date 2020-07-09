@@ -6,40 +6,38 @@ import org.scalablytyped.converter.internal.scalajs.{QualifiedName, TypeRef}
 
 object JapgollyTypeConversions {
   def apply(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomNames): IArray[CastConversion] = {
-    val _1Element = TParam._1.among(scalaJsDomNames.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
-    val _2Element = TParam._2.among(scalaJsDomNames.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
+    val _1Element = TParam._1.among(scalaJsDomNames.AllElements, scalaJsDomNames.Element)
+    val _2Element = TParam._2.among(scalaJsDomNames.AllElements, scalaJsDomNames.Element)
     val _1Object  = TParam._1.among(Set.empty, QualifiedName.Object)
 
-    // format: off
     scalaJsDomNames.All ++ IArray(
       CastConversion(reactNames.ComponentState, QualifiedName.Object),
       CastConversion(reactNames.ReactDOM, QualifiedName.Any),
-      CastConversion(reactNames.ReactNode, QualifiedName("japgolly.scalajs.react.raw.React.Node")),
-      CastConversion(reactNames.Ref, QualifiedName("japgolly.scalajs.react.raw.React.Ref")),
-      CastConversion(reactNames.RefObject, QualifiedName("japgolly.scalajs.react.raw.React.RefHandle"), TParam._1),
-      CastConversion(reactNames.Component, QualifiedName("japgolly.scalajs.react.raw.React.Component"), _1Object, TypeRef.Object),
-      CastConversion(reactNames.ComponentClass, QualifiedName("japgolly.scalajs.react.raw.React.ComponentClassP"), _1Object),
-      CastConversion(reactNames.ReactElement, JapgollyGenComponents.japgolly.reactElement),
-      CastConversion(reactNames.DOMElement, QualifiedName("japgolly.scalajs.react.raw.React.DomElement")),
-      CastConversion(reactNames.ElementType, QualifiedName("japgolly.scalajs.react.raw.React.ElementType")),
-      CastConversion(reactNames.BaseSyntheticEvent, QualifiedName("japgolly.scalajs.react.ReactEventFrom"), _2Element),
-      CastConversion(reactNames.ChangeEvent, QualifiedName("japgolly.scalajs.react.ReactEventFrom"), _1Element),
-      CastConversion(reactNames.FormEvent, QualifiedName("japgolly.scalajs.react.ReactEventFrom"), _1Element),
-      CastConversion(reactNames.InvalidEvent, QualifiedName("japgolly.scalajs.react.ReactEventFrom"), _1Element),
-      CastConversion(reactNames.SyntheticEvent, QualifiedName("japgolly.scalajs.react.ReactEventFrom"), _1Element),
-      CastConversion(reactNames.AnimationEvent, QualifiedName("japgolly.scalajs.react.ReactAnimationEventFrom"), _1Element),
-      CastConversion(reactNames.ClipboardEvent, QualifiedName("japgolly.scalajs.react.ReactClipboardEventFrom"), _1Element),
-      CastConversion(reactNames.CompositionEvent, QualifiedName("japgolly.scalajs.react.ReactCompositionEventFrom"), _1Element),
-      CastConversion(reactNames.DragEvent, QualifiedName("japgolly.scalajs.react.ReactDragEventFrom"), _1Element),
-      CastConversion(reactNames.FocusEvent, QualifiedName("japgolly.scalajs.react.ReactFocusEventFrom"), _1Element),
-      CastConversion(reactNames.KeyboardEvent, QualifiedName("japgolly.scalajs.react.ReactKeyboardEventFrom"), _1Element),
-      CastConversion(reactNames.MouseEvent, QualifiedName("japgolly.scalajs.react.ReactMouseEventFrom"), _1Element),
-      CastConversion(reactNames.PointerEvent, QualifiedName("japgolly.scalajs.react.ReactPointerEventFrom"), _1Element),
-      CastConversion(reactNames.TouchEvent, QualifiedName("japgolly.scalajs.react.ReactTouchEventFrom"), _1Element),
-      CastConversion(reactNames.TransitionEvent, QualifiedName("japgolly.scalajs.react.ReactTransitionEventFrom"), _1Element),
-      CastConversion(reactNames.UIEvent, QualifiedName("japgolly.scalajs.react.ReactUIEventFrom"), _1Element),
-      CastConversion(reactNames.WheelEvent, QualifiedName("japgolly.scalajs.react.ReactWheelEventFrom"), _1Element),
+      CastConversion(reactNames.ReactNode, JapgollyNames.rawReact.Node),
+      CastConversion(reactNames.Ref, JapgollyNames.rawReact.Ref),
+      CastConversion(reactNames.RefObject, JapgollyNames.rawReact.RefHandle, TParam._1),
+      CastConversion(reactNames.Component, JapgollyNames.rawReact.Component, _1Object, TypeRef.Object),
+      CastConversion(reactNames.ComponentClass, JapgollyNames.rawReact.ComponentClassP, _1Object),
+      CastConversion(reactNames.ReactElement, JapgollyNames.rawReact.Element),
+      CastConversion(reactNames.DOMElement, JapgollyNames.rawReact.DomElement),
+      CastConversion(reactNames.ElementType, JapgollyNames.rawReact.ElementType),
+      CastConversion(reactNames.BaseSyntheticEvent, JapgollyNames.ReactEventFrom, _2Element),
+      CastConversion(reactNames.ChangeEvent, JapgollyNames.ReactEventFrom, _1Element),
+      CastConversion(reactNames.FormEvent, JapgollyNames.ReactEventFrom, _1Element),
+      CastConversion(reactNames.InvalidEvent, JapgollyNames.ReactEventFrom, _1Element),
+      CastConversion(reactNames.SyntheticEvent, JapgollyNames.ReactEventFrom, _1Element),
+      CastConversion(reactNames.AnimationEvent, JapgollyNames.ReactAnimationEventFrom, _1Element),
+      CastConversion(reactNames.ClipboardEvent, JapgollyNames.ReactClipboardEventFrom, _1Element),
+      CastConversion(reactNames.CompositionEvent, JapgollyNames.ReactCompositionEventFrom, _1Element),
+      CastConversion(reactNames.DragEvent, JapgollyNames.ReactDragEventFrom, _1Element),
+      CastConversion(reactNames.FocusEvent, JapgollyNames.ReactFocusEventFrom, _1Element),
+      CastConversion(reactNames.KeyboardEvent, JapgollyNames.ReactKeyboardEventFrom, _1Element),
+      CastConversion(reactNames.MouseEvent, JapgollyNames.ReactMouseEventFrom, _1Element),
+      CastConversion(reactNames.PointerEvent, JapgollyNames.ReactPointerEventFrom, _1Element),
+      CastConversion(reactNames.TouchEvent, JapgollyNames.ReactTouchEventFrom, _1Element),
+      CastConversion(reactNames.TransitionEvent, JapgollyNames.ReactTransitionEventFrom, _1Element),
+      CastConversion(reactNames.UIEvent, JapgollyNames.ReactUIEventFrom, _1Element),
+      CastConversion(reactNames.WheelEvent, JapgollyNames.ReactWheelEventFrom, _1Element),
     )
-    // format: on
   }
 }

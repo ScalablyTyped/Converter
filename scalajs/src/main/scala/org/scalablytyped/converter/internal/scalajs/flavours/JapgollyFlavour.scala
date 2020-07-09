@@ -9,9 +9,9 @@ case class JapgollyFlavour(outputPkg: Name) extends FlavourImplReact {
   val rewriter               = new CastConversion.TypeRewriterCast(JapgollyTypeConversions(reactNames, scalaJsDomNames))
   val memberToPro            = new JapgollyMemberToProp(reactNames, rewriter)
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToPro, parentsResolver)
-  val genComponents          = new JapgollyGenComponents(reactNames, findProps)
-  val genCompanions          = new GenCompanions(findProps)
   val genStBuildingComponent = new JapgollyGenStBuildingComponent(outputPkg)
+  val genComponents          = new JapgollyGenComponents(findProps, genStBuildingComponent, reactNames)
+  val genCompanions          = new GenCompanions(findProps)
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
     val withCompanions = genCompanions.visitPackageTree(scope)(tree)

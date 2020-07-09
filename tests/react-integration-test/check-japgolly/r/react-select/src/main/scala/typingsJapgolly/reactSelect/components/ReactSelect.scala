@@ -1,11 +1,6 @@
 package typingsJapgolly.reactSelect.components
 
-import japgolly.scalajs.react.Children.Varargs
-import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.JsForwardRefComponent.force
-import japgolly.scalajs.react.Key
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
-import org.scalablytyped.runtime.StringDictionary
+import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.reactSelect.mod.ReactSelectProps
 import typingsJapgolly.reactSelect.mod.default
 import scala.scalajs.js
@@ -13,23 +8,24 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object ReactSelect {
-  def apply[TValue](
-    addLabelText: String = null,
-    key: Key = null,
-    _overrides: StringDictionary[js.Any] = null
-  )(
-    children: ChildArg*
-  ): UnmountedWithRoot[ReactSelectProps[TValue], default[TValue], Unit, ReactSelectProps[TValue]] = {
-    val __obj = js.Dynamic.literal()
-    if (addLabelText != null) __obj.updateDynamic("addLabelText")(addLabelText.asInstanceOf[js.Any])
-    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
-    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    val f = force[ReactSelectProps[TValue], Varargs, default[TValue]](this.componentImport)
-    f(__obj.asInstanceOf[ReactSelectProps[TValue]])(children :_*)
-  }
   @JSImport("react-select", JSImport.Default)
   @js.native
-  object componentImport extends js.Object
+  object component extends js.Object
   
+  @scala.inline
+  class Builder[TValue] (val args: js.Array[js.Any])
+    extends AnyVal
+       with StBuildingComponent[default[js.Any]] {
+    @scala.inline
+    def addLabelText(value: String): this.type = set("addLabelText", value.asInstanceOf[js.Any])
+  }
+  
+  def withProps[TValue](p: ReactSelectProps[TValue]): Builder[TValue] = new Builder[TValue](js.Array(this.component, p.asInstanceOf[js.Any]))
+  @scala.inline
+  def apply[TValue](): Builder[TValue] = {
+    val __props = js.Dynamic.literal()
+    new Builder[TValue](js.Array(this.component, __props.asInstanceOf[ReactSelectProps[TValue]]))
+  }
+  implicit def make[TValue](companion: ReactSelect.type): Builder[TValue] = new Builder[TValue](js.Array(this.component, js.Dictionary.empty))()
 }
 

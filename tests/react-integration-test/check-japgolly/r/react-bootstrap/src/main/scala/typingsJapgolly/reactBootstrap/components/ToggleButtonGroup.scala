@@ -1,30 +1,18 @@
 package typingsJapgolly.reactBootstrap.components
 
-import japgolly.scalajs.react.Children.Varargs
-import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.JsForwardRefComponent.force
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import typingsJapgolly.StBuildingComponent.Default
 import typingsJapgolly.reactBootstrap.toggleButtonGroupMod.ToggleButtonGroupProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar: Support for combinations of intersection and union types not implemented. */
+/* The props of this component has an unsupported shape. You can use `set` manually to use it, but with no compiler support :/ . Support for combinations of intersection and union types not implemented */
 object ToggleButtonGroup {
-  def apply(props: ToggleButtonGroupProps with js.Object)(children: ChildArg*): UnmountedWithRoot[
-    ToggleButtonGroupProps with js.Object, 
-    typingsJapgolly.reactBootstrap.mod.ToggleButtonGroup, 
-    Unit, 
-    ToggleButtonGroupProps with js.Object
-  ] = {
-    val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, props)
-    val f = force[ToggleButtonGroupProps with js.Object, Varargs, typingsJapgolly.reactBootstrap.mod.ToggleButtonGroup](this.componentImport)
-    f(__obj.asInstanceOf[ToggleButtonGroupProps with js.Object])(children :_*)
-  }
   @JSImport("react-bootstrap", "ToggleButtonGroup")
   @js.native
-  object componentImport extends js.Object
+  object component extends js.Object
   
+  def apply(p: ToggleButtonGroupProps): Default[typingsJapgolly.reactBootstrap.mod.ToggleButtonGroup] = new Default[typingsJapgolly.reactBootstrap.mod.ToggleButtonGroup](js.Array(this.component, p.asInstanceOf[js.Any]))
+  implicit def make(companion: ToggleButtonGroup.type): Default[typingsJapgolly.reactBootstrap.mod.ToggleButtonGroup] = new Default[typingsJapgolly.reactBootstrap.mod.ToggleButtonGroup](js.Array(this.component, js.Dictionary.empty))()
 }
 

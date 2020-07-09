@@ -1,38 +1,29 @@
 package typingsJapgolly.react.components
 
-import japgolly.scalajs.react.Children.Varargs
-import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.JsComponent
-import japgolly.scalajs.react.Key
-import japgolly.scalajs.react.component.Js.MountedWithRawType
-import japgolly.scalajs.react.component.Js.RawMounted
-import japgolly.scalajs.react.component.Js.UnmountedSimple
-import org.scalablytyped.runtime.StringDictionary
+import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.react.mod.SuspenseProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object Suspense {
-  def apply(
-    fallback: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any = null,
-    key: Key = null,
-    _overrides: StringDictionary[js.Any] = null
-  )(
-    children: ChildArg*
-  ): UnmountedSimple[
-    SuspenseProps, 
-    MountedWithRawType[SuspenseProps, js.Object, RawMounted[SuspenseProps, js.Object]]
-  ] = {
-    val __obj = js.Dynamic.literal(fallback = fallback.asInstanceOf[js.Any])
-    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
-    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    val f = JsComponent[SuspenseProps, Varargs, js.Object](this.componentImport)
-    f(__obj.asInstanceOf[SuspenseProps])(children :_*)
-  }
   @JSImport("react", "Suspense")
   @js.native
-  object componentImport extends js.Object
+  object component extends js.Object
   
+  @scala.inline
+  class Builder (val args: js.Array[js.Any])
+    extends AnyVal
+       with StBuildingComponent[js.Object] {
+    @scala.inline
+    def fallback(
+      value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any
+    ): this.type = set("fallback", value.asInstanceOf[js.Any])
+    @scala.inline
+    def fallbackNull: this.type = set("fallback", null)
+  }
+  
+  def withProps(p: SuspenseProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  implicit def make(companion: Suspense.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
 }
 

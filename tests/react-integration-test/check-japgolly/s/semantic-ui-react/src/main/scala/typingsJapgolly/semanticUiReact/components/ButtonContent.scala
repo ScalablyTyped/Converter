@@ -1,13 +1,7 @@
 package typingsJapgolly.semanticUiReact.components
 
-import japgolly.scalajs.react.Children.Varargs
-import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.JsComponent
-import japgolly.scalajs.react.Key
-import japgolly.scalajs.react.component.Js.MountedWithRawType
-import japgolly.scalajs.react.component.Js.RawMounted
-import japgolly.scalajs.react.component.Js.UnmountedSimple
-import org.scalablytyped.runtime.StringDictionary
+import japgolly.scalajs.react.vdom.VdomElement
+import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.semanticUiReact.buttonContentMod.ButtonContentProps
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
 import scala.scalajs.js
@@ -15,36 +9,29 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object ButtonContent {
-  def apply(
-    StringDictionary: /* key */ StringDictionary[js.Any] = null,
-    as: js.Any = null,
-    className: String = null,
-    content: SemanticShorthandContent = null,
-    hidden: js.UndefOr[Boolean] = js.undefined,
-    visible: js.UndefOr[Boolean] = js.undefined,
-    key: Key = null,
-    _overrides: StringDictionary[js.Any] = null
-  )(
-    children: ChildArg*
-  ): UnmountedSimple[
-    ButtonContentProps, 
-    MountedWithRawType[ButtonContentProps, js.Object, RawMounted[ButtonContentProps, js.Object]]
-  ] = {
-    val __obj = js.Dynamic.literal()
-    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
-    if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
-    if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
-    if (!js.isUndefined(hidden)) __obj.updateDynamic("hidden")(hidden.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(visible)) __obj.updateDynamic("visible")(visible.get.asInstanceOf[js.Any])
-    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
-    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    val f = JsComponent[ButtonContentProps, Varargs, js.Object](this.componentImport)
-    f(__obj.asInstanceOf[ButtonContentProps])(children :_*)
-  }
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonContent", JSImport.Default)
   @js.native
-  object componentImport extends js.Object
+  object component extends js.Object
   
+  @scala.inline
+  class Builder (val args: js.Array[js.Any])
+    extends AnyVal
+       with StBuildingComponent[js.Object] {
+    @scala.inline
+    def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
+    @scala.inline
+    def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
+    @scala.inline
+    def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
+    @scala.inline
+    def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
+    @scala.inline
+    def hidden(value: Boolean): this.type = set("hidden", value.asInstanceOf[js.Any])
+    @scala.inline
+    def visible(value: Boolean): this.type = set("visible", value.asInstanceOf[js.Any])
+  }
+  
+  def withProps(p: ButtonContentProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  implicit def make(companion: ButtonContent.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
 }
 
