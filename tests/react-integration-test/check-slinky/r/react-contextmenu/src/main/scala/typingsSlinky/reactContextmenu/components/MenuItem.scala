@@ -4,7 +4,7 @@ import org.scalajs.dom.raw.HTMLDivElement
 import org.scalajs.dom.raw.HTMLElement
 import slinky.web.SyntheticMouseEvent
 import slinky.web.SyntheticTouchEvent
-import slinky.web.html.div.tag
+import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
 import typingsSlinky.react.mod.HTMLAttributes
 import typingsSlinky.reactContextmenu.mod.MenuItemProps

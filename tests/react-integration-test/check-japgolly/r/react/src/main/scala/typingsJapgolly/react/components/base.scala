@@ -30,13 +30,16 @@ import typingsJapgolly.react.reactStrings.both
 import typingsJapgolly.react.reactStrings.copy
 import typingsJapgolly.react.reactStrings.date
 import typingsJapgolly.react.reactStrings.descending
+import typingsJapgolly.react.reactStrings.dialog
 import typingsJapgolly.react.reactStrings.execute
 import typingsJapgolly.react.reactStrings.grammar
 import typingsJapgolly.react.reactStrings.grid
 import typingsJapgolly.react.reactStrings.horizontal
+import typingsJapgolly.react.reactStrings.link
 import typingsJapgolly.react.reactStrings.list
 import typingsJapgolly.react.reactStrings.listbox
 import typingsJapgolly.react.reactStrings.location
+import typingsJapgolly.react.reactStrings.menu
 import typingsJapgolly.react.reactStrings.mixed
 import typingsJapgolly.react.reactStrings.move
 import typingsJapgolly.react.reactStrings.none
@@ -49,6 +52,8 @@ import typingsJapgolly.react.reactStrings.popup
 import typingsJapgolly.react.reactStrings.removals
 import typingsJapgolly.react.reactStrings.spelling
 import typingsJapgolly.react.reactStrings.step
+import typingsJapgolly.react.reactStrings.text
+import typingsJapgolly.react.reactStrings.time
 import typingsJapgolly.react.reactStrings.tree
 import typingsJapgolly.react.reactStrings.vertical
 import scala.scalajs.js
@@ -84,7 +89,7 @@ object base {
     @scala.inline
     def `aria-controls`(value: String): this.type = set("aria-controls", value.asInstanceOf[js.Any])
     @scala.inline
-    def `aria-current`(value: Boolean | page | step | location | date | typingsJapgolly.react.reactStrings.time): this.type = set("aria-current", value.asInstanceOf[js.Any])
+    def `aria-current`(value: Boolean | page | step | location | date | time): this.type = set("aria-current", value.asInstanceOf[js.Any])
     @scala.inline
     def `aria-describedby`(value: String): this.type = set("aria-describedby", value.asInstanceOf[js.Any])
     @scala.inline
@@ -92,7 +97,7 @@ object base {
     @scala.inline
     def `aria-disabled`(value: Boolean): this.type = set("aria-disabled", value.asInstanceOf[js.Any])
     @scala.inline
-    def `aria-dropeffect`(value: none | copy | execute | typingsJapgolly.react.reactStrings.link | move | popup): this.type = set("aria-dropeffect", value.asInstanceOf[js.Any])
+    def `aria-dropeffect`(value: none | copy | execute | link | move | popup): this.type = set("aria-dropeffect", value.asInstanceOf[js.Any])
     @scala.inline
     def `aria-errormessage`(value: String): this.type = set("aria-errormessage", value.asInstanceOf[js.Any])
     @scala.inline
@@ -102,9 +107,7 @@ object base {
     @scala.inline
     def `aria-grabbed`(value: Boolean): this.type = set("aria-grabbed", value.asInstanceOf[js.Any])
     @scala.inline
-    def `aria-haspopup`(
-      value: Boolean | typingsJapgolly.react.reactStrings.menu | listbox | tree | grid | typingsJapgolly.react.reactStrings.dialog
-    ): this.type = set("aria-haspopup", value.asInstanceOf[js.Any])
+    def `aria-haspopup`(value: Boolean | menu | listbox | tree | grid | dialog): this.type = set("aria-haspopup", value.asInstanceOf[js.Any])
     @scala.inline
     def `aria-hidden`(value: Boolean): this.type = set("aria-hidden", value.asInstanceOf[js.Any])
     @scala.inline
@@ -138,7 +141,7 @@ object base {
     @scala.inline
     def `aria-readonly`(value: Boolean): this.type = set("aria-readonly", value.asInstanceOf[js.Any])
     @scala.inline
-    def `aria-relevant`(value: additions | (`additions text`) | all | removals | typingsJapgolly.react.reactStrings.text): this.type = set("aria-relevant", value.asInstanceOf[js.Any])
+    def `aria-relevant`(value: additions | (`additions text`) | all | removals | text): this.type = set("aria-relevant", value.asInstanceOf[js.Any])
     @scala.inline
     def `aria-required`(value: Boolean): this.type = set("aria-required", value.asInstanceOf[js.Any])
     @scala.inline

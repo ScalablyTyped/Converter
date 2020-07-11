@@ -30,13 +30,16 @@ import typingsSlinky.react.reactStrings.both
 import typingsSlinky.react.reactStrings.copy
 import typingsSlinky.react.reactStrings.date
 import typingsSlinky.react.reactStrings.descending
+import typingsSlinky.react.reactStrings.dialog
 import typingsSlinky.react.reactStrings.execute
 import typingsSlinky.react.reactStrings.grammar
 import typingsSlinky.react.reactStrings.grid
 import typingsSlinky.react.reactStrings.horizontal
+import typingsSlinky.react.reactStrings.link
 import typingsSlinky.react.reactStrings.list
 import typingsSlinky.react.reactStrings.listbox
 import typingsSlinky.react.reactStrings.location
+import typingsSlinky.react.reactStrings.menu
 import typingsSlinky.react.reactStrings.mixed
 import typingsSlinky.react.reactStrings.move
 import typingsSlinky.react.reactStrings.none
@@ -49,6 +52,8 @@ import typingsSlinky.react.reactStrings.popup
 import typingsSlinky.react.reactStrings.removals
 import typingsSlinky.react.reactStrings.spelling
 import typingsSlinky.react.reactStrings.step
+import typingsSlinky.react.reactStrings.text
+import typingsSlinky.react.reactStrings.time
 import typingsSlinky.react.reactStrings.tree
 import typingsSlinky.react.reactStrings.vertical
 import scala.scalajs.js
@@ -82,7 +87,7 @@ class SharedBuilder_DetailedHTMLProps1276931637[R <: js.Object] (val args: js.Ar
   @scala.inline
   def `aria-controls`(value: String): this.type = set("aria-controls", value.asInstanceOf[js.Any])
   @scala.inline
-  def `aria-current`(value: Boolean | page | step | location | date | typingsSlinky.react.reactStrings.time): this.type = set("aria-current", value.asInstanceOf[js.Any])
+  def `aria-current`(value: Boolean | page | step | location | date | time): this.type = set("aria-current", value.asInstanceOf[js.Any])
   @scala.inline
   def `aria-describedby`(value: String): this.type = set("aria-describedby", value.asInstanceOf[js.Any])
   @scala.inline
@@ -90,7 +95,7 @@ class SharedBuilder_DetailedHTMLProps1276931637[R <: js.Object] (val args: js.Ar
   @scala.inline
   def `aria-disabled`(value: Boolean): this.type = set("aria-disabled", value.asInstanceOf[js.Any])
   @scala.inline
-  def `aria-dropeffect`(value: none | copy | execute | typingsSlinky.react.reactStrings.link | move | popup): this.type = set("aria-dropeffect", value.asInstanceOf[js.Any])
+  def `aria-dropeffect`(value: none | copy | execute | link | move | popup): this.type = set("aria-dropeffect", value.asInstanceOf[js.Any])
   @scala.inline
   def `aria-errormessage`(value: String): this.type = set("aria-errormessage", value.asInstanceOf[js.Any])
   @scala.inline
@@ -100,9 +105,7 @@ class SharedBuilder_DetailedHTMLProps1276931637[R <: js.Object] (val args: js.Ar
   @scala.inline
   def `aria-grabbed`(value: Boolean): this.type = set("aria-grabbed", value.asInstanceOf[js.Any])
   @scala.inline
-  def `aria-haspopup`(
-    value: Boolean | typingsSlinky.react.reactStrings.menu | listbox | tree | grid | typingsSlinky.react.reactStrings.dialog
-  ): this.type = set("aria-haspopup", value.asInstanceOf[js.Any])
+  def `aria-haspopup`(value: Boolean | menu | listbox | tree | grid | dialog): this.type = set("aria-haspopup", value.asInstanceOf[js.Any])
   @scala.inline
   def `aria-hidden`(value: Boolean): this.type = set("aria-hidden", value.asInstanceOf[js.Any])
   @scala.inline
@@ -136,7 +139,7 @@ class SharedBuilder_DetailedHTMLProps1276931637[R <: js.Object] (val args: js.Ar
   @scala.inline
   def `aria-readonly`(value: Boolean): this.type = set("aria-readonly", value.asInstanceOf[js.Any])
   @scala.inline
-  def `aria-relevant`(value: additions | (`additions text`) | all | removals | typingsSlinky.react.reactStrings.text): this.type = set("aria-relevant", value.asInstanceOf[js.Any])
+  def `aria-relevant`(value: additions | (`additions text`) | all | removals | text): this.type = set("aria-relevant", value.asInstanceOf[js.Any])
   @scala.inline
   def `aria-required`(value: Boolean): this.type = set("aria-required", value.asInstanceOf[js.Any])
   @scala.inline
