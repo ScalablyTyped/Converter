@@ -66,6 +66,8 @@ class TreeTransformation { self =>
       s match {
         case ExprTree.Null =>
           ExprTree.Null
+        case ExprTree.`:_*`(e) =>
+          ExprTree.`:_*`(visitExprTree(childrenScope)(e))
         case ExprTree.Val(name, value) =>
           ExprTree.Val(name, visitExprTree(childrenScope)(value))
         case ExprTree.Throw(expr) =>

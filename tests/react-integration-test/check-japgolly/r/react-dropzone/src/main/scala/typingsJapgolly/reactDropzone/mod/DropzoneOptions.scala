@@ -82,6 +82,8 @@ object DropzoneOptions {
         x
     }
     @scala.inline
+    def setAcceptVarargs(value: String*): Self = this.set("accept", js.Array(value :_*))
+    @scala.inline
     def setAccept(value: String | js.Array[String]): Self = this.set("accept", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteAccept: Self = this.set("accept", js.undefined)

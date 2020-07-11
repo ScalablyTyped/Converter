@@ -520,6 +520,7 @@ object ExprTree {
   case class BinaryOp(one:          ExprTree, op: String, two: ExprTree) extends ExprTree
   case class Block(expressions:     IArray[ExprTree]) extends ExprTree
   case class Call(function:         ExprTree, params: IArray[IArray[Arg]]) extends ExprTree
+  case class `:_*`(e:               ExprTree) extends ExprTree
   case class If(pred:               ExprTree, ifTrue: ExprTree, ifFalse: Option[ExprTree]) extends ExprTree
   case class Lambda(params:         IArray[ParamTree], body: ExprTree) extends ExprTree
   case class New(expr:              TypeRef, params: IArray[ExprTree]) extends ExprTree

@@ -30,6 +30,8 @@ object Render {
     @scala.inline
     def setRender(value: js.Function): Self = this.set("render", value.asInstanceOf[js.Any])
     @scala.inline
+    def setStaticRenderFnsVarargs(value: js.Function*): Self = this.set("staticRenderFns", js.Array(value :_*))
+    @scala.inline
     def setStaticRenderFns(value: js.Array[js.Function]): Self = this.set("staticRenderFns", value.asInstanceOf[js.Any])
   }
   

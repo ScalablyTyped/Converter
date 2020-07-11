@@ -27,6 +27,8 @@ object DataHTMLAttributes {
         x
     }
     @scala.inline
+    def setValueVarargs(value: String*): Self = this.set("value", js.Array(value :_*))
+    @scala.inline
     def setValue(value: String | js.Array[String] | Double): Self = this.set("value", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteValue: Self = this.set("value", js.undefined)

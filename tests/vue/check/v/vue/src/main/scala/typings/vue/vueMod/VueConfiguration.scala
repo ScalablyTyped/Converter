@@ -52,6 +52,8 @@ object VueConfiguration {
     @scala.inline
     def setErrorHandler(value: (Error, Vue, String) => Unit): Self = this.set("errorHandler", js.Any.fromFunction3(value))
     @scala.inline
+    def setIgnoredElementsVarargs(value: (String | RegExp)*): Self = this.set("ignoredElements", js.Array(value :_*))
+    @scala.inline
     def setIgnoredElements(value: js.Array[String | RegExp]): Self = this.set("ignoredElements", value.asInstanceOf[js.Any])
     @scala.inline
     def setKeyCodes(value: StringDictionary[Double | js.Array[Double]]): Self = this.set("keyCodes", value.asInstanceOf[js.Any])

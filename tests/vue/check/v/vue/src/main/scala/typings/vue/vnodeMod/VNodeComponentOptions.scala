@@ -35,6 +35,8 @@ object VNodeComponentOptions {
     @scala.inline
     def setCtor(value: VueConstructor[Vue]): Self = this.set("Ctor", value.asInstanceOf[js.Any])
     @scala.inline
+    def setChildrenVarargs(value: ScopedSlot*): Self = this.set("children", js.Array(value :_*))
+    @scala.inline
     def setChildren(value: VNodeChildren): Self = this.set("children", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteChildren: Self = this.set("children", js.undefined)

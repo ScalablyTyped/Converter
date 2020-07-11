@@ -26,6 +26,8 @@ object ReactDropzone {
     extends AnyVal
        with StBuildingComponent[Ref with js.Object] {
     @scala.inline
+    def acceptVarargs(value: String*): this.type = set("accept", js.Array(value :_*))
+    @scala.inline
     def accept(value: String | js.Array[String]): this.type = set("accept", value.asInstanceOf[js.Any])
     @scala.inline
     def children(value: /* state */ DropzoneState => CallbackTo[Element]): this.type = set("children", js.Any.fromFunction1((t0: /* state */ DropzoneState) => value(t0).runNow()))

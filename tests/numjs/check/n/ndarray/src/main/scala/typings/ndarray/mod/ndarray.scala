@@ -30,6 +30,8 @@ object ndarray {
     @scala.inline
     def setT(value: ndarray[T]): Self = this.set("T", value.asInstanceOf[js.Any])
     @scala.inline
+    def setDataVarargs(value: T*): Self = this.set("data", js.Array(value :_*))
+    @scala.inline
     def setData(value: Data[T]): Self = this.set("data", value.asInstanceOf[js.Any])
   }
   

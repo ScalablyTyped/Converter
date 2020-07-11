@@ -57,6 +57,8 @@ object Mixin {
     @scala.inline
     def deleteGetInitialState: Self = this.set("getInitialState", js.undefined)
     @scala.inline
+    def setMixinsVarargs(value: (Mixin[P, S])*): Self = this.set("mixins", js.Array(value :_*))
+    @scala.inline
     def setMixins(value: js.Array[Mixin[P, S]]): Self = this.set("mixins", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteMixins: Self = this.set("mixins", js.undefined)
