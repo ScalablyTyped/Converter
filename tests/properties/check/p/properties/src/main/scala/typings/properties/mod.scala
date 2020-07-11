@@ -11,7 +11,7 @@ object mod extends js.Object {
   class Test () extends js.Object {
     var _prop: Double = js.native
     def prop: Double = js.native
-    def prop(v: Double): js.Any = js.native
+    def prop_=(v: Double): Unit = js.native
   }
   
 }

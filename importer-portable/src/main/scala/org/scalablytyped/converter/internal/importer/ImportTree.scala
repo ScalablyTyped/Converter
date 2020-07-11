@@ -546,12 +546,6 @@ class ImportTree(
     val impl: ImplTree =
       if (scalaJsDefined) NotImplemented else ExprTree.native
 
-    val resultType: TypeRef = (
-      sig.resultType filter (_ =/= TsTypeRef.any)
-        map importType(Wildcards.No, scope, importName)
-        getOrElse TypeRef.Any
-    )
-
     /** This is how typescript specifies what types of objects the given method can be legally called on.
       * It's useful information, but only if we wanted to output say implicit conversions where we add
       * the given methods. Let's drop them for now
@@ -565,17 +559,29 @@ class ImportTree(
         case _                 => IArray(tsFunParams(scope, importName, trimmedParams))
       }
 
+    val (correctedName: Name, resultType: TypeRef) =
+      methodType match {
+        case MethodType.Setter =>
+          (Name(s"${name.unescaped}_="), TypeRef.Unit)
+        case _ =>
+          val tpe = sig.resultType
+            .filter(_ =/= TsTypeRef.any)
+            .map(importType(Wildcards.No, scope, importName))
+            .getOrElse(TypeRef.Any)
+          (name, tpe)
+      }
+
     val ret = MethodTree(
       annotations = IArray.fromOption(annOpt),
       level       = level,
-      name        = name,
+      name        = correctedName,
       tparams     = sig.tparams map typeParam(scope, importName),
       params      = params,
       impl        = impl,
       resultType  = resultType,
       isOverride  = false,
       comments    = cs ++ sig.comments,
-      codePath    = ownerCP + name,
+      codePath    = ownerCP + correctedName,
       isImplicit  = false,
     )
 
