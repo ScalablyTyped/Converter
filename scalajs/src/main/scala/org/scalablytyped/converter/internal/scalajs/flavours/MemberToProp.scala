@@ -55,7 +55,7 @@ object MemberToProp {
                   case TypeRef(QualifiedName.Array, IArray.exactlyOne(t), _) =>
                     IArray(
                       Prop.Variant(
-                        TypeRef.Repeated(t, NoComments),
+                        TypeRef.Repeated(Wildcards.Remove.visitTypeRef(scope)(t), NoComments),
                         e => Call(Ref(QualifiedName.Array), IArray(IArray(`:_*`(e)))),
                         isRewritten   = true,
                         extendsAnyVal = false,
