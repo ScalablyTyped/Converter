@@ -2,17 +2,14 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-/**
-  * This generated class is our replacement for Slinkys ExternalComponent... types, which didnt really work.
-  */
-class SlinkyGenStBuildingComponent(val outputPkg: Name) {
-  import ExprTree._
+import ExprTree._
+
+class JapgollyGenStBuildingComponent(val outputPkg: Name) {
 
   val StBuildingComponent = Name("StBuildingComponent")
   val builderCp           = QualifiedName(IArray(outputPkg, StBuildingComponent))
-  val E                   = TypeParamTree(Name("E"), Empty, None, NoComments)
   val R                   = TypeParamTree(Name("R"), Empty, Some(TypeRef.Object), NoComments)
-  val builderTparams      = IArray(E, R)
+  val builderTparams      = IArray(R)
   val builderRef          = TypeRef(builderCp, TypeParamTree.asTypeArgs(builderTparams), NoComments)
 
   //  def args: js.Array[js.Any]
@@ -113,69 +110,29 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
 
   val Trait: ClassTree = {
 
-//  @inline final def apply(mods: slinky.core.TagMod[E]*): this.type = {
-//    mods.foreach((mod: slinky.core.TagMod[E]) =>
-//      if (mod.isInstanceOf[slinky.core.AttrPair]) {
-//        val a = mod.asInstanceOf[AttrPair]
-//        set(a.name, a.value)
-//      } else {
-//        if (mod.isInstanceOf[slinky.core.OptionalAttrPair]) {
-//          val o = mod.asInstanceOf[slinky.core.OptionalAttrPair]
-//          if (o.value.isDefined) {
-//            set(o.name, o.value.get)
-//          }
-//        } else args.push(mod)
-//      }
-//    )
+//  @inline final def apply(children: japgolly.scalajs.react.vdom.VdomNode*): this.type = {
+//    mods.foreach((mod: japgolly.scalajs.react.vdom.VdomNode) => args.push(mod.rawNode))
 //    this
 //  }
     val `apply` = {
-      val TagModE = TypeRef(SlinkyGenComponents.names.TagMod, IArray(TypeRef(E.name)), NoComments)
+      val VdomNode = TypeRef(JapgollyNames.vdom.VdomNode)
       val modsParam = ParamTree(
         name       = Name("mods"),
         isImplicit = false,
         isVal      = false,
-        tpe        = TypeRef.Repeated(TagModE, NoComments),
+        tpe        = TypeRef.Repeated(VdomNode, NoComments),
         default    = NotImplemented,
         comments   = NoComments,
       )
       val impl = {
-        val modParam = ParamTree(Name("mod"), isImplicit = false, isVal = false, TagModE, NotImplemented, NoComments)
+        val modParam = ParamTree(Name("mod"), isImplicit = false, isVal = false, VdomNode, NotImplemented, NoComments)
         val modRef   = Ref(modParam.name)
 
-        val AttrPair = TypeRef(SlinkyGenComponents.names.AttrPair, IArray(TypeRef.Wildcard), NoComments)
-        val ifIsAttrPair = {
-          val a = Name("a")
-          Block(
-            Val(a, Cast(modRef, AttrPair)),
-            Call(Ref(set.name), IArray(IArray(Select(Ref(a), Name("name")), Select(Ref(a), Name("value"))))),
-          )
-        }
-        val OptionalAttrPair = TypeRef(SlinkyGenComponents.names.OptionalAttrPair, IArray(TypeRef.Wildcard), NoComments)
-        val ifIsOptionalAttrPair = {
-          val o      = Name("o")
-          val oValue = Select(Ref(o), Name("value"))
-          Block(
-            Val(o, Cast(modRef, OptionalAttrPair)),
-            If(
-              Select(oValue, Name("isDefined")),
-              Call(Ref(set.name), IArray(IArray(Select(Ref(o), Name("name")), Select(oValue, Name("get"))))),
-              None,
-            ),
-          )
-        }
         val lambda = Lambda(
           IArray(modParam),
-          If(
-            InstanceOf(modRef, AttrPair),
-            ifIsAttrPair,
-            Some(
-              If(
-                InstanceOf(modRef, OptionalAttrPair),
-                ifIsOptionalAttrPair,
-                Some(Call(Select(Ref(args.name), Name("push")), IArray(IArray(modRef)))),
-              ),
-            ),
+          Call(
+            Select(Ref(args.name), Name("push")),
+            IArray(IArray(Cast(Select(modRef, Name("rawNode")), TypeRef.Any))),
           ),
         )
 
@@ -198,17 +155,24 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
 
     }
 
-    //  @inline final def withKey(key: String): this.type = set("key", key)
+    //  @inline final def withKey(key: japgolly.scalajs.react.Key): this.type = set("key", key)
     val withKey = {
-      val param = ParamTree(Name("key"), isImplicit = false, isVal = false, TypeRef.String, NotImplemented, NoComments)
-      val name  = Name("withKey")
+      val param = ParamTree(
+        Name("key"),
+        isImplicit = false,
+        isVal      = false,
+        TypeRef(JapgollyNames.Key),
+        NotImplemented,
+        NoComments,
+      )
+      val name = Name("withKey")
       MethodTree(
         annotations = IArray(Annotation.Inline),
         level       = ProtectionLevel.Default,
         name        = name,
         tparams     = Empty,
         params      = IArray(IArray(param)),
-        impl        = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Ref(param.name)))),
+        impl        = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Cast(Ref(param.name), TypeRef.Any)))),
         resultType  = TypeRef(QualifiedName.THIS),
         isOverride  = false,
         comments    = NoComments,
@@ -238,9 +202,9 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
       )
     }
     //
-    //  @inline final def withRef(ref: slinky.core.facade.ReactRef[R]): this.type = set("ref", ref)
+    //  @inline final def withRef(ref: japgolly.scalajs.react.Ref.Simple[R]): this.type = set("ref", ref.rawSetFn)
     val withRef2 = {
-      val tpe   = TypeRef(SlinkyGenComponents.names.ReactRef, IArray(TypeRef(R.name)), NoComments)
+      val tpe   = TypeRef(JapgollyNames.RefSimple, IArray(TypeRef(R.name)), NoComments)
       val param = ParamTree(Name("ref"), isImplicit = false, isVal = false, tpe, NotImplemented, NoComments)
       val name  = Name("withRef")
       MethodTree(
@@ -249,12 +213,15 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
         name        = name,
         tparams     = Empty,
         params      = IArray(IArray(param)),
-        impl        = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Ref(param.name)))),
-        resultType  = TypeRef(QualifiedName.THIS),
-        isOverride  = false,
-        comments    = NoComments,
-        codePath    = builderCp + name,
-        isImplicit  = false,
+        impl = Call(
+          Ref(set.name),
+          IArray(IArray(StringLit(param.name.unescaped), Select(Ref(param.name), Name("rawSetFn")))),
+        ),
+        resultType = TypeRef(QualifiedName.THIS),
+        isOverride = false,
+        comments   = NoComments,
+        codePath   = builderCp + name,
+        isImplicit = false,
       )
     }
 
@@ -338,7 +305,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
         isOverride = false,
       )
     }
-//    @inline implicit def make[E, R <: js.Object](comp: StBuildingComponent[E, R]): slinky.core.facade.ReactElement = {
+//    @inline implicit def make[R <: js.Object](comp: StBuildingComponent[R]): japgolly.scalajs.react.vdom.VdomElement = {
 //      if (comp.args(0) == null) {
 //        throw new IllegalStateException(
 //          "This component has already been built into a ReactElement, and cannot be reused"
@@ -346,10 +313,10 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
 //      }
 //      val ret = ReactRaw.createElement
 //        .applyDynamic("apply")(ReactRaw, comp.args)
-//        .asInstanceOf[slinky.core.facade.ReactElement]
+//        .asInstanceOf[japgolly.scalajs.react.raw.React.Element]
 //
 //      comp.args.update(0, null)
-//      ret
+//      japgolly.scalajs.react.vdom.VdomElement(ret)
 //    }
     val make: MethodTree = {
       val compParam          = ParamTree(Name("comp"), false, false, builderRef, NotImplemented, NoComments)
@@ -380,11 +347,11 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
           ret,
           Cast(
             Call(createElementApply, IArray(IArray(StringLit("apply")), IArray(reactRawName, compArgs))),
-            TypeRef(SlinkyGenComponents.names.ReactElement),
+            TypeRef(JapgollyNames.rawReact.Element),
           ),
         ),
         inDevMode(Call(Select(compArgs, Name("update")), IArray(IArray(NumberLit("0"), Null)))),
-        Ref(ret),
+        Call(Ref(JapgollyNames.vdom.ReactElement), IArray(IArray(Ref(ret)))),
       )
 
       MethodTree(
@@ -394,7 +361,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
         builderTparams,
         IArray(IArray(compParam)),
         impl,
-        TypeRef(SlinkyGenComponents.names.ReactElement),
+        TypeRef(JapgollyNames.vdom.ReactElement),
         isOverride = false,
         NoComments,
         builderCp + name,

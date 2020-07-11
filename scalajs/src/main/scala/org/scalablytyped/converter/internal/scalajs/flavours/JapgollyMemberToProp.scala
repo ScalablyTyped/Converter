@@ -4,7 +4,6 @@ package flavours
 
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
-import org.scalablytyped.converter.internal.scalajs.flavours.JapgollyGenComponents.japgolly
 
 class JapgollyMemberToProp(reactNames: ReactNames, typeRewriter: TypeRewriterCast) extends MemberToProp {
   val default = new MemberToProp.Default(Some(typeRewriter))
@@ -21,8 +20,8 @@ class JapgollyMemberToProp(reactNames: ReactNames, typeRewriter: TypeRewriterCas
     */
   def CallbackTo(ref: TypeRef): TypeRef =
     ref match {
-      case TypeRef.Unit => TypeRef(japgolly.reactCallback)
-      case other        => TypeRef(japgolly.reactCallbackTo, IArray(other), NoComments)
+      case TypeRef.Unit => TypeRef(JapgollyNames.Callback)
+      case other        => TypeRef(JapgollyNames.CallbackTo, IArray(other), NoComments)
     }
 
   def toScalaJsReact(scope: TreeScope)(variant: Prop.Variant): Prop.Variant = {
@@ -60,14 +59,14 @@ class JapgollyMemberToProp(reactNames: ReactNames, typeRewriter: TypeRewriterCas
         )
       case TypeRef(reactNames.ReactElement, _, _) =>
         Prop.Variant(
-          TypeRef(japgolly.vdomReactElement),
+          TypeRef(JapgollyNames.vdom.ReactElement),
           ref => Cast(Select(ref, Name("rawElement")), TypeRef.Any),
           isRewritten   = true,
           extendsAnyVal = false,
         )
       case TypeRef(reactNames.ReactNode, _, _) =>
         Prop.Variant(
-          TypeRef(japgolly.vdomVdomNode),
+          TypeRef(JapgollyNames.vdom.VdomNode),
           ref => Cast(Select(ref, Name("rawNode")), TypeRef.Any),
           isRewritten   = true,
           extendsAnyVal = false,

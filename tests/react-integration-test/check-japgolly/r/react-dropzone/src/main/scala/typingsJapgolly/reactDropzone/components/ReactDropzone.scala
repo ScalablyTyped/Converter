@@ -2,15 +2,11 @@ package typingsJapgolly.reactDropzone.components
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
-import japgolly.scalajs.react.Children.None
-import japgolly.scalajs.react.JsForwardRefComponent.force
-import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.ReactDragEventFrom
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Ref
-import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLElement
+import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.react.mod.RefAttributes
 import typingsJapgolly.reactDropzone.mod.DropEvent
 import typingsJapgolly.reactDropzone.mod.DropzoneProps
@@ -21,63 +17,57 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object ReactDropzone {
-  def apply(
-    accept: String | js.Array[String] = null,
-    disabled: js.UndefOr[Boolean] = js.undefined,
-    getFilesFromEvent: /* event */ DropEvent => CallbackTo[js.Any] = null,
-    maxSize: js.UndefOr[Double] = js.undefined,
-    minSize: js.UndefOr[Double] = js.undefined,
-    multiple: js.UndefOr[Boolean] = js.undefined,
-    noClick: js.UndefOr[Boolean] = js.undefined,
-    noDrag: js.UndefOr[Boolean] = js.undefined,
-    noDragEventsBubbling: js.UndefOr[Boolean] = js.undefined,
-    noKeyboard: js.UndefOr[Boolean] = js.undefined,
-    onDragEnter: ReactDragEventFrom[HTMLElement] => Callback = null,
-    onDragLeave: ReactDragEventFrom[HTMLElement] => Callback = null,
-    onDragOver: ReactDragEventFrom[HTMLElement] => Callback = null,
-    onDrop: (/* acceptedFiles */ js.Array[js.Any], /* rejectedFiles */ js.Array[js.Any], /* event */ DropEvent) => Callback = null,
-    onDropAccepted: (/* files */ js.Array[js.Any], /* event */ DropEvent) => Callback = null,
-    onDropRejected: (/* files */ js.Array[js.Any], /* event */ DropEvent) => Callback = null,
-    onFileDialogCancel: js.UndefOr[Callback] = js.undefined,
-    preventDropOnDocument: js.UndefOr[Boolean] = js.undefined,
-    key: Key = null,
-    _overrides: StringDictionary[js.Any] = null
-  )(
-    children: /* state */ DropzoneState => CallbackTo[Element] = null
-  ): UnmountedWithRoot[
-    DropzoneProps with RefAttributes[DropzoneRef], 
-    js.UndefOr[Null | Ref], 
-    Unit, 
-    DropzoneProps with RefAttributes[DropzoneRef]
-  ] = {
-    val __obj = js.Dynamic.literal()
-    if (children != null) __obj.updateDynamic("children")(js.Any.fromFunction1((t0: /* state */ DropzoneState) => children(t0).runNow()))
-    if (accept != null) __obj.updateDynamic("accept")(accept.asInstanceOf[js.Any])
-    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled.get.asInstanceOf[js.Any])
-    if (getFilesFromEvent != null) __obj.updateDynamic("getFilesFromEvent")(js.Any.fromFunction1((t0: /* event */ DropEvent) => getFilesFromEvent(t0).runNow()))
-    if (!js.isUndefined(maxSize)) __obj.updateDynamic("maxSize")(maxSize.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(minSize)) __obj.updateDynamic("minSize")(minSize.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(multiple)) __obj.updateDynamic("multiple")(multiple.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(noClick)) __obj.updateDynamic("noClick")(noClick.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(noDrag)) __obj.updateDynamic("noDrag")(noDrag.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(noDragEventsBubbling)) __obj.updateDynamic("noDragEventsBubbling")(noDragEventsBubbling.get.asInstanceOf[js.Any])
-    if (!js.isUndefined(noKeyboard)) __obj.updateDynamic("noKeyboard")(noKeyboard.get.asInstanceOf[js.Any])
-    if (onDragEnter != null) __obj.updateDynamic("onDragEnter")(js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement]) => onDragEnter(t0).runNow()))
-    if (onDragLeave != null) __obj.updateDynamic("onDragLeave")(js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement]) => onDragLeave(t0).runNow()))
-    if (onDragOver != null) __obj.updateDynamic("onDragOver")(js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement]) => onDragOver(t0).runNow()))
-    if (onDrop != null) __obj.updateDynamic("onDrop")(js.Any.fromFunction3((t0: /* acceptedFiles */ js.Array[js.Any], t1: /* rejectedFiles */ js.Array[js.Any], t2: /* event */ DropEvent) => (onDrop(t0, t1, t2)).runNow()))
-    if (onDropAccepted != null) __obj.updateDynamic("onDropAccepted")(js.Any.fromFunction2((t0: /* files */ js.Array[js.Any], t1: /* event */ DropEvent) => (onDropAccepted(t0, t1)).runNow()))
-    if (onDropRejected != null) __obj.updateDynamic("onDropRejected")(js.Any.fromFunction2((t0: /* files */ js.Array[js.Any], t1: /* event */ DropEvent) => (onDropRejected(t0, t1)).runNow()))
-    if (!js.isUndefined(onFileDialogCancel)) __obj.updateDynamic("onFileDialogCancel")(onFileDialogCancel.get.toJsFn)
-    if (!js.isUndefined(preventDropOnDocument)) __obj.updateDynamic("preventDropOnDocument")(preventDropOnDocument.get.asInstanceOf[js.Any])
-    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
-    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    val f = force[DropzoneProps with RefAttributes[DropzoneRef], None, js.UndefOr[Null | Ref]](this.componentImport)
-    f(__obj.asInstanceOf[DropzoneProps with RefAttributes[DropzoneRef]])
-  }
   @JSImport("react-dropzone", JSImport.Default)
   @js.native
-  object componentImport extends js.Object
+  object component extends js.Object
   
+  @scala.inline
+  class Builder (val args: js.Array[js.Any])
+    extends AnyVal
+       with StBuildingComponent[Ref with js.Object] {
+    @scala.inline
+    def accept(value: String | js.Array[String]): this.type = set("accept", value.asInstanceOf[js.Any])
+    @scala.inline
+    def children(value: /* state */ DropzoneState => CallbackTo[Element]): this.type = set("children", js.Any.fromFunction1((t0: /* state */ DropzoneState) => value(t0).runNow()))
+    @scala.inline
+    def disabled(value: Boolean): this.type = set("disabled", value.asInstanceOf[js.Any])
+    @scala.inline
+    def getFilesFromEvent(value: /* event */ DropEvent => CallbackTo[js.Any]): this.type = set("getFilesFromEvent", js.Any.fromFunction1((t0: /* event */ DropEvent) => value(t0).runNow()))
+    @scala.inline
+    def maxSize(value: Double): this.type = set("maxSize", value.asInstanceOf[js.Any])
+    @scala.inline
+    def minSize(value: Double): this.type = set("minSize", value.asInstanceOf[js.Any])
+    @scala.inline
+    def multiple(value: Boolean): this.type = set("multiple", value.asInstanceOf[js.Any])
+    @scala.inline
+    def noClick(value: Boolean): this.type = set("noClick", value.asInstanceOf[js.Any])
+    @scala.inline
+    def noDrag(value: Boolean): this.type = set("noDrag", value.asInstanceOf[js.Any])
+    @scala.inline
+    def noDragEventsBubbling(value: Boolean): this.type = set("noDragEventsBubbling", value.asInstanceOf[js.Any])
+    @scala.inline
+    def noKeyboard(value: Boolean): this.type = set("noKeyboard", value.asInstanceOf[js.Any])
+    @scala.inline
+    def onDragEnter(value: ReactDragEventFrom[HTMLElement] => Callback): this.type = set("onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement]) => value(t0).runNow()))
+    @scala.inline
+    def onDragLeave(value: ReactDragEventFrom[HTMLElement] => Callback): this.type = set("onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement]) => value(t0).runNow()))
+    @scala.inline
+    def onDragOver(value: ReactDragEventFrom[HTMLElement] => Callback): this.type = set("onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement]) => value(t0).runNow()))
+    @scala.inline
+    def onDrop(
+      value: (/* acceptedFiles */ js.Array[js.Any], /* rejectedFiles */ js.Array[js.Any], /* event */ DropEvent) => Callback
+    ): this.type = set("onDrop", js.Any.fromFunction3((t0: /* acceptedFiles */ js.Array[js.Any], t1: /* rejectedFiles */ js.Array[js.Any], t2: /* event */ DropEvent) => (value(t0, t1, t2)).runNow()))
+    @scala.inline
+    def onDropAccepted(value: (/* files */ js.Array[js.Any], /* event */ DropEvent) => Callback): this.type = set("onDropAccepted", js.Any.fromFunction2((t0: /* files */ js.Array[js.Any], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
+    @scala.inline
+    def onDropRejected(value: (/* files */ js.Array[js.Any], /* event */ DropEvent) => Callback): this.type = set("onDropRejected", js.Any.fromFunction2((t0: /* files */ js.Array[js.Any], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
+    @scala.inline
+    def onFileDialogCancel(value: Callback): this.type = set("onFileDialogCancel", value.toJsFn)
+    @scala.inline
+    def preventDropOnDocument(value: Boolean): this.type = set("preventDropOnDocument", value.asInstanceOf[js.Any])
+  }
+  
+  def withProps(p: DropzoneProps with RefAttributes[DropzoneRef]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  implicit def make(companion: ReactDropzone.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
 }
 

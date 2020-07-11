@@ -4,11 +4,12 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object SvgIcon
-  extends SharedApply_Object_1928072692[typingsJapgolly.materialUi.global.MaterialUI.SvgIcon] {
+object SvgIcon {
   @JSGlobal("__MaterialUI.SvgIcon")
   @js.native
-  override object componentImport extends js.Object
+  object component extends js.Object
   
+  def withProps(p: js.Object): SharedBuilder_Object_159303587[typingsJapgolly.materialUi.global.MaterialUI.SvgIcon] = new SharedBuilder_Object_159303587[typingsJapgolly.materialUi.global.MaterialUI.SvgIcon](js.Array(this.component, p.asInstanceOf[js.Any]))
+  implicit def make(companion: SvgIcon.type): SharedBuilder_Object_159303587[typingsJapgolly.materialUi.global.MaterialUI.SvgIcon] = new SharedBuilder_Object_159303587[typingsJapgolly.materialUi.global.MaterialUI.SvgIcon](js.Array(this.component, js.Dictionary.empty))()
 }
 

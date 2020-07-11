@@ -1,60 +1,55 @@
 package typingsJapgolly.reactContextmenu.components
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.Children.Varargs
-import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.JsForwardRefComponent.force
-import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.ReactMouseEventFrom
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
-import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLElement
+import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.reactContextmenu.mod.ContextMenuProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object ContextMenu {
-  def apply(
-    id: String,
-    className: String = null,
-    data: js.Any = null,
-    hideOnLeave: js.UndefOr[Boolean] = js.undefined,
-    onHide: /* event */ js.Any => Callback = null,
-    onMouseLeave: (js.Function3[
-      /* event */ ReactMouseEventFrom[HTMLElement], 
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
-      /* target */ HTMLElement, 
-      Unit
-    ]) | js.Function = null,
-    onShow: /* event */ js.Any => Callback = null,
-    rtl: js.UndefOr[Boolean] = js.undefined,
-    key: Key = null,
-    _overrides: StringDictionary[js.Any] = null
-  )(
-    children: ChildArg*
-  ): UnmountedWithRoot[
-    ContextMenuProps, 
-    typingsJapgolly.reactContextmenu.mod.ContextMenu, 
-    Unit, 
-    ContextMenuProps
-  ] = {
-    val __obj = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
-    if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    if (data != null) __obj.updateDynamic("data")(data.asInstanceOf[js.Any])
-    if (!js.isUndefined(hideOnLeave)) __obj.updateDynamic("hideOnLeave")(hideOnLeave.get.asInstanceOf[js.Any])
-    if (onHide != null) __obj.updateDynamic("onHide")(js.Any.fromFunction1((t0: /* event */ js.Any) => onHide(t0).runNow()))
-    if (onMouseLeave != null) __obj.updateDynamic("onMouseLeave")(onMouseLeave.asInstanceOf[js.Any])
-    if (onShow != null) __obj.updateDynamic("onShow")(js.Any.fromFunction1((t0: /* event */ js.Any) => onShow(t0).runNow()))
-    if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl.get.asInstanceOf[js.Any])
-    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
-    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    val f = force[ContextMenuProps, Varargs, typingsJapgolly.reactContextmenu.mod.ContextMenu](this.componentImport)
-    f(__obj.asInstanceOf[ContextMenuProps])(children :_*)
-  }
   @JSImport("react-contextmenu", "ContextMenu")
   @js.native
-  object componentImport extends js.Object
+  object component extends js.Object
   
+  @scala.inline
+  class Builder (val args: js.Array[js.Any])
+    extends AnyVal
+       with StBuildingComponent[typingsJapgolly.reactContextmenu.mod.ContextMenu] {
+    @scala.inline
+    def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
+    @scala.inline
+    def data(value: js.Any): this.type = set("data", value.asInstanceOf[js.Any])
+    @scala.inline
+    def hideOnLeave(value: Boolean): this.type = set("hideOnLeave", value.asInstanceOf[js.Any])
+    @scala.inline
+    def onHide(value: /* event */ js.Any => Callback): this.type = set("onHide", js.Any.fromFunction1((t0: /* event */ js.Any) => value(t0).runNow()))
+    @scala.inline
+    def onMouseLeaveFunction3(
+      value: (/* event */ ReactMouseEventFrom[HTMLElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Callback
+    ): this.type = set("onMouseLeave", js.Any.fromFunction3((t0: /* event */ ReactMouseEventFrom[HTMLElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, t2: /* target */ HTMLElement) => (value(t0, t1, t2)).runNow()))
+    @scala.inline
+    def onMouseLeave(
+      value: (js.Function3[
+          /* event */ ReactMouseEventFrom[HTMLElement], 
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+          /* target */ HTMLElement, 
+          Unit
+        ]) | js.Function
+    ): this.type = set("onMouseLeave", value.asInstanceOf[js.Any])
+    @scala.inline
+    def onShow(value: /* event */ js.Any => Callback): this.type = set("onShow", js.Any.fromFunction1((t0: /* event */ js.Any) => value(t0).runNow()))
+    @scala.inline
+    def rtl(value: Boolean): this.type = set("rtl", value.asInstanceOf[js.Any])
+  }
+  
+  def withProps(p: ContextMenuProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  @scala.inline
+  def apply(id: String): Builder = {
+    val __props = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
+    new Builder(js.Array(this.component, __props.asInstanceOf[ContextMenuProps]))
+  }
 }
 
