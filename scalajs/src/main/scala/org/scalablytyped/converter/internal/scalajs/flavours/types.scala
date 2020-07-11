@@ -8,10 +8,11 @@ object ComponentType {
   case object Class extends ComponentType
   case object Function extends ComponentType
   case object Field extends ComponentType
+  case object Intrinsic extends ComponentType
 }
 
 final case class Component(
-    location:        LocationAnnotation,
+    location:        Either[ExprTree.StringLit, LocationAnnotation],
     scalaRef:        TypeRef,
     fullName:        Name,
     tparams:         IArray[TypeParamTree],
@@ -24,9 +25,8 @@ final case class Component(
 
   val referenceTo: Option[TypeRef] =
     componentType match {
-      case ComponentType.Class    => Some(scalaRef)
-      case ComponentType.Function => None
-      case ComponentType.Field    => None
+      case ComponentType.Class | ComponentType.Intrinsic => Some(scalaRef)
+      case ComponentType.Function | ComponentType.Field  => None
     }
 
   def rewritten(scope: TreeScope, t: TreeTransformation): Component =

@@ -600,16 +600,30 @@ class SlinkyGenComponents(
     )
   }
 
-  def genImportModule(c: Component, componentCp: QualifiedName): ModuleTree =
-    ModuleTree(
-      annotations = IArray(Annotation.JsNative, c.location),
-      name        = names.component,
-      parents     = Empty,
-      members     = Empty,
-      comments    = NoComments,
-      codePath    = componentCp + names.component,
-      isOverride  = false,
-    )
+  def genImportModule(c: Component, componentCp: QualifiedName): Tree =
+    c.location match {
+      case Left(intrinsic) =>
+        FieldTree(
+          annotations = Empty,
+          name        = names.component,
+          tpe         = TypeRef.String,
+          impl        = intrinsic,
+          isReadOnly  = true,
+          isOverride  = false,
+          comments    = NoComments,
+          codePath    = componentCp + names.component,
+        )
+      case Right(location) =>
+        ModuleTree(
+          annotations = IArray(Annotation.JsNative, location),
+          name        = names.component,
+          parents     = Empty,
+          members     = Empty,
+          comments    = NoComments,
+          codePath    = componentCp + names.component,
+          isOverride  = false,
+        )
+    }
 
   def genBuilderClass(
       owner:                QualifiedName,
