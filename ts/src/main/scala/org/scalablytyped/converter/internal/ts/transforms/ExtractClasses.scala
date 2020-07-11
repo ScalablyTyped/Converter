@@ -10,8 +10,7 @@ object ExtractClasses extends TransformLeaveMembers {
     val findName = FindAvailableName(x, scope)
 
     val byNames = x.membersByName.flatMapToIArray {
-      case (_, sameName) =>
-        extractClasses(scope, sameName, findName).getOrElse(sameName)
+      case (_, sameName) => extractClasses(scope, sameName, findName).getOrElse(sameName)
     }
 
     x.unnamed ++ byNames
@@ -46,7 +45,6 @@ object ExtractClasses extends TransformLeaveMembers {
         None,
         isStatic,
         isReadOnly,
-        false,
         ) if findName(origName).isDefined =>
       val name = findName(origName).get
       TsDeclClass(
@@ -66,7 +64,6 @@ object ExtractClasses extends TransformLeaveMembers {
             TsFunSig(NoComments, Empty, params, None),
             isStatic,
             isReadOnly,
-            isOptional = false,
           ),
         ),
         ownerLoc + origName,
@@ -119,7 +116,7 @@ object ExtractClasses extends TransformLeaveMembers {
       })
 
     vars match {
-      case IArray.headTail(v @ TsDeclVar(cs, declared, _, name, Some(tpe), None, jsLocation, cp, false), restVars)
+      case IArray.headTail(v @ TsDeclVar(cs, declared, _, name, Some(tpe), None, jsLocation, cp), restVars)
           if classes.isEmpty =>
         val allMembers = AllMembersFor.forType(scope, LoopDetector.initial)(tpe)
 
@@ -169,7 +166,6 @@ object ExtractClasses extends TransformLeaveMembers {
                       TsFunSig(NoComments, Empty, ctor.signature.params, None),
                       isStatic   = false,
                       isReadOnly = false,
-                      isOptional = false,
                     )
                 }
 

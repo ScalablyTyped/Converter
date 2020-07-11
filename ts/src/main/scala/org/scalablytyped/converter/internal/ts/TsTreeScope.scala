@@ -460,7 +460,7 @@ object TsTreeScope {
               case None        => Empty
             }
 
-          case TsDeclVar(_, _, _, _, Some(tpe), _, jsLocation, cp, false) =>
+          case TsDeclVar(_, _, _, _, Some(tpe), _, jsLocation, cp) =>
             Hoisting.fromType(scope, cp, jsLocation, loopDetector, tpe).collect {
               case Pick(x) if one === x.name => x -> scope
             }
@@ -490,7 +490,7 @@ object TsTreeScope {
 
                       def fakeVar = {
                         val loc = x.jsLocation + m.name
-                        TsDeclVar(NoComments, false, true, m.name, None, m.expr, loc, x.codePath + m.name, false)
+                        TsDeclVar(NoComments, false, true, m.name, None, m.expr, loc, x.codePath + m.name)
                       }
                       if (x.isConst) IArray(fakeTa) else IArray(fakeTa, fakeVar)
                     }
@@ -503,10 +503,10 @@ object TsTreeScope {
                     }
                   case x: TsContainer =>
                     (scope / x).lookupInternal(Pick, t, loopDetector)
-                  case TsDeclVar(_, _, _, _, Some(_: TsTypeThis), _, _, _, false) =>
+                  case TsDeclVar(_, _, _, _, Some(_: TsTypeThis), _, _, _) =>
                     // this is the second part of the aws-sdk hack, see HandleCommonJsModules
                     search(scope, Pick, c, t, loopDetector)
-                  case TsDeclVar(_, _, _, _, Some(tpe), _, jsLocation, cp, false) =>
+                  case TsDeclVar(_, _, _, _, Some(tpe), _, jsLocation, cp) =>
                     Hoisting.fromType(scope, cp, jsLocation, loopDetector, tpe).collect {
                       case Pick(x) if t.headOption.contains(x.name) => x -> scope
                     }

@@ -18,8 +18,8 @@ object CanBeScalaJsDefined {
       case int: TsDeclInterface =>
         val fromUnnamed = int.unnamed.forall {
           case _: TsMemberTypeMapped => false
-          case TsMemberIndex(_, _, _, IndexingSingle(_), _, _) => false
-          case _                                               => true
+          case TsMemberIndex(_, _, _, IndexingSingle(_), _) => false
+          case _                                            => true
         }
 
         val fromNamed = int.membersByName.forall {

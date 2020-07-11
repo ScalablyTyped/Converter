@@ -5,20 +5,20 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait RefAny extends js.Object {
-  var ref: js.UndefOr[
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<R, string> */ js.Any
-  ] = js.native
+trait `1` extends js.Object {
+  var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any = js.native
 }
 
-object RefAny {
+object `1` {
   @scala.inline
-  def apply(): RefAny = {
-    val __obj = js.Dynamic.literal()
-    __obj.asInstanceOf[RefAny]
+  def apply(
+    defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
+  ): `1` = {
+    val __obj = js.Dynamic.literal(defaultProps = defaultProps.asInstanceOf[js.Any])
+    __obj.asInstanceOf[`1`]
   }
   @scala.inline
-  implicit class RefAnyOps[Self <: RefAny] (val x: Self) extends AnyVal {
+  implicit class `1Ops`[Self <: `1`] (val x: Self) extends AnyVal {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
@@ -29,11 +29,7 @@ object RefAny {
         x
     }
     @scala.inline
-    def setRef(
-      value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<R, string> */ js.Any
-    ): Self = this.set("ref", value.asInstanceOf[js.Any])
-    @scala.inline
-    def deleteRef: Self = this.set("ref", js.undefined)
+    def setDefaultProps(value: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any): Self = this.set("defaultProps", value.asInstanceOf[js.Any])
   }
   
 }

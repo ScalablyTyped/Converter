@@ -18,7 +18,6 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
             None,
             isStatic,
             isReadOnly,
-            isOptional,
           ) if !TsQIdent.Primitive(wanted) =>
         val founds = lookup(scope, Picker.NamedValues, wanted)
           .map {
@@ -33,7 +32,6 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
                 found.signature,
                 isStatic,
                 isReadOnly,
-                isOptional,
               )
             case (found, newScope) =>
               target.copy(tpe = typeOf(found, newScope, LoopDetector.initial))
@@ -53,8 +51,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
 
   def newMembers(scope: TsTreeScope, tree: TsContainer): IArray[TsContainerOrDecl] =
     tree.members.flatMap {
-      case target @ TsDeclVar(_, _, _, name, Some(tpe @ TsTypeQuery(expr)), None, _, _, false)
-          if !TsQIdent.Primitive(expr) =>
+      case target @ TsDeclVar(_, _, _, name, Some(tpe @ TsTypeQuery(expr)), None, _, _) if !TsQIdent.Primitive(expr) =>
         lazy val ownerLoc = tree match {
           case x: HasJsLocation => x.jsLocation
           case _ => JsLocation.Zero
@@ -130,7 +127,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           val existingCtorOpt: Option[TsTypeConstructor] =
             cls.members collectFirst {
               case TsMemberCtor(cs, _, sig) => asTypeCtor(cls, sig.comments ++ cs, sig.params)
-              case TsMemberFunction(cs, _, TsIdent.constructor, MethodType.Normal, sig, _, _, _) =>
+              case TsMemberFunction(cs, _, TsIdent.constructor, MethodType.Normal, sig, _, _) =>
                 asTypeCtor(cls, sig.comments ++ cs, sig.params)
             }
 
@@ -172,7 +169,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
         val newMod = new ReplaceExports(LoopDetector.initial).visitTsDeclModule(scope.`..`)(mod)
         nonEmptyTypeObject(newMod)
 
-      case TsDeclVar(_, _, _, _, tpe, _, _, _, _) =>
+      case TsDeclVar(_, _, _, _, tpe, _, _, _) =>
         tpe map {
           case nested: TsTypeQuery =>
             resolve(scope, nested, loopDetector)
@@ -238,7 +235,6 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           None,
           isStatic   = false,
           isReadOnly = true,
-          isOptional = false,
         )
       case TsDeclFunction(cs, _, name, sig, _, _) =>
         TsMemberFunction(
@@ -249,9 +245,8 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           sig,
           isStatic   = false,
           isReadOnly = true,
-          isOptional = false,
         )
-      case TsDeclVar(cs, _, isReadOnly, name, tpe, lit, _, _, isOptional) =>
+      case TsDeclVar(cs, _, isReadOnly, name, tpe, lit, _, _) =>
         TsMemberProperty(
           cs,
           ProtectionLevel.Default,
@@ -260,7 +255,6 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           lit,
           isStatic   = false,
           isReadOnly = isReadOnly,
-          isOptional = isOptional,
         )
       case RewrittenClass((cls, tpe)) =>
         TsMemberProperty(
@@ -271,7 +265,6 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           None,
           isStatic   = false,
           isReadOnly = false,
-          isOptional = false,
         )
     }
     if (rewritten.isEmpty) None

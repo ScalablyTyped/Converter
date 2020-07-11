@@ -71,9 +71,19 @@ trait Vue extends js.Object {
   @JSName("$createElement")
   def $createElement(): VNode = js.native
   @JSName("$createElement")
+  def $createElement(tag: js.UndefOr[Component[_, _, _, _]], children: VNodeChildren): VNode = js.native
+  @JSName("$createElement")
+  def $createElement(tag: js.UndefOr[Component[_, _, _, _]], data: js.UndefOr[scala.Nothing], children: VNodeChildren): VNode = js.native
+  @JSName("$createElement")
+  def $createElement(tag: js.UndefOr[Component[_, _, _, _]], data: VNodeData): VNode = js.native
+  @JSName("$createElement")
+  def $createElement(tag: js.UndefOr[Component[_, _, _, _]], data: VNodeData, children: VNodeChildren): VNode = js.native
+  @JSName("$createElement")
   def $createElement(tag: String): VNode = js.native
   @JSName("$createElement")
   def $createElement(tag: String, children: VNodeChildren): VNode = js.native
+  @JSName("$createElement")
+  def $createElement(tag: String, data: js.UndefOr[scala.Nothing], children: VNodeChildren): VNode = js.native
   @JSName("$createElement")
   def $createElement(tag: String, data: VNodeData): VNode = js.native
   @JSName("$createElement")
@@ -83,6 +93,12 @@ trait Vue extends js.Object {
   @JSName("$createElement")
   def $createElement(
     tag: js.Function0[Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]],
+    children: VNodeChildren
+  ): VNode = js.native
+  @JSName("$createElement")
+  def $createElement(
+    tag: js.Function0[Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]],
+    data: js.UndefOr[scala.Nothing],
     children: VNodeChildren
   ): VNode = js.native
   @JSName("$createElement")
@@ -101,17 +117,13 @@ trait Vue extends js.Object {
   @JSName("$createElement")
   def $createElement(tag: AsyncComponent[_, _, _, _], children: VNodeChildren): VNode = js.native
   @JSName("$createElement")
+  def $createElement(tag: AsyncComponent[_, _, _, _], data: js.UndefOr[scala.Nothing], children: VNodeChildren): VNode = js.native
+  @JSName("$createElement")
   def $createElement(tag: AsyncComponent[_, _, _, _], data: VNodeData): VNode = js.native
   @JSName("$createElement")
   def $createElement(tag: AsyncComponent[_, _, _, _], data: VNodeData, children: VNodeChildren): VNode = js.native
   @JSName("$createElement")
   def $createElement(tag: Component[_, _, _, _]): VNode = js.native
-  @JSName("$createElement")
-  def $createElement(tag: Component[_, _, _, _], children: VNodeChildren): VNode = js.native
-  @JSName("$createElement")
-  def $createElement(tag: Component[_, _, _, _], data: VNodeData): VNode = js.native
-  @JSName("$createElement")
-  def $createElement(tag: Component[_, _, _, _], data: VNodeData, children: VNodeChildren): VNode = js.native
   @JSName("$delete")
   def $delete(`object`: js.Object, key: String): Unit = js.native
   @JSName("$delete")
@@ -124,6 +136,8 @@ trait Vue extends js.Object {
   def $forceUpdate(): Unit = js.native
   @JSName("$mount")
   def $mount(): this.type = js.native
+  @JSName("$mount")
+  def $mount(elementOrSelector: js.UndefOr[scala.Nothing], hydrating: Boolean): this.type = js.native
   @JSName("$mount")
   def $mount(elementOrSelector: String): this.type = js.native
   @JSName("$mount")
@@ -138,6 +152,8 @@ trait Vue extends js.Object {
   def $nextTick(callback: js.ThisFunction0[/* this */ this.type, Unit]): Unit = js.native
   @JSName("$off")
   def $off(): this.type = js.native
+  @JSName("$off")
+  def $off(event: js.UndefOr[scala.Nothing], callback: js.Function): this.type = js.native
   @JSName("$off")
   def $off(event: String): this.type = js.native
   @JSName("$off")

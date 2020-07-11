@@ -254,10 +254,6 @@ object Phase1ReadTypescript {
         if (involvesReact) T.ExtractClasses
         else T.ExtractClasses >> T.ExpandCallables
       ).visitTsParsedFile(scope.caching),
-      (
-        T.SplitMethodsOnUnionTypes >> // after ExpandCallables
-          T.RemoveDifficultInheritance
-      ).visitTsParsedFile(scope.caching),
-      T.SplitMethodsOnOptionalParams.visitTsParsedFile(scope.caching),
+      (T.SplitMethods /* after ExpandCallables */ >> T.RemoveDifficultInheritance).visitTsParsedFile(scope.caching),
     )
 }

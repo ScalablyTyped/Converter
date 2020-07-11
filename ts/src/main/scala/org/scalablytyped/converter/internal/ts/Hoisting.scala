@@ -32,10 +32,10 @@ object Hoisting {
     x match {
       case TsMemberCall(cs, _, sig) =>
         Some(TsDeclFunction(cs, declared, TsIdent.Apply, sig, ownerLoc, ownerCp + TsIdent.Apply))
-      case TsMemberFunction(cs, _, name, MethodType.Normal, sig, _, _, _) =>
+      case TsMemberFunction(cs, _, name, MethodType.Normal, sig, _, _) =>
         Some(TsDeclFunction(cs, declared, name, sig, ownerLoc + name, ownerCp + name))
-      case TsMemberProperty(cs, _, name, tpe, lit, _, isReadOnly, isOptional) =>
-        Some(TsDeclVar(cs, declared, isReadOnly, name, tpe, lit, ownerLoc + name, ownerCp + name, isOptional))
+      case TsMemberProperty(cs, _, name, tpe, lit, _, isReadOnly) =>
+        Some(TsDeclVar(cs, declared, isReadOnly, name, tpe, lit, ownerLoc + name, ownerCp + name))
       case _ => None
     }
 }

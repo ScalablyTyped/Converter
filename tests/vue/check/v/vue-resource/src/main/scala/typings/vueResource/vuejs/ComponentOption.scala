@@ -1,13 +1,13 @@
 package typings.vueResource.vuejs
 
-import typings.vueResource.anon.headersHttpHeaderskeystri
+import typings.vueResource.anon.headersHttpHeadersundefin
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
 trait ComponentOption extends js.Object {
-  var http: js.UndefOr[headersHttpHeaderskeystri] = js.native
+  var http: js.UndefOr[headersHttpHeadersundefin] = js.native
 }
 
 object ComponentOption {
@@ -28,7 +28,7 @@ object ComponentOption {
         x
     }
     @scala.inline
-    def setHttp(value: headersHttpHeaderskeystri): Self = this.set("http", value.asInstanceOf[js.Any])
+    def setHttp(value: headersHttpHeadersundefin): Self = this.set("http", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteHttp: Self = this.set("http", js.undefined)
   }

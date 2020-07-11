@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation._
 - typings.node.eventsMod.EventEmitter because Already inherited
 - typings.node.NodeJS.WritableStream because var conflicts: writable. Inlined 
 - typings.node.streamMod.internal because Already inherited
-- typings.node.streamMod.Writable because Inheritance from two classes. Inlined writable, end, end, end, end, end, end, on, on_close */ @JSImport("stream", "Duplex")
+- typings.node.streamMod.Writable because Inheritance from two classes. Inlined writable, end, end, end, end, end, end, end, on, on_close */ @JSImport("stream", "Duplex")
 @js.native
 class Duplex () extends Readable {
   def this(opts: DuplexOptions) = this()
@@ -18,6 +18,7 @@ class Duplex () extends Readable {
   def end(cb: js.Function): Unit = js.native
   def end(chunk: js.Any): Unit = js.native
   def end(chunk: js.Any, cb: js.Function): Unit = js.native
+  def end(chunk: js.Any, encoding: js.UndefOr[scala.Nothing], cb: js.Function): Unit = js.native
   def end(chunk: js.Any, encoding: String): Unit = js.native
   def end(chunk: js.Any, encoding: String, cb: js.Function): Unit = js.native
 }

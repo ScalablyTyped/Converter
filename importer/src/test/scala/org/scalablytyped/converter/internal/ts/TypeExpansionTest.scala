@@ -24,7 +24,7 @@ type AA = Partial<A>
 """).extract[TsDeclInterface]("AA")
 
     val isOptionals = out.members.collect[java.lang.Boolean] {
-      case TsMemberProperty(_, _, _, _, _, _, _, isOptional) => isOptional
+      case TsMemberProperty(_, _, _, Some(OptionalType(_)), _, _, _) => true
     }
 
     isOptionals.shouldBe(IArray[java.lang.Boolean](true, true, true, true, true, true))
@@ -76,20 +76,22 @@ export declare type PickerMode = Exclude<PanelMode, 'datetime' | 'decade'>;
         ProtectionLevel.Default,
         TsIdentSimple("children"),
         Some(
-          TsTypeRef(
-            NoComments,
-            TsQIdent(IArray(TsIdentLibrarySimple("testing"), TsIdentSimple("Array"))),
-            IArray(
-              TsTypeRef(
-                NoComments,
-                TsQIdent(
-                  IArray(
-                    TsIdentLibrarySimple("testing"),
-                    TsIdentSimple("anon"),
-                    TsIdentSimple("ToJsonOutputnamestring"),
+          OptionalType(
+            TsTypeRef(
+              NoComments,
+              TsQIdent(IArray(TsIdentLibrarySimple("testing"), TsIdentSimple("Array"))),
+              IArray(
+                TsTypeRef(
+                  NoComments,
+                  TsQIdent(
+                    IArray(
+                      TsIdentLibrarySimple("testing"),
+                      TsIdentSimple("anon"),
+                      TsIdentSimple("ToJsonOutputnamestringund"),
+                    ),
                   ),
+                  IArray(),
                 ),
-                IArray(),
               ),
             ),
           ),
@@ -97,9 +99,70 @@ export declare type PickerMode = Exclude<PanelMode, 'datetime' | 'decade'>;
         None,
         false,
         false,
-        true,
       )
 
     out.membersByName(TsIdent("children")).shouldBe(IArray(expected))
+  }
+
+  test("bug") {
+    val out = run(s"""
+interface CSSProperties {
+  alignContent?: number;
+}
+
+type StringOrNumberOrCallback = string | number | ((args: any) => string | number);
+type VictoryStyleObject = { [K in keyof CSSProperties]: StringOrNumberOrCallback };
+""").extract[TsDeclInterface]("VictoryStyleObject")
+
+    val expected = TsMemberProperty(
+      NoComments,
+      ProtectionLevel.Default,
+      TsIdentSimple("alignContent"),
+      Some(
+        OptionalType(
+          TsTypeRef(
+            NoComments,
+            TsQIdent(IArray(TsIdentLibrarySimple("testing"), TsIdentSimple("StringOrNumberOrCallback"))),
+            IArray(),
+          ),
+        ),
+      ),
+      None,
+      isStatic   = false,
+      isReadOnly = false,
+    )
+
+    out.membersByName(TsIdent("alignContent")).shouldBe(IArray(expected))
+  }
+
+  test("Required") {
+    val out = run(s"""
+type Required<T> = {
+    [P in keyof T]-?: T[P];
+};
+type Pick<T, K extends keyof T> = {
+    [P in K]: T[P];
+};
+
+interface CSSProperties {
+  fontFamily?: string;
+  fontSize?: string;
+  fontWeight?: string;
+  color?: string;
+}
+type Test = Required<Pick<CSSProperties, 'fontFamily' | 'fontSize' | 'fontWeight' | 'color'>>
+""").extract[TsDeclInterface]("Test")
+
+    val expected = TsMemberProperty(
+      NoComments,
+      ProtectionLevel.Default,
+      TsIdentSimple("color"),
+      Some(TsTypeRef.string),
+      None,
+      isStatic   = false,
+      isReadOnly = false,
+    )
+
+    out.membersByName(TsIdent("color")).shouldBe(IArray(expected))
   }
 }

@@ -4,7 +4,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* Inlined vue-resource.vuejs.HttpOptions & {  root  :string} */
+/* Inlined vue-resource.vuejs.HttpOptions & {  root :string} */
 @js.native
 trait HttpOptionsrootstring extends js.Object {
   var before: js.UndefOr[js.Function1[/* request */ js.Any, _]] = js.native

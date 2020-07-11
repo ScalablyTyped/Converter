@@ -8,7 +8,7 @@ object AllMembersFor {
     tpe match {
       case x: TsTypeRef         => apply(scope, loopDetector)(x)
       case x: TsTypeIntersect   => x.types.flatMap(forType(scope, loopDetector))
-      case x: TsTypeUnion       => x.types.flatMap(forType(scope, loopDetector)).map(TsMember.optional(true))
+      case x: TsTypeUnion       => Empty
       case x: TsTypeObject      => x.members
       case _: TsTypeAsserts     => Empty
       case _: TsTypeLiteral     => Empty
@@ -66,18 +66,4 @@ object AllMembersFor {
       case TsDeclInterface(_, _, _, _, inheritance, members, _) =>
         handleOverridingFields(members, inheritance flatMap AllMembersFor(newScope, loopDetector))
     }
-}
-
-class LoopDetectorFull private (val stack: IArray[(TsTypeRef, TsTreeScope)]) {
-  def this() = this(IArray.Empty)
-
-  def including(wanted: TsTypeRef, scope: TsTreeScope): Either[Unit, LoopDetectorFull] = {
-    val tuple = (wanted, scope)
-    if (stack.contains(tuple)) Left(())
-    else Right(new LoopDetectorFull(tuple +: stack))
-  }
-}
-
-object LoopDetectorFull {
-  val initial = new LoopDetectorFull()
 }

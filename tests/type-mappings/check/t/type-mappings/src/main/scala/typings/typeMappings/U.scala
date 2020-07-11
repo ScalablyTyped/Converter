@@ -4,7 +4,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* Inlined std.Pick<{  name  :string,   age  :number}, 'name' | 'age'> */
+/* Inlined std.Pick<{  name :string,   age :number}, 'name' | 'age'> */
 @js.native
 trait U extends js.Object {
   var age: scala.Double = js.native

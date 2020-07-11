@@ -198,7 +198,6 @@ final class CommentTests extends AnyFunSuite with Matchers {
           None,
           isStatic   = false,
           isReadOnly = false,
-          isOptional = false,
         ),
       ),
     )
@@ -224,7 +223,6 @@ final class CommentTests extends AnyFunSuite with Matchers {
             None,
             isStatic   = false,
             isReadOnly = false,
-            isOptional = false,
           ),
           TsMemberProperty(
             NoComments,
@@ -234,7 +232,6 @@ final class CommentTests extends AnyFunSuite with Matchers {
             None,
             isStatic   = false,
             isReadOnly = false,
-            isOptional = false,
           ),
         ),
       ),
@@ -273,7 +270,6 @@ final class CommentTests extends AnyFunSuite with Matchers {
                       ),
                     ),
                   ),
-                  isOptional = false,
                 ),
               ),
               Some(

@@ -9,6 +9,7 @@ import scala.scalajs.js.annotation._
 @js.native
 object showMenu extends js.Object {
   def apply(): Unit = js.native
+  def apply(opts: js.UndefOr[scala.Nothing], target: HTMLElement): Unit = js.native
   def apply(opts: js.Any): Unit = js.native
   def apply(opts: js.Any, target: HTMLElement): Unit = js.native
 }

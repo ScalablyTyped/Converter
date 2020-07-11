@@ -16,6 +16,7 @@ class Writable ()
   def end(cb: js.Function): Unit = js.native
   def end(chunk: js.Any): Unit = js.native
   def end(chunk: js.Any, cb: js.Function): Unit = js.native
+  def end(chunk: js.Any, encoding: js.UndefOr[scala.Nothing], cb: js.Function): Unit = js.native
   def end(chunk: js.Any, encoding: String): Unit = js.native
   def end(chunk: js.Any, encoding: String, cb: js.Function): Unit = js.native
   @JSName("on")

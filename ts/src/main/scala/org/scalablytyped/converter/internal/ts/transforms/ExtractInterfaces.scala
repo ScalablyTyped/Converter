@@ -67,8 +67,8 @@ object ExtractInterfaces {
 
   def isDictionary(members: IArray[TsMember]): Boolean =
     members.nonEmpty && members.forall {
-      case TsMemberIndex(_, _, _, IndexingDict(_, _), _, _) => true
-      case _                                                => false
+      case TsMemberIndex(_, _, _, IndexingDict(_, _), _) => true
+      case _                                             => false
     }
 
   private class LiftTypeObjects(store: ConflictHandlingStore) extends TreeTransformationScopedChanges {

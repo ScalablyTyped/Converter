@@ -102,9 +102,8 @@ object FlattenTrees {
         rets.addOrUpdateMatching(that: TsNamedDecl)(m => m) {
           case existing: TsDeclVar if that.name === existing.name =>
             existing.copy(
-              comments   = mergeComments(existing.comments, that.comments),
-              tpe        = bothTypes(existing.tpe, that.tpe),
-              isOptional = existing.isOptional || that.isOptional,
+              comments = mergeComments(existing.comments, that.comments),
+              tpe      = bothTypes(existing.tpe, that.tpe),
             )
           case existing: TsDeclNamespace if that.name === existing.name =>
             mergeNamespaceAndVar(existing, that)
@@ -150,9 +149,8 @@ object FlattenTrees {
         rets.addOrUpdateMatching(that)(x => x) {
           case existing: TsMemberProperty if that.name === existing.name && that.isStatic === existing.isStatic =>
             existing.copy(
-              comments   = mergeComments(existing.comments, that.comments),
-              tpe        = bothTypes(existing.tpe, that.tpe),
-              isOptional = existing.isOptional || that.isOptional,
+              comments = mergeComments(existing.comments, that.comments),
+              tpe      = bothTypes(existing.tpe, that.tpe),
             )
         }
 
@@ -160,9 +158,8 @@ object FlattenTrees {
         rets.addOrUpdateMatching(that)(x => x) {
           case existing: TsMemberIndex if that.indexing === existing.indexing =>
             existing.copy(
-              comments   = mergeComments(existing.comments, that.comments),
-              valueType  = Some(TsTypeIntersect.simplified(IArray.fromOptions(existing.valueType, that.valueType))),
-              isOptional = existing.isOptional || that.isOptional,
+              comments  = mergeComments(existing.comments, that.comments),
+              valueType = Some(TsTypeIntersect.simplified(IArray.fromOptions(existing.valueType, that.valueType))),
             )
         }
 

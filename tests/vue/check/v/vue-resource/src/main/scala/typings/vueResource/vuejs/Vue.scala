@@ -16,7 +16,20 @@ trait Vue extends js.Object {
   @JSName("$resource")
   def $resource(url: String): ResourceMethods = js.native
   @JSName("$resource")
+  def $resource(
+    url: String,
+    params: js.UndefOr[scala.Nothing],
+    actions: js.UndefOr[scala.Nothing],
+    options: HttpOptions
+  ): ResourceMethods = js.native
+  @JSName("$resource")
+  def $resource(url: String, params: js.UndefOr[scala.Nothing], actions: js.Any): ResourceMethods = js.native
+  @JSName("$resource")
+  def $resource(url: String, params: js.UndefOr[scala.Nothing], actions: js.Any, options: HttpOptions): ResourceMethods = js.native
+  @JSName("$resource")
   def $resource(url: String, params: js.Object): ResourceMethods = js.native
+  @JSName("$resource")
+  def $resource(url: String, params: js.Object, actions: js.UndefOr[scala.Nothing], options: HttpOptions): ResourceMethods = js.native
   @JSName("$resource")
   def $resource(url: String, params: js.Object, actions: js.Any): ResourceMethods = js.native
   @JSName("$resource")
