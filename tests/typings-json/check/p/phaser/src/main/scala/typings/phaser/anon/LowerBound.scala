@@ -28,9 +28,13 @@ object LowerBound {
         x
     }
     @scala.inline
+    def setLowerBoundVarargs(value: Double*): Self = this.set("lowerBound", js.Array(value :_*))
+    @scala.inline
     def setLowerBound(value: js.Array[Double]): Self = this.set("lowerBound", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteLowerBound: Self = this.set("lowerBound", js.undefined)
+    @scala.inline
+    def setUpperBoundVarargs(value: Double*): Self = this.set("upperBound", js.Array(value :_*))
     @scala.inline
     def setUpperBound(value: js.Array[Double]): Self = this.set("upperBound", value.asInstanceOf[js.Any])
     @scala.inline

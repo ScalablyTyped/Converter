@@ -9,6 +9,7 @@ import typingsJapgolly.semanticUiReact.genericMod.SemanticFLOATS
 import typingsJapgolly.semanticUiReact.genericMod.SemanticSIZES
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandCollection
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
+import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandItem
 import typingsJapgolly.semanticUiReact.genericMod.SemanticWIDTHS
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
@@ -95,6 +96,8 @@ object StrictButtonGroupProps {
     def setBasic(value: Boolean): Self = this.set("basic", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteBasic: Self = this.set("basic", js.undefined)
+    @scala.inline
+    def setButtonsVarargs(value: SemanticShorthandItem[ButtonProps]*): Self = this.set("buttons", js.Array(value :_*))
     @scala.inline
     def setButtons(value: SemanticShorthandCollection[ButtonProps]): Self = this.set("buttons", value.asInstanceOf[js.Any])
     @scala.inline

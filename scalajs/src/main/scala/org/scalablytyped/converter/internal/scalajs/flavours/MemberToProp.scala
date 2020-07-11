@@ -52,6 +52,15 @@ object MemberToProp {
                         case x: Prop.Normal => x.allVariants
                         case _ => Empty
                       }
+                  case TypeRef(QualifiedName.Array, IArray.exactlyOne(t), _) =>
+                    IArray(
+                      Prop.Variant(
+                        TypeRef.Repeated(t, NoComments),
+                        e => Call(Ref(QualifiedName.Array), IArray(IArray(`:_*`(e)))),
+                        isRewritten   = true,
+                        extendsAnyVal = false,
+                      ),
+                    )
                   case _ => Empty
                 }
 

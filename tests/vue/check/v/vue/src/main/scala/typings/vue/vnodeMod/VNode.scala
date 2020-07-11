@@ -47,6 +47,8 @@ object VNode {
     @scala.inline
     def setIsRootInsert(value: Boolean): Self = this.set("isRootInsert", value.asInstanceOf[js.Any])
     @scala.inline
+    def setChildrenVarargs(value: VNode*): Self = this.set("children", js.Array(value :_*))
+    @scala.inline
     def setChildren(value: js.Array[VNode]): Self = this.set("children", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteChildren: Self = this.set("children", js.undefined)

@@ -512,6 +512,8 @@ object Printer {
           es.map(e => (" " * indent) + formatExpr(indent + 2)(e)).mkString("{\n", "\n", "\n}")
         case ExprTree.Null =>
           "null"
+        case ExprTree.`:_*`(e) =>
+          s"${formatExpr(indent)(e)} :_*"
         case ExprTree.Ref(value) =>
           formatQN(value)
         case ExprTree.StringLit(value) =>

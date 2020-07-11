@@ -6,6 +6,7 @@ import slinky.web.SyntheticMouseEvent
 import typingsSlinky.semanticUiReact.accordionPanelMod.AccordionPanelProps
 import typingsSlinky.semanticUiReact.accordionTitleMod.AccordionTitleProps
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandCollection
+import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -59,6 +60,8 @@ object StrictAccordionAccordionProps {
         x
     }
     @scala.inline
+    def setActiveIndexVarargs(value: Double*): Self = this.set("activeIndex", js.Array(value :_*))
+    @scala.inline
     def setActiveIndex(value: Double | js.Array[Double]): Self = this.set("activeIndex", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteActiveIndex: Self = this.set("activeIndex", js.undefined)
@@ -77,6 +80,8 @@ object StrictAccordionAccordionProps {
     @scala.inline
     def deleteClassName: Self = this.set("className", js.undefined)
     @scala.inline
+    def setDefaultActiveIndexVarargs(value: Double*): Self = this.set("defaultActiveIndex", js.Array(value :_*))
+    @scala.inline
     def setDefaultActiveIndex(value: Double | js.Array[Double]): Self = this.set("defaultActiveIndex", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteDefaultActiveIndex: Self = this.set("defaultActiveIndex", js.undefined)
@@ -88,6 +93,8 @@ object StrictAccordionAccordionProps {
     def setOnTitleClick(value: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit): Self = this.set("onTitleClick", js.Any.fromFunction2(value))
     @scala.inline
     def deleteOnTitleClick: Self = this.set("onTitleClick", js.undefined)
+    @scala.inline
+    def setPanelsVarargs(value: SemanticShorthandItem[AccordionPanelProps]*): Self = this.set("panels", js.Array(value :_*))
     @scala.inline
     def setPanels(value: SemanticShorthandCollection[AccordionPanelProps]): Self = this.set("panels", value.asInstanceOf[js.Any])
     @scala.inline

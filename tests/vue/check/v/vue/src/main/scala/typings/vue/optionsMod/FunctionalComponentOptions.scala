@@ -37,6 +37,8 @@ object FunctionalComponentOptions {
     @scala.inline
     def setRender(value: (CreateElement, RenderContext[Props]) => VNode): Self = this.set("render", js.Any.fromFunction2(value))
     @scala.inline
+    def setInjectVarargs(value: String*): Self = this.set("inject", js.Array(value :_*))
+    @scala.inline
     def setInject(value: InjectOptions): Self = this.set("inject", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteInject: Self = this.set("inject", js.undefined)

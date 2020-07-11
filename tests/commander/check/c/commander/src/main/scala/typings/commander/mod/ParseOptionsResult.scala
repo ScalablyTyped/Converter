@@ -28,7 +28,11 @@ object ParseOptionsResult {
         x
     }
     @scala.inline
+    def setArgsVarargs(value: String*): Self = this.set("args", js.Array(value :_*))
+    @scala.inline
     def setArgs(value: js.Array[String]): Self = this.set("args", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setUnknownVarargs(value: String*): Self = this.set("unknown", js.Array(value :_*))
     @scala.inline
     def setUnknown(value: js.Array[String]): Self = this.set("unknown", value.asInstanceOf[js.Any])
   }

@@ -27,6 +27,8 @@ object ChartData {
         x
     }
     @scala.inline
+    def setLabelsVarargs(value: (String | js.Array[String])*): Self = this.set("labels", js.Array(value :_*))
+    @scala.inline
     def setLabels(value: js.Array[String | js.Array[String]]): Self = this.set("labels", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteLabels: Self = this.set("labels", js.undefined)

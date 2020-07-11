@@ -56,6 +56,8 @@ object VNodeData {
     @scala.inline
     def deleteClass: Self = this.set("class", js.undefined)
     @scala.inline
+    def setDirectivesVarargs(value: VNodeDirective*): Self = this.set("directives", js.Array(value :_*))
+    @scala.inline
     def setDirectives(value: js.Array[VNodeDirective]): Self = this.set("directives", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteDirectives: Self = this.set("directives", js.undefined)
@@ -115,6 +117,8 @@ object VNodeData {
     def setStaticStyle(value: StringDictionary[js.Any]): Self = this.set("staticStyle", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteStaticStyle: Self = this.set("staticStyle", js.undefined)
+    @scala.inline
+    def setStyleVarargs(value: js.Object*): Self = this.set("style", js.Array(value :_*))
     @scala.inline
     def setStyle(value: js.Array[js.Object] | js.Object): Self = this.set("style", value.asInstanceOf[js.Any])
     @scala.inline

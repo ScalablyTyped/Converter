@@ -9,6 +9,7 @@ import typingsJapgolly.semanticUiReact.genericMod.SemanticFLOATS
 import typingsJapgolly.semanticUiReact.genericMod.SemanticSIZES
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandCollection
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
+import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandItem
 import typingsJapgolly.semanticUiReact.genericMod.SemanticWIDTHS
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
@@ -33,6 +34,8 @@ object ButtonGroup {
     def attached(value: Boolean | left | right | top | bottom): this.type = set("attached", value.asInstanceOf[js.Any])
     @scala.inline
     def basic(value: Boolean): this.type = set("basic", value.asInstanceOf[js.Any])
+    @scala.inline
+    def buttonsVarargs(value: SemanticShorthandItem[ButtonProps]*): this.type = set("buttons", js.Array(value :_*))
     @scala.inline
     def buttons(value: SemanticShorthandCollection[ButtonProps]): this.type = set("buttons", value.asInstanceOf[js.Any])
     @scala.inline

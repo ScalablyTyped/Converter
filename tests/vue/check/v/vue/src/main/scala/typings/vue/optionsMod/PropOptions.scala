@@ -42,6 +42,8 @@ object PropOptions {
     @scala.inline
     def deleteRequired: Self = this.set("required", js.undefined)
     @scala.inline
+    def setTypeVarargs(value: Prop[T]*): Self = this.set("type", js.Array(value :_*))
+    @scala.inline
     def setTypeFunction0(value: () => T): Self = this.set("type", js.Any.fromFunction0(value))
     @scala.inline
     def setType(value: Prop[T] | js.Array[Prop[T]]): Self = this.set("type", value.asInstanceOf[js.Any])
