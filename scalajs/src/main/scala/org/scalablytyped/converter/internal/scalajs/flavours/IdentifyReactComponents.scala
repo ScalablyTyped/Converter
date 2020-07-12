@@ -30,7 +30,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
     (preferNotSrc, preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
   }
 
-  def intrinsics(scope: TreeScope, tree: ContainerTree): IArray[Component] =
+  def intrinsics(scope: TreeScope): IArray[Component] =
     if (scope.libName.unescaped === "react") {
       scope
         .lookup(reactNames.JsxIntrinsicElements)
@@ -83,7 +83,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
       IArray.fromOption(fromSelf) ++ fromMembers
     }
 
-    intrinsics(scope, tree) ++ go(tree, scope)
+    go(tree, scope)
       .filterNot(c => reactNames.isComponent(c.scalaRef))
       .map(_.rewritten(scope, Wildcards.Remove))
   }

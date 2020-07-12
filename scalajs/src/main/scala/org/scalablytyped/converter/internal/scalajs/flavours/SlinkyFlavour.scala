@@ -33,7 +33,8 @@ case class SlinkyFlavour(outputPkg: Name) extends FlavourImplReact {
 
     val withComponents = if (involvesReact(scope)) {
       val components: IArray[Component] =
-        identifyComponents.oneOfEach(scope / withCompanions, withCompanions)
+        identifyComponents.oneOfEach(scope / withCompanions, withCompanions) ++
+          identifyComponents.intrinsics(scope / withCompanions)
 
       val gen =
         new SlinkyGenComponents(SlinkyGenComponents.Web(slinkyWebOpt), findProps, genStBuildingComponent, reactNames)
