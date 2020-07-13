@@ -35,7 +35,7 @@ object TestContainer {
     @scala.inline
     def optFn0Void(value: Callback): this.type = set("optFn0Void", value.toJsFn)
     @scala.inline
-    def optFn1Number(value: /* x */ Double => CallbackTo[Double]): this.type = set("optFn1Number", js.Any.fromFunction1((t0: /* x */ Double) => value(t0).runNow()))
+    def optFn1Number(value: /* x */ Double => Double): this.type = set("optFn1Number", js.Any.fromFunction1(value))
     @scala.inline
     def optFn1Void(value: /* x */ Double => Callback): this.type = set("optFn1Void", js.Any.fromFunction1((t0: /* x */ Double) => value(t0).runNow()))
     @scala.inline
@@ -49,10 +49,10 @@ object TestContainer {
   def apply(
     requiredFn0Number: CallbackTo[Double],
     requiredFn0Void: Callback,
-    requiredFn1Number: Double => CallbackTo[Double],
+    requiredFn1Number: Double => Double,
     requiredFn1Void: Double => Callback
   ): Builder = {
-    val __props = js.Dynamic.literal(requiredFn0Number = requiredFn0Number.toJsFn, requiredFn0Void = requiredFn0Void.toJsFn, requiredFn1Number = js.Any.fromFunction1((t0: Double) => requiredFn1Number(t0).runNow()), requiredFn1Void = js.Any.fromFunction1((t0: Double) => requiredFn1Void(t0).runNow()))
+    val __props = js.Dynamic.literal(requiredFn0Number = requiredFn0Number.toJsFn, requiredFn0Void = requiredFn0Void.toJsFn, requiredFn1Number = js.Any.fromFunction1(requiredFn1Number), requiredFn1Void = js.Any.fromFunction1((t0: Double) => requiredFn1Void(t0).runNow()))
     new Builder(js.Array(this.component, __props.asInstanceOf[TestContainerProps]))
   }
 }

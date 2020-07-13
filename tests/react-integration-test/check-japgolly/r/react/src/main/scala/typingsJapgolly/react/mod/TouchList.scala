@@ -1,6 +1,5 @@
 package typingsJapgolly.react.mod
 
-import japgolly.scalajs.react.CallbackTo
 import org.scalablytyped.runtime.NumberDictionary
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -15,8 +14,8 @@ trait TouchList extends /* index */ NumberDictionary[Touch] {
 
 object TouchList {
   @scala.inline
-  def apply(identifiedTouch: Double => CallbackTo[Touch], item: Double => CallbackTo[Touch], length: Double): TouchList = {
-    val __obj = js.Dynamic.literal(identifiedTouch = js.Any.fromFunction1((t0: Double) => identifiedTouch(t0).runNow()), item = js.Any.fromFunction1((t0: Double) => item(t0).runNow()), length = length.asInstanceOf[js.Any])
+  def apply(identifiedTouch: Double => Touch, item: Double => Touch, length: Double): TouchList = {
+    val __obj = js.Dynamic.literal(identifiedTouch = js.Any.fromFunction1(identifiedTouch), item = js.Any.fromFunction1(item), length = length.asInstanceOf[js.Any])
     __obj.asInstanceOf[TouchList]
   }
   @scala.inline
@@ -31,9 +30,9 @@ object TouchList {
         x
     }
     @scala.inline
-    def setIdentifiedTouch(value: Double => CallbackTo[Touch]): Self = this.set("identifiedTouch", js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
+    def setIdentifiedTouch(value: Double => Touch): Self = this.set("identifiedTouch", js.Any.fromFunction1(value))
     @scala.inline
-    def setItem(value: Double => CallbackTo[Touch]): Self = this.set("item", js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
+    def setItem(value: Double => Touch): Self = this.set("item", js.Any.fromFunction1(value))
     @scala.inline
     def setLength(value: Double): Self = this.set("length", value.asInstanceOf[js.Any])
   }

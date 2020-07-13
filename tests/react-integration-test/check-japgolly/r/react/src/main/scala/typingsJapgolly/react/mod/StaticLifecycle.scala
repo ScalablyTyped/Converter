@@ -1,6 +1,5 @@
 package typingsJapgolly.react.mod
 
-import japgolly.scalajs.react.CallbackTo
 import typingsJapgolly.std.Partial
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -31,11 +30,11 @@ object StaticLifecycle {
         x
     }
     @scala.inline
-    def setGetDerivedStateFromError(value: /* error */ js.Any => CallbackTo[Partial[S] | Null]): Self = this.set("getDerivedStateFromError", js.Any.fromFunction1((t0: /* error */ js.Any) => value(t0).runNow()))
+    def setGetDerivedStateFromError(value: /* error */ js.Any => Partial[S] | Null): Self = this.set("getDerivedStateFromError", js.Any.fromFunction1(value))
     @scala.inline
     def deleteGetDerivedStateFromError: Self = this.set("getDerivedStateFromError", js.undefined)
     @scala.inline
-    def setGetDerivedStateFromProps(value: (P, S) => CallbackTo[Partial[S] | Null]): Self = this.set("getDerivedStateFromProps", js.Any.fromFunction2((t0: P, t1: S) => (value(t0, t1)).runNow()))
+    def setGetDerivedStateFromProps(value: (P, S) => Partial[S] | Null): Self = this.set("getDerivedStateFromProps", js.Any.fromFunction2(value))
     @scala.inline
     def deleteGetDerivedStateFromProps: Self = this.set("getDerivedStateFromProps", js.undefined)
   }

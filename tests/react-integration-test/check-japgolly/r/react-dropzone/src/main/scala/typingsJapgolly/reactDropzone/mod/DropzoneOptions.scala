@@ -1,7 +1,6 @@
 package typingsJapgolly.reactDropzone.mod
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactDragEventFrom
 import org.scalajs.dom.raw.HTMLElement
 import typingsJapgolly.react.mod.DragEventHandler
@@ -92,7 +91,9 @@ object DropzoneOptions {
     @scala.inline
     def deleteDisabled: Self = this.set("disabled", js.undefined)
     @scala.inline
-    def setGetFilesFromEvent(value: /* event */ DropEvent => CallbackTo[js.Any]): Self = this.set("getFilesFromEvent", js.Any.fromFunction1((t0: /* event */ DropEvent) => value(t0).runNow()))
+    def setGetFilesFromEvent(
+      value: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
+    ): Self = this.set("getFilesFromEvent", js.Any.fromFunction1(value))
     @scala.inline
     def deleteGetFilesFromEvent: Self = this.set("getFilesFromEvent", js.undefined)
     @scala.inline

@@ -1,7 +1,6 @@
 package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.CallbackTo
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -50,7 +49,7 @@ object NewLifecycle {
     @scala.inline
     def deleteComponentDidUpdate: Self = this.set("componentDidUpdate", js.undefined)
     @scala.inline
-    def setGetSnapshotBeforeUpdate(value: (/* prevProps */ P, /* prevState */ S) => CallbackTo[SS | Null]): Self = this.set("getSnapshotBeforeUpdate", js.Any.fromFunction2((t0: /* prevProps */ P, t1: /* prevState */ S) => (value(t0, t1)).runNow()))
+    def setGetSnapshotBeforeUpdate(value: (/* prevProps */ P, /* prevState */ S) => SS | Null): Self = this.set("getSnapshotBeforeUpdate", js.Any.fromFunction2(value))
     @scala.inline
     def deleteGetSnapshotBeforeUpdate: Self = this.set("getSnapshotBeforeUpdate", js.undefined)
   }

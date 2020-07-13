@@ -14,13 +14,15 @@ class JapgollyMemberToProp(reactNames: ReactNames, typeRewriter: TypeRewriterCas
       case other => other
     }
 
+  val Callback = TypeRef(JapgollyNames.Callback)
+
   /**
     *- If the method return value is Unit, then convert it to Callback
     *- If the method return value is TYPE, then convert it to Callback[Type]
     */
   def CallbackTo(ref: TypeRef): TypeRef =
     ref match {
-      case TypeRef.Unit => TypeRef(JapgollyNames.Callback)
+      case TypeRef.Unit => Callback
       case other        => TypeRef(JapgollyNames.CallbackTo, IArray(other), NoComments)
     }
 
@@ -37,7 +39,7 @@ class JapgollyMemberToProp(reactNames: ReactNames, typeRewriter: TypeRewriterCas
       case TypeRef.ScalaFunction(Empty, StripWildcards(retType)) =>
         Prop.Variant(CallbackTo(retType), ref => Select(ref, Name("toJsFn")), isRewritten = true, extendsAnyVal = true)
 
-      case TypeRef.ScalaFunction(StripWildcards(paramTypes), StripWildcards(retType)) =>
+      case TypeRef.ScalaFunction(StripWildcards(paramTypes), StripWildcards(TypeRef.Unit)) =>
         def fn(ref: ExprTree): ExprTree = {
           val params = paramTypes.zipWithIndex.map {
             case (tpe, i) =>
@@ -49,7 +51,7 @@ class JapgollyMemberToProp(reactNames: ReactNames, typeRewriter: TypeRewriterCas
           Call(Ref(QualifiedName.Any + Name(s"fromFunction${params.length}")), IArray(IArray(Lambda(params, body))))
         }
 
-        val newRetType = TypeRef.ScalaFunction(paramTypes, CallbackTo(retType), NoComments)
+        val newRetType = TypeRef.ScalaFunction(paramTypes, Callback, NoComments)
 
         Prop.Variant(
           tpe = newRetType,
