@@ -48,12 +48,6 @@ object reactStrings {
   sealed trait animate extends js.Object
   
   @js.native
-  sealed trait animateMotion extends js.Object
-  
-  @js.native
-  sealed trait animateTransform extends js.Object
-  
-  @js.native
   sealed trait anonymous extends js.Object
   
   @js.native
@@ -492,16 +486,10 @@ object reactStrings {
   sealed trait move extends js.Object
   
   @js.native
-  sealed trait mpath extends js.Object
-  
-  @js.native
   sealed trait nav extends js.Object
   
   @js.native
   sealed trait no extends js.Object
-  
-  @js.native
-  sealed trait noindex extends js.Object
   
   @js.native
   sealed trait none extends js.Object
@@ -808,10 +796,6 @@ object reactStrings {
   @scala.inline
   def animate: animate = "animate".asInstanceOf[animate]
   @scala.inline
-  def animateMotion: animateMotion = "animateMotion".asInstanceOf[animateMotion]
-  @scala.inline
-  def animateTransform: animateTransform = "animateTransform".asInstanceOf[animateTransform]
-  @scala.inline
   def anonymous: anonymous = "anonymous".asInstanceOf[anonymous]
   @scala.inline
   def area: area = "area".asInstanceOf[area]
@@ -1104,13 +1088,9 @@ object reactStrings {
   @scala.inline
   def move: move = "move".asInstanceOf[move]
   @scala.inline
-  def mpath: mpath = "mpath".asInstanceOf[mpath]
-  @scala.inline
   def nav: nav = "nav".asInstanceOf[nav]
   @scala.inline
   def no: no = "no".asInstanceOf[no]
-  @scala.inline
-  def noindex: noindex = "noindex".asInstanceOf[noindex]
   @scala.inline
   def none: none = "none".asInstanceOf[none]
   @scala.inline

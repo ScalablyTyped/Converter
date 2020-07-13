@@ -21,13 +21,38 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
     val preferDefault = c.scalaRef.name === Name.Default
     /* because some libraries expect you to use top-level imports. shame for the tree shakers */
     val preferShortModuleName = c.location match {
-      case Annotation.JsGlobalScope          => 0
-      case Annotation.JsImport(module, _, _) => -module.length
-      case Annotation.JsGlobal(name)         => -length(name)
+      case Right(Annotation.JsGlobalScope)          => 0
+      case Right(Annotation.JsImport(module, _, _)) => -module.length
+      case Right(Annotation.JsGlobal(name))         => -length(name)
+      case Left(_)                                  => 0
     }
 
     (preferNotSrc, preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
   }
+
+  def intrinsics(scope: TreeScope): IArray[Component] =
+    if (scope.libName.unescaped === "react") {
+      scope
+        .lookup(reactNames.JsxIntrinsicElements)
+        .collectFirst {
+          case (t: ClassTree, _) =>
+            t.members.collect {
+              // a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
+              case FieldTree(_, name, props @ TypeRef(_, tparams, _), _, _, _, _, _) =>
+                Component(
+                  Left(ExprTree.StringLit(name.unescaped)),
+                  tparams.last,
+                  name,
+                  Empty,
+                  Some(props),
+                  true,
+                  ComponentType.Intrinsic,
+                  isAbstractProps = false,
+                )
+            }
+        }
+        .getOrElse(Empty)
+    } else Empty
 
   def all(scope: TreeScope, tree: ContainerTree): IArray[Component] = {
     def go(p: ContainerTree, scope: TreeScope): IArray[Component] = {
@@ -112,7 +137,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
           } yield method.name match {
             case Name.APPLY =>
               Component(
-                location        = locationFrom(scope),
+                location        = Right(locationFrom(scope)),
                 scalaRef        = TypeRef(owner.codePath),
                 fullName        = componentName(scope, owner.annotations, owner.codePath, method.comments),
                 tparams         = method.tparams,
@@ -124,7 +149,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
 
             case _ =>
               Component(
-                location        = locationFrom(scope),
+                location        = Right(locationFrom(scope)),
                 scalaRef        = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
                 fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(method.name)), method.comments),
                 tparams         = method.tparams,
@@ -163,7 +188,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
       tr <- pointsAtComponentType(scope, field.tpe)
       props = tr.targs.head
     } yield Component(
-      location        = locationFrom(scope),
+      location        = Right(locationFrom(scope)),
       scalaRef        = TypeRef(field.codePath),
       fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(field.name)), field.comments),
       tparams         = Empty,
@@ -208,7 +233,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
       parentsResolver(scope, cls).transitiveParents.collectFirst {
         case (tr @ TypeRef(_, IArray.first(props), _), _) if reactNames isComponent tr =>
           Component(
-            location        = locationFrom(scope),
+            location        = Right(locationFrom(scope)),
             scalaRef        = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
             fullName        = componentName(scope, owner.annotations, cls.codePath, cls.comments),
             tparams         = cls.tparams,

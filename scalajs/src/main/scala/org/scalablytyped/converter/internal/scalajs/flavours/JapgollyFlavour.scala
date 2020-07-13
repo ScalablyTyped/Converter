@@ -19,7 +19,9 @@ case class JapgollyFlavour(outputPkg: Name) extends FlavourImplReact {
     val withComponents: PackageTree =
       if (involvesReact(scope)) {
         val components: IArray[Component] =
-          identifyComponents.oneOfEach(scope / withCompanions, withCompanions)
+          identifyComponents.oneOfEach(scope / withCompanions, withCompanions) ++
+            identifyComponents.intrinsics(scope / withCompanions)
+
         val ret = Adapter(scope)((t, s) => genComponents(s, t, components))(withCompanions)
 
         if (isReact(scope))
