@@ -1,7 +1,6 @@
 package typingsJapgolly.reactDropzone.components
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactDragEventFrom
 import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Ref
@@ -30,11 +29,13 @@ object ReactDropzone {
     @scala.inline
     def accept(value: String | js.Array[String]): this.type = set("accept", value.asInstanceOf[js.Any])
     @scala.inline
-    def children(value: /* state */ DropzoneState => CallbackTo[Element]): this.type = set("children", js.Any.fromFunction1((t0: /* state */ DropzoneState) => value(t0).runNow()))
+    def children(value: /* state */ DropzoneState => Element): this.type = set("children", js.Any.fromFunction1(value))
     @scala.inline
     def disabled(value: Boolean): this.type = set("disabled", value.asInstanceOf[js.Any])
     @scala.inline
-    def getFilesFromEvent(value: /* event */ DropEvent => CallbackTo[js.Any]): this.type = set("getFilesFromEvent", js.Any.fromFunction1((t0: /* event */ DropEvent) => value(t0).runNow()))
+    def getFilesFromEvent(
+      value: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
+    ): this.type = set("getFilesFromEvent", js.Any.fromFunction1(value))
     @scala.inline
     def maxSize(value: Double): this.type = set("maxSize", value.asInstanceOf[js.Any])
     @scala.inline

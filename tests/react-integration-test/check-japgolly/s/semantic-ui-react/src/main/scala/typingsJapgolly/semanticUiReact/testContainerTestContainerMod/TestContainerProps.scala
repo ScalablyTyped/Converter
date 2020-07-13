@@ -17,10 +17,10 @@ object TestContainerProps {
   def apply(
     requiredFn0Number: CallbackTo[Double],
     requiredFn0Void: Callback,
-    requiredFn1Number: Double => CallbackTo[Double],
+    requiredFn1Number: Double => Double,
     requiredFn1Void: Double => Callback
   ): TestContainerProps = {
-    val __obj = js.Dynamic.literal(requiredFn0Number = requiredFn0Number.toJsFn, requiredFn0Void = requiredFn0Void.toJsFn, requiredFn1Number = js.Any.fromFunction1((t0: Double) => requiredFn1Number(t0).runNow()), requiredFn1Void = js.Any.fromFunction1((t0: Double) => requiredFn1Void(t0).runNow()))
+    val __obj = js.Dynamic.literal(requiredFn0Number = requiredFn0Number.toJsFn, requiredFn0Void = requiredFn0Void.toJsFn, requiredFn1Number = js.Any.fromFunction1(requiredFn1Number), requiredFn1Void = js.Any.fromFunction1((t0: Double) => requiredFn1Void(t0).runNow()))
     __obj.asInstanceOf[TestContainerProps]
   }
 }

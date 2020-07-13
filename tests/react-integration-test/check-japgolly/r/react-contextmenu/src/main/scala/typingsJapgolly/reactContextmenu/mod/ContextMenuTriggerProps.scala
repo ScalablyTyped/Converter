@@ -1,6 +1,5 @@
 package typingsJapgolly.reactContextmenu.mod
 
-import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.raw.React.ComponentClassP
 import typingsJapgolly.react.mod.HTMLAttributes
 import typingsJapgolly.react.mod.ReactType
@@ -42,7 +41,7 @@ object ContextMenuTriggerProps {
     @scala.inline
     def deleteAttributes: Self = this.set("attributes", js.undefined)
     @scala.inline
-    def setCollect(value: /* data */ js.Any => CallbackTo[js.Any]): Self = this.set("collect", js.Any.fromFunction1((t0: /* data */ js.Any) => value(t0).runNow()))
+    def setCollect(value: /* data */ js.Any => _): Self = this.set("collect", js.Any.fromFunction1(value))
     @scala.inline
     def deleteCollect: Self = this.set("collect", js.undefined)
     @scala.inline

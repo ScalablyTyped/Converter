@@ -1,7 +1,6 @@
 package typingsJapgolly.semanticUiReact.inputInputMod
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactEventFrom
 import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Node
@@ -123,8 +122,8 @@ object StrictInputProps {
     def setIconVdomElement(value: VdomElement): Self = this.set("icon", value.rawElement.asInstanceOf[js.Any])
     @scala.inline
     def setIconFunction3(
-      value: (/* component */ ReactType[InputProps], InputProps, /* children */ js.UndefOr[Node | ReactNodeArray]) => CallbackTo[Element | Null]
-    ): Self = this.set("icon", js.Any.fromFunction3((t0: /* component */ ReactType[InputProps], t1: InputProps, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => (value(t0, t1, t2)).runNow()))
+      value: (/* component */ ReactType[InputProps], InputProps, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+    ): Self = this.set("icon", js.Any.fromFunction3(value))
     @scala.inline
     def setIcon(value: js.Any | SemanticShorthandItem[InputProps]): Self = this.set("icon", value.asInstanceOf[js.Any])
     @scala.inline
@@ -137,8 +136,8 @@ object StrictInputProps {
     def setInputVdomElement(value: VdomElement): Self = this.set("input", value.rawElement.asInstanceOf[js.Any])
     @scala.inline
     def setInputFunction3(
-      value: (/* component */ ReactType[HtmlInputrops], HtmlInputrops, /* children */ js.UndefOr[Node | ReactNodeArray]) => CallbackTo[Element | Null]
-    ): Self = this.set("input", js.Any.fromFunction3((t0: /* component */ ReactType[HtmlInputrops], t1: HtmlInputrops, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => (value(t0, t1, t2)).runNow()))
+      value: (/* component */ ReactType[HtmlInputrops], HtmlInputrops, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+    ): Self = this.set("input", js.Any.fromFunction3(value))
     @scala.inline
     def setInput(value: SemanticShorthandItem[HtmlInputrops]): Self = this.set("input", value.asInstanceOf[js.Any])
     @scala.inline
@@ -151,8 +150,10 @@ object StrictInputProps {
     def setLabelVdomElement(value: VdomElement): Self = this.set("label", value.rawElement.asInstanceOf[js.Any])
     @scala.inline
     def setLabelFunction3(
-      value: (/* component */ ReactType[js.Any], js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => CallbackTo[Element | Null]
-    ): Self = this.set("label", js.Any.fromFunction3((t0: /* component */ ReactType[js.Any], t1: js.Any, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => (value(t0, t1, t2)).runNow()))
+      value: (/* component */ ReactType[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
+        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+    ): Self = this.set("label", js.Any.fromFunction3(value))
     @scala.inline
     def setLabel(
       value: SemanticShorthandItem[

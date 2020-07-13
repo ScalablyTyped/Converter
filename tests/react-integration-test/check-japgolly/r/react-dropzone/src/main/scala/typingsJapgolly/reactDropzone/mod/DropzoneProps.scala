@@ -1,6 +1,5 @@
 package typingsJapgolly.reactDropzone.mod
 
-import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.raw.React.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -29,7 +28,7 @@ object DropzoneProps {
         x
     }
     @scala.inline
-    def setChildren(value: /* state */ DropzoneState => CallbackTo[Element]): Self = this.set("children", js.Any.fromFunction1((t0: /* state */ DropzoneState) => value(t0).runNow()))
+    def setChildren(value: /* state */ DropzoneState => Element): Self = this.set("children", js.Any.fromFunction1(value))
     @scala.inline
     def deleteChildren: Self = this.set("children", js.undefined)
   }

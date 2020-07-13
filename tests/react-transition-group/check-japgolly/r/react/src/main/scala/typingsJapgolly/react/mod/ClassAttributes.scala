@@ -1,6 +1,5 @@
 package typingsJapgolly.react.mod
 
-import japgolly.scalajs.react.CallbackTo
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -28,7 +27,7 @@ object ClassAttributes {
         x
     }
     @scala.inline
-    def setRefFunction1(value: /* instance */ T | Null => CallbackTo[js.Any]): Self = this.set("ref", js.Any.fromFunction1((t0: /* instance */ T | Null) => value(t0).runNow()))
+    def setRefFunction1(value: /* instance */ T | Null => js.Any): Self = this.set("ref", js.Any.fromFunction1(value))
     @scala.inline
     def setRef(value: japgolly.scalajs.react.raw.React.Ref): Self = this.set("ref", value.asInstanceOf[js.Any])
     @scala.inline

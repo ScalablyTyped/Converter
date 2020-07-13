@@ -1,7 +1,6 @@
 package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.CallbackTo
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -83,7 +82,7 @@ object ComponentLifecycle {
     @scala.inline
     def deleteComponentWillUnmount: Self = this.set("componentWillUnmount", js.undefined)
     @scala.inline
-    def setShouldComponentUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => CallbackTo[Boolean]): Self = this.set("shouldComponentUpdate", js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => (value(t0, t1, t2)).runNow()))
+    def setShouldComponentUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Boolean): Self = this.set("shouldComponentUpdate", js.Any.fromFunction3(value))
     @scala.inline
     def deleteShouldComponentUpdate: Self = this.set("shouldComponentUpdate", js.undefined)
   }

@@ -1,6 +1,5 @@
 package typingsJapgolly.reactTransitionGroup.anon
 
-import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.raw.React.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -29,7 +28,7 @@ object ChildFactory {
         x
     }
     @scala.inline
-    def setChildFactory(value: /* child */ Element => CallbackTo[Element]): Self = this.set("childFactory", js.Any.fromFunction1((t0: /* child */ Element) => value(t0).runNow()))
+    def setChildFactory(value: /* child */ Element => Element): Self = this.set("childFactory", js.Any.fromFunction1(value))
     @scala.inline
     def deleteChildFactory: Self = this.set("childFactory", js.undefined)
   }

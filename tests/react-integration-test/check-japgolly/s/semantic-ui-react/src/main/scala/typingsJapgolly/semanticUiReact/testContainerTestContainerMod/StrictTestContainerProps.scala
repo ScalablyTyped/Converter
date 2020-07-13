@@ -50,10 +50,10 @@ object StrictTestContainerProps {
   def apply(
     requiredFn0Number: CallbackTo[Double],
     requiredFn0Void: Callback,
-    requiredFn1Number: Double => CallbackTo[Double],
+    requiredFn1Number: Double => Double,
     requiredFn1Void: Double => Callback
   ): StrictTestContainerProps = {
-    val __obj = js.Dynamic.literal(requiredFn0Number = requiredFn0Number.toJsFn, requiredFn0Void = requiredFn0Void.toJsFn, requiredFn1Number = js.Any.fromFunction1((t0: Double) => requiredFn1Number(t0).runNow()), requiredFn1Void = js.Any.fromFunction1((t0: Double) => requiredFn1Void(t0).runNow()))
+    val __obj = js.Dynamic.literal(requiredFn0Number = requiredFn0Number.toJsFn, requiredFn0Void = requiredFn0Void.toJsFn, requiredFn1Number = js.Any.fromFunction1(requiredFn1Number), requiredFn1Void = js.Any.fromFunction1((t0: Double) => requiredFn1Void(t0).runNow()))
     __obj.asInstanceOf[StrictTestContainerProps]
   }
   @scala.inline
@@ -72,7 +72,7 @@ object StrictTestContainerProps {
     @scala.inline
     def setRequiredFn0Void(value: Callback): Self = this.set("requiredFn0Void", value.toJsFn)
     @scala.inline
-    def setRequiredFn1Number(value: Double => CallbackTo[Double]): Self = this.set("requiredFn1Number", js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
+    def setRequiredFn1Number(value: Double => Double): Self = this.set("requiredFn1Number", js.Any.fromFunction1(value))
     @scala.inline
     def setRequiredFn1Void(value: Double => Callback): Self = this.set("requiredFn1Void", js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
     @scala.inline
@@ -108,7 +108,7 @@ object StrictTestContainerProps {
     @scala.inline
     def deleteOptFn0Void: Self = this.set("optFn0Void", js.undefined)
     @scala.inline
-    def setOptFn1Number(value: /* x */ Double => CallbackTo[Double]): Self = this.set("optFn1Number", js.Any.fromFunction1((t0: /* x */ Double) => value(t0).runNow()))
+    def setOptFn1Number(value: /* x */ Double => Double): Self = this.set("optFn1Number", js.Any.fromFunction1(value))
     @scala.inline
     def deleteOptFn1Number: Self = this.set("optFn1Number", js.undefined)
     @scala.inline

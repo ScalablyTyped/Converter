@@ -1,6 +1,5 @@
 package typingsJapgolly.reactContextmenu.components
 
-import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.raw.React.ComponentClassP
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.react.mod.HTMLAttributes
@@ -22,7 +21,7 @@ object ContextMenuTrigger {
     @scala.inline
     def attributes(value: HTMLAttributes[_]): this.type = set("attributes", value.asInstanceOf[js.Any])
     @scala.inline
-    def collect(value: /* data */ js.Any => CallbackTo[js.Any]): this.type = set("collect", js.Any.fromFunction1((t0: /* data */ js.Any) => value(t0).runNow()))
+    def collect(value: /* data */ js.Any => _): this.type = set("collect", js.Any.fromFunction1(value))
     @scala.inline
     def disable(value: Boolean): this.type = set("disable", value.asInstanceOf[js.Any])
     @scala.inline
