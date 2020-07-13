@@ -14,7 +14,7 @@ to download NPM packages, and translates typescript type definitions into Scala.
 Then check out the demo projects:
 - [Demos](https://github.com/ScalablyTyped/Demos)
 - [React/Slinky demos](https://github.com/ScalablyTyped/SlinkyDemos)
-- `Scalajs-React demos` (help wanted!)
+- [React/Scalajs-react demos](https://github.com/ScalablyTyped/ScalajsReactDemos)
 
 # Setup
 

@@ -3,9 +3,17 @@ id: flavour
 title: Flavour
 ---
 
-ScalablyTyped flavours so far enables interop with react.
+ScalablyTyped flavours so far enables rich interop with react.
 
-You specify which one you want like this:
+## I just want to see example code
+
+- [Slinky](https://github.com/ScalablyTyped/SlinkyDemos)
+- [Scalajs-react demos](https://github.com/ScalablyTyped/ScalajsReactDemos)
+
+## Getting started
+
+You first [setup your sbt build](plugin.md), and then specify which one you want like this:
+
 ```scala
 project.settings(
  // for Slinky web projects
@@ -17,11 +25,17 @@ project.settings(
 )
 ``` 
 
+Then look in the `components` package of the generated libraries:
+```scala
+import typings.antd.components.Button
+```
+
 ## How?
 They all work quite similarly:
 - Replace all possible type references from generated types to types from scala-js-dom and the relevant React wrapper
 - Identify all react components
 - Generate a scala package with all the necessary boilerplate to make usage smooth.
+
 
 ## Slinky
 
