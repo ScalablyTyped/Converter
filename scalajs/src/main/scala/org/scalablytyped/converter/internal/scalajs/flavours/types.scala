@@ -16,7 +16,7 @@ final case class Component(
     scalaRef:        TypeRef,
     fullName:        Name,
     tparams:         IArray[TypeParamTree],
-    props:           Option[TypeRef],
+    propsRef:        Option[TypeRef],
     isGlobal:        Boolean,
     componentType:   ComponentType,
     isAbstractProps: Boolean,
@@ -31,7 +31,7 @@ final case class Component(
 
   def rewritten(scope: TreeScope, t: TreeTransformation): Component =
     copy( // don't rewrite scalaRef
-      tparams = tparams.map(t.visitTypeParamTree(scope)),
-      props   = props.map(t.visitTypeRef(scope)),
+      tparams  = tparams.map(t.visitTypeParamTree(scope)),
+      propsRef = propsRef.map(t.visitTypeRef(scope)),
     )
 }

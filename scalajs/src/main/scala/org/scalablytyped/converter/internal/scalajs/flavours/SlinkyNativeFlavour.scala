@@ -5,7 +5,7 @@ package flavours
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
 
-case class SlinkyNativeFlavour(outputPkg: Name) extends FlavourImplReact {
+case class SlinkyNativeFlavour(outputPkg: Name, scalaVersion: Versions.Scala) extends FlavourImplReact {
 
   override val dependencies: Set[Dep] =
     Set(Versions.runtime, Versions.slinkyNative, Versions.scalaJsDom)
@@ -13,7 +13,7 @@ case class SlinkyNativeFlavour(outputPkg: Name) extends FlavourImplReact {
   val rewriter               = new TypeRewriterCast(SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = false))
   val memberToProp           = new MemberToProp.Default(Some(rewriter))
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
-  val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg)
+  val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg, scalaVersion)
   val gen                    = new SlinkyGenComponents(SlinkyGenComponents.Native(()), findProps, genStBuildingComponent, reactNames)
   val genCompanions          = new GenCompanions(findProps)
 
