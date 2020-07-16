@@ -158,7 +158,7 @@ class SlinkyGenComponents(
           * When there is more than one they'll share some of the generated code
           */
         val grouped: Map[(Option[TypeRef], Boolean, IArray[TypeParamTree]), IArray[Component]] =
-          allComponentsStrippedBounds.groupBy(c => (c.props, c.referenceTo.isDefined, c.tparams))
+          allComponentsStrippedBounds.groupBy(c => (c.propsRef, c.referenceTo.isDefined, c.tparams))
 
         val generatedCode: IArray[Tree] =
           grouped.flatMapToIArray {
@@ -743,14 +743,14 @@ class SlinkyGenComponents(
     )
 
     if (members.isEmpty && tparams.isEmpty) None
-    else
+    else {
       Some(
         ClassTree(
           isImplicit  = false,
           annotations = IArray(Annotation.Inline),
           name        = name,
           tparams     = tparams,
-          parents     = IArray(TypeRef.AnyVal, buildingComponentRef),
+          parents     = IArray.fromOption(genStBuilder.enableAnyVal) ++ IArray(buildingComponentRef),
           ctors       = IArray(ctor),
           members     = members.distinctBy(_.name.unescaped.toLowerCase),
           classType   = ClassType.Class,
@@ -758,6 +758,7 @@ class SlinkyGenComponents(
           comments    = NoComments,
           codePath    = clsCodePath,
         ),
-      ),
+      )
+    },
   }
 }

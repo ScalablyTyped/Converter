@@ -16,7 +16,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
 
     val preferModule = !c.isGlobal
     /* because for instance mui ships with icons called `List` and `Tab` */
-    val preferPropsMatchesName = c.props.fold(false)(_.name.unescaped.startsWith(c.fullName.unescaped))
+    val preferPropsMatchesName = c.propsRef.fold(false)(_.name.unescaped.startsWith(c.fullName.unescaped))
     /* because for instance mui declares both a default and a names export, where only the former exists */
     val preferDefault = c.scalaRef.name === Name.Default
     /* because some libraries expect you to use top-level imports. shame for the tree shakers */
@@ -141,7 +141,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
                 scalaRef        = TypeRef(owner.codePath),
                 fullName        = componentName(scope, owner.annotations, owner.codePath, method.comments),
                 tparams         = method.tparams,
-                props           = propsTypeOpt,
+                propsRef        = propsTypeOpt,
                 isGlobal        = isGlobal(owner.annotations),
                 componentType   = ComponentType.Field,
                 isAbstractProps = isAbstractProps,
@@ -153,7 +153,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
                 scalaRef        = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
                 fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(method.name)), method.comments),
                 tparams         = method.tparams,
-                props           = propsTypeOpt,
+                propsRef        = propsTypeOpt,
                 isGlobal        = isGlobal(method.annotations),
                 componentType   = ComponentType.Function,
                 isAbstractProps = isAbstractProps,
@@ -192,7 +192,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
       scalaRef        = TypeRef(field.codePath),
       fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(field.name)), field.comments),
       tparams         = Empty,
-      props           = Some(props).filterNot(_ === TypeRef.Object),
+      propsRef        = Some(props).filterNot(_ === TypeRef.Object),
       isGlobal        = isGlobal(field.annotations),
       componentType   = ComponentType.Field,
       isAbstractProps = scope.isAbstract(props),
@@ -237,7 +237,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
             scalaRef        = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
             fullName        = componentName(scope, owner.annotations, cls.codePath, cls.comments),
             tparams         = cls.tparams,
-            props           = Some(props).filterNot(_ === TypeRef.Object),
+            propsRef        = Some(props).filterNot(_ === TypeRef.Object),
             isGlobal        = isGlobal(cls.annotations),
             componentType   = ComponentType.Class,
             isAbstractProps = scope.isAbstract(props),

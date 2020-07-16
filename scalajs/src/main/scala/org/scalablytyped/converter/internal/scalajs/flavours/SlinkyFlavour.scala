@@ -5,14 +5,14 @@ package flavours
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
 
-case class SlinkyFlavour(outputPkg: Name) extends FlavourImplReact {
+case class SlinkyFlavour(outputPkg: Name, scalaVersion: Versions.Scala) extends FlavourImplReact {
 
   override val dependencies  = Set(Versions.runtime, Versions.slinkyWeb)
   val rewriter               = new TypeRewriterCast(SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true))
   val memberToProp           = new MemberToProp.Default(Some(rewriter))
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
   val genCompanions          = new GenCompanions(findProps)
-  val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg)
+  val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg, scalaVersion)
 
   /* we need the actual typescript react definitions at runtime to compute this lazily */
   private var cached = Option.empty[SlinkyWeb]

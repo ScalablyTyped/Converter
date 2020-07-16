@@ -36,8 +36,8 @@ trait ImporterHarness extends AnyFunSuite {
   val failureCacheDir = baseDir / 'compileFailures
   os.makeDir.all(failureCacheDir)
 
-  private val testLogger = logging.stdout.filter(LogLevel.error)
-  private val version    = Versions(Versions.Scala213, Versions.ScalaJs1)
+  val testLogger = logging.stdout.filter(LogLevel.error)
+  val version    = Versions(Versions.Scala213, Versions.ScalaJs1)
 
   private val bloop = Await.result(
     BloopCompiler(testLogger, version, Some(failureCacheDir.toNIO))(ExecutionContext.Implicits.global),

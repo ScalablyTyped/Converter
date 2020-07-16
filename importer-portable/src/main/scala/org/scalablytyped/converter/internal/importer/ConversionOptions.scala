@@ -22,11 +22,11 @@ case class ConversionOptions(
       case Flavour.Normal =>
         flavours.NormalFlavour(useScalaJsDomTypes, outputPackage)
       case Flavour.Slinky =>
-        flavours.SlinkyFlavour(outputPackage)
+        flavours.SlinkyFlavour(outputPackage, versions.scala)
       case Flavour.SlinkyNative =>
-        flavours.SlinkyNativeFlavour(outputPackage)
+        flavours.SlinkyNativeFlavour(outputPackage, versions.scala)
       case Flavour.Japgolly =>
-        flavours.JapgollyFlavour(outputPackage)
+        flavours.JapgollyFlavour(outputPackage, versions.scala)
     }
 
 }

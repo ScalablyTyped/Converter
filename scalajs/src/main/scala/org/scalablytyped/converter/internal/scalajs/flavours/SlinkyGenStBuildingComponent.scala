@@ -5,8 +5,11 @@ package flavours
 /**
   * This generated class is our replacement for Slinkys ExternalComponent... types, which didnt really work.
   */
-class SlinkyGenStBuildingComponent(val outputPkg: Name) {
+class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versions.Scala) {
   import ExprTree._
+
+  /** Need to disable this on 2.12 because it cannot represent universal traits with `this` types */
+  val enableAnyVal = if (scalaVersion.binVersion <= "2.12") None else Some(TypeRef.AnyVal)
 
   val StBuildingComponent = Name("StBuildingComponent")
   val builderCp           = QualifiedName(IArray(outputPkg, StBuildingComponent))
@@ -263,7 +266,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
       annotations = Empty,
       name        = StBuildingComponent,
       tparams     = builderTparams,
-      parents     = IArray(TypeRef.ScalaAny),
+      parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.ScalaAny)),
       ctors       = Empty,
       members     = IArray(args, set, withComponent, apply, withKey, withRef1, withRef2),
       classType   = ClassType.Trait,
@@ -290,12 +293,13 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
     )
 
     val name = Name("Default")
+
     ClassTree(
       isImplicit  = false,
       annotations = Empty,
       name        = name,
       tparams     = builderTparams,
-      parents     = IArray(TypeRef.AnyVal, builderRef),
+      parents     = IArray.fromOption(enableAnyVal) ++ IArray(builderRef),
       ctors       = IArray(ctor),
       members     = Empty,
       classType   = ClassType.Class,
