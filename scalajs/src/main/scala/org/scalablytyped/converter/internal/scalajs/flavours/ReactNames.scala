@@ -6,6 +6,7 @@ class ReactNames(val outputPkg: Name) {
   val libName              = Name("react")
   val mod                  = QualifiedName(IArray(outputPkg, libName, Name("mod")))
   val Ref                  = mod + Name("Ref")
+  val LegacyRef            = mod + Name("LegacyRef")
   val RefObject            = mod + Name("RefObject")
   val ReactNode            = mod + Name("ReactNode")
   val ReactElement         = mod + Name("ReactElement")
@@ -23,6 +24,8 @@ class ReactNames(val outputPkg: Name) {
   val JsxIntrinsicElements = Jsx + Name("IntrinsicElements")
   val JsxReactElement      = Jsx + Name("Element")
   val isElement            = Set(ReactElement, JsxReactElement)
+
+  val isRef: Set[QualifiedName] = Set(Ref, LegacyRef, RefObject)
 
   val ComponentNames: Set[String] =
     Set(

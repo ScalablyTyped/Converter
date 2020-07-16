@@ -5,7 +5,6 @@ import slinky.core.facade.ReactElement
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
 import typingsSlinky.react.mod.DragEvent
-import typingsSlinky.react.mod.Ref
 import typingsSlinky.react.mod.RefAttributes
 import typingsSlinky.reactDropzone.mod.DropEvent
 import typingsSlinky.reactDropzone.mod.DropzoneProps
@@ -23,7 +22,7 @@ object ReactDropzone {
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
-       with StBuildingComponent[tag.type, Ref[js.Any] with js.Object] {
+       with StBuildingComponent[tag.type, DropzoneRef] {
     @scala.inline
     def acceptVarargs(value: String*): this.type = set("accept", js.Array(value :_*))
     @scala.inline

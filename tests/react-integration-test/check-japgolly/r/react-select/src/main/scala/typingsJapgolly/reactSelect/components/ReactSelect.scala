@@ -15,7 +15,7 @@ object ReactSelect {
   @scala.inline
   class Builder[TValue] (val args: js.Array[js.Any])
     extends AnyVal
-       with StBuildingComponent[default[js.Any]] {
+       with StBuildingComponent[default[TValue]] {
     @scala.inline
     def addLabelText(value: String): this.type = set("addLabelText", value.asInstanceOf[js.Any])
   }

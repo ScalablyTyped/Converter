@@ -12,7 +12,17 @@ object JapgollyGenComponents {
     val hasRequiredProps = props.exists(_.isRequired)
   }
 
-  def SplitProps(reactNames: ReactNames)(_props: IArray[Prop]): SplitProps = {
+  def SplitProps(reactNames: ReactNames, scope: TreeScope)(_props: IArray[Prop]): SplitProps = {
+    object Ref {
+      def unapply(maybeRef: TypeRef): Option[TypeRef] =
+        if (reactNames.isRef(maybeRef.typeName)) Some(maybeRef.targs.head)
+        else
+          scope.lookup(maybeRef.typeName).firstDefined {
+            case (ta: TypeAliasTree, nextScope) => unapply(FillInTParams(ta, nextScope, maybeRef.targs, Empty).alias)
+            case _ => None
+          }
+    }
+
     val isVdomNode = Set(
       reactNames.ReactNode,
       reactNames.ReactElement,
@@ -34,10 +44,13 @@ object JapgollyGenComponents {
       }
 
     val (refTypes: IArray[TypeRef], _, props: IArray[Prop]) = {
-      (_props)
+      _props
         .partitionCollect2(
           //refTypes
-          { case n: Prop.Normal if n.name.unescaped === "ref" => n.main.tpe },
+          {
+            case Prop.Normal(Prop.Variant(Ref(refType), _, _, _), _, _, _, FieldTree(_, names.ref, _, _, _, _, _, _)) =>
+              refType
+          },
           // ignored
           {
             case n: Prop.Normal if shouldIgnoreProp(n.name, n.main.tpe)    => null
@@ -57,6 +70,7 @@ object JapgollyGenComponents {
     val ComponentRef = Name("ComponentRef")
     val key          = Name("key")
     val children     = Name("children")
+    val ref          = Name("ref")
   }
 
   trait GenBuilder {
@@ -215,7 +229,7 @@ class JapgollyGenComponents(
       resProps:          Res[IArray[String], SplitProps],
       classComponentRef: Option[TypeRef],
   ): TypeRef =
-    classComponentRef orElse refFromProps(resProps) map TypeRef.stripTargs match {
+    classComponentRef orElse refFromProps(resProps) match {
       case Some(x @ TypeRef(QualifiedName(IArray.exactlyOne(names.ComponentRef)), _, _)) => x
       /* Observe type bound of :< js.Object */
       case Some(value) =>
@@ -242,7 +256,7 @@ class JapgollyGenComponents(
             acceptNativeTraits = true,
           )
 
-        PropsDom(propsRef, resProps.map(SplitProps(reactNames)))
+        PropsDom(propsRef, resProps.map(SplitProps(reactNames, scope)))
 
       case None =>
         val value: Res[IArray[String], SplitProps] =

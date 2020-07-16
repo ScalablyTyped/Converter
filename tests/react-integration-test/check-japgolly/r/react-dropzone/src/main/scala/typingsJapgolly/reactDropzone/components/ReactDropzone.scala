@@ -3,7 +3,6 @@ package typingsJapgolly.reactDropzone.components
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactDragEventFrom
 import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.Ref
 import org.scalajs.dom.raw.HTMLElement
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.react.mod.RefAttributes
@@ -23,7 +22,7 @@ object ReactDropzone {
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
-       with StBuildingComponent[Ref with js.Object] {
+       with StBuildingComponent[DropzoneRef] {
     @scala.inline
     def acceptVarargs(value: String*): this.type = set("accept", js.Array(value :_*))
     @scala.inline
