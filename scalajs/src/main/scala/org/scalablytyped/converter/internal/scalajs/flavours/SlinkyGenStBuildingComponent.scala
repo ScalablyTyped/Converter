@@ -342,7 +342,8 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
         isOverride = false,
       )
     }
-//    @inline implicit def make[E, R <: js.Object](comp: StBuildingComponent[E, R]): slinky.core.facade.ReactElement = {
+
+//    @inline implicit def make(comp: StBuildingComponent[_, _]): slinky.core.facade.ReactElement = {
 //      if (comp.args(0) == null) {
 //        throw new IllegalStateException(
 //          "This component has already been built into a ReactElement, and cannot be reused"
@@ -356,7 +357,9 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 //      ret
 //    }
     val make: MethodTree = {
-      val compParam          = ParamTree(Name("comp"), false, false, builderRef, NotImplemented, NoComments)
+      // drop specific type parameters to help type inference in case they are inferred as `Nothing`
+      val wildcardRef        = builderRef.copy(targs = builderRef.targs.map(_ => TypeRef.Wildcard))
+      val compParam          = ParamTree(Name("comp"), false, false, wildcardRef, NotImplemented, NoComments)
       val name               = Name("make")
       val compArgs           = Select(Ref(compParam.name), Name("args"))
       val args0              = Call(compArgs, IArray(IArray(NumberLit("0"))))

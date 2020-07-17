@@ -308,7 +308,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         isOverride = false,
       )
     }
-//    @inline implicit def make[R <: js.Object](comp: StBuildingComponent[R]): japgolly.scalajs.react.vdom.VdomElement = {
+//    @inline implicit def make(comp: StBuildingComponent[_]): japgolly.scalajs.react.vdom.VdomElement = {
 //      if (comp.args(0) == null) {
 //        throw new IllegalStateException(
 //          "This component has already been built into a ReactElement, and cannot be reused"
@@ -322,7 +322,9 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 //      japgolly.scalajs.react.vdom.VdomElement(ret)
 //    }
     val make: MethodTree = {
-      val compParam          = ParamTree(Name("comp"), false, false, builderRef, NotImplemented, NoComments)
+      // drop specific type parameters to help type inference in case they are inferred as `Nothing`
+      val wildcardRef        = builderRef.copy(targs = builderRef.targs.map(_ => TypeRef.Wildcard))
+      val compParam          = ParamTree(Name("comp"), false, false, wildcardRef, NotImplemented, NoComments)
       val name               = Name("make")
       val compArgs           = Select(Ref(compParam.name), Name("args"))
       val args0              = Call(compArgs, IArray(IArray(NumberLit("0"))))
@@ -361,7 +363,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         IArray(Annotation.Inline),
         ProtectionLevel.Default,
         name,
-        builderTparams,
+        Empty,
         IArray(IArray(compParam)),
         impl,
         TypeRef(JapgollyNames.vdom.ReactElement),
