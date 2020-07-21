@@ -142,6 +142,7 @@ object TsTreeScope {
   }
 
   final case class ImportCacheKey(scope: TsTreeScope, picker: Picker[_], idents: IArray[TsIdent]) {
+    override def canEqual(that: Any): Boolean = that.## == ##
     override val hashCode: Int = productHash(this)
   }
 
@@ -176,6 +177,7 @@ object TsTreeScope {
   }
 
   sealed trait Entry extends Product {
+    override def canEqual(that: Any): Boolean = that.## == ##
     override lazy val hashCode: Int = productHash(this)
   }
   object Entry {

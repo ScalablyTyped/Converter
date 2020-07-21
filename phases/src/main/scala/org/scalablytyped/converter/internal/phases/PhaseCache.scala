@@ -61,6 +61,6 @@ object PhaseCache {
         case _ => false
       }
 
-    override def hashCode: Int = get.##
+    override lazy val hashCode: Int = get.##
   }
 }

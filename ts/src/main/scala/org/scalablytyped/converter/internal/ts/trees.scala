@@ -8,6 +8,8 @@ import scala.util.hashing.MurmurHash3.productHash
 
 sealed trait TsTree extends Serializable with Product {
 
+  override def canEqual(that: Any): Boolean = that.## == ##
+
   override lazy val hashCode: Int = productHash(this)
 
   lazy val asString: String = {
