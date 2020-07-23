@@ -27,14 +27,14 @@ case class Phase4Publish(publisher: Publisher.Enabled) extends Phase[Source, Pub
         *  receiving already written files. We just wrote them locally for ivy, so... */
       val alreadyWrittenMavenFiles: MavenLayout[os.RelPath, os.Path] =
         MavenLayout(
-          lib.project,
-          lib.localIvyFiles.jarFile._1,
-          lib.localIvyFiles.sourceFile._1,
-          lib.localIvyFiles.pomFile._1,
+          lib.project.reference,
+          lib.localIvyFiles.jarFile._2,
+          lib.localIvyFiles.sourceFile._2,
+          lib.localIvyFiles.pomFile._2,
         )
 
       val published: Unit =
-        Await.result(publisher.publish(lib.project, alreadyWrittenMavenFiles), Duration.Inf)
+        Await.result(publisher.publish(lib.project.name, lib.project.reference, alreadyWrittenMavenFiles), Duration.Inf)
       PhaseRes.Ok(PublishedSbtProject(lib.project)(lib.classfileDir, lib.localIvyFiles, Some(published)))
     }
 }

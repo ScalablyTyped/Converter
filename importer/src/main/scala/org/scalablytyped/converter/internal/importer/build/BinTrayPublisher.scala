@@ -96,7 +96,7 @@ class BinTrayPublisher private (
     }
 
   object isEnabled extends Publisher.Enabled {
-    override def publish(p: SbtProject, layout: Layout[os.RelPath, os.Path]): Future[Unit] = {
+    override def publish(name: String, reference: Dep, layout: Layout[os.RelPath, os.Path]): Future[Unit] = {
       def uploadFiles(pkg: repo.Package): Iterable[Future[Boolean]] =
         layout.all.map {
           case (relPath, src) =>
@@ -104,8 +104,8 @@ class BinTrayPublisher private (
         }
 
       for {
-        pkg <- retry(2)(ensurePackage(p.name, p.name, repoPublic, List("MIT"), Nil))
-        v <- retry(2)(ensureVersion(pkg, p.reference.version))
+        pkg <- retry(2)(ensurePackage(name, name, repoPublic, List("MIT"), Nil))
+        v <- retry(2)(ensureVersion(pkg, reference.version))
         _ <- Future.sequence(uploadFiles(pkg))
         _ <- retry(2)(v.publish(Handle.createOrConflict))
       } yield ()

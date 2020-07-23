@@ -18,6 +18,6 @@ trait Publisher {
 
 object Publisher {
   trait Enabled {
-    def publish(p: SbtProject, layout: Layout[os.RelPath, os.Path]): Future[Unit]
+    def publish(name: String, reference: Dep, layout: Layout[os.RelPath, os.Path]): Future[Unit]
   }
 }

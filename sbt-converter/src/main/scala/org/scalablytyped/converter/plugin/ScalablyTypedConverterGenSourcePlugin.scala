@@ -1,19 +1,16 @@
 package org.scalablytyped.converter
 package plugin
 
-import java.time.Instant
-
-import com.olvind.logging
-import com.olvind.logging.LogLevel
+import org.scalablytyped.converter.internal._
 import org.scalablytyped.converter.internal.importer.jsonCodecs.{FileDecoder, FileEncoder}
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.{Name, QualifiedName}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
-import org.scalablytyped.converter.internal._
 import sbt.Keys._
 import sbt._
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
-import scala.org.scalablytyped.converter.internal.ScalaJsBundlerHack
+import scala.collection.immutable.SortedMap
 import scala.util.Try
 
 object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
@@ -47,20 +44,14 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       Compile / sourceGenerators += stImport.taskValue,
       libraryDependencies ++= {
         val conversion = stConversionOptions.value
-        conversion.flavourImpl.dependencies.map(Deps.asModuleID(conversion.versions)).to[Seq]
+        conversion.flavourImpl.dependencies.map(dep => Utils.asModuleID(dep.concrete(conversion.versions))).to[Seq]
       },
       stMinimize := Selection.None,
       stMinimizeKeep := Nil,
       ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
       ScalaJsBundlerHack.adaptNpmInstallJSResources,
       stImport := {
-        val logger: logging.Logger[Unit] = {
-          val projectName = name.value
-          val sbtLog      = streams.value.log
-
-          if ((Global / stQuiet).value) logging.Logger.DevNull
-          else WrapSbtLogger(sbtLog, Instant.now).filter(LogLevel.warn).void.withContext("project", projectName)
-        }
+        val logger     = WrapSbtLogger.task.value
         val conversion = stConversionOptions.value
 
         if (conversion.outputPackage == Name.typings) {
@@ -79,9 +70,9 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
         val cachedInputs   = os.Path(streams.value.cacheDirectory / "input.json")
         val cachedOutputs  = os.Path(streams.value.cacheDirectory / "output.json")
 
-        val wantedLibs = {
+        val wantedLibs: SortedMap[TsIdentLibrary, String] = {
           val allDeps = (Compile / npmDependencies).value ++ (Test / npmDependencies).value
-          allDeps.map(_._1).to[Set].map(TsIdentLibrary.apply)
+          allDeps.map { case (name, version) => TsIdentLibrary(name) -> version }.toMap.toSorted
         }
 
         val input = ImportTypingsGenSources.Input(

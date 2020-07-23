@@ -363,6 +363,9 @@ sealed trait TsIdentLibrary extends TsIdent {
 }
 
 object TsIdentLibrary {
+  implicit val ordering: Ordering[TsIdentLibrary] =
+    Ordering[String].on[TsIdentLibrary](_.value)
+
   implicit val FormatterTsIdentLibrary: Formatter[TsIdentLibrary] =
     i => i.value
 

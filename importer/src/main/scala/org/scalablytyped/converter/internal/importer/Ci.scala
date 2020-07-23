@@ -311,7 +311,6 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
         .next(new PhaseFlavour(config.conversion.flavourImpl), config.conversion.flavourImpl.toString)
         .next(
           new Phase3Compile(
-            resolve                    = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder)),
             versions                   = config.conversion.versions,
             compiler                   = compiler,
             targetFolder               = targetFolder,

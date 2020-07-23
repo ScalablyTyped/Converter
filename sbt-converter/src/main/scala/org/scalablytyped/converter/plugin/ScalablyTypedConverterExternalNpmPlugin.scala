@@ -1,28 +1,27 @@
 package org.scalablytyped.converter.plugin
 
-import java.nio.file.Path
-import java.time.Instant
-
-import com.olvind.logging
-import com.olvind.logging.{Formatter, LogLevel}
-import org.scalablytyped.converter.internal.importer.jsonCodecs.PackageJsonDepsDecoder
-import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
+import com.olvind.logging.Formatter
 import org.scalablytyped.converter.internal._
+import org.scalablytyped.converter.internal.importer.jsonCodecs.PackageJsonDepsDecoder
+import org.scalablytyped.converter.internal.maps._
+import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
 import org.scalajs.sbtplugin.ScalaJSPlugin
 import sbt.Keys._
 import sbt._
-import sbt.librarymanagement.ModuleID
 
+import scala.collection.immutable.SortedMap
+import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
-  private implicit val PathFormatter: Formatter[Path] = _.toString
+  private implicit val PathFormatter: Formatter[os.Path] = _.toString
 
   private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
   object autoImport {
-    val stImport    = taskKey[Set[ModuleID]]("Imports all the bundled npm and generates bindings")
-    val externalNpm = taskKey[File]("Runs npm and returns the folder with package.json and node_modules")
+    val stImport       = taskKey[(os.Path, ImportTypings.Output)]("Imports all the bundled npm and generates bindings")
+    val externalNpm    = taskKey[File]("Runs npm and returns the folder with package.json and node_modules")
+    val stPublishCache = taskKey[Unit]("Publish all necessary files to cache")
   }
 
   import ScalablyTypedPluginBase.autoImport._
@@ -30,42 +29,48 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
 
   override val requires = ScalablyTypedPluginBase && ScalaJSPlugin
 
-  private[plugin] lazy val stImportTask = Def.taskDyn {
-    val projectName     = name.value
-    val folder          = os.Path(externalNpm.value)
-    val packageJsonFile = folder / "package.json"
-    val nodeModules     = InFolder(folder / "node_modules")
-    val sbtLog          = streams.value.log
-    val outputDir       = os.Path(streams.value.cacheDirectory)
-    val cacheDir        = (Global / stDir).value
+  private[plugin] lazy val stImportTask: Def.Initialize[Task[(os.Path, ImportTypings.Output)]] = Def.taskDyn {
+    val folder             = os.Path(externalNpm.value)
+    val packageJsonFile    = folder / "package.json"
+    val nodeModules        = InFolder(folder / "node_modules")
+    val outputDir          = os.Path(streams.value.cacheDirectory)
+    val cacheDir           = (Global / stDir).value
+    val publishLocalFolder = Utils.IvyLocal.value
+    val stLogger           = WrapSbtLogger.task.value
 
-    val stLogger: logging.Logger[Unit] =
-      if ((Global / stQuiet).value) logging.Logger.DevNull
-      else WrapSbtLogger(sbtLog, Instant.now).filter(LogLevel.warn).void.withContext("project", projectName)
-
-    val wantedLibs: Set[TsIdentLibrary] =
-      Json.force[PackageJsonDeps](packageJsonFile).dependencies.getOrElse(Map()).keys.to[Set].map(TsIdentLibrary.apply)
+    val wantedLibs: SortedMap[TsIdentLibrary, String] =
+      Json
+        .force[PackageJsonDeps](packageJsonFile)
+        .dependencies
+        .getOrElse(Map())
+        .map { case (name, version) => TsIdentLibrary(name) -> version }
+        .toSorted
 
     val conversion = stConversionOptions.value
 
     val input = ImportTypings.Input(
       converterVersion = BuildInfo.version,
-      packageJsonHash  = Digest.of(List(os.read.bytes(packageJsonFile))).hexString,
       conversion       = conversion,
-      fromFolder       = nodeModules,
-      targetFolder     = outputDir / "sources",
       wantedLibs       = wantedLibs,
     )
 
-    val runCache = (cacheDir / "runs" / s"${input.hashCode}.json").toPath
+    val runCacheKey  = RunCacheKey(input)
+    val runCachePath = runCacheKey.path(os.Path(cacheDir))
 
-    type InOut = (ImportTypings.Input, ImportTypings.Output)
+    PluginRemoteCache.fetch(
+      (Global / stRemoteCache).value,
+      runCacheKey,
+      os.Path(cacheDir),
+      publishLocalFolder,
+      stLogger,
+      ExecutionContext.global,
+    )
 
-    Try(Json.force[InOut](runCache)).toOption match {
-      case Some((`input`, output)) if output.allJars.forall(files.exists) =>
+    Try(Json.force[ImportTypings.InOut](runCachePath)).toOption match {
+      case Some((`input`, output)) if output.allPaths(publishLocalFolder).forall(files.exists) =>
         Def.task {
-          stLogger.withContext(runCache).info(s"Using cached result :)")
-          output.deps.map(Deps.asModuleID(conversion.versions))
+          stLogger.withContext(runCachePath).info(s"Using cached result :)")
+          (runCachePath, output)
         }
 
       case _ =>
@@ -74,12 +79,14 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
             input              = input,
             logger             = stLogger,
             parseCacheDirOpt   = Some(cacheDir.toPath resolve "parse"),
+            publishLocalFolder = publishLocalFolder,
+            fromFolder         = nodeModules,
+            targetFolder       = outputDir / "sources",
             compiler           = stInternalZincCompiler.value,
-            publishLocalFolder = ivyPaths.value.ivyHome.fold(constants.defaultLocalPublishFolder)(os.Path(_) / "local"),
           ) match {
             case Right(output) =>
-              Json.persist[InOut](runCache)((input, output))
-              output.deps.map(Deps.asModuleID(conversion.versions))
+              Json.persist[ImportTypings.InOut](runCachePath)((input, output))
+              (runCachePath, output)
             case Left(errors) =>
               errors.foreach {
                 case (_, Left(th)) => throw th
@@ -98,7 +105,8 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
     Seq(
       stImport := stImportTask.value,
       /* This is where we add our generated artifacts to the project for compilation */
-      allDependencies ++= stImport.value.toSeq,
+      allDependencies ++= stImport.value._2.moduleIds.toSeq,
       stInternalZincCompiler := ZincCompiler.task.value,
+      stPublishCache := PluginRemoteCache.publishCacheTask(stImport).value,
     )
 }

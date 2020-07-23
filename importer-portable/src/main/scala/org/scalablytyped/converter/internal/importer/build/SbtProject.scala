@@ -9,7 +9,7 @@ import org.scalablytyped.converter.internal.scalajs.Dep
 import scala.collection.immutable.SortedMap
 import scala.collection.mutable
 
-case class SbtProject(name: String, artifactId: String, reference: Dep.ScalaJs)(
+case class SbtProject(name: String, reference: Dep.Concrete)(
     val baseDir:            os.Path,
     val deps:               Map[Source, PublishedSbtProject],
     val metadata:           Option[Npmjs.Data],
@@ -17,7 +17,7 @@ case class SbtProject(name: String, artifactId: String, reference: Dep.ScalaJs)(
 
 case class PublishedSbtProject(project: SbtProject)(
     val classfileDir:                   os.Path,
-    val localIvyFiles:                  IvyLayout[os.Path, _],
+    val localIvyFiles:                  IvyLayout[os.RelPath, os.Path],
     val publishedOpt:                   Option[Unit],
 )
 

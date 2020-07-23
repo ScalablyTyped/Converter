@@ -110,3 +110,25 @@ If that doesn't suit you, you can specify another directory
 ```scala
 Global / stDir := file("/some/other/dir")
 ```
+
+### Remote cache
+
+The whole conversion process is unfortunately pretty slow. To alleviate this there is an option to use a remote cache,
+where `rsync` transfers all necessary files to a remote server where it can be pulled later. 
+It's like a maven repo with transient libraries, where if they are not found the plugin will automatically rebuild them locally.
+
+First you need to set it up:
+```scala
+Global / stRemoteCache := RemoteCache.Rsync(
+  push = "user@server.com:/path/to/st/cache", 
+  pull = new java.net.URI("https://server.com/path/to/st/cache")
+)
+```
+
+The first parameter specifies where files will be uploaded, and the second how to reach the files through http. 
+Pushing requires access through ssh keys, while typically anybody can pull files.
+
+To push files run `stPublishCache`. Pulling will be done automatically.
+
+If `rsync` is not suitable for your particular use case feel free to get in touch if you want to implement another scheme,
+ it shouldn't be hard.

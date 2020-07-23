@@ -14,21 +14,21 @@ class ContentForPublishTest extends AnyFunSuite with Matchers {
   val dummyPath = os.root / 'tmp
   val versions  = Versions(Versions.Scala213, Versions.ScalaJs1)
   val project = SbtProject(
-    name       = "sbtprojectname",
-    artifactId = versions.sjs("sbtprojectartifactid"),
-    reference = Dep.ScalaJs(
-      org      = "sbtprojectorg",
-      artifact = "sbtprojectartifactid",
-      version  = "sbtprojectversion",
-    ),
+    name = "sbtprojectname",
+    reference = Dep
+      .ScalaJs(
+        org     = "sbtprojectorg",
+        name    = "sbtprojectartifactid",
+        version = "sbtprojectversion",
+      )
+      .concrete(versions),
   )(
     dummyPath,
     Map(
       Source.FromFolder(InFolder(dummyPath), TsIdent.dummyLibrary) -> PublishedSbtProject(
         SbtProject(
-          name       = "depname",
-          artifactId = versions.sjs("sbtprojectartifactid"),
-          reference  = Dep.ScalaJs(org = "deporg", artifact = "departifactid", version = "depversion"),
+          name      = "depname",
+          reference = Dep.ScalaJs(org = "deporg", name = "departifactid", version = "depversion").concrete(versions),
         )(dummyPath, Map(), None),
       )(null, null, None),
     ),

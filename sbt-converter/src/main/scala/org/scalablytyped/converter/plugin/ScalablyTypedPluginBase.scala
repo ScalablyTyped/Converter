@@ -18,87 +18,29 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     type Selection[T] = converter.Selection[T]
     val Selection = converter.Selection
     type Flavour = converter.Flavour
-    val Flavour = converter.Flavour
+    val Flavour     = converter.Flavour
+    val RemoteCache = org.scalablytyped.converter.plugin.RemoteCache
+    type RemoteCache = org.scalablytyped.converter.plugin.RemoteCache
 
     val ScalablyTypedTag: Tag = Tag("ScalablyTyped")
 
-    private[plugin] val stConversionOptions = settingKey[ConversionOptions]("All conversion options")
-
-    val stDir     = settingKey[File]("Directory used for caches, built artifacts and so on")
-    val stIgnore  = settingKey[List[String]]("completely ignore libraries or modules")
-    val stFlavour = settingKey[Flavour]("The type of react binding to use")
+    val stConversionOptions = settingKey[ConversionOptions]("All conversion options")
+    val stDir               = settingKey[File]("Directory used for caches, built artifacts and so on")
+    val stIgnore            = settingKey[List[String]]("completely ignore libraries or modules")
+    val stFlavour           = settingKey[Flavour]("The type of react binding to use")
     val stEnableScalaJsDefined = settingKey[Selection[String]](
-      "Generate @ScalaJSDefined traits when necessary. This enables you to `new` them, but it may require tons of compilation time",
+      "Whether to generate @ScalaJSDefined traits when possible",
     )
-
     val stUseScalaJsDom = settingKey[Boolean]("Use types from scala-js-dom instead of from std when possible")
-
-    /** Options are
-      * dom
-      * dom.iterable
-      * es2015.collection
-      * es2015.core
-      * es2015
-      * es2015.generator
-      * es2015.iterable
-      * es2015.promise
-      * es2015.proxy
-      * es2015.reflect
-      * es2015.symbol
-      * es2015.symbol.wellknown
-      * es2016.array.include
-      * es2016
-      * es2016.full
-      * es2017
-      * es2017.full
-      * es2017.intl
-      * es2017.object
-      * es2017.sharedmemory
-      * es2017.string
-      * es2017.typedarrays
-      * es2018.asyncgenerator
-      * es2018.asynciterable
-      * es2018
-      * es2018.full
-      * es2018.intl
-      * es2018.promise
-      * es2018.regexp
-      * es2019.array
-      * es2019
-      * es2019.full
-      * es2019.object
-      * es2019.string
-      * es2019.symbol
-      * es2020
-      * es2020.full
-      * es2020.string
-      * es2020.symbol.wellknown
-      * es5
-      * es6
-      * esnext.array
-      * esnext.asynciterable
-      * esnext.bigint
-      * esnext
-      * esnext.full
-      * esnext.intl
-      * esnext.symbol
-      * scripthost
-      * webworker
-      * webworker.importscripts
-      */
+    /* Options are: dom, dom.iterable, es2015.collection, es2015.core, es2015, es2015.generator, es2015.iterable, es2015.promise, es2015.proxy, es2015.reflect, es2015.symbol, es2015.symbol.wellknown, es2016.array.include, es2016, es2016.full, es2017, es2017.full, es2017.intl, es2017.object, es2017.sharedmemory, es2017.string, es2017.typedarrays, es2018.asyncgenerator, es2018.asynciterable, es2018, es2018.full, es2018.intl, es2018.promise, es2018.regexp, es2019.array, es2019, es2019.full, es2019.object, es2019.string, es2019.symbol, es2020, es2020.full, es2020.string, es2020.symbol.wellknown, es5, es6, esnext.array, esnext.asynciterable, esnext.bigint, esnext, esnext.full, esnext.intl, esnext.symbol, scripthost, webworker, webworker.importscripts */
     val stStdlib = settingKey[List[String]](
       "Which versions of typescript library to include (same as `lib` in tsconfig.json)",
     )
-    val stTypescriptVersion = settingKey[String](
-      "The version of the typescript library that it should use",
-    )
-    val stOutputPackage = settingKey[String](
-      "The top-level package to put generated code in",
-    )
-
-    val stQuiet = settingKey[Boolean]("remove all output")
-
+    val stTypescriptVersion          = settingKey[String]("The version of the typescript library that it should use")
+    val stOutputPackage              = settingKey[String]("The top-level package to put generated code in")
+    val stQuiet                      = settingKey[Boolean]("remove all output")
     val stInternalExpandTypeMappings = settingKey[Selection[String]]("Experimental: enable type mapping expansion")
+    val stRemoteCache                = settingKey[RemoteCache]("Enable/disable remote cache")
 
     @deprecated("This setting is now does nothing, because it became the default encoding")
     val stExperimentalEnableImplicitOps = settingKey[Boolean]("implicit ops for most traits")
@@ -161,6 +103,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     Seq(
       stQuiet := false,
       stDir := constants.defaultCacheFolder.toIO,
+      stRemoteCache := RemoteCache.Disabled,
       // don't OOM memory constrained environments like IDE build imports or CI
       Global / Keys.concurrentRestrictions += {
         val gigabytes   = (java.lang.Runtime.getRuntime.maxMemory) / (1000 * 1000 * 1000)

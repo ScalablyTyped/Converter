@@ -6,25 +6,27 @@ import java.nio.file.Path
 import com.olvind.logging.Logger
 import io.circe013.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.importer._
-import org.scalablytyped.converter.internal.importer.build.{Compiler, PublishedSbtProject}
+import org.scalablytyped.converter.internal.importer.build.{Compiler, IvyLayout, PublishedSbtProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import org.scalablytyped.converter.internal.scalajs.Dep
 import org.scalablytyped.converter.internal.ts._
+import os.RelPath
+import sbt.librarymanagement.ModuleID
 
 import scala.collection.immutable.SortedMap
 
 object ImportTypings {
+  type InOut = (Input, Output)
 
   case class Input(
-      fromFolder:       InFolder,
-      targetFolder:     os.Path,
       converterVersion: String,
-      packageJsonHash:  String,
       conversion:       ConversionOptions,
-      wantedLibs:       Set[ts.TsIdentLibrary],
-  )
+      wantedLibs:       SortedMap[TsIdentLibrary, String],
+  ) {
+    lazy val packageJsonHash: String = Digest.of(wantedLibs.map { case (name, v) => s"${name.value} $v" }).hexString
+  }
 
   object Input {
     import io.circe013.generic.auto._
@@ -34,7 +36,16 @@ object ImportTypings {
     implicit val InputDecoder: Decoder[Input] = exportDecoder[Input].instance
   }
 
-  case class Output(deps: Set[Dep], allJars: Set[os.Path])
+  case class Output(externalDeps: Set[Dep.Concrete], allProjects: Seq[Dep.Concrete]) {
+    val allRelPaths: Seq[RelPath] =
+      allProjects.flatMap(p => IvyLayout.unit(p).all.keys)
+
+    def allPaths(in: os.Path): Seq[os.Path] =
+      allRelPaths map (in / _)
+
+    def moduleIds: Set[ModuleID] =
+      externalDeps ++ allProjects map Utils.asModuleID
+  }
 
   object Output {
     import io.circe013.generic.auto._
@@ -48,6 +59,8 @@ object ImportTypings {
       logger:             Logger[Unit],
       parseCacheDirOpt:   Option[Path],
       publishLocalFolder: os.Path,
+      fromFolder:         InFolder,
+      targetFolder:       os.Path,
       compiler:           Compiler,
   ): Either[Map[Source, Either[Throwable, String]], Output] = {
 
@@ -55,7 +68,7 @@ object ImportTypings {
       logger.warn("Changing stInternalExpandTypeMappings not encouraged. It might blow up")
     }
 
-    val fromNodeModules = Source.fromNodeModules(input.fromFolder, input.conversion, input.wantedLibs)
+    val fromNodeModules = Source.fromNodeModules(fromFolder, input.conversion, input.wantedLibs.keySet)
     logger.warn(s"Importing ${fromNodeModules.sources.map(_.libName.value).mkString(", ")}")
 
     val cachedParser = PersistingParser(parseCacheDirOpt, fromNodeModules.folders, logger)
@@ -88,14 +101,13 @@ object ImportTypings {
         new Phase3Compile(
           versions                   = input.conversion.versions,
           compiler                   = compiler,
-          targetFolder               = input.targetFolder,
-          publishLocalFolder         = publishLocalFolder,
-          flavour                    = input.conversion.flavourImpl,
+          targetFolder               = targetFolder,
           organization               = input.conversion.organization,
           publisherOpt               = None,
+          publishLocalFolder         = publishLocalFolder,
           metadataFetcher            = Npmjs.No,
-          resolve                    = fromNodeModules.libraryResolver,
           softWrites                 = true,
+          flavour                    = input.conversion.flavourImpl,
           generateScalaJsBundlerFile = false,
           ensureSourceFilesWritten   = false,
         ),
@@ -108,9 +120,9 @@ object ImportTypings {
         .toMap
         .toSorted
 
-    val successes: Map[Source, PublishedSbtProject] = {
-      def go(source: Source, p: PublishedSbtProject): Map[Source, PublishedSbtProject] =
-        Map(source -> p) ++ p.project.deps.flatMap { case (k, v) => go(k, v) }
+    val successes: Map[Source, Dep.Concrete] = {
+      def go(source: Source, lib: PublishedSbtProject): Map[Source, Dep.Concrete] =
+        Map(source -> lib.project.reference) ++ lib.project.deps.flatMap { case (k, v) => go(k, v) }
 
       results.collect { case (s, PhaseRes.Ok(res)) => go(s, res) }.reduceOption(_ ++ _).getOrElse(Map.empty)
     }
@@ -122,8 +134,8 @@ object ImportTypings {
     else
       Right(
         Output(
-          input.conversion.flavourImpl.dependencies ++ successes.map(_._2.project.reference),
-          successes.foldLeft(Set[os.Path]()) { case (acc, (_, p)) => acc ++ p.localIvyFiles.all.keys },
+          input.conversion.flavourImpl.dependencies.map(_.concrete(input.conversion.versions)),
+          successes.values.toVector,
         ),
       )
   }
