@@ -14,22 +14,18 @@ object jsonCodecs {
   implicit def IArrayDecoder[T <: AnyRef: Decoder]: Decoder[IArray[T]] =
     Decoder[List[T]].map[IArray[T]](IArray.fromTraversable)
 
-  implicit val FileEncoder:           Encoder[File]           = Encoder[String].contramap[File](_.toString)
-  implicit val FileDecoder:           Decoder[File]           = Decoder[String].map[File](new File(_))
-  implicit val RelPathDecoder:        Decoder[os.RelPath]     = Decoder[String].map(str => os.RelPath(str.dropWhile(_ === '/')))
-  implicit val RelPathEncoder:        Encoder[os.RelPath]     = Encoder[String].contramap[os.RelPath](_.toString)
-  implicit val PathDecoder:           Decoder[os.Path]        = Decoder[String].map(str => os.Path(str))
-  implicit val PathEncoder:           Encoder[os.Path]        = Encoder[String].contramap[os.Path](_.toString)
-  implicit val URIDecoder:            Decoder[URI]            = Decoder[String].map(new URI(_))
-  implicit val URIEncoder:            Encoder[URI]            = Encoder[String].contramap[URI](_.toString)
-  implicit val TsIdentLibraryDecoder: Decoder[TsIdentLibrary] = Decoder[String].map(TsIdentLibrary.apply)
-  implicit val TsIdentLibraryEncoder: Encoder[TsIdentLibrary] = Encoder[String].contramap[TsIdentLibrary](_.value)
-
-  implicit val TsIdentLibraryMapDecoder: Decoder[Map[TsIdentLibrary, String]] =
-    Decoder[Map[String, String]].map(_.map { case (k, v) => TsIdentLibrary(k) -> v })
-
-  implicit val TsIdentLibraryMapEncoder: Encoder[Map[TsIdentLibrary, String]] =
-    Encoder[Map[String, String]].contramap[Map[TsIdentLibrary, String]](_.map { case (k, v) => k.value -> v })
+  implicit val FileEncoder:           Encoder[File]              = Encoder[String].contramap[File](_.toString)
+  implicit val FileDecoder:           Decoder[File]              = Decoder[String].map[File](new File(_))
+  implicit val RelPathDecoder:        Decoder[os.RelPath]        = Decoder[String].map(str => os.RelPath(str.dropWhile(_ === '/')))
+  implicit val RelPathEncoder:        Encoder[os.RelPath]        = Encoder[String].contramap[os.RelPath](_.toString)
+  implicit val PathDecoder:           Decoder[os.Path]           = Decoder[String].map(str => os.Path(str))
+  implicit val PathEncoder:           Encoder[os.Path]           = Encoder[String].contramap[os.Path](_.toString)
+  implicit val URIDecoder:            Decoder[URI]               = Decoder[String].map(new URI(_))
+  implicit val URIEncoder:            Encoder[URI]               = Encoder[String].contramap[URI](_.toString)
+  implicit val TsIdentLibraryDecoder: Decoder[TsIdentLibrary]    = Decoder[String].map(TsIdentLibrary.apply)
+  implicit val TsIdentLibraryEncoder: Encoder[TsIdentLibrary]    = Encoder[String].contramap[TsIdentLibrary](_.value)
+  implicit val TsIdentLibraryKeyDec:  KeyDecoder[TsIdentLibrary] = KeyDecoder[String].map(TsIdentLibrary.apply)
+  implicit val TsIdentLibraryKeyEnc:  KeyEncoder[TsIdentLibrary] = KeyEncoder[String].contramap[TsIdentLibrary](_.value)
 
   import io.circe013.generic.semiauto._
 

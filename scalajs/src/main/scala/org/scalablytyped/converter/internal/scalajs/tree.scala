@@ -6,7 +6,7 @@ import scala.util.hashing.MurmurHash3.productHash
 sealed trait Tree extends Product with Serializable {
   val name:     Name
   val comments: Comments
-
+  override def canEqual(that: Any): Boolean = that.## == ##
   override lazy val hashCode: Int = productHash(this)
 }
 

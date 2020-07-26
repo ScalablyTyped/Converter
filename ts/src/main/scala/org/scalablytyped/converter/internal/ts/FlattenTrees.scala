@@ -52,7 +52,7 @@ object FlattenTrees {
       case that => rets += that
     }
 
-    rets ++= newNamedMembers(theseNamed, thatsNamed).toList
+    newNamedMembers(theseNamed, thatsNamed).foreach(rets += _)
 
     rets.result().distinct
   }

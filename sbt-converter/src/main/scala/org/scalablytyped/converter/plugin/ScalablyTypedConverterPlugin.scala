@@ -1,72 +1,66 @@
 package org.scalablytyped.converter
 package plugin
 
-import java.nio.file.Path
-import java.time.Instant
-
-import com.olvind.logging
-import com.olvind.logging.{Formatter, LogLevel}
-import org.scalablytyped.converter.internal.ts.TsIdentLibrary
+import com.olvind.logging.Formatter
 import org.scalablytyped.converter.internal._
+import org.scalablytyped.converter.internal.maps._
+import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import sbt.Keys._
 import sbt._
-import sbt.librarymanagement.ModuleID
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
-import scala.org.scalablytyped.converter.internal.ScalaJsBundlerHack
+import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 object ScalablyTypedConverterPlugin extends AutoPlugin {
-  private implicit val PathFormatter: Formatter[Path] = _.toString
+  private implicit val PathFormatter: Formatter[os.Path] = _.toString
 
   override def requires = ScalablyTypedPluginBase && ScalaJSBundlerPlugin
 
   private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
   object autoImport {
-    val stImport = taskKey[Set[ModuleID]]("Imports all the bundled npm and generates bindings")
+    val stImport       = taskKey[(os.Path, ImportTypings.Output)]("Imports all the bundled npm and generates bindings")
+    val stPublishCache = taskKey[Unit]("Publish all necessary files to cache")
   }
 
   import ScalablyTypedPluginBase.autoImport._
   import autoImport._
   import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
 
-  private[plugin] val stImportTask = Def.taskDyn[Set[ModuleID]] {
-    val projectName = name.value
-    val sbtLog      = streams.value.log
-    val cacheDir    = (Global / stDir).value
-
-    val stLogger: logging.Logger[Unit] =
-      if ((Global / stQuiet).value) logging.Logger.DevNull
-      else WrapSbtLogger(sbtLog, Instant.now).filter(LogLevel.warn).void.withContext("project", projectName)
-
-    val allDeps = (Compile / npmDependencies).value ++ (Test / npmDependencies).value
-
-    val wantedLibs: Set[TsIdentLibrary] =
-      allDeps.map(_._1).to[Set].map(TsIdentLibrary.apply)
-
-    val conversion = stConversionOptions.value
-
-    val fromFolder = InFolder(os.Path((Compile / npmUpdate / crossTarget).value / "node_modules"))
+  private[plugin] val stImportTask = Def.taskDyn[(os.Path, ImportTypings.Output)] {
+    val cacheDir           = os.Path((Global / stDir).value)
+    val stLogger           = WrapSbtLogger.task.value
+    val allDeps            = (Compile / npmDependencies).value ++ (Test / npmDependencies).value
+    val wantedLibs         = allDeps.map { case (name, version) => TsIdentLibrary(name) -> version }.toMap.toSorted
+    val conversion         = stConversionOptions.value
+    val publishLocalFolder = Utils.IvyLocal.value
+    val fromFolder         = InFolder(os.Path((Compile / npmUpdate / crossTarget).value / "node_modules"))
+    val targetFolder       = os.Path(streams.value.cacheDirectory) / "sources"
 
     val input = ImportTypings.Input(
       converterVersion = BuildInfo.version,
-      packageJsonHash  = Digest.of(allDeps.map { case (name, v) => s"$name $v" }.sorted).hexString,
       conversion       = conversion,
-      fromFolder       = fromFolder,
-      targetFolder     = os.Path(streams.value.cacheDirectory) / "sources",
       wantedLibs       = wantedLibs,
     )
 
-    val runCache = (cacheDir / "runs" / s"${input.hashCode}.json").toPath
+    val runCacheKey  = RunCacheKey(input)
+    val runCachePath = runCacheKey.path(cacheDir)
 
-    type InOut = (ImportTypings.Input, ImportTypings.Output)
+    PluginRemoteCache.fetch(
+      (Global / stRemoteCache).value,
+      runCacheKey,
+      cacheDir,
+      publishLocalFolder,
+      stLogger,
+      ExecutionContext.global,
+    )
 
-    Try(Json.force[InOut](runCache)).toOption match {
-      case Some((`input`, output)) if output.allJars.forall(files.exists) =>
+    Try(Json.force[ImportTypings.InOut](runCachePath)).toOption match {
+      case Some((`input`, output)) if output.allPaths(publishLocalFolder).forall(files.exists) =>
         Def.task {
-          stLogger.withContext(runCache).info(s"Using cached result :)")
-          output.deps.map(Deps.asModuleID(conversion.versions))
+          stLogger.withContext(runCachePath).info(s"Using cached result :)")
+          (runCachePath, output)
         }
 
       case _ =>
@@ -76,13 +70,15 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
           ImportTypings(
             input              = input,
             logger             = stLogger,
-            parseCacheDirOpt   = Some(cacheDir.toPath resolve "parse"),
+            parseCacheDirOpt   = Some(cacheDir.toNIO resolve "parse"),
+            publishLocalFolder = publishLocalFolder,
+            fromFolder         = fromFolder,
+            targetFolder       = targetFolder,
             compiler           = stInternalZincCompiler.value,
-            publishLocalFolder = ivyPaths.value.ivyHome.fold(constants.defaultLocalPublishFolder)(os.Path(_) / "local"),
           ) match {
             case Right(output) =>
-              Json.persist[InOut](runCache)((input, output))
-              output.deps.map(Deps.asModuleID(conversion.versions))
+              Json.persist[ImportTypings.InOut](runCachePath)((input, output))
+              (runCachePath, output)
             case Left(errors) =>
               errors.foreach {
                 case (_, Left(th)) => throw th
@@ -100,9 +96,10 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
   override lazy val projectSettings =
     Seq(
       /* This is where we add our generated artifacts to the project for compilation */
-      allDependencies ++= stImport.value.toSeq,
+      allDependencies ++= stImport.value._2.moduleIds.toSeq,
       stImport := stImportTask.value,
       stInternalZincCompiler := ZincCompiler.task.value,
       ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
+      stPublishCache := PluginRemoteCache.publishCacheTask(stImport).value,
     )
 }

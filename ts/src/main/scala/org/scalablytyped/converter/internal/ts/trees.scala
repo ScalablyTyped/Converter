@@ -8,6 +8,8 @@ import scala.util.hashing.MurmurHash3.productHash
 
 sealed trait TsTree extends Serializable with Product {
 
+  override def canEqual(that: Any): Boolean = that.## == ##
+
   override lazy val hashCode: Int = productHash(this)
 
   lazy val asString: String = {
@@ -361,6 +363,9 @@ sealed trait TsIdentLibrary extends TsIdent {
 }
 
 object TsIdentLibrary {
+  implicit val ordering: Ordering[TsIdentLibrary] =
+    Ordering[String].on[TsIdentLibrary](_.value)
+
   implicit val FormatterTsIdentLibrary: Formatter[TsIdentLibrary] =
     i => i.value
 

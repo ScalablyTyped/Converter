@@ -2,5 +2,5 @@ package simple
 
 object Main {
   def main(argv: Array[String]): Unit =
-    println(typings.node.constantsMod.ENOSTR)
+    println(mytypings.node.constantsMod.ENOSTR)
 }

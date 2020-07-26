@@ -1,6 +1,7 @@
 package org.scalablytyped.converter.internal.importer.build
 
 import org.scalablytyped.converter.internal.IArray
+import org.scalablytyped.converter.internal.scalajs.Dep
 
 trait Layout[F, V] {
   type Self[f, v] <: Layout[f, v]
@@ -61,13 +62,16 @@ final case class IvyLayout[F, V](jarFile: (F, V), sourceFile: (F, V), ivyFile: (
 }
 
 object IvyLayout {
-  def apply[T](p: SbtProject, jarFile: T, sourceFile: T, ivyFile: T, pomFile: T): IvyLayout[os.RelPath, T] = {
-    val libraryPath = os.RelPath(p.reference.org) / p.artifactId / os.RelPath(p.reference.version)
+  def unit(p: Dep.Concrete): IvyLayout[os.RelPath, Unit] =
+    apply(p, (), (), (), ())
+
+  def apply[T](p: Dep.Concrete, jarFile: T, sourceFile: T, ivyFile: T, pomFile: T): IvyLayout[os.RelPath, T] = {
+    val libraryPath = os.RelPath(p.org) / p.mangledArtifact / os.RelPath(p.version)
     IvyLayout(
-      jarFile    = libraryPath / 'jars / s"${p.artifactId}.jar" -> jarFile,
-      sourceFile = libraryPath / 'srcs / s"${p.artifactId}-sources.jar" -> sourceFile,
+      jarFile    = libraryPath / 'jars / s"${p.mangledArtifact}.jar" -> jarFile,
+      sourceFile = libraryPath / 'srcs / s"${p.mangledArtifact}-sources.jar" -> sourceFile,
       ivyFile    = libraryPath / 'ivys / "ivy.xml" -> ivyFile,
-      pomFile    = libraryPath / 'poms / s"${p.artifactId}.pom" -> pomFile,
+      pomFile    = libraryPath / 'poms / s"${p.mangledArtifact}.pom" -> pomFile,
     )
   }
 }
@@ -82,12 +86,12 @@ final case class MavenLayout[F, V](jarFile: (F, V), sourceFile: (F, V), pomFile:
 }
 
 object MavenLayout {
-  def apply[T](p: SbtProject, jarFile: T, sourceFile: T, pomFile: T): MavenLayout[os.RelPath, T] = {
+  def apply[T](p: Dep.Concrete, jarFile: T, sourceFile: T, pomFile: T): MavenLayout[os.RelPath, T] = {
     val org: os.RelPath =
-      p.reference.org.split("\\.").foldLeft(os.RelPath(""))(_ / _)
+      p.org.split("\\.").foldLeft(os.RelPath(""))(_ / _)
 
     def baseFile(ext: String): os.RelPath =
-      org / p.artifactId / p.reference.version / s"${p.artifactId}-${p.reference.version}$ext"
+      org / p.mangledArtifact / p.version / s"${p.mangledArtifact}-${p.version}$ext"
 
     MavenLayout(
       jarFile    = baseFile(".jar") -> jarFile,

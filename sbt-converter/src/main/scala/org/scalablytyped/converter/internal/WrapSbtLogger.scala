@@ -3,8 +3,12 @@ package internal
 
 import java.time.Instant
 
+import com.olvind.logging
 import com.olvind.logging._
 import fansi.{Color, EscapeAttr, Str}
+import org.scalablytyped.converter.plugin.ScalablyTypedPluginBase
+import sbt.{Def, Global}
+import sbt.Keys.{moduleName, streams}
 import sbt.internal.util.ManagedLogger
 import sourcecode.Text
 
@@ -26,6 +30,13 @@ final class WrapSbtLogger(val underlying: ManagedLogger, ctx: Ctx, pattern: Patt
 }
 
 object WrapSbtLogger {
+  val task = Def.task[logging.Logger[Unit]] {
+    val _sbtLogger = streams.value.log
+
+    if ((Global / ScalablyTypedPluginBase.autoImport.stQuiet).value) logging.Logger.DevNull
+    else WrapSbtLogger(_sbtLogger, Instant.now).filter(LogLevel.warn).void.withContext("project", moduleName.value)
+  }
+
   def apply(x: ManagedLogger, started: Instant) = new WrapSbtLogger(x, Map.empty, new WrapPattern(started))
 
   final class WrapPattern(started: Instant) extends Pattern {

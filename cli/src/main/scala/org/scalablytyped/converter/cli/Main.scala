@@ -288,7 +288,6 @@ object Main {
             .next(new PhaseFlavour(conversion.flavourImpl), conversion.flavourImpl.toString)
             .next(
               new Phase3Compile(
-                resolve                    = libraryResolver,
                 versions                   = conversion.versions,
                 compiler                   = compiler,
                 targetFolder               = c.paths.out,

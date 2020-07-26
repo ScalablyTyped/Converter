@@ -12,4 +12,5 @@ lazy val testProject =
       scalaJSUseMainModuleInitializer := true,
       scalaVersion := "2.13.2",
       organization := "com.olvind",
+      stOutputPackage := "mytypings",
     )

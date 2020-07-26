@@ -20,7 +20,7 @@ object ContentForPublish {
       externalDeps: Set[Dep],
   ): IvyLayout[os.RelPath, Array[Byte]] =
     IvyLayout(
-      p          = p,
+      p          = p.reference,
       jarFile    = createJar(publication)(paths.classesDir),
       sourceFile = createJar(publication)(paths.sourcesDir),
       ivyFile    = fromXml(ivy(v, p, publication, externalDeps)),
@@ -64,11 +64,10 @@ object ContentForPublish {
     baos.toByteArray
   }
 
-  def ivy(v: Versions, p: SbtProject, publication: ZonedDateTime, externalDeps: Set[Dep]): Elem = {
-    val artifactName = p.reference.mangledArtifact(v)
+  def ivy(v: Versions, p: SbtProject, publication: ZonedDateTime, externalDeps: Set[Dep]): Elem =
     <ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
       <info organisation={p.reference.org}
-            module={artifactName}
+            module={p.reference.mangledArtifact}
             revision={p.reference.version}
             status="release"
             publication={publication.format(DateTimeFormatter.ofPattern("ddMMyyyyhhmmss"))}>
@@ -90,28 +89,27 @@ object ContentForPublish {
         <conf name="scala-tool" visibility="private" description=""/>
       </configurations>
       <publications>
-        <artifact name={artifactName} type="jar" ext="jar" conf="compile"/>
-        <artifact name={artifactName} type="pom" ext="pom" conf="pom"/>
-        <artifact name={artifactName} type="src" ext="jar" conf="compile" e:classifier="sources"/>
+        <artifact name={p.reference.mangledArtifact} type="jar" ext="jar" conf="compile"/>
+        <artifact name={p.reference.mangledArtifact} type="pom" ext="pom" conf="pom"/>
+        <artifact name={p.reference.mangledArtifact} type="src" ext="jar" conf="compile" e:classifier="sources"/>
       </publications>
       <dependencies>
-        {v.scala.compiler.asIvy(v, "scala-tool->default,optional(default)")}
-        {v.scala.library.asIvy(v, "scala-tool->default,optional(default);compile->default(compile)")}
-        {v.scalaJs.compiler.asIvy(v, "plugin->default(compile)")}
-        {v.scalaJs.library.asIvy(v)}
-        {v.scalaJs.testInterface.asIvy(v, "test->default(compile)")}
-        {Versions.runtime.asIvy(v)}
-        {p.deps.map { case (_, d) => d.project.reference.asIvy(v) }}
-        {externalDeps.map(d => d.asIvy(v))}
+        {v.scala.compiler.asIvy("scala-tool->default,optional(default)")}
+        {v.scala.library.asIvy("scala-tool->default,optional(default);compile->default(compile)")}
+        {v.scalaJs.compiler.concrete(v).asIvy("plugin->default(compile)")}
+        {v.scalaJs.library.concrete(v).asIvy()}
+        {v.scalaJs.testInterface.concrete(v).asIvy("test->default(compile)")}
+        {Versions.runtime.concrete(v).asIvy()}
+        {p.deps.map { case (_, d) => d.project.reference.asIvy() }}
+        {externalDeps.map(d => d.concrete(v).asIvy())}
       </dependencies>
     </ivy-module>
-  }
 
   def pom(v: Versions, p: SbtProject, externalDeps: Set[Dep]): Elem =
     <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
       <modelVersion>4.0.0</modelVersion>
       <groupId>{p.reference.org}</groupId>
-      <artifactId>{p.reference.mangledArtifact(v)}</artifactId>
+      <artifactId>{p.reference.mangledArtifact}</artifactId>
       <packaging>jar</packaging>
       <description>{p.name}</description>
       <version>{p.reference.version}</version>
@@ -120,12 +118,12 @@ object ContentForPublish {
         <name>{p.reference.org}</name>
       </organization>
       <dependencies>
-        {v.scala.library.asMaven(v)}
-        {v.scalaJs.library.asMaven(v)}
-        {v.scalaJs.testInterface.asMavenTest(v)}
-        {Versions.runtime.asMaven(v)}
-        {p.deps.map { case (_, d) => d.project.reference.asMaven(v) }}
-        {externalDeps.map(d => d.asMaven(v))}
+        {v.scala.library.concrete(v).asMaven}
+        {v.scalaJs.library.concrete(v).asMaven}
+        {v.scalaJs.testInterface.concrete(v).asMavenTest}
+        {Versions.runtime.concrete(v).asMaven}
+        {p.deps.map { case (_, d) => d.project.reference.asMaven }}
+        {externalDeps.map(d => d.concrete(v).asMaven)}
       </dependencies>
     </project>
 }

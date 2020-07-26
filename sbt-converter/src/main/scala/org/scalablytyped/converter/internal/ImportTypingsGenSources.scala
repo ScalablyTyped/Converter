@@ -24,7 +24,7 @@ object ImportTypingsGenSources {
       targetFolder:     os.Path,
       converterVersion: String,
       conversion:       ConversionOptions,
-      wantedLibs:       Set[ts.TsIdentLibrary],
+      wantedLibs:       SortedMap[TsIdentLibrary, String],
       minimize:         Selection[TsIdentLibrary],
       minimizeKeep:     IArray[QualifiedName],
   )
@@ -45,7 +45,7 @@ object ImportTypingsGenSources {
   ): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
     import input._
 
-    val fromNodeModules = Source.fromNodeModules(input.fromFolder, input.conversion, input.wantedLibs)
+    val fromNodeModules = Source.fromNodeModules(input.fromFolder, input.conversion, input.wantedLibs.keySet)
     logger.warn(s"Importing ${fromNodeModules.sources.map(_.libName.value).mkString(", ")}")
 
     val cachedParser = PersistingParser(parseCacheDirOpt, fromNodeModules.folders, logger)
@@ -148,9 +148,13 @@ object ImportTypingsGenSources {
           targetFolder     = files.existing(cacheDir / 'work),
           converterVersion = BuildInfo.version,
           conversion       = conversion,
-          wantedLibs       = Set("typescript", "csstype", "@storybook/react").map(TsIdentLibrary.apply),
-          minimize         = Selection.AllExcept(TsIdentLibrary("@storybook/react")),
-          minimizeKeep     = IArray(QualifiedName(IArray(outputName, Name("std"), Name("console")))),
+          wantedLibs = SortedMap(
+            TsIdentLibrary("typescript") -> "1",
+            TsIdentLibrary("csstype") -> "1",
+            TsIdentLibrary("@storybook/react") -> "1",
+          ),
+          minimize     = Selection.AllExcept(TsIdentLibrary("@storybook/react")),
+          minimizeKeep = IArray(QualifiedName(IArray(outputName, Name("std"), Name("console")))),
         ),
         logger           = logging.stdout.filter(LogLevel.warn),
         parseCacheDirOpt = Some(cacheDir.toNIO resolve "parse"),

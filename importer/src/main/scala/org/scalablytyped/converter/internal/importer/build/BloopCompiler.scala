@@ -23,17 +23,17 @@ import scala.concurrent.{Await, ExecutionContext, Future}
 object BloopCompiler {
   implicit val AbsolutePathFormatter: Formatter[AbsolutePath] = x => x.syntax
 
-  def toCoursier(versions: Versions)(dep: Dep): Dependency =
+  def toCoursier(dep: Dep.Concrete): Dependency =
     Dependency(
-      Module(coursier.Organization(dep.org), coursier.ModuleName(dep.mangledArtifact(versions))),
+      Module(coursier.Organization(dep.org), coursier.ModuleName(dep.mangledArtifact)),
       dep.version,
       attributes = Attributes(),
     )
 
-  def resolve(versions: Versions, deps: Dep*)(implicit ec: ExecutionContext): Future[Array[AbsolutePath]] = {
+  def resolve(deps: Dep.Concrete*)(implicit ec: ExecutionContext): Future[Array[AbsolutePath]] = {
     def go(remainingAttempts: Int): Future[Array[AbsolutePath]] =
       Fetch[Task]()
-        .withDependencies(deps map toCoursier(versions))
+        .withDependencies(deps map toCoursier)
         .io
         .future()
         .map(files => files.map(f => AbsolutePath(f)).toArray)
@@ -55,9 +55,9 @@ object BloopCompiler {
       v:                     Versions,
       failureCacheFolderOpt: Option[Path],
   )(implicit ec:             ExecutionContext): Future[BloopCompiler] = {
-    val scalaCompilerF       = resolve(v, v.scala.compiler)
-    val globalClasspathBaseF = resolve(v, v.scalaJs.library, Versions.runtime)
-    val scalaJsCompilerBaseF = resolve(v, v.scalaJs.compiler)
+    val scalaCompilerF       = resolve(v.scala.compiler)
+    val globalClasspathBaseF = resolve(v.scalaJs.library.concrete(v), Versions.runtime.concrete(v))
+    val scalaJsCompilerBaseF = resolve(v.scalaJs.compiler.concrete(v))
 
     for {
       scalaCompiler <- scalaCompilerF
@@ -99,7 +99,10 @@ class BloopCompiler private (
 
     val classPath = {
       val fromExternalDeps: Array[AbsolutePath] =
-        Await.result(BloopCompiler.resolve(versions, externalDeps.toArray: _*)(ExecutionContext.global), Duration.Inf)
+        Await.result(
+          BloopCompiler.resolve(externalDeps.toArray.map(_.concrete(versions)): _*)(ExecutionContext.global),
+          Duration.Inf,
+        )
 
       val fromDependencyJars: Set[AbsolutePath] =
         deps.collect { case Compiler.InternalDepJar(jar) => AbsolutePath(jar.toIO) }

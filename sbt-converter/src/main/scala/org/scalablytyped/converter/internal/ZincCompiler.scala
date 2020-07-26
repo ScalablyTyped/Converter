@@ -63,14 +63,8 @@ class ZincCompiler(inputs: Inputs, logger: Logger[Unit], resolve: Dep => Array[F
 object ZincCompiler {
   val task = Def.task {
     import Keys._
-    import org.scalablytyped.converter.plugin.ScalablyTypedPluginBase.autoImport._
 
-    val _sbtLogger = streams.value.log
-
-    val logger: logging.Logger[Unit] =
-      if ((Global / stQuiet).value) logging.Logger.DevNull
-      else WrapSbtLogger(_sbtLogger, Instant.now).filter(LogLevel.warn).void.withContext("project", name.value)
-
+    val logger    = WrapSbtLogger.task.value
     val sbtLogger = new ZincCompiler.WrapLogger(logger)
 
     val v = Versions(
@@ -87,7 +81,7 @@ object ZincCompiler {
 
     def resolve(dep: Dep): Array[File] =
       resolver.retrieve(
-        Deps.asModuleID(v)(dep),
+        Utils.asModuleID(dep.concrete(v)),
         scalaModuleInfo.value,
         file("tmp"),
         sbtLogger,
@@ -98,8 +92,8 @@ object ZincCompiler {
 
     val scalaCompiler   = resolve(v.scala.compiler)
     val scalaLibrary    = resolve(v.scala.library)
-    val runtime         = resolve(v.scalaJs.library)
-    val scalaJsCompiler = resolve(v.scalaJs.compiler)
+    val runtime         = resolve(v.scalaJs.library.concrete(v))
+    val scalaJsCompiler = resolve(v.scalaJs.compiler.concrete(v))
     val allJars         = scalaCompiler ++ runtime ++ scalaLibrary ++ scalaJsCompiler
 
     val st      = state.value

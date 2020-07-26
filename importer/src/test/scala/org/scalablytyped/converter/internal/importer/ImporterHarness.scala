@@ -55,15 +55,12 @@ trait ImporterHarness extends AnyFunSuite {
     val stdLibSource: StdLibSource =
       StdLibSource(InFolder(source.path), IArray(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
 
-    val resolve          = new LibraryResolver(stdLibSource, IArray(source))
-    val lastChangedIndex = DTLastChangedIndex.No
-
     val phase: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]
         .next(
           new Phase1ReadTypescript(
-            resolve                 = resolve,
-            calculateLibraryVersion = new DTVersions(lastChangedIndex),
+            resolve                 = new LibraryResolver(stdLibSource, IArray(source)),
+            calculateLibraryVersion = new DTVersions(DTLastChangedIndex.No),
             ignored                 = Set.empty,
             ignoredModulePrefixes   = Set.empty,
             stdlibSource            = stdLibSource,
@@ -85,7 +82,6 @@ trait ImporterHarness extends AnyFunSuite {
         .next(new PhaseFlavour(flavour), flavour.toString)
         .next(
           new Phase3Compile(
-            resolve                    = resolve,
             versions                   = version,
             compiler                   = bloop,
             targetFolder               = targetFolder,

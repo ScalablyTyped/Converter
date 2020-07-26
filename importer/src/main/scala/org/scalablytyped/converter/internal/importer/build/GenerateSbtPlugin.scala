@@ -73,7 +73,7 @@ object GenerateSbtPlugin {
                  .to[Vector]
                  .distinct
                  .sortBy(_.name)
-                 .map(p => s"|        val ${ScalaNameEscape(fix(p.name))} = ${p.reference.asMangledSbt(v)}")
+                 .map(p => s"|        val ${ScalaNameEscape(fix(p.name))} = ${p.reference.asMangledSbt}")
                  .mkString("", "\n", "")}
         |      }""".stripMargin
         }

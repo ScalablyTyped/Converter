@@ -17,7 +17,7 @@ class Cmd(logger: Logger[_], maxLengthOpt: Option[Int]) {
     }
 
     if (verbose) {
-      logger warn (cmdStr)
+      logger warn cmdStr
     }
 
     try {
