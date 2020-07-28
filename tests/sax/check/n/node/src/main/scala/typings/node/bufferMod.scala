@@ -15,7 +15,7 @@ import scala.scalajs.js.annotation._
 ************************************************/
 @JSImport("buffer", JSImport.Namespace)
 @js.native
-object mod extends js.Object {
+object bufferMod extends js.Object {
   @js.native
   class Buffer protected () extends NodeBuffer {
     /**

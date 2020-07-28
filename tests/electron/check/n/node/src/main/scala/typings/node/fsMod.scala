@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation._
 
 @JSImport("fs", JSImport.Namespace)
 @js.native
-object mod extends js.Object {
+object fsMod extends js.Object {
   @js.native
   class ReadStream () extends Readable
   

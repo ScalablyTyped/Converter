@@ -46,6 +46,7 @@ final class AdaptiveNamingImport(private val rewrites: Map[IArray[TsIdent], Qual
 object AdaptiveNamingImport {
   def apply(
       outputPkg:         Name,
+      libraryName:       TsIdentLibrary,
       library:           TsParsedFile,
       depsRewrites:      IArray[AdaptiveNamingImport],
       cleanIllegalNames: CleanIllegalNames,
@@ -64,6 +65,12 @@ object AdaptiveNamingImport {
       mutable.Map[IArray[TsIdent], QualifiedName](IArray.Empty -> QualifiedName(IArray(outputPkg)))
 
     val lowercaseIndex = mutable.Map.empty[String, IArray[TsIdent]]
+
+    // very obviously a hack. node is the only library seen so far where the shortest module name (`assert`)
+    // doesnt correspond to the library name
+    if (libraryName.value === "node") {
+      lowercaseIndex(s"${outputPkg.unescaped.toLowerCase}.node.mod") = IArray(TsIdentSimple("_____"))
+    }
 
     val illegalNames = cleanIllegalNames.Illegal.map(_.value)
 

@@ -85,6 +85,7 @@ class Phase2ToScalaJs(
 
             val importName = AdaptiveNamingImport(
               outputPkg,
+              lib.name,
               lib.parsed,
               scalaDeps.mapToIArray { case (_, v) => v.names },
               cleanIllegalNames,
