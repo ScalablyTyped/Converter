@@ -17,12 +17,19 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
   override def requires = ScalablyTypedPluginBase && ScalaJSBundlerPlugin
 
   object autoImport {
+    sealed trait SourceGenMode
+    object SourceGenMode {
+      case object ResourceGenerator extends SourceGenMode
+      case class Manual(toDir: File) extends SourceGenMode
+    }
+
+    val stSourceGenMode = settingKey[SourceGenMode]("Whether to run automatically as source generator or manually")
 
     /**
       * A list of library names you don't care too much about.
       * The idea is that we can limit compile time (by a lot!)
       */
-    val stMinimize = settingKey[Selection[String]]("")
+    val stMinimize = settingKey[Selection[String]]("Specify which libraries you want minimized")
 
     /**
       * If you care about a small set of specific things from a library you can explicitly say you want that.
@@ -41,7 +48,13 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
     import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
 
     Seq(
-      Compile / sourceGenerators += stImport.taskValue,
+      stSourceGenMode := SourceGenMode.ResourceGenerator,
+      Compile / sourceGenerators ++= {
+        stSourceGenMode.value match {
+          case SourceGenMode.ResourceGenerator => List(stImport.taskValue)
+          case SourceGenMode.Manual(toDir)                => Nil
+        }
+      },
       libraryDependencies ++= {
         val conversion = stConversionOptions.value
         conversion.flavourImpl.dependencies.map(dep => Utils.asModuleID(dep.concrete(conversion.versions))).to[Seq]
@@ -64,8 +77,14 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
 
         (Compile / npmUpdate).value
 
+        val toDir = stSourceGenMode.value match {
+          case SourceGenMode.ResourceGenerator =>
+            os.Path((Compile / sourceManaged).value / "scalablytyped")
+          case SourceGenMode.Manual(toDir) =>
+            os.Path(toDir)
+        }
+
         val fromDir        = os.Path((Compile / npmUpdate / crossTarget).value / "node_modules")
-        val toDir          = os.Path((Compile / sourceManaged).value / "scalablytyped")
         val globalCacheDir = (Global / stDir).value
         val cachedInputs   = os.Path(streams.value.cacheDirectory / "input.json")
         val cachedOutputs  = os.Path(streams.value.cacheDirectory / "output.json")

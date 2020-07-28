@@ -98,13 +98,24 @@ Yarn will need to be present on your system for this to work. You should also ch
 
 The conversion process itself is the same as the normal plugin, but the development process differs a bit:
 
-- The plugin works as a source generator in sbt, so you'll compile all the generated code completely normally
- as part of your build. The reason why this is beneficial for a distributing a library is that it'll have no dependencies.
-
--  It supports minimizing transitive dependencies
-
+- It supports minimizing transitive dependencies.
 You typically want to focus on one library. The fact that it may use node, std, or whatever else is probably secondary.
 You might even want to break such dependency chain explicitly for your users, so that all references to such libraries will end up as `js.Any` 
+
+- You'll compile all the generated code completely normally as part of your build. 
+The reason why this is beneficial for a distributing a library is that it'll be completely 
+free-standing with no dependency on the plugin.
+
+### Two different modes (`stSourceGenMode`)
+
+- `stSourceGenMode := SourceGenMode.ResourceGenerator` (the default)
+
+In this mode the plugin works as a source generator in sbt, and the source code will be placed in
+`target/scala-2.13/src_managed/scalablytyped` (or similar)
+ 
+- `stSourceGenMode := SourceGenMode.Manual(toDir: File)`
+In this mode the plugin will only run when you run `stImport` manually, and you specify which directory
+ the source files will be placed in. Note that the plugin *will delete any other files in this folder*,
 
 
 ### Compiling all that generated code
