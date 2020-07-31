@@ -12,6 +12,7 @@ object Deps {
   val asyncHttpClient   = "com.ning" % "async-http-client" % "1.9.40"
   val scalaXml          = "org.scala-lang.modules" %% "scala-xml" % "1.3.0"
   val scopt             = "com.github.scopt" %% "scopt" % "4.0.0-RC2"
+  val awssdkS3          = "software.amazon.awssdk" % "s3" % "2.13.65"
 
   val circe: Seq[ModuleID] =
     Seq("core", "generic", "parser", "jackson29").map(s => "io.circe013" %% s"circe-$s" % "0.13.0")

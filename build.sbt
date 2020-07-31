@@ -76,6 +76,7 @@ lazy val `sbt-converter06` = project
     name := "sbt-converter06",
     Compile / unmanagedSourceDirectories += (`sbt-converter` / Compile / sourceDirectory).value,
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler-sjs06" % "0.18.0"),
+    libraryDependencies += Deps.awssdkS3
   )
 
 lazy val `sbt-converter` = project
@@ -83,6 +84,7 @@ lazy val `sbt-converter` = project
   .settings(
     name := "sbt-converter",
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.18.0"),
+    libraryDependencies += Deps.awssdkS3
   )
 
 lazy val root = project

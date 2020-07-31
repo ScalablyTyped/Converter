@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 
 import java.net.URI
 
+import ammonite.ops.RelPath
 import com.olvind.logging.Logger
 import gigahorse.support.okhttp.Gigahorse
 import okhttp3.{OkHttpClient, Request, Response}
@@ -9,10 +10,14 @@ import org.scalablytyped.converter.internal.importer.Cmd
 import org.scalablytyped.converter.internal.seqs._
 import org.scalablytyped.converter.plugin.RemoteCache
 import org.scalablytyped.converter.plugin.ScalablyTypedPluginBase.autoImport.{stDir, stRemoteCache}
+import os.Path
 import sbt.{Def, Global, Task, TaskKey}
+import software.amazon.awssdk.services.s3.model.{HeadObjectRequest, PutObjectRequest}
+import software.amazon.awssdk.services.s3.{S3Client, S3ClientBuilder}
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.util.Try
 import scala.util.control.NonFatal
 
 object PluginRemoteCache {
@@ -47,6 +52,64 @@ object PluginRemoteCache {
             }
           }
           logger.warn(s"pushed to $pushLocation")
+
+        case RemoteCache.S3(pushConfiguration, _) =>
+          val (runCachePath, output) = inTask.value
+          val logger = WrapSbtLogger.task.value
+
+          val s3 = {
+            implicit class RichBuilder(s3ClientBuilder: S3ClientBuilder) {
+              def add[T](value: Option[T], builder: S3ClientBuilder => T => S3ClientBuilder) =
+                value.fold(s3ClientBuilder)(builder(s3ClientBuilder))
+            }
+
+            S3Client.builder()
+              .add(pushConfiguration.region, _.region)
+              .add(pushConfiguration.endpointOverride, _.endpointOverride)
+              .add(pushConfiguration.credentialsProvider, _.credentialsProvider)
+              .build()
+          }
+
+          def upload(relPath: RelPath)(implicit wd: Path) = {
+            val key = s"${pushConfiguration.prefix.getOrElse("")}/${relPath.toString()}"
+
+            val exists = Try(s3.headObject(HeadObjectRequest
+              .builder()
+              .bucket(pushConfiguration.bucket)
+              .key(key)
+              .build()
+            )).isSuccess
+
+            if (exists) {
+              logger.warn(s"skipping already cached file $relPath")
+            } else {
+              logger.warn(s"uploading $relPath")
+              s3.putObject(
+                PutObjectRequest
+                  .builder()
+                  .bucket(pushConfiguration.bucket)
+                  .key(key)
+                  .build(),
+                relPath.resolveFrom(wd).toNIO
+              )
+            }
+          }
+
+          Lock.synchronized {
+            locally {
+              implicit val wd = Utils.IvyLocal.value
+
+              output.allRelPaths.foreach(upload)
+            }
+            // this is somewhat convoluted. we know `wc` is a prefix of `runCachePath`, but compute `relPath`
+            // in order for `rsync` to create the folder if necessary
+            locally {
+              implicit val wd = os.Path((Global / stDir).value)
+              val relPath: os.RelPath = runCachePath.relativeTo(wd)
+              upload(relPath)
+            }
+          }
+          logger.warn(s"pushed to bucket ${pushConfiguration.bucket}")
       },
     )
 
@@ -60,6 +123,7 @@ object PluginRemoteCache {
   ): Int =
     remoteCache match {
       case RemoteCache.Disabled => 0
+      case RemoteCache.S3(_, pullUri) => 0
       case RemoteCache.Rsync(_, pullUri) =>
         val localRunFile = runCacheKey.path(cacheDir)
         if (files.exists(localRunFile)) 0
