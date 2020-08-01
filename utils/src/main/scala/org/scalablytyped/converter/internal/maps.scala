@@ -81,14 +81,14 @@ object maps {
       b.result()
     }
 
-    def mapNotNone[VV](f: V => Option[VV])(implicit cbf: CanBuildFrom[M[K, V], (K, VV), M[K, VV]]): M[K, VV] = {
+    def mapNotNone[VV](f: (K, V) => Option[VV])(implicit cbf: CanBuildFrom[M[K, V], (K, VV), M[K, VV]]): M[K, VV] = {
       val b  = cbf()
       val it = m.toIterator
 
       while (it.hasNext) {
         it.next() match {
           case (k, v) =>
-            f(v) match {
+            f(k, v) match {
               case Some(vv) => b += ((k, vv))
               case None     => ()
             }

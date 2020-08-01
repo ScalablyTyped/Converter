@@ -34,10 +34,5 @@ object SlinkyWeb {
   }
 
   /* info about a react tag which exists both in typescript and in slinky */
-  case class CombinedTag(
-      tagName:      TagName,
-      slinkyTagRef: TypeRef,
-      stdRef:       TypeRef,
-      attributes:   Map[Name, TypeRef],
-  )
+  case class CombinedTag(tagName: TagName, slinkyTagRef: TypeRef, stdRef: TypeRef, attributes: Map[Name, TypeRef])
 }

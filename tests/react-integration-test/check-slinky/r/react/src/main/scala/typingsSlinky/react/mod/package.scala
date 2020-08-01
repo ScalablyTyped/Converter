@@ -51,7 +51,7 @@ package object mod {
   // Wrap in an outer-level conditional type to allow distribution over props that are unions
   type Defaultize[P, D] = ((typingsSlinky.std.Pick[
     P, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof D> */ _
+    typingsSlinky.std.Exclude[/* keyof P */ java.lang.String, /* keyof D */ java.lang.String]
   ]) with (typingsSlinky.std.Partial[
     typingsSlinky.std.Pick[
       P, 
@@ -60,7 +60,7 @@ package object mod {
   ]) with (typingsSlinky.std.Partial[
     typingsSlinky.std.Pick[
       D, 
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof D, keyof P> */ _
+      typingsSlinky.std.Exclude[/* keyof D */ java.lang.String, /* keyof P */ java.lang.String]
     ]
   ])) | P
   // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
@@ -129,10 +129,13 @@ package object mod {
   // Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
   type MergePropTypes[P, T] = ((typingsSlinky.std.Pick[P, typingsSlinky.react.mod.NotExactlyAnyPropertyKeys[P]]) with (typingsSlinky.std.Pick[
     T, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof T, NotExactlyAnyPropertyKeys<P>> */ _
+    typingsSlinky.std.Exclude[
+      /* keyof T */ java.lang.String, 
+      typingsSlinky.react.mod.NotExactlyAnyPropertyKeys[P]
+    ]
   ]) with (typingsSlinky.std.Pick[
     P, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof T> */ _
+    typingsSlinky.std.Exclude[/* keyof P */ java.lang.String, /* keyof T */ java.lang.String]
   ])) | P | T
   type MouseEventHandler[T] = typingsSlinky.react.mod.EventHandler[slinky.web.SyntheticMouseEvent[T]]
   type NativeAnimationEvent = org.scalajs.dom.raw.AnimationEvent
@@ -147,7 +150,7 @@ package object mod {
   type NativeTransitionEvent = org.scalajs.dom.raw.TransitionEvent
   type NativeUIEvent = org.scalajs.dom.raw.UIEvent
   type NativeWheelEvent = org.scalajs.dom.raw.WheelEvent
-  type NotExactlyAnyPropertyKeys[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof T, ExactlyAnyPropertyKeys<T>> */ js.Any
+  type NotExactlyAnyPropertyKeys[T] = typingsSlinky.std.Exclude[/* keyof T */ java.lang.String, typingsSlinky.react.mod.ExactlyAnyPropertyKeys[T]]
   type PointerEventHandler[T] = typingsSlinky.react.mod.EventHandler[slinky.web.SyntheticPointerEvent[T]]
   /**
     * {@link https://github.com/bvaughn/rfcs/blob/profiler/text/0000-profiler.md#detailed-design | API}
@@ -168,7 +171,7 @@ package object mod {
   /** Ensures that the props do not include ref at all */
   type PropsWithoutRef[P] = P | (typingsSlinky.std.Pick[
     P, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, 'ref'> */ js.Any
+    typingsSlinky.std.Exclude[/* keyof P */ java.lang.String, typingsSlinky.react.reactStrings.ref]
   ])
   // NOTE: only the Context object itself can get a displayName
   // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325

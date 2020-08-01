@@ -195,7 +195,9 @@ final class FindProps(
               }
 
           val ownProps: Map[Name, Prop] =
-            membersFrom(cls).mapNotNone(member => memberToProp(scope, member, isInherited = false))
+            membersFrom(cls).mapNotNone {
+              case (_, member) => memberToProp(scope, member, isInherited = false)
+            }
 
           /** The total number of props might be too large, so we gradually try to limit it by "compressing" props,
             *   and taking the best option (or truncating variant with the fewest props)
@@ -211,7 +213,9 @@ final class FindProps(
                 def go(p: ParentsResolver.Parent): Map[Name, MemberTree] =
                   maps.smash(p.parents.map(go)) ++ membersFrom(p.classTree)
 
-                maps.smash(inlineParents.map(go)).mapNotNone(member => memberToProp(scope, member, isInherited = true))
+                maps.smash(inlineParents.map(go)).mapNotNone {
+                  case (_, member) => memberToProp(scope, member, isInherited = true)
+                }
               }
 
               val compressedProps: Map[Name, Prop] =

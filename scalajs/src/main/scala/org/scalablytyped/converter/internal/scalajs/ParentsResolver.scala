@@ -124,8 +124,14 @@ object ParentsResolver {
 class ParentsResolver {
   private val cache = mutable.HashMap.empty[IArray[TypeRef], Parents]
 
-  def apply(scope: TreeScope, tree: InheritanceTree): Parents = {
-    val parentRefs: IArray[TypeRef] = findParentRefs(tree)
+  def apply(scope: TreeScope, tree: InheritanceTree): Parents =
+    apply(scope, findParentRefs(tree), typeParams(tree))
+
+  @deprecated
+  def apply(scope: TreeScope, parentRefs: IArray[TypeRef]): Parents =
+    apply(scope, parentRefs, Empty)
+
+  def apply(scope: TreeScope, parentRefs: IArray[TypeRef], tparams: IArray[TypeParamTree]): Parents = {
     val ld = new LoopDetector
 
     cache.get(parentRefs) match {
@@ -133,7 +139,7 @@ class ParentsResolver {
       case None =>
         val (roots, unresolved, _) =
           parentRefs
-            .map(tr => recurse(scope, tr :: Nil, ld, typeParams(tree)))
+            .map(tr => recurse(scope, tr :: Nil, ld, tparams))
             .partitionCollect2({ case x: Resolved => x }, { case u: Unresolved => u })
 
         val ret = Parents(roots.map(_.nr), unresolved.flatMap(_.tr))
@@ -141,5 +147,4 @@ class ParentsResolver {
         ret
     }
   }
-
 }

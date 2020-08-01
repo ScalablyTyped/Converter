@@ -63,21 +63,15 @@ object SlinkyGenComponents {
         case _                                                                               => false
       }
 
-    val (refTypes: IArray[TypeRef], _, props: IArray[Prop]) = {
-      (_props)
-        .partitionCollect2(
-          //refTypes
-          {
-            case Prop.Normal(Prop.Variant(Ref(refType), _, _, _), _, _, _, FieldTree(_, names.ref, _, _, _, _, _, _)) =>
-              refType
-          },
-          // ignored
-          {
-            case n: Prop.Normal if shouldIgnoreProp(n.name, n.main.tpe)    => null
-            case n: Prop.CompressedProp if shouldIgnoreProp(n.name, n.tpe) => null
-          },
-        )
-    }
+    val (refTypes: IArray[TypeRef], _, props: IArray[Prop]) = _props.partitionCollect2(
+      //refTypes
+      { case Prop.Normal(Prop.Variant(Ref(ref), _, _, _), _, _, _, FieldTree(_, names.ref, _, _, _, _, _, _)) => ref },
+      // ignored
+      {
+        case n: Prop.Normal if shouldIgnoreProp(n.name, n.main.tpe)    => null
+        case n: Prop.CompressedProp if shouldIgnoreProp(n.name, n.tpe) => null
+      },
+    )
 
     SplitProps(refTypes, props)
   }
@@ -121,10 +115,16 @@ object SlinkyGenComponents {
     val AnySvgElement:  TypeRef = SlinkySvgElement(TagName.Any)
   }
 
+  /** An indirection to let us talk about builders at the component group level ([[ComponentGroupKey]]) */
   trait GenBuilder {
     def apply(ownerCp: QualifiedName, component: Component): Builder
   }
 
+  /**
+    * The resulting builder for a component can be one of two:
+    * - [[Builder.External]] either the default builder in `StBuildingComponent`, or a shared builder
+    * - [[Builder.Include]] a builder specific only to the component at hand
+    */
   sealed trait Builder {
     val ref: TypeRef =
       this match {
@@ -145,6 +145,52 @@ object SlinkyGenComponents {
   }
 
   case class SharedBuilder(cls: ClassTree, needRef: Boolean)
+
+  /**
+    * Components can be nested. This defines two operations to work with that
+    */
+  final implicit class ComponentsOps(private val cs: IArray[Component]) extends AnyVal {
+    def deepMap(f: Component => Component): IArray[Component] =
+      cs.map { c =>
+        val cc = f(c)
+        cc.withNested(cc.nested.deepMap(f))
+      }
+
+    def unnest: IArray[Component] = {
+      val ret = IArray.Builder.empty[Component](cs.length)
+      def go(c: Component): Unit = {
+        ret += c
+        c.nested foreach go
+      }
+      cs foreach go
+      ret.result()
+    }
+  }
+
+  case class ComponentGroupKey(
+      propsRef:        Option[TypeRef],
+      canBeReferenced: Boolean,
+      tparams:         IArray[TypeParamTree],
+  )
+
+  def groupKey(c: Component): ComponentGroupKey =
+    ComponentGroupKey(c.propsRef, c.referenceTo.isDefined, c.tparams)
+
+  /**
+    * I know.
+    *
+    * A set of components with similar enough interface (same [[ComponentGroupKey]]) will share builders. This is absolutely necessary to compile
+    *  some libraries, and help with compile performance in any case.
+    *
+    *  Such a component interface might be in one of three states (corresponding to [[FindProps.Res]]):
+    *   - [[Res.Error]]: props couldn't be resolved or was too complex
+    *   - [[Res.One]]: props was resolved
+    *   - [[Res.Many]]: props was resolved to several different types (typically a union type)
+    *
+    *  So a group of components might share more than one builder, that's why the type is so long
+    */
+  type BuildersByGroup = Map[ComponentGroupKey, Res[(IArray[String], GenBuilder), (SplitProps, GenBuilder)]]
+
 }
 
 /**
@@ -158,113 +204,100 @@ class SlinkyGenComponents(
 ) {
   import SlinkyGenComponents._
 
-  def apply(scope: TreeScope, tree: ContainerTree, allComponents: IArray[Component]): ContainerTree =
+  def apply(scope: TreeScope, tree: ContainerTree, components: IArray[Component]): ContainerTree =
     mode.webPresent[SlinkyWeb] match {
       case Some(mode) =>
         /* Every tree knows it's own location (called `CodePath`).
              It's used for a lot of things, so it's important to get right */
         val pkgCp = tree.codePath + SlinkyGenComponents.names.components
 
-        /* since we generate a lot of scala code the bounds are not commented out, so remove them */
-        val allComponentsStrippedBounds = allComponents.map(c => c.copy(tparams = stripBounds(c.tparams)))
+        /* since we generate non-facade code, the bounds are not commented out. This comments them out */
+        val componentsStrippedBounds: IArray[Component] =
+          components.deepMap(c => c.copy(tparams = stripBounds(c.tparams)))
 
-        /** We group components on what essentially means they have the same interface.
-          * When there is more than one they'll share some of the generated code
-          */
-        val grouped: Map[(Option[TypeRef], Boolean, IArray[TypeParamTree]), IArray[Component]] =
-          allComponentsStrippedBounds.groupBy(c => (c.propsRef, c.referenceTo.isDefined, c.tparams))
+        /* We group components on what essentially means they have the same interface.
+         * When there is more than one they'll share some of the generated code */
+        val allComponentsGrouped: Map[ComponentGroupKey, IArray[Component]] =
+          componentsStrippedBounds.unnest.groupBy(groupKey)
 
-        val generatedCode: IArray[Tree] =
-          grouped.flatMapToIArray {
-            case ((propsRefOpt, canBeReferenced, tparams), components) =>
-              val PropsDom(propsRef, resProps, domInfo) =
-                findPropsAndInferDomInfo(scope, mode, propsRefOpt, tparams)
-
-              val resPropsSharedBuilders: Res[IArray[String], (SplitProps, Option[SharedBuilder])] = resProps.map {
-                case splitProps if components.length > 1 =>
-                  val sharedBuilder: Option[SharedBuilder] = {
-                    val name = Name(
-                      s"SharedBuilder_${nameFor(propsRef)}${(propsRef, canBeReferenced, tparams).hashCode}"
-                        .replaceAllLiterally("-", "_"),
-                    )
-                    val hasRef = canBeReferenced || refFromProps(resProps).isDefined
-                    if (hasRef) {
-                      val RR           = genStBuilder.R.copy(name = AvailableName(tparams.map(_.name))(genStBuilder.R.name))
-                      val typeArgs     = IArray(domTag(domInfo), TypeRef(RR.name))
-                      val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
-                      genBuilderClass(pkgCp, name, RR +: tparams, stBuilderRef, splitProps.props)
-                        .map(cls => SharedBuilder(cls, needRef = true))
-
-                    } else {
-                      val typeArgs     = IArray(domTag(domInfo), TypeRef.Nothing)
-                      val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
-                      genBuilderClass(pkgCp, name, tparams, stBuilderRef, splitProps.props)
-                        .map(cls => SharedBuilder(cls, needRef = false))
-                    }
-                  }
-                  splitProps -> sharedBuilder
-                case splitProps => splitProps -> None
-              }
-
-              val resPropsAndBuilders = resPropsSharedBuilders
-                .mapError { errors =>
-                  val genBuilder: GenBuilder =
-                    (ownerCp: QualifiedName, c: Component) => {
-                      val typeArgs     = IArray(domTag(domInfo), effectiveRef(scope, resProps, c.referenceTo))
-                      val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
-
-                      genBuilderClass(ownerCp, Name("Builder"), tparams, stBuilderRef, Empty) match {
-                        case Some(b) => Builder.Include(b)
-                        case None =>
-                          Builder.External(TypeRef(genStBuilder.Default.codePath, typeArgs, NoComments))
-                      }
-                    }
-
-                  errors -> genBuilder
-                }
-                .map {
-                  case (splitProps, sharedBuilderOpt) =>
-                    val genBuilder: GenBuilder =
-                      (ownerCp: QualifiedName, c: Component) =>
-                        sharedBuilderOpt match {
-                          case Some(SharedBuilder(cls, needsRef)) =>
-                            val targs: IArray[TypeRef] =
-                              (needsRef, TypeParamTree.asTypeArgs(c.tparams)) match {
-                                case (true, rest) => effectiveRef(scope, resProps, c.referenceTo) +: rest
-                                case (false, all) => all
-                              }
-
-                            Builder.External(TypeRef(cls.codePath, targs, NoComments))
-                          case None =>
-                            val typeArgs     = IArray(domTag(domInfo), effectiveRef(scope, resProps, c.referenceTo))
-                            val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
-
-                            genBuilderClass(ownerCp, Name("Builder"), tparams, stBuilderRef, splitProps.props) match {
-                              case Some(b) => Builder.Include(b)
-                              case None =>
-                                Builder.External(TypeRef(genStBuilder.Default.codePath, typeArgs, NoComments))
-                            }
-                        }
-
-                    splitProps -> genBuilder
-                }
-
-              val componentModules: IArray[ModuleTree] =
-                components.map(genComponent(pkgCp, propsRef, resPropsAndBuilders))
-
-              val sharedBuilders: IArray[ClassTree] =
-                resPropsSharedBuilders.asMap
-                  .flatMapToIArray {
-                    case (_, (_, Some(SharedBuilder(sharedBuilder, _)))) => IArray(sharedBuilder)
-                    case _                                               => Empty
-                  }
-                  .distinctBy(_.name)
-
-              componentModules ++ sharedBuilders
+        /* this is mostly here as an optimization */
+        val allResolvedProps: Map[ComponentGroupKey, PropsDom] =
+          allComponentsGrouped.map {
+            case (group, _) => group -> findPropsAndInferDomInfo(scope, mode, group.propsRef, group.tparams)
           }
 
+        /* A component might have one or more builders shared with other components */
+        val allSharedBuilders: Map[TypeRef, SharedBuilder] = {
+          val b = Map.newBuilder[TypeRef, SharedBuilder]
+          allComponentsGrouped.foreach {
+            case (_, components) if components.length < 2 => ()
+            case (group, _) =>
+              genSharedBuilders(pkgCp, group, allResolvedProps(group)).asMap.foreach {
+                case (ref, Some(sb)) => b += ((ref, sb))
+                case _               => ()
+              }
+          }
+          b.result()
+        }
+
+        val allBuilders: BuildersByGroup =
+          allResolvedProps.map {
+            case (group, PropsDom(propsRef, resProps, domInfo)) =>
+              val withErrorBuilders: Res[(IArray[String], GenBuilder), SplitProps] =
+                resProps
+                  .mapError { errors =>
+                    val genBuilder: GenBuilder =
+                      (ownerCp: QualifiedName, c: Component) => {
+                        val typeArgs     = IArray(domTag(domInfo), effectiveRef(scope, resProps, c.referenceTo))
+                        val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
+
+                        genBuilderClass(ownerCp, Name("Builder"), group.tparams, stBuilderRef, Empty) match {
+                          case Some(b) => Builder.Include(b)
+                          case None    => Builder.External(TypeRef(genStBuilder.Default.codePath, typeArgs, NoComments))
+                        }
+                      }
+
+                    errors -> genBuilder
+                  }
+
+              val resPropsAndBuilders: Res[(IArray[String], GenBuilder), (SplitProps, GenBuilder)] =
+                withErrorBuilders.map { splitProps =>
+                  val genBuilder: GenBuilder =
+                    (ownerCp: QualifiedName, c: Component) =>
+                      allSharedBuilders.get(propsRef) match {
+                        case Some(SharedBuilder(cls, needsRef)) =>
+                          val targs: IArray[TypeRef] =
+                            (needsRef, TypeParamTree.asTypeArgs(c.tparams)) match {
+                              case (true, rest) => effectiveRef(scope, resProps, c.referenceTo) +: rest
+                              case (false, all) => all
+                            }
+
+                          Builder.External(TypeRef(cls.codePath, targs, NoComments))
+                        case None =>
+                          val typeArgs     = IArray(domTag(domInfo), effectiveRef(scope, resProps, c.referenceTo))
+                          val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
+
+                          genBuilderClass(ownerCp, Name("Builder"), group.tparams, stBuilderRef, splitProps.props) match {
+                            case Some(b) => Builder.Include(b)
+                            case None =>
+                              Builder.External(TypeRef(genStBuilder.Default.codePath, typeArgs, NoComments))
+                          }
+                      }
+
+                  splitProps -> genBuilder
+                }
+
+              group -> resPropsAndBuilders
+          }
+
+        val generatedComponents: IArray[ModuleTree] =
+          componentsStrippedBounds.map(genComponent(pkgCp, allBuilders))
+
+        val allSharedBuilderClasses: IArray[ClassTree] =
+          allSharedBuilders.mapToIArray { case (_, SharedBuilder(cls, _)) => cls }.distinctBy(_.name)
+
         /* Only generate the package if we have mapped any components */
-        generatedCode match {
+        (generatedComponents ++ allSharedBuilderClasses) match {
           case IArray.Empty => tree
           case nonEmpty =>
             val newPackage = setCodePath(pkgCp, PackageTree(Empty, names.components, nonEmpty, NoComments, pkgCp))
@@ -272,6 +305,35 @@ class SlinkyGenComponents(
         }
       case None => tree
     }
+
+  def genSharedBuilders(
+      pkgCp:    QualifiedName,
+      group:    ComponentGroupKey,
+      propsDom: PropsDom,
+  ): Res[IArray[String], Option[SharedBuilder]] = {
+    val PropsDom(propsRef, resProps, domInfo) = propsDom
+
+    resProps.map { splitProps =>
+      val name = Name(
+        s"SharedBuilder_${nameFor(propsRef)}${(propsRef, group.canBeReferenced, group.tparams).hashCode}"
+          .replaceAllLiterally("-", "_"),
+      )
+      val hasRef = group.canBeReferenced || refFromProps(resProps).isDefined
+      if (hasRef) {
+        val RR           = genStBuilder.R.copy(name = AvailableName(group.tparams.map(_.name))(genStBuilder.R.name))
+        val typeArgs     = IArray(domTag(domInfo), TypeRef(RR.name))
+        val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
+        genBuilderClass(pkgCp, name, RR +: group.tparams, stBuilderRef, splitProps.props)
+          .map(cls => SharedBuilder(cls, needRef = true))
+
+      } else {
+        val typeArgs     = IArray(domTag(domInfo), TypeRef.Nothing)
+        val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
+        genBuilderClass(pkgCp, name, group.tparams, stBuilderRef, splitProps.props)
+          .map(cls => SharedBuilder(cls, needRef = false))
+      }
+    }
+  }
 
   def refFromProps[E](resProps: Res[E, SplitProps]): Option[TypeRef] =
     resProps.asMap.flatMapToIArray { case (_, v) => v.refTypes }.headOption
@@ -352,31 +414,23 @@ class SlinkyGenComponents(
   }
 
   def genComponent(
-      pkgCp:    QualifiedName,
-      propsRef: TypeRef,
-      resProps: Res[(IArray[String], GenBuilder), (SplitProps, GenBuilder)],
-  )(c:          Component): ModuleTree = {
+      pkgCp:         QualifiedName,
+      builderLookup: BuildersByGroup,
+  )(c:               Component): ModuleTree = {
     val componentCp = pkgCp + c.fullName
-
+    val resProps    = builderLookup(groupKey(c))
     resProps match {
       case Res.Error((errors, genBuilder)) =>
-        errorModule(propsRef, c, componentCp, errors, genBuilder)
+        errorModule(c.propsRef, c, componentCp, errors, genBuilder)
 
       case Res.One(propsRef, (splitProps, genBuilder)) =>
-        componentModule(
-          c.fullName,
-          c,
-          componentCp,
-          propsRef,
-          splitProps,
-          genBuilder,
-        )
+        componentModule(c.fullName, c, componentCp, propsRef, splitProps, genBuilder, builderLookup)
 
       case Res.Many(values) =>
         val members = values.mapToIArray {
           case (propsRef, (splitProps, genBuilder: GenBuilder)) =>
             val name = Name(nameFor(propsRef))
-            componentModule(name, c, componentCp + name, propsRef, splitProps, genBuilder)
+            componentModule(name, c, componentCp + name, propsRef, splitProps, genBuilder, builderLookup)
         }
 
         ModuleTree(
@@ -392,7 +446,7 @@ class SlinkyGenComponents(
   }
 
   def errorModule(
-      propsRef:    TypeRef,
+      propsRef:    Option[TypeRef],
       c:           flavours.Component,
       componentCp: QualifiedName,
       errors:      IArray[String],
@@ -401,7 +455,7 @@ class SlinkyGenComponents(
     val builder = genBuilder(componentCp, c)
     val members = IArray.fromOptions(
       builder.include,
-      Some(genPropsMethod(Name.APPLY, componentCp, propsRef, c.tparams, builder.ref)),
+      Some(genPropsMethod(Name.APPLY, componentCp, propsRef.getOrElse(TypeRef.Object), c.tparams, builder.ref)),
       genImplicitConversionOpt(Name("make"), componentCp, c.tparams, props = SplitProps(Empty, Empty), builder.ref),
     )
 
@@ -423,12 +477,13 @@ class SlinkyGenComponents(
   }
 
   def componentModule(
-      name:       Name,
-      c:          Component,
-      ownerCp:    QualifiedName,
-      propsRef:   TypeRef,
-      splitProps: SplitProps,
-      genBuilder: GenBuilder,
+      name:          Name,
+      c:             Component,
+      ownerCp:       QualifiedName,
+      propsRef:      TypeRef,
+      splitProps:    SplitProps,
+      genBuilder:    GenBuilder,
+      builderLookup: BuildersByGroup,
   ): ModuleTree = {
     val builder = genBuilder(ownerCp, c)
 
@@ -440,11 +495,15 @@ class SlinkyGenComponents(
       genImplicitConversionOpt(Name("make"), ownerCp, c.tparams, splitProps, builder.ref),
     )
 
+    val nested = c.nested.map { c =>
+      genComponent(ownerCp, builderLookup)(c)
+    }
+
     ModuleTree(
       annotations = Empty,
       name        = name,
       parents     = Empty,
-      members     = members,
+      members     = members ++ nested,
       comments    = Minimization.KeepMarker,
       codePath    = ownerCp,
       isOverride  = false,
