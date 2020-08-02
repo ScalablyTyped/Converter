@@ -1,6 +1,10 @@
 package org.scalablytyped.converter.internal
 package ts
 
+import org.scalablytyped.converter.internal.sets.SetOps
+
+import scala.collection.immutable.SortedSet
+
 case class CompilerOptions(
     module:                           Option[String],
     lib:                              Option[IArray[String]],
@@ -29,13 +33,10 @@ case class PackageJsonDeps(
     types:            Option[String],
     files:            Option[IArray[String]],
 ) {
-  def allLibs(dev: Boolean, peer: Boolean): Set[String] = {
-    val set: Set[Map[String, String]] = IArray
-      .fromOptions(dependencies, devDependencies.filter(_ => dev), peerDependencies.filter(_ => peer))
-      .toSet
-    set
+  def allLibs(dev: Boolean, peer: Boolean): SortedSet[String] =
+    Set(dependencies, devDependencies.filter(_ => dev), peerDependencies.filter(_ => peer)).flatten
       .flatMap(_.keys)
-  }
+      .sorted
 }
 
 case class NotNeededPackage(

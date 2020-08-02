@@ -23,7 +23,6 @@ class Phase1ReadTypescript(
     calculateLibraryVersion: CalculateLibraryVersion,
     ignored:                 Set[TsIdentLibrary],
     ignoredModulePrefixes:   Set[List[String]],
-    stdlibSource:            Source,
     pedantic:                Boolean,
     parser:                  InFile => Either[String, TsParsedFile],
     expandTypeMappings:      Selection[TsIdentLibrary],
@@ -90,7 +89,7 @@ class Phase1ReadTypescript(
                 { case DirectiveTypesRef(value) => resolveDep(value) }, {
                   case r @ DirectiveLibRef(value) if inLib.libName === TsIdent.std =>
                     val maybeSource: Option[Source] =
-                      LibraryResolver.file(stdlibSource.folder, s"lib.$value.d.ts").map(Source.helperFile(inLib))
+                      LibraryResolver.file(resolve.stdLib.folder, s"lib.$value.d.ts").map(Source.helperFile(inLib))
                     PhaseRes.fromOption(source, maybeSource, Right(s"Couldn't resolve $r"))
                 },
               )
@@ -127,7 +126,7 @@ class Phase1ReadTypescript(
           PathsFromTsLibSource(source)
 
         val stdlibSourceOpt: Option[Source] =
-          if (fileSources.exists(_.path === stdlibSource.path)) None else Option(stdlibSource)
+          if (fileSources.exists(_.path === resolve.stdLib.path)) None else Option(resolve.stdLib)
 
         if (fileSources.isEmpty) {
           logger.withContext("path", source.folder).warn(s"No typescript definitions found for ${source.libName.value}")
@@ -141,9 +140,14 @@ class Phase1ReadTypescript(
                   x.dependencies.map(_.keys).getOrElse(Nil) ++ x.peerDependencies.map(_.keys).getOrElse(Nil),
                 )
                 .flatMap(depName =>
-                  resolve.library(TsIdentLibrary(depName)) orElse {
-                    logger.fatalMaybe(s"Could not resolve declared dependency $depName", pedantic)
-                    None
+                  resolve.library(TsIdentLibrary(depName)) match {
+                    case LibraryResolver.Found(source) =>
+                      Some(source)
+                    case LibraryResolver.Ignored(_) =>
+                      None
+                    case LibraryResolver.NotAvailable(name) =>
+                      logger.fatalMaybe(s"Could not resolve typescript definitions for dependency $name", pedantic)
+                      None
                   },
                 )
 

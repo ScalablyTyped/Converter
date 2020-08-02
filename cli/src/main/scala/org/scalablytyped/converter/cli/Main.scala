@@ -16,15 +16,17 @@ import org.scalablytyped.converter.internal.importer.jsonCodecs._
 import org.scalablytyped.converter.internal.phases.PhaseListener.NoListener
 import org.scalablytyped.converter.internal.phases.{PhaseRes, PhaseRunner, RecPhase}
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
+import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts.CalculateLibraryVersion.PackageJsonOnly
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
 import org.scalablytyped.converter.internal.{constants, files, sets, BuildInfo, IArray, InFolder, Json}
 import org.scalablytyped.converter.{Flavour, Selection}
 import scopt.{OParser, OParserBuilder, Read}
 
+import scala.collection.immutable.SortedSet
+import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
-import scala.concurrent.Await
 import scala.util.{Failure, Success, Try}
 
 object Main {
@@ -52,7 +54,7 @@ object Main {
 
   case class Config(
       conversion:         ConversionOptions,
-      wantedLibs:         Set[TsIdentLibrary],
+      wantedLibs:         SortedSet[TsIdentLibrary],
       publishBintrayRepo: Option[ProjectName],
       publishGitUrl:      Option[URI],
       inDirectory:        os.Path,
@@ -65,7 +67,7 @@ object Main {
 
   val DefaultConfig = Config(
     DefaultOptions,
-    wantedLibs         = Set(),
+    wantedLibs         = SortedSet(),
     publishBintrayRepo = None,
     publishGitUrl      = None,
     inDirectory        = os.pwd,
@@ -180,7 +182,7 @@ object Main {
         .text("Libraries you want to convert from node_modules")
         .unbounded()
         .optional()
-        .action((x, c) => c.copy(wantedLibs = x.toSet)),
+        .action((x, c) => c.copy(wantedLibs = x.toSet.sorted)),
     )
   }
 
@@ -211,10 +213,10 @@ object Main {
 
         val packageJson = Json.force[PackageJsonDeps](packageJsonPath)
 
-        val projectSource =
+        val projectSource: Option[Source.FromFolder] =
           if (includeProject) Some(Source.FromFolder(InFolder(inDir), TsIdentLibrary(inDir.last))) else None
 
-        val wantedLibs: Set[TsIdentLibrary] =
+        val wantedLibs: SortedSet[TsIdentLibrary] =
           libsFromCmdLine match {
             case sets.EmptySet() =>
               val fromPackageJson = packageJson.allLibs(includeDev, peer = false).map(TsIdentLibrary.apply)
@@ -233,12 +235,21 @@ object Main {
             }
           }
 
+        val bootstrapped = Bootstrap.fromNodeModules(InFolder(nodeModulesPath), conversion, wantedLibs)
+
+        val sources: Vector[Source.TsLibSource] = {
+          bootstrapped.initialLibs match {
+            case Left(unresolved) => sys.error(unresolved.msg)
+            case Right(initial)   => projectSource.foldLeft(initial)(_ :+ _)
+          }
+        }
+
         println(
           table(fansi.Color.LightBlue)(
             "directory" -> inDir.toString,
             "includeDev" -> includeDev.toString,
             "includeProject" -> includeProject.toString,
-            "wantedLibs" -> wantedLibs.map(_.value).mkString(", "),
+            "wantedLibs" -> sources.map(s => s.libName.value).mkString(", "),
             "useScalaJsDomTypes" -> conversion.useScalaJsDomTypes.toString,
             "flavour" -> conversion.flavour.toString,
             "outputPackage" -> conversion.outputPackage.unescaped,
@@ -257,21 +268,16 @@ object Main {
           Duration.Inf,
         )
 
-        val Source.FromNodeModules(_sources, folders, libraryResolver, stdLibSource) =
-          Source.fromNodeModules(InFolder(nodeModulesPath), conversion, wantedLibs)
-
-        val sources = _sources ++ projectSource
         val Pipeline: RecPhase[Source, PublishedSbtProject] =
           RecPhase[Source]
             .next(
               new Phase1ReadTypescript(
                 calculateLibraryVersion = PackageJsonOnly,
-                resolve                 = libraryResolver,
+                resolve                 = bootstrapped.libraryResolver,
                 ignored                 = conversion.ignoredLibs,
                 ignoredModulePrefixes   = conversion.ignoredModulePrefixes,
-                stdlibSource            = stdLibSource,
                 pedantic                = false,
-                parser                  = PersistingParser(parseCachePath, folders, logger.void),
+                parser                  = PersistingParser(parseCachePath, bootstrapped.folders, logger.void),
                 expandTypeMappings      = conversion.expandTypeMappings,
               ),
               "typescript",

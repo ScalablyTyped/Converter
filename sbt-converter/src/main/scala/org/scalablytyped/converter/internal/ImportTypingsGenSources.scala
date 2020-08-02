@@ -45,22 +45,27 @@ object ImportTypingsGenSources {
   ): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
     import input._
 
-    val fromNodeModules = Source.fromNodeModules(input.fromFolder, input.conversion, input.wantedLibs.keySet)
-    logger.warn(s"Importing ${fromNodeModules.sources.map(_.libName.value).mkString(", ")}")
+    val bootstrapped = Bootstrap.fromNodeModules(input.fromFolder, input.conversion, input.wantedLibs.keySet)
 
-    val cachedParser = PersistingParser(parseCacheDirOpt, fromNodeModules.folders, logger)
+    val initial = bootstrapped.initialLibs match {
+      case Left(unresolved) => sys.error(unresolved.msg)
+      case Right(initial)   => initial
+    }
+
+    logger.warn(s"Importing ${initial.map(_.libName.value).mkString(", ")}")
+
+    val cachedParser = PersistingParser(parseCacheDirOpt, bootstrapped.folders, logger)
 
     val Phases: RecPhase[Source, LibScalaJs] = RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
-          fromNodeModules.libraryResolver,
-          CalculateLibraryVersion.PackageJsonOnly,
-          input.conversion.ignoredLibs,
-          input.conversion.ignoredModulePrefixes,
-          fromNodeModules.stdLibSource,
-          pedantic = false,
-          cachedParser,
-          input.conversion.expandTypeMappings,
+          resolve                 = bootstrapped.libraryResolver,
+          calculateLibraryVersion = CalculateLibraryVersion.PackageJsonOnly,
+          ignored                 = input.conversion.ignoredLibs,
+          ignoredModulePrefixes   = input.conversion.ignoredModulePrefixes,
+          pedantic                = false,
+          parser                  = cachedParser,
+          expandTypeMappings      = input.conversion.expandTypeMappings,
         ),
         "typescript",
       )
@@ -76,8 +81,8 @@ object ImportTypingsGenSources {
       .next(new PhaseFlavour(input.conversion.flavourImpl), input.conversion.flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, LibScalaJs]] =
-      fromNodeModules.sources
-        .map(s => s -> PhaseRunner(Phases, (_: Source) => logger, NoListener)(s))
+      initial
+        .map(s => (s: Source) -> PhaseRunner(Phases, (_: Source) => logger, NoListener)(s))
         .toMap
         .toSorted
 

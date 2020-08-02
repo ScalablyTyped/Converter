@@ -55,15 +55,18 @@ trait ImporterHarness extends AnyFunSuite {
     val stdLibSource: StdLibSource =
       StdLibSource(InFolder(source.path), IArray(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
 
+    val allSources = Bootstrap.findSources(source, None)
+    val ignored    = Set.empty[TsIdentLibrary]
+    val resolver   = new LibraryResolver(stdLibSource, allSources, ignored)
+
     val phase: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]
         .next(
           new Phase1ReadTypescript(
-            resolve                 = new LibraryResolver(stdLibSource, IArray(source)),
+            resolve                 = resolver,
             calculateLibraryVersion = new DTVersions(DTLastChangedIndex.No),
-            ignored                 = Set.empty,
+            ignored                 = ignored,
             ignoredModulePrefixes   = Set.empty,
-            stdlibSource            = stdLibSource,
             pedantic                = pedantic,
             parser                  = parser.parseFile,
             expandTypeMappings      = EnabledTypeMappingExpansion.DefaultSelection,
@@ -97,11 +100,8 @@ trait ImporterHarness extends AnyFunSuite {
           "build",
         )
 
-    val found: Set[TsLibSource] =
-      TypescriptSources.forFolder(InFolder(source.path), Set.empty)
-
     PhaseRes.sequenceMap(
-      TreeMap.empty[TsLibSource, PhaseRes[Source, PublishedSbtProject]] ++ found
+      TreeMap.empty[TsLibSource, PhaseRes[Source, PublishedSbtProject]] ++ allSources
         .map { s =>
           val res = PhaseRunner(phase, logRegistry.get, PhaseListener.NoListener)(s)
           s -> res

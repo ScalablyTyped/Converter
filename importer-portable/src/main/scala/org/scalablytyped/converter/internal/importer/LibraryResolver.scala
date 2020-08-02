@@ -1,34 +1,63 @@
 package org.scalablytyped.converter.internal
 package importer
 
+import org.scalablytyped.converter.internal.importer.LibraryResolver._
 import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLibSource, TsSource}
 import org.scalablytyped.converter.internal.ts._
 import os./
 
-class LibraryResolver(stdLib: StdLibSource, sourceFolders: IArray[InFolder]) {
-  import LibraryResolver._
+class LibraryResolver(
+    val stdLib: StdLibSource,
+    allSources: IndexedSeq[Source.FromFolder],
+    ignored:    Set[TsIdentLibrary],
+) {
+
+  private val byName: Map[TsIdentLibrary, TsLibSource] =
+    allSources.groupBy(_.libName).mapValues(_.head).updated(TsIdent.std, stdLib)
 
   def module(current: TsSource, value: String): Option[(TsSource, TsIdentModule)] =
     value match {
       case LocalPath(localPath) =>
-        file(current.folder, localPath).map(Source.helperFile(current.inLibrary)).map(h => (h, h.moduleNames.head))
+        file(current.folder, localPath) map { value =>
+          val h = Source.helperFile(current.inLibrary)(value)
+          (h, h.moduleNames.head)
+        }
       case globalRef =>
         val modName = ModuleNameParser(globalRef.split("/").to[List], keepIndexFragment = true)
-        library(modName.inLibrary).map(source => (source, modName))
+        library(modName.inLibrary) match {
+          case Found(source)   => Some((source, modName))
+          case Ignored(_)      => None
+          case NotAvailable(_) => None
+        }
     }
 
-  def library(libName: TsIdentLibrary): Option[TsLibSource] =
-    libName.value match {
-      case StableStd => Some(stdLib)
-      case _ =>
-        sourceFolders.firstDefined(sourceFolder =>
-          folder(libName, sourceFolder, libName.value) orElse folder(libName, sourceFolder, libName.`__value`),
-        )
-    }
+  def library(name: TsIdentLibrary): Res[TsLibSource] =
+    if (ignored(name)) Ignored(name)
+    else
+      byName.get(name) match {
+        case Some(source) => Found(source)
+        case None         => NotAvailable(name)
+      }
 }
 
 object LibraryResolver {
-  val StableStd = TsIdent.std.value
+  sealed trait Res[+T] {
+    def toOption: Option[T] =
+      this match {
+        case Found(source)   => Some(source)
+        case Ignored(_)      => None
+        case NotAvailable(_) => None
+      }
+    def map[U](f: T => U): Res[U] =
+      this match {
+        case Found(source) => Found(f(source))
+        case x: Ignored      => x
+        case x: NotAvailable => x
+      }
+  }
+  case class Found[T](source:   T) extends Res[T]
+  case class Ignored(name:      TsIdentLibrary) extends Res[Nothing]
+  case class NotAvailable(name: TsIdentLibrary) extends Res[Nothing]
 
   def moduleNameFor(source: TsLibSource, file: InFile): IArray[TsIdentModule] = {
     val shortened: Option[TsIdentModule] =
@@ -73,14 +102,6 @@ object LibraryResolver {
   def file(folder: InFolder, fragment: String): Option[InFile] =
     resolve(folder.path, fragment, fragment + ".ts", fragment + ".d.ts", fragment + "/index.d.ts") collectFirst {
       case file if os.isFile(file) => InFile(file)
-    }
-
-  def folder(libName: TsIdentLibrary, folder: InFolder, fragment: String): Option[Source.FromFolder] =
-    resolve(folder.path, fragment) firstDefined {
-      case dir if os.isDir(dir) =>
-        val s = Source.FromFolder(InFolder(dir), libName)
-        if (s.hasSources) Some(s) else None
-      case _ => None
     }
 
   private def resolve(path: os.Path, frags: String*): IArray[os.Path] =

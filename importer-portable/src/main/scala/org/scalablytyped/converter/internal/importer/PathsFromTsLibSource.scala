@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package importer
 
-import org.scalablytyped.converter.internal.ts.{TsIdentLibrary, TsIdentLibrarySimple}
+import org.scalablytyped.converter.internal.ts.TsIdentLibrarySimple
 
 object PathsFromTsLibSource {
   def apply(source: Source.TsLibSource): Set[Source.TsHelperFile] = {
@@ -16,7 +16,7 @@ object PathsFromTsLibSource {
         case f: Source.FromFolder =>
           /* There are often whole trees parallel to what is specified in `typings` (or similar). This ignores them */
           val bound = f.shortenedFiles.headOption.map(_.folder).getOrElse(f.folder)
-          filesFrom(bound, f.libName)
+          filesFrom(bound)
       }
 
     files.map(Source.helperFile(source)).toSet
@@ -32,7 +32,7 @@ object PathsFromTsLibSource {
         .map(InFile.apply),
     )
 
-  def filesFrom(bound: InFolder, libName: TsIdentLibrary): IArray[InFile] = {
+  def filesFrom(bound: InFolder): IArray[InFile] = {
     def skip(dir: os.Path) =
       dir.last match {
         case "node_modules" => true

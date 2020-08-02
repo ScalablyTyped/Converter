@@ -3,12 +3,14 @@ package importer
 
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 
+import scala.collection.immutable.SortedSet
+
 object Libraries {
 
   /**
     * A good combination of interesting libraries, and libraries that are needed by libs in DT.
     */
-  val extraExternals: Set[TsIdentLibrary] = awsSdk ++ expo ++ Set(
+  val extraExternals: SortedSet[TsIdentLibrary] = awsSdk ++ expo ++ SortedSet(
     "react-phone-number-input",
     "libphonenumber-js",
     "promise-worker",
@@ -248,8 +250,8 @@ object Libraries {
     "zipkin",
   ).map(TsIdentLibrary.apply)
 
-  def ignored(sequential: Boolean): Set[TsIdentLibrary] = {
-    val base = Set[String](
+  def ignored(sequential: Boolean): SortedSet[TsIdentLibrary] = {
+    val base = SortedSet[String](
       "graphene-pk11",
       "rvo2",
       "yfiles",
@@ -270,9 +272,9 @@ object Libraries {
 
     // some new kind of circular dependency causes the phase runner to wait forever (parallel mode)
     def circular =
-      if (sequential) Set()
+      if (sequential) SortedSet()
       else
-        Set(
+        SortedSet(
           "mali",
           "apollo-tracing",
           "playerframework",
@@ -284,10 +286,10 @@ object Libraries {
     base ++ circular map TsIdentLibrary.apply
   }
 
-  val Slow = Set("@pulumi/aws", "aws-sdk", "googleapis", "@material-ui/core", "@storybook/components") map TsIdentLibrary.apply
+  val Slow = SortedSet("@pulumi/aws", "aws-sdk", "googleapis", "@material-ui/core", "@storybook/components") map TsIdentLibrary.apply
 
   /* These are all the libraries used in demos. The set doubles as the extended test set */
-  val DemoSet: Set[TsIdentLibrary] = expo ++ Set(
+  val DemoSet: SortedSet[TsIdentLibrary] = expo ++ SortedSet(
     "@fortawesome/fontawesome-svg-core",
     "@fortawesome/free-solid-svg-icons",
     "@fortawesome/react-fontawesome",
@@ -349,7 +351,6 @@ object Libraries {
     "googlemaps",
     "highlight.js",
     "hoist-non-react-statics",
-    "ipfs-http-client",
     "is-buffer",
     "jquery",
     "jqueryui",
@@ -403,12 +404,10 @@ object Libraries {
     "zone.js",
   ).map(TsIdentLibrary.apply)
 
-  def expo: Set[TsIdentLibrary] =
-    Set(
+  def expo: SortedSet[TsIdentLibrary] =
+    SortedSet(
       "@expo/vector-icons",
-      "@expo/websql",
       "expo",
-      "expo-app-loader-provider",
       "expo-asset",
       "expo-constants",
       "expo-file-system",
@@ -421,8 +420,8 @@ object Libraries {
       "expo-web-browser",
     ).map(TsIdentLibrary.apply)
 
-  def awsSdk: Set[TsIdentLibrary] =
-    Set(
+  def awsSdk: SortedSet[TsIdentLibrary] =
+    SortedSet(
       "@aws-sdk/abort-controller",
       "@aws-sdk/add-glacier-checksum-headers-browser",
       "@aws-sdk/add-glacier-checksum-headers-node",
