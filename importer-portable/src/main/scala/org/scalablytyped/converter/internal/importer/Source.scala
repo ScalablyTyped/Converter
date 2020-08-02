@@ -16,6 +16,9 @@ sealed trait Source {
   def libName: TsIdentLibrary
 
   private lazy val key: String = path.toString
+
+  def hasSources: Boolean =
+    os.walk.stream(folder.path, _.last == "node_modules").exists(_.last.endsWith(".d.ts"))
 }
 
 object Source {
@@ -65,10 +68,7 @@ object Source {
         },
       )
       .groupBy(_.libName)
-      .flatMap {
-        case (_, sameName) =>
-          sameName.find(s => os.walk.stream(s.folder.path, _.last == "node_modules").exists(_.last.endsWith(".d.ts")))
-      }
+      .flatMap { case (_, sameName) => sameName.find(_.hasSources) }
       .toSet
 
   sealed trait TsSource extends Source {

@@ -34,6 +34,7 @@ object Libraries {
     "@ant-design/icons-react-native",
     "@ant-design/dark-theme",
     "@ant-design/pro-layout",
+    "antd",
     "antd-mobile",
     "antd-mobile-rn",
     "api-service",

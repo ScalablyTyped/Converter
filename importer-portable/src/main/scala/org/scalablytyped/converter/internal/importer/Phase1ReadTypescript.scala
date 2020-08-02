@@ -35,6 +35,9 @@ class Phase1ReadTypescript(
         inFile.path.segments.toList.takeRight(3).mkString("../", "/", "")
       else inFile.path.segments.mkString("/")
 
+  implicit val InFolderFormatter: Formatter[InFolder] =
+    _.path.toString
+
   def ignoreModule(moduleNames: IArray[TsIdentModule]): Boolean =
     moduleNames exists ignoreModule
 
@@ -127,7 +130,7 @@ class Phase1ReadTypescript(
           if (fileSources.exists(_.path === stdlibSource.path)) None else Option(stdlibSource)
 
         if (fileSources.isEmpty) {
-          logger.info(s"No typescript definitions found for $source")
+          logger.withContext("path", source.folder).warn(s"No typescript definitions found for ${source.libName.value}")
           PhaseRes.Ignore()
         } else {
           val declaredDependencies: Set[Source] =
@@ -176,7 +179,7 @@ class Phase1ReadTypescript(
                 source.libName === react || deps.exists { case (s, _) => s.libName === react }
               }
 
-              logger.warn(s"Processing ${source.libName}")
+              logger.withContext("path", source.folder).warn(s"Processing ${source.libName.value}")
 
               val flattened = FlattenTrees(preprocessed)
 

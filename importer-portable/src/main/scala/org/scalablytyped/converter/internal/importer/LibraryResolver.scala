@@ -21,9 +21,8 @@ class LibraryResolver(stdLib: StdLibSource, sourceFolders: IArray[InFolder]) {
     libName.value match {
       case StableStd => Some(stdLib)
       case _ =>
-        sourceFolders.firstDefined(source =>
-          (folder(source, libName.value) orElse
-            folder(source, libName.`__value`)).map(folder => Source.FromFolder(folder, libName)),
+        sourceFolders.firstDefined(sourceFolder =>
+          folder(libName, sourceFolder, libName.value) orElse folder(libName, sourceFolder, libName.`__value`),
         )
     }
 }
@@ -76,8 +75,13 @@ object LibraryResolver {
       case file if os.isFile(file) => InFile(file)
     }
 
-  def folder(folder: InFolder, fragment: String): Option[InFolder] =
-    resolve(folder.path, fragment) collectFirst { case dir if os.isDir(dir) => InFolder(dir) }
+  def folder(libName: TsIdentLibrary, folder: InFolder, fragment: String): Option[Source.FromFolder] =
+    resolve(folder.path, fragment) firstDefined {
+      case dir if os.isDir(dir) =>
+        val s = Source.FromFolder(InFolder(dir), libName)
+        if (s.hasSources) Some(s) else None
+      case _ => None
+    }
 
   private def resolve(path: os.Path, frags: String*): IArray[os.Path] =
     IArray(frags: _*).mapNotNone(frag => Option(path / os.RelPath(frag.dropWhile(_ === '/'))) filter files.exists)

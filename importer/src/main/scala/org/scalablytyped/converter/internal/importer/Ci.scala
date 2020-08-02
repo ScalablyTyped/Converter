@@ -235,9 +235,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
         interfaceLogger,
         interfaceCmd,
         files.existing(paths.cacheFolder / 'npm),
-        external.packages
-          .map(_.typingsPackageName)
-          .toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
+        external.packages.map(_.typingsPackageName).toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
         config.conversion.ignoredLibs,
         config.conserveSpace,
         config.offline,
@@ -289,7 +287,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
         .next(
           new Phase1ReadTypescript(
             calculateLibraryVersion = new DTVersions(lastChangedIndex),
-            resolve                 = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder)),
+            resolve                 = new LibraryResolver(stdLibSource, IArray(externalsFolder, dtFolder)),
             ignored                 = config.conversion.ignoredLibs,
             ignoredModulePrefixes   = config.conversion.ignoredModulePrefixes,
             stdlibSource            = stdLibSource,

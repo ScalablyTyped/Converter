@@ -6,11 +6,11 @@ import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 
 object TypescriptSources {
   def apply(nodeModulesFolder: InFolder, dtFolder: InFolder, ignored: Set[TsIdentLibrary]): Set[Source] = {
-    val dtSources       = forFolder(dtFolder, ignored)
-    val dtLibs          = dtSources.map(_.libName)
-    val externalSources = forFolder(nodeModulesFolder, ignored).filterNot(s => dtLibs(s.libName))
+    val externalSources     = forFolder(nodeModulesFolder, ignored).filter(_.hasSources)
+    val externalSourcesLibs = externalSources.map(_.libName)
+    val dtSources           = forFolder(dtFolder, ignored).filterNot(s => externalSourcesLibs(s.libName))
 
-    Set.empty[Source] ++ dtSources ++ externalSources
+    Set.empty[Source] ++ externalSources ++ dtSources
   }
 
   def forFolder(folder: InFolder, ignored: Set[TsIdentLibrary]): Set[TsLibSource] =

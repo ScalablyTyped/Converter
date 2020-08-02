@@ -25,10 +25,6 @@ object DTUpToDate {
         cmd.runVerbose("git", "clone", repo.toString)(cacheFolder),
     )
 
-    // use first party definitions instead. model better if there are more cases like this
-    files.deleteAll(clonedDir / "types" / "highcharts")
-    files.deleteAll(clonedDir / "types" / "expo")
-
     InFolder(clonedDir / 'types)
   }
 }
