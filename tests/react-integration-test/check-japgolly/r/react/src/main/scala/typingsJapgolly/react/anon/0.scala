@@ -1,14 +1,13 @@
 package typingsJapgolly.react.anon
 
+import typingsJapgolly.std.Exclude
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
 trait `0` extends js.Object {
-  var ref: js.UndefOr[
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<R, string> */ js.Any
-  ] = js.native
+  var ref: js.UndefOr[Exclude[_, String]] = js.native
 }
 
 object `0` {
@@ -29,9 +28,7 @@ object `0` {
         x
     }
     @scala.inline
-    def setRef(
-      value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<R, string> */ js.Any
-    ): Self = this.set("ref", value.asInstanceOf[js.Any])
+    def setRef(value: Exclude[_, String]): Self = this.set("ref", value.asInstanceOf[js.Any])
     @scala.inline
     def deleteRef: Self = this.set("ref", js.undefined)
   }

@@ -52,7 +52,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       Compile / sourceGenerators ++= {
         stSourceGenMode.value match {
           case SourceGenMode.ResourceGenerator => List(stImport.taskValue)
-          case SourceGenMode.Manual(toDir)                => Nil
+          case SourceGenMode.Manual(toDir)     => Nil
         }
       },
       libraryDependencies ++= {

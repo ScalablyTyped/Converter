@@ -573,6 +573,9 @@ object reactStrings {
   sealed trait rect extends js.Object
   
   @js.native
+  sealed trait ref extends js.Object
+  
+  @js.native
   sealed trait removals extends js.Object
   
   @js.native
@@ -1145,6 +1148,8 @@ object reactStrings {
   def radialGradient: radialGradient = "radialGradient".asInstanceOf[radialGradient]
   @scala.inline
   def rect: rect = "rect".asInstanceOf[rect]
+  @scala.inline
+  def ref: ref = "ref".asInstanceOf[ref]
   @scala.inline
   def removals: removals = "removals".asInstanceOf[removals]
   @scala.inline

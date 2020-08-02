@@ -20,6 +20,7 @@ final case class Component(
     isGlobal:        Boolean,
     componentType:   ComponentType,
     isAbstractProps: Boolean,
+    nested:          IArray[Component],
 ) {
   val shortenedPropsName = Name(fullName.unescaped + "Props")
 
@@ -33,5 +34,9 @@ final case class Component(
     copy( // don't rewrite scalaRef
       tparams  = tparams.map(t.visitTypeParamTree(scope)),
       propsRef = propsRef.map(t.visitTypeRef(scope)),
+      nested   = nested.map(_.rewritten(scope, t)),
     )
+
+  def withNested(nested: IArray[Component]): Component =
+    copy(nested = nested)
 }

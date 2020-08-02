@@ -61,8 +61,11 @@ import typingsSlinky.react.reactStrings.submit
 import typingsSlinky.react.reactStrings.text
 import typingsSlinky.react.reactStrings.time
 import typingsSlinky.react.reactStrings.tree
+import typingsSlinky.semanticUiReact.buttonContentMod.ButtonContentProps
+import typingsSlinky.semanticUiReact.buttonGroupMod.ButtonGroupProps
 import typingsSlinky.semanticUiReact.buttonMod.ButtonProps
 import typingsSlinky.semanticUiReact.buttonMod.StrictButtonProps
+import typingsSlinky.semanticUiReact.buttonOrMod.ButtonOrProps
 import typingsSlinky.semanticUiReact.genericMod.SemanticCOLORS
 import typingsSlinky.semanticUiReact.genericMod.SemanticFLOATS
 import typingsSlinky.semanticUiReact.genericMod.SemanticSIZES
@@ -535,5 +538,32 @@ object Button {
   
   def withProps(p: StrictButtonProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   implicit def make(companion: Button.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+  object Content {
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button", "Content")
+    @js.native
+    object component extends js.Object
+    
+    def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps_2074188261 = new SharedBuilder_ButtonContentProps_2074188261(js.Array(this.component, p.asInstanceOf[js.Any]))
+    implicit def make(companion: Content.type): SharedBuilder_ButtonContentProps_2074188261 = new SharedBuilder_ButtonContentProps_2074188261(js.Array(this.component, js.Dictionary.empty))()
+  }
+  
+  object Group {
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button", "Group")
+    @js.native
+    object component extends js.Object
+    
+    def withProps(p: ButtonGroupProps): SharedBuilder_ButtonGroupProps1227330619 = new SharedBuilder_ButtonGroupProps1227330619(js.Array(this.component, p.asInstanceOf[js.Any]))
+    implicit def make(companion: Group.type): SharedBuilder_ButtonGroupProps1227330619 = new SharedBuilder_ButtonGroupProps1227330619(js.Array(this.component, js.Dictionary.empty))()
+  }
+  
+  object Or {
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button", "Or")
+    @js.native
+    object component extends js.Object
+    
+    def withProps(p: ButtonOrProps): SharedBuilder_ButtonOrProps934189058 = new SharedBuilder_ButtonOrProps934189058(js.Array(this.component, p.asInstanceOf[js.Any]))
+    implicit def make(companion: Or.type): SharedBuilder_ButtonOrProps934189058 = new SharedBuilder_ButtonOrProps934189058(js.Array(this.component, js.Dictionary.empty))()
+  }
+  
 }
 

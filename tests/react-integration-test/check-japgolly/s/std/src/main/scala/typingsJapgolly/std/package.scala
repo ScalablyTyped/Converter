@@ -9,6 +9,10 @@ package object std {
   type ClipboardEvent = org.scalajs.dom.raw.Event
   type CompositionEvent = org.scalajs.dom.raw.Event
   type DragEvent = org.scalajs.dom.raw.Event
+  /**
+    * Exclude from T those types that are assignable to U
+    */
+  type Exclude[T, U] = T
   type FocusEvent = org.scalajs.dom.raw.Event
   type HTMLAnchorElement = org.scalajs.dom.raw.HTMLElement
   type HTMLAreaElement = org.scalajs.dom.raw.HTMLElement
@@ -70,6 +74,7 @@ package object std {
   type HTMLWebViewElement = org.scalajs.dom.raw.HTMLElement
   type KeyboardEvent = org.scalajs.dom.raw.Event
   type MouseEvent = org.scalajs.dom.raw.Event
+  type Omit[T, K /* <: /* keyof any */ java.lang.String */] = typingsJapgolly.std.Pick[T, typingsJapgolly.std.Exclude[/* keyof T */ java.lang.String, K]]
   /**
     * Make all properties in T optional
     */

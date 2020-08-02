@@ -742,6 +742,26 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
     fromArrayAndSize[A](ret, newLength)
   }
 
+  @inline def takeWhile(p: A => Boolean): IArray[A] = {
+    if (isEmpty) {
+      return this
+    }
+
+    var i        = 0
+    var continue = true
+    while (i < length && continue) {
+      val a   = apply(i)
+      val res = p(a)
+      if (res) {
+        i += 1
+      } else {
+        continue = false
+      }
+    }
+
+    fromArrayAndSize[A](array, i)
+  }
+
   def drop(n: Int): IArray[A] = {
     val newLength = math.max(0, length - n)
     if (newLength == 0) return IArray.Empty
