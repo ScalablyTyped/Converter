@@ -25,6 +25,7 @@ case class PackageJsonDeps(
     devDependencies:  Option[Map[String, String]],
     peerDependencies: Option[Map[String, String]],
     typings:          Option[String],
+    module:           Option[String],
     types:            Option[String],
     files:            Option[IArray[String]],
 ) {

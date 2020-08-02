@@ -125,14 +125,23 @@ object Source {
     def fromFileEntry(fromFolder: Source.FromFolder, fileOpt: Option[String]): IArray[InFile] =
       IArray.fromOption(fileOpt.flatMap(file => LibraryResolver.file(fromFolder.folder, file)))
 
+    def fromModuleDeclaration(fromFolder: Source.FromFolder, fileOpt: Option[String]): IArray[InFile] =
+      fileOpt.flatMap(file => LibraryResolver.file(fromFolder.folder, file)) match {
+        case Some(existingFile) if Source.hasTypescriptSources(existingFile.folder) => IArray(existingFile)
+        case _                                                                      => Empty
+      }
+
     src match {
       case _: StdLibSource => Empty
       case f: FromFolder =>
-        IArray(
-          fromFileEntry(f, f.packageJsonOpt.flatMap(_.types)),
-          fromFileEntry(f, f.packageJsonOpt.flatMap(_.typings)),
-          fromTypingsJson(f, f.packageJsonOpt.flatMap(_.typings)),
-        ).flatten
+        val fromTypings =
+          IArray(
+            fromFileEntry(f, f.packageJsonOpt.flatMap(_.types) orElse f.packageJsonOpt.flatMap(_.typings)),
+            fromTypingsJson(f, f.packageJsonOpt.flatMap(_.typings)),
+          ).flatten
+
+        if (fromTypings.nonEmpty) fromTypings
+        else fromModuleDeclaration(f, f.packageJsonOpt.flatMap(_.module))
     }
   }
 }
