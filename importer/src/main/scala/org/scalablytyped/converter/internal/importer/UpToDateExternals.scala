@@ -22,7 +22,7 @@ object UpToDateExternals {
 
     val alreadyAddedExternals: Set[TsIdentLibrary] =
       packageJson match {
-        case Some(PackageJsonDeps(_, deps, _, peerDeps, _, _, _)) =>
+        case Some(PackageJsonDeps(_, deps, _, peerDeps, _, _, _, _)) =>
           (deps.getOrElse(Map.empty) ++ peerDeps.getOrElse(Map.empty))
             .map { case (name, _) => TsIdentLibrary(name) }(collection.breakOut)
         case None =>

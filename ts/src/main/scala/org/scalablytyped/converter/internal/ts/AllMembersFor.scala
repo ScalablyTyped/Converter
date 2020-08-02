@@ -8,7 +8,7 @@ object AllMembersFor {
     tpe match {
       case x: TsTypeRef         => apply(scope, loopDetector)(x)
       case x: TsTypeIntersect   => x.types.flatMap(forType(scope, loopDetector))
-      case x: TsTypeUnion       => Empty
+      case _: TsTypeUnion       => Empty
       case x: TsTypeObject      => x.members
       case _: TsTypeAsserts     => Empty
       case _: TsTypeLiteral     => Empty

@@ -4,7 +4,7 @@ import java.util
 
 import org.scalablytyped.converter.internal.IArray.fromArrayAndSize
 
-import scala.collection.immutable.Range
+import scala.collection.immutable.{Range, SortedSet}
 import scala.collection.mutable.WrappedArray.ofRef
 import scala.collection.{immutable, mutable, GenTraversableOnce, Iterator}
 
@@ -918,16 +918,21 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
     }
 
   def toSet[AA >: A]: Set[AA] =
-    toArray[AA].toSet.asInstanceOf[Set[AA]]
+    toArray[AA].toSet
+
+  def toSortedSet[AA >: A: Ordering]: SortedSet[AA] =
+    SortedSet.empty[AA] ++ toArray[AA]
 
   def toList: List[A] =
-    toArray[A].toList.asInstanceOf[List[A]]
+    toArray[A].toList
 
   def toVector: Vector[A] =
-    toArray[A].toVector.asInstanceOf[Vector[A]]
+    toArray[A].toVector
 
-  private def toArray[AA >: A]: Array[AnyRef] =
-    if (array.length == length) array else array.take(length)
+  private def toArray[AA >: A]: Array[AA] = {
+    val ret = if (array.length == length) array else array.take(length)
+    ret.asInstanceOf[Array[AA]]
+  }
 
   def toMap[T, U](implicit ev: A <:< (T, U)): immutable.Map[T, U] = {
     val ret = new mutable.MapBuilder[T, U, immutable.Map[T, U]](immutable.Map.empty)

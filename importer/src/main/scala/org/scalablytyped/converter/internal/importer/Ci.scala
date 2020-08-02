@@ -16,7 +16,6 @@ import org.scalablytyped.converter.internal.importer.documentation.{NpmjsFetcher
 import org.scalablytyped.converter.internal.importer.jsonCodecs._
 import org.scalablytyped.converter.internal.phases.{PhaseRes, PhaseRunner, RecPhase}
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
-import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts._
 import org.scalablytyped.converter.{Flavour, Selection}
 
@@ -38,7 +37,7 @@ object Ci {
 
   case class Config(
       conversion:       ConversionOptions,
-      wantedLibs:       Set[ts.TsIdentLibrary],
+      wantedLibs:       SortedSet[TsIdentLibrary],
       enablePublish:    Boolean,
       offline:          Boolean,
       pedantic:         Boolean,
@@ -62,8 +61,10 @@ object Ci {
     def unapply(args: Array[String]): Some[Config] =
       args partition (_ startsWith "-") match {
         case (flags, rest) =>
-          val wantedLibNames: Set[TsIdentLibrary] =
-            (if (flags contains "-demoSet") Libraries.DemoSet else Set()) ++ rest.map(TsIdentLibrary.apply)
+          val wantedLibNames: SortedSet[TsIdentLibrary] =
+            (if (flags contains "-demoSet") Libraries.DemoSet else SortedSet[TsIdentLibrary]()) ++ rest.map(
+              TsIdentLibrary.apply,
+            )
 
           val shouldUseScalaJsDomTypes = flags contains "-useScalaJsDomTypes"
 
@@ -200,18 +201,15 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
       projectFolder
     }(ec)
 
-  def tsSourcesF(externalsFolderF: Future[InFolder], dtFolderF: Future[InFolder]): Future[SortedSet[Source]] = {
+  def bootstrappedF(
+      externalsFolderF: Future[InFolder],
+      dtFolderF:        Future[InFolder],
+  ): Future[Bootstrap.Bootstrapped] = {
     implicit val s = ec
     for {
       externalsFolder <- externalsFolderF
       dtFolder <- dtFolderF
-    } yield (
-      TypescriptSources(externalsFolder, dtFolder, config.conversion.ignoredLibs).sorted,
-      config.wantedLibs,
-    ) match {
-      case (sources, sets.EmptySet()) => sources
-      case (sources, wantedLibs)      => sources.filter(s => wantedLibs(s.libName))
-    }
+    } yield Bootstrap.forCi(externalsFolder, dtFolder, config.conversion, config.wantedLibs)
   }
 
   val compilerF: Future[BloopCompiler] =
@@ -235,9 +233,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
         interfaceLogger,
         interfaceCmd,
         files.existing(paths.cacheFolder / 'npm),
-        external.packages
-          .map(_.typingsPackageName)
-          .toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
+        external.packages.map(_.typingsPackageName).toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
         config.conversion.ignoredLibs,
         config.conserveSpace,
         config.offline,
@@ -258,7 +254,6 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
   }(ec)
 
   val updatedTargetDirF = updatedTargetDir()
-  val tsSourcesFF       = tsSourcesF(externalsFolderF, dtFolderF)
 
   def run(): Option[Long] = {
     val externalsFolder  = Await.result(externalsFolderF, Duration.Inf)
@@ -267,20 +262,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
     val compiler         = Await.result(compilerF, Duration.Inf)
     val ()               = Await.result(localCleaningF, Duration.Inf)
     val targetFolder     = Await.result(updatedTargetDirF, Duration.Inf)
-    val tsSources        = Await.result(tsSourcesFF, Duration.Inf)
-
-    val stdLibSource: StdLibSource = {
-      val folder = externalsFolder.path / "typescript" / "lib"
-
-      require(files.exists(folder), s"You must add typescript as a dependency. $folder must exist.")
-      require(!config.conversion.ignoredLibs.contains(TsIdent.std), "You cannot ignore std")
-
-      StdLibSource(
-        InFolder(folder),
-        config.conversion.stdLibs.map(s => InFile(folder / s"lib.$s.d.ts")),
-        TsIdent.std,
-      )
-    }
+    val bootstrapped     = Await.result(bootstrappedF(externalsFolderF, dtFolderF), Duration.Inf)
 
     val t0 = System.currentTimeMillis
 
@@ -289,10 +271,9 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
         .next(
           new Phase1ReadTypescript(
             calculateLibraryVersion = new DTVersions(lastChangedIndex),
-            resolve                 = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder)),
+            resolve                 = bootstrapped.libraryResolver,
             ignored                 = config.conversion.ignoredLibs,
             ignoredModulePrefixes   = config.conversion.ignoredModulePrefixes,
-            stdlibSource            = stdLibSource,
             pedantic                = config.pedantic,
             parser                  = PersistingParser(paths.parseCache, IArray(externalsFolder, dtFolder), logger.void),
             expandTypeMappings      = config.conversion.expandTypeMappings,
@@ -327,10 +308,16 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
         )
         .nextOpt(publisher.enabled.map(Phase4Publish), "publish")
 
+    val initial = bootstrapped.initialLibs match {
+      case Left(unresolved) =>
+        sys.error(unresolved.msg)
+      case Right(sources) => sources
+    }
+
     val results: Map[Source, PhaseRes[Source, PublishedSbtProject]] =
       Interface(config.debugMode, storingErrorLogger) {
         case listener if config.parallel =>
-          val par = tsSources.toVector.par
+          val par = initial.par
           par.tasksupport = new ForkJoinTaskSupport(pool)
           par
             .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
@@ -338,7 +325,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
             .toMap
 
         case listener =>
-          tsSources.toVector
+          initial
             .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
             .toMap
       }

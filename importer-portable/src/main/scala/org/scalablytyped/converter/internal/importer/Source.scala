@@ -16,60 +16,14 @@ sealed trait Source {
   def libName: TsIdentLibrary
 
   private lazy val key: String = path.toString
+
+  def hasSources: Boolean =
+    Source.hasTypescriptSources(folder)
 }
 
 object Source {
-  case class FromNodeModules(
-      sources:         Set[Source],
-      folders:         IArray[InFolder],
-      libraryResolver: LibraryResolver,
-      stdLibSource:    StdLibSource,
-  )
-
-  def fromNodeModules(
-      fromFolder: InFolder,
-      conversion: ConversionOptions,
-      wantedLibs: Set[ts.TsIdentLibrary],
-  ): FromNodeModules = {
-    val stdLibSource = {
-      val folder = fromFolder.path / "typescript" / "lib"
-
-      require(files.exists(folder), s"You must add typescript as a dependency. $folder must exist.")
-      require(!conversion.ignoredLibs.contains(TsIdent.std), "You cannot ignore std")
-
-      StdLibSource(
-        InFolder(folder),
-        conversion.stdLibs.map(s => InFile(folder / s"lib.$s.d.ts")),
-        TsIdent.std,
-      )
-    }
-
-    val inputFolders: IArray[InFolder] = IArray(InFolder(fromFolder.path / "@types"), fromFolder)
-    val sources:      Set[Source]      = findSources(inputFolders, IArray.fromTraversable(wantedLibs)) + stdLibSource
-
-    FromNodeModules(
-      sources         = sources,
-      folders         = inputFolders,
-      libraryResolver = new LibraryResolver(stdLibSource, inputFolders),
-      stdLibSource    = stdLibSource,
-    )
-  }
-
-  private def findSources(fromFolders: IArray[InFolder], wanted: IArray[TsIdentLibrary]): Set[Source] =
-    wanted
-      .flatMap(name =>
-        fromFolders.mapNotNone { fromFolder =>
-          val potential = fromFolder.path / os.RelPath(name.value)
-          if (files.exists(potential)) Some[Source](Source.FromFolder(InFolder(potential), name))
-          else None
-        },
-      )
-      .groupBy(_.libName)
-      .flatMap {
-        case (_, sameName) =>
-          sameName.find(s => os.walk.stream(s.folder.path, _.last == "node_modules").exists(_.last.endsWith(".d.ts")))
-      }
-      .toSet
+  def hasTypescriptSources(folder: InFolder): Boolean =
+    os.walk.stream(folder.path, _.last == "node_modules").exists(_.last.endsWith(".d.ts"))
 
   sealed trait TsSource extends Source {
     final def inLibrary: Source.TsLibSource =
@@ -109,7 +63,7 @@ object Source {
   implicit def SourceOrdering[S <: Source]: Ordering[S]       = Ordering.by[S, String](_.key)
   implicit val SourceFormatter:             Formatter[Source] = _.libName.value
 
-  /* for files referenced through here we must shorten the paths (done right below) */
+  /* for files referenced through here we must shorten the paths */
   def findShortenedFiles(src: Source.TsLibSource): IArray[InFile] = {
     def fromTypingsJson(fromFolder: Source.FromFolder, fileOpt: Option[String]): IArray[InFile] =
       fileOpt match {
@@ -125,14 +79,23 @@ object Source {
     def fromFileEntry(fromFolder: Source.FromFolder, fileOpt: Option[String]): IArray[InFile] =
       IArray.fromOption(fileOpt.flatMap(file => LibraryResolver.file(fromFolder.folder, file)))
 
+    def fromModuleDeclaration(fromFolder: Source.FromFolder, fileOpt: Option[String]): IArray[InFile] =
+      fileOpt.flatMap(file => LibraryResolver.file(fromFolder.folder, file)) match {
+        case Some(existingFile) if Source.hasTypescriptSources(existingFile.folder) => IArray(existingFile)
+        case _                                                                      => Empty
+      }
+
     src match {
       case _: StdLibSource => Empty
       case f: FromFolder =>
-        IArray(
-          fromFileEntry(f, f.packageJsonOpt.flatMap(_.types)),
-          fromFileEntry(f, f.packageJsonOpt.flatMap(_.typings)),
-          fromTypingsJson(f, f.packageJsonOpt.flatMap(_.typings)),
-        ).flatten
+        val fromTypings =
+          IArray(
+            fromFileEntry(f, f.packageJsonOpt.flatMap(_.types) orElse f.packageJsonOpt.flatMap(_.typings)),
+            fromTypingsJson(f, f.packageJsonOpt.flatMap(_.typings)),
+          ).flatten
+
+        if (fromTypings.nonEmpty) fromTypings
+        else fromModuleDeclaration(f, f.packageJsonOpt.flatMap(_.module))
     }
   }
 }

@@ -68,19 +68,24 @@ object ImportTypings {
       logger.warn("Changing stInternalExpandTypeMappings not encouraged. It might blow up")
     }
 
-    val fromNodeModules = Source.fromNodeModules(fromFolder, input.conversion, input.wantedLibs.keySet)
-    logger.warn(s"Importing ${fromNodeModules.sources.map(_.libName.value).mkString(", ")}")
+    val bootstrapped = Bootstrap.fromNodeModules(fromFolder, input.conversion, input.wantedLibs.keySet)
 
-    val cachedParser = PersistingParser(parseCacheDirOpt, fromNodeModules.folders, logger)
+    val initial = bootstrapped.initialLibs match {
+      case Left(unresolved) => sys.error(unresolved.msg)
+      case Right(initial)   => initial
+    }
+
+    logger.warn(s"Importing ${initial.map(_.libName.value).mkString(", ")}")
+
+    val cachedParser = PersistingParser(parseCacheDirOpt, bootstrapped.folders, logger)
 
     val Phases: RecPhase[Source, PublishedSbtProject] = RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
-          resolve                 = fromNodeModules.libraryResolver,
+          resolve                 = bootstrapped.libraryResolver,
           calculateLibraryVersion = CalculateLibraryVersion.PackageJsonOnly,
           ignored                 = input.conversion.ignoredLibs,
           ignoredModulePrefixes   = input.conversion.ignoredModulePrefixes,
-          stdlibSource            = fromNodeModules.stdLibSource,
           pedantic                = false,
           parser                  = cachedParser,
           expandTypeMappings      = input.conversion.expandTypeMappings,
@@ -115,8 +120,8 @@ object ImportTypings {
       )
 
     val results: SortedMap[Source, PhaseRes[Source, PublishedSbtProject]] =
-      fromNodeModules.sources
-        .map(s => s -> PhaseRunner(Phases, (_: Source) => logger, PhaseListener.NoListener)(s))
+      initial
+        .map(s => (s: Source) -> PhaseRunner(Phases, (_: Source) => logger, PhaseListener.NoListener)(s))
         .toMap
         .toSorted
 
