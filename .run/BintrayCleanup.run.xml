@@ -10,6 +10,7 @@
     </extension>
     <method v="2">
       <option name="Make" enabled="true" />
+      <option name="BSP.BeforeRunTask" enabled="true" />
     </method>
   </configuration>
 </component>
