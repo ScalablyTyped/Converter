@@ -57,7 +57,7 @@ object JapgollyGenComponents {
     SplitProps(refTypes, props)
   }
 
-  final case class PropsDom(propsRef: TypeRef, splitProps: Res[IArray[String], SplitProps])
+  final case class PropsDom(propsRef: PropsRef, splitProps: Res[IArray[String], SplitProps])
 
   object names {
     val components   = Name("components")
@@ -121,7 +121,7 @@ object JapgollyGenComponents {
   }
 
   case class ComponentGroupKey(
-      propsRef:        Option[TypeRef],
+      propsRef:        PropsRef,
       canBeReferenced: Boolean,
       tparams:         IArray[TypeParamTree],
   )
@@ -177,13 +177,13 @@ class JapgollyGenComponents(
       }
 
     /* A component might have one or more builders shared with other components */
-    val allSharedBuilders: Map[TypeRef, SharedBuilder] = {
-      val b = Map.newBuilder[TypeRef, SharedBuilder]
+    val allSharedBuilders: Map[PropsRef, SharedBuilder] = {
+      val b = Map.newBuilder[PropsRef, SharedBuilder]
       allComponentsGrouped.foreach {
         case (_, components) if components.length < 2 => ()
         case (group, _) =>
           genSharedBuilders(pkgCp, group, allResolvedProps(group)).asMap.foreach {
-            case (ref, Some(sb)) => b += ((ref, sb))
+            case (ref, Some(sb)) => b += ((PropsRef(ref), sb))
             case _               => ()
           }
       }
@@ -264,7 +264,7 @@ class JapgollyGenComponents(
 
     resProps.map { splitProps =>
       val name = Name(
-        s"SharedBuilder_${nameFor(propsRef)}${(propsRef, group.canBeReferenced, group.tparams).hashCode}"
+        s"SharedBuilder_${nameFor(propsRef.ref)}${(propsRef, group.canBeReferenced, group.tparams).hashCode}"
           .replaceAllLiterally("-", "_"),
       )
       val hasRef = group.canBeReferenced || refFromProps(resProps).isDefined
@@ -304,28 +304,20 @@ class JapgollyGenComponents(
     }
 
   def findPropsAndInferDomInfo(
-      scope:       TreeScope,
-      propsRefOpt: Option[TypeRef],
-      tparams:     IArray[TypeParamTree],
-  ): PropsDom =
-    propsRefOpt match {
-      case Some(propsRef) =>
-        val resProps: Res[IArray[String], IArray[Prop]] =
-          findProps.forType(
-            propsRef,
-            tparams,
-            scope,
-            maxNum             = Int.MaxValue,
-            acceptNativeTraits = true,
-          )
-        PropsDom(propsRef, resProps.map(SplitProps(reactNames, scope)))
-
-      case None =>
-        val value: Res[IArray[String], SplitProps] =
-          Res.One(TypeRef.Object, SplitProps(Empty, Empty))
-
-        PropsDom(TypeRef.Object, value)
-    }
+      scope:    TreeScope,
+      propsRef: PropsRef,
+      tparams:  IArray[TypeParamTree],
+  ): PropsDom = {
+    val resProps: Res[IArray[String], IArray[Prop]] =
+      findProps.forType(
+        typeRef            = propsRef.ref,
+        tparams            = tparams,
+        scope              = scope,
+        maxNum             = Int.MaxValue,
+        acceptNativeTraits = true,
+      )
+    PropsDom(propsRef, resProps.map(SplitProps(reactNames, scope)))
+  }
 
   def genComponent(pkgCp: QualifiedName, builderLookup: BuildersByGroup)(c: Component): ModuleTree = {
     val componentCp = pkgCp + c.fullName
@@ -335,13 +327,13 @@ class JapgollyGenComponents(
         errorModule(c.propsRef, c, componentCp, errors, genBuilder)
 
       case Res.One(propsRef, (splitProps, genBuilder)) =>
-        componentModule(c.fullName, c, componentCp, propsRef, splitProps, genBuilder, builderLookup)
+        componentModule(c.fullName, c, componentCp, PropsRef(propsRef), splitProps, genBuilder, builderLookup)
 
       case Res.Many(values) =>
         val members = values.mapToIArray {
           case (propsRef, (splitProps, genBuilder: GenBuilder)) =>
             val name = Name(nameFor(propsRef))
-            componentModule(name, c, componentCp + name, propsRef, splitProps, genBuilder, builderLookup)
+            componentModule(name, c, componentCp + name, PropsRef(propsRef), splitProps, genBuilder, builderLookup)
         }
 
         ModuleTree(
@@ -357,7 +349,7 @@ class JapgollyGenComponents(
   }
 
   def errorModule(
-      propsRef:    Option[TypeRef],
+      propsRef:    PropsRef,
       c:           flavours.Component,
       componentCp: QualifiedName,
       errors:      IArray[String],
@@ -366,7 +358,7 @@ class JapgollyGenComponents(
     val builder = genBuilder(componentCp, c)
     val members = IArray.fromOptions(
       builder.include,
-      Some(genPropsMethod(Name.APPLY, componentCp, propsRef.getOrElse(TypeRef.Object), c.tparams, builder.ref)),
+      Some(genPropsMethod(Name.APPLY, componentCp, propsRef, c.tparams, builder.ref)),
       genImplicitConversionOpt(Name("make"), componentCp, c.tparams, props = SplitProps(Empty, Empty), builder.ref),
     )
 
@@ -391,7 +383,7 @@ class JapgollyGenComponents(
       name:          Name,
       c:             Component,
       ownerCp:       QualifiedName,
-      propsRef:      TypeRef,
+      propsRef:      PropsRef,
       splitProps:    SplitProps,
       genBuilder:    GenBuilder,
       builderLookup: BuildersByGroup,
@@ -425,7 +417,7 @@ class JapgollyGenComponents(
   def genApplyMethodOpt(
       name:       Name,
       ownerCp:    QualifiedName,
-      propsRef:   TypeRef,
+      propsRef:   PropsRef,
       splitProps: SplitProps,
       tparams:    IArray[TypeParamTree],
       builderRef: TypeRef,
@@ -450,7 +442,7 @@ class JapgollyGenComponents(
             IArray(
               IArray(
                 Ref(QualifiedName(IArray(Name.THIS, names.component))),
-                Cast(Ref(QualifiedName(IArray(objName))), propsRef),
+                Cast(Ref(QualifiedName(IArray(objName))), propsRef.ref),
               ),
             ),
           ),
@@ -546,7 +538,7 @@ class JapgollyGenComponents(
   def genPropsMethod(
       name:       Name,
       ownerCp:    QualifiedName,
-      propsRef:   TypeRef,
+      propsRef:   PropsRef,
       tparams:    IArray[TypeParamTree],
       builderRef: TypeRef,
   ): MethodTree = {
@@ -554,7 +546,7 @@ class JapgollyGenComponents(
       name       = Name("p"),
       isImplicit = false,
       isVal      = false,
-      tpe        = propsRef,
+      tpe        = propsRef.ref,
       default    = NotImplemented,
       comments   = NoComments,
     )

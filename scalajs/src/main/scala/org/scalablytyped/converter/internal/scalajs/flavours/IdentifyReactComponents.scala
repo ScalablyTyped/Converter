@@ -25,7 +25,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
     }
 
     /* because for instance mui ships with icons called `List` and `Tab` */
-    val preferPropsMatchesName = c.propsRef.fold(false)(_.name.unescaped.startsWith(c.fullName.unescaped))
+    val preferPropsMatchesName = c.propsRef.ref.name.unescaped.startsWith(c.fullName.unescaped)
 
     /* because for instance mui declares both a default and a names export, where only the former exists */
     val preferDefault = c.scalaRef.name === Name.Default
@@ -47,7 +47,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
                   scalaRef        = tparams.last,
                   fullName        = name,
                   tparams         = Empty,
-                  propsRef        = Some(props),
+                  propsRef        = PropsRef(props),
                   componentType   = ComponentType.Intrinsic,
                   isAbstractProps = false,
                   nested          = Empty,
@@ -59,7 +59,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
 
   def all(scope: TreeScope, tree: ContainerTree): IArray[Component] =
     recurse(scope, tree)
-      .filterNot(c => reactNames.isComponent(c.scalaRef))
+      .filterNot(c => reactNames.ComponentQNames(c.scalaRef.typeName))
       .map(_.rewritten(scope, Wildcards.Remove))
 
   /* just one of each component (determined by name), which one is chosen by the `Ordering` implicit above */
@@ -164,8 +164,8 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
           case _: ClassTree => false
           case _ => true
         }
-        val propsTypeOpt    = flattenedParams.headOption.map(_.tpe)
-        def isAbstractProps = propsTypeOpt.exists(scope.isAbstract)
+        val propsRef        = PropsRef(flattenedParams.headOption.map(_.tpe).getOrElse(TypeRef.Object))
+        def isAbstractProps = scope.isAbstract(propsRef.ref)
         def validName       = isUpper(method.name) || (Unnamed(method.name) && (isUpper(owner.name) || Unnamed(owner.name)))
 
         if (!validName || !isTopLevel || isAbstractProps) None
@@ -179,7 +179,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
                 scalaRef        = TypeRef(owner.codePath),
                 fullName        = componentName(scope, owner.annotations, owner.codePath),
                 tparams         = method.tparams,
-                propsRef        = propsTypeOpt,
+                propsRef        = propsRef,
                 componentType   = ComponentType.Field,
                 isAbstractProps = isAbstractProps,
                 nested          = Empty,
@@ -191,7 +191,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
                 scalaRef        = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
                 fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(method.name))),
                 tparams         = method.tparams,
-                propsRef        = propsTypeOpt,
+                propsRef        = propsRef,
                 componentType   = ComponentType.Function,
                 isAbstractProps = isAbstractProps,
                 nested          = Empty,
@@ -259,10 +259,8 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
   }
 
   def maybeFieldComponent(field: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
-    def pointsAtComponentType(scope: TreeScope, current: TypeRef): Option[TypeRef] =
-      if (reactNames.isComponent(current)) {
-        Some(current)
-      } else {
+    def pointsAtComponentType(scope: TreeScope, current: TypeRef): Option[PropsRef] =
+      reactNames.isComponent(current).orElse {
         scope
           .lookup(current.typeName)
           .firstDefined {
@@ -278,20 +276,18 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
           }
       }
 
-    val fieldResult = for {
-      tr <- pointsAtComponentType(scope, field.tpe)
-      props = tr.targs.head
-    } yield Component(
-      location        = Right(locationFrom(scope)),
-      scalaRef        = TypeRef(field.codePath),
-      fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(field.name))),
-      tparams         = Empty,
-      propsRef        = Some(props).filterNot(_ === TypeRef.Object),
-      componentType   = ComponentType.Field,
-      isAbstractProps = scope.isAbstract(props),
-      nested          = Empty,
+    val fieldResult = pointsAtComponentType(scope, field.tpe).map(propsRef =>
+      Component(
+        location        = Right(locationFrom(scope)),
+        scalaRef        = TypeRef(field.codePath),
+        fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(field.name))),
+        tparams         = Empty,
+        propsRef        = propsRef,
+        componentType   = ComponentType.Field,
+        isAbstractProps = scope.isAbstract(propsRef.ref),
+        nested          = Empty,
+      ),
     )
-
     def isAliasToFC: Option[Component] =
       FollowAliases(scope)(field.tpe) match {
         case TypeRef.Function(paramTypes, ret) =>
@@ -326,18 +322,19 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
   def maybeClassComponent(cls: ClassTree, owner: ContainerTree, scope: TreeScope): Option[Component] =
     if (cls.classType =/= ClassType.Class) None
     else
-      parentsResolver(scope, cls).transitiveParents.collectFirst {
-        case (tr @ TypeRef(_, IArray.first(props), _), _) if reactNames isComponent tr =>
+      parentsResolver(scope, cls).transitiveParents.firstDefined { (tr, _) =>
+        reactNames.isComponent(tr).map { propsRef =>
           Component(
             location        = Right(locationFrom(scope)),
             scalaRef        = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
             fullName        = componentName(scope, owner.annotations, cls.codePath),
             tparams         = cls.tparams,
-            propsRef        = Some(props).filterNot(_ === TypeRef.Object),
+            propsRef        = propsRef,
             componentType   = ComponentType.Class,
-            isAbstractProps = scope.isAbstract(props),
+            isAbstractProps = scope.isAbstract(propsRef.ref),
             nested          = Empty,
           )
+        }
       }
 
   object componentName {

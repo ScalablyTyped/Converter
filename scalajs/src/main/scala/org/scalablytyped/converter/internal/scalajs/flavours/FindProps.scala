@@ -93,6 +93,7 @@ final class FindProps(
       acceptNativeTraits: Boolean,
   ): Res[IArray[String], IArray[Prop]] =
     FollowAliases(scope)(typeRef) match {
+      case TypeRef.Object => Res.One(typeRef, Empty)
       case TypeRef.Intersection(types, _) =>
         val results: IArray[Res[IArray[String], IArray[Prop]]] =
           types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits))

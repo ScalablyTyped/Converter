@@ -27,6 +27,14 @@ class ReactNames(val outputPkg: Name) {
 
   val isRef: Set[QualifiedName] = Set(Ref, LegacyRef, RefObject)
 
+  val WrappedComponents: Set[String] = Set(
+    "MemoExoticComponent",
+    "LazyExoticComponent",
+    "RefForwardingComponent",
+  )
+  val WrappedComponentsQNames: Set[QualifiedName] =
+    WrappedComponents.map(mod + Name(_))
+
   val ComponentNames: Set[String] =
     Set(
       "ClassicComponent",
@@ -37,8 +45,6 @@ class ReactNames(val outputPkg: Name) {
       "ExoticComponent",
       "FC",
       "FunctionComponent",
-      "LazyExoticComponent",
-      "MemoExoticComponent",
       "NamedExoticComponent",
       "ProviderExoticComponent",
       "PureComponent",
@@ -50,10 +56,15 @@ class ReactNames(val outputPkg: Name) {
   val ComponentQNames: Set[QualifiedName] =
     ComponentNames.map(mod + Name(_))
 
-  def isComponent(tr: TypeRef): Boolean =
+  val ComponentLike: Set[QualifiedName] =
+    ComponentQNames ++ WrappedComponentsQNames
+
+  def isComponent(tr: TypeRef): Option[PropsRef] =
     tr match {
-      case TypeRef.Intersection(types, _) => types.exists(isComponent)
-      case other                          => ComponentQNames(other.typeName)
+      case TypeRef.Intersection(types, _)                                => types.firstDefined(isComponent)
+      case TypeRef(c, IArray.first(props), _) if ComponentQNames(c)      => Some(PropsRef(props))
+      case TypeRef(c, IArray.first(cc), _) if WrappedComponentsQNames(c) => isComponent(cc)
+      case _                                                             => None
     }
 
   // events

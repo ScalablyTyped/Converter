@@ -81,7 +81,9 @@ object maps {
       b.result()
     }
 
-    def mapNotNone[VV](f: (K, V) => Option[VV])(implicit cbf: CanBuildFrom[M[K, V], (K, VV), M[K, VV]]): M[K, VV] = {
+    @inline def mapNotNone[VV](
+        f:          (K, V) => Option[VV],
+    )(implicit cbf: CanBuildFrom[M[K, V], (K, VV), M[K, VV]]): M[K, VV] = {
       val b  = cbf()
       val it = m.toIterator
 
@@ -98,5 +100,20 @@ object maps {
     }
 
     @inline def toSorted(implicit O: Ordering[K]): SortedMap[K, V] = TreeMap() ++ m
+
+    @inline def firstDefined[U](f: (K, V) => Option[U]): Option[U] = {
+      val it = m.toIterator
+
+      while (it.hasNext) {
+        it.next() match {
+          case (k, v) =>
+            f(k, v) match {
+              case some @ Some(_) => return some
+              case None           => ()
+            }
+        }
+      }
+      None
+    }
   }
 }

@@ -11,17 +11,18 @@ object ComponentType {
   case object Intrinsic extends ComponentType
 }
 
+case class PropsRef(ref: TypeRef) extends AnyVal
+
 final case class Component(
     location:        Either[ExprTree.StringLit, LocationAnnotation],
     scalaRef:        TypeRef,
     fullName:        Name,
     tparams:         IArray[TypeParamTree],
-    propsRef:        Option[TypeRef],
+    propsRef:        PropsRef,
     componentType:   ComponentType,
     isAbstractProps: Boolean,
     nested:          IArray[Component],
 ) {
-
   def isGlobal: Boolean =
     location match {
       case Left(_) => false
@@ -44,7 +45,7 @@ final case class Component(
   def rewritten(scope: TreeScope, t: TreeTransformation): Component =
     copy( // don't rewrite scalaRef
       tparams  = tparams.map(t.visitTypeParamTree(scope)),
-      propsRef = propsRef.map(t.visitTypeRef(scope)),
+      propsRef = PropsRef(t.visitTypeRef(scope)(propsRef.ref)),
       nested   = nested.map(_.rewritten(scope, t)),
     )
 

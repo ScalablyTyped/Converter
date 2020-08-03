@@ -76,7 +76,11 @@ object SlinkyGenComponents {
     SplitProps(refTypes, props)
   }
 
-  final case class PropsDom(propsRef: TypeRef, splitProps: Res[IArray[String], SplitProps], domInfo: Mode[Unit, DomTag])
+  final case class PropsDom(
+      propsRef:   PropsRef,
+      splitProps: Res[IArray[String], SplitProps],
+      domInfo:    Mode[Unit, DomTag],
+  )
 
   final case class DomTag(domType: TypeRef)
 
@@ -168,7 +172,7 @@ object SlinkyGenComponents {
   }
 
   case class ComponentGroupKey(
-      propsRef:        Option[TypeRef],
+      propsRef:        PropsRef,
       canBeReferenced: Boolean,
       tparams:         IArray[TypeParamTree],
   )
@@ -227,13 +231,13 @@ class SlinkyGenComponents(
           }
 
         /* A component might have one or more builders shared with other components */
-        val allSharedBuilders: Map[TypeRef, SharedBuilder] = {
-          val b = Map.newBuilder[TypeRef, SharedBuilder]
+        val allSharedBuilders: Map[PropsRef, SharedBuilder] = {
+          val b = Map.newBuilder[PropsRef, SharedBuilder]
           allComponentsGrouped.foreach {
             case (_, components) if components.length < 2 => ()
             case (group, _) =>
               genSharedBuilders(pkgCp, group, allResolvedProps(group)).asMap.foreach {
-                case (ref, Some(sb)) => b += ((ref, sb))
+                case (ref, Some(sb)) => b += ((PropsRef(ref), sb))
                 case _               => ()
               }
           }
@@ -315,7 +319,7 @@ class SlinkyGenComponents(
 
     resProps.map { splitProps =>
       val name = Name(
-        s"SharedBuilder_${nameFor(propsRef)}${(propsRef, group.canBeReferenced, group.tparams).hashCode}"
+        s"SharedBuilder_${nameFor(propsRef.ref)}${(propsRef, group.canBeReferenced, group.tparams).hashCode}"
           .replaceAllLiterally("-", "_"),
       )
       val hasRef = group.canBeReferenced || refFromProps(resProps).isDefined
@@ -357,43 +361,32 @@ class SlinkyGenComponents(
   def findPropsAndInferDomInfo(
       scope:        TreeScope,
       withDomProps: Mode[Unit, SlinkyWeb],
-      propsRefOpt:  Option[TypeRef],
+      propsRef:     PropsRef,
       tparams:      IArray[TypeParamTree],
-  ): PropsDom =
-    propsRefOpt match {
-      case Some(propsRef) =>
-        val resProps: Res[IArray[String], IArray[Prop]] =
-          findProps.forType(
-            propsRef,
-            tparams,
-            scope,
-            maxNum             = Int.MaxValue,
-            acceptNativeTraits = true,
-          )
+  ): PropsDom = {
+    val resProps: Res[IArray[String], IArray[Prop]] =
+      findProps.forType(
+        propsRef.ref,
+        tparams,
+        scope,
+        maxNum             = Int.MaxValue,
+        acceptNativeTraits = true,
+      )
 
-        withDomProps match {
-          case Native(()) =>
-            PropsDom(propsRef, resProps.map(SplitProps(reactNames, scope)), Native(()))
+    withDomProps match {
+      case Native(()) =>
+        PropsDom(propsRef, resProps.map(SplitProps(reactNames, scope)), Native(()))
 
-          case Web(slinkyWeb: SlinkyWeb) =>
-            val domInfo: Web[Unit, DomTag] = {
-              val inferredTagName =
-                resProps.headOption.map(props => inferSlinkyTag(props, slinkyWeb)).getOrElse(TagName.Any)
-              Web(DomTag(slinkyWeb.tags(inferredTagName).slinkyTagRef))
-            }
-
-            PropsDom(propsRef, resProps.map(SplitProps(reactNames, scope)), domInfo)
+      case Web(slinkyWeb: SlinkyWeb) =>
+        val domInfo: Web[Unit, DomTag] = {
+          val inferredTagName =
+            resProps.headOption.map(props => inferSlinkyTag(props, slinkyWeb)).getOrElse(TagName.Any)
+          Web(DomTag(slinkyWeb.tags(inferredTagName).slinkyTagRef))
         }
 
-      case None =>
-        val domInfo: Mode[Unit, DomTag] =
-          mode.forWeb(_ => DomTag(names.AnyHtmlElement))
-
-        val value: Res[IArray[String], SplitProps] =
-          Res.One(TypeRef.Object, SplitProps(Empty, Empty))
-
-        PropsDom(TypeRef.Object, value, domInfo)
+        PropsDom(propsRef, resProps.map(SplitProps(reactNames, scope)), domInfo)
     }
+  }
 
   def inferSlinkyTag(props: IArray[Prop], slinkyWeb: SlinkyWeb): TagName = {
     val successfullyMapped: IArray[TagName] =
@@ -424,13 +417,13 @@ class SlinkyGenComponents(
         errorModule(c.propsRef, c, componentCp, errors, genBuilder)
 
       case Res.One(propsRef, (splitProps, genBuilder)) =>
-        componentModule(c.fullName, c, componentCp, propsRef, splitProps, genBuilder, builderLookup)
+        componentModule(c.fullName, c, componentCp, PropsRef(propsRef), splitProps, genBuilder, builderLookup)
 
       case Res.Many(values) =>
         val members = values.mapToIArray {
           case (propsRef, (splitProps, genBuilder: GenBuilder)) =>
             val name = Name(nameFor(propsRef))
-            componentModule(name, c, componentCp + name, propsRef, splitProps, genBuilder, builderLookup)
+            componentModule(name, c, componentCp + name, PropsRef(propsRef), splitProps, genBuilder, builderLookup)
         }
 
         ModuleTree(
@@ -446,7 +439,7 @@ class SlinkyGenComponents(
   }
 
   def errorModule(
-      propsRef:    Option[TypeRef],
+      propsRef:    PropsRef,
       c:           flavours.Component,
       componentCp: QualifiedName,
       errors:      IArray[String],
@@ -455,7 +448,7 @@ class SlinkyGenComponents(
     val builder = genBuilder(componentCp, c)
     val members = IArray.fromOptions(
       builder.include,
-      Some(genPropsMethod(Name.APPLY, componentCp, propsRef.getOrElse(TypeRef.Object), c.tparams, builder.ref)),
+      Some(genPropsMethod(Name.APPLY, componentCp, propsRef, c.tparams, builder.ref)),
       genImplicitConversionOpt(Name("make"), componentCp, c.tparams, props = SplitProps(Empty, Empty), builder.ref),
     )
 
@@ -480,7 +473,7 @@ class SlinkyGenComponents(
       name:          Name,
       c:             Component,
       ownerCp:       QualifiedName,
-      propsRef:      TypeRef,
+      propsRef:      PropsRef,
       splitProps:    SplitProps,
       genBuilder:    GenBuilder,
       builderLookup: BuildersByGroup,
@@ -514,7 +507,7 @@ class SlinkyGenComponents(
   def genApplyMethodOpt(
       name:       Name,
       ownerCp:    QualifiedName,
-      propsRef:   TypeRef,
+      propsRef:   PropsRef,
       splitProps: SplitProps,
       tparams:    IArray[TypeParamTree],
       builderRef: TypeRef,
@@ -539,7 +532,7 @@ class SlinkyGenComponents(
             IArray(
               IArray(
                 Ref(QualifiedName(IArray(Name.THIS, names.component))),
-                Cast(Ref(QualifiedName(IArray(objName))), propsRef),
+                Cast(Ref(QualifiedName(IArray(objName))), propsRef.ref),
               ),
             ),
           ),
@@ -635,7 +628,7 @@ class SlinkyGenComponents(
   def genPropsMethod(
       name:       Name,
       ownerCp:    QualifiedName,
-      propsRef:   TypeRef,
+      propsRef:   PropsRef,
       tparams:    IArray[TypeParamTree],
       builderRef: TypeRef,
   ): MethodTree = {
@@ -643,7 +636,7 @@ class SlinkyGenComponents(
       name       = Name("p"),
       isImplicit = false,
       isVal      = false,
-      tpe        = propsRef,
+      tpe        = propsRef.ref,
       default    = NotImplemented,
       comments   = NoComments,
     )
