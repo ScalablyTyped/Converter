@@ -10,7 +10,6 @@ import org.scalablytyped.converter.internal.importer.Cmd
 import org.scalablytyped.converter.internal.seqs._
 import org.scalablytyped.converter.plugin.RemoteCache
 import org.scalablytyped.converter.plugin.ScalablyTypedPluginBase.autoImport.{stDir, stRemoteCache}
-import os.Path
 import sbt.{Def, Global, Task, TaskKey}
 import software.amazon.awssdk.services.s3.model.{HeadObjectRequest, PutObjectRequest}
 import software.amazon.awssdk.services.s3.{S3Client, S3ClientBuilder}
@@ -55,7 +54,7 @@ object PluginRemoteCache {
 
         case RemoteCache.S3(pushConfiguration, _) =>
           val (runCachePath, output) = inTask.value
-          val logger = WrapSbtLogger.task.value
+          val logger                 = WrapSbtLogger.task.value
 
           val s3 = {
             implicit class RichBuilder(s3ClientBuilder: S3ClientBuilder) {
@@ -63,22 +62,26 @@ object PluginRemoteCache {
                 value.fold(s3ClientBuilder)(builder(s3ClientBuilder))
             }
 
-            S3Client.builder()
+            S3Client
+              .builder()
               .add(pushConfiguration.region, _.region)
               .add(pushConfiguration.endpointOverride, _.endpointOverride)
               .add(pushConfiguration.credentialsProvider, _.credentialsProvider)
               .build()
           }
 
-          def upload(relPath: RelPath)(implicit wd: Path) = {
+          def upload(relPath: RelPath) = {
             val key = s"${pushConfiguration.prefix.getOrElse("")}/${relPath.toString()}"
 
-            val exists = Try(s3.headObject(HeadObjectRequest
-              .builder()
-              .bucket(pushConfiguration.bucket)
-              .key(key)
-              .build()
-            )).isSuccess
+            val exists = Try(
+              s3.headObject(
+                HeadObjectRequest
+                  .builder()
+                  .bucket(pushConfiguration.bucket)
+                  .key(key)
+                  .build(),
+              ),
+            ).isSuccess
 
             if (exists) {
               logger.warn(s"skipping already cached file $relPath")
@@ -90,22 +93,17 @@ object PluginRemoteCache {
                   .bucket(pushConfiguration.bucket)
                   .key(key)
                   .build(),
-                relPath.resolveFrom(wd).toNIO
+                (Utils.IvyLocal.value / relPath).toNIO,
               )
             }
           }
 
           Lock.synchronized {
             locally {
-              implicit val wd = Utils.IvyLocal.value
-
               output.allRelPaths.foreach(upload)
             }
-            // this is somewhat convoluted. we know `wc` is a prefix of `runCachePath`, but compute `relPath`
-            // in order for `rsync` to create the folder if necessary
             locally {
-              implicit val wd = os.Path((Global / stDir).value)
-              val relPath: os.RelPath = runCachePath.relativeTo(wd)
+              val relPath: os.RelPath = runCachePath.relativeTo(Utils.IvyLocal.value)
               upload(relPath)
             }
           }
@@ -122,7 +120,7 @@ object PluginRemoteCache {
       ec:          ExecutionContext,
   ): Int =
     remoteCache match {
-      case RemoteCache.Disabled => 0
+      case RemoteCache.Disabled       => 0
       case RemoteCache.S3(_, pullUri) => 0
       case RemoteCache.Rsync(_, pullUri) =>
         val localRunFile = runCacheKey.path(cacheDir)
