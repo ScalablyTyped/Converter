@@ -64,7 +64,7 @@ object Accordion {
   def withProps(p: AccordionProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   implicit def make(companion: Accordion.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   object Accordion {
-    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "Accordion")
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Accordion")
     @js.native
     object component extends js.Object
     
@@ -101,7 +101,7 @@ object Accordion {
   }
   
   object Content {
-    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "Content")
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Content")
     @js.native
     object component extends js.Object
     
@@ -110,7 +110,7 @@ object Accordion {
   }
   
   object Title {
-    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "Title")
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Title")
     @js.native
     object component extends js.Object
     

@@ -539,7 +539,7 @@ object Button {
   def withProps(p: StrictButtonProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   implicit def make(companion: Button.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   object Content {
-    @JSImport("semantic-ui-react/dist/commonjs/elements/Button", "Content")
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button", "default.Content")
     @js.native
     object component extends js.Object
     
@@ -548,7 +548,7 @@ object Button {
   }
   
   object Group {
-    @JSImport("semantic-ui-react/dist/commonjs/elements/Button", "Group")
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button", "default.Group")
     @js.native
     object component extends js.Object
     
@@ -557,7 +557,7 @@ object Button {
   }
   
   object Or {
-    @JSImport("semantic-ui-react/dist/commonjs/elements/Button", "Or")
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button", "default.Or")
     @js.native
     object component extends js.Object
     

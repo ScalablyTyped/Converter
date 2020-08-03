@@ -107,10 +107,11 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
             case (mods, Empty) =>
               handleMods(mods)
             case (IArray.first(mod), IArray.first(cls)) =>
-              maybeClassComponent(cls, outer, scope / cls) match {
+              val newScope = scope / cls
+              maybeClassComponent(cls, outer, newScope) match {
                 case None => handleMods(mods)
                 case Some(clsComp) =>
-                  val nested = recurse(scope, separateMod(mod, scope / mod).restAsPackage).sortBy(_.fullName)
+                  val nested = recurse(newScope, separateMod(mod, newScope).restAsPackage).sortBy(_.fullName)
                   IArray(clsComp.withNested(nested))
               }
           }
