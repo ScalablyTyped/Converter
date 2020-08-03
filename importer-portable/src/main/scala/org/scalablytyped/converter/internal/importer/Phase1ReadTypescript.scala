@@ -129,7 +129,9 @@ class Phase1ReadTypescript(
           if (fileSources.exists(_.path === resolve.stdLib.path)) None else Option(resolve.stdLib)
 
         if (fileSources.isEmpty) {
-          logger.withContext("path", source.folder).warn(s"No typescript definitions found for ${source.libName.value}")
+          logger
+            .withContext("path", source.folder)
+            .warn(s"No typescript definitions files found for library ${source.libName.value}")
           PhaseRes.Ignore()
         } else {
           val declaredDependencies: Set[Source] =
@@ -146,7 +148,7 @@ class Phase1ReadTypescript(
                     case LibraryResolver.Ignored(_) =>
                       None
                     case LibraryResolver.NotAvailable(name) =>
-                      logger.fatalMaybe(s"Could not resolve typescript definitions for dependency $name", pedantic)
+                      logger.fatalMaybe(s"Could not find typescript definitions for dependency ${name.value}", pedantic)
                       None
                   },
                 )

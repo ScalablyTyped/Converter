@@ -47,7 +47,7 @@ case class NpmjsFetcher(cacheDir: Path)(implicit ec: ExecutionContext) extends N
                 case Success(jsonStr) =>
                   Json.CustomJacksonParser.decode[Npmjs.Data](jsonStr) match {
                     case Left(err) =>
-                      logger.error(s"Could't decode json for $lib, $jsonStr", err)
+                      logger.warn(s"Could't decode json for $lib, $jsonStr", err)
                       Success(None)
                     case Right(data) =>
                       files.softWrite(cacheFile)(_.println(jsonStr))
