@@ -17,11 +17,22 @@ final case class Component(
     fullName:        Name,
     tparams:         IArray[TypeParamTree],
     propsRef:        Option[TypeRef],
-    isGlobal:        Boolean,
     componentType:   ComponentType,
     isAbstractProps: Boolean,
     nested:          IArray[Component],
 ) {
+
+  def isGlobal: Boolean =
+    location match {
+      case Left(_) => false
+      case Right(loc) =>
+        loc match {
+          case Annotation.JsImport(_, _, _) => false
+          case Annotation.JsGlobalScope     => true
+          case Annotation.JsGlobal(_)       => true
+        }
+    }
+
   val shortenedPropsName = Name(fullName.unescaped + "Props")
 
   val referenceTo: Option[TypeRef] =

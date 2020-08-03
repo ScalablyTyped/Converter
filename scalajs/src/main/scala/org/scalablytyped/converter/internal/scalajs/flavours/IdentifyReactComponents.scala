@@ -15,10 +15,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
       !c.scalaRef.typeName.parts.exists(part => part.unescaped.startsWith("src") && part.unescaped.endsWith("Mod"))
 
     val preferModule = !c.isGlobal
-    /* because for instance mui ships with icons called `List` and `Tab` */
-    val preferPropsMatchesName = c.propsRef.fold(false)(_.name.unescaped.startsWith(c.fullName.unescaped))
-    /* because for instance mui declares both a default and a names export, where only the former exists */
-    val preferDefault = c.scalaRef.name === Name.Default
+
     /* because some libraries expect you to use top-level imports. shame for the tree shakers */
     val preferShortModuleName = c.location match {
       case Right(Annotation.JsGlobalScope)          => 0
@@ -27,7 +24,13 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
       case Left(_)                                  => 0
     }
 
-    (preferNotSrc, preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
+    /* because for instance mui ships with icons called `List` and `Tab` */
+    val preferPropsMatchesName = c.propsRef.fold(false)(_.name.unescaped.startsWith(c.fullName.unescaped))
+
+    /* because for instance mui declares both a default and a names export, where only the former exists */
+    val preferDefault = c.scalaRef.name === Name.Default
+
+    (preferNotSrc, preferModule, preferShortModuleName, preferPropsMatchesName, preferDefault)
   }
 
   def intrinsics(scope: TreeScope): IArray[Component] =
@@ -45,7 +48,6 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
                   fullName        = name,
                   tparams         = Empty,
                   propsRef        = Some(props),
-                  isGlobal        = true,
                   componentType   = ComponentType.Intrinsic,
                   isAbstractProps = false,
                   nested          = Empty,
@@ -177,7 +179,6 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
                 fullName        = componentName(scope, owner.annotations, owner.codePath),
                 tparams         = method.tparams,
                 propsRef        = propsTypeOpt,
-                isGlobal        = isGlobal(owner.annotations),
                 componentType   = ComponentType.Field,
                 isAbstractProps = isAbstractProps,
                 nested          = Empty,
@@ -190,7 +191,6 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
                 fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(method.name))),
                 tparams         = method.tparams,
                 propsRef        = propsTypeOpt,
-                isGlobal        = isGlobal(method.annotations),
                 componentType   = ComponentType.Function,
                 isAbstractProps = isAbstractProps,
                 nested          = Empty,
@@ -286,7 +286,6 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
       fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(field.name))),
       tparams         = Empty,
       propsRef        = Some(props).filterNot(_ === TypeRef.Object),
-      isGlobal        = isGlobal(field.annotations),
       componentType   = ComponentType.Field,
       isAbstractProps = scope.isAbstract(props),
       nested          = Empty,
@@ -334,7 +333,6 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
             fullName        = componentName(scope, owner.annotations, cls.codePath),
             tparams         = cls.tparams,
             propsRef        = Some(props).filterNot(_ === TypeRef.Object),
-            isGlobal        = isGlobal(cls.annotations),
             componentType   = ComponentType.Class,
             isAbstractProps = scope.isAbstract(props),
             nested          = Empty,
@@ -373,13 +371,6 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
         case Annotation.JsGlobal(qname) => qname.parts.last
       }
   }
-
-  def isGlobal(as: IArray[Annotation]): Boolean =
-    as exists {
-      case Annotation.JsGlobal(_)   => true
-      case Annotation.JsGlobalScope => true
-      case _                        => false
-    }
 
   def isUpper(n: Name): Boolean = n.value.head.isUpper
 
