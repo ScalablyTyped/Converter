@@ -50,7 +50,7 @@ object CastConversion {
       conversions.map(x => x.from -> x).toMap
 
     val existsConflicts: Boolean =
-      conversions.groupBy(_.to).exists { case (_, froms) => froms.length > 1 }
+      conversions.groupBy(_.to.parts.filterNot(_ === Name.global)).exists { case (_, froms) => froms.length > 1 }
 
     def maybeRewrite(original: TypeRef, scope: TreeScope): Option[TypeRef] =
       conversionsForTypeName get original.typeName map {
