@@ -22,7 +22,7 @@ object SlinkyTypeConversions {
 
     val components: IArray[CastConversion] =
       IArray.fromTraversable(
-        reactNames.ComponentQNames.map(from => CastConversion(from, names.ReactComponentClass, _1)),
+        reactNames.ComponentLike.map(from => CastConversion(from, names.ReactComponentClass, _1)),
       )
 
     val web = IArray(
