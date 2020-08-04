@@ -90,7 +90,7 @@ object Bootstrap {
   }
 
   def findSources(nodeModulesFolder: InFolder, dtFolderOpt: Option[InFolder]): IndexedSeq[Source.FromFolder] =
-    dtFolderOpt.foldLeft(forFolder(nodeModulesFolder).filter(_.hasSources)) {
+    dtFolderOpt.foldLeft(forFolder(nodeModulesFolder)) {
       case (externalSources, dtFolder) =>
         val externalSourcesLibs = externalSources.map(_.libName).toSet
         val dtSources           = forFolder(dtFolder).filterNot(s => externalSourcesLibs(s.libName))
@@ -109,6 +109,7 @@ object Bootstrap {
               .map(nestedPath => FromFolder(InFolder(nestedPath), TsIdentLibrary(s"${path.last}/${nestedPath.last}")))
         case path => List(FromFolder(InFolder(path), TsIdentLibrary(path.last)))
       }
+      .filter(_.hasSources)
 
   case class Unresolved(notAvailable: Vector[TsIdentLibrary]) {
     def msg =
