@@ -37,13 +37,13 @@ object RemoteCache {
     *                            The "bucket/prefix" will contain two prefixes after sync: `runs` and `org.scalablytyped`
     */
   case class S3(
-                 bucket: String,
-                 pull: URI,
-                 prefix: Option[String],
-                 region: Option[Region],
-                 endpoint: Option[URI],
-                 credentialsProvider: Option[AwsCredentialsProvider],
-               ) extends RemoteCache {
+      bucket:              String,
+      pull:                URI,
+      prefix:              Option[String],
+      region:              Option[Region],
+      endpoint:            Option[URI],
+      credentialsProvider: Option[AwsCredentialsProvider],
+  ) extends RemoteCache {
     def withPrefix(prefix: String) = copy(prefix = Some(prefix))
 
     def withEndpoint(endpoint: String) = copy(endpoint = Some(new URI(endpoint)))

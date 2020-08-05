@@ -56,7 +56,7 @@ object PluginRemoteCache {
 
         case RemoteCache.S3(bucket, _, prefix, region, endpoint, credentialsProvider) =>
           val (runCachePath, output) = inTask.value
-          val logger = WrapSbtLogger.task.value
+          val logger                 = WrapSbtLogger.task.value
 
           val s3 = {
             implicit class RichBuilder(s3ClientBuilder: S3AsyncClientBuilder) {
@@ -80,12 +80,12 @@ object PluginRemoteCache {
 
           def exists(relPath: RelPath) =
             s3.headObject(
-              HeadObjectRequest
-                .builder()
-                .bucket(bucket)
-                .key(toKey(relPath))
-                .build(),
-            )
+                HeadObjectRequest
+                  .builder()
+                  .bucket(bucket)
+                  .key(toKey(relPath))
+                  .build(),
+              )
               .toScala
               .map(_ => true)
               .recover {
@@ -95,14 +95,14 @@ object PluginRemoteCache {
 
           def upload(relPath: RelPath, relativeTo: os.Path) =
             s3.putObject(
-              PutObjectRequest
-                .builder()
-                .bucket(bucket)
-                .key(toKey(relPath))
-                .acl("public-read")
-                .build(),
-              (relativeTo / relPath).toNIO,
-            )
+                PutObjectRequest
+                  .builder()
+                  .bucket(bucket)
+                  .key(toKey(relPath))
+                  .acl("public-read")
+                  .build(),
+                (relativeTo / relPath).toNIO,
+              )
               .toScala
               .map { response =>
                 logger.warn(s"pushed artifact $relPath")
@@ -126,13 +126,13 @@ object PluginRemoteCache {
     )
 
   def fetch(
-             remoteCache: RemoteCache,
-             runCacheKey: RunCacheKey,
-             cacheDir: os.Path,
-             ivyLocal: os.Path,
-             logger: Logger[Unit],
-             ec: ExecutionContext,
-           ): Int = {
+      remoteCache: RemoteCache,
+      runCacheKey: RunCacheKey,
+      cacheDir:    os.Path,
+      ivyLocal:    os.Path,
+      logger:      Logger[Unit],
+      ec:          ExecutionContext,
+  ): Int = {
     def pull(pullUri: URI) = {
       val localRunFile = runCacheKey.path(cacheDir)
       if (files.exists(localRunFile)) 0
@@ -174,7 +174,7 @@ object PluginRemoteCache {
                 logger warn s"No cached run ${runCacheKey.digest.hexString}"
                 Future successful 0
               case Err(th) =>
-                logger warn("Couldn't fetch cache", th)
+                logger warn ("Couldn't fetch cache", th)
                 Future successful 0
             }
 
@@ -183,9 +183,9 @@ object PluginRemoteCache {
     }
 
     remoteCache match {
-      case RemoteCache.Disabled => 0
+      case RemoteCache.Disabled                   => 0
       case RemoteCache.S3(_, pullUri, _, _, _, _) => pull(pullUri)
-      case RemoteCache.Rsync(_, pullUri) => pull(pullUri)
+      case RemoteCache.Rsync(_, pullUri)          => pull(pullUri)
     }
   }
 
