@@ -110,8 +110,10 @@ lazy val pluginSettings: Project => Project =
       // set up 'scripted; sbt plugin for testing sbt plugins
       scriptedBufferLog := false,
       scriptedLaunchOpts ++= Seq("-Xmx2048M", "-Dplugin.version=" + version.value),
-      watchSources ++= { (sourceDirectory.value ** "*").get },
-      libraryDependencies += Deps.awssdkS3,
+      watchSources ++= {
+        (sourceDirectory.value ** "*").get
+      },
+      libraryDependencies ++= Seq(Deps.awssdkS3, Deps.java8Compat),
     )
 
 lazy val baseSettings: Project => Project =
