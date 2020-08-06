@@ -25,39 +25,41 @@ object SplitMethods extends TransformMembers with TransformClassMembers {
       case other => IArray(other)
     }
 
-  private def split(origin: TsFunSig): IArray[TsFunSig] = {
-    val (repParamOpt: Option[TsFunParam], paramsNoRep: IArray[TsFunParam]) =
-      origin.params.lastOption match {
-        case Some(rep @ TsFunParam(_, _, Some(_: TsTypeRepeated))) => (Some(rep), origin.params.dropRight(1))
-        case _ =>
-          (None, origin.params)
-      }
-
-    val parameterPossibilitiesPerIndex: IArray[IArray[TsFunParam]] =
-      paramsNoRep.foldLeft(Empty: IArray[IArray[TsFunParam]]) {
-        case (params, fp @ TsFunParam(_, _, Some(TsTypeUnion(types)))) if types.length < MaxNum =>
-          params :+ types.map(tpe => fp.copy(tpe = Some(tpe)))
-        case (params, normalParam) => params :+ IArray(normalParam)
-      }
-
-    val parameterPossibilitiesPerIndexWithRep = repParamOpt match {
-      case Some(repParam) => parameterPossibilitiesPerIndex :+ IArray(repParam)
-      case None           => parameterPossibilitiesPerIndex
-    }
-
-    val count = parameterPossibilitiesPerIndexWithRep.foldLeft(1)(_ * _.length)
-
-    if (count > MaxNum) IArray(origin)
+  private def split(origin: TsFunSig): IArray[TsFunSig] =
+    if (origin.params.length > 20) IArray(origin)
     else {
-      val ret = generateNewSignatures(origin, IArray(Empty), parameterPossibilitiesPerIndexWithRep)
-      ret
-        .map { sig =>
-          val dropTrailingUndefineds = sig.params.reverse.dropWhile(_.tpe.exists(OptionalType.undefineds)).reverse
-          sig.copy(params = dropTrailingUndefineds)
+      val (repParamOpt: Option[TsFunParam], paramsNoRep: IArray[TsFunParam]) =
+        origin.params.lastOption match {
+          case Some(rep @ TsFunParam(_, _, Some(_: TsTypeRepeated))) => (Some(rep), origin.params.dropRight(1))
+          case _ =>
+            (None, origin.params)
         }
-        .sortBy(_.params.length)
+
+      val parameterPossibilitiesPerIndex: IArray[IArray[TsFunParam]] =
+        paramsNoRep.foldLeft(Empty: IArray[IArray[TsFunParam]]) {
+          case (params, fp @ TsFunParam(_, _, Some(TsTypeUnion(types)))) if types.length < MaxNum =>
+            params :+ types.map(tpe => fp.copy(tpe = Some(tpe)))
+          case (params, normalParam) => params :+ IArray(normalParam)
+        }
+
+      val parameterPossibilitiesPerIndexWithRep = repParamOpt match {
+        case Some(repParam) => parameterPossibilitiesPerIndex :+ IArray(repParam)
+        case None           => parameterPossibilitiesPerIndex
+      }
+
+      val count = parameterPossibilitiesPerIndexWithRep.foldLeft(1)(_ * _.length)
+
+      if (count > MaxNum || count < 0 /* it might actually overflow!*/) IArray(origin)
+      else {
+        val ret = generateNewSignatures(origin, IArray(Empty), parameterPossibilitiesPerIndexWithRep)
+        ret
+          .map { sig =>
+            val dropTrailingUndefineds = sig.params.reverse.dropWhile(_.tpe.exists(OptionalType.undefineds)).reverse
+            sig.copy(params = dropTrailingUndefineds)
+          }
+          .sortBy(_.params.length)
+      }
     }
-  }
 
   @tailrec
   private def generateNewSignatures(
