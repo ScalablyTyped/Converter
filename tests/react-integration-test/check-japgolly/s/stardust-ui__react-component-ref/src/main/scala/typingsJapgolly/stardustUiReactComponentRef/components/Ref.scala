@@ -6,7 +6,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object Ref {
-  @JSImport("@stardust-ui/react-component-ref", "Ref")
+  @JSImport("@stardust-ui/react-component-ref/dist/es/Ref", JSImport.Default)
   @js.native
   object component extends js.Object
   

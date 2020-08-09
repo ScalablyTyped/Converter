@@ -65,13 +65,13 @@ import typingsJapgolly.semanticUiReact.buttonContentMod.ButtonContentProps
 import typingsJapgolly.semanticUiReact.buttonGroupMod.ButtonGroupProps
 import typingsJapgolly.semanticUiReact.buttonMod.ButtonProps
 import typingsJapgolly.semanticUiReact.buttonMod.StrictButtonProps
+import typingsJapgolly.semanticUiReact.buttonMod.default
 import typingsJapgolly.semanticUiReact.buttonOrMod.ButtonOrProps
 import typingsJapgolly.semanticUiReact.genericMod.SemanticCOLORS
 import typingsJapgolly.semanticUiReact.genericMod.SemanticFLOATS
 import typingsJapgolly.semanticUiReact.genericMod.SemanticSIZES
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandItem
-import typingsJapgolly.semanticUiReact.mod.default
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`google plus`
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.facebook
@@ -90,7 +90,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object Button {
-  @JSImport("semantic-ui-react/dist/commonjs/elements/Button", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", JSImport.Default)
   @js.native
   object component extends js.Object
   
@@ -539,7 +539,7 @@ object Button {
   def withProps(p: StrictButtonProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   implicit def make(companion: Button.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   object Content {
-    @JSImport("semantic-ui-react/dist/commonjs/elements/Button", "default.Content")
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Content")
     @js.native
     object component extends js.Object
     
@@ -548,7 +548,7 @@ object Button {
   }
   
   object Group {
-    @JSImport("semantic-ui-react/dist/commonjs/elements/Button", "default.Group")
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Group")
     @js.native
     object component extends js.Object
     
@@ -557,7 +557,7 @@ object Button {
   }
   
   object Or {
-    @JSImport("semantic-ui-react/dist/commonjs/elements/Button", "default.Or")
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Or")
     @js.native
     object component extends js.Object
     

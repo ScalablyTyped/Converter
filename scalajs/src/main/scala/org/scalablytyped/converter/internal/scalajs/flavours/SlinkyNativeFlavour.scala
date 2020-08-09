@@ -2,10 +2,12 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
+import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
 
-case class SlinkyNativeFlavour(outputPkg: Name, scalaVersion: Versions.Scala) extends FlavourImplReact {
+case class SlinkyNativeFlavour(outputPkg: Name, scalaVersion: Versions.Scala, enableReactTreeShaking: Selection[Name])
+    extends FlavourImplReact {
 
   override val dependencies: Set[Dep] =
     Set(Versions.runtime, Versions.slinkyNative, Versions.scalaJsDom)

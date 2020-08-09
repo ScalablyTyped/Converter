@@ -95,7 +95,7 @@ object Name {
     case other           => Suffix(other.unescaped)
   }
 
-  implicit val OrderedName = Ordering[String].on[Name](_.unescaped)
+  implicit val OrderedName: Ordering[Name] = Ordering[String].on[Name](_.unescaped)
 
   implicit object NameKey extends IsKey[Name]
 

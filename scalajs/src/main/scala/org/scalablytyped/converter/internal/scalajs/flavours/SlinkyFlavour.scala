@@ -2,10 +2,15 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
+import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
 
-case class SlinkyFlavour(outputPkg: Name, scalaVersion: Versions.Scala) extends FlavourImplReact {
+case class SlinkyFlavour(
+    outputPkg:              Name,
+    scalaVersion:           Versions.Scala,
+    enableReactTreeShaking: Selection[Name],
+) extends FlavourImplReact {
 
   override val dependencies  = Set(Versions.runtime, Versions.slinkyWeb)
   val rewriter               = new TypeRewriterCast(SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true))

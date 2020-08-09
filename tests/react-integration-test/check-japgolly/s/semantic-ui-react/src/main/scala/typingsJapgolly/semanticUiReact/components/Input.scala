@@ -64,7 +64,7 @@ import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandItem
 import typingsJapgolly.semanticUiReact.inputInputMod.InputOnChangeData
 import typingsJapgolly.semanticUiReact.inputInputMod.InputProps
 import typingsJapgolly.semanticUiReact.inputInputMod.StrictInputProps
-import typingsJapgolly.semanticUiReact.inputMod.default
+import typingsJapgolly.semanticUiReact.inputInputMod.default
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`left corner`
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`right corner`
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.big
@@ -80,7 +80,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object Input {
-  @JSImport("semantic-ui-react/dist/commonjs/elements/Input", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/elements/Input/Input", JSImport.Default)
   @js.native
   object component extends js.Object
   

@@ -472,25 +472,23 @@ class SlinkyGenComponents(
   def componentModule(
       name:          Name,
       c:             Component,
-      ownerCp:       QualifiedName,
+      componentCp:   QualifiedName,
       propsRef:      PropsRef,
       splitProps:    SplitProps,
       genBuilder:    GenBuilder,
       builderLookup: BuildersByGroup,
   ): ModuleTree = {
-    val builder = genBuilder(ownerCp, c)
+    val builder = genBuilder(componentCp, c)
 
     val members = IArray.fromOptions(
-      Some(genImportModule(c, ownerCp)),
+      Some(genImportModule(c, componentCp)),
       builder.include,
-      Some(genPropsMethod(Name("withProps"), ownerCp, propsRef, c.tparams, builder.ref)),
-      genApplyMethodOpt(Name.APPLY, ownerCp, propsRef, splitProps, c.tparams, builder.ref),
-      genImplicitConversionOpt(Name("make"), ownerCp, c.tparams, splitProps, builder.ref),
+      Some(genPropsMethod(Name("withProps"), componentCp, propsRef, c.tparams, builder.ref)),
+      genApplyMethodOpt(Name.APPLY, componentCp, propsRef, splitProps, c.tparams, builder.ref),
+      genImplicitConversionOpt(Name("make"), componentCp, c.tparams, splitProps, builder.ref),
     )
 
-    val nested = c.nested.map { c =>
-      genComponent(ownerCp, builderLookup)(c)
-    }
+    val nested = c.nested.map(genComponent(componentCp, builderLookup))
 
     ModuleTree(
       annotations = Empty,
@@ -498,7 +496,7 @@ class SlinkyGenComponents(
       parents     = Empty,
       members     = members ++ nested,
       comments    = Minimization.KeepMarker,
-      codePath    = ownerCp,
+      codePath    = componentCp,
       isOverride  = false,
     )
   }

@@ -1,4 +1,5 @@
-package org.scalablytyped.converter.internal
+package org.scalablytyped.converter
+package internal
 package importer
 
 import org.scalablytyped.converter.internal.scalajs.Name
@@ -8,8 +9,8 @@ import org.scalatest.funsuite.AnyFunSuite
 
 class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExecution {
   val update   = !constants.isCi
-  val Slinky   = SlinkyFlavour(Name("typingsSlinky"), version.scala)
-  val Japgolly = JapgollyFlavour(Name("typingsJapgolly"), version.scala)
+  val Slinky   = SlinkyFlavour(Name("typingsSlinky"), version.scala, Selection.None)
+  val Japgolly = JapgollyFlavour(Name("typingsJapgolly"), version.scala, Selection.All)
 
   test("augment-module")(assertImportsOk("augment-module", pedantic                 = false, update = update))
   test("typings-json")(assertImportsOk("typings-json", pedantic                     = true, update  = update))

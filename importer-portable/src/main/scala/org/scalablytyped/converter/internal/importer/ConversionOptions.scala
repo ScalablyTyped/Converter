@@ -4,29 +4,31 @@ package importer
 
 import io.circe013.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.scalajs.{flavours, Name, Versions}
+import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 
 case class ConversionOptions(
-    useScalaJsDomTypes:    Boolean,
-    flavour:               Flavour,
-    outputPackage:         Name,
-    enableScalaJsDefined:  Selection[ts.TsIdentLibrary],
-    stdLibs:               IArray[String],
-    expandTypeMappings:    Selection[ts.TsIdentLibrary],
-    ignoredLibs:           Set[ts.TsIdentLibrary],
-    ignoredModulePrefixes: Set[List[String]],
-    versions:              Versions,
-    organization:          String,
+    useScalaJsDomTypes:     Boolean,
+    flavour:                Flavour,
+    outputPackage:          Name,
+    enableScalaJsDefined:   Selection[TsIdentLibrary],
+    stdLibs:                IArray[String],
+    expandTypeMappings:     Selection[TsIdentLibrary],
+    ignoredLibs:            Set[TsIdentLibrary],
+    ignoredModulePrefixes:  Set[List[String]],
+    versions:               Versions,
+    organization:           String,
+    enableReactTreeShaking: Selection[Name],
 ) {
   val flavourImpl: flavours.FlavourImpl =
     flavour match {
       case Flavour.Normal =>
         flavours.NormalFlavour(useScalaJsDomTypes, outputPackage)
       case Flavour.Slinky =>
-        flavours.SlinkyFlavour(outputPackage, versions.scala)
+        flavours.SlinkyFlavour(outputPackage, versions.scala, enableReactTreeShaking)
       case Flavour.SlinkyNative =>
-        flavours.SlinkyNativeFlavour(outputPackage, versions.scala)
+        flavours.SlinkyNativeFlavour(outputPackage, versions.scala, enableReactTreeShaking)
       case Flavour.Japgolly =>
-        flavours.JapgollyFlavour(outputPackage, versions.scala)
+        flavours.JapgollyFlavour(outputPackage, versions.scala, enableReactTreeShaking)
     }
 
 }

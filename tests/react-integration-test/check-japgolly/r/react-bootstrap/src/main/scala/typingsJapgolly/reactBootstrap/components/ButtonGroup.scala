@@ -55,20 +55,21 @@ import typingsJapgolly.react.reactStrings.time
 import typingsJapgolly.react.reactStrings.tree
 import typingsJapgolly.react.reactStrings.vertical
 import typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroupProps
+import typingsJapgolly.reactBootstrap.buttonGroupMod.^
 import typingsJapgolly.reactBootstrap.mod.Sizes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object ButtonGroup {
-  @JSImport("react-bootstrap", "ButtonGroup")
+  @JSImport("react-bootstrap/lib/ButtonGroup", JSImport.Namespace)
   @js.native
   object component extends js.Object
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
-       with StBuildingComponent[typingsJapgolly.reactBootstrap.mod.ButtonGroup] {
+       with StBuildingComponent[^] {
     @scala.inline
     def about(value: String): this.type = set("about", value.asInstanceOf[js.Any])
     @scala.inline

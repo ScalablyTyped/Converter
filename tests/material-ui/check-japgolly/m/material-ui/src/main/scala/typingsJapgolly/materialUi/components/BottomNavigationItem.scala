@@ -2,20 +2,19 @@ package typingsJapgolly.materialUi.components
 
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
-import typingsJapgolly.materialUi.bottomNavigationItemMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object BottomNavigationItem {
-  @JSImport("material-ui/BottomNavigation/BottomNavigationItem", JSImport.Default)
+  @JSImport("material-ui/BottomNavigation/BottomNavigationItem", "BottomNavigationItem")
   @js.native
   object component extends js.Object
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
-       with StBuildingComponent[default] {
+       with StBuildingComponent[typingsJapgolly.materialUi.bottomNavigationItemMod.BottomNavigationItem] {
     @scala.inline
     def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
   }

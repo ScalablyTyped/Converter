@@ -4,7 +4,7 @@ import java.io.File
 
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
-import org.scalablytyped.converter.internal.importer.{ConversionOptions, EnabledTypeMappingExpansion}
+import org.scalablytyped.converter.internal.importer.{ConversionOptions, EnabledTypeMappingExpansion, ImportName}
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import org.scalablytyped.converter.internal.{constants, IArray}
@@ -41,7 +41,9 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     val stQuiet                      = settingKey[Boolean]("remove all output")
     val stInternalExpandTypeMappings = settingKey[Selection[String]]("Experimental: enable type mapping expansion")
     val stRemoteCache                = settingKey[RemoteCache]("Enable/disable remote cache")
-
+    val stReactEnableTreeShaking = settingKey[Selection[String]](
+      "If a given library is enabled, the react flavour will pick *longest* module names instead of shortest.",
+    )
     @deprecated("This setting is now does nothing, because it became the default encoding")
     val stExperimentalEnableImplicitOps = settingKey[Boolean]("implicit ops for most traits")
   }
@@ -69,6 +71,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stTypescriptVersion := "3.8",
       stUseScalaJsDom := true,
       stExperimentalEnableImplicitOps := true,
+      stReactEnableTreeShaking := Selection.None,
       stConversionOptions := {
         val versions = Versions(
           Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),
@@ -85,16 +88,17 @@ object ScalablyTypedPluginBase extends AutoPlugin {
           }
 
         ConversionOptions(
-          useScalaJsDomTypes    = stUseScalaJsDom.value,
-          flavour               = stFlavour.value,
-          outputPackage         = outputPackage,
-          enableScalaJsDefined  = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
-          stdLibs               = IArray.fromTraversable(stStdlib.value),
-          expandTypeMappings    = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
-          ignoredLibs           = ignored.map(TsIdentLibrary.apply),
-          ignoredModulePrefixes = ignored.map(_.split("/").toList),
-          versions              = versions,
-          organization          = organization,
+          useScalaJsDomTypes     = stUseScalaJsDom.value,
+          flavour                = stFlavour.value,
+          outputPackage          = outputPackage,
+          enableScalaJsDefined   = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
+          stdLibs                = IArray.fromTraversable(stStdlib.value),
+          expandTypeMappings     = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
+          ignoredLibs            = ignored.map(TsIdentLibrary.apply),
+          ignoredModulePrefixes  = ignored.map(_.split("/").toList),
+          versions               = versions,
+          organization           = organization,
+          enableReactTreeShaking = stReactEnableTreeShaking.value.map(name => ImportName(TsIdentLibrary(name))),
         )
       },
     )

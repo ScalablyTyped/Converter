@@ -134,16 +134,17 @@ object ImportTypingsGenSources {
     val outputName = Name.typings
 
     val conversion = ConversionOptions(
-      useScalaJsDomTypes = true,
-      Flavour.Slinky,
-      outputName,
-      Selection.All,
-      IArray("es5", "dom"),
-      EnabledTypeMappingExpansion.DefaultSelection,
-      Set(),
-      Set(),
-      Versions(Versions.Scala213, Versions.ScalaJs1),
-      "org.scalablytyped",
+      useScalaJsDomTypes     = true,
+      flavour                = Flavour.Slinky,
+      outputPackage          = outputName,
+      enableScalaJsDefined   = Selection.All,
+      stdLibs                = IArray("es5", "dom"),
+      expandTypeMappings     = EnabledTypeMappingExpansion.DefaultSelection,
+      ignoredLibs            = Set(),
+      ignoredModulePrefixes  = Set(),
+      versions               = Versions(Versions.Scala213, Versions.ScalaJs1),
+      organization           = "org.scalablytyped",
+      enableReactTreeShaking = Selection.None,
     )
 
     println(
