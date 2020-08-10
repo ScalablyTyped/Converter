@@ -11,8 +11,8 @@ import typingsJapgolly.react.mod.ReactNodeArray
 import typingsJapgolly.react.mod.ReactType
 import typingsJapgolly.semanticUiReact.accordionAccordionAccordionMod.AccordionAccordionProps
 import typingsJapgolly.semanticUiReact.accordionAccordionMod.AccordionProps
+import typingsJapgolly.semanticUiReact.accordionAccordionMod.default
 import typingsJapgolly.semanticUiReact.accordionContentMod.AccordionContentProps
-import typingsJapgolly.semanticUiReact.accordionMod.default
 import typingsJapgolly.semanticUiReact.accordionPanelMod.AccordionPanelProps
 import typingsJapgolly.semanticUiReact.accordionTitleMod.AccordionTitleProps
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandCollection
@@ -23,7 +23,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object Accordion {
-  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", JSImport.Default)
   @js.native
   object component extends js.Object
   
@@ -64,7 +64,7 @@ object Accordion {
   def withProps(p: AccordionProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   implicit def make(companion: Accordion.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   object Accordion {
-    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Accordion")
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", "default.Accordion")
     @js.native
     object component extends js.Object
     
@@ -101,7 +101,7 @@ object Accordion {
   }
   
   object Content {
-    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Content")
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", "default.Content")
     @js.native
     object component extends js.Object
     
@@ -110,7 +110,7 @@ object Accordion {
   }
   
   object Title {
-    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Title")
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", "default.Title")
     @js.native
     object component extends js.Object
     

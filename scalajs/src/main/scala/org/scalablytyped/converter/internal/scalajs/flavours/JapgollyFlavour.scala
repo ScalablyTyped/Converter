@@ -2,9 +2,11 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
+import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
 
-case class JapgollyFlavour(outputPkg: Name, scalaVersion: Versions.Scala) extends FlavourImplReact {
+case class JapgollyFlavour(outputPkg: Name, scalaVersion: Versions.Scala, enableReactTreeShaking: Selection[Name])
+    extends FlavourImplReact {
   override val dependencies  = Set(Versions.runtime, Versions.scalajsReact)
   val rewriter               = new CastConversion.TypeRewriterCast(JapgollyTypeConversions(reactNames, scalaJsDomNames))
   val memberToPro            = new JapgollyMemberToProp(reactNames, rewriter)

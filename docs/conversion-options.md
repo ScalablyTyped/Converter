@@ -95,6 +95,26 @@ Benefit from keeping as `true`:
 - less code to compile when `stMinimize` is enabled for `std`.
 - easier interop with other Scala.js libraries
 
+### `stReactEnableTreeShaking`
+
+Enable this to configure the React [flavours](flavour.md) to prefer react components in long module paths instead of in short.
+
+For instance:
+```scala
+project.settings(
+  stReactEnableTreeShaking := Selection.NoneExcept("office-ui-fabric-react")
+)
+```
+
+Typical difference in generated code:
+```diff
+-  @JSImport("react-bootstrap", "ButtonGroup")
++  @JSImport("react-bootstrap/lib/ButtonGroup", JSImport.Namespace)
+```
+
+The difference in bundle size can be remarkable, for instance the Slinky `material-ui` demo ended up one fifth of the original size.
+
+
 ## Customize the build
 
 Do you find the debug output tiring?

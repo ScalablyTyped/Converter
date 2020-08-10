@@ -1,4 +1,5 @@
-package org.scalablytyped.converter.internal
+package org.scalablytyped.converter
+package internal
 package importer
 
 import java.io.FileWriter
@@ -10,14 +11,12 @@ import java.util.concurrent._
 import com.olvind.logging
 import com.olvind.logging.Logger.Stored
 import com.olvind.logging.{LogLevel, LogRegistry}
-import org.scalablytyped.converter.internal.importer.Source.StdLibSource
 import org.scalablytyped.converter.internal.importer.build._
 import org.scalablytyped.converter.internal.importer.documentation.{NpmjsFetcher, Readme, TopLists}
 import org.scalablytyped.converter.internal.importer.jsonCodecs._
 import org.scalablytyped.converter.internal.phases.{PhaseRes, PhaseRunner, RecPhase}
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.ts._
-import org.scalablytyped.converter.{Flavour, Selection}
 
 import scala.collection.immutable.SortedSet
 import scala.collection.parallel.ForkJoinTaskSupport
@@ -127,7 +126,8 @@ object Ci {
                   if (flags contains "-scala212") Versions.Scala212 else Versions.Scala213,
                   if (flags contains ("-scalajs06")) Versions.ScalaJs06 else Versions.ScalaJs1,
                 ),
-                organization = organization,
+                organization           = organization,
+                enableReactTreeShaking = Selection.None,
               ),
               wantedLibs       = wantedLibNames,
               enablePublish    = flags contains "-publish",

@@ -2,9 +2,14 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
+import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.maps._
 
-class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsResolver) {
+class IdentifyReactComponents(
+    reactNames:             ReactNames,
+    parentsResolver:        ParentsResolver,
+    enableReactTreeShaking: Selection[Name],
+) {
   def length(qualifiedName: QualifiedName): Int =
     qualifiedName.parts.foldLeft(0)(_ + _.unescaped.length)
 
@@ -51,6 +56,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
                   componentType   = ComponentType.Intrinsic,
                   isAbstractProps = false,
                   nested          = Empty,
+                  otherLocations  = Empty,
                 )
             }
         }
@@ -66,7 +72,30 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
   def oneOfEach(scope: TreeScope, tree: ContainerTree): IArray[Component] =
     all(scope, tree)
       .groupBy(_.fullName)
-      .mapToIArray { case (_, sameName) => sameName.max }
+      .mapToIArray {
+        case (_, sameName) =>
+          /* in this sorting the normally preferred component is *last* */
+          val sorted = sameName.sorted(ComponentOrdering)
+
+          /* if we want to encourage tree shaking we should choose the *longest* module name instead.
+           *  Take special care to choose a component with *same props* as the originally chosen component */
+          val (chosen, notChosen) = if (enableReactTreeShaking(scope.libName)) {
+            val IArray.initLast(init, originalChosen) = sorted
+
+            val newFound = init
+              .find(other => other.propsRef === originalChosen.propsRef && other.isGlobal === originalChosen.isGlobal)
+              .getOrElse(originalChosen)
+
+            (newFound, sorted.filterNot(_.scalaRef === newFound.scalaRef))
+          } else {
+            val IArray.initLast(rest, main) = sorted
+            (main, rest)
+          }
+
+          val notChosenLocations = notChosen.map(_.location).collect { case Right(x) => x }
+
+          chosen.copy(otherLocations = notChosenLocations)
+      }
       .sortBy(_.fullName)
 
   private def recurse(scope: TreeScope, outer: ContainerTree): IArray[Component] =
@@ -183,6 +212,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
                 componentType   = ComponentType.Field,
                 isAbstractProps = isAbstractProps,
                 nested          = Empty,
+                otherLocations  = Empty,
               )
 
             case _ =>
@@ -195,6 +225,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
                 componentType   = ComponentType.Function,
                 isAbstractProps = isAbstractProps,
                 nested          = Empty,
+                otherLocations  = Empty,
               )
 
           }
@@ -286,6 +317,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
         componentType   = ComponentType.Field,
         isAbstractProps = scope.isAbstract(propsRef.ref),
         nested          = Empty,
+        otherLocations  = Empty,
       ),
     )
     def isAliasToFC: Option[Component] =
@@ -333,6 +365,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
             componentType   = ComponentType.Class,
             isAbstractProps = scope.isAbstract(propsRef.ref),
             nested          = Empty,
+            otherLocations  = Empty,
           )
         }
       }

@@ -9,7 +9,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object EventListener {
-  @JSImport("@stardust-ui/react-component-event-listener", "EventListener")
+  @JSImport("@stardust-ui/react-component-event-listener/dist/es/EventListener", JSImport.Default)
   @js.native
   object component extends js.Object
   

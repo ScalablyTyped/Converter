@@ -40,16 +40,17 @@ object Main {
   }
 
   val DefaultOptions = ConversionOptions(
-    useScalaJsDomTypes    = true,
-    outputPackage         = Name.typings,
-    enableScalaJsDefined  = Selection.None,
-    flavour               = Flavour.Normal,
-    ignoredLibs           = Set(TsIdentLibrary("typescript")),
-    ignoredModulePrefixes = Set(),
-    stdLibs               = IArray("es6"),
-    expandTypeMappings    = EnabledTypeMappingExpansion.DefaultSelection,
-    versions              = Versions(Versions.Scala213, Versions.ScalaJs1),
-    organization          = "org.scalablytyped",
+    useScalaJsDomTypes     = true,
+    outputPackage          = Name.typings,
+    enableScalaJsDefined   = Selection.None,
+    flavour                = Flavour.Normal,
+    ignoredLibs            = Set(TsIdentLibrary("typescript")),
+    ignoredModulePrefixes  = Set(),
+    stdLibs                = IArray("es6"),
+    expandTypeMappings     = EnabledTypeMappingExpansion.DefaultSelection,
+    versions               = Versions(Versions.Scala213, Versions.ScalaJs1),
+    organization           = "org.scalablytyped",
+    enableReactTreeShaking = Selection.None,
   )
 
   case class Config(

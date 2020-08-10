@@ -22,6 +22,7 @@ final case class Component(
     componentType:   ComponentType,
     isAbstractProps: Boolean,
     nested:          IArray[Component],
+    otherLocations:  IArray[LocationAnnotation],
 ) {
   def isGlobal: Boolean =
     location match {

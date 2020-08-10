@@ -49,7 +49,7 @@ object SplitMethods extends TransformMembers with TransformClassMembers {
 
       val count = parameterPossibilitiesPerIndexWithRep.foldLeft(1)(_ * _.length)
 
-      if (count > MaxNum || count < 0 /* it might actually overflow!*/) IArray(origin)
+      if (count > MaxNum || count < 0 /* it might actually overflow!*/ ) IArray(origin)
       else {
         val ret = generateNewSignatures(origin, IArray(Empty), parameterPossibilitiesPerIndexWithRep)
         ret
