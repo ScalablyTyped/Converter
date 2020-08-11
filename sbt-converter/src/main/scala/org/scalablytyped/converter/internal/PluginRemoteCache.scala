@@ -1,16 +1,22 @@
 package org.scalablytyped.converter.internal
 
 import java.net.URI
+import java.util.concurrent.CompletionException
 
+import ammonite.ops.RelPath
 import com.olvind.logging.Logger
 import gigahorse.support.okhttp.Gigahorse
 import okhttp3.{OkHttpClient, Request, Response}
+import org.scalablytyped.converter.internal.ImportTypings.InOut
 import org.scalablytyped.converter.internal.importer.Cmd
 import org.scalablytyped.converter.internal.seqs._
 import org.scalablytyped.converter.plugin.RemoteCache
 import org.scalablytyped.converter.plugin.ScalablyTypedPluginBase.autoImport.{stDir, stRemoteCache}
 import sbt.{Def, Global, Task, TaskKey}
+import software.amazon.awssdk.services.s3.model.{HeadObjectRequest, NoSuchKeyException, PutObjectRequest}
+import software.amazon.awssdk.services.s3.{S3AsyncClient, S3AsyncClientBuilder}
 
+import scala.compat.java8.FutureConverters._
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.util.control.NonFatal
@@ -47,6 +53,75 @@ object PluginRemoteCache {
             }
           }
           logger.warn(s"pushed to $pushLocation")
+
+        case RemoteCache.S3(bucket, _, prefix, region, endpoint, credentialsProvider) =>
+          val (runCachePath, output) = inTask.value
+          val logger                 = WrapSbtLogger.task.value
+
+          val s3 = {
+            implicit class RichBuilder(s3ClientBuilder: S3AsyncClientBuilder) {
+              def add[T](value: Option[T], builder: S3AsyncClientBuilder => T => S3AsyncClientBuilder) =
+                value.fold(s3ClientBuilder)(builder(s3ClientBuilder))
+            }
+
+            S3AsyncClient
+              .builder()
+              .add(region, _.region)
+              .add(endpoint, _.endpointOverride)
+              .add(credentialsProvider, _.credentialsProvider)
+              .build()
+          }
+
+          def toKey(relPath: RelPath) = s"${prefix.fold("")(_ + "/")}${relPath.toString()}"
+
+          // The heavy lifting like the actual http requests is done inside an own thread pool inside the S3 client.
+          // This is just for simple mapping operations so using the global context should be fine
+          import scala.concurrent.ExecutionContext.Implicits.global
+
+          def exists(relPath: RelPath) =
+            s3.headObject(
+                HeadObjectRequest
+                  .builder()
+                  .bucket(bucket)
+                  .key(toKey(relPath))
+                  .build(),
+              )
+              .toScala
+              .map(_ => true)
+              .recover {
+                case e: CompletionException if e.getCause.isInstanceOf[NoSuchKeyException] =>
+                  false
+              }
+
+          def upload(relPath: RelPath, relativeTo: os.Path) =
+            s3.putObject(
+                PutObjectRequest
+                  .builder()
+                  .bucket(bucket)
+                  .key(toKey(relPath))
+                  .acl("public-read")
+                  .build(),
+                (relativeTo / relPath).toNIO,
+              )
+              .toScala
+              .map { response =>
+                logger.warn(s"pushed artifact $relPath")
+                response
+              }
+
+          Lock.synchronized {
+            val eventualUploadedArtifacts = for {
+              cacheStatus <- Future.sequence(output.allRelPaths.map(relPath => exists(relPath).map(relPath -> _)))
+              relPathsToUpload = cacheStatus.collect { case (relPath, false) => relPath }
+              uploadResults <- Future.sequence(relPathsToUpload.map(upload(_, Utils.IvyLocal.value)))
+            } yield uploadResults.length
+            val uploadedArtifacts = Await.result(eventualUploadedArtifacts, Duration.Inf)
+            logger.warn(s"$uploadedArtifacts artifacts pushed")
+
+            val relRunCachePath = runCachePath.relativeTo(os.Path((Global / stDir).value))
+            Await.result(upload(relRunCachePath, os.Path((Global / stDir).value)), Duration.Inf)
+          }
+          logger.warn(s"pushed to $bucket")
       },
     )
 
@@ -57,57 +132,62 @@ object PluginRemoteCache {
       ivyLocal:    os.Path,
       logger:      Logger[Unit],
       ec:          ExecutionContext,
-  ): Int =
-    remoteCache match {
-      case RemoteCache.Disabled => 0
-      case RemoteCache.Rsync(_, pullUri) =>
-        val localRunFile = runCacheKey.path(cacheDir)
-        if (files.exists(localRunFile)) 0
-        else
-          Lock.synchronized {
-            implicit val ec_ = ec
-            val downloads: Future[Int] =
-              mehttp.download(pullUri / localRunFile.relativeTo(cacheDir), localRunFile).flatMap {
-                case Ok(bytes) =>
-                  val (_, output) = Json.force[ImportTypings.InOut](new String(bytes, constants.Utf8))
+  ): Int = {
+    def pull(pullUri: URI) = {
+      val localRunFile = runCacheKey.path(cacheDir)
+      if (files.exists(localRunFile)) 0
+      else
+        Lock.synchronized {
+          implicit val ec_ = ec
+          val downloads: Future[Int] =
+            mehttp.download(pullUri / localRunFile.relativeTo(cacheDir), localRunFile).flatMap {
+              case Ok(bytes) =>
+                val (_, output) = Json.force[InOut](new String(bytes, constants.Utf8))
 
-                  val downloads: Seq[Future[Res[Array[Byte]]]] =
-                    output.allRelPaths flatMap { relPath =>
-                      val localPath = ivyLocal / relPath
-                      if (files exists localPath) None
-                      else Option(mehttp.download(pullUri / relPath, localPath))
-                    }
-
-                  Future sequence downloads map { results =>
-                    val (errors, notFounds, oks, Nil) = results.partitionCollect3(
-                      { case x: Err => x }, { case NotFound => NotFound }, { case Ok(b) => b },
-                    )
-
-                    val numCached = output.allRelPaths.size - results.size
-
-                    val msgs = IArray.fromOptions(
-                      if (numCached == 0) None else Some(s"$numCached cached files"),
-                      if (oks.nonEmpty) Some(s"${oks.size} files downloaded") else None,
-                      if (notFounds.nonEmpty) Some(s"${notFounds.size} files not found") else None,
-                      if (errors.nonEmpty) Some(s"${errors.size} files failed to download") else None,
-                    )
-
-                    logger.withContext(runCacheKey).warn(msgs mkString ", ")
-
-                    oks.size
+                val downloads: Seq[Future[Res[Array[Byte]]]] =
+                  output.allRelPaths flatMap { relPath =>
+                    val localPath = ivyLocal / relPath
+                    if (files exists localPath) None
+                    else Option(mehttp.download(pullUri / relPath, localPath))
                   }
 
-                case NotFound =>
-                  logger warn s"No cached run ${runCacheKey.digest.hexString}"
-                  Future successful 0
-                case Err(th) =>
-                  logger warn ("Couldnt fetch cache", th)
-                  Future successful 0
-              }
+                Future sequence downloads map { results =>
+                  val (errors, notFounds, oks, Nil) = results.partitionCollect3(
+                    { case x: Err => x }, { case NotFound => NotFound }, { case Ok(b) => b },
+                  )
 
-            Await.result(downloads, Duration.Inf)
-          }
+                  val numCached = output.allRelPaths.size - results.size
+
+                  val msgs = IArray.fromOptions(
+                    if (numCached == 0) None else Some(s"$numCached cached files"),
+                    if (oks.nonEmpty) Some(s"${oks.size} files downloaded") else None,
+                    if (notFounds.nonEmpty) Some(s"${notFounds.size} files not found") else None,
+                    if (errors.nonEmpty) Some(s"${errors.size} files failed to download") else None,
+                  )
+
+                  logger.withContext(runCacheKey).warn(msgs mkString ", ")
+
+                  oks.size
+                }
+
+              case NotFound =>
+                logger warn s"No cached run ${runCacheKey.digest.hexString}"
+                Future successful 0
+              case Err(th) =>
+                logger warn ("Couldn't fetch cache", th)
+                Future successful 0
+            }
+
+          Await.result(downloads, Duration.Inf)
+        }
     }
+
+    remoteCache match {
+      case RemoteCache.Disabled                   => 0
+      case RemoteCache.S3(_, pullUri, _, _, _, _) => pull(pullUri)
+      case RemoteCache.Rsync(_, pullUri)          => pull(pullUri)
+    }
+  }
 
   sealed trait Res[+T]
   case class Err(th: Throwable) extends Res[Nothing]
