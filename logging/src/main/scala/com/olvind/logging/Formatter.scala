@@ -1,6 +1,7 @@
 package com.olvind.logging
 
 import java.io.File
+import java.net.URI
 
 import fansi.Str
 
@@ -90,6 +91,7 @@ object Formatter {
   implicit val LongFormatter:   Formatter[Long]   = _.toString
   implicit val UnitFormatter:   Formatter[Unit]   = _ => ""
   implicit val FileFormatter:   Formatter[File]   = _.getName
+  implicit val URIFormatter:    Formatter[URI]    = _.toString
 
   implicit def ThrowableFormatter[Th <: Throwable]: Formatter[Th] = {
     case th: Throwable if th.getMessage != null => Str.join(th.getClass.getName, ": ", th.getMessage)

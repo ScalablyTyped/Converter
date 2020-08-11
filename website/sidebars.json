@@ -7,7 +7,8 @@
       "flavour",
       "encoding",
       "changelog",
-      "import-problems"
+      "import-problems",
+      "remotecache"
     ],
     "Getting started (application)": [
       "plugin",

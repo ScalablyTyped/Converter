@@ -3,7 +3,6 @@ package org.scalablytyped.converter.internal
 import java.net.URI
 import java.util.concurrent.CompletionException
 
-import ammonite.ops.RelPath
 import com.olvind.logging.Logger
 import gigahorse.support.okhttp.Gigahorse
 import okhttp3.{OkHttpClient, Request, Response}
@@ -13,7 +12,12 @@ import org.scalablytyped.converter.internal.seqs._
 import org.scalablytyped.converter.plugin.RemoteCache
 import org.scalablytyped.converter.plugin.ScalablyTypedPluginBase.autoImport.{stDir, stRemoteCache}
 import sbt.{Def, Global, Task, TaskKey}
-import software.amazon.awssdk.services.s3.model.{HeadObjectRequest, NoSuchKeyException, PutObjectRequest}
+import software.amazon.awssdk.services.s3.model.{
+  HeadObjectRequest,
+  NoSuchKeyException,
+  PutObjectRequest,
+  PutObjectResponse,
+}
 import software.amazon.awssdk.services.s3.{S3AsyncClient, S3AsyncClientBuilder}
 
 import scala.compat.java8.FutureConverters._
@@ -37,7 +41,7 @@ object PluginRemoteCache {
           ()
         case RemoteCache.Rsync(pushLocation, _) =>
           val (runCachePath, output) = inTask.value
-          val logger                 = WrapSbtLogger.task.value
+          val logger                 = WrapSbtLogger.task.value.withContext("run", runCachePath.last)
           val cmd                    = new Cmd(logger, Some(500))
           Lock.synchronized {
             locally {
@@ -56,7 +60,7 @@ object PluginRemoteCache {
 
         case RemoteCache.S3(bucket, _, prefix, region, endpoint, credentialsProvider) =>
           val (runCachePath, output) = inTask.value
-          val logger                 = WrapSbtLogger.task.value
+          val logger                 = WrapSbtLogger.task.value.withContext("run", runCachePath.last)
 
           val s3 = {
             implicit class RichBuilder(s3ClientBuilder: S3AsyncClientBuilder) {
@@ -72,13 +76,13 @@ object PluginRemoteCache {
               .build()
           }
 
-          def toKey(relPath: RelPath) = s"${prefix.fold("")(_ + "/")}${relPath.toString()}"
+          def toKey(relPath: os.RelPath) = s"${prefix.fold("")(_ + "/")}${relPath.toString()}"
 
           // The heavy lifting like the actual http requests is done inside an own thread pool inside the S3 client.
           // This is just for simple mapping operations so using the global context should be fine
           import scala.concurrent.ExecutionContext.Implicits.global
 
-          def exists(relPath: RelPath) =
+          def exists(relPath: os.RelPath): Future[Boolean] =
             s3.headObject(
                 HeadObjectRequest
                   .builder()
@@ -93,7 +97,7 @@ object PluginRemoteCache {
                   false
               }
 
-          def upload(relPath: RelPath, relativeTo: os.Path) =
+          def upload(relPath: os.RelPath, relativeTo: os.Path): Future[PutObjectResponse] =
             s3.putObject(
                 PutObjectRequest
                   .builder()
@@ -104,24 +108,24 @@ object PluginRemoteCache {
                 (relativeTo / relPath).toNIO,
               )
               .toScala
-              .map { response =>
-                logger.warn(s"pushed artifact $relPath")
-                response
-              }
 
           Lock.synchronized {
-            val eventualUploadedArtifacts = for {
-              cacheStatus <- Future.sequence(output.allRelPaths.map(relPath => exists(relPath).map(relPath -> _)))
-              relPathsToUpload = cacheStatus.collect { case (relPath, false) => relPath }
-              uploadResults <- Future.sequence(relPathsToUpload.map(upload(_, Utils.IvyLocal.value)))
-            } yield uploadResults.length
-            val uploadedArtifacts = Await.result(eventualUploadedArtifacts, Duration.Inf)
-            logger.warn(s"$uploadedArtifacts artifacts pushed")
+            val allRelPaths = output.allRelPaths
+            val eventualUploadedArtifacts: Future[Int] =
+              for {
+                cacheStatus <- Future.sequence(allRelPaths.map(relPath => exists(relPath).map(relPath -> _)))
+                relPathsToUpload = cacheStatus.collect { case (relPath, false) => relPath }
+                uploadResults <- Future.sequence(relPathsToUpload.map(upload(_, Utils.IvyLocal.value)))
+              } yield uploadResults.length
+
+            val numUploadedArtifacts = Await.result(eventualUploadedArtifacts, Duration.Inf)
 
             val relRunCachePath = runCachePath.relativeTo(os.Path((Global / stDir).value))
             Await.result(upload(relRunCachePath, os.Path((Global / stDir).value)), Duration.Inf)
+
+            logger.warn(s"Pushed $numUploadedArtifacts files to S3 bucket $bucket")
+            numUploadedArtifacts
           }
-          logger.warn(s"pushed to $bucket")
       },
     )
 
@@ -139,8 +143,12 @@ object PluginRemoteCache {
       else
         Lock.synchronized {
           implicit val ec_ = ec
+
+          val remoteRunFile: URI = pullUri / localRunFile.relativeTo(cacheDir)
+          val loggerRemoteFile = logger.withContext(remoteRunFile)
+
           val downloads: Future[Int] =
-            mehttp.download(pullUri / localRunFile.relativeTo(cacheDir), localRunFile).flatMap {
+            mehttp.download(remoteRunFile, localRunFile).flatMap {
               case Ok(bytes) =>
                 val (_, output) = Json.force[InOut](new String(bytes, constants.Utf8))
 
@@ -153,7 +161,9 @@ object PluginRemoteCache {
 
                 Future sequence downloads map { results =>
                   val (errors, notFounds, oks, Nil) = results.partitionCollect3(
-                    { case x: Err => x }, { case NotFound => NotFound }, { case Ok(b) => b },
+                    { case x: Err => x }, { case NotFound => NotFound; case Forbidden => Forbidden }, {
+                      case Ok(b) => b
+                    },
                   )
 
                   val numCached = output.allRelPaths.size - results.size
@@ -171,10 +181,13 @@ object PluginRemoteCache {
                 }
 
               case NotFound =>
-                logger warn s"No cached run ${runCacheKey.digest.hexString}"
+                loggerRemoteFile warn "No cached run"
+                Future successful 0
+              case Forbidden =>
+                loggerRemoteFile warn "Probably no cached run (403)"
                 Future successful 0
               case Err(th) =>
-                logger warn ("Couldn't fetch cache", th)
+                loggerRemoteFile warn ("Couldn't fetch cache", th)
                 Future successful 0
             }
 
@@ -192,6 +205,7 @@ object PluginRemoteCache {
   sealed trait Res[+T]
   case class Err(th: Throwable) extends Res[Nothing]
   case object NotFound extends Res[Nothing]
+  case object Forbidden extends Res[Nothing]
   case class Ok[T](value: T) extends Res[T]
 
   // Meh, I have no idea
@@ -235,6 +249,7 @@ object PluginRemoteCache {
         response.code() match {
           case success if success > 199 && success < 300 => Ok(response.body().bytes())
           case 404                                       => NotFound
+          case 403                                       => Forbidden
           case other                                     => Err(new RuntimeException(s"Got status code $other"))
         }
       } catch {

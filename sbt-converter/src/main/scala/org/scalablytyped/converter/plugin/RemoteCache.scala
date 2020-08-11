@@ -26,7 +26,7 @@ object RemoteCache {
     * @param endpoint            optional endpoint override, useful e.g. for non-AWS S3 endpoints like DigitalOcean (e.g. `https://fra1.digitaloceanspaces.com`)
     * @param credentialsProvider optional credentialsProvider, if not set the DefaultCredentialsProvider is used (https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/credentials.html)
     *
-    *                            It is recommended to use the Builder, e.g. :
+    * It is recommended to use the Builder, e.g. :
     * {{{
     * S3("my-bucket", "https://my-bucket.s3.aws.amazon.com/scalablytyped")
     *   .withStaticCredentials("myAccessKey", "mySecretKey")
@@ -34,7 +34,7 @@ object RemoteCache {
     *   .withPrefix("scalablytyped")
     * }}}
     *
-    *                            The "bucket/prefix" will contain two prefixes after sync: `runs` and `org.scalablytyped`
+    * The "bucket/prefix" will contain two prefixes after sync: `runs` and `org.scalablytyped`
     */
   case class S3(
       bucket:              String,
@@ -69,5 +69,23 @@ object RemoteCache {
 
   object S3 {
     def apply(bucket: String, pull: URI): S3 = S3(bucket, pull, None, None, None, None)
+  }
+
+  /**
+    * If you use AWS S3 this will derive the URI from where data will be pulled
+    */
+  def S3Aws(bucket: String, region: String, prefix: Option[String] = None): S3 = {
+    val awsRegion = Region.of(region)
+    val pull = prefix.foldLeft(s"https://$bucket.s3.${awsRegion.id()}.amazonaws.com") {
+      case (base, prefix) => s"$base/$prefix"
+    }
+    S3(
+      bucket              = bucket,
+      pull                = new URI(pull),
+      prefix              = prefix,
+      region              = Some(awsRegion),
+      endpoint            = None,
+      credentialsProvider = None,
+    )
   }
 }
