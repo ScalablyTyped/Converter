@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Remote cache · ScalablyTyped</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="The whole conversion and compilation process is unfortunately pretty slow. "/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Remote cache · ScalablyTyped"/><meta property="og:type" content="website"/><meta property="og:url" content="https://scalablytyped.org/"/><meta property="og:description" content="The whole conversion and compilation process is unfortunately pretty slow. "/><meta property="og:image" content="https://scalablytyped.org/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://scalablytyped.org/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/undefined"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><h2 class="headerTitle">ScalablyTyped</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://github.com/ScalablyTyped/Converter" target="_self">Github</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>ScalablyTyped</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">ScalablyTyped<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/readme">The Javascript ecosystem for Scala.js!</a></li><li class="navListItem"><a class="navItem" href="/docs/usage">What do I do now?</a></li><li class="navListItem"><a class="navItem" href="/docs/conversion-options">Customize the generated code.</a></li><li class="navListItem"><a class="navItem" href="/docs/flavour">Flavour</a></li><li class="navListItem"><a class="navItem" href="/docs/encoding">Encoding</a></li><li class="navListItem"><a class="navItem" href="/docs/changelog">Changelog</a></li><li class="navListItem"><a class="navItem" href="/docs/import-problems">What if I hit problems importing libraries?</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/remotecache">Remote cache</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Getting started (application)<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/plugin">SBT plugin</a></li><li class="navListItem"><a class="navItem" href="/docs/plugin-no-bundler">SBT plugin without scalajs-bundler</a></li><li class="navListItem"><a class="navItem" href="/docs/cli">Command line tool</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Getting started (library)<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/library-developer">How to share code</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Development<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/devel/about">Development</a></li><li class="navListItem"><a class="navItem" href="/docs/devel/running">Running</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Remote cache</h1></header><article><div><span><p>The whole conversion and compilation process is unfortunately pretty slow.
+To alleviate this there is an option to use a remote cache, where all necessary files are transferred to a remote server where it can be pulled later.
+Think of it like a maven repo with transient libraries, where if they are not found the plugin will automatically rebuild them locally.</p>
+<p>You publish cache by running <code>stPublishCache</code> in sbt, and this is something you could do both locally or in CI.
+Cache is automatically pulled when necessary if it is setup.</p>
+<h3><a class="anchor" aria-hidden="true" id="s3"></a><a href="#s3" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>S3</h3>
+<p>The best alternative is to use S3, through AWS or elsewhere.</p>
+<p>Credentials will be picked up from a <a href="https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/credentials.html">range of locations</a>,
+or you can provide them explicitly.</p>
+<h4><a class="anchor" aria-hidden="true" id="aws"></a><a href="#aws" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>AWS</h4>
+<pre><code class="hljs css language-scala"><span class="hljs-type">Global</span> / stRemoteCache := <span class="hljs-type">RemoteCache</span>.<span class="hljs-type">S3Aws</span>(
+  bucket = <span class="hljs-string">"scalablytyped-demos"</span>, 
+  region = <span class="hljs-string">"eu-central-1"</span>, 
+  prefix = <span class="hljs-type">Some</span>(<span class="hljs-string">"st-cache"</span>)
+)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="elsewhere"></a><a href="#elsewhere" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Elsewhere</h4>
+<p>You'll typically override <code>endpoint</code>, and you'll have to compute the public URI (<code>pull</code>) yourself.</p>
+<pre><code class="hljs css language-scala"><span class="hljs-type">Global</span> / stRemoteCache := <span class="hljs-type">RemoteCache</span>.<span class="hljs-type">S3</span>(
+  bucket = <span class="hljs-string">"my-bucket"</span>, 
+  pull = <span class="hljs-string">"https://my-bucket.https://fra1.digitaloceanspaces.com/scalablytyped"</span>
+).withEndpoint(<span class="hljs-string">"https://fra1.digitaloceanspaces.com"</span>)
+ .withStaticCredentials(<span class="hljs-string">"myAccessKey"</span>, <span class="hljs-string">"mySecretKey"</span>)
+ .withRegion(<span class="hljs-string">"eu-central-1"</span>)
+ .withPrefix(<span class="hljs-string">"scalablytyped"</span>)
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="rsync"></a><a href="#rsync" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Rsync</h3>
+<p>The other alternative if you have a running server and want to avoid using S3 is to use rsync.</p>
+<p>This is how you set it up:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-type">Global</span> / stRemoteCache := <span class="hljs-type">RemoteCache</span>.<span class="hljs-type">Rsync</span>(
+  push = <span class="hljs-string">"user@server.com:/path/to/st/cache"</span>, 
+  pull = <span class="hljs-keyword">new</span> java.net.<span class="hljs-type">URI</span>(<span class="hljs-string">"https://server.com/path/to/st/cache"</span>)
+)
+</code></pre>
+<p>The first parameter specifies where files will be uploaded, and the second how to reach the files through http.
+Pushing requires access through ssh keys, while typically anybody can pull files.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/import-problems"><span class="arrow-prev">← </span><span>What if I hit problems importing libraries?</span></a><a class="docs-next button" href="/docs/plugin"><span>SBT plugin</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"></a><div><h5>Community</h5><a href="https://gitter.im/ScalablyTyped/community/">Project Chat</a></div><div><h5>More</h5><a href="https://github.com/oyvindberg/ScalablyTypedConverter/">GitHub</a><a class="github-button" href="https://github.com/ScalablyTyped/Converter/" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 Øyvind Raddum Berg</section></footer></div></body></html>
