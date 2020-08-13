@@ -2,9 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 
 sealed trait Annotation extends Product with Serializable
-sealed trait MemberAnnotation extends Annotation
-sealed trait ClassAnnotation extends Annotation
-sealed trait LocationAnnotation extends ClassAnnotation
+sealed trait LocationAnnotation extends Annotation
 
 sealed trait Imported
 object Imported {
@@ -14,26 +12,26 @@ object Imported {
 }
 
 object Annotation {
-  case object JsBracketAccess extends MemberAnnotation
-  case object JsBracketCall extends MemberAnnotation
-  case object JsNative extends ClassAnnotation
-  case object ScalaJSDefined extends ClassAnnotation
+  case object JsBracketAccess extends Annotation
+  case object JsBracketCall extends Annotation
+  case object JsNative extends Annotation
+  case object ScalaJSDefined extends Annotation
   case object JsGlobalScope extends LocationAnnotation
-  case object Inline extends MemberAnnotation with ClassAnnotation
+  case object Inline extends Annotation
 
-  case class JsName(name:       Name) extends MemberAnnotation with ClassAnnotation
-  case class JsNameSymbol(name: QualifiedName) extends MemberAnnotation
+  case class JsName(name:       Name) extends Annotation
+  case class JsNameSymbol(name: QualifiedName) extends Annotation
   case class JsImport(module:   String, imported: Imported, global: Option[JsGlobal]) extends LocationAnnotation
   case class JsGlobal(name:     QualifiedName) extends LocationAnnotation
 
-  def renamedFrom(newName: Name)(oldAnnotations: IArray[MemberAnnotation]): IArray[MemberAnnotation] = {
+  def renamedFrom(newName: Name)(oldAnnotations: IArray[Annotation]): IArray[Annotation] = {
     val (names, others) =
       oldAnnotations.partition {
         case _: JsName | _: JsNameSymbol | JsBracketCall => true
         case _ => false
       }
 
-    val updatedNames: IArray[MemberAnnotation] =
+    val updatedNames: IArray[Annotation] =
       (names, newName) match {
         case (Empty, n @ (Name.APPLY | Name.namespaced)) => sys.error(s"Cannot rename `$n`")
         case (Empty, old)                                => IArray(JsName(old))
@@ -43,7 +41,7 @@ object Annotation {
     others ++ updatedNames
   }
 
-  def classRenamedFrom(oldName: Name)(oldAnnotations: IArray[ClassAnnotation]): IArray[ClassAnnotation] = {
+  def classRenamedFrom(oldName: Name)(oldAnnotations: IArray[Annotation]): IArray[Annotation] = {
     val (names, others) =
       oldAnnotations.partition {
         case _: JsName   => true
@@ -52,7 +50,7 @@ object Annotation {
         case _ => false
       }
 
-    val updatedNames: IArray[ClassAnnotation] =
+    val updatedNames: IArray[Annotation] =
       (names, oldName) match {
         case (Empty, old)  => IArray(JsName(old))
         case (existing, _) => existing

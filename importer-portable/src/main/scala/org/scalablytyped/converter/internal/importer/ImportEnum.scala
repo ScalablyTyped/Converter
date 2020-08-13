@@ -20,7 +20,7 @@ object ImportEnum {
 
   def apply(
       e:            TsDeclEnum,
-      anns:         IArray[ClassAnnotation],
+      anns:         IArray[Annotation],
       scope:        TsTreeScope,
       importName:   AdaptiveNamingImport,
       importType:   ImportType,

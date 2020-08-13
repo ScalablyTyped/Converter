@@ -6,7 +6,7 @@ import org.scalablytyped.converter.internal.ts.{JsLocation, ModuleSpec}
 
 object ImportJsLocation {
 
-  def apply(location: JsLocation): IArray[ClassAnnotation] =
+  def apply(location: JsLocation): IArray[Annotation] =
     location match {
       case JsLocation.Zero =>
         IArray(Annotation.JsNative, Annotation.JsGlobalScope)

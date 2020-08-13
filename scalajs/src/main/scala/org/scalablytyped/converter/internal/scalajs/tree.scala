@@ -15,7 +15,7 @@ sealed trait HasCodePath {
 }
 
 sealed trait ContainerTree extends Tree with HasCodePath {
-  val annotations: IArray[ClassAnnotation]
+  val annotations: IArray[Annotation]
   val members:     IArray[Tree]
 
   def withMembers(members: IArray[Tree]): ContainerTree =
@@ -29,7 +29,7 @@ sealed trait ContainerTree extends Tree with HasCodePath {
 }
 
 sealed trait InheritanceTree extends Tree with HasCodePath {
-  def annotations: IArray[ClassAnnotation]
+  def annotations: IArray[Annotation]
   def isScalaJsDefined:  Boolean = annotations contains Annotation.ScalaJSDefined
   def receivesCompanion: Boolean = isScalaJsDefined || comments.has[Markers.CouldBeScalaJsDefined.type]
   val index: Map[Name, IArray[Tree]]
@@ -43,7 +43,7 @@ sealed trait InheritanceTree extends Tree with HasCodePath {
 }
 
 final case class PackageTree(
-    annotations: IArray[ClassAnnotation],
+    annotations: IArray[Annotation],
     name:        Name,
     members:     IArray[Tree],
     comments:    Comments,
@@ -59,7 +59,7 @@ object PackageTree {
 
 final case class ClassTree(
     isImplicit:  Boolean,
-    annotations: IArray[ClassAnnotation],
+    annotations: IArray[Annotation],
     name:        Name,
     tparams:     IArray[TypeParamTree],
     parents:     IArray[TypeRef],
@@ -92,7 +92,7 @@ final case class ClassTree(
 }
 
 final case class ModuleTree(
-    annotations: IArray[ClassAnnotation],
+    annotations: IArray[Annotation],
     name:        Name,
     parents:     IArray[TypeRef],
     members:     IArray[Tree],
@@ -113,14 +113,14 @@ final case class TypeAliasTree(
 
 sealed trait MemberTree extends Tree with HasCodePath {
   val isOverride:  Boolean
-  val annotations: IArray[MemberAnnotation]
+  val annotations: IArray[Annotation]
   def withCodePath(newCodePath: QualifiedName): MemberTree
   def renamed(newName:          Name):          MemberTree
   def originalName: Name
 }
 
 final case class FieldTree(
-    annotations: IArray[MemberAnnotation],
+    annotations: IArray[Annotation],
     name:        Name,
     tpe:         TypeRef,
     impl:        ImplTree,
@@ -148,7 +148,7 @@ final case class FieldTree(
 }
 
 final case class MethodTree(
-    annotations: IArray[MemberAnnotation],
+    annotations: IArray[Annotation],
     level:       ProtectionLevel,
     name:        Name,
     tparams:     IArray[TypeParamTree],

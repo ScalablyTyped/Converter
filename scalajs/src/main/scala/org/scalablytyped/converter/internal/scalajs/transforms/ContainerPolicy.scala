@@ -11,7 +11,7 @@ import scala.collection.mutable
 
 object ContainerPolicy extends TreeTransformation {
   /* sneak import annotations through fields/methods which otherwise don't have them */
-  case class ClassAnnotations(value: IArray[ClassAnnotation]) extends Comment.Data
+  case class ClassAnnotations(value: IArray[Annotation]) extends Comment.Data
 
   override def leaveContainerTree(scope: TreeScope)(_s: ContainerTree): ContainerTree = {
     val s = combineModules(_s)
@@ -138,7 +138,7 @@ object ContainerPolicy extends TreeTransformation {
   }
 
   def stripLocationAnns(tree: Tree): Tree = {
-    def filterAnns(anns: IArray[ClassAnnotation]): IArray[ClassAnnotation] =
+    def filterAnns(anns: IArray[Annotation]): IArray[Annotation] =
       anns.filter {
         case Annotation.JsNative          => true
         case Annotation.ScalaJSDefined    => true

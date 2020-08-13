@@ -406,7 +406,7 @@ class IdentifyReactComponents(
   def isUpper(n: Name): Boolean = n.value.head.isUpper
 
   object LocationFrom {
-    def unapply(anns: IArray[ClassAnnotation]): Option[LocationAnnotation] =
+    def unapply(anns: IArray[Annotation]): Option[LocationAnnotation] =
       anns.collectFirst {
         case a: Annotation.JsImport => a
         case a: Annotation.JsGlobal => a
