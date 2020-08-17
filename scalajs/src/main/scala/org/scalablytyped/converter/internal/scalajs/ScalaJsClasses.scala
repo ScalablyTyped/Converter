@@ -43,6 +43,40 @@ object ScalaJsClasses {
     )
   // format: on
 
+  // format: off
+  val ScalaJsPromise =
+    ClassTree(
+      isImplicit = false,
+      IArray(Annotation.JsNative, Annotation.JsGlobalScope),
+      Name("Promise"),
+      IArray(TypeParamTree(Name("T"), Empty, None, NoComments)),
+      parents = IArray(TypeRef(QualifiedName.Thenable)),
+      Empty,
+      Empty,
+      ClassType.Class,
+      isSealed = false,
+      NoComments,
+      QualifiedName.Promise,
+    )
+  // format: on
+
+  // format: off
+  val ScalaJsThenable =
+    ClassTree(
+      isImplicit = false,
+      IArray(Annotation.JsNative, Annotation.JsGlobalScope),
+      Name("Thenable"),
+      IArray(TypeParamTree(Name("T"), Empty, None, NoComments)),
+      Empty,
+      Empty,
+      Empty,
+      ClassType.Class,
+      isSealed = false,
+      NoComments,
+      QualifiedName.Thenable,
+    )
+  // format: on
+
   def ScalaJsF(isThis: Boolean, arity: Int): ClassTree = {
     def T(n: Int) = Name(s"T" + n)
 
@@ -132,6 +166,8 @@ object ScalaJsClasses {
 
   val ScalaJsTypes: Map[QualifiedName, Tree] =
     (Functions ++ IArray(
+      ScalaJsPromise,
+      ScalaJsThenable,
       ScalaJsFunction,
       ScalaJsArray,
       ObjectMembers.ScalaJsObject,
