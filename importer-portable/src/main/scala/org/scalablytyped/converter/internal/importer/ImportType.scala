@@ -1,6 +1,7 @@
 package org.scalablytyped.converter.internal
 package importer
 
+import org.scalablytyped.converter.internal.importer.ImportType.{IsInheritance, Mapping, NameMapping, RefMapping}
 import org.scalablytyped.converter.internal.scalajs._
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 import org.scalablytyped.converter.internal.ts._
@@ -19,57 +20,44 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case Some(x) => apply(wildcards, scope, importName)(x)
     }
 
-  sealed trait Mapping
-  case class Ref(isInheritance:      TypeRef, normal:       TypeRef) extends Mapping
-  case class OnlyName(isInheritance: QualifiedName, normal: QualifiedName) extends Mapping
-
   /**
     * The point here? Dont inherit from sealed classes in scala.js, but otherwise
     * prefer types from there. Handle resolved and unresolved qidents
     */
   private val Mappings = {
-    val ArrayM    = OnlyName(stdNames.Array, QualifiedName.Array)
-    val BooleanM  = Ref(TypeRef(stdNames.Boolean), TypeRef.Boolean)
-    val FunctionM = Ref(TypeRef.FunctionBase, TypeRef.FunctionBase)
-    val ObjectM   = Ref(TypeRef(stdNames.Object), TypeRef.Object)
-    val StringM   = Ref(TypeRef(stdNames.String), TypeRef.String)
+    val ArrayM    = NameMapping(stdNames.Array, stdNames.Array, QualifiedName.Array)
+    val BooleanM  = RefMapping(TypeRef(stdNames.Boolean), TypeRef(stdNames.Boolean), TypeRef.Boolean)
+    val FunctionM = RefMapping(TypeRef.FunctionBase, TypeRef.FunctionBase, TypeRef.FunctionBase)
+    val ObjectM   = RefMapping(TypeRef(stdNames.Object), TypeRef(stdNames.Object), TypeRef.Object)
+    val StringM   = RefMapping(TypeRef(stdNames.String), TypeRef(stdNames.String), TypeRef.String)
 
-    Map[TsQIdent, Mapping](
+    Map[TsQIdent, Mapping[_]](
       TsQIdent.Array -> ArrayM,
-      TsQIdent.bigint -> Ref(TypeRef(stdNames.BigInt), TypeRef(stdNames.BigInt)),
+      TsQIdent.bigint -> RefMapping(TypeRef(stdNames.BigInt), TypeRef(stdNames.BigInt), TypeRef(stdNames.BigInt)),
       TsQIdent.boolean -> BooleanM,
       TsQIdent.Boolean -> BooleanM,
       TsQIdent.Function -> FunctionM,
-      TsQIdent.never -> Ref(TypeRef.Any, TypeRef.Nothing),
-      TsQIdent.`null` -> Ref(TypeRef.Any, TypeRef.Null),
-      TsQIdent.number -> Ref(TypeRef(stdNames.Number), TypeRef.Double),
+      TsQIdent.never -> RefMapping(TypeRef.Any, TypeRef.Any, TypeRef.Nothing),
+      TsQIdent.`null` -> RefMapping(TypeRef.Any, TypeRef.Any, TypeRef.Null),
+      TsQIdent.number -> RefMapping(TypeRef(stdNames.Number), TypeRef(stdNames.Number), TypeRef.Double),
       TsQIdent.`object` -> ObjectM,
       TsQIdent.Object -> ObjectM,
       TsQIdent.Std.Array -> ArrayM,
       TsQIdent.Std.Boolean -> BooleanM,
-      TsQIdent.Std.ConcatArray -> OnlyName(stdNames.ConcatArray, QualifiedName.Array),
+      TsQIdent.Std.ConcatArray -> NameMapping(stdNames.ConcatArray, stdNames.ConcatArray, QualifiedName.Array),
       TsQIdent.Std.Function -> FunctionM,
       TsQIdent.Std.Object -> ObjectM,
-      TsQIdent.Std.PromiseLike -> OnlyName(QualifiedName.Thenable, QualifiedName.Thenable),
-      TsQIdent.Std.Promise -> OnlyName(QualifiedName.Promise, QualifiedName.Promise),
-      TsQIdent.Std.ReadonlyArray -> OnlyName(stdNames.ReadonlyArray, QualifiedName.Array),
+      TsQIdent.Std.PromiseLike -> NameMapping(QualifiedName.Thenable, QualifiedName.Thenable, QualifiedName.Thenable),
+      TsQIdent.Std.Promise -> NameMapping(QualifiedName.Promise, stdNames.Promise, QualifiedName.Promise),
+      TsQIdent.Std.ReadonlyArray -> NameMapping(stdNames.ReadonlyArray, stdNames.ReadonlyArray, QualifiedName.Array),
       TsQIdent.Std.String -> StringM,
       TsQIdent.string -> StringM,
       TsQIdent.String -> StringM,
-      TsQIdent.symbol -> Ref(TypeRef(stdNames.Symbol), TypeRef.Symbol),
-      TsQIdent.undefined -> Ref(TypeRef.Any, TypeRef.UndefOr(TypeRef.Nothing)),
-      TsQIdent.void -> Ref(TypeRef.Any, TypeRef.Unit),
+      TsQIdent.symbol -> RefMapping(TypeRef(stdNames.Symbol), TypeRef(stdNames.Symbol), TypeRef.Symbol),
+      TsQIdent.undefined -> RefMapping(TypeRef.Any, TypeRef.Any, TypeRef.UndefOr(TypeRef.Nothing)),
+      TsQIdent.void -> RefMapping(TypeRef.Any, TypeRef.Any, TypeRef.Unit),
     )
   }
-
-  def isInheritance(tpe: TsQIdent, scope: TsTreeScope): Boolean =
-    scope.stack match {
-      case _ :: (owner: TsDeclInterface) :: _ =>
-        owner.inheritance.exists(_.name eq tpe)
-      case _ :: (owner: TsDeclClass) :: _ =>
-        owner.implements.exists(_.name eq tpe) || owner.parent.exists(_.name eq tpe)
-      case _ => false
-    }
 
   def apply(wildcards: Wildcards, _scope: TsTreeScope, importName: AdaptiveNamingImport)(t1: TsType): TypeRef = {
     val scope = _scope / t1
@@ -88,15 +76,13 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             (if (wildcards.allowed) TypeRef.Wildcard else TypeRef.Any).withComments(cs)
 
           case other =>
-            lazy val parent = isInheritance(other, scope)
-            lazy val targs2 = targs map apply(wildcards.maybeAllow, scope, importName)
+            lazy val isInheritance = IsInheritance(other, scope)
+            lazy val targs2        = targs map apply(wildcards.maybeAllow, scope, importName)
 
             Mappings.get(other) match {
-              case Some(Ref(tr, _)) if parent         => tr.withComments(cs)
-              case Some(Ref(_, tr))                   => tr.withComments(cs)
-              case Some(OnlyName(qname, _)) if parent => TypeRef(qname, targs2, cs)
-              case Some(OnlyName(_, qname))           => TypeRef(qname, targs2, cs)
-              case None                               => TypeRef(importName(other), targs2, cs)
+              case Some(m: RefMapping)  => m.pick(isInheritance).withComments(cs)
+              case Some(m: NameMapping) => TypeRef(m.pick(isInheritance), targs2, cs)
+              case None => TypeRef(importName(other), targs2, cs)
             }
         }
 
@@ -324,4 +310,38 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       param:                      TsFunParam,
   ): TypeRef =
     orAny(wildcards, scope / param, importName)(param.tpe).withComments(Comments(s"/* ${param.name.value} */"))
+}
+
+object ImportType {
+  sealed trait Mapping[T] {
+    val inTraitInheritance: T
+    val inClassInheritance: T
+    val normal:             T
+    def pick(isInheritance: IsInheritance): T =
+      isInheritance match {
+        case IsInheritance.InClass => inClassInheritance
+        case IsInheritance.InTrait => inTraitInheritance
+        case IsInheritance.Not     => normal
+      }
+  }
+  case class RefMapping(inTraitInheritance: TypeRef, inClassInheritance: TypeRef, normal: TypeRef)
+      extends Mapping[TypeRef]
+  case class NameMapping(inTraitInheritance: QualifiedName, inClassInheritance: QualifiedName, normal: QualifiedName)
+      extends Mapping[QualifiedName]
+
+  sealed trait IsInheritance
+  object IsInheritance {
+    case object InClass extends IsInheritance
+    case object InTrait extends IsInheritance
+    case object Not extends IsInheritance
+
+    def apply(tpe: TsQIdent, scope: TsTreeScope): IsInheritance =
+      scope.stack match {
+        case _ :: (owner: TsDeclInterface) :: _ =>
+          if (owner.inheritance.exists(_.name eq tpe)) InTrait else Not
+        case _ :: (owner: TsDeclClass) :: _ =>
+          if (owner.implements.exists(_.name eq tpe) || owner.parent.exists(_.name eq tpe)) InClass else Not
+        case _ => Not
+      }
+  }
 }
