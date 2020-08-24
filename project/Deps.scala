@@ -1,4 +1,4 @@
-import sbt.{ModuleID, stringToOrganization}
+import sbt.{stringToOrganization, ModuleID}
 
 object Deps {
   val parserCombinators = "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
@@ -7,7 +7,7 @@ object Deps {
   val sourcecode        = "com.lihaoyi" %% "sourcecode" % "0.2.1"
   val scalatest         = "org.scalatest" %% "scalatest" % "3.1.1"
   val fansi             = "com.lihaoyi" %% "fansi" % "0.2.9"
-  val bloop             = "ch.epfl.scala" %% "bloop-frontend" % "1.3.5"
+  val bloop             = "ch.epfl.scala" %% "bloop-frontend" % "1.4.3"
   val bintry            = "org.foundweekends" %% "bintry" % "0.5.2"
   val asyncHttpClient   = "com.ning" % "async-http-client" % "1.9.40"
   val scalaXml          = "org.scala-lang.modules" %% "scala-xml" % "1.3.0"

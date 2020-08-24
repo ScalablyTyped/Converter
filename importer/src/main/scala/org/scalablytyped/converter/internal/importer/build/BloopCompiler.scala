@@ -11,10 +11,10 @@ import bloop.config.{Config => BloopConfig}
 import bloop.engine.NoPool
 import bloop.io.AbsolutePath
 import com.olvind.logging.{Formatter, Logger}
-import coursier.cache.ArtifactError
+import coursier.cache.{ArtifactError, FileCache}
 import coursier.error.{FetchError, ResolutionError}
 import coursier.util.Task
-import coursier.{Attributes, Dependency, Fetch, Module}
+import coursier.{Dependency, Fetch, Module}
 import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
 
 import scala.concurrent.duration._
@@ -27,12 +27,13 @@ object BloopCompiler {
     Dependency(
       Module(coursier.Organization(dep.org), coursier.ModuleName(dep.mangledArtifact)),
       dep.version,
-      attributes = Attributes(),
     )
+
+  val fileCache = FileCache[Task]()
 
   def resolve(deps: Dep.Concrete*)(implicit ec: ExecutionContext): Future[Array[AbsolutePath]] = {
     def go(remainingAttempts: Int): Future[Array[AbsolutePath]] =
-      Fetch[Task]()
+      Fetch[Task](fileCache)
         .withDependencies(deps map toCoursier)
         .io
         .future()
@@ -113,15 +114,18 @@ class BloopCompiler private (
       (globalClassPath ++ fromExternalDeps ++ fromDependencyJars ++ fromDependencyClassDirs).map(_.underlying).toList
     }
 
+    val classesDir = compilerPaths.classesDir
+    val outDir     = compilerPaths.baseDir / "target"
+
     val projectFile = BloopConfig.File(
-      "1.3.3",
+      "1.4.3",
       BloopConfig.Project(
         name         = name,
         directory    = compilerPaths.baseDir.toNIO,
         sources      = List(compilerPaths.sourcesDir.toNIO),
         dependencies = deps.collect { case Compiler.InternalDepClassFiles(name, _) => name }.toList,
         classpath    = classPath,
-        out          = (compilerPaths.baseDir / "target").toNIO,
+        out          = outDir.toNIO,
         classesDir   = compilerPaths.classesDir.toNIO,
         resources    = None,
         scala = Some(
@@ -141,6 +145,9 @@ class BloopCompiler private (
         platform     = None,
         resolution   = None,
         workspaceDir = None,
+        sourcesGlobs = None,
+        sourceRoots  = None,
+        tags         = None,
       ),
     )
     os.makeDir.all(bloopFolder)
@@ -170,7 +177,13 @@ class BloopCompiler private (
         )
 
         status match {
-          case ExitStatus.Ok => Right(())
+          case ExitStatus.Ok =>
+            /** bloop 1.4.3 apparently doesnt use `classesDir` as the path where it puts class files anymore.
+              * Move them back to where we expect them
+              */
+            os.move.over(outDir / "bloop-bsp-clients-classes" / "classes-bloop-cli", classesDir)
+
+            Right(())
           case other =>
             val msg = outStream.toString(constants.Utf8.name)
             /* save failure, but guard against flaky errors */
