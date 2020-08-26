@@ -1,13 +1,9 @@
 package org.scalablytyped.converter.internal
 package phases
 
-import java.nio.channels.{ClosedByInterruptException, FileLockInterruptionException}
-
 import com.olvind.logging.{Formatter, Logger}
 
 import scala.collection.immutable.{SortedMap, SortedSet}
-import scala.concurrent.duration._
-import scala.concurrent.{Await, ExecutionException}
 import scala.util.control.NonFatal
 
 /**
@@ -48,62 +44,49 @@ object PhaseRunner {
       .withContext("thread", Thread.currentThread().getId)
       .withContext("phase", next.name)
 
-    Await.result(
-      next.cache.getOrElse((id, isCircular)) { p =>
-        try {
-          listener.on(next.name, id, PhaseListener.Started(next.name))
+    next.cache.getOrElse((id, isCircular)) { () =>
+      try {
+        listener.on(next.name, id, PhaseListener.Started(next.name))
 
-          val resLastPhase: PhaseRes[Id, T] =
-            go(next.prev, id, Nil, getLogger, listener)
+        val resLastPhase: PhaseRes[Id, T] =
+          go(next.prev, id, Nil, getLogger, listener)
 
-          def calculateDeps(newRequestedIds: SortedSet[Id]): PhaseRes[Id, SortedMap[Id, TT]] = {
-            listener.on(next.name, id, PhaseListener.Blocked(next.name, newRequestedIds))
+        def calculateDeps(newRequestedIds: SortedSet[Id]): PhaseRes[Id, SortedMap[Id, TT]] = {
+          listener.on(next.name, id, PhaseListener.Blocked(next.name, newRequestedIds))
 
-            val ret: PhaseRes[Id, SortedMap[Id, TT]] =
-              PhaseRes.sequenceMap(
-                newRequestedIds
-                  .map(thisId => thisId -> go(next, thisId, id :: circuitBreaker, getLogger, listener))(
-                    collection.breakOut,
-                  ),
-              )
-
-            listener.on(next.name, id, PhaseListener.Started(next.name))
-            ret
-          }
-
-          val result: PhaseRes[Id, TT] =
-            resLastPhase.flatMap(lastValue =>
-              PhaseRes.attempt(id, logger, next.trans(id, lastValue, calculateDeps, isCircular, logger)),
+          val ret: PhaseRes[Id, SortedMap[Id, TT]] =
+            PhaseRes.sequenceMap(
+              newRequestedIds
+                .map(thisId => thisId -> go(next, thisId, id :: circuitBreaker, getLogger, listener))(
+                  collection.breakOut,
+                ),
             )
 
-          result match {
-            case PhaseRes.Ok(_) =>
-              listener.on(next.name, id, PhaseListener.Success(next.name))
-            case PhaseRes.Failure(_) =>
-              listener.on(next.name, id, PhaseListener.Failure(next.name))
-            case PhaseRes.Ignore() =>
-              listener.on(next.name, id, PhaseListener.Ignored())
-          }
-
-          p.success(result)
-
-        } catch {
-          case x: FileLockInterruptionException => throw x
-          case x: InterruptedException => throw x
-          case x: ClosedByInterruptException => throw x
-          case x: ExecutionException if x.getCause != null =>
-            val e = x.getCause
-            listener.on(next.name, id, PhaseListener.Failure(next.name))
-            logger.error(("Failure", e))
-            p.success(PhaseRes.Failure(Map(id -> Left(e))))
-
-          case NonFatal(e) =>
-            listener.on(next.name, id, PhaseListener.Failure(next.name))
-            logger.error(("Failure", e))
-            p.success(PhaseRes.Failure(Map(id -> Left(e))))
+          listener.on(next.name, id, PhaseListener.Started(next.name))
+          ret
         }
-      },
-      Duration.Inf,
-    )
+
+        val result: PhaseRes[Id, TT] =
+          resLastPhase.flatMap(lastValue =>
+            PhaseRes.attempt(id, logger, next.trans(id, lastValue, calculateDeps, isCircular, logger)),
+          )
+
+        result match {
+          case PhaseRes.Ok(_) =>
+            listener.on(next.name, id, PhaseListener.Success(next.name))
+          case PhaseRes.Failure(_) =>
+            listener.on(next.name, id, PhaseListener.Failure(next.name))
+          case PhaseRes.Ignore() =>
+            listener.on(next.name, id, PhaseListener.Ignored())
+        }
+        result
+
+      } catch {
+        case NonFatal(e) =>
+          listener.on(next.name, id, PhaseListener.Failure(next.name))
+          logger.error(("Failure", e))
+          PhaseRes.Failure(Map(id -> Left(e)))
+      }
+    }
   }
 }

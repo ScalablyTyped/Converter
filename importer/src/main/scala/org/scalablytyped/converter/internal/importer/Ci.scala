@@ -40,7 +40,6 @@ object Ci {
       enablePublish:    Boolean,
       offline:          Boolean,
       pedantic:         Boolean,
-      parallel:         Boolean,
       forceCommit:      Boolean,
       conserveSpace:    Boolean,
       enableParseCache: Boolean,
@@ -106,11 +105,6 @@ object Ci {
               Selection.AllExcept(Libraries.Slow.to[Seq]: _*)
             else Selection.None
 
-          val isParallel = flags contains "-parallel"
-
-          val ignoredLibs: Set[TsIdentLibrary] =
-            Libraries.ignored(!isParallel)
-
           Some(
             Config(
               conversion = ConversionOptions(
@@ -118,7 +112,7 @@ object Ci {
                 outputPackage         = outputPackage,
                 enableScalaJsDefined  = enableScalaJsDefined,
                 flavour               = flavour,
-                ignoredLibs           = ignoredLibs,
+                ignoredLibs           = Libraries.ignored,
                 ignoredModulePrefixes = Set(),
                 stdLibs               = IArray("esnext.full"),
                 expandTypeMappings    = EnabledTypeMappingExpansion.DefaultSelection,
@@ -133,7 +127,6 @@ object Ci {
               enablePublish    = flags contains "-publish",
               offline          = flags contains "-offline",
               pedantic         = flags contains "-pedantic",
-              parallel         = isParallel,
               forceCommit      = flags contains "-forceCommit",
               conserveSpace    = flags contains "-conserveSpace",
               enableParseCache = flags contains "-enableParseCache",
@@ -315,19 +308,10 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
     }
 
     val results: Map[Source, PhaseRes[Source, PublishedSbtProject]] =
-      Interface(config.debugMode, storingErrorLogger) {
-        case listener if config.parallel =>
-          val par = initial.par
-          par.tasksupport = new ForkJoinTaskSupport(pool)
-          par
-            .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
-            .seq
-            .toMap
-
-        case listener =>
-          initial
-            .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
-            .toMap
+      Interface(config.debugMode, storingErrorLogger) { listener =>
+        initial
+          .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
+          .toMap
       }
 
     if (config.benchmark) {

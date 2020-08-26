@@ -29,7 +29,6 @@ For development you'll always use "debug mode".
 | `-scala212`           | Build libraries with Scala 2.12 instead of 2.13
 | `-scalajs06`          | Build libraries with Scala.js 0.6 instead of 1 
 | `-offline`            | Skip pulling newest DefinitelyTyped and running `npm update`
-| `-parallel`           | Faster, but with some [issues](https://github.com/oyvindberg/ScalablyTypedConverter/issues/74). May deadlock or produce unrepeatable builds for now
 | `-pedantic`           | Make the converter more strict. Most things don't work yet in this mode
 | `-publish`            | Publish to bintray. You'll need credentials in `~/.bintray/.credentials`
 | `-softWrites`         | Will only write changed/deleted files. This is essential if you want to keep ScalablyTyped products open in an IDE to avoid reindexing the world.
@@ -38,7 +37,6 @@ For development you'll always use "debug mode".
 | `-flavourJapgolly`    | Use scalajs-react flavour, integrate with scala-js-dom, and generate scalajs-react components 
 | `-useScalaJsDomTypes` | Rewrite types to use scala-js-dom types when using `-flavourNormal`  
 | `-benchmark`          | Run a benchmark run. Typically use with `-demoSet`. Let it first run once to build/parsecache everything  
-| `-enableImplicitOps`  | Enable implicit ops  
 
 ### Directories
 By default, all files will be written to `~/.cache/scalablytyped`. The only exception is the ivy artifacts, which are local-published

@@ -250,8 +250,8 @@ object Libraries {
     "zipkin",
   ).map(TsIdentLibrary.apply)
 
-  def ignored(sequential: Boolean): SortedSet[TsIdentLibrary] = {
-    val base = SortedSet[String](
+  def ignored: SortedSet[TsIdentLibrary] =
+    SortedSet[String](
       "graphene-pk11",
       "rvo2",
       "yfiles",
@@ -268,23 +268,7 @@ object Libraries {
       "koa-compose",
       // not installable on linux
       "fsevents",
-    )
-
-    // some new kind of circular dependency causes the phase runner to wait forever (parallel mode)
-    def circular =
-      if (sequential) SortedSet()
-      else
-        SortedSet(
-          "mali",
-          "apollo-tracing",
-          "playerframework",
-          "gatsby",
-          "socketcluster",
-          "egg",
-        )
-
-    base ++ circular map TsIdentLibrary.apply
-  }
+    ) map TsIdentLibrary.apply
 
   val Slow = SortedSet("@pulumi/aws", "aws-sdk", "googleapis", "@material-ui/core", "@storybook/components") map TsIdentLibrary.apply
 
