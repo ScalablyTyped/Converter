@@ -23,6 +23,11 @@ trait StBuildingComponent[E, R <: js.Object] extends Any {
     this
   }
   @scala.inline
+  def unsafeSpread(obj: js.Any): this.type = {
+    js.Object.assign(args(1).asInstanceOf[js.Object], obj.asInstanceOf[js.Object])
+    this
+  }
+  @scala.inline
   def apply(mods: TagMod[E]*): this.type = {
     mods.foreach((mod: TagMod[E]) => if (mod.isInstanceOf[AttrPair[_]]) {
       val a = mod.asInstanceOf[AttrPair[_]]

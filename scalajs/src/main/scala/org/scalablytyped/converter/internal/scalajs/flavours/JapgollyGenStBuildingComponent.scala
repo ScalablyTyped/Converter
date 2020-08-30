@@ -111,6 +111,34 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
     )
   }
 
+  val unsafeSpread = {
+    val param = ParamTree(Name("obj"), false, false, TypeRef.Any, NotImplemented, NoComments)
+    val name  = Name("unsafeSpread")
+    val assign = Call(
+      Ref(QualifiedName.Object + Name("assign")),
+      IArray(
+        IArray(
+          Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.Object),
+          Cast(Ref(param.name), TypeRef.Object),
+        ),
+      ),
+    )
+
+    MethodTree(
+      IArray(Annotation.Inline),
+      ProtectionLevel.Default,
+      name,
+      Empty,
+      IArray(IArray(param)),
+      Block(assign, Ref(QualifiedName.THIS)),
+      TypeRef(QualifiedName.THIS),
+      false,
+      NoComments,
+      builderCp + name,
+      false,
+    )
+  }
+
   val Trait: ClassTree = {
 //    @scala.inline
 //    def applyTagMod(t: TagMod): Unit =
@@ -153,14 +181,6 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
             ),
             Call(Select(Ref(args.name), Name("push")), IArray(IArray(Ref(childrenName)))),
           )
-          val propsName = Name("props")
-          val propsLambda = Lambda(
-            IArray(ParamTree(propsName, false, false, TypeRef.Object, NotImplemented, NoComments)),
-            Call(
-              Ref(QualifiedName.Object + Name("assign")),
-              IArray(IArray(Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.Object), Ref(propsName))),
-            ),
-          )
           Block(
             Val(ttName, Select(Ref(tParam.name), Name("toJs"))),
             Call(Ref(QualifiedName(IArray(ttName, Name("addClassNameToProps")))), IArray(Empty)),
@@ -172,7 +192,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
             ),
             Call(
               Ref(QualifiedName(IArray(ttName, Name("nonEmptyProps"), Name("foreach")))),
-              IArray(IArray(propsLambda)),
+              IArray(IArray(Ref(unsafeSpread.name))),
             ),
           )
         }
@@ -326,7 +346,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       tparams     = builderTparams,
       parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.ScalaAny)),
       ctors       = Empty,
-      members     = IArray(args, set, withComponent, applyTagMod, apply, withKey, withRef1, withRef2),
+      members     = IArray(args, set, withComponent, unsafeSpread, applyTagMod, apply, withKey, withRef1, withRef2),
       classType   = ClassType.Trait,
       isSealed    = false,
       comments    = NoComments,

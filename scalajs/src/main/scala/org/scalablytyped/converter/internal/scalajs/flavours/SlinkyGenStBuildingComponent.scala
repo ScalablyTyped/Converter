@@ -116,7 +116,35 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 
   val Trait: ClassTree = {
 
-//  @inline final def apply(mods: slinky.core.TagMod[E]*): this.type = {
+    val unsafeSpread = {
+      val param = ParamTree(Name("obj"), false, false, TypeRef.Any, NotImplemented, NoComments)
+      val name  = Name("unsafeSpread")
+      val assign = Call(
+        Ref(QualifiedName.Object + Name("assign")),
+        IArray(
+          IArray(
+            Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.Object),
+            Cast(Ref(param.name), TypeRef.Object),
+          ),
+        ),
+      )
+
+      MethodTree(
+        IArray(Annotation.Inline),
+        ProtectionLevel.Default,
+        name,
+        Empty,
+        IArray(IArray(param)),
+        Block(assign, Ref(QualifiedName.THIS)),
+        TypeRef(QualifiedName.THIS),
+        false,
+        NoComments,
+        builderCp + name,
+        false,
+      )
+    }
+
+    //  @inline final def apply(mods: slinky.core.TagMod[E]*): this.type = {
 //    mods.foreach((mod: slinky.core.TagMod[E]) =>
 //      if (mod.isInstanceOf[slinky.core.AttrPair]) {
 //        val a = mod.asInstanceOf[AttrPair]
@@ -268,7 +296,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       tparams     = builderTparams,
       parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.ScalaAny)),
       ctors       = Empty,
-      members     = IArray(args, set, withComponent, apply, withKey, withRef1, withRef2),
+      members     = IArray(args, set, withComponent, unsafeSpread, apply, withKey, withRef1, withRef2),
       classType   = ClassType.Trait,
       isSealed    = false,
       comments    = NoComments,

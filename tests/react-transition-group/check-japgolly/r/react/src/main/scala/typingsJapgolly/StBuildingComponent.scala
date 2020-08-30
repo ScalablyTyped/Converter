@@ -26,6 +26,11 @@ trait StBuildingComponent[R <: js.Object] extends Any {
     this
   }
   @scala.inline
+  def unsafeSpread(obj: js.Any): this.type = {
+    js.Object.assign(args(1).asInstanceOf[js.Object], obj.asInstanceOf[js.Object])
+    this
+  }
+  @scala.inline
   def applyTagMod(t: TagMod): Unit = if (t.isInstanceOf[Composite]) {
     val tt = t.asInstanceOf[Composite]
     tt.mods.foreach(applyTagMod)
@@ -38,7 +43,7 @@ trait StBuildingComponent[R <: js.Object] extends Any {
     tt.addKeyToProps()
     tt.addStyleToProps()
     tt.nonEmptyChildren.foreach((children: js.Array[Node]) => args.push(children))
-    tt.nonEmptyProps.foreach((props: js.Object) => js.Object.assign(args(1).asInstanceOf[js.Object], props))
+    tt.nonEmptyProps.foreach(unsafeSpread)
   }
   @scala.inline
   def apply(mods: TagMod*): this.type = {
