@@ -115,6 +115,27 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
   }
 
   val Trait: ClassTree = {
+    val build = {
+      val name = Name("build")
+
+      MethodTree(
+        IArray(Annotation.Inline),
+        ProtectionLevel.Default,
+        name,
+        Empty,
+        Empty,
+        Call(Ref(Object.make.codePath), IArray(IArray(Ref(QualifiedName.THIS)))),
+        Object.make.resultType,
+        false,
+        Comments(
+          Comment(
+            "/* You typically shouldnt call this yourself, but it can be useful if you're for instance mapping a sequence and you need types to infer properly */\n",
+          ),
+        ),
+        builderCp + name,
+        false,
+      )
+    }
 
     val unsafeSpread = {
       val param = ParamTree(Name("obj"), false, false, TypeRef.Any, NotImplemented, NoComments)
@@ -296,7 +317,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       tparams     = builderTparams,
       parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.ScalaAny)),
       ctors       = Empty,
-      members     = IArray(args, set, withComponent, unsafeSpread, apply, withKey, withRef1, withRef2),
+      members     = IArray(args, set, withComponent, build, unsafeSpread, apply, withKey, withRef1, withRef2),
       classType   = ClassType.Trait,
       isSealed    = false,
       comments    = NoComments,
@@ -304,7 +325,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
     )
   }
 
-  val Default: ClassTree = {
+  lazy val Default: ClassTree = {
     val ctor = CtorTree(
       ProtectionLevel.Default,
       IArray(
@@ -337,7 +358,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
     )
   }
 
-  val Object: ModuleTree = {
+  object Object {
     //    @js.native
     //    @JSImport("react", JSImport.Namespace, "React")
     //    object ReactRaw extends js.Object {
@@ -437,7 +458,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       )
     }
 
-    ModuleTree(
+    val tree = ModuleTree(
       Empty,
       StBuildingComponent,
       Empty,

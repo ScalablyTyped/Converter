@@ -27,7 +27,7 @@ case class JapgollyFlavour(outputPkg: Name, scalaVersion: Versions.Scala, enable
         val ret = Adapter(scope)((t, s) => genComponents(s, t, components))(withCompanions)
 
         if (isReact(scope))
-          ret.copy(members = ret.members ++ IArray(genStBuildingComponent.Trait, genStBuildingComponent.Object))
+          ret.copy(members = ret.members ++ IArray(genStBuildingComponent.Trait, genStBuildingComponent.Object.tree))
         else ret
 
       } else withCompanions

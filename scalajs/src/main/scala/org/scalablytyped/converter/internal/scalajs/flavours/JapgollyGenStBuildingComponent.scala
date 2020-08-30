@@ -111,36 +111,58 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
     )
   }
 
-  val unsafeSpread = {
-    val param = ParamTree(Name("obj"), false, false, TypeRef.Any, NotImplemented, NoComments)
-    val name  = Name("unsafeSpread")
-    val assign = Call(
-      Ref(QualifiedName.Object + Name("assign")),
-      IArray(
-        IArray(
-          Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.Object),
-          Cast(Ref(param.name), TypeRef.Object),
-        ),
-      ),
-    )
-
-    MethodTree(
-      IArray(Annotation.Inline),
-      ProtectionLevel.Default,
-      name,
-      Empty,
-      IArray(IArray(param)),
-      Block(assign, Ref(QualifiedName.THIS)),
-      TypeRef(QualifiedName.THIS),
-      false,
-      NoComments,
-      builderCp + name,
-      false,
-    )
-  }
-
   val Trait: ClassTree = {
-//    @scala.inline
+    val unsafeSpread = {
+      val param = ParamTree(Name("obj"), false, false, TypeRef.Any, NotImplemented, NoComments)
+      val name  = Name("unsafeSpread")
+      val assign = Call(
+        Ref(QualifiedName.Object + Name("assign")),
+        IArray(
+          IArray(
+            Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.Object),
+            Cast(Ref(param.name), TypeRef.Object),
+          ),
+        ),
+      )
+
+      MethodTree(
+        IArray(Annotation.Inline),
+        ProtectionLevel.Default,
+        name,
+        Empty,
+        IArray(IArray(param)),
+        Block(assign, Ref(QualifiedName.THIS)),
+        TypeRef(QualifiedName.THIS),
+        false,
+        NoComments,
+        builderCp + name,
+        false,
+      )
+    }
+
+    val build = {
+      val name = Name("build")
+
+      MethodTree(
+        IArray(Annotation.Inline),
+        ProtectionLevel.Default,
+        name,
+        Empty,
+        Empty,
+        Call(Ref(Object.make.codePath), IArray(IArray(Ref(QualifiedName.THIS)))),
+        Object.make.resultType,
+        false,
+        Comments(
+          Comment(
+            "/* You typically shouldnt call this yourself, but it can be useful if you're for instance mapping a sequence and you need types to infer properly */\n",
+          ),
+        ),
+        builderCp + name,
+        false,
+      )
+    }
+
+    //    @scala.inline
 //    def applyTagMod(t: TagMod): Unit =
 //      if (t.isInstanceOf[TagMod.Composite]) {
 //        val tt = t.asInstanceOf[TagMod.Composite]
@@ -346,7 +368,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       tparams     = builderTparams,
       parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.ScalaAny)),
       ctors       = Empty,
-      members     = IArray(args, set, withComponent, unsafeSpread, applyTagMod, apply, withKey, withRef1, withRef2),
+      members     = IArray(args, set, withComponent, unsafeSpread, build, applyTagMod, apply, withKey, withRef1, withRef2),
       classType   = ClassType.Trait,
       isSealed    = false,
       comments    = NoComments,
@@ -354,7 +376,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
     )
   }
 
-  val Default: ClassTree = {
+  lazy val Default: ClassTree = {
     val ctor = CtorTree(
       ProtectionLevel.Default,
       IArray(
@@ -386,7 +408,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
     )
   }
 
-  val Object: ModuleTree = {
+  object Object {
     //    @js.native
     //    @JSImport("react", JSImport.Namespace, "React")
     //    object ReactRaw extends js.Object {
@@ -485,7 +507,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       )
     }
 
-    ModuleTree(
+    val tree = ModuleTree(
       Empty,
       StBuildingComponent,
       Empty,

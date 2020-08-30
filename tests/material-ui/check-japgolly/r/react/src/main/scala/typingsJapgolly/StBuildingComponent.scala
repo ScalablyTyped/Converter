@@ -8,6 +8,7 @@ import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.TagMod.Composite
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
+import typingsJapgolly.StBuildingComponent.make
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -30,6 +31,9 @@ trait StBuildingComponent[R <: js.Object] extends Any {
     js.Object.assign(args(1).asInstanceOf[js.Object], obj.asInstanceOf[js.Object])
     this
   }
+  /* You typically shouldnt call this yourself, but it can be useful if you're for instance mapping a sequence and you need types to infer properly */
+  @scala.inline
+  def build: VdomElement = make(this)
   @scala.inline
   def applyTagMod(t: TagMod): Unit = if (t.isInstanceOf[Composite]) {
     val tt = t.asInstanceOf[Composite]
