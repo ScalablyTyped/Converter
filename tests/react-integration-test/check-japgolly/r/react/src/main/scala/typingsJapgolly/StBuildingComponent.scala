@@ -3,6 +3,9 @@ package typingsJapgolly
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.Ref.Simple
 import japgolly.scalajs.react.raw.React.Element
+import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.vdom.TagMod
+import japgolly.scalajs.react.vdom.TagMod.Composite
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import scala.scalajs.js
@@ -23,8 +26,23 @@ trait StBuildingComponent[R <: js.Object] extends Any {
     this
   }
   @scala.inline
-  def apply(mods: VdomNode*): this.type = {
-    mods.foreach((mod: VdomNode) => args.push(mod.rawNode.asInstanceOf[js.Any]))
+  def applyTagMod(t: TagMod): Unit = if (t.isInstanceOf[Composite]) {
+    val tt = t.asInstanceOf[Composite]
+    tt.mods.foreach(applyTagMod)
+  } else if (t.isInstanceOf[VdomNode]) {
+    val tt = t.asInstanceOf[VdomNode]
+    args.push(tt.rawNode.asInstanceOf[js.Any])
+  } else {
+    val tt = t.toJs
+    tt.addClassNameToProps()
+    tt.addKeyToProps()
+    tt.addStyleToProps()
+    tt.nonEmptyChildren.foreach((children: js.Array[Node]) => args.push(children))
+    tt.nonEmptyProps.foreach((props: js.Object) => js.Object.assign(args(1).asInstanceOf[js.Object], props))
+  }
+  @scala.inline
+  def apply(mods: TagMod*): this.type = {
+    mods.foreach(applyTagMod)
     this
   }
   @scala.inline
