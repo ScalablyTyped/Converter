@@ -3,8 +3,12 @@ package typingsJapgolly
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.Ref.Simple
 import japgolly.scalajs.react.raw.React.Element
+import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.vdom.TagMod
+import japgolly.scalajs.react.vdom.TagMod.Composite
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
+import typingsJapgolly.StBuildingComponent.make
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -23,8 +27,31 @@ trait StBuildingComponent[R <: js.Object] extends Any {
     this
   }
   @scala.inline
-  def apply(mods: VdomNode*): this.type = {
-    mods.foreach((mod: VdomNode) => args.push(mod.rawNode.asInstanceOf[js.Any]))
+  def unsafeSpread(obj: js.Any): this.type = {
+    js.Object.assign(args(1).asInstanceOf[js.Object], obj.asInstanceOf[js.Object])
+    this
+  }
+  /* You typically shouldnt call this yourself, but it can be useful if you're for instance mapping a sequence and you need types to infer properly */
+  @scala.inline
+  def build: VdomElement = make(this)
+  @scala.inline
+  def applyTagMod(t: TagMod): Unit = if (t.isInstanceOf[Composite]) {
+    val tt = t.asInstanceOf[Composite]
+    tt.mods.foreach(applyTagMod)
+  } else if (t.isInstanceOf[VdomNode]) {
+    val tt = t.asInstanceOf[VdomNode]
+    args.push(tt.rawNode.asInstanceOf[js.Any])
+  } else {
+    val tt = t.toJs
+    tt.addClassNameToProps()
+    tt.addKeyToProps()
+    tt.addStyleToProps()
+    tt.nonEmptyChildren.foreach((children: js.Array[Node]) => args.push(children))
+    tt.nonEmptyProps.foreach(unsafeSpread)
+  }
+  @scala.inline
+  def apply(mods: TagMod*): this.type = {
+    mods.foreach(applyTagMod)
     this
   }
   @scala.inline

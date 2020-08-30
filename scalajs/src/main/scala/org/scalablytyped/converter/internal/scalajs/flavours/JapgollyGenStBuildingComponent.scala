@@ -112,35 +112,169 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
   }
 
   val Trait: ClassTree = {
+    val unsafeSpread = {
+      val param = ParamTree(Name("obj"), false, false, TypeRef.Any, NotImplemented, NoComments)
+      val name  = Name("unsafeSpread")
+      val assign = Call(
+        Ref(QualifiedName.Object + Name("assign")),
+        IArray(
+          IArray(
+            Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.Object),
+            Cast(Ref(param.name), TypeRef.Object),
+          ),
+        ),
+      )
 
-//  @inline final def apply(children: japgolly.scalajs.react.vdom.VdomNode*): this.type = {
-//    mods.foreach((mod: japgolly.scalajs.react.vdom.VdomNode) => args.push(mod.rawNode))
-//    this
-//  }
+      MethodTree(
+        IArray(Annotation.Inline),
+        ProtectionLevel.Default,
+        name,
+        Empty,
+        IArray(IArray(param)),
+        Block(assign, Ref(QualifiedName.THIS)),
+        TypeRef(QualifiedName.THIS),
+        false,
+        NoComments,
+        builderCp + name,
+        false,
+      )
+    }
+
+    val build = {
+      val name = Name("build")
+
+      MethodTree(
+        IArray(Annotation.Inline),
+        ProtectionLevel.Default,
+        name,
+        Empty,
+        Empty,
+        Call(Ref(Object.make.codePath), IArray(IArray(Ref(QualifiedName.THIS)))),
+        Object.make.resultType,
+        false,
+        Comments(
+          Comment(
+            "/* You typically shouldnt call this yourself, but it can be useful if you're for instance mapping a sequence and you need types to infer properly */\n",
+          ),
+        ),
+        builderCp + name,
+        false,
+      )
+    }
+
+    //    @scala.inline
+//    def applyTagMod(t: TagMod): Unit =
+//      if (t.isInstanceOf[TagMod.Composite]) {
+//        val tt = t.asInstanceOf[TagMod.Composite]
+//        tt.mods.foreach(applyTagMod)
+//      } else if (t.isInstanceOf[VdomNode]) {
+//        val tt = t.asInstanceOf[VdomNode]
+//        b.args.push(tt.rawNode.asInstanceOf[js.Any])
+//      } else {
+//        val tt = t.toJs
+//        tt.addClassNameToProps()
+//        tt.addKeyToProps()
+//        tt.addStyleToProps()
+//        tt.nonEmptyChildren.foreach(children => b.args.push(children))
+//        tt.nonEmptyProps.foreach(props => js.Object.assign(b.args(1).asInstanceOf[js.Object], props))
+//      }
+    val applyTagMod = {
+      val TagMod          = TypeRef(JapgollyNames.vdom.TagMod)
+      val VdomNode        = TypeRef(JapgollyNames.vdom.VdomNode)
+      val ReactNode       = TypeRef(JapgollyNames.rawReact.Node)
+      val TagModComposite = TypeRef(JapgollyNames.vdom.TagMod + Name("Composite"))
+
+      val tParam = ParamTree(Name("t"), false, false, TagMod, NotImplemented, NoComments)
+      val name   = Name("applyTagMod")
+      val impl = {
+        val ttName = Name("tt")
+        val fallback = {
+          val childrenName = Name("children")
+          val childrenLambda = Lambda(
+            IArray(
+              ParamTree(
+                childrenName,
+                false,
+                false,
+                TypeRef(QualifiedName.Array, IArray(ReactNode), NoComments),
+                NotImplemented,
+                NoComments,
+              ),
+            ),
+            Call(Select(Ref(args.name), Name("push")), IArray(IArray(Ref(childrenName)))),
+          )
+          Block(
+            Val(ttName, Select(Ref(tParam.name), Name("toJs"))),
+            Call(Ref(QualifiedName(IArray(ttName, Name("addClassNameToProps")))), IArray(Empty)),
+            Call(Ref(QualifiedName(IArray(ttName, Name("addKeyToProps")))), IArray(Empty)),
+            Call(Ref(QualifiedName(IArray(ttName, Name("addStyleToProps")))), IArray(Empty)),
+            Call(
+              Ref(QualifiedName(IArray(ttName, Name("nonEmptyChildren"), Name("foreach")))),
+              IArray(IArray(childrenLambda)),
+            ),
+            Call(
+              Ref(QualifiedName(IArray(ttName, Name("nonEmptyProps"), Name("foreach")))),
+              IArray(IArray(Ref(unsafeSpread.name))),
+            ),
+          )
+        }
+
+        If(
+          InstanceOf(Ref(tParam.name), TagModComposite),
+          Block(
+            Val(ttName, Cast(Ref(tParam.name), TagModComposite)),
+            Call(Ref(QualifiedName(IArray(ttName, Name("mods"), Name("foreach")))), IArray(IArray(Ref(name)))),
+          ),
+          Some(
+            If(
+              InstanceOf(Ref(tParam.name), VdomNode),
+              Block(
+                Val(ttName, Cast(Ref(tParam.name), VdomNode)),
+                Call(
+                  Select(Ref(args.name), Name("push")),
+                  IArray(IArray(Cast(Select(Ref(ttName), Name("rawNode")), TypeRef.Any))),
+                ),
+              ),
+              Some(fallback),
+            ),
+          ),
+        )
+      }
+
+      MethodTree(
+        IArray(Annotation.Inline),
+        ProtectionLevel.Default,
+        name,
+        Empty,
+        IArray(IArray(tParam)),
+        impl,
+        TypeRef.Unit,
+        false,
+        NoComments,
+        builderCp + Name.APPLY + name,
+        false,
+      )
+    }
+
+//    @scala.inline
+//    def apply(mods: TagMod*): this.type = {
+//      mods.foreach(applyTagMod)
+//      this
+//    }
     val `apply` = {
-      val VdomNode = TypeRef(JapgollyNames.vdom.VdomNode)
       val modsParam = ParamTree(
         name       = Name("mods"),
         isImplicit = false,
         isVal      = false,
-        tpe        = TypeRef.Repeated(VdomNode, NoComments),
+        tpe        = TypeRef.Repeated(TypeRef(JapgollyNames.vdom.TagMod), NoComments),
         default    = NotImplemented,
         comments   = NoComments,
       )
-      val impl = {
-        val modParam = ParamTree(Name("mod"), isImplicit = false, isVal = false, VdomNode, NotImplemented, NoComments)
-        val modRef   = Ref(modParam.name)
-
-        val lambda = Lambda(
-          IArray(modParam),
-          Call(
-            Select(Ref(args.name), Name("push")),
-            IArray(IArray(Cast(Select(modRef, Name("rawNode")), TypeRef.Any))),
-          ),
+      val impl =
+        Block(
+          Call(Select(Ref(modsParam.name), Name("foreach")), IArray(IArray(Ref(applyTagMod.name)))),
+          Ref(Name.THIS),
         )
-
-        Block(Call(Select(Ref(modsParam.name), Name("foreach")), IArray(IArray(lambda))), Ref(Name.THIS))
-      }
 
       MethodTree(
         annotations = IArray(Annotation.Inline),
@@ -155,7 +289,6 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         codePath   = builderCp + Name.APPLY,
         isImplicit = false,
       )
-
     }
 
     //  @inline final def withKey(key: japgolly.scalajs.react.Key): this.type = set("key", key)
@@ -235,7 +368,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       tparams     = builderTparams,
       parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.ScalaAny)),
       ctors       = Empty,
-      members     = IArray(args, set, withComponent, apply, withKey, withRef1, withRef2),
+      members     = IArray(args, set, withComponent, unsafeSpread, build, applyTagMod, apply, withKey, withRef1, withRef2),
       classType   = ClassType.Trait,
       isSealed    = false,
       comments    = NoComments,
@@ -243,7 +376,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
     )
   }
 
-  val Default: ClassTree = {
+  lazy val Default: ClassTree = {
     val ctor = CtorTree(
       ProtectionLevel.Default,
       IArray(
@@ -275,7 +408,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
     )
   }
 
-  val Object: ModuleTree = {
+  object Object {
     //    @js.native
     //    @JSImport("react", JSImport.Namespace, "React")
     //    object ReactRaw extends js.Object {
@@ -374,7 +507,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       )
     }
 
-    ModuleTree(
+    val tree = ModuleTree(
       Empty,
       StBuildingComponent,
       Empty,

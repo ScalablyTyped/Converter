@@ -5,6 +5,7 @@ import slinky.core.OptionalAttrPair
 import slinky.core.TagMod
 import slinky.core.facade.ReactElement
 import slinky.core.facade.ReactRef
+import typingsSlinky.StBuildingComponent.make
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -20,6 +21,14 @@ trait StBuildingComponent[E, R <: js.Object] extends Any {
   @scala.inline
   def withComponent(f: js.Any => js.Any): this.type = {
     args.update(0, f(args(0)))
+    this
+  }
+  /* You typically shouldnt call this yourself, but it can be useful if you're for instance mapping a sequence and you need types to infer properly */
+  @scala.inline
+  def build: ReactElement = make(this)
+  @scala.inline
+  def unsafeSpread(obj: js.Any): this.type = {
+    js.Object.assign(args(1).asInstanceOf[js.Object], obj.asInstanceOf[js.Object])
     this
   }
   @scala.inline
