@@ -6,6 +6,10 @@ import java.net.URI
 
 import org.scalablytyped.converter.internal.ts._
 import io.circe013._
+import org.scalablytyped.converter.internal.scalajs.QualifiedName
+
+import scala.collection.immutable.SortedMap
+import maps._
 
 object jsonCodecs {
   implicit def IArrayEncoder[T <: AnyRef: Encoder]: Encoder[IArray[T]] =
@@ -13,6 +17,9 @@ object jsonCodecs {
 
   implicit def IArrayDecoder[T <: AnyRef: Decoder]: Decoder[IArray[T]] =
     Decoder[List[T]].map[IArray[T]](IArray.fromTraversable)
+
+  implicit def decodeSortedMap[K: KeyDecoder: Ordering, V: Decoder]: Decoder[SortedMap[K, V]] =
+    Decoder.decodeMap[K, V].map(_.toSorted)
 
   implicit val FileEncoder:           Encoder[File]              = Encoder[String].contramap[File](_.toString)
   implicit val FileDecoder:           Decoder[File]              = Decoder[String].map[File](new File(_))
@@ -26,6 +33,8 @@ object jsonCodecs {
   implicit val TsIdentLibraryEncoder: Encoder[TsIdentLibrary]    = Encoder[String].contramap[TsIdentLibrary](_.value)
   implicit val TsIdentLibraryKeyDec:  KeyDecoder[TsIdentLibrary] = KeyDecoder[String].map(TsIdentLibrary.apply)
   implicit val TsIdentLibraryKeyEnc:  KeyEncoder[TsIdentLibrary] = KeyEncoder[String].contramap[TsIdentLibrary](_.value)
+  implicit val QualifiedNameKeyDec:  KeyDecoder[QualifiedName] = KeyDecoder[String].map(QualifiedName.apply)
+  implicit val QualifiedNameKeyEnc:  KeyEncoder[QualifiedName] = KeyEncoder[String].contramap[QualifiedName](_.parts.mkString("."))
 
   import io.circe013.generic.semiauto._
 

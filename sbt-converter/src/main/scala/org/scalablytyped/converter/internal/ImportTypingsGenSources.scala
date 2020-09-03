@@ -27,6 +27,7 @@ object ImportTypingsGenSources {
       wantedLibs:       SortedMap[TsIdentLibrary, String],
       minimize:         Selection[TsIdentLibrary],
       minimizeKeep:     IArray[QualifiedName],
+      move:             SortedMap[QualifiedName, QualifiedName],
   )
 
   object Input {
@@ -102,22 +103,28 @@ object ImportTypingsGenSources {
             case (s, l) => (minimize(s.libName), l.packageTree)
           })
 
-        val outFiles: Map[os.Path, Array[Byte]] =
-          libs.par.flatMap {
-            case (source, lib) =>
-              val willMinimize = minimize(source.libName)
-              val minimized =
-                if (willMinimize) {
-                  Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
-                } else lib.packageTree
+        val subtrees = libs.mapToIArray {
+          case (source, lib) =>
+            val willMinimize = minimize(source.libName)
+            if (willMinimize) {
+              Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
+            } else lib.packageTree
+        }
 
-              val outFiles = Printer(globalScope, new ParentsResolver, minimized, conversion.outputPackage) map {
-                case (relPath, content) => targetFolder / relPath -> content
-              }
-              val minimizedMessage = if (willMinimize) "minimized " else ""
-              logger warn s"Wrote $minimizedMessage${source.libName.value} (${outFiles.size} files) to $targetFolder..."
-              outFiles
-          }.seq
+        val combinedTree = PackageTree(
+          Empty,
+          conversion.outputPackage,
+          subtrees.flatMap(_.members),
+          NoComments,
+          QualifiedName(IArray(conversion.outputPackage)),
+        )
+
+        val moved: PackageTree = Move(logger, combinedTree, input.move)
+
+        val outFiles: Map[os.Path, Array[Byte]] =
+          Printer(globalScope, new ParentsResolver, moved, input.conversion.outputPackage).map {
+            case (relPath, content) => targetFolder / relPath -> content
+          }
 
         files.syncAbs(outFiles, folder = targetFolder, deleteUnknowns = true, soft = true)
 
@@ -161,6 +168,7 @@ object ImportTypingsGenSources {
           ),
           minimize     = Selection.AllExcept(TsIdentLibrary("@storybook/react")),
           minimizeKeep = IArray(QualifiedName(IArray(outputName, Name("std"), Name("console")))),
+          move         = SortedMap(),
         ),
         logger           = logging.stdout.filter(LogLevel.warn),
         parseCacheDirOpt = Some(cacheDir.toNIO resolve "parse"),

@@ -109,6 +109,6 @@ object QualifiedName {
       case 0 | 1 => Array
       case n     => scala_js + Name("Tuple" + n.toString)
     }
-
+  implicit val ordering: Ordering[QualifiedName] = Ordering[IArray[Name]].on(_.parts)
   implicit val QualifiedNameSuffix: ToSuffix[QualifiedName] = t => ToSuffix(t.parts.last)
 }

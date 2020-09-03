@@ -9,6 +9,23 @@ import scala.collection.mutable.WrappedArray.ofRef
 import scala.collection.{immutable, mutable, GenTraversableOnce, Iterator}
 
 object IArray {
+  def empty[T <: AnyRef]: IArray[T] = Empty
+
+  implicit def ordering[T <: AnyRef: Ordering]: Ordering[IArray[T]] =
+    new Ordering[IArray[T]] {
+      def compare(x: IArray[T], y: IArray[T]): Int = {
+        val xe = x.iterator
+        val ye = y.iterator
+
+        while (xe.hasNext && ye.hasNext) {
+          val res = implicitly[Ordering[T]].compare(xe.next(), ye.next())
+          if (res != 0) return res
+        }
+
+        Ordering.Boolean.compare(xe.hasNext, ye.hasNext)
+      }
+    }
+
   def apply[A <: AnyRef](as: A*): IArray[A] =
     as match {
       case x: ofRef[A]                => fromArray(x.array)
@@ -439,7 +456,7 @@ object IArray {
   }
 }
 
-final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: Int) extends Serializable {
+final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: Int) extends Serializable { outer =>
   @inline def isEmpty: Boolean =
     length == 0
 
@@ -844,7 +861,7 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
 
   def iterator: Iterator[A] = new Iterator[A] {
     var idx = 0
-    override def hasNext: Boolean = idx < length
+    override def hasNext: Boolean = idx < outer.length
 
     override def next(): A = {
       val ret = array(idx).asInstanceOf[A]

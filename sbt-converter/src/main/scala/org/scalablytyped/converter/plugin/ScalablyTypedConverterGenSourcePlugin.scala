@@ -38,6 +38,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       * - `std.console`
       */
     val stMinimizeKeep = settingKey[List[String]]("a list of things you want to keep from minimized libraries")
+    val stMove         = settingKey[Map[String, String]]("a list of things you want to move around")
 
     val stImport = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
   }
@@ -52,7 +53,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       Compile / sourceGenerators ++= {
         stSourceGenMode.value match {
           case SourceGenMode.ResourceGenerator => List(stImport.taskValue)
-          case SourceGenMode.Manual(toDir)     => Nil
+          case SourceGenMode.Manual(_)         => Nil
         }
       },
       libraryDependencies ++= {
@@ -61,6 +62,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       },
       stMinimize := Selection.None,
       stMinimizeKeep := Nil,
+      stMove := Map(),
       ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
       ScalaJsBundlerHack.adaptNpmInstallJSResources,
       stImport := {
@@ -74,6 +76,13 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
         val minimizeKeep = IArray
           .fromTraversable(stMinimizeKeep.value)
           .map(str => QualifiedName(conversion.outputPackage +: QualifiedName(str).parts))
+
+        val move = stMove.value.map {
+          case (from, to) =>
+            val newFrom = QualifiedName(conversion.outputPackage +: QualifiedName(from).parts.filterNot(_.unescaped.isEmpty))
+            val newTo   = QualifiedName(conversion.outputPackage +: QualifiedName(to).parts.filterNot(_.unescaped.isEmpty))
+            newFrom -> newTo
+        }.toSorted
 
         (Compile / npmUpdate).value
 
@@ -102,6 +111,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
           wantedLibs       = wantedLibs,
           minimize         = stMinimize.value.map(TsIdentLibrary.apply),
           minimizeKeep     = minimizeKeep,
+          move             = move,
         )
 
         (Try(Json.force[ImportTypingsGenSources.Input](cachedInputs)).toOption, Json.opt[Seq[File]](cachedOutputs)) match {
