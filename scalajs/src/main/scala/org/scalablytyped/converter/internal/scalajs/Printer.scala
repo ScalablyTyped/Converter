@@ -393,7 +393,7 @@ object Printer {
 
     /* for instance `val foo: Type_: Int` needs a space between `_` and `:` */
     def maybeSpace(tpe: String): String =
-      if (tpe.last === '_' || tpe.last === '^') tpe |+| " "
+      if (tpe.last === '_' || tpe.last === '^' || tpe.last === '=') tpe |+| " "
       else tpe
 
     def typeAnnotation(preceding: String, indent: Int, tpe: TypeRef): String =

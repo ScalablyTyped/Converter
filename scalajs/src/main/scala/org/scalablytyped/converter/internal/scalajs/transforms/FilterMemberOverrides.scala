@@ -102,30 +102,22 @@ class FilterMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransf
       }
     }
 
-    val newMethods: IArray[MethodTree] = methods.sorted(Sorter.TreeOrdering).flatMap { m =>
-//        val mErasure = Erasure.erasure(scope)(m)
-
-      if (inheritedFieldsByName.contains(m.name)) {
+    val newMethods: IArray[MethodTree] = methods.sorted(Sorter.TreeOrdering).flatMap {
+      // remove setters if there is a corresponding concrete var in a parent class
+      case m
+          if m.name.unescaped.endsWith("_=") &&
+            inheritedFieldsByName
+              .get(Name(m.name.unescaped.dropRight(2)))
+              .exists(_.exists(f => !f.isReadOnly && f.impl =/= NotImplemented)) =>
+        Empty
+      case m if inheritedFieldsByName.contains(m.name) =>
         if (alreadySuffixed) Empty else IArray(m withSuffix "M" + owner.name.value)
-      } else {
+      case m =>
         val mBase = Erasure.base(scope)(m)
-
         inheritedMethodsByBase get mBase match {
-          case Some(conflicting @ _) =>
-            //                /* there is no point in emitting duplicate methods */
-            //                if (conflicting exists (c => Erasure.erasure(scope)(c) === mErasure))
-            //                  Empty
-            //                /* but to retain a subtly different method, we rename it, and drop completely if it exists in super class  */
-            //                else {
-            //                  val newM = m withSuffix owner.name
-            //                  if (inheritedMethodsByName.contains(newM.name)) Empty
-            //                  else IArray(newM)
-            //
-            //                }
-            Empty
-          case _ => IArray(m)
+          case Some(conflicting @ _) => Empty
+          case _                     => IArray(m)
         }
-      }
     }
 
     newFields ++ newMethods ++ newModules ++ other
