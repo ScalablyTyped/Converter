@@ -28,7 +28,7 @@ object CanBeScalaJsDefined {
             one match {
               case _: TsMemberCtor | _: TsMemberCall => false
               case x: TsMemberProperty => !x.isStatic && legalName(x.name)
-              case x: TsMemberFunction => !x.isStatic && legalName(x.name)
+              case x: TsMemberFunction => !x.isStatic && legalName(x.name) && x.methodType === MethodType.Normal
               case _ => true
             }
           case (_, many) =>
