@@ -112,7 +112,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
         val old        = (Global / Keys.onLoad).value
         val ret        = old(state)
         val sbtVersion = Keys.sbtVersion.value
-        val Supported  = "1.3"
+        val Supported  = "1.4"
         if (!sbtVersion.startsWith(Supported)) {
           val msg =
             s"This version of the ScalablyTyped plugin only supports sbt $Supported.x . You're currently using $sbtVersion"

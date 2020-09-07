@@ -15,9 +15,10 @@ import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
 import sbt._
 import sbt.coursierint.CoursierRepositoriesTasks.coursierResolversTask
 import sbt.internal.inc.classpath.ClassLoaderCache
-import sbt.internal.inc.{AnalyzingCompiler, LoggedReporter, ScalaInstance, ZincLmUtil, ZincUtil}
+import sbt.internal.inc.{AnalyzingCompiler, LoggedReporter, PlainVirtualFile, ScalaInstance, ZincLmUtil, ZincUtil}
 import sbt.librarymanagement.DependencyResolution
-import xsbti.CompileFailed
+import sbt.util.InterfaceUtil
+import xsbti.{CompileFailed, VirtualFile}
 import xsbti.compile.{CompileOrder => _, _}
 
 class ZincCompiler(inputs: Inputs, logger: Logger[Unit], resolve: Dep => Array[File]) extends Compiler {
@@ -33,18 +34,28 @@ class ZincCompiler(inputs: Inputs, logger: Logger[Unit], resolve: Dep => Array[F
       externalDeps:  Set[Dep],
   ): Either[String, Unit] = {
 
-    val cp =
-      (inputs.options.classpath() ++ deps.collect { case Compiler.InternalDepJar(path) => path.toIO } ++ externalDeps
-        .map(resolve)
-        .flatten).distinct
+    val cp: Array[VirtualFile] = {
+      val fromInternal: Set[VirtualFile] = deps.collect {
+        case Compiler.InternalDepJar(path) => PlainVirtualFile(path.toNIO)
+      }
+      val fromExternal: Set[VirtualFile] =
+        externalDeps.map(resolve).flatten.map((f: File) => PlainVirtualFile(f.toPath))
+
+      (inputs.options.classpath() ++ fromInternal ++ fromExternal).distinct
+    }
 
     val updatedInputs = inputs
       .withOptions(
         inputs
           .options()
           .withClasspath(cp)
-          .withSources(os.walk(compilerPaths.sourcesDir).filter(_.last.endsWith(".scala")).map(_.toIO).toArray)
-          .withClassesDirectory(files.existing(compilerPaths.classesDir).toIO),
+          .withSources(
+            os.walk(compilerPaths.sourcesDir)
+              .filter(_.last.endsWith(".scala"))
+              .map(p => PlainVirtualFile(p.toNIO))
+              .toArray,
+          )
+          .withClassesDirectory(files.existing(compilerPaths.classesDir).toNIO),
       )
 
     try {
@@ -61,6 +72,10 @@ class ZincCompiler(inputs: Inputs, logger: Logger[Unit], resolve: Dep => Array[F
 }
 
 object ZincCompiler {
+  implicit class EnrichOption[T](val option: Option[T]) extends AnyVal {
+    def toOptional: Optional[T] = InterfaceUtil.toOptional(option)
+  }
+
   val task = Def.task {
     import Keys._
 
@@ -126,22 +141,21 @@ object ZincCompiler {
       ZincUtil.compilers(
         instance         = instance,
         classpathOptions = classpathOptions.value,
-        javaHome         = javaHome.value,
+        javaHome         = javaHome.value.map(_.toPath),
         scalac,
       )
 
-    object lookup extends PerClasspathEntryLookup {
-      private val cachedAnalysisMap                = Defaults.analysisMap(Attributed.blankSeq(allJars))
-      private val cachedPerEntryDefinesClassLookup = classpathEntryDefinesClass.value
+    val converter = fileConverter.value
+    val lookup = new PerClasspathEntryLookup {
+      private val cachedAnalysisMap: File => Option[CompileAnalysis] =
+        _ => None
+      private val cachedPerEntryDefinesClassLookup: File => DefinesClass =
+        Keys.classpathEntryDefinesClass.value
 
-      override def analysis(classpathEntry: File): Optional[CompileAnalysis] =
-        cachedAnalysisMap(classpathEntry) match {
-          case Some(value) => Optional.of(value)
-          case None        => Optional.empty()
-        }
-
-      override def definesClass(classpathEntry: File): DefinesClass =
-        cachedPerEntryDefinesClassLookup(classpathEntry)
+      override def analysis(classpathEntry: VirtualFile): Optional[CompileAnalysis] =
+        cachedAnalysisMap(converter.toPath(classpathEntry).toFile).toOptional
+      override def definesClass(classpathEntry: VirtualFile): DefinesClass =
+        cachedPerEntryDefinesClassLookup(converter.toPath(classpathEntry).toFile)
     }
 
     val scalaJsCompilerJar: File =
@@ -151,7 +165,7 @@ object ZincCompiler {
       compilers,
       CompileOptions
         .of()
-        .withClasspath(allJars)
+        .withClasspath(allJars.map(f => PlainVirtualFile(f.asPath)))
         .withScalacOptions(Array("-Xplugin:" + scalaJsCompilerJar) ++ v.scalacOptions)
         .withOrder(CompileOrder.ScalaThenJava),
       Setup.of(
@@ -160,11 +174,11 @@ object ZincCompiler {
         streams.value.cacheDirectory / (Compile / compileAnalysisFilename).value,
         compilerCache.value,
         IncOptions.of().withEnabled(false),
-        new LoggedReporter(maxErrors.value, sbtLogger),
-        Optional.empty(),
-        Array.empty,
+        new LoggedReporter(maxErrors.value, sbtLogger): xsbti.Reporter,
+        Optional.empty[CompileProgress](),
+        Array.empty[xsbti.T2[String, String]],
       ),
-      PreviousResult.create(Optional.empty(), Optional.empty()),
+      PreviousResult.of(Optional.empty[CompileAnalysis](), Optional.empty[MiniSetup]()),
     )
 
     new ZincCompiler(inputs, logger, dep => resolve(dep))
@@ -172,7 +186,7 @@ object ZincCompiler {
 
   def mkScalaInstance(
       version:          String,
-      allJars:          Seq[File],
+      allJars:          Array[File],
       libraryJars:      Array[File],
       compilerJar:      File,
       classLoaderCache: ClassLoaderCache,
@@ -190,7 +204,7 @@ object ZincCompiler {
       libraryLoader,
       libraryJars,
       compilerJar,
-      allJarsDistinct.toArray,
+      allJarsDistinct,
       Some(version),
     )
   }

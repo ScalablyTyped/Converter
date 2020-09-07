@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal.scalajs
 
 object Versions {
-  val sbtVersion = "1.3.10"
+  val sbtVersion = "1.4.0"
 
   val runtime      = Dep.ScalaJs("com.olvind", "scalablytyped-runtime", "2.1.0")
   val scalaJsDom   = Dep.ScalaJs("org.scala-js", "scalajs-dom", "1.0.0")
