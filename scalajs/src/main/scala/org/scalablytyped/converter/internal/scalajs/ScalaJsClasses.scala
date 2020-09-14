@@ -44,6 +44,23 @@ object ScalaJsClasses {
   // format: on
 
   // format: off
+  val ScalaJsBigInt =
+    ClassTree(
+      isImplicit = false,
+      IArray(Annotation.JsNative, Annotation.JsGlobalScope),
+      Name("BigInt"),
+      Empty,
+      Empty,
+      Empty,
+      Empty,
+      ClassType.Class,
+      isSealed = false,
+      NoComments,
+      QualifiedName.BigInt,
+    )
+  // format: on
+
+  // format: off
   val ScalaJsPromise =
     ClassTree(
       isImplicit = false,
@@ -166,6 +183,7 @@ object ScalaJsClasses {
 
   val ScalaJsTypes: Map[QualifiedName, Tree] =
     (Functions ++ IArray(
+      ScalaJsBigInt,
       ScalaJsPromise,
       ScalaJsThenable,
       ScalaJsFunction,
