@@ -52,7 +52,6 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   test("keyof")(assertImportsOk("keyof", pedantic                                   = true, update  = update))
   test("antd")(assertImportsOk("antd", pedantic                                     = true, update  = update))
   test("elasticsearch-js")(assertImportsOk("elasticsearch-js", pedantic             = true, update  = update))
-  test("js-bigint")(assertImportsOk("js-bigint", pedantic                           = true, update  = update))
 
   test("material-ui-slinky")(
     assertImportsOk("material-ui", pedantic = true, update = update, flavour = Slinky),
