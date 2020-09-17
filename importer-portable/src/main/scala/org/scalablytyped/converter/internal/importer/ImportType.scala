@@ -33,7 +33,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
     Map[TsQIdent, Mapping[_]](
       TsQIdent.Array -> ArrayM,
-      TsQIdent.bigint -> NameMapping(QualifiedName.BigInt, stdNames.BigInt, QualifiedName.BigInt),
+      TsQIdent.bigint -> NameMapping(stdNames.BigInt, stdNames.BigInt, QualifiedName.BigInt),
       TsQIdent.boolean -> BooleanM,
       TsQIdent.Boolean -> BooleanM,
       TsQIdent.Function -> FunctionM,
