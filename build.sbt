@@ -146,7 +146,7 @@ lazy val optimize: Project => Project =
       "-opt:box-unbox",
       "-opt:nullness-tracking",
       //      "-opt:closure-invocations",
-      "-opt-inline-from:**",
+      "-opt-inline-from:org.scalablytyped.converter.internal.**",
       "-opt-warnings",
     ),
   )
