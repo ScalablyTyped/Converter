@@ -48,6 +48,7 @@ object QualifiedName {
   val Any:                        QualifiedName = scala_js + Name.Any
   val Object:                     QualifiedName = scala_js + Name.Object
   val Array:                      QualifiedName = scala_js + Name.Array
+  val BigInt:                     QualifiedName = scala_js + Name("BigInt")
   val Thenable:                   QualifiedName = scala_js + Name("Thenable")
   val Promise:                    QualifiedName = scala_js + Name("Promise")
   val `|`                       : QualifiedName = scala_js + Name("|")
