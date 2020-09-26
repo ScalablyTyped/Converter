@@ -31,9 +31,10 @@ declare namespace BigInt {
      */
     export function add(x: BigInt, y: BigInt): BigInt;
 
-    interface Test {
-        a: bigint,
-        b: BigInt,
-        c: BigInt.BigInt
-    }
+}
+
+interface Test {
+    a: bigint,
+    b: BigInt,
+    c: BigInt.BigInt
 }

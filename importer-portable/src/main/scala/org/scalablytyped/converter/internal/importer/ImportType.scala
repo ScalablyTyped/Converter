@@ -30,10 +30,12 @@ class ImportType(stdNames: QualifiedName.StdNames) {
     val FunctionM = RefMapping(TypeRef.FunctionBase, TypeRef.FunctionBase, TypeRef.FunctionBase)
     val ObjectM   = RefMapping(TypeRef(stdNames.Object), TypeRef(stdNames.Object), TypeRef.Object)
     val StringM   = RefMapping(TypeRef(stdNames.String), TypeRef(stdNames.String), TypeRef.String)
+    val BigIntM   = RefMapping(TypeRef(stdNames.BigInt), TypeRef(stdNames.BigInt), TypeRef.BigInt)
 
     Map[TsQIdent, Mapping[_]](
       TsQIdent.Array -> ArrayM,
-      TsQIdent.bigint -> NameMapping(stdNames.BigInt, stdNames.BigInt, QualifiedName.BigInt),
+      TsQIdent.bigint -> BigIntM,
+      TsQIdent.BigInt -> BigIntM,
       TsQIdent.boolean -> BooleanM,
       TsQIdent.Boolean -> BooleanM,
       TsQIdent.Function -> FunctionM,
@@ -44,6 +46,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       TsQIdent.Object -> ObjectM,
       TsQIdent.Std.Array -> ArrayM,
       TsQIdent.Std.Boolean -> BooleanM,
+      TsQIdent.Std.BigInt -> BigIntM,
       TsQIdent.Std.ConcatArray -> NameMapping(stdNames.ConcatArray, stdNames.ConcatArray, QualifiedName.Array),
       TsQIdent.Std.Function -> FunctionM,
       TsQIdent.Std.Object -> ObjectM,

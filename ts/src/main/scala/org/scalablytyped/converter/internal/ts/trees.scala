@@ -446,6 +446,7 @@ object TsQIdent {
     Set(any, bigint, number, boolean, never, `null`, `object`, string, symbol, undefined, unknown, void)
 
   val Array:         TsQIdent = TsQIdent.of("Array")
+  val BigInt:        TsQIdent = TsQIdent.of("BigInt")
   val ReadonlyArray: TsQIdent = TsQIdent.of("ReadonlyArray")
   val Boolean:       TsQIdent = TsQIdent.of("Boolean")
   val Function:      TsQIdent = TsQIdent.of("Function")
@@ -454,6 +455,7 @@ object TsQIdent {
 
   object Std {
     val Array         = TsQIdent(IArray(TsIdent.std, TsIdent("Array")))
+    val BigInt        = TsQIdent(IArray(TsIdent.std, TsIdent("BigInt")))
     val Boolean       = TsQIdent(IArray(TsIdent.std, TsIdent("Boolean")))
     val ConcatArray   = TsQIdent(IArray(TsIdent.std, TsIdent("ConcatArray")))
     val Function      = TsQIdent(IArray(TsIdent.std, TsIdent("Function")))

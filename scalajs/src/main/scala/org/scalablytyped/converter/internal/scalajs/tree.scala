@@ -231,6 +231,7 @@ object TypeRef {
   val ScalaAny     = TypeRef(QualifiedName.ScalaAny, Empty, NoComments)
   val Any          = TypeRef(QualifiedName.Any, Empty, NoComments)
   val AnyVal       = TypeRef(QualifiedName.AnyVal, Empty, NoComments)
+  val BigInt       = TypeRef(QualifiedName.BigInt, Empty, NoComments)
   val Boolean      = TypeRef(QualifiedName.Boolean, Empty, NoComments)
   val Double       = TypeRef(QualifiedName.Double, Empty, NoComments)
   val Dynamic      = TypeRef(QualifiedName.Dynamic, Empty, NoComments)
