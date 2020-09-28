@@ -18,17 +18,18 @@ case class ConversionOptions(
     versions:               Versions,
     organization:           String,
     enableReactTreeShaking: Selection[Name],
+    enableLongApplyMethod:  Boolean,
 ) {
   val flavourImpl: flavours.FlavourImpl =
     flavour match {
       case Flavour.Normal =>
-        flavours.NormalFlavour(useScalaJsDomTypes, outputPackage)
+        flavours.NormalFlavour(useScalaJsDomTypes, enableLongApplyMethod, outputPackage)
       case Flavour.Slinky =>
-        flavours.SlinkyFlavour(outputPackage, versions.scala, enableReactTreeShaking)
+        flavours.SlinkyFlavour(outputPackage, enableLongApplyMethod, versions.scala, enableReactTreeShaking)
       case Flavour.SlinkyNative =>
-        flavours.SlinkyNativeFlavour(outputPackage, versions.scala, enableReactTreeShaking)
+        flavours.SlinkyNativeFlavour(outputPackage, enableLongApplyMethod, versions.scala, enableReactTreeShaking)
       case Flavour.Japgolly =>
-        flavours.JapgollyFlavour(outputPackage, versions.scala, enableReactTreeShaking)
+        flavours.JapgollyFlavour(outputPackage, enableLongApplyMethod, versions.scala, enableReactTreeShaking)
     }
 
 }

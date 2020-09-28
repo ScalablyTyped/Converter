@@ -8,6 +8,7 @@ import org.scalablytyped.converter.internal.scalajs.transforms.CleanIllegalNames
 
 case class NormalFlavour(
     shouldUseScalaJsDomTypes: Boolean,
+    enableLongApplyMethod:    Boolean,
     outputPkg:                Name,
 ) extends FlavourImplReact {
 
@@ -22,7 +23,7 @@ case class NormalFlavour(
 
   val memberToProp  = new MemberToProp.Default(rewritesOpt)
   val findProps     = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
-  val genCompanions = new GenCompanions(findProps)
+  val genCompanions = new GenCompanions(findProps, enableLongApplyMethod)
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
     val withCompanions = genCompanions.visitPackageTree(scope)(tree)

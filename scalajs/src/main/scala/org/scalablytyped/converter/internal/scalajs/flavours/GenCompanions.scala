@@ -9,7 +9,7 @@ import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
   */
-final class GenCompanions(findProps: FindProps) extends TreeTransformation {
+final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) extends TreeTransformation {
   override def leaveContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree =
     // Native JS objects cannot contain inner Scala traits, classes or objects (i.e., not extending js.Any)
     if (scope.stack.exists { case mod: ModuleTree => mod.isNative; case _ => false })
@@ -28,15 +28,18 @@ final class GenCompanions(findProps: FindProps) extends TreeTransformation {
           val clsRef = TypeRef(cls.codePath, asTypeArgs(unboundedTParams), NoComments)
 
           val geneatedImplicitOps: Option[ClassTree] =
-            findProps.forClassTree(
-              cls                = cls,
-              scope              = scope / cls,
-              maxNum             = Int.MaxValue,
-              acceptNativeTraits = false,
-              selfRef            = clsRef,
-            ) match {
-              case Res.One(_, props) if props.nonEmpty => GenImplicitOpsClass(cls, props, cls.codePath, scope)
-              case _                                   => None
+            if (enableLongApplyMethod) None
+            else {
+              findProps.forClassTree(
+                cls                = cls,
+                scope              = scope / cls,
+                maxNum             = Int.MaxValue,
+                acceptNativeTraits = false,
+                selfRef            = clsRef,
+              ) match {
+                case Res.One(_, props) if props.nonEmpty => GenImplicitOpsClass(cls, props, cls.codePath, scope)
+                case _                                   => None
+              }
             }
 
           val generatedCreators: IArray[Tree] =
@@ -52,7 +55,9 @@ final class GenCompanions(findProps: FindProps) extends TreeTransformation {
 
               case Res.One(_, props) if props.isEmpty => Empty
               case Res.One(_, props) =>
-                val requiredProps = props.filter(_.optionality === Optionality.No)
+                val requiredProps =
+                  if (enableLongApplyMethod) props
+                  else props.filter(_.optionality === Optionality.No)
 
                 IArray.fromOptions(
                   Some(generateCreator(Name.APPLY, requiredProps, cls.codePath, unboundedTParams))
@@ -64,7 +69,9 @@ final class GenCompanions(findProps: FindProps) extends TreeTransformation {
                 propsMap.toIArray.mapNotNone {
                   case (_, props) if props.isEmpty => None
                   case (propsRef, props) =>
-                    val requiredProps = props.filter(_.optionality === Optionality.No)
+                    val requiredProps =
+                      if (enableLongApplyMethod) props
+                      else props.filter(_.optionality === Optionality.No)
 
                     Some(generateCreator(propsRef.name, requiredProps, cls.codePath, unboundedTParams))
                       .filter(_.params.nonEmpty)

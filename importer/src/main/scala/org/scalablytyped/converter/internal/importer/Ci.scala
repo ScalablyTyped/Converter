@@ -122,6 +122,7 @@ object Ci {
                 ),
                 organization           = organization,
                 enableReactTreeShaking = Selection.None,
+                enableLongApplyMethod  = false,
               ),
               wantedLibs       = wantedLibNames,
               enablePublish    = flags contains "-publish",

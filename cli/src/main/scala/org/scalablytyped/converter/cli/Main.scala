@@ -51,6 +51,7 @@ object Main {
     versions               = Versions(Versions.Scala213, Versions.ScalaJs1),
     organization           = "org.scalablytyped",
     enableReactTreeShaking = Selection.None,
+    enableLongApplyMethod  = false,
   )
 
   case class Config(
@@ -171,6 +172,9 @@ object Main {
           c
         }
         .text(s"Deprecated, doesn't do anything anymore"),
+      opt[Boolean]("enableLongApplyMethod")
+        .action((x, c) => c.mapConversion(_.copy(enableLongApplyMethod = x)))
+        .text(s"Enables long apply methods, instead of implicit ops builders"),
       opt[ProjectName]("publish-to-bintray-repo")
         .action((x, c) => c.copy(publishBintrayRepo = Some(x)))
         .text(
@@ -261,6 +265,7 @@ object Main {
 //            "ignoredModulePrefixes" -> conversion.ignoredModulePrefixes.toString,
             "versions" -> conversion.versions.toString,
             "organization" -> conversion.organization,
+            "enableLongApplyMethod" -> conversion.enableLongApplyMethod.toString,
           ),
         )
 
