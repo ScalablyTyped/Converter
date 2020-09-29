@@ -57,6 +57,10 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
     assertImportsOk("material-ui", pedantic = true, update = update, flavour = Slinky),
   )
 
+  test("inheritance-with-intersection")(
+    assertImportsOk("inheritance-with-intersection-slinky", pedantic = true, update = update, flavour = Slinky),
+  )
+
   test("material-ui-japgolly")(
     assertImportsOk("material-ui", pedantic = true, update = update, flavour = Japgolly),
   )

@@ -53,6 +53,7 @@ object Name {
   val CONSTRUCTOR:     Name = Name("<init>")
   val UNION:           Name = Name("<union>")
   val INTERSECTION:    Name = Name("<intersection>")
+  val TYPE_LOOKUP:     Name = Name("<type_lookup>")
   val SINGLETON:       Name = Name("<typeof>")
   val STRING_LITERAL:  Name = Name("<string_literal>")
   val NUMBER_LITERAL:  Name = Name("<number_literal>")

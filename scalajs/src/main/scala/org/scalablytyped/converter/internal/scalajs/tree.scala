@@ -341,6 +341,17 @@ object TypeRef {
       case _                              => TypeRef(QualifiedName.Tuple(typeParams.length), typeParams, NoComments)
     }
 
+  object TypeLookup {
+    def apply(from: Name, key: Name) =
+      TypeRef(QualifiedName.TYPE_LOOKUP, IArray(TypeRef(from), TypeRef(key)), NoComments)
+
+    def unapply(typeRef: TypeRef): Option[(TypeRef, Name)] = typeRef match {
+      case TypeRef(QualifiedName.TYPE_LOOKUP, IArray.exactlyTwo(from, TypeRef(QualifiedName(IArray.exactlyOne(key)), Empty, _)), _) =>
+        Some((from, key))
+      case _ => None
+    }
+  }
+
   object Intersection {
     private def flattened(types: IArray[TypeRef]): IArray[TypeRef] =
       types flatMap {

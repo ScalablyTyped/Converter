@@ -121,12 +121,12 @@ object Printer {
         case (ScalaOutput.File(name), members: IArray[Tree]) =>
           reg.write(targetFolder / os.RelPath(s"${name.unescaped}.scala")) { writer =>
             val (imports, shortenedMembers) = ShortenNames(tree, scope, parentsResolver)(members)
-            writer println s"package ${formatQN(QualifiedName(packages))}"
+            writer.println(s"package ${formatQN(QualifiedName(packages))}")
             writer.println("")
             imports.foreach(i => writer.println(s"import ${formatQN(i.imported)}"))
             writer.println(Imports)
             writer.println("")
-            shortenedMembers foreach printTree(
+            shortenedMembers.foreach(printTree(
               scope,
               parentsResolver,
               reg,
@@ -135,7 +135,7 @@ object Printer {
               targetFolder,
               0,
               isNative = true,
-            )
+            ))
           }
 
         case (ScalaOutput.Package(name), pkgs) =>
@@ -431,6 +431,9 @@ object Printer {
 
           case TypeRef.Repeated(underlying: TypeRef, _) =>
             maybeSpace(paramsIfNeeded(formatTypeRef(indent)(underlying))) + "*"
+
+          case TypeRef.TypeLookup(_, _) =>
+            formatQN(QualifiedName.Any)
 
           case TypeRef(typeName, targs, _) =>
             val targsStr = targs match {

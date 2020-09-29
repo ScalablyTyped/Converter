@@ -80,7 +80,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
           case other =>
             lazy val isInheritance = IsInheritance(other, scope)
-            lazy val targs2        = targs map apply(wildcards.maybeAllow, scope, importName)
+            lazy val targs2        = targs.map(apply(wildcards.maybeAllow, scope, importName))
 
             Mappings.get(other) match {
               case Some(m: RefMapping)  => m.pick(isInheritance).withComments(cs)
@@ -186,14 +186,14 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             }
           }
 
-        val rewritten = patched map {
+        val rewritten = patched.map {
           case TsTypeRef.undefined => TypeRef.undefined
           case other               => apply(wildcards, scope, importName)(other)
         }
         TypeRef.Union(rewritten, NoComments, sort = false)
 
       case TsTypeIntersect(types) =>
-        TypeRef.Intersection(types map apply(Wildcards.No, scope, importName), NoComments)
+        TypeRef.Intersection(types.map(apply(Wildcards.No, scope, importName)), NoComments)
 
       case TsTypeConstructor(TsTypeFunction(sig)) =>
         newableFunction(scope, importName, sig, NoComments)
@@ -257,6 +257,12 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
       case x: TsTypeConditional =>
         apply(wildcards, _scope, importName)(unify(IArray(x.ifFalse, x.ifTrue)))
+
+      case TsTypeLookup(
+        TsTypeRef(_, TsQIdent(IArray.exactlyOne(TsIdentSimple(from))), _),
+        TsTypeLiteral(TsLiteralString(key))
+      ) =>
+        TypeRef.TypeLookup(Name(from), Name(key))
 
       case other =>
         val msg = s"Failed type conversion: ${TsTypeFormatter(other)}"

@@ -71,6 +71,7 @@ object QualifiedName {
   val TopLevel:                   QualifiedName = Runtime + Name("TopLevel")
   val UNION:                      QualifiedName = QualifiedName(IArray(Name.UNION))
   val INTERSECTION:               QualifiedName = QualifiedName(IArray(Name.INTERSECTION))
+  val TYPE_LOOKUP:                QualifiedName = QualifiedName(IArray(Name.TYPE_LOOKUP))
   val STRING_LITERAL:             QualifiedName = QualifiedName(IArray(Name.STRING_LITERAL))
   val NUMBER_LITERAL:             QualifiedName = QualifiedName(IArray(Name.NUMBER_LITERAL))
   val BOOLEAN_LITERAL:            QualifiedName = QualifiedName(IArray(Name.BOOLEAN_LITERAL))

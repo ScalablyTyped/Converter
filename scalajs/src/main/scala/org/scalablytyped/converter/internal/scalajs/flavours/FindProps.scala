@@ -94,14 +94,31 @@ final class FindProps(
   ): Res[IArray[String], IArray[Prop]] =
     FollowAliases(scope)(typeRef) match {
       case TypeRef.Object => Res.One(typeRef, Empty)
+      case TypeRef.TypeLookup(from, key) =>
+        scope.lookup(from.typeName).collectFirst {
+          case (_cls: ClassTree, _) =>
+            val cls = FillInTParams(_cls, scope, from.targs, tparams)
+            cls.members.collectFirst {
+              case field: FieldTree if field.name == key =>
+                forType(field.tpe, tparams, scope, maxNum, acceptNativeTraits)
+            }
+          case (alias: TypeAliasTree, _) =>
+            val rewrite = TypeRef(QualifiedName.TYPE_LOOKUP, IArray(alias.alias, TypeRef(key)), NoComments)
+            Some(forType(rewrite, tparams, scope, maxNum, acceptNativeTraits))
+
+        }.flatten.getOrElse(Res.One(typeRef, Empty))
       case TypeRef.Intersection(types, _) =>
         val results: IArray[Res[IArray[String], IArray[Prop]]] =
           types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits))
 
-        results.partitionCollect3({ case x @ Res.Error(_) => x }, { case x @ Res.Many(_) => x }, {
-          case x @ Res.One(_, _)                          => x
-        }) match {
+        results.partitionCollect3(
+          { case x @ Res.Error(_) => x },
+          { case x @ Res.Many(_) => x },
+          { case x @ Res.One(_, _) => x }
+        ) match {
           case (Empty, Empty, ones, _) =>
+            Res.One(typeRef, ones.flatMap(_.value).sorted.distinctBy(_.name))
+          case (_, _, ones, _) if ones.nonEmpty =>
             Res.One(typeRef, ones.flatMap(_.value).sorted.distinctBy(_.name))
           case (Empty, _, _, _) =>
             Res.Error(IArray("Support for combinations of intersection and union types not implemented"))
@@ -117,7 +134,7 @@ final class FindProps(
         Res.combine(types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits)))
 
       case other =>
-        val retOpt = scope lookup other.typeName collectFirst {
+        val retOpt = scope.lookup(other.typeName).collectFirst {
           case (_cls: ClassTree, newScope) =>
             val cls = FillInTParams(_cls, newScope, other.targs, tparams)
             forClassTree(

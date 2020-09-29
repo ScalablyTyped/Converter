@@ -90,35 +90,43 @@ object ParentsResolver {
       typeRefs:   List[TypeRef],
       ld:         LoopDetector,
       newTParams: IArray[TypeParamTree],
-  ): Res =
-    ld.including(typeRefs.head.typeName.parts, scope) match {
+  ): Res = {
+    val typeRef = typeRefs.head
+    ld.including(typeRef.typeName.parts, scope) match {
       case Left(()) =>
         Circular
       case Right(newLd) =>
-        (scope lookup typeRefs.head.typeName).collectFirst {
-          case (cls: ClassTree, foundInScope) =>
-            val rewritten = FillInTParams(cls, scope, typeRefs.head.targs, newTParams)
-            val (parents, unresolved, circular) =
-              findParentRefs(rewritten)
-                .map(tr => recurse(foundInScope, tr :: Nil, newLd, newTParams))
-                .partitionCollect2({ case x: Resolved => x }, { case u: Unresolved => u })
+        if(typeRef.name == Name.INTERSECTION) {
+          recurse(scope, typeRef.targs.toList, newLd, newTParams)
+        } else {
+          scope.lookup(typeRef.typeName)
+            .collectFirst {
+              case (cls: ClassTree, foundInScope) =>
+                val rewritten = FillInTParams(cls, scope, typeRef.targs, newTParams)
+                val (parents, unresolved, circular) =
+                  findParentRefs(rewritten)
+                    .map(tr => recurse(foundInScope, tr :: Nil, newLd, newTParams))
+                    .partitionCollect2({ case x: Resolved => x }, { case u: Unresolved => u })
 
-            if (circular.nonEmpty) Circular
-            else
-              Resolved(
-                Parent(IArray.fromTraversable(typeRefs))(
-                  rewritten,
-                  foundInScope,
-                  parents.map(_.nr),
-                  unresolved.flatMap(_.tr),
-                ),
-              )
+                if (circular.nonEmpty) Circular
+                else
+                  Resolved(
+                    Parent(IArray.fromTraversable(typeRefs))(
+                      rewritten,
+                      foundInScope,
+                      parents.map(_.nr),
+                      unresolved.flatMap(_.tr),
+                    ),
+                  )
 
-          case (ta: TypeAliasTree, foundInScope) =>
-            val rewritten = FillInTParams(ta, scope, typeRefs.head.targs, newTParams)
-            recurse(foundInScope, rewritten.alias :: typeRefs, newLd, newTParams)
-        } getOrElse Unresolved(IArray.fromTraversable(typeRefs))
-    }
+              case (ta: TypeAliasTree, foundInScope) =>
+                val rewritten = FillInTParams(ta, scope, typeRef.targs, newTParams)
+                recurse(foundInScope, rewritten.alias :: typeRefs, newLd, newTParams)
+            }.getOrElse(Unresolved(IArray.fromTraversable(typeRefs)))
+        }
+        }
+
+  }
 }
 
 class ParentsResolver {
