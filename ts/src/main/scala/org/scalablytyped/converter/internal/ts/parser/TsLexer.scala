@@ -168,14 +168,14 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
     val oneLine: Parser[CommentLineToken] =
       (whitespaceChar.* ~ '/' ~ '/' ~ rep(chrExcept(EofCh, '\n', '\r'))) ^^ {
         case cs1 ~ c1 ~ c2 ~ cs2 =>
-          s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}\n"
-      }.map(CommentLineToken)
+          CommentLineToken(s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}\n")
+      }
 
     val blockOneLine: Parser[CommentBlockToken] =
       (whitespaceChar.* ~ '/' ~ '*' ~ rep(not('*' ~ '/') ~> chrExcept(EofCh, '\n', '\r')) ~ '*' ~ '/' ~ whitespaceChar.*) ^^ {
         case cs1 ~ c1 ~ c2 ~ cs2 ~ c3 ~ c4 ~ cs3 =>
-          s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}$c3$c4${chars2string(cs3)}"
-      }.map(CommentBlockToken)
+          CommentBlockToken(s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}$c3$c4${chars2string(cs3)}")
+      }
 
     val oneLineAfterDelim: Parser[CommentLineTokenAfterDelim] =
       ((',': Parser[Char]) | ';') ~ (oneLine | (blockOneLine <~ (newLine | EofCh))) ^^ {
@@ -186,9 +186,11 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
     val block: Parser[CommentBlockToken] =
       (whitespaceChar.* ~ '/' ~ '*' ~ rep(not('*' ~ '/') ~> chrExcept(EofCh)) ~ '*' ~ '/' ~ whitespaceChar.* ~ newLine.*) ^^ {
         case cs1 ~ c1 ~ c2 ~ cs2 ~ c3 ~ c4 ~ cs3 ~ cs4 =>
-          s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}$c3$c4${chars2string(cs3)}${chars2string(cs4)}"
-            .replaceAll("\r", "")
-      }.map(CommentBlockToken)
+          CommentBlockToken(
+            s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}$c3$c4${chars2string(cs3)}${chars2string(cs4)}"
+              .replaceAll("\r", ""),
+          )
+      }
 
     not(directive) ~> oneLineAfterDelim | oneLine | block
   }
