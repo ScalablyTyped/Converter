@@ -112,7 +112,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
             ImportTypingsGenSources(
               input,
               logger,
-              parseCacheDirOpt = Some(globalCacheDir.toPath resolve "parse"),
+              parseCacheDirOpt = Some(globalCacheDir.toPath.resolve("parse")),
               os.Path(globalCacheDir),
             ) match {
               case Right(files) =>

@@ -49,7 +49,7 @@ sealed abstract class TreeScope { outer =>
 
       if (res.isEmpty && pedantic) {
         searchFrom._lookup(wanted.parts)
-        logger fatal s"Couldn't resolve ${wanted.parts}"
+        logger.fatal(s"Couldn't resolve ${wanted.parts}")
       }
 
       res
@@ -173,7 +173,7 @@ object TreeScope {
                     case FieldTree(_, _, ThisType(_), _, _, _, _, _) =>
                       lookupNoBacktrack(tail)
                     case tree =>
-                      this / tree lookupNoBacktrack (head +: tail)
+                      (this / tree).lookupNoBacktrack(head +: tail)
                   }
                 case None => Empty
               }
@@ -186,7 +186,7 @@ object TreeScope {
 
     override def _lookup(names: IArray[Name]): IArray[(Tree, TreeScope)] =
       lookupNoBacktrack(names) match {
-        case Empty => outer _lookup names
+        case Empty => outer._lookup(names)
         case found => found
       }
   }

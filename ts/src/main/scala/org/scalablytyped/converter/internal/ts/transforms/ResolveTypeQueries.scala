@@ -125,16 +125,16 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           )(_cls)
 
           val existingCtorOpt: Option[TsTypeConstructor] =
-            cls.members collectFirst {
+            cls.members.collectFirst {
               case TsMemberCtor(cs, _, sig) => asTypeCtor(cls, sig.comments ++ cs, sig.params)
               case TsMemberFunction(cs, _, TsIdent.constructor, MethodType.Normal, sig, _, _) =>
                 asTypeCtor(cls, sig.comments ++ cs, sig.params)
             }
 
           val ctor: TsTypeConstructor =
-            existingCtorOpt getOrElse asTypeCtor(cls, NoComments, Empty)
+            existingCtorOpt.getOrElse(asTypeCtor(cls, NoComments, Empty))
 
-          val statics = cls.members collect {
+          val statics = cls.members.collect {
             case x: TsMemberProperty if x.isStatic => x.copy(isStatic = false)
             case x: TsMemberFunction if x.isStatic => x.copy(isStatic = false)
           }
@@ -170,7 +170,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
         nonEmptyTypeObject(newMod)
 
       case TsDeclVar(_, _, _, _, tpe, _, _, _) =>
-        tpe map {
+        tpe.map {
           case nested: TsTypeQuery =>
             resolve(scope, nested, loopDetector)
           case other =>
@@ -225,7 +225,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
     }
 
   private def nonEmptyTypeObject(from: TsDeclNamespaceOrModule): Option[TsTypeObject] = {
-    val rewritten = from.members collect {
+    val rewritten = from.members.collect {
       case ns: TsDeclNamespace =>
         TsMemberProperty(
           ns.comments,

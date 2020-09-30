@@ -94,7 +94,7 @@ object Printer {
         tree:            ContainerTree,
     ): Unit = {
       val files: Map[ScalaOutput, IArray[Tree]] = tree match {
-        case _: PackageTree => tree.members groupBy ScalaOutput.outputAs
+        case _: PackageTree => tree.members.groupBy(ScalaOutput.outputAs)
         case other => Map(ScalaOutput.File(other.name) -> IArray(other))
       }
       val scope = _scope / tree
@@ -117,29 +117,31 @@ object Printer {
         s"$name.scala"
       }
 
-      files foreach {
+      files.foreach {
         case (ScalaOutput.File(name), members: IArray[Tree]) =>
           reg.write(targetFolder / os.RelPath(s"${name.unescaped}.scala")) { writer =>
             val (imports, shortenedMembers) = ShortenNames(tree, scope, parentsResolver)(members)
-            writer println s"package ${formatQN(QualifiedName(packages))}"
+            writer.println(s"package ${formatQN(QualifiedName(packages))}")
             writer.println("")
             imports.foreach(i => writer.println(s"import ${formatQN(i.imported)}"))
             writer.println(Imports)
             writer.println("")
-            shortenedMembers foreach printTree(
-              scope,
-              parentsResolver,
-              reg,
-              Indenter(writer),
-              packages,
-              targetFolder,
-              0,
-              isNative = true,
+            shortenedMembers.foreach(
+              printTree(
+                scope,
+                parentsResolver,
+                reg,
+                Indenter(writer),
+                packages,
+                targetFolder,
+                0,
+                isNative = true,
+              ),
             )
           }
 
         case (ScalaOutput.Package(name), pkgs) =>
-          pkgs foreach {
+          pkgs.foreach {
             case pkg: PackageTree =>
               apply(scope, parentsResolver, reg, packages :+ name, targetFolder / os.RelPath(name.unescaped), pkg)
             case _ => sys.error("i was too lazy to prove this with types")
@@ -150,22 +152,24 @@ object Printer {
             packages.dropRight(1) match {
               case IArray.Empty => ()
               case remaining =>
-                writer println s"package ${formatQN(QualifiedName(remaining))}"
+                writer.println(s"package ${formatQN(QualifiedName(remaining))}")
             }
 
             writer.println("")
             writer.println(Imports)
             writer.println("")
             writer.println("package object " + formatName(tree.name) + " {")
-            members foreach printTree(
-              scope,
-              parentsResolver,
-              reg,
-              Indenter(writer),
-              packages,
-              targetFolder,
-              2,
-              isNative = true,
+            members.foreach(
+              printTree(
+                scope,
+                parentsResolver,
+                reg,
+                Indenter(writer),
+                packages,
+                targetFolder,
+                2,
+                isNative = true,
+              ),
             )
             writer.println("}")
           }
@@ -185,7 +189,7 @@ object Printer {
       val scope = _scope / tree
 
       def print(ss: String*): Unit =
-        ss foreach w.print(indent)
+        ss.foreach(w.print(indent))
 
       def println(ss: String*): Unit = {
         print(ss: _*)
@@ -230,7 +234,7 @@ object Printer {
           )
 
           if (tparams.nonEmpty)
-            print("[", tparams map formatTypeParamTree(isNative, indent) mkString ", ", "]")
+            print("[", tparams.map(formatTypeParamTree(isNative, indent)).mkString(", "), "]")
 
           if (classType =/= ClassType.Trait) {
             print(" ")
@@ -244,9 +248,9 @@ object Printer {
             println(" {")
 
             if (classType =/= ClassType.Trait)
-              restCtors foreach printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative)
+              restCtors.foreach(printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative))
 
-            members foreach printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative)
+            members.foreach(printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative))
             println("}")
           } else
             println()
@@ -268,7 +272,7 @@ object Printer {
           if (members.nonEmpty) {
             println(" {")
 
-            members foreach printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative)
+            members.foreach(printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative))
             println("}")
           } else
             println()
@@ -278,7 +282,7 @@ object Printer {
           print(Comments.format(comments))
           print("type ", formatName(name))
           if (tparams.nonEmpty) {
-            print("[", tparams map formatTypeParamTree(isNative, indent) mkString ", ", "]")
+            print("[", tparams.map(formatTypeParamTree(isNative, indent)).mkString(", "), "]")
           }
 
           println(s" = ", formatTypeRef(indent)(alias))
@@ -405,7 +409,7 @@ object Printer {
           case TypeRef.ScalaFunction(paramTypes, retType) =>
             val params = paramTypes match {
               case IArray.exactlyOne(one) => formatTypeRef(indent)(one)
-              case many                   => (many map formatTypeRef(indent)).mkString("(", ", ", ")")
+              case many                   => many.map(formatTypeRef(indent)).mkString("(", ", ", ")")
             }
             s"$params => ${formatTypeRef(indent)(retType)}"
 
@@ -414,7 +418,7 @@ object Printer {
           case TypeRef.Singleton(underlying) => formatTypeRef(indent)(underlying) |+| ".type"
 
           case TypeRef.Intersection(types, _) =>
-            types map formatTypeRef(indent) map paramsIfNeeded mkString " with "
+            types.map(formatTypeRef(indent)).map(paramsIfNeeded).mkString(" with ")
 
           case TypeRef.UndefOr(tpe, _) =>
             formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, IArray(tpe), NoComments))
@@ -423,7 +427,7 @@ object Printer {
             formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, IArray(TypeRef.Nothing), NoComments))
 
           case TypeRef.Union(types, _) =>
-            types map formatTypeRef(indent) map paramsIfNeeded mkString " | "
+            types.map(formatTypeRef(indent)).map(paramsIfNeeded).mkString(" | ")
 
           case TypeRef.StringLiteral(underlying)  => stringUtils.quote(underlying)
           case TypeRef.NumberLiteral(underlying)  => underlying
@@ -436,7 +440,7 @@ object Printer {
             val targsStr = targs match {
               case Empty => ""
               case nonEmpty =>
-                val targStrs    = nonEmpty map formatTypeRef(indent + 2)
+                val targStrs    = nonEmpty.map(formatTypeRef(indent + 2))
                 val targsLength = targStrs.foldLeft[Integer](0)(_ + _.length)
                 val sep         = if (targsLength > 80) "\n" + (" " * indent) else ""
                 targStrs.mkString(s"[$sep", s", $sep", s"${sep.dropRight(2)}]")
@@ -493,7 +497,7 @@ object Printer {
       }
 
     def formatAnns(anns: IArray[Annotation]): String =
-      anns map formatAnn filterNot (_.isEmpty) match {
+      anns.map(formatAnn).filterNot(_.isEmpty) match {
         case Empty     => ""
         case formatted => formatted.sorted.mkString("", "\n", "\n")
       }

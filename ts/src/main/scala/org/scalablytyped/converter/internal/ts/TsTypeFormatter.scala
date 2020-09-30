@@ -129,8 +129,8 @@ class TsTypeFormatter(val keepComments: Boolean) {
       case TsTypeLookup(from, key)                  => s"${apply(from)}[${apply(key)}]"
       case TsTypeThis()                             => "this"
       case TsTypeAsserts(ident, isOpt)              => "asserts " + ident.value + isOpt.fold("")("is " + _)
-      case TsTypeUnion(types)                       => types map apply mkString " | "
-      case TsTypeIntersect(types)                   => types map apply mkString " & "
+      case TsTypeUnion(types)                       => types.map(apply).mkString(" | ")
+      case TsTypeIntersect(types)                   => types.map(apply).mkString(" & ")
       case TsTypeConditional(pred, ifTrue, ifFalse) => s"${apply(pred)} ? ${apply(ifTrue)} : ${apply(ifFalse)}"
       case TsTypeExtends(one, two)                  => s"${apply(one)} extends ${apply(two)}"
       case TsTypeInfer(tparam)                      => s"infer ${tparam.name.value}"

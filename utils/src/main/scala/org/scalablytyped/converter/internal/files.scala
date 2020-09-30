@@ -125,7 +125,7 @@ object files {
       case OpSystem.WINDOWS => os.remove.all(p)
       case _ => {
         implicit val wd = os.home
-        % rm ("-Rf", p)
+        %.rm("-Rf", p)
       }
     }
 }

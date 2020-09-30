@@ -144,7 +144,7 @@ object ImportEnum {
             } else None
 
           val membersSyms: IArray[Tree] =
-            members flatMap {
+            members.flatMap {
               case TsEnumMember(memberCs, ImportName(memberName), exprOpt) =>
                 val memberType: Option[ClassTree] =
                   if (exportedFrom.nonEmpty) None

@@ -22,7 +22,7 @@ object TsExpr {
         else long.toString
       case Literal(TsLiteralNumber(value))  => value
       case Literal(TsLiteralBoolean(value)) => value.toString
-      case Call(function, params)           => s"${format(function)}(${params map format mkString ", "})"
+      case Call(function, params)           => s"${format(function)}(${params.map(format).mkString(", ")})"
       case Unary(op, expr)                  => s"$op${format(expr)}"
       case BinaryOp(one, op, two)           => s"${format(one)} $op ${format(two)}"
       case Cast(expr, tpe)                  => s"${format(expr)} as ${TsTypeFormatter(tpe)}"

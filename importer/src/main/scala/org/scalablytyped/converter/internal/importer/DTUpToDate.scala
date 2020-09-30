@@ -14,12 +14,12 @@ object DTUpToDate {
       if (files.exists(clonedDir)) {
         if (!offline) {
           implicit val wd = clonedDir
-          cmd.runVerbose git 'fetch
-          cmd.runVerbose git ("clean", "-fdX") // remove ignored files/folders
-          cmd.runVerbose git ("clean", "-fd")
-          cmd.runVerbose git ('reset, "--hard", "origin/master")
+          cmd.runVerbose.git('fetch)
+          cmd.runVerbose.git("clean", "-fdX") // remove ignored files/folders
+          cmd.runVerbose.git("clean", "-fd")
+          cmd.runVerbose.git('reset, "--hard", "origin/master")
           files.deleteAll(clonedDir / ".git" / "gc.log")
-          cmd.runVerbose git 'prune
+          cmd.runVerbose.git('prune)
         }
       } else
         cmd.runVerbose("git", "clone", repo.toString)(cacheFolder),

@@ -44,7 +44,7 @@ object FlattenTrees {
 
     val rets = IArray.Builder[TsContainerOrDecl](theseUnnamed, these.length + thats.length)
 
-    thatsUnnamed foreach {
+    thatsUnnamed.foreach {
       case that: TsGlobal =>
         rets.addOrUpdateMatching(that)(x => x.copy(members = newMembers(Empty, x.members))) {
           case existing: TsGlobal => mergeGlobal(that, existing)
@@ -60,7 +60,7 @@ object FlattenTrees {
   def newNamedMembers(these: IArray[TsNamedDecl], thats: IArray[TsNamedDecl]): IArray[TsNamedDecl] = {
     val rets = IArray.Builder[TsNamedDecl](these, these.length + thats.length)
 
-    thats foreach {
+    thats.foreach {
       case that: TsDeclNamespace =>
         rets.addOrUpdateMatching(that)(x => x.copy(members = newMembers(Empty, x.members))) {
           case existing: TsDeclNamespace if that.name === existing.name =>
@@ -144,7 +144,7 @@ object FlattenTrees {
 
     val rets = IArray.Builder[TsMember](IArray.Empty, these.length + thats.length)
 
-    (these ++ thats) foreach {
+    (these ++ thats).foreach {
       case that: TsMemberProperty =>
         rets.addOrUpdateMatching(that)(x => x) {
           case existing: TsMemberProperty if that.name === existing.name && that.isStatic === existing.isStatic =>

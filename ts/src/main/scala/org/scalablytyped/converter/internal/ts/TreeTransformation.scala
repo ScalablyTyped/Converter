@@ -99,10 +99,10 @@ trait TreeTransformation[T] { self =>
           _2,
           _3,
           _4,
-          _5 map visitTsTypeParam(tt),
-          _6 map visitTsTypeRef(tt),
-          _7 map visitTsTypeRef(tt),
-          _8 map visitTsMember(tt),
+          _5.map(visitTsTypeParam(tt)),
+          _6.map(visitTsTypeRef(tt)),
+          _7.map(visitTsTypeRef(tt)),
+          _8.map(visitTsMember(tt)),
           _9,
           _10,
         )
@@ -115,7 +115,7 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsDeclEnum(_1, _2, _3, _4, _5, _6, _7, _8, _9) =>
-        TsDeclEnum(_1, _2, _3, _4, _5 map visitTsEnumMember(tt), _6, _7.map(visitTsTypeRef(tt)), _8, _9)
+        TsDeclEnum(_1, _2, _3, _4, _5.map(visitTsEnumMember(tt)), _6, _7.map(visitTsTypeRef(tt)), _8, _9)
     }
   }
   final def visitTsDeclFunction(t: T)(x: TsDeclFunction): TsDeclFunction = {
@@ -130,7 +130,7 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsGlobal(withTree(t, x))(x)
     val tt = withTree(t, xx)
     val xxx = xx match {
-      case TsGlobal(_1, _2, _3, _4) => TsGlobal(_1, _2, _3 map visitTsContainerOrDecl(tt), _4)
+      case TsGlobal(_1, _2, _3, _4) => TsGlobal(_1, _2, _3.map(visitTsContainerOrDecl(tt)), _4)
     }
     leaveTsGlobal(tt)(xxx)
   }
@@ -143,9 +143,9 @@ trait TreeTransformation[T] { self =>
           _1,
           _2,
           _3,
-          _4 map visitTsTypeParam(tt),
-          _5 map visitTsTypeRef(tt),
-          _6 map visitTsMember(tt),
+          _4.map(visitTsTypeParam(tt)),
+          _5.map(visitTsTypeRef(tt)),
+          _6.map(visitTsMember(tt)),
           _7,
         )
     }
@@ -156,7 +156,7 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     val xxx = xx match {
       case TsDeclModule(_1, _2, _3, _4, _5, _6) =>
-        TsDeclModule(_1, _2, _3, _4 map visitTsContainerOrDecl(tt), _5, _6)
+        TsDeclModule(_1, _2, _3, _4.map(visitTsContainerOrDecl(tt)), _5, _6)
     }
     leaveTsDeclModule(tt)(xxx)
   }
@@ -176,7 +176,7 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     val xxx = xx match {
       case TsDeclNamespace(_1, _2, _3, _4, _5, _6) =>
-        TsDeclNamespace(_1, _2, _3, _4 map visitTsContainerOrDecl(tt), _5, _6)
+        TsDeclNamespace(_1, _2, _3, _4.map(visitTsContainerOrDecl(tt)), _5, _6)
     }
     leaveTsDeclNamespace(tt)(xxx)
   }
@@ -185,7 +185,7 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsDeclTypeAlias(_1, _2, _3, _4, _5, _6) =>
-        TsDeclTypeAlias(_1, _2, _3, _4 map visitTsTypeParam(tt), visitTsType(tt)(_5), _6)
+        TsDeclTypeAlias(_1, _2, _3, _4.map(visitTsTypeParam(tt)), visitTsType(tt)(_5), _6)
     }
   }
   final def visitTsDeclVar(t: T)(x: TsDeclVar): TsDeclVar = {
@@ -193,7 +193,7 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsDeclVar(_1, _2, _3, _4, _5, _6, _7, _8) =>
-        TsDeclVar(_1, _2, _3, _4, _5 map visitTsType(tt), _6, _7, _8)
+        TsDeclVar(_1, _2, _3, _4, _5.map(visitTsType(tt)), _6, _7, _8)
     }
   }
   final def visitTsEnumMember(t: T)(x: TsEnumMember): TsEnumMember = {
@@ -238,7 +238,7 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsFunParam(_1, _2, _3) =>
-        TsFunParam(_1, _2, _3 map visitTsType(tt))
+        TsFunParam(_1, _2, _3.map(visitTsType(tt)))
     }
   }
   final def visitTsFunSig(t: T)(x: TsFunSig): TsFunSig = {
@@ -246,7 +246,7 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsFunSig(_1, _2, _3, _4) =>
-        TsFunSig(_1, _2 map visitTsTypeParam(tt), _3 map visitTsFunParam(tt), _4 map visitTsType(tt))
+        TsFunSig(_1, _2.map(visitTsTypeParam(tt)), _3.map(visitTsFunParam(tt)), _4.map(visitTsType(tt)))
     }
   }
 
@@ -273,7 +273,7 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsImport(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsImport(_1, _2, _3) => TsImport(_1, _2 map visitTsImported(tt), visitTsImportee(tt)(_3))
+      case TsImport(_1, _2, _3) => TsImport(_1, _2.map(visitTsImported(tt)), visitTsImportee(tt)(_3))
     }
   }
   final def visitTsLiteralBoolean(t: T)(x: TsLiteralBoolean): TsLiteralBoolean =
@@ -317,7 +317,7 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsMemberProperty(_1, _2, _3, _4, _5, _6, _7) =>
-        TsMemberProperty(_1, _2, _3, _4 map visitTsType(tt), _5, _6, _7)
+        TsMemberProperty(_1, _2, _3, _4.map(visitTsType(tt)), _5, _6, _7)
     }
   }
   final def visitTsMemberTypeMapped(t: T)(x: TsMemberTypeMapped): TsMemberTypeMapped = {
@@ -332,7 +332,7 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsParsedFile(withTree(t, x))(x)
     val tt = withTree(t, xx)
     val xxx = xx match {
-      case TsParsedFile(_1, _2, _3, _4) => TsParsedFile(_1, _2, _3 map visitTsContainerOrDecl(tt), _4)
+      case TsParsedFile(_1, _2, _3, _4) => TsParsedFile(_1, _2, _3.map(visitTsContainerOrDecl(tt)), _4)
     }
     leaveTsParsedFile(tt)(xxx)
   }
@@ -344,7 +344,7 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsTypeAsserts(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsTypeAsserts(_1, _2) => TsTypeAsserts(_1, _2 map visitTsTypeRef(tt))
+      case TsTypeAsserts(_1, _2) => TsTypeAsserts(_1, _2.map(visitTsTypeRef(tt)))
     }
   }
 
@@ -388,7 +388,7 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsTypeIntersect(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsTypeIntersect(_1) => TsTypeIntersect(_1 map visitTsType(tt))
+      case TsTypeIntersect(_1) => TsTypeIntersect(_1.map(visitTsType(tt)))
     }
   }
 
@@ -427,7 +427,7 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsTypeObject(withTree(t, x))(x)
     val tt = withTree(t, xx)
     val xxx = xx match {
-      case TsTypeObject(_1, _2) => TsTypeObject(_1, _2 map visitTsMember(tt))
+      case TsTypeObject(_1, _2) => TsTypeObject(_1, _2.map(visitTsMember(tt)))
     }
     leaveTsTypeObject(withTree(t, xxx))(xxx)
   }
@@ -436,7 +436,7 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsTypeParam(_1, _2, _3, _4) =>
-        TsTypeParam(_1, _2, _3 map visitTsType(tt), _4 map visitTsType(tt))
+        TsTypeParam(_1, _2, _3.map(visitTsType(tt)), _4.map(visitTsType(tt)))
     }
   }
   final def visitTsTypeQuery(t: T)(x: TsTypeQuery): TsTypeQuery = {
@@ -450,7 +450,7 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsTypeRef(withTree(t, x))(x)
     val tt = withTree(t, xx)
     val xxx = xx match {
-      case TsTypeRef(_1, _2, _3) => TsTypeRef(_1, visitTsQIdent(tt)(_2), _3 map visitTsType(tt))
+      case TsTypeRef(_1, _2, _3) => TsTypeRef(_1, visitTsQIdent(tt)(_2), _3.map(visitTsType(tt)))
     }
     leaveTsTypeRef(tt)(xxx)
   }
@@ -467,14 +467,14 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsTypeTuple(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsTypeTuple(_1) => TsTypeTuple(_1 map visitTsType(tt))
+      case TsTypeTuple(_1) => TsTypeTuple(_1.map(visitTsType(tt)))
     }
   }
   final def visitTsTypeUnion(t: T)(x: TsTypeUnion): TsTypeUnion = {
     val xx = enterTsTypeUnion(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsTypeUnion(_1) => TsTypeUnion(_1 map visitTsType(tt))
+      case TsTypeUnion(_1) => TsTypeUnion(_1.map(visitTsType(tt)))
     }
   }
 

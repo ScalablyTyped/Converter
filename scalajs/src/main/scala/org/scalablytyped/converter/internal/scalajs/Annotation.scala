@@ -28,7 +28,7 @@ object Annotation {
 
   def renamedFrom(newName: Name)(oldAnnotations: IArray[MemberAnnotation]): IArray[MemberAnnotation] = {
     val (names, others) =
-      oldAnnotations partition {
+      oldAnnotations.partition {
         case _: JsName | _: JsNameSymbol | JsBracketCall => true
         case _ => false
       }
@@ -45,7 +45,7 @@ object Annotation {
 
   def classRenamedFrom(oldName: Name)(oldAnnotations: IArray[ClassAnnotation]): IArray[ClassAnnotation] = {
     val (names, others) =
-      oldAnnotations partition {
+      oldAnnotations.partition {
         case _: JsName   => true
         case _: JsImport => true
         case _: JsGlobal => true

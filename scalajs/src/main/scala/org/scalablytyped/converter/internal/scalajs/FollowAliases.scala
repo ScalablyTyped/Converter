@@ -9,9 +9,9 @@ object FollowAliases {
       case TypeRef.Wildcard    => TypeRef.Any
       case TypeRef.TopLevel(x) => apply(scope)(x)
       case TypeRef.Union(types, cs) =>
-        TypeRef.Union(types map FollowAliases(scope), cs, sort = false)
+        TypeRef.Union(types.map(FollowAliases(scope)), cs, sort = false)
       case TypeRef.Intersection(types, cs) =>
-        TypeRef.Intersection(types map FollowAliases(scope), cs)
+        TypeRef.Intersection(types.map(FollowAliases(scope)), cs)
       case other if TypeRef.Primitive(other) => other
       case other if scope.isAbstract(other)  => other
       case ref =>

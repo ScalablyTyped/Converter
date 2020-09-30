@@ -194,7 +194,7 @@ object UnionToInheritance {
     ): IArray[Rewrite] = {
       def go(p: ContainerTree, scope: TreeScope): IArray[Rewrite] = {
         def legalClassName(name: Name): Boolean =
-          p index name forall {
+          p.index(name).forall {
             case _: PackageTree => false
             case _ => true
           }

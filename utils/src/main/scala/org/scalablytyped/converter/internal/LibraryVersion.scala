@@ -14,7 +14,7 @@ case class LibraryVersion(isStdLib: Boolean, libraryVersion: Option[String], inG
   def ignoreStdLibMinorVersion(v: String): String =
     if (isStdLib) v.substring(0, v.lastIndexOf(".")) else v
 
-  def libraryVersionOrDefault = libraryVersion map ignoreStdLibMinorVersion getOrElse "0.0-unknown"
+  def libraryVersionOrDefault = libraryVersion.map(ignoreStdLibMinorVersion).getOrElse("0.0-unknown")
 
   def version(digest: Digest): String =
     IArray

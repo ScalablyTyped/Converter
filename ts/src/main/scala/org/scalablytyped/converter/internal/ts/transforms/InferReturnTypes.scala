@@ -7,15 +7,15 @@ import org.scalablytyped.converter.internal.ts.ParentsResolver.InterfaceOrClass
 object InferReturnTypes extends TreeTransformationScopedChanges {
   override def enterTsMemberFunction(scope: TsTreeScope)(x: TsMemberFunction): TsMemberFunction = {
     val ownerOpt: Option[InterfaceOrClass] =
-      scope.stack collectFirst { case ioc: InterfaceOrClass => ioc }
+      scope.stack.collectFirst { case ioc: InterfaceOrClass => ioc }
 
     (x.name, x.signature, ownerOpt) match {
       case (TsIdent.constructor, _, _) => x
       case (_, TsFunSig(_, _, params, None), Some(owner)) =>
         val rewrittenOpt: Option[TsMemberFunction] =
-          ParentsResolver(scope, owner).parents firstDefined { descendant =>
-            descendant.membersByName get x.name flatMap { sameNames =>
-              sameNames collectFirst {
+          ParentsResolver(scope, owner).parents.firstDefined { descendant =>
+            descendant.membersByName.get(x.name).flatMap { sameNames =>
+              sameNames.collectFirst {
                 case TsMemberFunction(
                     _,
                     _,
@@ -32,10 +32,10 @@ object InferReturnTypes extends TreeTransformationScopedChanges {
 
         rewrittenOpt match {
           case Some(rewritten) =>
-            scope.logger debug s"Inferred return type"
+            scope.logger.debug(s"Inferred return type")
             rewritten
           case None =>
-            scope.logger info s"Could not infer return type"
+            scope.logger.info(s"Could not infer return type")
             x
         }
       case _ => x

@@ -6,7 +6,7 @@ object KeepTypesOnly {
   def apply(x: TsContainerOrDecl): Option[TsContainerOrDecl] =
     x match {
       case e @ TsExport(_, _, _, TsExporteeTree(decl)) =>
-        apply(decl) flatMap {
+        apply(decl).flatMap {
           case d: TsNamedDecl => Some(e.copy(exported = TsExporteeTree(d)))
           case _ => Some(e)
         }
@@ -18,7 +18,7 @@ object KeepTypesOnly {
     case _: TsDeclVar | _: TsDeclFunction => None
     case TsDeclClass(comments, declared, _, name, tparams, parent, implements, members, _, _) =>
       val nonStatics: IArray[TsMember] =
-        members filterNot {
+        members.filterNot {
           case _:  TsMemberCtor     => true
           case xx: TsMemberProperty => xx.isStatic
           case xx: TsMemberFunction => xx.isStatic || xx.name === TsIdent.constructor
@@ -37,8 +37,8 @@ object KeepTypesOnly {
         ),
       )
 
-    case x: TsDeclNamespace   => Some(x.copy(members = x.members mapNotNone apply))
-    case x: TsAugmentedModule => Some(x.copy(members = x.members mapNotNone apply))
+    case x: TsDeclNamespace   => Some(x.copy(members = x.members.mapNotNone(apply)))
+    case x: TsAugmentedModule => Some(x.copy(members = x.members.mapNotNone(apply)))
     case x: TsDeclEnum        => Some(x.copy(isValue = false))
     case other => Some(other)
   }

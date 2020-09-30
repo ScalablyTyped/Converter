@@ -74,7 +74,7 @@ final class CommentTests extends AnyFunSuite with Matchers {
           |""".stripMargin,
       )
 
-    value.comments.cs zip expecteds.cs foreach {
+    value.comments.cs.zip(expecteds.cs).foreach {
       case (actual, expected) => actual should equal(expected)
     }
   }

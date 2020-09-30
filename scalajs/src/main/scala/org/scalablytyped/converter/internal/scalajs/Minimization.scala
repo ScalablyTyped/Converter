@@ -61,7 +61,7 @@ object Minimization {
           queue = tail
         case head :: tail =>
           val trees: IArray[Tree] =
-            globalScope lookup head map (_._1)
+            globalScope.lookup(head).map(_._1)
 
           val relatedRefs: IArray[TypeRef] =
             trees.flatMap { t =>

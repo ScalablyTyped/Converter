@@ -33,7 +33,7 @@ object Main {
       withZipFs(defaultCacheFolder / "npmjs.zip") { npmjsPath =>
         withZipFs.maybe(defaultCacheFolder / "parseCache.zip", config.enableParseCache && config.conserveSpace) {
           parseCachePathOpt =>
-            val parseCacheOpt: Option[Path] = parseCachePathOpt orElse {
+            val parseCacheOpt: Option[Path] = parseCachePathOpt.orElse {
               if (config.enableParseCache) Some((defaultCacheFolder / "parse").toNIO) else None
             }
             val paths =

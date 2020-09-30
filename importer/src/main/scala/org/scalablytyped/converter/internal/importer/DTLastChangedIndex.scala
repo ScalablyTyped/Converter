@@ -30,7 +30,7 @@ object DTLastChangedIndex {
   }
 
   private def withParentParts(relPath: os.RelPath): Seq[os.RelPath] =
-    0 to relPath.segments.length map { n =>
+    (0 to relPath.segments.length).map { n =>
       os.RelPath(relPath.segments.take(n), 0)
     }
   final case object No extends DTLastChangedIndex {
@@ -47,7 +47,7 @@ object DTLastChangedIndex {
     val head = cmd.run.git("rev-parse", "HEAD").out.lines.head
 
     FileLocking.cachedValue((cacheDir / head).toNIO, DevNull) {
-      val res         = cmd.run git ('log, "--raw", "--pretty=format:%ct")
+      val res         = cmd.run.git('log, "--raw", "--pretty=format:%ct")
       var changedTime = System.currentTimeMillis() / 1000L
       val lastChanged = mutable.Map.empty[os.RelPath, Long]
 

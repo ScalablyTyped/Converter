@@ -9,15 +9,17 @@ import scala.util.parsing.combinator.Parsers
 object ParserHarness {
   implicit final class Forcer[T](res: Parsers#ParseResult[T]) {
     def force: T =
-      res getOrElse sys.error(
-        "Parse error at %s\n".format(res.next.pos.toString) +
-          res.asInstanceOf[Parsers#NoSuccess].msg + "\n" +
-          res.next.pos.longString,
+      res.getOrElse(
+        sys.error(
+          "Parse error at %s\n".format(res.next.pos.toString) +
+            res.asInstanceOf[Parsers#NoSuccess].msg + "\n" +
+            res.next.pos.longString,
+        ),
       )
   }
 
   def withTsFile[T](resourceName: String)(f: String => T): T =
-    f(files content InFile(os.Path(getClass.getResource(s"/$resourceName").getFile)))
+    f(files.content(InFile(os.Path(getClass.getResource(s"/$resourceName").getFile))))
 
   def parseAs[T](input: String, parser: String => Parsers#ParseResult[T]): T =
     parser(input).force

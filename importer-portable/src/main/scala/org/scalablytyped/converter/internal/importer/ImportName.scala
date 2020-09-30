@@ -6,7 +6,7 @@ import org.scalablytyped.converter.internal.ts._
 
 object ImportName {
   def skipConversion(i:     TsIdent):  Name          = Name(i.value)
-  def skipConversion(ident: TsQIdent): QualifiedName = QualifiedName(ident.parts map skipConversion)
+  def skipConversion(ident: TsQIdent): QualifiedName = QualifiedName(ident.parts.map(skipConversion))
 
   def unapply(x: TsIdentSimple): Some[Name] =
     Some(apply(x))

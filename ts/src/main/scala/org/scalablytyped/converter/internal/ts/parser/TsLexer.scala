@@ -81,10 +81,10 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
       c === '$' || c.isUnicodeIdentifierPart
 
     val identifierStart: Parser[Char] =
-      elem("", isIdentifierStart) | (pseudoChar filter isIdentifierStart)
+      elem("", isIdentifierStart) | (pseudoChar.filter(isIdentifierStart))
 
     val identifierPart: Parser[Char] =
-      elem("", isIdentifierPart) | (pseudoChar filter isIdentifierPart)
+      elem("", isIdentifierPart) | (pseudoChar.filter(isIdentifierPart))
 
     stringOf1(identifierStart, identifierPart) ^^ { x =>
       if (keywords contains x) Keyword(x) else Identifier(x)
@@ -130,7 +130,9 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
       "...", "=>", "-?", "+?", "-readonly",
     )
     // format: on
-    (delimiters.sortBy(_.length) map parseDelim)
+    delimiters
+      .sortBy(_.length)
+      .map(parseDelim)
       .foldRight(failure("no matching delimiter"): Parser[Keyword])((x, y) => y | x)
   }
 
@@ -144,7 +146,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
   }
 
   override val whitespace: Parser[Any] =
-    (whitespaceChar | '\uFEFF' | '\uFFFE' | '\u00a0').* named "whitespace"
+    (whitespaceChar | '\uFEFF' | '\uFFFE' | '\u00a0').*.named("whitespace")
 
   val directive: Parser[DirectiveToken] = {
     val quote: Parser[Char] =
@@ -167,13 +169,13 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
       (whitespaceChar.* ~ '/' ~ '/' ~ rep(chrExcept(EofCh, '\n', '\r'))) ^^ {
         case cs1 ~ c1 ~ c2 ~ cs2 =>
           s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}\n"
-      } map CommentLineToken
+      }.map(CommentLineToken)
 
     val blockOneLine: Parser[CommentBlockToken] =
       (whitespaceChar.* ~ '/' ~ '*' ~ rep(not('*' ~ '/') ~> chrExcept(EofCh, '\n', '\r')) ~ '*' ~ '/' ~ whitespaceChar.*) ^^ {
         case cs1 ~ c1 ~ c2 ~ cs2 ~ c3 ~ c4 ~ cs3 =>
           s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}$c3$c4${chars2string(cs3)}"
-      } map CommentBlockToken
+      }.map(CommentBlockToken)
 
     val oneLineAfterDelim: Parser[CommentLineTokenAfterDelim] =
       ((',': Parser[Char]) | ';') ~ (oneLine | (blockOneLine <~ (newLine | EofCh))) ^^ {
@@ -186,7 +188,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
         case cs1 ~ c1 ~ c2 ~ cs2 ~ c3 ~ c4 ~ cs3 ~ cs4 =>
           s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}$c3$c4${chars2string(cs3)}${chars2string(cs4)}"
             .replaceAll("\r", "")
-      } map CommentBlockToken
+      }.map(CommentBlockToken)
 
     not(directive) ~> oneLineAfterDelim | oneLine | block
   }
@@ -196,6 +198,6 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
 
     val ignore = (newLine | whitespaceChar).*
 
-    (ignore ~> base <~ ignore) | failure("illegal character") named "token"
+    (ignore ~> base <~ ignore) | failure("illegal character").named("token")
   }
 }

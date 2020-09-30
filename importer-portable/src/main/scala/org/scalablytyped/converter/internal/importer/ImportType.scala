@@ -10,7 +10,7 @@ import org.scalablytyped.converter.internal.ts.transforms.ExtractInterfaces
 class ImportType(stdNames: QualifiedName.StdNames) {
 
   def orAny(wildcards: Wildcards, scope: TsTreeScope, importName: AdaptiveNamingImport)(ott: Option[TsType]): TypeRef =
-    ott map apply(wildcards, scope, importName) getOrElse TypeRef.Any
+    ott.map(apply(wildcards, scope, importName)).getOrElse(TypeRef.Any)
 
   def orExprOrAny(wildcards: Wildcards, scope: TsTreeScope, importName: AdaptiveNamingImport)(
       ott:                   Option[TsType],
@@ -80,7 +80,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
           case other =>
             lazy val isInheritance = IsInheritance(other, scope)
-            lazy val targs2        = targs map apply(wildcards.maybeAllow, scope, importName)
+            lazy val targs2        = targs.map(apply(wildcards.maybeAllow, scope, importName))
 
             Mappings.get(other) match {
               case Some(m: RefMapping)  => m.pick(isInheritance).withComments(cs)
@@ -109,12 +109,14 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
         def c = Comments(Comment.warning(s"Unsupported type mapping: \n${TsTypeFormatter(tpe)}\n"))
 
-        scope.stack collectFirst {
-          case x: TsDeclTypeAlias if x.codePath.forceHasPath.codePath === TsQIdent.Std.Record =>
-            TypeRef.StringDictionary(TypeRef(ImportName(x.tparams(1).name)), NoComments)
-          case x: TsNamedDecl =>
-            TypeRef.Intersection(IArray(TypeRef.StringLiteral(x.name.value), TypeRef.TopLevel(base)), c)
-        } getOrElse base.withComments(c)
+        scope.stack
+          .collectFirst {
+            case x: TsDeclTypeAlias if x.codePath.forceHasPath.codePath === TsQIdent.Std.Record =>
+              TypeRef.StringDictionary(TypeRef(ImportName(x.tparams(1).name)), NoComments)
+            case x: TsNamedDecl =>
+              TypeRef.Intersection(IArray(TypeRef.StringLiteral(x.name.value), TypeRef.TopLevel(base)), c)
+          }
+          .getOrElse(base.withComments(c))
 
       case TsTypeObject(_, ms) if ExtractInterfaces.isDictionary(ms) =>
         val (numbers, strings, Empty) = ms.partitionCollect2(
@@ -169,7 +171,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
           TypeRef.Function(
             thisType,
-            restParams map funParam(wildcards, scope, importName),
+            restParams.map(funParam(wildcards, scope, importName)),
             orAny(wildcards.maybeAllow, scope, importName)(newSig.resultType),
             newSig.comments,
           )
@@ -186,14 +188,14 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             }
           }
 
-        val rewritten = patched map {
+        val rewritten = patched.map {
           case TsTypeRef.undefined => TypeRef.undefined
           case other               => apply(wildcards, scope, importName)(other)
         }
         TypeRef.Union(rewritten, NoComments, sort = false)
 
       case TsTypeIntersect(types) =>
-        TypeRef.Intersection(types map apply(Wildcards.No, scope, importName), NoComments)
+        TypeRef.Intersection(types.map(apply(Wildcards.No, scope, importName)), NoComments)
 
       case TsTypeConstructor(TsTypeFunction(sig)) =>
         newableFunction(scope, importName, sig, NoComments)
@@ -228,7 +230,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
                 TypeRef(importName(TsQIdent.Array), Empty, Comments(c))
             }
           case nonRepeating =>
-            TypeRef.Tuple(nonRepeating map apply(wildcards.maybeAllow, scope, importName))
+            TypeRef.Tuple(nonRepeating.map(apply(wildcards.maybeAllow, scope, importName)))
         }
 
       case TsTypeRepeated(underlying) =>
@@ -272,7 +274,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
     *    The latter is the least useful, so let's rewrite it to any
     */
   def unify(types: IArray[TsType]): TsType =
-    TsTypeUnion.simplified(types filterNot toIgnore) match {
+    TsTypeUnion.simplified(types.filterNot(toIgnore)) match {
       case TsTypeRef.never => TsTypeRef.any
       case other           => other
     }
@@ -284,7 +286,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       comments:   Comments,
   ): TypeRef = {
     /* get rid of type parameters and fill them with bound / object */
-    val targs = _sig.tparams.map(p => p.upperBound getOrElse TsTypeRef.`object`)
+    val targs = _sig.tparams.map(p => p.upperBound.getOrElse(TsTypeRef.`object`))
     val sig   = ts.FillInTParams(_sig, targs)
 
     val params: IArray[TypeRef] =

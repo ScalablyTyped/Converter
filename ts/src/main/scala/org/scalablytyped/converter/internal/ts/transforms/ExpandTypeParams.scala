@@ -65,7 +65,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
     }
 
   override def newMembers(scope: TsTreeScope, x: TsContainer): IArray[TsContainerOrDecl] =
-    x.members flatMap {
+    x.members.flatMap {
       case m @ TsDeclFunction(_, _, name, sig, _, _) =>
         expandTParams(scope / m, sig) match {
           case None => IArray(m)
@@ -104,7 +104,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
       },
     )
 
-    tp.upperBound flatMap { bound =>
+    tp.upperBound.flatMap { bound =>
       flatPick(bound).partitionCollect2(KeyOf, TypeRef(scope)) match {
         case (Distinct(keyOfs), Distinct(typeRefs), Distinct(keepInBounds))
             if keyOfs.nonEmpty || (typeRefs.filterNot(x => OptionalType.undefineds(x.value)).length > 1 && isParam) =>

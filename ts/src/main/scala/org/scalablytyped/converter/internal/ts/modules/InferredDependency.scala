@@ -35,7 +35,7 @@ object InferredDependency {
   }
 
   private def inferNode(nonResolvedModules: Set[TsIdentModule]): Option[TsIdentLibrary] =
-    nonResolvedModules filter NodeModules match {
+    nonResolvedModules.filter(NodeModules) match {
       case NonEmptySet(_) => Option(TsIdentLibrarySimple("node"))
       case _              => None
     }
@@ -89,5 +89,5 @@ object InferredDependency {
     "console",
     "async_hooks",
     "http2",
-  ) map TsIdentModule.simple
+  ).map(TsIdentModule.simple)
 }

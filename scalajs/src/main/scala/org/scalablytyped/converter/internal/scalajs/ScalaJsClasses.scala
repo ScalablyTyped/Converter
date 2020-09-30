@@ -85,10 +85,8 @@ object ScalaJsClasses {
         IArray(ParamTree(Name.This, false, isVal = false, TypeRef.ThisType(NoComments), NotImplemented, NoComments))
       else Empty
 
-    val inputParams = 0 until arity map (
-        n =>
-          ParamTree(T(n), false, isVal = false, TypeRef(T(n)), NotImplemented, NoComments),
-      )
+    val inputParams =
+      (0 until arity).map(n => ParamTree(T(n), false, isVal = false, TypeRef(T(n)), NotImplemented, NoComments))
     val R        = TypeRef(Name("R"))
     val codePath = QualifiedName.FunctionArity(isThis, arity)
 
@@ -111,7 +109,7 @@ object ScalaJsClasses {
       if (isThis) IArray(TypeParamTree(Name.This, Empty, None, NoComments)) else Empty
 
     val inputTParams: IArray[TypeParamTree] =
-      IArray.fromTraversable(0 until arity map (n => TypeParamTree(T(n), Empty, None, NoComments)))
+      IArray.fromTraversable((0 until arity).map(n => TypeParamTree(T(n), Empty, None, NoComments)))
 
     val outputTParams: IArray[TypeParamTree] =
       IArray(TypeParamTree(R.name, Empty, None, NoComments))
@@ -162,7 +160,7 @@ object ScalaJsClasses {
     )
 
   val Functions: IArray[ClassTree] =
-    IArray.fromTraversable(0 to 22 flatMap (n => List(ScalaJsF(isThis = false, n), ScalaJsF(isThis = true, n))))
+    IArray.fromTraversable((0 to 22).flatMap(n => List(ScalaJsF(isThis = false, n), ScalaJsF(isThis = true, n))))
 
   val ScalaJsTypes: Map[QualifiedName, Tree] =
     (Functions ++ IArray(

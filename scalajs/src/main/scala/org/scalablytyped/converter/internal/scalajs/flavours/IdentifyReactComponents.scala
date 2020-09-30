@@ -348,7 +348,7 @@ class IdentifyReactComponents(
         case _ => None
       }
 
-    fieldResult orElse isAliasToFC
+    fieldResult.orElse(isAliasToFC)
   }
 
   def maybeClassComponent(cls: ClassTree, owner: ContainerTree, scope: TreeScope): Option[Component] =
@@ -379,7 +379,7 @@ class IdentifyReactComponents(
         .takeWhile(n => !n.unescaped.endsWith("Mod") && n.unescaped != "mod")
         .headOption
 
-      val name = fromCodePath orElse fromAnnotations(anns)
+      val name = fromCodePath.orElse(fromAnnotations(anns))
 
       IArray
         .fromOption(name)
@@ -394,7 +394,7 @@ class IdentifyReactComponents(
     }
 
     def fromAnnotations(anns: IArray[Annotation]): Option[Name] =
-      anns collectFirst {
+      anns.collectFirst {
         case Annotation.JsName(name)                                                  => name
         case Annotation.JsImport(_, Imported.Named(names), _) if !Unnamed(names.last) => names.last
         case Annotation.JsImport(mod, _, _) =>
@@ -453,7 +453,7 @@ class IdentifyReactComponents(
               case Imported.Named(name) => Imported.Named(name :+ tree.name)
             }
 
-          val newGlobal = globalOpt map {
+          val newGlobal = globalOpt.map {
             case Annotation.JsGlobal(old) => Annotation.JsGlobal(old + tree.name)
           }
 

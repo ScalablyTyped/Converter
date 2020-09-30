@@ -88,7 +88,7 @@ object ExtractClasses extends TransformLeaveMembers {
         if (potentialName === TsIdent.namespaced) TsIdent.namespacedCls
         else TsIdentSimple(potentialName.value + "Cls")
 
-      availableTypeName(potentialName) orElse availableTypeName(backupName)
+      availableTypeName(potentialName).orElse(availableTypeName(backupName))
     }
 
     def availableTypeName(potentialName: TsIdentSimple): Option[TsIdentSimple] =
@@ -122,7 +122,7 @@ object ExtractClasses extends TransformLeaveMembers {
 
         /* extract named constructors inside the value into proper classes in a namespace, if possible */
         val newNamespacesAndV: IArray[TsNamedValueDecl] =
-          allMembers collect typeCtorToClass(scope, findName, jsLocation, cp) match {
+          allMembers.collect(typeCtorToClass(scope, findName, jsLocation, cp)) match {
             case IArray.Empty => namespaces :+ v
             case some =>
               val inlinedVar = v.copy(name = TsIdent.namespaced, codePath = cp + TsIdent.namespaced)
@@ -154,7 +154,7 @@ object ExtractClasses extends TransformLeaveMembers {
 
               /* keep only constructors with compatible type parameters and return type */
               val ctors: IArray[TsMemberFunction] =
-                ctorsBase collect {
+                ctorsBase.collect {
                   case (ctor, _)
                       if longestTParams.startsWith(ctor.signature.tparams) &&
                         ctor.signature.resultType.contains(resultType) =>
@@ -169,7 +169,7 @@ object ExtractClasses extends TransformLeaveMembers {
                     )
                 }
 
-              findName(name) map { clsName =>
+              findName(name).map { clsName =>
                 TsDeclClass(
                   comments   = NoComments,
                   declared   = declared,
@@ -180,7 +180,7 @@ object ExtractClasses extends TransformLeaveMembers {
                   implements = Empty,
                   members    = ctors,
                   jsLocation = jsLocation,
-                  codePath   = cp replaceLast clsName,
+                  codePath   = cp.replaceLast(clsName),
                 )
               }
 

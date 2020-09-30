@@ -36,7 +36,7 @@ object AllMembersFor {
     _loopDetector.including(typeRef, scope) match {
       case Left(()) => Empty
       case Right(newLoopDetector) =>
-        scope.lookupInternal(Picker.Types, typeRef.name.parts, newLoopDetector) flatMap {
+        scope.lookupInternal(Picker.Types, typeRef.name.parts, newLoopDetector).flatMap {
           case (x: TsDeclInterface, newScope) =>
             forInterface(newLoopDetector, x, newScope, typeRef.tparams)
 
@@ -45,7 +45,7 @@ object AllMembersFor {
               case TsDeclClass(_, _, _, _, _, parent, implements, members, _, _) =>
                 handleOverridingFields(
                   members,
-                  implements ++ IArray.fromOption(parent) flatMap apply(newScope, newLoopDetector),
+                  (implements ++ IArray.fromOption(parent)).flatMap(apply(newScope, newLoopDetector)),
                 )
             }
 
@@ -64,6 +64,6 @@ object AllMembersFor {
   ): IArray[TsMember] =
     FillInTParams(x, tparams) match {
       case TsDeclInterface(_, _, _, _, inheritance, members, _) =>
-        handleOverridingFields(members, inheritance flatMap AllMembersFor(newScope, loopDetector))
+        handleOverridingFields(members, inheritance.flatMap(AllMembersFor(newScope, loopDetector)))
     }
 }

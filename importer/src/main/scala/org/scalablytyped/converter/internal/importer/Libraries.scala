@@ -268,9 +268,11 @@ object Libraries {
       "koa-compose",
       // not installable on linux
       "fsevents",
-    ) map TsIdentLibrary.apply
+    ).map(TsIdentLibrary.apply)
 
-  val Slow = SortedSet("@pulumi/aws", "aws-sdk", "googleapis", "@material-ui/core", "@storybook/components") map TsIdentLibrary.apply
+  val Slow = SortedSet("@pulumi/aws", "aws-sdk", "googleapis", "@material-ui/core", "@storybook/components").map(
+    TsIdentLibrary.apply,
+  )
 
   /* These are all the libraries used in demos. The set doubles as the extended test set */
   val DemoSet: SortedSet[TsIdentLibrary] = expo ++ SortedSet(

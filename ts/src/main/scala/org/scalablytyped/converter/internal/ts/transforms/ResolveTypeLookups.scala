@@ -10,7 +10,7 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
     x match {
       case TsTypeLookup(TsTypeTuple(tparams), TsTypeRef.number) => TsTypeUnion(tparams)
       case lookup: TsTypeLookup =>
-        expandLookupType(scope, lookup) getOrElse x
+        expandLookupType(scope, lookup).getOrElse(x)
 
       case other => other
     }
@@ -22,7 +22,7 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
       case ExpandTypeMappings.Ok(keys, _) =>
         def go(tpe: TsType): Option[TsType] =
           FollowAliases(scope)(tpe) match {
-            case TsTypeRef(_, name, _) if scope isAbstract name => None
+            case TsTypeRef(_, name, _) if scope.isAbstract(name) => None
             case fromTypeRef: TsTypeRef =>
               val members = AllMembersFor(scope, LoopDetector.initial)(fromTypeRef)
               pick(members, keys)
@@ -47,7 +47,7 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
         case TsMemberIndex(_, _, _, _, valueType) => valueType.getOrElse(TsTypeRef.any)
       }
     } else
-      TsTypeUnion.simplified(IArray.fromTraversable(strings.map(x => pick(members, x.lit))) filterNot toIgnore) match {
+      TsTypeUnion.simplified(IArray.fromTraversable(strings.map(x => pick(members, x.lit))).filterNot(toIgnore)) match {
         case TsTypeRef.never => None
         case other           => Some(other)
       }
@@ -55,7 +55,7 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
   def pick(members: IArray[TsMember], wanted: TsLiteral): TsType = {
     val (functions, fields, _) = members.partitionCollect2(
       { case TsMemberFunction(_, _, TsIdent(wanted.literal), MethodType.Normal, sig, NonStatic, _) => sig }, {
-        case TsMemberProperty(_, _, TsIdent(wanted.literal), tpeOpt, _, NonStatic, _)              => tpeOpt getOrElse TsTypeRef.any
+        case TsMemberProperty(_, _, TsIdent(wanted.literal), tpeOpt, _, NonStatic, _)              => tpeOpt.getOrElse(TsTypeRef.any)
       },
     )
     val combinedFunctions: Option[TsType] = functions.distinct match {
@@ -65,6 +65,6 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
         Some(TsTypeObject(NoComments, more.map(sig => TsMemberCall(NoComments, ProtectionLevel.Default, sig))))
     }
 
-    TsTypeIntersect.simplified(combinedFunctions.foldLeft(fields)(_ :+ _) filterNot toIgnore)
+    TsTypeIntersect.simplified(combinedFunctions.foldLeft(fields)(_ :+ _).filterNot(toIgnore))
   }
 }

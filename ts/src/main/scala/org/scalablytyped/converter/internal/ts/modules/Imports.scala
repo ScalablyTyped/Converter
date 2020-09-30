@@ -19,7 +19,7 @@ object Imports {
     }
 
     val ret: IArray[(T, TsTreeScope)] =
-      pickImport(imports, wanted) flatMap { chosenImport =>
+      pickImport(imports, wanted).flatMap { chosenImport =>
         val expanded: ExpandedMod = expandImportee(chosenImport.from, scope, loopDetector)
 
         chosenImport.imported.flatMap {
@@ -118,7 +118,7 @@ object Imports {
 
     val ret: ExpandedMod = from match {
       case TsImporteeRequired(fromModule) =>
-        scope.moduleScopes get fromModule match {
+        scope.moduleScopes.get(fromModule) match {
           case Some(modScope @ TsTreeScope.Scoped(_, mod: TsDeclModule)) =>
             val newMod: TsDeclModule = CachedReplaceExports(modScope.`..`, loopDetector, mod)
 
@@ -145,7 +145,7 @@ object Imports {
         }
 
       case TsImporteeFrom(fromModule) =>
-        scope.moduleScopes get fromModule match {
+        scope.moduleScopes.get(fromModule) match {
           case Some(modScope @ TsTreeScope.Scoped(_, mod: TsDeclModule)) =>
             val newMod = CachedReplaceExports(modScope.`..`, loopDetector, mod)
 
@@ -185,20 +185,20 @@ object Imports {
   }
 
   def pickImport(imports: IArray[TsImport], wanted: IArray[TsIdent]): IArray[TsImport] =
-    imports mapNotNone validImport(wanted)
+    imports.mapNotNone(validImport(wanted))
 
   def validImport(wanted: IArray[TsIdent])(i: TsImport): Option[TsImport] =
     wanted match {
       case IArray.Empty => None
       case IArray.first(first) =>
-        val newImported: IArray[TsImported] = i.imported mapNotNone {
+        val newImported: IArray[TsImported] = i.imported.mapNotNone {
           case im @ TsImportedIdent(`first`) =>
             Some(im)
 
           case TsImportedIdent(_) => None
 
           case TsImportedDestructured(idents) =>
-            idents collectFirst {
+            idents.collectFirst {
               case t @ (`first`, None)    => TsImportedDestructured(IArray(t))
               case t @ (_, Some(`first`)) => TsImportedDestructured(IArray(t))
             }

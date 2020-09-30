@@ -128,7 +128,7 @@ object IArray {
       var updated = false
       while (i < buf.size && !updated) {
         val t = buf.get(i)
-        if (pf isDefinedAt t) {
+        if (pf.isDefinedAt(t)) {
           buf.set(i, pf(t))
           updated = true
         }
@@ -856,7 +856,7 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
   def indices: Range = 0 until length
 
   def sortBy[B](f: A => B)(implicit ord: Ordering[B]): IArray[A] =
-    sorted(ord on f)
+    sorted(ord.on(f))
 
   def sorted[B >: A <: AnyRef](implicit ord: Ordering[B]): IArray[A] =
     if (length < 2) this

@@ -22,7 +22,7 @@ case class Phase4Publish(publisher: Publisher.Enabled) extends Phase[Source, Pub
       v4:      IsCircular,
       logger:  Logger[Unit],
   ): PhaseRes[Source, PublishedSbtProject] =
-    getDeps(lib.project.deps.keys.to[SortedSet]) flatMap { deps: Map[Source, PublishedSbtProject] =>
+    getDeps(lib.project.deps.keys.to[SortedSet]).flatMap { deps: Map[Source, PublishedSbtProject] =>
       /** This is somewhat annoying. The bintry thing we deploy with insists on
         *  receiving already written files. We just wrote them locally for ivy, so... */
       val alreadyWrittenMavenFiles: MavenLayout[os.RelPath, os.Path] =

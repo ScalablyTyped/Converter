@@ -8,7 +8,7 @@ object SplitMethods extends TransformMembers with TransformClassMembers {
   val MaxNum = 50
 
   override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): IArray[TsMember] =
-    x.members flatMap {
+    x.members.flatMap {
       case x @ TsMemberCtor(_, _, sig @ TsFunSig(_, _, params, _)) if hasUnionType(params) =>
         RemoveComment.keepFirstOnly(split(sig).map(sig => x.copy(signature = sig)))
       case x @ TsMemberFunction(_, _, _, MethodType.Normal, sig @ TsFunSig(_, _, ps, _), _, _) if hasUnionType(ps) =>
@@ -19,7 +19,7 @@ object SplitMethods extends TransformMembers with TransformClassMembers {
     }
 
   override def newMembers(scope: TsTreeScope, x: TsContainer): IArray[TsContainerOrDecl] =
-    x.members flatMap {
+    x.members.flatMap {
       case x @ TsDeclFunction(_, _, _, sig @ TsFunSig(_, _, params, _), _, _) if hasUnionType(params) =>
         RemoveComment.keepFirstOnly(split(sig).map(sig => x.copy(signature = sig)))
       case other => IArray(other)

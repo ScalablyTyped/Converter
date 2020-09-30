@@ -14,7 +14,7 @@ object SimplifyRecursiveTypeAlias extends TreeTransformationScopedChanges {
         scope.logger.warn(msg)
         TsTypeRef.`object`.copy(comments = Comments(Comment.warning(msg)))
     }
-    rewrittenOpt getOrElse tr
+    rewrittenOpt.getOrElse(tr)
 
   }
 }

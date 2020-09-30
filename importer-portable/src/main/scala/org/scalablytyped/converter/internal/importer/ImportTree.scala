@@ -113,7 +113,7 @@ class ImportTree(
       case TsDeclVar(cs, _, _, _, Some(TsTypeObject(_, members)), None, location, codePath) =>
         val newCodePath = importName(codePath)
         val MemberRet(ctors, ms, inheritance, statics) =
-          members flatMap tsMember(scope, scalaJsDefined = false, importName, newCodePath)
+          members.flatMap(tsMember(scope, scalaJsDefined = false, importName, newCodePath))
 
         if (statics.nonEmpty || ctors.nonEmpty) {
           scope.logger.warn(s"Dropping static members from var ${statics.map(_.codePath)}")
@@ -176,17 +176,17 @@ class ImportTree(
       case TsDeclClass(cs, _, isAbstract, _, tparams, parent, implements, members, location, codePath) =>
         val newCodePath = importName(codePath)
         val MemberRet(ctors, ms, extraInheritance, statics: IArray[MemberTree]) =
-          members flatMap tsMember(scope, scalaJsDefined = false, importName, newCodePath)
+          members.flatMap(tsMember(scope, scalaJsDefined = false, importName, newCodePath))
 
         val anns    = ImportJsLocation(location)
-        val parents = IArray.fromOption(parent) ++ implements map importType(Wildcards.Prohibit, scope, importName)
+        val parents = (IArray.fromOption(parent) ++ implements).map(importType(Wildcards.Prohibit, scope, importName))
 
         val classType = if (isAbstract) ClassType.AbstractClass else ClassType.Class
         val cls = ClassTree(
           isImplicit  = false,
           annotations = anns,
           name        = newCodePath.parts.last,
-          tparams     = tparams map typeParam(scope, importName),
+          tparams     = tparams.map(typeParam(scope, importName)),
           parents     = parents ++ extraInheritance.sorted,
           ctors       = ctors,
           members     = ms,
@@ -224,7 +224,7 @@ class ImportTree(
 
         val newCodePath = importName(codePath)
         val MemberRet(ctors, ms, extraInheritance, _) =
-          members flatMap tsMember(scope, isScalaJsDefined, importName, newCodePath)
+          members.flatMap(tsMember(scope, isScalaJsDefined, importName, newCodePath))
         val parents = inheritance.map(importType(Wildcards.Prohibit, scope, importName))
 
         IArray(
@@ -232,7 +232,7 @@ class ImportTree(
             isImplicit  = false,
             annotations = anns,
             name        = newCodePath.parts.last,
-            tparams     = tparams map typeParam(scope, importName),
+            tparams     = tparams.map(typeParam(scope, importName)),
             parents     = parents ++ extraInheritance.sorted,
             ctors       = ctors,
             members     = ms,
@@ -248,7 +248,7 @@ class ImportTree(
         IArray(
           TypeAliasTree(
             name     = importedCp.parts.last,
-            tparams  = tparams map typeParam(scope, importName),
+            tparams  = tparams.map(typeParam(scope, importName)),
             alias    = importType(Wildcards.Prohibit, scope, importName)(alias),
             comments = cs,
             codePath = importedCp,
@@ -289,7 +289,7 @@ class ImportTree(
           case JsLocation.Module(modName, _)                                       => Some(modName.fragments.last)
           case _                                                                   => None
         }
-        strOpt map (h => CommentData(Markers.NameHint(h)))
+        strOpt.map(h => CommentData(Markers.NameHint(h)))
       case _ => None
     }
 
@@ -459,23 +459,24 @@ class ImportTree(
       case (ImportName.withJsNameAnnotation((name, annOpt)), Some(TsTypeObject(_, members)))
           if members.forall(_.isInstanceOf[TsMemberCall]) =>
         // alternative notation for overload methods
-        members.collect { case x: TsMemberCall => x } map (
-            call =>
-              MemberRet(
-                tsMethod(
-                  scope          = scope / call,
-                  importName     = importName,
-                  level          = call.level,
-                  name           = name,
-                  annOpt         = annOpt,
-                  cs             = call.comments,
-                  methodType     = MethodType.Normal,
-                  sig            = call.signature,
-                  scalaJsDefined = scalaJsDefined,
-                  ownerCP        = ownerCP,
-                ),
-                m.isStatic,
+        members
+          .collect { case x: TsMemberCall => x }
+          .map(call =>
+            MemberRet(
+              tsMethod(
+                scope          = scope / call,
+                importName     = importName,
+                level          = call.level,
+                name           = name,
+                annOpt         = annOpt,
+                cs             = call.comments,
+                methodType     = MethodType.Normal,
+                sig            = call.signature,
+                scalaJsDefined = scalaJsDefined,
+                ownerCP        = ownerCP,
               ),
+              m.isStatic,
+            ),
           )
 
       case (ImportName.withJsNameAnnotation(name, annOpt), tpeOpt: Option[TsType]) =>
@@ -520,12 +521,12 @@ class ImportTree(
     TypeParamTree(
       name       = ImportName(tp.name),
       params     = Empty,
-      upperBound = tp.upperBound map importType(Wildcards.No, scope / tp, importName),
+      upperBound = tp.upperBound.map(importType(Wildcards.No, scope / tp, importName)),
       comments   = tp.comments,
     )
 
   def tsFunParams(scope: TsTreeScope, importName: AdaptiveNamingImport, params: IArray[TsFunParam]): IArray[ParamTree] =
-    params map { param =>
+    params.map { param =>
       val tpe = importType.orAny(Wildcards.No, scope / param, importName)(param.tpe)
       ParamTree(ImportName(param.name), isImplicit = false, isVal = false, tpe, NotImplemented, param.comments)
     }
@@ -575,7 +576,7 @@ class ImportTree(
       annotations = IArray.fromOption(annOpt),
       level       = level,
       name        = correctedName,
-      tparams     = sig.tparams map typeParam(scope, importName),
+      tparams     = sig.tparams.map(typeParam(scope, importName)),
       params      = params,
       impl        = impl,
       resultType  = resultType,
@@ -594,7 +595,7 @@ class ImportTree(
 
       containedLiterals.distinct.toList.map(_.filter(_.isLetterOrDigit)).filter(_.nonEmpty) match {
         case suffix :: Nil =>
-          ret withSuffix suffix
+          ret.withSuffix(suffix)
         case _ => ret
       }
     }
@@ -611,7 +612,7 @@ class ImportTree(
       tsMembers:  IArray[TsContainerOrDecl],
       codePath:   CodePath,
   ): ModuleTree =
-    RewriteNamespaceMembers(tsMembers flatMap decl(scope)) match {
+    RewriteNamespaceMembers(tsMembers.flatMap(decl(scope))) match {
       case (inheritance, memberTrees, restTrees) =>
         val importedCp = importName(codePath)
 

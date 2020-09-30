@@ -38,10 +38,10 @@ class Phase1ReadTypescript(
     _.path.toString
 
   def ignoreModule(moduleNames: IArray[TsIdentModule]): Boolean =
-    moduleNames exists ignoreModule
+    moduleNames.exists(ignoreModule)
 
   def ignoreModule(modName: TsIdentModule): Boolean =
-    1 to modName.fragments.length exists (n => ignoredModulePrefixes(modName.fragments.take(n)))
+    (1 to modName.fragments.length).exists(n => ignoredModulePrefixes(modName.fragments.take(n)))
 
   override def apply(
       source:     Source,
@@ -71,7 +71,7 @@ class Phase1ReadTypescript(
             case (s, other) => sys.error(s"$s: Unexpected $other")
           }
 
-        PhaseRes.fromEither(source, parser(file)) flatMap { parsed: TsParsedFile =>
+        PhaseRes.fromEither(source, parser(file)).flatMap { parsed: TsParsedFile =>
           val (
             pathRefsR: Set[PhaseRes[Source, Source]],
             typeRefsR: Set[PhaseRes[Source, Source]],
@@ -96,14 +96,14 @@ class Phase1ReadTypescript(
 
           for {
             /* Ensure we resolved all modules referenced by a path directive */
-            pathRefs <- PhaseRes sequenceSet (pathRefsR ++ libRefsR)
+            pathRefs <- PhaseRes.sequenceSet(pathRefsR ++ libRefsR)
             /* Assert all path directive referenced modules are files (not libraries) */
-            toInline <- getDeps(pathRefs.sorted) map assertPartsOnly
+            toInline <- getDeps(pathRefs.sorted).map(assertPartsOnly)
 
             withoutDirectives = parsed.copy(directives = IArray.Empty)
 
             /* Ensure we resolved all modules referenced by a type reference directive */
-            typeReferencedDeps <- PhaseRes sequenceSet typeRefsR
+            typeReferencedDeps <- PhaseRes.sequenceSet(typeRefsR)
 
             /* Resolve all references to other modules in `from` clauses, rename modules */
             withExternals = ResolveExternalReferences(resolve, source.asInstanceOf[TsSource], withoutDirectives, L)
@@ -114,7 +114,7 @@ class Phase1ReadTypescript(
               withExternals.unresolvedDeps,
               L,
             )
-            inferredDeps <- PhaseRes sequenceSet (inferredDepNames map (n => resolveDep(n.value)))
+            inferredDeps <- PhaseRes.sequenceSet(inferredDepNames.map(n => resolveDep(n.value)))
 
             /* look up all resulting dependencies */
             deps <- getDeps((withExternals.resolvedDeps ++ typeReferencedDeps ++ inferredDeps).sorted)
@@ -153,7 +153,7 @@ class Phase1ReadTypescript(
                   },
                 )
 
-          getDeps((fileSources ++ declaredDependencies ++ stdlibSourceOpt).sorted) map {
+          getDeps((fileSources ++ declaredDependencies ++ stdlibSourceOpt).sorted).map {
             case Unpack(
                 libParts: SortedMap[Source.TsHelperFile, FileAndInlinesFlat],
                 deps:     SortedMap[Source.TsLibSource, LibTs],

@@ -18,7 +18,7 @@ class LibraryResolver(
   def module(current: TsSource, value: String): Option[(TsSource, TsIdentModule)] =
     value match {
       case LocalPath(localPath) =>
-        file(current.folder, localPath) map { value =>
+        file(current.folder, localPath).map { value =>
           val h = Source.helperFile(current.inLibrary)(value)
           (h, h.moduleNames.head)
         }
@@ -100,12 +100,12 @@ object LibraryResolver {
   }
 
   def file(folder: InFolder, fragment: String): Option[InFile] =
-    resolve(folder.path, fragment, fragment + ".ts", fragment + ".d.ts", fragment + "/index.d.ts") collectFirst {
+    resolve(folder.path, fragment, fragment + ".ts", fragment + ".d.ts", fragment + "/index.d.ts").collectFirst {
       case file if os.isFile(file) => InFile(file)
     }
 
   private def resolve(path: os.Path, frags: String*): IArray[os.Path] =
-    IArray(frags: _*).mapNotNone(frag => Option(path / os.RelPath(frag.dropWhile(_ === '/'))) filter files.exists)
+    IArray(frags: _*).mapNotNone(frag => Option(path / os.RelPath(frag.dropWhile(_ === '/'))).filter(files.exists))
 
   private object LocalPath {
     def unapply(s: String): Option[String] = if (s.startsWith(".")) Some(s) else None

@@ -77,7 +77,7 @@ object ExpandCallables extends TransformClassMembers {
   def callableTypes(scope: TsTreeScope)(tpe: TsType): Result =
     tpe match {
       case x: TsTypeFunction  => Expand(IArray((NoComments, x.signature)), keepOriginalMember = false)
-      case x: TsTypeIntersect => Result.combine(x.types map callableTypes(scope))
+      case x: TsTypeIntersect => Result.combine(x.types.map(callableTypes(scope)))
 
       case x: TsTypeObject =>
         val (callables, rest) = x.members.partitionCollect { case TsMemberCall(cs, _, signature) => (cs, signature) }

@@ -53,7 +53,7 @@ object CastConversion {
       conversions.groupBy(_.to.parts.filterNot(_ === Name.global)).exists { case (_, froms) => froms.length > 1 }
 
     def maybeRewrite(original: TypeRef, scope: TreeScope): Option[TypeRef] =
-      conversionsForTypeName get original.typeName map {
+      conversionsForTypeName.get(original.typeName).map {
         case CastConversion(_, to, tparams @ _*) =>
           val targs = IArray(tparams.map(tp => visitTypeRef(scope)(tp.eval(original.targs))): _*)
           original.copy(typeName = to, targs = targs)
@@ -100,7 +100,7 @@ object CastConversion {
     override def leaveTypeRef(scope: TreeScope)(original: TypeRef): TypeRef = UndoDamage(
       if (isRisky(scope)) original
       else
-        maybeRewrite(original, scope) orElse maybeRewrite(FollowAliases(scope)(original), scope) match {
+        maybeRewrite(original, scope).orElse(maybeRewrite(FollowAliases(scope)(original), scope)) match {
           case Some(rewritten) => rewritten
           case None =>
             original match {

@@ -8,7 +8,7 @@ object TreeTraverse {
   def collectIArray[T <: AnyRef](tree: IArray[Tree])(extract: PartialFunction[Tree, T]): IArray[T] = {
     val buf = IArray.Builder.empty[T]
 
-    tree foreach go(extract, buf)
+    tree.foreach(go(extract, buf))
 
     buf.result()
   }
@@ -21,9 +21,9 @@ object TreeTraverse {
     def rec(a: Any): Unit =
       a match {
         case x:  Tree if x ne tree  => go(extract, buf)(x)
-        case xs: TraversableOnce[_] => xs foreach rec
-        case xs: IArray[_]          => xs foreach rec
-        case p:  Product            => p.productIterator foreach rec
+        case xs: TraversableOnce[_] => xs.foreach(rec)
+        case xs: IArray[_]          => xs.foreach(rec)
+        case p:  Product            => p.productIterator.foreach(rec)
         case _ => ()
       }
 
@@ -36,9 +36,9 @@ object TreeTraverse {
     def rec(a: Any): Unit =
       a match {
         case x:  AnyRef if x ne tree => foreach(x)(run)
-        case xs: TraversableOnce[_]  => xs foreach rec
-        case xs: IArray[_]           => xs foreach rec
-        case p:  Product             => p.productIterator foreach rec
+        case xs: TraversableOnce[_]  => xs.foreach(rec)
+        case xs: IArray[_]           => xs.foreach(rec)
+        case p:  Product             => p.productIterator.foreach(rec)
         case _ => ()
       }
 

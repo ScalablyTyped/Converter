@@ -70,7 +70,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
           ImportTypings(
             input              = input,
             logger             = stLogger,
-            parseCacheDirOpt   = Some(cacheDir.toNIO resolve "parse"),
+            parseCacheDirOpt   = Some(cacheDir.toNIO.resolve("parse")),
             publishLocalFolder = publishLocalFolder,
             fromFolder         = fromFolder,
             targetFolder       = targetFolder,

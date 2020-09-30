@@ -8,7 +8,7 @@ object Optional {
   def unapply(tpe: TypeRef): Option[TypeRef] =
     tpe match {
       case TypeRef.Union(types, cs) =>
-        types partition isOptional match {
+        types.partition(isOptional) match {
           case (IArray.Empty, _) => None
           case (_, remaining)    => Some(TypeRef.Union(remaining, cs, sort = false))
         }
@@ -36,7 +36,7 @@ object Optionality {
   def apply(tpe: TypeRef): (Optionality, TypeRef) =
     tpe match {
       case TypeRef.Union(types, cs) =>
-        types partition Optional.isOptional match {
+        types.partition(Optional.isOptional) match {
           case (foundNulls, remaining) =>
             val opt = (foundNulls contains TypeRef.Null, foundNulls contains TypeRef.undefined) match {
               case (true, true)   => NullOrUndef

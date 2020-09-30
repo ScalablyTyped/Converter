@@ -104,9 +104,9 @@ object ShortenNames {
   def inScope(scope: TreeScope, longName: QualifiedName): Boolean =
     dropOuterPackages(scope).exists {
       case x: ContainerTree =>
-        x.index get longName.parts.last match {
+        x.index.get(longName.parts.last) match {
           case Some(trees) =>
-            trees exists {
+            trees.exists {
               case _: ClassTree     => true
               case _: TypeAliasTree => true
               case _ => false
@@ -169,9 +169,9 @@ object ShortenNames {
       }
 
     private def among(index: Map[Name, IArray[Tree]], longName: QualifiedName, methodsAreConflict: Boolean): Boolean =
-      index get longName.parts.last match {
+      index.get(longName.parts.last) match {
         case Some(trees) =>
-          trees exists {
+          trees.exists {
             case x: ClassTree     => x.codePath =/= longName
             case x: ModuleTree    => x.codePath =/= longName && methodsAreConflict
             case x: PackageTree   => x.codePath =/= longName

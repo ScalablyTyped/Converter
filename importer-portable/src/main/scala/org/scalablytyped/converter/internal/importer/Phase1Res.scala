@@ -54,7 +54,7 @@ object Phase1Res {
       val libs     = mutable.HashMap.empty[TsLibSource, LibTs]
 
       def go(m: Map[Source, Phase1Res]): Unit =
-        m foreach {
+        m.foreach {
           case (s: TsHelperFile, libPart: LibraryPart) =>
             if (!libParts.contains(s)) {
               def flatten(os: Option[Source], _f: FileAndInlinesRec): SortedMap[Source, TsParsedFile] = {
@@ -90,7 +90,7 @@ object Phase1Res {
     }
 
     def goLibs(libs: mutable.Map[TsLibSource, LibTs], ds: Map[TsLibSource, LibTs]): Unit =
-      ds foreach {
+      ds.foreach {
         case (s, lib) =>
           if (!libs.contains(s)) {
             libs(s) = lib

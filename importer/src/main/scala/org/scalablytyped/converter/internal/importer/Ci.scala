@@ -57,7 +57,7 @@ object Ci {
 
   object Config {
     def unapply(args: Array[String]): Some[Config] =
-      args partition (_ startsWith "-") match {
+      args.partition(_.startsWith("-")) match {
         case (flags, rest) =>
           val wantedLibNames: SortedSet[TsIdentLibrary] =
             (if (flags contains "-demoSet") Libraries.DemoSet else SortedSet[TsIdentLibrary]()) ++ rest.map(
@@ -144,14 +144,14 @@ object Ci {
 }
 
 class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoinPool, ec: ExecutionContext) {
-  val RunId                      = constants.DateTimePattern format LocalDateTime.now
+  val RunId                      = constants.DateTimePattern.format(LocalDateTime.now)
   private val storingErrorLogger = logging.storing()
   private val logsFolder         = files.existing(paths.cacheFolder / 'logs)
 
   private val logger = {
     val logFile = new FileWriter((logsFolder / s"${RunId}.log").toIO)
-    val base    = logging appendable logFile zipWith (storingErrorLogger filter LogLevel.error)
-    if (config.debugMode) base zipWith logging.stdout else base
+    val base    = logging.appendable(logFile).zipWith(storingErrorLogger.filter(LogLevel.error))
+    if (config.debugMode) base.zipWith(logging.stdout) else base
   }
 
   /* we use this to always output to stdout during initialization (before the user interface comes up) */
@@ -170,26 +170,26 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
       if (files.exists(projectFolder)) {
         implicit val wd = projectFolder
         if (!config.offline) {
-          Try(interfaceCmd.runVerbose git 'fetch)
+          Try(interfaceCmd.runVerbose.git('fetch))
         }
         if (!config.dontCleanProject) {
-          Try(interfaceCmd.runVerbose git ("clean", "-fdX")) // remove ignored files/folders
-          Try(interfaceCmd.runVerbose git ("clean", "-fd"))
-          Try(interfaceCmd.runVerbose git ('reset, "--hard", "origin/master"))
+          Try(interfaceCmd.runVerbose.git("clean", "-fdX")) // remove ignored files/folders
+          Try(interfaceCmd.runVerbose.git("clean", "-fd"))
+          Try(interfaceCmd.runVerbose.git('reset, "--hard", "origin/master"))
           Try(files.deleteAll(projectFolder / ".git/gc.log"))
-          Try(interfaceCmd.runVerbose git 'prune)
+          Try(interfaceCmd.runVerbose.git('prune))
         }
       } else
         Try {
           implicit val wd = paths.cacheFolder
-          interfaceCmd.runVerbose git ('clone, config.repo.toString)
-        } recover {
+          interfaceCmd.runVerbose.git('clone, config.repo.toString)
+        }.recover {
           case _ =>
             os.makeDir(projectFolder)
 
             implicit val wd = projectFolder
-            interfaceCmd.runVerbose git 'init
-            interfaceCmd.runVerbose git ("remote", "add", "origin", config.repo.toString)
+            interfaceCmd.runVerbose.git('init)
+            interfaceCmd.runVerbose.git("remote", "add", "origin", config.repo.toString)
         }
 
       projectFolder
@@ -359,9 +359,9 @@ target/
     interfaceLogger.warn(formattedDiff)
 
     if (config.debugMode && !config.forceCommit) {
-      interfaceLogger warn s"Not committing because of non-empty args ${config.wantedLibs.mkString(", ")}"
+      interfaceLogger.warn(s"Not committing because of non-empty args ${config.wantedLibs.mkString(", ")}")
     } else {
-      interfaceLogger warn "Generating sbt plugin..."
+      interfaceLogger.warn("Generating sbt plugin...")
 
       val sbtProjectDir = targetFolder / s"sbt-${config.projectName.value}"
 
@@ -388,7 +388,7 @@ target/
 
     pool.shutdown()
 
-    interfaceLogger warn "Writing logs"
+    interfaceLogger.warn("Writing logs")
 
     logRegistry.logs.foreach {
       case (libName, storeds) =>

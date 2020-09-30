@@ -88,7 +88,7 @@ final case class ClassTree(
   }
 
   def withSuffix[T: ToSuffix](t: T): ClassTree =
-    renamed(name withSuffix t)
+    renamed(name.withSuffix(t))
 }
 
 final case class ModuleTree(
@@ -131,10 +131,10 @@ final case class FieldTree(
 ) extends MemberTree {
 
   def withSuffix[T: ToSuffix](t: T): FieldTree =
-    renamed(name withSuffix t)
+    renamed(name.withSuffix(t))
 
   def originalName: Name =
-    annotations.collectFirst { case Annotation.JsName(name) => name } getOrElse name
+    annotations.collectFirst { case Annotation.JsName(name) => name }.getOrElse(name)
 
   def renamed(newName: Name): FieldTree =
     copy(
@@ -161,10 +161,10 @@ final case class MethodTree(
     isImplicit:  Boolean,
 ) extends MemberTree {
   def withSuffix[T: ToSuffix](t: T): MethodTree =
-    renamed(name withSuffix t)
+    renamed(name.withSuffix(t))
 
   def originalName: Name =
-    annotations.collectFirst { case Annotation.JsName(name) => name } getOrElse name
+    annotations.collectFirst { case Annotation.JsName(name) => name }.getOrElse(name)
 
   def renamed(newName: Name): MethodTree =
     copy(
@@ -343,7 +343,7 @@ object TypeRef {
 
   object Intersection {
     private def flattened(types: IArray[TypeRef]): IArray[TypeRef] =
-      types flatMap {
+      types.flatMap {
         case Intersection(inner, _) => inner
         case other                  => IArray(other)
       }
@@ -393,7 +393,7 @@ object TypeRef {
 
   object Union {
     private def flatten(types: IArray[TypeRef]): IArray[TypeRef] =
-      types flatMap {
+      types.flatMap {
         case TypeRef(QualifiedName.UNION, inner, _) => flatten(inner)
         case other                                  => IArray(other)
       }

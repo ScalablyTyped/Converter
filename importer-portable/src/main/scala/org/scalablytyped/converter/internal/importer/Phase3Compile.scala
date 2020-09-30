@@ -52,7 +52,7 @@ class Phase3Compile(
   ): PhaseRes[Source, PublishedSbtProject] = {
     val logger = _logger.withContext("flavour", flavour.toString)
 
-    getDeps(lib.dependencies.keys.map(x => x: Source).to[SortedSet]) flatMap {
+    getDeps(lib.dependencies.keys.map(x => x: Source).to[SortedSet]).flatMap {
       case PublishedSbtProject.Unpack(deps) =>
         val scope = new TreeScope.Root(
           libName       = lib.scalaName,
@@ -86,7 +86,7 @@ class Phase3Compile(
           declaredVersion = Some(lib.libVersion),
         )
 
-        val digest                = Digest.of(sbtLayout.all collect ScalaFiles)
+        val digest                = Digest.of(sbtLayout.all.collect(ScalaFiles))
         val finalVersion          = lib.libVersion.version(digest)
         val allFilesProperVersion = VersionHack.templateVersion(sbtLayout, finalVersion)
 
@@ -105,8 +105,8 @@ class Phase3Compile(
         val lockFile = jarFile / os.up / ".lock"
 
         FileLocking.withLock(lockFile.toNIO) { _ =>
-          if (existing.all.values forall files.exists) {
-            logger warn s"Using cached build $jarFile"
+          if (existing.all.values.forall(files.exists)) {
+            logger.warn(s"Using cached build $jarFile")
             PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, existing, None))
           } else {
 
@@ -122,7 +122,7 @@ class Phase3Compile(
             if (files.exists(compilerPaths.resourcesDir))
               os.copy.over(from = compilerPaths.resourcesDir, to = compilerPaths.classesDir, replaceExisting = true)
 
-            logger warn s"Building $jarFile..."
+            logger.warn(s"Building $jarFile...")
             val t0 = System.currentTimeMillis()
             val ret: PhaseRes[Source, PublishedSbtProject] =
               compiler.compile(lib.libName, digest, compilerPaths, jarDeps, flavour.dependencies) match {
@@ -141,7 +141,7 @@ class Phase3Compile(
                     }
 
                   val elapsed = System.currentTimeMillis - t0
-                  logger warn s"Built $jarFile in $elapsed ms"
+                  logger.warn(s"Built $jarFile in $elapsed ms")
 
                   PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, writtenIvyFiles, None))
 

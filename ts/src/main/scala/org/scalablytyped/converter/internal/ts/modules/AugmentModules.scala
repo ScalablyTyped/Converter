@@ -29,7 +29,7 @@ object AugmentModules {
             }
         case _ => None
       }
-    val codePath: CodePath = exportedNamespaceOpt getOrElse mod.codePath
+    val codePath: CodePath = exportedNamespaceOpt.getOrElse(mod.codePath)
     codePath.forceHasPath
   }
 

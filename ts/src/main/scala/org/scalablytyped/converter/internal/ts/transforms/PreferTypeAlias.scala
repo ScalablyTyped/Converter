@@ -127,12 +127,12 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
   def memberHack(tree: TsTree): TsTree =
     tree match {
       case x: TsDeclInterface =>
-        val newMembers = x.members collect {
+        val newMembers = x.members.collect {
           case x: TsMemberCall => x
         }
         x.copy(members = newMembers)
       case x: TsDeclClass =>
-        val newMembers = x.members collect {
+        val newMembers = x.members.collect {
           case x: TsMemberCall => x
         }
         x.copy(members = newMembers)
@@ -160,7 +160,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
     TsTreeTraverse.collect(minimizedTree) { case x: TsQIdent if x === self => x } match {
       case Empty =>
         val refs = TsTreeTraverse.collect(minimizedTree) { case x: TsTypeRef => x }.toSet
-        refs exists { ref =>
+        refs.exists { ref =>
           if (cache(ref)) false
           else
             scope

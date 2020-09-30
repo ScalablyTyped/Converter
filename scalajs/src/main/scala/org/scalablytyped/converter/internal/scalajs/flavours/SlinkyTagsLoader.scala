@@ -35,7 +35,7 @@ object SlinkyTagsLoader {
       parentsResolver,
     )
 
-    val ret = html.groupBy(_.tagName) map { case (name, IArray.first(ct)) => name -> ct }
+    val ret = html.groupBy(_.tagName).map { case (name, IArray.first(ct)) => name -> ct }
 
     val fallbackOpt = scope.lookup(reactNames.AllHTMLAttributes).collectFirst {
       case (_x: ClassTree, newScope) =>
@@ -44,7 +44,7 @@ object SlinkyTagsLoader {
         val parentMembers: IArray[Tree] =
           parentsResolver(newScope, x).transitiveParents.flatMapToIArray { case (_, v) => v.members }
 
-        val attrs = parentMembers ++ x.members collect {
+        val attrs = (parentMembers ++ x.members).collect {
           case FieldTree(_, name, Optional(tpe), _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
             name -> FollowAliases(newScope)(tpe)
           case FieldTree(_, name, tpe, _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
@@ -106,7 +106,7 @@ object SlinkyTagsLoader {
               parentsResolver(newnewScope, tagInterface).transitiveParents.flatMapToIArray { case (_, v) => v.members }
 
             val members: IArray[(Name, TypeRef)] =
-              parentMembers ++ tagInterface.members collect {
+              (parentMembers ++ tagInterface.members).collect {
                 case FieldTree(_, name, Optional(tpe), _, _, _, _, _) if attrs(name.unescaped) =>
                   name -> FollowAliases(newnewScope)(tpe)
                 case FieldTree(_, name, tpe, _, _, _, _, _) if attrs(name.unescaped) =>

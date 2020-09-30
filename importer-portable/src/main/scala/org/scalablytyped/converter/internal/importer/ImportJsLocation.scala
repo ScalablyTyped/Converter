@@ -29,7 +29,7 @@ object ImportJsLocation {
         case ModuleSpec.Specified(idents) =>
           Annotation.JsImport(
             module   = modName.value,
-            imported = Imported.Named(idents map ImportName.skipConversion),
+            imported = Imported.Named(idents.map(ImportName.skipConversion)),
             global   = globalOpt,
           )
       }

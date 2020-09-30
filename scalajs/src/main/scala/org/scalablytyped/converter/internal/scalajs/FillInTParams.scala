@@ -19,7 +19,7 @@ object FillInTParams {
         case None                  => newCls
         case Some((related, rest)) =>
           // https://en.wikipedia.org/wiki/Leaky_abstraction
-          val newRelated = CommentData(UnionToInheritance.WasUnion(related map rewriter.visitTypeRef(scope)))
+          val newRelated = CommentData(UnionToInheritance.WasUnion(related.map(rewriter.visitTypeRef(scope))))
           newCls.copy(comments = rest + newRelated)
       }
     }.copy(tparams = newTParams)
@@ -52,10 +52,13 @@ object FillInTParams {
       expectedTParams: IArray[TypeParamTree],
       providedTParams: IArray[TypeRef],
   ): Map[TypeRef, TypeRef] =
-    (expectedTParams zip providedTParams).map {
-      case (TypeParamTree(expected, _, _, _), provided) if provided.targs.nonEmpty =>
-        TypeRef(QualifiedName(IArray(expected)), Empty, NoComments) -> provided
-      case (TypeParamTree(expected, _, _, _), provided) =>
-        TypeRef(QualifiedName(IArray(expected)), Empty, NoComments) -> provided
-    }.toMap
+    expectedTParams
+      .zip(providedTParams)
+      .map {
+        case (TypeParamTree(expected, _, _, _), provided) if provided.targs.nonEmpty =>
+          TypeRef(QualifiedName(IArray(expected)), Empty, NoComments) -> provided
+        case (TypeParamTree(expected, _, _, _), provided) =>
+          TypeRef(QualifiedName(IArray(expected)), Empty, NoComments) -> provided
+      }
+      .toMap
 }

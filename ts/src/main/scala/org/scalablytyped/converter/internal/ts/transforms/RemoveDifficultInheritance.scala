@@ -17,7 +17,7 @@ import org.scalablytyped.converter.internal.maps._
   */
 object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
   override def enterTsDeclClass(scope: TsTreeScope)(s: TsDeclClass): TsDeclClass = {
-    val cleaned = IArray.fromOption(s.parent) ++ s.implements map cleanParentRef(scope)
+    val cleaned = (IArray.fromOption(s.parent) ++ s.implements).map(cleanParentRef(scope))
     Res.combine(cleaned) match {
       case Res(keep, drop, lifted) =>
         s.copy(
@@ -30,7 +30,7 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
   }
 
   override def enterTsDeclInterface(scope: TsTreeScope)(s: TsDeclInterface): TsDeclInterface =
-    Res.combine(s.inheritance map cleanParentRef(scope)) match {
+    Res.combine(s.inheritance.map(cleanParentRef(scope))) match {
       case Res(keep, drop, lifted) =>
         s.copy(
           inheritance = keep,
@@ -58,38 +58,41 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
 
       /* inline type aliases just to make things simpler */
       case tr: TsTypeRef =>
-        scope.lookupTypeIncludeScope(tr.name).collectFirst {
-          /* see through thin interfaces which might be translated into type aliases */
-          case (i @ TsDeclInterface(_, _, _, _, IArray.exactlyOne(_), Empty, _), newScope) =>
-            cleanParentRef(newScope)(FillInTParams(i, tr.tparams).inheritance.head)
+        scope
+          .lookupTypeIncludeScope(tr.name)
+          .collectFirst {
+            /* see through thin interfaces which might be translated into type aliases */
+            case (i @ TsDeclInterface(_, _, _, _, IArray.exactlyOne(_), Empty, _), newScope) =>
+              cleanParentRef(newScope)(FillInTParams(i, tr.tparams).inheritance.head)
 
-          case (found: TsDeclTypeAlias, newScope) =>
-            val rewritten = FillInTParams(found, tr.tparams)
+            case (found: TsDeclTypeAlias, newScope) =>
+              val rewritten = FillInTParams(found, tr.tparams)
 
-            rewritten.alias match {
-              case next: TsTypeRef => cleanParentRef(newScope)(next)
-              /* Flatten intersection types references by type alias, since it's not possible to extend them in scala */
-              case TsTypeIntersect(types) =>
-                Res.combine(types map {
-                  case next: TsTypeRef => cleanParentRef(newScope)(next)
-                  case TsTypeObject(_, members) if !ExtractInterfaces.isTypeMapping(members) =>
-                    Res(Empty, Empty, Map(tr -> members))
-                  case other => Res(Empty, other +: Empty, Map.empty)
-                })
-              case x: TsTypeUnion    => Res(Empty, x +: Empty, Map.empty)
-              case _: TsTypeFunction => Res(tr +: Empty, Empty, Map.empty)
-              case TsTypeObject(_, members) if ExtractInterfaces.isDictionary(members) =>
-                Res(IArray(tr), Empty, Map.empty)
-              case TsTypeObject(_, members) if !ExtractInterfaces.isTypeMapping(members) =>
-                Res(Empty, Empty, Map(tr -> members))
-              case dropUnknown => Res(Empty, dropUnknown +: Empty, Map.empty)
-            }
-        } getOrElse Res(tr +: Empty, Empty, Map.empty)
+              rewritten.alias match {
+                case next: TsTypeRef => cleanParentRef(newScope)(next)
+                /* Flatten intersection types references by type alias, since it's not possible to extend them in scala */
+                case TsTypeIntersect(types) =>
+                  Res.combine(types.map {
+                    case next: TsTypeRef => cleanParentRef(newScope)(next)
+                    case TsTypeObject(_, members) if !ExtractInterfaces.isTypeMapping(members) =>
+                      Res(Empty, Empty, Map(tr -> members))
+                    case other => Res(Empty, other +: Empty, Map.empty)
+                  })
+                case x: TsTypeUnion    => Res(Empty, x +: Empty, Map.empty)
+                case _: TsTypeFunction => Res(tr +: Empty, Empty, Map.empty)
+                case TsTypeObject(_, members) if ExtractInterfaces.isDictionary(members) =>
+                  Res(IArray(tr), Empty, Map.empty)
+                case TsTypeObject(_, members) if !ExtractInterfaces.isTypeMapping(members) =>
+                  Res(Empty, Empty, Map(tr -> members))
+                case dropUnknown => Res(Empty, dropUnknown +: Empty, Map.empty)
+              }
+          }
+          .getOrElse(Res(tr +: Empty, Empty, Map.empty))
     }
 
   private def summarizeChanges(drop: IArray[TsType], lifted: Map[TsTypeRef, IArray[TsMember]]): Option[Comment] = {
     val droppedMessages: IArray[String] =
-      drop map (d => s"- Dropped ${TsTypeFormatter(d)}")
+      drop.map(d => s"- Dropped ${TsTypeFormatter(d)}")
 
     val liftedMessage: Option[String] =
       if (lifted.isEmpty) None

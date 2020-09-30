@@ -20,7 +20,7 @@ object Comment {
 
 @SerialVersionUID(8167323919307012581L) // something about this class seems brittle
 sealed class Comments(val cs: List[Comment]) extends Serializable {
-  def rawCs = cs collect { case CommentRaw(raw) => raw }
+  def rawCs = cs.collect { case CommentRaw(raw) => raw }
 
   def extract[T](pf: PartialFunction[Comment.Data, T]): Option[(T, Comments)] =
     cs.partitionCollect {

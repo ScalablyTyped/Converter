@@ -50,7 +50,7 @@ class Phase2ToScalaJs(
       case lib: LibTs =>
         val knownLibs = garbageCollectLibs(lib)
 
-        getDeps(knownLibs) map {
+        getDeps(knownLibs).map {
           case LibScalaJs.Unpack(scalaDeps) =>
             val scalaName = ImportName(lib.name)
 
@@ -67,20 +67,21 @@ class Phase2ToScalaJs(
             val cleanIllegalNames = new CleanIllegalNames(outputPkg)
 
             val ScalaTransforms = List[PackageTree => PackageTree](
-              S.ContainerPolicy visitPackageTree scope,
-              new S.RemoveDuplicateInheritance(new ParentsResolver) >>
+              S.ContainerPolicy.visitPackageTree(scope),
+              (new S.RemoveDuplicateInheritance(new ParentsResolver) >>
                 S.CleanupTypeAliases >>
                 cleanIllegalNames >>
-                S.Deduplicator visitPackageTree scope,
+                S.Deduplicator).visitPackageTree(scope),
               Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s, cleanIllegalNames)(tree)),
               Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName, willBeExternalTypes)), // after FakeLiterals
-              S.LimitUnionLength visitPackageTree scope, // after UnionToInheritance
-              (S.AvoidMacroParadiseBug >> new S.RemoveMultipleInheritance(new ParentsResolver)) visitPackageTree scope,
-              S.CombineOverloads visitPackageTree scope, //must have stable types, so FakeLiterals run before
-              new S.FilterMemberOverrides(new ParentsResolver) visitPackageTree scope, //
-              new S.InferMemberOverrides(new ParentsResolver) visitPackageTree scope, //runs in phase after FilterMemberOverrides
-              new S.CompleteClass(new ParentsResolver) >> //after FilterMemberOverrides
-                S.Sorter visitPackageTree scope,
+              S.LimitUnionLength.visitPackageTree(scope), // after UnionToInheritance
+              (S.AvoidMacroParadiseBug >> new S.RemoveMultipleInheritance(new ParentsResolver)).visitPackageTree(scope),
+              S.CombineOverloads.visitPackageTree(scope), //must have stable types, so FakeLiterals run before
+              new S.FilterMemberOverrides(new ParentsResolver).visitPackageTree(scope), //
+              new S.InferMemberOverrides(new ParentsResolver)
+                .visitPackageTree(scope), //runs in phase after FilterMemberOverrides
+              (new S.CompleteClass(new ParentsResolver) >> //after FilterMemberOverrides
+                S.Sorter).visitPackageTree(scope),
             )
 
             val importName = AdaptiveNamingImport(

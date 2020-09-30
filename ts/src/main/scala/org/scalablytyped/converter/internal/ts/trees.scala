@@ -48,7 +48,7 @@ final case class TsParsedFile(
 ) extends TsContainer {
 
   lazy val isStdLib: Boolean =
-    directives exists {
+    directives.exists {
       case DirectiveNoStdLib => true
       case _                 => false
     }
@@ -524,7 +524,7 @@ final case class TsTypeIntersect private (types: IArray[TsType]) extends TsType
 
 object TsTypeIntersect {
   private def flatten(types: IArray[TsType]): IArray[TsType] =
-    types flatMap {
+    types.flatMap {
       case TsTypeIntersect(nested) => flatten(nested)
       case other                   => IArray(other)
     }
@@ -549,7 +549,7 @@ final case class TsTypeUnion private (types: IArray[TsType]) extends TsType
 
 object TsTypeUnion {
   private def flatten(types: IArray[TsType]): IArray[TsType] =
-    types flatMap {
+    types.flatMap {
       case TsTypeUnion(nested) => flatten(nested)
       case other               => IArray(other)
     }

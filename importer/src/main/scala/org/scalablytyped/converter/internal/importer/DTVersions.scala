@@ -28,10 +28,10 @@ class DTVersions(lastChangedIndex: DTLastChangedIndex) extends CalculateLibraryV
 
     implicit val wd = sourceFolder.path
 
-    val libraryVersion = packageJsonOpt.flatMap(_.version) orElse DefinitelyTypedVersion.from(comments)
+    val libraryVersion = packageJsonOpt.flatMap(_.version).orElse(DefinitelyTypedVersion.from(comments))
 
     val inGit: Option[InGit] =
-      Try(uri((%% git ('remote, "get-url", 'origin)).out.string.trim)) match {
+      Try(uri(%%.git('remote, "get-url", 'origin).out.string.trim)) match {
         case Success(constants.ConverterRepo) =>
           None
         case Success(uri) =>

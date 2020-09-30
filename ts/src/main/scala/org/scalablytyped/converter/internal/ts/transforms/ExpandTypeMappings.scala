@@ -200,7 +200,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
           val foundType: Option[TsType] =
             AllMembersFor.forType(scope / from, ld)(from) match {
               case Ok(members, _) =>
-                members collectFirst {
+                members.collectFirst {
                   case TsMemberProperty(_, _, TsIdent(name.literal), tpeOpt, _, false, _) =>
                     tpeOpt.fold[TsType](TsTypeRef.any)(visitTsType(scope))
                   case TsMemberFunction(_, _, TsIdent(name.literal), _, signature, false, _) =>
@@ -211,7 +211,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
                 None
             }
 
-          foundType getOrElse {
+          foundType.getOrElse {
             scope.logger.info(s"Could not replace key $key = $name")
             OptionalType(TsTypeRef.any)
           }
@@ -224,7 +224,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
 
   def evaluateKeys(scope: TsTreeScope, ld: LoopDetector)(keys: TsType): Res[Set[TaggedLiteral]] = {
     def keysFor(members: IArray[TsMember]): IArray[TaggedLiteral] =
-      members collect {
+      members.collect {
         case TsMemberProperty(_, _, name, Some(OptionalType(_)), _, _, _) =>
           TaggedLiteral(TsLiteralString(name.value))(isOptional = true)
         case x: TsMemberProperty => TaggedLiteral(TsLiteralString(x.name.value))(isOptional = false)
@@ -235,7 +235,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
       case tr: TsTypeRef if scope.isAbstract(tr.name) => Problems(IArray(NotStatic(scope, tr)))
       case tr: TsTypeRef =>
         val res: Option[Res[Set[TaggedLiteral]]] =
-          scope.lookupInternal(Picker.Types, tr.name.parts, LoopDetector.initial) collectFirst {
+          scope.lookupInternal(Picker.Types, tr.name.parts, LoopDetector.initial).collectFirst {
             case (x: TsDeclTypeAlias, _) =>
               evaluateKeys(scope, ld)(FillInTParams(x, tr.tparams).alias)
             case (x: TsDeclInterface, _) =>
@@ -416,7 +416,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
             }
           }
 
-          val res = scope.lookupInternal(Picker.Types, typeRef.name.parts, ld) collectFirst {
+          val res = scope.lookupInternal(Picker.Types, typeRef.name.parts, ld).collectFirst {
             case (x: TsDeclInterface, newScope) =>
               FillInTParams(x, typeRef.tparams) match {
                 case i: TsDeclInterface => forInterface(newScope, ld)(i)
@@ -447,7 +447,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
   def pointsToConcreteType(scope: TsTreeScope, alias: TsType): Boolean =
     alias match {
       case x: TsTypeRef =>
-        scope.lookupType(x.name) exists {
+        scope.lookupType(x.name).exists {
           case _: TsDeclClass     => true
           case _: TsDeclInterface => true
           case _ => false

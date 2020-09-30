@@ -161,10 +161,11 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
 
       case g @ TsGlobal(_, _, ms, _) =>
         val ret: IArray[TsNamedDecl] =
-          ms collect {
-            case x: TsNamedDecl => x
-            case TsExport(_, _, _, TsExporteeTree(x: TsNamedDecl)) => x
-          } map (x => Utils.withJsLocation(x, JsLocation.Global(TsQIdent.of(x.name))))
+          ms.collect {
+              case x: TsNamedDecl => x
+              case TsExport(_, _, _, TsExporteeTree(x: TsNamedDecl)) => x
+            }
+            .map(x => Utils.withJsLocation(x, JsLocation.Global(TsQIdent.of(x.name))))
 
         CanBeShadowed(maybe = false, IArray(g.copy(members = ret)))
 

@@ -29,7 +29,7 @@ object FillInTParams {
       TsTreeTraverse.collect(b) { case `name` => name }.nonEmpty
 
     val defaulted = sig.tparams.map { tp =>
-      tp.default orElse tp.upperBound match {
+      tp.default.orElse(tp.upperBound) match {
         case Some(b) if !recursiveBound(tp.name, b) => b
         case _                                      => TsTypeRef.any
       }
@@ -60,7 +60,7 @@ object FillInTParams {
           case (TsTypeParam(_, expected, _, default), idx) =>
             val provided =
               if (providedTParams.lengthCompare(idx) > 0) providedTParams(idx)
-              else default getOrElse sys.error("Type parameter not provided")
+              else default.getOrElse(sys.error("Type parameter not provided"))
 
             TsTypeRef(expected) -> provided
         }.toMap

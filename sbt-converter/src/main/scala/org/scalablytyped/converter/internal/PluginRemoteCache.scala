@@ -153,13 +153,13 @@ object PluginRemoteCache {
                 val (_, output) = Json.force[InOut](new String(bytes, constants.Utf8))
 
                 val downloads: Seq[Future[Res[Array[Byte]]]] =
-                  output.allRelPaths flatMap { relPath =>
+                  output.allRelPaths.flatMap { relPath =>
                     val localPath = ivyLocal / relPath
-                    if (files exists localPath) None
+                    if (files.exists(localPath)) None
                     else Option(mehttp.download(pullUri / relPath, localPath))
                   }
 
-                Future sequence downloads map { results =>
+                Future.sequence(downloads).map { results =>
                   val (errors, notFounds, oks, Nil) = results.partitionCollect3(
                     { case x: Err => x }, { case NotFound => NotFound; case Forbidden => Forbidden }, {
                       case Ok(b) => b
@@ -175,20 +175,20 @@ object PluginRemoteCache {
                     if (errors.nonEmpty) Some(s"${errors.size} files failed to download") else None,
                   )
 
-                  logger.withContext(runCacheKey).warn(msgs mkString ", ")
+                  logger.withContext(runCacheKey).warn(msgs.mkString(", "))
 
                   oks.size
                 }
 
               case NotFound =>
-                loggerRemoteFile warn "No cached run"
-                Future successful 0
+                loggerRemoteFile.warn("No cached run")
+                Future.successful(0)
               case Forbidden =>
-                loggerRemoteFile warn "Probably no cached run (403)"
-                Future successful 0
+                loggerRemoteFile.warn("Probably no cached run (403)")
+                Future.successful(0)
               case Err(th) =>
-                loggerRemoteFile warn ("Couldn't fetch cache", th)
-                Future successful 0
+                loggerRemoteFile.warn("Couldn't fetch cache", th)
+                Future.successful(0)
             }
 
           Await.result(downloads, Duration.Inf)

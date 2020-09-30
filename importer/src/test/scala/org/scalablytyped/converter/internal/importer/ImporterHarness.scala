@@ -124,8 +124,8 @@ trait ImporterHarness extends AnyFunSuite {
       update:   Boolean,
       flavour: FlavourImpl = NormalFlavour(
         shouldUseScalaJsDomTypes = false,
-        enableLongApplyMethod = false,
-        outputPkg = Name.typings,
+        enableLongApplyMethod    = false,
+        outputPkg                = Name.typings,
       ),
   ): Assertion = {
     val testFolder   = findTestFolder(testName)
@@ -185,7 +185,7 @@ trait ImporterHarness extends AnyFunSuite {
           os.copy(targetFolder, checkFolder)
           synchronized(%("git", "add", checkFolder))
         }
-        errors foreach {
+        errors.foreach {
           case (fromSource, detail) =>
             logRegistry.logs.foreach {
               case (name, logger) =>

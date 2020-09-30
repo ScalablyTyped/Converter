@@ -46,10 +46,11 @@ object Json {
       JsonParser.Feature.ALLOW_TRAILING_COMMA,
     )
 
-    private val mapper:      ObjectMapper = Features.foldLeft((new ObjectMapper).registerModule(CirceJsonModule))(_ enable _)
-    private val jsonFactory: JsonFactory  = new JsonFactory(mapper)
+    private val mapper: ObjectMapper =
+      Features.foldLeft((new ObjectMapper).registerModule(CirceJsonModule))(_.enable(_))
+    private val jsonFactory: JsonFactory = new JsonFactory(mapper)
 
-    def lenient(p: JsonParser) = Features.foldLeft(p)(_ enable _)
+    def lenient(p: JsonParser) = Features.foldLeft(p)(_.enable(_))
 
     def jsonStringParser(input: String): JsonParser =
       lenient(jsonFactory.createParser(input))
@@ -120,8 +121,8 @@ object Json {
 
   def apply[T: Decoder](original: String): Either[Error, T] = {
     val str = original match {
-      case withBom if withBom startsWith BOM => withBom.replace(BOM, "")
-      case ok                                => ok
+      case withBom if withBom.startsWith(BOM) => withBom.replace(BOM, "")
+      case ok                                 => ok
     }
 
     CustomJacksonParser.decode[T](str)

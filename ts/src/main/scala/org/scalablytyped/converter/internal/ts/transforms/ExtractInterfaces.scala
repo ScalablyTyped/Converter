@@ -40,9 +40,9 @@ object ExtractInterfaces {
       val interface = DeriveNonConflictingName(prefix, members) {
         case conflict if referencedTparams.exists(_.name === conflict) => None
         case name =>
-          val interface = construct(name) withCodePath CodePath.HasPath(inLibrary, TsQIdent(IArray(into, name)))
+          val interface = construct(name).withCodePath(CodePath.HasPath(inLibrary, TsQIdent(IArray(into, name))))
 
-          interfaces get name match {
+          interfaces.get(name) match {
             case Some(existing) if existing.members =/= interface.members || existing.tparams =/= interface.tparams =>
               None
             case Some(_) => Some(interface)
@@ -51,7 +51,7 @@ object ExtractInterfaces {
 
       }
       interfaces.put(interface.name, interface)
-      scope.logger info s"Extracted anonymous interface ${interface.name}"
+      scope.logger.info(s"Extracted anonymous interface ${interface.name}")
       interface.codePath.forceHasPath
     }
   }

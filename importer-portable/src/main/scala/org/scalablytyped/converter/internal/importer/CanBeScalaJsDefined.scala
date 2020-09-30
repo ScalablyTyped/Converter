@@ -6,7 +6,7 @@ import org.scalablytyped.converter.internal.ts._
 
 object CanBeScalaJsDefined {
   def apply(interface: WithParents[TsDeclInterface]): Boolean =
-    pred(interface.value) && (interface.parents forall pred)
+    pred(interface.value) && (interface.parents.forall(pred))
 
   def legalName(name: TsIdent): Boolean =
     name =/= TsIdent.Apply && name =/= TsIdent.namespaced

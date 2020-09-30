@@ -54,9 +54,9 @@ object CombineOverloads extends TreeTransformation {
     }
 
     val newParamss: IArray[IArray[ParamTree]] =
-      methods.head.params.zipWithIndex map {
+      methods.head.params.zipWithIndex.map {
         case (params, i) =>
-          params.zipWithIndex map {
+          params.zipWithIndex.map {
             case (param, j) =>
               param.copy(tpe = asUnionType(methods.map(_.params(i)(j).tpe)))
           }
@@ -68,7 +68,7 @@ object CombineOverloads extends TreeTransformation {
     )
 
     renameSuffix.foldLeft(combined) {
-      case (ret, suffix) => ret withSuffix suffix
+      case (ret, suffix) => ret.withSuffix(suffix)
     }
   }
 
@@ -83,7 +83,7 @@ object CombineOverloads extends TreeTransformation {
       combineSameErasureSameTypeParams(grouped.head._2, None)
 
     val suffixed: IArray[MethodTree] =
-      grouped drop 1 mapNotNone {
+      grouped.drop(1).mapNotNone {
         case (_, methods) if methods.head.name === Name.APPLY || methods.head.name === Name.namespaced =>
           scope.logger.info(
             s"Dropping ${methods.length} incompatible `apply` overloads (have no way to express this) at $scope",

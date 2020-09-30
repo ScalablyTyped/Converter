@@ -8,7 +8,7 @@ object TsTreeTraverse {
   def collectIArray[T <: AnyRef](tree: IArray[TsTree])(extract: PartialFunction[TsTree, T]): IArray[T] = {
     val buf = IArray.Builder.empty[T]
 
-    tree foreach go(extract, buf)
+    tree.foreach(go(extract, buf))
 
     buf.result()
   }

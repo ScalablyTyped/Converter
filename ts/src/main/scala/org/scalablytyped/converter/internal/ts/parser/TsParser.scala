@@ -114,10 +114,10 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
         case lexical.DirectiveToken("reference", "no-default-lib", "true") => DirectiveNoStdLib
         case lexical.DirectiveToken("amd-module", "name", value)           => AmdModule(value)
       },
-    ) named "directive"
+    ).named("directive")
 
   lazy val directives: Parser[IArray[Directive]] =
-    (comments ~> directive).** named "directives"
+    (comments ~> directive).**.named("directives")
 
   lazy val shebang = accept("Shebang", {
     case lexical.Shebang(_) => ()

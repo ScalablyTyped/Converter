@@ -72,7 +72,7 @@ sealed trait TsTreeScope {
       qname:          TsQIdent,
       skipValidation: Boolean = false,
   ): IArray[(T, TsTreeScope)] = {
-    if ((TsQIdent Primitive qname) || isAbstract(qname))
+    if ((TsQIdent.Primitive(qname)) || isAbstract(qname))
       return Empty
 
     val res = lookupInternal(picker, qname.parts, LoopDetector.initial)
@@ -375,7 +375,7 @@ object TsTreeScope {
 
           case x: TsDeclModule =>
             moduleAuxScopes.get(x.name) match {
-              case Some(xx) => xx lookupInternal (Pick, wanted, loopDetector)
+              case Some(xx) => xx.lookupInternal(Pick, wanted, loopDetector)
               case None     => Empty
             }
 
@@ -385,7 +385,7 @@ object TsTreeScope {
       def fromGlobals: IArray[(T, TsTreeScope)] =
         (wanted, current) match {
           case (IArray.headTail(TsIdent.Global, tail), x: TsContainer) =>
-            val globalOpt = x.unnamed collectFirst { case x: TsGlobal => x }
+            val globalOpt = x.unnamed.collectFirst { case x: TsGlobal => x }
             globalOpt match {
               case Some(global) =>
                 search(this, Pick, global, tail, loopDetector)
@@ -457,8 +457,8 @@ object TsTreeScope {
       case IArray.exactlyOne(one) =>
         c match {
           case cc: TsContainer =>
-            cc.membersByNameMeh get one match {
-              case Some(decls) => decls collect { case Pick(x) => (x, scope / x) }
+            cc.membersByNameMeh.get(one) match {
+              case Some(decls) => decls.collect { case Pick(x) => (x, scope / x) }
               case None        => Empty
             }
 
@@ -473,9 +473,9 @@ object TsTreeScope {
       case IArray.headTail(h, t) =>
         c match {
           case cc: TsContainer =>
-            cc.membersByName get h orElse cc.membersByNameMeh.get(h) match {
+            cc.membersByName.get(h).orElse(cc.membersByNameMeh.get(h)) match {
               case Some(decls) =>
-                decls flatMap {
+                decls.flatMap {
 
                   /** Yeah, enums aren't too well integrated with the rest.
                     *  On the positive side it feels almost as hacked in in typescript

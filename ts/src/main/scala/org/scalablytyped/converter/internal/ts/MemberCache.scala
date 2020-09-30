@@ -31,7 +31,7 @@ trait MemberCache {
 
     members.foreach {
       case mod: TsDeclModule =>
-        mod.members foreach {
+        mod.members.foreach {
           case TsExportAsNamespace(ident) =>
             ret(ident) = mod :: ret.getOrElseUpdate(ident, Nil)
           case TsGlobal(_, _, ms, _) =>
@@ -81,7 +81,7 @@ trait HasClassMembers {
         case x: TsMemberCtor     => x
       }
 
-    val map = named groupBy {
+    val map = named.groupBy {
       case x: TsMemberFunction => x.name
       case x: TsMemberProperty => x.name
       case _: TsMemberCall     => TsIdent.Apply

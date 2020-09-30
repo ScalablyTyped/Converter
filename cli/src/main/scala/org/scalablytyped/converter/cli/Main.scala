@@ -34,9 +34,9 @@ object Main {
     lazy val out: os.Path =
       files.existing(base / 'out)
     val node_modules: Option[os.Path] =
-      Option(base / 'node_modules) filter files.exists
+      Option(base / 'node_modules).filter(files.exists)
     val packageJson: Option[os.Path] =
-      Option(base / "package.json") filter files.exists
+      Option(base / "package.json").filter(files.exists)
   }
 
   val DefaultOptions = ConversionOptions(
@@ -81,7 +81,7 @@ object Main {
   val t0             = System.currentTimeMillis
 
   val logger: Logger[(Array[Logger.Stored], Unit)] =
-    storing() zipWith stdout.filter(LogLevel.warn)
+    storing().zipWith(stdout.filter(LogLevel.warn))
 
   implicit val ReadsFlavour: Read[Flavour] =
     Read.reads(s => Flavour.all.getOrElse(s, sys.error(s"'$s' is not among ${Flavour.all.keys}")))
@@ -233,7 +233,7 @@ object Main {
           }
 
         val publisherOpt: Option[Publisher] =
-          publishBintrayRepoOpt map { repo =>
+          publishBintrayRepoOpt.map { repo =>
             BinTrayPublisher(None, repo, publishGitUrlOpt, global) match {
               case Left(err)    => sys.error(s"Couldn't setup publishing: $err")
               case Right(value) => value
@@ -322,7 +322,7 @@ object Main {
             .toMap
 
         val td = System.currentTimeMillis - t0
-        logger warn td
+        logger.warn(td)
 
         val failures: Map[Source, Either[Throwable, String]] =
           results.collect { case (_, PhaseRes.Failure(errors)) => errors }.reduceOption(_ ++ _).getOrElse(Map.empty)

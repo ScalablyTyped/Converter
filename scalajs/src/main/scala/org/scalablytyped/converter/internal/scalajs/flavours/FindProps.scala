@@ -117,7 +117,7 @@ final class FindProps(
         Res.combine(types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits)))
 
       case other =>
-        val retOpt = scope lookup other.typeName collectFirst {
+        val retOpt = scope.lookup(other.typeName).collectFirst {
           case (_cls: ClassTree, newScope) =>
             val cls = FillInTParams(_cls, newScope, other.targs, tparams)
             forClassTree(
@@ -239,8 +239,7 @@ final class FindProps(
             }
 
           val valid: Option[IArray[Prop]] =
-            propsStream.find(_.length <= maxNum) orElse
-              propsStream.lastOption.map(filtered => filtered.take(maxNum))
+            propsStream.find(_.length <= maxNum).orElse(propsStream.lastOption.map(filtered => filtered.take(maxNum)))
 
           valid match {
             case Some(props) => Res.One(selfRef, props)

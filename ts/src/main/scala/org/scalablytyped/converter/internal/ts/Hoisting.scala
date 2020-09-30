@@ -26,7 +26,7 @@ object Hoisting {
       ld:       LoopDetector,
       typeRef:  TsTypeRef,
   ): IArray[TsNamedValueDecl] =
-    AllMembersFor(scope, ld)(typeRef) mapNotNone memberToDecl(ownerCp, ownerLoc)
+    AllMembersFor(scope, ld)(typeRef).mapNotNone(memberToDecl(ownerCp, ownerLoc))
 
   def memberToDecl(ownerCp: CodePath, ownerLoc: JsLocation)(x: TsMember): Option[TsNamedValueDecl] =
     x match {

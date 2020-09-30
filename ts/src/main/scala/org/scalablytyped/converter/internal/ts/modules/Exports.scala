@@ -72,7 +72,7 @@ object Exports {
           case None => scope
         }
 
-        idents flatMap {
+        idents.flatMap {
           case (qIdent, asNameOpt) =>
             val found = newScope.lookupInternal(Picker.All, qIdent.parts, loopDetector)
             if (found.isEmpty && newScope.root.pedantic) {
@@ -80,14 +80,14 @@ object Exports {
               newScope.lookupInternal(Picker.All, qIdent.parts, loopDetector)
               newScope.logger.warn(s"Could not resolve $qIdent")
             }
-            found flatMap {
+            found.flatMap {
               case (found, newNewScope) =>
                 export(codePath, jsLocation, newNewScope, exportType, found, asNameOpt, loopDetector)
             }
         }
 
       case TsExport(_, _, exportType, TsExporteeStar(from)) =>
-        scope.moduleScopes get from match {
+        scope.moduleScopes.get(from) match {
           case Some(TsTreeScope.Scoped(newScope, mod: TsDeclModule)) =>
             val resolvedModule: TsDeclModule =
               if (scope.stack contains mod) mod
@@ -138,7 +138,7 @@ object Exports {
           case x: TsContainer =>
             val xx = Utils.withJsLocation(x, jsLocation(ModuleSpec.Namespaced))
 
-            xx.members flatMap {
+            xx.members.flatMap {
               case xxx: TsNamedDecl => DeriveCopy(xxx, ownerCp, None)
               case _ => Empty
             }
@@ -181,7 +181,7 @@ object Exports {
             }
 
           case TsExporteeTree(i: TsImport) =>
-            Imports.validImport(wanted)(i) map (ii => PickedExport(e.copy(exported = TsExporteeTree(ii)), wanted))
+            Imports.validImport(wanted)(i).map(ii => PickedExport(e.copy(exported = TsExporteeTree(ii)), wanted))
 
           case TsExporteeTree(x: TsNamedDecl) =>
             if (wanted.headOption.contains(x.name)) Some(PickedExport(e, wanted)) else None

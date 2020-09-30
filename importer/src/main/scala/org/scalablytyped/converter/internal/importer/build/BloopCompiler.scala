@@ -34,7 +34,7 @@ object BloopCompiler {
   def resolve(deps: Dep.Concrete*)(implicit ec: ExecutionContext): Future[Array[AbsolutePath]] = {
     def go(remainingAttempts: Int): Future[Array[AbsolutePath]] =
       Fetch[Task](fileCache)
-        .withDependencies(deps map toCoursier)
+        .withDependencies(deps.map(toCoursier))
         .io
         .future()
         .map(files => files.map(f => AbsolutePath(f)).toArray)
@@ -156,7 +156,7 @@ class BloopCompiler private (
     val outStream   = new ByteArrayOutputStream
     val printStream = new PrintStream(outStream)
 
-    val cacheFileOpt = failureCacheFolderOpt.map(_ resolve name resolve digest.hexString)
+    val cacheFileOpt = failureCacheFolderOpt.map(_.resolve(name).resolve(digest.hexString))
 
     cacheFileOpt match {
       case Some(cacheFile) if Files.exists(cacheFile) =>

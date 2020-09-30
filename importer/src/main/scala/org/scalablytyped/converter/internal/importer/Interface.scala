@@ -96,7 +96,7 @@ object Interface {
         .to[Vector]
         .map {
           case (name, Blocked(phase, on)) =>
-            s"${Color.LightGray(name.value).render} ($phase) blocked on ${on.map(_.libName) -- succeeded.keys map (_.value)}"
+            s"${Color.LightGray(name.value).render} ($phase) blocked on ${(on.map(_.libName) -- succeeded.keys).map(_.value)}"
         }
         .sorted
         .foreach(println)

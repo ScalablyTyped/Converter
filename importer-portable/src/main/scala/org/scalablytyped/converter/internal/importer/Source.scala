@@ -37,9 +37,9 @@ object Source {
     import jsonCodecs._
 
     override lazy val packageJsonOpt: Option[PackageJsonDeps] =
-      Json.opt[PackageJsonDeps](folder.path / "package.json") orElse
-        /* discover stdlib package.json as well */
-        Json.opt[PackageJsonDeps](folder.path / os.up / "package.json")
+      Json.opt[PackageJsonDeps](folder.path / "package.json").orElse /* discover stdlib package.json as well */ (
+        Json.opt[PackageJsonDeps](folder.path / os.up / "package.json"),
+      )
 
     lazy val tsConfig: Option[TsConfig] =
       Json.opt[TsConfig](folder.path / "tsconfig.json")
@@ -90,7 +90,7 @@ object Source {
       case f: FromFolder =>
         val fromTypings =
           IArray(
-            fromFileEntry(f, f.packageJsonOpt.flatMap(_.types) orElse f.packageJsonOpt.flatMap(_.typings)),
+            fromFileEntry(f, f.packageJsonOpt.flatMap(_.types).orElse(f.packageJsonOpt.flatMap(_.typings))),
             fromTypingsJson(f, f.packageJsonOpt.flatMap(_.typings)),
           ).flatten
 

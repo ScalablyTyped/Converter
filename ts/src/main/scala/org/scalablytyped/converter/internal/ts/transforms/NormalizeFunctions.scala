@@ -50,7 +50,7 @@ object NormalizeFunctions extends TransformMembers with TransformClassMembers {
     }
 
   def newMembers(scope: TsTreeScope, x: TsContainer): IArray[TsContainerOrDecl] =
-    x.members flatMap {
+    x.members.flatMap {
       case decl: TsDecl => rewriteDecl(decl)
       case other => IArray(other)
     }

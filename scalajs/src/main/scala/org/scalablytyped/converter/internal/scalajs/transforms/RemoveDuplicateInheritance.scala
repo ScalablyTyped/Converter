@@ -21,7 +21,7 @@ class RemoveDuplicateInheritance(parentsResolver: ParentsResolver) extends TreeT
     conflicts(s.parents).fold(s)(conflicts => s.copy(parents = resolved(s.parents, conflicts)))
 
   def conflicts(parents: IArray[TypeRef]): Option[Map[QualifiedName, IArray[TypeRef]]] =
-    Option(parents groupBy (_.typeName) filter (_._2.lengthCompare(1) > 0)) filter (_.nonEmpty)
+    Option(parents.groupBy(_.typeName).filter(_._2.lengthCompare(1) > 0)).filter(_.nonEmpty)
 
   def resolved(parents: IArray[TypeRef], conflicts: Map[QualifiedName, IArray[TypeRef]]): IArray[TypeRef] = {
     val resolved: Map[QualifiedName, TypeRef] =
@@ -71,7 +71,7 @@ class RemoveDuplicateInheritance(parentsResolver: ParentsResolver) extends TreeT
       case (Empty, _) => cls
       case (dropped, keep) =>
         scope.logger.info(
-          s"Dropped parents ${dropped map (_.typeName) mkString ","} at $scope because allParentRefs = $allParentRefs",
+          s"Dropped parents ${dropped.map(_.typeName).mkString(",")} at $scope because allParentRefs = $allParentRefs",
         )
         cls.copy(parents = keep)
     }

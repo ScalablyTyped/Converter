@@ -111,11 +111,13 @@ object ImportTypingsGenSources {
                   Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
                 } else lib.packageTree
 
-              val outFiles = Printer(globalScope, new ParentsResolver, minimized, conversion.outputPackage) map {
+              val outFiles = Printer(globalScope, new ParentsResolver, minimized, conversion.outputPackage).map {
                 case (relPath, content) => targetFolder / relPath -> content
               }
               val minimizedMessage = if (willMinimize) "minimized " else ""
-              logger warn s"Wrote $minimizedMessage${source.libName.value} (${outFiles.size} files) to $targetFolder..."
+              logger.warn(
+                s"Wrote $minimizedMessage${source.libName.value} (${outFiles.size} files) to $targetFolder...",
+              )
               outFiles
           }.seq
 
@@ -164,7 +166,7 @@ object ImportTypingsGenSources {
           minimizeKeep = IArray(QualifiedName(IArray(outputName, Name("std"), Name("console")))),
         ),
         logger           = logging.stdout.filter(LogLevel.warn),
-        parseCacheDirOpt = Some(cacheDir.toNIO resolve "parse"),
+        parseCacheDirOpt = Some(cacheDir.toNIO.resolve("parse")),
         cacheDirOpt      = cacheDir,
       ).map(_.size),
     )

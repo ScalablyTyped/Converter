@@ -25,9 +25,9 @@ object ParentsResolver {
       IArray.Builder.empty
 
     def innerRecurse(scope: TsTreeScope, qualifiedName: TsQIdent, currentTParams: IArray[TsType]): Unit =
-      scope.lookupTypeIncludeScope(qualifiedName) foreach {
+      scope.lookupTypeIncludeScope(qualifiedName).foreach {
         case (cls: TsDeclClass, foundInScope) =>
-          if (seen forall (_ ne cls)) {
+          if (seen.forall(_ ne cls)) {
             seen += cls
             val rewritten = FillInTParams(cls, currentTParams)
             allParents += rewritten
@@ -35,7 +35,7 @@ object ParentsResolver {
           }
 
         case (int: TsDeclInterface, foundInScope) =>
-          if (seen forall (_ ne int)) {
+          if (seen.forall(_ ne int)) {
             seen += int
             val rewritten = FillInTParams(int, currentTParams)
             allParents += rewritten
@@ -43,7 +43,7 @@ object ParentsResolver {
           }
 
         case (ta: TsDeclTypeAlias, foundInScope) =>
-          if (seen forall (_ ne ta)) {
+          if (seen.forall(_ ne ta)) {
             seen += ta
             FillInTParams(ta, currentTParams).alias match {
               case _: TsTypeFunction => innerRecurse(foundInScope, TsQIdent.Function, Empty)
@@ -59,12 +59,12 @@ object ParentsResolver {
                   NoPath,
                 )
               case TsTypeUnion(types) =>
-                types foreach {
+                types.foreach {
                   case TsTypeRef(_, tpe, targs) => innerRecurse(scope, tpe, targs)
                   case _                        => ()
                 }
               case TsTypeIntersect(types) =>
-                types foreach {
+                types.foreach {
                   case TsTypeRef(_, tpe, targs) => innerRecurse(scope, tpe, targs)
                   case _                        => ()
                 }

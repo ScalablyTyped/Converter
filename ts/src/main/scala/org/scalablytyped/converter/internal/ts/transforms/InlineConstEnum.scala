@@ -10,7 +10,7 @@ object InlineConstEnum extends TreeTransformationScopedChanges {
         val inlinedEnumMember: Option[TsType] =
           if (parts.length < 3) None /* libName + enumName + enumMember */
           else
-            scope.lookupType(TsQIdent(parts.init), skipValidation = true) firstDefined {
+            scope.lookupType(TsQIdent(parts.init), skipValidation = true).firstDefined {
               case e: TsDeclEnum if e.isConst =>
                 val memberName = parts.last
                 e.members.collectFirst {
@@ -22,7 +22,7 @@ object InlineConstEnum extends TreeTransformationScopedChanges {
               case _ => None
             }
 
-        inlinedEnumMember getOrElse x
+        inlinedEnumMember.getOrElse(x)
 
       case other => other
     }

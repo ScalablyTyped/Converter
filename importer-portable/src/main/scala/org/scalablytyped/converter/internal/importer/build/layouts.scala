@@ -21,7 +21,7 @@ final case class MapLayout[F, V](all: Map[F, V]) extends Layout[F, V] {
   override type Self[f, v] = MapLayout[f, v]
 
   override def map[FF, VV](f: (F, V) => (FF, VV)): MapLayout[FF, VV] =
-    MapLayout[FF, VV](all map { case (k, v) => (f(k, v)) })
+    MapLayout[FF, VV](all.map { case (k, v) => (f(k, v)) })
 }
 
 final case class SbtProjectLayout[F, V](
@@ -44,8 +44,8 @@ final case class SbtProjectLayout[F, V](
           f(_2k, _2v),
           f(_3k, _3v),
           f(_4k, _4v),
-          sources map { case (k, v)   => f(k, v) },
-          resources map { case (k, v) => f(k, v) },
+          sources.map { case (k, v)   => f(k, v) },
+          resources.map { case (k, v) => f(k, v) },
         )
     }
 }

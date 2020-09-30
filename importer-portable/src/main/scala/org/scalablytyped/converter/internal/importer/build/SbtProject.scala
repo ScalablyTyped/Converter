@@ -30,7 +30,7 @@ object PublishedSbtProject {
       val ret = mutable.HashMap.empty[Source, PublishedSbtProject]
 
       def go(libs: mutable.Map[Source, PublishedSbtProject], ds: Map[Source, PublishedSbtProject]): Unit =
-        ds foreach {
+        ds.foreach {
           case (s, lib) =>
             if (!libs.contains(s)) {
               libs(s) = lib

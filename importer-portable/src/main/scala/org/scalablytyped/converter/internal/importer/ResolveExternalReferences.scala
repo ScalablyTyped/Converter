@@ -73,12 +73,12 @@ object ResolveExternalReferences {
     override def enterTsContainer(t: TsTreeScope)(x: TsContainer): TsContainer =
       x match {
         case m: TsDeclModule =>
-          val newName: Option[TsIdentModule] = doResolve(m.name) flatMap {
+          val newName: Option[TsIdentModule] = doResolve(m.name).flatMap {
             case (_, newName) if newName =/= m.name => Some(newName)
             case _                                  => None
           }
 
-          val isWithinModule = t.`..`.stack exists {
+          val isWithinModule = t.`..`.stack.exists {
             case _: TsDeclModule => true
             case _ => false
           }

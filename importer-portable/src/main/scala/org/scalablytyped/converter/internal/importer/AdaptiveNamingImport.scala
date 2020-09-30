@@ -85,7 +85,7 @@ object AdaptiveNamingImport {
           val currentVariant = iter.next()
           val possibleQname  = QualifiedName(parentTranslated.parts :+ Name.necessaryRewrite(Name(currentVariant)))
           val lowercase      = possibleQname.parts.map(_.unescaped).mkString(".").toLowerCase
-          lowercaseIndex get lowercase match {
+          lowercaseIndex.get(lowercase) match {
             case Some(`whole`) =>
               continue = false
             case None =>

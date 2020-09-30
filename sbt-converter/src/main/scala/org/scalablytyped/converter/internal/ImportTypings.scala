@@ -41,10 +41,10 @@ object ImportTypings {
       allProjects.flatMap(p => IvyLayout.unit(p).all.keys)
 
     def allPaths(in: os.Path): Seq[os.Path] =
-      allRelPaths map (in / _)
+      allRelPaths.map(in / _)
 
     def moduleIds: Set[ModuleID] =
-      externalDeps ++ allProjects map Utils.asModuleID
+      (externalDeps ++ allProjects).map(Utils.asModuleID)
   }
 
   object Output {

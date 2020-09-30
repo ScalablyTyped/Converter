@@ -72,7 +72,7 @@ object Key {
       val T: Key[T] = Key[T]
       override type Id = Option[T.Id]
 
-      override def apply(t: Option[T]): Id = t map T.apply
+      override def apply(t: Option[T]): Id = t.map(T.apply)
     }
 
   implicit def seq[C[t] <: GenTraversableLike[t, C[t]] with AnyRef, T, I](implicit id: Key[T] { type Id = I }, cbf: CanBuildFrom[C[T], I, C[I]])
@@ -80,7 +80,7 @@ object Key {
     new AnyRefKey[C[T]] {
       override type Id = C[I]
 
-      override def apply(t: C[T]): C[I] = t map id.apply
+      override def apply(t: C[T]): C[I] = t.map(id.apply)
     }
 
 }

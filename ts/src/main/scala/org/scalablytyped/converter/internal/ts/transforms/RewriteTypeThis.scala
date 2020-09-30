@@ -15,25 +15,27 @@ object RewriteTypeThis extends TreeTransformationScopedChanges {
         TsTypeThis()
 
       case x: TsTypeThis if isReferencedInConstructor(scope.stack) || isReferencedInIndexType(scope.stack) =>
-        scope.stack.collectFirst {
-          case owner: TsDeclClass =>
-            TsTypeRef(NoComments, owner.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(owner.tparams))
-          case owner: TsDeclInterface =>
-            TsTypeRef(NoComments, owner.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(owner.tparams))
-        } getOrElse x
+        scope.stack
+          .collectFirst {
+            case owner: TsDeclClass =>
+              TsTypeRef(NoComments, owner.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(owner.tparams))
+            case owner: TsDeclInterface =>
+              TsTypeRef(NoComments, owner.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(owner.tparams))
+          }
+          .getOrElse(x)
 
       case other => other
     }
 
   def isReferenceToOwner(stack: List[TsTree], ownerName: TsQIdent): Boolean =
-    stack exists {
+    stack.exists {
       case owner: TsDeclInterface if ownerName.parts.last === owner.name => true
       case owner: TsDeclClass if ownerName.parts.last === owner.name     => true
       case _ => false
     }
 
   def isReferencedInFunction(stack: List[TsTree]): Boolean =
-    stack exists {
+    stack.exists {
       case _: TsTypeFunction => true
       case _ => false
     }

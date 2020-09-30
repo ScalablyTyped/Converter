@@ -35,6 +35,6 @@ object Patches {
         }
     }
 
-    rewritten getOrElse content
+    rewritten.getOrElse(content)
   }
 }

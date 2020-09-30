@@ -78,7 +78,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
           ImportTypings(
             input              = input,
             logger             = stLogger,
-            parseCacheDirOpt   = Some(cacheDir.toPath resolve "parse"),
+            parseCacheDirOpt   = Some(cacheDir.toPath.resolve("parse")),
             publishLocalFolder = publishLocalFolder,
             fromFolder         = nodeModules,
             targetFolder       = outputDir / "sources",

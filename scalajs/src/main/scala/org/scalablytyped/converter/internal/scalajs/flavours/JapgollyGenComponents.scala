@@ -113,9 +113,9 @@ object JapgollyGenComponents {
       val ret = IArray.Builder.empty[Component](cs.length)
       def go(c: Component): Unit = {
         ret += c
-        c.nested foreach go
+        c.nested.foreach(go)
       }
-      cs foreach go
+      cs.foreach(go)
       ret.result()
     }
   }
@@ -292,7 +292,7 @@ class JapgollyGenComponents(
       resProps:          Res[IArray[String], SplitProps],
       classComponentRef: Option[TypeRef],
   ): TypeRef =
-    classComponentRef orElse refFromProps(resProps) match {
+    classComponentRef.orElse(refFromProps(resProps)) match {
       case Some(x @ TypeRef(QualifiedName(IArray.exactlyOne(names.ComponentRef)), _, _)) => x
       /* Observe type bound of :< js.Object */
       case Some(value) =>

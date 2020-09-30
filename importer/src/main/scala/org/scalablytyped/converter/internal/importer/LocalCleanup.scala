@@ -6,6 +6,6 @@ object LocalCleanup {
 
   def apply(ivyLocal: os.Path, organization: String, keepNum: Int): Unit =
     os.list(files.existing(ivyLocal / organization)).foreach { project =>
-      os.list(project).sorted drop keepNum foreach files.deleteAll
+      os.list(project).sorted.drop(keepNum).foreach(files.deleteAll)
     }
 }

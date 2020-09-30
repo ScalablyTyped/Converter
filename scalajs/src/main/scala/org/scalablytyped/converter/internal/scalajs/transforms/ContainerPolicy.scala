@@ -23,9 +23,9 @@ object ContainerPolicy extends TreeTransformation {
       case mod: ModuleTree =>
         Action(scope, mod) match {
           case Action.RemainModule =>
-            mod.withMembers(mod.members map stripLocationAnns)
+            mod.withMembers(mod.members.map(stripLocationAnns))
           case Action.ConvertToPackage(renameClassOpt) =>
-            renameClassOpt foreach classesToRename.+=
+            renameClassOpt.foreach(classesToRename.+=)
             moveMemberTreesIntoHatObject(
               PackageTree(mod.annotations, mod.name, mod.members, mod.comments, mod.codePath),
               mod.parents,
@@ -92,12 +92,12 @@ object ContainerPolicy extends TreeTransformation {
           (isLonger && isInside) || typeRef.targs.exists(illegal)
         }
 
-        mod.parents exists illegal
+        mod.parents.exists(illegal)
       }
 
       def requiresCustomImport = {
         def check(anns: IArray[Annotation], name: Name) =
-          anns exists {
+          anns.exists {
             case Annotation.JsGlobalScope           => true
             case Annotation.JsImport(_, _, Some(_)) => true
             case Annotation.JsImport(_, i, _) =>
@@ -164,7 +164,7 @@ object ContainerPolicy extends TreeTransformation {
       case (Empty, _) if inheritance.isEmpty => s
       case (members, rest) =>
         val rewritten: IArray[Ior[MemberTree, ModuleTree]] =
-          members zip members.map(_.comments extract { case ClassAnnotations(anns) => anns }) map {
+          members.zip(members.map(_.comments.extract { case ClassAnnotations(anns) => anns })).map {
             case (f @ FieldTree(_, name, tpe, _, isReadonly, isOverride, _, codePath), extracted) =>
               extracted match {
                 case Some((anns, restCs)) if tpe.typeName =/= QualifiedName.THIS =>
@@ -216,7 +216,7 @@ object ContainerPolicy extends TreeTransformation {
     val withCombinedModules: IArray[Tree] =
       s.index.flatMapToIArray {
         case (_, ts) =>
-          val (mods, rest) = ts partitionCollect { case x: ModuleTree => x }
+          val (mods, rest) = ts.partitionCollect { case x: ModuleTree => x }
           val combinedModules: Option[ModuleTree] =
             mods.reduceOption { (mod1, mod2) =>
               ModuleTree(

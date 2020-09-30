@@ -33,8 +33,8 @@ class RemoveMultipleInheritance(parentsResolver: ParentsResolver) extends TreeTr
 
   def findNewParents(scope: TreeScope, c: InheritanceTree): (Comments, IArray[TypeRef], IArray[Tree]) = {
     val allParents = parentsResolver(scope, c)
-    val first      = firstReferringToClass(allParents) orElse longestInheritance(allParents)
-    val remaining  = IArray.fromOption(first) ++ (allParents.directParents filterNot first.contains)
+    val first      = firstReferringToClass(allParents).orElse(longestInheritance(allParents))
+    val remaining  = IArray.fromOption(first) ++ (allParents.directParents.filterNot(first.contains))
     val (changes, ps) =
       step(included = IArray.Empty, newParents = IArray.Empty, dropped = IArray.Empty, remaining = remaining)
 
@@ -91,16 +91,16 @@ class RemoveMultipleInheritance(parentsResolver: ParentsResolver) extends TreeTr
           }
 
         def alreadyInherits: Option[Dropped] =
-          included firstDefined
-            (_.transitiveParents.keys.firstDefined(i =>
+          included.firstDefined(
+            _.transitiveParents.keys.firstDefined(i =>
               if (h.refs.exists(_.typeName === i.typeName))
                 Some(Dropped(h.refs.last, "Already inherited", Empty))
               else None,
             ),
-            )
+          )
 
         def alreadyInheritsUnresolved: Option[Dropped] =
-          included firstDefined (_.transitiveUnresolved.firstDefined { u =>
+          included.firstDefined(_.transitiveUnresolved.firstDefined { u =>
             h.transitiveUnresolved.filter(_.typeName === u.typeName) match {
               case Empty => None
               case some =>
@@ -142,10 +142,7 @@ class RemoveMultipleInheritance(parentsResolver: ParentsResolver) extends TreeTr
           }
         }
 
-        inheritsClass orElse
-          alreadyInherits orElse
-          alreadyInheritsUnresolved orElse
-          inheritsConflictingVars match {
+        inheritsClass.orElse(alreadyInherits).orElse(alreadyInheritsUnresolved).orElse(inheritsConflictingVars) match {
           case None => step(h +: included, h.refs.last +: newParents, dropped, rest)
           case Some(d) =>
             val newRemaining = h.parents.filterNot(included.contains).filterNot(rest.contains)

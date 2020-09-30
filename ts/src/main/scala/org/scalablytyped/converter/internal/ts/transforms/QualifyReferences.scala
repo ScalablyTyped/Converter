@@ -57,13 +57,13 @@ class QualifyReferences(skipValidation: Boolean) extends TreeTransformationScope
     } else IArray(tr)
 
   def shouldQualify(name: TsQIdent, scope: TsTreeScope): Boolean =
-    if (TsQIdent Primitive name) false
+    if (TsQIdent.Primitive(name)) false
     else if (name.parts.head.isInstanceOf[TsIdentLibrary]) false
-    else if (scope isAbstract name) false
+    else if (scope.isAbstract(name)) false
     else true
 
   def referenceFrom(types: IArray[(TsNamedDecl, TsTreeScope)]): IArray[CodePath.HasPath] =
-    types map {
+    types.map {
       case (named, _) => named.codePath.forceHasPath
     }
 }

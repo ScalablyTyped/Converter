@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 
 object HasTParams {
-  def apply(t: TsTree): IArray[TsTypeParam] = unapply(t) getOrElse Empty
+  def apply(t: TsTree): IArray[TsTypeParam] = unapply(t).getOrElse(Empty)
 
   def unapply(t: TsTree): Option[IArray[TsTypeParam]] =
     t match {

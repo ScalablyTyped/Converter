@@ -49,20 +49,24 @@ object SuchTestMuchFail extends App {
     }.seq
 
   val successes: Seq[os.Path] =
-    parsed collect {
-      case (path, Right(_)) => path
-    } sortBy (_.toString)
+    parsed
+      .collect {
+        case (path, Right(_)) => path
+      }
+      .sortBy(_.toString)
 
   val failures: Seq[(os.Path, String)] =
-    parsed collect {
-      case (path, Left(error)) => path -> error
-    } sortBy (_._1.toString)
+    parsed
+      .collect {
+        case (path, Left(error)) => path -> error
+      }
+      .sortBy(_._1.toString)
 
   val percentageSuccess: Double =
     100.0 * successes.size / allFiles.size
 
   banner()
-  failures foreach println
+  failures.foreach(println)
   bannerMsg(s"Success: $percentageSuccess")
   assert(percentageSuccess >= criterion)
 }

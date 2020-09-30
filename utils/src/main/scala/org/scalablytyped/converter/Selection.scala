@@ -9,10 +9,10 @@ sealed trait Selection[T] {
 
   def map[U](f: T => U): Selection[U] =
     this match {
-      case Selection.NoneExcept(values @ _*) => Selection.NoneExcept(values map f: _*)
-      case Selection.AllExcept(values @ _*)  => Selection.AllExcept(values map f: _*)
-      case Selection.And(_1, _2)             => Selection.And(_1 map f, _2 map f)
-      case Selection.Or(_1, _2)              => Selection.Or(_1 map f, _2 map f)
+      case Selection.NoneExcept(values @ _*) => Selection.NoneExcept(values.map(f): _*)
+      case Selection.AllExcept(values @ _*)  => Selection.AllExcept(values.map(f): _*)
+      case Selection.And(_1, _2)             => Selection.And(_1.map(f), _2.map(f))
+      case Selection.Or(_1, _2)              => Selection.Or(_1.map(f), _2.map(f))
     }
 
   def apply(value: T): Boolean =

@@ -25,7 +25,7 @@ object seqs {
       val t1s  = cbfT1()
       val rest = cbfT()
 
-      ts foreach {
+      ts.foreach {
         case t if t1.isDefinedAt(t) => t1s += t1(t)
         case t                      => rest += t
       }
@@ -42,7 +42,7 @@ object seqs {
       val t2s  = cbfT2()
       val rest = cbfT()
 
-      ts foreach {
+      ts.foreach {
         case t if t1.isDefinedAt(t) => t1s += t1(t)
         case t if t2.isDefinedAt(t) => t2s += t2(t)
         case t                      => rest += t
@@ -67,7 +67,7 @@ object seqs {
       val t3s  = cbfT3()
       val rest = cbfT()
 
-      ts foreach {
+      ts.foreach {
         case t if t1.isDefinedAt(t) => t1s += t1(t)
         case t if t2.isDefinedAt(t) => t2s += t2(t)
         case t if t3.isDefinedAt(t) => t3s += t3(t)
@@ -96,7 +96,7 @@ object seqs {
       val t4s  = cbfT4()
       val rest = cbfT()
 
-      ts foreach {
+      ts.foreach {
         case t if t1.isDefinedAt(t) => t1s += t1(t)
         case t if t2.isDefinedAt(t) => t2s += t2(t)
         case t if t3.isDefinedAt(t) => t3s += t3(t)
@@ -129,7 +129,7 @@ object seqs {
       val t5s  = cbfT5()
       val rest = cbfT()
 
-      ts foreach {
+      ts.foreach {
         case t if t1.isDefinedAt(t) => t1s += t1(t)
         case t if t2.isDefinedAt(t) => t2s += t2(t)
         case t if t3.isDefinedAt(t) => t3s += t3(t)

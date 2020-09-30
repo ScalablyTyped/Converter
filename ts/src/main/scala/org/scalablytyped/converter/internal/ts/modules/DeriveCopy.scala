@@ -35,7 +35,7 @@ object DeriveCopy {
         Empty
 
       case (x, origName: TsIdentSimple, _, ownerCp) =>
-        val name = rename getOrElse origName
+        val name = rename.getOrElse(origName)
 
         val derived = x match {
           case x: TsDeclClass =>
@@ -72,7 +72,7 @@ object DeriveCopy {
               x.copy(
                 name         = name,
                 isValue      = true,
-                exportedFrom = x.exportedFrom orElse Some(TsTypeRef(NoComments, origin, Empty)),
+                exportedFrom = x.exportedFrom.orElse(Some(TsTypeRef(NoComments, origin, Empty))),
                 codePath     = codePathFor(name),
               ),
             )

@@ -29,7 +29,7 @@ object LibScalaJs {
       val libs = mutable.HashMap.empty[TsLibSource, LibScalaJs]
 
       def go(m: Map[Source, LibScalaJs]): Unit =
-        m foreach {
+        m.foreach {
           case (s: TsLibSource, lib: LibScalaJs) =>
             if (!libs.contains(s)) {
               libs(s) = lib
@@ -45,7 +45,7 @@ object LibScalaJs {
     }
 
     def goLibs(libs: mutable.Map[TsLibSource, LibScalaJs], ds: Map[TsLibSource, LibScalaJs]): Unit =
-      ds foreach {
+      ds.foreach {
         case (s, lib) =>
           if (!libs.contains(s)) {
             libs(s) = lib

@@ -7,7 +7,7 @@ object OptionalType extends (TsType => TsType) {
   def unapply(tpe: TsType): Option[TsType] =
     tpe match {
       case TsTypeUnion(types) =>
-        types partition undefineds match {
+        types.partition(undefineds) match {
           case (Empty, _) => None
           case (_, remaining) =>
             val rest = TsTypeUnion.simplified(remaining) // in case of nesting

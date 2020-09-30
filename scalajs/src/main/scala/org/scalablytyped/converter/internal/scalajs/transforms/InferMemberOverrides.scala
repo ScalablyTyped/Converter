@@ -32,7 +32,7 @@ class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransfo
       fields.groupBy(_.name)
 
     val methodsByBase: Map[MethodBase, IArray[MethodTree]] =
-      methods groupBy Erasure.base(scope)
+      methods.groupBy(Erasure.base(scope))
 
     val inheritedFields: Map[Name, IArray[(FieldTree, TypeRef)]] =
       sum(
@@ -64,10 +64,10 @@ class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransfo
       )
 
     val inheritedMethods: IArray[MethodTree] =
-      root.transitiveParents.flatMapToIArray { case (_, v) => v.members collect { case c: MethodTree => c } }
+      root.transitiveParents.flatMapToIArray { case (_, v) => v.members.collect { case c: MethodTree => c } }
 
     val addedMethods: IArray[MethodTree] =
-      IArray.fromTraversable(inheritedMethods groupBy Erasure.base(scope)) collect {
+      IArray.fromTraversable(inheritedMethods.groupBy(Erasure.base(scope))).collect {
         case (base, fs) if fs.length > 1 && !methodsByBase.contains(base) =>
           fs.head.copy(
             isOverride = true,
@@ -90,8 +90,8 @@ class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransfo
     tpe match {
       case TypeRef(QualifiedName.UndefOr, _, _) => true
       case TypeRef.undefined                    => true
-      case TypeRef.Intersection(types, _)       => types forall canBeUndefined
-      case TypeRef.Union(types, _)              => types exists canBeUndefined
+      case TypeRef.Intersection(types, _)       => types.forall(canBeUndefined)
+      case TypeRef.Union(types, _)              => types.exists(canBeUndefined)
       case _                                    => false
     }
 
