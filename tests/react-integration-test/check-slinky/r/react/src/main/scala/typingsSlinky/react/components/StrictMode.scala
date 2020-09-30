@@ -5,7 +5,7 @@ import typingsSlinky.StBuildingComponent.Default
 import typingsSlinky.react.anon.Children
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object StrictMode {
   @JSImport("react", "StrictMode")

@@ -4,7 +4,7 @@ import typings.react.mod.ClassAttributes
 import typings.react.mod.ReactSVGElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait IconBaseProps extends ClassAttributes[ReactSVGElement] {

@@ -59,7 +59,7 @@ import typingsJapgolly.reactBootstrap.buttonGroupMod.^
 import typingsJapgolly.reactBootstrap.mod.Sizes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object ButtonGroup {
   @JSImport("react-bootstrap/lib/ButtonGroup", JSImport.Namespace)

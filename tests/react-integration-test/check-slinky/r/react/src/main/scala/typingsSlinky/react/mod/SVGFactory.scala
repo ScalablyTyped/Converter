@@ -3,7 +3,7 @@ package typingsSlinky.react.mod
 import org.scalajs.dom.raw.SVGElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait SVGFactory extends DOMFactory[SVGAttributes[SVGElement], SVGElement] {

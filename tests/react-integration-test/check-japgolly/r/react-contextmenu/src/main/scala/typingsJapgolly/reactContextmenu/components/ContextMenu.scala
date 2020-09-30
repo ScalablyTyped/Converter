@@ -7,7 +7,7 @@ import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.reactContextmenu.mod.ContextMenuProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object ContextMenu {
   @JSImport("react-contextmenu", "ContextMenu")

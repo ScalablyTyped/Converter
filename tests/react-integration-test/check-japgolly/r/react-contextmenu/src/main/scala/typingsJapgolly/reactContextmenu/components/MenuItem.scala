@@ -10,7 +10,7 @@ import typingsJapgolly.react.mod.HTMLAttributes
 import typingsJapgolly.reactContextmenu.mod.MenuItemProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object MenuItem {
   @JSImport("react-contextmenu", "MenuItem")

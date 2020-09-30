@@ -3,7 +3,7 @@ package typingsSlinky.materialUi.components
 import typingsSlinky.materialUi.accessibilityMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object Accessibility {
   @JSImport("material-ui/svg-icons/action/accessibility", JSImport.Default)

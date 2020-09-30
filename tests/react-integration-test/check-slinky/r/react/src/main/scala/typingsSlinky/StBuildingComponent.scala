@@ -8,7 +8,7 @@ import slinky.core.facade.ReactRef
 import typingsSlinky.StBuildingComponent.make
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 trait StBuildingComponent[E, R <: js.Object] extends Any {
   @scala.inline

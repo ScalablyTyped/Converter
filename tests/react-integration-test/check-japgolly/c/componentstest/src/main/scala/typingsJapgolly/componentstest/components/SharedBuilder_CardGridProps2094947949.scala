@@ -4,7 +4,7 @@ import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.react.mod.CSSProperties
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
 class SharedBuilder_CardGridProps2094947949 (val args: js.Array[js.Any])

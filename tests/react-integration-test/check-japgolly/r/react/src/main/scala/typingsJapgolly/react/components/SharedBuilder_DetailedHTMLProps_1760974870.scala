@@ -56,7 +56,7 @@ import typingsJapgolly.react.reactStrings.tree
 import typingsJapgolly.react.reactStrings.vertical
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
 class SharedBuilder_DetailedHTMLProps_1760974870[R <: js.Object] (val args: js.Array[js.Any])

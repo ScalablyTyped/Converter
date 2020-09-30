@@ -5,7 +5,7 @@ import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
 class SharedBuilder_AccordionContentProps_1883056278 (val args: js.Array[js.Any])

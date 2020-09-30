@@ -4,7 +4,7 @@ import typingsJapgolly.stardustUiReactComponentRef.refFindNodeMod.default
 import typingsJapgolly.stardustUiReactComponentRef.typesMod.RefProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object RefFindNode {
   @JSImport("@stardust-ui/react-component-ref/dist/es/RefFindNode", JSImport.Default)

@@ -3,7 +3,7 @@ package typings.awsSdk
 import typings.awsSdk.documentClientMod.DocumentClient._AttributeAction
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object awsSdkStrings {
   @js.native

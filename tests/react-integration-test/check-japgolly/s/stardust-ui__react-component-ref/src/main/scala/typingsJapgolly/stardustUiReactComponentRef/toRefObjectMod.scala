@@ -3,7 +3,7 @@ package typingsJapgolly.stardustUiReactComponentRef
 import japgolly.scalajs.react.raw.React.RefHandle
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @JSImport("@stardust-ui/react-component-ref/dist/es/toRefObject", JSImport.Namespace)
 @js.native

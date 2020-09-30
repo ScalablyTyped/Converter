@@ -4,7 +4,7 @@ import japgolly.scalajs.react.raw.React.Element
 import typingsJapgolly.react.mod.RefAttributes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @JSImport("react-dropzone", JSImport.Default)
 @js.native

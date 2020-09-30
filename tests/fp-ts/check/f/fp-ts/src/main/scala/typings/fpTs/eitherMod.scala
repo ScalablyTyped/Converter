@@ -2,7 +2,7 @@ package typings.fpTs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @JSImport("fp-ts/lib/Either", JSImport.Namespace)
 @js.native

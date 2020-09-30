@@ -29,7 +29,7 @@ import typingsJapgolly.semanticUiReact.semanticUiReactStrings.vk
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.youtube
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait StrictButtonProps extends ButtonHTMLAttributes[HTMLButtonElement] {

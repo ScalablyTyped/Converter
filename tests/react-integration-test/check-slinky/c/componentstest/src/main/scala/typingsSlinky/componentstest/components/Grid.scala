@@ -3,7 +3,7 @@ package typingsSlinky.componentstest.components
 import typingsSlinky.componentstest.mod.CardGridProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object Grid {
   @JSImport("componentstest", "Grid")

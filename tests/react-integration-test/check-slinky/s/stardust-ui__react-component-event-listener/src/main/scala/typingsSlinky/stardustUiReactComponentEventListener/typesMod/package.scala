@@ -2,7 +2,7 @@ package typingsSlinky.stardustUiReactComponentEventListener
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 package object typesMod {
   type EventHandler[T /* <: typingsSlinky.stardustUiReactComponentEventListener.typesMod.EventTypes */] = js.Function1[

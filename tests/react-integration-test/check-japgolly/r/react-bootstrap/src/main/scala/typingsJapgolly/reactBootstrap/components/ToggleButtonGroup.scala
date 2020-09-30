@@ -5,7 +5,7 @@ import typingsJapgolly.reactBootstrap.toggleButtonGroupMod.ToggleButtonGroupProp
 import typingsJapgolly.reactBootstrap.toggleButtonGroupMod.^
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* The props of this component has an unsupported shape. You can use `set` manually to use it, but with no compiler support :/ . Support for combinations of intersection and union types not implemented */
 object ToggleButtonGroup {

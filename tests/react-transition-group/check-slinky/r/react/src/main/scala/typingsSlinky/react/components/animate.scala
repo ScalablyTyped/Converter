@@ -6,7 +6,7 @@ import typingsSlinky.StBuildingComponent.Default
 import typingsSlinky.react.mod.ClassAttributes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object animate {
   val component: String = "animate"

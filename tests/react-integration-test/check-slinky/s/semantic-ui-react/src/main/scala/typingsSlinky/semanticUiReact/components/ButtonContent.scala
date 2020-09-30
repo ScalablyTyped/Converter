@@ -3,7 +3,7 @@ package typingsSlinky.semanticUiReact.components
 import typingsSlinky.semanticUiReact.buttonContentMod.ButtonContentProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object ButtonContent {
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonContent", JSImport.Default)

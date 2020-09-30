@@ -4,7 +4,7 @@ import typings.angular.anon.Instantiable
 import typings.angular.mod.global.Function
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @JSImport("angular", "auto")
 @js.native

@@ -6,7 +6,7 @@ import typingsSlinky.materialUi.MaterialUI.BottomNavigation.BottomNavigationItem
 import typingsSlinky.materialUi.bottomNavigationItemMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object BottomNavigationItem {
   @JSImport("material-ui/BottomNavigation/BottomNavigationItem", JSImport.Default)

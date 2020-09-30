@@ -2,7 +2,7 @@ package typings.antd.mod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined parent std.Omit<rc-field-form.rc-field-form/es/Form.FormProps, 'form'> */
 @js.native

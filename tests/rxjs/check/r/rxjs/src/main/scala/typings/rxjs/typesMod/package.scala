@@ -2,7 +2,7 @@ package typings.rxjs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 package object typesMod {
   type OperatorFunction[T, R] = typings.rxjs.typesMod.UnaryFunction[typings.rxjs.observableMod.Observable[T], typings.rxjs.observableMod.Observable[R]]

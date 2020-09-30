@@ -3,7 +3,7 @@ package typingsJapgolly.react.anon
 import typingsJapgolly.react.mod.ComponentType
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait Result[T /* <: ComponentType[_] */] extends js.Object {

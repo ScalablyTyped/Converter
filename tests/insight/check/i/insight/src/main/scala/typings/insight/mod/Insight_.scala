@@ -3,7 +3,7 @@ package typings.insight.mod
 import typings.insight.mod.insight.IConfigstore
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait Insight_ extends js.Object {

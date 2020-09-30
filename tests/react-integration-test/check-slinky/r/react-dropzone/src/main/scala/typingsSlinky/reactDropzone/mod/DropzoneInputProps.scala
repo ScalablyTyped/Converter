@@ -4,7 +4,7 @@ import org.scalajs.dom.raw.HTMLInputElement
 import typingsSlinky.react.mod.InputHTMLAttributes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait DropzoneInputProps extends InputHTMLAttributes[HTMLInputElement] {

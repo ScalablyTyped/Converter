@@ -6,7 +6,7 @@ import japgolly.scalajs.react.raw.React.RefHandle
 import org.scalajs.dom.raw.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // string fallback for custom web-components
 @js.native

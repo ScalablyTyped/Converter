@@ -11,7 +11,7 @@ import japgolly.scalajs.react.vdom.VdomNode
 import typingsJapgolly.StBuildingComponent.make
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 trait StBuildingComponent[R <: js.Object] extends Any {
   @scala.inline

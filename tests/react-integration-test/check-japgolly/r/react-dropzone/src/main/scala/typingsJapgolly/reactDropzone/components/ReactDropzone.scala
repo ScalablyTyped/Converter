@@ -12,7 +12,7 @@ import typingsJapgolly.reactDropzone.mod.DropzoneRef
 import typingsJapgolly.reactDropzone.mod.DropzoneState
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object ReactDropzone {
   @JSImport("react-dropzone", JSImport.Default)

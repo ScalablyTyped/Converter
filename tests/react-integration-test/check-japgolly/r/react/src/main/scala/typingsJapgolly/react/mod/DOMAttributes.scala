@@ -21,7 +21,7 @@ import org.scalajs.dom.raw.Element
 import typingsJapgolly.react.anon.Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait DOMAttributes[T] extends js.Object {

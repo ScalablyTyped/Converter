@@ -3,7 +3,7 @@ package typings.fpTs.constMod.fpTsLibHKTAugmentingMod
 import typings.fpTs.constMod.Const
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait URI2HKT2[L, A] extends js.Object {

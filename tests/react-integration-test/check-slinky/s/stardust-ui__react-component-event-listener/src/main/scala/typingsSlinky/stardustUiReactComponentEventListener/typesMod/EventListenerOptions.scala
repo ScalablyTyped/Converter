@@ -3,7 +3,7 @@ package typingsSlinky.stardustUiReactComponentEventListener.typesMod
 import slinky.core.facade.ReactRef
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait EventListenerOptions[T /* <: EventTypes */] extends js.Object {

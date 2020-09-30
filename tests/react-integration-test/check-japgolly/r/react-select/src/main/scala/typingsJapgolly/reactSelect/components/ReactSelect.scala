@@ -5,7 +5,7 @@ import typingsJapgolly.reactSelect.mod.ReactSelectProps
 import typingsJapgolly.reactSelect.mod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object ReactSelect {
   @JSImport("react-select", JSImport.Default)

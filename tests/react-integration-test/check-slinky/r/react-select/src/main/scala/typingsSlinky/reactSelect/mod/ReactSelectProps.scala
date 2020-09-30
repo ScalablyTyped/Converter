@@ -3,7 +3,7 @@ package typingsSlinky.reactSelect.mod
 import typingsSlinky.react.mod.Props
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait ReactSelectProps[TValue] extends Props[ReactSelectClass[TValue]] {

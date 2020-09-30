@@ -3,7 +3,7 @@ package typingsJapgolly.react.mod
 import japgolly.scalajs.react.raw.React.RefHandle
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @JSImport("react", "useRef")
 @js.native

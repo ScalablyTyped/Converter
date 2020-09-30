@@ -2,7 +2,7 @@ package typingsJapgolly.materialUi.components
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object ActionAccessibility {
   @JSImport("material-ui/svg-icons/action/accessibility", "ActionAccessibility")

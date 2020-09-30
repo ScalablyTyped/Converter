@@ -11,7 +11,7 @@ import typingsJapgolly.react.mod.ReactText
 import typingsJapgolly.reactContextmenu.mod.SubMenuProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object SubMenu {
   @JSImport("react-contextmenu", "SubMenu")

@@ -5,7 +5,7 @@ import typings.swiz.mod.SERIALIZATION.java
 import typings.swiz.mod.SERIALIZATION.notify
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @JSImport("swiz-test-foo", JSImport.Namespace)
 @js.native

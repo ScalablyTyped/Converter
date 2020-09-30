@@ -3,7 +3,7 @@ package typings.vueResource.vuejs
 import typings.vueResource.anon.Method
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait ResourceActions extends js.Object {

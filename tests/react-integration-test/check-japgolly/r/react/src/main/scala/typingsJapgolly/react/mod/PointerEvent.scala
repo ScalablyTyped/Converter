@@ -11,7 +11,7 @@ import typingsJapgolly.react.reactStrings.pen
 import typingsJapgolly.react.reactStrings.touch
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait PointerEvent[T] extends MouseEvent[T, Event] {

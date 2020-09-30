@@ -4,7 +4,7 @@ import typingsJapgolly.materialUi.MaterialUI.BottomNavigation.BottomNavigationIt
 import typingsJapgolly.react.mod.Component
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @JSImport("material-ui/BottomNavigation/BottomNavigationItem", JSImport.Namespace)
 @js.native

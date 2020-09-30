@@ -8,7 +8,7 @@ import typingsJapgolly.react.reactStrings.mount
 import typingsJapgolly.react.reactStrings.update
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait ProfilerProps extends js.Object {

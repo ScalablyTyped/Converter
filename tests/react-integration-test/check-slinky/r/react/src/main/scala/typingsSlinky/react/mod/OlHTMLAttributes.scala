@@ -7,7 +7,7 @@ import typingsSlinky.react.reactStrings.a_
 import typingsSlinky.react.reactStrings.i_
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait OlHTMLAttributes[T] extends HTMLAttributes[T] {

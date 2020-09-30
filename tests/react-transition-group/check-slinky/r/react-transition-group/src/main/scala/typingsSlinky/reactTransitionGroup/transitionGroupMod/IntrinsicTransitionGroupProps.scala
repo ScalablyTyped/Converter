@@ -4,7 +4,7 @@ import typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.abbr
 import typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.animate
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait IntrinsicTransitionGroupProps[T /* <: abbr | animate */] extends js.Object {

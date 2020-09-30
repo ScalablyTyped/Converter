@@ -3,7 +3,7 @@ package typingsSlinky.stardustUiReactComponentRef.components
 import typingsSlinky.stardustUiReactComponentRef.typesMod.RefProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object Ref {
   @JSImport("@stardust-ui/react-component-ref", "Ref")

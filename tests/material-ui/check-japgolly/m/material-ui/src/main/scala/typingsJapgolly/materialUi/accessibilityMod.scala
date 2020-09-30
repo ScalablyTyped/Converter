@@ -3,7 +3,7 @@ package typingsJapgolly.materialUi
 import typingsJapgolly.react.mod.Component
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @JSImport("material-ui/svg-icons/action/accessibility", JSImport.Namespace)
 @js.native

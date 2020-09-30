@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "monaco-editor"
-version := "0.0-unknown-08b5b6"
+version := "0.0-unknown-1fec54"
 scalaVersion := "2.13.3"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-81c00c")
+  "org.scalablytyped" %%% "std" % "0.0-unknown-02ca65")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-feature", "-g:notailcalls", "-language:implicitConversions", "-language:higherKinds", "-language:existentials")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

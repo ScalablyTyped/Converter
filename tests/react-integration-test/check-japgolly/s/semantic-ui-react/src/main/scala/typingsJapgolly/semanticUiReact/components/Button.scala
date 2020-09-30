@@ -87,7 +87,7 @@ import typingsJapgolly.semanticUiReact.semanticUiReactStrings.vk
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.youtube
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object Button {
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", JSImport.Default)

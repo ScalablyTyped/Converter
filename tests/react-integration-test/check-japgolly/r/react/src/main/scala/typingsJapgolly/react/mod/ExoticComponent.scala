@@ -3,7 +3,7 @@ package typingsJapgolly.react.mod
 import japgolly.scalajs.react.raw.React.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // TODO: similar to how Fragment is actually a symbol, the values returned from createContext,
 // forwardRef and memo are actually objects that are treated specially by the renderer; see:

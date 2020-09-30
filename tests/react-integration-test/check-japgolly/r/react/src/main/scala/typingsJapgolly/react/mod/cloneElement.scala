@@ -8,7 +8,7 @@ import org.scalajs.dom.raw.SVGElement
 import typingsJapgolly.std.Partial
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @JSImport("react", "cloneElement")
 @js.native

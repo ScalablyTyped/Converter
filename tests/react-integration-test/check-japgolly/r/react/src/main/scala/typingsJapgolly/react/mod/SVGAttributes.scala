@@ -33,7 +33,7 @@ import typingsJapgolly.react.reactStrings.terminal
 import typingsJapgolly.react.reactStrings.yes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // this list is "complete" in that it contains every SVG attribute
 // that React supports, but the types can be improved.

@@ -55,7 +55,7 @@ object Printer {
   val Imports: String =
     """|import scala.scalajs.js
        |import scala.scalajs.js.`|`
-       |import scala.scalajs.js.annotation._""".stripMargin
+       |import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}""".stripMargin
 
   private final case class Indenter(a: Appendable) {
     private var hasIndented: Boolean = false

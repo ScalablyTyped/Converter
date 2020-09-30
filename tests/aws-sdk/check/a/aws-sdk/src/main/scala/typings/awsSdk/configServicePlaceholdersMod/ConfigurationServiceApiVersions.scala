@@ -3,7 +3,7 @@ package typings.awsSdk.configServicePlaceholdersMod
 import typings.awsSdk.dynamodbMod.apiVersion
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait ConfigurationServiceApiVersions extends js.Object {

@@ -4,7 +4,7 @@ import typingsJapgolly.react.mod.Component
 import typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @JSImport("react-transition-group/TransitionGroup", JSImport.Namespace)
 @js.native

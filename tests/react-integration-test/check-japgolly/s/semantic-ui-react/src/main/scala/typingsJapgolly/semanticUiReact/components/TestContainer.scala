@@ -9,7 +9,7 @@ import typingsJapgolly.semanticUiReact.genericMod.SemanticTEXTALIGNMENTS
 import typingsJapgolly.semanticUiReact.testContainerTestContainerMod.TestContainerProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object TestContainer {
   @JSImport("semantic-ui-react/dist/commonjs/elements/TestContainer/TestContainer", JSImport.Default)

@@ -5,7 +5,7 @@ import typingsJapgolly.react.mod.HTMLAttributes
 import typingsJapgolly.react.mod.ReactType
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait ContextMenuTriggerProps extends js.Object {

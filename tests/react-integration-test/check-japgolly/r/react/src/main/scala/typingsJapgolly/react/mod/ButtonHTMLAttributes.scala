@@ -5,7 +5,7 @@ import typingsJapgolly.react.reactStrings.reset
 import typingsJapgolly.react.reactStrings.submit
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait ButtonHTMLAttributes[T] extends HTMLAttributes[T] {

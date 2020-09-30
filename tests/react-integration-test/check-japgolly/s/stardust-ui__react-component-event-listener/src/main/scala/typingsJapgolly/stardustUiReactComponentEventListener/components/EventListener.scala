@@ -6,7 +6,7 @@ import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventListenerOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object EventListener {
   @JSImport("@stardust-ui/react-component-event-listener/dist/es/EventListener", JSImport.Default)

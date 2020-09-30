@@ -4,7 +4,7 @@ import japgolly.scalajs.react.raw.React.Element
 import typingsJapgolly.std.Partial
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait RefForwardingComponent[T, P] extends js.Object {
