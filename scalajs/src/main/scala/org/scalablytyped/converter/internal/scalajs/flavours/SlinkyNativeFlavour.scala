@@ -6,8 +6,12 @@ import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
 
-case class SlinkyNativeFlavour(outputPkg: Name, scalaVersion: Versions.Scala, enableReactTreeShaking: Selection[Name])
-    extends FlavourImplReact {
+case class SlinkyNativeFlavour(
+    outputPkg:              Name,
+    enableLongApplyMethod:  Boolean,
+    scalaVersion:           Versions.Scala,
+    enableReactTreeShaking: Selection[Name],
+) extends FlavourImplReact {
 
   override val dependencies: Set[Dep] =
     Set(Versions.runtime, Versions.slinkyNative, Versions.scalaJsDom)
@@ -17,7 +21,7 @@ case class SlinkyNativeFlavour(outputPkg: Name, scalaVersion: Versions.Scala, en
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
   val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg, scalaVersion)
   val gen                    = new SlinkyGenComponents(SlinkyGenComponents.Native(()), findProps, genStBuildingComponent, reactNames)
-  val genCompanions          = new GenCompanions(findProps)
+  val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod)
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
     val withCompanions = genCompanions.visitPackageTree(scope)(tree)

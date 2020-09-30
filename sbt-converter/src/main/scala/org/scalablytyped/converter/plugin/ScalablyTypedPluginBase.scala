@@ -46,6 +46,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     )
     @deprecated("This setting is now does nothing, because it became the default encoding")
     val stExperimentalEnableImplicitOps = settingKey[Boolean]("implicit ops for most traits")
+    val stEnableLongApplyMethod         = settingKey[Boolean]("long apply methods instead of implicit ops builders")
   }
 
   override def requires = JvmPlugin && PlatformDepsPlugin
@@ -72,6 +73,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stUseScalaJsDom := true,
       stExperimentalEnableImplicitOps := true,
       stReactEnableTreeShaking := Selection.None,
+      stEnableLongApplyMethod := false,
       stConversionOptions := {
         val versions = Versions(
           Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),
@@ -99,6 +101,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
           versions               = versions,
           organization           = organization,
           enableReactTreeShaking = stReactEnableTreeShaking.value.map(name => ImportName(TsIdentLibrary(name))),
+          enableLongApplyMethod  = stEnableLongApplyMethod.value,
         )
       },
     )

@@ -5,15 +5,19 @@ package flavours
 import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
 
-case class JapgollyFlavour(outputPkg: Name, scalaVersion: Versions.Scala, enableReactTreeShaking: Selection[Name])
-    extends FlavourImplReact {
+case class JapgollyFlavour(
+    outputPkg:              Name,
+    enableLongApplyMethod:  Boolean,
+    scalaVersion:           Versions.Scala,
+    enableReactTreeShaking: Selection[Name],
+) extends FlavourImplReact {
   override val dependencies  = Set(Versions.runtime, Versions.scalajsReact)
   val rewriter               = new CastConversion.TypeRewriterCast(JapgollyTypeConversions(reactNames, scalaJsDomNames))
   val memberToPro            = new JapgollyMemberToProp(reactNames, rewriter)
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToPro, parentsResolver)
   val genStBuildingComponent = new JapgollyGenStBuildingComponent(outputPkg, scalaVersion)
   val genComponents          = new JapgollyGenComponents(findProps, genStBuildingComponent, reactNames)
-  val genCompanions          = new GenCompanions(findProps)
+  val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod)
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
     val withCompanions = genCompanions.visitPackageTree(scope)(tree)

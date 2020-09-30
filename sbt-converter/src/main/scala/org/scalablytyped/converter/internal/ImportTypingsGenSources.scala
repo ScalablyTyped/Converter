@@ -145,6 +145,7 @@ object ImportTypingsGenSources {
       versions               = Versions(Versions.Scala213, Versions.ScalaJs1),
       organization           = "org.scalablytyped",
       enableReactTreeShaking = Selection.None,
+      enableLongApplyMethod  = false,
     )
 
     println(

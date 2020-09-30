@@ -3,6 +3,11 @@ id: conversion-options
 title: Customize the generated code.
 ---
 
+### `stEnableLongApplyMethod`
+Enable this to get long apply methods instead of builder-like functionality for generated companion objects.
+This used to be the default, but was dropped due to excessively long apply-methods for some React components.
+Use at your own risk.
+
 ### `stIgnore`
 There are a few reasons you might want to ignore things:
 - A dependency of a library you want to use might fail conversion/compilation and you can try to salvage the situation by ignoring it.

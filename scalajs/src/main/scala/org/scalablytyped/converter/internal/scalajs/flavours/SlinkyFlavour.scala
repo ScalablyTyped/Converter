@@ -8,6 +8,7 @@ import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIl
 
 case class SlinkyFlavour(
     outputPkg:              Name,
+    enableLongApplyMethod:  Boolean,
     scalaVersion:           Versions.Scala,
     enableReactTreeShaking: Selection[Name],
 ) extends FlavourImplReact {
@@ -16,7 +17,7 @@ case class SlinkyFlavour(
   val rewriter               = new TypeRewriterCast(SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true))
   val memberToProp           = new MemberToProp.Default(Some(rewriter))
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
-  val genCompanions          = new GenCompanions(findProps)
+  val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod)
   val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg, scalaVersion)
 
   /* we need the actual typescript react definitions at runtime to compute this lazily */
