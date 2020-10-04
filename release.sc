@@ -67,7 +67,9 @@ class Repo(version: String)(implicit val wd: os.Path) {
     %("sbt", "clean", "publishLocal")
 
   def publish() = {
-    %("sbt", "publish")
+    %("sbt", "publish", "docs/mdoc")
+    %("yarn", "publish-gh-pages")(wd / "website")
+    %.git("push", "origin", "HEAD")
     %.git("push", "origin", tag)
   }
 }
