@@ -5,3 +5,4 @@ target/
 .metals/
 .bloop
 .DS_Store
+release-temp/
