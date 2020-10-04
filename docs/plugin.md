@@ -27,9 +27,9 @@ If you really want more than one conversion make sure to [shade](conversion-opti
 
 ## Requirements
 
-**This plugin needs sbt 1.3.x**. Not higher or lower. 
-Once sbt 1.4.0 is released only 1.4.x will be supported in new versions.   
-This is unfortunate, but some more design work is needed to avoid this. 
+**This plugin needs sbt 1.4.x**. Not higher or lower. 
+This is unfortunate, but some more design work is needed to avoid this.
+The last version for sbt 1.3.x was 1.0.0-beta26. 
 
 Since we generate source code, it should work with any combination of 
 Scala 2.12 / 2.13 and Scala.js 1.x / 0.6.x 
