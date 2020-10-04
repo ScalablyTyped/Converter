@@ -1,7 +1,6 @@
 import ammonite.ops._
 
 import scala.util.Try
-import scala.util.control.NonFatal
 
 case class DemoRepo(repo: String, name: String)(implicit path: os.Path) {
 
@@ -18,6 +17,7 @@ case class DemoRepo(repo: String, name: String)(implicit path: os.Path) {
         s"""addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "$version")"""
       case line => line
     }
+    os.write.over(path / "project" / "build.properties", "sbt.version=1.4.0")
     os.write.over(pluginsFile, newLines.mkString("\n"))
     %.sbt("dist")
     %.git("add", "-A")
@@ -48,7 +48,7 @@ object DemoRepo {
   }
 }
 
-class Repo(version: String)(implicit val wd: os.Path) {
+case class Repo(version: String)(implicit val wd: os.Path) {
   val tag = s"v$version"
 
   def assertClean() =
@@ -74,23 +74,17 @@ class Repo(version: String)(implicit val wd: os.Path) {
 }
 
 @main
-  def doRelease(version: String): Int =
-    try {
-      val repo = new Repo(version)(os.pwd)
-      repo.assertClean()
-      repo.refreshTag()
-      repo.publishLocal()
-      val demoRepos = DemoRepo.initialized(os.Path("/tmp/st-release-temp"))
-      demoRepos.foreach(_.update())
-      demoRepos.foreach(_.build(version))
-      demoRepos.foreach(_.pushCache())
-      // at this point we're ready to push everything
-      repo.publish()
-      demoRepos.foreach(_.pushGit())
-      0
-    } catch {
-      case NonFatal(th) =>
-        println(s"Release of $version failed")
-        th.printStackTrace()
-        1
-    }
+  def doRelease(version: String): Int = {
+    val repo = Repo(version)(os.pwd)
+    repo.assertClean()
+    repo.refreshTag()
+    repo.publishLocal()
+    val demoRepos = DemoRepo.initialized(os.Path("/tmp/st-release-temp"))
+    demoRepos.foreach(_.update())
+    demoRepos.foreach(_.build(version))
+    demoRepos.foreach(_.pushCache())
+    // at this point we're ready to push everything
+    repo.publish()
+    demoRepos.foreach(_.pushGit())
+    0
+  }
