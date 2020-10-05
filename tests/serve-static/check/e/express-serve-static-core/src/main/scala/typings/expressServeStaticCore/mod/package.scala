@@ -11,8 +11,8 @@ package object mod {
   type NextFunction = js.Function1[/* err */ js.UndefOr[js.Any], scala.Unit]
   
   type RequestHandler = js.Function3[
-    /* req */ typings.expressServeStaticCore.mod.Request, 
-    /* res */ typings.expressServeStaticCore.mod.Response, 
+    /* req */ typings.expressServeStaticCore.mod.global.Express.Request, 
+    /* res */ typings.expressServeStaticCore.mod.global.Express.Response, 
     /* next */ typings.expressServeStaticCore.mod.NextFunction, 
     js.Any
   ]

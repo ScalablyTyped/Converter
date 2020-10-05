@@ -1,6 +1,6 @@
 package typings.serveStatic.mod
 
-import typings.expressServeStaticCore.mod.Response
+import typings.expressServeStaticCore.mod.global.Express.Response
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

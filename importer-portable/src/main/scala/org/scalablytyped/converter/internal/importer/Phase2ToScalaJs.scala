@@ -76,6 +76,7 @@ class Phase2ToScalaJs(
               Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName, willBeExternalTypes)), // after FakeLiterals
               S.LimitUnionLength.visitPackageTree(scope), // after UnionToInheritance
               (S.AvoidMacroParadiseBug >> new S.RemoveMultipleInheritance(new ParentsResolver)).visitPackageTree(scope),
+              S.GeneralizeTypeRefs.visitPackageTree(scope), // after RemoveMultipleInheritance
               S.CombineOverloads.visitPackageTree(scope), //must have stable types, so FakeLiterals run before
               new S.FilterMemberOverrides(new ParentsResolver).visitPackageTree(scope), //
               new S.InferMemberOverrides(new ParentsResolver)
