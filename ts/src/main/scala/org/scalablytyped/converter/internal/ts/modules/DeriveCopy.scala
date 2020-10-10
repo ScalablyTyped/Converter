@@ -41,7 +41,8 @@ object DeriveCopy {
           case x: TsDeclClass =>
             IArray(
               x.copy(
-                name = name,
+                comments = x.comments + CommentData(Markers.IsTrivial),
+                name     = name,
                 members = x.members.collect {
                   case c: TsMemberCtor => c
                   case c @ TsMemberFunction(_, _, TsIdent.constructor, _, _, _, _) => c
@@ -58,7 +59,7 @@ object DeriveCopy {
           case x: TsDeclInterface =>
             IArray(
               TsDeclTypeAlias(
-                comments = Comments(CommentData(Markers.IsTrivial)),
+                comments = x.comments + CommentData(Markers.IsTrivial),
                 declared = true,
                 name     = name,
                 tparams  = x.tparams,

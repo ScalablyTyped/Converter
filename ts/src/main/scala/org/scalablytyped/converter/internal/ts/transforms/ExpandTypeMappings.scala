@@ -424,10 +424,10 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
 
             case (x: TsDeclClass, newScope) =>
               FillInTParams(x, typeRef.tparams) match {
-                case TsDeclClass(_, _, _, _, _, parent, implements, members, _, _) =>
+                case cls: TsDeclClass =>
                   Res
-                    .sequence((implements ++ IArray.fromOption(parent)).map(AllMembersFor(newScope, ld)))
-                    .map(fromParents => handleOverridingFields(members, fromParents))
+                    .sequence(cls.inheritance.map(AllMembersFor(newScope, ld)))
+                    .map(fromParents => handleOverridingFields(cls.members, fromParents))
               }
 
             case (x: TsDeclTypeAlias, _) =>

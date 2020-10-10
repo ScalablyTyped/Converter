@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("stream", "Writable")
 @js.native
 class Writable ()
-  extends internal
+  extends Stream
      with WritableStream {
   def this(opts: WritableOptions) = this()
   

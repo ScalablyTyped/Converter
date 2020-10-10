@@ -1,8 +1,6 @@
 package typingsJapgolly.reactTransitionGroup
 
-import typingsJapgolly.react.mod.Component
-import typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr
-import typingsJapgolly.reactTransitionGroup.transitionGroupMod.TransitionGroupProps
+import typingsJapgolly.reactTransitionGroup.transitionGroupMod.^
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -12,6 +10,5 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object mod extends js.Object {
   
   @js.native
-  class TransitionGroup ()
-    extends Component[TransitionGroupProps[abbr, js.Any], js.Object]
+  class TransitionGroup () extends ^
 }

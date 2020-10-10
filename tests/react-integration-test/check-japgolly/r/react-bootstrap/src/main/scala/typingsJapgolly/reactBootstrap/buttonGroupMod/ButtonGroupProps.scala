@@ -1,16 +1,13 @@
 package typingsJapgolly.reactBootstrap.buttonGroupMod
 
-import typingsJapgolly.react.mod.AllHTMLAttributes
-import typingsJapgolly.react.mod.ClassAttributes
+import typingsJapgolly.react.mod.HTMLProps
 import typingsJapgolly.reactBootstrap.mod.Sizes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ButtonGroupProps
-  extends AllHTMLAttributes[ButtonGroup]
-     with ClassAttributes[ButtonGroup] {
+trait ButtonGroupProps extends HTMLProps[ButtonGroup] {
   
   var block: js.UndefOr[Boolean] = js.native
   

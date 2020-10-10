@@ -16,7 +16,7 @@ object KeepTypesOnly {
 
   def named(x: TsNamedDecl): Option[TsNamedDecl] = x match {
     case _: TsDeclVar | _: TsDeclFunction => None
-    case TsDeclClass(comments, declared, _, name, tparams, parent, implements, members, _, _) =>
+    case cls @ TsDeclClass(comments, declared, _, name, tparams, _, _, members, _, _) =>
       val nonStatics: IArray[TsMember] =
         members.filterNot {
           case _:  TsMemberCtor     => true
@@ -31,7 +31,7 @@ object KeepTypesOnly {
           declared,
           name,
           tparams,
-          IArray.fromOption(parent) ++ implements,
+          cls.inheritance,
           nonStatics,
           x.codePath,
         ),
