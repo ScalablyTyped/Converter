@@ -14,31 +14,35 @@ object InlineTrivial extends TreeTransformationScopedChanges {
   override def enterTsTypeRef(scope: TsTreeScope)(x: TsTypeRef): TsTypeRef =
     rewritten(scope, x.name).map(newName => x.copy(name = newName)).getOrElse(x)
 
+  def shouldGeneralize(scope: TsTreeScope): Boolean =
+    scope.stack match {
+      case _ :: (_: TsFunSig) :: _        => false // return type
+      case _ :: (_: TsDeclClassLike) :: _ => false // parent
+      case _ => true
+    }
+
   def rewritten(scope: TsTreeScope, current: TsQIdent): Option[TsQIdent] =
-//    if (TsTypeFormatter.qident(current) === "@aws-cdk/core.@aws-cdk/core.Construct") {
-//      print(1)
-//    }
-    scope.lookupTypeIncludeScope(current).firstDefined {
-      case (TsDeclEnum(_, _, _, _, _, _, Some(exportedFrom), _, _), _) =>
+    scope.lookupType(current, skipValidation = true).firstDefined {
+      case TsDeclEnum(_, _, _, _, _, _, Some(exportedFrom), _, _) =>
         Some(exportedFrom.name)
 
-      case (ta @ NameFromTypeAlias(nextName), nextScope) if ta.comments.has[Markers.IsTrivial.type] =>
-        rewritten(nextScope, nextName).orElse(Some(nextName))
+      case ta @ NameFromTypeAlias(nextName) if ta.comments.has[Markers.IsTrivial.type] =>
+        rewritten(scope, nextName).orElse(Some(nextName))
 
-      case (next: TsDeclClassLike, nextScope) if next.comments.has[Markers.IsTrivial.type] =>
+      case NameFromTypeAlias(nextName) if shouldGeneralize(scope) =>
+        rewritten(scope, nextName)
+
+      case next: TsDeclClassLike if next.comments.has[Markers.IsTrivial.type] =>
         val nextParentOpt = next.inheritance match {
           case IArray.exactlyOne(one) => Some(one)
           case more                   => more.find(_.name.parts.last === next.name)
         }
         nextParentOpt match {
-          case Some(nextParent) => rewritten(nextScope, nextParent.name).orElse(Some(nextParent.name))
+          case Some(nextParent) => rewritten(scope, nextParent.name).orElse(Some(nextParent.name))
           case None             => Some(current)
         }
 
-      case (NameFromTypeAlias(nextName), nextScope) =>
-        rewritten(nextScope, nextName)
-
-      case (next: TsDeclClassLike, nextScope) if next.inheritance.nonEmpty =>
+      case next: TsDeclClassLike if next.inheritance.nonEmpty && shouldGeneralize(scope) =>
         val nextParentOptAndRest = next.inheritance match {
           case IArray.exactlyOne(one) =>
             (IArray(one), Empty)
@@ -50,7 +54,7 @@ object InlineTrivial extends TreeTransformationScopedChanges {
         nextParentOptAndRest match {
           case (IArray.exactlyOne(nextParent), restParents) =>
             val parents: IArray[TsDeclClassLike] =
-              ParentsResolver(nextScope, next).parents
+              ParentsResolver(scope, next).parents
 
             lazy val inheritedMemberName: Set[TsIdentSimple] =
               parents.flatMap(p => IArray.fromTraversable(p.membersByName.keys)).toSet
@@ -65,7 +69,7 @@ object InlineTrivial extends TreeTransformationScopedChanges {
               restParents.exists(tr => !alreadyInherited(tr.name))
 
             if (hasNewInheritance || hasNewMembers) None
-            else rewritten(nextScope, nextParent.name)
+            else rewritten(scope, nextParent.name)
 
           case _ => None
         }
