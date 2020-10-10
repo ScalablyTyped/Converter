@@ -3,6 +3,7 @@ package typingsSlinky.semanticUiReact
 import slinky.core.ReactComponentClass
 import typingsSlinky.semanticUiReact.buttonContentMod.ButtonContentProps
 import typingsSlinky.semanticUiReact.buttonGroupMod.ButtonGroupProps
+import typingsSlinky.semanticUiReact.buttonMod.Button
 import typingsSlinky.semanticUiReact.buttonOrMod.ButtonOrProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -13,8 +14,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object mod extends js.Object {
   
   @js.native
-  class default ()
-    extends typingsSlinky.semanticUiReact.buttonMod.default
+  class default () extends Button
   /* static members */
   @js.native
   object default extends js.Object {

@@ -4,7 +4,6 @@ import slinky.core.ReactComponentClass
 import slinky.core.facade.ReactRef
 import typingsSlinky.stardustUiReactComponentRef.anon.Children
 import typingsSlinky.stardustUiReactComponentRef.anon.InnerRef
-import typingsSlinky.stardustUiReactComponentRef.refFindNodeMod.default
 import typingsSlinky.stardustUiReactComponentRef.typesMod.RefProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -33,7 +32,8 @@ object mod extends js.Object {
   def toRefObject[T /* <: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): ReactRef[T] = js.native
   
   @js.native
-  class RefFindNode () extends default
+  class RefFindNode ()
+    extends typingsSlinky.stardustUiReactComponentRef.refFindNodeMod.RefFindNode
   /* static members */
   @js.native
   object RefFindNode extends js.Object {
@@ -45,7 +45,7 @@ object mod extends js.Object {
   
   @js.native
   class RefForward ()
-    extends typingsSlinky.stardustUiReactComponentRef.refForwardMod.default
+    extends typingsSlinky.stardustUiReactComponentRef.refForwardMod.RefForward
   /* static members */
   @js.native
   object RefForward extends js.Object {

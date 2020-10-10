@@ -1,5 +1,6 @@
 package typingsJapgolly.semanticUiReact
 
+import typingsJapgolly.semanticUiReact.inputInputMod.Input
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -9,6 +10,5 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object inputMod extends js.Object {
   
   @js.native
-  class default ()
-    extends typingsJapgolly.semanticUiReact.inputInputMod.default
+  class default () extends Input
 }

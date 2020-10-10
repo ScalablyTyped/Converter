@@ -10,5 +10,5 @@ object middleMod extends js.Object {
   
   @js.native
   class RuntimeAnimation ()
-    extends typings.babylon.indexMod.RuntimeAnimation
+    extends typings.babylon.originalMod.RuntimeAnimation
 }

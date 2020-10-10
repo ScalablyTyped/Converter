@@ -1,7 +1,7 @@
 package typings.awsSdk.documentClientMod.DocumentClient
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.awsSdk.dynamodbMod.^
+import typings.awsSdk.dynamodbMod.DynamoDB
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -17,7 +17,7 @@ trait DocumentClientOptions extends ConverterOptions {
   /**
     * An optional pre-configured instance of the AWS.DynamoDB service object to use for requests. The object may bound parameters used by the document client.
     */
-  var service: js.UndefOr[^] = js.native
+  var service: js.UndefOr[DynamoDB] = js.native
 }
 object DocumentClientOptions {
   
@@ -49,7 +49,7 @@ object DocumentClientOptions {
     def deleteParams: Self = this.set("params", js.undefined)
     
     @scala.inline
-    def setService(value: ^): Self = this.set("service", value.asInstanceOf[js.Any])
+    def setService(value: DynamoDB): Self = this.set("service", value.asInstanceOf[js.Any])
     
     @scala.inline
     def deleteService: Self = this.set("service", js.undefined)
