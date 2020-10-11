@@ -215,14 +215,10 @@ class SlinkyGenComponents(
              It's used for a lot of things, so it's important to get right */
         val pkgCp = tree.codePath + SlinkyGenComponents.names.components
 
-        /* since we generate non-facade code, the bounds are not commented out. This comments them out */
-        val componentsStrippedBounds: IArray[Component] =
-          components.deepMap(c => c.copy(tparams = stripBounds(c.tparams)))
-
         /* We group components on what essentially means they have the same interface.
          * When there is more than one they'll share some of the generated code */
         val allComponentsGrouped: Map[ComponentGroupKey, IArray[Component]] =
-          componentsStrippedBounds.unnest.groupBy(groupKey)
+          components.unnest.groupBy(groupKey)
 
         /* this is mostly here as an optimization */
         val allResolvedProps: Map[ComponentGroupKey, PropsDom] =
@@ -295,7 +291,7 @@ class SlinkyGenComponents(
           }
 
         val generatedComponents: IArray[ModuleTree] =
-          componentsStrippedBounds.map(genComponent(pkgCp, allBuilders))
+          components.map(genComponent(pkgCp, allBuilders))
 
         val allSharedBuilderClasses: IArray[ClassTree] =
           allSharedBuilders.mapToIArray { case (_, SharedBuilder(cls, _)) => cls }.distinctBy(_.name)

@@ -4,6 +4,7 @@ import slinky.core.facade.ReactRef
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
 import typingsSlinky.stardustUiReactComponentEventListener.typesMod.EventListenerOptions
+import typingsSlinky.stardustUiReactComponentEventListener.typesMod.EventTypes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -14,16 +15,16 @@ object EventListener {
   object component extends js.Object
   
   @scala.inline
-  class Builder[/* <: typingsSlinky.stardustUiReactComponentEventListener.typesMod.EventTypes */ T] (val args: js.Array[js.Any])
+  class Builder[T /* <: EventTypes */] (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[tag.type, js.Object] {
     @scala.inline
     def capture(value: Boolean): this.type = set("capture", value.asInstanceOf[js.Any])
   }
   
-  def withProps[/* <: typingsSlinky.stardustUiReactComponentEventListener.typesMod.EventTypes */ T](p: EventListenerOptions[T]): Builder[T] = new Builder[T](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps[T /* <: EventTypes */](p: EventListenerOptions[T]): Builder[T] = new Builder[T](js.Array(this.component, p.asInstanceOf[js.Any]))
   @scala.inline
-  def apply[/* <: typingsSlinky.stardustUiReactComponentEventListener.typesMod.EventTypes */ T](
+  def apply[T /* <: EventTypes */](
     listener: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Unit,
     targetRef: ReactRef[
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any

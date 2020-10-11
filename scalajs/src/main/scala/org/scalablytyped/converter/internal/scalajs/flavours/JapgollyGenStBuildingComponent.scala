@@ -11,7 +11,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
   val StBuildingComponent = Name("StBuildingComponent")
   val builderCp           = QualifiedName(IArray(outputPkg, StBuildingComponent))
-  val R                   = TypeParamTree(Name("R"), Empty, Some(TypeRef.Object), NoComments)
+  val R                   = TypeParamTree(Name("R"), Empty, Some(TypeRef.Object), NoComments, ignoreBound = false)
   val builderTparams      = IArray(R)
   val builderRef          = TypeRef(builderCp, TypeParamTree.asTypeArgs(builderTparams), NoComments)
 

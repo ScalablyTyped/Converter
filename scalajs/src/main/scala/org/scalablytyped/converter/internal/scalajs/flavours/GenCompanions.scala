@@ -23,9 +23,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
 
       container.withMembers(container.members.flatMap {
         case cls: ClassTree if !nameConflict(cls.name) =>
-          val unboundedTParams = stripBounds(cls.tparams)
-
-          val clsRef = TypeRef(cls.codePath, asTypeArgs(unboundedTParams), NoComments)
+          val clsRef = TypeRef(cls.codePath, asTypeArgs(cls.tparams), NoComments)
 
           val geneatedImplicitOps: Option[ClassTree] =
             if (enableLongApplyMethod) None
@@ -60,7 +58,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
                   else props.filter(_.optionality === Optionality.No)
 
                 IArray.fromOptions(
-                  Some(generateCreator(Name.APPLY, requiredProps, cls.codePath, unboundedTParams))
+                  Some(generateCreator(Name.APPLY, requiredProps, cls.codePath, cls.tparams))
                     .filter(_.params.nonEmpty)
                     .filter(ensureNotTooManyStrings(scope)),
                 )
@@ -73,7 +71,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
                       if (enableLongApplyMethod) props
                       else props.filter(_.optionality === Optionality.No)
 
-                    Some(generateCreator(propsRef.name, requiredProps, cls.codePath, unboundedTParams))
+                    Some(generateCreator(propsRef.name, requiredProps, cls.codePath, cls.tparams))
                       .filter(_.params.nonEmpty)
                       .filter(ensureNotTooManyStrings(scope))
                 }

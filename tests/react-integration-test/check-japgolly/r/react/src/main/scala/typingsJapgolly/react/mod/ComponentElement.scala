@@ -13,13 +13,13 @@ trait ComponentElement[P, T /* <: japgolly.scalajs.react.raw.React.Component[P w
 
 object ComponentElement {
   @scala.inline
-  def apply[P, /* <: typingsJapgolly.react.mod.Component[P, typingsJapgolly.react.mod.ComponentState, _] */ T](props: js.Any, `type`: js.Any): ComponentElement[P, T] = {
+  def apply[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */](props: js.Any, `type`: js.Any): ComponentElement[P, T] = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[ComponentElement[P, T]]
   }
   @scala.inline
-  implicit class ComponentElementOps[Self <: ComponentElement[_, _], P, /* <: typingsJapgolly.react.mod.Component[P, typingsJapgolly.react.mod.ComponentState, _] */ T] (val x: Self with (ComponentElement[P, T])) extends AnyVal {
+  implicit class ComponentElementOps[Self <: ComponentElement[_, _], P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] (val x: Self with (ComponentElement[P, T])) extends AnyVal {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline

@@ -13,12 +13,12 @@ trait IntrinsicTransitionGroupProps[T /* <: abbr | animate */] extends js.Object
 
 object IntrinsicTransitionGroupProps {
   @scala.inline
-  def apply[/* <: typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr | typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.animate */ T](): IntrinsicTransitionGroupProps[T] = {
+  def apply[T /* <: abbr | animate */](): IntrinsicTransitionGroupProps[T] = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[IntrinsicTransitionGroupProps[T]]
   }
   @scala.inline
-  implicit class IntrinsicTransitionGroupPropsOps[Self <: IntrinsicTransitionGroupProps[_], /* <: typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr | typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.animate */ T] (val x: Self with IntrinsicTransitionGroupProps[T]) extends AnyVal {
+  implicit class IntrinsicTransitionGroupPropsOps[Self <: IntrinsicTransitionGroupProps[_], T /* <: abbr | animate */] (val x: Self with IntrinsicTransitionGroupProps[T]) extends AnyVal {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline

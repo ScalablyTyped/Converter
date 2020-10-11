@@ -32,16 +32,15 @@ object GenImplicitOpsClass {
     val selfRef  = TypeRef(QualifiedName(IArray(SelfName)), Empty, NoComments)
 
     val tparams = {
-      val withoutBounds = stripBounds(original.tparams)
-
       val selfTParam = TypeParamTree(
-        name       = SelfName,
-        params     = Empty,
-        upperBound = Some(TypeRef(original.codePath, original.tparams.map(_ => TypeRef.Wildcard), NoComments)),
-        comments   = NoComments,
+        name        = SelfName,
+        params      = Empty,
+        upperBound  = Some(TypeRef(original.codePath, original.tparams.map(_ => TypeRef.Wildcard), NoComments)),
+        comments    = NoComments,
+        ignoreBound = false,
       )
 
-      selfTParam +: withoutBounds
+      selfTParam +: original.tparams
     }
 
     val combineWithMember =
@@ -288,7 +287,7 @@ object GenImplicitOpsClass {
       annotations = IArray(Annotation.Inline),
       level       = ProtectionLevel.Default,
       name        = combineName,
-      tparams     = IArray(TypeParamTree(otherTypeName, Empty, Some(TypeRef.Any), NoComments)),
+      tparams     = IArray(TypeParamTree(otherTypeName, Empty, Some(TypeRef.Any), NoComments, ignoreBound = false)),
       params      = otherParam,
       impl        = impl,
       resultType  = TypeRef.Intersection(IArray(clsRef, otherType), NoComments),

@@ -15,13 +15,13 @@ trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Elemen
 
 object DOMElement {
   @scala.inline
-  def apply[/* <: typings.react.mod.HTMLAttributes[T] | typings.react.mod.SVGAttributes[T] */ P, /* <: typings.std.Element */ T](props: js.Any, ref: Ref[T], `type`: String): DOMElement[P, T] = {
+  def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: js.Any, ref: Ref[T], `type`: String): DOMElement[P, T] = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], ref = ref.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[DOMElement[P, T]]
   }
   @scala.inline
-  implicit class DOMElementOps[Self <: DOMElement[_, _], /* <: typings.react.mod.HTMLAttributes[T] | typings.react.mod.SVGAttributes[T] */ P, /* <: typings.std.Element */ T] (val x: Self with (DOMElement[P, T])) extends AnyVal {
+  implicit class DOMElementOps[Self <: DOMElement[_, _], P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] (val x: Self with (DOMElement[P, T])) extends AnyVal {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline

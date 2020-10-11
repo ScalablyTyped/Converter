@@ -13,8 +13,8 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 
   val StBuildingComponent = Name("StBuildingComponent")
   val builderCp           = QualifiedName(IArray(outputPkg, StBuildingComponent))
-  val E                   = TypeParamTree(Name("E"), Empty, None, NoComments)
-  val R                   = TypeParamTree(Name("R"), Empty, Some(TypeRef.Object), NoComments)
+  val E                   = TypeParamTree(Name("E"), Empty, None, NoComments, ignoreBound = false)
+  val R                   = TypeParamTree(Name("R"), Empty, Some(TypeRef.Object), NoComments, ignoreBound = false)
   val builderTparams      = IArray(E, R)
   val builderRef          = TypeRef(builderCp, TypeParamTree.asTypeArgs(builderTparams), NoComments)
 

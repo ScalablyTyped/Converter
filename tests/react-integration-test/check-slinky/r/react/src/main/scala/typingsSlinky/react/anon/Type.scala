@@ -12,13 +12,13 @@ trait Type[T /* <: ReactComponentClass[_] */] extends js.Object {
 
 object Type {
   @scala.inline
-  def apply[/* <: typingsSlinky.react.mod.ComponentType[_] */ T](`type`: T): Type[T] = {
+  def apply[T /* <: ReactComponentClass[_] */](`type`: T): Type[T] = {
     val __obj = js.Dynamic.literal()
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[Type[T]]
   }
   @scala.inline
-  implicit class TypeOps[Self <: Type[_], /* <: typingsSlinky.react.mod.ComponentType[_] */ T] (val x: Self with Type[T]) extends AnyVal {
+  implicit class TypeOps[Self <: Type[_], T /* <: ReactComponentClass[_] */] (val x: Self with Type[T]) extends AnyVal {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline

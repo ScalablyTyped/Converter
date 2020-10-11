@@ -187,10 +187,11 @@ object CtorTree {
 }
 
 final case class TypeParamTree(
-    name:       Name,
-    params:     IArray[TypeParamTree],
-    upperBound: Option[TypeRef],
-    comments:   Comments,
+    name:        Name,
+    params:      IArray[TypeParamTree],
+    upperBound:  Option[TypeRef],
+    comments:    Comments,
+    ignoreBound: Boolean, // we ignore all bounds for code coming from typescript
 ) extends Tree
 
 object TypeParamTree {

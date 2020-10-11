@@ -519,10 +519,11 @@ class ImportTree(
 
   def typeParam(scope: TsTreeScope, importName: AdaptiveNamingImport)(tp: TsTypeParam): TypeParamTree =
     TypeParamTree(
-      name       = ImportName(tp.name),
-      params     = Empty,
-      upperBound = tp.upperBound.map(importType(Wildcards.No, scope / tp, importName)),
-      comments   = tp.comments,
+      name        = ImportName(tp.name),
+      params      = Empty,
+      upperBound  = tp.upperBound.map(importType(Wildcards.No, scope / tp, importName)),
+      comments    = tp.comments,
+      ignoreBound = true,
     )
 
   def tsFunParams(scope: TsTreeScope, importName: AdaptiveNamingImport, params: IArray[TsFunParam]): IArray[ParamTree] =

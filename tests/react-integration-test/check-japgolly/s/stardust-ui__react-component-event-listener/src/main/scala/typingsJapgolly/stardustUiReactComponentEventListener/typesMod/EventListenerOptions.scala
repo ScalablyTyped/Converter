@@ -22,7 +22,7 @@ trait EventListenerOptions[T /* <: EventTypes */] extends js.Object {
 
 object EventListenerOptions {
   @scala.inline
-  def apply[/* <: typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventTypes */ T](
+  def apply[T /* <: EventTypes */](
     listener: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Callback,
     targetRef: RefHandle[
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
@@ -34,7 +34,7 @@ object EventListenerOptions {
     __obj.asInstanceOf[EventListenerOptions[T]]
   }
   @scala.inline
-  implicit class EventListenerOptionsOps[Self <: EventListenerOptions[_], /* <: typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventTypes */ T] (val x: Self with EventListenerOptions[T]) extends AnyVal {
+  implicit class EventListenerOptionsOps[Self <: EventListenerOptions[_], T /* <: EventTypes */] (val x: Self with EventListenerOptions[T]) extends AnyVal {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline

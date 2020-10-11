@@ -74,12 +74,12 @@ trait ComponentOptions[V /* <: Vue */, Data, Methods, Computed, PropsDef] extend
 
 object ComponentOptions {
   @scala.inline
-  def apply[/* <: typings.vue.vueMod.Vue */ V, Data, Methods, Computed, PropsDef](): ComponentOptions[V, Data, Methods, Computed, PropsDef] = {
+  def apply[V /* <: Vue */, Data, Methods, Computed, PropsDef](): ComponentOptions[V, Data, Methods, Computed, PropsDef] = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[ComponentOptions[V, Data, Methods, Computed, PropsDef]]
   }
   @scala.inline
-  implicit class ComponentOptionsOps[Self <: ComponentOptions[_, _, _, _, _], /* <: typings.vue.vueMod.Vue */ V, Data, Methods, Computed, PropsDef] (val x: Self with (ComponentOptions[V, Data, Methods, Computed, PropsDef])) extends AnyVal {
+  implicit class ComponentOptionsOps[Self <: ComponentOptions[_, _, _, _, _], V /* <: Vue */, Data, Methods, Computed, PropsDef] (val x: Self with (ComponentOptions[V, Data, Methods, Computed, PropsDef])) extends AnyVal {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline

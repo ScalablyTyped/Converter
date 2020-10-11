@@ -8,7 +8,7 @@ object ScalaJsClasses {
       isImplicit = false,
       IArray(Annotation.JsNative, Annotation.JsGlobalScope),
       Name("Array"),
-      IArray(TypeParamTree(Name("T"), Empty, None, NoComments)),
+      IArray(TypeParamTree(Name("T"), Empty, None, NoComments, ignoreBound = false)),
       // todo: fill in
       Empty,
       Empty,
@@ -49,7 +49,7 @@ object ScalaJsClasses {
       isImplicit = false,
       IArray(Annotation.JsNative, Annotation.JsGlobalScope),
       Name("Promise"),
-      IArray(TypeParamTree(Name("T"), Empty, None, NoComments)),
+      IArray(TypeParamTree(Name("T"), Empty, None, NoComments, ignoreBound = true)),
       parents = IArray(TypeRef(QualifiedName.Thenable)),
       Empty,
       Empty,
@@ -66,7 +66,7 @@ object ScalaJsClasses {
       isImplicit = false,
       IArray(Annotation.JsNative, Annotation.JsGlobalScope),
       Name("Thenable"),
-      IArray(TypeParamTree(Name("T"), Empty, None, NoComments)),
+      IArray(TypeParamTree(Name("T"), Empty, None, NoComments, ignoreBound = true)),
       Empty,
       Empty,
       Empty,
@@ -106,13 +106,13 @@ object ScalaJsClasses {
       )
 
     val ThisTParam: IArray[TypeParamTree] =
-      if (isThis) IArray(TypeParamTree(Name.This, Empty, None, NoComments)) else Empty
+      if (isThis) IArray(TypeParamTree(Name.This, Empty, None, NoComments, ignoreBound = true)) else Empty
 
     val inputTParams: IArray[TypeParamTree] =
-      IArray.fromTraversable((0 until arity).map(n => TypeParamTree(T(n), Empty, None, NoComments)))
+      IArray.fromTraversable((0 until arity).map(n => TypeParamTree(T(n), Empty, None, NoComments, ignoreBound = true)))
 
     val outputTParams: IArray[TypeParamTree] =
-      IArray(TypeParamTree(R.name, Empty, None, NoComments))
+      IArray(TypeParamTree(R.name, Empty, None, NoComments, ignoreBound = true))
 
     ClassTree(
       isImplicit  = false,
@@ -134,7 +134,7 @@ object ScalaJsClasses {
       isImplicit = false,
       IArray(Annotation.ScalaJSDefined, Annotation.JsGlobalScope),
       Name("StringDictionary"),
-      IArray(TypeParamTree(Name("T"), Empty, None, NoComments)),
+      IArray(TypeParamTree(Name("T"), Empty, None, NoComments, ignoreBound = true)),
       Empty,
       Empty,
       Empty,
@@ -149,7 +149,7 @@ object ScalaJsClasses {
       isImplicit = false,
       IArray(Annotation.ScalaJSDefined, Annotation.JsGlobalScope),
       Name("NumberDictionary"),
-      IArray(TypeParamTree(Name("T"), Empty, None, NoComments)),
+      IArray(TypeParamTree(Name("T"), Empty, None, NoComments, ignoreBound = true)),
       Empty,
       Empty,
       Empty,

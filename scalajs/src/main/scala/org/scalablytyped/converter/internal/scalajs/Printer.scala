@@ -135,7 +135,6 @@ object Printer {
                 packages,
                 targetFolder,
                 0,
-                isNative = true,
               ),
             )
           }
@@ -168,7 +167,6 @@ object Printer {
                 packages,
                 targetFolder,
                 2,
-                isNative = true,
               ),
             )
             writer.println("}")
@@ -184,7 +182,6 @@ object Printer {
         packageNames:    IArray[Name],
         folder:          os.RelPath,
         indent:          Int,
-        isNative:        Boolean,
     )(tree:              Tree): Unit = {
       val scope = _scope / tree
 
@@ -216,12 +213,10 @@ object Printer {
           print(Comments.format(comments))
           print(formatAnns(anns))
 
-          val isNative = c.isNative // shadows isNative
-
           val (defaultCtor, restCtors) = ctors.sortBy(_.params.length).toList match {
-            case Nil                                                => (CtorTree.defaultPublic, Nil)
-            case head :: tail if (head.params.isEmpty || !isNative) => (head, tail)
-            case all                                                => (CtorTree.defaultProtected, all)
+            case Nil                                                  => (CtorTree.defaultPublic, Nil)
+            case head :: tail if (head.params.isEmpty || !c.isNative) => (head, tail)
+            case all                                                  => (CtorTree.defaultProtected, all)
           }
 
           print(Comments.format(defaultCtor.comments))
@@ -234,7 +229,7 @@ object Printer {
           )
 
           if (tparams.nonEmpty)
-            print("[", tparams.map(formatTypeParamTree(isNative, indent)).mkString(", "), "]")
+            print("[", tparams.map(formatTypeParamTree(indent)).mkString(", "), "]")
 
           if (classType =/= ClassType.Trait) {
             print(" ")
@@ -242,15 +237,15 @@ object Printer {
             print(formatParams(indent + 2)(defaultCtor.params))
           }
 
-          print(extendsClause(parents, isNative, indent))
+          print(extendsClause(parents, c.isNative, indent))
 
           if (members.nonEmpty || restCtors.nonEmpty) {
             println(" {")
 
             if (classType =/= ClassType.Trait)
-              restCtors.foreach(printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative))
+              restCtors.foreach(printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2))
 
-            members.foreach(printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative))
+            members.foreach(printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2))
             println("}")
           } else
             println()
@@ -272,7 +267,7 @@ object Printer {
           if (members.nonEmpty) {
             println(" {")
 
-            members.foreach(printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative))
+            members.foreach(printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2))
             println("}")
           } else
             println()
@@ -282,7 +277,7 @@ object Printer {
           print(Comments.format(comments))
           print("type ", formatName(name))
           if (tparams.nonEmpty) {
-            print("[", tparams.map(formatTypeParamTree(isNative, indent)).mkString(", "), "]")
+            print("[", tparams.map(formatTypeParamTree(indent)).mkString(", "), "]")
           }
 
           println(s" = ", formatTypeRef(indent)(alias))
@@ -312,7 +307,7 @@ object Printer {
           val tparamString =
             if (tparams.isEmpty) ""
             else
-              tparams.map(formatTypeParamTree(isNative, indent)).mkString("[", ", ", "]")
+              tparams.map(formatTypeParamTree(indent)).mkString("[", ", ", "]")
 
           var paramString = params.map(_.map(formatParamTree(indent)).mkString("(", ", ", ")"))
           if (paramString.toList.map(_.length).sum > 100) {
@@ -356,19 +351,19 @@ object Printer {
         case head :: tail                       => "\n  extends " + head + tail.mkString("\n     with ", "\n     with ", "")
       }
 
-    def formatTypeParams(isNative: Boolean, indent: Int)(tparams: IArray[TypeParamTree]): String =
+    def formatTypeParams(indent: Int)(tparams: IArray[TypeParamTree]): String =
       if (tparams.isEmpty) ""
       else
-        tparams.map(formatTypeParamTree(isNative, indent)).mkString("[", ", ", "]")
+        tparams.map(formatTypeParamTree(indent)).mkString("[", ", ", "]")
 
-    def formatTypeParamTree(isNative: Boolean, indent: Int)(tree: TypeParamTree): String =
+    def formatTypeParamTree(indent: Int)(tree: TypeParamTree): String =
       Comments.format(tree.comments) |+|
         formatName(tree.name) |+|
-        formatTypeParams(isNative, indent)(tree.params) |+|
+        formatTypeParams(indent)(tree.params) |+|
         (tree.upperBound match {
-          case Some(bound) if isNative => " /* <: " |+| formatTypeRef(indent)(bound) |+| " */"
-          case Some(bound)             => " <: " |+| formatTypeRef(indent)(bound)
-          case None                    => ""
+          case Some(bound) if tree.ignoreBound => " /* <: " |+| formatTypeRef(indent)(bound) |+| " */"
+          case Some(bound)                     => " <: " |+| formatTypeRef(indent)(bound)
+          case None                            => ""
         })
 
     def formatParamTree(indent: Int)(tree: ParamTree): String =

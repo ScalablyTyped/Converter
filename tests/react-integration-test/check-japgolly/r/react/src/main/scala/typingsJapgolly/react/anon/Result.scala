@@ -12,12 +12,12 @@ trait Result[T /* <: ComponentType[_] */] extends js.Object {
 
 object Result {
   @scala.inline
-  def apply[/* <: typingsJapgolly.react.mod.ComponentType[_] */ T](_result: T): Result[T] = {
+  def apply[T /* <: ComponentType[_] */](_result: T): Result[T] = {
     val __obj = js.Dynamic.literal(_result = _result.asInstanceOf[js.Any])
     __obj.asInstanceOf[Result[T]]
   }
   @scala.inline
-  implicit class ResultOps[Self <: Result[_], /* <: typingsJapgolly.react.mod.ComponentType[_] */ T] (val x: Self with Result[T]) extends AnyVal {
+  implicit class ResultOps[Self <: Result[_], T /* <: ComponentType[_] */] (val x: Self with Result[T]) extends AnyVal {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline

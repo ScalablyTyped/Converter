@@ -12,12 +12,12 @@ trait ComponentTransitionGroupProps[T /* <: ReactType[_] */] extends js.Object {
 
 object ComponentTransitionGroupProps {
   @scala.inline
-  def apply[/* <: typingsJapgolly.react.mod.ReactType[_] */ T](component: T): ComponentTransitionGroupProps[T] = {
+  def apply[T /* <: ReactType[_] */](component: T): ComponentTransitionGroupProps[T] = {
     val __obj = js.Dynamic.literal(component = component.asInstanceOf[js.Any])
     __obj.asInstanceOf[ComponentTransitionGroupProps[T]]
   }
   @scala.inline
-  implicit class ComponentTransitionGroupPropsOps[Self <: ComponentTransitionGroupProps[_], /* <: typingsJapgolly.react.mod.ReactType[_] */ T] (val x: Self with ComponentTransitionGroupProps[T]) extends AnyVal {
+  implicit class ComponentTransitionGroupPropsOps[Self <: ComponentTransitionGroupProps[_], T /* <: ReactType[_] */] (val x: Self with ComponentTransitionGroupProps[T]) extends AnyVal {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
