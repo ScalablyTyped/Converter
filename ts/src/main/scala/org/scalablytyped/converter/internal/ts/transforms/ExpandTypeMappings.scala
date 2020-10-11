@@ -81,7 +81,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         }
 
       case ta @ TsDeclTypeAlias(comments, declared, name, tparams, alias, codePath)
-          if !comments.has[Markers.IsTrivial.type] && !pointsToConcreteType(scope, alias) =>
+          if !comments.has[Markers.ReExported.type] && !pointsToConcreteType(scope, alias) =>
         AllMembersFor.forType(scope, LoopDetector.initial)(alias) match {
           case Problems(_) =>
             evaluateKeys(scope, LoopDetector.initial)(alias) match {

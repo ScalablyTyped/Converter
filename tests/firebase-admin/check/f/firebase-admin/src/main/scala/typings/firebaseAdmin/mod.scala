@@ -12,8 +12,8 @@ object mod extends js.Object {
   @js.native
   object firestore extends js.Object {
     
-    def apply(): typings.googleCloudFirestore.FirebaseFirestore.Firestore = js.native
-    def apply(str: String): typings.googleCloudFirestore.FirebaseFirestore.Firestore = js.native
+    def apply(): Firestore = js.native
+    def apply(str: String): Firestore = js.native
     
     @js.native
     /**

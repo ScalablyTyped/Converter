@@ -41,14 +41,9 @@ object DeriveCopy {
           case x: TsDeclClass =>
             IArray(
               x.copy(
-                comments = x.comments + CommentData(Markers.IsTrivial),
-                name     = name,
-                members = x.members.collect {
-                  case c: TsMemberCtor => c
-                  case c @ TsMemberFunction(_, _, TsIdent.constructor, _, _, _, _) => c
-                  case x: TsMemberProperty if x.isStatic => x
-                  case x: TsMemberFunction if x.isStatic => x
-                },
+                comments   = x.comments + CommentData(Markers.ReExported),
+                name       = name,
+                members    = x.members.filter(TsMember.isStaticOrCtor),
                 declared   = true,
                 implements = Empty,
                 parent     = Some(TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams))),
@@ -59,7 +54,7 @@ object DeriveCopy {
           case x: TsDeclInterface =>
             IArray(
               TsDeclTypeAlias(
-                comments = x.comments + CommentData(Markers.IsTrivial),
+                comments = x.comments + CommentData(Markers.ReExported),
                 declared = true,
                 name     = name,
                 tparams  = x.tparams,
@@ -90,7 +85,7 @@ object DeriveCopy {
           case x: TsDeclTypeAlias =>
             IArray(
               TsDeclTypeAlias(
-                Comments(CommentData(Markers.IsTrivial)),
+                Comments(CommentData(Markers.ReExported)),
                 declared = false,
                 name,
                 x.tparams,

@@ -590,6 +590,15 @@ final case class TsTypeInfer(tparam: TsTypeParam) extends TsTypePredicate
 sealed abstract class TsMember extends TsTree {
   def level: ProtectionLevel
 }
+object TsMember {
+  def isStaticOrCtor(m: TsMember): Boolean =
+    m match {
+      case TsMemberFunction(_, _, TsIdent.constructor, _, _, _, _) => true
+      case x: TsMemberProperty if x.isStatic => true
+      case x: TsMemberFunction if x.isStatic => true
+      case _ => false
+    }
+}
 
 final case class TsMemberCall(comments: Comments, level: ProtectionLevel, signature: TsFunSig) extends TsMember
 
