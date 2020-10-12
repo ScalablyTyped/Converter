@@ -5,15 +5,16 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("react-bootstrap/lib/utils", JSImport.Namespace)
-@js.native
-object utilsMod extends js.Object {
+object utilsMod {
   
+  @JSImport("react-bootstrap/lib/utils", "createChainedFunction")
+  @js.native
   def createChainedFunction(funcs: js.Function*): js.Function = js.native
   
-  @js.native
-  object bootstrapUtils extends js.Object {
+  object bootstrapUtils {
     
+    @JSImport("react-bootstrap/lib/utils", "bootstrapUtils.getBsProps")
+    @js.native
     def getBsProps(props: js.Any): BSProps = js.native
   }
 }

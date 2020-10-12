@@ -63,7 +63,7 @@ object CastConversion {
       scope.stack match {
         case (_:       TypeRef) :: (_:     InheritanceTree) :: _ => true
         case (_:       TypeRef) :: (int:   TypeRef) :: (_: InheritanceTree) :: _ if Name.Internal(int.name) => true
-        case (current: TypeRef) :: (param: ParamTree) :: (m: MethodTree) :: (owner: InheritanceTree) :: _
+        case (current: TypeRef) :: (param: ParamTree) :: (m: MethodTree) :: (owner: HasMembers) :: _
             if existsConflicts =>
           owner.index.get(m.name) match {
             case Some(membersSameName) if membersSameName.length > 1 =>

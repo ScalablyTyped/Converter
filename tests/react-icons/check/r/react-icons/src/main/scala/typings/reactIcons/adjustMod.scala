@@ -6,10 +6,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("react-icons/fa/adjust", JSImport.Namespace)
-@js.native
-object adjustMod extends js.Object {
+object adjustMod {
   
+  @JSImport("react-icons/fa/adjust", JSImport.Default)
   @js.native
   class default ()
     extends Component[IconBaseProps, js.Object]

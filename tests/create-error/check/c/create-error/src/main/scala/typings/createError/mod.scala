@@ -7,16 +7,28 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("create-error", JSImport.Namespace)
-@js.native
-object mod extends js.Object {
+object mod {
   
+  @JSImport("create-error", JSImport.Namespace)
+  @js.native
   def apply(): Error[Error[Err]] = js.native
+  @JSImport("create-error", JSImport.Namespace)
+  @js.native
   def apply[T /* <: Error[Error[Err]] */](Target: Error[Error[Err]]): T = js.native
+  @JSImport("create-error", JSImport.Namespace)
+  @js.native
   def apply[T /* <: Error[Error[Err]] */](Target: Error[Error[Err]], name: js.UndefOr[scala.Nothing], properties: js.Any): T = js.native
+  @JSImport("create-error", JSImport.Namespace)
+  @js.native
   def apply[T /* <: Error[Error[Err]] */](Target: Error[Error[Err]], name: String): T = js.native
+  @JSImport("create-error", JSImport.Namespace)
+  @js.native
   def apply[T /* <: Error[Error[Err]] */](Target: Error[Error[Err]], name: String, properties: js.Any): T = js.native
+  @JSImport("create-error", JSImport.Namespace)
+  @js.native
   def apply[T /* <: Error[Error[Err]] */](name: String): T = js.native
+  @JSImport("create-error", JSImport.Namespace)
+  @js.native
   def apply[T /* <: Error[Error[Err]] */](name: String, properties: js.Any): T = js.native
   
   @js.native

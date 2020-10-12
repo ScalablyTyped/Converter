@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 
 import org.scalablytyped.converter.internal.scalajs._
-import org.scalablytyped.converter.internal.scalajs.transforms.CleanIllegalNames
+import org.scalablytyped.converter.internal.scalajs.transforms.{CleanIllegalNames, Mangler}
 import org.scalablytyped.converter.internal.ts._
 
 object ImportEnum {
@@ -199,7 +199,7 @@ object ImportEnum {
             enumName,
             parents    = Empty,
             members    = membersSyms ++ IArray.fromOption(applyMethod),
-            comments   = cs + CommentData(Markers.EnumObject),
+            comments   = cs + CommentData(Mangler.LeaveAlone) + CommentData(Markers.EnumObject),
             codePath   = importedCodePath,
             isOverride = false,
           )

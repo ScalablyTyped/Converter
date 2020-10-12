@@ -10,7 +10,7 @@ object Fragment {
   
   @JSImport("react", "Fragment")
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def withProps(p: Children): Default[js.Object] = new Default[js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
   

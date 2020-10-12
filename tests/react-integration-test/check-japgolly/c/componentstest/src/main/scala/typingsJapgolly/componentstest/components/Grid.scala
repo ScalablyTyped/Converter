@@ -9,7 +9,7 @@ object Grid {
   
   @JSImport("componentstest", "Grid")
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def withProps(p: CardGridProps): SharedBuilder_CardGridProps2094947949 = new SharedBuilder_CardGridProps2094947949(js.Array(this.component, p.asInstanceOf[js.Any]))
   

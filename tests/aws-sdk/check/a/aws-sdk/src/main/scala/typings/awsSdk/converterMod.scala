@@ -5,17 +5,19 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("aws-sdk/lib/dynamodb/converter", JSImport.Namespace)
-@js.native
-object converterMod extends js.Object {
+object converterMod {
   
+  @JSImport("aws-sdk/lib/dynamodb/converter", "Converter")
   @js.native
   class Converter () extends js.Object
   /* static members */
-  @js.native
-  object Converter extends js.Object {
+  object Converter {
     
+    @JSImport("aws-sdk/lib/dynamodb/converter", "Converter.input")
+    @js.native
     def input(data: js.Any): AttributeValue = js.native
+    @JSImport("aws-sdk/lib/dynamodb/converter", "Converter.input")
+    @js.native
     def input(data: js.Any, options: ConverterOptions): AttributeValue = js.native
     
     type ConverterOptions = typings.awsSdk.documentClientMod.DocumentClient.ConverterOptions

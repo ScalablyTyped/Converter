@@ -12,7 +12,7 @@ object ToggleButtonGroup {
   
   @JSImport("react-bootstrap", "ToggleButtonGroup")
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def apply(p: ToggleButtonGroupProps): Default[tag.type, typingsSlinky.reactBootstrap.mod.ToggleButtonGroup] = new Default[tag.type, typingsSlinky.reactBootstrap.mod.ToggleButtonGroup](js.Array(this.component, p.asInstanceOf[js.Any]))
   

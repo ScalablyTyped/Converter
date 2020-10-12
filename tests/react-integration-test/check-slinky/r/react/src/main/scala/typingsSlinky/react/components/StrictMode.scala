@@ -11,7 +11,7 @@ object StrictMode {
   
   @JSImport("react", "StrictMode")
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def withProps(p: Children): Default[tag.type, js.Object] = new Default[tag.type, js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
   

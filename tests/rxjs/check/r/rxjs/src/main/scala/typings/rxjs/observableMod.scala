@@ -6,10 +6,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("rxjs/internal/Observable", JSImport.Namespace)
-@js.native
-object observableMod extends js.Object {
+object observableMod {
   
+  @JSImport("rxjs/internal/Observable", "Observable")
   @js.native
   class Observable[T] () extends Subscribable[T] {
     

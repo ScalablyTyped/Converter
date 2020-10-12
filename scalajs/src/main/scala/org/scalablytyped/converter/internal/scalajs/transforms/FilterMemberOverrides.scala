@@ -24,7 +24,7 @@ class FilterMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransf
 
   private def newMembers(
       scope:       TreeScope,
-      owner:       Tree,
+      owner:       Tree with HasAnnotations,
       members:     IArray[Tree],
       inheritance: IArray[TypeRef],
   ): IArray[Tree] = {

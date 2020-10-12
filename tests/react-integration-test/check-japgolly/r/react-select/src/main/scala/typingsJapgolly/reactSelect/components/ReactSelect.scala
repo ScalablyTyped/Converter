@@ -11,7 +11,7 @@ object ReactSelect {
   
   @JSImport("react-select", JSImport.Default)
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   @scala.inline
   class Builder[TValue] (val args: js.Array[js.Any])

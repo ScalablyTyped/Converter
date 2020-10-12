@@ -10,7 +10,7 @@ object AccordionTitle {
   
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionTitle", JSImport.Default)
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def withProps(p: AccordionTitleProps): SharedBuilder_AccordionTitleProps_248880662[default] = new SharedBuilder_AccordionTitleProps_248880662[default](js.Array(this.component, p.asInstanceOf[js.Any]))
   

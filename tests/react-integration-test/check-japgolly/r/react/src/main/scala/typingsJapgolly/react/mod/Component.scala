@@ -66,9 +66,11 @@ class Component[P, S, SS] protected () extends ComponentLifecycle[P, S, SS] {
   var state: S = js.native
 }
 /* static members */
-@JSImport("react", "Component")
-@js.native
-object Component extends js.Object {
+object Component {
+  
+  @JSImport("react", "Component")
+  @js.native
+  val ^ : js.Any = js.native
   
   // tslint won't let me format the sample code in a way that vscode likes it :(
   /**
@@ -91,5 +93,9 @@ object Component extends js.Object {
     *
     * @see https://reactjs.org/docs/context.html#classcontexttype
     */
-  var contextType: js.UndefOr[Context[_]] = js.native
+  @JSImport("react", "Component.contextType")
+  @js.native
+  def contextType: js.UndefOr[Context[js.Any]] = js.native
+  @scala.inline
+  def contextType_=(x: js.UndefOr[Context[js.Any]]): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("contextType")(x.asInstanceOf[js.Any])
 }

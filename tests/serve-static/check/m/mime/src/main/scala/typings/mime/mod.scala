@@ -5,18 +5,25 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("mime", JSImport.Namespace)
-@js.native
-object mod extends js.Object {
+object mod {
   
-  @JSName("default_type")
+  @JSImport("mime", "default_type")
+  @js.native
   val defaultType: String = js.native
   
+  @JSImport("mime", "define")
+  @js.native
   def define(mimes: TypeMap): Unit = js.native
+  @JSImport("mime", "define")
+  @js.native
   def define(mimes: TypeMap, force: Boolean): Unit = js.native
   
+  @JSImport("mime", "getExtension")
+  @js.native
   def getExtension(mime: String): String | Null = js.native
   
+  @JSImport("mime", "getType")
+  @js.native
   def getType(path: String): String | Null = js.native
   
   type TypeMap = StringDictionary[js.Array[String]]

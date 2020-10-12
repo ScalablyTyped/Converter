@@ -10,7 +10,7 @@ object AccordionAccordion {
   
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionAccordion", JSImport.Default)
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps1188692388[default] = new SharedBuilder_AccordionAccordionProps1188692388[default](js.Array(this.component, p.asInstanceOf[js.Any]))
   

@@ -8,9 +8,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 /**
 * Declare process variable
 */
-@JSGlobal("NodeJS")
-@js.native
-object NodeJS extends js.Object {
+object NodeJS {
   
   type Process = NodeProcess
 }

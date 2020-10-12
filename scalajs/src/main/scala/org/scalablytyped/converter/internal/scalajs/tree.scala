@@ -14,8 +14,23 @@ sealed trait HasCodePath {
   val codePath: QualifiedName
 }
 
-sealed trait HasAnnotations {
+sealed trait HasAnnotations { self: Tree =>
   val annotations: IArray[Annotation]
+
+  final def originalName: Name =
+    annotations
+      .collectFirst {
+        case Annotation.JsName(name)                                             => name
+        case Annotation.JsGlobal(qname)                                          => qname.parts.last
+        case Annotation.JsImport(_, Imported.Default, _)                         => Name.Default
+        case Annotation.JsImport(_, Imported.Named(IArray.initLast(_, last)), _) => last
+      }
+      .getOrElse(name)
+
+  final def location: Option[LocationAnnotation] =
+    annotations.collectFirst {
+      case x: LocationAnnotation => x
+    }
 }
 
 sealed trait HasMembers {
@@ -71,24 +86,7 @@ final case class ClassTree(
     isSealed:    Boolean,
     comments:    Comments,
     codePath:    QualifiedName,
-) extends InheritanceTree {
-  def renamed(newName: Name): ClassTree = {
-    val anns =
-      (Annotation.classRenamedFrom(name)(annotations), classType) match {
-        case (as, ClassType.Trait) => as.filterNot(_.isInstanceOf[Annotation.JsName])
-        case (anns, _)             => anns
-      }
-
-    copy(
-      name        = newName,
-      annotations = anns,
-      codePath    = QualifiedName(codePath.parts.init :+ newName),
-    )
-  }
-
-  def withSuffix[T: ToSuffix](t: T): ClassTree =
-    renamed(name.withSuffix(t))
-}
+) extends InheritanceTree
 
 final case class ModuleTree(
     annotations: IArray[Annotation],
@@ -112,10 +110,17 @@ final case class TypeAliasTree(
 
 sealed trait MemberTree extends Tree with HasCodePath with HasAnnotations {
   val isOverride: Boolean
+
   def withCodePath(newCodePath: QualifiedName): MemberTree
 
   def renamed(newName: Name): MemberTree
-  def originalName: Name
+  def impl: ImplTree
+
+  final def isNative: Boolean =
+    impl match {
+      case NotImplemented | ExprTree.native => true
+      case _                                => false
+    }
 }
 
 final case class FieldTree(
@@ -130,9 +135,6 @@ final case class FieldTree(
 ) extends MemberTree {
   def withSuffix[T: ToSuffix](t: T): FieldTree =
     renamed(name.withSuffix(t))
-
-  def originalName: Name =
-    annotations.collectFirst { case Annotation.JsName(name) => name }.getOrElse(name)
 
   def renamed(newName: Name): FieldTree =
     copy(
@@ -160,9 +162,6 @@ final case class MethodTree(
 ) extends MemberTree {
   def withSuffix[T: ToSuffix](t: T): MethodTree =
     renamed(name.withSuffix(t))
-
-  def originalName: Name =
-    annotations.collectFirst { case Annotation.JsName(name) => name }.getOrElse(name)
 
   def renamed(newName: Name): MethodTree =
     copy(

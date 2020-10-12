@@ -118,7 +118,11 @@ object ParentsResolver {
 
             case (ta: TypeAliasTree, foundInScope) =>
               val rewritten = FillInTParams(ta, scope, typeRefs.head.targs, newTParams)
-              recurse(foundInScope, rewritten.alias :: typeRefs, newLd, newTParams)
+
+              recurse(foundInScope, rewritten.alias :: typeRefs, newLd, newTParams) match {
+                case Unresolved(_) => Unresolved(IArray.fromTraversable(typeRefs))
+                case other         => other
+              }
           }
           .getOrElse(Unresolved(IArray.fromTraversable(typeRefs)))
     }
@@ -130,7 +134,7 @@ class ParentsResolver {
   def apply(scope: TreeScope, tree: InheritanceTree): Parents =
     apply(scope, findParentRefs(tree), typeParams(tree))
 
-  @deprecated
+  @deprecated("", "")
   def apply(scope: TreeScope, parentRefs: IArray[TypeRef]): Parents =
     apply(scope, parentRefs, Empty)
 

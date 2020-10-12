@@ -27,7 +27,7 @@ object Annotation {
   def renamedFrom(newName: Name)(oldAnnotations: IArray[Annotation]): IArray[Annotation] = {
     val (names, others) =
       oldAnnotations.partition {
-        case _: JsName | _: JsNameSymbol | JsBracketCall => true
+        case _: JsName | _: JsNameSymbol | JsBracketCall | (_: LocationAnnotation) => true
         case _ => false
       }
 
@@ -36,24 +36,6 @@ object Annotation {
         case (Empty, n @ (Name.APPLY | Name.namespaced)) => sys.error(s"Cannot rename `$n`")
         case (Empty, old)                                => IArray(JsName(old))
         case (existing, _)                               => existing
-      }
-
-    others ++ updatedNames
-  }
-
-  def classRenamedFrom(oldName: Name)(oldAnnotations: IArray[Annotation]): IArray[Annotation] = {
-    val (names, others) =
-      oldAnnotations.partition {
-        case _: JsName   => true
-        case _: JsImport => true
-        case _: JsGlobal => true
-        case _ => false
-      }
-
-    val updatedNames: IArray[Annotation] =
-      (names, oldName) match {
-        case (Empty, old)  => IArray(JsName(old))
-        case (existing, _) => existing
       }
 
     others ++ updatedNames

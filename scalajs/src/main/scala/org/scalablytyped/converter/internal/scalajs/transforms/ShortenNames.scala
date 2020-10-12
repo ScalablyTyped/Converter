@@ -103,6 +103,7 @@ object ShortenNames {
 
   def inScope(scope: TreeScope, longName: QualifiedName): Boolean =
     dropOuterPackages(scope).exists {
+      case x: ContainerTree if x.codePath === longName => true
       case x: ContainerTree =>
         x.index.get(longName.parts.last) match {
           case Some(trees) =>

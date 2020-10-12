@@ -2,6 +2,8 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
+import org.scalablytyped.converter.internal.scalajs.transforms.Mangler
+
 /**
   * This generated class is our replacement for Slinkys ExternalComponent... types, which didnt really work.
   */
@@ -386,7 +388,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
         name,
         IArray(TypeRef.Object),
         IArray(createElementField),
-        Minimization.KeepMarker,
+        Minimization.KeepMarker + CommentData(Mangler.LeaveAlone),
         ReactRawCp,
         isOverride = false,
       )
@@ -463,7 +465,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       StBuildingComponent,
       Empty,
       IArray(ReactRaw, make, Default),
-      Minimization.KeepMarker,
+      Minimization.KeepMarker + CommentData(Mangler.LeaveAlone),
       builderCp,
       isOverride = false,
     )

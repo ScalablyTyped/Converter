@@ -13,7 +13,7 @@ object EventListener {
   
   @JSImport("@stardust-ui/react-component-event-listener", "EventListener")
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   @scala.inline
   class Builder[T /* <: EventTypes */] (val args: js.Array[js.Any])

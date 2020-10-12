@@ -29,8 +29,8 @@ sealed trait ModuleSpec {
     if (tsIdent === TsIdent.namespaced) this
     else
       this match {
-        case ModuleSpec.Defaulted     => ModuleSpec(tsIdent)
-        case ModuleSpec.Namespaced    => ModuleSpec(tsIdent)
+        case ModuleSpec.Defaulted     => ModuleSpec.Specified(IArray(TsIdent.default, tsIdent))
+        case ModuleSpec.Namespaced    => ModuleSpec.Specified(IArray(tsIdent))
         case ModuleSpec.Specified(is) => ModuleSpec.Specified(is :+ tsIdent)
       }
 }
@@ -38,6 +38,7 @@ sealed trait ModuleSpec {
 object ModuleSpec {
   def apply(ident: TsIdent): ModuleSpec =
     ident match {
+      case TsIdent.default    => Defaulted
       case TsIdent.namespaced => Namespaced
       case other              => Specified(IArray(other))
     }

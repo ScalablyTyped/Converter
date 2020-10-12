@@ -4,7 +4,7 @@ package importer
 import com.olvind.logging.Logger
 import org.scalablytyped.converter.internal.importer.Phase1Res.{LibTs, UnpackLibs}
 import org.scalablytyped.converter.internal.scalajs._
-import org.scalablytyped.converter.internal.scalajs.transforms.{CleanIllegalNames, ContainerPolicy}
+import org.scalablytyped.converter.internal.scalajs.transforms.{CleanIllegalNames, Mangler}
 import org.scalablytyped.converter.internal.ts.{ParentsResolver, _}
 
 class ImportTree(
@@ -39,9 +39,14 @@ class ImportTree(
         name,
         Empty,
         Empty,
-        Comments("""/* This can be used to `require` the library as a side effect.
+        Comments(
+          List(
+            Comment("""/* This can be used to `require` the library as a side effect.
   If it is a global library this will make scalajs-bundler include it */
 """),
+            CommentData(Mangler.LeaveAlone),
+          ),
+        ),
         codePath   = QualifiedName(IArray(outputPkg, libName, name)),
         isOverride = false,
       )
@@ -110,74 +115,58 @@ class ImportTree(
           ),
         )
 
-      case TsDeclVar(cs, _, _, _, Some(TsTypeObject(_, members)), None, location, codePath) =>
-        val newCodePath = importName(codePath)
-        val MemberRet(ctors, ms, inheritance, statics) =
-          members.flatMap(tsMember(scope, scalaJsDefined = false, importName, newCodePath))
+      case TsDeclVar(cs, _, readOnly, _, tpeOpt, _, jsLocation, codePath) =>
+        val importedCp = importName(codePath)
+        val name       = importedCp.parts.last
+        val tpe        = importType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt)
+        val anns       = ImportJsLocation(jsLocation)
 
-        if (statics.nonEmpty || ctors.nonEmpty) {
-          scope.logger.warn(s"Dropping static members from var ${statics.map(_.codePath)}")
-        }
-
-        IArray(
-          ModuleTree(
-            ImportJsLocation(location),
-            newCodePath.parts.last,
-            inheritance.sorted,
-            ms,
-            cs,
-            newCodePath,
-            isOverride = false,
-          ),
-        )
-
-      case TsDeclVar(
-          cs,
-          _,
-          readOnly,
-          _,
-          tpeOpt,
-          _,
-          jsLocation,
-          importName.withJsNameAnnotation((codePath, annOpt)),
-          ) =>
-        val tpe  = importType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt)
-        val name = codePath.parts.last
-
-        if (name === Name.Symbol) {
+        /* need to reach well known symbols through a stable path */
+        if (name === Name.Symbol)
           IArray(
             ModuleTree(
-              annotations = ImportJsLocation(jsLocation),
+              annotations = anns,
               name        = name,
               parents     = IArray(tpe),
               members     = Empty,
               comments    = cs,
-              codePath    = codePath,
+              codePath    = importedCp,
               isOverride  = false,
             ),
           )
-        } else
+        else {
           IArray(
             FieldTree(
-              annotations = IArray.fromOption(annOpt),
+              annotations = anns,
               name        = name,
               tpe         = tpe,
               impl        = ExprTree.native,
               isReadOnly  = readOnly,
               isOverride  = false,
-              comments    = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
-              codePath    = codePath,
+              comments    = cs,
+              codePath    = importedCp,
             ),
           )
+        }
 
       case e: TsDeclEnum =>
         ImportEnum(e, ImportJsLocation(e.jsLocation), scope, importName, importType, illegalNames, importExpr)
 
       case TsDeclClass(cs, _, isAbstract, _, tparams, parent, implements, members, location, codePath) =>
         val newCodePath = importName(codePath)
-        val MemberRet(ctors, ms, extraInheritance, statics: IArray[MemberTree]) =
-          members.flatMap(tsMember(scope, scalaJsDefined = false, importName, newCodePath))
 
+        val (statics, nonStatics) = members.partitionCollect {
+          case x: TsMemberFunction if x.isStatic => Hoisting.memberToDecl(codePath, location)(x)
+          case x: TsMemberProperty if x.isStatic => Hoisting.memberToDecl(codePath, location)(x)
+        }
+
+        val MemberRet(ctors, ms, extraInheritance, cs2) =
+          nonStatics.flatMap(tsMember(scope, scalaJsDefined = false, newCodePath))
+
+        val importedStatics = statics.flatMap {
+          case Some(static) => decl(scope)(static)
+          case None         => Empty
+        }
         val anns    = ImportJsLocation(location)
         val parents = (IArray.fromOption(parent) ++ implements).map(importType(Wildcards.Prohibit, scope, importName))
 
@@ -192,18 +181,18 @@ class ImportTree(
           members     = ms,
           classType   = classType,
           isSealed    = false,
-          comments    = cs,
+          comments    = cs ++ cs2,
           codePath    = newCodePath,
         )
 
         val module: Option[ModuleTree] =
-          if (statics.nonEmpty)
+          if (importedStatics.nonEmpty)
             Some(
               ModuleTree(
                 anns,
                 newCodePath.parts.last,
                 Empty,
-                statics,
+                importedStatics,
                 Comments(Comment("/* static members */\n")),
                 newCodePath,
                 isOverride = false,
@@ -223,8 +212,8 @@ class ImportTree(
         }
 
         val newCodePath = importName(codePath)
-        val MemberRet(ctors, ms, extraInheritance, _) =
-          members.flatMap(tsMember(scope, isScalaJsDefined, importName, newCodePath))
+        val MemberRet(ctors, ms, extraInheritance, cs2) =
+          members.flatMap(tsMember(scope, isScalaJsDefined, newCodePath))
         val parents = inheritance.map(importType(Wildcards.Prohibit, scope, importName))
 
         IArray(
@@ -238,7 +227,7 @@ class ImportTree(
             members     = ms,
             classType   = ClassType.Trait,
             isSealed    = false,
-            comments    = newComments,
+            comments    = newComments ++ cs2,
             codePath    = newCodePath,
           ),
         )
@@ -255,20 +244,20 @@ class ImportTree(
           ),
         )
 
-      case TsDeclFunction(cs, _, _, sig, jsLocation, importName.withJsNameAnnotation(codePath, annOpt)) =>
-        val name = codePath.parts.last
+      case TsDeclFunction(cs, _, _, sig, jsLocation, codePath) =>
+        val importedCp = importName(codePath)
+        val name       = importedCp.parts.last
         IArray(
           tsMethod(
             scope          = scope,
-            importName     = importName,
             level          = ProtectionLevel.Default,
             name           = name,
-            annOpt         = annOpt,
-            cs             = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
+            annotations    = ImportJsLocation(jsLocation),
+            cs             = cs,
             methodType     = MethodType.Normal,
             sig            = sig,
             scalaJsDefined = false,
-            ownerCP        = codePath,
+            ownerCP        = importedCp,
           ),
         )
       case _: TsExportAsNamespace => Empty
@@ -280,35 +269,18 @@ class ImportTree(
     }
   }
 
-  def nameHint(name: Name, jsLocation: JsLocation): Option[CommentData] =
-    name match {
-      case Name.Default | Name.APPLY | Name.namespaced =>
-        val strOpt = jsLocation match {
-          case JsLocation.Global(TsQIdent(parts)) if parts.nonEmpty                => Some(parts.last.value)
-          case JsLocation.Module(_, ModuleSpec.Specified(parts)) if parts.nonEmpty => Some(parts.last.value)
-          case JsLocation.Module(modName, _)                                       => Some(modName.fragments.last)
-          case _                                                                   => None
-        }
-        strOpt.map(h => CommentData(Markers.NameHint(h)))
-      case _ => None
-    }
-
   sealed trait MemberRet
 
   object MemberRet {
-    def apply(value: MemberTree, isStatic: Boolean): MemberRet =
-      if (isStatic) Static(value) else Normal(value)
+    def apply(value: MemberTree): MemberRet = Normal(value)
 
     case class Ctor(value: CtorTree) extends MemberRet
 
     case class Normal(value: MemberTree) extends MemberRet
-    case class Static(value: MemberTree) extends MemberRet
 
     case class Inheritance(value: TypeRef) extends MemberRet
 
-    def unapply(
-        es: IArray[MemberRet],
-    ): Some[(IArray[CtorTree], IArray[MemberTree], IArray[TypeRef], IArray[MemberTree])] = {
+    def unapply(es: IArray[MemberRet]): Some[(IArray[CtorTree], IArray[MemberTree], IArray[TypeRef], Comments)] = {
       val ctors = es.collect {
         case Ctor(c) => c
       }
@@ -319,19 +291,16 @@ class ImportTree(
       val inheritance = es.collect {
         case Inheritance(o) => o
       }
-      val static = es.collect {
-        case Static(o) => o
-      }
 
       RewriteNamespaceMembers(others) match {
-        case (moreInheritance, newOthers, shouldBeEmpty) =>
+        case (moreInheritance, newOthers, shouldBeEmpty, comments) =>
           require(shouldBeEmpty.isEmpty)
-          Some((ctors, newOthers, inheritance ++ moreInheritance, static))
+          Some((ctors, newOthers, inheritance ++ moreInheritance, comments))
       }
     }
   }
 
-  def tsMember(_scope: TsTreeScope, scalaJsDefined: Boolean, importName: AdaptiveNamingImport, ownerCP: QualifiedName)(
+  def tsMember(_scope: TsTreeScope, scalaJsDefined: Boolean, ownerCP: QualifiedName)(
       t1:              TsMember,
   ): IArray[MemberRet] = {
     lazy val scope = _scope / t1
@@ -341,17 +310,15 @@ class ImportTree(
           MemberRet(
             tsMethod(
               scope          = scope,
-              importName     = importName,
               level          = level,
               name           = Name.APPLY,
-              annOpt         = None,
+              annotations    = Empty,
               cs             = cs,
               methodType     = MethodType.Normal,
               sig            = signature,
               scalaJsDefined = scalaJsDefined,
               ownerCP        = ownerCP,
             ),
-            isStatic = false,
           ),
         )
       case TsMemberCtor(cs, _, _sig) =>
@@ -367,15 +334,24 @@ class ImportTree(
           ),
         )
 
-      case m: TsMemberProperty =>
+      case m: TsMemberProperty if !m.isStatic =>
         tsMemberProperty(scope, scalaJsDefined, importName, ownerCP)(m)
 
-      case TsMemberFunction(cs, level, name, methodType, signature, isStatic, isReadOnly @ _) =>
+      case TsMemberFunction(cs, level, name, methodType, signature, isStatic, isReadOnly @ _) if !isStatic =>
         val (newName, annOpt) = ImportName.withJsNameAnnotation(name)
         IArray(
           MemberRet(
-            tsMethod(scope, importName, level, newName, annOpt, cs, methodType, signature, scalaJsDefined, ownerCP),
-            isStatic,
+            tsMethod(
+              scope          = scope,
+              level          = level,
+              name           = newName,
+              annotations    = IArray.fromOption(annOpt),
+              cs             = cs,
+              methodType     = methodType,
+              sig            = signature,
+              scalaJsDefined = scalaJsDefined,
+              ownerCP        = ownerCP,
+            ),
           ),
         )
 
@@ -431,7 +407,6 @@ class ImportTree(
                       comments    = m.comments,
                       codePath    = ownerCP + symName,
                     ),
-                    isStatic = false,
                   ),
                 )
               case other =>
@@ -440,7 +415,7 @@ class ImportTree(
             }
         }
 
-      case other: TsMemberTypeMapped =>
+      case other =>
         scope.logger.info(s"Dropping $other")
         Empty
     }
@@ -465,17 +440,15 @@ class ImportTree(
             MemberRet(
               tsMethod(
                 scope          = scope / call,
-                importName     = importName,
                 level          = call.level,
                 name           = name,
-                annOpt         = annOpt,
+                annotations    = IArray.fromOption(annOpt),
                 cs             = call.comments,
                 methodType     = MethodType.Normal,
                 sig            = call.signature,
                 scalaJsDefined = scalaJsDefined,
                 ownerCP        = ownerCP,
               ),
-              m.isStatic,
             ),
           )
 
@@ -503,7 +476,7 @@ class ImportTree(
               ),
             ),
           )
-          .map(f => MemberRet(f, m.isStatic))
+          .map(MemberRet.apply)
       case (name, _) =>
         scope.logger.info(s"dropping member $name")
         Empty
@@ -534,10 +507,9 @@ class ImportTree(
 
   def tsMethod(
       scope:          TsTreeScope,
-      importName:     AdaptiveNamingImport,
       level:          ProtectionLevel,
       name:           Name,
-      annOpt:         Option[Annotation.JsName],
+      annotations:    IArray[Annotation],
       cs:             Comments,
       methodType:     MethodType,
       sig:            TsFunSig,
@@ -574,7 +546,7 @@ class ImportTree(
       }
 
     val ret = MethodTree(
-      annotations = IArray.fromOption(annOpt),
+      annotations = annotations,
       level       = level,
       name        = correctedName,
       tparams     = sig.tparams.map(typeParam(scope, importName)),
@@ -595,15 +567,11 @@ class ImportTree(
         }
 
       containedLiterals.distinct.toList.map(_.filter(_.isLetterOrDigit)).filter(_.nonEmpty) match {
-        case suffix :: Nil =>
-          ret.withSuffix(suffix)
-        case _ => ret
+        case suffix :: Nil => ret.withSuffix(suffix)
+        case _             => ret
       }
     }
   }
-
-  def annotationComment(jsLocation: JsLocation) =
-    CommentData(ContainerPolicy.ClassAnnotations(ImportJsLocation(jsLocation)))
 
   def container(
       importName: AdaptiveNamingImport,
@@ -614,7 +582,7 @@ class ImportTree(
       codePath:   CodePath,
   ): ModuleTree =
     RewriteNamespaceMembers(tsMembers.flatMap(decl(scope))) match {
-      case (inheritance, memberTrees, restTrees) =>
+      case (inheritance, memberTrees, restTrees, cs2) =>
         val importedCp = importName(codePath)
 
         setCodePath(
@@ -624,7 +592,7 @@ class ImportTree(
             name        = importedCp.parts.last,
             parents     = inheritance,
             members     = memberTrees ++ restTrees,
-            comments    = cs,
+            comments    = cs ++ cs2,
             codePath    = importedCp,
             isOverride  = false,
           ),

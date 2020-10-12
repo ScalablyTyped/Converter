@@ -13,7 +13,7 @@ object ContextMenu {
   
   @JSImport("react-contextmenu", "ContextMenu")
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])

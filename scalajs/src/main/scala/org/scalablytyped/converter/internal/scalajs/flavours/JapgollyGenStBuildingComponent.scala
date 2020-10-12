@@ -3,6 +3,7 @@ package scalajs
 package flavours
 
 import ExprTree._
+import org.scalablytyped.converter.internal.scalajs.transforms.Mangler
 
 class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versions.Scala) {
 
@@ -436,7 +437,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         name,
         IArray(TypeRef.Object),
         IArray(createElementField),
-        Minimization.KeepMarker,
+        Minimization.KeepMarker + CommentData(Mangler.LeaveAlone),
         ReactRawCp,
         isOverride = false,
       )
@@ -512,7 +513,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       StBuildingComponent,
       Empty,
       IArray(ReactRaw, make, Default),
-      Minimization.KeepMarker,
+      Minimization.KeepMarker + CommentData(Mangler.LeaveAlone),
       builderCp,
       isOverride = false,
     )

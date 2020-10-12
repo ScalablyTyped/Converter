@@ -7,10 +7,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("swiz-test-default", JSImport.Namespace)
-@js.native
-object swizTestDefaultMod extends js.Object {
+object swizTestDefaultMod {
   
+  @JSImport("swiz-test-default", JSImport.Default)
   @js.native
   object default extends js.Object {
     

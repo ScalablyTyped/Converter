@@ -9,7 +9,7 @@ object Accessibility {
   
   @JSImport("material-ui/svg-icons/action/accessibility", JSImport.Default)
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def withProps(p: js.Object): SharedBuilder_Object_159303587[default] = new SharedBuilder_Object_159303587[default](js.Array(this.component, p.asInstanceOf[js.Any]))
   

@@ -5,16 +5,18 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("firebase-admin", JSImport.Namespace)
-@js.native
-object mod extends js.Object {
+object mod {
   
-  @js.native
-  object firestore extends js.Object {
+  object firestore {
     
+    @JSImport("firebase-admin", "firestore")
+    @js.native
     def apply(): Firestore = js.native
+    @JSImport("firebase-admin", "firestore")
+    @js.native
     def apply(str: String): Firestore = js.native
     
+    @JSImport("firebase-admin", "firestore.Firestore")
     @js.native
     /**
       * @param settings Configuration object. See [Firestore Documentation]

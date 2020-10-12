@@ -5,10 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("@google-cloud/firestore", JSImport.Namespace)
-@js.native
-object mod extends js.Object {
+object mod {
   
+  @JSImport("@google-cloud/firestore", "Firestore")
   @js.native
   /**
     * @param settings Configuration object. See [Firestore Documentation]
