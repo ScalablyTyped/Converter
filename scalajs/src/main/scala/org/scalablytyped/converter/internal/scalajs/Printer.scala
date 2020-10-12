@@ -483,7 +483,6 @@ object Printer {
 
     def paramsIfNeeded(s: String): String =
       if (s.exists(_.isWhitespace)) s"($s)"
-      else if (s.last === '^') s"$s "
       else s
 
     def formatProtectionLevel(p: ProtectionLevel, isCtor: Boolean): String =

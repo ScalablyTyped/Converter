@@ -13,7 +13,7 @@ object Component {
     
     @JSImport("componentstest", "Component")
     @js.native
-    object component extends js.Object
+    val component: js.Object = js.native
     
     def withProps(p: typingsSlinky.componentstest.mod.A): Default[tag.type, js.Object] = new Default[tag.type, js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
     
@@ -28,7 +28,7 @@ object Component {
     
     @JSImport("componentstest", "Component")
     @js.native
-    object component extends js.Object
+    val component: js.Object = js.native
     
     @scala.inline
     class Builder (val args: js.Array[js.Any])

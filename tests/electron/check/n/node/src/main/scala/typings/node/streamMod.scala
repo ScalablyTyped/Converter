@@ -6,15 +6,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("stream", JSImport.Namespace)
-@js.native
-object streamMod extends js.Object {
+object streamMod {
   
   /* import warning: transforms.RemoveMultipleInheritance#findNewParents newComments Dropped parents 
   - typings.node.NodeJS.EventEmitter because Already inherited
   - typings.node.NodeJS.WritableStream because var conflicts: writable. Inlined 
   - typings.node.streamMod.Stream because Already inherited
-  - typings.node.streamMod.Writable because Inheritance from two classes. Inlined writable, emit, emit, end, end, end, end */ @js.native
+  - typings.node.streamMod.Writable because Inheritance from two classes. Inlined writable, emit, emit, end, end, end, end */ @JSImport("stream", "Duplex")
+  @js.native
   class Duplex () extends Readable {
     
     def end(): Unit = js.native
@@ -32,6 +31,7 @@ object streamMod extends js.Object {
     var writable: Boolean = js.native
   }
   
+  @JSImport("stream", "Readable")
   @js.native
   class Readable ()
     extends Stream
@@ -41,9 +41,11 @@ object streamMod extends js.Object {
     def read(size: Double): String = js.native
   }
   
+  @JSImport("stream", "Stream")
   @js.native
   class Stream () extends js.Object
   
+  @JSImport("stream", "Writable")
   @js.native
   class Writable ()
     extends Stream

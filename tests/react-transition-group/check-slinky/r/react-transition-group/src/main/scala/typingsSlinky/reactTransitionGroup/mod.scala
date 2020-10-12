@@ -1,17 +1,13 @@
 package typingsSlinky.reactTransitionGroup
 
-import typingsSlinky.react.mod.Component
-import typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.abbr
-import typingsSlinky.reactTransitionGroup.transitionGroupMod.TransitionGroupProps
+import typingsSlinky.reactTransitionGroup.transitionGroupMod.^
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("react-transition-group", JSImport.Namespace)
-@js.native
-object mod extends js.Object {
+object mod {
   
+  @JSImport("react-transition-group", "TransitionGroup")
   @js.native
-  class TransitionGroup ()
-    extends Component[TransitionGroupProps[abbr, js.Any], js.Object]
+  class TransitionGroup () extends ^
 }

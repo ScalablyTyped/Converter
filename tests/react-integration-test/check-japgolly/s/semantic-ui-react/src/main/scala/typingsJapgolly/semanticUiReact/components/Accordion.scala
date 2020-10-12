@@ -20,7 +20,7 @@ object Accordion {
   
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", JSImport.Default)
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])
@@ -77,7 +77,7 @@ object Accordion {
     
     @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", "default.Accordion")
     @js.native
-    object component extends js.Object
+    val component: js.Object = js.native
     
     def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps1188692388[typingsJapgolly.semanticUiReact.accordionAccordionMod.default.Accordion] = new SharedBuilder_AccordionAccordionProps1188692388[typingsJapgolly.semanticUiReact.accordionAccordionMod.default.Accordion](js.Array(this.component, p.asInstanceOf[js.Any]))
     
@@ -88,7 +88,7 @@ object Accordion {
     
     @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", "default.Content")
     @js.native
-    object component extends js.Object
+    val component: js.Object = js.native
     
     def withProps(p: AccordionContentProps): SharedBuilder_AccordionContentProps_1883056278 = new SharedBuilder_AccordionContentProps_1883056278(js.Array(this.component, p.asInstanceOf[js.Any]))
     
@@ -99,7 +99,7 @@ object Accordion {
     
     @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", "default.Title")
     @js.native
-    object component extends js.Object
+    val component: js.Object = js.native
     
     def withProps(p: AccordionTitleProps): SharedBuilder_AccordionTitleProps_248880662[typingsJapgolly.semanticUiReact.accordionAccordionMod.default.Title] = new SharedBuilder_AccordionTitleProps_248880662[typingsJapgolly.semanticUiReact.accordionAccordionMod.default.Title](js.Array(this.component, p.asInstanceOf[js.Any]))
     

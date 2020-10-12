@@ -14,7 +14,7 @@ import org.scalablytyped.converter.internal.scalajs._
   * This undoes the damage.
   */
 object RewriteNamespaceMembers {
-  def apply(original: IArray[Tree]): (IArray[TypeRef], IArray[MemberTree], IArray[Tree]) =
+  def apply(original: IArray[Tree]): (IArray[TypeRef], IArray[MemberTree], IArray[Tree], Comments) =
     original.partitionCollect4(
       { case x: FieldTree if x.name === Name.namespaced     => x },
       { case x: MethodTree if x.name === Name.namespaced    => x },
@@ -26,16 +26,13 @@ object RewriteNamespaceMembers {
           val fromFields = namespacedFields.map(x => x.tpe)
           val fromContainers = namespacedContainers.flatMap {
             case _: PackageTree => Empty
-            case ModuleTree(_, _, parents, _, _, _, _) =>
-              parents.map {
-                case TypeRef(QualifiedName.TopLevel, IArray.exactlyOne(parent), _) => parent
-                case parent                                                        => parent
-              }
+            case ModuleTree(_, _, parents, _, _, _, _) => parents
           }
+
           (fromFields ++ fromContainers).distinct match {
             case Empty => Empty
             /* This is a shortcut so we don't have to implement the members */
-            case more => IArray(TypeRef.TopLevel(TypeRef.Intersection(more, NoComments)))
+            case more => IArray(TypeRef.Intersection(more, NoComments))
           }
         }
 
@@ -47,8 +44,8 @@ object RewriteNamespaceMembers {
 
           memberTrees ++ rewrittenMethods ++ membersFromContainers
         }
-
-        (inheritance, newMemberTrees, remaining ++ restFromContainers)
+        val comments = Comments.flatten(namespacedContainers)(_.comments)
+        (inheritance, newMemberTrees, remaining ++ restFromContainers, comments)
     }
 
 }

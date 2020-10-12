@@ -9,7 +9,7 @@ object Ref {
   
   @JSImport("@stardust-ui/react-component-ref/dist/es/Ref", JSImport.Default)
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def withProps(p: RefProps): SharedBuilder_RefProps171925374[js.Object] = new SharedBuilder_RefProps171925374[js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
   

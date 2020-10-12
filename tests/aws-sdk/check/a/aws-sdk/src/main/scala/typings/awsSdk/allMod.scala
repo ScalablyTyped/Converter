@@ -9,28 +9,31 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("aws-sdk/clients/all", JSImport.Namespace)
-@js.native
-object allMod extends js.Object {
+object allMod {
   
+  @JSImport("aws-sdk/clients/all", "DynamoDB")
   @js.native
   class DynamoDB () extends ^ {
     def this(options: ClientConfiguration) = this()
   }
-  @js.native
-  object DynamoDB extends js.Object {
+  object DynamoDB {
     
+    @JSImport("aws-sdk/clients/all", "DynamoDB.Converter")
     @js.native
     class Converter ()
       extends typings.awsSdk.dynamodbMod.Converter
     /* static members */
-    @js.native
-    object Converter extends js.Object {
+    object Converter {
       
+      @JSImport("aws-sdk/clients/all", "DynamoDB.Converter.input")
+      @js.native
       def input(data: js.Any): AttributeValue = js.native
+      @JSImport("aws-sdk/clients/all", "DynamoDB.Converter.input")
+      @js.native
       def input(data: js.Any, options: ConverterOptions): AttributeValue = js.native
     }
     
+    @JSImport("aws-sdk/clients/all", "DynamoDB.DocumentClient")
     @js.native
     /**
       * Creates a DynamoDB document client with a set of configuration options.

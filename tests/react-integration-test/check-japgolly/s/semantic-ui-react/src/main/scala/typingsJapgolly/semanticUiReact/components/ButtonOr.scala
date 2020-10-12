@@ -9,7 +9,7 @@ object ButtonOr {
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonOr", JSImport.Default)
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def withProps(p: ButtonOrProps): SharedBuilder_ButtonOrProps_184214248 = new SharedBuilder_ButtonOrProps_184214248(js.Array(this.component, p.asInstanceOf[js.Any]))
   

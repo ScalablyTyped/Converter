@@ -13,7 +13,7 @@ object Profiler {
   
   @JSImport("react", "Profiler")
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def withProps(p: ProfilerProps): Default[js.Object] = new Default[js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
   

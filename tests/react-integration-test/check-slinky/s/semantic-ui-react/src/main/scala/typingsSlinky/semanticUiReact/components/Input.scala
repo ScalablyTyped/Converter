@@ -84,7 +84,7 @@ object Input {
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Input", JSImport.Default)
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])

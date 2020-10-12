@@ -6,6 +6,7 @@ import com.olvind.logging.Logger
 import org.scalablytyped.converter.internal.importer.Phase1Res.{LibTs, LibraryPart}
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
+import org.scalablytyped.converter.internal.scalajs.QualifiedName.StdNames
 import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
 import org.scalablytyped.converter.internal.scalajs.{
@@ -67,7 +68,7 @@ class Phase2ToScalaJs(
             val cleanIllegalNames = new CleanIllegalNames(outputPkg)
 
             val ScalaTransforms = List[PackageTree => PackageTree](
-              S.ContainerPolicy.visitPackageTree(scope),
+              (S.ModulesCombine >> S.ModulesSimplify).visitPackageTree(scope),
               (new S.RemoveDuplicateInheritance(new ParentsResolver) >>
                 S.CleanupTypeAliases >>
                 cleanIllegalNames >>
@@ -75,13 +76,12 @@ class Phase2ToScalaJs(
               Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s, cleanIllegalNames)(tree)),
               Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName, willBeExternalTypes)), // after FakeLiterals
               S.LimitUnionLength.visitPackageTree(scope), // after UnionToInheritance
-              (S.AvoidMacroParadiseBug >> new S.RemoveMultipleInheritance(new ParentsResolver)).visitPackageTree(scope),
+              new S.RemoveMultipleInheritance(new ParentsResolver).visitPackageTree(scope),
               S.CombineOverloads.visitPackageTree(scope), //must have stable types, so FakeLiterals run before
               new S.FilterMemberOverrides(new ParentsResolver).visitPackageTree(scope), //
               new S.InferMemberOverrides(new ParentsResolver)
                 .visitPackageTree(scope), //runs in phase after FilterMemberOverrides
-              (new S.CompleteClass(new ParentsResolver) >> //after FilterMemberOverrides
-                S.Sorter).visitPackageTree(scope),
+              new S.CompleteClass(new ParentsResolver).visitPackageTree(scope), //after FilterMemberOverrides
             )
 
             val importName = AdaptiveNamingImport(
@@ -92,7 +92,7 @@ class Phase2ToScalaJs(
               cleanIllegalNames,
             )
 
-            val importType = new ImportType(new internal.scalajs.QualifiedName.StdNames(outputPkg))
+            val importType = new ImportType(new StdNames(outputPkg))
             val importTree = new ImportTree(
               outputPkg,
               importName,

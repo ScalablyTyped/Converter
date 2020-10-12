@@ -1,6 +1,5 @@
 package typingsJapgolly.semanticUiReact
 
-import org.scalablytyped.runtime.TopLevel
 import typingsJapgolly.react.mod.Component
 import typingsJapgolly.semanticUiReact.accordionAccordionAccordionMod.AccordionAccordionProps
 import typingsJapgolly.semanticUiReact.accordionAccordionMod.AccordionComponent
@@ -10,21 +9,28 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", JSImport.Namespace)
-@js.native
-object accordionMod extends js.Object {
+object accordionMod {
   
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", JSImport.Default)
   @js.native
   class default protected ()
     extends Component[AccordionProps, js.Object, js.Any] {
     def this(props: AccordionProps) = this()
     def this(props: AccordionProps, context: js.Any) = this()
   }
-  @js.native
-  object default extends TopLevel[AccordionComponent] {
+  object default {
+    
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", JSImport.Default)
+    @js.native
+    val ^ : AccordionComponent = js.native
+    
+    /* Syntax to write `default` instead of `default.^` */
+    @scala.inline
+    implicit def __is(ignored: default.type): AccordionComponent = typingsJapgolly.semanticUiReact.accordionMod.default.^
     
     /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Accordion")
     @js.native
     class Accordion protected ()
       extends Component[AccordionAccordionProps, js.Object, js.Any] {
@@ -33,6 +39,7 @@ object accordionMod extends js.Object {
     }
     
     /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Title")
     @js.native
     class Title protected ()
       extends Component[AccordionTitleProps, js.Object, js.Any] {

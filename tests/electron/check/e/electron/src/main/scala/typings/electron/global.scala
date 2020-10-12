@@ -5,15 +5,15 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSGlobalScope
-@js.native
-object global extends js.Object {
+object global {
   
-  @js.native
-  object Electron extends js.Object {
+  object Electron {
     
+    @JSGlobal("Electron.app")
+    @js.native
     val app: App = js.native
     
+    @JSGlobal("Electron.EventEmitter")
     @js.native
     class EventEmitter ()
       extends typings.electron.Electron.EventEmitter

@@ -9,7 +9,7 @@ object RefFindNode {
   
   @JSImport("@stardust-ui/react-component-ref", "RefFindNode")
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def withProps(p: RefProps): SharedBuilder_RefProps1237054395[typingsSlinky.stardustUiReactComponentRef.mod.RefFindNode] = new SharedBuilder_RefProps1237054395[typingsSlinky.stardustUiReactComponentRef.mod.RefFindNode](js.Array(this.component, p.asInstanceOf[js.Any]))
   

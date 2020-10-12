@@ -9,7 +9,7 @@ object ButtonGroup {
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonGroup", JSImport.Default)
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def withProps(p: ButtonGroupProps): SharedBuilder_ButtonGroupProps1227330619 = new SharedBuilder_ButtonGroupProps1227330619(js.Array(this.component, p.asInstanceOf[js.Any]))
   

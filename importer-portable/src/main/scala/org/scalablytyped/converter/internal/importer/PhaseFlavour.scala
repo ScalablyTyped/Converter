@@ -2,8 +2,9 @@ package org.scalablytyped.converter.internal.importer
 
 import com.olvind.logging.Logger
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
-import org.scalablytyped.converter.internal.scalajs.TreeScope
 import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
+import org.scalablytyped.converter.internal.scalajs.TreeScope
+import org.scalablytyped.converter.internal.scalajs.transforms.{Mangler, Sorter}
 
 import scala.collection.immutable.SortedSet
 
@@ -28,16 +29,19 @@ class PhaseFlavour(flavour: FlavourImpl) extends Phase[Source, LibScalaJs, LibSc
           outputPkg     = flavour.outputPkg,
         )
 
-        val tree = flavour.rewrittenTree(originalScope, lib.packageTree)
+        val tree0 = lib.packageTree
+        val tree1 = Sorter.visitPackageTree(originalScope)(tree0)
+        val tree2 = flavour.rewrittenTree(originalScope, tree1)
+        val tree3 = Mangler.visitPackageTree(originalScope)(tree2)
 
         LibScalaJs(lib.source)(
-          lib.libName,
-          lib.scalaName,
-          lib.libVersion,
-          tree,
-          deps,
-          lib.isStdLib,
-          lib.names,
+          libName      = lib.libName,
+          scalaName    = lib.scalaName,
+          libVersion   = lib.libVersion,
+          packageTree  = tree3,
+          dependencies = deps,
+          isStdLib     = lib.isStdLib,
+          names        = lib.names,
         )
     }
   }

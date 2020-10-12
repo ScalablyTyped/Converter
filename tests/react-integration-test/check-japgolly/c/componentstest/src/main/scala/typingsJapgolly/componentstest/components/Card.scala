@@ -14,7 +14,7 @@ object Card {
   
   @JSImport("componentstest", "Card")
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])
@@ -36,7 +36,7 @@ object Card {
     
     @JSImport("componentstest", "Card.Grid2")
     @js.native
-    object component extends js.Object
+    val component: js.Object = js.native
     
     def withProps(p: CardGridProps): SharedBuilder_CardGridProps2094947949 = new SharedBuilder_CardGridProps2094947949(js.Array(this.component, p.asInstanceOf[js.Any]))
     

@@ -79,6 +79,12 @@ sealed abstract class TreeScope { outer =>
       case that: TreeScope if root.libName === that.root.libName && hashCode === that.hashCode => stack === that.stack
       case _ => false
     }
+
+  def owner: Option[InheritanceTree] =
+    stack.collectFirst { case x: InheritanceTree => x }
+
+  def isNative: Boolean =
+    owner.fold(true)(_.isNative)
 }
 
 object TreeScope {

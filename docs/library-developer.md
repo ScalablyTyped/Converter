@@ -24,6 +24,10 @@ This is unfortunate, but some more design work is needed to avoid this.
 Since we generate source code, it should work with any combination of 
 Scala 2.12 / 2.13 and Scala.js 1.x. 
 
+Starting from 1.0.0-beta30, it is in many cases not possible to compile the generated code 
+if you have the *macro paradise* plugin enabled, because of some old lingering bugs. 
+So don't do that, it's a dead end anyway.
+
 ## Add to your `project/plugins.sbt`
 
 ```scala

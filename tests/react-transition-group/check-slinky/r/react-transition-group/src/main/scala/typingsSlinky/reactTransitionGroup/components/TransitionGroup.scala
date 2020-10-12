@@ -13,7 +13,7 @@ object TransitionGroup {
   
   @JSImport("react-transition-group", "TransitionGroup")
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def apply(p: TransitionGroupProps[abbr, js.Any]): Default[tag.type, typingsSlinky.reactTransitionGroup.mod.TransitionGroup] = new Default[tag.type, typingsSlinky.reactTransitionGroup.mod.TransitionGroup](js.Array(this.component, p.asInstanceOf[js.Any]))
   

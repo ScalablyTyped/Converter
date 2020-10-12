@@ -14,6 +14,7 @@ import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyWeb.{Combined
 
 @deprecated(
   "We should make all slinky components `*` and delete this, it's a lot of complexity for nothing with the new encoding",
+  "",
 )
 object SlinkyTagsLoader {
 
@@ -158,9 +159,9 @@ object SlinkyTagsLoader {
   /* extract what we need from the slinky json files */
   type AttrsByTag = Map[TagName.Concrete, (Tag, Set[String])]
   object AttrsByTag {
-    private implicit val TagDecoder:       Decoder[Tag]       = io.circe013.generic.semiauto.deriveDecoder[Tag]
-    private implicit val AttributeDecoder: Decoder[Attribute] = io.circe013.generic.semiauto.deriveDecoder[Attribute]
-    private implicit val TagsModelDecoder: Decoder[TagsModel] = io.circe013.generic.semiauto.deriveDecoder[TagsModel]
+    implicit val TagDecoder:       Decoder[Tag]       = io.circe013.generic.semiauto.deriveDecoder[Tag]
+    implicit val AttributeDecoder: Decoder[Attribute] = io.circe013.generic.semiauto.deriveDecoder[Attribute]
+    implicit val TagsModelDecoder: Decoder[TagsModel] = io.circe013.generic.semiauto.deriveDecoder[TagsModel]
 
     private def massage(model: TagsModel): AttrsByTag =
       model.tags.map { tag =>

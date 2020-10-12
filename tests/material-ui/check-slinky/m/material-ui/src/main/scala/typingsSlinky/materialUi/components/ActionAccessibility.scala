@@ -8,7 +8,7 @@ object ActionAccessibility {
   
   @JSImport("material-ui/svg-icons/action/accessibility", "ActionAccessibility")
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   def withProps(p: js.Object): SharedBuilder_Object_159303587[typingsSlinky.materialUi.accessibilityMod.ActionAccessibility] = new SharedBuilder_Object_159303587[typingsSlinky.materialUi.accessibilityMod.ActionAccessibility](js.Array(this.component, p.asInstanceOf[js.Any]))
   

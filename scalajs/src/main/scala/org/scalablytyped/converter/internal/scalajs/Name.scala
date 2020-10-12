@@ -110,52 +110,57 @@ object Name {
     *
     * For performance reasons it's not done in the constructor or anything like that
     */
-  def necessaryRewrite(ident: String): Option[String] = {
-    def unicodeName(c: Char): String =
-      Character
-        .getName(c.toInt)
-        .takeWhile(_ =/= '(')
-        .filter(_.isLetterOrDigit)
-        .toLowerCase
-        .capitalize
+  def necessaryRewrite(ident: String): Option[String] =
+    ident match {
+      case "<apply>"  => None
+      case "<global>" => None
+      case "^"        => None
+      case ident =>
+        def unicodeName(c: Char): String =
+          Character
+            .getName(c.toInt)
+            .takeWhile(_ =/= '(')
+            .filter(_.isLetterOrDigit)
+            .toLowerCase
+            .capitalize
 
-    val patchedChars =
-      ident.flatMap {
-        // we keep these, and only rewrite it for packages and modules, where it will be very visible
-        case '-' => "-"
-        case '@' => "@"
-        case '^' => "^"
-        case '[' => "["
-        case ']' => "]"
-        /* Zinc fails with two dollar signs in a name, while we want to keep for instance the JQuery `$` */
-        case '$' => if (ident.count(_ === '$') > 1) "Dollar" else "$"
-        /* override names from unicode */
-        case '.'                                            => "Dot"
-        case '\\'                                           => "Backslash"
-        case '/'                                            => "Slash"
-        case '\u0000'                                       => "Null"
-        case ' '                                            => " "
-        case c if !c.isUnicodeIdentifierPart || c.isControl => unicodeName(c)
-        case c                                              => c.toString
-      }
+        val patchedChars =
+          ident.flatMap {
+            // we keep these, and only rewrite it for packages and modules, where it will be very visible
+            case '-' => "-"
+            case '@' => "@"
+            case '^' => "^"
+            case '[' => "["
+            case ']' => "]"
+            /* Zinc fails with two dollar signs in a name, while we want to keep for instance the JQuery `$` */
+            case '$' => if (ident.count(_ === '$') > 1) "Dollar" else "$"
+            /* override names from unicode */
+            case '.'                                            => "Dot"
+            case '\\'                                           => "Backslash"
+            case '/'                                            => "Slash"
+            case '\u0000'                                       => "Null"
+            case ' '                                            => " "
+            case c if !c.isUnicodeIdentifierPart || c.isControl => unicodeName(c)
+            case c                                              => c.toString
+          }
 
-    /* can't have heading spaces, but inside the name we can escape them */
-    val fixedSpaces: String = {
-      val initialSpaces = patchedChars.takeWhile(_.isSpaceChar)
-      "Space" * initialSpaces.length + patchedChars.drop(initialSpaces.length)
+        /* can't have heading spaces, but inside the name we can escape them */
+        val fixedSpaces: String = {
+          val initialSpaces = patchedChars.takeWhile(_.isSpaceChar)
+          "Space" * initialSpaces.length + patchedChars.drop(initialSpaces.length)
+        }
+
+        /* No kidding, instagram-private-api broke scalac with a stack overflow in the parser */
+        val notTooLong = if (fixedSpaces.length > 500) fixedSpaces.take(500) else fixedSpaces
+
+        val legal = notTooLong match {
+          case ""        => "_empty" // must have a name
+          case "-"       => "_dash" // `def `-`(d: Double) = d; `-`(d) doesn't do what you would think
+          case "_"       => "_underscore" // can't import a top level member with this name
+          case "package" => "_package" // does't work
+          case i         => i
+        }
+
+        if (legal === ident) None else Some(legal)
     }
-
-    /* No kidding, instagram-private-api broke scalac with a stack overflow in the parser */
-    val notTooLong = if (fixedSpaces.length > 500) fixedSpaces.take(500) else fixedSpaces
-
-    val legal = notTooLong match {
-      case ""        => "_empty" // must have a name
-      case "-"       => "_dash" // `def `-`(d: Double) = d; `-`(d) doesn't do what you would think
-      case "_"       => "_underscore" // can't import a top level member with this name
-      case "package" => "_package" // does't work
-      case i         => i
-    }
-
-    if (legal === ident) None else Some(legal)
-  }
 }

@@ -19,11 +19,6 @@ import CompleteClass._
   */
 class CompleteClass(parentsResolver: ParentsResolver) extends TreeTransformation {
 
-  override def leaveModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree =
-    mod.copy(
-      members = mod.members ++ implementations(scope, mod, parentsResolver(scope, mod)),
-    )
-
   override def leaveClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
     val parents = parentsResolver(scope, cls)
 

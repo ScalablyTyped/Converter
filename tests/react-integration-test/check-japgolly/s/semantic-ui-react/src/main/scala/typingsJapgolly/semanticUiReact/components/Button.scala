@@ -93,7 +93,7 @@ object Button {
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", JSImport.Default)
   @js.native
-  object component extends js.Object
+  val component: js.Object = js.native
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])
@@ -755,7 +755,7 @@ object Button {
     
     @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Content")
     @js.native
-    object component extends js.Object
+    val component: js.Object = js.native
     
     def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps1680783343 = new SharedBuilder_ButtonContentProps1680783343(js.Array(this.component, p.asInstanceOf[js.Any]))
     
@@ -766,7 +766,7 @@ object Button {
     
     @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Group")
     @js.native
-    object component extends js.Object
+    val component: js.Object = js.native
     
     def withProps(p: ButtonGroupProps): SharedBuilder_ButtonGroupProps_158814638 = new SharedBuilder_ButtonGroupProps_158814638(js.Array(this.component, p.asInstanceOf[js.Any]))
     
@@ -777,7 +777,7 @@ object Button {
     
     @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Or")
     @js.native
-    object component extends js.Object
+    val component: js.Object = js.native
     
     def withProps(p: ButtonOrProps): SharedBuilder_ButtonOrProps_184214248 = new SharedBuilder_ButtonOrProps_184214248(js.Array(this.component, p.asInstanceOf[js.Any]))
     

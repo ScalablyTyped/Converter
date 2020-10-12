@@ -5,15 +5,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("material-ui/svg-icons/action/accessibility", JSImport.Namespace)
-@js.native
-object accessibilityMod extends js.Object {
+object accessibilityMod {
   
+  @JSImport("material-ui/svg-icons/action/accessibility", "ActionAccessibility")
   @js.native
   class ActionAccessibility ()
     extends Component[js.Object, js.Object]
   
+  @JSImport("material-ui/svg-icons/action/accessibility", JSImport.Default)
   @js.native
-  class default ()
-    extends Component[js.Object, js.Object]
+  class default () extends ActionAccessibility
 }

@@ -438,14 +438,14 @@ object TsIdent {
     Some(ident.value)
 
   val `this`: TsIdentSimple = TsIdent("this")
-  val Apply:  TsIdentSimple = TsIdent("<apply>")
-  val Global: TsIdentSimple = TsIdent("<global>")
+  val Apply:  TsIdentSimple = TsIdent("<apply>") // keep in sync with Name.necessaryRewrite
+  val Global: TsIdentSimple = TsIdent("<global>") // keep in sync with Name.necessaryRewrite
 
   val update:        TsIdentSimple = TsIdent("update")
   val prototype:     TsIdentSimple = TsIdent("prototype")
   val constructor:   TsIdentSimple = TsIdent("constructor")
   val default:       TsIdentSimple = TsIdent("default")
-  val namespaced:    TsIdentSimple = TsIdent("^")
+  val namespaced:    TsIdentSimple = TsIdent("^") // keep in sync with Name.necessaryRewrite
   val namespacedCls: TsIdentSimple = TsIdent("Class")
   val Symbol:        TsIdentSimple = TsIdent("Symbol")
   val dummy:         TsIdentSimple = TsIdent("dummy")

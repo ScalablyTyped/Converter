@@ -4,13 +4,12 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSGlobalScope
-@js.native
-object global extends js.Object {
+object global {
   
-  @js.native
-  object VirtualDOM extends js.Object {
+  object VirtualDOM {
     
+    @JSGlobal("VirtualDOM.h")
+    @js.native
     def h(): js.Any = js.native
   }
 }

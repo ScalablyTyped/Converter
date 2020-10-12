@@ -12,21 +12,21 @@ package transforms
   */
 object CleanupTypeAliases extends TreeTransformation {
   override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-    s.copy(members = clearEmptyContainers(removeTrivialTypeAlias(scope, s.members)))
+    s.copy(members = clearEmptyContainers(removeTrivialTypeAlias(s.members)))
 
   override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
-    s.copy(members = clearEmptyContainers(removeTrivialTypeAlias(scope, s.members)))
+    s.copy(members = clearEmptyContainers(removeTrivialTypeAlias(s.members)))
 
   def clearEmptyContainers(members: IArray[Tree]): IArray[Tree] =
     members.filter {
       case x: ModuleTree =>
-        x.comments.cs.nonEmpty || x.parents.nonEmpty || clearEmptyContainers(x.members).nonEmpty
+        x.comments.cs.nonEmpty || x.parents.nonEmpty || clearEmptyContainers(x.members).nonEmpty || x.name === Name.namespaced
       case x: PackageTree =>
         x.comments.cs.nonEmpty || clearEmptyContainers(x.members).nonEmpty
       case _ => true
     }
 
-  def removeTrivialTypeAlias(scope: TreeScope, members: IArray[Tree]): IArray[Tree] =
+  def removeTrivialTypeAlias(members: IArray[Tree]): IArray[Tree] =
     members.mapNotNone {
       case ta: TypeAliasTree =>
         ta.comments.extract { case Markers.IsTrivial => () } match {

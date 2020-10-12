@@ -1,0 +1,26 @@
+package typings.tstl
+
+import scala.scalajs.js
+import scala.scalajs.js.`|`
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
+
+object global {
+  
+  object std {
+    
+    @JSGlobal("std.Queue")
+    @js.native
+    class Queue_[T] ()
+      extends typings.tstl.std.Queue_[T] {
+      def this(container: typings.tstl.std.Queue_[T]) = this()
+    }
+    
+    /* was `typeof Queue` */
+    @JSGlobal("std.queue")
+    @js.native
+    class queue[T] ()
+      extends typings.tstl.std.Queue_[T] {
+      def this(container: typings.tstl.std.Queue_[T]) = this()
+    }
+  }
+}

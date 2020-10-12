@@ -8,6 +8,7 @@ import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 import org.scalablytyped.converter.internal.scalajs.flavours.GenImplicitOpsClass.AvailableName
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.Mode
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyWeb.TagName
+import org.scalablytyped.converter.internal.scalajs.transforms.Mangler
 
 object SlinkyGenComponents {
   sealed trait Mode[N, W] {
@@ -300,7 +301,10 @@ class SlinkyGenComponents(
         (generatedComponents ++ allSharedBuilderClasses) match {
           case IArray.Empty => tree
           case nonEmpty =>
-            val newPackage = setCodePath(pkgCp, PackageTree(Empty, names.components, nonEmpty, NoComments, pkgCp))
+            val newPackage = setCodePath(
+              pkgCp,
+              PackageTree(Empty, names.components, nonEmpty, Comments(CommentData(Mangler.LeaveAlone)), pkgCp),
+            )
             tree.withMembers(tree.members :+ newPackage)
         }
       case None => tree
@@ -674,14 +678,15 @@ class SlinkyGenComponents(
           codePath    = componentCp + names.component,
         )
       case Right(location) =>
-        ModuleTree(
+        FieldTree(
           annotations = IArray(Annotation.JsNative, location),
           name        = names.component,
-          parents     = Empty,
-          members     = Empty,
+          tpe         = TypeRef.Object,
+          impl        = ExprTree.native,
+          isReadOnly  = true,
+          isOverride  = false,
           comments    = NoComments,
           codePath    = componentCp + names.component,
-          isOverride  = false,
         )
     }
 
