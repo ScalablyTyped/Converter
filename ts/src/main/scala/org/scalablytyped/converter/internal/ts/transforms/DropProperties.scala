@@ -3,7 +3,13 @@ package ts.transforms
 
 import org.scalablytyped.converter.internal.ts._
 
-object DropProperties extends TransformClassMembers {
+object DropProperties extends TransformClassMembers with TransformMembers {
+  override def newMembers(scope: TsTreeScope, x: TsContainer): IArray[TsContainerOrDecl] =
+    x.members.filter {
+      case x: TsNamedValueDecl => x.name.value =/= "__promisify__"
+      case _ => true
+    }
+
   override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): IArray[TsMember] =
     x.members.filter {
       case TsMemberProperty(_, _, TsIdent.prototype, _, _, _, _)                      => false
