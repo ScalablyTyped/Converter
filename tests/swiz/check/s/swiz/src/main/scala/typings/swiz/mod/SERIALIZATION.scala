@@ -4,9 +4,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
-sealed trait SERIALIZATION extends js.Object
-
 @JSImport("swiz", "SERIALIZATION")
 @js.native
 object SERIALIZATION extends js.Object {
@@ -29,4 +26,7 @@ object SERIALIZATION extends js.Object {
   sealed trait notify extends SERIALIZATION
   
 }
+
+@js.native
+sealed trait SERIALIZATION extends js.Object
 

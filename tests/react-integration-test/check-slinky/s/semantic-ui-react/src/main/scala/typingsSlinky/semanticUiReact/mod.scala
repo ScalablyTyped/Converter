@@ -11,10 +11,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("semantic-ui-react/dist/commonjs/elements/Button", JSImport.Namespace)
 @js.native
 object mod extends js.Object {
-  @js.native
-  class default ()
-    extends typingsSlinky.semanticUiReact.buttonMod.default
-  
   /* static members */
   @js.native
   object default extends js.Object {
@@ -22,6 +18,10 @@ object mod extends js.Object {
     var Group: ReactComponentClass[ButtonGroupProps] = js.native
     var Or: ReactComponentClass[ButtonOrProps] = js.native
   }
+  
+  @js.native
+  class default ()
+    extends typingsSlinky.semanticUiReact.buttonMod.default
   
 }
 

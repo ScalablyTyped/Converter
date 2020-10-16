@@ -19,16 +19,16 @@ trait BaseSyntheticEvent[E, C, T] extends js.Object {
   var currentTarget: C = js.native
   var defaultPrevented: Boolean = js.native
   var eventPhase: Double = js.native
-  var isTrusted: Boolean = js.native
-  var nativeEvent: E = js.native
-  var target: T = js.native
-  var timeStamp: Double = js.native
-  var `type`: String = js.native
   def isDefaultPrevented(): Boolean = js.native
   def isPropagationStopped(): Boolean = js.native
+  var isTrusted: Boolean = js.native
+  var nativeEvent: E = js.native
   def persist(): Unit = js.native
   def preventDefault(): Unit = js.native
   def stopPropagation(): Unit = js.native
+  var target: T = js.native
+  var timeStamp: Double = js.native
+  var `type`: String = js.native
 }
 
 object BaseSyntheticEvent {

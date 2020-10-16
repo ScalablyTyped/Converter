@@ -4,58 +4,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-/* Rewritten from type alias, can be one of: 
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`1`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`2`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`3`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`4`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`5`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`6`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`7`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`8`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`9`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`10`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`11`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`12`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`13`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`14`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`15`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`16`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`1`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`2`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`3`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`4`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`5`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`6`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`7`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`8`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`9`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`10`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`11`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`12`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`13`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`14`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`15`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`16`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.one
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.two
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.three
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.four
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.five
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.six
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.seven
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eight
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.nine
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ten
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eleven
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.twelve
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.thirteen
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fourteen
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fifteen
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sixteen
-*/
-trait SemanticWIDTHS extends js.Object
-
 object SemanticWIDTHS {
   @scala.inline
   def `1`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`1` = 1.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`1`]
@@ -122,4 +70,56 @@ object SemanticWIDTHS {
   @scala.inline
   def two: typingsSlinky.semanticUiReact.semanticUiReactStrings.two = "two".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.two]
 }
+
+/* Rewritten from type alias, can be one of: 
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`1`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`2`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`3`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`4`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`5`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`6`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`7`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`8`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`9`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`10`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`11`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`12`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`13`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`14`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`15`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`16`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`1`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`2`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`3`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`4`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`5`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`6`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`7`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`8`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`9`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`10`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`11`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`12`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`13`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`14`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`15`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`16`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.one
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.two
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.three
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.four
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.five
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.six
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.seven
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eight
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.nine
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ten
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eleven
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.twelve
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.thirteen
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fourteen
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fifteen
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sixteen
+*/
+trait SemanticWIDTHS extends js.Object
 

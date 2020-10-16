@@ -14,6 +14,10 @@ trait MouseEvent[T, E] extends BaseSyntheticEvent[E, EventTarget with T, EventTa
   var clientX: Double = js.native
   var clientY: Double = js.native
   var ctrlKey: Boolean = js.native
+  /**
+    * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+    */
+  def getModifierState(key: String): Boolean = js.native
   var metaKey: Boolean = js.native
   var movementX: Double = js.native
   var movementY: Double = js.native
@@ -23,10 +27,6 @@ trait MouseEvent[T, E] extends BaseSyntheticEvent[E, EventTarget with T, EventTa
   var screenX: Double = js.native
   var screenY: Double = js.native
   var shiftKey: Boolean = js.native
-  /**
-    * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
-    */
-  def getModifierState(key: String): Boolean = js.native
 }
 
 object MouseEvent {

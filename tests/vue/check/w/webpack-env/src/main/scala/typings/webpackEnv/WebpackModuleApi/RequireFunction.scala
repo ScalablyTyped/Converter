@@ -10,10 +10,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait RequireFunction extends js.Object {
   /**
-    * Multiple requires to the same module result in only one module execution and only one export. Therefore a cache in the runtime exists. Removing values from this cache cause new module execution and a new export. This is only needed in rare cases (for compatibility!).
-    */
-  var cache: StringDictionary[js.Any] = js.native
-  /**
     * Returns the exports from a dependency. The call is sync. No request to the server is fired. The compiler ensures that the dependency is available.
     */
   def apply(path: String): js.Any = js.native
@@ -21,6 +17,10 @@ trait RequireFunction extends js.Object {
     * Behaves similar to require.ensure, but the callback is called with the exports of each dependency in the paths array. There is no option to provide a chunk name.
     */
   def apply(paths: js.Array[String], callback: js.Function1[/* repeated */ js.Any, Unit]): Unit = js.native
+  /**
+    * Multiple requires to the same module result in only one module execution and only one export. Therefore a cache in the runtime exists. Removing values from this cache cause new module execution and a new export. This is only needed in rare cases (for compatibility!).
+    */
+  var cache: StringDictionary[js.Any] = js.native
   def context(path: String): RequireContext = js.native
   def context(path: String, deep: js.UndefOr[scala.Nothing], filter: RegExp): RequireContext = js.native
   def context(path: String, deep: Boolean): RequireContext = js.native

@@ -7,9 +7,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait IConfigstore extends js.Object {
   var all: js.Any = js.native
-  var path: String = js.native
   def del(key: String): Unit = js.native
   def get(key: String): js.Any = js.native
+  var path: String = js.native
   def set(key: String, `val`: js.Any): Unit = js.native
 }
 

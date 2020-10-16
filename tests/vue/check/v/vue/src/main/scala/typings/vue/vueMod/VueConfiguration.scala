@@ -10,13 +10,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait VueConfiguration extends js.Object {
   var devtools: Boolean = js.native
+  def errorHandler(err: Error, vm: Vue, info: String): Unit = js.native
   var ignoredElements: js.Array[String | RegExp] = js.native
   var keyCodes: StringDictionary[Double | js.Array[Double]] = js.native
   var optionMergeStrategies: js.Any = js.native
   var performance: Boolean = js.native
   var productionTip: Boolean = js.native
   var silent: Boolean = js.native
-  def errorHandler(err: Error, vm: Vue, info: String): Unit = js.native
   def warnHandler(msg: String, vm: Vue, trace: String): Unit = js.native
 }
 

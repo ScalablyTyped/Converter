@@ -18,6 +18,20 @@ object Sorter extends TreeTransformation {
   object TreeOrdering extends Ordering[Tree] {
     override def compare(x: Tree, y: Tree): Int =
       (x, y) match {
+        // sort ^ first
+        case (one, _) if one.name === Name.namespaced => -1
+        case (_, two) if two.name === Name.namespaced => 1
+        // we sort by type, but methods and fields together
+        case (m: MethodTree, f: FieldTree) =>
+          m.name.unescaped.compareTo(f.name.unescaped)
+        case (f: FieldTree, m: MethodTree) =>
+          f.name.unescaped.compareTo(m.name.unescaped)
+        /* and sort traits and objects together */
+        case (c: ClassTree, m: ModuleTree) =>
+          c.name.unescaped.compareTo(m.name.unescaped)
+        case (m: ModuleTree, c: ClassTree) =>
+          m.name.unescaped.compareTo(c.name.unescaped)
+
         case (m1: MethodTree, m2: MethodTree) =>
           (m1.name.unescaped.compareTo(m2.name.unescaped): @switch) match {
             case 0 =>

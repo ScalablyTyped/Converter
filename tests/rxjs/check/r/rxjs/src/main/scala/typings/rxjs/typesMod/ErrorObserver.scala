@@ -8,8 +8,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait ErrorObserver[T] extends PartialObserver[T] {
   var closed: js.UndefOr[Boolean] = js.native
   var complete: js.UndefOr[js.Function0[Unit]] = js.native
-  var next: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.native
   def error(err: js.Any): Unit = js.native
+  var next: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.native
 }
 
 object ErrorObserver {

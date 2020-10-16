@@ -33,7 +33,6 @@ Instantiable0[
       (/* options */ ComponentOptions[V, DefaultData[V], DefaultMethods[V], DefaultComputed, PropsDefinition[DefaultProps]]) | (/* options */ ThisTypedComponentOptionsWithArrayProps[V, js.Object, js.Object, js.Object, String]) | (/* options */ ThisTypedComponentOptionsWithRecordProps[V, js.Object, js.Object, js.Object, js.Object]), 
       CombinedVueInstance[V, js.Object, js.Object, js.Object, Record[/* keyof object */ String, js.Any]]
     ] {
-  var config: VueConfiguration = js.native
   def compile(template: String): StaticRenderFns = js.native
   def component(id: String): ExtendedVue[V, js.Object, js.Object, js.Object, js.Object] = js.native
   def component(
@@ -61,6 +60,7 @@ Instantiable0[
   def component_PropNames_String[PropNames /* <: String */](id: String, definition: FunctionalComponentOptions[Record[PropNames, _], js.Array[PropNames]]): ExtendedVue[V, js.Object, js.Object, js.Object, Record[PropNames, _]] = js.native
   @JSName("component")
   def component_VueConstructor(id: String): VueConstructor[Vue] = js.native
+  var config: VueConfiguration = js.native
   def delete(`object`: js.Object, key: String): Unit = js.native
   def delete[T](array: js.Array[T], key: Double): Unit = js.native
   def directive(id: String): DirectiveOptions = js.native

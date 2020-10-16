@@ -7,9 +7,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait TouchList extends /* index */ NumberDictionary[Touch] {
-  var length: Double = js.native
   def identifiedTouch(identifier: Double): Touch = js.native
   def item(index: Double): Touch = js.native
+  var length: Double = js.native
 }
 
 object TouchList {

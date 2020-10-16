@@ -4,9 +4,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
-sealed trait Context extends js.Object
-
 @JSImport("stylis/stylis", "Context")
 @js.native
 object Context extends js.Object {
@@ -29,4 +26,7 @@ object Context extends js.Object {
   sealed trait UNKWN extends Context
   
 }
+
+@js.native
+sealed trait Context extends js.Object
 

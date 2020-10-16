@@ -4,17 +4,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-/* Rewritten from type alias, can be one of: 
-  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.xs
-  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall
-  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.sm
-  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.small
-  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.medium
-  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.lg
-  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.large
-*/
-trait Sizes extends js.Object
-
 object Sizes {
   @scala.inline
   def large: typingsJapgolly.reactBootstrap.reactBootstrapStrings.large = "large".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.large]
@@ -31,4 +20,15 @@ object Sizes {
   @scala.inline
   def xsmall: typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall = "xsmall".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall]
 }
+
+/* Rewritten from type alias, can be one of: 
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.xs
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.sm
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.small
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.medium
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.lg
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.large
+*/
+trait Sizes extends js.Object
 

@@ -10,9 +10,9 @@ trait Event
   var altKey: js.UndefOr[Boolean] = js.native
   var ctrlKey: js.UndefOr[Boolean] = js.native
   var metaKey: js.UndefOr[Boolean] = js.native
+  def preventDefault(): Unit = js.native
   var returnValue: js.Any = js.native
   var shiftKey: js.UndefOr[Boolean] = js.native
-  def preventDefault(): Unit = js.native
 }
 
 object Event {

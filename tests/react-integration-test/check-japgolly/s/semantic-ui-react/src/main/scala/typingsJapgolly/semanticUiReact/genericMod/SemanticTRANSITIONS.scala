@@ -4,41 +4,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-/* Rewritten from type alias, can be one of: 
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.browse
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`browse right`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.drop
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.fade
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fade up`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fade down`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fade left`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fade right`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fly up`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fly down`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fly left`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fly right`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`horizontal flip`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`vertical flip`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.scale
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`slide up`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`slide down`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`slide left`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`slide right`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`swing up`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`swing down`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`swing left`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`swing right`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.zoom
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.jiggle
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.flash
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.shake
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.pulse
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.tada
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.bounce
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.glow
-*/
-trait SemanticTRANSITIONS extends js.Object
-
 object SemanticTRANSITIONS {
   @scala.inline
   def bounce: typingsJapgolly.semanticUiReact.semanticUiReactStrings.bounce = "bounce".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.bounce]
@@ -103,4 +68,39 @@ object SemanticTRANSITIONS {
   @scala.inline
   def zoom: typingsJapgolly.semanticUiReact.semanticUiReactStrings.zoom = "zoom".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.zoom]
 }
+
+/* Rewritten from type alias, can be one of: 
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.browse
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`browse right`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.drop
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.fade
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fade up`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fade down`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fade left`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fade right`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fly up`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fly down`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fly left`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`fly right`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`horizontal flip`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`vertical flip`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.scale
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`slide up`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`slide down`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`slide left`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`slide right`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`swing up`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`swing down`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`swing left`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`swing right`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.zoom
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.jiggle
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.flash
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.shake
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.pulse
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.tada
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.bounce
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.glow
+*/
+trait SemanticTRANSITIONS extends js.Object
 

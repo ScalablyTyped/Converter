@@ -8,12 +8,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 object PIXI extends js.Object {
   @js.native
-  sealed trait blendModes extends js.Object
-  
-  @js.native
-  sealed trait scaleModes extends js.Object
-  
-  @js.native
   object blendModes extends js.Object {
     @js.native
     sealed trait ADD extends blendModes
@@ -22,6 +16,9 @@ object PIXI extends js.Object {
     sealed trait NORMAL extends blendModes
     
   }
+  
+  @js.native
+  sealed trait blendModes extends js.Object
   
   @js.native
   object scaleModes extends js.Object {
@@ -35,6 +32,9 @@ object PIXI extends js.Object {
     sealed trait NEAREST extends scaleModes
     
   }
+  
+  @js.native
+  sealed trait scaleModes extends js.Object
   
 }
 

@@ -7,13 +7,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait HttpResponse extends js.Object {
+  def blob(): Blob = js.native
   var data: js.Object = js.native
   var headers: js.Function = js.native
+  def json(): js.Any = js.native
   var ok: Boolean = js.native
   var status: Double = js.native
   var statusText: String = js.native
-  def blob(): Blob = js.native
-  def json(): js.Any = js.native
   def text(): String = js.native
 }
 

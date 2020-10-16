@@ -9,12 +9,12 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 object global extends js.Object {
   @js.native
+  object stylis extends TopLevel[Stylis]
+  
+  @js.native
   class stylis () extends Stylis {
     def this(options: Options) = this()
   }
-  
-  @js.native
-  object stylis extends TopLevel[Stylis]
   
 }
 

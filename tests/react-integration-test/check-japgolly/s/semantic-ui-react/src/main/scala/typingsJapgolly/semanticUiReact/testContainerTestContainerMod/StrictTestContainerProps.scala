@@ -31,10 +31,6 @@ trait StrictTestContainerProps extends js.Object {
   var optFn1Number: js.UndefOr[js.Function1[/* x */ Double, Double]] = js.native
   /**Should be (x:Number) => Callback*/
   var optFn1Void: js.UndefOr[js.Function1[/* x */ Double, Unit]] = js.native
-  /** Reduce maximum width to more naturally accommodate text. */
-  var text: js.UndefOr[Boolean] = js.native
-  /** Describes how the text inside this component should be aligned. */
-  var textAlign: js.UndefOr[SemanticTEXTALIGNMENTS] = js.native
   /**Should be CallbackTo[Number]*/
   def requiredFn0Number(): Double = js.native
   /**Should be Callback*/
@@ -43,6 +39,10 @@ trait StrictTestContainerProps extends js.Object {
   def requiredFn1Number(x: Double): Double = js.native
   /**Should be (x:Number) => Callback*/
   def requiredFn1Void(x: Double): Unit = js.native
+  /** Reduce maximum width to more naturally accommodate text. */
+  var text: js.UndefOr[Boolean] = js.native
+  /** Describes how the text inside this component should be aligned. */
+  var textAlign: js.UndefOr[SemanticTEXTALIGNMENTS] = js.native
 }
 
 object StrictTestContainerProps {

@@ -7,8 +7,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait Hot extends js.Object {
-  var active: Boolean = js.native
-  var data: js.Any = js.native
   /**
     * Accept code updates for this module without notification of parents.
     * This should only be used if the module doesn’t export anything.
@@ -32,6 +30,7 @@ trait Hot extends js.Object {
     */
   def accept(dependency: String, callback: js.Function0[Unit]): Unit = js.native
   def accept(errHandler: js.Function1[/* err */ Error, Unit]): Unit = js.native
+  var active: Boolean = js.native
   /**
     * Add a one time handler, which is executed when the current module code is replaced.
     * Here you should destroy/remove any persistent resource you have claimed/created.
@@ -84,6 +83,7 @@ trait Hot extends js.Object {
     * @param callback
     */
   def check(callback: js.Function2[/* err */ Error, /* outdatedModules */ js.Array[ModuleId], Unit]): Unit = js.native
+  var data: js.Any = js.native
   /**
     * Flag the current module as not update-able. If updated the update code would fail with code "decline".
     */

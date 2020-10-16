@@ -13,7 +13,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait Command
   extends EventEmitter
      with /* key */ StringDictionary[js.Any] {
-  var args: js.Array[String] = js.native
   /**
     * Register callback `fn` for the command.
     *
@@ -45,6 +44,7 @@ trait Command
     */
   def allowUnknownOption(): Command = js.native
   def allowUnknownOption(arg: Boolean): Command = js.native
+  var args: js.Array[String] = js.native
   /**
     * Define argument syntax for the top-level command.
     *

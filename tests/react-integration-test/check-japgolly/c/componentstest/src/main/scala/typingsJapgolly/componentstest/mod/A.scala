@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait A extends Props {
-  var aMember: Double = js.native
   def aCallback(): Double = js.native
+  var aMember: Double = js.native
 }
 
 object A {

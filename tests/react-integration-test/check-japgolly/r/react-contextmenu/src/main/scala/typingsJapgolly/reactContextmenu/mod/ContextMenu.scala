@@ -9,14 +9,14 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @JSImport("react-contextmenu", "ContextMenu")
 @js.native
+object ContextMenu
+  extends TopLevel[ComponentClassP[ContextMenuProps with js.Object]]
+
+@JSImport("react-contextmenu", "ContextMenu")
+@js.native
 class ContextMenu protected ()
   extends Component[ContextMenuProps, js.Object, js.Any] {
   def this(props: ContextMenuProps) = this()
   def this(props: ContextMenuProps, context: js.Any) = this()
 }
-
-@JSImport("react-contextmenu", "ContextMenu")
-@js.native
-object ContextMenu
-  extends TopLevel[ComponentClassP[ContextMenuProps with js.Object]]
 

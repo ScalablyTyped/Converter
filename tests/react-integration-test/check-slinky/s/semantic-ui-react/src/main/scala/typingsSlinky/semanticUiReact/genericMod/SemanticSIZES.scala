@@ -4,18 +4,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-/* Rewritten from type alias, can be one of: 
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mini
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tiny
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.small
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.medium
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.large
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.big
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.huge
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.massive
-*/
-trait SemanticSIZES extends js.Object
-
 object SemanticSIZES {
   @scala.inline
   def big: typingsSlinky.semanticUiReact.semanticUiReactStrings.big = "big".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.big]
@@ -34,4 +22,16 @@ object SemanticSIZES {
   @scala.inline
   def tiny: typingsSlinky.semanticUiReact.semanticUiReactStrings.tiny = "tiny".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tiny]
 }
+
+/* Rewritten from type alias, can be one of: 
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mini
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tiny
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.small
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.medium
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.large
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.big
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.huge
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.massive
+*/
+trait SemanticSIZES extends js.Object
 

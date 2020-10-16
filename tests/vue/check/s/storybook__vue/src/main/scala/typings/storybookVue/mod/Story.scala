@@ -6,9 +6,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait Story extends js.Object {
-  val kind: String = js.native
   def add(storyName: String, getStory: StoryFunction): this.type = js.native
   def addDecorator(decorator: StoryDecorator): this.type = js.native
+  val kind: String = js.native
 }
 
 object Story {

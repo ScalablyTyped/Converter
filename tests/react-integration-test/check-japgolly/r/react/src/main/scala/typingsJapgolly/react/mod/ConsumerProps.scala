@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait ConsumerProps[T] extends js.Object {
-  var unstable_observedBits: js.UndefOr[Double] = js.native
   def children(value: T): Node = js.native
+  var unstable_observedBits: js.UndefOr[Double] = js.native
 }
 
 object ConsumerProps {

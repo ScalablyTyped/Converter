@@ -15,7 +15,6 @@ object auto extends js.Object {
   ///////////////////////////////////////////////////////////////////////
   @js.native
   trait IInjectorService extends js.Object {
-    var strictDi: Boolean = js.native
     def annotate(fn: Function): js.Array[String] = js.native
     def annotate(fn: Function, strictDi: Boolean): js.Array[String] = js.native
     def annotate(inlineAnnotatedFunction: js.Array[_]): js.Array[String] = js.native
@@ -32,6 +31,7 @@ object auto extends js.Object {
     ): T = js.native
     def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ _, T])], context: js.Any): T = js.native
     def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ _, T])], context: js.Any, locals: js.Any): T = js.native
+    var strictDi: Boolean = js.native
   }
   
 }

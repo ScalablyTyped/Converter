@@ -15,15 +15,15 @@ object mod extends js.Object {
   val documentRef: ReactRef[
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
   ] = js.native
+  def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91 */ js.Any */](options: EventListenerOptions[T]): Unit = js.native
   val windowRef: ReactRef[
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
   ] = js.native
-  def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91 */ js.Any */](options: EventListenerOptions[T]): Unit = js.native
   @js.native
   object EventListener extends js.Object {
+    def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = js.native
     var displayName: String = js.native
     var propTypes: Capture | Listener = js.native
-    def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = js.native
     @js.native
     object defaultProps extends js.Object {
       var capture: Boolean = js.native

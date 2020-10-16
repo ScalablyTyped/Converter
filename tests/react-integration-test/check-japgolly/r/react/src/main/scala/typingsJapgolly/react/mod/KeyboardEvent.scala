@@ -16,6 +16,10 @@ trait KeyboardEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, Eve
   var charCode: Double = js.native
   var ctrlKey: Boolean = js.native
   /**
+    * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+    */
+  def getModifierState(key: String): Boolean = js.native
+  /**
     * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
     */
   var key: String = js.native
@@ -26,10 +30,6 @@ trait KeyboardEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, Eve
   var repeat: Boolean = js.native
   var shiftKey: Boolean = js.native
   var which: Double = js.native
-  /**
-    * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
-    */
-  def getModifierState(key: String): Boolean = js.native
 }
 
 object KeyboardEvent {

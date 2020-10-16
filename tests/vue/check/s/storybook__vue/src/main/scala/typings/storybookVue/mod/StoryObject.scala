@@ -14,8 +14,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait StoryObject extends js.Object {
   var name: String = js.native
-  @JSName("render")
-  var render_Original: StoryFunction = js.native
   def render(): (ComponentOptions[
     Vue, 
     DefaultData[Vue], 
@@ -23,5 +21,7 @@ trait StoryObject extends js.Object {
     DefaultComputed, 
     PropsDefinition[DefaultProps]
   ]) | String = js.native
+  @JSName("render")
+  var render_Original: StoryFunction = js.native
 }
 

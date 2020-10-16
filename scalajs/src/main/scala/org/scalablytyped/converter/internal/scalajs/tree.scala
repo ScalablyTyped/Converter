@@ -14,25 +14,27 @@ sealed trait HasCodePath {
   val codePath: QualifiedName
 }
 
-sealed trait ContainerTree extends Tree with HasCodePath {
+sealed trait HasAnnotations {
   val annotations: IArray[Annotation]
-  val members:     IArray[Tree]
+}
 
+sealed trait HasMembers {
+  val members: IArray[Tree]
+
+  lazy val index: Map[Name, IArray[Tree]] = members.groupBy(_.name)
+}
+
+sealed trait ContainerTree extends Tree with HasCodePath with HasAnnotations with HasMembers {
   def withMembers(members: IArray[Tree]): ContainerTree =
     this match {
       case x: PackageTree => x.copy(members = members)
       case x: ModuleTree  => x.copy(members = members)
     }
-
-  lazy val index: Map[Name, IArray[Tree]] =
-    members.groupBy(_.name)
 }
 
-sealed trait InheritanceTree extends Tree with HasCodePath {
-  def annotations: IArray[Annotation]
+sealed trait InheritanceTree extends Tree with HasCodePath with HasAnnotations with HasMembers {
   def isScalaJsDefined:  Boolean = annotations contains Annotation.ScalaJSDefined
   def receivesCompanion: Boolean = isScalaJsDefined || comments.has[Markers.CouldBeScalaJsDefined.type]
-  val index: Map[Name, IArray[Tree]]
 
   def isNative: Boolean =
     annotations.exists {
@@ -70,8 +72,6 @@ final case class ClassTree(
     comments:    Comments,
     codePath:    QualifiedName,
 ) extends InheritanceTree {
-  lazy val index: Map[Name, IArray[Tree]] =
-    members.groupBy(_.name)
 
   def renamed(newName: Name): ClassTree = {
     val anns =
@@ -111,11 +111,11 @@ final case class TypeAliasTree(
 ) extends Tree
     with HasCodePath
 
-sealed trait MemberTree extends Tree with HasCodePath {
-  val isOverride:  Boolean
-  val annotations: IArray[Annotation]
+sealed trait MemberTree extends Tree with HasCodePath with HasAnnotations {
+  val isOverride: Boolean
   def withCodePath(newCodePath: QualifiedName): MemberTree
-  def renamed(newName:          Name):          MemberTree
+
+  def renamed(newName: Name): MemberTree
   def originalName: Name
 }
 
@@ -129,7 +129,6 @@ final case class FieldTree(
     comments:    Comments,
     codePath:    QualifiedName,
 ) extends MemberTree {
-
   def withSuffix[T: ToSuffix](t: T): FieldTree =
     renamed(name.withSuffix(t))
 

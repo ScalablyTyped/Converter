@@ -283,6 +283,8 @@ object Printer {
           println(s" = ", formatTypeRef(indent)(alias))
 
         case FieldTree(anns, name, tpe, impl, isReadOnly, isOverride, comments, _) =>
+          if (anns.length > 1) println()
+
           print(Comments.format(comments))
           print(formatAnns(anns))
 
@@ -297,6 +299,7 @@ object Printer {
           println(formatImpl(indent)(impl))
 
         case MethodTree(anns, level, name, tparams, params, impl, resultType, isOverride, comments, _, isImplicit) =>
+          if (anns.length > 1) println()
           print(Comments.format(comments))
           print(formatAnns(anns))
 
