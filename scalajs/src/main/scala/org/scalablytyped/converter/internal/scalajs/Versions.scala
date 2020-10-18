@@ -5,8 +5,8 @@ object Versions {
 
   val runtime      = Dep.ScalaJs("com.olvind", "scalablytyped-runtime", "2.1.0")
   val scalaJsDom   = Dep.ScalaJs("org.scala-js", "scalajs-dom", "1.0.0")
-  val slinkyWeb    = Dep.ScalaJs("me.shadaj", "slinky-web", "0.6.5")
-  val slinkyNative = Dep.ScalaJs("me.shadaj", "slinky-native", "0.6.5")
+  val slinkyWeb    = Dep.ScalaJs("me.shadaj", "slinky-web", "0.6.6")
+  val slinkyNative = Dep.ScalaJs("me.shadaj", "slinky-native", "0.6.6")
   val scalajsReact = Dep.ScalaJs("com.github.japgolly.scalajs-react", "core", "1.7.0")
 
   private val StableVersion = "(\\d+).(\\d+).(\\d+)".r
