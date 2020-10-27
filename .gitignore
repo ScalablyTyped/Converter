@@ -6,3 +6,4 @@ target/
 .bloop
 .DS_Store
 release-temp/
+.bsp/

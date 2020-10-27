@@ -68,9 +68,9 @@ class ContentForPublishTest extends AnyFunSuite with Matchers {
       <dependencies>
         <dependency org="org.scala-lang" name="scala-compiler" rev="2.13.3" conf="scala-tool-&gt;default,optional(default)"/>
         <dependency org="org.scala-lang" name="scala-library" rev="2.13.3" conf="scala-tool-&gt;default,optional(default);compile-&gt;default(compile)"/>
-        <dependency org="org.scala-js" name="scalajs-compiler_2.13.3" rev="1.1.0" conf="plugin-&gt;default(compile)"/>
-        <dependency org="org.scala-js" name="scalajs-library_2.13" rev="1.1.0" conf="compile-&gt;default(compile)"/>
-        <dependency org="org.scala-js" name="scalajs-test-interface_2.13" rev="1.1.0" conf="test-&gt;default(compile)"/>
+        <dependency org="org.scala-js" name="scalajs-compiler_2.13.3" rev="1.3.0" conf="plugin-&gt;default(compile)"/>
+        <dependency org="org.scala-js" name="scalajs-library_2.13" rev="1.3.0" conf="compile-&gt;default(compile)"/>
+        <dependency org="org.scala-js" name="scalajs-test-interface_2.13" rev="1.3.0" conf="test-&gt;default(compile)"/>
         <dependency org="com.olvind" name="scalablytyped-runtime_sjs1_2.13" rev="2.1.0" conf="compile-&gt;default(compile)"/>
         <dependency org="deporg" name="departifactid_sjs1_2.13" rev="depversion" conf="compile-&gt;default(compile)"/>
         <dependency org="externaldeporg" name="externaldepartifact_sjs1_2.13" rev="externaldepversion" conf="compile-&gt;default(compile)"/>
@@ -102,12 +102,12 @@ class ContentForPublishTest extends AnyFunSuite with Matchers {
         <dependency>
       <groupId>org.scala-js</groupId>
       <artifactId>scalajs-library_2.13</artifactId>
-      <version>1.1.0</version>
+      <version>1.3.0</version>
     </dependency>
         <dependency>
       <groupId>org.scala-js</groupId>
       <artifactId>scalajs-test-interface_2.13</artifactId>
-      <version>1.1.0</version>
+      <version>1.3.0</version>
       <scope>test</scope>
     </dependency>
         <dependency>
