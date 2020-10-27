@@ -64,7 +64,7 @@ trait ImporterHarness extends AnyFunSuite {
         .next(
           new Phase1ReadTypescript(
             resolve                 = resolver,
-            calculateLibraryVersion = new DTVersions(DTLastChangedIndex.No),
+            calculateLibraryVersion = new DTVersions(DTLastChangedIndex.No, includeGitPart = false),
             ignored                 = ignored,
             ignoredModulePrefixes   = Set.empty,
             pedantic                = pedantic,

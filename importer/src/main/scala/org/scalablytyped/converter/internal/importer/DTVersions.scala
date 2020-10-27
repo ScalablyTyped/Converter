@@ -10,7 +10,7 @@ import org.scalablytyped.converter.internal.ts.{CalculateLibraryVersion, Package
 import scala.util.matching.Regex
 import scala.util.{Success, Try}
 
-class DTVersions(lastChangedIndex: DTLastChangedIndex) extends CalculateLibraryVersion {
+class DTVersions(lastChangedIndex: DTLastChangedIndex, includeGitPart: Boolean) extends CalculateLibraryVersion {
   val GitAtGithubDotCom: Regex = s"git@github.com:(.*)".r
 
   def uri(uriString: String): URI =
@@ -30,18 +30,19 @@ class DTVersions(lastChangedIndex: DTLastChangedIndex) extends CalculateLibraryV
 
     val libraryVersion = packageJsonOpt.flatMap(_.version).orElse(DefinitelyTypedVersion.from(comments))
 
-    val inGit: Option[InGit] =
-      Try(uri(%%.git('remote, "get-url", 'origin).out.string.trim)) match {
-        case Success(constants.ConverterRepo) =>
-          None
-        case Success(uri) =>
-          val lastModified = ZonedDateTime.ofInstant(
-            Instant.ofEpochSecond(lastChangedIndex(sourceFolder.path.toIO)),
-            constants.TimeZone,
-          )
-          Some(InGit(uri, uri === constants.DefinitelyTypedRepo, lastModified))
-        case _ => None
-      }
+    val inGit: Option[InGit] = {
+      if (!includeGitPart) None
+      else
+        Try(uri(%%.git('remote, "get-url", 'origin).out.string.trim)) match {
+          case Success(uri) =>
+            val lastModified = ZonedDateTime.ofInstant(
+              Instant.ofEpochSecond(lastChangedIndex(sourceFolder.path.toIO)),
+              constants.TimeZone,
+            )
+            Some(InGit(uri, uri === constants.DefinitelyTypedRepo, lastModified))
+          case _ => None
+        }
+    }
 
     LibraryVersion(isStdLib, libraryVersion, inGit)
   }

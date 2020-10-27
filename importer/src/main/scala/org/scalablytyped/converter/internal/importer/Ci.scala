@@ -264,7 +264,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
       RecPhase[Source]
         .next(
           new Phase1ReadTypescript(
-            calculateLibraryVersion = new DTVersions(lastChangedIndex),
+            calculateLibraryVersion = new DTVersions(lastChangedIndex, includeGitPart = true),
             resolve                 = bootstrapped.libraryResolver,
             ignored                 = config.conversion.ignoredLibs,
             ignoredModulePrefixes   = config.conversion.ignoredModulePrefixes,
