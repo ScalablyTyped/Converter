@@ -13,11 +13,15 @@ case class DemoRepo(repo: String, name: String)(implicit path: os.Path) {
   def build(version: String): Unit = {
     val pluginsFile = path / "project" / "plugins.sbt"
     val newLines = os.read.lines(pluginsFile).map {
-      case line if line.contains("sbt-converter") =>
+      case line if line.contains(s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" %)""") =>
+        s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.3.0")"""
+      case line if line.contains(s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" %""") =>
+        s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0")"""
+      case line if line.contains(s"""addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" %""") =>
         s"""addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "$version")"""
       case line => line
     }
-    os.write.over(path / "project" / "build.properties", "sbt.version=1.4.0")
+    os.write.over(path / "project" / "build.properties", "sbt.version=1.4.1")
     os.write.over(pluginsFile, newLines.mkString("\n"))
     %.sbt("dist")
     %.git("add", "-A")
