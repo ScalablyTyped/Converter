@@ -13,7 +13,7 @@ case class DemoRepo(repo: String, name: String)(implicit path: os.Path) {
   def build(version: String): Unit = {
     val pluginsFile = path / "project" / "plugins.sbt"
     val newLines = os.read.lines(pluginsFile).map {
-      case line if line.contains(s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" %)""") =>
+      case line if line.contains(s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" %""") =>
         s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.3.0")"""
       case line if line.contains(s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" %""") =>
         s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0")"""
@@ -66,6 +66,15 @@ case class Repo(version: String)(implicit val wd: os.Path) {
     %.git("tag", tag)
   }
 
+  def cleanLocal() = {
+    val existing = os.walk(os.home / ".ivy2"/ "local" / "org.scalablytyped.converter").filter(_.last == version)
+    if (existing.nonEmpty) {
+      println(s"Cleaning existing locally published")
+      existing foreach println
+      existing.foreach(folder => os.remove.all(folder))
+    }
+  }
+
   def publishLocal() =
     %("sbt", "clean", "publishLocal")
 
@@ -82,12 +91,14 @@ case class Repo(version: String)(implicit val wd: os.Path) {
     val repo = Repo(version)(os.pwd)
     repo.assertClean()
     repo.refreshTag()
+    repo.cleanLocal()
     repo.publishLocal()
     val demoRepos = DemoRepo.initialized(os.Path("/tmp/st-release-temp"))
     demoRepos.foreach(_.update())
     demoRepos.foreach(_.build(version))
     demoRepos.foreach(_.pushCache())
     // at this point we're ready to push everything
+    repo.assertClean()
     repo.publish()
     demoRepos.foreach(_.pushGit())
     0
