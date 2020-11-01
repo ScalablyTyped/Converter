@@ -23,7 +23,7 @@ case class DemoRepo(repo: String, name: String)(implicit path: os.Path) {
     }
     os.write.over(path / "project" / "build.properties", "sbt.version=1.4.1")
     os.write.over(pluginsFile, newLines.mkString("\n"))
-    %.sbt("dist")
+    %.sbt("compile", "dist")
     %.git("add", "-A")
     %.git("commit", "-m", s"Bump to $version")
   }
