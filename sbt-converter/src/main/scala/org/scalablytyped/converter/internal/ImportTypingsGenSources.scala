@@ -54,7 +54,7 @@ object ImportTypingsGenSources {
 
     logger.warn(s"Importing ${initial.map(_.libName.value).mkString(", ")}")
 
-    val cachedParser = PersistingParser(parseCacheDirOpt, bootstrapped.folders, logger)
+    val cachedParser = PersistingParser(parseCacheDirOpt, bootstrapped.inputFolders, logger)
 
     val Phases: RecPhase[Source, LibScalaJs] = RecPhase[Source]
       .next(

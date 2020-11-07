@@ -8,23 +8,18 @@ import ammonite.ops.{%, %%, ShelloutException}
 import com.olvind.logging
 import com.olvind.logging.{LogLevel, LogRegistry}
 import org.scalablytyped.converter.Selection
-import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLibSource}
+import org.scalablytyped.converter.internal.importer.Source.StdLibSource
 import org.scalablytyped.converter.internal.importer.build.{BinTrayPublisher, BloopCompiler, PublishedSbtProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
-import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
+import org.scalablytyped.converter.internal.maps._
+import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, RecPhase}
+import org.scalablytyped.converter.internal.scalajs.flavours._
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
-import org.scalablytyped.converter.internal.scalajs.flavours.{
-  FlavourImpl,
-  JapgollyFlavour,
-  NormalFlavour,
-  SlinkyFlavour,
-  SlinkyNativeFlavour,
-}
 import org.scalablytyped.converter.internal.ts._
 import org.scalatest.Assertion
 import org.scalatest.funsuite.AnyFunSuite
 
-import scala.collection.immutable.{SortedMap, TreeMap}
+import scala.collection.immutable.SortedMap
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContext}
 import scala.util.{Failure, Success, Try}
@@ -55,7 +50,7 @@ trait ImporterHarness extends AnyFunSuite {
     val stdLibSource: StdLibSource =
       StdLibSource(InFolder(source.path), IArray(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
 
-    val allSources = Bootstrap.findSources(source, None)
+    val allSources = Bootstrap.findSources(IArray(source))
     val ignored    = Set.empty[TsIdentLibrary]
     val resolver   = new LibraryResolver(stdLibSource, allSources, ignored)
 
@@ -100,13 +95,13 @@ trait ImporterHarness extends AnyFunSuite {
           "build",
         )
 
-    PhaseRes.sequenceMap(
-      TreeMap.empty[TsLibSource, PhaseRes[Source, PublishedSbtProject]] ++ allSources
-        .map { s =>
-          val res = PhaseRunner(phase, logRegistry.get, PhaseListener.NoListener)(s)
-          s -> res
-        },
-    )
+    val results: SortedMap[Source, PhaseRes[Source, PublishedSbtProject]] =
+      allSources
+        .map(s => (s: Source) -> PhaseRunner(phase, logRegistry.get, PhaseListener.NoListener)(s))
+        .toMap
+        .toSorted
+
+    PhaseRes.sequenceMap(results)
   }
 
   def findTestFolder(testName: String): InFolder = {

@@ -283,7 +283,7 @@ object Main {
                 ignored                 = conversion.ignoredLibs,
                 ignoredModulePrefixes   = conversion.ignoredModulePrefixes,
                 pedantic                = false,
-                parser                  = PersistingParser(parseCachePath, bootstrapped.folders, logger.void),
+                parser                  = PersistingParser(parseCachePath, bootstrapped.inputFolders, logger.void),
                 expandTypeMappings      = conversion.expandTypeMappings,
               ),
               "typescript",

@@ -1,14 +1,18 @@
 package org.scalablytyped.converter.internal
 package importer
 
+import org.scalablytyped.converter.internal.importer.Bootstrap.Unresolved
 import org.scalablytyped.converter.internal.importer.LibraryResolver._
 import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLibSource, TsSource}
+import org.scalablytyped.converter.internal.seqs._
 import org.scalablytyped.converter.internal.ts._
 import os./
 
+import scala.collection.immutable.SortedSet
+
 class LibraryResolver(
     val stdLib: StdLibSource,
-    allSources: IndexedSeq[Source.FromFolder],
+    allSources: IArray[Source.FromFolder],
     ignored:    Set[TsIdentLibrary],
 ) {
 
@@ -38,6 +42,15 @@ class LibraryResolver(
         case Some(source) => Found(source)
         case None         => NotAvailable(name)
       }
+
+  def resolveAll(libs: SortedSet[TsIdentLibrary]): Either[Unresolved, Vector[TsLibSource]] =
+    libs.toVector
+      .map(library)
+      .partitionCollect2({ case LibraryResolver.Found(x) => x }, { case LibraryResolver.NotAvailable(name) => name }) match {
+      case (allFound, Seq(), _) => Right(allFound)
+      case (_, notAvailable, _) => Left(Unresolved(notAvailable))
+    }
+
 }
 
 object LibraryResolver {

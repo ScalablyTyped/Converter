@@ -16,7 +16,7 @@ object Bootstrap {
     * @param initialLibs determines if all the libraries explicitly wanted by the user were available
     */
   case class Bootstrapped(
-      folders:         IArray[InFolder],
+      inputFolders:    IArray[InFolder],
       libraryResolver: LibraryResolver,
       initialLibs:     Either[Unresolved, Vector[TsLibSource]],
   )
@@ -40,21 +40,18 @@ object Bootstrap {
       )
     }
 
-    val allSources = findSources(externalsFolder, Some(dtFolder))
+    val inputFolders = IArray(externalsFolder, dtFolder)
+    val allSources   = findSources(inputFolders)
 
-    val resolver = new LibraryResolver(stdLibSource, allSources, conversion.ignoredLibs)
+    val libraryResolver = new LibraryResolver(stdLibSource, allSources, conversion.ignoredLibs)
 
     val initial: Either[Unresolved, Vector[TsLibSource]] =
       wantedLibs match {
         case sets.EmptySet() => Right(allSources.toVector)
-        case wantedLibs      => resolveAll(resolver, wantedLibs)
+        case wantedLibs      => libraryResolver.resolveAll(wantedLibs)
       }
 
-    Bootstrapped(
-      folders         = IArray(externalsFolder, dtFolder),
-      libraryResolver = resolver,
-      initialLibs     = initial,
-    )
+    Bootstrapped(inputFolders, libraryResolver, initial)
   }
 
   def fromNodeModules(
@@ -75,52 +72,52 @@ object Bootstrap {
       )
     }
 
-    val `@types` = InFolder(fromFolder.path / "@types")
+    val `@types`: Option[InFolder] =
+      fromFolder.path / "@types" match {
+        case dir if os.isDir(dir) => Some(InFolder(dir))
+        case _                    => None
+      }
 
-    val sources: IndexedSeq[Source.FromFolder] =
-      findSources(`@types`, Some(fromFolder))
+    val inputFolders: IArray[InFolder] =
+      IArray.fromOptions(`@types`, Some(fromFolder))
 
-    val libraryResolver = new LibraryResolver(stdLibSource, sources, conversion.ignoredLibs)
+    val allSources: IArray[Source.FromFolder] =
+      findSources(inputFolders)
 
-    Bootstrapped(
-      folders         = IArray(`@types`, fromFolder),
-      libraryResolver = libraryResolver,
-      initialLibs     = resolveAll(libraryResolver, wantedLibs),
-    )
+    val libraryResolver = new LibraryResolver(stdLibSource, allSources, conversion.ignoredLibs)
+
+    val initialLibs: Either[Unresolved, Vector[TsLibSource]] =
+      libraryResolver.resolveAll(wantedLibs)
+
+    Bootstrapped(inputFolders, libraryResolver, initialLibs)
   }
 
-  def findSources(nodeModulesFolder: InFolder, dtFolderOpt: Option[InFolder]): IndexedSeq[Source.FromFolder] =
-    dtFolderOpt.foldLeft(forFolder(nodeModulesFolder)) {
-      case (externalSources, dtFolder) =>
-        val externalSourcesLibs = externalSources.map(_.libName).toSet
-        val dtSources           = forFolder(dtFolder).filterNot(s => externalSourcesLibs(s.libName))
+  def findSources(folders: IArray[InFolder]): IArray[Source.FromFolder] =
+    folders.foldLeft[IArray[Source.FromFolder]](IArray.Empty) {
+      case (foundSources, next) =>
+        val foundNames = foundSources.map(_.libName).toSet
+        val newSources = forFolder(next).filterNot(s => foundNames(s.libName))
 
-        externalSources ++ dtSources
+        foundSources ++ newSources
     }
 
-  private def forFolder(folder: InFolder): IndexedSeq[Source.FromFolder] =
-    os.list(folder.path)
-      .collect { case dir if os.isDir(dir) => dir }
-      .flatMap {
-        case path if path.last.startsWith("@") =>
-          if (path.last.startsWith("@types")) Nil
-          else
-            os.list(path)
-              .map(nestedPath => FromFolder(InFolder(nestedPath), TsIdentLibrary(s"${path.last}/${nestedPath.last}")))
-        case path => List(FromFolder(InFolder(path), TsIdentLibrary(path.last)))
-      }
-      .filter(_.hasSources)
+  private def forFolder(folder: InFolder): IArray[Source.FromFolder] =
+    IArray.fromTraversable(
+      os.list(folder.path)
+        .collect { case dir if os.isDir(dir) => dir }
+        .flatMap {
+          case path if path.last.startsWith("@") =>
+            if (path.last.startsWith("@types")) Nil
+            else
+              os.list(path)
+                .map(nestedPath => FromFolder(InFolder(nestedPath), TsIdentLibrary(s"${path.last}/${nestedPath.last}")))
+          case path => List(FromFolder(InFolder(path), TsIdentLibrary(path.last)))
+        }
+        .filter(_.hasSources),
+    )
 
   case class Unresolved(notAvailable: Vector[TsIdentLibrary]) {
     def msg =
       s"Missing typescript definitions for the following libraries: ${notAvailable.map(_.value).mkString(", ")}. Try to add a corresponding `@types` npm package, or use `stIgnore` to ignore"
   }
-
-  def resolveAll(resolver: LibraryResolver, libs: SortedSet[TsIdentLibrary]): Either[Unresolved, Vector[TsLibSource]] =
-    libs.toVector
-      .map(resolver.library)
-      .partitionCollect2({ case LibraryResolver.Found(x) => x }, { case LibraryResolver.NotAvailable(name) => name }) match {
-      case (allFound, Seq(), _) => Right(allFound)
-      case (_, notAvailable, _) => Left(Unresolved(notAvailable))
-    }
 }
