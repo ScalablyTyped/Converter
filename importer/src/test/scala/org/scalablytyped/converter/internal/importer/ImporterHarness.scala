@@ -12,7 +12,7 @@ import org.scalablytyped.converter.internal.importer.Source.StdLibSource
 import org.scalablytyped.converter.internal.importer.build.{BinTrayPublisher, BloopCompiler, PublishedSbtProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.maps._
-import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, RecPhase}
+import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import org.scalablytyped.converter.internal.scalajs.flavours._
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.ts._
@@ -97,7 +97,7 @@ trait ImporterHarness extends AnyFunSuite {
 
     val results: SortedMap[Source, PhaseRes[Source, PublishedSbtProject]] =
       allSources
-        .map(s => (s: Source) -> PhaseRunner(phase, logRegistry.get, PhaseListener.NoListener)(s))
+        .map(s => (s: Source) -> PhaseRunner.apply(phase, logRegistry.get, PhaseListener.NoListener)(s))
         .toMap
         .toSorted
 
