@@ -32,9 +32,14 @@ object global extends js.Object {
     
   }
   
+  @js.native
+  class Phaser ()
+    extends typings.phaser.Phaser
+  
   /* static members */
   @js.native
   object Phaser extends js.Object {
+    var VERSION: String = js.native
     /**
       * An Animation instance contains a single animation and the controls to play it.
       *
@@ -44,12 +49,7 @@ object global extends js.Object {
     class Animation ()
       extends typings.phaser.Phaser.Animation
     
-    var VERSION: String = js.native
   }
-  
-  @js.native
-  class Phaser ()
-    extends typings.phaser.Phaser
   
   @js.native
   object p2 extends js.Object {

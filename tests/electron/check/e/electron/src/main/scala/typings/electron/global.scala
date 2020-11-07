@@ -10,11 +10,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object global extends js.Object {
   @js.native
   object Electron extends js.Object {
+    val app: App = js.native
     @js.native
     class EventEmitter ()
       extends typings.electron.Electron.EventEmitter
     
-    val app: App = js.native
   }
   
 }

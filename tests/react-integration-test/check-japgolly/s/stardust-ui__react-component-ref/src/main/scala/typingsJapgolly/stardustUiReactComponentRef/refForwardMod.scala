@@ -18,15 +18,15 @@ object refForwardMod extends js.Object {
     def handleRefOverride(node: HTMLElement): Unit = js.native
   }
   
+  @js.native
+  class default () extends RefForward
+  
   /* static members */
   @js.native
   object default extends js.Object {
     var displayName: String = js.native
     var propTypes: Children | InnerRef = js.native
   }
-  
-  @js.native
-  class default () extends RefForward
   
 }
 

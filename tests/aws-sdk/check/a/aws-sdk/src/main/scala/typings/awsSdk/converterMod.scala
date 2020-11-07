@@ -8,6 +8,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("aws-sdk/lib/dynamodb/converter", JSImport.Namespace)
 @js.native
 object converterMod extends js.Object {
+  @js.native
+  class Converter () extends js.Object
+  
   /* static members */
   @js.native
   object Converter extends js.Object {
@@ -15,9 +18,6 @@ object converterMod extends js.Object {
     def input(data: js.Any, options: ConverterOptions): AttributeValue = js.native
     type ConverterOptions = typings.awsSdk.documentClientMod.DocumentClient.ConverterOptions
   }
-  
-  @js.native
-  class Converter () extends js.Object
   
 }
 

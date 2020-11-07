@@ -10,12 +10,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object global extends js.Object {
   @js.native
   object monaco extends js.Object {
-    /* static members */
-    @js.native
-    object Promise extends js.Object {
-      def any[T](promises: js.Array[T | js.Thenable[T]]): typings.monacoEditor.monaco.Promise[Key[T], _] = js.native
-    }
-    
     @js.native
     class Promise[T, TProgress] protected ()
       extends typings.monacoEditor.monaco.Promise[T, TProgress] {
@@ -34,6 +28,12 @@ object global extends js.Object {
               ],
         oncancel: js.Function0[Unit]
       ) = this()
+    }
+    
+    /* static members */
+    @js.native
+    object Promise extends js.Object {
+      def any[T](promises: js.Array[T | js.Thenable[T]]): typings.monacoEditor.monaco.Promise[Key[T], _] = js.native
     }
     
   }

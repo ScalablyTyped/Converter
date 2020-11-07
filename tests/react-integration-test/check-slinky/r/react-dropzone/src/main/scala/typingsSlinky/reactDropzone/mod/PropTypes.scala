@@ -4,6 +4,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
+/* Rewritten from type alias, can be one of: 
+  - typingsSlinky.reactDropzone.reactDropzoneStrings.multiple
+  - typingsSlinky.reactDropzone.reactDropzoneStrings.onDragEnter
+  - typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver
+  - typingsSlinky.reactDropzone.reactDropzoneStrings.onDragLeave
+*/
+trait PropTypes extends js.Object
+
 object PropTypes {
   @scala.inline
   def multiple: typingsSlinky.reactDropzone.reactDropzoneStrings.multiple = "multiple".asInstanceOf[typingsSlinky.reactDropzone.reactDropzoneStrings.multiple]
@@ -14,12 +22,4 @@ object PropTypes {
   @scala.inline
   def onDragOver: typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver = "onDragOver".asInstanceOf[typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver]
 }
-
-/* Rewritten from type alias, can be one of: 
-  - typingsSlinky.reactDropzone.reactDropzoneStrings.multiple
-  - typingsSlinky.reactDropzone.reactDropzoneStrings.onDragEnter
-  - typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver
-  - typingsSlinky.reactDropzone.reactDropzoneStrings.onDragLeave
-*/
-trait PropTypes extends js.Object
 

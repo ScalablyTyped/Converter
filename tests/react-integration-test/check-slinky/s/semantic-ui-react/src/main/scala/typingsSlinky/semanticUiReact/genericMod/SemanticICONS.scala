@@ -4,6 +4,1260 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
+/* Rewritten from type alias, can be one of: 
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`american sign language interpreting`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`assistive listening systems`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`audio description`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.blind
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.braille
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`closed captioning`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`closed captioning outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.deaf
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`low vision`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`phone volume`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`question circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`question circle outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign language`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tty
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`universal access`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wheelchair
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle down outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle left outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle right outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle up outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate horizontal`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate vertical`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square down outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square left outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square right outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square up outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cart arrow down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart line`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cloud download`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cloud upload`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.download
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.exchange
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`expand arrows alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`external alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`external square alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point down outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point left outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point right outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point up outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand pointer`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand pointer outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.history
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`level down alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`level up alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`location arrow`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mouse pointer`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.play
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.random
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.recycle
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.redo
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`redo alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.reply
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`reply all`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.retweet
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.share
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`share square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`share square outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-in`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-out`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-in alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-out alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sort
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort amount down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort amount up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sync
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sync alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`text height`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`text width`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.undo
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`undo alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.upload
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom-in`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom-out`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.backward
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.circle
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.compress
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eject
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.expand
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fast backward`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fast forward`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file audio`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file audio outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file video`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file video outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.film
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.forward
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.headphones
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.microphone
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`microphone slash`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.music
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pause
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pause circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pause circle outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`play circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`play circle outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.podcast
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rss
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`rss square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`step backward`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`step forward`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.stop
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stop circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stop circle outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.video
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume off`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`address book`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`address book outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`address card`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`address card outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.archive
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`balance scale`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`birthday cake`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.book
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.briefcase
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.building
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`building outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bullhorn
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bullseye
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.calculator
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.calendar
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar alternate outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.certificate
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart area`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart bar`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart bar outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart pie`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.clipboard
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.coffee
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.columns
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.compass
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`compass outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.copy
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`copy outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.copyright
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`copyright outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cut
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.edit
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`edit outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.envelope
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope open`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope open outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eraser
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fax
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.file
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file alternate outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.folder
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder open`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder open outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.globe
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.industry
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.paperclip
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.paste
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pen square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pencil alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.percent
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.phone
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`phone square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.registered
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`registered outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.save
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`save outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sitemap
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticky note`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticky note outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.suitcase
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.table
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tag
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tags
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tasks
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.thumbtack
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.trademark
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.chess
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess bishop`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess board`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess king`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess knight`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess pawn`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess queen`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess rook`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`square full`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.barcode
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bath
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bug
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.code
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`code branch`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file code`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file code outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.filter
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fire extinguisher`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.keyboard
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`keyboard outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.microchip
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.qrcode
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`shield alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.terminal
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user secret`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window close`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window close outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window maximize`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window maximize outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window minimize`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window minimize outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window restore`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window restore outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.at
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bell
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell slash`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell slash outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.comment
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment alternate outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.comments
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`comments outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.inbox
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.language
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mobile
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mobile alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`paper plane`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`paper plane outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wifi
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.desktop
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hdd
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hdd outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.laptop
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.plug
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`power off`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.print
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.server
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tablet
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`tablet alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tv
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`dollar sign`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`euro sign`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`lira sign`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`money bill alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`money bill alternate outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pound sign`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`ruble sign`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`rupee sign`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`shekel sign`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`won sign`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`yen sign`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar check`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar check outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar minus`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar minus outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar plus`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar plus outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar times`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar times outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.clock
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`clock outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hourglass
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass end`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass half`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass start`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.stopwatch
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.adjust
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.clone
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`clone outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.crop
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.crosshairs
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eye
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye dropper`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye slash`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye slash outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`object group`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`object group outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`object ungroup`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`object ungroup outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`paint brush`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tint
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`align center`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`align justify`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`align left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`align right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bold
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.font
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.heading
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`i cursor`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.indent
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.italic
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.linkify
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.list
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`list alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`list alternate outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`list ol`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`list ul`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.outdent
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.paragraph
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`quote left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`quote right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.strikethrough
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.subscript
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.superscript
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.th
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`th large`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`th list`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.trash
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`trash alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`trash alternate outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.underline
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.unlink
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file archive`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file archive outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file excel`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file excel outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file image`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file image outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file pdf`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file pdf outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file powerpoint`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file powerpoint outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file word`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file word outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.genderless
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mars
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars double`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke horizontal`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke vertical`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mercury
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.neuter
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.transgender
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`transgender alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.venus
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`venus double`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`venus mars`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand lizard`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand lizard outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand paper`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand paper outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand peace`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand peace outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand rock`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand rock outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand scissors`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand scissors outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand spock`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand spock outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.handshake
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`handshake outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs down outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs up outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ambulance
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`h square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.heart
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`heart outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.heartbeat
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hospital
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hospital outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.medkit
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus square outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.stethoscope
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user md`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bolt
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.camera
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`camera retro`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`id badge`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`id badge outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`id card`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`id card outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.image
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`image outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.images
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`images outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sliders horizontal`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ban
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bars
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.beer
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.check
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`check circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`check circle outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`check square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`check square outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cloud
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cog
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cogs
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.database
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`dot circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`dot circle outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`ellipsis horizontal`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`ellipsis vertical`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.exclamation
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`exclamation circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`exclamation triangle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.flag
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`flag outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`flag checkered`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.frown
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`frown outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hashtag
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.home
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.info
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`info circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.magic
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.meh
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`meh outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.minus
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus square outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.plus
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.question
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.search
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`search minus`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`search plus`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`share alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`share alternate square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.signal
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.smile
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`smile outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.star
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`star outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.times
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`times circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`times circle outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle off`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle on`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.trophy
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.user
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user circle outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.box
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.boxes
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard check`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard list`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dolly
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`dolly flatbed`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pallet
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`shipping fast`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.truck
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.warehouse
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.anchor
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bed
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bicycle
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.binoculars
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bomb
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bookmark
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bookmark outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.car
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fighter jet`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fire
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.flask
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gamepad
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gavel
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gift
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`glass martini`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`graduation cap`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.key
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.leaf
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lemon
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`lemon outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`life ring`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`life ring outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lightbulb
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`lightbulb outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.magnet
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.male
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.map
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`map outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`map marker`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`map marker alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`map pin`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`map signs`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.motorcycle
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.newspaper
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`newspaper outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.paw
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.plane
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.road
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rocket
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ship
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping bag`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping basket`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping cart`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shower
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`street view`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.subway
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.taxi
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`ticket alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.train
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tree
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.umbrella
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.university
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`utensil spoon`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.utensils
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wrench
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`band aid`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dna
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`first aid`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hospital symbol`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pills
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.syringe
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.thermometer
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.weight
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bus
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cube
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cubes
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.futbol
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`futbol outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gem
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`gem outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lock
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`lock open`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.moon
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`moon outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`puzzle piece`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.snowflake
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`snowflake outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`space shuttle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sun
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sun outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`tachometer alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.unlock
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`unlock alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cart plus`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.square
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`square outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.asterisk
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle notch`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.spinner
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`baseball ball`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`basketball ball`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bowling ball`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`football ball`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`golf ball`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hockey puck`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.quidditch
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`table tennis`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`volleyball ball`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery empty`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery full`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery half`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery quarter`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery three quarters`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign in alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign out alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer empty`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer full`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer half`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer quarter`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer three quarters`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.child
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.female
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user plus`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user times`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.users
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`500px`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.accessible
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.accusoft
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.adn
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.adversal
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.affiliatetheme
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.algolia
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.amazon
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`amazon pay`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.amilia
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.android
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.angellist
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.angrycreative
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.angular
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`app store`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`app store ios`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.apper
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.apple
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`apple pay`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.asymmetrik
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.audible
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.autoprefixer
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.avianex
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.aviato
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.aws
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bandcamp
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.behance
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`behance square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bimobject
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bitbucket
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bitcoin
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bity
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`black tie`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.blackberry
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.blogger
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`blogger b`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bluetooth
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bluetooth b`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.btc
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.buromobelexperte
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.buysellads
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc amazon pay`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc amex`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc apple pay`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc diners club`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc discover`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc jcb`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc mastercard`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc paypal`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc stripe`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc visa`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.centercode
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.chrome
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudscale
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudsmith
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudversify
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.codepen
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.codiepie
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.connectdevelop
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.contao
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cpanel
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`creative commons`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.css3
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`css3 alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cuttlefish
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`d and d`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dashcube
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.delicious
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.deploydog
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.deskpro
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.deviantart
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.digg
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`digital ocean`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.discord
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.discourse
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dochub
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.docker
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.draft2digital
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dribbble
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`dribbble square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dropbox
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.drupal
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dyalog
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.earlybirds
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.edge
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.elementor
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ember
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.empire
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.envira
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.erlang
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ethereum
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.etsy
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.expeditedssl
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.facebook
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook f`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook messenger`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.firefox
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`first order`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.firstdraft
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.flickr
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.flipboard
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fly
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome flag`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fonticons
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fonticons fi`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fort awesome`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fort awesome alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.forumbee
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.foursquare
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`free code camp`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.freebsd
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`get pocket`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gg
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`gg circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.git
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`git square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.github
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`github alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`github square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gitkraken
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gitlab
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gitter
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.glide
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`glide g`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gofore
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.goodreads
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`goodreads g`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.google
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google drive`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google play`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus g`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google wallet`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gratipay
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.grav
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gripfire
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.grunt
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gulp
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hacker news`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hacker news square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hips
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hire a helper`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hooli
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hotjar
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.houzz
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.html5
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hubspot
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.imdb
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.instagram
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`internet explorer`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ioxhost
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.itunes
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`itunes note`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.jenkins
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.joget
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.joomla
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.js_
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`js square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.jsfiddle
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.keycdn
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.kickstarter
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`kickstarter k`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.korvue
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.laravel
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lastfm
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`lastfm square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.leanpub
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.less
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.linechat
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.linkedin
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`linkedin alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.linode
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.linux
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lyft
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.magento
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.maxcdn
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.medapps
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.medium
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`medium m`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.medrt
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.meetup
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.microsoft
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mix
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mixcloud
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mizuni
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.modx
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.monero
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.napster
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`nintendo switch`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.node
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`node js`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.npm
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ns8
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.nutritionix
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.odnoklassniki
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`odnoklassniki square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.opencart
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.openid
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.opera
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`optin monster`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.osi
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.page4
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pagelines
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.palfed
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.patreon
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.paypal
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.periscope
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.phabricator
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`phoenix framework`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.php
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper pp`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pinterest
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pinterest p`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pinterest square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.playstation
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`product hunt`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pushed
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.python
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.qq
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.quinscape
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.quora
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ravelry
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.react
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rebel
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.redriver
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.reddit
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`reddit alien`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`reddit square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rendact
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.renren
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.replyd
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.resolving
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rocketchat
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rockrms
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.safari
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sass
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.schlix
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.scribd
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.searchengin
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sellcast
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sellsy
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.servicestack
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shirtsinbulk
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.simplybuilt
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sistrix
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.skyatlas
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.skype
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.slack
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`slack hash`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.slideshare
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.snapchat
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`snapchat ghost`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`snapchat square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.soundcloud
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.speakap
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.spotify
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stack exchange`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stack overflow`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.staylinked
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.steam
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`steam square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`steam symbol`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticker mule`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.strava
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.stripe
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stripe s`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.studiovinari
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.stumbleupon
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stumbleupon circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.superpowers
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.supple
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.telegram
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`telegram plane`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`tencent weibo`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.themeisle
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.trello
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tripadvisor
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tumblr
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`tumblr square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.twitch
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.twitter
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`twitter square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.typo3
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.uber
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.uikit
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.uniregistry
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.untappd
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.usb
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ussunnah
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vaadin
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.viacoin
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.viadeo
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`viadeo square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.viber
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vimeo
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`vimeo square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`vimeo v`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vine
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vk
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vnv
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vuejs
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wechat
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.weibo
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.weixin
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.whatsapp
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`whatsapp square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.whmcs
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`wikipedia w`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.windows
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wordpress
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress simple`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wpbeginner
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wpexplorer
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wpforms
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.xbox
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.xing
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`xing square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`y combinator`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.yahoo
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.yandex
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`yandex international`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.yelp
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.yoast
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.youtube
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`youtube square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess rock`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`ordered list`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`unordered list`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user doctor`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shield
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.puzzle
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`add circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`add square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`add to calendar`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`add to cart`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`add user`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.add
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`alarm mute`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.alarm
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ald
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.als
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.announcement
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`area chart`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`area graph`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow down cart`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.asexual
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`asl interpreting`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.asl
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`assistive listening devices`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.attach
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.attention
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.balance
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bar
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bathtub
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery four`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery high`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery low`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery one`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery three`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery two`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery zero`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.birthday
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`block layout`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bluetooth alternative`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`broken chain`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.browser
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`call square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.call
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cancel
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cart
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cc
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.chain
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.chat
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`checked calendar`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.checkmark
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle notched`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.close
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cny
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cocktail
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.commenting
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.computer
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.configure
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.content
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.deafness
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`delete calendar`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.delete
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.detective
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.discussions
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.doctor
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dollar
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dont
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`drivers license`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dropdown
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.emergency
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`envira gallery`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.erase
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eur
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.euro
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eyedropper
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.factory
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.favorite
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.feed
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`female homosexual`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file text`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file text outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.find
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fork
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.game
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gay
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gbp
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus official`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.grab
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.graduation
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`grid layout`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.group
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.h
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand victory`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.handicap
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hard of hearing`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.header
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`help circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.help
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.heterosexual
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hide
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hotel
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass four`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass full`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass one`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass three`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass two`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.idea
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ils
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`in cart`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.inr
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.intergender
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.intersex
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.jpy
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.krw
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lab
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.law
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.legal
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lesbian
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lightning
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.like
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`line graph`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`linkedin square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lira
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`list layout`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.magnify
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail forward`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail outline`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mail
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`male homosexual`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.man
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.marker
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars alternate`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars horizontal`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars vertical`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`microsoft edge`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.military
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`ms edge`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mute
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`new pied piper`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`non binary transgender`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`numbered list`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.options
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender horizontal`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender vertical`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.payment
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`paypal card`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pencil square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.photo
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.picture
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pie chart`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pie graph`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper hat`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pin
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus cart`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.point
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pound
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`power cord`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.power
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.privacy
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`r circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rain
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.record
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.refresh
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove from calendar`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove user`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.remove
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.repeat
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rmb
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rouble
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rub
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ruble
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rupee
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.s15
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`selected radio`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.send
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.setting
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.settings
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shekel
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sheqel
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shipping
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shop
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shuffle
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shutdown
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sidebar
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.signing
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.signup
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sliders
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.soccer
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet ascending`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet descending`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort ascending`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort content ascending`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort content descending`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort descending`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric ascending`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric descending`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sound
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.spy
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stripe card`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.student
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.talk
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.target
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.teletype
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.television
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`text cursor`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`text telephone`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.theme
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumb tack`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.time
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tm
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.translate
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.travel
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.treatment
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`try`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.unhide
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.unlinkify
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.unmute
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.usd
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user cancel`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user close`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user delete`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user x`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vcard
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`video camera`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`video play`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume control phone`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wait
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`warning circle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`warning sign`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.warning
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`wi-fi`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.winner
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wizard
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.woman
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.won
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress beginner`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress forms`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.world
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`write square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.x
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.yen
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.zip
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom in`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom out`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.zoom
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bitbucket square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`checkmark box`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle thin`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.compose
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.conversation
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card alternative`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.currency
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dashboard
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.diamond
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.disk
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`external share`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`external square`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.external
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook official`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.food
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass zero`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`level down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`level up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`log out`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.meanpath
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.money
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.move
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pencil
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.protect
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.radio
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove bookmark`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`resize horizontal`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`resize vertical`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign in`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign out`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.spoon
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half empty`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half full`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ticket
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`times rectangle`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.write
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`youtube play`
+*/
+trait SemanticICONS extends js.Object
+
 object SemanticICONS {
   @scala.inline
   def `500px`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`500px` = "500px".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`500px`]
@@ -2502,1258 +3756,4 @@ object SemanticICONS {
   @scala.inline
   def `zoom-out`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom-out` = "zoom-out".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom-out`]
 }
-
-/* Rewritten from type alias, can be one of: 
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`american sign language interpreting`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`assistive listening systems`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`audio description`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.blind
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.braille
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`closed captioning`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`closed captioning outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.deaf
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`low vision`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`phone volume`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`question circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`question circle outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign language`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tty
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`universal access`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wheelchair
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle down outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle left outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle right outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle up outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate horizontal`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate vertical`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square down outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square left outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square right outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square up outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cart arrow down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart line`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cloud download`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cloud upload`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.download
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.exchange
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`expand arrows alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`external alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`external square alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point down outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point left outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point right outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point up outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand pointer`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand pointer outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.history
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`level down alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`level up alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`location arrow`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mouse pointer`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.play
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.random
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.recycle
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.redo
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`redo alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.reply
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`reply all`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.retweet
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.share
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`share square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`share square outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-in`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-out`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-in alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-out alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sort
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort amount down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort amount up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sync
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sync alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`text height`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`text width`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.undo
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`undo alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.upload
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom-in`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom-out`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.backward
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.circle
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.compress
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eject
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.expand
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fast backward`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fast forward`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file audio`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file audio outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file video`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file video outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.film
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.forward
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.headphones
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.microphone
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`microphone slash`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.music
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pause
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pause circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pause circle outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`play circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`play circle outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.podcast
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rss
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`rss square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`step backward`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`step forward`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.stop
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stop circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stop circle outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.video
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume off`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`address book`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`address book outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`address card`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`address card outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.archive
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`balance scale`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`birthday cake`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.book
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.briefcase
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.building
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`building outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bullhorn
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bullseye
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.calculator
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.calendar
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar alternate outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.certificate
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart area`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart bar`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart bar outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart pie`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.clipboard
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.coffee
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.columns
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.compass
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`compass outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.copy
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`copy outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.copyright
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`copyright outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cut
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.edit
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`edit outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.envelope
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope open`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope open outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eraser
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fax
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.file
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file alternate outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.folder
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder open`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder open outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.globe
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.industry
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.paperclip
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.paste
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pen square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pencil alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.percent
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.phone
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`phone square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.registered
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`registered outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.save
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`save outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sitemap
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticky note`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticky note outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.suitcase
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.table
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tag
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tags
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tasks
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.thumbtack
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.trademark
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.chess
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess bishop`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess board`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess king`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess knight`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess pawn`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess queen`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess rook`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`square full`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.barcode
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bath
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bug
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.code
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`code branch`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file code`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file code outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.filter
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fire extinguisher`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.keyboard
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`keyboard outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.microchip
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.qrcode
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`shield alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.terminal
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user secret`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window close`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window close outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window maximize`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window maximize outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window minimize`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window minimize outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window restore`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`window restore outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.at
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bell
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell slash`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell slash outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.comment
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment alternate outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.comments
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`comments outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.inbox
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.language
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mobile
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mobile alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`paper plane`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`paper plane outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wifi
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.desktop
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hdd
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hdd outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.laptop
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.plug
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`power off`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.print
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.server
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tablet
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`tablet alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tv
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`dollar sign`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`euro sign`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`lira sign`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`money bill alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`money bill alternate outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pound sign`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`ruble sign`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`rupee sign`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`shekel sign`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`won sign`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`yen sign`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar check`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar check outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar minus`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar minus outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar plus`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar plus outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar times`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar times outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.clock
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`clock outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hourglass
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass end`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass half`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass start`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.stopwatch
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.adjust
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.clone
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`clone outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.crop
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.crosshairs
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eye
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye dropper`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye slash`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye slash outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`object group`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`object group outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`object ungroup`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`object ungroup outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`paint brush`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tint
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`align center`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`align justify`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`align left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`align right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bold
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.font
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.heading
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`i cursor`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.indent
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.italic
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.linkify
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.list
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`list alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`list alternate outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`list ol`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`list ul`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.outdent
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.paragraph
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`quote left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`quote right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.strikethrough
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.subscript
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.superscript
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.th
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`th large`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`th list`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.trash
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`trash alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`trash alternate outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.underline
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.unlink
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file archive`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file archive outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file excel`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file excel outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file image`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file image outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file pdf`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file pdf outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file powerpoint`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file powerpoint outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file word`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file word outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.genderless
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mars
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars double`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke horizontal`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke vertical`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mercury
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.neuter
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.transgender
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`transgender alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.venus
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`venus double`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`venus mars`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand lizard`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand lizard outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand paper`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand paper outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand peace`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand peace outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand rock`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand rock outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand scissors`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand scissors outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand spock`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand spock outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.handshake
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`handshake outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs down outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs up outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ambulance
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`h square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.heart
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`heart outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.heartbeat
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hospital
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hospital outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.medkit
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus square outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.stethoscope
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user md`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bolt
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.camera
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`camera retro`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`id badge`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`id badge outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`id card`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`id card outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.image
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`image outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.images
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`images outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sliders horizontal`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ban
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bars
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.beer
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.check
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`check circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`check circle outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`check square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`check square outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cloud
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cog
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cogs
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.database
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`dot circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`dot circle outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`ellipsis horizontal`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`ellipsis vertical`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.exclamation
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`exclamation circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`exclamation triangle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.flag
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`flag outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`flag checkered`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.frown
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`frown outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hashtag
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.home
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.info
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`info circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.magic
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.meh
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`meh outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.minus
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus square outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.plus
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.question
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.search
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`search minus`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`search plus`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`share alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`share alternate square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.signal
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.smile
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`smile outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.star
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`star outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.times
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`times circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`times circle outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle off`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle on`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.trophy
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.user
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user circle outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.box
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.boxes
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard check`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard list`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dolly
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`dolly flatbed`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pallet
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`shipping fast`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.truck
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.warehouse
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.anchor
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bed
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bicycle
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.binoculars
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bomb
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bookmark
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bookmark outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.car
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fighter jet`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fire
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.flask
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gamepad
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gavel
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gift
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`glass martini`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`graduation cap`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.key
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.leaf
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lemon
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`lemon outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`life ring`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`life ring outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lightbulb
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`lightbulb outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.magnet
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.male
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.map
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`map outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`map marker`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`map marker alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`map pin`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`map signs`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.motorcycle
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.newspaper
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`newspaper outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.paw
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.plane
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.road
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rocket
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ship
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping bag`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping basket`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping cart`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shower
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`street view`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.subway
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.taxi
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`ticket alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.train
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tree
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.umbrella
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.university
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`utensil spoon`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.utensils
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wrench
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`band aid`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dna
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`first aid`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hospital symbol`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pills
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.syringe
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.thermometer
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.weight
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bus
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cube
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cubes
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.futbol
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`futbol outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gem
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`gem outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lock
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`lock open`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.moon
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`moon outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`puzzle piece`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.snowflake
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`snowflake outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`space shuttle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sun
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sun outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`tachometer alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.unlock
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`unlock alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cart plus`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.square
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`square outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.asterisk
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle notch`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.spinner
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`baseball ball`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`basketball ball`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bowling ball`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`football ball`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`golf ball`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hockey puck`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.quidditch
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`table tennis`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`volleyball ball`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery empty`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery full`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery half`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery quarter`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery three quarters`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign in alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign out alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer empty`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer full`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer half`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer quarter`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer three quarters`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.child
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.female
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user plus`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user times`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.users
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`500px`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.accessible
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.accusoft
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.adn
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.adversal
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.affiliatetheme
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.algolia
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.amazon
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`amazon pay`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.amilia
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.android
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.angellist
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.angrycreative
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.angular
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`app store`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`app store ios`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.apper
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.apple
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`apple pay`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.asymmetrik
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.audible
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.autoprefixer
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.avianex
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.aviato
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.aws
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bandcamp
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.behance
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`behance square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bimobject
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bitbucket
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bitcoin
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bity
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`black tie`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.blackberry
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.blogger
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`blogger b`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bluetooth
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bluetooth b`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.btc
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.buromobelexperte
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.buysellads
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc amazon pay`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc amex`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc apple pay`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc diners club`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc discover`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc jcb`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc mastercard`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc paypal`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc stripe`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc visa`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.centercode
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.chrome
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudscale
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudsmith
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudversify
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.codepen
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.codiepie
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.connectdevelop
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.contao
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cpanel
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`creative commons`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.css3
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`css3 alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cuttlefish
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`d and d`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dashcube
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.delicious
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.deploydog
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.deskpro
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.deviantart
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.digg
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`digital ocean`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.discord
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.discourse
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dochub
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.docker
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.draft2digital
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dribbble
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`dribbble square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dropbox
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.drupal
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dyalog
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.earlybirds
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.edge
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.elementor
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ember
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.empire
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.envira
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.erlang
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ethereum
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.etsy
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.expeditedssl
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.facebook
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook f`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook messenger`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.firefox
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`first order`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.firstdraft
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.flickr
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.flipboard
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fly
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome flag`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fonticons
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fonticons fi`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fort awesome`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fort awesome alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.forumbee
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.foursquare
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`free code camp`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.freebsd
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`get pocket`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gg
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`gg circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.git
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`git square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.github
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`github alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`github square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gitkraken
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gitlab
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gitter
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.glide
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`glide g`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gofore
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.goodreads
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`goodreads g`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.google
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google drive`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google play`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus g`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google wallet`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gratipay
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.grav
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gripfire
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.grunt
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gulp
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hacker news`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hacker news square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hips
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hire a helper`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hooli
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hotjar
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.houzz
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.html5
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hubspot
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.imdb
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.instagram
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`internet explorer`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ioxhost
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.itunes
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`itunes note`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.jenkins
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.joget
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.joomla
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.js_
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`js square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.jsfiddle
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.keycdn
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.kickstarter
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`kickstarter k`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.korvue
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.laravel
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lastfm
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`lastfm square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.leanpub
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.less
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.linechat
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.linkedin
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`linkedin alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.linode
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.linux
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lyft
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.magento
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.maxcdn
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.medapps
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.medium
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`medium m`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.medrt
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.meetup
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.microsoft
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mix
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mixcloud
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mizuni
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.modx
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.monero
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.napster
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`nintendo switch`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.node
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`node js`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.npm
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ns8
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.nutritionix
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.odnoklassniki
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`odnoklassniki square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.opencart
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.openid
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.opera
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`optin monster`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.osi
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.page4
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pagelines
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.palfed
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.patreon
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.paypal
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.periscope
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.phabricator
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`phoenix framework`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.php
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper pp`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pinterest
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pinterest p`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pinterest square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.playstation
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`product hunt`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pushed
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.python
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.qq
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.quinscape
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.quora
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ravelry
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.react
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rebel
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.redriver
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.reddit
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`reddit alien`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`reddit square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rendact
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.renren
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.replyd
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.resolving
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rocketchat
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rockrms
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.safari
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sass
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.schlix
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.scribd
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.searchengin
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sellcast
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sellsy
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.servicestack
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shirtsinbulk
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.simplybuilt
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sistrix
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.skyatlas
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.skype
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.slack
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`slack hash`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.slideshare
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.snapchat
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`snapchat ghost`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`snapchat square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.soundcloud
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.speakap
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.spotify
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stack exchange`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stack overflow`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.staylinked
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.steam
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`steam square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`steam symbol`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticker mule`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.strava
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.stripe
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stripe s`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.studiovinari
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.stumbleupon
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stumbleupon circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.superpowers
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.supple
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.telegram
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`telegram plane`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`tencent weibo`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.themeisle
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.trello
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tripadvisor
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tumblr
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`tumblr square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.twitch
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.twitter
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`twitter square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.typo3
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.uber
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.uikit
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.uniregistry
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.untappd
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.usb
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ussunnah
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vaadin
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.viacoin
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.viadeo
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`viadeo square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.viber
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vimeo
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`vimeo square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`vimeo v`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vine
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vk
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vnv
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vuejs
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wechat
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.weibo
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.weixin
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.whatsapp
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`whatsapp square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.whmcs
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`wikipedia w`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.windows
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wordpress
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress simple`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wpbeginner
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wpexplorer
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wpforms
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.xbox
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.xing
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`xing square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`y combinator`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.yahoo
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.yandex
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`yandex international`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.yelp
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.yoast
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.youtube
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`youtube square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess rock`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`ordered list`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`unordered list`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user doctor`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shield
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.puzzle
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`add circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`add square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`add to calendar`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`add to cart`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`add user`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.add
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`alarm mute`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.alarm
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ald
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.als
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.announcement
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`area chart`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`area graph`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow down cart`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.asexual
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`asl interpreting`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.asl
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`assistive listening devices`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.attach
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.attention
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.balance
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bar
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.bathtub
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery four`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery high`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery low`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery one`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery three`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery two`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery zero`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.birthday
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`block layout`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bluetooth alternative`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`broken chain`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.browser
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`call square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.call
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cancel
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cart
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cc
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.chain
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.chat
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`checked calendar`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.checkmark
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle notched`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.close
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cny
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.cocktail
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.commenting
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.computer
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.configure
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.content
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.deafness
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`delete calendar`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.delete
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.detective
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.discussions
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.doctor
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dollar
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dont
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`drivers license`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dropdown
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.emergency
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`envira gallery`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.erase
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eur
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.euro
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.eyedropper
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.factory
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.favorite
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.feed
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`female homosexual`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file text`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`file text outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.find
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fork
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.game
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gay
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.gbp
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus official`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.grab
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.graduation
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`grid layout`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.group
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.h
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand victory`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.handicap
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hard of hearing`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.header
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`help circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.help
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.heterosexual
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hide
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.hotel
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass four`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass full`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass one`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass three`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass two`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.idea
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ils
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`in cart`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.inr
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.intergender
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.intersex
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.jpy
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.krw
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lab
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.law
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.legal
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lesbian
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lightning
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.like
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`line graph`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`linkedin square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.lira
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`list layout`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.magnify
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail forward`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail outline`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mail
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`male homosexual`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.man
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.marker
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars alternate`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars horizontal`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars vertical`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`microsoft edge`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.military
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`ms edge`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.mute
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`new pied piper`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`non binary transgender`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`numbered list`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.options
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender horizontal`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender vertical`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.payment
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`paypal card`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pencil square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.photo
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.picture
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pie chart`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pie graph`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper hat`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pin
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus cart`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.point
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pound
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`power cord`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.power
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.privacy
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`r circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rain
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.record
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.refresh
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove from calendar`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove user`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.remove
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.repeat
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rmb
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rouble
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rub
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ruble
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.rupee
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.s15
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`selected radio`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.send
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.setting
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.settings
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shekel
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sheqel
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shipping
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shop
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shuffle
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.shutdown
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sidebar
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.signing
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.signup
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sliders
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.soccer
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet ascending`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet descending`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort ascending`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort content ascending`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort content descending`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort descending`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric ascending`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric descending`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.sound
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.spy
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`stripe card`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.student
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.talk
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.target
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.teletype
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.television
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`text cursor`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`text telephone`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.theme
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumb tack`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.time
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.tm
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.translate
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.travel
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.treatment
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle left`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle right`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`try`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.unhide
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.unlinkify
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.unmute
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.usd
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user cancel`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user close`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user delete`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`user x`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.vcard
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`video camera`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`video play`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume control phone`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wait
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`warning circle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`warning sign`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.warning
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`wi-fi`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.winner
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.wizard
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.woman
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.won
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress beginner`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress forms`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.world
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`write square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.x
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.yen
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.zip
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom in`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom out`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.zoom
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`bitbucket square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`checkmark box`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle thin`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.compose
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.conversation
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card alternative`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.currency
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.dashboard
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.diamond
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.disk
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`external share`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`external square`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.external
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook official`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.food
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass zero`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`level down`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`level up`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`log out`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.meanpath
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.money
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.move
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pencil
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.protect
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.radio
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove bookmark`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`resize horizontal`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`resize vertical`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign in`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign out`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.spoon
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half empty`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half full`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.ticket
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`times rectangle`
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.write
-  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`youtube play`
-*/
-trait SemanticICONS extends js.Object
 

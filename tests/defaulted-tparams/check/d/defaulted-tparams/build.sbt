@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "defaulted-tparams"
-version := "0.0-unknown-9ba3df"
+version := "0.0-unknown-7fad8e"
 scalaVersion := "2.13.3"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

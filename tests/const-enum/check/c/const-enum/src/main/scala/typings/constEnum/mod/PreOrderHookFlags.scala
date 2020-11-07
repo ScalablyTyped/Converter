@@ -8,6 +8,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
+/* Rewritten from type alias, can be one of: 
+  - typings.constEnum.constEnumNumbers.`65535`
+  - typings.constEnum.constEnumNumbers.`65536`
+  - typings.constEnum.constEnumNumbers.`16`
+  - typings.constEnum.constEnumNumbers._4294901760
+*/
+trait PreOrderHookFlags extends js.Object
+
 object PreOrderHookFlags {
   /** The index of the next pre-order hook to be called in the hooks array, on the first 16
     bits */
@@ -23,12 +31,4 @@ object PreOrderHookFlags {
   @scala.inline
   def NumberOfInitHooksCalledShift: `16` = 16.asInstanceOf[`16`]
 }
-
-/* Rewritten from type alias, can be one of: 
-  - typings.constEnum.constEnumNumbers.`65535`
-  - typings.constEnum.constEnumNumbers.`65536`
-  - typings.constEnum.constEnumNumbers.`16`
-  - typings.constEnum.constEnumNumbers._4294901760
-*/
-trait PreOrderHookFlags extends js.Object
 

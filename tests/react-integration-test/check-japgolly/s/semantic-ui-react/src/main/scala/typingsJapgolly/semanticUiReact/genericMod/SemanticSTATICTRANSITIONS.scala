@@ -4,6 +4,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
+/* Rewritten from type alias, can be one of: 
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.jiggle
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.flash
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.shake
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.pulse
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.tada
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.bounce
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.glow
+*/
+trait SemanticSTATICTRANSITIONS extends js.Object
+
 object SemanticSTATICTRANSITIONS {
   @scala.inline
   def bounce: typingsJapgolly.semanticUiReact.semanticUiReactStrings.bounce = "bounce".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.bounce]
@@ -20,15 +31,4 @@ object SemanticSTATICTRANSITIONS {
   @scala.inline
   def tada: typingsJapgolly.semanticUiReact.semanticUiReactStrings.tada = "tada".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.tada]
 }
-
-/* Rewritten from type alias, can be one of: 
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.jiggle
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.flash
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.shake
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.pulse
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.tada
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.bounce
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.glow
-*/
-trait SemanticSTATICTRANSITIONS extends js.Object
 

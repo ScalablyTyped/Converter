@@ -4,6 +4,29 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
+// ======================================================
+// Widths
+// ======================================================
+/* Rewritten from type alias, can be one of: 
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`1`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`2`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`3`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`4`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`5`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`6`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`7`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`8`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`9`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`10`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`11`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`12`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`13`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`14`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`15`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`16`
+*/
+trait SemanticWIDTHSNUMBER extends js.Object
+
 object SemanticWIDTHSNUMBER {
   @scala.inline
   def `1`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`1` = 1.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`1`]
@@ -38,27 +61,4 @@ object SemanticWIDTHSNUMBER {
   @scala.inline
   def `9`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`9` = 9.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`9`]
 }
-
-// ======================================================
-// Widths
-// ======================================================
-/* Rewritten from type alias, can be one of: 
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`1`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`2`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`3`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`4`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`5`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`6`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`7`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`8`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`9`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`10`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`11`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`12`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`13`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`14`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`15`
-  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`16`
-*/
-trait SemanticWIDTHSNUMBER extends js.Object
 

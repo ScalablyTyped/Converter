@@ -5,6 +5,18 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object unionToInheritanceStrings {
+  @scala.inline
+  def a1: a1 = "a1".asInstanceOf[a1]
+  @scala.inline
+  def a2: a2 = "a2".asInstanceOf[a2]
+  @scala.inline
+  def b1: b1 = "b1".asInstanceOf[b1]
+  @scala.inline
+  def b2: b2 = "b2".asInstanceOf[b2]
+  @scala.inline
+  def bar: bar = "bar".asInstanceOf[bar]
+  @scala.inline
+  def foo: foo = "foo".asInstanceOf[foo]
   @js.native
   sealed trait a1 extends _A
   
@@ -37,17 +49,5 @@ object unionToInheritanceStrings {
        with _Illegal3[js.Any]
        with _Test[js.Any, js.Any, js.Any]
   
-  @scala.inline
-  def a1: a1 = "a1".asInstanceOf[a1]
-  @scala.inline
-  def a2: a2 = "a2".asInstanceOf[a2]
-  @scala.inline
-  def b1: b1 = "b1".asInstanceOf[b1]
-  @scala.inline
-  def b2: b2 = "b2".asInstanceOf[b2]
-  @scala.inline
-  def bar: bar = "bar".asInstanceOf[bar]
-  @scala.inline
-  def foo: foo = "foo".asInstanceOf[foo]
 }
 

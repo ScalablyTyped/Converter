@@ -23,15 +23,15 @@ object refFindNodeMod extends js.Object {
     var prevNode: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any) | Null = js.native
   }
   
+  @js.native
+  class default () extends RefFindNode
+  
   /* static members */
   @js.native
   object default extends js.Object {
     var displayName: String = js.native
     var propTypes: Children | InnerRef = js.native
   }
-  
-  @js.native
-  class default () extends RefFindNode
   
 }
 

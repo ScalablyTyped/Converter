@@ -4,6 +4,23 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
+/* Rewritten from type alias, can be one of: 
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.red
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.orange
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.yellow
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.olive
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.green
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.teal
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.blue
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.violet
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.purple
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.pink
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.brown
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.grey
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.black
+*/
+trait SemanticCOLORS extends js.Object
+
 object SemanticCOLORS {
   @scala.inline
   def black: typingsJapgolly.semanticUiReact.semanticUiReactStrings.black = "black".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.black]
@@ -32,21 +49,4 @@ object SemanticCOLORS {
   @scala.inline
   def yellow: typingsJapgolly.semanticUiReact.semanticUiReactStrings.yellow = "yellow".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.yellow]
 }
-
-/* Rewritten from type alias, can be one of: 
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.red
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.orange
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.yellow
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.olive
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.green
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.teal
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.blue
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.violet
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.purple
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.pink
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.brown
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.grey
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.black
-*/
-trait SemanticCOLORS extends js.Object
 

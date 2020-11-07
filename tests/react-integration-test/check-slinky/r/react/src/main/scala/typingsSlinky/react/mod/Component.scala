@@ -6,34 +6,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-/* static members */
-@JSImport("react", "Component")
-@js.native
-object Component extends js.Object {
-  // tslint won't let me format the sample code in a way that vscode likes it :(
-  /**
-    * If set, `this.context` will be set at runtime to the current value of the given Context.
-    *
-    * Usage:
-    *
-    * ```ts
-    * type MyContext = number
-    * const Ctx = React.createContext<MyContext>(0)
-    *
-    * class Foo extends React.Component {
-    *   static contextType = Ctx
-    *   context!: React.ContextType<typeof Ctx>
-    *   render () {
-    *     return <>My context's value: {this.context}</>;
-    *   }
-    * }
-    * ```
-    *
-    * @see https://reactjs.org/docs/context.html#classcontexttype
-    */
-  var contextType: js.UndefOr[Context[_]] = js.native
-}
-
 // Base component for plain JS classes
 // tslint:disable-next-line:no-empty-interface
 @JSImport("react", "Component")
@@ -84,5 +56,33 @@ class Component[P, S, SS] protected () extends ComponentLifecycle[P, S, SS] {
   def setState[K /* <: /* keyof S */ String */](state: Pick[S, K]): Unit = js.native
   def setState[K /* <: /* keyof S */ String */](state: Pick[S, K], callback: js.Function0[Unit]): Unit = js.native
   var state: S = js.native
+}
+
+/* static members */
+@JSImport("react", "Component")
+@js.native
+object Component extends js.Object {
+  // tslint won't let me format the sample code in a way that vscode likes it :(
+  /**
+    * If set, `this.context` will be set at runtime to the current value of the given Context.
+    *
+    * Usage:
+    *
+    * ```ts
+    * type MyContext = number
+    * const Ctx = React.createContext<MyContext>(0)
+    *
+    * class Foo extends React.Component {
+    *   static contextType = Ctx
+    *   context!: React.ContextType<typeof Ctx>
+    *   render () {
+    *     return <>My context's value: {this.context}</>;
+    *   }
+    * }
+    * ```
+    *
+    * @see https://reactjs.org/docs/context.html#classcontexttype
+    */
+  var contextType: js.UndefOr[Context[_]] = js.native
 }
 

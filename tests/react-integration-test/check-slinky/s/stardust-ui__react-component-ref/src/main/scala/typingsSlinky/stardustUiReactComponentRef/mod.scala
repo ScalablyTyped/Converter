@@ -13,13 +13,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("@stardust-ui/react-component-ref", JSImport.Namespace)
 @js.native
 object mod extends js.Object {
-  @js.native
-  class RefFindNode () extends default
-  
-  @js.native
-  class RefForward ()
-    extends typingsSlinky.stardustUiReactComponentRef.refForwardMod.default
-  
   val Ref: ReactComponentClass[RefProps] = js.native
   /**
     * The function that correctly handles passing refs.
@@ -33,12 +26,19 @@ object mod extends js.Object {
   val refPropType: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ js.Any = js.native
   /** Creates a React ref object from existing DOM node. */
   def toRefObject[T /* <: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): ReactRef[T] = js.native
+  @js.native
+  class RefFindNode () extends default
+  
   /* static members */
   @js.native
   object RefFindNode extends js.Object {
     var displayName: String = js.native
     var propTypes: Children | InnerRef = js.native
   }
+  
+  @js.native
+  class RefForward ()
+    extends typingsSlinky.stardustUiReactComponentRef.refForwardMod.default
   
   /* static members */
   @js.native

@@ -5,6 +5,16 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object stdStrings {
+  @scala.inline
+  def Partial: Partial = "Partial".asInstanceOf[Partial]
+  @scala.inline
+  def Pick: Pick = "Pick".asInstanceOf[Pick]
+  @scala.inline
+  def Proxify: Proxify = "Proxify".asInstanceOf[Proxify]
+  @scala.inline
+  def Readonly: Readonly = "Readonly".asInstanceOf[Readonly]
+  @scala.inline
+  def Required: Required = "Required".asInstanceOf[Required]
   @js.native
   sealed trait Partial extends js.Object
   
@@ -20,15 +30,5 @@ object stdStrings {
   @js.native
   sealed trait Required extends js.Object
   
-  @scala.inline
-  def Partial: Partial = "Partial".asInstanceOf[Partial]
-  @scala.inline
-  def Pick: Pick = "Pick".asInstanceOf[Pick]
-  @scala.inline
-  def Proxify: Proxify = "Proxify".asInstanceOf[Proxify]
-  @scala.inline
-  def Readonly: Readonly = "Readonly".asInstanceOf[Readonly]
-  @scala.inline
-  def Required: Required = "Required".asInstanceOf[Required]
 }
 

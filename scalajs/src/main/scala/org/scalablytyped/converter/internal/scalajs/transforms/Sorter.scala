@@ -7,31 +7,29 @@ import scala.annotation.switch
 object Sorter extends TreeTransformation {
 
   override def leaveClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
-    s.copy(members = s.members.sorted(TreeOrdering), ctors = s.ctors.sorted(TreeOrdering))
+    s.copy(members = sorted(s.members), ctors = sorted(s.ctors).asInstanceOf[IArray[CtorTree]])
 
   override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-    s.copy(members = s.members.sorted(TreeOrdering))
+    s.copy(members = sorted(s.members))
 
   override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
-    s.copy(members = s.members.sorted(TreeOrdering))
+    s.copy(members = sorted(s.members))
 
+  def sorted(members: IArray[Tree]): IArray[Tree] = {
+    val (_1, _2, _3, _4) = members.partitionCollect3(
+      // sort ^ first
+      { case x if x.name === Name.namespaced => x },
+      // sort methods and fields together
+      { case x: MemberTree => x },
+      // and sort traits and objects together
+      { case x: InheritanceTree => x },
+    )
+
+    IArray(_1, _2, _3, _4).map(_.sorted(TreeOrdering)).flatten
+  }
   object TreeOrdering extends Ordering[Tree] {
     override def compare(x: Tree, y: Tree): Int =
       (x, y) match {
-        // sort ^ first
-        case (one, _) if one.name === Name.namespaced => -1
-        case (_, two) if two.name === Name.namespaced => 1
-        // we sort by type, but methods and fields together
-        case (m: MethodTree, f: FieldTree) =>
-          m.name.unescaped.compareTo(f.name.unescaped)
-        case (f: FieldTree, m: MethodTree) =>
-          f.name.unescaped.compareTo(m.name.unescaped)
-        /* and sort traits and objects together */
-        case (c: ClassTree, m: ModuleTree) =>
-          c.name.unescaped.compareTo(m.name.unescaped)
-        case (m: ModuleTree, c: ClassTree) =>
-          m.name.unescaped.compareTo(c.name.unescaped)
-
         case (m1: MethodTree, m2: MethodTree) =>
           (m1.name.unescaped.compareTo(m2.name.unescaped): @switch) match {
             case 0 =>
@@ -69,8 +67,8 @@ object Sorter extends TreeTransformation {
           }
 
         case (s1, s2) =>
-          (s1.getClass.getSimpleName.compareTo(s2.getClass.getSimpleName): @switch) match {
-            case 0     => s1.name.unescaped.compareTo(s2.name.unescaped)
+          (s1.name.unescaped.compareTo(s2.name.unescaped): @switch) match {
+            case 0     => s1.getClass.getSimpleName.compareTo(s2.getClass.getSimpleName)
             case other => other
           }
       }

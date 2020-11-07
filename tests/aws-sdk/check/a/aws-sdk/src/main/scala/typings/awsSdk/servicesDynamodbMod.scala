@@ -10,6 +10,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("aws-sdk/lib/services/dynamodb", JSImport.Namespace)
 @js.native
 object servicesDynamodbMod extends js.Object {
+  @js.native
+  class DynamoDBCustomizations () extends js.Object
+  
   /* static members */
   @js.native
   object DynamoDBCustomizations extends js.Object {
@@ -22,9 +25,6 @@ object servicesDynamodbMod extends js.Object {
         typings.awsSdk.documentClientMod.DocumentClient
       ] = js.native
   }
-  
-  @js.native
-  class DynamoDBCustomizations () extends js.Object
   
 }
 

@@ -18,6 +18,50 @@ object global extends js.Object {
   *                                               *
   ************************************************/
   var global: Global = js.native
+  @js.native
+  class Buffer protected () extends NodeBuffer {
+    /**
+      * Produces a Buffer backed by the same allocated memory as
+      * the given {ArrayBuffer}.
+      *
+      *
+      * @param arrayBuffer The ArrayBuffer with which to share memory.
+      */
+    def this(arrayBuffer: ArrayBuffer) = this()
+    /**
+      * Allocates a new buffer containing the given {array} of octets.
+      *
+      * @param array The octets to store.
+      */
+    def this(array: js.Array[_]) = this()
+    /**
+      * Allocates a new buffer containing the given {array} of octets.
+      *
+      * @param array The octets to store.
+      */
+    def this(array: Uint8Array) = this()
+    /**
+      * Copies the passed {buffer} data onto a new {Buffer} instance.
+      *
+      * @param buffer The buffer to copy.
+      */
+    def this(buffer: typings.node.Buffer) = this()
+    /**
+      * Allocates a new buffer of {size} octets.
+      *
+      * @param size count of octets to allocate.
+      */
+    def this(size: Double) = this()
+    /**
+      * Allocates a new buffer containing the given {str}.
+      *
+      * @param str String to store in buffer.
+      * @param encoding encoding to use, optional.  Default is 'utf8'
+      */
+    def this(str: String) = this()
+    def this(str: String, encoding: String) = this()
+  }
+  
   /**
     * Raw data is stored in instances of the Buffer class.
     * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
@@ -64,50 +108,6 @@ object global extends js.Object {
     def from(array: js.Array[_]): typings.node.Buffer = js.native
   }
   
-  @js.native
-  class Buffer protected () extends NodeBuffer {
-    /**
-      * Produces a Buffer backed by the same allocated memory as
-      * the given {ArrayBuffer}.
-      *
-      *
-      * @param arrayBuffer The ArrayBuffer with which to share memory.
-      */
-    def this(arrayBuffer: ArrayBuffer) = this()
-    /**
-      * Allocates a new buffer containing the given {array} of octets.
-      *
-      * @param array The octets to store.
-      */
-    def this(array: js.Array[_]) = this()
-    /**
-      * Allocates a new buffer containing the given {array} of octets.
-      *
-      * @param array The octets to store.
-      */
-    def this(array: Uint8Array) = this()
-    /**
-      * Copies the passed {buffer} data onto a new {Buffer} instance.
-      *
-      * @param buffer The buffer to copy.
-      */
-    def this(buffer: typings.node.Buffer) = this()
-    /**
-      * Allocates a new buffer of {size} octets.
-      *
-      * @param size count of octets to allocate.
-      */
-    def this(size: Double) = this()
-    /**
-      * Allocates a new buffer containing the given {str}.
-      *
-      * @param str String to store in buffer.
-      * @param encoding encoding to use, optional.  Default is 'utf8'
-      */
-    def this(str: String) = this()
-    def this(str: String, encoding: String) = this()
-  }
-  
   /************************************************
   *                                               *
   *               GLOBAL INTERFACES               *
@@ -122,6 +122,15 @@ object global extends js.Object {
   }
   
   @js.native
+  class SlowBuffer protected () extends NodeBuffer {
+    def this(array: js.Array[_]) = this()
+    def this(size: Double) = this()
+    def this(size: Uint8Array) = this()
+    def this(str: String) = this()
+    def this(str: String, encoding: String) = this()
+  }
+  
+  @js.native
   object SlowBuffer
     extends Instantiable1[
           (/* array */ js.Array[js.Any]) | (/* size */ Double) | (/* str */ String) | (/* size */ Uint8Array), 
@@ -133,15 +142,6 @@ object global extends js.Object {
     def concat(list: js.Array[typings.node.Buffer]): typings.node.Buffer = js.native
     def concat(list: js.Array[typings.node.Buffer], totalLength: Double): typings.node.Buffer = js.native
     def isBuffer(obj: js.Any): Boolean = js.native
-  }
-  
-  @js.native
-  class SlowBuffer protected () extends NodeBuffer {
-    def this(array: js.Array[_]) = this()
-    def this(size: Double) = this()
-    def this(size: Uint8Array) = this()
-    def this(str: String) = this()
-    def this(str: String, encoding: String) = this()
   }
   
 }

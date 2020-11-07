@@ -4,6 +4,42 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
+/* Rewritten from type alias, can be one of: 
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`1`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`2`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`3`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`4`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`5`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`6`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`7`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`8`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`9`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`10`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`11`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`12`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`13`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`14`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`15`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`16`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.one
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.two
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.three
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.four
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.five
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.six
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.seven
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.eight
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.nine
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.ten
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.eleven
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.twelve
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.thirteen
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.fourteen
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.fifteen
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.sixteen
+*/
+trait SemanticWIDTHSSTRING extends js.Object
+
 object SemanticWIDTHSSTRING {
   @scala.inline
   def `1`: typingsJapgolly.semanticUiReact.semanticUiReactStrings.`1` = "1".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.`1`]
@@ -70,40 +106,4 @@ object SemanticWIDTHSSTRING {
   @scala.inline
   def two: typingsJapgolly.semanticUiReact.semanticUiReactStrings.two = "two".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.two]
 }
-
-/* Rewritten from type alias, can be one of: 
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`1`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`2`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`3`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`4`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`5`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`6`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`7`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`8`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`9`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`10`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`11`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`12`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`13`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`14`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`15`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`16`
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.one
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.two
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.three
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.four
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.five
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.six
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.seven
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.eight
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.nine
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.ten
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.eleven
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.twelve
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.thirteen
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.fourteen
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.fifteen
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.sixteen
-*/
-trait SemanticWIDTHSSTRING extends js.Object
 

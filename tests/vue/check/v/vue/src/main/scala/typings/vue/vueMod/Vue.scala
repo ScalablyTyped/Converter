@@ -24,10 +24,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@JSImport("vue/types/vue", "Vue")
-@js.native
-object Vue extends TopLevel[VueConstructor[Vue]]
-
 @js.native
 trait Vue extends js.Object {
   @JSName("$attrs")
@@ -199,4 +195,8 @@ trait Vue extends js.Object {
     options: WatchOptions
   ): js.Function0[Unit] = js.native
 }
+
+@JSImport("vue/types/vue", "Vue")
+@js.native
+object Vue extends TopLevel[VueConstructor[Vue]]
 

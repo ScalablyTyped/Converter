@@ -4,6 +4,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
+/* Rewritten from type alias, can be one of: 
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.center
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.justified
+*/
+trait SemanticTEXTALIGNMENTS extends js.Object
+
 object SemanticTEXTALIGNMENTS {
   @scala.inline
   def center: typingsJapgolly.semanticUiReact.semanticUiReactStrings.center = "center".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.center]
@@ -14,12 +22,4 @@ object SemanticTEXTALIGNMENTS {
   @scala.inline
   def right: typingsJapgolly.semanticUiReact.semanticUiReactStrings.right = "right".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.right]
 }
-
-/* Rewritten from type alias, can be one of: 
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.center
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
-  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.justified
-*/
-trait SemanticTEXTALIGNMENTS extends js.Object
 
