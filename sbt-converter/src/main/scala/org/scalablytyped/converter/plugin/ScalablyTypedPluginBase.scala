@@ -4,13 +4,16 @@ import java.io.File
 
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
+import org.scalablytyped.converter.internal.constants
 import org.scalablytyped.converter.internal.importer.{ConversionOptions, EnabledTypeMappingExpansion, ImportName}
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
+import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
-import org.scalablytyped.converter.internal.{constants, IArray}
 import sbt.Tags.Tag
 import sbt._
 import sbt.plugins.JvmPlugin
+
+import scala.collection.immutable.SortedSet
 
 object ScalablyTypedPluginBase extends AutoPlugin {
 
@@ -80,8 +83,6 @@ object ScalablyTypedPluginBase extends AutoPlugin {
           Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion),
         )
 
-        val ignored = stIgnore.value.to[Set]
-
         val outputPackage = Name(stOutputPackage.value)
         val organization =
           outputPackage match {
@@ -94,10 +95,9 @@ object ScalablyTypedPluginBase extends AutoPlugin {
           flavour                = stFlavour.value,
           outputPackage          = outputPackage,
           enableScalaJsDefined   = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
-          stdLibs                = IArray.fromTraversable(stStdlib.value),
+          stdLibs                = SortedSet.empty ++ stStdlib.value,
           expandTypeMappings     = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
-          ignoredLibs            = ignored.map(TsIdentLibrary.apply),
-          ignoredModulePrefixes  = ignored.map(_.split("/").toList),
+          ignored                = stIgnore.value.to[Set].sorted,
           versions               = versions,
           organization           = organization,
           enableReactTreeShaking = stReactEnableTreeShaking.value.map(name => ImportName(TsIdentLibrary(name))),

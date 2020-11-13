@@ -14,7 +14,7 @@ import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, Pha
 import org.scalablytyped.converter.internal.scalajs.{ParentsResolver, _}
 import org.scalablytyped.converter.internal.ts._
 
-import scala.collection.immutable.SortedMap
+import scala.collection.immutable.{SortedMap, SortedSet}
 
 object ImportTypingsGenSources {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
@@ -140,10 +140,9 @@ object ImportTypingsGenSources {
       flavour                = Flavour.Slinky,
       outputPackage          = outputName,
       enableScalaJsDefined   = Selection.All,
-      stdLibs                = IArray("es5", "dom"),
+      stdLibs                = SortedSet("es5", "dom"),
       expandTypeMappings     = EnabledTypeMappingExpansion.DefaultSelection,
-      ignoredLibs            = Set(),
-      ignoredModulePrefixes  = Set(),
+      ignored                = SortedSet(),
       versions               = Versions(Versions.Scala213, Versions.ScalaJs1),
       organization           = "org.scalablytyped",
       enableReactTreeShaking = Selection.None,

@@ -44,9 +44,8 @@ object Main {
     outputPackage          = Name.typings,
     enableScalaJsDefined   = Selection.None,
     flavour                = Flavour.Normal,
-    ignoredLibs            = Set(TsIdentLibrary("typescript")),
-    ignoredModulePrefixes  = Set(),
-    stdLibs                = IArray("es6"),
+    ignored                = SortedSet("typescript"),
+    stdLibs                = SortedSet("es6"),
     expandTypeMappings     = EnabledTypeMappingExpansion.DefaultSelection,
     versions               = Versions(Versions.Scala213, Versions.ScalaJs1),
     organization           = "org.scalablytyped",
@@ -107,7 +106,7 @@ object Main {
       }
     }
 
-  implicit def ReadsSelection[T](implicit ts: Read[Seq[T]]): Read[Selection[T]] = Read.reads {
+  implicit def ReadsSelection[T: Ordering](implicit ts: Read[Seq[T]]): Read[Selection[T]] = Read.reads {
     case "all"                  => Selection.All
     case "none"                 => Selection.All
     case s if s.startsWith("+") => Selection.NoneExcept(ts.reads(s.drop(1)): _*)
@@ -158,13 +157,13 @@ object Main {
         .action((x, c) => c.mapConversion(_.copy(enableScalaJsDefined = x)))
         .text(s"Libraries you want to enable @ScalaJSDefined traits for."),
       opt[Seq[String]]('s', "stdlib")
-        .action((x, c) => c.mapConversion(_.copy(stdLibs = IArray.fromTraversable(x))))
+        .action((x, c) => c.mapConversion(_.copy(stdLibs = x.toSet.sorted)))
         .text(s"Which parts of typescript stdlib you want to enable"),
       opt[String]("organization")
         .action((x, c) => c.mapConversion(_.copy(organization = x)))
         .text(s"Organization used (locally) publish artifacts"),
-      opt[Seq[TsIdentLibrary]]("ignoredLibs")
-        .action((x, c) => c.mapConversion(_.copy(ignoredLibs = x.toSet)))
+      opt[Seq[String]]("ignoredLibs")
+        .action((x, c) => c.mapConversion(_.copy(ignored = x.toSet.sorted)))
         .text(s"Libraries you want to ignore"),
       opt[Boolean]("experimentalEnableImplicitOps")
         .action { (x, c) =>

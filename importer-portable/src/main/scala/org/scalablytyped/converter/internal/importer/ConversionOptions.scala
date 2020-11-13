@@ -6,20 +6,27 @@ import io.circe013.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.scalajs.{flavours, Name, Versions}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 
+import scala.collection.immutable.SortedSet
+
 case class ConversionOptions(
     useScalaJsDomTypes:     Boolean,
     flavour:                Flavour,
     outputPackage:          Name,
     enableScalaJsDefined:   Selection[TsIdentLibrary],
-    stdLibs:                IArray[String],
+    stdLibs:                SortedSet[String],
     expandTypeMappings:     Selection[TsIdentLibrary],
-    ignoredLibs:            Set[TsIdentLibrary],
-    ignoredModulePrefixes:  Set[List[String]],
+    ignored:                SortedSet[String],
     versions:               Versions,
     organization:           String,
     enableReactTreeShaking: Selection[Name],
     enableLongApplyMethod:  Boolean,
 ) {
+  val ignoredLibs: Set[TsIdentLibrary] =
+    ignored.map(TsIdentLibrary.apply)
+
+  val ignoredModulePrefixes: Set[List[String]] =
+    ignored.map(_.split("/").toList)
+
   val flavourImpl: flavours.FlavourImpl =
     flavour match {
       case Flavour.Normal =>

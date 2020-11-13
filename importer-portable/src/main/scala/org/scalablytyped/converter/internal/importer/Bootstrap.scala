@@ -35,7 +35,7 @@ object Bootstrap {
 
       StdLibSource(
         InFolder(folder),
-        conversion.stdLibs.map(s => InFile(folder / s"lib.$s.d.ts")),
+        IArray.fromTraversable(conversion.stdLibs.map(s => InFile(folder / s"lib.$s.d.ts"))),
         TsIdent.std,
       )
     }
@@ -67,7 +67,7 @@ object Bootstrap {
 
       StdLibSource(
         InFolder(folder),
-        conversion.stdLibs.map(s => InFile(folder / s"lib.$s.d.ts")),
+        IArray.fromTraversable(conversion.stdLibs.map(s => InFile(folder / s"lib.$s.d.ts"))),
         TsIdent.std,
       )
     }

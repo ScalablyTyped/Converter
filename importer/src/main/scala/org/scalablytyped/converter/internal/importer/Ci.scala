@@ -108,14 +108,13 @@ object Ci {
           Some(
             Config(
               conversion = ConversionOptions(
-                useScalaJsDomTypes    = shouldUseScalaJsDomTypes,
-                outputPackage         = outputPackage,
-                enableScalaJsDefined  = enableScalaJsDefined,
-                flavour               = flavour,
-                ignoredLibs           = Libraries.ignored,
-                ignoredModulePrefixes = Set(),
-                stdLibs               = IArray("esnext.full"),
-                expandTypeMappings    = EnabledTypeMappingExpansion.DefaultSelection,
+                useScalaJsDomTypes   = shouldUseScalaJsDomTypes,
+                outputPackage        = outputPackage,
+                enableScalaJsDefined = enableScalaJsDefined,
+                flavour              = flavour,
+                ignored              = Libraries.ignored.map(_.value),
+                stdLibs              = SortedSet("esnext.full"),
+                expandTypeMappings   = EnabledTypeMappingExpansion.DefaultSelection,
                 versions = Versions(
                   if (flags contains "-scala212") Versions.Scala212 else Versions.Scala213,
                   if (flags contains ("-scalajs06")) Versions.ScalaJs06 else Versions.ScalaJs1,
