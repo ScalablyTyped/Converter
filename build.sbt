@@ -167,8 +167,10 @@ lazy val publicationSettings: Project => Project = _.settings(
           <name>Øyvind Raddum Berg</name>
         </developer>
       </developers>
-  ),
-  bintrayRepository := "converter",
+    ),
+  bintrayRepository := {
+    if (isSnapshot.value) "converter-snapshots" else "converter"
+  },
 )
 
 lazy val preventPublication: Project => Project =

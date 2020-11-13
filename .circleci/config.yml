@@ -30,7 +30,9 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: cat /dev/null | sbt test:compile
+      - run: cat /dev/null | sbt test scalafmtCheck
+
+      - run: cat /dev/null | sbt publish
 
       - save_cache:
           paths:
@@ -39,9 +41,3 @@ jobs:
             - ~/.ivy2/cache
             - ~/.ivy2/local
           key: v1-dependencies--{{ checksum "build.sbt" }}
-
-      # run tests!
-      - run: cat /dev/null | sbt test
-
-      # run scalafmt!
-      - run: cat /dev/null | sbt scalafmtCheck
