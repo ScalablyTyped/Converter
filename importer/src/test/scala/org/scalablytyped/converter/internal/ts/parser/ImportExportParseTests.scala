@@ -91,10 +91,10 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
           TsDeclEnum(
             NoComments,
             declared = false,
-            isConst  = true,
+            isConst = true,
             TsIdent("RoundingMode"),
             Empty,
-            isValue      = true,
+            isValue = true,
             exportedFrom = None,
             Zero,
             CodePath.NoPath,
@@ -292,7 +292,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         TsExporteeTree(
           TsDeclClass(
             NoComments,
-            declared   = false,
+            declared = false,
             isAbstract = false,
             TsIdent("default"),
             IArray(),
@@ -310,7 +310,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
                         TsIdent("statusCode"),
                         Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("number"))), IArray())),
                         None,
-                        isStatic   = false,
+                        isStatic = false,
                         isReadOnly = false,
                       ),
                     ),
@@ -338,7 +338,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         TsExporteeTree(
           TsDeclClass(
             NoComments,
-            declared   = false,
+            declared = false,
             isAbstract = false,
             TsIdent("default"),
             IArray(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
@@ -371,7 +371,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
       TsExport(
         NoComments,
         typeOnly = true,
-        tpe      = ExportType.Named,
+        tpe = ExportType.Named,
         exported = TsExporteeNames(
           IArray(
             (TsQIdent(IArray(TsIdentSimple("DiffOptions"))), None),

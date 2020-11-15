@@ -54,19 +54,21 @@ object ShortenNames {
         val shortName = longName.parts.last
 
         val rewrittenOpt: Option[QualifiedName] = {
-          if (!Name.Internal(shortName) &&
-              longName.parts.head =/= Name.THIS &&
-              longName.parts.head =/= Name.SUPER &&
-              !Forbidden.contains(shortName) &&
-              owner.name =/= shortName &&
-              !longName.startsWith(QualifiedName.linkingInfo) && //unstable path cannot be imported
-              longName.parts.length > 1 &&
-              /* the printer has special logic for these */
-              longName =/= TypeRef.Nothing.typeName &&
-              !TypeRef.ScalaFunction.is(longName) &&
-              !longName.startsWith(QualifiedName.scala_js) &&
-              /* keep more expensive check last */
-              !nameCollision(scope, parentsResolver, longName, methodsAreConflict = methodsAreConflict)) {
+          if (
+            !Name.Internal(shortName) &&
+            longName.parts.head =/= Name.THIS &&
+            longName.parts.head =/= Name.SUPER &&
+            !Forbidden.contains(shortName) &&
+            owner.name =/= shortName &&
+            !longName.startsWith(QualifiedName.linkingInfo) && //unstable path cannot be imported
+            longName.parts.length > 1 &&
+            /* the printer has special logic for these */
+            longName =/= TypeRef.Nothing.typeName &&
+            !TypeRef.ScalaFunction.is(longName) &&
+            !longName.startsWith(QualifiedName.scala_js) &&
+            /* keep more expensive check last */
+            !nameCollision(scope, parentsResolver, longName, methodsAreConflict = methodsAreConflict)
+          ) {
 
             collectedImports.get(shortName) match {
               case Some(alreadyImported) =>
@@ -164,8 +166,8 @@ object ShortenNames {
         longName:           QualifiedName,
         methodsAreConflict: Boolean,
     ): Boolean =
-      parentsResolver(scope, x).transitiveParents.exists {
-        case (_, cls) => among(cls.index, longName, methodsAreConflict)
+      parentsResolver(scope, x).transitiveParents.exists { case (_, cls) =>
+        among(cls.index, longName, methodsAreConflict)
       }
 
     private def among(index: Map[Name, IArray[Tree]], longName: QualifiedName, methodsAreConflict: Boolean): Boolean =

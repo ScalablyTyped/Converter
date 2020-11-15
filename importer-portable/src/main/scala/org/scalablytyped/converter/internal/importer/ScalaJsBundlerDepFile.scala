@@ -32,10 +32,10 @@ object ScalaJsBundlerDepFile {
         Map(
           os.RelPath(ScalaJsBundlerDepFile.manifestFileName) ->
             NpmDependencies(
-              `compile-dependencies`    = deps,
-              `test-dependencies`       = deps,
+              `compile-dependencies` = deps,
+              `test-dependencies` = deps,
               `compile-devDependencies` = Nil,
-              `test-devDependencies`    = Nil,
+              `test-devDependencies` = Nil,
             ).asJson.spaces2.getBytes(constants.Utf8),
         )
       case _ => Map.empty

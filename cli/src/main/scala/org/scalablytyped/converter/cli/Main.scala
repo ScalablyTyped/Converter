@@ -40,17 +40,17 @@ object Main {
   }
 
   val DefaultOptions = ConversionOptions(
-    useScalaJsDomTypes     = true,
-    outputPackage          = Name.typings,
-    enableScalaJsDefined   = Selection.None,
-    flavour                = Flavour.Normal,
-    ignored                = SortedSet("typescript"),
-    stdLibs                = SortedSet("es6"),
-    expandTypeMappings     = EnabledTypeMappingExpansion.DefaultSelection,
-    versions               = Versions(Versions.Scala213, Versions.ScalaJs1),
-    organization           = "org.scalablytyped",
+    useScalaJsDomTypes = true,
+    outputPackage = Name.typings,
+    enableScalaJsDefined = Selection.None,
+    flavour = Flavour.Normal,
+    ignored = SortedSet("typescript"),
+    stdLibs = SortedSet("es6"),
+    expandTypeMappings = EnabledTypeMappingExpansion.DefaultSelection,
+    versions = Versions(Versions.Scala213, Versions.ScalaJs1),
+    organization = "org.scalablytyped",
     enableReactTreeShaking = Selection.None,
-    enableLongApplyMethod  = false,
+    enableLongApplyMethod = false,
   )
 
   case class Config(
@@ -68,12 +68,12 @@ object Main {
 
   val DefaultConfig = Config(
     DefaultOptions,
-    wantedLibs         = SortedSet(),
+    wantedLibs = SortedSet(),
     publishBintrayRepo = None,
-    publishGitUrl      = None,
-    inDirectory        = os.pwd,
-    includeDev         = false,
-    includeProject     = false,
+    publishGitUrl = None,
+    inDirectory = os.pwd,
+    includeDev = false,
+    includeProject = false,
   )
 
   val parseCachePath = Some(files.existing(constants.defaultCacheFolder / 'parse).toNIO)
@@ -192,8 +192,8 @@ object Main {
 
   def table(Key: Attr)(kvs: (String, String)*): Str = {
     val headerLength = kvs.map { case (header, _) => header }.maxBy(_.length).length + 1
-    val massaged = kvs.flatMap {
-      case (header, value) => Seq[Str](Key(header.padTo(headerLength, ' ')), value, "\n")
+    val massaged = kvs.flatMap { case (header, value) =>
+      Seq[Str](Key(header.padTo(headerLength, ' ')), value, "\n")
     }
     Str.join(massaged: _*)
   }
@@ -201,15 +201,15 @@ object Main {
   def main(args: Array[String]): Unit =
     OParser.parse(ParseConversionOptions, args, DefaultConfig) match {
       case Some(
-          c @ Config(
-            conversion,
-            libsFromCmdLine,
-            publishBintrayRepoOpt,
-            publishGitUrlOpt,
-            inDir,
-            includeDev,
-            includeProject,
-          ),
+            c @ Config(
+              conversion,
+              libsFromCmdLine,
+              publishBintrayRepoOpt,
+              publishGitUrlOpt,
+              inDir,
+              includeDev,
+              includeProject,
+            ),
           ) =>
         val packageJsonPath = c.paths.packageJson.getOrElse(sys.error(s"$inDir does not contain package.json"))
         val nodeModulesPath = c.paths.node_modules.getOrElse(sys.error(s"$inDir does not contain node_modules"))
@@ -278,38 +278,38 @@ object Main {
             .next(
               new Phase1ReadTypescript(
                 calculateLibraryVersion = PackageJsonOnly,
-                resolve                 = bootstrapped.libraryResolver,
-                ignored                 = conversion.ignoredLibs,
-                ignoredModulePrefixes   = conversion.ignoredModulePrefixes,
-                pedantic                = false,
-                parser                  = PersistingParser(parseCachePath, bootstrapped.inputFolders, logger.void),
-                expandTypeMappings      = conversion.expandTypeMappings,
+                resolve = bootstrapped.libraryResolver,
+                ignored = conversion.ignoredLibs,
+                ignoredModulePrefixes = conversion.ignoredModulePrefixes,
+                pedantic = false,
+                parser = PersistingParser(parseCachePath, bootstrapped.inputFolders, logger.void),
+                expandTypeMappings = conversion.expandTypeMappings,
               ),
               "typescript",
             )
             .next(
               new Phase2ToScalaJs(
-                pedantic             = false,
+                pedantic = false,
                 enableScalaJsDefined = conversion.enableScalaJsDefined,
-                outputPkg            = conversion.outputPackage,
-                flavour              = conversion.flavourImpl,
+                outputPkg = conversion.outputPackage,
+                flavour = conversion.flavourImpl,
               ),
               "scala.js",
             )
             .next(new PhaseFlavour(conversion.flavourImpl), conversion.flavourImpl.toString)
             .next(
               new Phase3Compile(
-                versions                   = conversion.versions,
-                compiler                   = compiler,
-                targetFolder               = c.paths.out,
-                organization               = conversion.organization,
-                publisherOpt               = None,
-                publishLocalFolder         = constants.defaultLocalPublishFolder,
-                metadataFetcher            = Npmjs.No,
-                softWrites                 = true,
-                flavour                    = conversion.flavourImpl,
+                versions = conversion.versions,
+                compiler = compiler,
+                targetFolder = c.paths.out,
+                organization = conversion.organization,
+                publisherOpt = None,
+                publishLocalFolder = constants.defaultLocalPublishFolder,
+                metadataFetcher = Npmjs.No,
+                softWrites = true,
+                flavour = conversion.flavourImpl,
                 generateScalaJsBundlerFile = false,
-                ensureSourceFilesWritten   = true,
+                ensureSourceFilesWritten = true,
               ),
               "build",
             )

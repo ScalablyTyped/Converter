@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-/**
-  * To give the scala compiler a fighting chance, we will have to rewrite things like this:
+/** To give the scala compiler a fighting chance, we will have to rewrite things like this:
   * ```typescript
   * class Foo {
   *   bar: () => string
@@ -18,9 +17,7 @@ package transforms
   *
   * The reason is that Typescript allows overriding things in this manner, while the scala compiler obviously doesnt.
   *
-  *
   * Also rewrite optional methods to properties, since scala has no such concept
-  *
   */
 object NormalizeFunctions extends TransformMembers with TransformClassMembers {
   object ToRewrite {

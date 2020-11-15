@@ -73,8 +73,8 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
               i.inheritance.map(i => Comment("/* Inlined parent " + TsTypeFormatter(i) + " */\n")).toList,
             )
             i.copy(
-              comments    = i.comments ++ notices,
-              members     = newMembers,
+              comments = i.comments ++ notices,
+              members = newMembers,
               inheritance = Empty,
             )
           case _ => x
@@ -89,7 +89,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
                 val notice = Comment("/* Inlined " + TsTypeFormatter(alias) + " */\n")
                 ta.copy(
                   comments = comments + notice,
-                  alias    = TsTypeUnion.simplified(IArray.fromTraversable(value).map(x => TsTypeLiteral(x.lit))),
+                  alias = TsTypeUnion.simplified(IArray.fromTraversable(value).map(x => TsTypeLiteral(x.lit))),
                 )
               case Ok(_, false) =>
                 ta
@@ -150,7 +150,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
       }
   }
 
-  case class Ok[T](value:       T, wasRewritten: Boolean) extends Res[T]
+  case class Ok[T](value: T, wasRewritten: Boolean) extends Res[T]
   case class Problems(problems: IArray[Problem]) extends Res[Nothing]
 
   object Res {
@@ -188,7 +188,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
 
   case class NoMembers(scope: TsTreeScope, tm: TsMemberTypeMapped) extends Problem
 
-  case class UnsupportedTM(scope:    TsTreeScope, tm: TsMemberTypeMapped) extends Problem
+  case class UnsupportedTM(scope: TsTreeScope, tm: TsMemberTypeMapped) extends Problem
   case class CouldNotPickKeys(scope: TsTreeScope, keys: Set[String]) extends Problem
   case class UnsupportedPredicate(e: TsType) extends Problem
 
@@ -241,8 +241,8 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
             case (x: TsDeclInterface, _) =>
               Ok(keysFor(FillInTParams(x, tr.tparams).members).toSet, wasRewritten = false)
             case (x: TsDeclEnum, _) if x.isConst =>
-              val names = x.members.collect {
-                case TsEnumMember(_, _, Some(TsExpr.Literal(lit))) => TaggedLiteral(lit)(isOptional = false)
+              val names = x.members.collect { case TsEnumMember(_, _, Some(TsExpr.Literal(lit))) =>
+                TaggedLiteral(lit)(isOptional = false)
               }
               Ok(names.toSet, wasRewritten = false)
           }
@@ -286,8 +286,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
     res
   }
 
-  /**
-    * This is obviously not much of an implementation, just enough to get @material-ui/core running
+  /** This is obviously not much of an implementation, just enough to get @material-ui/core running
     */
   def evaluatePredicate(x: TsType): Res[Boolean] =
     x match {
@@ -314,12 +313,12 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
               val replaced   = Replace(TsTypeRef(keyRef), key.lit, ld).visitTsType(scope)(to_)
               val memberType = ResolveTypeLookups.visitTsType(scope)(replaced)
               TsMemberProperty(
-                comments   = NoComments,
-                level      = level,
-                name       = TsIdent(key.lit.literal),
-                tpe        = Some(optionalize(memberType)),
-                expr       = None,
-                isStatic   = false,
+                comments = NoComments,
+                level = level,
+                name = TsIdent(key.lit.literal),
+                tpe = Some(optionalize(memberType)),
+                expr = None,
+                isStatic = false,
                 isReadOnly = readOnly(false), //todo!
               )
             }

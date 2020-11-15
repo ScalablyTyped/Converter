@@ -12,8 +12,7 @@ import org.scalablytyped.converter.internal.scalajs.ParentsResolver.{
 
 import scala.collection.mutable
 
-/**
-  * @deprecated This doesn't handle any of `Name.Internal`.
+/** @deprecated This doesn't handle any of `Name.Internal`.
   *
   * Ideally we'll handle all of that on the typescript side, but we don't yet
   */
@@ -44,8 +43,8 @@ object ParentsResolver {
       parents.flatMap(_.members) ++ classTree.members
 
     lazy val fields: IArray[FieldTree] =
-      members.collect {
-        case x: FieldTree => x
+      members.collect { case x: FieldTree =>
+        x
       }
   }
 
@@ -76,8 +75,7 @@ object ParentsResolver {
 
   sealed trait Res
 
-  /**
-    * Result of conversion error.
+  /** Result of conversion error.
     * We handle it since it's not necessary to fail a whole library if one exists
     */
   case object Circular extends Res

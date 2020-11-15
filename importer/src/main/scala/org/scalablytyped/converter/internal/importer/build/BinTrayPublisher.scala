@@ -25,8 +25,8 @@ class BinTrayPublisher private (
     user:         String,
     password:     String,
     repoName:     ProjectName,
-)(
-    implicit ec: ExecutionContext,
+)(implicit
+    ec: ExecutionContext,
 ) extends Publisher {
 
   override val sbtPublishTo = s"bintrayRepository := ${quote(repoName.value)}"
@@ -98,9 +98,8 @@ class BinTrayPublisher private (
   object isEnabled extends Publisher.Enabled {
     override def publish(name: String, reference: Dep, layout: Layout[os.RelPath, os.Path]): Future[Unit] = {
       def uploadFiles(pkg: repo.Package): Iterable[Future[Boolean]] =
-        layout.all.map {
-          case (relPath, src) =>
-            retry(2)(pkg.mvnUpload(relPath.toString(), src.toIO).exploded(true)(Handle.createOrConflict))
+        layout.all.map { case (relPath, src) =>
+          retry(2)(pkg.mvnUpload(relPath.toString(), src.toIO).exploded(true)(Handle.createOrConflict))
         }
 
       for {
@@ -153,8 +152,7 @@ object BinTrayPublisher {
   }
 }
 
-/**
-  * Yeah, I know. There are better ways. there must be.
+/** Yeah, I know. There are better ways. there must be.
   * This, however, was very easy
   */
 private object Caching {

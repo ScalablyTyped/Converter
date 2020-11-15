@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 package modules
 
-/**
-  * Move globals into their own namespace:
+/** Move globals into their own namespace:
   *
   * given a file like this:
   * ```typescript

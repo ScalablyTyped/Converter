@@ -8,8 +8,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
   override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl =
     x match {
 
-      /**
-        * Given this:
+      /** Given this:
         * ```typescript
         * interface Foo { [key: string]: value}
         * ```
@@ -32,8 +31,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
           TsDeclInterface(comments, declared, name, tparams, Empty, members, codePath)
         else ta
 
-      /**
-        * Given this:
+      /** Given this:
         * ```typescript
         * interface Foo {bar: number}
         * interface Bar extends Foo {}
@@ -63,8 +61,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
           TsDeclTypeAlias(comments, declared, name, tparams, singleInheritance, codePath)
         }
 
-      /**
-        * We do this rewrite because in Scala we have no way to instantiate a new instance of `Foo`
+      /** We do this rewrite because in Scala we have no way to instantiate a new instance of `Foo`
         *
         * ``typescript
         * interface Foo {&LT;T extends object&GT;(a: T) => void}
@@ -73,7 +70,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         * ```typescript
         * type Foo = (a: object) => void;
         * ```
-        **/
+        */
       case IsFunction(typeAlias) =>
         if (hasCircularReference(typeAlias.codePath.forceHasPath.codePath, mutable.Set(), t, typeAlias.alias)) x
         else {
@@ -81,8 +78,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
           typeAlias
         }
 
-      /**
-        * There is also a case where we prefer interfaces:
+      /** There is also a case where we prefer interfaces:
         * ```typescript
         * type Foo = { bar: number }
         * ```
@@ -127,20 +123,19 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
   def memberHack(tree: TsTree): TsTree =
     tree match {
       case x: TsDeclInterface =>
-        val newMembers = x.members.collect {
-          case x: TsMemberCall => x
+        val newMembers = x.members.collect { case x: TsMemberCall =>
+          x
         }
         x.copy(members = newMembers)
       case x: TsDeclClass =>
-        val newMembers = x.members.collect {
-          case x: TsMemberCall => x
+        val newMembers = x.members.collect { case x: TsMemberCall =>
+          x
         }
         x.copy(members = newMembers)
       case other => other
     }
 
-  /**
-    * Typescript and Scala share limitations on recursive/circular types.
+  /** Typescript and Scala share limitations on recursive/circular types.
     * For instance this is not allowed
     * ```typescript
     * type T = T[] | number;
@@ -165,10 +160,9 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
           else
             scope
               .lookupTypeIncludeScope(ref.name, /* lazy handling of type parameters */ skipValidation = true)
-              .exists {
-                case (found, newScope) =>
-                  cache += ref
-                  hasCircularReference(self, cache, newScope, found)
+              .exists { case (found, newScope) =>
+                cache += ref
+                hasCircularReference(self, cache, newScope, found)
               }
         }
       case circularReferences =>

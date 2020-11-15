@@ -58,13 +58,13 @@ trait ImporterHarness extends AnyFunSuite {
       RecPhase[Source]
         .next(
           new Phase1ReadTypescript(
-            resolve                 = resolver,
+            resolve = resolver,
             calculateLibraryVersion = new DTVersions(DTLastChangedIndex.No, includeGitPart = false),
-            ignored                 = ignored,
-            ignoredModulePrefixes   = Set.empty,
-            pedantic                = pedantic,
-            parser                  = parser.parseFile,
-            expandTypeMappings      = EnabledTypeMappingExpansion.DefaultSelection,
+            ignored = ignored,
+            ignoredModulePrefixes = Set.empty,
+            pedantic = pedantic,
+            parser = parser.parseFile,
+            expandTypeMappings = EnabledTypeMappingExpansion.DefaultSelection,
           ),
           "typescript",
         )
@@ -72,25 +72,25 @@ trait ImporterHarness extends AnyFunSuite {
           new Phase2ToScalaJs(
             pedantic,
             enableScalaJsDefined = Selection.None,
-            outputPkg            = flavour.outputPkg,
-            flavour              = flavour,
+            outputPkg = flavour.outputPkg,
+            flavour = flavour,
           ),
           "scala.js",
         )
         .next(new PhaseFlavour(flavour), flavour.toString)
         .next(
           new Phase3Compile(
-            versions                   = version,
-            compiler                   = bloop,
-            targetFolder               = targetFolder,
-            organization               = "org.scalablytyped",
-            publisherOpt               = Some(BinTrayPublisher.Dummy),
-            publishLocalFolder         = publishLocalFolder,
-            metadataFetcher            = Npmjs.No,
-            softWrites                 = true,
-            flavour                    = flavour,
+            versions = version,
+            compiler = bloop,
+            targetFolder = targetFolder,
+            organization = "org.scalablytyped",
+            publisherOpt = Some(BinTrayPublisher.Dummy),
+            publishLocalFolder = publishLocalFolder,
+            metadataFetcher = Npmjs.No,
+            softWrites = true,
+            flavour = flavour,
             generateScalaJsBundlerFile = true,
-            ensureSourceFilesWritten   = true,
+            ensureSourceFilesWritten = true,
           ),
           "build",
         )
@@ -119,8 +119,8 @@ trait ImporterHarness extends AnyFunSuite {
       update:   Boolean,
       flavour: FlavourImpl = NormalFlavour(
         shouldUseScalaJsDomTypes = false,
-        enableLongApplyMethod    = false,
-        outputPkg                = Name.typings,
+        enableLongApplyMethod = false,
+        outputPkg = Name.typings,
       ),
   ): Assertion = {
     val testFolder   = findTestFolder(testName)
@@ -180,18 +180,16 @@ trait ImporterHarness extends AnyFunSuite {
           os.copy(targetFolder, checkFolder)
           synchronized(%("git", "add", checkFolder))
         }
-        errors.foreach {
-          case (fromSource, detail) =>
-            logRegistry.logs.foreach {
-              case (name, logger) =>
-                println(("-" * 10) + name)
-                println(logger.underlying.toString)
-            }
+        errors.foreach { case (fromSource, detail) =>
+          logRegistry.logs.foreach { case (name, logger) =>
+            println(("-" * 10) + name)
+            println(logger.underlying.toString)
+          }
 
-            detail match {
-              case Left(th)   => fail(s"Could not import $fromSource", th)
-              case Right(msg) => fail(s"Could not import $fromSource: $msg")
-            }
+          detail match {
+            case Left(th)   => fail(s"Could not import $fromSource", th)
+            case Right(msg) => fail(s"Could not import $fromSource: $msg")
+          }
         }
         fail("should not happen")
 

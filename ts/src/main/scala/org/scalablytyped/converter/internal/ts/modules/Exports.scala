@@ -72,18 +72,16 @@ object Exports {
           case None => scope
         }
 
-        idents.flatMap {
-          case (qIdent, asNameOpt) =>
-            val found = newScope.lookupInternal(Picker.All, qIdent.parts, loopDetector)
-            if (found.isEmpty && newScope.root.pedantic) {
-              //for debugging
-              newScope.lookupInternal(Picker.All, qIdent.parts, loopDetector)
-              newScope.logger.warn(s"Could not resolve $qIdent")
-            }
-            found.flatMap {
-              case (found, newNewScope) =>
-                export(codePath, jsLocation, newNewScope, exportType, found, asNameOpt, loopDetector)
-            }
+        idents.flatMap { case (qIdent, asNameOpt) =>
+          val found = newScope.lookupInternal(Picker.All, qIdent.parts, loopDetector)
+          if (found.isEmpty && newScope.root.pedantic) {
+            //for debugging
+            newScope.lookupInternal(Picker.All, qIdent.parts, loopDetector)
+            newScope.logger.warn(s"Could not resolve $qIdent")
+          }
+          found.flatMap { case (found, newNewScope) =>
+            export(codePath, jsLocation, newNewScope, exportType, found, asNameOpt, loopDetector)
+          }
         }
 
       case TsExport(_, _, exportType, TsExporteeStar(from)) =>
@@ -159,8 +157,7 @@ object Exports {
 
   case class PickedExport(export: TsExport, newWanted: IArray[TsIdent])
 
-  /**
-    * This is used when resolving. If we have an import in current scope which points
+  /** This is used when resolving. If we have an import in current scope which points
     * to a module, this finds the matching export in the pointee.
     */
   def pickExports(exports: IArray[TsExport], wanted: IArray[TsIdent]): IArray[PickedExport] =
@@ -194,8 +191,7 @@ object Exports {
         }
     }
 
-  /**
-    * Structures which come from an `import` do not have a fixed javascript location, that can
+  /** Structures which come from an `import` do not have a fixed javascript location, that can
     *  only be determined once they are exported
     */
   def rewriteLocationToOwner(jsLocation: JsLocation, ms: ModuleSpec): JsLocation =
@@ -213,11 +209,10 @@ object Exports {
       loopDetector: LoopDetector,
       owner:        TsDeclNamespaceOrModule,
   ): IArray[(T, TsTreeScope)] =
-    pickExports(scope.exports, wanted).flatMap {
-      case PickedExport(e, newWanteds) =>
-        val expanded: IArray[TsNamedDecl] =
-          expandExport(scope, ms => rewriteLocationToOwner(owner.jsLocation, ms), e, loopDetector, owner)
+    pickExports(scope.exports, wanted).flatMap { case PickedExport(e, newWanteds) =>
+      val expanded: IArray[TsNamedDecl] =
+        expandExport(scope, ms => rewriteLocationToOwner(owner.jsLocation, ms), e, loopDetector, owner)
 
-        Utils.searchAmong(scope, Pick, newWanteds, expanded, loopDetector)
+      Utils.searchAmong(scope, Pick, newWanteds, expanded, loopDetector)
     }
 }

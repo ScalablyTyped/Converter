@@ -25,14 +25,12 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
 
     val stSourceGenMode = settingKey[SourceGenMode]("Whether to run automatically as source generator or manually")
 
-    /**
-      * A list of library names you don't care too much about.
+    /** A list of library names you don't care too much about.
       * The idea is that we can limit compile time (by a lot!)
       */
     val stMinimize = settingKey[Selection[String]]("Specify which libraries you want minimized")
 
-    /**
-      * If you care about a small set of specific things from a library you can explicitly say you want that.
+    /** If you care about a small set of specific things from a library you can explicitly say you want that.
       * Examples:
       * - `angularCommon.mod.AsyncPipe`
       * - `std.console`
@@ -96,15 +94,18 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
 
         val input = ImportTypingsGenSources.Input(
           converterVersion = BuildInfo.version,
-          conversion       = conversion,
-          fromFolder       = InFolder(fromDir),
-          targetFolder     = toDir,
-          wantedLibs       = wantedLibs,
-          minimize         = stMinimize.value.map(TsIdentLibrary.apply),
-          minimizeKeep     = minimizeKeep,
+          conversion = conversion,
+          fromFolder = InFolder(fromDir),
+          targetFolder = toDir,
+          wantedLibs = wantedLibs,
+          minimize = stMinimize.value.map(TsIdentLibrary.apply),
+          minimizeKeep = minimizeKeep,
         )
 
-        (Try(Json.force[ImportTypingsGenSources.Input](cachedInputs)).toOption, Json.opt[Seq[File]](cachedOutputs)) match {
+        (
+          Try(Json.force[ImportTypingsGenSources.Input](cachedInputs)).toOption,
+          Json.opt[Seq[File]](cachedOutputs),
+        ) match {
           case (Some(`input`), Some(output)) =>
             logger.warn("Nothing to do")
             output

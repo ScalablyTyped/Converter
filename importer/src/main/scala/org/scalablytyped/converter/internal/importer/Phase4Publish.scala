@@ -9,8 +9,7 @@ import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-/**
-  * This phase publishes all of the projects to bintray
+/** This phase publishes all of the projects to bintray
   *
   * @param publisher
   */
@@ -24,7 +23,8 @@ case class Phase4Publish(publisher: Publisher.Enabled) extends Phase[Source, Pub
   ): PhaseRes[Source, PublishedSbtProject] =
     getDeps(lib.project.deps.keys.to[SortedSet]).flatMap { deps: Map[Source, PublishedSbtProject] =>
       /** This is somewhat annoying. The bintry thing we deploy with insists on
-        *  receiving already written files. We just wrote them locally for ivy, so... */
+        *  receiving already written files. We just wrote them locally for ivy, so...
+        */
       val alreadyWrittenMavenFiles: MavenLayout[os.RelPath, os.Path] =
         MavenLayout(
           lib.project.reference,

@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-/**
-  * There is this weird pattern:
+/** There is this weird pattern:
   *
   * ```typescript
   *
@@ -49,8 +48,8 @@ object SimplifyParents extends TreeTransformationScopedChanges {
         types.flatMap(tpe => lift(scope, ref, tpe))
       case TsTypeQuery(expr) =>
         val wasClass: Option[TsTypeRef] =
-          scope.lookupBase(Picker.NamedValues, expr, true).collectFirst {
-            case (x: TsDeclClass, _) => TsTypeRef(NoComments, x.codePath.get.fold(expr)(_.codePath), Empty)
+          scope.lookupBase(Picker.NamedValues, expr, true).collectFirst { case (x: TsDeclClass, _) =>
+            TsTypeRef(NoComments, x.codePath.get.fold(expr)(_.codePath), Empty)
           }
 
         wasClass match {

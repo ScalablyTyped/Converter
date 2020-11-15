@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
-/**
-  * Error:scalac: Error while emitting ScalablyTyped/AtBabelTypesLib/AtBabelTypesModule/AtBabelTypesModuleMembers$
+/** Error:scalac: Error while emitting ScalablyTyped/AtBabelTypesLib/AtBabelTypesModule/AtBabelTypesModuleMembers$
   * Maximum String literal length exceeded
   */
 object LimitUnionLength extends TreeTransformation {

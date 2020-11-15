@@ -17,8 +17,8 @@ object seqs {
       None
     }
 
-    def partitionCollect[T1](t1: PartialFunction[T, T1])(
-        implicit cbfT:           CanBuildFrom[C[T], T, C[T]],
+    def partitionCollect[T1](t1: PartialFunction[T, T1])(implicit
+        cbfT:                    CanBuildFrom[C[T], T, C[T]],
         cbfT1:                   CanBuildFrom[C[T], T1, C[T1]],
     ): (C[T1], C[T]) = {
 
@@ -33,8 +33,8 @@ object seqs {
       (t1s.result(), rest.result())
     }
 
-    def partitionCollect2[T1, T2](t1: PartialFunction[T, T1], t2: PartialFunction[T, T2])(
-        implicit cbfT:                CanBuildFrom[C[T], T, C[T]],
+    def partitionCollect2[T1, T2](t1: PartialFunction[T, T1], t2: PartialFunction[T, T2])(implicit
+        cbfT:                         CanBuildFrom[C[T], T, C[T]],
         cbfT1:                        CanBuildFrom[C[T], T1, C[T1]],
         cbfT2:                        CanBuildFrom[C[T], T2, C[T2]],
     ): (C[T1], C[T2], C[T]) = {
@@ -55,11 +55,11 @@ object seqs {
         t1: PartialFunction[T, T1],
         t2: PartialFunction[T, T2],
         t3: PartialFunction[T, T3],
-    )(
-        implicit cbfT: CanBuildFrom[C[T], T, C[T]],
-        cbfT1:         CanBuildFrom[C[T], T1, C[T1]],
-        cbfT2:         CanBuildFrom[C[T], T2, C[T2]],
-        cbfT3:         CanBuildFrom[C[T], T3, C[T3]],
+    )(implicit
+        cbfT:  CanBuildFrom[C[T], T, C[T]],
+        cbfT1: CanBuildFrom[C[T], T1, C[T1]],
+        cbfT2: CanBuildFrom[C[T], T2, C[T2]],
+        cbfT3: CanBuildFrom[C[T], T3, C[T3]],
     ): (C[T1], C[T2], C[T3], C[T]) = {
 
       val t1s  = cbfT1()
@@ -82,12 +82,12 @@ object seqs {
         t2: PartialFunction[T, T2],
         t3: PartialFunction[T, T3],
         t4: PartialFunction[T, T4],
-    )(
-        implicit cbfT: CanBuildFrom[C[T], T, C[T]],
-        cbfT1:         CanBuildFrom[C[T], T1, C[T1]],
-        cbfT2:         CanBuildFrom[C[T], T2, C[T2]],
-        cbfT3:         CanBuildFrom[C[T], T3, C[T3]],
-        cbfT4:         CanBuildFrom[C[T], T4, C[T4]],
+    )(implicit
+        cbfT:  CanBuildFrom[C[T], T, C[T]],
+        cbfT1: CanBuildFrom[C[T], T1, C[T1]],
+        cbfT2: CanBuildFrom[C[T], T2, C[T2]],
+        cbfT3: CanBuildFrom[C[T], T3, C[T3]],
+        cbfT4: CanBuildFrom[C[T], T4, C[T4]],
     ): (C[T1], C[T2], C[T3], C[T4], C[T]) = {
 
       val t1s  = cbfT1()
@@ -113,13 +113,13 @@ object seqs {
         t3: PartialFunction[T, T3],
         t4: PartialFunction[T, T4],
         t5: PartialFunction[T, T5],
-    )(
-        implicit cbfT: CanBuildFrom[C[T], T, C[T]],
-        cbfT1:         CanBuildFrom[C[T], T1, C[T1]],
-        cbfT2:         CanBuildFrom[C[T], T2, C[T2]],
-        cbfT3:         CanBuildFrom[C[T], T3, C[T3]],
-        cbfT4:         CanBuildFrom[C[T], T4, C[T4]],
-        cbfT5:         CanBuildFrom[C[T], T5, C[T5]],
+    )(implicit
+        cbfT:  CanBuildFrom[C[T], T, C[T]],
+        cbfT1: CanBuildFrom[C[T], T1, C[T1]],
+        cbfT2: CanBuildFrom[C[T], T2, C[T2]],
+        cbfT3: CanBuildFrom[C[T], T3, C[T3]],
+        cbfT4: CanBuildFrom[C[T], T4, C[T4]],
+        cbfT5: CanBuildFrom[C[T], T5, C[T5]],
     ): (C[T1], C[T2], C[T3], C[T4], C[T5], C[T]) = {
 
       val t1s  = cbfT1()

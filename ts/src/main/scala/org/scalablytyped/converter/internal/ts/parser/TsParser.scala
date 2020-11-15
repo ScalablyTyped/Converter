@@ -7,12 +7,12 @@ import scala.util.parsing.input.{OffsetPosition, Reader}
 
 object TsParser extends TsParser(None)
 
-/****
-  ** We cache results of some parsers because scala parser combinators are sooo slow.
-  ** This means that a given `TsParser` is only valid for the given `path`, if provided
-  **
-  ** @param path with length of file
-  **/
+/** **
+  * * We cache results of some parsers because scala parser combinators are sooo slow.
+  * * This means that a given `TsParser` is only valid for the given `path`, if provided
+  * *
+  * * @param path with length of file
+  */
 class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with ParserHelpers with ImplicitConversions1 {
   self =>
   type Tokens = TsLexer.type
@@ -21,7 +21,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   protected def perhapsParens[T](p: Parser[T]): Parser[T] =
     p | ("(" ~> p <~ ")")
 
-  /** enable direct use of parsers with strings **/
+  /** enable direct use of parsers with strings * */
   implicit def FromString[T](p: Parser[T]): String => ParseResult[T] =
     (str: String) => phrase(p)(new lexical.Scanner(str.trim))
 
@@ -48,7 +48,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   def apply(content: String): ParseResult[TsParsedFile] =
     parsedTsFile(content)
 
-  /** handle stray comments **/
+  /** handle stray comments * */
   override def Parser[T](f: Input => ParseResult[T]): Parser[T] =
     (in: Reader[lexical.Token]) =>
       f(in) match {
@@ -63,7 +63,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   private val identifierName: Parser[String] =
     accept(
-      "IdentifierName", {
+      "IdentifierName",
+      {
         case lexical.Identifier(chars)                                  => chars
         case lexical.Keyword(chars) if chars.forall(Character.isLetter) => chars
         case lexical.NumericLit(chars)                                  => chars
@@ -83,7 +84,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   val comment: Parser[Comment] =
     accept(
-      "comment", {
+      "comment",
+      {
         case lexical.CommentBlockToken(chars)             => Comment(chars)
         case lexical.CommentLineToken(chars)              => Comment(chars)
         case lexical.CommentLineTokenAfterDelim(_, chars) => Comment(chars)
@@ -95,7 +97,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   def delimMaybeComment(delims: Char*): Parser[Option[Comment]] =
     accept(
-      "Line comment (after delim)", {
+      "Line comment (after delim)",
+      {
         case lexical.CommentLineTokenAfterDelim(delim, chars) if delims contains delim =>
           Some(Comment(chars))
         case lexical.Keyword(chars) if chars.length === 1 && delims.contains(chars.head) =>
@@ -105,7 +108,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val directive: Parser[Directive] =
     accept(
-      "Directive", {
+      "Directive",
+      {
         case lexical.DirectiveToken("reference", "lib", value)   => DirectiveLibRef(value)
         case lexical.DirectiveToken("reference", "types", value) => DirectiveTypesRef(value)
         case lexical.DirectiveToken("references", "types", value) =>
@@ -119,9 +123,12 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   lazy val directives: Parser[IArray[Directive]] =
     (comments ~> directive).**.named("directives")
 
-  lazy val shebang = accept("Shebang", {
-    case lexical.Shebang(_) => ()
-  })
+  lazy val shebang = accept(
+    "Shebang",
+    { case lexical.Shebang(_) =>
+      ()
+    },
+  )
 
   lazy val parsedTsFile: Parser[TsParsedFile] =
     shebang.? ~> comments ~ directives ~ tsContainerOrDecls ~ success(CodePath.NoPath) ^^ TsParsedFile
@@ -270,8 +277,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       exporteeTree | exportedNames | exporteeStar
     }
 
-    (comments <~ "export") ~ exportType ~! exportee ^^ {
-      case cs ~ exportType ~ (typeOnly ~ exportee) => TsExport(cs, typeOnly, exportType, exportee)
+    (comments <~ "export") ~ exportType ~! exportee ^^ { case cs ~ exportType ~ (typeOnly ~ exportee) =>
+      TsExport(cs, typeOnly, exportType, exportee)
     }
   }
 
@@ -294,12 +301,11 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val tsDeclVars: Parser[IArray[TsDeclVar]] = {
     val variable = ("var" | "let") ^^ (_ => false)
-    val constant = "const" ^^ (_         => true)
+    val constant = "const" ^^ (_ => true)
     comments ~ isDeclared ~ (variable | constant) ~ rep1sep_(tsIdent ~ typeAnnotationOpt ~ ("=" ~> expr).?, ",") ^^ {
       case cs ~ declared ~ isReadonly ~ vars =>
-        vars.map {
-          case name ~ tpe ~ expr =>
-            TsDeclVar(cs, declared, isReadonly, name, tpe, expr, JsLocation.Zero, CodePath.NoPath)
+        vars.map { case name ~ tpe ~ expr =>
+          TsDeclVar(cs, declared, isReadonly, name, tpe, expr, JsLocation.Zero, CodePath.NoPath)
         }
     }
   }
@@ -308,14 +314,16 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     comments ~ (isDeclared <~ "function") ~ identifierOrDefault ~ functionSignature ~ zeroLocation ~ zeroCodePath ^^ TsDeclFunction
 
   lazy val tsDeclEnum: Parser[TsDeclEnum] =
-    comments ~ isDeclared ~ ("const".isDefined <~ "enum") ~ tsIdent ~ ("{" ~> tsEnumMembers <~ "}") ~ success(true) ~ success(
+    comments ~ isDeclared ~ ("const".isDefined <~ "enum") ~ tsIdent ~ ("{" ~> tsEnumMembers <~ "}") ~ success(
+      true,
+    ) ~ success(
       None,
     ) ~ zeroLocation ~ zeroCodePath ^^ TsDeclEnum
 
   lazy val tsEnumMembers: Parser[IArray[TsEnumMember]] = {
     val base: Parser[TsEnumMember] =
-      comments ~ tsIdentLiberal ~ ("=" ~> expr).? ~ delimMaybeComment(',').? ^^ {
-        case cs ~ name ~ exprOpt ~ oc => TsEnumMember(cs +? oc.flatten, name, exprOpt)
+      comments ~ tsIdentLiberal ~ ("=" ~> expr).? ~ delimMaybeComment(',').? ^^ { case cs ~ name ~ exprOpt ~ oc =>
+        TsEnumMember(cs +? oc.flatten, name, exprOpt)
       }
 
     base.**
@@ -337,7 +345,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     val implements: Parser[IArray[TsTypeRef]] =
       "implements" ~> repsep_(tsTypeRef, ",") | success(Empty)
 
-    /** hack to avoid that `identifier` consumes `extends` for default exported classes without name **/
+    /** hack to avoid that `identifier` consumes `extends` for default exported classes without name * */
     val hack: Parser[TsIdentSimple] =
       tsIdent.filter(_.value =/= "extends")
 
@@ -381,7 +389,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   val tsFunctionParams: Parser[IArray[TsFunParam]] = functionParam.** ^^ {
 
-    /** **/
+    /** *
+      */
     case ps if ps.count(_.name.value === "has") > 1 =>
       ps.zipWithIndex.map {
         case (p @ TsFunParam(_, TsIdentSimple("has"), _), idx) => p.copy(name = TsIdent("has" + idx))
@@ -395,17 +404,15 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val functionParam: Parser[TsFunParam] = {
 
-    /** Represent in tree? **/
+    /** Represent in tree? * */
     lazy val destructuredObj: Parser[TsIdentSimple] =
-      "{" ~>! rep((tsIdent | ("..." ~> tsIdent)) <~ (":" <~ (tsIdent | destructured)).? <~ ",".?) <~ "}" ^^ (
-          ids =>
-            TsIdent("has" + ids.map(_.value.capitalize).mkString("")),
-        )
+      "{" ~>! rep((tsIdent | ("..." ~> tsIdent)) <~ (":" <~ (tsIdent | destructured)).? <~ ",".?) <~ "}" ^^ (ids =>
+        TsIdent("has" + ids.map(_.value.capitalize).mkString("")),
+      )
     lazy val destructuredArray: Parser[TsIdentSimple] =
-      "[" ~>! repsep(tsIdent <~ (":" <~ (tsIdent | destructured)).?, ",") <~ "]" ^^ (
-          ids =>
-            TsIdent("has" + ids.map(_.value.capitalize).mkString("")),
-        )
+      "[" ~>! repsep(tsIdent <~ (":" <~ (tsIdent | destructured)).?, ",") <~ "]" ^^ (ids =>
+        TsIdent("has" + ids.map(_.value.capitalize).mkString("")),
+      )
     lazy val destructured = destructuredArray | destructuredObj
 
     comments ~ "...".isDefined ~ (tsIdent | destructured) ~ "?".isDefined ~ (typeAnnotationOpt <~ ("=" ~ expr).?) ~ delimMaybeComment(
@@ -472,12 +479,11 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val tsType: Parser[TsType] = {
     val tsTypeLookupAndArray: Parser[TsType] = memo {
-      baseTypeDesc ~ rep("[" ~> tsType.? <~ "]") ^^ {
-        case base ~ typeLookups =>
-          typeLookups.foldLeft(base) {
-            case (elem, Some(key)) => TsTypeLookup(elem, key)
-            case (elem, None)      => ArrayType(elem)
-          }
+      baseTypeDesc ~ rep("[" ~> tsType.? <~ "]") ^^ { case base ~ typeLookups =>
+        typeLookups.foldLeft(base) {
+          case (elem, Some(key)) => TsTypeLookup(elem, key)
+          case (elem, None)      => ArrayType(elem)
+        }
       }
     }
 
@@ -493,8 +499,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       union ~ "extends" ~ tsType ^^ { case _1 ~ _ ~ _2 => TsTypeExtends(_1, _2) }
 
     lazy val conditional: Parser[TsType] =
-      _extends ~ "?" ~ tsType ~ ":" ~ tsType ^^ {
-        case _1 ~ _ ~ _2 ~ _ ~ _3 => TsTypeConditional(_1, _2, _3)
+      _extends ~ "?" ~ tsType ~ ":" ~ tsType ^^ { case _1 ~ _ ~ _2 ~ _ ~ _3 =>
+        TsTypeConditional(_1, _2, _3)
       }
 
     conditional | _extends | union
@@ -530,20 +536,19 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   lazy val tsMemberNamed: Parser[TsMember] = {
 
     val intro: Parser[(ProtectionLevel, TsIdentSimple, Boolean, Boolean, MethodType)] =
-      tsIdentLiberal.+ ^^ {
-        case mods :+ name =>
-          val level: ProtectionLevel =
-            if (mods.contains(TsIdent("protected"))) ProtectionLevel.Protected
-            else if (mods.contains(TsIdent("private"))) ProtectionLevel.Private
-            else ProtectionLevel.Default
+      tsIdentLiberal.+ ^^ { case mods :+ name =>
+        val level: ProtectionLevel =
+          if (mods.contains(TsIdent("protected"))) ProtectionLevel.Protected
+          else if (mods.contains(TsIdent("private"))) ProtectionLevel.Private
+          else ProtectionLevel.Default
 
-          val static   = mods.contains(TsIdent("static"))
-          val readonly = mods.contains(TsIdent("readonly"))
-          val methodType =
-            if (mods.contains(TsIdent("get"))) MethodType.Getter
-            else if (mods.contains(TsIdent("set"))) MethodType.Setter
-            else MethodType.Normal
-          (level, name, static, readonly, methodType)
+        val static   = mods.contains(TsIdent("static"))
+        val readonly = mods.contains(TsIdent("readonly"))
+        val methodType =
+          if (mods.contains(TsIdent("get"))) MethodType.Getter
+          else if (mods.contains(TsIdent("set"))) MethodType.Setter
+          else MethodType.Normal
+        (level, name, static, readonly, methodType)
       }
 
     val function: Parser[TsMember] =
@@ -628,8 +633,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val qualifiedIdent: Parser[TsQIdent] = {
     val normal = rep1sep_(tsIdent, ".") ^^ TsQIdent.apply
-    val withImport = tsIdentImport ~ rep_("." ~> tsIdent) ^^ {
-      case i ~ rest => TsQIdent(i +: rest)
+    val withImport = tsIdentImport ~ rep_("." ~> tsIdent) ^^ { case i ~ rest =>
+      TsQIdent(i +: rest)
     }
     withImport | normal
   }
@@ -644,10 +649,13 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     numericLit ^^ TsLiteralNumber
 
   lazy val tsLiteralBoolean: Parser[TsLiteralBoolean] =
-    accept("boolean literal", {
-      case lexical.Keyword("true")  => TsLiteralBoolean(true)
-      case lexical.Keyword("false") => TsLiteralBoolean(false)
-    })
+    accept(
+      "boolean literal",
+      {
+        case lexical.Keyword("true")  => TsLiteralBoolean(true)
+        case lexical.Keyword("false") => TsLiteralBoolean(false)
+      },
+    )
 
   lazy val tsLiteral: Parser[TsLiteral] =
     tsLiteralString | tsLiteralNumber | tsLiteralBoolean

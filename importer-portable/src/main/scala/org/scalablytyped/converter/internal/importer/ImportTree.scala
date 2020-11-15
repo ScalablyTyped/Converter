@@ -16,8 +16,8 @@ class ImportTree(
     enableScalaJsDefined: Boolean,
 ) {
   def apply(lib: LibTs, logger: Logger[Unit]): PackageTree = {
-    val deps = UnpackLibs(lib.dependencies).map {
-      case (source, depLib) => source -> depLib.parsed
+    val deps = UnpackLibs(lib.dependencies).map { case (source, depLib) =>
+      source -> depLib.parsed
     }
 
     val scope = TsTreeScope(lib.name, pedantic = true, deps, logger).caching / lib.parsed
@@ -42,7 +42,7 @@ class ImportTree(
         Comments("""/* This can be used to `require` the library as a side effect.
   If it is a global library this will make scalajs-bundler include it */
 """),
-        codePath   = QualifiedName(IArray(outputPkg, libName, name)),
+        codePath = QualifiedName(IArray(outputPkg, libName, name)),
         isOverride = false,
       )
     }
@@ -66,11 +66,11 @@ class ImportTree(
         IArray(
           container(
             importName = importName,
-            scope      = scope,
-            cs         = cs,
+            scope = scope,
+            cs = cs,
             jsLocation = jsLocation,
-            tsMembers  = decls,
-            codePath   = codePath,
+            tsMembers = decls,
+            codePath = codePath,
           ),
         )
 
@@ -78,11 +78,11 @@ class ImportTree(
         IArray(
           container(
             importName = importName,
-            scope      = scope,
-            cs         = Comments(Comment("/* augmented module */\n")),
+            scope = scope,
+            cs = Comments(Comment("/* augmented module */\n")),
             jsLocation = jsLocation,
-            tsMembers  = decls,
-            codePath   = codePath,
+            tsMembers = decls,
+            codePath = codePath,
           ),
         )
 
@@ -90,11 +90,11 @@ class ImportTree(
         IArray(
           container(
             importName = importName,
-            scope      = scope,
-            cs         = cs,
+            scope = scope,
+            cs = cs,
             jsLocation = jsLocation,
-            tsMembers  = decls,
-            codePath   = codePath,
+            tsMembers = decls,
+            codePath = codePath,
           ),
         )
 
@@ -102,11 +102,11 @@ class ImportTree(
         IArray(
           container(
             importName = importName,
-            scope      = scope,
-            cs         = cs,
+            scope = scope,
+            cs = cs,
             jsLocation = JsLocation.Zero,
-            tsMembers  = ms,
-            codePath   = codePath,
+            tsMembers = ms,
+            codePath = codePath,
           ),
         )
 
@@ -132,14 +132,14 @@ class ImportTree(
         )
 
       case TsDeclVar(
-          cs,
-          _,
-          readOnly,
-          _,
-          tpeOpt,
-          _,
-          jsLocation,
-          importName.withJsNameAnnotation((codePath, annOpt)),
+            cs,
+            _,
+            readOnly,
+            _,
+            tpeOpt,
+            _,
+            jsLocation,
+            importName.withJsNameAnnotation((codePath, annOpt)),
           ) =>
         val tpe  = importType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt)
         val name = codePath.parts.last
@@ -148,25 +148,25 @@ class ImportTree(
           IArray(
             ModuleTree(
               annotations = ImportJsLocation(jsLocation),
-              name        = name,
-              parents     = IArray(tpe),
-              members     = Empty,
-              comments    = cs,
-              codePath    = codePath,
-              isOverride  = false,
+              name = name,
+              parents = IArray(tpe),
+              members = Empty,
+              comments = cs,
+              codePath = codePath,
+              isOverride = false,
             ),
           )
         } else
           IArray(
             FieldTree(
               annotations = IArray.fromOption(annOpt),
-              name        = name,
-              tpe         = tpe,
-              impl        = ExprTree.native,
-              isReadOnly  = readOnly,
-              isOverride  = false,
-              comments    = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
-              codePath    = codePath,
+              name = name,
+              tpe = tpe,
+              impl = ExprTree.native,
+              isReadOnly = readOnly,
+              isOverride = false,
+              comments = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
+              codePath = codePath,
             ),
           )
 
@@ -183,17 +183,17 @@ class ImportTree(
 
         val classType = if (isAbstract) ClassType.AbstractClass else ClassType.Class
         val cls = ClassTree(
-          isImplicit  = false,
+          isImplicit = false,
           annotations = anns,
-          name        = newCodePath.parts.last,
-          tparams     = tparams.map(typeParam(scope, importName)),
-          parents     = parents ++ extraInheritance.sorted,
-          ctors       = ctors,
-          members     = ms,
-          classType   = classType,
-          isSealed    = false,
-          comments    = cs,
-          codePath    = newCodePath,
+          name = newCodePath.parts.last,
+          tparams = tparams.map(typeParam(scope, importName)),
+          parents = parents ++ extraInheritance.sorted,
+          ctors = ctors,
+          members = ms,
+          classType = classType,
+          isSealed = false,
+          comments = cs,
+          codePath = newCodePath,
         )
 
         val module: Option[ModuleTree] =
@@ -229,17 +229,17 @@ class ImportTree(
 
         IArray(
           ClassTree(
-            isImplicit  = false,
+            isImplicit = false,
             annotations = anns,
-            name        = newCodePath.parts.last,
-            tparams     = tparams.map(typeParam(scope, importName)),
-            parents     = parents ++ extraInheritance.sorted,
-            ctors       = ctors,
-            members     = ms,
-            classType   = ClassType.Trait,
-            isSealed    = false,
-            comments    = newComments,
-            codePath    = newCodePath,
+            name = newCodePath.parts.last,
+            tparams = tparams.map(typeParam(scope, importName)),
+            parents = parents ++ extraInheritance.sorted,
+            ctors = ctors,
+            members = ms,
+            classType = ClassType.Trait,
+            isSealed = false,
+            comments = newComments,
+            codePath = newCodePath,
           ),
         )
 
@@ -247,9 +247,9 @@ class ImportTree(
         val importedCp = importName(codePath)
         IArray(
           TypeAliasTree(
-            name     = importedCp.parts.last,
-            tparams  = tparams.map(typeParam(scope, importName)),
-            alias    = importType(Wildcards.Prohibit, scope, importName)(alias),
+            name = importedCp.parts.last,
+            tparams = tparams.map(typeParam(scope, importName)),
+            alias = importType(Wildcards.Prohibit, scope, importName)(alias),
             comments = cs,
             codePath = importedCp,
           ),
@@ -259,16 +259,16 @@ class ImportTree(
         val name = codePath.parts.last
         IArray(
           tsMethod(
-            scope          = scope,
-            importName     = importName,
-            level          = ProtectionLevel.Default,
-            name           = name,
-            annOpt         = annOpt,
-            cs             = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
-            methodType     = MethodType.Normal,
-            sig            = sig,
+            scope = scope,
+            importName = importName,
+            level = ProtectionLevel.Default,
+            name = name,
+            annOpt = annOpt,
+            cs = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
+            methodType = MethodType.Normal,
+            sig = sig,
             scalaJsDefined = false,
-            ownerCP        = codePath,
+            ownerCP = codePath,
           ),
         )
       case _: TsExportAsNamespace => Empty
@@ -309,18 +309,18 @@ class ImportTree(
     def unapply(
         es: IArray[MemberRet],
     ): Some[(IArray[CtorTree], IArray[MemberTree], IArray[TypeRef], IArray[MemberTree])] = {
-      val ctors = es.collect {
-        case Ctor(c) => c
+      val ctors = es.collect { case Ctor(c) =>
+        c
       }
-      val others = es.collect {
-        case Normal(o) => o
+      val others = es.collect { case Normal(o) =>
+        o
       }
 
-      val inheritance = es.collect {
-        case Inheritance(o) => o
+      val inheritance = es.collect { case Inheritance(o) =>
+        o
       }
-      val static = es.collect {
-        case Static(o) => o
+      val static = es.collect { case Static(o) =>
+        o
       }
 
       RewriteNamespaceMembers(others) match {
@@ -340,16 +340,16 @@ class ImportTree(
         IArray(
           MemberRet(
             tsMethod(
-              scope          = scope,
-              importName     = importName,
-              level          = level,
-              name           = Name.APPLY,
-              annOpt         = None,
-              cs             = cs,
-              methodType     = MethodType.Normal,
-              sig            = signature,
+              scope = scope,
+              importName = importName,
+              level = level,
+              name = Name.APPLY,
+              annOpt = None,
+              cs = cs,
+              methodType = MethodType.Normal,
+              sig = signature,
               scalaJsDefined = scalaJsDefined,
-              ownerCP        = ownerCP,
+              ownerCP = ownerCP,
             ),
             isStatic = false,
           ),
@@ -423,13 +423,13 @@ class ImportTree(
                   MemberRet(
                     FieldTree(
                       annotations = IArray(a),
-                      name        = symName,
-                      tpe         = importType.orAny(Wildcards.No, scope, importName)(m.valueType),
-                      impl        = fieldType,
-                      isReadOnly  = m.isReadOnly,
-                      isOverride  = false,
-                      comments    = m.comments,
-                      codePath    = ownerCP + symName,
+                      name = symName,
+                      tpe = importType.orAny(Wildcards.No, scope, importName)(m.valueType),
+                      impl = fieldType,
+                      isReadOnly = m.isReadOnly,
+                      isOverride = false,
+                      comments = m.comments,
+                      codePath = ownerCP + symName,
                     ),
                     isStatic = false,
                   ),
@@ -464,16 +464,16 @@ class ImportTree(
           .map(call =>
             MemberRet(
               tsMethod(
-                scope          = scope / call,
-                importName     = importName,
-                level          = call.level,
-                name           = name,
-                annOpt         = annOpt,
-                cs             = call.comments,
-                methodType     = MethodType.Normal,
-                sig            = call.signature,
+                scope = scope / call,
+                importName = importName,
+                level = call.level,
+                name = name,
+                annOpt = annOpt,
+                cs = call.comments,
+                methodType = MethodType.Normal,
+                sig = call.signature,
                 scalaJsDefined = scalaJsDefined,
-                ownerCP        = ownerCP,
+                ownerCP = ownerCP,
               ),
               m.isStatic,
             ),
@@ -493,13 +493,13 @@ class ImportTree(
             hack(
               FieldTree(
                 annotations = IArray.fromOption(annOpt),
-                name        = name,
-                tpe         = importedType,
-                impl        = impl,
-                isReadOnly  = m.isReadOnly,
-                isOverride  = false,
-                comments    = m.comments,
-                codePath    = ownerCP + name,
+                name = name,
+                tpe = importedType,
+                impl = impl,
+                isReadOnly = m.isReadOnly,
+                isOverride = false,
+                comments = m.comments,
+                codePath = ownerCP + name,
               ),
             ),
           )
@@ -519,10 +519,10 @@ class ImportTree(
 
   def typeParam(scope: TsTreeScope, importName: AdaptiveNamingImport)(tp: TsTypeParam): TypeParamTree =
     TypeParamTree(
-      name        = ImportName(tp.name),
-      params      = Empty,
-      upperBound  = tp.upperBound.map(importType(Wildcards.No, scope / tp, importName)),
-      comments    = tp.comments,
+      name = ImportName(tp.name),
+      params = Empty,
+      upperBound = tp.upperBound.map(importType(Wildcards.No, scope / tp, importName)),
+      comments = tp.comments,
       ignoreBound = true,
     )
 
@@ -575,23 +575,23 @@ class ImportTree(
 
     val ret = MethodTree(
       annotations = IArray.fromOption(annOpt),
-      level       = level,
-      name        = correctedName,
-      tparams     = sig.tparams.map(typeParam(scope, importName)),
-      params      = params,
-      impl        = impl,
-      resultType  = resultType,
-      isOverride  = false,
-      comments    = cs ++ sig.comments,
-      codePath    = ownerCP + correctedName,
-      isImplicit  = false,
+      level = level,
+      name = correctedName,
+      tparams = sig.tparams.map(typeParam(scope, importName)),
+      params = params,
+      impl = impl,
+      resultType = resultType,
+      isOverride = false,
+      comments = cs ++ sig.comments,
+      codePath = ownerCP + correctedName,
+      isImplicit = false,
     )
 
     if (name === Name.APPLY || name === Name.namespaced) ret
     else {
       val containedLiterals: IArray[String] =
-        TsTreeTraverse.collectIArray(sig.params) {
-          case x: TsLiteral => x.literal
+        TsTreeTraverse.collectIArray(sig.params) { case x: TsLiteral =>
+          x.literal
         }
 
       containedLiterals.distinct.toList.map(_.filter(_.isLetterOrDigit)).filter(_.nonEmpty) match {
@@ -621,12 +621,12 @@ class ImportTree(
           importedCp,
           ModuleTree(
             annotations = ImportJsLocation(jsLocation),
-            name        = importedCp.parts.last,
-            parents     = inheritance,
-            members     = memberTrees ++ restTrees,
-            comments    = cs,
-            codePath    = importedCp,
-            isOverride  = false,
+            name = importedCp.parts.last,
+            parents = inheritance,
+            members = memberTrees ++ restTrees,
+            comments = cs,
+            codePath = importedCp,
+            isOverride = false,
           ),
         )
     }

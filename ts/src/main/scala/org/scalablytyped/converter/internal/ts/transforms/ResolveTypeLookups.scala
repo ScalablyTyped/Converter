@@ -43,8 +43,8 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
 
   def pick(members: IArray[TsMember], strings: Set[TaggedLiteral]): Option[TsType] =
     if (strings.isEmpty) {
-      members.collectFirst {
-        case TsMemberIndex(_, _, _, _, valueType) => valueType.getOrElse(TsTypeRef.any)
+      members.collectFirst { case TsMemberIndex(_, _, _, _, valueType) =>
+        valueType.getOrElse(TsTypeRef.any)
       }
     } else
       TsTypeUnion.simplified(IArray.fromTraversable(strings.map(x => pick(members, x.lit))).filterNot(toIgnore)) match {
@@ -54,8 +54,9 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
 
   def pick(members: IArray[TsMember], wanted: TsLiteral): TsType = {
     val (functions, fields, _) = members.partitionCollect2(
-      { case TsMemberFunction(_, _, TsIdent(wanted.literal), MethodType.Normal, sig, NonStatic, _) => sig }, {
-        case TsMemberProperty(_, _, TsIdent(wanted.literal), tpeOpt, _, NonStatic, _)              => tpeOpt.getOrElse(TsTypeRef.any)
+      { case TsMemberFunction(_, _, TsIdent(wanted.literal), MethodType.Normal, sig, NonStatic, _) => sig },
+      { case TsMemberProperty(_, _, TsIdent(wanted.literal), tpeOpt, _, NonStatic, _) =>
+        tpeOpt.getOrElse(TsTypeRef.any)
       },
     )
     val combinedFunctions: Option[TsType] = functions.distinct match {

@@ -50,15 +50,15 @@ object SuchTestMuchFail extends App {
 
   val successes: Seq[os.Path] =
     parsed
-      .collect {
-        case (path, Right(_)) => path
+      .collect { case (path, Right(_)) =>
+        path
       }
       .sortBy(_.toString)
 
   val failures: Seq[(os.Path, String)] =
     parsed
-      .collect {
-        case (path, Left(error)) => path -> error
+      .collect { case (path, Left(error)) =>
+        path -> error
       }
       .sortBy(_._1.toString)
 

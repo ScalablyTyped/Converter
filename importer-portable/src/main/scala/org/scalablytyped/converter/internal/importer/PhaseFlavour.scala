@@ -18,27 +18,26 @@ class PhaseFlavour(flavour: FlavourImpl) extends Phase[Source, LibScalaJs, LibSc
   ): PhaseRes[Source, LibScalaJs] = {
     val logger = _logger.withContext("flavour", flavour.toString)
 
-    getDeps((lib.dependencies.keys: Iterable[Source]).to[SortedSet]).map {
-      case LibScalaJs.Unpack(deps) =>
-        val originalScope = new TreeScope.Root(
-          libName       = lib.scalaName,
-          _dependencies = lib.dependencies.map { case (_, lib) => lib.scalaName -> lib.packageTree },
-          logger        = logger,
-          pedantic      = false,
-          outputPkg     = flavour.outputPkg,
-        )
+    getDeps((lib.dependencies.keys: Iterable[Source]).to[SortedSet]).map { case LibScalaJs.Unpack(deps) =>
+      val originalScope = new TreeScope.Root(
+        libName = lib.scalaName,
+        _dependencies = lib.dependencies.map { case (_, lib) => lib.scalaName -> lib.packageTree },
+        logger = logger,
+        pedantic = false,
+        outputPkg = flavour.outputPkg,
+      )
 
-        val tree = flavour.rewrittenTree(originalScope, lib.packageTree)
+      val tree = flavour.rewrittenTree(originalScope, lib.packageTree)
 
-        LibScalaJs(lib.source)(
-          lib.libName,
-          lib.scalaName,
-          lib.libVersion,
-          tree,
-          deps,
-          lib.isStdLib,
-          lib.names,
-        )
+      LibScalaJs(lib.source)(
+        lib.libName,
+        lib.scalaName,
+        lib.libVersion,
+        tree,
+        deps,
+        lib.isStdLib,
+        lib.names,
+      )
     }
   }
 }

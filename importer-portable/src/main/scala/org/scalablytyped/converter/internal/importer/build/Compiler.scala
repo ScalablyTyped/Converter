@@ -17,5 +17,5 @@ trait Compiler {
 object Compiler {
   sealed trait InternalDep
   case class InternalDepClassFiles(name: String, path: os.Path) extends InternalDep
-  case class InternalDepJar(path:        os.Path) extends InternalDep
+  case class InternalDepJar(path: os.Path) extends InternalDep
 }

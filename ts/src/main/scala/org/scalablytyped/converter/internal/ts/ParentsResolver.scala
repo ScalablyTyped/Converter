@@ -5,8 +5,7 @@ import org.scalablytyped.converter.internal.ts.CodePath.NoPath
 
 import scala.collection.mutable
 
-/**
-  * @deprecated this presumes that parents can always be `IArray[InterfaceOrClass]`.
+/** @deprecated this presumes that parents can always be `IArray[InterfaceOrClass]`.
   *
   * Once we factor in type aliases with arbitrary type manipulations that is hardly true,
   *  so we'll need a much better approach here
@@ -85,8 +84,8 @@ object ParentsResolver {
           case _ => Empty
         }
 
-      parentRefs.foreach {
-        case TsTypeRef(_, tpe, targs) => innerRecurse(scope, tpe, targs)
+      parentRefs.foreach { case TsTypeRef(_, tpe, targs) =>
+        innerRecurse(scope, tpe, targs)
       }
     }
 

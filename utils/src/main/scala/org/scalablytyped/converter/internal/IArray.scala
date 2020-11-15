@@ -890,8 +890,8 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
       val fx = f(elem)
       if (first || cmp.gt(fx, maxF)) {
         maxElem = elem
-        maxF    = fx
-        first   = false
+        maxF = fx
+        first = false
       }
     }
     maxElem

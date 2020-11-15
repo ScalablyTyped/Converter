@@ -31,10 +31,13 @@ final class CommentTests extends AnyFunSuite with Matchers {
   }
 
   test("line comments") {
-    parseAs("""| //one
+    parseAs(
+      """| //one
                 |    //two
                 |  //three
-                |""".stripMargin, TsParser.lexical.comment.*)
+                |""".stripMargin,
+      TsParser.lexical.comment.*,
+    )
   }
 
   test("contain keywords") {
@@ -74,8 +77,8 @@ final class CommentTests extends AnyFunSuite with Matchers {
           |""".stripMargin,
       )
 
-    value.comments.cs.zip(expecteds.cs).foreach {
-      case (actual, expected) => actual should equal(expected)
+    value.comments.cs.zip(expecteds.cs).foreach { case (actual, expected) =>
+      actual should equal(expected)
     }
   }
 
@@ -185,10 +188,13 @@ final class CommentTests extends AnyFunSuite with Matchers {
       Some(Comment(" //arne2\n")),
     )
 
-    shouldParseAs("""
+    shouldParseAs(
+      """
       {//arne
                     |member: any, //arne2
-                    |}""".stripMargin, TsParser.tsMembers)(
+                    |}""".stripMargin,
+      TsParser.tsMembers,
+    )(
       IArray(
         TsMemberProperty(
           NoComments,
@@ -196,7 +202,7 @@ final class CommentTests extends AnyFunSuite with Matchers {
           TsIdent("member"),
           Some(TsTypeRef.any),
           None,
-          isStatic   = false,
+          isStatic = false,
           isReadOnly = false,
         ),
       ),
@@ -221,7 +227,7 @@ final class CommentTests extends AnyFunSuite with Matchers {
             TsIdent("id"),
             Some(TsTypeRef.string),
             None,
-            isStatic   = false,
+            isStatic = false,
             isReadOnly = false,
           ),
           TsMemberProperty(
@@ -230,7 +236,7 @@ final class CommentTests extends AnyFunSuite with Matchers {
             TsIdent("size"),
             Some(TsTypeRef(NoComments, TsQIdent.number, Empty)),
             None,
-            isStatic   = false,
+            isStatic = false,
             isReadOnly = false,
           ),
         ),

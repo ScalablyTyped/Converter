@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-/**
-  * Some libraries add their own of version of interfaces declared in std.
+/** Some libraries add their own of version of interfaces declared in std.
   *
   * This is for two reasons:
   *  1) define an empty type so you can compile and use the lib without say the DOM definitions
@@ -22,7 +21,7 @@ object RemoveStubs extends TreeTransformationScopedChanges {
   def clean(scope: TsTreeScope, members: IArray[TsContainerOrDecl]): IArray[TsContainerOrDecl] =
     members.filter {
       case i: TsDeclInterface if i.members.isEmpty =>
-        scope.root.lookupType(TsQIdent(IArray(TsIdent.std, i.name)), skipValidation    = true).isEmpty &&
+        scope.root.lookupType(TsQIdent(IArray(TsIdent.std, i.name)), skipValidation = true).isEmpty &&
           scope.root.lookupType(TsQIdent(IArray(TsIdent.node, i.name)), skipValidation = true).isEmpty
       case _ => true
     }

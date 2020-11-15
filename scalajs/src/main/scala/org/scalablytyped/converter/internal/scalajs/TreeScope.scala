@@ -31,7 +31,7 @@ sealed abstract class TreeScope { outer =>
     else {
       var searchFrom: TreeScope = this
       var continue = true
-      while (continue) {
+      while (continue)
         searchFrom match {
           case _: TreeScope.Root[_] =>
             continue = false
@@ -43,7 +43,6 @@ sealed abstract class TreeScope { outer =>
                 searchFrom = outer
             }
         }
-      }
 
       val res = searchFrom._lookup(wanted.parts)
 

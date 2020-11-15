@@ -84,13 +84,12 @@ object PluginRemoteCache {
 
           def exists(relPath: os.RelPath): Future[Boolean] =
             s3.headObject(
-                HeadObjectRequest
-                  .builder()
-                  .bucket(bucket)
-                  .key(toKey(relPath))
-                  .build(),
-              )
-              .toScala
+              HeadObjectRequest
+                .builder()
+                .bucket(bucket)
+                .key(toKey(relPath))
+                .build(),
+            ).toScala
               .map(_ => true)
               .recover {
                 case e: CompletionException if e.getCause.isInstanceOf[NoSuchKeyException] =>
@@ -99,15 +98,14 @@ object PluginRemoteCache {
 
           def upload(relPath: os.RelPath, relativeTo: os.Path): Future[PutObjectResponse] =
             s3.putObject(
-                PutObjectRequest
-                  .builder()
-                  .bucket(bucket)
-                  .key(toKey(relPath))
-                  .acl("public-read")
-                  .build(),
-                (relativeTo / relPath).toNIO,
-              )
-              .toScala
+              PutObjectRequest
+                .builder()
+                .bucket(bucket)
+                .key(toKey(relPath))
+                .acl("public-read")
+                .build(),
+              (relativeTo / relPath).toNIO,
+            ).toScala
 
           Lock.synchronized {
             val allRelPaths = output.allRelPaths
@@ -161,8 +159,10 @@ object PluginRemoteCache {
 
                 Future.sequence(downloads).map { results =>
                   val (errors, notFounds, oks, Nil) = results.partitionCollect3(
-                    { case x: Err => x }, { case NotFound => NotFound; case Forbidden => Forbidden }, {
-                      case Ok(b) => b
+                    { case x: Err => x },
+                    { case NotFound => NotFound; case Forbidden => Forbidden },
+                    { case Ok(b) =>
+                      b
                     },
                   )
 
@@ -254,9 +254,7 @@ object PluginRemoteCache {
         }
       } catch {
         case NonFatal(th) => Err(th)
-      } finally {
-        if (response != null) response.close()
-      }
+      } finally if (response != null) response.close()
     }
   }
 }

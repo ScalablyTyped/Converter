@@ -4,8 +4,7 @@ package transforms
 
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 
-/**
-  * Oh boy. Work around https://github.com/scala-js/scala-js/issues/3435
+/** Oh boy. Work around https://github.com/scala-js/scala-js/issues/3435
   * For instance, every time we have this pattern:
   *
   * ```typescript
@@ -38,18 +37,17 @@ object ExpandCallables extends TransformClassMembers {
               else None
 
             val fs: IArray[TsMemberFunction] =
-              callables.map {
-                case (comments, sig) =>
-                  val newCs = comments ++ cs
-                  TsMemberFunction(
-                    newCs,
-                    level,
-                    name,
-                    MethodType.Normal,
-                    sig,
-                    isStatic,
-                    isReadOnly = true,
-                  )
+              callables.map { case (comments, sig) =>
+                val newCs = comments ++ cs
+                TsMemberFunction(
+                  newCs,
+                  level,
+                  name,
+                  MethodType.Normal,
+                  sig,
+                  isStatic,
+                  isReadOnly = true,
+                )
               }
 
             scope.logger.info(s"Expanded ${name.value} into ${fs.length} methods")
@@ -64,8 +62,8 @@ object ExpandCallables extends TransformClassMembers {
   sealed trait Result
   object Result {
     def combine(rs: IArray[Result]): Result = {
-      val (expands, _) = rs.partitionCollect {
-        case i: Expand => i
+      val (expands, _) = rs.partitionCollect { case i: Expand =>
+        i
       }
       if (expands.nonEmpty) Expand(expands.flatMap(_.callables), expands.exists(_.keepOriginalMember))
       else Noop
@@ -89,8 +87,8 @@ object ExpandCallables extends TransformClassMembers {
           .collectFirst {
             case (_i: TsDeclInterface, newScope) =>
               val ms = AllMembersFor.forInterface(LoopDetector.initial, _i, newScope, typeRef.tparams)
-              val (callables, rest) = ms.partitionCollect {
-                case TsMemberCall(cs, _, signature) => (cs, signature)
+              val (callables, rest) = ms.partitionCollect { case TsMemberCall(cs, _, signature) =>
+                (cs, signature)
               }
               if (callables.nonEmpty) Expand(callables, rest.nonEmpty) else Noop
 

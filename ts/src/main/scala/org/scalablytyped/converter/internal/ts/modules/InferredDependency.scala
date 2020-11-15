@@ -5,8 +5,7 @@ package modules
 import com.olvind.logging.Logger
 import org.scalablytyped.converter.internal.sets.{EmptySet, NonEmptySet}
 
-/**
-  * There is a tendency to use node things (at least, so far) without
+/** There is a tendency to use node things (at least, so far) without
   *  declaring it. This infers such use
   */
 object InferredDependency {

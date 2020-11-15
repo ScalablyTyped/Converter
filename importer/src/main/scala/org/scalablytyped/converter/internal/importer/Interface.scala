@@ -14,11 +14,8 @@ object Interface {
   def apply[T](debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stored]])(f: PhaseListener[Source] => T) = {
     val i = new Interface(debugMode, storingErrorLogger)
     i.start()
-    try {
-      f(i)
-    } finally {
-      i.finish()
-    }
+    try f(i)
+    finally i.finish()
   }
 
   private class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stored]])
@@ -94,9 +91,8 @@ object Interface {
       println("Blocked:")
       blocked
         .to[Vector]
-        .map {
-          case (name, Blocked(phase, on)) =>
-            s"${Color.LightGray(name.value).render} ($phase) blocked on ${(on.map(_.libName) -- succeeded.keys).map(_.value)}"
+        .map { case (name, Blocked(phase, on)) =>
+          s"${Color.LightGray(name.value).render} ($phase) blocked on ${(on.map(_.libName) -- succeeded.keys).map(_.value)}"
         }
         .sorted
         .foreach(println)

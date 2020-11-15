@@ -7,8 +7,7 @@ import scala.collection.immutable.SortedSet
 
 object Libraries {
 
-  /**
-    * A good combination of interesting libraries, and libraries that are needed by libs in DT.
+  /** A good combination of interesting libraries, and libraries that are needed by libs in DT.
     */
   val extraExternals: SortedSet[TsIdentLibrary] = awsSdk ++ expo ++ SortedSet(
     "react-phone-number-input",

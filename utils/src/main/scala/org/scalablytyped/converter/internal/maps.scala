@@ -17,8 +17,8 @@ object maps {
   }
 
   def smash[K, V](ms: IArray[Map[K, V]]): Map[K, V] =
-    ms.foldLeft(Map.empty[K, V]) {
-      case (acc, current) => acc ++ current
+    ms.foldLeft(Map.empty[K, V]) { case (acc, current) =>
+      acc ++ current
     }
 
   def combine[K, V <: AnyRef](ms: IArray[Map[K, IArray[V]]]): Map[K, IArray[V]] = {
@@ -87,7 +87,7 @@ object maps {
       val b  = cbf()
       val it = m.toIterator
 
-      while (it.hasNext) {
+      while (it.hasNext)
         it.next() match {
           case (k, v) =>
             f(k, v) match {
@@ -95,7 +95,6 @@ object maps {
               case None     => ()
             }
         }
-      }
       b.result()
     }
 
@@ -104,7 +103,7 @@ object maps {
     @inline def firstDefined[U](f: (K, V) => Option[U]): Option[U] = {
       val it = m.toIterator
 
-      while (it.hasNext) {
+      while (it.hasNext)
         it.next() match {
           case (k, v) =>
             f(k, v) match {
@@ -112,7 +111,6 @@ object maps {
               case None           => ()
             }
         }
-      }
       None
     }
   }

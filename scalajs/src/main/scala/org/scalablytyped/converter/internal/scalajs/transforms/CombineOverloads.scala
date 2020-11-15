@@ -4,8 +4,7 @@ package transforms
 
 import org.scalablytyped.converter.internal.maps._
 
-/**
-  * The scala compiler inherits erasure by the JVM, which is not a problem in javascript.
+/** The scala compiler inherits erasure by the JVM, which is not a problem in javascript.
   * All the overloads we present in typed languages are all backed by one implementation anyway.
   *
   * What we do here is we group methods by what is considered equal types after erasure, and
@@ -19,11 +18,11 @@ object CombineOverloads extends TreeTransformation {
   override def leaveClassTree(scope: TreeScope)(s: ClassTree): ClassTree = {
     val (methods, fields, Empty) = s.members.partitionCollect2(
       { case x: MethodTree => x },
-      { case x: FieldTree  => x },
+      { case x: FieldTree => x },
     )
 
     s.copy(
-      ctors   = ctorHack(scope, s.ctors),
+      ctors = ctorHack(scope, s.ctors),
       members = combineOverloads(scope, methods) ++ unifyFields(fields),
     )
   }
@@ -31,7 +30,7 @@ object CombineOverloads extends TreeTransformation {
   override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree = {
     val (methods, fields, rest) = s.members.partitionCollect2(
       { case x: MethodTree => x },
-      { case x: FieldTree  => x },
+      { case x: FieldTree => x },
     )
 
     s.copy(members = rest ++ unifyFields(fields) ++ combineOverloads(scope, methods))
@@ -40,7 +39,7 @@ object CombineOverloads extends TreeTransformation {
   override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree = {
     val (methods, fields, rest) = s.members.partitionCollect2(
       { case x: MethodTree => x },
-      { case x: FieldTree  => x },
+      { case x: FieldTree => x },
     )
     s.copy(members = rest ++ unifyFields(fields) ++ combineOverloads(scope, methods))
   }
@@ -54,21 +53,19 @@ object CombineOverloads extends TreeTransformation {
     }
 
     val newParamss: IArray[IArray[ParamTree]] =
-      methods.head.params.zipWithIndex.map {
-        case (params, i) =>
-          params.zipWithIndex.map {
-            case (param, j) =>
-              param.copy(tpe = asUnionType(methods.map(_.params(i)(j).tpe)))
-          }
+      methods.head.params.zipWithIndex.map { case (params, i) =>
+        params.zipWithIndex.map { case (param, j) =>
+          param.copy(tpe = asUnionType(methods.map(_.params(i)(j).tpe)))
+        }
       }
 
     val combined = methods.head.copy(
-      params   = newParamss,
+      params = newParamss,
       comments = Comments.flatten(methods)(_.comments),
     )
 
-    renameSuffix.foldLeft(combined) {
-      case (ret, suffix) => ret.withSuffix(suffix)
+    renameSuffix.foldLeft(combined) { case (ret, suffix) =>
+      ret.withSuffix(suffix)
     }
   }
 
@@ -154,8 +151,7 @@ object CombineOverloads extends TreeTransformation {
     if (newMethods.length =/= methods.length) combineOverloads(scope, newMethods) else newMethods
   }
 
-  /**
-    * Ctors are methods...ish. This was easier than refactoring
+  /** Ctors are methods...ish. This was easier than refactoring
     */
   def ctorHack(scope: TreeScope, members: IArray[CtorTree]): IArray[CtorTree] = {
     val asMethods: IArray[MethodTree] =
@@ -175,9 +171,8 @@ object CombineOverloads extends TreeTransformation {
         ),
       )
     val ret = combineOverloads(scope, asMethods)
-    ret.map {
-      case MethodTree(_, level, _, _, params, _, _, _, comments, _, _) =>
-        CtorTree(level, params.head, comments)
+    ret.map { case MethodTree(_, level, _, _, params, _, _, _, comments, _, _) =>
+      CtorTree(level, params.head, comments)
     }
   }
 

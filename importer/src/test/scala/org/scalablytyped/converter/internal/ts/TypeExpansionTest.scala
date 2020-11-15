@@ -128,7 +128,7 @@ type VictoryStyleObject = { [K in keyof CSSProperties]: StringOrNumberOrCallback
         ),
       ),
       None,
-      isStatic   = false,
+      isStatic = false,
       isReadOnly = false,
     )
 
@@ -159,7 +159,7 @@ type Test = Required<Pick<CSSProperties, 'fontFamily' | 'fontSize' | 'fontWeight
       TsIdentSimple("color"),
       Some(TsTypeRef.string),
       None,
-      isStatic   = false,
+      isStatic = false,
       isReadOnly = false,
     )
 

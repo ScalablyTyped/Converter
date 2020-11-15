@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-/**
-  *  Given
+/**  Given
   *  ```typescript
   *  interface A {}
   *  interface B1 extends A {}

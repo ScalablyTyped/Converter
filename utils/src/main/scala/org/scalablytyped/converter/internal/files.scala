@@ -64,9 +64,8 @@ object files {
         case _ => ()
       }
 
-    absolutePathFiles.foreach {
-      case (file, content) =>
-        if (soft) softWriteBytes(file.toNIO, content) else writeBytes(file.toNIO, content)
+    absolutePathFiles.foreach { case (file, content) =>
+      if (soft) softWriteBytes(file.toNIO, content) else writeBytes(file.toNIO, content)
     }
   }
 
@@ -123,9 +122,8 @@ object files {
   def deleteAll(p: os.Path): Unit =
     environment.OS match {
       case OpSystem.WINDOWS => os.remove.all(p)
-      case _ => {
+      case _ =>
         implicit val wd = os.home
         %.rm("-Rf", p)
-      }
     }
 }

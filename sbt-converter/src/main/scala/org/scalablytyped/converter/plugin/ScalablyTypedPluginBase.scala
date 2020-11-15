@@ -91,17 +91,17 @@ object ScalablyTypedPluginBase extends AutoPlugin {
           }
 
         ConversionOptions(
-          useScalaJsDomTypes     = stUseScalaJsDom.value,
-          flavour                = stFlavour.value,
-          outputPackage          = outputPackage,
-          enableScalaJsDefined   = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
-          stdLibs                = SortedSet.empty ++ stStdlib.value,
-          expandTypeMappings     = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
-          ignored                = stIgnore.value.to[Set].sorted,
-          versions               = versions,
-          organization           = organization,
+          useScalaJsDomTypes = stUseScalaJsDom.value,
+          flavour = stFlavour.value,
+          outputPackage = outputPackage,
+          enableScalaJsDefined = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
+          stdLibs = SortedSet.empty ++ stStdlib.value,
+          expandTypeMappings = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
+          ignored = stIgnore.value.to[Set].sorted,
+          versions = versions,
+          organization = organization,
           enableReactTreeShaking = stReactEnableTreeShaking.value.map(name => ImportName(TsIdentLibrary(name))),
-          enableLongApplyMethod  = stEnableLongApplyMethod.value,
+          enableLongApplyMethod = stEnableLongApplyMethod.value,
         )
       },
     )

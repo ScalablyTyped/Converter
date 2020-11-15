@@ -105,8 +105,7 @@ object Name {
       case None            => name
     }
 
-  /**
-    * All names must pass through here, especially including the ones from arbitrary javascript strings.
+  /** All names must pass through here, especially including the ones from arbitrary javascript strings.
     *
     * For performance reasons it's not done in the constructor or anything like that
     */

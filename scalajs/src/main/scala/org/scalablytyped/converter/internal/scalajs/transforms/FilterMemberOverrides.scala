@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
-/**
-  * We filter away unneeded overrides, since they add nothing, and
+/** We filter away unneeded overrides, since they add nothing, and
   * wreck havoc with IDE performance.
   *
   * For fields with name clashes and different types, we rename them.
@@ -30,7 +29,7 @@ class FilterMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransf
   ): IArray[Tree] = {
     val (methods, fields, modules, other) = members.partitionCollect3(
       { case x: MethodTree => x },
-      { case x: FieldTree  => x },
+      { case x: FieldTree => x },
       { case x: ModuleTree => x },
     )
     val methodsByName: Map[Name, IArray[MethodTree]] =
@@ -48,7 +47,7 @@ class FilterMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransf
     val (inheritedMethods, inheritedFields, _) =
       (ObjectMembers.members ++ IArray.fromTraversable(parents).flatMap(_._2.members)).partitionCollect2(
         { case x: MethodTree => x },
-        { case x: FieldTree  => x },
+        { case x: FieldTree => x },
       )
 
     val inheritedFieldsByName: Map[Name, IArray[FieldTree]] =

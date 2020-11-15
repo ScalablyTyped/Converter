@@ -45,12 +45,11 @@ object LibScalaJs {
     }
 
     def goLibs(libs: mutable.Map[TsLibSource, LibScalaJs], ds: Map[TsLibSource, LibScalaJs]): Unit =
-      ds.foreach {
-        case (s, lib) =>
-          if (!libs.contains(s)) {
-            libs(s) = lib
-            goLibs(libs, lib.dependencies)
-          }
+      ds.foreach { case (s, lib) =>
+        if (!libs.contains(s)) {
+          libs(s) = lib
+          goLibs(libs, lib.dependencies)
+        }
       }
   }
 }

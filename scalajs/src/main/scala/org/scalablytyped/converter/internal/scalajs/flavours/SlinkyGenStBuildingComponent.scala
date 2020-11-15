@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-/**
-  * This generated class is our replacement for Slinkys ExternalComponent... types, which didnt really work.
+/** This generated class is our replacement for Slinkys ExternalComponent... types, which didnt really work.
   */
 class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versions.Scala) {
   import ExprTree._
@@ -79,7 +78,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       ParamTree(
         Name("f"),
         isImplicit = false,
-        isVal      = false,
+        isVal = false,
         TypeRef.ScalaFunction(IArray(TypeRef.Any), TypeRef.Any, NoComments),
         NotImplemented,
         NoComments,
@@ -184,12 +183,12 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
     val `apply` = {
       val TagModE = TypeRef(SlinkyGenComponents.names.TagMod, IArray(TypeRef(E.name)), NoComments)
       val modsParam = ParamTree(
-        name       = Name("mods"),
+        name = Name("mods"),
         isImplicit = false,
-        isVal      = false,
-        tpe        = TypeRef.Repeated(TagModE, NoComments),
-        default    = NotImplemented,
-        comments   = NoComments,
+        isVal = false,
+        tpe = TypeRef.Repeated(TagModE, NoComments),
+        default = NotImplemented,
+        comments = NoComments,
       )
       val impl = {
         val modParam = ParamTree(Name("mod"), isImplicit = false, isVal = false, TagModE, NotImplemented, NoComments)
@@ -236,15 +235,15 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
-        name        = Name.APPLY,
-        tparams     = Empty,
-        params      = IArray(IArray(modsParam)),
+        level = ProtectionLevel.Default,
+        name = Name.APPLY,
+        tparams = Empty,
+        params = IArray(IArray(modsParam)),
         impl,
         resultType = TypeRef(QualifiedName.THIS),
         isOverride = false,
-        comments   = NoComments,
-        codePath   = builderCp + Name.APPLY,
+        comments = NoComments,
+        codePath = builderCp + Name.APPLY,
         isImplicit = false,
       )
 
@@ -256,16 +255,16 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       val name  = Name("withKey")
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
-        name        = name,
-        tparams     = Empty,
-        params      = IArray(IArray(param)),
-        impl        = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Ref(param.name)))),
-        resultType  = TypeRef(QualifiedName.THIS),
-        isOverride  = false,
-        comments    = NoComments,
-        codePath    = builderCp + name,
-        isImplicit  = false,
+        level = ProtectionLevel.Default,
+        name = name,
+        tparams = Empty,
+        params = IArray(IArray(param)),
+        impl = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Ref(param.name)))),
+        resultType = TypeRef(QualifiedName.THIS),
+        isOverride = false,
+        comments = NoComments,
+        codePath = builderCp + name,
+        isImplicit = false,
       )
     }
 
@@ -277,16 +276,16 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       val name  = Name("withRef")
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
-        name        = name,
-        tparams     = Empty,
-        params      = IArray(IArray(param)),
-        impl        = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Ref(param.name)))),
-        resultType  = TypeRef(QualifiedName.THIS),
-        isOverride  = false,
-        comments    = NoComments,
-        codePath    = builderCp + name,
-        isImplicit  = false,
+        level = ProtectionLevel.Default,
+        name = name,
+        tparams = Empty,
+        params = IArray(IArray(param)),
+        impl = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Ref(param.name)))),
+        resultType = TypeRef(QualifiedName.THIS),
+        isOverride = false,
+        comments = NoComments,
+        codePath = builderCp + name,
+        isImplicit = false,
       )
     }
     //
@@ -297,31 +296,31 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       val name  = Name("withRef")
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
-        name        = name,
-        tparams     = Empty,
-        params      = IArray(IArray(param)),
-        impl        = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Ref(param.name)))),
-        resultType  = TypeRef(QualifiedName.THIS),
-        isOverride  = false,
-        comments    = NoComments,
-        codePath    = builderCp + name,
-        isImplicit  = false,
+        level = ProtectionLevel.Default,
+        name = name,
+        tparams = Empty,
+        params = IArray(IArray(param)),
+        impl = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Ref(param.name)))),
+        resultType = TypeRef(QualifiedName.THIS),
+        isOverride = false,
+        comments = NoComments,
+        codePath = builderCp + name,
+        isImplicit = false,
       )
     }
 
     ClassTree(
-      isImplicit  = false,
+      isImplicit = false,
       annotations = Empty,
-      name        = StBuildingComponent,
-      tparams     = builderTparams,
-      parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.ScalaAny)),
-      ctors       = Empty,
-      members     = IArray(args, set, withComponent, build, unsafeSpread, apply, withKey, withRef1, withRef2),
-      classType   = ClassType.Trait,
-      isSealed    = false,
-      comments    = NoComments,
-      codePath    = builderCp,
+      name = StBuildingComponent,
+      tparams = builderTparams,
+      parents = IArray.fromOption(enableAnyVal.map(_ => TypeRef.ScalaAny)),
+      ctors = Empty,
+      members = IArray(args, set, withComponent, build, unsafeSpread, apply, withKey, withRef1, withRef2),
+      classType = ClassType.Trait,
+      isSealed = false,
+      comments = NoComments,
+      codePath = builderCp,
     )
   }
 
@@ -332,7 +331,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
         ParamTree(
           Name("args"),
           isImplicit = false,
-          isVal      = true,
+          isVal = true,
           TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments),
           NotImplemented,
           NoComments,
@@ -344,17 +343,17 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
     val name = Name("Default")
 
     ClassTree(
-      isImplicit  = false,
+      isImplicit = false,
       annotations = Empty,
-      name        = name,
-      tparams     = builderTparams,
-      parents     = IArray.fromOption(enableAnyVal) ++ IArray(builderRef),
-      ctors       = IArray(ctor),
-      members     = Empty,
-      classType   = ClassType.Class,
-      isSealed    = false,
-      comments    = NoComments,
-      codePath    = builderCp + name,
+      name = name,
+      tparams = builderTparams,
+      parents = IArray.fromOption(enableAnyVal) ++ IArray(builderRef),
+      ctors = IArray(ctor),
+      members = Empty,
+      classType = ClassType.Class,
+      isSealed = false,
+      comments = NoComments,
+      codePath = builderCp + name,
     )
   }
 
@@ -370,13 +369,13 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       val createElement = Name("createElement")
       val createElementField = FieldTree(
         annotations = Empty,
-        name        = createElement,
-        tpe         = TypeRef.Dynamic,
-        impl        = ExprTree.native,
-        isReadOnly  = true,
-        isOverride  = false,
-        comments    = NoComments,
-        codePath    = ReactRawCp + createElement,
+        name = createElement,
+        tpe = TypeRef.Dynamic,
+        impl = ExprTree.native,
+        isReadOnly = true,
+        isOverride = false,
+        comments = NoComments,
+        codePath = ReactRawCp + createElement,
       )
       ModuleTree(
         IArray(

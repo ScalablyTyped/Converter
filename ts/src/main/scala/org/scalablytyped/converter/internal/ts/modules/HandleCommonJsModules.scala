@@ -4,8 +4,7 @@ package modules
 
 import org.scalablytyped.converter.internal.ts.transforms.{QualifyReferences, SetCodePath}
 
-/**
-  * It's really difficult to reconcile two module systems, this is a preparational step which
+/** It's really difficult to reconcile two module systems, this is a preparational step which
   *  helps us enable the following pattern:
   *
   * ```typescript
@@ -38,12 +37,10 @@ import org.scalablytyped.converter.internal.ts.transforms.{QualifyReferences, Se
   * }
   * export type N = number;
   * ```
-  *
   */
 object HandleCommonJsModules extends TreeTransformationScopedChanges {
 
-  /**
-    * If this is a commonjs module we extract the name of the exported thing
+  /** If this is a commonjs module we extract the name of the exported thing
     */
   object EqualsExport {
     def unapply(x: TsDeclModule): Option[((TsExport, IArray[TsIdent]), IArray[TsContainerOrDecl])] = {
@@ -65,11 +62,10 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
       case EqualsExport(((export, IArray.exactlyOne(target)), notExports)) =>
         val (namespaces, toplevel, _rest) = notExports.partitionCollect2(
           { case x: TsDeclNamespace if x.name.value === target.value => x },
-          { case x: TsNamedDecl if x.name === target                 => x },
+          { case x: TsNamedDecl if x.name === target => x },
         )
 
-        /**
-          * Support things like this:
+        /** Support things like this:
           *
           * ```typescript
           * type Err = Error;
@@ -108,12 +104,12 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
           /* handle (3) */
           val patchedRest = rest.filter {
             case TsDeclTypeAlias(
-                _,
-                _,
-                typeName,
-                Empty,
-                TsTypeRef(_, TsQIdent(IArray.exactlyTwo(`target`, referredName)), Empty),
-                _,
+                  _,
+                  _,
+                  typeName,
+                  Empty,
+                  TsTypeRef(_, TsQIdent(IArray.exactlyTwo(`target`, referredName)), Empty),
+                  _,
                 ) =>
               referredName =/= typeName
             case _ => true
@@ -124,16 +120,16 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
           val patchedNewMembers =
             newMembers.map {
               case TsExport(
-                  _,
-                  _,
-                  ExportType.Named,
-                  TsExporteeTree(
-                    TsImport(
-                      _,
-                      IArray.exactlyOne(TsImportedIdent(newName)),
-                      TsImporteeLocal(TsQIdent(IArray.exactlyOne(name))),
+                    _,
+                    _,
+                    ExportType.Named,
+                    TsExporteeTree(
+                      TsImport(
+                        _,
+                        IArray.exactlyOne(TsImportedIdent(newName)),
+                        TsImporteeLocal(TsQIdent(IArray.exactlyOne(name))),
+                      ),
                     ),
-                  ),
                   ) if name.value === target.value =>
                 TsExport(
                   NoComments,

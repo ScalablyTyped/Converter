@@ -20,11 +20,11 @@ object ContentForPublish {
       externalDeps: Set[Dep],
   ): IvyLayout[os.RelPath, Array[Byte]] =
     IvyLayout(
-      p          = p.reference,
-      jarFile    = createJar(publication)(paths.classesDir),
+      p = p.reference,
+      jarFile = createJar(publication)(paths.classesDir),
       sourceFile = createJar(publication)(paths.sourcesDir),
-      ivyFile    = fromXml(ivy(v, p, publication, externalDeps)),
-      pomFile    = fromXml(pom(v, p, externalDeps)),
+      ivyFile = fromXml(ivy(v, p, publication, externalDeps)),
+      pomFile = fromXml(pom(v, p, externalDeps)),
     )
 
   private def fromXml(xml: Elem): Array[Byte] = {
@@ -45,18 +45,16 @@ object ContentForPublish {
     val baos = new ByteArrayOutputStream(1024 * 1024)
     val jar  = new JarOutputStream(baos, createManifest())
 
-    try {
-      fromFolders.foreach { fromFolder =>
-        os.walk(fromFolder).collect { case file if os.isFile(file) => file }.foreach { file =>
-          val mapping = file.relativeTo(fromFolder)
-          if (!seen(mapping)) {
-            seen.add(mapping)
-            val entry = new JarEntry(mapping.toString)
-            entry.setTime(publication.toEpochSecond)
-            jar.putNextEntry(entry)
-            jar.write(os.read.bytes(file))
-            jar.closeEntry()
-          }
+    try fromFolders.foreach { fromFolder =>
+      os.walk(fromFolder).collect { case file if os.isFile(file) => file }.foreach { file =>
+        val mapping = file.relativeTo(fromFolder)
+        if (!seen(mapping)) {
+          seen.add(mapping)
+          val entry = new JarEntry(mapping.toString)
+          entry.setTime(publication.toEpochSecond)
+          jar.putNextEntry(entry)
+          jar.write(os.read.bytes(file))
+          jar.closeEntry()
         }
       }
     } finally jar.close()

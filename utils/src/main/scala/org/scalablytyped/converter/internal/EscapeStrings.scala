@@ -17,8 +17,7 @@ object EscapeStrings {
     writer.toString
   }
 
-  /**
-    * @param out                write to receieve the escaped string
+  /** @param out                write to receieve the escaped string
     * @param str                String to escape values in, may be null
     * @param escapeSingleQuote  escapes single quotes if <code>true</code>
     */
@@ -73,8 +72,7 @@ object EscapeStrings {
     }
   }
 
-  /**
-    * <p>Returns an upper case hexadecimal <code>String</code> for the given
+  /** <p>Returns an upper case hexadecimal <code>String</code> for the given
     * character.</p>
     *
     * @param ch The character to convert.

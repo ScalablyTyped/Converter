@@ -47,8 +47,7 @@ class DTVersions(lastChangedIndex: DTLastChangedIndex, includeGitPart: Boolean) 
     LibraryVersion(isStdLib, libraryVersion, inGit)
   }
 
-  /**
-    * Version is normally specified in DefinitelyTyped like this
+  /** Version is normally specified in DefinitelyTyped like this
     */
   private object DefinitelyTypedVersion {
     private val Version = "^\\/\\/ Type definitions for .+ ([a-zA-Z\\d][a-zA-Z\\d.\\-]*)$".r

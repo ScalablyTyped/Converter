@@ -18,10 +18,10 @@ object CompilerPaths {
     val targetDir = thisBaseDir / "target"
     new CompilerPaths(
       thisBaseDir,
-      sourcesDir   = thisBaseDir / "src" / 'main / 'scala,
+      sourcesDir = thisBaseDir / "src" / 'main / 'scala,
       resourcesDir = thisBaseDir / "src" / 'main / 'resources,
-      targetDir    = targetDir,
-      classesDir   = targetDir / s"scala-${v.scala.binVersion}" / 'classes,
+      targetDir = targetDir,
+      classesDir = targetDir / s"scala-${v.scala.binVersion}" / 'classes,
     )
   }
 

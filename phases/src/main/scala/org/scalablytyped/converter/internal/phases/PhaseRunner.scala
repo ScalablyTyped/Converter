@@ -6,8 +6,7 @@ import com.olvind.logging.{Formatter, Logger}
 import scala.collection.immutable.{SortedMap, SortedSet}
 import scala.util.control.NonFatal
 
-/**
-  * Runs a computation given a sequence of input ids.
+/** Runs a computation given a sequence of input ids.
   */
 object PhaseRunner {
   def apply[Id: Formatter: Ordering, T](

@@ -1,7 +1,6 @@
 package org.scalablytyped.converter.internal.importer
 
-/**
-  * It felt really wrong to do, but this directory contains an entire simple scala build tool.
+/** It felt really wrong to do, but this directory contains an entire simple scala build tool.
   *
   * All the hard parts are solved through coursier, zinc and bloop, but we do publishing ourselves.
   *

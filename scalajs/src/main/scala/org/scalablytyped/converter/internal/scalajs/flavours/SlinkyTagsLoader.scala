@@ -29,34 +29,33 @@ object SlinkyTagsLoader {
     val stdSvgTags:  Map[TagName, TypeRef] = extractStdTags(scope, stdNames.SVGElementTagNameMap)
 
     val html = combinedTags(
-      scope                = scope,
+      scope = scope,
       jsxIntrinsicElements = reactNames.JsxIntrinsicElements,
-      stdRefByTag          = stdSvgTags ++ stdHtmlTags,
+      stdRefByTag = stdSvgTags ++ stdHtmlTags,
       parentsResolver,
     )
 
     val ret = html.groupBy(_.tagName).map { case (name, IArray.first(ct)) => name -> ct }
 
-    val fallbackOpt = scope.lookup(reactNames.AllHTMLAttributes).collectFirst {
-      case (_x: ClassTree, newScope) =>
-        val x = FillInTParams(_x, newScope, IArray(TypeRef(stdNames.Element)), Empty)
+    val fallbackOpt = scope.lookup(reactNames.AllHTMLAttributes).collectFirst { case (_x: ClassTree, newScope) =>
+      val x = FillInTParams(_x, newScope, IArray(TypeRef(stdNames.Element)), Empty)
 
-        val parentMembers: IArray[Tree] =
-          parentsResolver(newScope, x).transitiveParents.flatMapToIArray { case (_, v) => v.members }
+      val parentMembers: IArray[Tree] =
+        parentsResolver(newScope, x).transitiveParents.flatMapToIArray { case (_, v) => v.members }
 
-        val attrs = (parentMembers ++ x.members).collect {
-          case FieldTree(_, name, Optional(tpe), _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
-            name -> FollowAliases(newScope)(tpe)
-          case FieldTree(_, name, tpe, _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
-            name -> FollowAliases(newScope)(tpe)
-        }
+      val attrs = (parentMembers ++ x.members).collect {
+        case FieldTree(_, name, Optional(tpe), _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
+          name -> FollowAliases(newScope)(tpe)
+        case FieldTree(_, name, tpe, _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
+          name -> FollowAliases(newScope)(tpe)
+      }
 
-        CombinedTag(
-          TagName.Any,
-          AnyHtmlElement,
-          TypeRef(stdNames.Element),
-          attrs.toMap,
-        )
+      CombinedTag(
+        TagName.Any,
+        AnyHtmlElement,
+        TypeRef(stdNames.Element),
+        attrs.toMap,
+      )
     }
 
     fallbackOpt.foldLeft(ret) { case (map, ct) => map.updated(TagName.Any, ct) }
@@ -65,9 +64,8 @@ object SlinkyTagsLoader {
   private def extractStdTags(scope: TreeScope, qname: QualifiedName): Map[TagName, TypeRef] =
     scope
       .lookup(qname)
-      .collectFirst {
-        case (x: ClassTree, _) =>
-          x.members.collect { case FieldTree(_, TagName(tag), ref, _, _, _, _, _) => (tag: TagName) -> ref }.toMap
+      .collectFirst { case (x: ClassTree, _) =>
+        x.members.collect { case FieldTree(_, TagName(tag), ref, _, _, _, _, _) => (tag: TagName) -> ref }.toMap
       }
       .getOrElse {
         scope.logger.warn(s"Couldn't extract slinky tags from ${qname}, probably because of minimized react build")
@@ -117,10 +115,10 @@ object SlinkyTagsLoader {
 
             Some(
               CombinedTag(
-                tagName      = tagName,
+                tagName = tagName,
                 slinkyTagRef = slinkyTagRef,
-                stdRef       = stdRef,
-                attributes   = members.toMap,
+                stdRef = stdRef,
+                attributes = members.toMap,
               ),
             )
         }
@@ -128,14 +126,13 @@ object SlinkyTagsLoader {
 
     scope
       .lookup(jsxIntrinsicElements)
-      .collectFirst {
-        case (tagMap: ClassTree, newScope: TreeScope) =>
-          tagMap.members.mapNotNone {
-            case FieldTree(_, TagName(tagName), tagInterfaceRef, _, _, _, _, _)
-                if AttrsByTag.All.contains(tagName) && stdRefByTag.contains(tagName) =>
-              go(newScope, tagName, tagInterfaceRef)
-            case _ => None
-          }
+      .collectFirst { case (tagMap: ClassTree, newScope: TreeScope) =>
+        tagMap.members.mapNotNone {
+          case FieldTree(_, TagName(tagName), tagInterfaceRef, _, _, _, _, _)
+              if AttrsByTag.All.contains(tagName) && stdRefByTag.contains(tagName) =>
+            go(newScope, tagName, tagInterfaceRef)
+          case _ => None
+        }
       }
       .getOrElse(Empty)
   }

@@ -46,7 +46,10 @@ class LibraryResolver(
   def resolveAll(libs: SortedSet[TsIdentLibrary]): Either[Unresolved, Vector[TsLibSource]] =
     libs.toVector
       .map(library)
-      .partitionCollect2({ case LibraryResolver.Found(x) => x }, { case LibraryResolver.NotAvailable(name) => name }) match {
+      .partitionCollect2(
+        { case LibraryResolver.Found(x) => x },
+        { case LibraryResolver.NotAvailable(name) => name },
+      ) match {
       case (allFound, Seq(), _) => Right(allFound)
       case (_, notAvailable, _) => Left(Unresolved(notAvailable))
     }
@@ -68,8 +71,8 @@ object LibraryResolver {
         case x: NotAvailable => x
       }
   }
-  case class Found[T](source:   T) extends Res[T]
-  case class Ignored(name:      TsIdentLibrary) extends Res[Nothing]
+  case class Found[T](source: T) extends Res[T]
+  case class Ignored(name: TsIdentLibrary) extends Res[Nothing]
   case class NotAvailable(name: TsIdentLibrary) extends Res[Nothing]
 
   def moduleNameFor(source: TsLibSource, file: InFile): IArray[TsIdentModule] = {

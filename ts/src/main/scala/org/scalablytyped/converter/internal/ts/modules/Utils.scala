@@ -17,8 +17,7 @@ object Utils {
       case _ => tree
     }
 
-  /**
-    * The `TreeScope` interface for this is somewhat awkward, so we at least contain it here
+  /** The `TreeScope` interface for this is somewhat awkward, so we at least contain it here
     */
   def searchAmong[T <: TsNamedDecl](
       scope:        TsTreeScope.Scoped,
@@ -34,8 +33,8 @@ object Utils {
 
       newScope.lookupInternal(Picker.All, wanted, loopDetector).flatMap {
         case (TsDeclNamespace(_, _, TsIdent.dummy, ms, _, _), newNewScope) =>
-          ms.collect {
-            case Pick(t) => t -> newNewScope
+          ms.collect { case Pick(t) =>
+            t -> newNewScope
           }
         case (Pick(other), newNewScope) => IArray(other -> newNewScope)
         case _                          => Empty

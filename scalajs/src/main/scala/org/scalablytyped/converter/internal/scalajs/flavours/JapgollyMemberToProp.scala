@@ -16,9 +16,8 @@ class JapgollyMemberToProp(reactNames: ReactNames, typeRewriter: TypeRewriterCas
 
   val Callback = TypeRef(JapgollyNames.Callback)
 
-  /**
-    *- If the method return value is Unit, then convert it to Callback
-    *- If the method return value is TYPE, then convert it to Callback[Type]
+  /** - If the method return value is Unit, then convert it to Callback
+    * - If the method return value is TYPE, then convert it to Callback[Type]
     */
   def CallbackTo(ref: TypeRef): TypeRef =
     ref match {
@@ -41,9 +40,8 @@ class JapgollyMemberToProp(reactNames: ReactNames, typeRewriter: TypeRewriterCas
 
       case TypeRef.ScalaFunction(StripWildcards(paramTypes), StripWildcards(TypeRef.Unit)) =>
         def fn(ref: ExprTree): ExprTree = {
-          val params = paramTypes.zipWithIndex.map {
-            case (tpe, i) =>
-              ParamTree(Name(s"t$i"), isImplicit = false, isVal = false, tpe, NotImplemented, NoComments)
+          val params = paramTypes.zipWithIndex.map { case (tpe, i) =>
+            ParamTree(Name(s"t$i"), isImplicit = false, isVal = false, tpe, NotImplemented, NoComments)
           }
           val body =
             Call(Select(Call(ref, IArray(params.map(p => Ref(p.name)))), Name("runNow")), IArray(IArray()))
@@ -56,21 +54,21 @@ class JapgollyMemberToProp(reactNames: ReactNames, typeRewriter: TypeRewriterCas
         Prop.Variant(
           tpe = newRetType,
           fn,
-          isRewritten   = true,
+          isRewritten = true,
           extendsAnyVal = false,
         )
       case TypeRef(reactNames.ReactElement, _, _) =>
         Prop.Variant(
           TypeRef(JapgollyNames.vdom.ReactElement),
           ref => Cast(Select(ref, Name("rawElement")), TypeRef.Any),
-          isRewritten   = true,
+          isRewritten = true,
           extendsAnyVal = false,
         )
       case TypeRef(reactNames.ReactNode, _, _) =>
         Prop.Variant(
           TypeRef(JapgollyNames.vdom.VdomNode),
           ref => Cast(Select(ref, Name("rawNode")), TypeRef.Any),
-          isRewritten   = true,
+          isRewritten = true,
           extendsAnyVal = false,
         )
       case _ => variant

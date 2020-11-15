@@ -21,8 +21,8 @@ object FakeLiterals {
 
     val stringsByLowercase: Map[String, IArray[String]] =
       TreeTraverse
-        .collect(tree) {
-          case TypeRef.StringLiteral(underlying) => cleanName(underlying)
+        .collect(tree) { case TypeRef.StringLiteral(underlying) =>
+          cleanName(underlying)
         }
         .groupBy(_.toLowerCase)
         .mapValues(_.distinct.sorted)
@@ -51,39 +51,38 @@ object FakeLiterals {
       if (collected.isEmpty) None
       else {
         val members =
-          collected.flatMap {
-            case (underlying: ExprTree.Lit, name) =>
-              val codePath = tree.codePath + moduleName + name
-              val `trait` =
-                ClassTree(
-                  isImplicit = false,
-                  IArray(Annotation.JsNative),
-                  name,
-                  Empty,
-                  Empty,
-                  Empty,
-                  Empty,
-                  ClassType.Trait,
-                  isSealed = true,
-                  NoComments,
-                  codePath,
-                )
+          collected.flatMap { case (underlying: ExprTree.Lit, name) =>
+            val codePath = tree.codePath + moduleName + name
+            val `trait` =
+              ClassTree(
+                isImplicit = false,
+                IArray(Annotation.JsNative),
+                name,
+                Empty,
+                Empty,
+                Empty,
+                Empty,
+                ClassType.Trait,
+                isSealed = true,
+                NoComments,
+                codePath,
+              )
 
-              val `def` =
-                MethodTree(
-                  IArray(Annotation.Inline),
-                  ProtectionLevel.Default,
-                  name,
-                  Empty,
-                  Empty,
-                  ExprTree.Cast(underlying, TypeRef(name)),
-                  TypeRef(QualifiedName(IArray(name)), Empty, NoComments),
-                  isOverride = false,
-                  comments   = NoComments,
-                  codePath,
-                  isImplicit = false,
-                )
-              List(`trait`, `def`)
+            val `def` =
+              MethodTree(
+                IArray(Annotation.Inline),
+                ProtectionLevel.Default,
+                name,
+                Empty,
+                Empty,
+                ExprTree.Cast(underlying, TypeRef(name)),
+                TypeRef(QualifiedName(IArray(name)), Empty, NoComments),
+                isOverride = false,
+                comments = NoComments,
+                codePath,
+                isImplicit = false,
+              )
+            List(`trait`, `def`)
           }
 
         Some(

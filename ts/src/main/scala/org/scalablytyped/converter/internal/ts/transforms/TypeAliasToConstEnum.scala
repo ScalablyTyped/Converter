@@ -35,7 +35,10 @@ object TypeAliasToConstEnum extends TreeTransformationScopedChanges {
   def extractOnlyLiterals(scope: TsTreeScope, x: TsDecl): Option[IArray[TsLiteral]] =
     x match {
       case TsDeclTypeAlias(_, _, _, Empty, TsTypeUnion(types), _) =>
-        types.partitionCollect2({ case lit: TsTypeLiteral => lit.literal }, { case TsTypeRef(_, name, Empty) => name }) match {
+        types.partitionCollect2(
+          { case lit: TsTypeLiteral => lit.literal },
+          { case TsTypeRef(_, name, Empty) => name },
+        ) match {
           case (lits, refs, Empty) =>
             /* All type refs must also be to type unions with type literals */
             val nested: IArray[Option[IArray[TsLiteral]]] =

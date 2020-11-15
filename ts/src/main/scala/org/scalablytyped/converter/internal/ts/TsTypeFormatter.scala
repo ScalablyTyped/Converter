@@ -21,7 +21,7 @@ class TsTypeFormatter(val keepComments: Boolean) {
       case TsTypeParam(_, name, bound, default) =>
         List[Option[String]](
           Some(name.value),
-          bound.map(b   => s"extends ${apply(b)}"),
+          bound.map(b => s"extends ${apply(b)}"),
           default.map(d => s"= " + apply(d)),
         ).flatten.mkString(" ")
     }

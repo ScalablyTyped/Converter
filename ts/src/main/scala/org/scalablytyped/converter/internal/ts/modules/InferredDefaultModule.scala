@@ -25,11 +25,11 @@ object InferredDefaultModule {
     in match {
       case file if file.isModule && !onlyAugments(in) && !alreadyExists(file, moduleName) =>
         val module = TsDeclModule(
-          comments   = NoComments,
-          declared   = true,
-          name       = moduleName,
-          members    = file.members,
-          codePath   = CodePath.NoPath,
+          comments = NoComments,
+          declared = true,
+          name = moduleName,
+          members = file.members,
+          codePath = CodePath.NoPath,
           jsLocation = JsLocation.Module(moduleName, ModuleSpec.Defaulted),
         )
 

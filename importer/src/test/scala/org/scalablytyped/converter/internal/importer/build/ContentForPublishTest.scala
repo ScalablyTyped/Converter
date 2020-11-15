@@ -17,8 +17,8 @@ class ContentForPublishTest extends AnyFunSuite with Matchers {
     name = "sbtprojectname",
     reference = Dep
       .ScalaJs(
-        org     = "sbtprojectorg",
-        name    = "sbtprojectartifactid",
+        org = "sbtprojectorg",
+        name = "sbtprojectartifactid",
         version = "sbtprojectversion",
       )
       .concrete(versions),
@@ -27,7 +27,7 @@ class ContentForPublishTest extends AnyFunSuite with Matchers {
     Map(
       Source.FromFolder(InFolder(dummyPath), TsIdent.dummyLibrary) -> PublishedSbtProject(
         SbtProject(
-          name      = "depname",
+          name = "depname",
           reference = Dep.ScalaJs(org = "deporg", name = "departifactid", version = "depversion").concrete(versions),
         )(dummyPath, Map(), None),
       )(null, null, None),

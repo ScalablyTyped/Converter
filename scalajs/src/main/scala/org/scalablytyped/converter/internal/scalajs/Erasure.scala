@@ -3,8 +3,7 @@ package scalajs
 
 import org.scalablytyped.converter.internal.scalajs.transforms.FakeLiterals
 
-/**
-  * Note, this requires that the method tree has already filled in type params for containing context!
+/** Note, this requires that the method tree has already filled in type params for containing context!
   */
 object Erasure {
   def base(_scope: TreeScope)(s: MethodTree): MethodBase = {
@@ -38,8 +37,8 @@ object Erasure {
 
       /* approximate intersections. scalac seems to use the first type, unless that is a supertype of a later mentioned type */
       case QualifiedName.INTERSECTION =>
-        val primitive = tpe.targs.collectFirst {
-          case tr @ (TypeRef.String | TypeRef.Boolean | TypeRef.Double) => tr.typeName
+        val primitive = tpe.targs.collectFirst { case tr @ (TypeRef.String | TypeRef.Boolean | TypeRef.Double) =>
+          tr.typeName
         }
 
         primitive.getOrElse {
@@ -78,4 +77,4 @@ object Erasure {
 }
 
 final case class MethodErasure(name: Name, params: IArray[QualifiedName], ret: QualifiedName)
-final case class MethodBase(name:    Name, params: IArray[QualifiedName])
+final case class MethodBase(name: Name, params: IArray[QualifiedName])

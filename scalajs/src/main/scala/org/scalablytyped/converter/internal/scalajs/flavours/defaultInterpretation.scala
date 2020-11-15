@@ -6,10 +6,9 @@ import org.scalablytyped.converter.internal.scalajs.ExprTree._
 
 sealed trait ObjectUpdater
 case class Initializer(value: ExprTree.Arg.Named) extends ObjectUpdater
-case class Mutator(value:     ExprTree => ExprTree) extends ObjectUpdater
+case class Mutator(value: ExprTree => ExprTree) extends ObjectUpdater
 
-/**
-  *  The process of "interpretation" takes a `Prop` and returns a parameter and a way to update a given object
+/**  The process of "interpretation" takes a `Prop` and returns a parameter and a way to update a given object
   *
   *  Note that this is not the only possible way of doing it, [[GenImplicitOpsClass]] does it differently
   */
@@ -55,8 +54,8 @@ object defaultInterpretation {
             case Optionality.Undef if prop.main.extendsAnyVal =>
               val updater = Mutator { ref =>
                 If(
-                  pred    = Unary("!", Call(Ref(QualifiedName.isUndefined), IArray(IArray(Ref(prop.name))))),
-                  ifTrue  = updateObj(asExpr(Select(Ref(prop.name), Name("get")))).value(ref),
+                  pred = Unary("!", Call(Ref(QualifiedName.isUndefined), IArray(IArray(Ref(prop.name))))),
+                  ifTrue = updateObj(asExpr(Select(Ref(prop.name), Name("get")))).value(ref),
                   ifFalse = None,
                 )
               }
@@ -65,8 +64,8 @@ object defaultInterpretation {
             case Optionality.Undef =>
               val updater = Mutator { ref =>
                 If(
-                  pred    = BinaryOp(Ref(prop.name), "!=", Null),
-                  ifTrue  = updateObj(asExpr(Ref(prop.name))).value(ref),
+                  pred = BinaryOp(Ref(prop.name), "!=", Null),
+                  ifTrue = updateObj(asExpr(Ref(prop.name))).value(ref),
                   ifFalse = None,
                 )
               }
@@ -82,16 +81,16 @@ object defaultInterpretation {
                     case _ =>
                       updateObj(
                         If(
-                          pred    = BinaryOp(Ref(prop.name), "!=", Null),
-                          ifTrue  = asExpr(Cast(Ref(prop.name), tpe)),
+                          pred = BinaryOp(Ref(prop.name), "!=", Null),
+                          ifTrue = asExpr(Cast(Ref(prop.name), tpe)),
                           ifFalse = Some(Null),
                         ),
                       )
                   }
 
                 If(
-                  pred    = Unary("!", Call(Ref(QualifiedName.isUndefined), IArray(IArray(Ref(prop.name))))),
-                  ifTrue  = shortedDefaultImplementation.value(ref),
+                  pred = Unary("!", Call(Ref(QualifiedName.isUndefined), IArray(IArray(Ref(prop.name))))),
+                  ifTrue = shortedDefaultImplementation.value(ref),
                   ifFalse = None,
                 )
               }

@@ -7,13 +7,12 @@ import org.scalablytyped.converter.internal.ts._
 
 object ImportEnum {
   def underlyingType(e: TsDeclEnum): TypeRef = {
-    val found = e.members.collect {
-      case TsEnumMember(_, _, Some(TsExpr.Literal(lit))) =>
-        lit match {
-          case _: TsLiteralString  => TypeRef.String
-          case _: TsLiteralNumber  => TypeRef.Double
-          case _: TsLiteralBoolean => TypeRef.Boolean
-        }
+    val found = e.members.collect { case TsEnumMember(_, _, Some(TsExpr.Literal(lit))) =>
+      lit match {
+        case _: TsLiteralString  => TypeRef.String
+        case _: TsLiteralNumber  => TypeRef.Double
+        case _: TsLiteralBoolean => TypeRef.Boolean
+      }
     }
     TypeRef.Union(found, NoComments, sort = true)
   }
@@ -38,33 +37,33 @@ object ImportEnum {
       case TsDeclEnum(cs, _, true, _, members, _, None, _, codePath) =>
         val importedCodePath = importName(codePath)
         val ta = TypeAliasTree(
-          name     = importedCodePath.parts.last,
-          tparams  = Empty,
-          alias    = importType(Wildcards.No, scope, importName)(TsTypeUnion(e.members.map(m => TsExpr.typeOfOpt(m.expr)))),
+          name = importedCodePath.parts.last,
+          tparams = Empty,
+          alias =
+            importType(Wildcards.No, scope, importName)(TsTypeUnion(e.members.map(m => TsExpr.typeOfOpt(m.expr)))),
           comments = cs,
           codePath = importedCodePath,
         )
 
         def module = {
           val newMembers = members
-            .map {
-              case TsEnumMember(memberCs, ImportName(memberName), exprOpt) =>
-                val expr            = exprOpt.getOrElse(sys.error("Expression cannot be empty here"))
-                val tpe             = importType(Wildcards.No, scope, importName)(TsExpr.typeOf(expr))
-                val memberNameFixed = if (illegalNames.Illegal(memberName)) memberName.withSuffix("") else memberName
-                MethodTree(
-                  IArray(Annotation.Inline),
-                  ProtectionLevel.Default,
-                  memberNameFixed,
-                  Empty,
-                  Empty,
-                  ExprTree.Cast(importExpr(expr, scope), tpe),
-                  tpe,
-                  isOverride = false,
-                  memberCs,
-                  importedCodePath + memberNameFixed,
-                  isImplicit = false,
-                )
+            .map { case TsEnumMember(memberCs, ImportName(memberName), exprOpt) =>
+              val expr            = exprOpt.getOrElse(sys.error("Expression cannot be empty here"))
+              val tpe             = importType(Wildcards.No, scope, importName)(TsExpr.typeOf(expr))
+              val memberNameFixed = if (illegalNames.Illegal(memberName)) memberName.withSuffix("") else memberName
+              MethodTree(
+                IArray(Annotation.Inline),
+                ProtectionLevel.Default,
+                memberNameFixed,
+                Empty,
+                Empty,
+                ExprTree.Cast(importExpr(expr, scope), tpe),
+                tpe,
+                isOverride = false,
+                memberCs,
+                importedCodePath + memberNameFixed,
+                isImplicit = false,
+              )
             }
             .distinctBy(_.name.unescaped)
 
@@ -99,25 +98,25 @@ object ImportEnum {
           exportedFrom match {
             case Some(ef) =>
               scalajs.TypeAliasTree(
-                name     = enumName,
-                tparams  = Empty,
-                alias    = importType(Wildcards.No, scope, importName)(TsTypeRef(NoComments, ef.name, Empty)),
+                name = enumName,
+                tparams = Empty,
+                alias = importType(Wildcards.No, scope, importName)(TsTypeRef(NoComments, ef.name, Empty)),
                 comments = Comments(CommentData(Markers.IsTrivial)),
                 codePath = importedCodePath,
               )
             case None =>
               ClassTree(
-                isImplicit  = false,
+                isImplicit = false,
                 annotations = IArray(Annotation.JsNative),
-                name        = enumName,
-                tparams     = Empty,
-                parents     = Empty,
-                ctors       = Empty,
-                members     = Empty,
-                classType   = ClassType.Trait,
-                isSealed    = true,
-                comments    = NoComments,
-                codePath    = importedCodePath,
+                name = enumName,
+                tparams = Empty,
+                parents = Empty,
+                ctors = Empty,
+                members = Empty,
+                classType = ClassType.Trait,
+                isSealed = true,
+                comments = NoComments,
+                codePath = importedCodePath,
               )
           }
 
@@ -129,78 +128,77 @@ object ImportEnum {
               Some(
                 MethodTree(
                   annotations = IArray(Annotation.JsBracketAccess),
-                  level       = ProtectionLevel.Default,
-                  name        = Name.APPLY,
-                  tparams     = Empty,
-                  params      = IArray(IArray(applyParam)),
-                  impl        = ExprTree.native,
-                  resultType  = TypeRef.Intersection(IArray(baseInterface, underlying), NoComments).withOptional(true),
-                  isOverride  = false,
-                  comments    = NoComments,
-                  codePath    = importedCodePath + Name.APPLY,
-                  isImplicit  = false,
+                  level = ProtectionLevel.Default,
+                  name = Name.APPLY,
+                  tparams = Empty,
+                  params = IArray(IArray(applyParam)),
+                  impl = ExprTree.native,
+                  resultType = TypeRef.Intersection(IArray(baseInterface, underlying), NoComments).withOptional(true),
+                  isOverride = false,
+                  comments = NoComments,
+                  codePath = importedCodePath + Name.APPLY,
+                  isImplicit = false,
                 ),
               )
             } else None
 
           val membersSyms: IArray[Tree] =
-            members.flatMap {
-              case TsEnumMember(memberCs, ImportName(memberName), exprOpt) =>
-                val memberType: Option[ClassTree] =
-                  if (exportedFrom.nonEmpty) None
-                  else
-                    Some(
-                      ClassTree(
-                        isImplicit  = false,
-                        annotations = IArray(Annotation.JsNative),
-                        name        = memberName,
-                        tparams     = Empty,
-                        parents     = IArray(baseInterface),
-                        ctors       = Empty,
-                        members     = Empty,
-                        classType   = ClassType.Trait,
-                        isSealed    = true,
-                        comments    = memberCs,
-                        codePath    = importedCodePath + memberName,
-                      ),
-                    )
+            members.flatMap { case TsEnumMember(memberCs, ImportName(memberName), exprOpt) =>
+              val memberType: Option[ClassTree] =
+                if (exportedFrom.nonEmpty) None
+                else
+                  Some(
+                    ClassTree(
+                      isImplicit = false,
+                      annotations = IArray(Annotation.JsNative),
+                      name = memberName,
+                      tparams = Empty,
+                      parents = IArray(baseInterface),
+                      ctors = Empty,
+                      members = Empty,
+                      classType = ClassType.Trait,
+                      isSealed = true,
+                      comments = memberCs,
+                      codePath = importedCodePath + memberName,
+                    ),
+                  )
 
-                val memberTypeRef = baseInterface.copy(typeName = baseInterface.typeName + memberName)
+              val memberTypeRef = baseInterface.copy(typeName = baseInterface.typeName + memberName)
 
-                val memberValue: Option[Tree] =
-                  if (isValue) {
-                    val (anns, name) =
-                      if (illegalNames.Illegal(memberName) || ObjectMembers.byName.contains(memberName))
-                        (IArray(Annotation.JsName(memberName)), memberName.withSuffix(""))
-                      else (Empty, memberName)
+              val memberValue: Option[Tree] =
+                if (isValue) {
+                  val (anns, name) =
+                    if (illegalNames.Illegal(memberName) || ObjectMembers.byName.contains(memberName))
+                      (IArray(Annotation.JsName(memberName)), memberName.withSuffix(""))
+                    else (Empty, memberName)
 
-                    val comments =
-                      exprOpt.fold(Comments(Nil))(expr => Comments(Comment(s"/* ${TsExpr.format(expr)} */ ")))
+                  val comments =
+                    exprOpt.fold(Comments(Nil))(expr => Comments(Comment(s"/* ${TsExpr.format(expr)} */ ")))
 
-                    Some(
-                      FieldTree(
-                        annotations = anns,
-                        name        = name,
-                        tpe         = TypeRef.Intersection(IArray(memberTypeRef, underlying), NoComments),
-                        impl        = ExprTree.native,
-                        isReadOnly  = true,
-                        isOverride  = false,
-                        comments    = comments,
-                        codePath    = importedCodePath + memberName,
-                      ),
-                    )
-                  } else None
+                  Some(
+                    FieldTree(
+                      annotations = anns,
+                      name = name,
+                      tpe = TypeRef.Intersection(IArray(memberTypeRef, underlying), NoComments),
+                      impl = ExprTree.native,
+                      isReadOnly = true,
+                      isOverride = false,
+                      comments = comments,
+                      codePath = importedCodePath + memberName,
+                    ),
+                  )
+                } else None
 
-                IArray.fromOptions(memberType, memberValue)
+              IArray.fromOptions(memberType, memberValue)
             }
 
           ModuleTree(
             anns,
             enumName,
-            parents    = Empty,
-            members    = membersSyms ++ IArray.fromOption(applyMethod),
-            comments   = cs + CommentData(Markers.EnumObject),
-            codePath   = importedCodePath,
+            parents = Empty,
+            members = membersSyms ++ IArray.fromOption(applyMethod),
+            comments = cs + CommentData(Markers.EnumObject),
+            codePath = importedCodePath,
             isOverride = false,
           )
         }

@@ -152,8 +152,7 @@ object AdaptiveNamingImport {
     case nonEmpty => nonEmpty + "Mod"
   }
 
-  /**
-    * The point of preferring lowercase is to choose values before types.
+  /** The point of preferring lowercase is to choose values before types.
     * `interface Console{}; declare console: Console` should become
     * `interface Console_{}; declare console: Console_`
     */

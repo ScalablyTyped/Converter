@@ -10,9 +10,8 @@ object UnionTypesFromKeyOf extends TreeTransformationScopedChanges {
           case Some(TsDeclInterface(_, _, _, _, _, members, _)) =>
             scope.logger.info(s"Expanded keyof $key")
 
-            val literals = members.collect {
-              case TsMemberProperty(_, _, TsIdent(name), _, _, _, _) =>
-                TsTypeLiteral(TsLiteralString(name))
+            val literals = members.collect { case TsMemberProperty(_, _, TsIdent(name), _, _, _, _) =>
+              TsTypeLiteral(TsLiteralString(name))
             }
 
             literals.length match {

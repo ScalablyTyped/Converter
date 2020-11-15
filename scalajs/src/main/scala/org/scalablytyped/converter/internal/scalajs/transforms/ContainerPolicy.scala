@@ -122,8 +122,8 @@ object ContainerPolicy extends TreeTransformation {
       def tooBig = {
         def countClasses(x: ContainerTree): Int =
           x.members.foldLeft(0) {
-            case (n, xx: ContainerTree)   => n + 1 + countClasses(xx)
-            case (n, _:  InheritanceTree) => n + 1
+            case (n, xx: ContainerTree) => n + 1 + countClasses(xx)
+            case (n, _: InheritanceTree) => n + 1
             case (n, _) => n
           }
 
@@ -181,9 +181,9 @@ object ContainerPolicy extends TreeTransformation {
                   val asApply =
                     m.copy(
                       annotations = Empty,
-                      name        = Name.APPLY,
-                      codePath    = m.codePath + Name.APPLY,
-                      comments    = restCs,
+                      name = Name.APPLY,
+                      codePath = m.codePath + Name.APPLY,
+                      comments = restCs,
                     )
                   Ior.Right(ModuleTree(anns, m.name, Empty, IArray(asApply), NoComments, m.codePath, m.isOverride))
                 case _ =>
@@ -214,23 +214,22 @@ object ContainerPolicy extends TreeTransformation {
 
   def combineModules(s: ContainerTree): ContainerTree = {
     val withCombinedModules: IArray[Tree] =
-      s.index.flatMapToIArray {
-        case (_, ts) =>
-          val (mods, rest) = ts.partitionCollect { case x: ModuleTree => x }
-          val combinedModules: Option[ModuleTree] =
-            mods.reduceOption { (mod1, mod2) =>
-              ModuleTree(
-                annotations = mod1.annotations,
-                name        = mod1.name,
-                parents     = (mod1.parents ++ mod2.parents).distinct,
-                members     = (mod1.members ++ mod2.members).distinct,
-                comments    = mod1.comments ++ mod2.comments,
-                codePath    = mod1.codePath,
-                isOverride  = false,
-              )
-            }
+      s.index.flatMapToIArray { case (_, ts) =>
+        val (mods, rest) = ts.partitionCollect { case x: ModuleTree => x }
+        val combinedModules: Option[ModuleTree] =
+          mods.reduceOption { (mod1, mod2) =>
+            ModuleTree(
+              annotations = mod1.annotations,
+              name = mod1.name,
+              parents = (mod1.parents ++ mod2.parents).distinct,
+              members = (mod1.members ++ mod2.members).distinct,
+              comments = mod1.comments ++ mod2.comments,
+              codePath = mod1.codePath,
+              isOverride = false,
+            )
+          }
 
-          rest ++ IArray.fromOption(combinedModules)
+        rest ++ IArray.fromOption(combinedModules)
       }
 
     s.withMembers(withCombinedModules)

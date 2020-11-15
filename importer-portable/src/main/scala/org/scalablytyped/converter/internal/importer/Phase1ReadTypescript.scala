@@ -14,8 +14,7 @@ import org.scalablytyped.converter.internal.ts.{transforms => T, _}
 
 import scala.collection.immutable.SortedMap
 
-/**
-  * This phase parses files, implements the module system, and "implements" a bunch of typescript features by rewriting the tree.
+/** This phase parses files, implements the module system, and "implements" a bunch of typescript features by rewriting the tree.
   * For instance defaulted parameters are filled in. The point is to go from a complex tree to a simpler tree
   */
 class Phase1ReadTypescript(
@@ -80,13 +79,13 @@ class Phase1ReadTypescript(
           ) =
             parsed.directives.toSet
               .partitionCollect3(
-                {
-                  case r @ DirectivePathRef(value) =>
-                    val maybeSource: Option[Source] =
-                      LibraryResolver.file(file.folder, value).map(Source.helperFile(inLib))
-                    PhaseRes.fromOption(source, maybeSource, Right(s"Couldn't resolve $r"))
+                { case r @ DirectivePathRef(value) =>
+                  val maybeSource: Option[Source] =
+                    LibraryResolver.file(file.folder, value).map(Source.helperFile(inLib))
+                  PhaseRes.fromOption(source, maybeSource, Right(s"Couldn't resolve $r"))
                 },
-                { case DirectiveTypesRef(value) => resolveDep(value) }, {
+                { case DirectiveTypesRef(value) => resolveDep(value) },
+                {
                   case r @ DirectiveLibRef(value) if inLib.libName === TsIdent.std =>
                     val maybeSource: Option[Source] =
                       LibraryResolver.file(resolve.stdLib.folder, s"lib.$value.d.ts").map(Source.helperFile(inLib))
@@ -155,29 +154,28 @@ class Phase1ReadTypescript(
 
           getDeps((fileSources ++ declaredDependencies ++ stdlibSourceOpt).sorted).map {
             case Unpack(
-                libParts: SortedMap[Source.TsHelperFile, FileAndInlinesFlat],
-                deps:     SortedMap[Source.TsLibSource, LibTs],
+                  libParts: SortedMap[Source.TsHelperFile, FileAndInlinesFlat],
+                  deps:     SortedMap[Source.TsLibSource, LibTs],
                 ) =>
               val scope: TsTreeScope.Root =
                 TsTreeScope(source.libName, pedantic, deps.map { case (source, lib) => source -> lib.parsed }, logger)
 
               val preprocessed: IArray[TsParsedFile] =
-                libParts.mapToIArray {
-                  case (helperSource, file) =>
-                    logger.info(s"Preprocessing $helperSource")
-                    val _1 = modules.InferredDefaultModule(file.file, helperSource.moduleNames.head, logger)
-                    val _2 = FlattenTrees(_1 +: file.toInline.toIArrayValues(keep = !_.isModule))
+                libParts.mapToIArray { case (helperSource, file) =>
+                  logger.info(s"Preprocessing $helperSource")
+                  val _1 = modules.InferredDefaultModule(file.file, helperSource.moduleNames.head, logger)
+                  val _2 = FlattenTrees(_1 +: file.toInline.toIArrayValues(keep = !_.isModule))
 
-                    val _3 = helperSource.moduleNames match {
-                      case IArray.exactlyOne(_) => _2
-                      case more =>
-                        _2.copy(members = _2.members.map {
-                          case m: TsDeclModule if more.contains(m.name) =>
-                            m.copy(comments = m.comments + CommentData(ModuleAliases(more.filterNot(_ === m.name))))
-                          case other => other
-                        })
-                    }
-                    T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_3)
+                  val _3 = helperSource.moduleNames match {
+                    case IArray.exactlyOne(_) => _2
+                    case more =>
+                      _2.copy(members = _2.members.map {
+                        case m: TsDeclModule if more.contains(m.name) =>
+                          m.copy(comments = m.comments + CommentData(ModuleAliases(more.filterNot(_ === m.name))))
+                        case other => other
+                      })
+                  }
+                  T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_3)
                 }
 
               val involvesReact = {
@@ -241,8 +239,10 @@ object Phase1ReadTypescript {
       FlattenTrees.apply,
       T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
       T.InlineTrivialParents.visitTsParsedFile(scope.caching), //after FlattenTrees and DefaultedTypeArguments
-      if (expandTypeMappings(libName)) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
-      if (expandTypeMappings(libName)) T.ExpandTypeMappings.After.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
+      if (expandTypeMappings(libName)) T.ExpandTypeMappings.visitTsParsedFile(scope.caching)
+      else identity, // before ExtractInterfaces
+      if (expandTypeMappings(libName)) T.ExpandTypeMappings.After.visitTsParsedFile(scope.caching)
+      else identity, // before ExtractInterfaces
       (
         T.SimplifyConditionals >> // after ExpandTypeMappings
           T.TypeAliasToConstEnum >>
@@ -257,8 +257,14 @@ object Phase1ReadTypescript {
           T.InlineTrivialTypeAlias
       ).visitTsParsedFile(scope.caching),
       T.ResolveTypeLookups
-        .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams
-      T.ExtractInterfaces(libName, TsIdent("anon"), scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
+        .visitTsParsedFile(
+          scope.caching,
+        ), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams
+      T.ExtractInterfaces(
+        libName,
+        TsIdent("anon"),
+        scope.caching,
+      ), // before things which break initial ordering of members, like `ExtractClasses`
       (
         if (involvesReact) T.ExtractClasses
         else T.ExtractClasses >> T.ExpandCallables

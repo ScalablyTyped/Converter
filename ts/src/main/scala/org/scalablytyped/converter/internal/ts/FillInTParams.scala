@@ -3,8 +3,7 @@ package ts
 
 import org.scalablytyped.converter.internal.ts.transforms.TypeRewriter
 
-/**
-  * For instance: `x: class Foo&lt;T&gt;` and `providedTParams: T = number` => `Foo&lt;number&gt;`
+/** For instance: `x: class Foo&lt;T&gt;` and `providedTParams: T = number` => `Foo&lt;number&gt;`
   * Includes all members
   */
 object FillInTParams {
@@ -39,8 +38,8 @@ object FillInTParams {
     val replacements: Map[TsType, TsType] =
       sig.tparams
         .zip(defaulted)
-        .map {
-          case (TsTypeParam(_, name, _, _), tpe) => TsTypeRef(name) -> tpe
+        .map { case (TsTypeParam(_, name, _, _), tpe) =>
+          TsTypeRef(name) -> tpe
         }
         .toMap
 
@@ -56,13 +55,12 @@ object FillInTParams {
     if (expectedTParams.isEmpty) None
     else {
       val rewrites: Map[TsType, TsType] =
-        expectedTParams.zipWithIndex.map {
-          case (TsTypeParam(_, expected, _, default), idx) =>
-            val provided =
-              if (providedTParams.lengthCompare(idx) > 0) providedTParams(idx)
-              else default.getOrElse(sys.error("Type parameter not provided"))
+        expectedTParams.zipWithIndex.map { case (TsTypeParam(_, expected, _, default), idx) =>
+          val provided =
+            if (providedTParams.lengthCompare(idx) > 0) providedTParams(idx)
+            else default.getOrElse(sys.error("Type parameter not provided"))
 
-            TsTypeRef(expected) -> provided
+          TsTypeRef(expected) -> provided
         }.toMap
 
       Some(rewrites)

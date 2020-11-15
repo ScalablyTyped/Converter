@@ -22,7 +22,7 @@ object GenerateSbtPlugin {
       contents(isDeprecated, versions, organization, projectName, projects, pluginVersion, publisherOpt),
       projectDir,
       deleteUnknowns = true,
-      soft           = true,
+      soft = true,
     )
     implicit val wd = projectDir
     %.extend(
@@ -66,15 +66,14 @@ object GenerateSbtPlugin {
         .groupBy(_.name.head)
         .to[Array]
         .sortBy(_._1)
-        .map {
-          case (letter, ps) =>
-            s"""|      object ${ScalaNameEscape(letter.toUpper.toString)} {
+        .map { case (letter, ps) =>
+          s"""|      object ${ScalaNameEscape(letter.toUpper.toString)} {
                 |${ps
-                 .to[Vector]
-                 .distinct
-                 .sortBy(_.name)
-                 .map(p => s"|        val ${ScalaNameEscape(fix(p.name))} = ${p.reference.asMangledSbt}")
-                 .mkString("", "\n", "")}
+            .to[Vector]
+            .distinct
+            .sortBy(_.name)
+            .map(p => s"|        val ${ScalaNameEscape(fix(p.name))} = ${p.reference.asMangledSbt}")
+            .mkString("", "\n", "")}
         |      }""".stripMargin
         }
         .mkString("\n")
@@ -118,8 +117,8 @@ object GenerateSbtPlugin {
       os.RelPath("project") / "plugins.sbt" -> pluginsSbt,
       os.RelPath("project") / "build.properties" -> s"sbt.version=${Versions.sbtVersion}",
       pluginSourcePath -> pluginSource,
-    ).map {
-      case (relPath, str) => relPath -> str.getBytes(constants.Utf8)
+    ).map { case (relPath, str) =>
+      relPath -> str.getBytes(constants.Utf8)
     }
   }
 }

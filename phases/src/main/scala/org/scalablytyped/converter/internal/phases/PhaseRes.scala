@@ -71,7 +71,7 @@ object PhaseRes {
   def attempt[Id, T](id: Id, logger: Logger[Unit], t: => PhaseRes[Id, T]): PhaseRes[Id, T] =
     try t
     catch {
-      case x: InterruptedException => throw x
+      case x: InterruptedException       => throw x
       case x: ClosedByInterruptException => throw x
       case x: FileLockInterruptionException => throw x
       case x: ExecutionException if x.getCause != null =>

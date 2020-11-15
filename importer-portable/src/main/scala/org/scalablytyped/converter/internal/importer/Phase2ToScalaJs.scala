@@ -20,8 +20,7 @@ import org.scalablytyped.converter.internal.ts.{TsIdentLibrary, TsTreeTraverse}
 
 import scala.collection.immutable.SortedSet
 
-/**
-  * This phase starts by going from the typescript AST to the scala AST.
+/** This phase starts by going from the typescript AST to the scala AST.
   * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
   */
 class Phase2ToScalaJs(
@@ -50,70 +49,71 @@ class Phase2ToScalaJs(
       case lib: LibTs =>
         val knownLibs = garbageCollectLibs(lib)
 
-        getDeps(knownLibs).map {
-          case LibScalaJs.Unpack(scalaDeps) =>
-            val scalaName = ImportName(lib.name)
+        getDeps(knownLibs).map { case LibScalaJs.Unpack(scalaDeps) =>
+          val scalaName = ImportName(lib.name)
 
-            val scope = new TreeScope.Root(
-              libName       = scalaName,
-              _dependencies = scalaDeps.map { case (_, l) => l.scalaName -> l.packageTree },
-              logger        = logger,
-              pedantic      = pedantic,
-              outputPkg     = outputPkg,
-            )
+          val scope = new TreeScope.Root(
+            libName = scalaName,
+            _dependencies = scalaDeps.map { case (_, l) => l.scalaName -> l.packageTree },
+            logger = logger,
+            pedantic = pedantic,
+            outputPkg = outputPkg,
+          )
 
-            logger.warn(s"Processing ${lib.name.value}")
+          logger.warn(s"Processing ${lib.name.value}")
 
-            val cleanIllegalNames = new CleanIllegalNames(outputPkg)
+          val cleanIllegalNames = new CleanIllegalNames(outputPkg)
 
-            val ScalaTransforms = List[PackageTree => PackageTree](
-              S.ContainerPolicy.visitPackageTree(scope),
-              (new S.RemoveDuplicateInheritance(new ParentsResolver) >>
-                S.CleanupTypeAliases >>
-                cleanIllegalNames >>
-                S.Deduplicator).visitPackageTree(scope),
-              Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s, cleanIllegalNames)(tree)),
-              Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName, willBeExternalTypes)), // after FakeLiterals
-              S.LimitUnionLength.visitPackageTree(scope), // after UnionToInheritance
-              (S.AvoidMacroParadiseBug >> new S.RemoveMultipleInheritance(new ParentsResolver)).visitPackageTree(scope),
-              S.CombineOverloads.visitPackageTree(scope), //must have stable types, so FakeLiterals run before
-              new S.FilterMemberOverrides(new ParentsResolver).visitPackageTree(scope), //
-              new S.InferMemberOverrides(new ParentsResolver)
-                .visitPackageTree(scope), //runs in phase after FilterMemberOverrides
-              (new S.CompleteClass(new ParentsResolver) >> //after FilterMemberOverrides
-                S.Sorter).visitPackageTree(scope),
-            )
+          val ScalaTransforms = List[PackageTree => PackageTree](
+            S.ContainerPolicy.visitPackageTree(scope),
+            (new S.RemoveDuplicateInheritance(new ParentsResolver) >>
+              S.CleanupTypeAliases >>
+              cleanIllegalNames >>
+              S.Deduplicator).visitPackageTree(scope),
+            Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s, cleanIllegalNames)(tree)),
+            Adapter(scope)((tree, s) =>
+              S.UnionToInheritance(s, tree, scalaName, willBeExternalTypes),
+            ), // after FakeLiterals
+            S.LimitUnionLength.visitPackageTree(scope), // after UnionToInheritance
+            (S.AvoidMacroParadiseBug >> new S.RemoveMultipleInheritance(new ParentsResolver)).visitPackageTree(scope),
+            S.CombineOverloads.visitPackageTree(scope), //must have stable types, so FakeLiterals run before
+            new S.FilterMemberOverrides(new ParentsResolver).visitPackageTree(scope), //
+            new S.InferMemberOverrides(new ParentsResolver)
+              .visitPackageTree(scope), //runs in phase after FilterMemberOverrides
+            (new S.CompleteClass(new ParentsResolver) >> //after FilterMemberOverrides
+              S.Sorter).visitPackageTree(scope),
+          )
 
-            val importName = AdaptiveNamingImport(
-              outputPkg,
-              lib.name,
-              lib.parsed,
-              scalaDeps.mapToIArray { case (_, v) => v.names },
-              cleanIllegalNames,
-            )
+          val importName = AdaptiveNamingImport(
+            outputPkg,
+            lib.name,
+            lib.parsed,
+            scalaDeps.mapToIArray { case (_, v) => v.names },
+            cleanIllegalNames,
+          )
 
-            val importType = new ImportType(new internal.scalajs.QualifiedName.StdNames(outputPkg))
-            val importTree = new ImportTree(
-              outputPkg,
-              importName,
-              importType,
-              cleanIllegalNames,
-              new ImportExpr(importType, importName),
-              enableScalaJsDefined(lib.name),
-            )
+          val importType = new ImportType(new internal.scalajs.QualifiedName.StdNames(outputPkg))
+          val importTree = new ImportTree(
+            outputPkg,
+            importName,
+            importType,
+            cleanIllegalNames,
+            new ImportExpr(importType, importName),
+            enableScalaJsDefined(lib.name),
+          )
 
-            val scalaTree            = importTree(lib, logger)
-            val transformedScalaTree = ScalaTransforms.foldLeft(scalaTree) { case (acc, f) => f(acc) }
+          val scalaTree            = importTree(lib, logger)
+          val transformedScalaTree = ScalaTransforms.foldLeft(scalaTree) { case (acc, f) => f(acc) }
 
-            LibScalaJs(lib.source)(
-              libName      = lib.name.`__value`.replaceAll("\\.", "_dot_"),
-              scalaName    = scalaName,
-              libVersion   = lib.version,
-              packageTree  = transformedScalaTree,
-              dependencies = scalaDeps,
-              isStdLib     = lib.parsed.isStdLib,
-              names        = importName,
-            )
+          LibScalaJs(lib.source)(
+            libName = lib.name.`__value`.replaceAll("\\.", "_dot_"),
+            scalaName = scalaName,
+            libVersion = lib.version,
+            packageTree = transformedScalaTree,
+            dependencies = scalaDeps,
+            isStdLib = lib.parsed.isStdLib,
+            names = importName,
+          )
         }
     }
 

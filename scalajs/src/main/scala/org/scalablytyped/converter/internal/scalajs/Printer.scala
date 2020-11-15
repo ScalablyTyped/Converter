@@ -23,9 +23,7 @@ object Printer {
       try {
         f(pw)
         fs(file) = w.toString.getBytes(constants.Utf8)
-      } finally {
-        pw.close()
-      }
+      } finally pw.close()
     }
 
     def result: Map[os.RelPath, Array[Byte]] =
@@ -41,12 +39,12 @@ object Printer {
     val reg = new Registry()
 
     new Impl(outputPackage).apply(
-      _scope          = scope,
+      _scope = scope,
       parentsResolver = parentsResolver,
-      reg             = reg,
-      packages        = IArray(tree.name),
-      targetFolder    = os.RelPath(tree.name.unescaped),
-      tree            = tree,
+      reg = reg,
+      packages = IArray(tree.name),
+      targetFolder = os.RelPath(tree.name.unescaped),
+      tree = tree,
     )
 
     reg.result
@@ -105,13 +103,12 @@ object Printer {
 
         def toEscape(name: String) = name.toLowerCase() == normal
 
-        val shouldBeEscaped = files.exists {
-          case (scalaOutput, _) =>
-            scalaOutput match {
-              case ScalaOutput.Package(Name(p)) if toEscape(p) => true
-              case ScalaOutput.File(Name(p)) if toEscape(p)    => true
-              case _                                           => false
-            }
+        val shouldBeEscaped = files.exists { case (scalaOutput, _) =>
+          scalaOutput match {
+            case ScalaOutput.Package(Name(p)) if toEscape(p) => true
+            case ScalaOutput.File(Name(p)) if toEscape(p)    => true
+            case _                                           => false
+          }
         }
         val name = if (shouldBeEscaped) escaped else normal
         s"$name.scala"
@@ -214,9 +211,9 @@ object Printer {
           print(formatAnns(anns))
 
           val (defaultCtor, restCtors) = ctors.sortBy(_.params.length).toList match {
-            case Nil                                                  => (CtorTree.defaultPublic, Nil)
-            case head :: tail if (head.params.isEmpty || !c.isNative) => (head, tail)
-            case all                                                  => (CtorTree.defaultProtected, all)
+            case Nil                                                => (CtorTree.defaultPublic, Nil)
+            case head :: tail if head.params.isEmpty || !c.isNative => (head, tail)
+            case all                                                => (CtorTree.defaultProtected, all)
           }
 
           print(Comments.format(defaultCtor.comments))

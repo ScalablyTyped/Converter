@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-/**
-  * Typescript allows things like `type T = number | string | T[]`, while scala doesn't
+/** Typescript allows things like `type T = number | string | T[]`, while scala doesn't
   * We rewrite the recursive references to the type alias (on rhs) to `object`
   */
 object SimplifyRecursiveTypeAlias extends TreeTransformationScopedChanges {

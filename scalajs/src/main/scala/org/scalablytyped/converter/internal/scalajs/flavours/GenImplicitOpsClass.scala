@@ -23,8 +23,7 @@ object GenImplicitOpsClass {
     /* we need to add a few type parameter names into an unknown set, so this avoids collisions */
     val mutableAllocateTypeName = AvailableName(original.tparams.map(_.name), IArray(original.name))
 
-    /**
-      * We generate a Self type like this:
+    /** We generate a Self type like this:
       * ```implicit class DOMAttributesOps[Self[t] &lt;: DOMAttributes[t], T] (val x: Self[T])```
       * because subclasses can use * the methods defined here without losing the type of the subclass
       */
@@ -33,10 +32,10 @@ object GenImplicitOpsClass {
 
     val tparams = {
       val selfTParam = TypeParamTree(
-        name        = SelfName,
-        params      = Empty,
-        upperBound  = Some(TypeRef(original.codePath, original.tparams.map(_ => TypeRef.Wildcard), NoComments)),
-        comments    = NoComments,
+        name = SelfName,
+        params = Empty,
+        upperBound = Some(TypeRef(original.codePath, original.tparams.map(_ => TypeRef.Wildcard), NoComments)),
+        comments = NoComments,
         ignoreBound = false,
       )
 
@@ -69,16 +68,16 @@ object GenImplicitOpsClass {
 
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
-        name        = methodName,
-        tparams     = Empty,
-        params      = IArray(IArray(keyParam, valueParam)),
-        impl        = impl,
-        resultType  = selfRef,
-        isOverride  = false,
-        comments    = NoComments,
-        codePath    = clsCodePath + methodName,
-        isImplicit  = false,
+        level = ProtectionLevel.Default,
+        name = methodName,
+        tparams = Empty,
+        params = IArray(IArray(keyParam, valueParam)),
+        impl = impl,
+        resultType = selfRef,
+        isOverride = false,
+        comments = NoComments,
+        codePath = clsCodePath + methodName,
+        isImplicit = false,
       )
     }
 
@@ -106,16 +105,16 @@ object GenImplicitOpsClass {
               val valueParam = ParamTree(value, isImplicit = false, isVal = false, tpe, NotImplemented, NoComments)
               MethodTree(
                 annotations = IArray(Annotation.Inline),
-                level       = ProtectionLevel.Default,
-                name        = methodName,
-                tparams     = Empty,
-                params      = IArray(IArray(valueParam)),
-                impl        = impl,
-                resultType  = selfRef,
-                isOverride  = false,
-                comments    = NoComments,
-                codePath    = clsCodePath + methodName,
-                isImplicit  = false,
+                level = ProtectionLevel.Default,
+                name = methodName,
+                tparams = Empty,
+                params = IArray(IArray(valueParam)),
+                impl = impl,
+                resultType = selfRef,
+                isOverride = false,
+                comments = NoComments,
+                codePath = clsCodePath + methodName,
+                isImplicit = false,
               )
           }
 
@@ -129,16 +128,16 @@ object GenImplicitOpsClass {
               Some(
                 MethodTree(
                   annotations = IArray(Annotation.Inline),
-                  level       = ProtectionLevel.Default,
-                  name        = name,
-                  tparams     = Empty,
-                  params      = Empty,
-                  impl        = impl,
-                  resultType  = selfRef,
-                  isOverride  = false,
-                  comments    = NoComments,
-                  codePath    = clsCodePath + name,
-                  isImplicit  = false,
+                  level = ProtectionLevel.Default,
+                  name = name,
+                  tparams = Empty,
+                  params = Empty,
+                  impl = impl,
+                  resultType = selfRef,
+                  isOverride = false,
+                  comments = NoComments,
+                  codePath = clsCodePath + name,
+                  isImplicit = false,
                 ),
               )
 
@@ -155,16 +154,16 @@ object GenImplicitOpsClass {
               Some(
                 MethodTree(
                   annotations = IArray(Annotation.Inline),
-                  level       = ProtectionLevel.Default,
-                  name        = name,
-                  tparams     = Empty,
-                  params      = Empty,
-                  impl        = impl,
-                  resultType  = selfRef,
-                  isOverride  = false,
-                  comments    = NoComments,
-                  codePath    = clsCodePath + name,
-                  isImplicit  = false,
+                  level = ProtectionLevel.Default,
+                  name = name,
+                  tparams = Empty,
+                  params = Empty,
+                  impl = impl,
+                  resultType = selfRef,
+                  isOverride = false,
+                  comments = NoComments,
+                  codePath = clsCodePath + name,
+                  isImplicit = false,
                 ),
               )
 
@@ -189,10 +188,10 @@ object GenImplicitOpsClass {
           ParamTree(
             x,
             isImplicit = false,
-            isVal      = true,
-            tpe        = paramType,
-            default    = NotImplemented,
-            comments   = NoComments,
+            isVal = true,
+            tpe = paramType,
+            default = NotImplemented,
+            comments = NoComments,
           ),
         ),
         NoComments,
@@ -206,17 +205,17 @@ object GenImplicitOpsClass {
     if (sugarMembers.nonEmpty)
       Some(
         ClassTree(
-          isImplicit  = true,
+          isImplicit = true,
           annotations = IArray(Annotation.Inline),
-          name        = clsName,
-          tparams     = tparams,
-          parents     = IArray(TypeRef.AnyVal),
-          ctors       = IArray(sugarCtor),
-          members     = allMembers,
-          classType   = ClassType.Class,
-          isSealed    = false,
-          comments    = NoComments,
-          codePath    = clsCodePath,
+          name = clsName,
+          tparams = tparams,
+          parents = IArray(TypeRef.AnyVal),
+          ctors = IArray(sugarCtor),
+          members = allMembers,
+          classType = ClassType.Class,
+          isSealed = false,
+          comments = NoComments,
+          codePath = clsCodePath,
         ),
       )
     else None
@@ -224,7 +223,7 @@ object GenImplicitOpsClass {
 
   def genDuplicateMember(duplicateName: Name, target: Name, ownerCp: QualifiedName, clsRef: TypeRef): MethodTree = {
 
-    val impl = {
+    val impl =
       Cast(
         Call(
           Ref(QualifiedName.DynamicGlobalObjectAssign),
@@ -237,20 +236,19 @@ object GenImplicitOpsClass {
         ),
         clsRef,
       )
-    }
 
     MethodTree(
       annotations = IArray(Annotation.Inline),
-      level       = ProtectionLevel.Default,
-      name        = duplicateName,
-      tparams     = Empty,
-      params      = Empty,
-      impl        = impl,
-      resultType  = clsRef,
-      isOverride  = false,
-      comments    = NoComments,
-      codePath    = ownerCp + duplicateName,
-      isImplicit  = false,
+      level = ProtectionLevel.Default,
+      name = duplicateName,
+      tparams = Empty,
+      params = Empty,
+      impl = impl,
+      resultType = clsRef,
+      isOverride = false,
+      comments = NoComments,
+      codePath = ownerCp + duplicateName,
+      isImplicit = false,
     )
   }
 
@@ -263,7 +261,7 @@ object GenImplicitOpsClass {
   ): MethodTree = {
     val otherType = TypeRef(otherTypeName)
     val otherName = Name("other")
-    val impl = {
+    val impl =
       Cast(
         Call(
           Ref(QualifiedName.DynamicGlobalObjectAssign),
@@ -277,7 +275,6 @@ object GenImplicitOpsClass {
         ),
         TypeRef.Intersection(IArray(clsRef, otherType), NoComments),
       )
-    }
 
     val otherParam = IArray(
       IArray(ParamTree(otherName, isImplicit = false, isVal = false, otherType, NotImplemented, NoComments)),
@@ -285,16 +282,16 @@ object GenImplicitOpsClass {
 
     MethodTree(
       annotations = IArray(Annotation.Inline),
-      level       = ProtectionLevel.Default,
-      name        = combineName,
-      tparams     = IArray(TypeParamTree(otherTypeName, Empty, Some(TypeRef.Any), NoComments, ignoreBound = false)),
-      params      = otherParam,
-      impl        = impl,
-      resultType  = TypeRef.Intersection(IArray(clsRef, otherType), NoComments),
-      isOverride  = false,
-      comments    = NoComments,
-      codePath    = ownerCp + combineName,
-      isImplicit  = false,
+      level = ProtectionLevel.Default,
+      name = combineName,
+      tparams = IArray(TypeParamTree(otherTypeName, Empty, Some(TypeRef.Any), NoComments, ignoreBound = false)),
+      params = otherParam,
+      impl = impl,
+      resultType = TypeRef.Intersection(IArray(clsRef, otherType), NoComments),
+      isOverride = false,
+      comments = NoComments,
+      codePath = ownerCp + combineName,
+      isImplicit = false,
     )
   }
 

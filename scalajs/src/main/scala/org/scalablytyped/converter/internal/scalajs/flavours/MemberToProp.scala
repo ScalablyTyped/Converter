@@ -21,9 +21,9 @@ object MemberToProp {
               else if (paramTypes.length > 22) None
               else {
                 val main = Prop.Variant(
-                  tpe           = TypeRef.ScalaFunction(paramTypes, retType, NoComments),
-                  asExpr        = ref => Call(Ref(QualifiedName.AnyFromFunction(paramTypes.length)), IArray(IArray(ref))),
-                  isRewritten   = true,
+                  tpe = TypeRef.ScalaFunction(paramTypes, retType, NoComments),
+                  asExpr = ref => Call(Ref(QualifiedName.AnyFromFunction(paramTypes.length)), IArray(IArray(ref))),
+                  isRewritten = true,
                   extendsAnyVal = false,
                 )
                 Some(Prop.Normal(main, isInherited, optionality, Empty, f))
@@ -57,7 +57,7 @@ object MemberToProp {
                       Prop.Variant(
                         TypeRef.Repeated(Wildcards.Remove.visitTypeRef(scope)(t), NoComments),
                         e => Call(Ref(QualifiedName.Array), IArray(IArray(`:_*`(e)))),
-                        isRewritten   = true,
+                        isRewritten = true,
                         extendsAnyVal = false,
                       ),
                     )
@@ -65,9 +65,9 @@ object MemberToProp {
                 }
 
               val main = Prop.Variant(
-                tpe           = tpe,
-                asExpr        = ref => Cast(ref, TypeRef.Any),
-                isRewritten   = willBeRewritten,
+                tpe = tpe,
+                asExpr = ref => Cast(ref, TypeRef.Any),
+                isRewritten = willBeRewritten,
                 extendsAnyVal = TypeRef.Primitive(TypeRef(Erasure.simplify(scope / x, dealiased))),
               )
               Some(Prop.Normal(main, isInherited, optionality, variants, f))
@@ -81,9 +81,9 @@ object MemberToProp {
           else if (flattenedParams.length > 22) None
           else {
             val main = Prop.Variant(
-              tpe           = TypeRef.ScalaFunction(flattenedParams.map(p => p.tpe), m.resultType, NoComments),
-              asExpr        = ref => Call(Ref(QualifiedName.AnyFromFunction(flattenedParams.length)), IArray(IArray(ref))),
-              isRewritten   = true,
+              tpe = TypeRef.ScalaFunction(flattenedParams.map(p => p.tpe), m.resultType, NoComments),
+              asExpr = ref => Call(Ref(QualifiedName.AnyFromFunction(flattenedParams.length)), IArray(IArray(ref))),
+              isRewritten = true,
               extendsAnyVal = false,
             )
             Some(Prop.Normal(main, isInherited, Optionality.No, Empty, m))

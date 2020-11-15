@@ -5,8 +5,7 @@ package transforms
 import org.scalablytyped.converter.internal.scalajs.ParentsResolver.{Parent, Parents}
 import org.scalablytyped.converter.internal.seqs._
 
-/**
-  * Sort parents to ensure that if we inherit from a class it
+/** Sort parents to ensure that if we inherit from a class it
   * goes first, and traits are mixins
   */
 class RemoveMultipleInheritance(parentsResolver: ParentsResolver) extends TreeTransformation {

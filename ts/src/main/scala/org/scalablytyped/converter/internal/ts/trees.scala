@@ -592,7 +592,7 @@ final case class TsMemberFunction(
 ) extends TsMember
 
 sealed trait Indexing extends TsTree
-case class IndexingDict(name:   TsIdent, tpe: TsType) extends Indexing
+case class IndexingDict(name: TsIdent, tpe: TsType) extends Indexing
 case class IndexingSingle(name: TsQIdent) extends Indexing
 
 final case class TsMemberIndex(

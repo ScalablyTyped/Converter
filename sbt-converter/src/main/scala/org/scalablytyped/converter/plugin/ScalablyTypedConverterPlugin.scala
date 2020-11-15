@@ -40,8 +40,8 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
 
     val input = ImportTypings.Input(
       converterVersion = BuildInfo.version,
-      conversion       = conversion,
-      wantedLibs       = wantedLibs,
+      conversion = conversion,
+      wantedLibs = wantedLibs,
     )
 
     val runCacheKey  = RunCacheKey(input)
@@ -68,13 +68,13 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
           (Compile / npmInstallDependencies).value
 
           ImportTypings(
-            input              = input,
-            logger             = stLogger,
-            parseCacheDirOpt   = Some(cacheDir.toNIO.resolve("parse")),
+            input = input,
+            logger = stLogger,
+            parseCacheDirOpt = Some(cacheDir.toNIO.resolve("parse")),
             publishLocalFolder = publishLocalFolder,
-            fromFolder         = fromFolder,
-            targetFolder       = targetFolder,
-            compiler           = stInternalZincCompiler.value,
+            fromFolder = fromFolder,
+            targetFolder = targetFolder,
+            compiler = stInternalZincCompiler.value,
           ) match {
             case Right(output) =>
               Json.persist[ImportTypings.InOut](runCachePath)((input, output))

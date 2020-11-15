@@ -6,8 +6,7 @@ import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.TypeParamTree.asTypeArgs
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 
-/**
-  * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
+/** Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
   */
 final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) extends TreeTransformation {
   override def leaveContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree =
@@ -29,11 +28,11 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
             if (enableLongApplyMethod) None
             else {
               findProps.forClassTree(
-                cls                = cls,
-                scope              = scope / cls,
-                maxNum             = Int.MaxValue,
+                cls = cls,
+                scope = scope / cls,
+                maxNum = Int.MaxValue,
                 acceptNativeTraits = false,
-                selfRef            = clsRef,
+                selfRef = clsRef,
               ) match {
                 case Res.One(_, props) if props.nonEmpty => GenImplicitOpsClass(cls, props, cls.codePath, scope)
                 case _                                   => None
@@ -42,11 +41,11 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
 
           val generatedCreators: IArray[Tree] =
             findProps.forClassTree(
-              cls                = cls,
-              scope              = scope / cls,
-              maxNum             = FindProps.MaxParamsForMethod,
+              cls = cls,
+              scope = scope / cls,
+              maxNum = FindProps.MaxParamsForMethod,
               acceptNativeTraits = false,
-              selfRef            = clsRef,
+              selfRef = clsRef,
             ) match {
               case Res.Error(_) =>
                 Empty
@@ -80,8 +79,8 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
           generatedCreators ++ IArray.fromOption(geneatedImplicitOps) match {
             case Empty => IArray(cls)
             case some =>
-              val dontMinimize = Comments(CommentData(Minimization.Related(some.collect {
-                case m: HasCodePath => TypeRef(m.codePath)
+              val dontMinimize = Comments(CommentData(Minimization.Related(some.collect { case m: HasCodePath =>
+                TypeRef(m.codePath)
               })))
               val mod = ModuleTree(Empty, cls.name, Empty, some, dontMinimize, cls.codePath, isOverride = false)
               IArray(cls, mod)
@@ -91,8 +90,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
       })
     }
 
-  /**
-    * Avoid errors like this
+  /** Avoid errors like this
     * [E] [E-1] Error while emitting typingsJapgolly/csstype/csstypeMod/StandardLonghandPropertiesHyphenFallback$
     * [E]       UTF8 string too large
     */
@@ -127,7 +125,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
     val interpretedProps = props.map(defaultInterpretation.apply)
 
     val (mutators, initializers, Empty) = interpretedProps.partitionCollect2(
-      { case (x: Mutator, _)     => x },
+      { case (x: Mutator, _) => x },
       { case (x: Initializer, _) => x },
     )
     val typeName = typeCp.parts.last
@@ -146,16 +144,16 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
 
     MethodTree(
       annotations = IArray(Annotation.Inline),
-      level       = ProtectionLevel.Default,
-      name        = name,
-      tparams     = typeTparams,
-      params      = IArray(interpretedProps.map(_._2)),
-      impl        = impl,
-      resultType  = ret,
-      isOverride  = false,
-      comments    = NoComments,
-      codePath    = typeCp + name,
-      isImplicit  = false,
+      level = ProtectionLevel.Default,
+      name = name,
+      tparams = typeTparams,
+      params = IArray(interpretedProps.map(_._2)),
+      impl = impl,
+      resultType = ret,
+      isOverride = false,
+      comments = NoComments,
+      codePath = typeCp + name,
+      isImplicit = false,
     )
   }
 }

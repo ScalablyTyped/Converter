@@ -44,15 +44,15 @@ object FindProps {
         case Error(_) => None
       }
     }
-    case class Error[E](msg:   E) extends Res[E, Nothing]
-    case class One[T](name:    TypeRef, value: T) extends Success[T]
+    case class Error[E](msg: E) extends Res[E, Nothing]
+    case class One[T](name: TypeRef, value: T) extends Success[T]
     case class Many[T](values: Map[TypeRef, T]) extends Success[T]
 
     def combine[E <: AnyRef, T](ress: IArray[Res[IArray[E], T]]): Res[IArray[E], T] =
       ress.partitionCollect3(
-        { case Error(es)        => es },
+        { case Error(es) => es },
         { case One(name, value) => name -> value },
-        { case Many(values)     => values },
+        { case Many(values) => values },
       ) match {
         case (IArray.Empty, IArray.exactlyOne((name, one)), IArray.Empty, _) => One(name, one)
         case (IArray.Empty, ones, manies, _) =>
@@ -98,9 +98,13 @@ final class FindProps(
         val results: IArray[Res[IArray[String], IArray[Prop]]] =
           types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits))
 
-        results.partitionCollect3({ case x @ Res.Error(_) => x }, { case x @ Res.Many(_) => x }, {
-          case x @ Res.One(_, _)                          => x
-        }) match {
+        results.partitionCollect3(
+          { case x @ Res.Error(_) => x },
+          { case x @ Res.Many(_) => x },
+          { case x @ Res.One(_, _) =>
+            x
+          },
+        ) match {
           case (Empty, Empty, ones, _) =>
             Res.One(typeRef, ones.flatMap(_.value).sorted.distinctBy(_.name))
           case (Empty, _, _, _) =>
@@ -117,16 +121,15 @@ final class FindProps(
         Res.combine(types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits)))
 
       case other =>
-        val retOpt = scope.lookup(other.typeName).collectFirst {
-          case (_cls: ClassTree, newScope) =>
-            val cls = FillInTParams(_cls, newScope, other.targs, tparams)
-            forClassTree(
-              cls,
-              scope / cls,
-              maxNum             = maxNum,
-              acceptNativeTraits = acceptNativeTraits,
-              selfRef            = other,
-            )
+        val retOpt = scope.lookup(other.typeName).collectFirst { case (_cls: ClassTree, newScope) =>
+          val cls = FillInTParams(_cls, newScope, other.targs, tparams)
+          forClassTree(
+            cls,
+            scope / cls,
+            maxNum = maxNum,
+            acceptNativeTraits = acceptNativeTraits,
+            selfRef = other,
+          )
         }
 
         retOpt.getOrElse {
@@ -147,10 +150,9 @@ final class FindProps(
         Res.combine(subclassRefs.map { subClsRef =>
           scope
             .lookup(subClsRef.typeName)
-            .collectFirst {
-              case (subCls: ClassTree, _) =>
-                val subCls_ = FillInTParams(subCls, scope, subClsRef.targs, cls.tparams)
-                forClassTree(subCls_, scope, maxNum, acceptNativeTraits, subClsRef)
+            .collectFirst { case (subCls: ClassTree, _) =>
+              val subCls_ = FillInTParams(subCls, scope, subClsRef.targs, cls.tparams)
+              forClassTree(subCls_, scope, maxNum, acceptNativeTraits, subClsRef)
             }
             .getOrElse {
               val msg = s"Could not find ${Printer.formatTypeRef(0)(subClsRef)}"
@@ -196,8 +198,8 @@ final class FindProps(
               }
 
           val ownProps: Map[Name, Prop] =
-            membersFrom(cls).mapNotNone {
-              case (_, member) => memberToProp(scope, member, isInherited = false)
+            membersFrom(cls).mapNotNone { case (_, member) =>
+              memberToProp(scope, member, isInherited = false)
             }
 
           /** The total number of props might be too large, so we gradually try to limit it by "compressing" props,
@@ -214,8 +216,8 @@ final class FindProps(
                 def go(p: ParentsResolver.Parent): Map[Name, MemberTree] =
                   maps.smash(p.parents.map(go)) ++ membersFrom(p.classTree)
 
-                maps.smash(inlineParents.map(go)).mapNotNone {
-                  case (_, member) => memberToProp(scope, member, isInherited = true)
+                maps.smash(inlineParents.map(go)).mapNotNone { case (_, member) =>
+                  memberToProp(scope, member, isInherited = true)
                 }
               }
 
@@ -232,7 +234,7 @@ final class FindProps(
 
               /** It's not *the* most precise way of going about this (will lose useful overloads),
                 *  but has the nice property that it keeps the closest/most specific definition of a member
-                * */
+                */
               val all = inlinedPropsFromParent ++ unresolvedProps ++ compressedProps ++ ownProps
 
               all.toIArrayValues.sorted
@@ -255,13 +257,12 @@ final class FindProps(
         val tparams          = methods.maxBy(_.tparams.length).tparams
         val paramsForMethods = methods.map(_.params.flatten)
         val longestParams    = paramsForMethods.maxBy(_.length)
-        val params = longestParams.zipWithIndex.map {
-          case (param, idx) =>
-            val forIdx: IArray[TypeRef] =
-              paramsForMethods.map(paramsForMethod =>
-                if (paramsForMethod.isDefinedAt(idx)) paramsForMethod(idx).tpe else TypeRef.undefined,
-              )
-            param.copy(tpe = TypeRef.Union(forIdx, NoComments, sort = true))
+        val params = longestParams.zipWithIndex.map { case (param, idx) =>
+          val forIdx: IArray[TypeRef] =
+            paramsForMethods.map(paramsForMethod =>
+              if (paramsForMethod.isDefinedAt(idx)) paramsForMethod(idx).tpe else TypeRef.undefined,
+            )
+          param.copy(tpe = TypeRef.Union(forIdx, NoComments, sort = true))
         }
         val resultType = TypeRef.Union(methods.map(_.resultType), NoComments, sort = true)
         methods.head.copy(tparams = tparams, params = IArray(params), resultType = resultType)

@@ -63,7 +63,7 @@ class QualifyReferences(skipValidation: Boolean) extends TreeTransformationScope
     else true
 
   def referenceFrom(types: IArray[(TsNamedDecl, TsTreeScope)]): IArray[CodePath.HasPath] =
-    types.map {
-      case (named, _) => named.codePath.forceHasPath
+    types.map { case (named, _) =>
+      named.codePath.forceHasPath
     }
 }

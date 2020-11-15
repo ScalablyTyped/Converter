@@ -9,8 +9,7 @@ import scala.collection.immutable.SortedSet
 
 object Bootstrap {
 
-  /**
-    * At this point we have scanned node_modules (and DT, if in CI) and know the location ([[Source]])
+  /** At this point we have scanned node_modules (and DT, if in CI) and know the location ([[Source]])
     *  of all libraries it's possible to import.
     *
     * @param initialLibs determines if all the libraries explicitly wanted by the user were available
@@ -93,12 +92,11 @@ object Bootstrap {
   }
 
   def findSources(folders: IArray[InFolder]): IArray[Source.FromFolder] =
-    folders.foldLeft[IArray[Source.FromFolder]](IArray.Empty) {
-      case (foundSources, next) =>
-        val foundNames = foundSources.map(_.libName).toSet
-        val newSources = forFolder(next).filterNot(s => foundNames(s.libName))
+    folders.foldLeft[IArray[Source.FromFolder]](IArray.Empty) { case (foundSources, next) =>
+      val foundNames = foundSources.map(_.libName).toSet
+      val newSources = forFolder(next).filterNot(s => foundNames(s.libName))
 
-        foundSources ++ newSources
+      foundSources ++ newSources
     }
 
   private def forFolder(folder: InFolder): IArray[Source.FromFolder] =

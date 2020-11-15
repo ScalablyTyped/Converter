@@ -66,9 +66,9 @@ object Dep {
   case class Java(org: String, name: String, version: String) extends Concrete {
     override def mangledArtifact: String = name
   }
-  case class Scala(org:            String, name: String, version: String) extends Dep
+  case class Scala(org: String, name: String, version: String) extends Dep
   case class ScalaFullVersion(org: String, name: String, version: String) extends Dep
-  case class ScalaJs(org:          String, name: String, version: String) extends Dep
+  case class ScalaJs(org: String, name: String, version: String) extends Dep
 
   case class Mangled(mangledArtifact: String, dep: Dep) extends Concrete {
     override def org:     String = dep.org

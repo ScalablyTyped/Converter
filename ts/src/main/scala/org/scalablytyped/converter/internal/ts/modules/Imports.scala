@@ -95,8 +95,8 @@ object Imports {
                     /* complain i guess? */
                     other
                 }
-                Utils.searchAmong(scope, Pick, newWanted, all, loopDetector).map {
-                  case (t, s) => t.withName(renamed).asInstanceOf[T] -> s
+                Utils.searchAmong(scope, Pick, newWanted, all, loopDetector).map { case (t, s) =>
+                  t.withName(renamed).asInstanceOf[T] -> s
                 }
             }
         }
@@ -135,7 +135,7 @@ object Imports {
 
             val (namespaceds, rest, _) = withAugmented.members.partitionCollect2(
               { case x: TsNamedDecl if x.name === TsIdent.namespaced => x },
-              { case x: TsNamedDecl                                  => DeriveCopy(x, CodePath.NoPath, None) },
+              { case x: TsNamedDecl => DeriveCopy(x, CodePath.NoPath, None) },
             )
 
             ExpandedMod.Whole(Empty, namespaceds, rest.flatten, modScope)
@@ -161,9 +161,9 @@ object Imports {
               }
 
             val (defaults, namespaceds, rest, _) = withAugmented.members.partitionCollect3(
-              { case x: TsNamedDecl if x.name === TsIdent.default    => x },
+              { case x: TsNamedDecl if x.name === TsIdent.default => x },
               { case x: TsNamedDecl if x.name === TsIdent.namespaced => x },
-              { case x: TsNamedDecl                                  => x },
+              { case x: TsNamedDecl => x },
             )
 
             ExpandedMod.Whole(defaults, namespaceds, rest, modScope)

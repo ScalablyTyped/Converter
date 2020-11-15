@@ -12,12 +12,12 @@ object AvoidMacroParadiseBug extends TreeTransformation {
             case ExprTree.native =>
               ModuleTree(
                 annotations = IArray(Annotation.JsNative),
-                name        = f.name,
-                parents     = IArray(TypeRef.TopLevel(f.tpe)),
-                members     = Empty,
-                comments    = f.comments,
-                codePath    = f.codePath,
-                isOverride  = f.isOverride,
+                name = f.name,
+                parents = IArray(TypeRef.TopLevel(f.tpe)),
+                members = Empty,
+                comments = f.comments,
+                codePath = f.codePath,
+                isOverride = f.isOverride,
               )
             case _ => f.withSuffix("").copy(isOverride = false)
           }

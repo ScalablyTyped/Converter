@@ -9,8 +9,8 @@ object ExtractClasses extends TransformLeaveMembers {
   override def newMembers(scope: TsTreeScope, x: TsContainer): IArray[TsContainerOrDecl] = {
     val findName = FindAvailableName(x, scope)
 
-    val byNames = x.membersByName.flatMapToIArray {
-      case (_, sameName) => extractClasses(scope, sameName, findName).getOrElse(sameName)
+    val byNames = x.membersByName.flatMapToIArray { case (_, sameName) =>
+      extractClasses(scope, sameName, findName).getOrElse(sameName)
     }
 
     x.unnamed ++ byNames
@@ -36,20 +36,20 @@ object ExtractClasses extends TransformLeaveMembers {
       ownerCp:  CodePath,
   ): PartialFunction[TsMember, TsDeclClass] = {
     case TsMemberProperty(
-        cs,
-        level,
-        origName,
-        Some(
-          TsTypeConstructor(TsTypeFunction(TsFunSig(cs1, tparams, params, Some(resultType: TsTypeRef)))),
-        ),
-        None,
-        isStatic,
-        isReadOnly,
+          cs,
+          level,
+          origName,
+          Some(
+            TsTypeConstructor(TsTypeFunction(TsFunSig(cs1, tparams, params, Some(resultType: TsTypeRef)))),
+          ),
+          None,
+          isStatic,
+          isReadOnly,
         ) if findName(origName).isDefined =>
       val name = findName(origName).get
       TsDeclClass(
         cs,
-        declared   = false,
+        declared = false,
         isAbstract = false,
         name,
         tparams,
@@ -111,9 +111,13 @@ object ExtractClasses extends TransformLeaveMembers {
       findName: FindAvailableName,
   ): Option[IArray[TsNamedDecl]] = {
     val (vars, namespaces, classes, rest: IArray[TsNamedDecl]) =
-      sameName.partitionCollect3({ case x: TsDeclVar   => x }, { case x: TsDeclNamespace => x }, {
-        case x:                            TsDeclClass => x
-      })
+      sameName.partitionCollect3(
+        { case x: TsDeclVar => x },
+        { case x: TsDeclNamespace => x },
+        { case x: TsDeclClass =>
+          x
+        },
+      )
 
     vars match {
       case IArray.headTail(v @ TsDeclVar(cs, declared, _, name, Some(tpe), None, jsLocation, cp), restVars)
@@ -164,23 +168,23 @@ object ExtractClasses extends TransformLeaveMembers {
                       TsIdent.constructor,
                       MethodType.Normal,
                       TsFunSig(NoComments, Empty, ctor.signature.params, None),
-                      isStatic   = false,
+                      isStatic = false,
                       isReadOnly = false,
                     )
                 }
 
               findName(name).map { clsName =>
                 TsDeclClass(
-                  comments   = NoComments,
-                  declared   = declared,
+                  comments = NoComments,
+                  declared = declared,
                   isAbstract = false,
-                  name       = clsName,
-                  tparams    = longestTParams,
-                  parent     = Some(FollowAliases.typeRef(scope)(resultType)),
+                  name = clsName,
+                  tparams = longestTParams,
+                  parent = Some(FollowAliases.typeRef(scope)(resultType)),
                   implements = Empty,
-                  members    = ctors,
+                  members = ctors,
                   jsLocation = jsLocation,
-                  codePath   = cp.replaceLast(clsName),
+                  codePath = cp.replaceLast(clsName),
                 )
               }
 

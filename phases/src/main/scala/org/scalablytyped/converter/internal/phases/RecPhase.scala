@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal.phases
 
 import org.scalablytyped.converter.internal.Key
 
-/**
-  * A representation of a computation of a set of elements which is done in phases.
+/** A representation of a computation of a set of elements which is done in phases.
   * Each phase can both compute and express a new set of dependencies needed for the next
   * phase.
   *

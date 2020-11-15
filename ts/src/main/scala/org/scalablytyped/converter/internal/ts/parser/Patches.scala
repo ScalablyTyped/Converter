@@ -1,8 +1,7 @@
 package org.scalablytyped.converter.internal.ts.parser
 import org.scalablytyped.converter.internal.InFile
 
-/**
-  * These are library specific hacks to make up for shortcomings in the converter
+/** These are library specific hacks to make up for shortcomings in the converter
   *
   * OOPS. When changing these, keep in mind that this operates at the parser level,
   *  and the result is cached. Delete cache between runs or comment out in `Main`
@@ -30,8 +29,8 @@ object Patches {
   def apply(inFile: InFile, content: String): String = {
     val rewritten = Patches.collectFirst {
       case (relPath, patches) if inFile.path.endsWith(relPath) =>
-        patches.foldLeft(content) {
-          case (c, p) => c.replace(p.from, p.to)
+        patches.foldLeft(content) { case (c, p) =>
+          c.replace(p.from, p.to)
         }
     }
 

@@ -4,8 +4,7 @@ package transforms
 
 import scala.collection.mutable
 
-/**
-  * Scala is again more strict with inheritance with differing type parameters,
+/** Scala is again more strict with inheritance with differing type parameters,
   * and we only augment the problem by freely tagging things as instantiatable and
   * dictionaries in the import.
   *
@@ -26,13 +25,12 @@ class RemoveDuplicateInheritance(parentsResolver: ParentsResolver) extends TreeT
   def resolved(parents: IArray[TypeRef], conflicts: Map[QualifiedName, IArray[TypeRef]]): IArray[TypeRef] = {
     val resolved: Map[QualifiedName, TypeRef] =
       conflicts
-        .map {
-          case (name, sameParentRef: IArray[TypeRef]) =>
-            name -> TypeRef(
-              name,
-              sameParentRef.map(_.targs).transpose.map(ts => TypeRef.Union(ts, NoComments, true)),
-              Comments.flatten(sameParentRef)(_.comments),
-            )
+        .map { case (name, sameParentRef: IArray[TypeRef]) =>
+          name -> TypeRef(
+            name,
+            sameParentRef.map(_.targs).transpose.map(ts => TypeRef.Union(ts, NoComments, true)),
+            Comments.flatten(sameParentRef)(_.comments),
+          )
         }
 
     /* take care to keep original order in spite of using a map above */
@@ -49,9 +47,7 @@ class RemoveDuplicateInheritance(parentsResolver: ParentsResolver) extends TreeT
     }
   }
 
-  /**
-    *
-    * Say we get `FooBar` here. Given a conflict like this:
+  /** Say we get `FooBar` here. Given a conflict like this:
     * ```typescript
     *   interface Foo extends I<number> {}
     *   interface FooBar extends Foo, I<string>

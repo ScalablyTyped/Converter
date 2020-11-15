@@ -81,9 +81,9 @@ final case class ClassTree(
       }
 
     copy(
-      name        = newName,
+      name = newName,
       annotations = anns,
-      codePath    = QualifiedName(codePath.parts.init :+ newName),
+      codePath = QualifiedName(codePath.parts.init :+ newName),
     )
   }
 
@@ -137,10 +137,10 @@ final case class FieldTree(
 
   def renamed(newName: Name): FieldTree =
     copy(
-      name        = newName,
+      name = newName,
       annotations = Annotation.renamedFrom(name)(annotations),
-      isOverride  = false,
-      codePath    = QualifiedName(codePath.parts.init :+ newName),
+      isOverride = false,
+      codePath = QualifiedName(codePath.parts.init :+ newName),
     )
 
   def withCodePath(newCodePath: QualifiedName): FieldTree = copy(codePath = newCodePath)
@@ -167,10 +167,10 @@ final case class MethodTree(
 
   def renamed(newName: Name): MethodTree =
     copy(
-      name        = newName,
+      name = newName,
       annotations = Annotation.renamedFrom(name)(annotations),
-      isOverride  = false,
-      codePath    = QualifiedName(codePath.parts.init :+ newName),
+      isOverride = false,
+      codePath = QualifiedName(codePath.parts.init :+ newName),
     )
 
   def withCodePath(newCodePath: QualifiedName): MethodTree = copy(codePath = newCodePath)
@@ -286,7 +286,11 @@ object TypeRef {
     private val F = "Function(\\d+)".r
 
     def unapply(tr: TypeRef): Option[(IArray[TypeRef], TypeRef)] =
-      if (tr.typeName.startsWith(QualifiedName.scala_js) && tr.typeName.parts.length === QualifiedName.scala_js.parts.length + 1) {
+      if (
+        tr.typeName.startsWith(
+          QualifiedName.scala_js,
+        ) && tr.typeName.parts.length === QualifiedName.scala_js.parts.length + 1
+      ) {
         tr.typeName.parts.last.unescaped match {
           case F(_) => Some((tr.targs.init, tr.targs.last))
           case _    => None
@@ -398,8 +402,7 @@ object TypeRef {
         case other                                  => IArray(other)
       }
 
-    /**
-      * @param sort matters surprisingly much, since union types dont commute.
+    /** @param sort matters surprisingly much, since union types dont commute.
       * The best would be to always sort, but it's difficult because of subtyping.
       * What we do for now is that when we construct a union type it's sorted (for consistent builds),
       *  and when we encounter an existing we don't change it
@@ -415,15 +418,14 @@ object TypeRef {
       val compressed: IArray[TypeRef] = {
         val byName = flattened.filterNot(tr => Name.Internal(tr.name)).groupBy(_.typeName)
 
-        flattened.zipWithIndex.mapNotNone {
-          case (tr, idx) =>
-            byName.get(tr.typeName) match {
-              case Some(more) if more.length > 1 =>
-                val isFirst = flattened.indexWhere(_.typeName === tr.typeName) === idx
-                if (isFirst) Some(tr.copy(targs = more.map(_.targs).transpose.map(Union(_, NoComments, sort = true))))
-                else None
-              case _ => Some(tr)
-            }
+        flattened.zipWithIndex.mapNotNone { case (tr, idx) =>
+          byName.get(tr.typeName) match {
+            case Some(more) if more.length > 1 =>
+              val isFirst = flattened.indexWhere(_.typeName === tr.typeName) === idx
+              if (isFirst) Some(tr.copy(targs = more.map(_.targs).transpose.map(Union(_, NoComments, sort = true))))
+              else None
+            case _ => Some(tr)
+          }
         }.distinct
       }
 
@@ -518,19 +520,19 @@ object ExprTree {
   val native    = Ref(QualifiedName.scala_js + Name("native"))
 
   case object Null extends ExprTree
-  case class BinaryOp(one:          ExprTree, op: String, two: ExprTree) extends ExprTree
-  case class Block(expressions:     IArray[ExprTree]) extends ExprTree
-  case class Call(function:         ExprTree, params: IArray[IArray[Arg]]) extends ExprTree
-  case class `:_*`(e:               ExprTree) extends ExprTree
-  case class If(pred:               ExprTree, ifTrue: ExprTree, ifFalse: Option[ExprTree]) extends ExprTree
-  case class Lambda(params:         IArray[ParamTree], body: ExprTree) extends ExprTree
-  case class New(expr:              TypeRef, params: IArray[ExprTree]) extends ExprTree
-  case class Ref(value:             QualifiedName) extends ExprTree
-  case class Select(from:           ExprTree, path: Name) extends ExprTree
-  case class TApply(ref:            ExprTree, targs: IArray[TypeRef]) extends ExprTree
-  case class Unary(op:              String, expr: ExprTree) extends ExprTree
+  case class BinaryOp(one: ExprTree, op: String, two: ExprTree) extends ExprTree
+  case class Block(expressions: IArray[ExprTree]) extends ExprTree
+  case class Call(function: ExprTree, params: IArray[IArray[Arg]]) extends ExprTree
+  case class `:_*`(e: ExprTree) extends ExprTree
+  case class If(pred: ExprTree, ifTrue: ExprTree, ifFalse: Option[ExprTree]) extends ExprTree
+  case class Lambda(params: IArray[ParamTree], body: ExprTree) extends ExprTree
+  case class New(expr: TypeRef, params: IArray[ExprTree]) extends ExprTree
+  case class Ref(value: QualifiedName) extends ExprTree
+  case class Select(from: ExprTree, path: Name) extends ExprTree
+  case class TApply(ref: ExprTree, targs: IArray[TypeRef]) extends ExprTree
+  case class Unary(op: String, expr: ExprTree) extends ExprTree
   case class Val(override val name: Name, value: ExprTree) extends ExprTree
-  case class Throw(expr:            ExprTree) extends ExprTree
+  case class Throw(expr: ExprTree) extends ExprTree
 
   def InstanceOf(target: ExprTree, of: TypeRef): ExprTree =
     TApply(Select(target, Name("isInstanceOf")), IArray(of))
@@ -547,14 +549,14 @@ object ExprTree {
   }
   sealed trait Lit extends ExprTree
   case class BooleanLit(value: Boolean) extends Lit
-  case class NumberLit(value:  String) extends Lit
-  case class StringLit(value:  String) extends Lit
+  case class NumberLit(value: String) extends Lit
+  case class StringLit(value: String) extends Lit
 
   sealed trait Arg extends ExprTree
   object Arg {
     case class Named(override val name: Name, expr: ExprTree) extends Arg
-    case class Pos(expr:                ExprTree) extends Arg
-    case class Variable(expr:           ExprTree) extends Arg
+    case class Pos(expr: ExprTree) extends Arg
+    case class Variable(expr: ExprTree) extends Arg
     implicit def fromExpr(expr: ExprTree):         Arg = Pos(expr)
     implicit def fromTuple(t:   (Name, ExprTree)): Arg = Named(t._1, t._2)
   }

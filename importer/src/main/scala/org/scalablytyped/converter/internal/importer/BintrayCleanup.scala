@@ -27,20 +27,18 @@ object BintrayCleanup extends App {
 
   def deleteFrom(pos: Int): Unit =
     repo.packages(pos)().foreach { packages =>
-      packages.foreach {
-        case PackageSummary(name, _) =>
-          if (!name.startsWith("sbt-")) { // leave old versions of plugin
-            val Pkg = repo.get(name)
-            Pkg().foreach { pkg =>
-              pkg.versions.drop(4).foreach { d =>
-                Pkg.version(d).delete().foreach {
-                  case Message(msg) =>
-                    deleted.increment()
-                    println(s"Deleted $name $d $msg (${deleted.get})")
-                }
+      packages.foreach { case PackageSummary(name, _) =>
+        if (!name.startsWith("sbt-")) { // leave old versions of plugin
+          val Pkg = repo.get(name)
+          Pkg().foreach { pkg =>
+            pkg.versions.drop(4).foreach { d =>
+              Pkg.version(d).delete().foreach { case Message(msg) =>
+                deleted.increment()
+                println(s"Deleted $name $d $msg (${deleted.get})")
               }
             }
           }
+        }
       }
 
       if (packages.nonEmpty) {

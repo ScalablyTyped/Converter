@@ -20,8 +20,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case Some(x) => apply(wildcards, scope, importName)(x)
     }
 
-  /**
-    * The point here? Dont inherit from sealed classes in scala.js, but otherwise
+  /** The point here? Dont inherit from sealed classes in scala.js, but otherwise
     * prefer types from there. Handle resolved and unresolved qidents
     */
   private val Mappings = {
@@ -83,7 +82,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             lazy val targs2        = targs.map(apply(wildcards.maybeAllow, scope, importName))
 
             Mappings.get(other) match {
-              case Some(m: RefMapping)  => m.pick(isInheritance).withComments(cs)
+              case Some(m: RefMapping) => m.pick(isInheritance).withComments(cs)
               case Some(m: NameMapping) => TypeRef(m.pick(isInheritance), targs2, cs)
               case None => TypeRef(importName(other), targs2, cs)
             }
@@ -121,12 +120,11 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case TsTypeObject(_, ms) if ExtractInterfaces.isDictionary(ms) =>
         val (numbers, strings, Empty) = ms.partitionCollect2(
           { case x @ TsMemberIndex(_, _, _, IndexingDict(_, TsTypeRef.number), _) => x },
-          { case x @ TsMemberIndex(_, _, _, IndexingDict(_, _), _)                => x },
+          { case x @ TsMemberIndex(_, _, _, IndexingDict(_, _), _) => x },
         )
 
-        val translatedStrings = strings.collect {
-          case TsMemberIndex(cs, _, _, IndexingDict(_, _), valueType) =>
-            (cs, orAny(wildcards, scope, importName)(valueType))
+        val translatedStrings = strings.collect { case TsMemberIndex(cs, _, _, IndexingDict(_, _), valueType) =>
+          (cs, orAny(wildcards, scope, importName)(valueType))
         }
         val stringDict = translatedStrings match {
           case Empty => None
@@ -216,9 +214,9 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           case IArray.initLast(init, TsTypeRepeated(repeated)) =>
             ts.FollowAliases(scope)(repeated) match {
               case TsTypeRef(
-                  _,
-                  TsQIdent.Std.Array | TsQIdent.Std.ReadonlyArray | TsQIdent.Array | TsQIdent.ReadonlyArray,
-                  IArray.exactlyOne(elem),
+                    _,
+                    TsQIdent.Std.Array | TsQIdent.Std.ReadonlyArray | TsQIdent.Array | TsQIdent.ReadonlyArray,
+                    IArray.exactlyOne(elem),
                   ) =>
                 TypeRef(
                   importName(TsQIdent.Array),
@@ -269,8 +267,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
   private val toIgnore = Set[TsType](TsTypeRef.never, TsTypeRef.any, TsTypeRef.`object`)
 
-  /**
-    * TsTypeUnion.simplified simplifies a set of types into a union types, a normal type, or `never`.
+  /** TsTypeUnion.simplified simplifies a set of types into a union types, a normal type, or `never`.
     *    The latter is the least useful, so let's rewrite it to any
     */
   def unify(types: IArray[TsType]): TsType =

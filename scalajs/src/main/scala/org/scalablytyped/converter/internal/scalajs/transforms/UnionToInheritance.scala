@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
-/**
-  * Inheritance works better than the userland union types, so we rewrite the latter to the former:
+/** Inheritance works better than the userland union types, so we rewrite the latter to the former:
   *
   * ```scala
   * package thisLib {
@@ -236,7 +235,7 @@ object UnionToInheritance {
             if (willBeExternalTypes(tr.typeName)) false
             else
               scope.lookup(tr.typeName).exists {
-                case (_:  ClassTree, _)     => true
+                case (_: ClassTree, _) => true
                 case (ta: TypeAliasTree, _) => canRewrite(inLib, ta, scope, willBeExternalTypes).isDefined
                 case _ => false
               }

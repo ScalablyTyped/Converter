@@ -4,8 +4,7 @@ import java.net.URI
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-/**
-  * Listed in decreasing importance
+/** Listed in decreasing importance
   *
   * @param libraryVersion declared either in package.json or in comments for DefinitelyTyped
   * @param inGit we include git information if the definition files were defined in one. This to signal that they are not "official"
@@ -26,8 +25,7 @@ case class LibraryVersion(isStdLib: Boolean, libraryVersion: Option[String], inG
       .mkString("-")
 }
 
-/**
-  * @param repo Maybe we'll create some clickable links later
+/** @param repo Maybe we'll create some clickable links later
   * @param isDefinitelyTyped stop complaining, linter
   * @param lastModified This is a compromise. We want traceable builds and would ideally
   *                     include the sha from the remote repo if any. However, computing it

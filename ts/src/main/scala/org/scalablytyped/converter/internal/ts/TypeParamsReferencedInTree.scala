@@ -6,8 +6,8 @@ object TypeParamsReferencedInTree {
 
     val locallyDefined: Set[TsIdent] =
       TsTreeTraverse
-        .collect(tree) {
-          case HasTParams(tparams) => tparams.map(_.name)
+        .collect(tree) { case HasTParams(tparams) =>
+          tparams.map(_.name)
         }
         .flatten
         .toSet

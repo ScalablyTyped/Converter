@@ -10,8 +10,7 @@ sealed trait DTLastChangedIndex extends Serializable {
   def apply(path: File): Long
 }
 
-/**
-  * It's pretty ridiculous that this is needed, but here we are...
+/** It's pretty ridiculous that this is needed, but here we are...
   *
   * We version artifacts from DefinitelyTyped with the date of the last change.
   * Surprisingly enough, there isn't a way to ask git when that was.

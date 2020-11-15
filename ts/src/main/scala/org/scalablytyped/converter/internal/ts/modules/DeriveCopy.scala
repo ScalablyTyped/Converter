@@ -7,7 +7,8 @@ import org.scalablytyped.converter.internal.ts.transforms.SetCodePath
 
 object DeriveCopy {
   def apply(x: TsNamedDecl, ownerCp: CodePath, _rename: Option[TsIdentSimple]): IArray[TsNamedDecl] = {
-    val rename = _rename.filter(r => x.name =/= r) // I think this only happens with `default`, but as might as well make sure
+    val rename =
+      _rename.filter(r => x.name =/= r) // I think this only happens with `default`, but as might as well make sure
 
     //keep as def, we need to let `TsDeclNamespace` through without a codePath as it might be synthetic
     def origin = x.codePath.forceHasPath.codePath
@@ -48,10 +49,10 @@ object DeriveCopy {
                   case x: TsMemberProperty if x.isStatic => x
                   case x: TsMemberFunction if x.isStatic => x
                 },
-                declared   = true,
+                declared = true,
                 implements = Empty,
-                parent     = Some(TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams))),
-                codePath   = codePathFor(name),
+                parent = Some(TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams))),
+                codePath = codePathFor(name),
               ),
             )
 
@@ -60,9 +61,9 @@ object DeriveCopy {
               TsDeclTypeAlias(
                 comments = Comments(CommentData(Markers.IsTrivial)),
                 declared = true,
-                name     = name,
-                tparams  = x.tparams,
-                alias    = TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams)),
+                name = name,
+                tparams = x.tparams,
+                alias = TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams)),
                 codePath = codePathFor(name),
               ),
             )
@@ -70,10 +71,10 @@ object DeriveCopy {
           case x: TsDeclEnum =>
             IArray(
               x.copy(
-                name         = name,
-                isValue      = true,
+                name = name,
+                isValue = true,
                 exportedFrom = x.exportedFrom.orElse(Some(TsTypeRef(NoComments, origin, Empty))),
-                codePath     = codePathFor(name),
+                codePath = codePathFor(name),
               ),
             )
 
@@ -115,7 +116,7 @@ object DeriveCopy {
       }
 
     (ownerCp, x.withMembers(newMembers)) match {
-      case (p:                   HasPath, xx: TsNamedDecl) => SetCodePath.visitTsNamedDecl(p)(xx)
+      case (p: HasPath, xx: TsNamedDecl) => SetCodePath.visitTsNamedDecl(p)(xx)
       case (CodePath.NoPath, xx: TsNamedDecl) => xx
       case wrong => sys.error(s"Unexpected $wrong")
     }

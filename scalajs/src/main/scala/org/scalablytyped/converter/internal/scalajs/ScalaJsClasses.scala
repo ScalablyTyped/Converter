@@ -93,16 +93,16 @@ object ScalaJsClasses {
     val Apply: MethodTree =
       MethodTree(
         annotations = Empty,
-        level       = ProtectionLevel.Default,
-        name        = Name.APPLY,
-        tparams     = Empty,
-        params      = IArray(ThisParam ++ IArray.fromTraversable(inputParams)),
-        impl        = NotImplemented,
-        resultType  = R,
-        isOverride  = false,
-        comments    = NoComments,
-        codePath    = codePath + Name.APPLY,
-        isImplicit  = false,
+        level = ProtectionLevel.Default,
+        name = Name.APPLY,
+        tparams = Empty,
+        params = IArray(ThisParam ++ IArray.fromTraversable(inputParams)),
+        impl = NotImplemented,
+        resultType = R,
+        isOverride = false,
+        comments = NoComments,
+        codePath = codePath + Name.APPLY,
+        isImplicit = false,
       )
 
     val ThisTParam: IArray[TypeParamTree] =
@@ -115,16 +115,16 @@ object ScalaJsClasses {
       IArray(TypeParamTree(R.name, Empty, None, NoComments, ignoreBound = true))
 
     ClassTree(
-      isImplicit  = false,
+      isImplicit = false,
       annotations = IArray(Annotation.JsNative),
-      name        = codePath.parts.last,
-      tparams     = ThisTParam ++ inputTParams ++ outputTParams,
-      parents     = IArray(TypeRef(QualifiedName.Function)),
-      ctors       = Empty,
-      members     = IArray(Apply),
-      classType   = ClassType.Trait,
-      isSealed    = false,
-      comments    = NoComments,
+      name = codePath.parts.last,
+      tparams = ThisTParam ++ inputTParams ++ outputTParams,
+      parents = IArray(TypeRef(QualifiedName.Function)),
+      ctors = Empty,
+      members = IArray(Apply),
+      classType = ClassType.Trait,
+      isSealed = false,
+      comments = NoComments,
       codePath,
     )
   }

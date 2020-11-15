@@ -19,10 +19,10 @@ trait TypeExpansionHarness {
 
   def Transformations(logger: Logger[Unit]): List[TsParsedFile => TsParsedFile] =
     Phase1ReadTypescript.Pipeline(
-      scope              = TsTreeScope(libName, pedantic = true, Map(), logger),
-      libName            = libName,
+      scope = TsTreeScope(libName, pedantic = true, Map(), logger),
+      libName = libName,
       expandTypeMappings = Selection.All,
-      involvesReact      = true,
+      involvesReact = true,
     )
 
   def run(input: String): TsParsedFile = {

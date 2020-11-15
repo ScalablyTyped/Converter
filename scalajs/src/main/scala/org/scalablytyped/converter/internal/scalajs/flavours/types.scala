@@ -45,9 +45,9 @@ final case class Component(
 
   def rewritten(scope: TreeScope, t: TreeTransformation): Component =
     copy( // don't rewrite scalaRef
-      tparams  = tparams.map(t.visitTypeParamTree(scope)),
+      tparams = tparams.map(t.visitTypeParamTree(scope)),
       propsRef = PropsRef(t.visitTypeRef(scope)(propsRef.ref)),
-      nested   = nested.map(_.rewritten(scope, t)),
+      nested = nested.map(_.rewritten(scope, t)),
     )
 
   def withNested(nested: IArray[Component]): Component =

@@ -30,8 +30,7 @@ object Prop {
       copy(main = f(main), variants = variants.map(f))
   }
 
-  /**
-    * A `Prop` can have several "variants" for providing useful overloads.
+  /** A `Prop` can have several "variants" for providing useful overloads.
     *
     * For instance given a prop `foo: js.Function1[String, String] | String`, we generate overloads for the components
     *  in the union type. The point is that we then can offer good syntax providing callbacks.
@@ -44,8 +43,7 @@ object Prop {
     */
   case class Variant(tpe: TypeRef, asExpr: ExprTree => ExprTree, isRewritten: Boolean, extendsAnyVal: Boolean)
 
-  /**
-    * If a type/component has too many props to fit within Javascripts 254 parameter limit, we group everything
+  /** If a type/component has too many props to fit within Javascripts 254 parameter limit, we group everything
     *  from a parent type into an object of it's own.
     */
   case class CompressedProp(

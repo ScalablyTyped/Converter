@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-/**
-  * A mapping from one javascript type to another.
+/** A mapping from one javascript type to another.
   *
   * @param from typically from ScalablyTyped
   * @param to typically from the library you want to convert into
@@ -53,16 +52,15 @@ object CastConversion {
       conversions.groupBy(_.to.parts.filterNot(_ === Name.global)).exists { case (_, froms) => froms.length > 1 }
 
     def maybeRewrite(original: TypeRef, scope: TreeScope): Option[TypeRef] =
-      conversionsForTypeName.get(original.typeName).map {
-        case CastConversion(_, to, tparams @ _*) =>
-          val targs = IArray(tparams.map(tp => visitTypeRef(scope)(tp.eval(original.targs))): _*)
-          original.copy(typeName = to, targs = targs)
+      conversionsForTypeName.get(original.typeName).map { case CastConversion(_, to, tparams @ _*) =>
+        val targs = IArray(tparams.map(tp => visitTypeRef(scope)(tp.eval(original.targs))): _*)
+        original.copy(typeName = to, targs = targs)
       }
 
     def isRisky(scope: TreeScope): Boolean =
       scope.stack match {
-        case (_:       TypeRef) :: (_:     InheritanceTree) :: _ => true
-        case (_:       TypeRef) :: (int:   TypeRef) :: (_: InheritanceTree) :: _ if Name.Internal(int.name) => true
+        case (_: TypeRef) :: (_: InheritanceTree) :: _ => true
+        case (_: TypeRef) :: (int: TypeRef) :: (_: InheritanceTree) :: _ if Name.Internal(int.name) => true
         case (current: TypeRef) :: (param: ParamTree) :: (m: MethodTree) :: (owner: InheritanceTree) :: _
             if existsConflicts =>
           owner.index.get(m.name) match {
@@ -112,8 +110,7 @@ object CastConversion {
     )
   }
 
-  /**
-    * Fix needless intersection type arising from using a constrained type in a type alias,
+  /** Fix needless intersection type arising from using a constrained type in a type alias,
     *  then replacing the type parameter with something that actually conforms.
     */
   object UndoDamage {

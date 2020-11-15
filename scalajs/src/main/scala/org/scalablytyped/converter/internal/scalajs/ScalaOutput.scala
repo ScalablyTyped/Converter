@@ -1,8 +1,7 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-/**
-  * Maps the in-memory `Tree` structure to a file structure
+/** Maps the in-memory `Tree` structure to a file structure
   */
 sealed trait ScalaOutput
 

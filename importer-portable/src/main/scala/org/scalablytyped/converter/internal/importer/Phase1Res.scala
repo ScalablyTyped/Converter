@@ -10,8 +10,7 @@ import scala.collection.mutable
 
 sealed trait Phase1Res
 
-/**
-  * todo: the handling of recursive types in the entire app is terrible
+/** todo: the handling of recursive types in the entire app is terrible
   */
 object Phase1Res {
 
@@ -64,10 +63,9 @@ object Phase1Res {
                     case Some(s2) => SortedMap(s2 -> _f.file)
                   }
                 val rest: SortedMap[Source, TsParsedFile] =
-                  _f.toInline.flatMap {
-                    case (s2, x: LibraryPart) =>
-                      go(x.deps)
-                      flatten(Some(s2), x.file)
+                  _f.toInline.flatMap { case (s2, x: LibraryPart) =>
+                    go(x.deps)
+                    flatten(Some(s2), x.file)
                   }
                 first ++ rest
               }
@@ -90,12 +88,11 @@ object Phase1Res {
     }
 
     def goLibs(libs: mutable.Map[TsLibSource, LibTs], ds: Map[TsLibSource, LibTs]): Unit =
-      ds.foreach {
-        case (s, lib) =>
-          if (!libs.contains(s)) {
-            libs(s) = lib
-            goLibs(libs, lib.dependencies)
-          }
+      ds.foreach { case (s, lib) =>
+        if (!libs.contains(s)) {
+          libs(s) = lib
+          goLibs(libs, lib.dependencies)
+        }
       }
   }
 }

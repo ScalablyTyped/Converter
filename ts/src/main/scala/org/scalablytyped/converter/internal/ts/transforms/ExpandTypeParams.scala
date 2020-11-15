@@ -80,8 +80,8 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
   def expandTParams(scope: TsTreeScope, sig: TsFunSig): Option[IArray[TsFunSig]] = {
     val expandables = sig.tparams.mapNotNone(expandable(scope, sig))
     val expanded = expandables
-      .foldLeft(IArray(sig)) {
-        case (currentSigs, exp) => currentSigs.flatMap(expandSignature(scope, exp))
+      .foldLeft(IArray(sig)) { case (currentSigs, exp) =>
+        currentSigs.flatMap(expandSignature(scope, exp))
       }
 
     expanded.length match {
@@ -124,8 +124,8 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
       toExpand:       IArray[Either[TsTypeRef, TsTypeKeyOf]],
   )
 
-  val KeyOf: PartialFunction[TsType, Right[TsTypeRef, TsTypeKeyOf]] = {
-    case x @ TsTypeKeyOf(_: TsTypeRef) => Right(x)
+  val KeyOf: PartialFunction[TsType, Right[TsTypeRef, TsTypeKeyOf]] = { case x @ TsTypeKeyOf(_: TsTypeRef) =>
+    Right(x)
   }
 
   val isAny = Set[TsType](TsTypeRef.any, TsTypeRef.`object`)
@@ -160,14 +160,13 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
       case Right(TsTypeKeyOf(ref: TsTypeRef)) =>
         val members = AllMembersFor(scope, LoopDetector.initial)(ref)
 
-        members.collect {
-          case TsMemberProperty(_, _, TsIdentSimple(n), Some(tpe), _, false, _) =>
-            val rewrites = Map[TsType, TsType](
-              TsTypeRef(exp.typeParam) -> TsTypeLiteral(TsLiteralString(n)),
-              TsTypeLookup(ref, TsTypeLiteral(TsLiteralString(n))) -> tpe,
-            )
+        members.collect { case TsMemberProperty(_, _, TsIdentSimple(n), Some(tpe), _, false, _) =>
+          val rewrites = Map[TsType, TsType](
+            TsTypeRef(exp.typeParam) -> TsTypeLiteral(TsLiteralString(n)),
+            TsTypeLookup(ref, TsTypeLiteral(TsLiteralString(n))) -> tpe,
+          )
 
-            new TypeRewriter(sigCleaned).visitTsFunSig(rewrites)(sigCleaned)
+          new TypeRewriter(sigCleaned).visitTsFunSig(rewrites)(sigCleaned)
         }
 
       case Right(other) =>
@@ -179,8 +178,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
     expanded ++ IArray.fromOption(keptInBounds)
   }
 
-  /**
-    * Since we inline the `T` also erase references to it
+  /** Since we inline the `T` also erase references to it
     * ```typescript
     * <T extends (Array<T> | number)>(t: T): T`
     */

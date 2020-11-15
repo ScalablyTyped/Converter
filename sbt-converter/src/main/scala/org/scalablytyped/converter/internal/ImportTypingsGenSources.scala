@@ -59,22 +59,22 @@ object ImportTypingsGenSources {
     val Phases: RecPhase[Source, LibScalaJs] = RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
-          resolve                 = bootstrapped.libraryResolver,
+          resolve = bootstrapped.libraryResolver,
           calculateLibraryVersion = CalculateLibraryVersion.PackageJsonOnly,
-          ignored                 = input.conversion.ignoredLibs,
-          ignoredModulePrefixes   = input.conversion.ignoredModulePrefixes,
-          pedantic                = false,
-          parser                  = cachedParser,
-          expandTypeMappings      = input.conversion.expandTypeMappings,
+          ignored = input.conversion.ignoredLibs,
+          ignoredModulePrefixes = input.conversion.ignoredModulePrefixes,
+          pedantic = false,
+          parser = cachedParser,
+          expandTypeMappings = input.conversion.expandTypeMappings,
         ),
         "typescript",
       )
       .next(
         new Phase2ToScalaJs(
-          pedantic             = false,
+          pedantic = false,
           enableScalaJsDefined = input.conversion.enableScalaJsDefined,
-          outputPkg            = conversion.outputPackage,
-          flavour              = input.conversion.flavourImpl,
+          outputPkg = conversion.outputPackage,
+          flavour = input.conversion.flavourImpl,
         ),
         "scala.js",
       )
@@ -98,27 +98,30 @@ object ImportTypingsGenSources {
         )
 
         lazy val referencesToKeep: Minimization.KeepIndex =
-          Minimization.findReferences(globalScope, input.minimizeKeep, IArray.fromTraversable(libs).map {
-            case (s, l) => (minimize(s.libName), l.packageTree)
-          })
+          Minimization.findReferences(
+            globalScope,
+            input.minimizeKeep,
+            IArray.fromTraversable(libs).map { case (s, l) =>
+              (minimize(s.libName), l.packageTree)
+            },
+          )
 
         val outFiles: Map[os.Path, Array[Byte]] =
-          libs.par.flatMap {
-            case (source, lib) =>
-              val willMinimize = minimize(source.libName)
-              val minimized =
-                if (willMinimize) {
-                  Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
-                } else lib.packageTree
+          libs.par.flatMap { case (source, lib) =>
+            val willMinimize = minimize(source.libName)
+            val minimized =
+              if (willMinimize) {
+                Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
+              } else lib.packageTree
 
-              val outFiles = Printer(globalScope, new ParentsResolver, minimized, conversion.outputPackage).map {
-                case (relPath, content) => targetFolder / relPath -> content
-              }
-              val minimizedMessage = if (willMinimize) "minimized " else ""
-              logger.warn(
-                s"Wrote $minimizedMessage${source.libName.value} (${outFiles.size} files) to $targetFolder...",
-              )
-              outFiles
+            val outFiles = Printer(globalScope, new ParentsResolver, minimized, conversion.outputPackage).map {
+              case (relPath, content) => targetFolder / relPath -> content
+            }
+            val minimizedMessage = if (willMinimize) "minimized " else ""
+            logger.warn(
+              s"Wrote $minimizedMessage${source.libName.value} (${outFiles.size} files) to $targetFolder...",
+            )
+            outFiles
           }.seq
 
         files.syncAbs(outFiles, folder = targetFolder, deleteUnknowns = true, soft = true)
@@ -136,37 +139,37 @@ object ImportTypingsGenSources {
     val outputName = Name.typings
 
     val conversion = ConversionOptions(
-      useScalaJsDomTypes     = true,
-      flavour                = Flavour.Slinky,
-      outputPackage          = outputName,
-      enableScalaJsDefined   = Selection.All,
-      stdLibs                = SortedSet("es5", "dom"),
-      expandTypeMappings     = EnabledTypeMappingExpansion.DefaultSelection,
-      ignored                = SortedSet(),
-      versions               = Versions(Versions.Scala213, Versions.ScalaJs1),
-      organization           = "org.scalablytyped",
+      useScalaJsDomTypes = true,
+      flavour = Flavour.Slinky,
+      outputPackage = outputName,
+      enableScalaJsDefined = Selection.All,
+      stdLibs = SortedSet("es5", "dom"),
+      expandTypeMappings = EnabledTypeMappingExpansion.DefaultSelection,
+      ignored = SortedSet(),
+      versions = Versions(Versions.Scala213, Versions.ScalaJs1),
+      organization = "org.scalablytyped",
       enableReactTreeShaking = Selection.None,
-      enableLongApplyMethod  = false,
+      enableLongApplyMethod = false,
     )
 
     println(
       ImportTypingsGenSources(
         input = Input(
-          fromFolder       = InFolder(cacheDir / "npm" / "node_modules"),
-          targetFolder     = files.existing(cacheDir / 'work),
+          fromFolder = InFolder(cacheDir / "npm" / "node_modules"),
+          targetFolder = files.existing(cacheDir / 'work),
           converterVersion = BuildInfo.version,
-          conversion       = conversion,
+          conversion = conversion,
           wantedLibs = SortedMap(
             TsIdentLibrary("typescript") -> "1",
             TsIdentLibrary("csstype") -> "1",
             TsIdentLibrary("@storybook/react") -> "1",
           ),
-          minimize     = Selection.AllExcept(TsIdentLibrary("@storybook/react")),
+          minimize = Selection.AllExcept(TsIdentLibrary("@storybook/react")),
           minimizeKeep = IArray(QualifiedName(IArray(outputName, Name("std"), Name("console")))),
         ),
-        logger           = logging.stdout.filter(LogLevel.warn),
+        logger = logging.stdout.filter(LogLevel.warn),
         parseCacheDirOpt = Some(cacheDir.toNIO.resolve("parse")),
-        cacheDirOpt      = cacheDir,
+        cacheDirOpt = cacheDir,
       ).map(_.size),
     )
   }

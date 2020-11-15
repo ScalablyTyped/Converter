@@ -10,8 +10,8 @@ final class SlinkyWeb(val reactNames: ReactNames, val tags: Map[TagName, Combine
     tags.groupBy(_._2.stdRef).map { case (stdRef, maps) => stdRef -> maps.toIArrayValues }
 
   val uniqueTagsByStdRef: Map[TypeRef, CombinedTag] =
-    tagsByStdRef.collect {
-      case (tr, IArray.exactlyOne(ct)) => tr -> ct
+    tagsByStdRef.collect { case (tr, IArray.exactlyOne(ct)) =>
+      tr -> ct
     }
 }
 

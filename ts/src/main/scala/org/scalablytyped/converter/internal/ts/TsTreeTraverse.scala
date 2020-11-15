@@ -24,9 +24,8 @@ object TsTreeTraverse {
           go(extract, buf)(x)
         case xs: TraversableOnce[_] =>
           val it = xs.toIterator
-          while (it.hasNext) {
+          while (it.hasNext)
             rec(it.next())
-          }
         case xs: IArray[_] =>
           var i = 0
           while (i < xs.length) {

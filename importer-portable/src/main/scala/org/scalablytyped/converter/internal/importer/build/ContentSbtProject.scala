@@ -23,9 +23,8 @@ object ContentSbtProject {
   ): SbtProjectLayout[os.RelPath, Array[Byte]] = {
 
     val buildSbt = {
-      val allDeps: IArray[Dep] = IArray.fromTraversable(deps) ++ IArray(Versions.runtime) ++ localDeps.map(d =>
-        d.project.reference,
-      )
+      val allDeps: IArray[Dep] =
+        IArray.fromTraversable(deps) ++ IArray(Versions.runtime) ++ localDeps.map(d => d.project.reference)
       val depsString = allDeps.map(_.asSbt).distinct.sorted.mkString("Seq(\n  ", ",\n  ", ")")
 
       val resolverInfo = publisherOpt match {

@@ -28,7 +28,7 @@ class TreeTransformation { self =>
       s.copy(
         tparams = s.tparams.map(visitTypeParamTree(childrenScope)),
         parents = s.parents.map(visitTypeRef(childrenScope)),
-        ctors   = s.ctors.map(visitCtorTree(childrenScope)),
+        ctors = s.ctors.map(visitCtorTree(childrenScope)),
         members = s.members.map(visitTree(childrenScope)),
       )
 
@@ -51,7 +51,7 @@ class TreeTransformation { self =>
 
     val updatedChildren =
       s.copy(
-        tpe  = visitTypeRef(childrenScope)(s.tpe),
+        tpe = visitTypeRef(childrenScope)(s.tpe),
         impl = visitImplTree(childrenScope)(s.impl),
       )
 
@@ -125,9 +125,9 @@ class TreeTransformation { self =>
 
     val updatedChildren =
       s.copy(
-        tparams    = s.tparams.map(visitTypeParamTree(childrenScope)),
-        params     = s.params.map(_.map(visitParamTree(childrenScope))),
-        impl       = visitImplTree(childrenScope)(s.impl),
+        tparams = s.tparams.map(visitTypeParamTree(childrenScope)),
+        params = s.params.map(_.map(visitParamTree(childrenScope))),
+        impl = visitImplTree(childrenScope)(s.impl),
         resultType = visitTypeRef(childrenScope)(s.resultType),
       )
 
@@ -165,7 +165,7 @@ class TreeTransformation { self =>
 
     val updatedChildren =
       s.copy(
-        tpe     = visitTypeRef(childrenScope)(s.tpe),
+        tpe = visitTypeRef(childrenScope)(s.tpe),
         default = visitImplTree(childrenScope)(s.default),
       )
 
@@ -179,7 +179,7 @@ class TreeTransformation { self =>
     val updatedChildren =
       s.copy(
         tparams = s.tparams.map(visitTypeParamTree(childrenScope)),
-        alias   = visitTypeRef(childrenScope)(s.alias),
+        alias = visitTypeRef(childrenScope)(s.alias),
       )
 
     leaveTypeAliasTree(scope / updatedChildren)(updatedChildren)
@@ -192,7 +192,7 @@ class TreeTransformation { self =>
     val updatedChildren =
       s.copy(
         upperBound = s.upperBound.map(visitTypeRef(childrenScope)),
-        params     = s.params.map(visitTypeParamTree(childrenScope)),
+        params = s.params.map(visitTypeParamTree(childrenScope)),
       )
 
     leaveTypeParamTree(scope / updatedChildren)(updatedChildren)

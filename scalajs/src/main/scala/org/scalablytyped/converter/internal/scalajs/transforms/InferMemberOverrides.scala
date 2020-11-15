@@ -5,8 +5,7 @@ package transforms
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.maps.sum
 
-/**
-  * When a class inherits the same method/field from two ancestors,
+/** When a class inherits the same method/field from two ancestors,
   * we need to provide an override
   */
 class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransformation {
@@ -26,7 +25,7 @@ class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransfo
 
     val (methods, fields, _) = members.partitionCollect2(
       { case x: MethodTree => x },
-      { case x: FieldTree  => x },
+      { case x: FieldTree => x },
     )
     val fieldsByName: Map[Name, IArray[FieldTree]] =
       fields.groupBy(_.name)
@@ -37,12 +36,12 @@ class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransfo
     val inheritedFields: Map[Name, IArray[(FieldTree, TypeRef)]] =
       sum(
         root.directParents.map { branch =>
-          branch.transitiveParents.flatMap {
-            case (parentRef, p) => p.members.collect { case c: FieldTree => c.name -> (c -> parentRef) }.toMap
+          branch.transitiveParents.flatMap { case (parentRef, p) =>
+            p.members.collect { case c: FieldTree => c.name -> (c -> parentRef) }.toMap
           }
         },
-      ).filter {
-        case (_, containedFields) => containedFields.map(_._2).distinct.length > 1
+      ).filter { case (_, containedFields) =>
+        containedFields.map(_._2).distinct.length > 1
       }
 
     val addedFields: IArray[FieldTree] =
@@ -54,10 +53,10 @@ class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransfo
 
             head.copy(
               isOverride = true,
-              tpe        = newType,
+              tpe = newType,
               isReadOnly = fs.forall { case (f, _) => f.isReadOnly },
-              impl       = updatedImpl(fs.map(_._1.impl), Some(newType), tree.isScalaJsDefined),
-              comments   = head.comments + Comment("/* InferMemberOverrides */\n"),
+              impl = updatedImpl(fs.map(_._1.impl), Some(newType), tree.isScalaJsDefined),
+              comments = head.comments + Comment("/* InferMemberOverrides */\n"),
             )
         },
         keep = { case (name, _) => !fieldsByName.contains(name) },
@@ -72,8 +71,8 @@ class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransfo
           fs.head.copy(
             isOverride = true,
             resultType = TypeRef.Intersection(fs.map(_.resultType), NoComments),
-            impl       = updatedImpl(fs.map(_.impl), None, tree.isScalaJsDefined),
-            comments   = fs.head.comments + Comment("/* InferMemberOverrides */\n"),
+            impl = updatedImpl(fs.map(_.impl), None, tree.isScalaJsDefined),
+            comments = fs.head.comments + Comment("/* InferMemberOverrides */\n"),
           )
       }
 
@@ -102,8 +101,8 @@ class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransfo
   ): ImplTree =
     if (isScalaJsDefined) {
       fieldTypes.partitionCollect3(
-        { case ExprTree.`native`    => ExprTree.native },
-        { case NotImplemented       => NotImplemented },
+        { case ExprTree.`native` => ExprTree.native },
+        { case NotImplemented => NotImplemented },
         { case ExprTree.`undefined` => ExprTree.undefined },
       ) match {
         case (Empty, _, Empty, Empty)                                   => NotImplemented

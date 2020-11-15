@@ -6,8 +6,7 @@ import org.scalablytyped.converter.internal.ts.transforms.SetCodePath
 
 import scala.collection.mutable
 
-/**
-  * Here be dragons, i guess. The implementation of augmented modules is the bare minimum to make a few
+/** Here be dragons, i guess. The implementation of augmented modules is the bare minimum to make a few
   *  key libraries, like lodash, compile. We should really re-do all of this.
   */
 object AugmentModules {
@@ -24,8 +23,8 @@ object AugmentModules {
           (scope / mod)
             .lookupBase(Picker.Namespaces, qIdent, skipValidation = true)
             .headOption
-            .map {
-              case (namespace, _) => namespace.codePath
+            .map { case (namespace, _) =>
+              namespace.codePath
             }
         case _ => None
       }

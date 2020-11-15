@@ -63,11 +63,14 @@ object FileLocking {
     withLock(path) { channel =>
       val size = channel.size
       if (size > 0) {
-        onExists(channel, () => {
-          val contents = ByteBuffer.allocate(size.toInt)
-          channel.read(contents)
-          contents
-        })
+        onExists(
+          channel,
+          () => {
+            val contents = ByteBuffer.allocate(size.toInt)
+            channel.read(contents)
+            contents
+          },
+        )
       } else {
         onNotExists(channel)
       }
@@ -78,7 +81,7 @@ object FileLocking {
     var ret      = null.asInstanceOf[T]
     Files.createDirectories(path.getParent)
 
-    while (continue) {
+    while (continue)
       try {
         /* You would think this would be equal to just adding `CREATE`, but it isn't for zip fs */
         val flags: Array[StandardOpenOption] =
@@ -88,16 +91,14 @@ object FileLocking {
         val channel = FileChannel.open(path, flags: _*)
         try {
           val lock = channel.lock()
-          try {
-            ret = f(channel)
-          } finally lock.release()
+          try ret = f(channel)
+          finally lock.release()
         } finally channel.close()
         continue = false
       } catch {
         case _: OverlappingFileLockException => Try(Thread.sleep(10))
         case _: FileAlreadyExistsException   => Try(Thread.sleep(10))
       }
-    }
 
     ret
   }

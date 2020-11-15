@@ -10,8 +10,7 @@ object stringUtils {
   def quote(s: String): String =
     s"$Quote${EscapeStrings.java(s)}$Quote"
 
-  /**
-    * pff, scala apparently cares about nested comments, especially when they're not balanced
+  /** pff, scala apparently cares about nested comments, especially when they're not balanced
     */
   def escapeNestedComments(s: String): String =
     (s.indexOf("/*"), s.lastIndexOf("*/")) match {
@@ -29,7 +28,7 @@ object stringUtils {
     val sb  = new StringBuilder
     var idx = 0
 
-    while (idx < s.length) {
+    while (idx < s.length)
       (s(idx): @switch) match {
         case '\n' =>
           /* don't output consecutive newlines */
@@ -52,7 +51,6 @@ object stringUtils {
           sb.append(other)
           idx += 1
       }
-    }
 
     /* if the comment doesn't end with a newline, add a singular space */
     if (sb.endsWith("*/")) {
@@ -62,8 +60,7 @@ object stringUtils {
     sb.toString()
   }
 
-  /**
-    * Apparently scala cares and typescript doesn't
+  /** Apparently scala cares and typescript doesn't
     */
   def escapeUnicodeEscapes(s: String): String =
     s.replaceAll("\\\\u", "\\\\\\\\u")

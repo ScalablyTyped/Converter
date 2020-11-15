@@ -5,8 +5,7 @@ package transforms
 import org.scalablytyped.converter.internal.maps._
 import CompleteClass._
 
-/**
-  * With @ScalaJSDefined traits we don't implement members.
+/** With @ScalaJSDefined traits we don't implement members.
   * Scalac complains about that for classes, so we provide implementations.
   *
   * We lookup all parents until we reach a class, because at that point
@@ -15,7 +14,6 @@ import CompleteClass._
   * We also forward constructors from parent class, as in typescript
   * it seems you can instantiate a class with a parents constructor,
   * weirdly enough.
-  *
   */
 class CompleteClass(parentsResolver: ParentsResolver) extends TreeTransformation {
 

@@ -3,8 +3,7 @@ package ts
 package transforms
 import scala.collection.mutable
 
-/**
-  * Typescript supports defaulted type arguments.
+/** Typescript supports defaulted type arguments.
   * This adds them back.
   *
   * ```typescript

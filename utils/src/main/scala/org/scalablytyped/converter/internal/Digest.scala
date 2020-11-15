@@ -24,11 +24,9 @@ object Digest {
 
   def of[T: Digestable](ts: scala.collection.Iterable[T]): Digest =
     new Digest(
-      ts.foldLeft(MessageDigest.getInstance("MD5")) {
-          case (digest, t) =>
-            digest.update(Digestable[T].bytesFrom(t))
-            digest
-        }
-        .digest(),
+      ts.foldLeft(MessageDigest.getInstance("MD5")) { case (digest, t) =>
+        digest.update(Digestable[T].bytesFrom(t))
+        digest
+      }.digest(),
     )
 }

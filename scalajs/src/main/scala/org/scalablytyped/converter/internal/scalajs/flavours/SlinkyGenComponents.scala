@@ -35,7 +35,7 @@ object SlinkyGenComponents {
   }
 
   final case class Native[N, W](native: N) extends Mode[N, W]
-  final case class Web[N, W](web:       W) extends Mode[N, W]
+  final case class Web[N, W](web: W) extends Mode[N, W]
 
   final case class SplitProps(refTypes: IArray[TypeRef], props: IArray[Prop]) {
     val hasRequiredProps = props.exists(_.isRequired)
@@ -124,8 +124,7 @@ object SlinkyGenComponents {
     def apply(ownerCp: QualifiedName, component: Component): Builder
   }
 
-  /**
-    * The resulting builder for a component can be one of two:
+  /** The resulting builder for a component can be one of two:
     * - [[Builder.External]] either the default builder in `StBuildingComponent`, or a shared builder
     * - [[Builder.Include]] a builder specific only to the component at hand
     */
@@ -145,13 +144,12 @@ object SlinkyGenComponents {
 
   object Builder {
     case class External(typeRef: TypeRef) extends Builder
-    case class Include(cls:      ClassTree) extends Builder
+    case class Include(cls: ClassTree) extends Builder
   }
 
   case class SharedBuilder(cls: ClassTree, needRef: Boolean)
 
-  /**
-    * Components can be nested. This defines two operations to work with that
+  /** Components can be nested. This defines two operations to work with that
     */
   final implicit class ComponentsOps(private val cs: IArray[Component]) extends AnyVal {
     def deepMap(f: Component => Component): IArray[Component] =
@@ -180,8 +178,7 @@ object SlinkyGenComponents {
   def groupKey(c: Component): ComponentGroupKey =
     ComponentGroupKey(c.propsRef, c.referenceTo.isDefined, c.tparams)
 
-  /**
-    * I know.
+  /** I know.
     *
     * A set of components with similar enough interface (same [[ComponentGroupKey]]) will share builders. This is absolutely necessary to compile
     *  some libraries, and help with compile performance in any case.
@@ -197,8 +194,7 @@ object SlinkyGenComponents {
 
 }
 
-/**
-  * Generate a package with Slinky compatible react components
+/** Generate a package with Slinky compatible react components
   */
 class SlinkyGenComponents(
     mode:         Mode[Unit, Option[SlinkyWeb]],
@@ -222,8 +218,8 @@ class SlinkyGenComponents(
 
         /* this is mostly here as an optimization */
         val allResolvedProps: Map[ComponentGroupKey, PropsDom] =
-          allComponentsGrouped.map {
-            case (group, _) => group -> findPropsAndInferDomInfo(scope, mode, group.propsRef, group.tparams)
+          allComponentsGrouped.map { case (group, _) =>
+            group -> findPropsAndInferDomInfo(scope, mode, group.propsRef, group.tparams)
           }
 
         /* A component might have one or more builders shared with other components */
@@ -241,53 +237,52 @@ class SlinkyGenComponents(
         }
 
         val allBuilders: BuildersByGroup =
-          allResolvedProps.map {
-            case (group, PropsDom(propsRef, resProps, domInfo)) =>
-              val withErrorBuilders: Res[(IArray[String], GenBuilder), SplitProps] =
-                resProps
-                  .mapError { errors =>
-                    val genBuilder: GenBuilder =
-                      (ownerCp: QualifiedName, c: Component) => {
+          allResolvedProps.map { case (group, PropsDom(propsRef, resProps, domInfo)) =>
+            val withErrorBuilders: Res[(IArray[String], GenBuilder), SplitProps] =
+              resProps
+                .mapError { errors =>
+                  val genBuilder: GenBuilder =
+                    (ownerCp: QualifiedName, c: Component) => {
+                      val typeArgs     = IArray(domTag(domInfo), effectiveRef(scope, resProps, c.referenceTo))
+                      val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
+
+                      genBuilderClass(ownerCp, Name("Builder"), group.tparams, stBuilderRef, Empty) match {
+                        case Some(b) => Builder.Include(b)
+                        case None    => Builder.External(TypeRef(genStBuilder.Default.codePath, typeArgs, NoComments))
+                      }
+                    }
+
+                  errors -> genBuilder
+                }
+
+            val resPropsAndBuilders: Res[(IArray[String], GenBuilder), (SplitProps, GenBuilder)] =
+              withErrorBuilders.map { splitProps =>
+                val genBuilder: GenBuilder =
+                  (ownerCp: QualifiedName, c: Component) =>
+                    allSharedBuilders.get(propsRef) match {
+                      case Some(SharedBuilder(cls, needsRef)) =>
+                        val targs: IArray[TypeRef] =
+                          (needsRef, TypeParamTree.asTypeArgs(c.tparams)) match {
+                            case (true, rest) => effectiveRef(scope, resProps, c.referenceTo) +: rest
+                            case (false, all) => all
+                          }
+
+                        Builder.External(TypeRef(cls.codePath, targs, NoComments))
+                      case None =>
                         val typeArgs     = IArray(domTag(domInfo), effectiveRef(scope, resProps, c.referenceTo))
                         val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
 
-                        genBuilderClass(ownerCp, Name("Builder"), group.tparams, stBuilderRef, Empty) match {
+                        genBuilderClass(ownerCp, Name("Builder"), group.tparams, stBuilderRef, splitProps.props) match {
                           case Some(b) => Builder.Include(b)
-                          case None    => Builder.External(TypeRef(genStBuilder.Default.codePath, typeArgs, NoComments))
+                          case None =>
+                            Builder.External(TypeRef(genStBuilder.Default.codePath, typeArgs, NoComments))
                         }
-                      }
+                    }
 
-                    errors -> genBuilder
-                  }
+                splitProps -> genBuilder
+              }
 
-              val resPropsAndBuilders: Res[(IArray[String], GenBuilder), (SplitProps, GenBuilder)] =
-                withErrorBuilders.map { splitProps =>
-                  val genBuilder: GenBuilder =
-                    (ownerCp: QualifiedName, c: Component) =>
-                      allSharedBuilders.get(propsRef) match {
-                        case Some(SharedBuilder(cls, needsRef)) =>
-                          val targs: IArray[TypeRef] =
-                            (needsRef, TypeParamTree.asTypeArgs(c.tparams)) match {
-                              case (true, rest) => effectiveRef(scope, resProps, c.referenceTo) +: rest
-                              case (false, all) => all
-                            }
-
-                          Builder.External(TypeRef(cls.codePath, targs, NoComments))
-                        case None =>
-                          val typeArgs     = IArray(domTag(domInfo), effectiveRef(scope, resProps, c.referenceTo))
-                          val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
-
-                          genBuilderClass(ownerCp, Name("Builder"), group.tparams, stBuilderRef, splitProps.props) match {
-                            case Some(b) => Builder.Include(b)
-                            case None =>
-                              Builder.External(TypeRef(genStBuilder.Default.codePath, typeArgs, NoComments))
-                          }
-                      }
-
-                  splitProps -> genBuilder
-                }
-
-              group -> resPropsAndBuilders
+            group -> resPropsAndBuilders
           }
 
         val generatedComponents: IArray[ModuleTree] =
@@ -365,7 +360,7 @@ class SlinkyGenComponents(
         propsRef.ref,
         tparams,
         scope,
-        maxNum             = Int.MaxValue,
+        maxNum = Int.MaxValue,
         acceptNativeTraits = true,
       )
 
@@ -416,20 +411,19 @@ class SlinkyGenComponents(
         componentModule(c.fullName, c, componentCp, PropsRef(propsRef), splitProps, genBuilder, builderLookup)
 
       case Res.Many(values) =>
-        val members = values.mapToIArray {
-          case (propsRef, (splitProps, genBuilder: GenBuilder)) =>
-            val name = Name(nameFor(propsRef))
-            componentModule(name, c, componentCp + name, PropsRef(propsRef), splitProps, genBuilder, builderLookup)
+        val members = values.mapToIArray { case (propsRef, (splitProps, genBuilder: GenBuilder)) =>
+          val name = Name(nameFor(propsRef))
+          componentModule(name, c, componentCp + name, PropsRef(propsRef), splitProps, genBuilder, builderLookup)
         }
 
         ModuleTree(
           annotations = Empty,
-          name        = c.fullName,
-          parents     = Empty,
-          members     = members,
-          comments    = Minimization.KeepMarker,
-          codePath    = componentCp,
-          isOverride  = false,
+          name = c.fullName,
+          parents = Empty,
+          members = members,
+          comments = Minimization.KeepMarker,
+          codePath = componentCp,
+          isOverride = false,
         )
     }
   }
@@ -456,12 +450,12 @@ class SlinkyGenComponents(
 
     ModuleTree(
       annotations = Empty,
-      name        = c.fullName,
-      parents     = Empty,
-      members     = IArray(genImportModule(c, componentCp)) ++ members,
-      comments    = Minimization.KeepMarker ++ Comments(errorComment),
-      codePath    = componentCp,
-      isOverride  = false,
+      name = c.fullName,
+      parents = Empty,
+      members = IArray(genImportModule(c, componentCp)) ++ members,
+      comments = Minimization.KeepMarker ++ Comments(errorComment),
+      codePath = componentCp,
+      isOverride = false,
     )
   }
 
@@ -488,12 +482,12 @@ class SlinkyGenComponents(
 
     ModuleTree(
       annotations = Empty,
-      name        = name,
-      parents     = Empty,
-      members     = members ++ nested,
-      comments    = Minimization.KeepMarker,
-      codePath    = componentCp,
-      isOverride  = false,
+      name = name,
+      parents = Empty,
+      members = members ++ nested,
+      comments = Minimization.KeepMarker,
+      codePath = componentCp,
+      isOverride = false,
     )
   }
 
@@ -511,7 +505,7 @@ class SlinkyGenComponents(
     val interpretedProps = props.map(defaultInterpretation.apply)
 
     val (mutators, initializers, Empty) = interpretedProps.partitionCollect2(
-      { case (x: Mutator, _)     => x },
+      { case (x: Mutator, _) => x },
       { case (x: Initializer, _) => x },
     )
 
@@ -550,16 +544,16 @@ class SlinkyGenComponents(
     paramsOpt.map(params =>
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
-        name        = name,
-        tparams     = tparams,
-        params      = params,
-        impl        = impl,
-        resultType  = builderRef,
-        isOverride  = false,
-        comments    = NoComments,
-        codePath    = ownerCp + name,
-        isImplicit  = false,
+        level = ProtectionLevel.Default,
+        name = name,
+        tparams = tparams,
+        params = params,
+        impl = impl,
+        resultType = builderRef,
+        isOverride = false,
+        comments = NoComments,
+        codePath = ownerCp + name,
+        isImplicit = false,
       ),
     )
   }
@@ -579,7 +573,7 @@ class SlinkyGenComponents(
           ParamTree(
             Name("companion"),
             isImplicit = false,
-            isVal      = false,
+            isVal = false,
             TypeRef.Singleton(TypeRef(ownerCp.parts.last)),
             NotImplemented,
             NoComments,
@@ -602,16 +596,16 @@ class SlinkyGenComponents(
 
         MethodTree(
           annotations = Empty,
-          level       = ProtectionLevel.Default,
-          name        = conversionName,
-          tparams     = tparams,
-          params      = IArray(IArray(param)),
-          impl        = impl,
-          resultType  = builderRef,
-          isOverride  = false,
-          comments    = NoComments,
-          codePath    = ownerCp + conversionName,
-          isImplicit  = true,
+          level = ProtectionLevel.Default,
+          name = conversionName,
+          tparams = tparams,
+          params = IArray(IArray(param)),
+          impl = impl,
+          resultType = builderRef,
+          isOverride = false,
+          comments = NoComments,
+          codePath = ownerCp + conversionName,
+          isImplicit = true,
         )
 
       }
@@ -627,14 +621,14 @@ class SlinkyGenComponents(
       builderRef: TypeRef,
   ): MethodTree = {
     val param = ParamTree(
-      name       = Name("p"),
+      name = Name("p"),
       isImplicit = false,
-      isVal      = false,
-      tpe        = propsRef.ref,
-      default    = NotImplemented,
-      comments   = NoComments,
+      isVal = false,
+      tpe = propsRef.ref,
+      default = NotImplemented,
+      comments = NoComments,
     )
-    val impl = {
+    val impl =
       New(
         builderRef,
         IArray(
@@ -644,19 +638,18 @@ class SlinkyGenComponents(
           ),
         ),
       )
-    }
     MethodTree(
       annotations = Empty,
-      level       = ProtectionLevel.Default,
-      name        = name,
-      tparams     = tparams,
-      params      = IArray(IArray(param)),
-      impl        = impl,
-      resultType  = builderRef,
-      isOverride  = false,
-      comments    = NoComments,
-      codePath    = ownerCp + name,
-      isImplicit  = false,
+      level = ProtectionLevel.Default,
+      name = name,
+      tparams = tparams,
+      params = IArray(IArray(param)),
+      impl = impl,
+      resultType = builderRef,
+      isOverride = false,
+      comments = NoComments,
+      codePath = ownerCp + name,
+      isImplicit = false,
     )
   }
 
@@ -665,23 +658,23 @@ class SlinkyGenComponents(
       case Left(intrinsic) =>
         FieldTree(
           annotations = Empty,
-          name        = names.component,
-          tpe         = TypeRef.String,
-          impl        = intrinsic,
-          isReadOnly  = true,
-          isOverride  = false,
-          comments    = NoComments,
-          codePath    = componentCp + names.component,
+          name = names.component,
+          tpe = TypeRef.String,
+          impl = intrinsic,
+          isReadOnly = true,
+          isOverride = false,
+          comments = NoComments,
+          codePath = componentCp + names.component,
         )
       case Right(location) =>
         ModuleTree(
           annotations = IArray(Annotation.JsNative, location),
-          name        = names.component,
-          parents     = Empty,
-          members     = Empty,
-          comments    = NoComments,
-          codePath    = componentCp + names.component,
-          isOverride  = false,
+          name = names.component,
+          parents = Empty,
+          members = Empty,
+          comments = NoComments,
+          codePath = componentCp + names.component,
+          isOverride = false,
         )
     }
 
@@ -710,16 +703,16 @@ class SlinkyGenComponents(
           IArray(
             MethodTree(
               annotations = IArray(Annotation.Inline),
-              level       = ProtectionLevel.Default,
-              name        = name,
-              tparams     = Empty,
-              params      = IArray(IArray(param)),
-              impl        = impl,
-              resultType  = TypeRef.ThisType(NoComments),
-              isOverride  = false,
-              comments    = NoComments,
-              codePath    = clsCodePath + name,
-              isImplicit  = false,
+              level = ProtectionLevel.Default,
+              name = name,
+              tparams = Empty,
+              params = IArray(IArray(param)),
+              impl = impl,
+              resultType = TypeRef.ThisType(NoComments),
+              isOverride = false,
+              comments = NoComments,
+              codePath = clsCodePath + name,
+              isImplicit = false,
             ),
           )
 
@@ -734,8 +727,8 @@ class SlinkyGenComponents(
             fromVariants.updated(prop.name, prop.main)
           }
 
-          val variantsMethods: IArray[MethodTree] = variantsForProp.mapToIArray {
-            case (methodName, Prop.Variant(tpe, asExpr, _, _)) =>
+          val variantsMethods: IArray[MethodTree] =
+            variantsForProp.mapToIArray { case (methodName, Prop.Variant(tpe, asExpr, _, _)) =>
               val param = ParamTree(Name("value"), isImplicit = false, isVal = false, tpe, NotImplemented, NoComments)
               val impl = Call(
                 Ref(genStBuilder.set.name),
@@ -743,18 +736,18 @@ class SlinkyGenComponents(
               )
               MethodTree(
                 annotations = IArray(Annotation.Inline),
-                level       = ProtectionLevel.Default,
-                name        = methodName,
-                tparams     = Empty,
-                params      = IArray(IArray(param)),
-                impl        = impl,
-                resultType  = TypeRef.ThisType(NoComments),
-                isOverride  = false,
-                comments    = NoComments,
-                codePath    = clsCodePath + methodName,
-                isImplicit  = false,
+                level = ProtectionLevel.Default,
+                name = methodName,
+                tparams = Empty,
+                params = IArray(IArray(param)),
+                impl = impl,
+                resultType = TypeRef.ThisType(NoComments),
+                isOverride = false,
+                comments = NoComments,
+                codePath = clsCodePath + methodName,
+                isImplicit = false,
               )
-          }
+            }
 
           val nullCaseOpt: Option[MethodTree] = prop.optionality match {
             case Optionality.Null | Optionality.NullOrUndef =>
@@ -767,16 +760,16 @@ class SlinkyGenComponents(
               Some(
                 MethodTree(
                   annotations = IArray(Annotation.Inline),
-                  level       = ProtectionLevel.Default,
-                  name        = name,
-                  tparams     = Empty,
-                  params      = Empty,
-                  impl        = impl,
-                  resultType  = TypeRef.ThisType(NoComments),
-                  isOverride  = false,
-                  comments    = NoComments,
-                  codePath    = clsCodePath + name,
-                  isImplicit  = false,
+                  level = ProtectionLevel.Default,
+                  name = name,
+                  tparams = Empty,
+                  params = Empty,
+                  impl = impl,
+                  resultType = TypeRef.ThisType(NoComments),
+                  isOverride = false,
+                  comments = NoComments,
+                  codePath = clsCodePath + name,
+                  isImplicit = false,
                 ),
               )
 
@@ -793,7 +786,7 @@ class SlinkyGenComponents(
         ParamTree(
           Name("args"),
           isImplicit = false,
-          isVal      = true,
+          isVal = true,
           TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments),
           NotImplemented,
           NoComments,
@@ -806,17 +799,17 @@ class SlinkyGenComponents(
     else {
       Some(
         ClassTree(
-          isImplicit  = false,
+          isImplicit = false,
           annotations = IArray(Annotation.Inline),
-          name        = name,
-          tparams     = tparams,
-          parents     = IArray.fromOption(genStBuilder.enableAnyVal) ++ IArray(buildingComponentRef),
-          ctors       = IArray(ctor),
-          members     = members.distinctBy(_.name.unescaped.toLowerCase),
-          classType   = ClassType.Class,
-          isSealed    = false,
-          comments    = NoComments,
-          codePath    = clsCodePath,
+          name = name,
+          tparams = tparams,
+          parents = IArray.fromOption(genStBuilder.enableAnyVal) ++ IArray(buildingComponentRef),
+          ctors = IArray(ctor),
+          members = members.distinctBy(_.name.unescaped.toLowerCase),
+          classType = ClassType.Class,
+          isSealed = false,
+          comments = NoComments,
+          codePath = clsCodePath,
         ),
       )
     },

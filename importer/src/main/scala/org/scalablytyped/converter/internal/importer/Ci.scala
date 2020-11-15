@@ -108,34 +108,34 @@ object Ci {
           Some(
             Config(
               conversion = ConversionOptions(
-                useScalaJsDomTypes   = shouldUseScalaJsDomTypes,
-                outputPackage        = outputPackage,
+                useScalaJsDomTypes = shouldUseScalaJsDomTypes,
+                outputPackage = outputPackage,
                 enableScalaJsDefined = enableScalaJsDefined,
-                flavour              = flavour,
-                ignored              = Libraries.ignored.map(_.value),
-                stdLibs              = SortedSet("esnext.full"),
-                expandTypeMappings   = EnabledTypeMappingExpansion.DefaultSelection,
+                flavour = flavour,
+                ignored = Libraries.ignored.map(_.value),
+                stdLibs = SortedSet("esnext.full"),
+                expandTypeMappings = EnabledTypeMappingExpansion.DefaultSelection,
                 versions = Versions(
                   if (flags contains "-scala212") Versions.Scala212 else Versions.Scala213,
-                  if (flags contains ("-scalajs06")) Versions.ScalaJs06 else Versions.ScalaJs1,
+                  if (flags contains "-scalajs06") Versions.ScalaJs06 else Versions.ScalaJs1,
                 ),
-                organization           = organization,
+                organization = organization,
                 enableReactTreeShaking = Selection.None,
-                enableLongApplyMethod  = false,
+                enableLongApplyMethod = false,
               ),
-              wantedLibs       = wantedLibNames,
-              enablePublish    = flags contains "-publish",
-              offline          = flags contains "-offline",
-              pedantic         = flags contains "-pedantic",
-              forceCommit      = flags contains "-forceCommit",
-              conserveSpace    = flags contains "-conserveSpace",
+              wantedLibs = wantedLibNames,
+              enablePublish = flags contains "-publish",
+              offline = flags contains "-offline",
+              pedantic = flags contains "-pedantic",
+              forceCommit = flags contains "-forceCommit",
+              conserveSpace = flags contains "-conserveSpace",
               enableParseCache = flags contains "-enableParseCache",
               dontCleanProject = flags contains "-dontCleanProject",
-              softWrites       = flags contains "-softWrites",
-              debugMode        = wantedLibNames.nonEmpty || (flags contains "-debugMode"),
-              projectName      = projectName,
-              repo             = repo,
-              benchmark        = flags contains "-benchmark",
+              softWrites = flags contains "-softWrites",
+              debugMode = wantedLibNames.nonEmpty || (flags contains "-debugMode"),
+              projectName = projectName,
+              repo = repo,
+              benchmark = flags contains "-benchmark",
             ),
           )
       }
@@ -182,13 +182,12 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
         Try {
           implicit val wd = paths.cacheFolder
           interfaceCmd.runVerbose.git('clone, config.repo.toString)
-        }.recover {
-          case _ =>
-            os.makeDir(projectFolder)
+        }.recover { case _ =>
+          os.makeDir(projectFolder)
 
-            implicit val wd = projectFolder
-            interfaceCmd.runVerbose.git('init)
-            interfaceCmd.runVerbose.git("remote", "add", "origin", config.repo.toString)
+          implicit val wd = projectFolder
+          interfaceCmd.runVerbose.git('init)
+          interfaceCmd.runVerbose.git("remote", "add", "origin", config.repo.toString)
         }
 
       projectFolder
@@ -207,8 +206,8 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
 
   val compilerF: Future[BloopCompiler] =
     BloopCompiler(
-      logger                = logger.filter(LogLevel.debug).void,
-      v                     = config.conversion.versions,
+      logger = logger.filter(LogLevel.debug).void,
+      v = config.conversion.versions,
       failureCacheFolderOpt = Some((paths.cacheFolder / 'compileFailures).toNIO),
     )(ec)
 
@@ -264,12 +263,12 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
         .next(
           new Phase1ReadTypescript(
             calculateLibraryVersion = new DTVersions(lastChangedIndex, includeGitPart = true),
-            resolve                 = bootstrapped.libraryResolver,
-            ignored                 = config.conversion.ignoredLibs,
-            ignoredModulePrefixes   = config.conversion.ignoredModulePrefixes,
-            pedantic                = config.pedantic,
-            parser                  = PersistingParser(paths.parseCache, IArray(externalsFolder, dtFolder), logger.void),
-            expandTypeMappings      = config.conversion.expandTypeMappings,
+            resolve = bootstrapped.libraryResolver,
+            ignored = config.conversion.ignoredLibs,
+            ignoredModulePrefixes = config.conversion.ignoredModulePrefixes,
+            pedantic = config.pedantic,
+            parser = PersistingParser(paths.parseCache, IArray(externalsFolder, dtFolder), logger.void),
+            expandTypeMappings = config.conversion.expandTypeMappings,
           ),
           "typescript",
         )
@@ -277,25 +276,25 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
           new Phase2ToScalaJs(
             config.pedantic,
             enableScalaJsDefined = config.conversion.enableScalaJsDefined,
-            outputPkg            = config.conversion.outputPackage,
-            flavour              = config.conversion.flavourImpl,
+            outputPkg = config.conversion.outputPackage,
+            flavour = config.conversion.flavourImpl,
           ),
           "scala.js",
         )
         .next(new PhaseFlavour(config.conversion.flavourImpl), config.conversion.flavourImpl.toString)
         .next(
           new Phase3Compile(
-            versions                   = config.conversion.versions,
-            compiler                   = compiler,
-            targetFolder               = targetFolder,
-            organization               = config.conversion.organization,
-            publisherOpt               = Some(publisher),
-            publishLocalFolder         = paths.publishLocalFolder,
-            metadataFetcher            = NpmjsFetcher(paths.npmjs)(ec),
-            softWrites                 = config.softWrites,
-            flavour                    = config.conversion.flavourImpl,
+            versions = config.conversion.versions,
+            compiler = compiler,
+            targetFolder = targetFolder,
+            organization = config.conversion.organization,
+            publisherOpt = Some(publisher),
+            publishLocalFolder = paths.publishLocalFolder,
+            metadataFetcher = NpmjsFetcher(paths.npmjs)(ec),
+            softWrites = config.softWrites,
+            flavour = config.conversion.flavourImpl,
             generateScalaJsBundlerFile = true,
-            ensureSourceFilesWritten   = true,
+            ensureSourceFilesWritten = true,
           ),
           "build",
         )
@@ -365,15 +364,15 @@ target/
       val sbtProjectDir = targetFolder / s"sbt-${config.projectName.value}"
 
       GenerateSbtPlugin(
-        isDeprecated  = true,
-        versions      = config.conversion.versions,
-        organization  = config.conversion.organization,
-        projectName   = config.projectName,
-        projectDir    = sbtProjectDir,
-        projects      = successes.values.to[Set],
+        isDeprecated = true,
+        versions = config.conversion.versions,
+        organization = config.conversion.organization,
+        projectName = config.projectName,
+        projectDir = sbtProjectDir,
+        projects = successes.values.to[Set],
         pluginVersion = RunId,
-        publisherOpt  = Some(publisher),
-        action        = if (publisher.enabled.isDefined) "^publish" else "publishLocal",
+        publisherOpt = Some(publisher),
+        action = if (publisher.enabled.isDefined) "^publish" else "publishLocal",
       )
 
       CommitChanges(
@@ -389,31 +388,30 @@ target/
 
     interfaceLogger.warn("Writing logs")
 
-    logRegistry.logs.foreach {
-      case (libName, storeds) =>
-        val failLog = files.existingEmpty(paths.cacheFolder / 'failures) / os.RelPath(libName.`__value` + ".log")
+    logRegistry.logs.foreach { case (libName, storeds) =>
+      val failLog = files.existingEmpty(paths.cacheFolder / 'failures) / os.RelPath(libName.`__value` + ".log")
 
-        storeds.underlying.filter(_.metadata.logLevel === LogLevel.error) match {
-          case empty if empty.isEmpty =>
-            Try(files.deleteAll(failLog))
-          case errors =>
-            files.softWrite(failLog) { w1 =>
-              errors.foreach { errorLog =>
-                val str =
-                  LogPatternLibrary(errorLog.message, errorLog.throwable, errorLog.metadata, errorLog.ctx).plainText
-                w1.append(str)
-                w1.append("\n")
-              }
+      storeds.underlying.filter(_.metadata.logLevel === LogLevel.error) match {
+        case empty if empty.isEmpty =>
+          Try(files.deleteAll(failLog))
+        case errors =>
+          files.softWrite(failLog) { w1 =>
+            errors.foreach { errorLog =>
+              val str =
+                LogPatternLibrary(errorLog.message, errorLog.throwable, errorLog.metadata, errorLog.ctx).plainText
+              w1.append(str)
+              w1.append("\n")
             }
+          }
 
-            files.softWrite(logsFolder / os.RelPath(libName.`__value` + ".log")) { w1 =>
-              storeds.underlying.foreach { stored =>
-                val str = LogPatternLibrary(stored.message, stored.throwable, stored.metadata, stored.ctx).plainText
-                w1.append(str)
-                w1.append("\n")
-              }
+          files.softWrite(logsFolder / os.RelPath(libName.`__value` + ".log")) { w1 =>
+            storeds.underlying.foreach { stored =>
+              val str = LogPatternLibrary(stored.message, stored.throwable, stored.metadata, stored.ctx).plainText
+              w1.append(str)
+              w1.append("\n")
             }
-        }
+          }
+      }
     }
     None
   }

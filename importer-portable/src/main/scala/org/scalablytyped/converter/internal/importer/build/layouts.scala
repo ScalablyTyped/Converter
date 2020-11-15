@@ -44,7 +44,7 @@ final case class SbtProjectLayout[F, V](
           f(_2k, _2v),
           f(_3k, _3v),
           f(_4k, _4v),
-          sources.map { case (k, v)   => f(k, v) },
+          sources.map { case (k, v) => f(k, v) },
           resources.map { case (k, v) => f(k, v) },
         )
     }
@@ -68,10 +68,10 @@ object IvyLayout {
   def apply[T](p: Dep.Concrete, jarFile: T, sourceFile: T, ivyFile: T, pomFile: T): IvyLayout[os.RelPath, T] = {
     val libraryPath = os.RelPath(p.org) / p.mangledArtifact / os.RelPath(p.version)
     IvyLayout(
-      jarFile    = libraryPath / 'jars / s"${p.mangledArtifact}.jar" -> jarFile,
+      jarFile = libraryPath / 'jars / s"${p.mangledArtifact}.jar" -> jarFile,
       sourceFile = libraryPath / 'srcs / s"${p.mangledArtifact}-sources.jar" -> sourceFile,
-      ivyFile    = libraryPath / 'ivys / "ivy.xml" -> ivyFile,
-      pomFile    = libraryPath / 'poms / s"${p.mangledArtifact}.pom" -> pomFile,
+      ivyFile = libraryPath / 'ivys / "ivy.xml" -> ivyFile,
+      pomFile = libraryPath / 'poms / s"${p.mangledArtifact}.pom" -> pomFile,
     )
   }
 }
@@ -94,9 +94,9 @@ object MavenLayout {
       org / p.mangledArtifact / p.version / s"${p.mangledArtifact}-${p.version}$ext"
 
     MavenLayout(
-      jarFile    = baseFile(".jar") -> jarFile,
+      jarFile = baseFile(".jar") -> jarFile,
       sourceFile = baseFile("-sources.jar") -> sourceFile,
-      pomFile    = baseFile(".pom") -> pomFile,
+      pomFile = baseFile(".pom") -> pomFile,
     )
   }
 }

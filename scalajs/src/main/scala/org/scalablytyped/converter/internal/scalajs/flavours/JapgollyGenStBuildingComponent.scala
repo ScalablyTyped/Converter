@@ -76,7 +76,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       ParamTree(
         Name("f"),
         isImplicit = false,
-        isVal      = false,
+        isVal = false,
         TypeRef.ScalaFunction(IArray(TypeRef.Any), TypeRef.Any, NoComments),
         NotImplemented,
         NoComments,
@@ -263,12 +263,12 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 //    }
     val `apply` = {
       val modsParam = ParamTree(
-        name       = Name("mods"),
+        name = Name("mods"),
         isImplicit = false,
-        isVal      = false,
-        tpe        = TypeRef.Repeated(TypeRef(JapgollyNames.vdom.TagMod), NoComments),
-        default    = NotImplemented,
-        comments   = NoComments,
+        isVal = false,
+        tpe = TypeRef.Repeated(TypeRef(JapgollyNames.vdom.TagMod), NoComments),
+        default = NotImplemented,
+        comments = NoComments,
       )
       val impl =
         Block(
@@ -278,15 +278,15 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
-        name        = Name.APPLY,
-        tparams     = Empty,
-        params      = IArray(IArray(modsParam)),
+        level = ProtectionLevel.Default,
+        name = Name.APPLY,
+        tparams = Empty,
+        params = IArray(IArray(modsParam)),
         impl,
         resultType = TypeRef(QualifiedName.THIS),
         isOverride = false,
-        comments   = NoComments,
-        codePath   = builderCp + Name.APPLY,
+        comments = NoComments,
+        codePath = builderCp + Name.APPLY,
         isImplicit = false,
       )
     }
@@ -296,7 +296,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       val param = ParamTree(
         Name("key"),
         isImplicit = false,
-        isVal      = false,
+        isVal = false,
         TypeRef(JapgollyNames.Key),
         NotImplemented,
         NoComments,
@@ -304,16 +304,16 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       val name = Name("withKey")
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
-        name        = name,
-        tparams     = Empty,
-        params      = IArray(IArray(param)),
-        impl        = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Cast(Ref(param.name), TypeRef.Any)))),
-        resultType  = TypeRef(QualifiedName.THIS),
-        isOverride  = false,
-        comments    = NoComments,
-        codePath    = builderCp + name,
-        isImplicit  = false,
+        level = ProtectionLevel.Default,
+        name = name,
+        tparams = Empty,
+        params = IArray(IArray(param)),
+        impl = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Cast(Ref(param.name), TypeRef.Any)))),
+        resultType = TypeRef(QualifiedName.THIS),
+        isOverride = false,
+        comments = NoComments,
+        codePath = builderCp + name,
+        isImplicit = false,
       )
     }
 
@@ -325,16 +325,16 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       val name  = Name("withRef")
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
-        name        = name,
-        tparams     = Empty,
-        params      = IArray(IArray(param)),
-        impl        = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Ref(param.name)))),
-        resultType  = TypeRef(QualifiedName.THIS),
-        isOverride  = false,
-        comments    = NoComments,
-        codePath    = builderCp + name,
-        isImplicit  = false,
+        level = ProtectionLevel.Default,
+        name = name,
+        tparams = Empty,
+        params = IArray(IArray(param)),
+        impl = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Ref(param.name)))),
+        resultType = TypeRef(QualifiedName.THIS),
+        isOverride = false,
+        comments = NoComments,
+        codePath = builderCp + name,
+        isImplicit = false,
       )
     }
     //
@@ -345,34 +345,34 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       val name  = Name("withRef")
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
-        name        = name,
-        tparams     = Empty,
-        params      = IArray(IArray(param)),
+        level = ProtectionLevel.Default,
+        name = name,
+        tparams = Empty,
+        params = IArray(IArray(param)),
         impl = Call(
           Ref(set.name),
           IArray(IArray(StringLit(param.name.unescaped), Select(Ref(param.name), Name("rawSetFn")))),
         ),
         resultType = TypeRef(QualifiedName.THIS),
         isOverride = false,
-        comments   = NoComments,
-        codePath   = builderCp + name,
+        comments = NoComments,
+        codePath = builderCp + name,
         isImplicit = false,
       )
     }
 
     ClassTree(
-      isImplicit  = false,
+      isImplicit = false,
       annotations = Empty,
-      name        = StBuildingComponent,
-      tparams     = builderTparams,
-      parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.ScalaAny)),
-      ctors       = Empty,
-      members     = IArray(args, set, withComponent, unsafeSpread, build, applyTagMod, apply, withKey, withRef1, withRef2),
-      classType   = ClassType.Trait,
-      isSealed    = false,
-      comments    = NoComments,
-      codePath    = builderCp,
+      name = StBuildingComponent,
+      tparams = builderTparams,
+      parents = IArray.fromOption(enableAnyVal.map(_ => TypeRef.ScalaAny)),
+      ctors = Empty,
+      members = IArray(args, set, withComponent, unsafeSpread, build, applyTagMod, apply, withKey, withRef1, withRef2),
+      classType = ClassType.Trait,
+      isSealed = false,
+      comments = NoComments,
+      codePath = builderCp,
     )
   }
 
@@ -383,7 +383,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         ParamTree(
           Name("args"),
           isImplicit = false,
-          isVal      = true,
+          isVal = true,
           TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments),
           NotImplemented,
           NoComments,
@@ -394,17 +394,17 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
     val name = Name("Default")
     ClassTree(
-      isImplicit  = false,
+      isImplicit = false,
       annotations = Empty,
-      name        = name,
-      tparams     = builderTparams,
-      parents     = IArray.fromOption(enableAnyVal) ++ IArray(builderRef),
-      ctors       = IArray(ctor),
-      members     = Empty,
-      classType   = ClassType.Class,
-      isSealed    = false,
-      comments    = NoComments,
-      codePath    = builderCp + name,
+      name = name,
+      tparams = builderTparams,
+      parents = IArray.fromOption(enableAnyVal) ++ IArray(builderRef),
+      ctors = IArray(ctor),
+      members = Empty,
+      classType = ClassType.Class,
+      isSealed = false,
+      comments = NoComments,
+      codePath = builderCp + name,
     )
   }
 
@@ -420,13 +420,13 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       val createElement = Name("createElement")
       val createElementField = FieldTree(
         annotations = Empty,
-        name        = createElement,
-        tpe         = TypeRef.Dynamic,
-        impl        = ExprTree.native,
-        isReadOnly  = true,
-        isOverride  = false,
-        comments    = NoComments,
-        codePath    = ReactRawCp + createElement,
+        name = createElement,
+        tpe = TypeRef.Dynamic,
+        impl = ExprTree.native,
+        isReadOnly = true,
+        isOverride = false,
+        comments = NoComments,
+        codePath = ReactRawCp + createElement,
       )
       ModuleTree(
         IArray(

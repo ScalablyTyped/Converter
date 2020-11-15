@@ -50,8 +50,8 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
 
     val input = ImportTypings.Input(
       converterVersion = BuildInfo.version,
-      conversion       = conversion,
-      wantedLibs       = wantedLibs,
+      conversion = conversion,
+      wantedLibs = wantedLibs,
     )
 
     val runCacheKey  = RunCacheKey(input)
@@ -76,13 +76,13 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
       case _ =>
         val t = Def.task {
           ImportTypings(
-            input              = input,
-            logger             = stLogger,
-            parseCacheDirOpt   = Some(cacheDir.toPath.resolve("parse")),
+            input = input,
+            logger = stLogger,
+            parseCacheDirOpt = Some(cacheDir.toPath.resolve("parse")),
             publishLocalFolder = publishLocalFolder,
-            fromFolder         = nodeModules,
-            targetFolder       = outputDir / "sources",
-            compiler           = stInternalZincCompiler.value,
+            fromFolder = nodeModules,
+            targetFolder = outputDir / "sources",
+            compiler = stInternalZincCompiler.value,
           ) match {
             case Right(output) =>
               Json.persist[ImportTypings.InOut](runCachePath)((input, output))

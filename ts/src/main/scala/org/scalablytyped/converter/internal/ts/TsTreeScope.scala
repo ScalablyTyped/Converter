@@ -11,8 +11,7 @@ import sourcecode.{Enclosing, File, Line, Text}
 import scala.collection.mutable
 import scala.util.hashing.MurmurHash3.{finalizeHash, mix, productHash}
 
-/**
-  * The facility for looking up types and terms in a given tree.
+/** The facility for looking up types and terms in a given tree.
   */
 sealed trait TsTreeScope {
   val root:              TsTreeScope.Root
@@ -21,7 +20,7 @@ sealed trait TsTreeScope {
   def stack:           List[TsTree]
   def tparams:         Map[TsIdent, TsTypeParam]
   def tkeys:           Set[TsIdent]
-  def `..`           : TsTreeScope
+  def `..`            : TsTreeScope
   def moduleScopes:    Map[TsIdentModule, TsTreeScope.Scoped]
   def moduleAuxScopes: Map[TsIdentModule, TsTreeScope.Scoped]
   def exports:         IArray[TsExport]
@@ -148,10 +147,10 @@ object TsTreeScope {
 
   case class Cache(
       typeMappings:   mutable.Map[TsTypeRef, ExpandTypeMappings.Res[IArray[TsMember]]] = mutable.Map.empty,
-      imports:        mutable.Map[ImportCacheKey, IArray[(TsNamedDecl, TsTreeScope)]]  = mutable.Map.empty,
-      exports:        mutable.Map[TsIdentModule, TsDeclModule]                         = mutable.Map.empty,
-      expandExport:   mutable.Map[(TsTreeScope, TsExport), IArray[TsNamedDecl]]        = mutable.Map.empty,
-      expandImportee: mutable.Map[(TsTreeScope, TsImportee), ExpandedMod]              = mutable.Map.empty,
+      imports:        mutable.Map[ImportCacheKey, IArray[(TsNamedDecl, TsTreeScope)]] = mutable.Map.empty,
+      exports:        mutable.Map[TsIdentModule, TsDeclModule] = mutable.Map.empty,
+      expandExport:   mutable.Map[(TsTreeScope, TsExport), IArray[TsNamedDecl]] = mutable.Map.empty,
+      expandImportee: mutable.Map[(TsTreeScope, TsImportee), ExpandedMod] = mutable.Map.empty,
   )
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 
@@ -182,7 +181,7 @@ object TsTreeScope {
   }
   object Entry {
     final case class Idents(strings: IArray[TsIdent], scope: TsTreeScope) extends Entry
-    final case class Ref(ref:        TsTypeRef, scope:       TsTreeScope) extends Entry
+    final case class Ref(ref: TsTypeRef, scope: TsTreeScope) extends Entry
   }
 
   object LoopDetector {
@@ -207,8 +206,8 @@ object TsTreeScope {
     override def tkeys   = Set.empty
     override def exports = Empty
 
-    private lazy val depScopes: Map[TsIdentLibrary, (TsLib, TsParsedFile, Scoped)] = _deps.map {
-      case (s, file) => s.libName -> ((s, file, this / file))
+    private lazy val depScopes: Map[TsIdentLibrary, (TsLib, TsParsedFile, Scoped)] = _deps.map { case (s, file) =>
+      s.libName -> ((s, file, this / file))
     }
 
     def caching: Root =
@@ -219,23 +218,20 @@ object TsTreeScope {
 
     override lazy val moduleScopes: Map[TsIdentModule, TsTreeScope.Scoped] = {
       val ret = mutable.Map.empty[TsIdentModule, TsTreeScope.Scoped]
-      depScopes.values.foreach {
-        case (_, dep: TsParsedFile, depScope: Scoped) =>
-          dep.modules.foreach { case (_, mod) => addModuleScope(ret, mod, depScope) }
+      depScopes.values.foreach { case (_, dep: TsParsedFile, depScope: Scoped) =>
+        dep.modules.foreach { case (_, mod) => addModuleScope(ret, mod, depScope) }
       }
       ret.toMap
     }
 
     override lazy val moduleAuxScopes: Map[TsIdentModule, TsTreeScope.Scoped] = {
       val ret = mutable.Map.empty[TsIdentModule, TsTreeScope.Scoped]
-      depScopes.values.foreach {
-        case (_, dep: TsParsedFile, depScope: Scoped) =>
-          dep.augmentedModulesMap.foreach {
-            case (modName, auxMods) =>
-              val mod      = auxMods.reduce(FlattenTrees.mergeAugmentedModule)
-              val modScope = depScope / mod
-              ret += (modName -> modScope)
-          }
+      depScopes.values.foreach { case (_, dep: TsParsedFile, depScope: Scoped) =>
+        dep.augmentedModulesMap.foreach { case (modName, auxMods) =>
+          val mod      = auxMods.reduce(FlattenTrees.mergeAugmentedModule)
+          val modScope = depScope / mod
+          ret += (modName -> modScope)
+        }
       }
       ret.toMap
     }
@@ -258,8 +254,8 @@ object TsTreeScope {
             .map { case (_, lib, libScope) => search(libScope, picker, lib, fragments, loopDetector) }
             .getOrElse(Empty) match {
             case Empty =>
-              depScopes.flatMapToIArray {
-                case (_, (_, lib, libScope)) => search(libScope, picker, lib, fragments, loopDetector)
+              depScopes.flatMapToIArray { case (_, (_, lib, libScope)) =>
+                search(libScope, picker, lib, fragments, loopDetector)
               }
             case found => found
           }
@@ -283,7 +279,7 @@ object TsTreeScope {
     override def hashCode: Int = {
       if (!hasHash) {
         hasHash = true
-        hash    = finalizeHash(mix(mix(2, outer.##), current.##), 2)
+        hash = finalizeHash(mix(mix(2, outer.##), current.##), 2)
       }
       hash
     }
@@ -397,19 +393,18 @@ object TsTreeScope {
       def prototype: IArray[(T, TsTreeScope)] =
         wanted match {
           case IArray.exactlyThree(head, TsIdent.prototype, (tail: TsIdentSimple)) =>
-            lookupInternal(Picker.HasClassMemberss, IArray(head), loopDetector).flatMap {
-              case (cls, newScope) =>
-                cls.membersByName.get(tail) match {
-                  case Some(found) =>
-                    found
-                      .mapNotNone(member =>
-                        Hoisting.memberToDecl(cls.codePath + TsIdent.prototype, JsLocation.Zero)(member),
-                      )
-                      .collect {
-                        case Pick(x) => (x, newScope)
-                      }
-                  case None => Empty
-                }
+            lookupInternal(Picker.HasClassMemberss, IArray(head), loopDetector).flatMap { case (cls, newScope) =>
+              cls.membersByName.get(tail) match {
+                case Some(found) =>
+                  found
+                    .mapNotNone(member =>
+                      Hoisting.memberToDecl(cls.codePath + TsIdent.prototype, JsLocation.Zero)(member),
+                    )
+                    .collect { case Pick(x) =>
+                      (x, newScope)
+                    }
+                case None => Empty
+              }
             }
           case _ => Empty
         }
@@ -498,8 +493,8 @@ object TsTreeScope {
                     }
                     member match {
                       case Some(founds) =>
-                        founds.collect {
-                          case Pick(x) => x -> scope
+                        founds.collect { case Pick(x) =>
+                          x -> scope
                         }
                       case _ => IArray.Empty
                     }
@@ -551,8 +546,7 @@ object TsTreeScope {
 
 }
 
-/**
-  * In Typescript, namespaces and modules can extend each other.
+/** In Typescript, namespaces and modules can extend each other.
   *
   * This is the first take at implementing support for it. No real changes to output
   *  so far, but this enabled us to look for a similar entity up-tree to resolve names.
@@ -570,9 +564,8 @@ object ExtendingScope {
           case xx: TsDeclNamespace if xx.codePath =/= x.codePath => Some(xx)
           case _ => None
         }
-        scope.`..`.lookupInternal(p, IArray(x.name), loopDetector).flatMap {
-          case (c, extScope) =>
-            TsTreeScope.search(extScope, Pick, c, wanted, loopDetector)
+        scope.`..`.lookupInternal(p, IArray(x.name), loopDetector).flatMap { case (c, extScope) =>
+          TsTreeScope.search(extScope, Pick, c, wanted, loopDetector)
         }
       case _ => Empty
     }

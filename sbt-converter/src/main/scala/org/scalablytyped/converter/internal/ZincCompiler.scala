@@ -35,8 +35,8 @@ class ZincCompiler(inputs: Inputs, logger: Logger[Unit], resolve: Dep => Array[F
   ): Either[String, Unit] = {
 
     val cp: Array[VirtualFile] = {
-      val fromInternal: Set[VirtualFile] = deps.collect {
-        case Compiler.InternalDepJar(path) => PlainVirtualFile(path.toNIO)
+      val fromInternal: Set[VirtualFile] = deps.collect { case Compiler.InternalDepJar(path) =>
+        PlainVirtualFile(path.toNIO)
       }
       val fromExternal: Set[VirtualFile] =
         externalDeps.map(resolve).flatten.map((f: File) => PlainVirtualFile(f.toPath))
@@ -116,32 +116,32 @@ object ZincCompiler {
     val zincDir = BuildPaths.getZincDirectory(st, g)
 
     val instance = mkScalaInstance(
-      version          = v.scala.scalaVersion,
-      allJars          = allJars,
-      libraryJars      = scalaLibrary.collect { case path if path.toString.contains("scala-library") => path },
-      compilerJar      = scalaCompiler.collectFirst { case f if f.getName.contains("scala-compiler") => f }.head,
+      version = v.scala.scalaVersion,
+      allJars = allJars,
+      libraryJars = scalaLibrary.collect { case path if path.toString.contains("scala-library") => path },
+      compilerJar = scalaCompiler.collectFirst { case f if f.getName.contains("scala-compiler") => f }.head,
       classLoaderCache = st.classLoaderCache,
     )
 
     val scalac: AnalyzingCompiler =
       ZincLmUtil.scalaCompiler(
-        scalaInstance        = instance,
-        classpathOptions     = classpathOptions.value,
-        globalLock           = appConfiguration.value.provider.scalaProvider.launcher.globalLock,
-        componentProvider    = appConfiguration.value.provider.components,
-        secondaryCacheDir    = Option(zincDir),
+        scalaInstance = instance,
+        classpathOptions = classpathOptions.value,
+        globalLock = appConfiguration.value.provider.scalaProvider.launcher.globalLock,
+        componentProvider = appConfiguration.value.provider.components,
+        secondaryCacheDir = Option(zincDir),
         dependencyResolution = resolver,
         compilerBridgeSource = scalaCompilerBridgeSource.value,
-        scalaJarsTarget      = zincDir,
-        classLoaderCache     = None,
-        log                  = sbtLogger,
+        scalaJarsTarget = zincDir,
+        classLoaderCache = None,
+        log = sbtLogger,
       )
 
     val compilers: Compilers =
       ZincUtil.compilers(
-        instance         = instance,
+        instance = instance,
         classpathOptions = classpathOptions.value,
-        javaHome         = javaHome.value.map(_.toPath),
+        javaHome = javaHome.value.map(_.toPath),
         scalac,
       )
 

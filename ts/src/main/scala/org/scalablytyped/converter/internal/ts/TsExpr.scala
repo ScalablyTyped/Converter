@@ -6,12 +6,12 @@ sealed trait TsExpr
 object TsExpr {
   val Default = TsTypeUnion.simplified(IArray(TsTypeRef.string, TsTypeRef.number))
 
-  case class Ref(value:     TsQIdent) extends TsExpr
+  case class Ref(value: TsQIdent) extends TsExpr
   case class Literal(value: TsLiteral) extends TsExpr
   case class Call(function: TsExpr, params: IArray[TsExpr]) extends TsExpr
-  case class Unary(op:      String, expr: TsExpr) extends TsExpr
-  case class BinaryOp(one:  TsExpr, op: String, two: TsExpr) extends TsExpr
-  case class Cast(expr:     TsExpr, tpe: TsType) extends TsExpr
+  case class Unary(op: String, expr: TsExpr) extends TsExpr
+  case class BinaryOp(one: TsExpr, op: String, two: TsExpr) extends TsExpr
+  case class Cast(expr: TsExpr, tpe: TsType) extends TsExpr
 
   def format(expr: TsExpr): String =
     expr match {
@@ -38,7 +38,7 @@ object TsExpr {
     def unapply(x: TsLiteral): Option[BigDecimal] =
       x match {
         case TsLiteralNumber(value) if value.forall(c => c.isDigit || c === '.') => Some(BigDecimal(value))
-        case _ => None
+        case _                                                                   => None
       }
 
     object Long {
@@ -50,7 +50,7 @@ object TsExpr {
       def unapply(x: TsLiteral): Option[Long] =
         x match {
           case TsLiteralNumber(value) if value.forall(c => c.isDigit) => Some(value.toLong)
-          case _ => None
+          case _                                                      => None
         }
     }
   }

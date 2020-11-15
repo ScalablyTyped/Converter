@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-/**
-  * This is the first part of a two step process to rid ourselves of the myriad of
+/** This is the first part of a two step process to rid ourselves of the myriad of
   *  type aliases resulting from the resolution of modules.
   *
   *  Here, we inline all trivial type aliases.

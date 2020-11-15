@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-/**
-  * Rudimentary support for conditional types
+/** Rudimentary support for conditional types
   */
 object SimplifyConditionals extends TreeTransformationScopedChanges {
   override def leaveTsType(scope: TsTreeScope)(x: TsType): TsType =

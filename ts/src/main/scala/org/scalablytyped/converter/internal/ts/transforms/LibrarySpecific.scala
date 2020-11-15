@@ -164,8 +164,7 @@ object LibrarySpecific {
           new TypeRewriter(newX)
             .visitTsDeclInterface(TsTypeParam.asTypeArgs(x.tparams).map(_ -> TsTypeRef.any).toMap)(newX)
 
-        /**
-          * hack: react exposes just too many props for intrinsics (`div`, `a`, etc) to cross the 254
+        /** hack: react exposes just too many props for intrinsics (`div`, `a`, etc) to cross the 254
           * parameter limit for *many* components. I've personally never needed the `*Capture` props,
           * and they are easy to filter out en masse.
           */

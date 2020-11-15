@@ -55,7 +55,7 @@ object Minimization {
     val keep:  IArray.Builder[QualifiedName]                     = IArray.Builder(allKeptReferences, allKeptReferences.length)
     val cache: mutable.Map[QualifiedName, IArray[QualifiedName]] = mutable.Map.empty
 
-    while (queue.nonEmpty) {
+    while (queue.nonEmpty)
       queue match {
         case head :: tail if cache contains head =>
           queue = tail
@@ -81,7 +81,6 @@ object Minimization {
           keep ++= referenced
           queue = referenced.toList ++ tail
       }
-    }
 
     Index(keep.result())
   }
@@ -112,16 +111,15 @@ object Minimization {
     def unapply(arg: Tree): Option[IArray[QualifiedName]] =
       arg match {
         case tree: HasCodePath =>
-          tree.comments.extract { case Keep(related) => related }.map {
-            case (refs, _) =>
-              val related = TreeTraverse.collectIArray(refs) {
-                case TypeRef(typeName, _, _) => typeName
-              }
-              val fromTree = TreeTraverse.collect(tree) {
-                case TypeRef(typeName, _, _) => typeName
-              }
+          tree.comments.extract { case Keep(related) => related }.map { case (refs, _) =>
+            val related = TreeTraverse.collectIArray(refs) { case TypeRef(typeName, _, _) =>
+              typeName
+            }
+            val fromTree = TreeTraverse.collect(tree) { case TypeRef(typeName, _, _) =>
+              typeName
+            }
 
-              tree.codePath +: (fromTree ++ related)
+            tree.codePath +: (fromTree ++ related)
           }
         case _ => None
       }

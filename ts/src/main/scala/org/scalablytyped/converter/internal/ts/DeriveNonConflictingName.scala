@@ -3,8 +3,7 @@ package ts
 
 import seqs._
 
-/**
-  * Sometimes we need to name things in Scala where they were anonymous in Typescript.
+/** Sometimes we need to name things in Scala where they were anonymous in Typescript.
   *
   * This tries to look at the contents of the code and name it based on member names first,
   *  and then whatever other strings it can find. We try to make the names as short as
@@ -45,24 +44,22 @@ object DeriveNonConflictingName {
       }
 
     val fromInstantiable: Option[Detail] =
-      members.collectFirst {
-        case TsMemberCtor(_, _, signature) =>
-          val short = "Instantiable"
-          Detail(
-            short,
-            IArray.fromOptions(Some(short), Detail.prettyType(signature.resultType)).mkString,
-          )
+      members.collectFirst { case TsMemberCtor(_, _, signature) =>
+        val short = "Instantiable"
+        Detail(
+          short,
+          IArray.fromOptions(Some(short), Detail.prettyType(signature.resultType)).mkString,
+        )
       }
 
     val fromDict: Option[Detail] =
       members
-        .collectFirst {
-          case TsMemberIndex(_, _, _, IndexingDict(name, inType), outType) =>
-            val short = Detail.pretty("Dict" + name.value)
-            val long = IArray
-              .fromOptions(Some(short), Some(Detail.prettyType(inType)), Detail.prettyType(outType))
-              .mkString
-            Detail(short, long)
+        .collectFirst { case TsMemberIndex(_, _, _, IndexingDict(name, inType), outType) =>
+          val short = Detail.pretty("Dict" + name.value)
+          val long = IArray
+            .fromOptions(Some(short), Some(Detail.prettyType(inType)), Detail.prettyType(outType))
+            .mkString
+          Detail(short, long)
         }
 
     val details = IArray.fromOptions(fromCalls, fromInstantiable, fromDict) ++ fromMembers.sorted.distinct

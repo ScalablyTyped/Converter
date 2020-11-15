@@ -15,16 +15,15 @@ object PersistingParser {
     cacheDirOpt match {
       case Some(cacheDir) =>
         val pf = FileLocking.persistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]](
-          {
-            case (file, bs) =>
-              val shortestRelative =
-                inputFolders.map(f => file.path.relativeTo(f.path)).sortBy(_.toString.length).head.toString
-              val base = cacheDir.resolve(s"${BuildInfo.version}").resolve(shortestRelative)
-              base.resolve(Digest.of(List(bs)).hexString)
+          { case (file, bs) =>
+            val shortestRelative =
+              inputFolders.map(f => file.path.relativeTo(f.path)).sortBy(_.toString.length).head.toString
+            val base = cacheDir.resolve(s"${BuildInfo.version}").resolve(shortestRelative)
+            base.resolve(Digest.of(List(bs)).hexString)
           },
           logger,
-        ) {
-          case (inFile, bytes) => parser.parseFileContent(inFile, bytes)
+        ) { case (inFile, bytes) =>
+          parser.parseFileContent(inFile, bytes)
         }
         inFile => pf((inFile, os.read.bytes(inFile.path)))
       case None =>

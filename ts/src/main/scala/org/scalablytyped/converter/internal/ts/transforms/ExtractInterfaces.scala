@@ -13,15 +13,16 @@ object ExtractInterfaces {
     store.interfaces.toIArrayValues match {
       case Empty => newFile
       case nonEmpty =>
-        newFile.copy(members = newFile.members :+
-          TsDeclNamespace(
-            NoComments,
-            declared = false,
-            into,
-            nonEmpty,
-            CodePath.HasPath(inLibrary, TsQIdent.of(into)),
-            JsLocation.Zero,
-          ),
+        newFile.copy(members =
+          newFile.members :+
+            TsDeclNamespace(
+              NoComments,
+              declared = false,
+              into,
+              nonEmpty,
+              CodePath.HasPath(inLibrary, TsQIdent.of(into)),
+              JsLocation.Zero,
+            ),
         )
     }
   }

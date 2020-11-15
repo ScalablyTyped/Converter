@@ -22,14 +22,13 @@ object ResolveExternalReferences {
         case TsImport(_, _, TsImporteeFrom(from))     => from
         case TsImport(_, _, TsImporteeRequired(from)) => from
       }
-      val fromExports = tsParsedFile.exports.collect {
-        case TsExport(_, _, _, TsExporteeNames(_, Some(from))) => from
+      val fromExports = tsParsedFile.exports.collect { case TsExport(_, _, _, TsExporteeNames(_, Some(from))) =>
+        from
       }
       fromImports.toSet ++ fromExports.toSet
     }
 
-    /**
-      * Todo: `InferredDependency` takes care of undeclared node dependency.
+    /** Todo: `InferredDependency` takes care of undeclared node dependency.
       * However, that is not solid enough when there actually exists a library
       * with the same name as the requested module.
       */
@@ -46,9 +45,8 @@ object ResolveExternalReferences {
     val after = v.visitTsParsedFile(root)(tsParsedFile)
 
     val newImports: IArray[TsImport] =
-      v.importTypes.mapToIArray {
-        case (TsIdentImport(from), name) =>
-          TsImport(typeOnly = false, IArray(TsImportedStar(Some(name))), TsImporteeFrom(from))
+      v.importTypes.mapToIArray { case (TsIdentImport(from), name) =>
+        TsImport(typeOnly = false, IArray(TsImportedStar(Some(name))), TsImporteeFrom(from))
       }
 
     Result(after.withMembers(after.members ++ newImports), v.foundSources.to[Set], v.notFound.to[Set])

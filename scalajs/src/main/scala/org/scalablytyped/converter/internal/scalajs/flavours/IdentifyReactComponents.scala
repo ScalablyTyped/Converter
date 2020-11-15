@@ -42,23 +42,22 @@ class IdentifyReactComponents(
     if (scope.libName.unescaped === "react") {
       scope
         .lookup(reactNames.JsxIntrinsicElements)
-        .collectFirst {
-          case (t: ClassTree, _) =>
-            t.members.collect {
-              // a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
-              case FieldTree(_, name, props @ TypeRef(_, tparams, _), _, _, _, _, _) =>
-                Component(
-                  location        = Left(ExprTree.StringLit(name.unescaped)),
-                  scalaRef        = tparams.last,
-                  fullName        = name,
-                  tparams         = Empty,
-                  propsRef        = PropsRef(props),
-                  componentType   = ComponentType.Intrinsic,
-                  isAbstractProps = false,
-                  nested          = Empty,
-                  otherLocations  = Empty,
-                )
-            }
+        .collectFirst { case (t: ClassTree, _) =>
+          t.members.collect {
+            // a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
+            case FieldTree(_, name, props @ TypeRef(_, tparams, _), _, _, _, _, _) =>
+              Component(
+                location = Left(ExprTree.StringLit(name.unescaped)),
+                scalaRef = tparams.last,
+                fullName = name,
+                tparams = Empty,
+                propsRef = PropsRef(props),
+                componentType = ComponentType.Intrinsic,
+                isAbstractProps = false,
+                nested = Empty,
+                otherLocations = Empty,
+              )
+          }
         }
         .getOrElse(Empty)
     } else Empty
@@ -72,94 +71,92 @@ class IdentifyReactComponents(
   def oneOfEach(scope: TreeScope, tree: ContainerTree): IArray[Component] =
     all(scope, tree)
       .groupBy(_.fullName)
-      .mapToIArray {
-        case (_, sameName) =>
-          /* in this sorting the normally preferred component is *last* */
-          val sorted = sameName.sorted(ComponentOrdering)
+      .mapToIArray { case (_, sameName) =>
+        /* in this sorting the normally preferred component is *last* */
+        val sorted = sameName.sorted(ComponentOrdering)
 
-          /* if we want to encourage tree shaking we should choose the *longest* module name instead.
-           *  Take special care to choose a component with *same props* as the originally chosen component */
-          val (chosen, notChosen) = if (enableReactTreeShaking(scope.libName)) {
-            val IArray.initLast(init, originalChosen) = sorted
+        /* if we want to encourage tree shaking we should choose the *longest* module name instead.
+         *  Take special care to choose a component with *same props* as the originally chosen component */
+        val (chosen, notChosen) = if (enableReactTreeShaking(scope.libName)) {
+          val IArray.initLast(init, originalChosen) = sorted
 
-            val newFound = init
-              .find(other => other.propsRef === originalChosen.propsRef && other.isGlobal === originalChosen.isGlobal)
-              .getOrElse(originalChosen)
+          val newFound = init
+            .find(other => other.propsRef === originalChosen.propsRef && other.isGlobal === originalChosen.isGlobal)
+            .getOrElse(originalChosen)
 
-            (newFound, sorted.filterNot(_.scalaRef === newFound.scalaRef))
-          } else {
-            val IArray.initLast(rest, main) = sorted
-            (main, rest)
-          }
+          (newFound, sorted.filterNot(_.scalaRef === newFound.scalaRef))
+        } else {
+          val IArray.initLast(rest, main) = sorted
+          (main, rest)
+        }
 
-          val notChosenLocations = notChosen.map(_.location).collect { case Right(x) => x }
+        val notChosenLocations = notChosen.map(_.location).collect { case Right(x) => x }
 
-          chosen.copy(otherLocations = notChosenLocations)
+        chosen.copy(otherLocations = notChosenLocations)
       }
       .sortBy(_.fullName)
 
   private def recurse(scope: TreeScope, outer: ContainerTree): IArray[Component] =
-    outer.index.flatMapToIArray {
-      case (_, sameName) =>
-        /** semantically all these except methods are [[Option]] */
-        val (pkgs, mods, fields, classes, methods, _) = sameName.partitionCollect5(
-          { case x: PackageTree => x },
-          { case x: ModuleTree  => x },
-          { case x: FieldTree   => x },
-          { case x: ClassTree   => x },
-          { case x: MethodTree  => x },
-        )
+    outer.index.flatMapToIArray { case (_, sameName) =>
+      /** semantically all these except methods are [[Option]] */
+      val (pkgs, mods, fields, classes, methods, _) = sameName.partitionCollect5(
+        { case x: PackageTree => x },
+        { case x: ModuleTree => x },
+        { case x: FieldTree => x },
+        { case x: ClassTree => x },
+        { case x: MethodTree => x },
+      )
 
-        val _1: IArray[Component] = pkgs.flatMap(x => recurse(scope / x, x))
+      val _1: IArray[Component] = pkgs.flatMap(x => recurse(scope / x, x))
 
-        /* handle together to fix nesting. when a class component is detected, its static member components will be found in the companion object */
-        val _2: IArray[Component] = {
-          def handleMods(mods: IArray[ModuleTree]) =
-            mods.flatMap { x =>
-              /* nested native objects cannot have a JSImport or JSGlobal annotation, and that's used for naming */
-              val guaranteedLocation = x.annotations match {
-                case LocationFrom(_) => x
-                case anns            => x.copy(annotations = anns ++ IArray(locationFrom(scope / x)))
-              }
-
-              maybeModuleComponent(guaranteedLocation, scope / guaranteedLocation) match {
-                case Left(pkg) => all(scope / pkg, pkg)
-                case Right(c)  => IArray(c)
-              }
+      /* handle together to fix nesting. when a class component is detected, its static member components will be found in the companion object */
+      val _2: IArray[Component] = {
+        def handleMods(mods: IArray[ModuleTree]) =
+          mods.flatMap { x =>
+            /* nested native objects cannot have a JSImport or JSGlobal annotation, and that's used for naming */
+            val guaranteedLocation = x.annotations match {
+              case LocationFrom(_) => x
+              case anns            => x.copy(annotations = anns ++ IArray(locationFrom(scope / x)))
             }
 
-          (mods, classes) match {
-            case (Empty, Empty) =>
-              Empty
-            case (Empty, classes) =>
-              classes.mapNotNone(x => maybeClassComponent(x, outer, scope / x))
-            case (mods, Empty) =>
-              handleMods(mods)
-            case (IArray.first(mod), IArray.first(cls)) =>
-              val newScope = scope / cls
-              maybeClassComponent(cls, outer, newScope) match {
-                case None => handleMods(mods)
-                case Some(clsComp) =>
-                  val nested = recurse(newScope, separateMod(mod, newScope).restAsPackage).sortBy(_.fullName)
-                  IArray(clsComp.withNested(nested))
-              }
+            maybeModuleComponent(guaranteedLocation, scope / guaranteedLocation) match {
+              case Left(pkg) => all(scope / pkg, pkg)
+              case Right(c)  => IArray(c)
+            }
+          }
+
+        (mods, classes) match {
+          case (Empty, Empty) =>
+            Empty
+          case (Empty, classes) =>
+            classes.mapNotNone(x => maybeClassComponent(x, outer, scope / x))
+          case (mods, Empty) =>
+            handleMods(mods)
+          case (IArray.first(mod), IArray.first(cls)) =>
+            val newScope = scope / cls
+            maybeClassComponent(cls, outer, newScope) match {
+              case None => handleMods(mods)
+              case Some(clsComp) =>
+                val nested = recurse(newScope, separateMod(mod, newScope).restAsPackage).sortBy(_.fullName)
+                IArray(clsComp.withNested(nested))
+            }
+        }
+      }
+
+      val _3: IArray[Component] =
+        fields.flatMap { x =>
+          /* translate to module first (it will be translated back later) to find nested components */
+          val anns     = IArray(locationFrom(scope / x))
+          val asModule = ModuleTree(anns, x.name, IArray(x.tpe), Empty, x.comments, x.codePath, isOverride = false)
+          maybeModuleComponent(asModule, scope / asModule) match {
+            case Left(_)  => Empty
+            case Right(c) => IArray(c)
           }
         }
+      val _4: IArray[Component] =
+        methods.flatMap(x => IArray.fromOption(maybeMethodComponent(x, outer, scope / x)))
 
-        val _3: IArray[Component] =
-          fields.flatMap { x =>
-            /* translate to module first (it will be translated back later) to find nested components */
-            val anns     = IArray(locationFrom(scope / x))
-            val asModule = ModuleTree(anns, x.name, IArray(x.tpe), Empty, x.comments, x.codePath, isOverride = false)
-            maybeModuleComponent(asModule, scope / asModule) match {
-              case Left(_)  => Empty
-              case Right(c) => IArray(c)
-            }
-          }
-        val _4: IArray[Component] =
-          methods.flatMap(x => IArray.fromOption(maybeMethodComponent(x, outer, scope / x)))
-
-        IArray(_1, _2, _3, _4).flatten
+      IArray(_1, _2, _3, _4).flatten
     }
 
   val Unnamed = Set(Name.Default, Name.namespaced, Name.APPLY)
@@ -204,28 +201,28 @@ class IdentifyReactComponents(
           } yield method.name match {
             case Name.APPLY =>
               Component(
-                location        = Right(locationFrom(scope)),
-                scalaRef        = TypeRef(owner.codePath),
-                fullName        = componentName(scope, owner.annotations, owner.codePath),
-                tparams         = method.tparams,
-                propsRef        = propsRef,
-                componentType   = ComponentType.Field,
+                location = Right(locationFrom(scope)),
+                scalaRef = TypeRef(owner.codePath),
+                fullName = componentName(scope, owner.annotations, owner.codePath),
+                tparams = method.tparams,
+                propsRef = propsRef,
+                componentType = ComponentType.Field,
                 isAbstractProps = isAbstractProps,
-                nested          = Empty,
-                otherLocations  = Empty,
+                nested = Empty,
+                otherLocations = Empty,
               )
 
             case _ =>
               Component(
-                location        = Right(locationFrom(scope)),
-                scalaRef        = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
-                fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(method.name))),
-                tparams         = method.tparams,
-                propsRef        = propsRef,
-                componentType   = ComponentType.Function,
+                location = Right(locationFrom(scope)),
+                scalaRef = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
+                fullName = componentName(scope, owner.annotations, QualifiedName(IArray(method.name))),
+                tparams = method.tparams,
+                propsRef = propsRef,
+                componentType = ComponentType.Function,
                 isAbstractProps = isAbstractProps,
-                nested          = Empty,
-                otherLocations  = Empty,
+                nested = Empty,
+                otherLocations = Empty,
               )
 
           }
@@ -265,13 +262,13 @@ class IdentifyReactComponents(
         case some =>
           val asField = FieldTree(
             annotations = Empty,
-            name        = mod.name,
-            tpe         = TypeRef.Intersection(some, NoComments),
-            impl        = ExprTree.native,
-            isReadOnly  = true,
-            isOverride  = mod.isOverride,
-            comments    = mod.comments,
-            codePath    = mod.codePath,
+            name = mod.name,
+            tpe = TypeRef.Intersection(some, NoComments),
+            impl = ExprTree.native,
+            isReadOnly = true,
+            isOverride = mod.isOverride,
+            comments = mod.comments,
+            codePath = mod.codePath,
           )
           maybeFieldComponent(asField, mod, scope)
       }
@@ -297,8 +294,8 @@ class IdentifyReactComponents(
           .firstDefined {
             case (x: ClassTree, newScope) =>
               val rewritten = FillInTParams(x, newScope, current.targs, Empty)
-              parentsResolver(newScope, rewritten).transitiveParents.collectFirst {
-                case (tr, _) => pointsAtComponentType(newScope, tr)
+              parentsResolver(newScope, rewritten).transitiveParents.collectFirst { case (tr, _) =>
+                pointsAtComponentType(newScope, tr)
               }.flatten
             case (x: TypeAliasTree, newScope) =>
               val rewritten = FillInTParams(x, newScope, current.targs, Empty)
@@ -309,15 +306,15 @@ class IdentifyReactComponents(
 
     val fieldResult = pointsAtComponentType(scope, field.tpe).map(propsRef =>
       Component(
-        location        = Right(locationFrom(scope)),
-        scalaRef        = TypeRef(field.codePath),
-        fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(field.name))),
-        tparams         = Empty,
-        propsRef        = propsRef,
-        componentType   = ComponentType.Field,
+        location = Right(locationFrom(scope)),
+        scalaRef = TypeRef(field.codePath),
+        fullName = componentName(scope, owner.annotations, QualifiedName(IArray(field.name))),
+        tparams = Empty,
+        propsRef = propsRef,
+        componentType = ComponentType.Field,
         isAbstractProps = scope.isAbstract(propsRef.ref),
-        nested          = Empty,
-        otherLocations  = Empty,
+        nested = Empty,
+        otherLocations = Empty,
       ),
     )
     def isAliasToFC: Option[Component] =
@@ -331,16 +328,16 @@ class IdentifyReactComponents(
           maybeMethodComponent(
             MethodTree(
               annotations = field.annotations,
-              level       = ProtectionLevel.Default,
-              name        = field.name,
-              tparams     = Empty,
-              params      = IArray(params),
-              impl        = field.impl,
-              resultType  = ret,
-              isOverride  = false,
-              comments    = field.comments,
-              codePath    = field.codePath,
-              isImplicit  = false,
+              level = ProtectionLevel.Default,
+              name = field.name,
+              tparams = Empty,
+              params = IArray(params),
+              impl = field.impl,
+              resultType = ret,
+              isOverride = false,
+              comments = field.comments,
+              codePath = field.codePath,
+              isImplicit = false,
             ),
             owner,
             scope,
@@ -357,15 +354,15 @@ class IdentifyReactComponents(
       parentsResolver(scope, cls).transitiveParents.firstDefined { (tr, _) =>
         reactNames.isComponent(tr).map { propsRef =>
           Component(
-            location        = Right(locationFrom(scope)),
-            scalaRef        = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
-            fullName        = componentName(scope, owner.annotations, cls.codePath),
-            tparams         = cls.tparams,
-            propsRef        = propsRef,
-            componentType   = ComponentType.Class,
+            location = Right(locationFrom(scope)),
+            scalaRef = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
+            fullName = componentName(scope, owner.annotations, cls.codePath),
+            tparams = cls.tparams,
+            propsRef = propsRef,
+            componentType = ComponentType.Class,
             isAbstractProps = scope.isAbstract(propsRef.ref),
-            nested          = Empty,
-            otherLocations  = Empty,
+            nested = Empty,
+            otherLocations = Empty,
           )
         }
       }
@@ -453,8 +450,8 @@ class IdentifyReactComponents(
               case Imported.Named(name) => Imported.Named(name :+ tree.name)
             }
 
-          val newGlobal = globalOpt.map {
-            case Annotation.JsGlobal(old) => Annotation.JsGlobal(old + tree.name)
+          val newGlobal = globalOpt.map { case Annotation.JsGlobal(old) =>
+            Annotation.JsGlobal(old + tree.name)
           }
 
           Annotation.JsImport(mod, newImported, newGlobal)

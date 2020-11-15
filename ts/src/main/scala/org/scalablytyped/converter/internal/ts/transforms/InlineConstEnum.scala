@@ -13,11 +13,10 @@ object InlineConstEnum extends TreeTransformationScopedChanges {
             scope.lookupType(TsQIdent(parts.init), skipValidation = true).firstDefined {
               case e: TsDeclEnum if e.isConst =>
                 val memberName = parts.last
-                e.members.collectFirst {
-                  case TsEnumMember(_, `memberName`, exprOpt) =>
-                    val ret = TsExpr.typeOfOpt(exprOpt)
-                    scope.logger.info(s"Inlining const enum type ${TsTypeFormatter(x)} => ${TsTypeFormatter(ret)}")
-                    ret
+                e.members.collectFirst { case TsEnumMember(_, `memberName`, exprOpt) =>
+                  val ret = TsExpr.typeOfOpt(exprOpt)
+                  scope.logger.info(s"Inlining const enum type ${TsTypeFormatter(x)} => ${TsTypeFormatter(ret)}")
+                  ret
                 }
               case _ => None
             }

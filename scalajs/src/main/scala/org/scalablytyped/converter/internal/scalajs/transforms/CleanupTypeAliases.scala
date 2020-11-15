@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
-/**
-  * This is the second part of a two step process to rid ourselves of the myriad of
+/** This is the second part of a two step process to rid ourselves of the myriad of
   *  type aliases resulting from the resolution of modules.
   *
   *  The first part is done in typescript, `InlineTrivialTypeAlias`, where we inline all trivial

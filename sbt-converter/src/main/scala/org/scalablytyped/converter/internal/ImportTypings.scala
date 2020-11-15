@@ -82,39 +82,39 @@ object ImportTypings {
     val Phases: RecPhase[Source, PublishedSbtProject] = RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
-          resolve                 = bootstrapped.libraryResolver,
+          resolve = bootstrapped.libraryResolver,
           calculateLibraryVersion = CalculateLibraryVersion.PackageJsonOnly,
-          ignored                 = input.conversion.ignoredLibs,
-          ignoredModulePrefixes   = input.conversion.ignoredModulePrefixes,
-          pedantic                = false,
-          parser                  = cachedParser,
-          expandTypeMappings      = input.conversion.expandTypeMappings,
+          ignored = input.conversion.ignoredLibs,
+          ignoredModulePrefixes = input.conversion.ignoredModulePrefixes,
+          pedantic = false,
+          parser = cachedParser,
+          expandTypeMappings = input.conversion.expandTypeMappings,
         ),
         "typescript",
       )
       .next(
         new Phase2ToScalaJs(
-          pedantic             = false,
+          pedantic = false,
           enableScalaJsDefined = input.conversion.enableScalaJsDefined,
-          outputPkg            = input.conversion.outputPackage,
-          flavour              = input.conversion.flavourImpl,
+          outputPkg = input.conversion.outputPackage,
+          flavour = input.conversion.flavourImpl,
         ),
         "scala.js",
       )
       .next(new PhaseFlavour(input.conversion.flavourImpl), input.conversion.flavourImpl.toString)
       .next(
         new Phase3Compile(
-          versions                   = input.conversion.versions,
-          compiler                   = compiler,
-          targetFolder               = targetFolder,
-          organization               = input.conversion.organization,
-          publisherOpt               = None,
-          publishLocalFolder         = publishLocalFolder,
-          metadataFetcher            = Npmjs.No,
-          softWrites                 = true,
-          flavour                    = input.conversion.flavourImpl,
+          versions = input.conversion.versions,
+          compiler = compiler,
+          targetFolder = targetFolder,
+          organization = input.conversion.organization,
+          publisherOpt = None,
+          publishLocalFolder = publishLocalFolder,
+          metadataFetcher = Npmjs.No,
+          softWrites = true,
+          flavour = input.conversion.flavourImpl,
           generateScalaJsBundlerFile = false,
-          ensureSourceFilesWritten   = false,
+          ensureSourceFilesWritten = false,
         ),
         "build",
       )

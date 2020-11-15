@@ -57,9 +57,8 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           case _ => JsLocation.Zero
         }
 
-        val founds = lookup(scope, Picker.NamedValues, expr).flatMap {
-          case (found, _) =>
-            DeriveCopy(found, tree.codePath, Some(name)).map { SetJsLocation.visitTsNamedDecl(ownerLoc) }
+        val founds = lookup(scope, Picker.NamedValues, expr).flatMap { case (found, _) =>
+          DeriveCopy(found, tree.codePath, Some(name)).map(SetJsLocation.visitTsNamedDecl(ownerLoc))
         }
 
         founds match {
@@ -96,8 +95,8 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
         TsTypeFunction(
           TsFunSig(
             comments = cs,
-            params   = params,
-            tparams  = cls.tparams,
+            params = params,
+            tparams = cls.tparams,
             resultType = Some(
               TsTypeRef(
                 NoComments,
@@ -112,8 +111,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
     def unapply(decl: TsContainerOrDecl): Option[(TsDeclClass, TsType)] =
       decl match {
         case _cls: TsDeclClass =>
-          /**
-            * todo: this is only necessary until we adopt answering these type queries as classes
+          /** todo: this is only necessary until we adopt answering these type queries as classes
             */
           val cls = new TypeRewriter(_cls).visitTsDeclClass(
             _cls.tparams
@@ -193,8 +191,8 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
 
           case wanted if TsQIdent.Primitive(wanted) => TsTypeRef(NoComments, wanted, Empty)
           case wanted =>
-            val found = lookup(scope, P(target), wanted).mapNotNone {
-              case (x, newScope) => typeOf(x, newScope, loopDetector)
+            val found = lookup(scope, P(target), wanted).mapNotNone { case (x, newScope) =>
+              typeOf(x, newScope, loopDetector)
             }
 
             found match {
@@ -233,7 +231,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           ns.name,
           nonEmptyTypeObject(ns),
           None,
-          isStatic   = false,
+          isStatic = false,
           isReadOnly = true,
         )
       case TsDeclFunction(cs, _, name, sig, _, _) =>
@@ -243,7 +241,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           name,
           MethodType.Normal,
           sig,
-          isStatic   = false,
+          isStatic = false,
           isReadOnly = true,
         )
       case TsDeclVar(cs, _, isReadOnly, name, tpe, lit, _, _) =>
@@ -253,7 +251,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           name,
           tpe,
           lit,
-          isStatic   = false,
+          isStatic = false,
           isReadOnly = isReadOnly,
         )
       case RewrittenClass((cls, tpe)) =>
@@ -263,7 +261,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           cls.name,
           Some(tpe),
           None,
-          isStatic   = false,
+          isStatic = false,
           isReadOnly = false,
         )
     }
