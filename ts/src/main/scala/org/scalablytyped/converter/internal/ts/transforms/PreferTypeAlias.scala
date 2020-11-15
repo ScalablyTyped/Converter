@@ -5,7 +5,7 @@ package transforms
 import scala.collection.mutable
 
 object PreferTypeAlias extends TreeTransformationScopedChanges {
-  override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl =
+  override def enterTsDecl(scope: TsTreeScope)(x: TsDecl): TsDecl =
     x match {
 
       /**
@@ -21,14 +21,14 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         */
       case i @ TsDeclInterface(comments, declared, name, tparams, Empty, members, codePath)
           if ExtractInterfaces.isTypeMapping(members) || ExtractInterfaces.isDictionary(members) =>
-        if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), t, members.head)) i
+        if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), scope, members.head)) i
         else
           TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(NoComments, members), codePath)
 
       /* the opposite of former */
       case ta @ TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(_, members), codePath)
           if ExtractInterfaces.isDictionary(members) =>
-        if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), t, members.head))
+        if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), scope, members.head))
           TsDeclInterface(comments, declared, name, tparams, Empty, members, codePath)
         else ta
 
@@ -57,9 +57,9 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
             Empty,
             codePath,
           ) =>
-        if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), t, singleInheritance)) i
+        if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), scope, singleInheritance)) i
         else {
-          t.logger.info("Simplified to type alias")
+          scope.logger.info("Simplified to type alias")
           TsDeclTypeAlias(comments, declared, name, tparams, singleInheritance, codePath)
         }
 
@@ -75,9 +75,9 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         * ```
         **/
       case IsFunction(typeAlias) =>
-        if (hasCircularReference(typeAlias.codePath.forceHasPath.codePath, mutable.Set(), t, typeAlias.alias)) x
+        if (hasCircularReference(typeAlias.codePath.forceHasPath.codePath, mutable.Set(), scope, typeAlias.alias)) x
         else {
-          t.logger.info("Simplified to function type alias")
+          scope.logger.info("Simplified to function type alias")
           typeAlias
         }
 
@@ -104,7 +104,39 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
             !ExtractInterfaces.isDictionary(members) =>
         TsDeclInterface(cs, dec, name, tparams, Empty, members, cp)
 
-      case other => other
+      /**
+       * Rewrite this:
+       * ```typescript
+       * export type RuleSetConditions = RuleSetCondition[];
+       * export type RuleSetCondition =
+       * | RegExp
+       * | RuleSetConditions
+       * ````
+       *
+       * to
+       * ```typescript
+       * export interface RuleSetConditions extends RuleSetCondition[] {};
+       * export type RuleSetCondition =
+       * | RegExp
+       * | RuleSetConditions
+       * `
+       *
+       * Only the latter will be legal in scala, unfortunately
+       */
+      case ta @ TsDeclTypeAlias(
+            cs,
+            dec,
+            name,
+            tparams,
+            arr @ TsTypeRef(_, TsQIdent.Std.Array | TsQIdent.Std.ReadonlyArray, IArray.exactlyOne(t)),
+            cp,
+          ) =>
+        if (hasCircularReference(cp.forceHasPath.codePath, mutable.Set(), scope, t))
+          TsDeclInterface(cs, dec, name, tparams, inheritance = IArray(arr), members = Empty, codePath = cp)
+        else ta
+
+      case other =>
+        other
     }
 
   private object IsFunction {
