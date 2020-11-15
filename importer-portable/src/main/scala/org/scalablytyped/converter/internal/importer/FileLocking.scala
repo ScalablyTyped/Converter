@@ -45,6 +45,7 @@ object FileLocking {
         case Failure(error) =>
           logger.warn(s"Couldn't decode cached file $path: $error")
           val ret = value
+          channel.truncate(0L)
           channel.write(ByteBuffer.wrap(Serializer.serialize(ret)))
           ret
         case Success(value) =>
