@@ -8,7 +8,7 @@ object Deps {
   val scalatest         = "org.scalatest" %% "scalatest" % "3.2.3"
   val fansi             = "com.lihaoyi" %% "fansi" % "0.2.9"
   val bloop             = "ch.epfl.scala" %% "bloop-frontend" % "1.4.5"
-  val bintry            = "org.foundweekends" %% "bintry" % "0.6.0"
+  val bintry            = "org.foundweekends" %% "bintry" % "0.5.2"
   val asyncHttpClient   = "com.ning" % "async-http-client" % "1.9.40"
   val scalaXml          = "org.scala-lang.modules" %% "scala-xml" % "1.3.0"
   val scopt             = "com.github.scopt" %% "scopt" % "4.0.0-RC2"
