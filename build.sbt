@@ -82,7 +82,7 @@ lazy val `sbt-converter` = project
   .configure(pluginSettings, baseSettings, publicationSettings)
   .settings(
     name := "sbt-converter",
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.18.0"),
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0"),
   )
 
 lazy val root = project
