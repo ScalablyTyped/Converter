@@ -169,12 +169,13 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
 
         CanBeShadowed(maybe = false, IArray(g.copy(members = ret)))
 
-      case x: TsDeclModule => CanBeShadowed(maybe = false, IArray(x))
+      case x: TsDeclModule      => CanBeShadowed(maybe = false, IArray(x))
       case x: TsAugmentedModule => CanBeShadowed(maybe = false, IArray(x))
+      // might clash with an interface in the presence of commonjs modules
+      case x: TsDeclTypeAlias => CanBeShadowed(maybe = true, IArray(x))
       case x: TsNamedValueDecl =>
         if (hasExportedValues) CanBeShadowed(maybe = false, IArray.fromOption(KeepTypesOnly(x)))
         else CanBeShadowed(maybe                   = false, IArray(x))
-//      case _: TsImport          => Empty
       case x => CanBeShadowed(maybe = false, IArray(x))
     }
   }
