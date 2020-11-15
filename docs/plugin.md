@@ -29,21 +29,27 @@ If you really want more than one conversion make sure to [shade](conversion-opti
 
 **This plugin needs sbt 1.4.x**. Not higher or lower. 
 This is unfortunate, but some more design work is needed to avoid this.
-The last version for sbt 1.3.x was 1.0.0-beta26. 
 
 Since we generate source code, it should work with any combination of 
-Scala 2.12 / 2.13 and Scala.js 1.x / 0.6.x 
+Scala 2.12 / 2.13 and Scala.js 1.x.
 
 ## Add to your `project/plugins.sbt`
 
 ```scala
 resolvers += Resolver.bintrayRepo("oyvindberg", "converter")
 
-// for Scala.js 1.x.x
+// Current, for Scala.js 1.x.x
 addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "@VERSION@")
 
-// for Scala.js 0.6.x
-addSbtPlugin("org.scalablytyped.converter" % "sbt-converter06" % "@VERSION@")
+// The last version published for sbt 1.4.x and Scala.js 0.6.x was
+addSbtPlugin("org.scalablytyped.converter" % "sbt-converter06" % "1.0.0-beta28")
+
+// the last version published for sbt 1.3.x and Scala.js 1.x was :
+addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "1.0.0-beta26")
+
+// the last version published for sbt 1.3.x and Scala.js 0.6.x was :
+addSbtPlugin("org.scalablytyped.converter" % "sbt-converter06" % "1.0.0-beta26")
+
 ```
 
 ## Activate the plugin for a project in your `build.sbt`:

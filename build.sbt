@@ -70,20 +70,23 @@ lazy val cli = project
   .configure(baseSettings, publicationSettings)
   .settings(libraryDependencies += Deps.scopt)
 
-lazy val `sbt-converter06` = project
-  .configure(pluginSettings, baseSettings, publicationSettings)
-  .settings(
-    name := "sbt-converter06",
-    Compile / unmanagedSourceDirectories += (`sbt-converter` / Compile / sourceDirectory).value,
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler-sjs06" % "0.19.0"),
-  )
-
 lazy val `sbt-converter` = project
-  .configure(pluginSettings, baseSettings, publicationSettings)
+  .dependsOn(`importer-portable`)
+  .enablePlugins(ScriptedPlugin)
+  .configure(baseSettings, publicationSettings)
   .settings(
     name := "sbt-converter",
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0"),
+    sbtPlugin := true,
+    // set up 'scripted; sbt plugin for testing sbt plugins
+    scriptedBufferLog := false,
+    scriptedLaunchOpts ++= Seq("-Xmx2048M", "-Dplugin.version=" + version.value),
+    watchSources ++= {
+      (sourceDirectory.value ** "*").get
+    },
+    libraryDependencies ++= Seq(Deps.awssdkS3, Deps.java8Compat),
   )
+
 
 lazy val root = project
   .in(file("."))
@@ -96,25 +99,10 @@ lazy val root = project
     ts,
     scalajs,
     `importer-portable`,
-    `sbt-converter06`,
     `sbt-converter`,
     importer,
     cli,
   )
-
-lazy val pluginSettings: Project => Project =
-  _.dependsOn(`importer-portable`)
-    .enablePlugins(ScriptedPlugin)
-    .settings(
-      sbtPlugin := true,
-      // set up 'scripted; sbt plugin for testing sbt plugins
-      scriptedBufferLog := false,
-      scriptedLaunchOpts ++= Seq("-Xmx2048M", "-Dplugin.version=" + version.value),
-      watchSources ++= {
-        (sourceDirectory.value ** "*").get
-      },
-      libraryDependencies ++= Seq(Deps.awssdkS3, Deps.java8Compat),
-    )
 
 lazy val baseSettings: Project => Project =
   _.settings(

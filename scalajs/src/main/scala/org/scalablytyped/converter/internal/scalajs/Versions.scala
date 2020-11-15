@@ -36,8 +36,8 @@ object Versions {
 
     val scalaJsOrganization = "org.scala-js"
 
-    def scalacOptions: List[String] = {
-      val base = List(
+    val scalacOptions: List[String] = {
+      List(
         "-encoding",
         "utf-8",
         "-feature",
@@ -46,8 +46,6 @@ object Versions {
         "-language:higherKinds",
         "-language:existentials",
       )
-      if (scalaJsVersion.startsWith("0.6")) base :+ "-P:scalajs:sjsDefinedByDefault"
-      else base
     }
     val library       = Dep.Scala(scalaJsOrganization, "scalajs-library", scalaJsVersion)
     val testInterface = Dep.Scala(scalaJsOrganization, "scalajs-test-interface", scalaJsVersion)
