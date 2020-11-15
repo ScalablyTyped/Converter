@@ -7,10 +7,12 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait Vue extends js.Object {
+  
   @JSName("$http")
   def $http(options: HttpOptions): js.Thenable[HttpResponse] = js.native
   @JSName("$http")
   var $http_Original: Call = js.native
+  
   @JSName("$resource")
   def $resource(url: String): ResourceMethods = js.native
   @JSName("$resource")
@@ -35,4 +37,3 @@ trait Vue extends js.Object {
   @JSName("$resource")
   var $resource_Original: resource = js.native
 }
-

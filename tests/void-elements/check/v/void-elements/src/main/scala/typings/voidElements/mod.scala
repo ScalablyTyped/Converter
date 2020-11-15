@@ -11,4 +11,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("void-elements", JSImport.Namespace)
 @js.native
 object mod extends TopLevel[Partial[Record[String, `true`]]]
-

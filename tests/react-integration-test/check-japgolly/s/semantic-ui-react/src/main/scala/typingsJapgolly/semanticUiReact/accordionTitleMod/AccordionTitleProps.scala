@@ -9,12 +9,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait AccordionTitleProps
   extends StrictAccordionTitleProps
      with /* key */ StringDictionary[js.Any]
-
 object AccordionTitleProps {
+  
   @scala.inline
   def apply(): AccordionTitleProps = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[AccordionTitleProps]
   }
 }
-

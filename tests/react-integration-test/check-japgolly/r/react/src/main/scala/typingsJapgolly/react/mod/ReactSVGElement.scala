@@ -8,8 +8,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 // ReactSVG for ReactSVGElement
 @js.native
 trait ReactSVGElement extends DOMElement[SVGAttributes[SVGElement], SVGElement]
-
 object ReactSVGElement {
+  
   @scala.inline
   def apply(props: js.Any, `type`: js.Any): ReactSVGElement = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
@@ -17,4 +17,3 @@ object ReactSVGElement {
     __obj.asInstanceOf[ReactSVGElement]
   }
 }
-

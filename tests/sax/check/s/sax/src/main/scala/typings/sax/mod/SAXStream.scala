@@ -9,6 +9,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 class SAXStream protected () extends Duplex {
   def this(strict: Boolean, opt: SAXOptions) = this()
+  
   var _parser: SAXParser = js.native
 }
-

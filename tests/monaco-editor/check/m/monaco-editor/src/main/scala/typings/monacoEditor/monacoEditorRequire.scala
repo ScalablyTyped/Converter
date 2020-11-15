@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("monaco-editor", JSImport.Namespace)
 @js.native
 object monacoEditorRequire extends js.Object
-

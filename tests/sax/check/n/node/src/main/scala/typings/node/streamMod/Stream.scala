@@ -7,4 +7,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("stream", "Stream")
 @js.native
 class Stream () extends internal
-

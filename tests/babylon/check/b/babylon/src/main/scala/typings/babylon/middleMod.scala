@@ -7,9 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("middle", JSImport.Namespace)
 @js.native
 object middleMod extends js.Object {
+  
   @js.native
   class RuntimeAnimation ()
     extends typings.babylon.originalMod.RuntimeAnimation
-  
 }
-

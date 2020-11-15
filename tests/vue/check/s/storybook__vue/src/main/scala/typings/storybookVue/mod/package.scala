@@ -5,6 +5,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 package object mod {
+  
   type Addon = org.scalablytyped.runtime.StringDictionary[
     js.Function2[
       /* storyName */ java.lang.String, 
@@ -12,6 +13,7 @@ package object mod {
       scala.Unit
     ]
   ]
+  
   type StoryDecorator = js.Function2[
     /* story */ js.Function0[
       typings.vue.optionsMod.ComponentOptions[
@@ -31,6 +33,7 @@ package object mod {
       typings.vue.optionsMod.PropsDefinition[typings.vue.optionsMod.DefaultProps]
     ]) | scala.Null
   ]
+  
   type StoryFunction = js.Function0[
     (typings.vue.optionsMod.ComponentOptions[
       typings.vue.vueMod.Vue, 

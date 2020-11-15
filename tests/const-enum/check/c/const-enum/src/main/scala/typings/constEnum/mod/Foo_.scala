@@ -12,13 +12,14 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typings.constEnum.constEnumStrings.C
 */
 trait Foo_ extends js.Object
-
 object Foo_ {
+  
   @scala.inline
   def A: `1` = 1.asInstanceOf[`1`]
+  
   @scala.inline
   def B: `22` = 22.asInstanceOf[`22`]
+  
   @scala.inline
   def C: typings.constEnum.constEnumStrings.C = "C".asInstanceOf[typings.constEnum.constEnumStrings.C]
 }
-

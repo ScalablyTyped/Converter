@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("babylon", JSImport.Namespace)
 @js.native
 object babylonRequire extends js.Object
-

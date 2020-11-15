@@ -9,11 +9,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
 */
 trait SemanticFLOATS extends js.Object
-
 object SemanticFLOATS {
+  
   @scala.inline
   def left: typingsJapgolly.semanticUiReact.semanticUiReactStrings.left = "left".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.left]
+  
   @scala.inline
   def right: typingsJapgolly.semanticUiReact.semanticUiReactStrings.right = "right".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.right]
 }
-

@@ -15,4 +15,3 @@ class CommandCls ()
   extends typings.commander.mod.local.Command {
   def this(name: String) = this()
 }
-

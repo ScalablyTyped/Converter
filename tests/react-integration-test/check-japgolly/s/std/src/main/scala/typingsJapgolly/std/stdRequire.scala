@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("std", JSImport.Namespace)
 @js.native
 object stdRequire extends js.Object
-

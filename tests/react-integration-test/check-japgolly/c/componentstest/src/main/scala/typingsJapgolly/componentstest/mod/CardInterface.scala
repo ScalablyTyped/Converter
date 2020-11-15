@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait CardInterface extends FunctionComponent[CardProps] {
+  
   var Grid2: FC[CardGridProps] = js.native
 }
-

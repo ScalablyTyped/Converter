@@ -17,4 +17,3 @@ class OptionCls protected ()
   def this(flags: String) = this()
   def this(flags: String, description: String) = this()
 }
-

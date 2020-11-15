@@ -13,6 +13,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react", "cloneElement")
 @js.native
 object cloneElement extends js.Object {
+  
   // Custom components
   def apply[P](element: FunctionComponentElement[P], props: Partial[P] with Attributes, children: Node*): FunctionComponentElement[P] = js.native
   def apply[P](element: FunctionComponentElement[P], props: js.UndefOr[scala.Nothing], children: Node*): FunctionComponentElement[P] = js.native
@@ -31,4 +32,3 @@ object cloneElement extends js.Object {
   def apply[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](element: ReactSVGElement, props: P, children: Node*): ReactSVGElement = js.native
   def apply[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](element: ReactSVGElement, props: js.UndefOr[scala.Nothing], children: Node*): ReactSVGElement = js.native
 }
-

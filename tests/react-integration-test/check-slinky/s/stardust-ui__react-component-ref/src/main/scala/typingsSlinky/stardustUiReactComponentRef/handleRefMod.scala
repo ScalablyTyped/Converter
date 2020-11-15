@@ -8,6 +8,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("@stardust-ui/react-component-ref/dist/es/handleRef", JSImport.Namespace)
 @js.native
 object handleRefMod extends js.Object {
+  
   /**
     * The function that correctly handles passing refs.
     *
@@ -16,4 +17,3 @@ object handleRefMod extends js.Object {
     */
   def default[N](ref: Ref[N], node: N): Unit = js.native
 }
-

@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typings.react.mod.StatelessComponent[P]
 */
 trait ComponentType[P] extends js.Object
-

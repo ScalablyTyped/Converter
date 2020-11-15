@@ -12,20 +12,21 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("aws-sdk/clients/all", JSImport.Namespace)
 @js.native
 object allMod extends js.Object {
+  
   @js.native
   class DynamoDB () extends ^ {
     def this(options: ClientConfiguration) = this()
   }
-  
   @js.native
   object DynamoDB extends js.Object {
+    
     @js.native
     class Converter ()
       extends typings.awsSdk.dynamodbMod.Converter
-    
     /* static members */
     @js.native
     object Converter extends js.Object {
+      
       def input(data: js.Any): AttributeValue = js.native
       def input(data: js.Any, options: ConverterOptions): AttributeValue = js.native
     }
@@ -38,8 +39,5 @@ object allMod extends js.Object {
       extends typings.awsSdk.dynamodbMod.DocumentClient {
       def this(options: DocumentClientOptions with ClientConfiguration) = this()
     }
-    
   }
-  
 }
-

@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSGlobal("std")
 @js.native
 object ^ extends js.Object {
+  
   var queue: Instantiable0[typings.tstl.std.Queue_[js.Object]] = js.native
 }
-

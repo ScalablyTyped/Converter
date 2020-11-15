@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("material-ui", JSImport.Namespace)
 @js.native
 object materialUiRequire extends js.Object
-

@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 class Default_ ()
   extends typings.fullcalendar.mixinMod.default
      with EmitterInterface
-

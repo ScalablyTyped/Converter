@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("swiz", JSImport.Namespace)
 @js.native
 object swizRequire extends js.Object
-

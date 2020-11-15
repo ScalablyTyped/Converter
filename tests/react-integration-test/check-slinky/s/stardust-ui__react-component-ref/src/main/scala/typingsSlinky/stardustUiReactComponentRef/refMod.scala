@@ -9,6 +9,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("@stardust-ui/react-component-ref/dist/es/Ref", JSImport.Namespace)
 @js.native
 object refMod extends js.Object {
+  
   val default: ReactComponentClass[RefProps] = js.native
 }
-

@@ -11,4 +11,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSGlobal("DEBUG")
 @js.native
 object DEBUG extends TopLevel[Boolean]
-

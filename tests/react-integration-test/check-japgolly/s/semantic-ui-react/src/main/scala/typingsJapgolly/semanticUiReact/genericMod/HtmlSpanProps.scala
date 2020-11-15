@@ -9,12 +9,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait HtmlSpanProps
   extends StrictHtmlSpanProps
      with /* key */ StringDictionary[js.Any]
-
 object HtmlSpanProps {
+  
   @scala.inline
   def apply(): HtmlSpanProps = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[HtmlSpanProps]
   }
 }
-

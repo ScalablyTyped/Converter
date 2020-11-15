@@ -9,11 +9,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("fs", JSImport.Namespace)
 @js.native
 object fsMod extends js.Object {
+  
   @js.native
   class ReadStream () extends Readable
   
   @js.native
   class WriteStream () extends Writable
-  
 }
-

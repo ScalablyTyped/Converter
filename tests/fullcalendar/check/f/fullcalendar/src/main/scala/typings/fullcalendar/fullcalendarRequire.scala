@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("fullcalendar", JSImport.Namespace)
 @js.native
 object fullcalendarRequire extends js.Object
-

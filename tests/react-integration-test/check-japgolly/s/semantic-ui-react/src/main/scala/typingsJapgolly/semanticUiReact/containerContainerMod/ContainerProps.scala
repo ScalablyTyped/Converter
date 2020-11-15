@@ -9,12 +9,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait ContainerProps
   extends StrictContainerProps
      with /* key */ StringDictionary[js.Any]
-
 object ContainerProps {
+  
   @scala.inline
   def apply(): ContainerProps = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[ContainerProps]
   }
 }
-

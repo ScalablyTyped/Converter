@@ -11,8 +11,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait TestContainerProps
   extends StrictTestContainerProps
      with /* key */ StringDictionary[js.Any]
-
 object TestContainerProps {
+  
   @scala.inline
   def apply(
     requiredFn0Number: CallbackTo[Double],
@@ -24,4 +24,3 @@ object TestContainerProps {
     __obj.asInstanceOf[TestContainerProps]
   }
 }
-

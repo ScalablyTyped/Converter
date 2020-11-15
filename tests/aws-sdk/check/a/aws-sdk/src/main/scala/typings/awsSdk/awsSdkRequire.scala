@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("aws-sdk", JSImport.Namespace)
 @js.native
 object awsSdkRequire extends js.Object
-

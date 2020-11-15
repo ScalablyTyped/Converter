@@ -6,4 +6,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait Foo[T, U] extends js.Object
-

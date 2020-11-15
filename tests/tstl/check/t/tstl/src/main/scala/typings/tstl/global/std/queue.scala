@@ -10,4 +10,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 object queue
   extends TopLevel[Instantiable0[typings.tstl.std.Queue_[js.Object]]]
-

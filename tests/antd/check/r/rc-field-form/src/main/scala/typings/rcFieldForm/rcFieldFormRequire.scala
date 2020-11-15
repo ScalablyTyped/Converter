@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("rc-field-form", JSImport.Namespace)
 @js.native
 object rcFieldFormRequire extends js.Object
-

@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("keyof", JSImport.Namespace)
 @js.native
 object keyofRequire extends js.Object
-

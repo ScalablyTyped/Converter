@@ -7,6 +7,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait VueStatic extends js.Object {
+  
   def apply(element: String): Unit = js.native
   def apply(element: String, duration: Double): Unit = js.native
   def apply(element: String, duration: Double, options: Options): Unit = js.native
@@ -17,4 +18,3 @@ trait VueStatic extends js.Object {
   def apply(element: Element, options: Options): Unit = js.native
   def apply(options: Options): Unit = js.native
 }
-

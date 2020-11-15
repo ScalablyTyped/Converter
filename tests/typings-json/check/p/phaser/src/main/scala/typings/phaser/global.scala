@@ -8,38 +8,50 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSGlobalScope
 @js.native
 object global extends js.Object {
+  
   @js.native
   object PIXI extends js.Object {
+    
     var CANVAS_RENDERER: Double = js.native
+    
     var VERSION: String = js.native
+    
     var WEBGL_RENDERER: Double = js.native
+    
     @js.native
     object blendModes extends js.Object {
+      
       @JSBracketAccess
       def apply(value: Double): js.UndefOr[typings.phaser.PIXI.blendModes with Double] = js.native
+      
       /* 1 */ val ADD: typings.phaser.PIXI.blendModes.ADD with Double = js.native
+      
       /* 0 */ val NORMAL: typings.phaser.PIXI.blendModes.NORMAL with Double = js.native
     }
     
     @js.native
     object scaleModes extends js.Object {
+      
       @JSBracketAccess
       def apply(value: Double): js.UndefOr[typings.phaser.PIXI.scaleModes with Double] = js.native
+      
       /* 0 */ val DEFAULT: typings.phaser.PIXI.scaleModes.DEFAULT with Double = js.native
+      
       /* 1 */ val LINEAR: typings.phaser.PIXI.scaleModes.LINEAR with Double = js.native
+      
       /* 2 */ val NEAREST: typings.phaser.PIXI.scaleModes.NEAREST with Double = js.native
     }
-    
   }
   
   @js.native
   class Phaser ()
     extends typings.phaser.Phaser
-  
   /* static members */
   @js.native
   object Phaser extends js.Object {
+    
     var VERSION: String = js.native
+    
     /**
       * An Animation instance contains a single animation and the controls to play it.
       *
@@ -48,18 +60,15 @@ object global extends js.Object {
     @js.native
     class Animation ()
       extends typings.phaser.Phaser.Animation
-    
   }
   
   @js.native
   object p2 extends js.Object {
+    
     @js.native
     class AABB ()
       extends typings.phaser.p2.AABB {
       def this(options: LowerBound) = this()
     }
-    
   }
-  
 }
-

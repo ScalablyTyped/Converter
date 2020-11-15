@@ -9,6 +9,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react-icons/fa", JSImport.Namespace)
 @js.native
 object mod extends js.Object {
+  
   @js.native
   class Fa500px ()
     extends Component[IconBaseProps, js.Object]
@@ -20,6 +21,4 @@ object mod extends js.Object {
   @js.native
   class FaAdn ()
     extends Component[IconBaseProps, js.Object]
-  
 }
-

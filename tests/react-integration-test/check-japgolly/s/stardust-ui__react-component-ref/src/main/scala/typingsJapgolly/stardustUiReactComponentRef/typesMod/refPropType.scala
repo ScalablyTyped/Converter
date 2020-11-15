@@ -11,4 +11,3 @@ object refPropType
   extends TopLevel[
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ js.Any
     ]
-

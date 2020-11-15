@@ -10,6 +10,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react", "createElement")
 @js.native
 object createElement extends js.Object {
+  
   def apply[P /* <: js.Object */](`type`: String, props: Attributes with P, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = js.native
   def apply[P /* <: js.Object */](`type`: String, props: js.UndefOr[scala.Nothing], children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = js.native
   def apply[P /* <: js.Object */](`type`: String, props: Null, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = js.native
@@ -75,4 +76,3 @@ object createElement extends js.Object {
   ): CElement[P, T] = js.native
   def apply[P /* <: js.Object */, T /* <: ReactComponentClass[P] */, C /* <: ReactComponentClass[P] */](`type`: ClassType[P, T, C], props: Null, children: slinky.core.facade.ReactElement*): CElement[P, T] = js.native
 }
-

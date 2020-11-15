@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait Button
   extends Component[ButtonProps, js.Object, js.Any] {
+  
   def focus(): Unit = js.native
 }
-

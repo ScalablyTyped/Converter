@@ -14,4 +14,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 class DocumentClient_ () extends js.Object {
   def this(options: DocumentClientOptions with ClientConfiguration) = this()
 }
-

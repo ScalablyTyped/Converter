@@ -7,4 +7,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react", "PureComponent")
 @js.native
 class PureComponent[P, S, SS] () extends Component[P, S, SS]
-

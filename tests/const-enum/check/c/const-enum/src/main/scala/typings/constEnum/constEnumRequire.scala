@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("const-enum", JSImport.Namespace)
 @js.native
 object constEnumRequire extends js.Object
-

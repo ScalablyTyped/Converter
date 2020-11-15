@@ -6,10 +6,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 sealed trait Context extends js.Object
-
 @JSImport("stylis/stylis", "Context")
 @js.native
 object Context extends js.Object {
+  
   @js.native
   sealed trait ATRUL extends Context
   
@@ -27,6 +27,4 @@ object Context extends js.Object {
   
   @js.native
   sealed trait UNKWN extends Context
-  
 }
-

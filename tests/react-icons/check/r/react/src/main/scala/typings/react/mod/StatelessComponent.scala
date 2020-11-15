@@ -8,9 +8,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait StatelessComponent[P] extends ComponentType[P] {
+  
   def apply(props: P with Children): ReactElement | Null = js.native
   def apply(props: P with Children, context: js.Any): ReactElement | Null = js.native
+  
   var defaultProps: js.UndefOr[Partial[P]] = js.native
+  
   var displayName: js.UndefOr[String] = js.native
 }
-

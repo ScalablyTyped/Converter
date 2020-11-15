@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("virtual-dom", JSImport.Namespace)
 @js.native
 object virtualDomRequire extends js.Object
-

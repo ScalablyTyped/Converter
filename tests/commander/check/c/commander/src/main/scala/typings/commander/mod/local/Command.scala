@@ -13,6 +13,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait Command
   extends EventEmitter
      with /* key */ StringDictionary[js.Any] {
+  
   /**
     * Register callback `fn` for the command.
     *
@@ -28,6 +29,7 @@ trait Command
     * @returns {Command} for chaining
     */
   def action(fn: js.Function1[/* repeated */ js.Any, Unit]): Command = js.native
+  
   def alias(): String = js.native
   /**
     * Set an alias for the command.
@@ -36,6 +38,7 @@ trait Command
     * @return {(Command | string)}
     */
   def alias(alias: String): Command = js.native
+  
   /**
     * Allow unknown options on the command line.
     *
@@ -44,7 +47,9 @@ trait Command
     */
   def allowUnknownOption(): Command = js.native
   def allowUnknownOption(arg: Boolean): Command = js.native
+  
   var args: js.Array[String] = js.native
+  
   /**
     * Define argument syntax for the top-level command.
     *
@@ -52,6 +57,7 @@ trait Command
     * @returns {Command} for chaining
     */
   def arguments(desc: String): Command = js.native
+  
   /**
     * Add command `name`.
     *
@@ -115,6 +121,7 @@ trait Command
   def command(name: String, desc: js.UndefOr[scala.Nothing], opts: CommandOptions): Command = js.native
   def command(name: String, desc: String): Command = js.native
   def command(name: String, desc: String, opts: CommandOptions): Command = js.native
+  
   def description(): String = js.native
   /**
     * Set the description to `str`.
@@ -123,12 +130,14 @@ trait Command
     * @return {(Command | string)}
     */
   def description(str: String): Command = js.native
+  
   /** Output help information and exit.
     *
     * @param {(str: string) => string} [cb]
     */
   def help(): Unit = js.native
   def help(cb: js.Function1[/* str */ String, String]): Unit = js.native
+  
   /**
     * Get the name of the command.
     *
@@ -142,6 +151,7 @@ trait Command
     * @return {Command}
     */
   def name(str: String): Command = js.native
+  
   /**
     * Define option with `flags`, `description` and optional
     * coercion `fn`.
@@ -221,12 +231,14 @@ trait Command
   ): Command = js.native
   def option(flags: String, description: String, fn: RegExp): Command = js.native
   def option(flags: String, description: String, fn: RegExp, defaultValue: js.Any): Command = js.native
+  
   /**
     * Return an object containing options as key-value pairs
     *
     * @returns {{[key: string]: string}}
     */
   def opts(): StringDictionary[String] = js.native
+  
   /**
     * Output help information for this command.
     *
@@ -234,6 +246,7 @@ trait Command
     */
   def outputHelp(): Unit = js.native
   def outputHelp(cb: js.Function1[/* str */ String, String]): Unit = js.native
+  
   /**
     * Parse `argv`, settings options and invoking commands when defined.
     *
@@ -241,6 +254,7 @@ trait Command
     * @returns {Command} for chaining
     */
   def parse(argv: js.Array[String]): Command = js.native
+  
   /**
     * Parse expected `args`.
     *
@@ -250,6 +264,7 @@ trait Command
     * @returns {Command} for chaining
     */
   def parseExpectedArgs(args: js.Array[String]): Command = js.native
+  
   /**
     * Parse options from `argv` returning `argv` void of these options.
     *
@@ -257,6 +272,7 @@ trait Command
     * @returns {ParseOptionsResult}
     */
   def parseOptions(argv: js.Array[String]): ParseOptionsResult = js.native
+  
   def usage(): String = js.native
   /**
     * Set or get the command usage.
@@ -265,6 +281,7 @@ trait Command
     * @return {(Command | string)}
     */
   def usage(str: String): Command = js.native
+  
   /**
     * Set the program version to `str`.
     *
@@ -278,4 +295,3 @@ trait Command
   def version(str: String): Command = js.native
   def version(str: String, flags: String): Command = js.native
 }
-

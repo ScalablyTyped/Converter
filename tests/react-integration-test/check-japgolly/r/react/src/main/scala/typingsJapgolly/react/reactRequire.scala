@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react", JSImport.Namespace)
 @js.native
 object reactRequire extends js.Object
-

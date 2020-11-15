@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("mongoose-simple-random", JSImport.Namespace)
 @js.native
 object ^ extends js.Object {
+  
   def apply(schema: Schema): Unit = js.native
 }
-

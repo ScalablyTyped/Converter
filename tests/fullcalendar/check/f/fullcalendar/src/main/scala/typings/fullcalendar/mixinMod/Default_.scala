@@ -7,12 +7,12 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("fullcalendar/Mixin", "Default")
 @js.native
 class Default_ () extends js.Object
-
 /* static members */
 @JSImport("fullcalendar/Mixin", "Default")
 @js.native
 object Default_ extends js.Object {
+  
   def mixInto(destClass: js.Any): Unit = js.native
+  
   def mixOver(destClass: js.Any): Unit = js.native
 }
-

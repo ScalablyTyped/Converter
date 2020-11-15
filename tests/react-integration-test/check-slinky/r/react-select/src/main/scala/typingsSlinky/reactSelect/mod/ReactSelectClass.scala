@@ -8,7 +8,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait ReactSelectClass[TValue]
   extends Component[ReactSelectProps[TValue], js.Object, js.Any] {
+  
   def focus(): Unit = js.native
+  
   def setValue(value: Option[TValue]): Unit = js.native
 }
-

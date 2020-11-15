@@ -10,6 +10,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("create-error", JSImport.Namespace)
 @js.native
 object mod extends js.Object {
+  
   def apply(): Error[Error[Err]] = js.native
   def apply[T /* <: Error[Error[Err]] */](Target: Error[Error[Err]]): T = js.native
   def apply[T /* <: Error[Error[Err]] */](Target: Error[Error[Err]], name: js.UndefOr[scala.Nothing], properties: js.Any): T = js.native
@@ -17,6 +18,7 @@ object mod extends js.Object {
   def apply[T /* <: Error[Error[Err]] */](Target: Error[Error[Err]], name: String, properties: js.Any): T = js.native
   def apply[T /* <: Error[Error[Err]] */](name: String): T = js.native
   def apply[T /* <: Error[Error[Err]] */](name: String, properties: js.Any): T = js.native
+  
   @js.native
   trait Error[T /* <: Err */]
     extends typings.std.Error
@@ -26,4 +28,3 @@ object mod extends js.Object {
   
   type Err = typings.std.Error
 }
-

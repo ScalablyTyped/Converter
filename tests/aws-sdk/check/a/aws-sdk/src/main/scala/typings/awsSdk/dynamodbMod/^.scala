@@ -10,4 +10,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 class ^ () extends DynamoDBCustomizations {
   def this(options: ClientConfiguration) = this()
 }
-

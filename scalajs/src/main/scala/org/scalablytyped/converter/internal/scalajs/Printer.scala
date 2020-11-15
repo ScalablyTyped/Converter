@@ -8,9 +8,9 @@ import org.scalablytyped.converter.internal.stringUtils.quote
 import scala.collection.mutable
 
 object Printer {
-  implicit def defaulted(comp: Printer.type): default.type = default
+  implicit def defaulted(comp: Printer.type): debug.type = debug
 
-  val default = new Impl(Name(""))
+  val debug = new Impl(Name(""))
 
   private[Printer] class Registry() {
 
@@ -125,17 +125,15 @@ object Printer {
             writer.println("")
             imports.foreach(i => writer.println(s"import ${formatQN(i.imported)}"))
             writer.println(Imports)
-            writer.println("")
-            shortenedMembers.foreach(
-              printTree(
-                scope,
-                parentsResolver,
-                reg,
-                Indenter(writer),
-                packages,
-                targetFolder,
-                0,
-              ),
+            printTrees(
+              scope,
+              parentsResolver,
+              reg,
+              Indenter(writer),
+              packages,
+              targetFolder,
+              0,
+              shortenedMembers,
             )
           }
 
@@ -158,19 +156,58 @@ object Printer {
             writer.println(Imports)
             writer.println("")
             writer.println("package object " + formatName(tree.name) + " {")
-            members.foreach(
-              printTree(
-                scope,
-                parentsResolver,
-                reg,
-                Indenter(writer),
-                packages,
-                targetFolder,
-                2,
-              ),
+            printTrees(
+              scope,
+              parentsResolver,
+              reg,
+              Indenter(writer),
+              packages,
+              targetFolder,
+              2,
+              members,
             )
             writer.println("}")
           }
+      }
+    }
+
+    def printTrees(
+        _scope:          TreeScope,
+        parentsResolver: ParentsResolver,
+        reg:             Registry,
+        w:               Indenter,
+        packageNames:    IArray[Name],
+        folder:          os.RelPath,
+        indent:          Int,
+        trees:           IArray[Tree],
+    ): Unit = {
+      def sameIshName(one: Tree, two: Tree): Boolean = {
+        def nameFor(x: Tree) = {
+          val name0 = x match {
+            case x: MemberTree => x.originalName
+            case x => x.name
+          }
+          name0.unescaped match {
+            case setter if setter.endsWith("_=") => setter.dropRight(2)
+            case name                            => name
+          }
+        }
+        nameFor(one) === nameFor(two)
+      }
+
+      var last = Option.empty[Tree]
+
+      trees.foreach { tree =>
+        last match {
+          case Some(last) if sameIshName(last, tree) =>
+            ()
+          case _ =>
+            w.print(indent)("\n")
+        }
+
+        printTree(_scope, parentsResolver, reg, w, packageNames, folder, indent)(tree)
+
+        last = Some(tree)
       }
     }
 
@@ -245,12 +282,10 @@ object Printer {
             if (classType =/= ClassType.Trait)
               restCtors.foreach(printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2))
 
-            members.foreach(printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2))
+            printTrees(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, members)
             println("}")
           } else
             println()
-
-          println()
 
         case m @ ModuleTree(anns, name, parents, members, comments, _, isOverride) =>
           print(Comments.format(comments))
@@ -267,11 +302,10 @@ object Printer {
           if (members.nonEmpty) {
             println(" {")
 
-            members.foreach(printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2))
+            printTrees(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, members)
             println("}")
           } else
             println()
-          println()
 
         case TypeAliasTree(name, tparams, alias, comments, _) =>
           print(Comments.format(comments))
@@ -283,8 +317,6 @@ object Printer {
           println(s" = ", formatTypeRef(indent)(alias))
 
         case FieldTree(anns, name, tpe, impl, isReadOnly, isOverride, comments, _) =>
-          if (anns.length > 1) println()
-
           print(Comments.format(comments))
           print(formatAnns(anns))
 
@@ -299,7 +331,6 @@ object Printer {
           println(formatImpl(indent)(impl))
 
         case MethodTree(anns, level, name, tparams, params, impl, resultType, isOverride, comments, _, isImplicit) =>
-          if (anns.length > 1) println()
           print(Comments.format(comments))
           print(formatAnns(anns))
 
@@ -511,7 +542,7 @@ object Printer {
         case ExprTree.If(pred, ifTrue, None) =>
           s"if (${formatExpr(indent)(pred)}) ${formatExpr(indent)(ifTrue)}"
         case ExprTree.Block(es) =>
-          es.map(e => (" " * indent) + formatExpr(indent + 2)(e)).mkString("{\n", "\n", "\n}")
+          es.map(e => "  " + formatExpr(indent)(e)).mkString("{\n", "\n", "\n}")
         case ExprTree.Null =>
           "null"
         case ExprTree.`:_*`(e) =>

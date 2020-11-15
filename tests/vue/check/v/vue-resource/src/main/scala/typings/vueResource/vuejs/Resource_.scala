@@ -6,6 +6,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait Resource_ extends resource {
+  
   var actions: ResourceActions = js.native
 }
-

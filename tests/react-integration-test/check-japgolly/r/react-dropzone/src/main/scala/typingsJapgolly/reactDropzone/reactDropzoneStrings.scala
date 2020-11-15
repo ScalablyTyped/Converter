@@ -6,14 +6,19 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object reactDropzoneStrings {
+  
   @scala.inline
   def multiple: multiple = "multiple".asInstanceOf[multiple]
+  
   @scala.inline
   def onDragEnter: onDragEnter = "onDragEnter".asInstanceOf[onDragEnter]
+  
   @scala.inline
   def onDragLeave: onDragLeave = "onDragLeave".asInstanceOf[onDragLeave]
+  
   @scala.inline
   def onDragOver: onDragOver = "onDragOver".asInstanceOf[onDragOver]
+  
   @js.native
   sealed trait multiple extends PropTypes
   
@@ -25,6 +30,4 @@ object reactDropzoneStrings {
   
   @js.native
   sealed trait onDragOver extends PropTypes
-  
 }
-

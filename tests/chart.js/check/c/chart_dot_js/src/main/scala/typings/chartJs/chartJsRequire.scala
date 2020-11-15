@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("chart.js", JSImport.Namespace)
 @js.native
 object chartJsRequire extends js.Object
-

@@ -13,6 +13,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 class Duplex () extends Readable {
   def this(opts: DuplexOptions) = this()
+  
   def end(): Unit = js.native
   def end(cb: js.Function): Unit = js.native
   def end(chunk: js.Any): Unit = js.native
@@ -20,6 +21,6 @@ class Duplex () extends Readable {
   def end(chunk: js.Any, encoding: js.UndefOr[scala.Nothing], cb: js.Function): Unit = js.native
   def end(chunk: js.Any, encoding: String): Unit = js.native
   def end(chunk: js.Any, encoding: String, cb: js.Function): Unit = js.native
+  
   var writable: Boolean = js.native
 }
-

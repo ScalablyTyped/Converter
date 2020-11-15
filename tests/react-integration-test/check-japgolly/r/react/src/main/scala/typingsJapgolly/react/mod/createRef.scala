@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react", "createRef")
 @js.native
 object createRef extends js.Object {
+  
   def apply[T](): RefHandle[T] = js.native
 }
-

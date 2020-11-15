@@ -6,7 +6,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait InnerRef extends js.Object {
+  
   var children: js.UndefOr[scala.Nothing] = js.native
+  
   var innerRef: js.UndefOr[scala.Nothing] = js.native
 }
-

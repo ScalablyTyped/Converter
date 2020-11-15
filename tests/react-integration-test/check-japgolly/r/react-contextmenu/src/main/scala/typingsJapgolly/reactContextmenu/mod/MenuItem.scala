@@ -14,9 +14,7 @@ class MenuItem protected ()
   def this(props: MenuItemProps) = this()
   def this(props: MenuItemProps, context: js.Any) = this()
 }
-
 @JSImport("react-contextmenu", "MenuItem")
 @js.native
 object MenuItem
   extends TopLevel[ComponentClassP[MenuItemProps with js.Object]]
-

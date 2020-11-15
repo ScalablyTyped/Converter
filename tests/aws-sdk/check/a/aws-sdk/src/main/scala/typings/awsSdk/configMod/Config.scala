@@ -13,6 +13,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   */
 class Config () extends js.Object {
   def this(options: ConfigurationServicePlaceholders with APIVersions) = this()
+  
   /**
     * Loads configuration data from a JSON file into this config object.
     * Loading configuration willr eset all existing configuration on the object.
@@ -22,4 +23,3 @@ class Config () extends js.Object {
     */
   def loadFromPath(path: String): Config with ConfigurationServicePlaceholders with APIVersions = js.native
 }
-

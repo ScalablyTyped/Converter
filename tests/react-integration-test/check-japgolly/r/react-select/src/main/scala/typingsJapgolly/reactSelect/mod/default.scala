@@ -7,4 +7,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react-select", JSImport.Default)
 @js.native
 class default[TValue] () extends ReactSelectClass[TValue]
-

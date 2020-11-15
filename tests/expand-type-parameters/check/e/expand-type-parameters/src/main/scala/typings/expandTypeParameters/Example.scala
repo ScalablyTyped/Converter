@@ -9,10 +9,12 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait Example extends js.Object {
+  
   def expandAlias(bc: A): js.Any = js.native
   def expandAlias(bc: B): js.Any = js.native
   @JSName("expandAlias")
   def expandAlias_c(bc: c): js.Any = js.native
+  
   @JSName("expandBoth")
   def expandBoth_a(bc: B, key: a, foo: Double): B = js.native
   @JSName("expandBoth")
@@ -25,11 +27,12 @@ trait Example extends js.Object {
   def expandBoth_b(bc: C, key: b, foo: String): C = js.native
   @JSName("expandBoth")
   def expandBoth_b[T /* <: js.Object */](bc: T, key: b, foo: String): T = js.native
+  
   @JSName("expandKeyOf")
   def expandKeyOf_a(key: a, foo: Double): Double = js.native
   @JSName("expandKeyOf")
   def expandKeyOf_b(key: b, foo: String): Double = js.native
+  
   def expandUnion(bc: B): B = js.native
   def expandUnion(bc: C): C = js.native
 }
-

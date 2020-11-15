@@ -10,4 +10,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 class ^ protected () extends Insight_ {
   def this(options: IOptions) = this()
 }
-

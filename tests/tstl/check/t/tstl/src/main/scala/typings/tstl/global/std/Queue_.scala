@@ -10,4 +10,3 @@ class Queue_[T] ()
   extends typings.tstl.std.Queue_[T] {
   def this(container: typings.tstl.std.Queue_[T]) = this()
 }
-

@@ -8,4 +8,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("fp-ts/lib/Const", "URI")
 @js.native
 object URI extends TopLevel[/* "Const" */ String]
-

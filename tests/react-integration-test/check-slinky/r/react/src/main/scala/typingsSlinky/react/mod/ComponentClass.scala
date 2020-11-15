@@ -13,11 +13,16 @@ trait ComponentClass[P, S]
   extends StaticLifecycle[P, S]
      with Instantiable1[/* props */ P, ReactComponentClass[P]]
      with Instantiable2[/* props */ P, /* context */ js.Any, ReactComponentClass[P]] {
+  
   var childContextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  
   var contextType: js.UndefOr[Context[_]] = js.native
+  
   var contextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  
   var defaultProps: js.UndefOr[Partial[P]] = js.native
+  
   var displayName: js.UndefOr[String] = js.native
+  
   var propTypes: js.UndefOr[WeakValidationMap[P]] = js.native
 }
-

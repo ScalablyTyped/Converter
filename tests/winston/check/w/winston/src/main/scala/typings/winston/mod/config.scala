@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("winston", "config")
 @js.native
 object config extends TopLevel[Config]
-

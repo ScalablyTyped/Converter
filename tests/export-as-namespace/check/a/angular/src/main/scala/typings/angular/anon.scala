@@ -8,9 +8,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSGlobalScope
 @js.native
 object anon extends js.Object {
+  
   @js.native
   trait Instantiable[T]
     extends Instantiable1[/* args (repeated) */ js.Any, T]
-  
 }
-

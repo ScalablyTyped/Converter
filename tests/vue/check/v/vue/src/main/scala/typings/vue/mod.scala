@@ -9,6 +9,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("vue", JSImport.Namespace)
 @js.native
 object mod extends js.Object {
+  
   val default: VueConstructor[Vue] = js.native
 }
-

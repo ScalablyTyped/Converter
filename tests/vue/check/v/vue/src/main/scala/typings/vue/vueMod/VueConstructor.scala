@@ -33,7 +33,9 @@ Instantiable0[
       (/* options */ ComponentOptions[V, DefaultData[V], DefaultMethods[V], DefaultComputed, PropsDefinition[DefaultProps]]) | (/* options */ ThisTypedComponentOptionsWithArrayProps[V, js.Object, js.Object, js.Object, String]) | (/* options */ ThisTypedComponentOptionsWithRecordProps[V, js.Object, js.Object, js.Object, js.Object]), 
       CombinedVueInstance[V, js.Object, js.Object, js.Object, Record[/* keyof object */ String, js.Any]]
     ] {
+  
   def compile(template: String): StaticRenderFns = js.native
+  
   def component(id: String): ExtendedVue[V, js.Object, js.Object, js.Object, js.Object] = js.native
   def component(
     id: String,
@@ -60,12 +62,16 @@ Instantiable0[
   def component_PropNames_String[PropNames /* <: String */](id: String, definition: FunctionalComponentOptions[Record[PropNames, _], js.Array[PropNames]]): ExtendedVue[V, js.Object, js.Object, js.Object, Record[PropNames, _]] = js.native
   @JSName("component")
   def component_VueConstructor(id: String): VueConstructor[Vue] = js.native
+  
   var config: VueConfiguration = js.native
+  
   def delete(`object`: js.Object, key: String): Unit = js.native
   def delete[T](array: js.Array[T], key: Double): Unit = js.native
+  
   def directive(id: String): DirectiveOptions = js.native
   def directive(id: String, definition: DirectiveFunction): DirectiveOptions = js.native
   def directive(id: String, definition: DirectiveOptions): DirectiveOptions = js.native
+  
   def extend(): ExtendedVue[V, js.Object, js.Object, js.Object, js.Object] = js.native
   def extend(
     options: ComponentOptions[V, DefaultData[V], DefaultMethods[V], DefaultComputed, PropsDefinition[DefaultProps]]
@@ -81,8 +87,10 @@ Instantiable0[
   def extend_DataMethodsComputedProps[Data, Methods, Computed, Props](options: ThisTypedComponentOptionsWithRecordProps[V, Data, Methods, Computed, Props]): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
   @JSName("extend")
   def extend_PropNames_String[PropNames /* <: String */](definition: FunctionalComponentOptions[Record[PropNames, _], js.Array[PropNames]]): ExtendedVue[V, js.Object, js.Object, js.Object, Record[PropNames, _]] = js.native
+  
   def filter(id: String): js.Function = js.native
   def filter(id: String, definition: js.Function): js.Function = js.native
+  
   def mixin(
     mixin: ComponentOptions[
       Vue, 
@@ -93,11 +101,14 @@ Instantiable0[
     ]
   ): Unit = js.native
   def mixin(mixin: VueConstructor[Vue]): Unit = js.native
+  
   def nextTick(): js.Promise[Unit] = js.native
   def nextTick(callback: js.Function0[Unit]): Unit = js.native
   def nextTick(callback: js.Function0[Unit], context: js.Array[_]): Unit = js.native
+  
   def set[T](array: js.Array[T], key: Double, value: T): T = js.native
   def set[T](`object`: js.Object, key: String, value: T): T = js.native
+  
   def use(plugin: PluginFunction[_], options: js.Any*): Unit = js.native
   def use(plugin: PluginObject[_], options: js.Any*): Unit = js.native
   def use[T](plugin: PluginFunction[T]): Unit = js.native
@@ -105,4 +116,3 @@ Instantiable0[
   def use[T](plugin: PluginObject[T]): Unit = js.native
   def use[T](plugin: PluginObject[T], options: T): Unit = js.native
 }
-

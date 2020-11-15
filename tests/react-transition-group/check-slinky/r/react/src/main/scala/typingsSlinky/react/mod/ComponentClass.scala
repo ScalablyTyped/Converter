@@ -12,7 +12,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait ComponentClass[P]
   extends Instantiable1[/* props */ P, ReactComponentClass[P]]
      with Instantiable2[/* props */ P, /* context */ js.Any, ReactComponentClass[P]] {
+  
   var defaultProps: js.UndefOr[Partial[P]] = js.native
+  
   var displayName: js.UndefOr[String] = js.native
 }
-

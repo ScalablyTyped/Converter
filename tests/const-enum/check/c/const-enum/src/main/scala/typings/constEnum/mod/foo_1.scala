@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("const-enum", "foo")
 @js.native
 object foo_1 extends js.Object {
+  
   def apply(x: `1`): Double = js.native
 }
-

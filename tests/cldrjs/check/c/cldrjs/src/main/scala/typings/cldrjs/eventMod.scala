@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("cldr/event", JSImport.Namespace)
 @js.native
 object eventMod extends TopLevel[CldrFactory]
-

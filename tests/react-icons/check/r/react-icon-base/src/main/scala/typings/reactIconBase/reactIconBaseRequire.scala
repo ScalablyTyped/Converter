@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react-icon-base", JSImport.Namespace)
 @js.native
 object reactIconBaseRequire extends js.Object
-

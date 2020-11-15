@@ -9,12 +9,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait HtmlLabelProps
   extends StrictHtmlLabelProps
      with /* key */ StringDictionary[js.Any]
-
 object HtmlLabelProps {
+  
   @scala.inline
   def apply(): HtmlLabelProps = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[HtmlLabelProps]
   }
 }
-

@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("electron", JSImport.Namespace)
 @js.native
 object electronRequire extends js.Object
-

@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("cldr/supplemental", JSImport.Namespace)
 @js.native
 object supplementalMod extends TopLevel[CldrFactory]
-

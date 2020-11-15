@@ -8,4 +8,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react", "Children")
 @js.native
 object Children extends TopLevel[ReactChildren]
-

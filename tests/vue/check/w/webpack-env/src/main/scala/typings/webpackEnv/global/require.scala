@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSGlobal("require")
 @js.native
 object require extends TopLevel[NodeRequire]
-

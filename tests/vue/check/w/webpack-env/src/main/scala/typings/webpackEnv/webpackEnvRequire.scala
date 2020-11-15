@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("webpack-env", JSImport.Namespace)
 @js.native
 object webpackEnvRequire extends js.Object
-

@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("sax", "createStream")
 @js.native
 object createStream extends js.Object {
+  
   def apply(strict: Boolean, opt: SAXOptions): SAXStream = js.native
 }
-

@@ -6,6 +6,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait Subscribable[T] extends js.Object {
+  
   def subscribe(): Unsubscribable = js.native
   def subscribe(
     observerOrNext: js.UndefOr[scala.Nothing],
@@ -39,4 +40,3 @@ trait Subscribable[T] extends js.Object {
     complete: js.Function0[Unit]
   ): Unsubscribable = js.native
 }
-

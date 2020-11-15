@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("tstl", JSImport.Namespace)
 @js.native
 object tstlRequire extends js.Object
-

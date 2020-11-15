@@ -14,8 +14,6 @@ class default protected ()
   def this(props: AccordionTitleProps) = this()
   def this(props: AccordionTitleProps, context: js.Any) = this()
 }
-
 @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionTitle", JSImport.Default)
 @js.native
 object default extends TopLevel[ReactComponentClass[AccordionTitleProps]]
-

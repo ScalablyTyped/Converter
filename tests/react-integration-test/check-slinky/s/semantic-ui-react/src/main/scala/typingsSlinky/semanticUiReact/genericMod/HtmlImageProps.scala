@@ -9,12 +9,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait HtmlImageProps
   extends StrictHtmlImageProps
      with /* key */ StringDictionary[js.Any]
-
 object HtmlImageProps {
+  
   @scala.inline
   def apply(): HtmlImageProps = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[HtmlImageProps]
   }
 }
-

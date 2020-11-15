@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("@storybook/vue", "configure")
 @js.native
 object configure extends js.Object {
+  
   def apply(loaders: js.Function0[Unit], module: NodeModule): Unit = js.native
 }
-

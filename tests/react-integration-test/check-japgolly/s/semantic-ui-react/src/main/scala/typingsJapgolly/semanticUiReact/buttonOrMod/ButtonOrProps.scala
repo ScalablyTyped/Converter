@@ -9,12 +9,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait ButtonOrProps
   extends StrictButtonOrProps
      with /* key */ StringDictionary[js.Any]
-
 object ButtonOrProps {
+  
   @scala.inline
   def apply(): ButtonOrProps = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[ButtonOrProps]
   }
 }
-

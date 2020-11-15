@@ -7,6 +7,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react", "useEffect")
 @js.native
 object useEffect extends js.Object {
+  
   /**
     * Accepts a function that contains imperative, possibly effectful code.
     *
@@ -19,4 +20,3 @@ object useEffect extends js.Object {
   def apply(effect: EffectCallback): Unit = js.native
   def apply(effect: EffectCallback, deps: DependencyList): Unit = js.native
 }
-
