@@ -9,7 +9,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait B extends js.Object {
+  
   def foo2[T](p: /* keyof T */ String): String = js.native
+  
   @JSName("foo")
   def foo_a(p: a): String = js.native
   @JSName("foo")
@@ -17,4 +19,3 @@ trait B extends js.Object {
   @JSName("foo")
   def foo_c(p: c): String = js.native
 }
-

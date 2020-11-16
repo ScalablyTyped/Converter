@@ -9,6 +9,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 // assign
 @js.native
 trait LoDashStatic extends js.Object {
+  
   /**
     * Adds two numbers.
     *
@@ -17,6 +18,7 @@ trait LoDashStatic extends js.Object {
     * @return Returns the sum.
     */
   def add(augend: Double, addend: Double): Double = js.native
+  
   /**
     * @see _.at
     */
@@ -43,4 +45,3 @@ trait LoDashStatic extends js.Object {
   @JSName("at")
   def at_T[T](`object`: Null, props: PropertyPath*): js.Array[T] = js.native
 }
-

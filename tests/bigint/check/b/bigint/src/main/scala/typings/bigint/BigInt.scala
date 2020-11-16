@@ -7,7 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSGlobal("BigInt")
 @js.native
 object BigInt extends js.Object {
+  
   type BigInt = js.Array[Double]
+  
   type IRandom = js.Function0[Double]
 }
-

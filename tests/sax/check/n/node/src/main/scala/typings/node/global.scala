@@ -12,12 +12,14 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSGlobalScope
 @js.native
 object global extends js.Object {
+  
   /************************************************
   *                                               *
   *                   GLOBAL                      *
   *                                               *
   ************************************************/
   var global: Global = js.native
+  
   @js.native
   class Buffer protected () extends NodeBuffer {
     /**
@@ -61,7 +63,6 @@ object global extends js.Object {
     def this(str: String) = this()
     def this(str: String, encoding: String) = this()
   }
-  
   /**
     * Raw data is stored in instances of the Buffer class.
     * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
@@ -102,6 +103,7 @@ object global extends js.Object {
           typings.node.Buffer
         ]
        with Instantiable2[/* str */ String, /* encoding */ String, typings.node.Buffer] {
+    
     /**
       * Allocates a new Buffer using an {array} of octets.
       */
@@ -115,10 +117,10 @@ object global extends js.Object {
   ************************************************/
   @js.native
   object NodeJS extends js.Object {
+    
     @js.native
     class EventEmitter ()
       extends typings.node.NodeJS.EventEmitter
-    
   }
   
   @js.native
@@ -129,7 +131,6 @@ object global extends js.Object {
     def this(str: String) = this()
     def this(str: String, encoding: String) = this()
   }
-  
   @js.native
   object SlowBuffer
     extends Instantiable1[
@@ -137,12 +138,13 @@ object global extends js.Object {
           typings.node.Buffer
         ]
        with Instantiable2[/* str */ String, /* encoding */ String, typings.node.Buffer] {
+    
     def byteLength(string: String): Double = js.native
     def byteLength(string: String, encoding: String): Double = js.native
+    
     def concat(list: js.Array[typings.node.Buffer]): typings.node.Buffer = js.native
     def concat(list: js.Array[typings.node.Buffer], totalLength: Double): typings.node.Buffer = js.native
+    
     def isBuffer(obj: js.Any): Boolean = js.native
   }
-  
 }
-

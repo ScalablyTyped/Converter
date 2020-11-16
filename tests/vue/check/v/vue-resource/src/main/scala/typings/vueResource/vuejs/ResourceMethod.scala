@@ -6,6 +6,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait ResourceMethod extends js.Object {
+  
   def apply(): js.Thenable[HttpResponse] = js.native
   def apply(params: js.Any): js.Thenable[HttpResponse] = js.native
   def apply(
@@ -26,4 +27,3 @@ trait ResourceMethod extends js.Object {
   def apply(success: js.Function): js.Thenable[HttpResponse] = js.native
   def apply(success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
 }
-

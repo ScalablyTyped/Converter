@@ -9,6 +9,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("semantic-ui-react/dist/commonjs/elements/Container", JSImport.Namespace)
 @js.native
 object containerMod extends js.Object {
+  
   val default: StatelessComponent[ContainerProps] = js.native
 }
-

@@ -14,9 +14,7 @@ class ContextMenuTrigger protected ()
   def this(props: ContextMenuTriggerProps) = this()
   def this(props: ContextMenuTriggerProps, context: js.Any) = this()
 }
-
 @JSImport("react-contextmenu", "ContextMenuTrigger")
 @js.native
 object ContextMenuTrigger
   extends TopLevel[ComponentClassP[ContextMenuTriggerProps with js.Object]]
-

@@ -14,8 +14,6 @@ class ContextMenu protected ()
   def this(props: ContextMenuProps) = this()
   def this(props: ContextMenuProps, context: js.Any) = this()
 }
-
 @JSImport("react-contextmenu", "ContextMenu")
 @js.native
 object ContextMenu extends TopLevel[ReactComponentClass[ContextMenuProps]]
-

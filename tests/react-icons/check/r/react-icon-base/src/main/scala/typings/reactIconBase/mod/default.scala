@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 class default ()
   extends Component[IconBaseProps, js.Object]
-

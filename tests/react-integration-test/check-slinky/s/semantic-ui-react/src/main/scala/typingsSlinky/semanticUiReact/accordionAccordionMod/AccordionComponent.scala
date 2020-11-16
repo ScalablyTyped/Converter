@@ -12,8 +12,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait AccordionComponent
   extends ComponentClass[AccordionProps, js.Object] {
+  
   var Accordion: ReactComponentClass[AccordionAccordionProps] = js.native
+  
   var Content: ReactComponentClass[AccordionContentProps] = js.native
+  
   var Title: ReactComponentClass[AccordionTitleProps] = js.native
 }
-

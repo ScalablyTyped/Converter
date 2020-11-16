@@ -12,6 +12,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react", "createElement")
 @js.native
 object createElement extends js.Object {
+  
   def apply[P /* <: js.Object */](`type`: String, props: Attributes with P, children: Node*): Element = js.native
   def apply[P /* <: js.Object */](`type`: String, props: js.UndefOr[scala.Nothing], children: Node*): Element = js.native
   def apply[P /* <: js.Object */](`type`: String, props: Null, children: Node*): Element = js.native
@@ -56,4 +57,3 @@ object createElement extends js.Object {
   def apply[P /* <: js.Object */, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */, C /* <: ComponentClassP[P with js.Object] */](`type`: ClassType[P, T, C], props: js.UndefOr[scala.Nothing], children: Node*): CElement[P, T] = js.native
   def apply[P /* <: js.Object */, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */, C /* <: ComponentClassP[P with js.Object] */](`type`: ClassType[P, T, C], props: Null, children: Node*): CElement[P, T] = js.native
 }
-

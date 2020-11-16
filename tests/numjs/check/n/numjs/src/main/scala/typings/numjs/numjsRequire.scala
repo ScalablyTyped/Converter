@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("numjs", JSImport.Namespace)
 @js.native
 object numjsRequire extends js.Object
-

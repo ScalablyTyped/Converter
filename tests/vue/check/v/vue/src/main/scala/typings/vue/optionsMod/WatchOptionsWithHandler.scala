@@ -6,8 +6,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait WatchOptionsWithHandler[T] extends WatchOptions {
+  
   def handler(`val`: T, oldVal: T): Unit = js.native
   @JSName("handler")
   var handler_Original: WatchHandler[T] = js.native
 }
-

@@ -11,4 +11,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typingsSlinky.react.reactBooleans.`true`
 */
 trait IsExactlyAny[T] extends js.Object
-

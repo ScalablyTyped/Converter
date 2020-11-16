@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("@storybook/vue", JSImport.Namespace)
 @js.native
 object storybookVueRequire extends js.Object
-

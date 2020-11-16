@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("@google-cloud/firestore", JSImport.Namespace)
 @js.native
 object googleCloudFirestoreRequire extends js.Object
-

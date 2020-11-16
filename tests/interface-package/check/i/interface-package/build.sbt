@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "interface-package"
-version := "0.0-unknown-bbb247"
+version := "0.0-unknown-9411a8"
 scalaVersion := "2.13.3"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

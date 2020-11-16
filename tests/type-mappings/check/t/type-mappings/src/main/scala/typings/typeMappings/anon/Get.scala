@@ -6,8 +6,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait Get extends js.Object {
+  
   def get(): js.UndefOr[Double | Null] = js.native
+  
   def set(): Unit = js.native
   def set(v: Double): Unit = js.native
 }
-

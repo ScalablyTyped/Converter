@@ -8,4 +8,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("componentstest", "Card")
 @js.native
 object Card extends TopLevel[CardInterface]
-

@@ -9,12 +9,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait AccordionPanelProps
   extends StrictAccordionPanelProps
      with /* key */ StringDictionary[js.Any]
-
 object AccordionPanelProps {
+  
   @scala.inline
   def apply(): AccordionPanelProps = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[AccordionPanelProps]
   }
 }
-

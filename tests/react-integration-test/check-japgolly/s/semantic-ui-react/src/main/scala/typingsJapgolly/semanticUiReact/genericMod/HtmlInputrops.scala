@@ -9,12 +9,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait HtmlInputrops
   extends StrictHtmlInputrops
      with /* key */ StringDictionary[js.Any]
-
 object HtmlInputrops {
+  
   @scala.inline
   def apply(): HtmlInputrops = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[HtmlInputrops]
   }
 }
-

@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("antd", JSImport.Namespace)
 @js.native
 object antdRequire extends js.Object
-

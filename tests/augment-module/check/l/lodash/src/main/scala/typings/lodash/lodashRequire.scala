@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("lodash", JSImport.Namespace)
 @js.native
 object lodashRequire extends js.Object
-

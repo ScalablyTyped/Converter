@@ -8,4 +8,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait ReadWriteStream
   extends ReadableStream
      with WritableStream
-

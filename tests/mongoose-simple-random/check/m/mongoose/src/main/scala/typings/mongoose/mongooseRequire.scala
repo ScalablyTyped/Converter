@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("mongoose", JSImport.Namespace)
 @js.native
 object mongooseRequire extends js.Object
-

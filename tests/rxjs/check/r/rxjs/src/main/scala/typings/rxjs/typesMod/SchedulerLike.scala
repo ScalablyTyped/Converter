@@ -7,7 +7,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait SchedulerLike extends js.Object {
+  
   def now(): Double = js.native
+  
   def schedule[T](work: js.ThisFunction1[/* this */ SchedulerAction[T], /* state */ js.UndefOr[T], Unit]): Subscription = js.native
   def schedule[T](
     work: js.ThisFunction1[/* this */ SchedulerAction[T], /* state */ js.UndefOr[T], Unit],
@@ -24,4 +26,3 @@ trait SchedulerLike extends js.Object {
     state: T
   ): Subscription = js.native
 }
-

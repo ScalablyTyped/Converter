@@ -13,13 +13,14 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typings.constEnum.constEnumNumbers.`1`
 */
 trait Foo2_ extends js.Object
-
 object Foo2_ {
+  
   @scala.inline
   def A: `0` = 0.asInstanceOf[`0`]
+  
   @scala.inline
   def B: `22` = 22.asInstanceOf[`22`]
+  
   @scala.inline
   def C: `1` = (0 + 1).asInstanceOf[`1`]
 }
-

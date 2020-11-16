@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("bigint", JSImport.Namespace)
 @js.native
 object bigintRequire extends js.Object
-

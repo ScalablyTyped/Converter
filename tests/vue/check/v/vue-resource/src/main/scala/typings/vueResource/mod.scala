@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("vue-resource", JSImport.Namespace)
 @js.native
 object mod extends js.Object {
+  
   def apply(vue: VueStatic): Unit = js.native
 }
-

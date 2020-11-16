@@ -8,4 +8,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("lodash/fp", JSImport.Namespace)
 @js.native
 object ^ extends TopLevel[LoDashFp]
-

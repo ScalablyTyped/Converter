@@ -14,8 +14,6 @@ class SubMenu protected ()
   def this(props: SubMenuProps) = this()
   def this(props: SubMenuProps, context: js.Any) = this()
 }
-
 @JSImport("react-contextmenu", "SubMenu")
 @js.native
 object SubMenu extends TopLevel[ReactComponentClass[SubMenuProps]]
-

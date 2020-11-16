@@ -13,8 +13,6 @@ class default protected ()
   def this(props: AccordionProps) = this()
   def this(props: AccordionProps, context: js.Any) = this()
 }
-
 @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", JSImport.Default)
 @js.native
 object default extends TopLevel[AccordionComponent]
-

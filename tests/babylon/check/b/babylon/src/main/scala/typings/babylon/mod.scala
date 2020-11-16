@@ -7,9 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("babylonjs", JSImport.Namespace)
 @js.native
 object mod extends js.Object {
+  
   @js.native
   class RuntimeAnimation ()
     extends typings.babylon.originalMod.RuntimeAnimation
-  
 }
-

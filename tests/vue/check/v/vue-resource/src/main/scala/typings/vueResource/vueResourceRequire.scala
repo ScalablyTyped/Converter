@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("vue-resource", JSImport.Namespace)
 @js.native
 object vueResourceRequire extends js.Object
-

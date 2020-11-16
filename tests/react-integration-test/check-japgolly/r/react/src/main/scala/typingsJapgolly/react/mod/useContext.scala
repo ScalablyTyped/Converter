@@ -7,6 +7,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react", "useContext")
 @js.native
 object useContext extends js.Object {
+  
   // This will technically work if you give a Consumer<T> or Provider<T> but it's deprecated and warns
   /**
     * Accepts a context object (the value returned from `React.createContext`) and returns the current
@@ -17,4 +18,3 @@ object useContext extends js.Object {
     */
   def apply[T](context: Context[T]): T = js.native
 }
-

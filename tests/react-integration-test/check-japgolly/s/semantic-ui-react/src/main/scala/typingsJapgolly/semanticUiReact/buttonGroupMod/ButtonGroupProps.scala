@@ -9,12 +9,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait ButtonGroupProps
   extends StrictButtonGroupProps
      with /* key */ StringDictionary[js.Any]
-
 object ButtonGroupProps {
+  
   @scala.inline
   def apply(): ButtonGroupProps = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[ButtonGroupProps]
   }
 }
-

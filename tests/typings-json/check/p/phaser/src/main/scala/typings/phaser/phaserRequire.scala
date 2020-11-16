@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("phaser", JSImport.Namespace)
 @js.native
 object phaserRequire extends js.Object
-

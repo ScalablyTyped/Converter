@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait DetailedReactHTMLElement[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */] extends DOMElement[P, T]
-
 object DetailedReactHTMLElement {
+  
   @scala.inline
   def apply[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](props: js.Any, `type`: js.Any): DetailedReactHTMLElement[P, T] = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
@@ -16,4 +16,3 @@ object DetailedReactHTMLElement {
     __obj.asInstanceOf[DetailedReactHTMLElement[P, T]]
   }
 }
-

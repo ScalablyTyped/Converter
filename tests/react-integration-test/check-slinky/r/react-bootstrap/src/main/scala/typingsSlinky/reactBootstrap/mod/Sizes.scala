@@ -14,21 +14,26 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typingsSlinky.reactBootstrap.reactBootstrapStrings.large
 */
 trait Sizes extends js.Object
-
 object Sizes {
+  
   @scala.inline
   def large: typingsSlinky.reactBootstrap.reactBootstrapStrings.large = "large".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.large]
+  
   @scala.inline
   def lg: typingsSlinky.reactBootstrap.reactBootstrapStrings.lg = "lg".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.lg]
+  
   @scala.inline
   def medium: typingsSlinky.reactBootstrap.reactBootstrapStrings.medium = "medium".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.medium]
+  
   @scala.inline
   def sm: typingsSlinky.reactBootstrap.reactBootstrapStrings.sm = "sm".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.sm]
+  
   @scala.inline
   def small: typingsSlinky.reactBootstrap.reactBootstrapStrings.small = "small".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.small]
+  
   @scala.inline
   def xs: typingsSlinky.reactBootstrap.reactBootstrapStrings.xs = "xs".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.xs]
+  
   @scala.inline
   def xsmall: typingsSlinky.reactBootstrap.reactBootstrapStrings.xsmall = "xsmall".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.xsmall]
 }
-

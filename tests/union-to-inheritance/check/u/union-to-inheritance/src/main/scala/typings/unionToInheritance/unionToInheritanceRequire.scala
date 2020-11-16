@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("union-to-inheritance", JSImport.Namespace)
 @js.native
 object unionToInheritanceRequire extends js.Object
-

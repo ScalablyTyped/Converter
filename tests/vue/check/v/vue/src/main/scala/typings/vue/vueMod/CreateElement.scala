@@ -15,6 +15,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait CreateElement extends js.Object {
+  
   def apply(): VNode = js.native
   def apply(tag: js.UndefOr[Component[_, _, _, _]], children: VNodeChildren): VNode = js.native
   def apply(tag: js.UndefOr[Component[_, _, _, _]], data: js.UndefOr[scala.Nothing], children: VNodeChildren): VNode = js.native
@@ -51,4 +52,3 @@ trait CreateElement extends js.Object {
   def apply(tag: AsyncComponent[_, _, _, _], data: VNodeData, children: VNodeChildren): VNode = js.native
   def apply(tag: Component[_, _, _, _]): VNode = js.native
 }
-

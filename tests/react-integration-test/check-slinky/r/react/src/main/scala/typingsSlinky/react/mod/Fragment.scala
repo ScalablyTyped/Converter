@@ -10,4 +10,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 object Fragment
   extends TopLevel[ReactComponentClass[typingsSlinky.react.anon.Children]]
-

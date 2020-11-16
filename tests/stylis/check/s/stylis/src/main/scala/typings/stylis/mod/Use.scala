@@ -6,8 +6,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait Use extends js.Object {
+  
   def apply(): Use = js.native
   def apply(plugin: js.Array[Plugin]): Use = js.native
   def apply(plugin: Plugin): Use = js.native
 }
-

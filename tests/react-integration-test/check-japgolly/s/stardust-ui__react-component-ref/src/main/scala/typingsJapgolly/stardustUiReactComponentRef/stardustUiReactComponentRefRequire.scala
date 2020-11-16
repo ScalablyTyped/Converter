@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("@stardust-ui/react-component-ref", JSImport.Namespace)
 @js.native
 object stardustUiReactComponentRefRequire extends js.Object
-

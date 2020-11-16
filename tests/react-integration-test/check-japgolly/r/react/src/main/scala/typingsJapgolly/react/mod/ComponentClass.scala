@@ -19,11 +19,16 @@ trait ComponentClass[P, S]
       /* context */ js.Any, 
       japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object]
     ] {
+  
   var childContextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  
   var contextType: js.UndefOr[Context[_]] = js.native
+  
   var contextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  
   var defaultProps: js.UndefOr[Partial[P]] = js.native
+  
   var displayName: js.UndefOr[String] = js.native
+  
   var propTypes: js.UndefOr[WeakValidationMap[P]] = js.native
 }
-

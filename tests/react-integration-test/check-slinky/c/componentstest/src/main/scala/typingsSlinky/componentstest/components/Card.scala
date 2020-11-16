@@ -11,6 +11,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object Card {
+  
   @JSImport("componentstest", "Card")
   @js.native
   object component extends js.Object
@@ -19,22 +20,26 @@ object Card {
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[tag.type, js.Object] {
+    
     @scala.inline
     def onClick(value: SyntheticMouseEvent[HTMLDivElement] => Unit): this.type = set("onClick", js.Any.fromFunction1(value))
+    
     @scala.inline
     def prefixCls(value: String): this.type = set("prefixCls", value.asInstanceOf[js.Any])
   }
   
   def withProps(p: CardProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  
   implicit def make(companion: Card.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+  
   object Grid2 {
+    
     @JSImport("componentstest", "Card.Grid2")
     @js.native
     object component extends js.Object
     
     def withProps(p: CardGridProps): SharedBuilder_CardGridProps_2000043299 = new SharedBuilder_CardGridProps_2000043299(js.Array(this.component, p.asInstanceOf[js.Any]))
+    
     implicit def make(companion: Grid2.type): SharedBuilder_CardGridProps_2000043299 = new SharedBuilder_CardGridProps_2000043299(js.Array(this.component, js.Dictionary.empty))()
   }
-  
 }
-

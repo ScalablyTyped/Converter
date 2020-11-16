@@ -6,6 +6,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait WritableStream extends EventEmitter {
+  
   var writable: Boolean = js.native
 }
-

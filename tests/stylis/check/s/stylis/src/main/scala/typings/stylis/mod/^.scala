@@ -10,8 +10,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 class ^ () extends Stylis {
   def this(options: Options) = this()
 }
-
 @JSImport("stylis/stylis", JSImport.Namespace)
 @js.native
 object ^ extends TopLevel[Stylis]
-

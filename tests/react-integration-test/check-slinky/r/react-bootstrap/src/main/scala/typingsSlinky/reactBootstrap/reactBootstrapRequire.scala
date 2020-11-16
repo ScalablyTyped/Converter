@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react-bootstrap", JSImport.Namespace)
 @js.native
 object reactBootstrapRequire extends js.Object
-

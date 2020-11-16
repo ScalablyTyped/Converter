@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 object StrictMode
   extends TopLevel[ExoticComponent[typingsJapgolly.react.anon.Children]]
-

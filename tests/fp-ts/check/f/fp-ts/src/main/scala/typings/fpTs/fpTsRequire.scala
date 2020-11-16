@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("fp-ts", JSImport.Namespace)
 @js.native
 object fpTsRequire extends js.Object
-

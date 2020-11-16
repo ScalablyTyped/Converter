@@ -10,4 +10,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSGlobal("NodeJS")
 @js.native
 object NodeJS extends js.Object
-

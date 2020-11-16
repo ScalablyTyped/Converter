@@ -7,9 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("rxjs", JSImport.Namespace)
 @js.native
 object mod extends js.Object {
+  
   @js.native
   class Observable[T] ()
     extends typings.rxjs.observableMod.Observable[T]
-  
 }
-

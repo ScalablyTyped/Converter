@@ -14,4 +14,3 @@ class DocumentClient ()
   extends typings.awsSdk.documentClientMod.DocumentClient {
   def this(options: DocumentClientOptions with ClientConfiguration) = this()
 }
-

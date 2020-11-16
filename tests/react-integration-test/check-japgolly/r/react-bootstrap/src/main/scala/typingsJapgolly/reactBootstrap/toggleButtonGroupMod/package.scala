@@ -5,6 +5,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 package object toggleButtonGroupMod {
+  
   type ToggleButtonGroupProps = typingsJapgolly.reactBootstrap.toggleButtonGroupMod.BaseProps with (typingsJapgolly.reactBootstrap.toggleButtonGroupMod.RadioProps | typingsJapgolly.reactBootstrap.toggleButtonGroupMod.CheckboxProps) with (typingsJapgolly.reactBootstrap.mod.Omit[
     typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroupProps, 
     typingsJapgolly.reactBootstrap.reactBootstrapStrings.onChange

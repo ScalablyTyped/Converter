@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait ReadableStream extends EventEmitter {
+  
   def read(): String | Buffer = js.native
   def read(size: Double): String | Buffer = js.native
 }
-

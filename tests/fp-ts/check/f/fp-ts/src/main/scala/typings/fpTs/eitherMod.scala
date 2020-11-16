@@ -7,8 +7,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("fp-ts/lib/Either", JSImport.Namespace)
 @js.native
 object eitherMod extends js.Object {
+  
   val URI: /* "Either" */ String = js.native
+  
   type Either[L, A] = js.Any
+  
   type URI = /* "Either" */ String
 }
-

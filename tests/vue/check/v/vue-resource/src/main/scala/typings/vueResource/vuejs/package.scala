@@ -5,6 +5,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 package object vuejs {
+  
   type resource = js.Function4[
     /* url */ java.lang.String, 
     /* params */ js.UndefOr[js.Object], 

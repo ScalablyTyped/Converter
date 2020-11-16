@@ -11,10 +11,12 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("mongoose", JSImport.Namespace)
 @js.native
 object mongooseAugmentingMod extends js.Object {
+  
   @js.native
   trait Model[T /* <: Document */]
     extends EventEmitter
        with ModelProperties {
+    
     def findRandom(conditions: js.Object): Unit = js.native
     def findRandom(
       conditions: js.Object,
@@ -75,6 +77,4 @@ object mongooseAugmentingMod extends js.Object {
       callback: js.Function2[/* err */ js.Any, /* res */ js.UndefOr[js.Array[T]], Unit]
     ): Unit = js.native
   }
-  
 }
-

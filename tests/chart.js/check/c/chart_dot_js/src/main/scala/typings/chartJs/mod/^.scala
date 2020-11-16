@@ -18,12 +18,13 @@ class ^ protected () extends Chart {
   def this(context: CanvasRenderingContext2D, options: js.Any) = this()
   def this(context: HTMLCanvasElement, options: js.Any) = this()
 }
-
 @JSImport("chart.js", JSImport.Namespace)
 @js.native
 object ^ extends js.Object {
+  
   val Chart: TypeofChart = js.native
+  
   var controllers: StringDictionary[js.Any] = js.native
+  
   var defaults: Dictkey = js.native
 }
-

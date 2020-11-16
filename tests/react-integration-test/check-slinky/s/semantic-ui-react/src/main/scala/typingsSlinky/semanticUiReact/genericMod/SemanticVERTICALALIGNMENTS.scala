@@ -10,13 +10,14 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typingsSlinky.semanticUiReact.semanticUiReactStrings.bottom
 */
 trait SemanticVERTICALALIGNMENTS extends js.Object
-
 object SemanticVERTICALALIGNMENTS {
+  
   @scala.inline
   def bottom: typingsSlinky.semanticUiReact.semanticUiReactStrings.bottom = "bottom".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bottom]
+  
   @scala.inline
   def middle: typingsSlinky.semanticUiReact.semanticUiReactStrings.middle = "middle".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.middle]
+  
   @scala.inline
   def top: typingsSlinky.semanticUiReact.semanticUiReactStrings.top = "top".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.top]
 }
-

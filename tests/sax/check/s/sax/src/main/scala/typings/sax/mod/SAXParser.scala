@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 class SAXParser protected () extends js.Object {
   def this(strict: Boolean, opt: SAXOptions) = this()
+  
   def write(s: String): SAXParser = js.native
 }
-

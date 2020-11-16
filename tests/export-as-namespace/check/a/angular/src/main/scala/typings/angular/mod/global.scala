@@ -8,11 +8,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSGlobalScope
 @js.native
 object global extends js.Object {
+  
   @js.native
   trait Function extends js.Object {
+    
     @JSName("$inject")
     var $inject: js.UndefOr[js.Array[String]] = js.native
   }
-  
 }
-

@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("serve-static", JSImport.Namespace)
 @js.native
 object serveStaticRequire extends js.Object
-

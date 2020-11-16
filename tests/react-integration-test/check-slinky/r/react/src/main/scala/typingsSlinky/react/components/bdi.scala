@@ -8,8 +8,10 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object bdi {
+  
   val component: String = "bdi"
+  
   def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): SharedBuilder_DetailedHTMLProps1276931637[HTMLElement with js.Object] = new SharedBuilder_DetailedHTMLProps1276931637[HTMLElement with js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
+  
   implicit def make(companion: bdi.type): SharedBuilder_DetailedHTMLProps1276931637[HTMLElement with js.Object] = new SharedBuilder_DetailedHTMLProps1276931637[HTMLElement with js.Object](js.Array(this.component, js.Dictionary.empty))()
 }
-

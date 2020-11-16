@@ -7,4 +7,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 // tslint:disable-next-line:no-empty-interface
 @js.native
 trait Set[T] extends js.Object
-

@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("sax", JSImport.Namespace)
 @js.native
 object saxRequire extends js.Object
-

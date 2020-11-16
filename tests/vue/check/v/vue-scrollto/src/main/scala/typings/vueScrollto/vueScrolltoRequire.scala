@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("vue-scrollto", JSImport.Namespace)
 @js.native
 object vueScrolltoRequire extends js.Object
-

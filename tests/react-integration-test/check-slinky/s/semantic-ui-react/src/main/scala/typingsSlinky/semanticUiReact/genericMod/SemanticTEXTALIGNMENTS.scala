@@ -11,15 +11,17 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typingsSlinky.semanticUiReact.semanticUiReactStrings.justified
 */
 trait SemanticTEXTALIGNMENTS extends js.Object
-
 object SemanticTEXTALIGNMENTS {
+  
   @scala.inline
   def center: typingsSlinky.semanticUiReact.semanticUiReactStrings.center = "center".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.center]
+  
   @scala.inline
   def justified: typingsSlinky.semanticUiReact.semanticUiReactStrings.justified = "justified".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.justified]
+  
   @scala.inline
   def left: typingsSlinky.semanticUiReact.semanticUiReactStrings.left = "left".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.left]
+  
   @scala.inline
   def right: typingsSlinky.semanticUiReact.semanticUiReactStrings.right = "right".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.right]
 }
-

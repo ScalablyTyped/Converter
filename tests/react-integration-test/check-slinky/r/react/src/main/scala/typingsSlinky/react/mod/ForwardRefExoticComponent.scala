@@ -9,6 +9,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 // but can be given its own specific name
 @js.native
 trait ForwardRefExoticComponent[P] extends NamedExoticComponent[P] {
+  
   var defaultProps: js.UndefOr[Partial[P]] = js.native
 }
-

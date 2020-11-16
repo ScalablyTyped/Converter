@@ -16,7 +16,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("buffer", JSImport.Namespace)
 @js.native
 object bufferMod extends js.Object {
+  
   var INSPECT_MAX_BYTES: Double = js.native
+  
   @js.native
   class Buffer protected () extends NodeBuffer {
     /**
@@ -60,7 +62,6 @@ object bufferMod extends js.Object {
     def this(str: String) = this()
     def this(str: String, encoding: String) = this()
   }
-  
   @js.native
   object Buffer
     extends /**
@@ -96,6 +97,7 @@ object bufferMod extends js.Object {
           typings.node.Buffer
         ]
        with Instantiable2[/* str */ String, /* encoding */ String, typings.node.Buffer] {
+    
     /**
       * Allocates a new Buffer using an {array} of octets.
       */
@@ -110,7 +112,6 @@ object bufferMod extends js.Object {
     def this(str: String) = this()
     def this(str: String, encoding: String) = this()
   }
-  
   @js.native
   object SlowBuffer
     extends Instantiable1[
@@ -118,12 +119,13 @@ object bufferMod extends js.Object {
           typings.node.Buffer
         ]
        with Instantiable2[/* str */ String, /* encoding */ String, typings.node.Buffer] {
+    
     def byteLength(string: String): Double = js.native
     def byteLength(string: String, encoding: String): Double = js.native
+    
     def concat(list: js.Array[typings.node.Buffer]): typings.node.Buffer = js.native
     def concat(list: js.Array[typings.node.Buffer], totalLength: Double): typings.node.Buffer = js.native
+    
     def isBuffer(obj: js.Any): Boolean = js.native
   }
-  
 }
-

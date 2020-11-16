@@ -15,23 +15,29 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typingsSlinky.semanticUiReact.semanticUiReactStrings.massive
 */
 trait SemanticSIZES extends js.Object
-
 object SemanticSIZES {
+  
   @scala.inline
   def big: typingsSlinky.semanticUiReact.semanticUiReactStrings.big = "big".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.big]
+  
   @scala.inline
   def huge: typingsSlinky.semanticUiReact.semanticUiReactStrings.huge = "huge".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.huge]
+  
   @scala.inline
   def large: typingsSlinky.semanticUiReact.semanticUiReactStrings.large = "large".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.large]
+  
   @scala.inline
   def massive: typingsSlinky.semanticUiReact.semanticUiReactStrings.massive = "massive".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.massive]
+  
   @scala.inline
   def medium: typingsSlinky.semanticUiReact.semanticUiReactStrings.medium = "medium".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.medium]
+  
   @scala.inline
   def mini: typingsSlinky.semanticUiReact.semanticUiReactStrings.mini = "mini".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.mini]
+  
   @scala.inline
   def small: typingsSlinky.semanticUiReact.semanticUiReactStrings.small = "small".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.small]
+  
   @scala.inline
   def tiny: typingsSlinky.semanticUiReact.semanticUiReactStrings.tiny = "tiny".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tiny]
 }
-

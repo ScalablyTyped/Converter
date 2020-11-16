@@ -8,11 +8,15 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("mime/Mime", JSImport.Namespace)
 @js.native
 object mimeMod extends js.Object {
+  
   @js.native
   trait Mime extends js.Object {
+    
     def define(mimes: TypeMap): Unit = js.native
     def define(mimes: TypeMap, force: Boolean): Unit = js.native
+    
     def getExtension(mime: String): String | Null = js.native
+    
     def getType(path: String): String | Null = js.native
   }
   
@@ -20,6 +24,4 @@ object mimeMod extends js.Object {
   class default protected () extends Mime {
     def this(mimes: TypeMap) = this()
   }
-  
 }
-

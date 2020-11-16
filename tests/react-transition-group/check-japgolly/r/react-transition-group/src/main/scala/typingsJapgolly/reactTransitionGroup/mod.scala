@@ -10,9 +10,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react-transition-group", JSImport.Namespace)
 @js.native
 object mod extends js.Object {
+  
   @js.native
   class TransitionGroup ()
     extends Component[TransitionGroupProps[abbr, js.Any], js.Object]
-  
 }
-

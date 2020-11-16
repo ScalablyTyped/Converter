@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("with-theme", JSImport.Namespace)
 @js.native
 object withThemeRequire extends js.Object
-

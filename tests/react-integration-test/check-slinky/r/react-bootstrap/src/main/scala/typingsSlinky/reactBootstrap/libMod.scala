@@ -11,6 +11,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react-bootstrap/lib", JSImport.Namespace)
 @js.native
 object libMod extends js.Object {
+  
   @js.native
   class ButtonGroup ()
     extends Component[ButtonGroupProps, js.Object, js.Any]
@@ -21,13 +22,13 @@ object libMod extends js.Object {
   
   @js.native
   object utils extends js.Object {
+    
     def createChainedFunction(funcs: js.Function*): js.Function = js.native
+    
     @js.native
     object bootstrapUtils extends js.Object {
+      
       def getBsProps(props: js.Any): BSProps = js.native
     }
-    
   }
-  
 }
-

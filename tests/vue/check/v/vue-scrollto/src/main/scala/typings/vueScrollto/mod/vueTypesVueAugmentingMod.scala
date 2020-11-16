@@ -8,8 +8,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("vue/types/vue", JSImport.Namespace)
 @js.native
 object vueTypesVueAugmentingMod extends js.Object {
+  
   @js.native
   trait Vue extends js.Object {
+    
     @JSName("$scrollTo")
     def $scrollTo(element: String): Unit = js.native
     @JSName("$scrollTo")
@@ -31,6 +33,4 @@ object vueTypesVueAugmentingMod extends js.Object {
     @JSName("$scrollTo")
     var $scrollTo_Original: VueStatic = js.native
   }
-  
 }
-

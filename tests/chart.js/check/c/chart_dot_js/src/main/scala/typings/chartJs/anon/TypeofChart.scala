@@ -17,7 +17,8 @@ trait TypeofChart
       /* options */ js.Any, 
       Chart
     ] {
+  
   var controllers: StringDictionary[js.Any] = js.native
+  
   var defaults: Dictkey = js.native
 }
-

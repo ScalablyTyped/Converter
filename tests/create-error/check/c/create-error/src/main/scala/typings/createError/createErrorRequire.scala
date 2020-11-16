@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("create-error", JSImport.Namespace)
 @js.native
 object createErrorRequire extends js.Object
-

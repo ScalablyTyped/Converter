@@ -8,4 +8,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait ButtonGroup
   extends Component[ButtonGroupProps, js.Object, js.Any]
-

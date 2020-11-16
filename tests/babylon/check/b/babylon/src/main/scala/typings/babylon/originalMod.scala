@@ -7,8 +7,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("original", JSImport.Namespace)
 @js.native
 object originalMod extends js.Object {
+  
   @js.native
   class RuntimeAnimation () extends js.Object
-  
 }
-

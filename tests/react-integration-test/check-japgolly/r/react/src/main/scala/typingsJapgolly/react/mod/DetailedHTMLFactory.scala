@@ -8,8 +8,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait DetailedHTMLFactory[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */] extends DOMFactory[P, T] {
+  
   def apply(props: ClassAttributes[T] with P, children: Node*): DetailedReactHTMLElement[P, T] = js.native
   def apply(props: js.UndefOr[scala.Nothing], children: Node*): DetailedReactHTMLElement[P, T] = js.native
   def apply(props: Null, children: Node*): DetailedReactHTMLElement[P, T] = js.native
 }
-

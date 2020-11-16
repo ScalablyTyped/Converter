@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("elasticsearch-js", JSImport.Namespace)
 @js.native
 object elasticsearchJsRequire extends js.Object
-

@@ -11,4 +11,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typings.unionToInheritance.Foo2[T, P]
 */
 trait Legal2[P, T] extends js.Object
-

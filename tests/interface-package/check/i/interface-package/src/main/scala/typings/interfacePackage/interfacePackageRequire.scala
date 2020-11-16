@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("interface-package", JSImport.Namespace)
 @js.native
 object interfacePackageRequire extends js.Object
-

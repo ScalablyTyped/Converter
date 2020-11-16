@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("cldrjs", JSImport.Namespace)
 @js.native
 object cldrjsRequire extends js.Object
-

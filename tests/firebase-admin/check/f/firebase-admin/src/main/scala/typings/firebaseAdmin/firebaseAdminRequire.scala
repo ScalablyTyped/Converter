@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("firebase-admin", JSImport.Namespace)
 @js.native
 object firebaseAdminRequire extends js.Object
-

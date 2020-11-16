@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("componentstest", "Grid")
 @js.native
 object Grid extends TopLevel[ReactComponentClass[CardGridProps]]
-

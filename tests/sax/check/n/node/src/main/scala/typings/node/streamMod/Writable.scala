@@ -12,6 +12,7 @@ class Writable ()
   extends internal
      with WritableStream {
   def this(opts: WritableOptions) = this()
+  
   def end(): Unit = js.native
   def end(cb: js.Function): Unit = js.native
   def end(chunk: js.Any): Unit = js.native
@@ -19,7 +20,7 @@ class Writable ()
   def end(chunk: js.Any, encoding: js.UndefOr[scala.Nothing], cb: js.Function): Unit = js.native
   def end(chunk: js.Any, encoding: String): Unit = js.native
   def end(chunk: js.Any, encoding: String, cb: js.Function): Unit = js.native
+  
   @JSName("on")
   def on_close(event: close, listener: js.Function0[Unit]): this.type = js.native
 }
-

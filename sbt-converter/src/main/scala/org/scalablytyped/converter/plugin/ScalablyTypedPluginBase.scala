@@ -59,13 +59,6 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
   override lazy val projectSettings =
     Seq(
-      Keys.scalacOptions ++= {
-        val isScalaJs1 = !scalaJSVersion.startsWith("0.6")
-
-        val old = Keys.scalacOptions.value
-        if (old.contains("-P:scalajs:sjsDefinedByDefault") || isScalaJs1) Nil
-        else Seq("-P:scalajs:sjsDefinedByDefault")
-      },
       stInternalExpandTypeMappings := EnabledTypeMappingExpansion.DefaultSelection.map(_.value),
       stEnableScalaJsDefined := converter.Selection.None,
       stFlavour := converter.Flavour.Normal,

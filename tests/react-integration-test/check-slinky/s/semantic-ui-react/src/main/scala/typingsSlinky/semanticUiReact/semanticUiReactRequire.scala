@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("semantic-ui-react", JSImport.Namespace)
 @js.native
 object semanticUiReactRequire extends js.Object
-

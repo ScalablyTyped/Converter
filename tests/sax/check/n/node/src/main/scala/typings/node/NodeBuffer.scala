@@ -7,6 +7,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait NodeBuffer extends Uint8Array {
+  
   def write(string: String): Double = js.native
   def write(
     string: String,
@@ -21,4 +22,3 @@ trait NodeBuffer extends Uint8Array {
   def write(string: String, offset: Double, length: Double): Double = js.native
   def write(string: String, offset: Double, length: Double, encoding: String): Double = js.native
 }
-

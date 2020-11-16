@@ -12,6 +12,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react", "cloneElement")
 @js.native
 object cloneElement extends js.Object {
+  
   // Custom components
   def apply[P](
     element: FunctionComponentElement[P],
@@ -69,4 +70,3 @@ object cloneElement extends js.Object {
     children: slinky.core.facade.ReactElement*
   ): ReactSVGElement = js.native
 }
-

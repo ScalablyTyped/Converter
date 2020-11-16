@@ -9,14 +9,14 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSGlobalScope
 @js.native
 object global extends js.Object {
+  
   @js.native
   class B ()
     extends typings.keyof.B
   
   @js.native
   object C extends js.Object {
+    
     def bar(p: /* keyof keyof.anon.PickAcb */ c | b): String = js.native
   }
-  
 }
-

@@ -9,4 +9,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("rxjs", JSImport.Namespace)
 @js.native
 object rxjsRequire extends js.Object
-

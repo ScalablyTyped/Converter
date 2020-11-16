@@ -8,4 +8,3 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait ElementClass
   extends Component[js.Any, js.Object, js.Any]
-

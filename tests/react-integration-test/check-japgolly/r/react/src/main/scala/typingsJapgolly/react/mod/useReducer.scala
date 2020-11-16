@@ -7,6 +7,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("react", "useReducer")
 @js.native
 object useReducer extends js.Object {
+  
   /**
     * An alternative to `useState`.
     *
@@ -45,4 +46,3 @@ object useReducer extends js.Object {
     initializer: js.Function1[(/* arg */ I with ReducerState[R]) | (/* arg */ I), ReducerState[R]]
   ): js.Tuple2[ReducerState[R], Dispatch[ReducerAction[R]]] = js.native
 }
-

@@ -18,7 +18,8 @@ trait ComponentClass[P]
       /* context */ js.Any, 
       japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object]
     ] {
+  
   var defaultProps: js.UndefOr[Partial[P]] = js.native
+  
   var displayName: js.UndefOr[String] = js.native
 }
-

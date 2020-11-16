@@ -10,6 +10,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object EventListener {
+  
   @JSImport("@stardust-ui/react-component-event-listener", "EventListener")
   @js.native
   object component extends js.Object
@@ -18,11 +19,13 @@ object EventListener {
   class Builder[T /* <: EventTypes */] (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[tag.type, js.Object] {
+    
     @scala.inline
     def capture(value: Boolean): this.type = set("capture", value.asInstanceOf[js.Any])
   }
   
   def withProps[T /* <: EventTypes */](p: EventListenerOptions[T]): Builder[T] = new Builder[T](js.Array(this.component, p.asInstanceOf[js.Any]))
+  
   @scala.inline
   def apply[T /* <: EventTypes */](
     listener: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Unit,
@@ -36,4 +39,3 @@ object EventListener {
     new Builder[T](js.Array(this.component, __props.asInstanceOf[EventListenerOptions[T]]))
   }
 }
-

@@ -17,11 +17,12 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 // object, but rather to the original function.
 @js.native
 trait ExoticComponent[P] extends js.Object {
+  
   /**
     * **NOTE**: Exotic components are not callable.
     */
   def apply(props: P): Element | Null = js.native
+  
   @JSName("$$typeof")
   val DollarDollartypeof: js.Symbol = js.native
 }
-
