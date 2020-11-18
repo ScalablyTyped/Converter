@@ -1,5 +1,6 @@
 package typingsJapgolly.react.anon
 
+import typingsJapgolly.std.Exclude
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -7,15 +8,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait `1` extends js.Object {
   
-  var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any = js.native
+  var ref: js.UndefOr[Exclude[_, String]] = js.native
 }
 object `1` {
   
   @scala.inline
-  def apply(
-    defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
-  ): `1` = {
-    val __obj = js.Dynamic.literal(defaultProps = defaultProps.asInstanceOf[js.Any])
+  def apply(): `1` = {
+    val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[`1`]
   }
   
@@ -35,6 +34,9 @@ object `1` {
     }
     
     @scala.inline
-    def setDefaultProps(value: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any): Self = this.set("defaultProps", value.asInstanceOf[js.Any])
+    def setRef(value: Exclude[_, String]): Self = this.set("ref", value.asInstanceOf[js.Any])
+    
+    @scala.inline
+    def deleteRef: Self = this.set("ref", js.undefined)
   }
 }

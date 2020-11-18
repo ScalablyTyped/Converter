@@ -242,7 +242,7 @@ package object mod {
   type PropsWithChildren[P] = P with typingsJapgolly.react.anon.Children
   
   /** Ensures that the props do not include string ref, which cannot be forwarded */
-  type PropsWithRef[P] = P | (typingsJapgolly.react.mod.PropsWithoutRef[P] with typingsJapgolly.react.anon.`0`)
+  type PropsWithRef[P] = P | (typingsJapgolly.react.mod.PropsWithoutRef[P] with typingsJapgolly.react.anon.`1`)
   
   /** Ensures that the props do not include ref at all */
   type PropsWithoutRef[P] = P | (typingsJapgolly.std.Pick[

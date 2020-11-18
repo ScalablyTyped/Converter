@@ -1,12 +1,12 @@
 organization := "org.scalablytyped"
 name := "react-dropzone"
-version := "10.1.10-3c9f81"
+version := "10.1.10-a3c1ab"
 scalaVersion := "2.13.3"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
   "me.shadaj" %%% "slinky-web" % "0.6.6",
-  "org.scalablytyped" %%% "react" % "16.9.2-f2f0bf",
+  "org.scalablytyped" %%% "react" % "16.9.2-fd6532",
   "org.scalablytyped" %%% "std" % "0.0-unknown-d336f9")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-feature", "-g:notailcalls", "-language:implicitConversions", "-language:higherKinds", "-language:existentials")

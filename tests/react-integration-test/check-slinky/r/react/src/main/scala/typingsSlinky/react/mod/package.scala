@@ -230,7 +230,7 @@ package object mod {
   type PropsWithChildren[P] = P with typingsSlinky.react.anon.Children
   
   /** Ensures that the props do not include string ref, which cannot be forwarded */
-  type PropsWithRef[P] = P | (typingsSlinky.react.mod.PropsWithoutRef[P] with typingsSlinky.react.anon.`0`)
+  type PropsWithRef[P] = P | (typingsSlinky.react.mod.PropsWithoutRef[P] with typingsSlinky.react.anon.`1`)
   
   /** Ensures that the props do not include ref at all */
   type PropsWithoutRef[P] = P | (typingsSlinky.std.Pick[

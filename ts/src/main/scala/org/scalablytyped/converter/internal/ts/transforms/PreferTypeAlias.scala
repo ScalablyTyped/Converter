@@ -105,24 +105,24 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         TsDeclInterface(cs, dec, name, tparams, Empty, members, cp)
 
       /**
-       * Rewrite this:
-       * ```typescript
-       * export type RuleSetConditions = RuleSetCondition[];
-       * export type RuleSetCondition =
-       * | RegExp
-       * | RuleSetConditions
-       * ````
-       *
-       * to
-       * ```typescript
-       * export interface RuleSetConditions extends RuleSetCondition[] {};
-       * export type RuleSetCondition =
-       * | RegExp
-       * | RuleSetConditions
-       * `
-       *
-       * Only the latter will be legal in scala, unfortunately
-       */
+        * Rewrite this:
+        * ```typescript
+        * export type RuleSetConditions = RuleSetCondition[];
+        * export type RuleSetCondition =
+        * | RegExp
+        * | RuleSetConditions
+        * ````
+        *
+        * to
+        * ```typescript
+        * export interface RuleSetConditions extends RuleSetCondition[] {};
+        * export type RuleSetCondition =
+        * | RegExp
+        * | RuleSetConditions
+        * `
+        *
+        * Only the latter will be legal in scala, unfortunately
+        */
       case ta @ TsDeclTypeAlias(
             cs,
             dec,
