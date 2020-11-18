@@ -35,9 +35,8 @@ class QualifyReferences(skipValidation: Boolean) extends TreeTransformationScope
 
   /* Special case because sometimes classes inherit from an interface with the same name */
   override def enterTsDeclClass(scope: TsTreeScope)(x: TsDeclClass): TsDeclClass = {
-    val picker      = Picker.ButNot(Picker.Types, x)
-    val inheritance = x.parent.foldRight(x.implements)(_ +: _)
-    val qualified   = inheritance.flatMap(i => resolveTypeRef(scope, i, picker))
+    val picker    = Picker.ButNot(Picker.Types, x)
+    val qualified = x.inheritance.flatMap(i => resolveTypeRef(scope, i, picker))
     x.copy(parent = qualified.headOption, implements = qualified.drop(1))
   }
 

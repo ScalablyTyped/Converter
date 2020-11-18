@@ -14,6 +14,5 @@ object accessibilityMod extends js.Object {
     extends Component[js.Object, js.Object]
   
   @js.native
-  class default ()
-    extends Component[js.Object, js.Object]
+  class default () extends ActionAccessibility
 }

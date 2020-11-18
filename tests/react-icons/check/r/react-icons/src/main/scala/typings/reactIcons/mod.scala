@@ -1,7 +1,6 @@
 package typings.reactIcons
 
-import typings.react.mod.Component
-import typings.reactIconBase.mod.IconBaseProps
+import typings.reactIcons.`500pxMod`.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -11,14 +10,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object mod extends js.Object {
   
   @js.native
-  class Fa500px ()
-    extends Component[IconBaseProps, js.Object]
+  class Fa500px () extends default
   
   @js.native
   class FaAdjust ()
-    extends Component[IconBaseProps, js.Object]
+    extends typings.reactIcons.adjustMod.default
   
   @js.native
   class FaAdn ()
-    extends Component[IconBaseProps, js.Object]
+    extends typings.reactIcons.adnMod.default
 }

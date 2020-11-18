@@ -225,8 +225,8 @@ object FlattenTrees {
     if (thats.length >= existings.length) thats else existings
 
   def mergeClass(that: TsDeclClass, existing: TsDeclClass): TsDeclClass = {
-    val inheritance =
-      (IArray.fromOptions(existing.parent, that.parent) ++ existing.implements ++ that.implements).distinct
+    val inheritance = (existing.inheritance ++ that.inheritance).distinct
+
     TsDeclClass(
       comments   = mergeComments(existing.comments, that.comments),
       declared   = existing.declared || that.declared,

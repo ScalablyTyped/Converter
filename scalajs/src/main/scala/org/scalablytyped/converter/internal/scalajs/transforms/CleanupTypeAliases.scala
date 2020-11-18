@@ -12,10 +12,10 @@ package transforms
   */
 object CleanupTypeAliases extends TreeTransformation {
   override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-    s.copy(members = clearEmptyContainers(removeTrivialTypeAlias(scope, s.members)))
+    s.copy(members = clearEmptyContainers(removeReExportedTypeAlias(s.members)))
 
   override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
-    s.copy(members = clearEmptyContainers(removeTrivialTypeAlias(scope, s.members)))
+    s.copy(members = clearEmptyContainers(removeReExportedTypeAlias(s.members)))
 
   def clearEmptyContainers(members: IArray[Tree]): IArray[Tree] =
     members.filter {
@@ -26,10 +26,10 @@ object CleanupTypeAliases extends TreeTransformation {
       case _ => true
     }
 
-  def removeTrivialTypeAlias(scope: TreeScope, members: IArray[Tree]): IArray[Tree] =
+  def removeReExportedTypeAlias(members: IArray[Tree]): IArray[Tree] =
     members.mapNotNone {
       case ta: TypeAliasTree =>
-        ta.comments.extract { case Markers.IsTrivial => () } match {
+        ta.comments.extract { case Markers.ReExported => () } match {
           case None => Some(ta)
           case Some((_, restCs)) =>
             if (restCs.cs.nonEmpty)
@@ -37,7 +37,7 @@ object CleanupTypeAliases extends TreeTransformation {
             None
         }
 
-      case x: FieldTree if x.comments.has[Markers.IsTrivial.type] => None
+      case x: FieldTree if x.comments.has[Markers.ReExported.type] => None
       case other => Some(other)
     }
 }

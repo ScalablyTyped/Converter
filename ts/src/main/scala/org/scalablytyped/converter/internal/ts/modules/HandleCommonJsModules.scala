@@ -141,7 +141,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
                   ExportType.Named,
                   TsExporteeTree(
                     TsDeclVar(
-                      Comments(CommentData(Markers.IsTrivial)),
+                      Comments(CommentData(Markers.ReExported)),
                       declared = true,
                       readOnly = true,
                       newName,

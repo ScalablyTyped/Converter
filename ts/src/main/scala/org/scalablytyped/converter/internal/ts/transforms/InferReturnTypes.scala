@@ -2,12 +2,10 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-import org.scalablytyped.converter.internal.ts.ParentsResolver.InterfaceOrClass
-
 object InferReturnTypes extends TreeTransformationScopedChanges {
   override def enterTsMemberFunction(scope: TsTreeScope)(x: TsMemberFunction): TsMemberFunction = {
-    val ownerOpt: Option[InterfaceOrClass] =
-      scope.stack.collectFirst { case ioc: InterfaceOrClass => ioc }
+    val ownerOpt: Option[TsDeclClassLike] =
+      scope.stack.collectFirst { case ioc: TsDeclClassLike => ioc }
 
     (x.name, x.signature, ownerOpt) match {
       case (TsIdent.constructor, _, _) => x

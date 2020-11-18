@@ -16,7 +16,7 @@ object converterMod extends js.Object {
   object Converter extends js.Object {
     
     def input(data: js.Any): AttributeValue = js.native
-    def input(data: js.Any, options: ConverterOptions): AttributeValue = js.native
+    def input(data: js.Any, options: typings.awsSdk.documentClientMod.DocumentClient.ConverterOptions): AttributeValue = js.native
     
     type ConverterOptions = typings.awsSdk.documentClientMod.DocumentClient.ConverterOptions
   }

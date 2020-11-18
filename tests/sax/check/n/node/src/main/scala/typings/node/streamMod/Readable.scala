@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @JSImport("stream", "Readable")
 @js.native
 class Readable ()
-  extends internal
+  extends Stream
      with ReadableStream {
   
   @JSName("on")

@@ -3,8 +3,6 @@ package ts
 
 import org.scalablytyped.converter.internal.ts.CodePath.NoPath
 
-import scala.collection.mutable
-
 /**
   * @deprecated this presumes that parents can always be `IArray[InterfaceOrClass]`.
   *
@@ -12,16 +10,14 @@ import scala.collection.mutable
   *  so we'll need a much better approach here
   */
 object ParentsResolver {
-  type InterfaceOrClass = TsTree with HasClassMembers
+  case class WithParents[X <: TsDeclClassLike](value: X, parents: IArray[TsDeclClassLike])
 
-  case class WithParents[X <: InterfaceOrClass](value: X, parents: IArray[InterfaceOrClass])
-
-  def apply[X <: InterfaceOrClass](_scope: TsTreeScope, tree: X): WithParents[X] = {
+  def apply[X <: TsDeclClassLike](_scope: TsTreeScope, tree: X): WithParents[X] = {
 
     val seen: IArray.Builder[TsTree] =
       IArray.Builder.empty
 
-    val allParents: IArray.Builder[InterfaceOrClass] =
+    val allParents: IArray.Builder[TsDeclClassLike] =
       IArray.Builder.empty
 
     def innerRecurse(scope: TsTreeScope, qualifiedName: TsQIdent, currentTParams: IArray[TsType]): Unit =
@@ -80,8 +76,7 @@ object ParentsResolver {
     def outerRecurse(scope: TsTreeScope, tree: TsTree): Unit = {
       val parentRefs: IArray[TsTypeRef] =
         tree match {
-          case x: TsDeclInterface => x.inheritance
-          case x: TsDeclClass     => IArray.fromOption(x.parent) ++ x.implements
+          case x: TsDeclClassLike => x.inheritance
           case _ => Empty
         }
 

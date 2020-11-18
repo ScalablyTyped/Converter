@@ -7,8 +7,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 /* import warning: transforms.RemoveMultipleInheritance#findNewParents newComments Dropped parents 
 - typings.node.NodeJS.EventEmitter because Already inherited
 - typings.node.eventsMod.EventEmitter because Already inherited
-- typings.node.NodeJS.WritableStream because var conflicts: writable. Inlined 
+- typings.node.NodeJS.EventEmitter because Already inherited
 - typings.node.streamMod.internal because Already inherited
+- typings.node.NodeJS.WritableStream because var conflicts: writable. Inlined 
+- typings.node.streamMod.Stream because Already inherited
 - typings.node.streamMod.Writable because Inheritance from two classes. Inlined writable, end, end, end, end, end, end, end, on, on_close */ @JSImport("stream", "Duplex")
 @js.native
 class Duplex () extends Readable {

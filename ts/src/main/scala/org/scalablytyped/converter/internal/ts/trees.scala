@@ -139,6 +139,16 @@ final case class TsGlobal(
   override def withCodePath(newCodePath: CodePath): HasCodePath = copy(codePath = newCodePath)
 }
 
+sealed trait TsDeclClassLike extends TsNamedDecl with HasClassMembers {
+  def comments:    Comments
+  def declared:    Boolean
+  def name:        TsIdentSimple
+  def tparams:     IArray[TsTypeParam]
+  def inheritance: IArray[TsTypeRef]
+  def members:     IArray[TsMember]
+  def codePath:    CodePath
+}
+
 final case class TsDeclClass(
     comments:   Comments,
     declared:   Boolean,
@@ -152,8 +162,13 @@ final case class TsDeclClass(
     codePath:   CodePath,
 ) extends TsNamedValueDecl
     with HasJsLocation
-    with HasClassMembers
-    with TsNamedDecl {
+    with TsDeclClassLike {
+
+  override def inheritance: IArray[TsTypeRef] =
+    parent match {
+      case Some(parent) => parent +: implements
+      case None         => implements
+    }
 
   override def withCodePath(newCodePath: CodePath): TsDeclClass =
     copy(codePath = newCodePath)
@@ -173,8 +188,7 @@ final case class TsDeclInterface(
     inheritance: IArray[TsTypeRef],
     members:     IArray[TsMember],
     codePath:    CodePath,
-) extends TsNamedDecl
-    with HasClassMembers {
+) extends TsDeclClassLike {
 
   override def withCodePath(newCodePath: CodePath): TsDeclInterface =
     copy(codePath = newCodePath)
@@ -575,6 +589,15 @@ final case class TsTypeInfer(tparam: TsTypeParam) extends TsTypePredicate
 
 sealed abstract class TsMember extends TsTree {
   def level: ProtectionLevel
+}
+object TsMember {
+  def isStaticOrCtor(m: TsMember): Boolean =
+    m match {
+      case TsMemberFunction(_, _, TsIdent.constructor, _, _, _, _) => true
+      case x: TsMemberProperty if x.isStatic => true
+      case x: TsMemberFunction if x.isStatic => true
+      case _ => false
+    }
 }
 
 final case class TsMemberCall(comments: Comments, level: ProtectionLevel, signature: TsFunSig) extends TsMember

@@ -17,7 +17,7 @@ package transforms
   */
 object SimplifyParents extends TreeTransformationScopedChanges {
   override def enterTsDeclClass(t: TsTreeScope)(x: TsDeclClass): TsDeclClass = {
-    val np = newParents(IArray.fromOption(x.parent) ++ x.implements, t)
+    val np = newParents(x.inheritance, t)
     x.copy(parent = np.headOption, implements = np.drop(1))
   }
 

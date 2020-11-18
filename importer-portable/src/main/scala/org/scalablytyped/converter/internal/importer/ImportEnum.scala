@@ -32,7 +32,7 @@ object ImportEnum {
       case TsDeclEnum(cs, _, true, _, _, _, Some(exportedFrom), _, codePath) =>
         val tpe        = importType(Wildcards.No, scope, importName)(exportedFrom)
         val importedCp = importName(codePath)
-        IArray(TypeAliasTree(importedCp.parts.last, Empty, tpe, cs + CommentData(Markers.IsTrivial), importedCp))
+        IArray(TypeAliasTree(importedCp.parts.last, Empty, tpe, cs + CommentData(Markers.ReExported), importedCp))
 
       /* normal const enum? type alias. And output a scala object with values if possible, otherwise a comment */
       case TsDeclEnum(cs, _, true, _, members, _, None, _, codePath) =>
@@ -98,11 +98,11 @@ object ImportEnum {
         val typeTree: Tree =
           exportedFrom match {
             case Some(ef) =>
-              scalajs.TypeAliasTree(
+              TypeAliasTree(
                 name     = enumName,
                 tparams  = Empty,
                 alias    = importType(Wildcards.No, scope, importName)(TsTypeRef(NoComments, ef.name, Empty)),
-                comments = Comments(CommentData(Markers.IsTrivial)),
+                comments = Comments(CommentData(Markers.ReExported)),
                 codePath = importedCodePath,
               )
             case None =>

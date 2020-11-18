@@ -1,6 +1,6 @@
 package typings.awsSdk
 
-import typings.awsSdk.converterMod.Converter.ConverterOptions
+import typings.awsSdk.documentClientMod.DocumentClient.ConverterOptions
 import typings.awsSdk.documentClientMod.DocumentClient.DocumentClientOptions
 import typings.awsSdk.dynamodbMod.AttributeValue
 import typings.awsSdk.dynamodbMod.ClientConfiguration

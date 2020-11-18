@@ -16,9 +16,8 @@ import org.scalablytyped.converter.internal.maps._
   * We'll do better eventually, this is the fallback to make things compile
   */
 object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
-  override def enterTsDeclClass(scope: TsTreeScope)(s: TsDeclClass): TsDeclClass = {
-    val cleaned = (IArray.fromOption(s.parent) ++ s.implements).map(cleanParentRef(scope))
-    Res.combine(cleaned) match {
+  override def enterTsDeclClass(scope: TsTreeScope)(s: TsDeclClass): TsDeclClass =
+    Res.combine(s.inheritance.map(cleanParentRef(scope))) match {
       case Res(keep, drop, lifted) =>
         s.copy(
           parent     = keep.headOption,
@@ -27,7 +26,6 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
           members    = FlattenTrees.newClassMembers(s.members, lifted.flatMapToIArray { case (_, v) => v }),
         )
     }
-  }
 
   override def enterTsDeclInterface(scope: TsTreeScope)(s: TsDeclInterface): TsDeclInterface =
     Res.combine(s.inheritance.map(cleanParentRef(scope))) match {

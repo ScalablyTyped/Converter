@@ -125,17 +125,17 @@ lazy val baseSettings: Project => Project =
 lazy val optimize: Project => Project =
   _.settings(
     scalacOptions ++= Seq(
-      "-opt:l:inline",
-      "-opt:l:method",
-      "-opt:simplify-jumps",
-      "-opt:compact-locals",
-      "-opt:copy-propagation",
-      "-opt:redundant-casts",
-      "-opt:box-unbox",
-      "-opt:nullness-tracking",
-      //      "-opt:closure-invocations",
-      "-opt-inline-from:org.scalablytyped.converter.internal.**",
-      "-opt-warnings",
+//      "-opt:l:inline",
+//      "-opt:l:method",
+//      "-opt:simplify-jumps",
+//      "-opt:compact-locals",
+//      "-opt:copy-propagation",
+//      "-opt:redundant-casts",
+//      "-opt:box-unbox",
+//      "-opt:nullness-tracking",
+//      //      "-opt:closure-invocations",
+//      "-opt-inline-from:org.scalablytyped.converter.internal.**",
+//      "-opt-warnings",
     ),
   )
 

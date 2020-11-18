@@ -345,7 +345,7 @@ object ImportType {
         case _ :: (owner: TsDeclInterface) :: _ =>
           if (owner.inheritance.exists(_.name eq tpe)) InTrait else Not
         case _ :: (owner: TsDeclClass) :: _ =>
-          if (owner.implements.exists(_.name eq tpe) || owner.parent.exists(_.name eq tpe)) InClass else Not
+          if (owner.inheritance.exists(_.name eq tpe)) InClass else Not
         case _ => Not
       }
   }

@@ -55,8 +55,8 @@ object AdaptiveNamingImport {
       TsTreeTraverse
         .collect(library) {
           /* we won't output these, so ignore the name collision */
-          case x: TsDeclTypeAlias if x.comments.has[Markers.IsTrivial.type] => IArray.Empty
-          case x: HasCodePath                                               => x.codePath.forceHasPath.codePath.parts
+          case x: TsDeclTypeAlias if x.comments.has[Markers.ReExported.type] => IArray.Empty
+          case x: HasCodePath                                                => x.codePath.forceHasPath.codePath.parts
         }
         .distinct
         .sorted(ShortestAndLowercaseFirst)

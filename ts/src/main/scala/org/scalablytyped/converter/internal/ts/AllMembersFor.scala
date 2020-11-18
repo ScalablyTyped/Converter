@@ -42,10 +42,10 @@ object AllMembersFor {
 
           case (x: TsDeclClass, newScope) =>
             FillInTParams(x, typeRef.tparams) match {
-              case TsDeclClass(_, _, _, _, _, parent, implements, members, _, _) =>
+              case cls: TsDeclClass =>
                 handleOverridingFields(
-                  members,
-                  (implements ++ IArray.fromOption(parent)).flatMap(apply(newScope, newLoopDetector)),
+                  cls.members,
+                  cls.inheritance.flatMap(apply(newScope, newLoopDetector)),
                 )
             }
 
