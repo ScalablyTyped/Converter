@@ -42,7 +42,7 @@ case class PackageJsonDeps(
 case class NotNeededPackage(
     libraryName:        String,
     typingsPackageName: TsIdentLibrary,
-    sourceRepoURL:      String,
+    sourceRepoURL:      Option[String],
     asOfVersion:        String,
 )
 case class TypingsJson(

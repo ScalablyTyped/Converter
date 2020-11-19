@@ -78,8 +78,8 @@ class JsonTests extends AnyFunSuite {
     val expected =
       NotNeededPackages(
         IArray(
-          NotNeededPackage("ajv", TsIdentLibrary("ajv"), "https://github.com/epoberezkin/ajv", "1.0.0"),
-          NotNeededPackage("antd", TsIdentLibrary("antd"), "git@github.com:KyleAMathews/deepmerge.git", "1.0.0"),
+          NotNeededPackage("ajv", TsIdentLibrary("ajv"), Some("https://github.com/epoberezkin/ajv"), "1.0.0"),
+          NotNeededPackage("antd", TsIdentLibrary("antd"), Some("git@github.com:KyleAMathews/deepmerge.git"), "1.0.0"),
         ),
       )
 
