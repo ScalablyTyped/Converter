@@ -268,6 +268,8 @@ object Libraries {
       "koa-compose",
       // not installable on linux
       "fsevents",
+      // doesnt exists
+      "xumm-api"
     ).map(TsIdentLibrary.apply)
 
   val Slow = SortedSet("@pulumi/aws", "aws-sdk", "googleapis", "@material-ui/core", "@storybook/components").map(
