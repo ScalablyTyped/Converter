@@ -11,11 +11,13 @@ object Readme {
 
 This is all example output of the ScalablyTyped Typescript to Scala.js converter.
 
-Check out [https://www.scalablytyped.org](scalablytyped.org)
+Check out [scalablytyped.org](https://www.scalablytyped.org)
 
 ## About
 
-This is one of the biggest Scala repos on the planet${describeSize(locOutput)}.
+This is one of the biggest Scala repos on the planet with with **${summary.successes.size}**  compiling libraries.
+
+${describeSize(locOutput)}.
 
 The jar files with all the libraries from this repo used to be published to bintray.
 If you need to reconstruct exactly the jar files you had you can check out the repository from the date
@@ -31,6 +33,6 @@ If you need to reconstruct exactly the jar files you had you can check out the r
 $output
 ```
 """
-    case None => " with millions of lines of code"
+    case None => ""
   }
 }
