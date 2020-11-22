@@ -50,7 +50,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       TsQIdent.Std.ConcatArray -> NameMapping(stdNames.ConcatArray, stdNames.ConcatArray, QualifiedName.Array),
       TsQIdent.Std.Function -> FunctionM,
       TsQIdent.Std.Object -> ObjectM,
-      TsQIdent.Std.PromiseLike -> NameMapping(QualifiedName.Thenable, QualifiedName.Thenable, QualifiedName.Thenable),
+      TsQIdent.Std.PromiseLike -> NameMapping(stdNames.PromiseLike, stdNames.PromiseLike, QualifiedName.Thenable),
       TsQIdent.Std.Promise -> NameMapping(QualifiedName.Promise, stdNames.Promise, QualifiedName.Promise),
       TsQIdent.Std.ReadonlyArray -> NameMapping(stdNames.ReadonlyArray, stdNames.ReadonlyArray, QualifiedName.Array),
       TsQIdent.Std.String -> StringM,
