@@ -9,11 +9,13 @@ import org.scalablytyped.converter.internal.scalajs.flavours.GenImplicitOpsClass
 
 object JapgollyGenComponents {
 
-  final case class SplitProps(refTypes: IArray[TypeRef], props: IArray[Prop]) {
-    val hasRequiredProps = props.exists(_.isRequired)
+  final case class SplitProps(refTypes: IArray[TypeRef], propsInApply: IArray[Prop], propsInBuilder: IArray[Prop]) {
+    val hasRequiredProps = propsInApply.exists(_.isRequired) || propsInBuilder.exists(_.isRequired)
   }
 
-  def SplitProps(reactNames: ReactNames, scope: TreeScope)(_props: IArray[Prop]): SplitProps = {
+  def SplitProps(reactNames: ReactNames, scope: TreeScope, enableLongApplyMethod: Boolean)(
+      allProps:              IArray[Prop],
+  ): SplitProps = {
     object Ref {
       def unapply(maybeRef: TypeRef): Option[TypeRef] =
         if (reactNames.isRef(maybeRef.typeName)) Some(maybeRef.targs.head)
@@ -44,7 +46,7 @@ object JapgollyGenComponents {
         case _                                      => false
       }
 
-    val (refTypes: IArray[TypeRef], _, props: IArray[Prop]) = _props.partitionCollect2(
+    val (refTypes: IArray[TypeRef], _, filteredProps: IArray[Prop]) = allProps.partitionCollect2(
       //refTypes
       { case Prop.Normal(Prop.Variant(Ref(ref), _, _, _), _, _, _, FieldTree(_, names.ref, _, _, _, _, _, _)) => ref },
       // ignored
@@ -53,8 +55,13 @@ object JapgollyGenComponents {
         case n: Prop.CompressedProp if shouldIgnoreProp(n.name, n.tpe) => null
       },
     )
+    val MaxParamsInJavascript = 254
 
-    SplitProps(refTypes, props)
+    val (propsInApply, propsInBuilder) =
+      if (enableLongApplyMethod) (filteredProps.take(MaxParamsInJavascript), filteredProps.drop(MaxParamsInJavascript))
+      else filteredProps.partition(_.isRequired)
+
+    SplitProps(refTypes, propsInApply, propsInBuilder)
   }
 
   final case class PropsDom(propsRef: PropsRef, splitProps: Res[IArray[String], SplitProps])
@@ -156,7 +163,12 @@ class JapgollyGenComponents(
 ) {
   import JapgollyGenComponents._
 
-  def apply(scope: TreeScope, tree: ContainerTree, components: IArray[Component]): ContainerTree = {
+  def apply(
+      scope:                 TreeScope,
+      tree:                  ContainerTree,
+      components:            IArray[Component],
+      enableLongApplyMethod: Boolean,
+  ): ContainerTree = {
     /* Every tree knows it's own location (called `CodePath`).
              It's used for a lot of things, so it's important to get right */
     val pkgCp = tree.codePath + JapgollyGenComponents.names.components
@@ -169,22 +181,33 @@ class JapgollyGenComponents(
     /* this is mostly here as an optimization */
     val allResolvedProps: Map[ComponentGroupKey, PropsDom] =
       allComponentsGrouped.map {
-        case (group, _) => group -> findPropsAndInferDomInfo(scope, group.propsRef, group.tparams)
+        case (group, _) =>
+          val resProps: Res[IArray[String], IArray[Prop]] =
+            findProps.forType(
+              typeRef            = group.propsRef.ref,
+              tparams            = group.tparams,
+              scope              = scope,
+              maxNum             = Int.MaxValue,
+              acceptNativeTraits = true,
+            )
+          group -> PropsDom(group.propsRef, resProps.map(SplitProps(reactNames, scope, enableLongApplyMethod)))
       }
 
     /* A component might have one or more builders shared with other components */
-    val allSharedBuilders: Map[PropsRef, SharedBuilder] = {
-      val b = Map.newBuilder[PropsRef, SharedBuilder]
-      allComponentsGrouped.foreach {
-        case (_, components) if components.length < 2 => ()
-        case (group, _) =>
-          genSharedBuilders(pkgCp, group, allResolvedProps(group)).asMap.foreach {
-            case (ref, Some(sb)) => b += ((PropsRef(ref), sb))
-            case _               => ()
-          }
+    val allSharedBuilders: Map[PropsRef, SharedBuilder] =
+      if (enableLongApplyMethod) Map.empty
+      else {
+        val b = Map.newBuilder[PropsRef, SharedBuilder]
+        allComponentsGrouped.foreach {
+          case (_, components) if components.length < 2 => ()
+          case (group, _) =>
+            genSharedBuilders(pkgCp, group, allResolvedProps(group)).asMap.foreach {
+              case (ref, Some(sb)) => b += ((PropsRef(ref), sb))
+              case _               => ()
+            }
+        }
+        b.result()
       }
-      b.result()
-    }
 
     val allBuilders: BuildersByGroup =
       allResolvedProps.map {
@@ -223,7 +246,7 @@ class JapgollyGenComponents(
                       val typeArgs     = IArray(effectiveRef(scope, resProps, c.referenceTo))
                       val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
 
-                      genBuilderClass(ownerCp, Name("Builder"), group.tparams, stBuilderRef, splitProps.props) match {
+                      genBuilderClass(ownerCp, Name("Builder"), group.tparams, stBuilderRef, splitProps.propsInBuilder) match {
                         case Some(b) => Builder.Include(b)
                         case None =>
                           Builder.External(TypeRef(genStBuilder.Default.codePath, typeArgs, NoComments))
@@ -268,14 +291,16 @@ class JapgollyGenComponents(
         val RR           = genStBuilder.R.copy(name = AvailableName(group.tparams.map(_.name))(genStBuilder.R.name))
         val typeArgs     = IArray(TypeRef(RR.name))
         val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
-        genBuilderClass(pkgCp, name, RR +: group.tparams, stBuilderRef, splitProps.props)
-          .map(cls => SharedBuilder(cls, needRef = true))
+        genBuilderClass(pkgCp, name, RR +: group.tparams, stBuilderRef, splitProps.propsInBuilder).map(cls =>
+          SharedBuilder(cls, needRef = true),
+        )
 
       } else {
         val typeArgs     = IArray(TypeRef.Nothing)
         val stBuilderRef = TypeRef(genStBuilder.builderCp, typeArgs, NoComments)
-        genBuilderClass(pkgCp, name, group.tparams, stBuilderRef, splitProps.props)
-          .map(cls => SharedBuilder(cls, needRef = false))
+        genBuilderClass(pkgCp, name, group.tparams, stBuilderRef, splitProps.propsInBuilder).map(cls =>
+          SharedBuilder(cls, needRef = false),
+        )
       }
     }
   }
@@ -298,22 +323,6 @@ class JapgollyGenComponents(
           .getOrElse(TypeRef.Intersection(IArray(value, TypeRef.Object), NoComments))
       case None => TypeRef.Object
     }
-
-  def findPropsAndInferDomInfo(
-      scope:    TreeScope,
-      propsRef: PropsRef,
-      tparams:  IArray[TypeParamTree],
-  ): PropsDom = {
-    val resProps: Res[IArray[String], IArray[Prop]] =
-      findProps.forType(
-        typeRef            = propsRef.ref,
-        tparams            = tparams,
-        scope              = scope,
-        maxNum             = Int.MaxValue,
-        acceptNativeTraits = true,
-      )
-    PropsDom(propsRef, resProps.map(SplitProps(reactNames, scope)))
-  }
 
   def genComponent(pkgCp: QualifiedName, builderLookup: BuildersByGroup)(c: Component): ModuleTree = {
     val componentCp = pkgCp + c.fullName
@@ -355,7 +364,13 @@ class JapgollyGenComponents(
     val members = IArray.fromOptions(
       builder.include,
       Some(genPropsMethod(Name.APPLY, componentCp, propsRef, c.tparams, builder.ref)),
-      genImplicitConversionOpt(Name("make"), componentCp, c.tparams, props = SplitProps(Empty, Empty), builder.ref),
+      genImplicitConversionOpt(
+        Name("make"),
+        componentCp,
+        c.tparams,
+        props = SplitProps(Empty, Empty, Empty),
+        builder.ref,
+      ),
     )
 
     val errorComment =
@@ -416,7 +431,7 @@ class JapgollyGenComponents(
       tparams:    IArray[TypeParamTree],
       builderRef: TypeRef,
   ): Option[MethodTree] = {
-    val props = splitProps.props.filter(_.isRequired)
+    val props = splitProps.propsInApply
 
     val interpretedProps = props.map(defaultInterpretation.apply)
 
@@ -605,7 +620,7 @@ class JapgollyGenComponents(
     val clsCodePath = owner + name
 
     val members: IArray[MethodTree] =
-      props.filterNot(_.isRequired).flatMap {
+      props.flatMap {
         case Prop.CompressedProp(name, tpe, asExpr, isRequired) =>
           val args1 = Call(Ref(genStBuilder.args.name), IArray(IArray(NumberLit("1"))))
 

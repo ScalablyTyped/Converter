@@ -28,7 +28,7 @@ case class JapgollyFlavour(
           identifyComponents.oneOfEach(scope / withCompanions, withCompanions) ++
             identifyComponents.intrinsics(scope / withCompanions)
 
-        val ret = Adapter(scope)((t, s) => genComponents(s, t, components))(withCompanions)
+        val ret = Adapter(scope)((t, s) => genComponents(s, t, components, enableLongApplyMethod))(withCompanions)
 
         if (isReact(scope))
           ret.copy(members = ret.members ++ IArray(genStBuildingComponent.Trait, genStBuildingComponent.Object.tree))

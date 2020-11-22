@@ -36,41 +36,4 @@ object HTMLElementTagNameMap {
     val __obj = js.Dynamic.literal(a = a.asInstanceOf[js.Any], abbr = abbr.asInstanceOf[js.Any], address = address.asInstanceOf[js.Any], area = area.asInstanceOf[js.Any], article = article.asInstanceOf[js.Any], aside = aside.asInstanceOf[js.Any], audio = audio.asInstanceOf[js.Any])
     __obj.asInstanceOf[HTMLElementTagNameMap]
   }
-  
-  @scala.inline
-  implicit class HTMLElementTagNameMapOps[Self <: HTMLElementTagNameMap] (val x: Self) extends AnyVal {
-    
-    @scala.inline
-    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-    
-    @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-    
-    @scala.inline
-    def set(key: String, value: js.Any): Self = {
-      x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-      x
-    }
-    
-    @scala.inline
-    def setA(value: org.scalajs.dom.raw.HTMLAnchorElement): Self = this.set("a", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setAbbr(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("abbr", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setAddress(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("address", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setArea(value: org.scalajs.dom.raw.HTMLAreaElement): Self = this.set("area", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setArticle(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("article", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setAside(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("aside", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setAudio(value: org.scalajs.dom.raw.HTMLAudioElement): Self = this.set("audio", value.asInstanceOf[js.Any])
-  }
 }

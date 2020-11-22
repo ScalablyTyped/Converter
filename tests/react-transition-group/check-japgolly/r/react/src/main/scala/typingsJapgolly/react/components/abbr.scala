@@ -1,7 +1,7 @@
 package typingsJapgolly.react.components
 
 import org.scalajs.dom.raw.HTMLElement
-import typingsJapgolly.StBuildingComponent
+import typingsJapgolly.StBuildingComponent.Default
 import typingsJapgolly.react.anon.Html
 import typingsJapgolly.react.mod.DetailedHTMLProps
 import typingsJapgolly.react.mod.HTMLAttributes
@@ -13,19 +13,15 @@ object abbr {
   
   val component: String = "abbr"
   
+  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): Default[HTMLElement with js.Object] = new Default[HTMLElement with js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
+  
   @scala.inline
-  class Builder (val args: js.Array[js.Any])
-    extends AnyVal
-       with StBuildingComponent[HTMLElement with js.Object] {
-    
-    @scala.inline
-    def dangerouslySetInnerHTML(value: Html): this.type = set("dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def defaultChecked(value: Boolean): this.type = set("defaultChecked", value.asInstanceOf[js.Any])
+  def apply(dangerouslySetInnerHTML: Html = null, defaultChecked: js.UndefOr[Boolean] = js.undefined): Default[HTMLElement with js.Object] = {
+    val __props = js.Dynamic.literal()
+    if (dangerouslySetInnerHTML != null) __props.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
+    if (!js.isUndefined(defaultChecked)) __props.updateDynamic("defaultChecked")(defaultChecked.get.asInstanceOf[js.Any])
+    new Default[HTMLElement with js.Object](js.Array(this.component, __props.asInstanceOf[DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]]))
   }
   
-  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
-  
-  implicit def make(companion: abbr.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: abbr.type): Default[HTMLElement with js.Object] = new Default[HTMLElement with js.Object](js.Array(this.component, js.Dictionary.empty))()
 }

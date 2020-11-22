@@ -45,6 +45,14 @@ object ImportTypingsGenSources {
   ): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
     import input._
 
+    if (input.conversion.expandTypeMappings =/= EnabledTypeMappingExpansion.DefaultSelection) {
+      logger.warn("Changing stInternalExpandTypeMappings not encouraged. It might blow up")
+    }
+
+    if (input.conversion.enableLongApplyMethod) {
+      logger.warn("enableLongApplyMethod is deprecated and untested. You should really to the builder pattern.")
+    }
+
     val bootstrapped = Bootstrap.fromNodeModules(input.fromFolder, input.conversion, input.wantedLibs.keySet)
 
     val initial = bootstrapped.initialLibs match {

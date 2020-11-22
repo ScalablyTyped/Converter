@@ -68,6 +68,10 @@ object ImportTypings {
       logger.warn("Changing stInternalExpandTypeMappings not encouraged. It might blow up")
     }
 
+    if (input.conversion.enableLongApplyMethod) {
+      logger.warn("enableLongApplyMethod is deprecated and untested. You should migrate to the builder pattern.")
+    }
+
     val bootstrapped = Bootstrap.fromNodeModules(fromFolder, input.conversion, input.wantedLibs.keySet)
 
     val initial = bootstrapped.initialLibs match {

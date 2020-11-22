@@ -1,5 +1,7 @@
 package typingsJapgolly.react.mod
 
+import japgolly.scalajs.react.vdom.VdomNode
+import typingsJapgolly.react.anon.Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -12,30 +14,15 @@ trait HTMLAttributes[T] extends DOMAttributes[T] {
 object HTMLAttributes {
   
   @scala.inline
-  def apply[T](): HTMLAttributes[T] = {
+  def apply[T](
+    children: VdomNode = null,
+    dangerouslySetInnerHTML: Html = null,
+    defaultChecked: js.UndefOr[Boolean] = js.undefined
+  ): HTMLAttributes[T] = {
     val __obj = js.Dynamic.literal()
+    if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
+    if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
+    if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked.get.asInstanceOf[js.Any])
     __obj.asInstanceOf[HTMLAttributes[T]]
-  }
-  
-  @scala.inline
-  implicit class HTMLAttributesOps[Self <: HTMLAttributes[_], T] (val x: Self with HTMLAttributes[T]) extends AnyVal {
-    
-    @scala.inline
-    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-    
-    @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-    
-    @scala.inline
-    def set(key: String, value: js.Any): Self = {
-      x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-      x
-    }
-    
-    @scala.inline
-    def setDefaultChecked(value: Boolean): Self = this.set("defaultChecked", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def deleteDefaultChecked: Self = this.set("defaultChecked", js.undefined)
   }
 }

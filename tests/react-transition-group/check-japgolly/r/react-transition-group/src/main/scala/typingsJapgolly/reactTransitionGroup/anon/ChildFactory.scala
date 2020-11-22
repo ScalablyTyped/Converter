@@ -13,30 +13,9 @@ trait ChildFactory extends js.Object {
 object ChildFactory {
   
   @scala.inline
-  def apply(): ChildFactory = {
+  def apply(childFactory: /* child */ Element => Element = null): ChildFactory = {
     val __obj = js.Dynamic.literal()
+    if (childFactory != null) __obj.updateDynamic("childFactory")(js.Any.fromFunction1(childFactory))
     __obj.asInstanceOf[ChildFactory]
-  }
-  
-  @scala.inline
-  implicit class ChildFactoryOps[Self <: ChildFactory] (val x: Self) extends AnyVal {
-    
-    @scala.inline
-    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-    
-    @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-    
-    @scala.inline
-    def set(key: String, value: js.Any): Self = {
-      x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-      x
-    }
-    
-    @scala.inline
-    def setChildFactory(value: /* child */ Element => Element): Self = this.set("childFactory", js.Any.fromFunction1(value))
-    
-    @scala.inline
-    def deleteChildFactory: Self = this.set("childFactory", js.undefined)
   }
 }
