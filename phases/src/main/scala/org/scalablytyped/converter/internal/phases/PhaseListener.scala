@@ -11,6 +11,6 @@ object PhaseListener {
   case class Started[Id](phase: String) extends Event[Id]
   case class Blocked[Id](phase: String, on: Set[Id]) extends Event[Id]
   case class Success[Id](phase: String) extends Event[Id]
-  case class Failure[Id](phase: String) extends Event[Id]
+  case class Failure[Id](phase: String, errors: Map[Id, Either[Throwable, String]]) extends Event[Id]
   case class Ignored[Id]() extends Event[Id]
 }

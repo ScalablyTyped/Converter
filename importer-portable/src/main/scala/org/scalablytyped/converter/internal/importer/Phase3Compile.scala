@@ -147,7 +147,7 @@ class Phase3Compile(
 
                 case Left(err) =>
                   logger.error(err)
-                  PhaseRes.Failure(Map(source -> Right(s"Compilation failed")))
+                  PhaseRes.Failure(Map(source -> Right(s"Compilation failed: ${err.split("\n").applyOrElse(1, "")}")))
               }
 
             files.deleteAll(compilerPaths.targetDir)
