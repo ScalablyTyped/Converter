@@ -2728,4 +2728,35 @@ export {};
       ),
     )
   }
+
+  test("#private") {
+    val content = """declare class Test {
+    #private;
+}
+"""
+    shouldParseAs(content, TsParser.tsDeclClass)(
+      TsDeclClass(
+        NoComments,
+        declared   = true,
+        isAbstract = false,
+        TsIdentSimple("Test"),
+        IArray(),
+        None,
+        IArray(),
+        IArray(
+          TsMemberProperty(
+            NoComments,
+            ProtectionLevel.Private,
+            TsIdentSimple("private"),
+            None,
+            None,
+            isStatic   = false,
+            isReadOnly = false,
+          )
+        ),
+        Zero,
+        CodePath.NoPath,
+      ),
+    )
+  }
 }

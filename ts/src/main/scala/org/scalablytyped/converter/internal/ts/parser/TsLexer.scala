@@ -39,8 +39,8 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
     "unique", "var", "void", "while", "with", "yield",
   )
 
-  val shebang = '#' ~ chrExcept('\n', EofCh).+ ^^ {
-    case hash ~ rest => Shebang(hash.toString + chars2string(rest))
+  val shebang = '#' ~ '!' ~ chrExcept('\n', EofCh).+ ^^ {
+    case hash ~ exclamation ~ rest => Shebang(hash.toString + exclamation.toString + chars2string(rest))
   }
 
   val hexDigit: Parser[Int] =
@@ -75,7 +75,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
   val identifier: Parser[Token] = {
     // legal identifier chars
     def isIdentifierStart(c: Char): Boolean =
-      c === '$' || c === '_' || c.isUnicodeIdentifierStart
+      c === '$' || c === '_' || c === '#' || c.isUnicodeIdentifierStart
 
     def isIdentifierPart(c: Char): Boolean =
       c === '$' || c.isUnicodeIdentifierPart
@@ -86,7 +86,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
     val identifierPart: Parser[Char] =
       elem("", isIdentifierPart) | (pseudoChar.filter(isIdentifierPart))
 
-    stringOf1(identifierStart, identifierPart) ^^ { x =>
+    stringOf1(identifierStart, identifierPart).filter(_ != "#") ^^ { x =>
       if (keywords contains x) Keyword(x) else Identifier(x)
     }
   }
