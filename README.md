@@ -1,7 +1,7 @@
 <p align="center">
     <img width="300" src="https://raw.githubusercontent.com/mvillafuertem/Converter/5369e3747/scalablytyped-icon.svg"/>
 </p>
-<h1 align="center">Scalablytyped</h1>
+<h1 align="center">ScalablyTyped</h1>
 <p align="center">
     <a href="https://scalablytyped.org/docs/readme">
         www.scalablytyped.org  
