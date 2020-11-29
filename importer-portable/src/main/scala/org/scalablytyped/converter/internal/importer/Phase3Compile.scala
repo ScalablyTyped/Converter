@@ -147,7 +147,8 @@ class Phase3Compile(
 
                 case Left(err) =>
                   logger.error(err)
-                  PhaseRes.Failure(Map(source -> Right(s"Compilation failed: ${err.split("\n").applyOrElse(1, "")}")))
+                  val firstError = err.split("\n").drop(1).headOption.getOrElse("")
+                  PhaseRes.Failure(Map(source -> Right(s"Compilation failed: $firstError")))
               }
 
             files.deleteAll(compilerPaths.targetDir)
