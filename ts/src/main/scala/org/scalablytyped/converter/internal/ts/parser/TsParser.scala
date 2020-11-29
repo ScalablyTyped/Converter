@@ -534,7 +534,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
         case mods :+ name =>
           val level: ProtectionLevel =
             if (mods.contains(TsIdent("protected"))) ProtectionLevel.Protected
-            else if (mods.contains(TsIdent("private"))) ProtectionLevel.Private
+            else if (mods.contains(TsIdent("private")) || name.value.startsWith("#")) ProtectionLevel.Private
             else ProtectionLevel.Default
 
           val static   = mods.contains(TsIdent("static"))
@@ -543,7 +543,12 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
             if (mods.contains(TsIdent("get"))) MethodType.Getter
             else if (mods.contains(TsIdent("set"))) MethodType.Setter
             else MethodType.Normal
-          (level, name, static, readonly, methodType)
+
+          val fixedName =
+            if (name.value.startsWith("#")) TsIdentSimple(name.value.drop(1))
+            else name
+
+          (level, fixedName, static, readonly, methodType)
       }
 
     val function: Parser[TsMember] =

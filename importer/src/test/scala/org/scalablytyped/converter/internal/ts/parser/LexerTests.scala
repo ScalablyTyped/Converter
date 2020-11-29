@@ -36,4 +36,10 @@ final class LexerTests extends AnyFunSuite with Matchers {
       TsLexer.Keyword("..."),
     )
   }
+
+  test("#!/bin/bash") {
+    shouldParseAs("#!/bin/bash", TsLexer.token)(
+      TsLexer.Shebang("#!/bin/bash"),
+    )
+  }
 }
