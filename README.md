@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="300" src="https://raw.githubusercontent.com/mvillafuertem/Converter/0fe7e5f38/scalablytyped-icon.svg"/>
+    <img width="300" src="https://raw.githubusercontent.com/mvillafuertem/Converter/5369e3747/scalablytyped-icon.svg"/>
 </p>
 <h1 align="center">Scalablytyped</h1>
 <p align="center">
