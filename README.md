@@ -2,6 +2,7 @@
     <img width="300" src="https://raw.githubusercontent.com/ScalablyTyped/Converter/9a4dcdf91b18aa1a38c59746a9aab0c3b5457080/scalablytyped-icon.svg"/>
 </p>
 <h1 align="center">ScalablyTyped</h1>
+<p align="center"><i>Typescript to Scala.js converter</i></p>
 <p align="center">
     <a href="https://scalablytyped.org/docs/readme">
         www.scalablytyped.org  
