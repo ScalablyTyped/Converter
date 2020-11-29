@@ -137,7 +137,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
   }
 
   private val newLine: Parser[Char] =
-    ('\r'.? ~ '\n') ^^ (_ => '\n')
+    ('\r'.? ~> '\n') | ('\r') ^^ (_ => '\n')
 
   /** A character-parser that matches a white-space character (and returns it).
     * We dont ignore newlines */
