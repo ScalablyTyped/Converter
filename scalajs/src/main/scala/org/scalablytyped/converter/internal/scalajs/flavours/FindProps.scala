@@ -192,7 +192,10 @@ final class FindProps(
               }
               .groupBy(x => realNameFrom(x.annotations, x.name))
               .collect {
-                case (name, ms) if name =/= Name.APPLY && name =/= Name.namespaced => name -> combine(ms).renamed(name)
+                case (name, ms) if ObjectMembers.ScalaObject.index.contains(name) =>
+                  name -> combine(ms).renamed(name.withSuffix(""))
+                case (name, ms) if name =/= Name.APPLY && name =/= Name.namespaced =>
+                  name -> combine(ms).renamed(name)
               }
 
           val ownProps: Map[Name, Prop] =
