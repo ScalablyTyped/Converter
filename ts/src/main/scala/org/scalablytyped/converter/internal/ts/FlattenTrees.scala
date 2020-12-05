@@ -186,6 +186,7 @@ object FlattenTrees {
 
   def mergeAugmentedModule(that: TsAugmentedModule, existing: TsAugmentedModule) =
     TsAugmentedModule(
+      comments   = mergeComments(existing.comments, that.comments),
       name       = existing.name,
       members    = newMembers(existing.members, that.members),
       codePath   = mergeCodePath(existing.codePath, that.codePath),

@@ -6,5 +6,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 package object std {
   
+  /* was `typeof Queue` */
   type queue[T] = typings.tstl.std.Queue_[T]
 }

@@ -165,8 +165,8 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsAugmentedModule(withTree(t, x))(x)
     val tt = withTree(t, xx)
     val xxx = xx match {
-      case TsAugmentedModule(_1, _2, _3, _4) =>
-        TsAugmentedModule(_1, _2.map(visitTsContainerOrDecl(tt)), _3, _4)
+      case TsAugmentedModule(_1, _2, _3, _4, _5) =>
+        TsAugmentedModule(_1, _2, _3.map(visitTsContainerOrDecl(tt)), _4, _5)
     }
     leaveTsAugmentedModule(tt)(xxx)
   }

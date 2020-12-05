@@ -20,6 +20,7 @@ object global extends js.Object {
   ************************************************/
   var global: Global = js.native
   
+  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @js.native
   class Buffer protected () extends NodeBuffer {
     /**
@@ -123,6 +124,7 @@ object global extends js.Object {
       extends typings.node.NodeJS.EventEmitter
   }
   
+  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @js.native
   class SlowBuffer protected () extends NodeBuffer {
     def this(array: js.Array[_]) = this()

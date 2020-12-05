@@ -2,8 +2,10 @@ package typingsSlinky.semanticUiReact
 
 import org.scalablytyped.runtime.TopLevel
 import typingsSlinky.react.mod.Component
+import typingsSlinky.semanticUiReact.accordionAccordionAccordionMod.AccordionAccordionProps
 import typingsSlinky.semanticUiReact.accordionAccordionMod.AccordionComponent
 import typingsSlinky.semanticUiReact.accordionAccordionMod.AccordionProps
+import typingsSlinky.semanticUiReact.accordionTitleMod.AccordionTitleProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -12,6 +14,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 object accordionMod extends js.Object {
   
+  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @js.native
   class default protected ()
     extends Component[AccordionProps, js.Object, js.Any] {
@@ -19,5 +22,22 @@ object accordionMod extends js.Object {
     def this(props: AccordionProps, context: js.Any) = this()
   }
   @js.native
-  object default extends TopLevel[AccordionComponent]
+  object default extends TopLevel[AccordionComponent] {
+    
+    /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+    @js.native
+    class Accordion protected ()
+      extends Component[AccordionAccordionProps, js.Object, js.Any] {
+      def this(props: AccordionAccordionProps) = this()
+      def this(props: AccordionAccordionProps, context: js.Any) = this()
+    }
+    
+    /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+    @js.native
+    class Title protected ()
+      extends Component[AccordionTitleProps, js.Object, js.Any] {
+      def this(props: AccordionTitleProps) = this()
+      def this(props: AccordionTitleProps, context: js.Any) = this()
+    }
+  }
 }

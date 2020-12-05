@@ -19,6 +19,7 @@ object bufferMod extends js.Object {
   
   var INSPECT_MAX_BYTES: Double = js.native
   
+  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @js.native
   class Buffer protected () extends NodeBuffer {
     /**
@@ -62,6 +63,12 @@ object bufferMod extends js.Object {
     def this(str: String) = this()
     def this(str: String, encoding: String) = this()
   }
+  /**
+    * Raw data is stored in instances of the Buffer class.
+    * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
+    * Valid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
+    */
+  /* was `typeof Buffer` */
   @js.native
   object Buffer
     extends /**
@@ -104,6 +111,7 @@ object bufferMod extends js.Object {
     def from(array: js.Array[_]): typings.node.Buffer = js.native
   }
   
+  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @js.native
   class SlowBuffer protected () extends NodeBuffer {
     def this(array: js.Array[_]) = this()
@@ -112,6 +120,7 @@ object bufferMod extends js.Object {
     def this(str: String) = this()
     def this(str: String, encoding: String) = this()
   }
+  /* was `typeof SlowBuffer` */
   @js.native
   object SlowBuffer
     extends Instantiable1[

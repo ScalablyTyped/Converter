@@ -5,10 +5,12 @@ package transforms
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 import org.scalablytyped.converter.internal.ts.modules.{DeriveCopy, ReplaceExports}
 
-object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClassMembers {
+import scala.collection.mutable
+
+object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembers {
   val GlobalThis = TsQIdent.of("globalThis")
 
-  def newClassMembersLeaving(scope: TsTreeScope, tree: HasClassMembers): IArray[TsMember] =
+  override def newClassMembersLeaving(scope: TsTreeScope, tree: HasClassMembers): IArray[TsMember] =
     tree.members.flatMap {
       case target @ TsMemberProperty(
             cs,
@@ -19,13 +21,15 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
             isStatic,
             isReadOnly,
           ) if !TsQIdent.Primitive(wanted) =>
+        val note = Comment(s"/* was `${TsTypeFormatter(tpe)}` */\n")
+
         val founds = lookup(scope, Picker.NamedValues, wanted)
           .map {
             case (found: TsDeclVar, _) =>
-              target.copy(comments = cs ++ found.comments, tpe = found.tpe)
+              target.copy(comments = cs ++ found.comments + note, tpe = found.tpe)
             case (found: TsDeclFunction, _) =>
               TsMemberFunction(
-                cs ++ found.comments,
+                cs ++ found.comments + note,
                 level,
                 name,
                 MethodType.Normal,
@@ -34,7 +38,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
                 isReadOnly,
               )
             case (found, newScope) =>
-              target.copy(tpe = typeOf(found, newScope, LoopDetector.initial))
+              target.copy(tpe = typeOf(found, newScope, LoopDetector.initial), comments = target.comments + note)
           }
 
         founds match {
@@ -42,16 +46,18 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
             val msg = s"Couldn't resolve ${TsTypeFormatter(tpe)}"
             scope.logger.warn(msg)
             IArray(target.copy(tpe = Some(TsTypeRef.any.copy(comments = Comments(Comment.warning(msg))))))
-          case more =>
-            scope.logger.info(s"Resolved $target")
-            more
+          case nonEmpty => nonEmpty
         }
       case other => IArray(other)
     }
 
-  def newMembers(scope: TsTreeScope, tree: TsContainer): IArray[TsContainerOrDecl] =
-    tree.members.flatMap {
+  override def newMembers(scope: TsTreeScope, tree: TsContainer): IArray[TsContainerOrDecl] = {
+    val addedClasses = mutable.Set.empty[TsIdentSimple]
+
+    val rewritten = tree.members.flatMap {
       case target @ TsDeclVar(_, _, _, name, Some(tpe @ TsTypeQuery(expr)), None, _, _) if !TsQIdent.Primitive(expr) =>
+        val note = Comment(s"/* was `${TsTypeFormatter(tpe)}` */\n")
+
         lazy val ownerLoc = tree match {
           case x: HasJsLocation => x.jsLocation
           case _ => JsLocation.Zero
@@ -59,7 +65,15 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
 
         val founds = lookup(scope, Picker.NamedValues, expr).flatMap {
           case (found, _) =>
-            DeriveCopy(found, tree.codePath, Some(name)).map { SetJsLocation.visitTsNamedDecl(ownerLoc) }
+            DeriveCopy(found.addComment(note), tree.codePath, Some(name)).map {
+              SetJsLocation.visitTsNamedDecl(ownerLoc)
+            }
+        }
+
+        founds.foreach {
+          case x: TsDeclClass =>
+            addedClasses += x.name
+          case _ => ()
         }
 
         founds match {
@@ -67,13 +81,25 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
             val msg = s"Couldn't resolve ${TsTypeFormatter(tpe)}"
             scope.logger.warn(msg)
             IArray(target.copy(tpe = Some(TsTypeRef.any.copy(comments = Comments(Comment.warning(msg))))))
-          case more =>
-            scope.logger.info(s"Resolved $target")
-            more
+          case nonEmpty => nonEmpty
         }
 
       case other => IArray(other)
     }
+    /* Account for this pattern
+    ```typescript
+    type A = Foo
+    var A: typeof Foo
+    ```
+     */
+    if (addedClasses.isEmpty) rewritten
+    else {
+      rewritten.filter {
+        case x: TsDeclTypeAlias => !addedClasses(x.name)
+        case _ => true
+      }
+    }
+  }
 
   override def leaveTsType(t: TsTreeScope)(x: TsType): TsType =
     x match {
@@ -112,9 +138,6 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
     def unapply(decl: TsContainerOrDecl): Option[(TsDeclClass, TsType)] =
       decl match {
         case _cls: TsDeclClass =>
-          /**
-            * todo: this is only necessary until we adopt answering these type queries as classes
-            */
           val cls = new TypeRewriter(_cls).visitTsDeclClass(
             _cls.tparams
               .map(tp =>
@@ -217,7 +240,6 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
                       )
                     overloads +: rest
                 }
-                scope.logger.info(s"Resolved $target")
                 TsTypeIntersect.simplified(rewritten)
             }
         }
@@ -272,15 +294,15 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
       val namehint = from match {
         case TsDeclNamespace(_, _, name, _, _, _) => s"Typeof${name.value}"
         case TsDeclModule(_, _, name, _, _, _)    => s"Typeof${name.value}"
-        case TsAugmentedModule(name, _, _, _)     => s"Typeof${name.value}"
+        case TsAugmentedModule(_, name, _, _, _)  => s"Typeof${name.value}"
       }
       Some(TsTypeObject(Comments(CommentData(Markers.NameHint(namehint))), rewritten))
     }
   }
 
   /* handle that the value we're looking for might have been moved into the `global` object */
-  def lookup[T <: TsNamedDecl](scope: TsTreeScope, picker: Picker[T], wanted: TsQIdent): IArray[(T, TsTreeScope)] =
-    scope.lookupInternal(picker, wanted.parts, LoopDetector.initial) match {
+  def lookup[T <: TsNamedDecl](scope: TsTreeScope, picker: Picker[T], wanted: TsQIdent): IArray[(T, TsTreeScope)] = {
+    val all = scope.lookupInternal(picker, wanted.parts, LoopDetector.initial) match {
       case Empty =>
         val patchedWanted = wanted.parts match {
           case IArray.headTail(lib: TsIdentLibrary, rest) => IArray(lib, TsIdent.Global) ++ rest
@@ -290,4 +312,14 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
         scope.lookupInternal(picker, patchedWanted, LoopDetector.initial)
       case ok => ok
     }
+
+    all.partitionCollect2(
+      { case x @ (_: TsDeclVar, _)      => x },
+      { case x @ (_: TsDeclFunction, _) => x },
+    ) match {
+      case (vs, _, _) if vs.nonEmpty => vs
+      case (_, fs, _) if fs.nonEmpty => fs
+      case (_, _, rest)              => rest
+    }
+  }
 }

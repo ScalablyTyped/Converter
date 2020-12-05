@@ -72,7 +72,6 @@ final case class ClassTree(
     comments:    Comments,
     codePath:    QualifiedName,
 ) extends InheritanceTree {
-
   def renamed(newName: Name): ClassTree = {
     val anns =
       (Annotation.classRenamedFrom(name)(annotations), classType) match {

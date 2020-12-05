@@ -29,13 +29,26 @@ class IdentifyReactComponents(
       case Left(_)                                  => 0
     }
 
+    val preferNested = c.nested.length
+
     /* because for instance mui ships with icons called `List` and `Tab` */
     val preferPropsMatchesName = c.propsRef.ref.name.unescaped.startsWith(c.fullName.unescaped)
 
     /* because for instance mui declares both a default and a names export, where only the former exists */
     val preferDefault = c.scalaRef.name === Name.Default
 
-    (preferNotSrc, preferModule, preferShortModuleName, preferPropsMatchesName, preferDefault)
+    /* if components are otherwise the same, choosing the class one means we get a ref type */
+    val preferClass = c.componentType === ComponentType.Class
+
+    (
+      preferNotSrc,
+      preferModule,
+      preferShortModuleName,
+      preferNested,
+      preferPropsMatchesName,
+      preferDefault,
+      preferClass,
+    )
   }
 
   def intrinsics(scope: TreeScope): IArray[Component] =
@@ -48,15 +61,13 @@ class IdentifyReactComponents(
               // a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
               case FieldTree(_, name, props @ TypeRef(_, tparams, _), _, _, _, _, _) =>
                 Component(
-                  location        = Left(ExprTree.StringLit(name.unescaped)),
-                  scalaRef        = tparams.last,
-                  fullName        = name,
-                  tparams         = Empty,
-                  propsRef        = PropsRef(props),
-                  componentType   = ComponentType.Intrinsic,
-                  isAbstractProps = false,
-                  nested          = Empty,
-                  otherLocations  = Empty,
+                  location      = Left(ExprTree.StringLit(name.unescaped)),
+                  scalaRef      = tparams.last,
+                  fullName      = name,
+                  tparams       = Empty,
+                  propsRef      = PropsRef(props),
+                  componentType = ComponentType.Intrinsic,
+                  nested        = Empty,
                 )
             }
         }
@@ -79,22 +90,20 @@ class IdentifyReactComponents(
 
           /* if we want to encourage tree shaking we should choose the *longest* module name instead.
            *  Take special care to choose a component with *same props* as the originally chosen component */
-          val (chosen, notChosen) = if (enableReactTreeShaking(scope.libName)) {
+          if (enableReactTreeShaking(scope.libName)) {
             val IArray.initLast(init, originalChosen) = sorted
 
             val newFound = init
-              .find(other => other.propsRef === originalChosen.propsRef && other.isGlobal === originalChosen.isGlobal)
+              .find(other =>
+                other.propsRef === originalChosen.propsRef &&
+                  other.isGlobal === originalChosen.isGlobal &&
+                  other.componentType === originalChosen.componentType &&
+                  other.nested.length === originalChosen.nested.length,
+              )
               .getOrElse(originalChosen)
 
-            (newFound, sorted.filterNot(_.scalaRef === newFound.scalaRef))
-          } else {
-            val IArray.initLast(rest, main) = sorted
-            (main, rest)
-          }
-
-          val notChosenLocations = notChosen.map(_.location).collect { case Right(x) => x }
-
-          chosen.copy(otherLocations = notChosenLocations)
+            newFound
+          } else sorted.last
       }
       .sortBy(_.fullName)
 
@@ -140,7 +149,9 @@ class IdentifyReactComponents(
               maybeClassComponent(cls, outer, newScope) match {
                 case None => handleMods(mods)
                 case Some(clsComp) =>
-                  val nested = recurse(newScope, separateMod(mod, newScope).restAsPackage).sortBy(_.fullName)
+                  val nested = recurse(newScope, separateMod(mod, newScope).restAsPackage)
+                    .sortBy(_.fullName)
+                    .distinctBy(_.fullName)
                   IArray(clsComp.withNested(nested))
               }
           }
@@ -193,39 +204,34 @@ class IdentifyReactComponents(
           case _: ClassTree => false
           case _ => true
         }
-        val propsRef        = PropsRef(flattenedParams.headOption.map(_.tpe).getOrElse(TypeRef.Object))
-        def isAbstractProps = scope.isAbstract(propsRef.ref)
-        def validName       = isUpper(method.name) || (Unnamed(method.name) && (isUpper(owner.name) || Unnamed(owner.name)))
+        val propsRef  = PropsRef(flattenedParams.headOption.map(_.tpe).getOrElse(TypeRef.Object))
+        def validName = isUpper(method.name) || (Unnamed(method.name) && (isUpper(owner.name) || Unnamed(owner.name)))
 
-        if (!validName || !isTopLevel || isAbstractProps) None
+        if (!validName || !isTopLevel) None
         else
           for {
             _ <- returnsElement(scope, method.resultType)
           } yield method.name match {
             case Name.APPLY =>
               Component(
-                location        = Right(locationFrom(scope)),
-                scalaRef        = TypeRef(owner.codePath),
-                fullName        = componentName(scope, owner.annotations, owner.codePath),
-                tparams         = method.tparams,
-                propsRef        = propsRef,
-                componentType   = ComponentType.Field,
-                isAbstractProps = isAbstractProps,
-                nested          = Empty,
-                otherLocations  = Empty,
+                location      = Right(locationFrom(scope)),
+                scalaRef      = TypeRef(owner.codePath),
+                fullName      = componentName(scope, owner.annotations, owner.codePath),
+                tparams       = method.tparams,
+                propsRef      = propsRef,
+                componentType = ComponentType.Field,
+                nested        = Empty,
               )
 
             case _ =>
               Component(
-                location        = Right(locationFrom(scope)),
-                scalaRef        = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
-                fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(method.name))),
-                tparams         = method.tparams,
-                propsRef        = propsRef,
-                componentType   = ComponentType.Function,
-                isAbstractProps = isAbstractProps,
-                nested          = Empty,
-                otherLocations  = Empty,
+                location      = Right(locationFrom(scope)),
+                scalaRef      = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
+                fullName      = componentName(scope, owner.annotations, QualifiedName(IArray(method.name))),
+                tparams       = method.tparams,
+                propsRef      = propsRef,
+                componentType = ComponentType.Function,
+                nested        = Empty,
               )
 
           }
@@ -282,7 +288,7 @@ class IdentifyReactComponents(
 
     componentOpt match {
       case Some(component) =>
-        val nested = recurse(scope, separated.restAsPackage)
+        val nested = recurse(scope, separated.restAsPackage).sortBy(_.fullName).distinctBy(_.fullName)
         Right(component.withNested(nested))
       case None =>
         Left(separated.restAsPackage)
@@ -297,9 +303,9 @@ class IdentifyReactComponents(
           .firstDefined {
             case (x: ClassTree, newScope) =>
               val rewritten = FillInTParams(x, newScope, current.targs, Empty)
-              parentsResolver(newScope, rewritten).transitiveParents.collectFirst {
+              parentsResolver(newScope, rewritten).transitiveParents.firstDefined {
                 case (tr, _) => pointsAtComponentType(newScope, tr)
-              }.flatten
+              }
             case (x: TypeAliasTree, newScope) =>
               val rewritten = FillInTParams(x, newScope, current.targs, Empty)
               pointsAtComponentType(scope, rewritten.alias)
@@ -309,15 +315,13 @@ class IdentifyReactComponents(
 
     val fieldResult = pointsAtComponentType(scope, field.tpe).map(propsRef =>
       Component(
-        location        = Right(locationFrom(scope)),
-        scalaRef        = TypeRef(field.codePath),
-        fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(field.name))),
-        tparams         = Empty,
-        propsRef        = propsRef,
-        componentType   = ComponentType.Field,
-        isAbstractProps = scope.isAbstract(propsRef.ref),
-        nested          = Empty,
-        otherLocations  = Empty,
+        location      = Right(locationFrom(scope)),
+        scalaRef      = TypeRef(field.codePath),
+        fullName      = componentName(scope, owner.annotations, QualifiedName(IArray(field.name))),
+        tparams       = Empty,
+        propsRef      = propsRef,
+        componentType = ComponentType.Field,
+        nested        = Empty,
       ),
     )
     def isAliasToFC: Option[Component] =
@@ -357,15 +361,13 @@ class IdentifyReactComponents(
       parentsResolver(scope, cls).transitiveParents.firstDefined { (tr, _) =>
         reactNames.isComponent(tr).map { propsRef =>
           Component(
-            location        = Right(locationFrom(scope)),
-            scalaRef        = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
-            fullName        = componentName(scope, owner.annotations, cls.codePath),
-            tparams         = cls.tparams,
-            propsRef        = propsRef,
-            componentType   = ComponentType.Class,
-            isAbstractProps = scope.isAbstract(propsRef.ref),
-            nested          = Empty,
-            otherLocations  = Empty,
+            location      = Right(locationFrom(scope)),
+            scalaRef      = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
+            fullName      = componentName(scope, owner.annotations, cls.codePath),
+            tparams       = cls.tparams,
+            propsRef      = propsRef,
+            componentType = ComponentType.Class,
+            nested        = Empty,
           )
         }
       }

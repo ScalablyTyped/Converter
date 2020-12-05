@@ -85,7 +85,7 @@ object ResolveExternalReferences {
 
           if (newName.isDefined || imported(m.name) || isWithinModule) {
             t.logger.info(s"Inferred augmented module $newName (${m.name})")
-            TsAugmentedModule(newName.getOrElse(m.name), m.members, m.codePath, m.jsLocation)
+            TsAugmentedModule(m.comments, newName.getOrElse(m.name), m.members, m.codePath, m.jsLocation)
           } else {
             m
           }
