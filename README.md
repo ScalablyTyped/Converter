@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="300" src="https://raw.githubusercontent.com/ScalablyTyped/Converter/9a4dcdf91b18aa1a38c59746a9aab0c3b5457080/scalablytyped-icon.svg"/>
+    <img width="300" src="https://raw.githubusercontent.com/ScalablyTyped/Converter/d946f2a8a894f318f4ad6d4786fadedb08267923/website/static/img/logo-1.svg"/>
 </p>
 <h1 align="center">ScalablyTyped</h1>
 <p align="center"><i>Typescript to Scala.js converter</i></p>
@@ -18,13 +18,4 @@
   <a href="https://github.com/scala/scala/releases">
     <img src="https://img.shields.io/badge/scala.js-1.0.0+-red.svg?logo=scala&logoColor=red"/>
   </a>    
-</p>
-<p align="center">
-    <img width="64" src="https://raw.githubusercontent.com/ScalablyTyped/Converter/9a4dcdf91b18aa1a38c59746a9aab0c3b5457080/scalablytyped-icon.svg"/>
-</p>
-<p align="center">
-    <img width="32" src="https://raw.githubusercontent.com/ScalablyTyped/Converter/9a4dcdf91b18aa1a38c59746a9aab0c3b5457080/scalablytyped-icon.svg"/>
-</p>
-<p align="center">
-    <img width="16" src="https://raw.githubusercontent.com/ScalablyTyped/Converter/9a4dcdf91b18aa1a38c59746a9aab0c3b5457080/scalablytyped-icon.svg"/>
 </p>
