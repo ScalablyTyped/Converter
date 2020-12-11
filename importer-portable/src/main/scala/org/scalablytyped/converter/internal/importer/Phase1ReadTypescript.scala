@@ -247,6 +247,7 @@ object Phase1ReadTypescript {
       (
         T.SimplifyConditionals >> // after ExpandTypeMappings
           T.TypeAliasToConstEnum >>
+          T.ForwardCtors >>
           T.PreferTypeAlias >>
           T.ExpandTypeParams >>
           T.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
