@@ -77,7 +77,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
 
   test("export alias") {
     shouldParseAs("""export * from "aphrodite"""", TsParser.tsExport)(
-      TsExport(NoComments, typeOnly = false, ExportType.Named, TsExporteeStar(TsIdentModule.simple("aphrodite"))),
+      TsExport(NoComments, typeOnly = false, ExportType.Named, TsExporteeStar(None, TsIdentModule.simple("aphrodite"))),
     )
   }
 
@@ -411,5 +411,17 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         Zero,
       )
     }
+  }
+
+  test("export * as") {
+    val content = """export * as specialChars from './specialChars'"""
+    shouldParseAs(content, TsParser.tsExport)(
+      TsExport(
+        NoComments,
+        false,
+        ExportType.Named,
+        TsExporteeStar(Some(TsIdentSimple("specialChars")), TsIdentModule(None, List(".", "specialChars"))),
+      ),
+    )
   }
 }

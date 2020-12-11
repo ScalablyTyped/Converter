@@ -251,7 +251,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       }
 
       val exporteeStar: Parser[Boolean ~ TsExporteeStar] =
-        success(false) ~ ("*" ~> from ^^ TsExporteeStar)
+        success(false) ~ ("*" ~> ("as" ~> tsIdent).? ~ from ^^ TsExporteeStar.apply)
 
       val exporteeTree: Parser[Boolean ~ TsExporteeTree] =
         success(false) ~ (tsDecl ^^ TsExporteeTree)
