@@ -316,7 +316,7 @@ object Main {
             .nextOpt(publisherOpt.flatMap(_.enabled).map(Phase4Publish), "publish")
 
         val results: Map[Source, PhaseRes[Source, PublishedSbtProject]] =
-          sources.toVector
+          sources
             .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, (_: Source) => logger.void, NoListener))
             .toMap
 
@@ -333,10 +333,10 @@ object Main {
 
           failures.foreach {
             case (source, Left(value)) =>
-              println(s"${source.libName.value}:")
+              println(s"${source.libName.value}: (${source.path})")
               value.printStackTrace()
             case (source, Right(value)) =>
-              println(s"${source.libName.value}: $value")
+              println(s"${source.libName.value}: $value (${source.path})")
           }
 
           System.exit(1)
