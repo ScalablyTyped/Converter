@@ -34,6 +34,10 @@ sealed trait TsContainer extends TsContainerOrDecl with MemberCache with HasCode
 }
 
 sealed trait TsNamedDecl extends TsDecl with HasCodePath {
+  val comments: Comments
+  def withComments(cs:    Comments): TsNamedDecl
+  final def addComment(c: Comment) = withComments(comments + c)
+
   def name: TsIdent
   def withName(name: TsIdentSimple): TsNamedDecl
 }
@@ -81,8 +85,11 @@ final case class TsDeclNamespace(
   override def withJsLocation(newLocation: JsLocation): TsDeclNamespace =
     copy(jsLocation = newLocation)
 
-  override def withName(newName: TsIdentSimple): TsNamedDecl =
+  override def withName(newName: TsIdentSimple): TsDeclNamespace =
     copy(name = newName)
+
+  override def withComments(cs: Comments): TsDeclNamespace =
+    copy(comments = cs)
 }
 
 final case class TsDeclModule(
@@ -105,9 +112,13 @@ final case class TsDeclModule(
 
   override def withName(name: TsIdentSimple): TsDeclNamespace =
     TsDeclNamespace(comments, declared = false, name, members, codePath, jsLocation)
+
+  override def withComments(cs: Comments): TsDeclModule =
+    copy(comments = cs)
 }
 
 final case class TsAugmentedModule(
+    comments:   Comments,
     name:       TsIdentModule,
     members:    IArray[TsContainerOrDecl],
     codePath:   CodePath,
@@ -124,6 +135,9 @@ final case class TsAugmentedModule(
 
   override def withName(name: TsIdentSimple): TsDeclNamespace =
     TsDeclNamespace(NoComments, declared = false, name, members, codePath, jsLocation)
+
+  override def withComments(cs: Comments): TsAugmentedModule =
+    copy(comments = cs)
 }
 
 final case class TsGlobal(
@@ -138,7 +152,16 @@ final case class TsGlobal(
 
   override def withCodePath(newCodePath: CodePath): HasCodePath = copy(codePath = newCodePath)
 }
-
+object A {
+  val B = TsQIdent(
+    IArray(
+      TsIdentLibrarySimple("inquirer"),
+      TsIdentModule(None, List("inquirer")),
+      TsIdentSimple("^"),
+      TsIdentSimple("Separator"),
+    ),
+  )
+}
 final case class TsDeclClass(
     comments:   Comments,
     declared:   Boolean,
@@ -163,6 +186,9 @@ final case class TsDeclClass(
 
   override def withName(newName: TsIdentSimple): TsDeclClass =
     copy(name = newName)
+
+  override def withComments(cs: Comments): TsDeclClass =
+    copy(comments = cs)
 }
 
 final case class TsDeclInterface(
@@ -181,6 +207,9 @@ final case class TsDeclInterface(
 
   override def withName(newName: TsIdentSimple): TsDeclInterface =
     copy(name = newName)
+
+  override def withComments(cs: Comments): TsDeclInterface =
+    copy(comments = cs)
 }
 
 /* other decls */
@@ -207,6 +236,10 @@ final case class TsDeclEnum(
 
   override def withName(newName: TsIdentSimple): TsDeclEnum =
     copy(name = newName)
+
+  override def withComments(cs: Comments): TsDeclEnum =
+    copy(comments = cs)
+
 }
 
 final case class TsEnumMember(comments: Comments, name: TsIdentSimple, expr: Option[TsExpr]) extends TsTree
@@ -232,6 +265,9 @@ final case class TsDeclVar(
 
   override def withName(newName: TsIdentSimple): TsDeclVar =
     copy(name = newName)
+
+  override def withComments(cs: Comments): TsDeclVar =
+    copy(comments = cs)
 }
 
 final case class TsDeclFunction(
@@ -253,6 +289,9 @@ final case class TsDeclFunction(
 
   override def withName(newName: TsIdentSimple): TsDeclFunction =
     copy(name = newName)
+
+  override def withComments(cs: Comments): TsDeclFunction =
+    copy(comments = cs)
 }
 
 final case class TsDeclTypeAlias(
@@ -268,6 +307,9 @@ final case class TsDeclTypeAlias(
 
   override def withName(newName: TsIdentSimple): TsDeclTypeAlias =
     copy(name = newName)
+
+  override def withComments(cs: Comments): TsDeclTypeAlias =
+    copy(comments = cs)
 }
 
 /* functions and params */

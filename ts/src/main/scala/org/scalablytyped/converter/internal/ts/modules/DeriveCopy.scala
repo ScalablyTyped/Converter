@@ -31,7 +31,7 @@ object DeriveCopy {
 
       case (x: TsAugmentedModule, _, _, ownerCp) if rename.isEmpty =>
         IArray(updatedContainer(ownerCp, x))
-      case (_: TsAugmentedModule, _, _, _) if rename.isEmpty =>
+      case (_: TsAugmentedModule, _, _, _) =>
         Empty
 
       case (x, origName: TsIdentSimple, _, ownerCp) =>

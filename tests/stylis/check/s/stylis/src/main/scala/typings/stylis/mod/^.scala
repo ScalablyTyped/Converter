@@ -7,9 +7,4 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @JSImport("stylis/stylis", JSImport.Namespace)
 @js.native
-class ^ () extends Stylis {
-  def this(options: Options) = this()
-}
-@JSImport("stylis/stylis", JSImport.Namespace)
-@js.native
 object ^ extends TopLevel[Stylis]

@@ -14,16 +14,15 @@ object ComponentType {
 case class PropsRef(ref: TypeRef) extends AnyVal
 
 final case class Component(
-    location:        Either[ExprTree.StringLit, LocationAnnotation],
-    scalaRef:        TypeRef,
-    fullName:        Name,
-    tparams:         IArray[TypeParamTree],
-    propsRef:        PropsRef,
-    componentType:   ComponentType,
-    isAbstractProps: Boolean,
-    nested:          IArray[Component],
-    otherLocations:  IArray[LocationAnnotation],
+    location:      Either[ExprTree.StringLit, LocationAnnotation],
+    scalaRef:      TypeRef,
+    fullName:      Name,
+    tparams:       IArray[TypeParamTree],
+    propsRef:      PropsRef,
+    componentType: ComponentType,
+    nested:        IArray[Component],
 ) {
+
   def isGlobal: Boolean =
     location match {
       case Left(_) => false

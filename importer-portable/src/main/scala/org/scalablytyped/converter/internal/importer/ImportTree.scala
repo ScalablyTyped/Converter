@@ -74,12 +74,12 @@ class ImportTree(
           ),
         )
 
-      case TsAugmentedModule(_, decls, codePath, jsLocation) =>
+      case TsAugmentedModule(cs, _, decls, codePath, jsLocation) =>
         IArray(
           container(
             importName = importName,
             scope      = scope,
-            cs         = Comments(Comment("/* augmented module */\n")),
+            cs         = cs + Comment("/* augmented module */\n"),
             jsLocation = jsLocation,
             tsMembers  = decls,
             codePath   = codePath,
