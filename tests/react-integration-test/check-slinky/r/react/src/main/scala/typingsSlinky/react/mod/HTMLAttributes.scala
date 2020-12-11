@@ -78,7 +78,7 @@ trait HTMLAttributes[T]
   
   var results: js.UndefOr[Double] = js.native
   
-   // <command>, <menuitem>
+  // <command>, <menuitem>
   // WAI-ARIA
   var role: js.UndefOr[String] = js.native
   

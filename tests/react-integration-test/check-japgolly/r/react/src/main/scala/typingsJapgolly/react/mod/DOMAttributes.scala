@@ -105,7 +105,7 @@ trait DOMAttributes[T] extends js.Object {
   
   var onInvalid: js.UndefOr[FormEventHandler[T]] = js.native
   
-   // also a Media Event
+  // also a Media Event
   // Keyboard Events
   var onKeyDown: js.UndefOr[KeyboardEventHandler[T]] = js.native
   

@@ -17,7 +17,7 @@ trait InputHTMLAttributes[T] extends HTMLAttributes[T] {
   
   var capture: js.UndefOr[Boolean | String] = js.native
   
-   // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
+  // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
   var checked: js.UndefOr[Boolean] = js.native
   
   var crossOrigin: js.UndefOr[String] = js.native

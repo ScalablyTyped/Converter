@@ -14,9 +14,8 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
   sealed trait CommentToken extends Token {
     def chars: String
   }
-  final case class CommentLineToken(chars:           String) extends CommentToken
-  final case class CommentLineTokenAfterDelim(delim: Char, chars: String) extends CommentToken
-  final case class CommentBlockToken(chars:          String) extends CommentToken
+  final case class CommentLineToken(chars:  String) extends CommentToken
+  final case class CommentBlockToken(chars: String) extends CommentToken
 
   final case class DirectiveToken(name: String, key: String, value: String) extends Token {
     override def chars: String = s"$name $key=$value"
@@ -171,18 +170,6 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
           CommentLineToken(s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}\n")
       }
 
-    val blockOneLine: Parser[CommentBlockToken] =
-      (whitespaceChar.* ~ '/' ~ '*' ~ rep(not('*' ~ '/') ~> chrExcept(EofCh, '\n', '\r')) ~ '*' ~ '/' ~ whitespaceChar.*) ^^ {
-        case cs1 ~ c1 ~ c2 ~ cs2 ~ c3 ~ c4 ~ cs3 =>
-          CommentBlockToken(s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}$c3$c4${chars2string(cs3)}")
-      }
-
-    val oneLineAfterDelim: Parser[CommentLineTokenAfterDelim] =
-      ((',': Parser[Char]) | ';') ~ (oneLine | (blockOneLine <~ (newLine | EofCh))) ^^ {
-        case delim_ ~ (comment2: CommentToken) =>
-          CommentLineTokenAfterDelim(delim_, comment2.chars)
-      }
-
     val block: Parser[CommentBlockToken] =
       (whitespaceChar.* ~ '/' ~ '*' ~ rep(not('*' ~ '/') ~> chrExcept(EofCh)) ~ '*' ~ '/' ~ whitespaceChar.* ~ newLine.*) ^^ {
         case cs1 ~ c1 ~ c2 ~ cs2 ~ c3 ~ c4 ~ cs3 ~ cs4 =>
@@ -192,7 +179,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
           )
       }
 
-    not(directive) ~> oneLineAfterDelim | oneLine | block
+    not(directive) ~> oneLine | block
   }
 
   override val token: Parser[Token] = {

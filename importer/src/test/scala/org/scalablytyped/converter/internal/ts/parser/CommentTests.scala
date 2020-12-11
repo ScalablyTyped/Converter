@@ -2,11 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 package parser
 
-import org.scalablytyped.converter.internal.ts.parser.TsLexer.{
-  CommentLineToken,
-  CommentLineTokenAfterDelim,
-  DirectiveToken,
-}
+import org.scalablytyped.converter.internal.ts.parser.TsLexer.{CommentLineToken, DirectiveToken}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
@@ -138,69 +134,6 @@ final class CommentTests extends AnyFunSuite with Matchers {
       .toList
       .flatMap(_.cs)
       .size should be(3)
-  }
-
-  test("enum member comments after comma") {
-    val res: TsDeclEnum =
-      parseAs(
-        """    enum ViewScope {
-          |        /** A */
-          |        Recursive = 0,        //asd
-          |        /** B */
-          |        RecursiveAll = 1, //bjarne
-          |        /** C */
-          |        FilesOnly = 2, //arne
-          |    }
-          |""".stripMargin,
-        TsParser.tsDeclEnum,
-      )
-
-    val cs: IArray[List[Comment]] =
-      TsTreeTraverse
-        .collect(res) {
-          case t: TsDeclEnum   => t.comments.cs
-          case t: TsEnumMember => t.comments.cs
-        }
-        .filter(_.nonEmpty)
-
-    cs should be(
-      IArray(
-        List(Comment("/** A */\n"), Comment("        //asd\n")),
-        List(Comment("/** B */\n"), Comment(" //bjarne\n")),
-        List(Comment("/** C */\n"), Comment(" //arne\n")),
-      ),
-    )
-  }
-
-  test("comments after comma on same line ") {
-    shouldParseAs(", //arne2\n", TsParser.lexical.comment)(
-      CommentLineTokenAfterDelim(',', " //arne2\n"),
-    )
-    shouldParseAs(", /*arne2*/\n", TsParser.lexical.comment)(
-      CommentLineTokenAfterDelim(',', " /*arne2*/"),
-    )
-    notParse(", /*arne2\n*/\n", TsParser.lexical.comment)
-    shouldParseAs("//arne2\n", TsParser.lexical.comment)(CommentLineToken("//arne2\n"))
-    shouldParseAs(", //arne2\n".stripMargin, TsParser.delimMaybeComment(','))(
-      Some(Comment(" //arne2\n")),
-    )
-
-    shouldParseAs("""
-      {//arne
-                    |member: any, //arne2
-                    |}""".stripMargin, TsParser.tsMembers)(
-      IArray(
-        TsMemberProperty(
-          NoComments,
-          ProtectionLevel.Default,
-          TsIdent("member"),
-          Some(TsTypeRef.any),
-          None,
-          isStatic   = false,
-          isReadOnly = false,
-        ),
-      ),
-    )
   }
 
   test("bug") {
@@ -470,5 +403,12 @@ declare const Infinity: number;
 
     val forced: TsParsedFile = TsParser(content).force
     assert(forced.directives.length == 1)
+  }
+
+  test("flaff") {
+    val content = """declare type A<P, /* A*/
+B > = number"""
+    val forced: TsDeclTypeAlias = TsParser.tsDeclTypeAlias(content).force
+    assert(forced.tparams.length == 2)
   }
 }
