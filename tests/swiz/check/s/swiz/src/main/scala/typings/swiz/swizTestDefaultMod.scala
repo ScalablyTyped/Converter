@@ -3,6 +3,7 @@ package typings.swiz
 import typings.swiz.mod.SERIALIZATION
 import typings.swiz.mod.SERIALIZATION.java
 import typings.swiz.mod.SERIALIZATION.notify
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -11,7 +12,7 @@ object swizTestDefaultMod {
   
   @JSImport("swiz-test-default", JSImport.Default)
   @js.native
-  object default extends js.Object {
+  object default extends StObject {
     
     @JSBracketAccess
     def apply(value: Double): js.UndefOr[SERIALIZATION with Double] = js.native

@@ -5,6 +5,7 @@ import typings.vue.pluginMod.PluginFunction
 import typings.vue.vueMod.Vue
 import typings.vue.vueMod.VueConstructor
 import typings.vueScrollto.vueScrolltoBooleans.`false`
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -14,25 +15,25 @@ object mod {
   
   @JSImport("vue-scrollto", JSImport.Namespace)
   @js.native
-  val ^ : js.Any = js.native
+  class ^ () extends VueScrollTo
   @JSImport("vue-scrollto", JSImport.Namespace)
   @js.native
-  class ^ () extends VueScrollTo
+  val ^ : js.Any = js.native
   
   @JSImport("vue-scrollto", "install")
   @js.native
   def install: PluginFunction[scala.Nothing] = js.native
-  @scala.inline
-  def install_=(x: PluginFunction[scala.Nothing]): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("install")(x.asInstanceOf[js.Any])
   @JSImport("vue-scrollto", "install")
   @js.native
   def install(Vue: VueConstructor[Vue]): Unit = js.native
   @JSImport("vue-scrollto", "install")
   @js.native
   def install(Vue: VueConstructor[Vue], options: scala.Nothing): Unit = js.native
+  @scala.inline
+  def install_=(x: PluginFunction[scala.Nothing]): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("install")(x.asInstanceOf[js.Any])
   
   @js.native
-  trait Options extends js.Object {
+  trait Options extends StObject {
     
     // Indicates if user can cancel the scroll or not. Default: true
     var cancelable: js.UndefOr[Boolean] = js.native
@@ -76,96 +77,84 @@ object mod {
     }
     
     @scala.inline
-    implicit class OptionsOps[Self <: Options] (val x: Self) extends AnyVal {
+    implicit class OptionsMutableBuilder[Self <: Options] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setCancelable(value: Boolean): Self = StObject.set(x, "cancelable", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setCancelableUndefined: Self = StObject.set(x, "cancelable", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setContainer(value: String | Element): Self = StObject.set(x, "container", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCancelable(value: Boolean): Self = this.set("cancelable", value.asInstanceOf[js.Any])
+      def setContainerUndefined: Self = StObject.set(x, "container", js.undefined)
       
       @scala.inline
-      def deleteCancelable: Self = this.set("cancelable", js.undefined)
+      def setDuration(value: Double): Self = StObject.set(x, "duration", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setContainer(value: String | Element): Self = this.set("container", value.asInstanceOf[js.Any])
+      def setDurationUndefined: Self = StObject.set(x, "duration", js.undefined)
       
       @scala.inline
-      def deleteContainer: Self = this.set("container", js.undefined)
+      def setEasing(value: String): Self = StObject.set(x, "easing", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDuration(value: Double): Self = this.set("duration", value.asInstanceOf[js.Any])
+      def setEasingUndefined: Self = StObject.set(x, "easing", js.undefined)
       
       @scala.inline
-      def deleteDuration: Self = this.set("duration", js.undefined)
+      def setEl(value: String | Element): Self = StObject.set(x, "el", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEasing(value: String): Self = this.set("easing", value.asInstanceOf[js.Any])
+      def setElUndefined: Self = StObject.set(x, "el", js.undefined)
       
       @scala.inline
-      def deleteEasing: Self = this.set("easing", js.undefined)
+      def setElement(value: String | Element): Self = StObject.set(x, "element", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEl(value: String | Element): Self = this.set("el", value.asInstanceOf[js.Any])
+      def setElementUndefined: Self = StObject.set(x, "element", js.undefined)
       
       @scala.inline
-      def deleteEl: Self = this.set("el", js.undefined)
+      def setOffset(value: Double): Self = StObject.set(x, "offset", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setElement(value: String | Element): Self = this.set("element", value.asInstanceOf[js.Any])
+      def setOffsetUndefined: Self = StObject.set(x, "offset", js.undefined)
       
       @scala.inline
-      def deleteElement: Self = this.set("element", js.undefined)
+      def setOnCancel(value: js.Function0[Unit] | `false`): Self = StObject.set(x, "onCancel", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setOffset(value: Double): Self = this.set("offset", value.asInstanceOf[js.Any])
+      def setOnCancelFunction0(value: () => Unit): Self = StObject.set(x, "onCancel", js.Any.fromFunction0(value))
       
       @scala.inline
-      def deleteOffset: Self = this.set("offset", js.undefined)
+      def setOnCancelUndefined: Self = StObject.set(x, "onCancel", js.undefined)
       
       @scala.inline
-      def setOnCancelFunction0(value: () => Unit): Self = this.set("onCancel", js.Any.fromFunction0(value))
+      def setOnDone(value: js.Function0[Unit] | `false`): Self = StObject.set(x, "onDone", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setOnCancel(value: js.Function0[Unit] | `false`): Self = this.set("onCancel", value.asInstanceOf[js.Any])
+      def setOnDoneFunction0(value: () => Unit): Self = StObject.set(x, "onDone", js.Any.fromFunction0(value))
       
       @scala.inline
-      def deleteOnCancel: Self = this.set("onCancel", js.undefined)
+      def setOnDoneUndefined: Self = StObject.set(x, "onDone", js.undefined)
       
       @scala.inline
-      def setOnDoneFunction0(value: () => Unit): Self = this.set("onDone", js.Any.fromFunction0(value))
+      def setX(value: Boolean): Self = StObject.set(x, "x", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setOnDone(value: js.Function0[Unit] | `false`): Self = this.set("onDone", value.asInstanceOf[js.Any])
+      def setXUndefined: Self = StObject.set(x, "x", js.undefined)
       
       @scala.inline
-      def deleteOnDone: Self = this.set("onDone", js.undefined)
+      def setY(value: Boolean): Self = StObject.set(x, "y", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setX(value: Boolean): Self = this.set("x", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteX: Self = this.set("x", js.undefined)
-      
-      @scala.inline
-      def setY(value: Boolean): Self = this.set("y", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteY: Self = this.set("y", js.undefined)
+      def setYUndefined: Self = StObject.set(x, "y", js.undefined)
     }
   }
   
   @js.native
-  trait VueScrollTo extends js.Object {
+  trait VueScrollTo extends StObject {
     
     def scrollTo(element: String): Unit = js.native
     def scrollTo(element: String, duration: Double): Unit = js.native
@@ -181,7 +170,7 @@ object mod {
   }
   
   @js.native
-  trait VueStatic extends js.Object {
+  trait VueStatic extends StObject {
     
     def apply(element: String): Unit = js.native
     def apply(element: String, duration: Double): Unit = js.native
@@ -197,7 +186,7 @@ object mod {
   object vueTypesVueAugmentingMod {
     
     @js.native
-    trait Vue extends js.Object {
+    trait Vue extends StObject {
       
       @JSName("$scrollTo")
       def $scrollTo(element: String): Unit = js.native

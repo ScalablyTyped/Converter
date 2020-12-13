@@ -3,6 +3,7 @@ package typings.numjs
 import typings.ndarray.mod.Data
 import typings.ndarray.mod.DataType
 import typings.ndarray.mod.ndarray
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -28,28 +29,16 @@ object mod {
     }
     
     @scala.inline
-    implicit class NdArrayOps[Self <: NdArray[_], T] (val x: Self with NdArray[T]) extends AnyVal {
+    implicit class NdArrayMutableBuilder[Self <: NdArray[_], T] (val x: Self with NdArray[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setNdim(value: Double): Self = StObject.set(x, "ndim", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setSlice(value: /* repeated */ Double => NdArray[T]): Self = StObject.set(x, "slice", js.Any.fromFunction1(value))
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setT(value: NdArray[T]): Self = this.set("T", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setNdim(value: Double): Self = this.set("ndim", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setSlice(value: /* repeated */ Double => NdArray[T]): Self = this.set("slice", js.Any.fromFunction1(value))
+      def setT(value: NdArray[T]): Self = StObject.set(x, "T", value.asInstanceOf[js.Any])
     }
   }
   

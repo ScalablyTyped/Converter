@@ -5,6 +5,7 @@ import typingsJapgolly.semanticUiReact.accordionAccordionAccordionMod.AccordionA
 import typingsJapgolly.semanticUiReact.accordionAccordionMod.AccordionComponent
 import typingsJapgolly.semanticUiReact.accordionAccordionMod.AccordionProps
 import typingsJapgolly.semanticUiReact.accordionTitleMod.AccordionTitleProps
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

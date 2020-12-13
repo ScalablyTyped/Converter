@@ -1,5 +1,6 @@
 package typingsSlinky.semanticUiReact.genericMod
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -10,7 +11,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typingsSlinky.semanticUiReact.semanticUiReactStrings.right
   - typingsSlinky.semanticUiReact.semanticUiReactStrings.justified
 */
-trait SemanticTEXTALIGNMENTS extends js.Object
+trait SemanticTEXTALIGNMENTS extends StObject
 object SemanticTEXTALIGNMENTS {
   
   @scala.inline

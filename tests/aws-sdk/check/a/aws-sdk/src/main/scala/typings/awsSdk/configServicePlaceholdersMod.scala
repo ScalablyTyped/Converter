@@ -2,6 +2,7 @@ package typings.awsSdk
 
 import typings.awsSdk.dynamodbMod.ClientConfiguration
 import typings.awsSdk.dynamodbMod.apiVersion
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -9,7 +10,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object configServicePlaceholdersMod {
   
   @js.native
-  trait ConfigurationServiceApiVersions extends js.Object {
+  trait ConfigurationServiceApiVersions extends StObject {
     
     var dynamodb: js.UndefOr[apiVersion] = js.native
   }
@@ -22,31 +23,19 @@ object configServicePlaceholdersMod {
     }
     
     @scala.inline
-    implicit class ConfigurationServiceApiVersionsOps[Self <: ConfigurationServiceApiVersions] (val x: Self) extends AnyVal {
+    implicit class ConfigurationServiceApiVersionsMutableBuilder[Self <: ConfigurationServiceApiVersions] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setDynamodb(value: apiVersion): Self = StObject.set(x, "dynamodb", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setDynamodb(value: apiVersion): Self = this.set("dynamodb", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteDynamodb: Self = this.set("dynamodb", js.undefined)
+      def setDynamodbUndefined: Self = StObject.set(x, "dynamodb", js.undefined)
     }
   }
   
   @JSImport("aws-sdk/lib/config_service_placeholders", "ConfigurationServicePlaceholders")
   @js.native
-  abstract class ConfigurationServicePlaceholders () extends js.Object {
+  abstract class ConfigurationServicePlaceholders () extends StObject {
     
     var dynamodb: js.UndefOr[ClientConfiguration] = js.native
   }

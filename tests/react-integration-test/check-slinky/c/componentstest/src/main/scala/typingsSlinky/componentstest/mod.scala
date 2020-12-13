@@ -7,6 +7,7 @@ import typingsSlinky.componentstest.anon.Equals
 import typingsSlinky.react.mod.CSSProperties
 import typingsSlinky.react.mod.FunctionComponent
 import typingsSlinky.react.mod.MouseEventHandler
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -45,25 +46,13 @@ object mod {
     }
     
     @scala.inline
-    implicit class AOps[Self <: A] (val x: Self) extends AnyVal {
+    implicit class AMutableBuilder[Self <: A] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setACallback(value: () => Double): Self = StObject.set(x, "aCallback", js.Any.fromFunction0(value))
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setACallback(value: () => Double): Self = this.set("aCallback", js.Any.fromFunction0(value))
-      
-      @scala.inline
-      def setAMember(value: Double): Self = this.set("aMember", value.asInstanceOf[js.Any])
+      def setAMember(value: Double): Self = StObject.set(x, "aMember", value.asInstanceOf[js.Any])
     }
   }
   
@@ -83,33 +72,21 @@ object mod {
     }
     
     @scala.inline
-    implicit class BOps[Self <: B] (val x: Self) extends AnyVal {
+    implicit class BMutableBuilder[Self <: B] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setBCallback(value: () => String): Self = StObject.set(x, "bCallback", js.Any.fromFunction0(value))
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setBCallbackUndefined: Self = StObject.set(x, "bCallback", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setBMember(value: String): Self = this.set("bMember", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setBCallback(value: () => String): Self = this.set("bCallback", js.Any.fromFunction0(value))
-      
-      @scala.inline
-      def deleteBCallback: Self = this.set("bCallback", js.undefined)
+      def setBMember(value: String): Self = StObject.set(x, "bMember", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait CardGridProps extends js.Object {
+  trait CardGridProps extends StObject {
     
     var className: js.UndefOr[String] = js.native
     
@@ -128,43 +105,31 @@ object mod {
     }
     
     @scala.inline
-    implicit class CardGridPropsOps[Self <: CardGridProps] (val x: Self) extends AnyVal {
+    implicit class CardGridPropsMutableBuilder[Self <: CardGridProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setHoverable(value: Boolean): Self = StObject.set(x, "hoverable", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassName(value: String): Self = this.set("className", value.asInstanceOf[js.Any])
+      def setHoverableUndefined: Self = StObject.set(x, "hoverable", js.undefined)
       
       @scala.inline
-      def deleteClassName: Self = this.set("className", js.undefined)
+      def setPrefixCls(value: String): Self = StObject.set(x, "prefixCls", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setHoverable(value: Boolean): Self = this.set("hoverable", value.asInstanceOf[js.Any])
+      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", js.undefined)
       
       @scala.inline
-      def deleteHoverable: Self = this.set("hoverable", js.undefined)
+      def setStyle(value: CSSProperties): Self = StObject.set(x, "style", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPrefixCls(value: String): Self = this.set("prefixCls", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deletePrefixCls: Self = this.set("prefixCls", js.undefined)
-      
-      @scala.inline
-      def setStyle(value: CSSProperties): Self = this.set("style", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteStyle: Self = this.set("style", js.undefined)
+      def setStyleUndefined: Self = StObject.set(x, "style", js.undefined)
     }
   }
   
@@ -176,7 +141,7 @@ object mod {
   
   /* Inlined parent std.Omit<std.Pick<react.react.HTMLAttributes<std.HTMLDivElement>, 'title' | 'onClick'>, 'title'> */
   @js.native
-  trait CardProps extends js.Object {
+  trait CardProps extends StObject {
     
     var onClick: js.UndefOr[MouseEventHandler[HTMLDivElement]] = js.native
     
@@ -191,31 +156,19 @@ object mod {
     }
     
     @scala.inline
-    implicit class CardPropsOps[Self <: CardProps] (val x: Self) extends AnyVal {
+    implicit class CardPropsMutableBuilder[Self <: CardProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setOnClick(value: SyntheticMouseEvent[HTMLDivElement] => Unit): Self = StObject.set(x, "onClick", js.Any.fromFunction1(value))
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setPrefixCls(value: String): Self = StObject.set(x, "prefixCls", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setOnClick(value: SyntheticMouseEvent[HTMLDivElement] => Unit): Self = this.set("onClick", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def deleteOnClick: Self = this.set("onClick", js.undefined)
-      
-      @scala.inline
-      def setPrefixCls(value: String): Self = this.set("prefixCls", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deletePrefixCls: Self = this.set("prefixCls", js.undefined)
+      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", js.undefined)
     }
   }
   
@@ -223,7 +176,7 @@ object mod {
     - typingsSlinky.componentstest.mod.A
     - typingsSlinky.componentstest.mod.B
   */
-  trait Props extends js.Object
+  trait Props extends StObject
   object Props {
     
     @scala.inline

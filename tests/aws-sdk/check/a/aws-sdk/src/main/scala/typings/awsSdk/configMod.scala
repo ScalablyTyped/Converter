@@ -3,6 +3,7 @@ package typings.awsSdk
 import typings.awsSdk.awsSdkStrings.latest
 import typings.awsSdk.configServicePlaceholdersMod.ConfigurationServiceApiVersions
 import typings.awsSdk.configServicePlaceholdersMod.ConfigurationServicePlaceholders
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -10,7 +11,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object configMod {
   
   @js.native
-  trait APIVersions extends js.Object {
+  trait APIVersions extends StObject {
     
     /**
       * A string in YYYY-MM-DD format that represents the latest possible API version that can be used in all services (unless overridden by apiVersions). Specify \'latest\' to use the latest possible version.
@@ -31,31 +32,19 @@ object configMod {
     }
     
     @scala.inline
-    implicit class APIVersionsOps[Self <: APIVersions] (val x: Self) extends AnyVal {
+    implicit class APIVersionsMutableBuilder[Self <: APIVersions] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setApiVersion(value: latest | String): Self = StObject.set(x, "apiVersion", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setApiVersionUndefined: Self = StObject.set(x, "apiVersion", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setApiVersions(value: ConfigurationServiceApiVersions): Self = StObject.set(x, "apiVersions", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setApiVersion(value: latest | String): Self = this.set("apiVersion", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteApiVersion: Self = this.set("apiVersion", js.undefined)
-      
-      @scala.inline
-      def setApiVersions(value: ConfigurationServiceApiVersions): Self = this.set("apiVersions", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteApiVersions: Self = this.set("apiVersions", js.undefined)
+      def setApiVersionsUndefined: Self = StObject.set(x, "apiVersions", js.undefined)
     }
   }
   
@@ -65,7 +54,7 @@ object configMod {
     * Creates a new configuration object.
     * This is the object that passes option data along to service requests, including credentials, security, region information, and some service specific settings.
     */
-  class Config () extends js.Object {
+  class Config () extends StObject {
     def this(options: ConfigurationServicePlaceholders with APIVersions) = this()
     
     /**

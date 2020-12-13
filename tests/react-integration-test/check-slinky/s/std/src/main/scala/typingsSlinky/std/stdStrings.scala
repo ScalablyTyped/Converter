@@ -1,5 +1,6 @@
 package typingsSlinky.std
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -16,11 +17,11 @@ object stdStrings {
   def Readonly: Readonly = "Readonly".asInstanceOf[Readonly]
   
   @js.native
-  sealed trait Partial extends js.Object
+  sealed trait Partial extends StObject
   
   @js.native
-  sealed trait Pick extends js.Object
+  sealed trait Pick extends StObject
   
   @js.native
-  sealed trait Readonly extends js.Object
+  sealed trait Readonly extends StObject
 }

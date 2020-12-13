@@ -1,5 +1,6 @@
 package typings.fullcalendar
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -8,7 +9,7 @@ object mixinMod {
   
   @JSImport("fullcalendar/Mixin", "Default")
   @js.native
-  class Default_ () extends js.Object
+  class Default_ () extends StObject
   /* static members */
   object Default_ {
     

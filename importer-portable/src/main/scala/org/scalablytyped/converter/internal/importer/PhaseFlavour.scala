@@ -30,9 +30,9 @@ class PhaseFlavour(flavour: FlavourImpl) extends Phase[Source, LibScalaJs, LibSc
         )
 
         val tree0 = lib.packageTree
-        val tree1 = Sorter.visitPackageTree(originalScope)(tree0)
-        val tree2 = flavour.rewrittenTree(originalScope, tree1)
-        val tree3 = Mangler.visitPackageTree(originalScope)(tree2)
+        val tree1 = flavour.rewrittenTree(originalScope, tree0)
+        val tree2 = Mangler.visitPackageTree(originalScope)(tree1)
+        val tree3 = Sorter.visitPackageTree(originalScope)(tree2)
 
         LibScalaJs(lib.source)(
           libName      = lib.libName,

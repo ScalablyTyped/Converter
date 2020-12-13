@@ -15,6 +15,7 @@ import typingsSlinky.semanticUiReact.semanticUiReactStrings.bottom
 import typingsSlinky.semanticUiReact.semanticUiReactStrings.left
 import typingsSlinky.semanticUiReact.semanticUiReactStrings.right
 import typingsSlinky.semanticUiReact.semanticUiReactStrings.top
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -34,10 +35,10 @@ class SharedBuilder_ButtonGroupProps1227330619 (val args: js.Array[js.Any])
   def basic(value: Boolean): this.type = set("basic", value.asInstanceOf[js.Any])
   
   @scala.inline
-  def buttonsVarargs(value: SemanticShorthandItem[ButtonProps]*): this.type = set("buttons", js.Array(value :_*))
+  def buttons(value: SemanticShorthandCollection[ButtonProps]): this.type = set("buttons", value.asInstanceOf[js.Any])
   
   @scala.inline
-  def buttons(value: SemanticShorthandCollection[ButtonProps]): this.type = set("buttons", value.asInstanceOf[js.Any])
+  def buttonsVarargs(value: SemanticShorthandItem[ButtonProps]*): this.type = set("buttons", js.Array(value :_*))
   
   @scala.inline
   def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
@@ -49,10 +50,10 @@ class SharedBuilder_ButtonGroupProps1227330619 (val args: js.Array[js.Any])
   def compact(value: Boolean): this.type = set("compact", value.asInstanceOf[js.Any])
   
   @scala.inline
-  def contentReactElement(value: ReactElement): this.type = set("content", value.asInstanceOf[js.Any])
+  def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
   
   @scala.inline
-  def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
+  def contentReactElement(value: ReactElement): this.type = set("content", value.asInstanceOf[js.Any])
   
   @scala.inline
   def floated(value: SemanticFLOATS): this.type = set("floated", value.asInstanceOf[js.Any])

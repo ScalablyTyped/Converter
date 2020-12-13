@@ -2,12 +2,19 @@ package typings.stylis
 
 import org.scalablytyped.runtime.Instantiable0
 import org.scalablytyped.runtime.Instantiable1
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
   
+  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+  @JSImport("stylis/stylis", JSImport.Namespace)
+  @js.native
+  class ^ () extends Stylis {
+    def this(options: Options) = this()
+  }
   @JSImport("stylis/stylis", JSImport.Namespace)
   @js.native
   val ^ : Stylis = js.native
@@ -16,18 +23,11 @@ object mod {
   @scala.inline
   implicit def __is(ignored: mod.type): Stylis = typings.stylis.mod.^
   
-  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
-  @JSImport("stylis/stylis", JSImport.Namespace)
   @js.native
-  class ^ () extends Stylis {
-    def this(options: Options) = this()
-  }
-  
-  @js.native
-  sealed trait Context extends js.Object
+  sealed trait Context extends StObject
   @JSImport("stylis/stylis", "Context")
   @js.native
-  object Context extends js.Object {
+  object Context extends StObject {
     
     @js.native
     sealed trait ATRUL extends Context
@@ -49,7 +49,7 @@ object mod {
   }
   
   @js.native
-  trait Options extends js.Object {
+  trait Options extends StObject {
     
     var cascade: js.UndefOr[Boolean] = js.native
     
@@ -76,71 +76,59 @@ object mod {
     }
     
     @scala.inline
-    implicit class OptionsOps[Self <: Options] (val x: Self) extends AnyVal {
+    implicit class OptionsMutableBuilder[Self <: Options] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setCascade(value: Boolean): Self = StObject.set(x, "cascade", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setCascadeUndefined: Self = StObject.set(x, "cascade", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setCompress(value: Boolean): Self = StObject.set(x, "compress", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCascade(value: Boolean): Self = this.set("cascade", value.asInstanceOf[js.Any])
+      def setCompressUndefined: Self = StObject.set(x, "compress", js.undefined)
       
       @scala.inline
-      def deleteCascade: Self = this.set("cascade", js.undefined)
+      def setGlobal(value: Boolean): Self = StObject.set(x, "global", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCompress(value: Boolean): Self = this.set("compress", value.asInstanceOf[js.Any])
+      def setGlobalUndefined: Self = StObject.set(x, "global", js.undefined)
       
       @scala.inline
-      def deleteCompress: Self = this.set("compress", js.undefined)
+      def setKeyframe(value: Boolean): Self = StObject.set(x, "keyframe", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setGlobal(value: Boolean): Self = this.set("global", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteGlobal: Self = this.set("global", js.undefined)
-      
-      @scala.inline
-      def setKeyframe(value: Boolean): Self = this.set("keyframe", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteKeyframe: Self = this.set("keyframe", js.undefined)
-      
-      @scala.inline
-      def setPrefixFunction3(value: (/* key */ String, /* value */ String, /* context */ Double) => Boolean): Self = this.set("prefix", js.Any.fromFunction3(value))
+      def setKeyframeUndefined: Self = StObject.set(x, "keyframe", js.undefined)
       
       @scala.inline
       def setPrefix(
         value: Boolean | (js.Function3[/* key */ String, /* value */ String, /* context */ Double, Boolean])
-      ): Self = this.set("prefix", value.asInstanceOf[js.Any])
+      ): Self = StObject.set(x, "prefix", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deletePrefix: Self = this.set("prefix", js.undefined)
+      def setPrefixFunction3(value: (/* key */ String, /* value */ String, /* context */ Double) => Boolean): Self = StObject.set(x, "prefix", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setPreserve(value: Boolean): Self = this.set("preserve", value.asInstanceOf[js.Any])
+      def setPrefixUndefined: Self = StObject.set(x, "prefix", js.undefined)
       
       @scala.inline
-      def deletePreserve: Self = this.set("preserve", js.undefined)
+      def setPreserve(value: Boolean): Self = StObject.set(x, "preserve", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setSemicolon(value: Boolean): Self = this.set("semicolon", value.asInstanceOf[js.Any])
+      def setPreserveUndefined: Self = StObject.set(x, "preserve", js.undefined)
       
       @scala.inline
-      def deleteSemicolon: Self = this.set("semicolon", js.undefined)
+      def setSemicolon(value: Boolean): Self = StObject.set(x, "semicolon", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setSemicolonUndefined: Self = StObject.set(x, "semicolon", js.undefined)
     }
   }
   
   @js.native
-  trait Set extends js.Object {
+  trait Set extends StObject {
     
     def apply(): Set = js.native
     def apply(options: Options): Set = js.native
@@ -166,7 +154,7 @@ object mod {
   }
   
   @js.native
-  trait Use extends js.Object {
+  trait Use extends StObject {
     
     def apply(): Use = js.native
     def apply(plugin: js.Array[Plugin]): Use = js.native

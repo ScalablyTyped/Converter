@@ -1,11 +1,12 @@
 package typings.node
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait SymbolConstructor extends js.Object {
+trait SymbolConstructor extends StObject {
   
   val asyncIterator: js.Symbol = js.native
   
@@ -20,24 +21,12 @@ object SymbolConstructor {
   }
   
   @scala.inline
-  implicit class SymbolConstructorOps[Self <: SymbolConstructor] (val x: Self) extends AnyVal {
+  implicit class SymbolConstructorMutableBuilder[Self <: SymbolConstructor] (val x: Self) extends AnyVal {
     
     @scala.inline
-    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    def setAsyncIterator(value: js.Symbol): Self = StObject.set(x, "asyncIterator", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-    
-    @scala.inline
-    def set(key: String, value: js.Any): Self = {
-      x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-      x
-    }
-    
-    @scala.inline
-    def setAsyncIterator(value: js.Symbol): Self = this.set("asyncIterator", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setIterator(value: js.Symbol): Self = this.set("iterator", value.asInstanceOf[js.Any])
+    def setIterator(value: js.Symbol): Self = StObject.set(x, "iterator", value.asInstanceOf[js.Any])
   }
 }

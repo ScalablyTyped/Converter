@@ -4,6 +4,7 @@ import org.scalablytyped.runtime.Instantiable1
 import typings.awsSdk.documentClientMod.DocumentClient
 import typings.awsSdk.documentClientMod.DocumentClient.DocumentClientOptions
 import typings.awsSdk.dynamodbMod.ClientConfiguration
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -12,7 +13,7 @@ object servicesDynamodbMod {
   
   @JSImport("aws-sdk/lib/services/dynamodb", "DynamoDBCustomizations")
   @js.native
-  class DynamoDBCustomizations () extends js.Object
+  class DynamoDBCustomizations () extends StObject
   /* static members */
   object DynamoDBCustomizations {
     

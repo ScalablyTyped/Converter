@@ -1,5 +1,6 @@
 package typingsSlinky.stardustUiReactComponentRef
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -7,7 +8,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object anon {
   
   @js.native
-  trait Children extends js.Object {
+  trait Children extends StObject {
     
     var children: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<PropTypes.ReactElementLike> */ js.Any = js.native
     
@@ -25,34 +26,22 @@ object anon {
     }
     
     @scala.inline
-    implicit class ChildrenOps[Self <: Children] (val x: Self) extends AnyVal {
-      
-      @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+    implicit class ChildrenMutableBuilder[Self <: Children] (val x: Self) extends AnyVal {
       
       @scala.inline
       def setChildren(
         value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<PropTypes.ReactElementLike> */ js.Any
-      ): Self = this.set("children", value.asInstanceOf[js.Any])
+      ): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setInnerRef(
         value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<React.Ref<any>> */ js.Any
-      ): Self = this.set("innerRef", value.asInstanceOf[js.Any])
+      ): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait InnerRef extends js.Object {
+  trait InnerRef extends StObject {
     
     var children: js.UndefOr[scala.Nothing] = js.native
     

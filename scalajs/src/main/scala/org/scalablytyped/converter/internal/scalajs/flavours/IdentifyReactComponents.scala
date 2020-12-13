@@ -105,7 +105,6 @@ class IdentifyReactComponents(
             newFound
           } else sorted.last
       }
-      .sortBy(_.fullName)
 
   private def recurse(scope: TreeScope, outer: ContainerTree): IArray[Component] =
     outer.index.flatMapToIArray {

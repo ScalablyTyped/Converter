@@ -8,6 +8,7 @@ import typingsSlinky.semanticUiReact.accordionPanelMod.AccordionPanelProps
 import typingsSlinky.semanticUiReact.accordionTitleMod.AccordionTitleProps
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandCollection
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -18,10 +19,10 @@ class SharedBuilder_AccordionAccordionProps_1044969128[R <: js.Object] (val args
      with StBuildingComponent[tag.type, R] {
   
   @scala.inline
-  def activeIndexVarargs(value: Double*): this.type = set("activeIndex", js.Array(value :_*))
+  def activeIndex(value: Double | js.Array[Double]): this.type = set("activeIndex", value.asInstanceOf[js.Any])
   
   @scala.inline
-  def activeIndex(value: Double | js.Array[Double]): this.type = set("activeIndex", value.asInstanceOf[js.Any])
+  def activeIndexVarargs(value: Double*): this.type = set("activeIndex", js.Array(value :_*))
   
   @scala.inline
   def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
@@ -30,10 +31,10 @@ class SharedBuilder_AccordionAccordionProps_1044969128[R <: js.Object] (val args
   def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
   
   @scala.inline
-  def defaultActiveIndexVarargs(value: Double*): this.type = set("defaultActiveIndex", js.Array(value :_*))
+  def defaultActiveIndex(value: Double | js.Array[Double]): this.type = set("defaultActiveIndex", value.asInstanceOf[js.Any])
   
   @scala.inline
-  def defaultActiveIndex(value: Double | js.Array[Double]): this.type = set("defaultActiveIndex", value.asInstanceOf[js.Any])
+  def defaultActiveIndexVarargs(value: Double*): this.type = set("defaultActiveIndex", js.Array(value :_*))
   
   @scala.inline
   def exclusive(value: Boolean): this.type = set("exclusive", value.asInstanceOf[js.Any])
@@ -42,8 +43,8 @@ class SharedBuilder_AccordionAccordionProps_1044969128[R <: js.Object] (val args
   def onTitleClick(value: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit): this.type = set("onTitleClick", js.Any.fromFunction2(value))
   
   @scala.inline
-  def panelsVarargs(value: SemanticShorthandItem[AccordionPanelProps]*): this.type = set("panels", js.Array(value :_*))
+  def panels(value: SemanticShorthandCollection[AccordionPanelProps]): this.type = set("panels", value.asInstanceOf[js.Any])
   
   @scala.inline
-  def panels(value: SemanticShorthandCollection[AccordionPanelProps]): this.type = set("panels", value.asInstanceOf[js.Any])
+  def panelsVarargs(value: SemanticShorthandItem[AccordionPanelProps]*): this.type = set("panels", js.Array(value :_*))
 }

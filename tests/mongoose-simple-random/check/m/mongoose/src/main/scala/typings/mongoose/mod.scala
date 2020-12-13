@@ -1,5 +1,6 @@
 package typings.mongoose
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -7,11 +8,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object mod {
   
   @js.native
-  trait Document extends js.Object
+  trait Document extends StObject
   
   @js.native
-  trait ModelProperties extends js.Object
+  trait ModelProperties extends StObject
   
   @js.native
-  trait Schema extends js.Object
+  trait Schema extends StObject
 }

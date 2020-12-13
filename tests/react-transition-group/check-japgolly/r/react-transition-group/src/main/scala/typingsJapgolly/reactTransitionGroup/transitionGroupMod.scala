@@ -5,6 +5,7 @@ import typingsJapgolly.react.mod.ReactType
 import typingsJapgolly.reactTransitionGroup.anon.ChildFactory
 import typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr
 import typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.animate
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -17,7 +18,7 @@ object transitionGroupMod {
     extends Component[TransitionGroupProps[abbr, js.Any], js.Object]
   
   @js.native
-  trait ComponentTransitionGroupProps[T /* <: ReactType[_] */] extends js.Object {
+  trait ComponentTransitionGroupProps[T /* <: ReactType[_] */] extends StObject {
     
     var component: T = js.native
   }
@@ -31,7 +32,7 @@ object transitionGroupMod {
   }
   
   @js.native
-  trait IntrinsicTransitionGroupProps[T /* <: abbr | animate */] extends js.Object {
+  trait IntrinsicTransitionGroupProps[T /* <: abbr | animate */] extends StObject {
     
     var component: js.UndefOr[T] = js.native
   }

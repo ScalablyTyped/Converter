@@ -1,5 +1,6 @@
 package typings.typeMappings
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -22,17 +23,17 @@ object typeMappingsStrings {
   def trail: trail = "trail".asInstanceOf[trail]
   
   @js.native
-  sealed trait Proxify extends js.Object
+  sealed trait Proxify extends StObject
   
   @js.native
-  sealed trait age extends js.Object
+  sealed trait age extends StObject
   
   @js.native
-  sealed trait name extends js.Object
+  sealed trait name extends StObject
   
   @js.native
-  sealed trait text extends js.Object
+  sealed trait text extends StObject
   
   @js.native
-  sealed trait trail extends js.Object
+  sealed trait trail extends StObject
 }

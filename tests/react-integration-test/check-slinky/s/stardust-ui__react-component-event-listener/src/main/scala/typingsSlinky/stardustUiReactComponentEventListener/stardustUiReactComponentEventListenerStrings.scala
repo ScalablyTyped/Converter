@@ -1,5 +1,6 @@
 package typingsSlinky.stardustUiReactComponentEventListener
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -280,275 +281,275 @@ object stardustUiReactComponentEventListenerStrings {
   def wheel: wheel = "wheel".asInstanceOf[wheel]
   
   @js.native
-  sealed trait abort extends js.Object
+  sealed trait abort extends StObject
   
   @js.native
-  sealed trait animationcancel extends js.Object
+  sealed trait animationcancel extends StObject
   
   @js.native
-  sealed trait animationend extends js.Object
+  sealed trait animationend extends StObject
   
   @js.native
-  sealed trait animationiteration extends js.Object
+  sealed trait animationiteration extends StObject
   
   @js.native
-  sealed trait animationstart extends js.Object
+  sealed trait animationstart extends StObject
   
   @js.native
-  sealed trait auxclick extends js.Object
+  sealed trait auxclick extends StObject
   
   @js.native
-  sealed trait blur extends js.Object
+  sealed trait blur extends StObject
   
   @js.native
-  sealed trait cancel extends js.Object
+  sealed trait cancel extends StObject
   
   @js.native
-  sealed trait canplay extends js.Object
+  sealed trait canplay extends StObject
   
   @js.native
-  sealed trait canplaythrough extends js.Object
+  sealed trait canplaythrough extends StObject
   
   @js.native
-  sealed trait change extends js.Object
+  sealed trait change extends StObject
   
   @js.native
-  sealed trait click extends js.Object
+  sealed trait click extends StObject
   
   @js.native
-  sealed trait close extends js.Object
+  sealed trait close extends StObject
   
   @js.native
-  sealed trait contextmenu extends js.Object
+  sealed trait contextmenu extends StObject
   
   @js.native
-  sealed trait copy extends js.Object
+  sealed trait copy extends StObject
   
   @js.native
-  sealed trait cuechange extends js.Object
+  sealed trait cuechange extends StObject
   
   @js.native
-  sealed trait cut extends js.Object
+  sealed trait cut extends StObject
   
   @js.native
-  sealed trait dblclick extends js.Object
+  sealed trait dblclick extends StObject
   
   @js.native
-  sealed trait drag extends js.Object
+  sealed trait drag extends StObject
   
   @js.native
-  sealed trait dragend extends js.Object
+  sealed trait dragend extends StObject
   
   @js.native
-  sealed trait dragenter extends js.Object
+  sealed trait dragenter extends StObject
   
   @js.native
-  sealed trait dragexit extends js.Object
+  sealed trait dragexit extends StObject
   
   @js.native
-  sealed trait dragleave extends js.Object
+  sealed trait dragleave extends StObject
   
   @js.native
-  sealed trait dragover extends js.Object
+  sealed trait dragover extends StObject
   
   @js.native
-  sealed trait dragstart extends js.Object
+  sealed trait dragstart extends StObject
   
   @js.native
-  sealed trait drop extends js.Object
+  sealed trait drop extends StObject
   
   @js.native
-  sealed trait durationchange extends js.Object
+  sealed trait durationchange extends StObject
   
   @js.native
-  sealed trait emptied extends js.Object
+  sealed trait emptied extends StObject
   
   @js.native
-  sealed trait ended extends js.Object
+  sealed trait ended extends StObject
   
   @js.native
-  sealed trait error extends js.Object
+  sealed trait error extends StObject
   
   @js.native
-  sealed trait focus extends js.Object
+  sealed trait focus extends StObject
   
   @js.native
-  sealed trait fullscreenchange extends js.Object
+  sealed trait fullscreenchange extends StObject
   
   @js.native
-  sealed trait fullscreenerror extends js.Object
+  sealed trait fullscreenerror extends StObject
   
   @js.native
-  sealed trait gotpointercapture extends js.Object
+  sealed trait gotpointercapture extends StObject
   
   @js.native
-  sealed trait input extends js.Object
+  sealed trait input extends StObject
   
   @js.native
-  sealed trait invalid extends js.Object
+  sealed trait invalid extends StObject
   
   @js.native
-  sealed trait keydown extends js.Object
+  sealed trait keydown extends StObject
   
   @js.native
-  sealed trait keypress extends js.Object
+  sealed trait keypress extends StObject
   
   @js.native
-  sealed trait keyup extends js.Object
+  sealed trait keyup extends StObject
   
   @js.native
-  sealed trait load extends js.Object
+  sealed trait load extends StObject
   
   @js.native
-  sealed trait loadeddata extends js.Object
+  sealed trait loadeddata extends StObject
   
   @js.native
-  sealed trait loadedmetadata extends js.Object
+  sealed trait loadedmetadata extends StObject
   
   @js.native
-  sealed trait loadend extends js.Object
+  sealed trait loadend extends StObject
   
   @js.native
-  sealed trait loadstart extends js.Object
+  sealed trait loadstart extends StObject
   
   @js.native
-  sealed trait lostpointercapture extends js.Object
+  sealed trait lostpointercapture extends StObject
   
   @js.native
-  sealed trait mousedown extends js.Object
+  sealed trait mousedown extends StObject
   
   @js.native
-  sealed trait mouseenter extends js.Object
+  sealed trait mouseenter extends StObject
   
   @js.native
-  sealed trait mouseleave extends js.Object
+  sealed trait mouseleave extends StObject
   
   @js.native
-  sealed trait mousemove extends js.Object
+  sealed trait mousemove extends StObject
   
   @js.native
-  sealed trait mouseout extends js.Object
+  sealed trait mouseout extends StObject
   
   @js.native
-  sealed trait mouseover extends js.Object
+  sealed trait mouseover extends StObject
   
   @js.native
-  sealed trait mouseup extends js.Object
+  sealed trait mouseup extends StObject
   
   @js.native
-  sealed trait paste extends js.Object
+  sealed trait paste extends StObject
   
   @js.native
-  sealed trait pause extends js.Object
+  sealed trait pause extends StObject
   
   @js.native
-  sealed trait play extends js.Object
+  sealed trait play extends StObject
   
   @js.native
-  sealed trait playing extends js.Object
+  sealed trait playing extends StObject
   
   @js.native
-  sealed trait pointercancel extends js.Object
+  sealed trait pointercancel extends StObject
   
   @js.native
-  sealed trait pointerdown extends js.Object
+  sealed trait pointerdown extends StObject
   
   @js.native
-  sealed trait pointerenter extends js.Object
+  sealed trait pointerenter extends StObject
   
   @js.native
-  sealed trait pointerleave extends js.Object
+  sealed trait pointerleave extends StObject
   
   @js.native
-  sealed trait pointermove extends js.Object
+  sealed trait pointermove extends StObject
   
   @js.native
-  sealed trait pointerout extends js.Object
+  sealed trait pointerout extends StObject
   
   @js.native
-  sealed trait pointerover extends js.Object
+  sealed trait pointerover extends StObject
   
   @js.native
-  sealed trait pointerup extends js.Object
+  sealed trait pointerup extends StObject
   
   @js.native
-  sealed trait progress extends js.Object
+  sealed trait progress extends StObject
   
   @js.native
-  sealed trait ratechange extends js.Object
+  sealed trait ratechange extends StObject
   
   @js.native
-  sealed trait readystatechange extends js.Object
+  sealed trait readystatechange extends StObject
   
   @js.native
-  sealed trait reset extends js.Object
+  sealed trait reset extends StObject
   
   @js.native
-  sealed trait resize extends js.Object
+  sealed trait resize extends StObject
   
   @js.native
-  sealed trait scroll extends js.Object
+  sealed trait scroll extends StObject
   
   @js.native
-  sealed trait securitypolicyviolation extends js.Object
+  sealed trait securitypolicyviolation extends StObject
   
   @js.native
-  sealed trait seeked extends js.Object
+  sealed trait seeked extends StObject
   
   @js.native
-  sealed trait seeking extends js.Object
+  sealed trait seeking extends StObject
   
   @js.native
-  sealed trait select extends js.Object
+  sealed trait select extends StObject
   
   @js.native
-  sealed trait stalled extends js.Object
+  sealed trait stalled extends StObject
   
   @js.native
-  sealed trait submit extends js.Object
+  sealed trait submit extends StObject
   
   @js.native
-  sealed trait suspend extends js.Object
+  sealed trait suspend extends StObject
   
   @js.native
-  sealed trait timeupdate extends js.Object
+  sealed trait timeupdate extends StObject
   
   @js.native
-  sealed trait toggle extends js.Object
+  sealed trait toggle extends StObject
   
   @js.native
-  sealed trait touchcancel extends js.Object
+  sealed trait touchcancel extends StObject
   
   @js.native
-  sealed trait touchend extends js.Object
+  sealed trait touchend extends StObject
   
   @js.native
-  sealed trait touchmove extends js.Object
+  sealed trait touchmove extends StObject
   
   @js.native
-  sealed trait touchstart extends js.Object
+  sealed trait touchstart extends StObject
   
   @js.native
-  sealed trait transitioncancel extends js.Object
+  sealed trait transitioncancel extends StObject
   
   @js.native
-  sealed trait transitionend extends js.Object
+  sealed trait transitionend extends StObject
   
   @js.native
-  sealed trait transitionrun extends js.Object
+  sealed trait transitionrun extends StObject
   
   @js.native
-  sealed trait transitionstart extends js.Object
+  sealed trait transitionstart extends StObject
   
   @js.native
-  sealed trait visibilitychange extends js.Object
+  sealed trait visibilitychange extends StObject
   
   @js.native
-  sealed trait volumechange extends js.Object
+  sealed trait volumechange extends StObject
   
   @js.native
-  sealed trait waiting extends js.Object
+  sealed trait waiting extends StObject
   
   @js.native
-  sealed trait wheel extends js.Object
+  sealed trait wheel extends StObject
 }

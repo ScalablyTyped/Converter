@@ -5,6 +5,7 @@ import typings.vueResource.vuejs.HttpHeaders
 import typings.vueResource.vuejs.HttpOptions
 import typings.vueResource.vuejs.HttpResponse
 import typings.vueResource.vuejs.http
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -12,7 +13,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object anon {
   
   @js.native
-  trait Call extends js.Object {
+  trait Call extends StObject {
     
     def apply(options: HttpOptions): js.Thenable[HttpResponse] = js.native
     
@@ -67,7 +68,7 @@ object anon {
   
   /* Inlined vue-resource.vuejs.HttpOptions & {  root :string} */
   @js.native
-  trait HttpOptionsrootstring extends js.Object {
+  trait HttpOptionsrootstring extends StObject {
     
     var before: js.UndefOr[js.Function1[/* request */ js.Any, _]] = js.native
     
@@ -100,87 +101,75 @@ object anon {
     }
     
     @scala.inline
-    implicit class HttpOptionsrootstringOps[Self <: HttpOptionsrootstring] (val x: Self) extends AnyVal {
+    implicit class HttpOptionsrootstringMutableBuilder[Self <: HttpOptionsrootstring] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setBefore(value: /* request */ js.Any => _): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setBeforeUndefined: Self = StObject.set(x, "before", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setBody(value: js.Any): Self = StObject.set(x, "body", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRoot(value: String): Self = this.set("root", value.asInstanceOf[js.Any])
+      def setBodyUndefined: Self = StObject.set(x, "body", js.undefined)
       
       @scala.inline
-      def setBefore(value: /* request */ js.Any => _): Self = this.set("before", js.Any.fromFunction1(value))
+      def setCredentials(value: Boolean): Self = StObject.set(x, "credentials", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteBefore: Self = this.set("before", js.undefined)
+      def setCredentialsUndefined: Self = StObject.set(x, "credentials", js.undefined)
       
       @scala.inline
-      def setBody(value: js.Any): Self = this.set("body", value.asInstanceOf[js.Any])
+      def setEmulateHTTP(value: Boolean): Self = StObject.set(x, "emulateHTTP", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteBody: Self = this.set("body", js.undefined)
+      def setEmulateHTTPUndefined: Self = StObject.set(x, "emulateHTTP", js.undefined)
       
       @scala.inline
-      def setCredentials(value: Boolean): Self = this.set("credentials", value.asInstanceOf[js.Any])
+      def setEmulateJSON(value: Boolean): Self = StObject.set(x, "emulateJSON", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteCredentials: Self = this.set("credentials", js.undefined)
+      def setEmulateJSONUndefined: Self = StObject.set(x, "emulateJSON", js.undefined)
       
       @scala.inline
-      def setEmulateHTTP(value: Boolean): Self = this.set("emulateHTTP", value.asInstanceOf[js.Any])
+      def setHeaders(value: js.Any): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteEmulateHTTP: Self = this.set("emulateHTTP", js.undefined)
+      def setHeadersUndefined: Self = StObject.set(x, "headers", js.undefined)
       
       @scala.inline
-      def setEmulateJSON(value: Boolean): Self = this.set("emulateJSON", value.asInstanceOf[js.Any])
+      def setMethod(value: String): Self = StObject.set(x, "method", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteEmulateJSON: Self = this.set("emulateJSON", js.undefined)
+      def setMethodUndefined: Self = StObject.set(x, "method", js.undefined)
       
       @scala.inline
-      def setHeaders(value: js.Any): Self = this.set("headers", value.asInstanceOf[js.Any])
+      def setParams(value: js.Any): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteHeaders: Self = this.set("headers", js.undefined)
+      def setParamsUndefined: Self = StObject.set(x, "params", js.undefined)
       
       @scala.inline
-      def setMethod(value: String): Self = this.set("method", value.asInstanceOf[js.Any])
+      def setProgress(value: /* event */ js.Any => _): Self = StObject.set(x, "progress", js.Any.fromFunction1(value))
       
       @scala.inline
-      def deleteMethod: Self = this.set("method", js.undefined)
+      def setProgressUndefined: Self = StObject.set(x, "progress", js.undefined)
       
       @scala.inline
-      def setParams(value: js.Any): Self = this.set("params", value.asInstanceOf[js.Any])
+      def setRoot(value: String): Self = StObject.set(x, "root", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteParams: Self = this.set("params", js.undefined)
+      def setUrl(value: String): Self = StObject.set(x, "url", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setProgress(value: /* event */ js.Any => _): Self = this.set("progress", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def deleteProgress: Self = this.set("progress", js.undefined)
-      
-      @scala.inline
-      def setUrl(value: String): Self = this.set("url", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteUrl: Self = this.set("url", js.undefined)
+      def setUrlUndefined: Self = StObject.set(x, "url", js.undefined)
     }
   }
   
   @js.native
-  trait Method extends js.Object {
+  trait Method extends StObject {
     
     var method: String = js.native
   }
@@ -193,22 +182,10 @@ object anon {
     }
     
     @scala.inline
-    implicit class MethodOps[Self <: Method] (val x: Self) extends AnyVal {
+    implicit class MethodMutableBuilder[Self <: Method] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setMethod(value: String): Self = this.set("method", value.asInstanceOf[js.Any])
+      def setMethod(value: String): Self = StObject.set(x, "method", value.asInstanceOf[js.Any])
     }
   }
   
@@ -246,76 +223,64 @@ object anon {
     }
     
     @scala.inline
-    implicit class headersHttpHeadersundefinOps[Self <: headersHttpHeadersundefin] (val x: Self) extends AnyVal {
+    implicit class headersHttpHeadersundefinMutableBuilder[Self <: headersHttpHeadersundefin] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setBefore(value: /* request */ js.Any => _): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setBeforeUndefined: Self = StObject.set(x, "before", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setBody(value: js.Any): Self = StObject.set(x, "body", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setHeaders(value: js.UndefOr[HttpHeaders] with js.UndefOr[js.Any]): Self = this.set("headers", value.asInstanceOf[js.Any])
+      def setBodyUndefined: Self = StObject.set(x, "body", js.undefined)
       
       @scala.inline
-      def setBefore(value: /* request */ js.Any => _): Self = this.set("before", js.Any.fromFunction1(value))
+      def setCredentials(value: Boolean): Self = StObject.set(x, "credentials", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteBefore: Self = this.set("before", js.undefined)
+      def setCredentialsUndefined: Self = StObject.set(x, "credentials", js.undefined)
       
       @scala.inline
-      def setBody(value: js.Any): Self = this.set("body", value.asInstanceOf[js.Any])
+      def setEmulateHTTP(value: Boolean): Self = StObject.set(x, "emulateHTTP", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteBody: Self = this.set("body", js.undefined)
+      def setEmulateHTTPUndefined: Self = StObject.set(x, "emulateHTTP", js.undefined)
       
       @scala.inline
-      def setCredentials(value: Boolean): Self = this.set("credentials", value.asInstanceOf[js.Any])
+      def setEmulateJSON(value: Boolean): Self = StObject.set(x, "emulateJSON", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteCredentials: Self = this.set("credentials", js.undefined)
+      def setEmulateJSONUndefined: Self = StObject.set(x, "emulateJSON", js.undefined)
       
       @scala.inline
-      def setEmulateHTTP(value: Boolean): Self = this.set("emulateHTTP", value.asInstanceOf[js.Any])
+      def setHeaders(value: js.UndefOr[HttpHeaders] with js.UndefOr[js.Any]): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteEmulateHTTP: Self = this.set("emulateHTTP", js.undefined)
+      def setMethod(value: String): Self = StObject.set(x, "method", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEmulateJSON(value: Boolean): Self = this.set("emulateJSON", value.asInstanceOf[js.Any])
+      def setMethodUndefined: Self = StObject.set(x, "method", js.undefined)
       
       @scala.inline
-      def deleteEmulateJSON: Self = this.set("emulateJSON", js.undefined)
+      def setParams(value: js.Any): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setMethod(value: String): Self = this.set("method", value.asInstanceOf[js.Any])
+      def setParamsUndefined: Self = StObject.set(x, "params", js.undefined)
       
       @scala.inline
-      def deleteMethod: Self = this.set("method", js.undefined)
+      def setProgress(value: /* event */ js.Any => _): Self = StObject.set(x, "progress", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setParams(value: js.Any): Self = this.set("params", value.asInstanceOf[js.Any])
+      def setProgressUndefined: Self = StObject.set(x, "progress", js.undefined)
       
       @scala.inline
-      def deleteParams: Self = this.set("params", js.undefined)
+      def setUrl(value: String): Self = StObject.set(x, "url", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setProgress(value: /* event */ js.Any => _): Self = this.set("progress", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def deleteProgress: Self = this.set("progress", js.undefined)
-      
-      @scala.inline
-      def setUrl(value: String): Self = this.set("url", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteUrl: Self = this.set("url", js.undefined)
+      def setUrlUndefined: Self = StObject.set(x, "url", js.undefined)
     }
   }
 }

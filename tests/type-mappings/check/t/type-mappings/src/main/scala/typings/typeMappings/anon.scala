@@ -1,5 +1,6 @@
 package typings.typeMappings
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -7,7 +8,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object anon {
   
   @js.native
-  trait Age extends js.Object {
+  trait Age extends StObject {
     
     var age: scala.Double = js.native
   }
@@ -20,27 +21,15 @@ object anon {
     }
     
     @scala.inline
-    implicit class AgeOps[Self <: Age] (val x: Self) extends AnyVal {
+    implicit class AgeMutableBuilder[Self <: Age] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setAge(value: scala.Double): Self = this.set("age", value.asInstanceOf[js.Any])
+      def setAge(value: scala.Double): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait Get extends js.Object {
+  trait Get extends StObject {
     
     def get(): js.UndefOr[scala.Double | Null] = js.native
     
@@ -49,7 +38,7 @@ object anon {
   }
   
   @js.native
-  trait Name extends js.Object {
+  trait Name extends StObject {
     
     var name: String = js.native
   }
@@ -62,27 +51,15 @@ object anon {
     }
     
     @scala.inline
-    implicit class NameOps[Self <: Name] (val x: Self) extends AnyVal {
+    implicit class NameMutableBuilder[Self <: Name] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setName(value: String): Self = this.set("name", value.asInstanceOf[js.Any])
+      def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait Set extends js.Object {
+  trait Set extends StObject {
     
     def get(): String = js.native
     
@@ -97,25 +74,13 @@ object anon {
     }
     
     @scala.inline
-    implicit class SetOps[Self <: Set] (val x: Self) extends AnyVal {
+    implicit class SetMutableBuilder[Self <: Set] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setGet(value: () => String): Self = StObject.set(x, "get", js.Any.fromFunction0(value))
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setGet(value: () => String): Self = this.set("get", js.Any.fromFunction0(value))
-      
-      @scala.inline
-      def setSet(value: String => Unit): Self = this.set("set", js.Any.fromFunction1(value))
+      def setSet(value: String => Unit): Self = StObject.set(x, "set", js.Any.fromFunction1(value))
     }
   }
 }

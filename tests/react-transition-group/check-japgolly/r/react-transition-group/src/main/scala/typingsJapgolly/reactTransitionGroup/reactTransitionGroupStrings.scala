@@ -1,5 +1,6 @@
 package typingsJapgolly.reactTransitionGroup
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -13,8 +14,8 @@ object reactTransitionGroupStrings {
   def animate: animate = "animate".asInstanceOf[animate]
   
   @js.native
-  sealed trait abbr extends js.Object
+  sealed trait abbr extends StObject
   
   @js.native
-  sealed trait animate extends js.Object
+  sealed trait animate extends StObject
 }

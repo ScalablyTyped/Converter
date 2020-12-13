@@ -1,5 +1,6 @@
 package typings.react
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -16,11 +17,11 @@ object reactStrings {
   def clipPath: clipPath = "clipPath".asInstanceOf[clipPath]
   
   @js.native
-  sealed trait animate extends js.Object
+  sealed trait animate extends StObject
   
   @js.native
-  sealed trait circle extends js.Object
+  sealed trait circle extends StObject
   
   @js.native
-  sealed trait clipPath extends js.Object
+  sealed trait clipPath extends StObject
 }

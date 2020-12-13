@@ -4,6 +4,7 @@ import org.scalablytyped.runtime.Instantiable1
 import typings.vue.optionsMod.InjectKey
 import typings.vue.vnodeMod.VNode
 import typings.vue.vueMod.CreateElement
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -11,7 +12,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object anon {
   
   @js.native
-  trait Default extends js.Object {
+  trait Default extends StObject {
     
     var default: js.UndefOr[js.Any] = js.native
     
@@ -26,36 +27,24 @@ object anon {
     }
     
     @scala.inline
-    implicit class DefaultOps[Self <: Default] (val x: Self) extends AnyVal {
+    implicit class DefaultMutableBuilder[Self <: Default] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setDefault(value: js.Any): Self = StObject.set(x, "default", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setDefaultUndefined: Self = StObject.set(x, "default", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setFrom(value: InjectKey): Self = StObject.set(x, "from", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDefault(value: js.Any): Self = this.set("default", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteDefault: Self = this.set("default", js.undefined)
-      
-      @scala.inline
-      def setFrom(value: InjectKey): Self = this.set("from", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteFrom: Self = this.set("from", js.undefined)
+      def setFromUndefined: Self = StObject.set(x, "from", js.undefined)
     }
   }
   
   @js.native
-  trait Event extends js.Object {
+  trait Event extends StObject {
     
     var event: js.UndefOr[String] = js.native
     
@@ -70,43 +59,31 @@ object anon {
     }
     
     @scala.inline
-    implicit class EventOps[Self <: Event] (val x: Self) extends AnyVal {
+    implicit class EventMutableBuilder[Self <: Event] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setEvent(value: String): Self = StObject.set(x, "event", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setEventUndefined: Self = StObject.set(x, "event", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setProp(value: String): Self = StObject.set(x, "prop", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEvent(value: String): Self = this.set("event", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteEvent: Self = this.set("event", js.undefined)
-      
-      @scala.inline
-      def setProp(value: String): Self = this.set("prop", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteProp: Self = this.set("prop", js.undefined)
+      def setPropUndefined: Self = StObject.set(x, "prop", js.undefined)
     }
   }
   
   @js.native
-  trait FnCall extends js.Object {
+  trait FnCall extends StObject {
     
     def apply[T](array: js.Array[T], key: Double, value: T): T = js.native
     def apply[T](`object`: js.Object, key: String, value: T): T = js.native
   }
   
   @js.native
-  trait FnCallObjectKey extends js.Object {
+  trait FnCallObjectKey extends StObject {
     
     def apply(`object`: js.Object, key: String): Unit = js.native
     def apply[T](array: js.Array[T], key: Double): Unit = js.native
@@ -117,7 +94,7 @@ object anon {
     extends Instantiable1[/* args (repeated) */ js.Any, T with js.Object]
   
   @js.native
-  trait Render extends js.Object {
+  trait Render extends StObject {
     
     var render: js.Function = js.native
     
@@ -132,33 +109,21 @@ object anon {
     }
     
     @scala.inline
-    implicit class RenderOps[Self <: Render] (val x: Self) extends AnyVal {
+    implicit class RenderMutableBuilder[Self <: Render] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setRender(value: js.Function): Self = StObject.set(x, "render", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setStaticRenderFns(value: js.Array[js.Function]): Self = StObject.set(x, "staticRenderFns", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setRender(value: js.Function): Self = this.set("render", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setStaticRenderFnsVarargs(value: js.Function*): Self = this.set("staticRenderFns", js.Array(value :_*))
-      
-      @scala.inline
-      def setStaticRenderFns(value: js.Array[js.Function]): Self = this.set("staticRenderFns", value.asInstanceOf[js.Any])
+      def setStaticRenderFnsVarargs(value: js.Function*): Self = StObject.set(x, "staticRenderFns", js.Array(value :_*))
     }
   }
   
   @js.native
-  trait StaticRenderFns extends js.Object {
+  trait StaticRenderFns extends StObject {
     
     def render(createElement: CreateElement): VNode = js.native
     
@@ -173,28 +138,16 @@ object anon {
     }
     
     @scala.inline
-    implicit class StaticRenderFnsOps[Self <: StaticRenderFns] (val x: Self) extends AnyVal {
+    implicit class StaticRenderFnsMutableBuilder[Self <: StaticRenderFns] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setRender(value: CreateElement => VNode): Self = StObject.set(x, "render", js.Any.fromFunction1(value))
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setStaticRenderFns(value: js.Array[js.Function0[VNode]]): Self = StObject.set(x, "staticRenderFns", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setRender(value: CreateElement => VNode): Self = this.set("render", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def setStaticRenderFnsVarargs(value: js.Function0[VNode]*): Self = this.set("staticRenderFns", js.Array(value :_*))
-      
-      @scala.inline
-      def setStaticRenderFns(value: js.Array[js.Function0[VNode]]): Self = this.set("staticRenderFns", value.asInstanceOf[js.Any])
+      def setStaticRenderFnsVarargs(value: js.Function0[VNode]*): Self = StObject.set(x, "staticRenderFns", js.Array(value :_*))
     }
   }
 }

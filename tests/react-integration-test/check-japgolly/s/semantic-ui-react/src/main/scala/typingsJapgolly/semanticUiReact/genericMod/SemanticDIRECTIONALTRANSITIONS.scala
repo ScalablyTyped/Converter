@@ -1,5 +1,6 @@
 package typingsJapgolly.semanticUiReact.genericMod
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -33,7 +34,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`swing right`
   - typingsJapgolly.semanticUiReact.semanticUiReactStrings.zoom
 */
-trait SemanticDIRECTIONALTRANSITIONS extends js.Object
+trait SemanticDIRECTIONALTRANSITIONS extends StObject
 object SemanticDIRECTIONALTRANSITIONS {
   
   @scala.inline

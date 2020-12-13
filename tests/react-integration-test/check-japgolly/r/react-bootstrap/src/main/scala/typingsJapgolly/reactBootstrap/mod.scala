@@ -2,6 +2,7 @@ package typingsJapgolly.reactBootstrap
 
 import typingsJapgolly.reactBootstrap.bootstrapUtilsMod.BSProps
 import typingsJapgolly.std.Pick
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -22,7 +23,7 @@ object mod {
     - typingsJapgolly.reactBootstrap.reactBootstrapStrings.lg
     - typingsJapgolly.reactBootstrap.reactBootstrapStrings.large
   */
-  trait Sizes extends js.Object
+  trait Sizes extends StObject
   object Sizes {
     
     @scala.inline

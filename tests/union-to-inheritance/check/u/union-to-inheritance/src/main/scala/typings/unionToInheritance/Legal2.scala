@@ -1,5 +1,6 @@
 package typings.unionToInheritance
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -10,4 +11,4 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typings.unionToInheritance.Foo[P]
   - typings.unionToInheritance.Foo2[T, P]
 */
-trait Legal2[P, T] extends js.Object
+trait Legal2[P, T] extends StObject

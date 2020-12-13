@@ -22,6 +22,7 @@ import typingsJapgolly.semanticUiReact.semanticUiReactStrings.massive
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.mini
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.small
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -52,22 +53,10 @@ object inputInputMod {
     }
     
     @scala.inline
-    implicit class InputOnChangeDataOps[Self <: InputOnChangeData] (val x: Self) extends AnyVal {
+    implicit class InputOnChangeDataMutableBuilder[Self <: InputOnChangeData] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setValue(value: String): Self = this.set("value", value.asInstanceOf[js.Any])
+      def setValue(value: String): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     }
   }
   
@@ -148,151 +137,139 @@ object inputInputMod {
     }
     
     @scala.inline
-    implicit class StrictInputPropsOps[Self <: StrictInputProps] (val x: Self) extends AnyVal {
+    implicit class StrictInputPropsMutableBuilder[Self <: StrictInputProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setAction(value: js.Any | Boolean): Self = StObject.set(x, "action", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setActionPosition(value: left): Self = StObject.set(x, "actionPosition", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setActionPositionUndefined: Self = StObject.set(x, "actionPosition", js.undefined)
       
       @scala.inline
-      def setAction(value: js.Any | Boolean): Self = this.set("action", value.asInstanceOf[js.Any])
+      def setActionUndefined: Self = StObject.set(x, "action", js.undefined)
       
       @scala.inline
-      def deleteAction: Self = this.set("action", js.undefined)
+      def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setActionPosition(value: left): Self = this.set("actionPosition", value.asInstanceOf[js.Any])
+      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
       @scala.inline
-      def deleteActionPosition: Self = this.set("actionPosition", js.undefined)
+      def setError(value: Boolean): Self = StObject.set(x, "error", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAs(value: js.Any): Self = this.set("as", value.asInstanceOf[js.Any])
+      def setErrorUndefined: Self = StObject.set(x, "error", js.undefined)
       
       @scala.inline
-      def deleteAs: Self = this.set("as", js.undefined)
+      def setFluid(value: Boolean): Self = StObject.set(x, "fluid", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setError(value: Boolean): Self = this.set("error", value.asInstanceOf[js.Any])
+      def setFluidUndefined: Self = StObject.set(x, "fluid", js.undefined)
       
       @scala.inline
-      def deleteError: Self = this.set("error", js.undefined)
+      def setFocus(value: Boolean): Self = StObject.set(x, "focus", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFluid(value: Boolean): Self = this.set("fluid", value.asInstanceOf[js.Any])
+      def setFocusUndefined: Self = StObject.set(x, "focus", js.undefined)
       
       @scala.inline
-      def deleteFluid: Self = this.set("fluid", js.undefined)
-      
-      @scala.inline
-      def setFocus(value: Boolean): Self = this.set("focus", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteFocus: Self = this.set("focus", js.undefined)
-      
-      @scala.inline
-      def setIconVdomElement(value: VdomElement): Self = this.set("icon", value.rawElement.asInstanceOf[js.Any])
+      def setIcon(value: js.Any | SemanticShorthandItem[InputProps]): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setIconFunction3(
         value: (/* component */ ReactType[InputProps], InputProps, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
-      ): Self = this.set("icon", js.Any.fromFunction3(value))
+      ): Self = StObject.set(x, "icon", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setIcon(value: js.Any | SemanticShorthandItem[InputProps]): Self = this.set("icon", value.asInstanceOf[js.Any])
+      def setIconPosition(value: left): Self = StObject.set(x, "iconPosition", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteIcon: Self = this.set("icon", js.undefined)
+      def setIconPositionUndefined: Self = StObject.set(x, "iconPosition", js.undefined)
       
       @scala.inline
-      def setIconPosition(value: left): Self = this.set("iconPosition", value.asInstanceOf[js.Any])
+      def setIconUndefined: Self = StObject.set(x, "icon", js.undefined)
       
       @scala.inline
-      def deleteIconPosition: Self = this.set("iconPosition", js.undefined)
+      def setIconVdomElement(value: VdomElement): Self = StObject.set(x, "icon", value.rawElement.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInputVdomElement(value: VdomElement): Self = this.set("input", value.rawElement.asInstanceOf[js.Any])
+      def setInput(value: SemanticShorthandItem[HtmlInputrops]): Self = StObject.set(x, "input", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setInputFunction3(
         value: (/* component */ ReactType[HtmlInputrops], HtmlInputrops, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
-      ): Self = this.set("input", js.Any.fromFunction3(value))
+      ): Self = StObject.set(x, "input", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setInput(value: SemanticShorthandItem[HtmlInputrops]): Self = this.set("input", value.asInstanceOf[js.Any])
+      def setInputUndefined: Self = StObject.set(x, "input", js.undefined)
       
       @scala.inline
-      def deleteInput: Self = this.set("input", js.undefined)
+      def setInputVdomElement(value: VdomElement): Self = StObject.set(x, "input", value.rawElement.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInverted(value: Boolean): Self = this.set("inverted", value.asInstanceOf[js.Any])
+      def setInverted(value: Boolean): Self = StObject.set(x, "inverted", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteInverted: Self = this.set("inverted", js.undefined)
-      
-      @scala.inline
-      def setLabelVdomElement(value: VdomElement): Self = this.set("label", value.rawElement.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setLabelFunction3(
-        value: (/* component */ ReactType[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
-            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
-      ): Self = this.set("label", js.Any.fromFunction3(value))
+      def setInvertedUndefined: Self = StObject.set(x, "inverted", js.undefined)
       
       @scala.inline
       def setLabel(
         value: SemanticShorthandItem[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
             ]
-      ): Self = this.set("label", value.asInstanceOf[js.Any])
+      ): Self = StObject.set(x, "label", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteLabel: Self = this.set("label", js.undefined)
+      def setLabelFunction3(
+        value: (/* component */ ReactType[
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
+            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+      ): Self = StObject.set(x, "label", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setLabelPosition(value: left | right | (`left corner`) | (`right corner`)): Self = this.set("labelPosition", value.asInstanceOf[js.Any])
+      def setLabelPosition(value: left | right | (`left corner`) | (`right corner`)): Self = StObject.set(x, "labelPosition", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteLabelPosition: Self = this.set("labelPosition", js.undefined)
+      def setLabelPositionUndefined: Self = StObject.set(x, "labelPosition", js.undefined)
       
       @scala.inline
-      def setLoading(value: Boolean): Self = this.set("loading", value.asInstanceOf[js.Any])
+      def setLabelUndefined: Self = StObject.set(x, "label", js.undefined)
       
       @scala.inline
-      def deleteLoading: Self = this.set("loading", js.undefined)
+      def setLabelVdomElement(value: VdomElement): Self = StObject.set(x, "label", value.rawElement.asInstanceOf[js.Any])
       
       @scala.inline
-      def setOnChange(value: (/* event */ ReactEventFrom[HTMLInputElement], /* data */ InputOnChangeData) => Callback): Self = this.set("onChange", js.Any.fromFunction2((t0: /* event */ ReactEventFrom[HTMLInputElement], t1: /* data */ InputOnChangeData) => (value(t0, t1)).runNow()))
+      def setLoading(value: Boolean): Self = StObject.set(x, "loading", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteOnChange: Self = this.set("onChange", js.undefined)
+      def setLoadingUndefined: Self = StObject.set(x, "loading", js.undefined)
       
       @scala.inline
-      def setSize(value: mini | small | large | big | huge | massive): Self = this.set("size", value.asInstanceOf[js.Any])
+      def setOnChange(value: (/* event */ ReactEventFrom[HTMLInputElement], /* data */ InputOnChangeData) => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction2((t0: /* event */ ReactEventFrom[HTMLInputElement], t1: /* data */ InputOnChangeData) => (value(t0, t1)).runNow()))
       
       @scala.inline
-      def deleteSize: Self = this.set("size", js.undefined)
+      def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       
       @scala.inline
-      def setTabIndex(value: Double | String): Self = this.set("tabIndex", value.asInstanceOf[js.Any])
+      def setSize(value: mini | small | large | big | huge | massive): Self = StObject.set(x, "size", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteTabIndex: Self = this.set("tabIndex", js.undefined)
+      def setSizeUndefined: Self = StObject.set(x, "size", js.undefined)
       
       @scala.inline
-      def setTransparent(value: Boolean): Self = this.set("transparent", value.asInstanceOf[js.Any])
+      def setTabIndex(value: Double | String): Self = StObject.set(x, "tabIndex", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteTransparent: Self = this.set("transparent", js.undefined)
+      def setTabIndexUndefined: Self = StObject.set(x, "tabIndex", js.undefined)
+      
+      @scala.inline
+      def setTransparent(value: Boolean): Self = StObject.set(x, "transparent", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setTransparentUndefined: Self = StObject.set(x, "transparent", js.undefined)
     }
   }
   

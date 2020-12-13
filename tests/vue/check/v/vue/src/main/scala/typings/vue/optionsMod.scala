@@ -18,6 +18,7 @@ import typings.vue.vueMod.CombinedVueInstance
 import typings.vue.vueMod.CreateElement
 import typings.vue.vueMod.Vue
 import typings.vue.vueMod.VueConstructor
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -25,7 +26,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object optionsMod {
   
   @js.native
-  trait ComponentOptions[V /* <: Vue */, Data, Methods, Computed, PropsDef] extends js.Object {
+  trait ComponentOptions[V /* <: Vue */, Data, Methods, Computed, PropsDef] extends StObject {
     
     var activated: js.UndefOr[js.Function0[Unit]] = js.native
     
@@ -127,115 +128,103 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class ComponentOptionsOps[Self <: ComponentOptions[_, _, _, _, _], V /* <: Vue */, Data, Methods, Computed, PropsDef] (val x: Self with (ComponentOptions[V, Data, Methods, Computed, PropsDef])) extends AnyVal {
+    implicit class ComponentOptionsMutableBuilder[Self <: ComponentOptions[_, _, _, _, _], V /* <: Vue */, Data, Methods, Computed, PropsDef] (val x: Self with (ComponentOptions[V, Data, Methods, Computed, PropsDef])) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setActivated(value: () => Unit): Self = StObject.set(x, "activated", js.Any.fromFunction0(value))
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setActivatedUndefined: Self = StObject.set(x, "activated", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setBeforeCreate(value: js.ThisFunction0[/* this */ V, Unit]): Self = StObject.set(x, "beforeCreate", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setActivated(value: () => Unit): Self = this.set("activated", js.Any.fromFunction0(value))
+      def setBeforeCreateUndefined: Self = StObject.set(x, "beforeCreate", js.undefined)
       
       @scala.inline
-      def deleteActivated: Self = this.set("activated", js.undefined)
+      def setBeforeDestroy(value: () => Unit): Self = StObject.set(x, "beforeDestroy", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setBeforeCreate(value: js.ThisFunction0[/* this */ V, Unit]): Self = this.set("beforeCreate", value.asInstanceOf[js.Any])
+      def setBeforeDestroyUndefined: Self = StObject.set(x, "beforeDestroy", js.undefined)
       
       @scala.inline
-      def deleteBeforeCreate: Self = this.set("beforeCreate", js.undefined)
+      def setBeforeMount(value: () => Unit): Self = StObject.set(x, "beforeMount", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setBeforeDestroy(value: () => Unit): Self = this.set("beforeDestroy", js.Any.fromFunction0(value))
+      def setBeforeMountUndefined: Self = StObject.set(x, "beforeMount", js.undefined)
       
       @scala.inline
-      def deleteBeforeDestroy: Self = this.set("beforeDestroy", js.undefined)
+      def setBeforeUpdate(value: () => Unit): Self = StObject.set(x, "beforeUpdate", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setBeforeMount(value: () => Unit): Self = this.set("beforeMount", js.Any.fromFunction0(value))
+      def setBeforeUpdateUndefined: Self = StObject.set(x, "beforeUpdate", js.undefined)
       
       @scala.inline
-      def deleteBeforeMount: Self = this.set("beforeMount", js.undefined)
+      def setComments(value: Boolean): Self = StObject.set(x, "comments", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setBeforeUpdate(value: () => Unit): Self = this.set("beforeUpdate", js.Any.fromFunction0(value))
+      def setCommentsUndefined: Self = StObject.set(x, "comments", js.undefined)
       
       @scala.inline
-      def deleteBeforeUpdate: Self = this.set("beforeUpdate", js.undefined)
+      def setComponents(value: StringDictionary[(Component[_, _, _, _]) | (AsyncComponent[_, _, _, _])]): Self = StObject.set(x, "components", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setComments(value: Boolean): Self = this.set("comments", value.asInstanceOf[js.Any])
+      def setComponentsUndefined: Self = StObject.set(x, "components", js.undefined)
       
       @scala.inline
-      def deleteComments: Self = this.set("comments", js.undefined)
+      def setComputed(value: Accessors[Computed]): Self = StObject.set(x, "computed", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setComponents(value: StringDictionary[(Component[_, _, _, _]) | (AsyncComponent[_, _, _, _])]): Self = this.set("components", value.asInstanceOf[js.Any])
+      def setComputedUndefined: Self = StObject.set(x, "computed", js.undefined)
       
       @scala.inline
-      def deleteComponents: Self = this.set("components", js.undefined)
+      def setCreated(value: () => Unit): Self = StObject.set(x, "created", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setComputed(value: Accessors[Computed]): Self = this.set("computed", value.asInstanceOf[js.Any])
+      def setCreatedUndefined: Self = StObject.set(x, "created", js.undefined)
       
       @scala.inline
-      def deleteComputed: Self = this.set("computed", js.undefined)
+      def setData(value: Data): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCreated(value: () => Unit): Self = this.set("created", js.Any.fromFunction0(value))
+      def setDataUndefined: Self = StObject.set(x, "data", js.undefined)
       
       @scala.inline
-      def deleteCreated: Self = this.set("created", js.undefined)
+      def setDeactivated(value: () => Unit): Self = StObject.set(x, "deactivated", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setData(value: Data): Self = this.set("data", value.asInstanceOf[js.Any])
+      def setDeactivatedUndefined: Self = StObject.set(x, "deactivated", js.undefined)
       
       @scala.inline
-      def deleteData: Self = this.set("data", js.undefined)
+      def setDelimiters(value: js.Tuple2[String, String]): Self = StObject.set(x, "delimiters", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDeactivated(value: () => Unit): Self = this.set("deactivated", js.Any.fromFunction0(value))
+      def setDelimitersUndefined: Self = StObject.set(x, "delimiters", js.undefined)
       
       @scala.inline
-      def deleteDeactivated: Self = this.set("deactivated", js.undefined)
+      def setDestroyed(value: () => Unit): Self = StObject.set(x, "destroyed", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setDelimiters(value: js.Tuple2[String, String]): Self = this.set("delimiters", value.asInstanceOf[js.Any])
+      def setDestroyedUndefined: Self = StObject.set(x, "destroyed", js.undefined)
       
       @scala.inline
-      def deleteDelimiters: Self = this.set("delimiters", js.undefined)
+      def setDirectives(value: StringDictionary[DirectiveFunction | DirectiveOptions]): Self = StObject.set(x, "directives", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDestroyed(value: () => Unit): Self = this.set("destroyed", js.Any.fromFunction0(value))
+      def setDirectivesUndefined: Self = StObject.set(x, "directives", js.undefined)
       
       @scala.inline
-      def deleteDestroyed: Self = this.set("destroyed", js.undefined)
+      def setEl(value: Element | String): Self = StObject.set(x, "el", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDirectives(value: StringDictionary[DirectiveFunction | DirectiveOptions]): Self = this.set("directives", value.asInstanceOf[js.Any])
+      def setElUndefined: Self = StObject.set(x, "el", js.undefined)
       
       @scala.inline
-      def deleteDirectives: Self = this.set("directives", js.undefined)
+      def setErrorCaptured(value: () => Boolean | Unit): Self = StObject.set(x, "errorCaptured", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setEl(value: Element | String): Self = this.set("el", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteEl: Self = this.set("el", js.undefined)
-      
-      @scala.inline
-      def setErrorCaptured(value: () => Boolean | Unit): Self = this.set("errorCaptured", js.Any.fromFunction0(value))
-      
-      @scala.inline
-      def deleteErrorCaptured: Self = this.set("errorCaptured", js.undefined)
+      def setErrorCapturedUndefined: Self = StObject.set(x, "errorCaptured", js.undefined)
       
       @scala.inline
       def setExtends(
@@ -246,48 +235,37 @@ object optionsMod {
               DefaultComputed, 
               PropsDefinition[DefaultProps]
             ]) | VueConstructor[Vue]
-      ): Self = this.set("extends", value.asInstanceOf[js.Any])
+      ): Self = StObject.set(x, "extends", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteExtends: Self = this.set("extends", js.undefined)
+      def setExtendsUndefined: Self = StObject.set(x, "extends", js.undefined)
       
       @scala.inline
-      def setFilters(value: StringDictionary[js.Function]): Self = this.set("filters", value.asInstanceOf[js.Any])
+      def setFilters(value: StringDictionary[js.Function]): Self = StObject.set(x, "filters", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteFilters: Self = this.set("filters", js.undefined)
+      def setFiltersUndefined: Self = StObject.set(x, "filters", js.undefined)
       
       @scala.inline
-      def setInheritAttrs(value: Boolean): Self = this.set("inheritAttrs", value.asInstanceOf[js.Any])
+      def setInheritAttrs(value: Boolean): Self = StObject.set(x, "inheritAttrs", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteInheritAttrs: Self = this.set("inheritAttrs", js.undefined)
+      def setInheritAttrsUndefined: Self = StObject.set(x, "inheritAttrs", js.undefined)
       
       @scala.inline
-      def setInjectVarargs(value: String*): Self = this.set("inject", js.Array(value :_*))
+      def setInject(value: InjectOptions): Self = StObject.set(x, "inject", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInject(value: InjectOptions): Self = this.set("inject", value.asInstanceOf[js.Any])
+      def setInjectUndefined: Self = StObject.set(x, "inject", js.undefined)
       
       @scala.inline
-      def deleteInject: Self = this.set("inject", js.undefined)
+      def setInjectVarargs(value: String*): Self = StObject.set(x, "inject", js.Array(value :_*))
       
       @scala.inline
-      def setMethods(value: Methods): Self = this.set("methods", value.asInstanceOf[js.Any])
+      def setMethods(value: Methods): Self = StObject.set(x, "methods", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteMethods: Self = this.set("methods", js.undefined)
-      
-      @scala.inline
-      def setMixinsVarargs(
-        value: ((ComponentOptions[
-              Vue, 
-              DefaultData[Vue], 
-              DefaultMethods[Vue], 
-              DefaultComputed, 
-              PropsDefinition[DefaultProps]
-            ]) | VueConstructor[Vue])*
-      ): Self = this.set("mixins", js.Array(value :_*))
+      def setMethodsUndefined: Self = StObject.set(x, "methods", js.undefined)
       
       @scala.inline
       def setMixins(
@@ -300,105 +278,116 @@ object optionsMod {
                 PropsDefinition[DefaultProps]
               ]) | VueConstructor[Vue]
             ]
-      ): Self = this.set("mixins", value.asInstanceOf[js.Any])
+      ): Self = StObject.set(x, "mixins", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteMixins: Self = this.set("mixins", js.undefined)
+      def setMixinsUndefined: Self = StObject.set(x, "mixins", js.undefined)
       
       @scala.inline
-      def setModel(value: Event): Self = this.set("model", value.asInstanceOf[js.Any])
+      def setMixinsVarargs(
+        value: ((ComponentOptions[
+              Vue, 
+              DefaultData[Vue], 
+              DefaultMethods[Vue], 
+              DefaultComputed, 
+              PropsDefinition[DefaultProps]
+            ]) | VueConstructor[Vue])*
+      ): Self = StObject.set(x, "mixins", js.Array(value :_*))
       
       @scala.inline
-      def deleteModel: Self = this.set("model", js.undefined)
+      def setModel(value: Event): Self = StObject.set(x, "model", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setMounted(value: () => Unit): Self = this.set("mounted", js.Any.fromFunction0(value))
+      def setModelUndefined: Self = StObject.set(x, "model", js.undefined)
       
       @scala.inline
-      def deleteMounted: Self = this.set("mounted", js.undefined)
+      def setMounted(value: () => Unit): Self = StObject.set(x, "mounted", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setName(value: String): Self = this.set("name", value.asInstanceOf[js.Any])
+      def setMountedUndefined: Self = StObject.set(x, "mounted", js.undefined)
       
       @scala.inline
-      def deleteName: Self = this.set("name", js.undefined)
+      def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setParent(value: Vue): Self = this.set("parent", value.asInstanceOf[js.Any])
+      def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
       
       @scala.inline
-      def deleteParent: Self = this.set("parent", js.undefined)
+      def setParent(value: Vue): Self = StObject.set(x, "parent", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setProps(value: PropsDef): Self = this.set("props", value.asInstanceOf[js.Any])
+      def setParentUndefined: Self = StObject.set(x, "parent", js.undefined)
       
       @scala.inline
-      def deleteProps: Self = this.set("props", js.undefined)
+      def setProps(value: PropsDef): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPropsData(value: js.Object): Self = this.set("propsData", value.asInstanceOf[js.Any])
+      def setPropsData(value: js.Object): Self = StObject.set(x, "propsData", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deletePropsData: Self = this.set("propsData", js.undefined)
+      def setPropsDataUndefined: Self = StObject.set(x, "propsData", js.undefined)
       
       @scala.inline
-      def setProvideFunction0(value: () => js.Object): Self = this.set("provide", js.Any.fromFunction0(value))
+      def setPropsUndefined: Self = StObject.set(x, "props", js.undefined)
       
       @scala.inline
-      def setProvide(value: js.Object | js.Function0[js.Object]): Self = this.set("provide", value.asInstanceOf[js.Any])
+      def setProvide(value: js.Object | js.Function0[js.Object]): Self = StObject.set(x, "provide", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteProvide: Self = this.set("provide", js.undefined)
+      def setProvideFunction0(value: () => js.Object): Self = StObject.set(x, "provide", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setRender(value: /* createElement */ CreateElement => VNode): Self = this.set("render", js.Any.fromFunction1(value))
+      def setProvideUndefined: Self = StObject.set(x, "provide", js.undefined)
       
       @scala.inline
-      def deleteRender: Self = this.set("render", js.undefined)
+      def setRender(value: /* createElement */ CreateElement => VNode): Self = StObject.set(x, "render", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setRenderError(value: (/* h */ js.Function0[VNode], /* err */ Error) => VNode): Self = this.set("renderError", js.Any.fromFunction2(value))
+      def setRenderError(value: (/* h */ js.Function0[VNode], /* err */ Error) => VNode): Self = StObject.set(x, "renderError", js.Any.fromFunction2(value))
       
       @scala.inline
-      def deleteRenderError: Self = this.set("renderError", js.undefined)
+      def setRenderErrorUndefined: Self = StObject.set(x, "renderError", js.undefined)
       
       @scala.inline
-      def setStaticRenderFnsVarargs(value: (js.Function1[/* createElement */ CreateElement, VNode])*): Self = this.set("staticRenderFns", js.Array(value :_*))
+      def setRenderUndefined: Self = StObject.set(x, "render", js.undefined)
       
       @scala.inline
-      def setStaticRenderFns(value: js.Array[js.Function1[/* createElement */ CreateElement, VNode]]): Self = this.set("staticRenderFns", value.asInstanceOf[js.Any])
+      def setStaticRenderFns(value: js.Array[js.Function1[/* createElement */ CreateElement, VNode]]): Self = StObject.set(x, "staticRenderFns", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteStaticRenderFns: Self = this.set("staticRenderFns", js.undefined)
+      def setStaticRenderFnsUndefined: Self = StObject.set(x, "staticRenderFns", js.undefined)
       
       @scala.inline
-      def setTemplate(value: String): Self = this.set("template", value.asInstanceOf[js.Any])
+      def setStaticRenderFnsVarargs(value: (js.Function1[/* createElement */ CreateElement, VNode])*): Self = StObject.set(x, "staticRenderFns", js.Array(value :_*))
       
       @scala.inline
-      def deleteTemplate: Self = this.set("template", js.undefined)
+      def setTemplate(value: String): Self = StObject.set(x, "template", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTransitions(value: StringDictionary[js.Object]): Self = this.set("transitions", value.asInstanceOf[js.Any])
+      def setTemplateUndefined: Self = StObject.set(x, "template", js.undefined)
       
       @scala.inline
-      def deleteTransitions: Self = this.set("transitions", js.undefined)
+      def setTransitions(value: StringDictionary[js.Object]): Self = StObject.set(x, "transitions", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setUpdated(value: () => Unit): Self = this.set("updated", js.Any.fromFunction0(value))
+      def setTransitionsUndefined: Self = StObject.set(x, "transitions", js.undefined)
       
       @scala.inline
-      def deleteUpdated: Self = this.set("updated", js.undefined)
+      def setUpdated(value: () => Unit): Self = StObject.set(x, "updated", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setWatch(value: Record[String, WatchOptionsWithHandler[_] | WatchHandler[_] | String]): Self = this.set("watch", value.asInstanceOf[js.Any])
+      def setUpdatedUndefined: Self = StObject.set(x, "updated", js.undefined)
       
       @scala.inline
-      def deleteWatch: Self = this.set("watch", js.undefined)
+      def setWatch(value: Record[String, WatchOptionsWithHandler[_] | WatchHandler[_] | String]): Self = StObject.set(x, "watch", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setWatchUndefined: Self = StObject.set(x, "watch", js.undefined)
     }
   }
   
   @js.native
-  trait ComputedOptions[T] extends js.Object {
+  trait ComputedOptions[T] extends StObject {
     
     var cache: js.UndefOr[Boolean] = js.native
     
@@ -415,37 +404,25 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class ComputedOptionsOps[Self <: ComputedOptions[_], T] (val x: Self with ComputedOptions[T]) extends AnyVal {
+    implicit class ComputedOptionsMutableBuilder[Self <: ComputedOptions[_], T] (val x: Self with ComputedOptions[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setCache(value: Boolean): Self = StObject.set(x, "cache", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setCacheUndefined: Self = StObject.set(x, "cache", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setGet(value: () => T): Self = StObject.set(x, "get", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setCache(value: Boolean): Self = this.set("cache", value.asInstanceOf[js.Any])
+      def setGetUndefined: Self = StObject.set(x, "get", js.undefined)
       
       @scala.inline
-      def deleteCache: Self = this.set("cache", js.undefined)
+      def setSet(value: /* value */ T => Unit): Self = StObject.set(x, "set", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setGet(value: () => T): Self = this.set("get", js.Any.fromFunction0(value))
-      
-      @scala.inline
-      def deleteGet: Self = this.set("get", js.undefined)
-      
-      @scala.inline
-      def setSet(value: /* value */ T => Unit): Self = this.set("set", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def deleteSet: Self = this.set("set", js.undefined)
+      def setSetUndefined: Self = StObject.set(x, "set", js.undefined)
     }
   }
   
@@ -454,7 +431,7 @@ object optionsMod {
     extends Instantiable1[/* args (repeated) */ js.Any, js.Any]
   
   @js.native
-  trait DirectiveOptions extends js.Object {
+  trait DirectiveOptions extends StObject {
     
     var bind: js.UndefOr[DirectiveFunction] = js.native
     
@@ -475,64 +452,52 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class DirectiveOptionsOps[Self <: DirectiveOptions] (val x: Self) extends AnyVal {
-      
-      @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+    implicit class DirectiveOptionsMutableBuilder[Self <: DirectiveOptions] (val x: Self) extends AnyVal {
       
       @scala.inline
       def setBind(
         value: (/* el */ HTMLElement, /* binding */ VNodeDirective, /* vnode */ VNode, /* oldVnode */ VNode) => Unit
-      ): Self = this.set("bind", js.Any.fromFunction4(value))
+      ): Self = StObject.set(x, "bind", js.Any.fromFunction4(value))
       
       @scala.inline
-      def deleteBind: Self = this.set("bind", js.undefined)
+      def setBindUndefined: Self = StObject.set(x, "bind", js.undefined)
       
       @scala.inline
       def setComponentUpdated(
         value: (/* el */ HTMLElement, /* binding */ VNodeDirective, /* vnode */ VNode, /* oldVnode */ VNode) => Unit
-      ): Self = this.set("componentUpdated", js.Any.fromFunction4(value))
+      ): Self = StObject.set(x, "componentUpdated", js.Any.fromFunction4(value))
       
       @scala.inline
-      def deleteComponentUpdated: Self = this.set("componentUpdated", js.undefined)
+      def setComponentUpdatedUndefined: Self = StObject.set(x, "componentUpdated", js.undefined)
       
       @scala.inline
       def setInserted(
         value: (/* el */ HTMLElement, /* binding */ VNodeDirective, /* vnode */ VNode, /* oldVnode */ VNode) => Unit
-      ): Self = this.set("inserted", js.Any.fromFunction4(value))
+      ): Self = StObject.set(x, "inserted", js.Any.fromFunction4(value))
       
       @scala.inline
-      def deleteInserted: Self = this.set("inserted", js.undefined)
+      def setInsertedUndefined: Self = StObject.set(x, "inserted", js.undefined)
       
       @scala.inline
       def setUnbind(
         value: (/* el */ HTMLElement, /* binding */ VNodeDirective, /* vnode */ VNode, /* oldVnode */ VNode) => Unit
-      ): Self = this.set("unbind", js.Any.fromFunction4(value))
+      ): Self = StObject.set(x, "unbind", js.Any.fromFunction4(value))
       
       @scala.inline
-      def deleteUnbind: Self = this.set("unbind", js.undefined)
+      def setUnbindUndefined: Self = StObject.set(x, "unbind", js.undefined)
       
       @scala.inline
       def setUpdate(
         value: (/* el */ HTMLElement, /* binding */ VNodeDirective, /* vnode */ VNode, /* oldVnode */ VNode) => Unit
-      ): Self = this.set("update", js.Any.fromFunction4(value))
+      ): Self = StObject.set(x, "update", js.Any.fromFunction4(value))
       
       @scala.inline
-      def deleteUpdate: Self = this.set("update", js.undefined)
+      def setUpdateUndefined: Self = StObject.set(x, "update", js.undefined)
     }
   }
   
   @js.native
-  trait EsModuleComponent extends js.Object {
+  trait EsModuleComponent extends StObject {
     
     var default: Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps] = js.native
   }
@@ -545,27 +510,15 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class EsModuleComponentOps[Self <: EsModuleComponent] (val x: Self) extends AnyVal {
+    implicit class EsModuleComponentMutableBuilder[Self <: EsModuleComponent] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setDefault(value: Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]): Self = this.set("default", value.asInstanceOf[js.Any])
+      def setDefault(value: Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]): Self = StObject.set(x, "default", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait FunctionalComponentOptions[Props, PropDefs] extends js.Object {
+  trait FunctionalComponentOptions[Props, PropDefs] extends StObject {
     
     var functional: Boolean = js.native
     
@@ -586,51 +539,39 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class FunctionalComponentOptionsOps[Self <: FunctionalComponentOptions[_, _], Props, PropDefs] (val x: Self with (FunctionalComponentOptions[Props, PropDefs])) extends AnyVal {
+    implicit class FunctionalComponentOptionsMutableBuilder[Self <: FunctionalComponentOptions[_, _], Props, PropDefs] (val x: Self with (FunctionalComponentOptions[Props, PropDefs])) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setFunctional(value: Boolean): Self = StObject.set(x, "functional", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setInject(value: InjectOptions): Self = StObject.set(x, "inject", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setInjectUndefined: Self = StObject.set(x, "inject", js.undefined)
       
       @scala.inline
-      def setFunctional(value: Boolean): Self = this.set("functional", value.asInstanceOf[js.Any])
+      def setInjectVarargs(value: String*): Self = StObject.set(x, "inject", js.Array(value :_*))
       
       @scala.inline
-      def setRender(value: (CreateElement, RenderContext[Props]) => VNode): Self = this.set("render", js.Any.fromFunction2(value))
+      def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInjectVarargs(value: String*): Self = this.set("inject", js.Array(value :_*))
+      def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
       
       @scala.inline
-      def setInject(value: InjectOptions): Self = this.set("inject", value.asInstanceOf[js.Any])
+      def setProps(value: PropDefs): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteInject: Self = this.set("inject", js.undefined)
+      def setPropsUndefined: Self = StObject.set(x, "props", js.undefined)
       
       @scala.inline
-      def setName(value: String): Self = this.set("name", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteName: Self = this.set("name", js.undefined)
-      
-      @scala.inline
-      def setProps(value: PropDefs): Self = this.set("props", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteProps: Self = this.set("props", js.undefined)
+      def setRender(value: (CreateElement, RenderContext[Props]) => VNode): Self = StObject.set(x, "render", js.Any.fromFunction2(value))
     }
   }
   
   @js.native
-  trait PropOptions[T] extends js.Object {
+  trait PropOptions[T] extends StObject {
     
     var default: js.UndefOr[T | Null | js.Function0[js.Object]] = js.native
     
@@ -649,60 +590,48 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class PropOptionsOps[Self <: PropOptions[_], T] (val x: Self with PropOptions[T]) extends AnyVal {
+    implicit class PropOptionsMutableBuilder[Self <: PropOptions[_], T] (val x: Self with PropOptions[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setDefault(value: T | js.Function0[js.Object]): Self = StObject.set(x, "default", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setDefaultFunction0(value: () => js.Object): Self = StObject.set(x, "default", js.Any.fromFunction0(value))
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setDefaultNull: Self = StObject.set(x, "default", null)
       
       @scala.inline
-      def setDefaultFunction0(value: () => js.Object): Self = this.set("default", js.Any.fromFunction0(value))
+      def setDefaultUndefined: Self = StObject.set(x, "default", js.undefined)
       
       @scala.inline
-      def setDefault(value: T | js.Function0[js.Object]): Self = this.set("default", value.asInstanceOf[js.Any])
+      def setRequired(value: Boolean): Self = StObject.set(x, "required", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteDefault: Self = this.set("default", js.undefined)
+      def setRequiredUndefined: Self = StObject.set(x, "required", js.undefined)
       
       @scala.inline
-      def setDefaultNull: Self = this.set("default", null)
+      def setType(value: Prop[T] | js.Array[Prop[T]]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRequired(value: Boolean): Self = this.set("required", value.asInstanceOf[js.Any])
+      def setTypeFunction0(value: () => T): Self = StObject.set(x, "type", js.Any.fromFunction0(value))
       
       @scala.inline
-      def deleteRequired: Self = this.set("required", js.undefined)
+      def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
       
       @scala.inline
-      def setTypeVarargs(value: Prop[T]*): Self = this.set("type", js.Array(value :_*))
+      def setTypeVarargs(value: Prop[T]*): Self = StObject.set(x, "type", js.Array(value :_*))
       
       @scala.inline
-      def setTypeFunction0(value: () => T): Self = this.set("type", js.Any.fromFunction0(value))
+      def setValidator(value: /* value */ T => Boolean): Self = StObject.set(x, "validator", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setType(value: Prop[T] | js.Array[Prop[T]]): Self = this.set("type", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteType: Self = this.set("type", js.undefined)
-      
-      @scala.inline
-      def setValidator(value: /* value */ T => Boolean): Self = this.set("validator", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def deleteValidator: Self = this.set("validator", js.undefined)
+      def setValidatorUndefined: Self = StObject.set(x, "validator", js.undefined)
     }
   }
   
   @js.native
-  trait RenderContext[Props] extends js.Object {
+  trait RenderContext[Props] extends StObject {
     
     var children: js.Array[VNode] = js.native
     
@@ -732,45 +661,33 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class RenderContextOps[Self <: RenderContext[_], Props] (val x: Self with RenderContext[Props]) extends AnyVal {
+    implicit class RenderContextMutableBuilder[Self <: RenderContext[_], Props] (val x: Self with RenderContext[Props]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setChildren(value: js.Array[VNode]): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setChildrenVarargs(value: VNode*): Self = StObject.set(x, "children", js.Array(value :_*))
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setData(value: VNodeData): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildrenVarargs(value: VNode*): Self = this.set("children", js.Array(value :_*))
+      def setInjections(value: js.Any): Self = StObject.set(x, "injections", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildren(value: js.Array[VNode]): Self = this.set("children", value.asInstanceOf[js.Any])
+      def setParent(value: Vue): Self = StObject.set(x, "parent", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setData(value: VNodeData): Self = this.set("data", value.asInstanceOf[js.Any])
+      def setProps(value: Props): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInjections(value: js.Any): Self = this.set("injections", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setParent(value: Vue): Self = this.set("parent", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setProps(value: Props): Self = this.set("props", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setSlots(value: () => js.Any): Self = this.set("slots", js.Any.fromFunction0(value))
+      def setSlots(value: () => js.Any): Self = StObject.set(x, "slots", js.Any.fromFunction0(value))
     }
   }
   
   @js.native
-  trait WatchOptions extends js.Object {
+  trait WatchOptions extends StObject {
     
     var deep: js.UndefOr[Boolean] = js.native
     
@@ -785,31 +702,19 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class WatchOptionsOps[Self <: WatchOptions] (val x: Self) extends AnyVal {
+    implicit class WatchOptionsMutableBuilder[Self <: WatchOptions] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setDeep(value: Boolean): Self = StObject.set(x, "deep", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setDeepUndefined: Self = StObject.set(x, "deep", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setImmediate(value: Boolean): Self = StObject.set(x, "immediate", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDeep(value: Boolean): Self = this.set("deep", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteDeep: Self = this.set("deep", js.undefined)
-      
-      @scala.inline
-      def setImmediate(value: Boolean): Self = this.set("immediate", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteImmediate: Self = this.set("immediate", js.undefined)
+      def setImmediateUndefined: Self = StObject.set(x, "immediate", js.undefined)
     }
   }
   

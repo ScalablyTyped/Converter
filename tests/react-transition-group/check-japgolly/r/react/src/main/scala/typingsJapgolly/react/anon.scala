@@ -2,6 +2,7 @@ package typingsJapgolly.react
 
 import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomNode
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -9,7 +10,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object anon {
   
   @js.native
-  trait Children extends js.Object {
+  trait Children extends StObject {
     
     var children: js.UndefOr[Node] = js.native
   }
@@ -24,7 +25,7 @@ object anon {
   }
   
   @js.native
-  trait Html extends js.Object {
+  trait Html extends StObject {
     
     var __html: String = js.native
   }

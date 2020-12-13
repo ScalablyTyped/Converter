@@ -1,5 +1,6 @@
 package typings.ndarray
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -32,7 +33,7 @@ object mod {
   def apply[T](data: Data[T], shape: js.Array[Double], stride: js.Array[Double], offset: Double): typings.ndarray.mod.ndarray[T] = js.native
   
   @js.native
-  trait ndarray[T] extends js.Object {
+  trait ndarray[T] extends StObject {
     
     var T: typings.ndarray.mod.ndarray[T] = js.native
     
@@ -47,28 +48,16 @@ object mod {
     }
     
     @scala.inline
-    implicit class ndarrayOps[Self <: typings.ndarray.mod.ndarray[_], T] (val x: Self with typings.ndarray.mod.ndarray[T]) extends AnyVal {
+    implicit class ndarrayMutableBuilder[Self <: typings.ndarray.mod.ndarray[_], T] (val x: Self with typings.ndarray.mod.ndarray[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setData(value: Data[T]): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setDataVarargs(value: T*): Self = StObject.set(x, "data", js.Array(value :_*))
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setT(value: typings.ndarray.mod.ndarray[T]): Self = this.set("T", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setDataVarargs(value: T*): Self = this.set("data", js.Array(value :_*))
-      
-      @scala.inline
-      def setData(value: Data[T]): Self = this.set("data", value.asInstanceOf[js.Any])
+      def setT(value: typings.ndarray.mod.ndarray[T]): Self = StObject.set(x, "T", value.asInstanceOf[js.Any])
     }
   }
   

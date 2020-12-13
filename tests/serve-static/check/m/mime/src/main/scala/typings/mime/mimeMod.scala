@@ -1,6 +1,7 @@
 package typings.mime
 
 import typings.mime.mod.TypeMap
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -8,7 +9,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object mimeMod {
   
   @js.native
-  trait Mime extends js.Object {
+  trait Mime extends StObject {
     
     def define(mimes: TypeMap): Unit = js.native
     def define(mimes: TypeMap, force: Boolean): Unit = js.native

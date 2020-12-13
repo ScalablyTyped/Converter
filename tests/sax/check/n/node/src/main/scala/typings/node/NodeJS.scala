@@ -1,6 +1,7 @@
 package typings.node
 
 import typings.std.ArrayConstrucor
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -13,14 +14,14 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object NodeJS {
   
   @js.native
-  trait EventEmitter extends js.Object {
+  trait EventEmitter extends StObject {
     
     def on(event: String, listener: js.Function1[/* repeated */ js.Any, Unit]): this.type = js.native
     def on(event: js.Symbol, listener: js.Function1[/* repeated */ js.Any, Unit]): this.type = js.native
   }
   
   @js.native
-  trait Global extends js.Object {
+  trait Global extends StObject {
     
     var Array: ArrayConstrucor = js.native
     
@@ -35,25 +36,13 @@ object NodeJS {
     }
     
     @scala.inline
-    implicit class GlobalOps[Self <: Global] (val x: Self) extends AnyVal {
+    implicit class GlobalMutableBuilder[Self <: Global] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setArray(value: ArrayConstrucor): Self = StObject.set(x, "Array", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setArray(value: ArrayConstrucor): Self = this.set("Array", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setGlobal(value: Global): Self = this.set("global", value.asInstanceOf[js.Any])
+      def setGlobal(value: Global): Self = StObject.set(x, "global", value.asInstanceOf[js.Any])
     }
   }
   

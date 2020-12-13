@@ -87,9 +87,15 @@ object ShortenNames {
 
     val newMembers = members.map(V.visitTree(scope))
 
+    def keepImport(qn: QualifiedName): Boolean =
+      if (qn.startsWith(QualifiedName.scala)) false
+      else if (qn.startsWith(QualifiedName.java_lang)) false
+      else if (qn === QualifiedName.StObject) false
+      else true
+
     val imports: IArray[ImportTree] =
       collectedImports
-        .toIArrayValues(keep = qn => !qn.startsWith(QualifiedName.scala) && !qn.startsWith(QualifiedName.java_lang))
+        .toIArrayValues(keep = keepImport)
         .sortBy(Printer.formatQN)
         .map(ImportTree.apply)
 

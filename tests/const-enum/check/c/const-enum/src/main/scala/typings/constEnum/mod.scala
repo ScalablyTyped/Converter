@@ -8,6 +8,7 @@ import typings.constEnum.constEnumNumbers.`22`
 import typings.constEnum.constEnumNumbers.`65535`
 import typings.constEnum.constEnumNumbers.`65536`
 import typings.constEnum.constEnumStrings.C
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -34,7 +35,7 @@ object mod {
     - typings.constEnum.constEnumNumbers.`22`
     - typings.constEnum.constEnumNumbers.`1`
   */
-  trait Foo2_ extends js.Object
+  trait Foo2_ extends StObject
   object Foo2_ {
     
     @scala.inline
@@ -52,7 +53,7 @@ object mod {
     - typings.constEnum.constEnumNumbers.`22`
     - typings.constEnum.constEnumStrings.C
   */
-  trait Foo_ extends js.Object
+  trait Foo_ extends StObject
   object Foo_ {
     
     @scala.inline
@@ -71,7 +72,7 @@ object mod {
     - typings.constEnum.constEnumNumbers.`16`
     - typings.constEnum.constEnumNumbers._4294901760
   */
-  trait PreOrderHookFlags extends js.Object
+  trait PreOrderHookFlags extends StObject
   object PreOrderHookFlags {
     
     /** The index of the next pre-order hook to be called in the hooks array, on the first 16

@@ -21,8 +21,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
 
         val merged: IArray[Tree] = merge(container, asMap)
 
-        val sorted = Sorter.sorted(merged)
-        container.withMembers(sorted)
+        container.withMembers(merged)
     }
 
   def genCompanions(scope: TreeScope, container: ContainerTree): IArray[ModuleTree] =
@@ -40,7 +39,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
               acceptNativeTraits = false,
               selfRef            = clsRef,
             ) match {
-              case Res.One(_, props) if props.nonEmpty => GenImplicitOpsClass(cls, props, cls.codePath, scope)
+              case Res.One(_, props) if props.nonEmpty => GenBuilderOpsClass(cls, props, cls.codePath, scope)
               case _                                   => None
             }
           }

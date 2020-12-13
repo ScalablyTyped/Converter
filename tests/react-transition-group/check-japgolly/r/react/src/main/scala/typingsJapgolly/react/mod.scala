@@ -13,6 +13,7 @@ import org.scalajs.dom.raw.SVGElement
 import typingsJapgolly.react.anon.Children
 import typingsJapgolly.react.anon.Html
 import typingsJapgolly.std.Partial
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -53,7 +54,7 @@ object mod {
   //     nativeEvent: NativeAnimationEvent;
   // }
   @js.native
-  trait Attributes extends js.Object {
+  trait Attributes extends StObject {
     
     var key: js.UndefOr[Key] = js.native
   }
@@ -84,7 +85,7 @@ object mod {
   }
   
   @js.native
-  trait Component[P, S] extends js.Object
+  trait Component[P, S] extends StObject
   
   @js.native
   trait ComponentClass[P]
@@ -104,7 +105,7 @@ object mod {
   }
   
   @js.native
-  trait DOMAttributes[T] extends js.Object {
+  trait DOMAttributes[T] extends StObject {
     
     var children: js.UndefOr[Node] = js.native
     
@@ -171,7 +172,7 @@ object mod {
   }
   
   @js.native
-  trait ReactElement extends js.Object {
+  trait ReactElement extends StObject {
     
     var key: Key | Null = js.native
     
@@ -190,7 +191,7 @@ object mod {
   }
   
   @js.native
-  trait StatelessComponent[P] extends js.Object {
+  trait StatelessComponent[P] extends StObject {
     
     def apply(props: P with Children): Element | Null = js.native
     def apply(props: P with Children, context: js.Any): Element | Null = js.native
@@ -205,10 +206,10 @@ object mod {
     object JSX {
       
       @js.native
-      trait ElementAttributesProperty extends js.Object
+      trait ElementAttributesProperty extends StObject
       
       @js.native
-      trait ElementChildrenAttribute extends js.Object
+      trait ElementChildrenAttribute extends StObject
       
       @js.native
       trait ElementClass
@@ -226,7 +227,7 @@ object mod {
       }
       
       @js.native
-      trait IntrinsicElements extends js.Object {
+      trait IntrinsicElements extends StObject {
         
         // HTML
         var abbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement] = js.native

@@ -1,5 +1,6 @@
 package typings.phaser
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -11,10 +12,10 @@ object mod {
   
   @JSImport("phaser", JSImport.Namespace)
   @js.native
-  val ^ : js.Any = js.native
+  class ^ () extends Phaser
   @JSImport("phaser", JSImport.Namespace)
   @js.native
-  class ^ () extends Phaser
+  val ^ : js.Any = js.native
   
   @JSImport("phaser", "VERSION")
   @js.native

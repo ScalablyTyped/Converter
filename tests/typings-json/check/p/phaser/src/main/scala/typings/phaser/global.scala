@@ -1,6 +1,7 @@
 package typings.phaser
 
 import typings.phaser.anon.LowerBound
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -33,7 +34,7 @@ object global {
     
     @JSGlobal("PIXI.blendModes")
     @js.native
-    object blendModes extends js.Object {
+    object blendModes extends StObject {
       
       @JSBracketAccess
       def apply(value: Double): js.UndefOr[typings.phaser.PIXI.blendModes with Double] = js.native
@@ -45,7 +46,7 @@ object global {
     
     @JSGlobal("PIXI.scaleModes")
     @js.native
-    object scaleModes extends js.Object {
+    object scaleModes extends StObject {
       
       @JSBracketAccess
       def apply(value: Double): js.UndefOr[typings.phaser.PIXI.scaleModes with Double] = js.native

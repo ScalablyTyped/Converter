@@ -5,6 +5,7 @@ import typings.react.mod.ComponentType
 import typings.react.mod.Ref
 import typings.react.mod.RefObject
 import typings.std.Pick
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -16,7 +17,7 @@ object mod {
   def default(): js.Function1[/* component */ ComponentType[js.Any with WithTheme], ComponentClass[_]] = js.native
   
   @js.native
-  trait WithTheme extends js.Object {
+  trait WithTheme extends StObject {
     
     var innerRef: js.UndefOr[Ref[_] | RefObject[_]] = js.native
     
@@ -31,28 +32,16 @@ object mod {
     }
     
     @scala.inline
-    implicit class WithThemeOps[Self <: WithTheme] (val x: Self) extends AnyVal {
+    implicit class WithThemeMutableBuilder[Self <: WithTheme] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setInnerRef(value: Ref[_] | RefObject[_]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setInnerRefUndefined: Self = StObject.set(x, "innerRef", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setTheme(value: String): Self = this.set("theme", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setInnerRef(value: Ref[_] | RefObject[_]): Self = this.set("innerRef", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteInnerRef: Self = this.set("innerRef", js.undefined)
+      def setTheme(value: String): Self = StObject.set(x, "theme", value.asInstanceOf[js.Any])
     }
   }
   

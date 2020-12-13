@@ -10,6 +10,7 @@ import typingsSlinky.react.mod.Component
 import typingsSlinky.react.mod.HTMLAttributes
 import typingsSlinky.react.mod.ReactText
 import typingsSlinky.react.mod.ReactType
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -72,7 +73,7 @@ object mod {
   }
   
   @js.native
-  trait ContextMenuProps extends js.Object {
+  trait ContextMenuProps extends StObject {
     
     var className: js.UndefOr[String] = js.native
     
@@ -106,51 +107,34 @@ object mod {
     }
     
     @scala.inline
-    implicit class ContextMenuPropsOps[Self <: ContextMenuProps] (val x: Self) extends AnyVal {
+    implicit class ContextMenuPropsMutableBuilder[Self <: ContextMenuProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setData(value: js.Any): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setId(value: String): Self = this.set("id", value.asInstanceOf[js.Any])
+      def setDataUndefined: Self = StObject.set(x, "data", js.undefined)
       
       @scala.inline
-      def setClassName(value: String): Self = this.set("className", value.asInstanceOf[js.Any])
+      def setHideOnLeave(value: Boolean): Self = StObject.set(x, "hideOnLeave", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteClassName: Self = this.set("className", js.undefined)
+      def setHideOnLeaveUndefined: Self = StObject.set(x, "hideOnLeave", js.undefined)
       
       @scala.inline
-      def setData(value: js.Any): Self = this.set("data", value.asInstanceOf[js.Any])
+      def setId(value: String): Self = StObject.set(x, "id", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteData: Self = this.set("data", js.undefined)
+      def setOnHide(value: /* event */ js.Any => Unit): Self = StObject.set(x, "onHide", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setHideOnLeave(value: Boolean): Self = this.set("hideOnLeave", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteHideOnLeave: Self = this.set("hideOnLeave", js.undefined)
-      
-      @scala.inline
-      def setOnHide(value: /* event */ js.Any => Unit): Self = this.set("onHide", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def deleteOnHide: Self = this.set("onHide", js.undefined)
-      
-      @scala.inline
-      def setOnMouseLeaveFunction3(
-        value: (/* event */ SyntheticMouseEvent[HTMLElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Unit
-      ): Self = this.set("onMouseLeave", js.Any.fromFunction3(value))
+      def setOnHideUndefined: Self = StObject.set(x, "onHide", js.undefined)
       
       @scala.inline
       def setOnMouseLeave(
@@ -160,22 +144,27 @@ object mod {
               /* target */ HTMLElement, 
               Unit
             ]) | js.Function
-      ): Self = this.set("onMouseLeave", value.asInstanceOf[js.Any])
+      ): Self = StObject.set(x, "onMouseLeave", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteOnMouseLeave: Self = this.set("onMouseLeave", js.undefined)
+      def setOnMouseLeaveFunction3(
+        value: (/* event */ SyntheticMouseEvent[HTMLElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Unit
+      ): Self = StObject.set(x, "onMouseLeave", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setOnShow(value: /* event */ js.Any => Unit): Self = this.set("onShow", js.Any.fromFunction1(value))
+      def setOnMouseLeaveUndefined: Self = StObject.set(x, "onMouseLeave", js.undefined)
       
       @scala.inline
-      def deleteOnShow: Self = this.set("onShow", js.undefined)
+      def setOnShow(value: /* event */ js.Any => Unit): Self = StObject.set(x, "onShow", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setRtl(value: Boolean): Self = this.set("rtl", value.asInstanceOf[js.Any])
+      def setOnShowUndefined: Self = StObject.set(x, "onShow", js.undefined)
       
       @scala.inline
-      def deleteRtl: Self = this.set("rtl", js.undefined)
+      def setRtl(value: Boolean): Self = StObject.set(x, "rtl", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setRtlUndefined: Self = StObject.set(x, "rtl", js.undefined)
     }
   }
   
@@ -189,7 +178,7 @@ object mod {
   }
   
   @js.native
-  trait ContextMenuTriggerProps extends js.Object {
+  trait ContextMenuTriggerProps extends StObject {
     
     var attributes: js.UndefOr[HTMLAttributes[_]] = js.native
     
@@ -212,58 +201,46 @@ object mod {
     }
     
     @scala.inline
-    implicit class ContextMenuTriggerPropsOps[Self <: ContextMenuTriggerProps] (val x: Self) extends AnyVal {
+    implicit class ContextMenuTriggerPropsMutableBuilder[Self <: ContextMenuTriggerProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setAttributes(value: HTMLAttributes[_]): Self = StObject.set(x, "attributes", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setAttributesUndefined: Self = StObject.set(x, "attributes", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setCollect(value: /* data */ js.Any => _): Self = StObject.set(x, "collect", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setId(value: String): Self = this.set("id", value.asInstanceOf[js.Any])
+      def setCollectUndefined: Self = StObject.set(x, "collect", js.undefined)
       
       @scala.inline
-      def setAttributes(value: HTMLAttributes[_]): Self = this.set("attributes", value.asInstanceOf[js.Any])
+      def setDisable(value: Boolean): Self = StObject.set(x, "disable", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteAttributes: Self = this.set("attributes", js.undefined)
+      def setDisableUndefined: Self = StObject.set(x, "disable", js.undefined)
       
       @scala.inline
-      def setCollect(value: /* data */ js.Any => _): Self = this.set("collect", js.Any.fromFunction1(value))
+      def setHoldToDisplay(value: Double): Self = StObject.set(x, "holdToDisplay", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteCollect: Self = this.set("collect", js.undefined)
+      def setHoldToDisplayUndefined: Self = StObject.set(x, "holdToDisplay", js.undefined)
       
       @scala.inline
-      def setDisable(value: Boolean): Self = this.set("disable", value.asInstanceOf[js.Any])
+      def setId(value: String): Self = StObject.set(x, "id", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteDisable: Self = this.set("disable", js.undefined)
+      def setRenderTag(value: ReactType[_]): Self = StObject.set(x, "renderTag", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setHoldToDisplay(value: Double): Self = this.set("holdToDisplay", value.asInstanceOf[js.Any])
+      def setRenderTagComponentClass(value: ReactComponentClass[_]): Self = StObject.set(x, "renderTag", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteHoldToDisplay: Self = this.set("holdToDisplay", js.undefined)
+      def setRenderTagFunctionComponent(value: ReactComponentClass[_]): Self = StObject.set(x, "renderTag", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRenderTagFunctionComponent(value: ReactComponentClass[_]): Self = this.set("renderTag", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setRenderTagComponentClass(value: ReactComponentClass[_]): Self = this.set("renderTag", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setRenderTag(value: ReactType[_]): Self = this.set("renderTag", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteRenderTag: Self = this.set("renderTag", js.undefined)
+      def setRenderTagUndefined: Self = StObject.set(x, "renderTag", js.undefined)
     }
   }
   
@@ -277,7 +254,7 @@ object mod {
   }
   
   @js.native
-  trait MenuItemProps extends js.Object {
+  trait MenuItemProps extends StObject {
     
     var attributes: js.UndefOr[HTMLAttributes[HTMLDivElement]] = js.native
     
@@ -311,56 +288,39 @@ object mod {
     }
     
     @scala.inline
-    implicit class MenuItemPropsOps[Self <: MenuItemProps] (val x: Self) extends AnyVal {
+    implicit class MenuItemPropsMutableBuilder[Self <: MenuItemProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setAttributes(value: HTMLAttributes[HTMLDivElement]): Self = StObject.set(x, "attributes", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setAttributesUndefined: Self = StObject.set(x, "attributes", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAttributes(value: HTMLAttributes[HTMLDivElement]): Self = this.set("attributes", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteAttributes: Self = this.set("attributes", js.undefined)
-      
-      @scala.inline
-      def setClassName(value: String): Self = this.set("className", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteClassName: Self = this.set("className", js.undefined)
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
       def setData(
         value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ js.Any
-      ): Self = this.set("data", value.asInstanceOf[js.Any])
+      ): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteData: Self = this.set("data", js.undefined)
+      def setDataUndefined: Self = StObject.set(x, "data", js.undefined)
       
       @scala.inline
-      def setDisabled(value: Boolean): Self = this.set("disabled", value.asInstanceOf[js.Any])
+      def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteDisabled: Self = this.set("disabled", js.undefined)
+      def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
       
       @scala.inline
-      def setDivider(value: Boolean): Self = this.set("divider", value.asInstanceOf[js.Any])
+      def setDivider(value: Boolean): Self = StObject.set(x, "divider", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteDivider: Self = this.set("divider", js.undefined)
-      
-      @scala.inline
-      def setOnClickFunction3(
-        value: (/* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Unit
-      ): Self = this.set("onClick", js.Any.fromFunction3(value))
+      def setDividerUndefined: Self = StObject.set(x, "divider", js.undefined)
       
       @scala.inline
       def setOnClick(
@@ -370,16 +330,21 @@ object mod {
               /* target */ HTMLElement, 
               Unit
             ]) | js.Function
-      ): Self = this.set("onClick", value.asInstanceOf[js.Any])
+      ): Self = StObject.set(x, "onClick", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteOnClick: Self = this.set("onClick", js.undefined)
+      def setOnClickFunction3(
+        value: (/* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Unit
+      ): Self = StObject.set(x, "onClick", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setPreventClose(value: Boolean): Self = this.set("preventClose", value.asInstanceOf[js.Any])
+      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
       
       @scala.inline
-      def deletePreventClose: Self = this.set("preventClose", js.undefined)
+      def setPreventClose(value: Boolean): Self = StObject.set(x, "preventClose", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setPreventCloseUndefined: Self = StObject.set(x, "preventClose", js.undefined)
     }
   }
   
@@ -393,7 +358,7 @@ object mod {
   }
   
   @js.native
-  trait SubMenuProps extends js.Object {
+  trait SubMenuProps extends StObject {
     
     var className: js.UndefOr[String] = js.native
     
@@ -425,48 +390,25 @@ object mod {
     }
     
     @scala.inline
-    implicit class SubMenuPropsOps[Self <: SubMenuProps] (val x: Self) extends AnyVal {
+    implicit class SubMenuPropsMutableBuilder[Self <: SubMenuProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTitleReactElement(value: ReactElement): Self = this.set("title", value.asInstanceOf[js.Any])
+      def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
       
       @scala.inline
-      def setTitle(value: ReactElement | ReactText): Self = this.set("title", value.asInstanceOf[js.Any])
+      def setHoverDelay(value: Double): Self = StObject.set(x, "hoverDelay", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassName(value: String): Self = this.set("className", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteClassName: Self = this.set("className", js.undefined)
-      
-      @scala.inline
-      def setDisabled(value: Boolean): Self = this.set("disabled", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteDisabled: Self = this.set("disabled", js.undefined)
-      
-      @scala.inline
-      def setHoverDelay(value: Double): Self = this.set("hoverDelay", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteHoverDelay: Self = this.set("hoverDelay", js.undefined)
-      
-      @scala.inline
-      def setOnClickFunction3(
-        value: (/* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Unit
-      ): Self = this.set("onClick", js.Any.fromFunction3(value))
+      def setHoverDelayUndefined: Self = StObject.set(x, "hoverDelay", js.undefined)
       
       @scala.inline
       def setOnClick(
@@ -476,22 +418,33 @@ object mod {
               /* target */ HTMLElement, 
               Unit
             ]) | js.Function
-      ): Self = this.set("onClick", value.asInstanceOf[js.Any])
+      ): Self = StObject.set(x, "onClick", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteOnClick: Self = this.set("onClick", js.undefined)
+      def setOnClickFunction3(
+        value: (/* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Unit
+      ): Self = StObject.set(x, "onClick", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setPreventCloseOnClick(value: Boolean): Self = this.set("preventCloseOnClick", value.asInstanceOf[js.Any])
+      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
       
       @scala.inline
-      def deletePreventCloseOnClick: Self = this.set("preventCloseOnClick", js.undefined)
+      def setPreventCloseOnClick(value: Boolean): Self = StObject.set(x, "preventCloseOnClick", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRtl(value: Boolean): Self = this.set("rtl", value.asInstanceOf[js.Any])
+      def setPreventCloseOnClickUndefined: Self = StObject.set(x, "preventCloseOnClick", js.undefined)
       
       @scala.inline
-      def deleteRtl: Self = this.set("rtl", js.undefined)
+      def setRtl(value: Boolean): Self = StObject.set(x, "rtl", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setRtlUndefined: Self = StObject.set(x, "rtl", js.undefined)
+      
+      @scala.inline
+      def setTitle(value: ReactElement | ReactText): Self = StObject.set(x, "title", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setTitleReactElement(value: ReactElement): Self = StObject.set(x, "title", value.asInstanceOf[js.Any])
     }
   }
 }

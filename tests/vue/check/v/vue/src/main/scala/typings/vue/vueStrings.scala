@@ -1,5 +1,6 @@
 package typings.vue
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -13,8 +14,8 @@ object vueStrings {
   def RecordPropsDefinition: RecordPropsDefinition = "RecordPropsDefinition".asInstanceOf[RecordPropsDefinition]
   
   @js.native
-  sealed trait Accessors extends js.Object
+  sealed trait Accessors extends StObject
   
   @js.native
-  sealed trait RecordPropsDefinition extends js.Object
+  sealed trait RecordPropsDefinition extends StObject
 }

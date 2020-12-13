@@ -11,6 +11,7 @@ import typingsJapgolly.semanticUiReact.genericMod.SemanticTRANSITIONS
 import typingsJapgolly.semanticUiReact.genericMod.SemanticVERTICALALIGNMENTS
 import typingsJapgolly.semanticUiReact.genericMod.SemanticWIDTHS
 import typingsJapgolly.semanticUiReact.genericMod.SemanticWIDTHSSTRING
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -6188,7 +6189,7 @@ object semanticUiReactStrings {
        with SemanticTEXTALIGNMENTS
   
   @js.native
-  sealed trait `left corner` extends js.Object
+  sealed trait `left corner` extends StObject
   
   @js.native
   sealed trait legal extends SemanticICONS
@@ -6993,7 +6994,7 @@ object semanticUiReactStrings {
        with SemanticTEXTALIGNMENTS
   
   @js.native
-  sealed trait `right corner` extends js.Object
+  sealed trait `right corner` extends StObject
   
   @js.native
   sealed trait rmb extends SemanticICONS
@@ -7937,7 +7938,7 @@ object semanticUiReactStrings {
   sealed trait `venus mars` extends SemanticICONS
   
   @js.native
-  sealed trait vertical extends js.Object
+  sealed trait vertical extends StObject
   
   @js.native
   sealed trait `vertical flip`

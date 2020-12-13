@@ -2,6 +2,7 @@ package typings.sax
 
 import org.scalablytyped.runtime.StringDictionary
 import typings.node.streamMod.Duplex
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -27,7 +28,7 @@ object mod {
   def parser(strict: Boolean, opt: SAXOptions): SAXParser = js.native
   
   @js.native
-  trait BaseTag extends js.Object {
+  trait BaseTag extends StObject {
     
     var isSelfClosing: Boolean = js.native
     
@@ -42,25 +43,13 @@ object mod {
     }
     
     @scala.inline
-    implicit class BaseTagOps[Self <: BaseTag] (val x: Self) extends AnyVal {
+    implicit class BaseTagMutableBuilder[Self <: BaseTag] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setIsSelfClosing(value: Boolean): Self = StObject.set(x, "isSelfClosing", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setIsSelfClosing(value: Boolean): Self = this.set("isSelfClosing", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setName(value: String): Self = this.set("name", value.asInstanceOf[js.Any])
+      def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
     }
   }
   
@@ -78,27 +67,15 @@ object mod {
     }
     
     @scala.inline
-    implicit class QualifiedAttributeOps[Self <: QualifiedAttribute] (val x: Self) extends AnyVal {
+    implicit class QualifiedAttributeMutableBuilder[Self <: QualifiedAttribute] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setValue(value: String): Self = this.set("value", value.asInstanceOf[js.Any])
+      def setValue(value: String): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait QualifiedName extends js.Object {
+  trait QualifiedName extends StObject {
     
     var local: String = js.native
     
@@ -117,31 +94,19 @@ object mod {
     }
     
     @scala.inline
-    implicit class QualifiedNameOps[Self <: QualifiedName] (val x: Self) extends AnyVal {
+    implicit class QualifiedNameMutableBuilder[Self <: QualifiedName] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setLocal(value: String): Self = StObject.set(x, "local", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setPrefix(value: String): Self = StObject.set(x, "prefix", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setLocal(value: String): Self = this.set("local", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setName(value: String): Self = this.set("name", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setPrefix(value: String): Self = this.set("prefix", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setUri(value: String): Self = this.set("uri", value.asInstanceOf[js.Any])
+      def setUri(value: String): Self = StObject.set(x, "uri", value.asInstanceOf[js.Any])
     }
   }
   
@@ -172,33 +137,21 @@ object mod {
     }
     
     @scala.inline
-    implicit class QualifiedTagOps[Self <: QualifiedTag] (val x: Self) extends AnyVal {
+    implicit class QualifiedTagMutableBuilder[Self <: QualifiedTag] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setAttributes(value: StringDictionary[QualifiedAttribute]): Self = StObject.set(x, "attributes", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setIsSelfClosing(value: Boolean): Self = StObject.set(x, "isSelfClosing", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setAttributes(value: StringDictionary[QualifiedAttribute]): Self = this.set("attributes", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setIsSelfClosing(value: Boolean): Self = this.set("isSelfClosing", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setNs(value: StringDictionary[String]): Self = this.set("ns", value.asInstanceOf[js.Any])
+      def setNs(value: StringDictionary[String]): Self = StObject.set(x, "ns", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait SAXOptions extends js.Object {
+  trait SAXOptions extends StObject {
     
     var lowercase: js.UndefOr[Boolean] = js.native
     
@@ -221,61 +174,49 @@ object mod {
     }
     
     @scala.inline
-    implicit class SAXOptionsOps[Self <: SAXOptions] (val x: Self) extends AnyVal {
+    implicit class SAXOptionsMutableBuilder[Self <: SAXOptions] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setLowercase(value: Boolean): Self = StObject.set(x, "lowercase", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setLowercaseUndefined: Self = StObject.set(x, "lowercase", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setNormalize(value: Boolean): Self = StObject.set(x, "normalize", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setLowercase(value: Boolean): Self = this.set("lowercase", value.asInstanceOf[js.Any])
+      def setNormalizeUndefined: Self = StObject.set(x, "normalize", js.undefined)
       
       @scala.inline
-      def deleteLowercase: Self = this.set("lowercase", js.undefined)
+      def setNoscript(value: Boolean): Self = StObject.set(x, "noscript", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNormalize(value: Boolean): Self = this.set("normalize", value.asInstanceOf[js.Any])
+      def setNoscriptUndefined: Self = StObject.set(x, "noscript", js.undefined)
       
       @scala.inline
-      def deleteNormalize: Self = this.set("normalize", js.undefined)
+      def setPosition(value: Boolean): Self = StObject.set(x, "position", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNoscript(value: Boolean): Self = this.set("noscript", value.asInstanceOf[js.Any])
+      def setPositionUndefined: Self = StObject.set(x, "position", js.undefined)
       
       @scala.inline
-      def deleteNoscript: Self = this.set("noscript", js.undefined)
+      def setTrim(value: Boolean): Self = StObject.set(x, "trim", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPosition(value: Boolean): Self = this.set("position", value.asInstanceOf[js.Any])
+      def setTrimUndefined: Self = StObject.set(x, "trim", js.undefined)
       
       @scala.inline
-      def deletePosition: Self = this.set("position", js.undefined)
+      def setXmlns(value: Boolean): Self = StObject.set(x, "xmlns", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTrim(value: Boolean): Self = this.set("trim", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteTrim: Self = this.set("trim", js.undefined)
-      
-      @scala.inline
-      def setXmlns(value: Boolean): Self = this.set("xmlns", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteXmlns: Self = this.set("xmlns", js.undefined)
+      def setXmlnsUndefined: Self = StObject.set(x, "xmlns", js.undefined)
     }
   }
   
   @JSImport("sax", "SAXParser")
   @js.native
-  class SAXParser protected () extends js.Object {
+  class SAXParser protected () extends StObject {
     def this(strict: Boolean, opt: SAXOptions) = this()
     
     def write(s: String): SAXParser = js.native
@@ -303,22 +244,10 @@ object mod {
     }
     
     @scala.inline
-    implicit class TagOps[Self <: Tag] (val x: Self) extends AnyVal {
+    implicit class TagMutableBuilder[Self <: Tag] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setAttributes(value: StringDictionary[String]): Self = this.set("attributes", value.asInstanceOf[js.Any])
+      def setAttributes(value: StringDictionary[String]): Self = StObject.set(x, "attributes", value.asInstanceOf[js.Any])
     }
   }
 }

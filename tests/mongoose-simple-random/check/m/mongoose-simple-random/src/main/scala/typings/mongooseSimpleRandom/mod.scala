@@ -4,6 +4,7 @@ import typings.mongoose.mod.Document
 import typings.mongoose.mod.ModelProperties
 import typings.mongoose.mod.Schema
 import typings.node.NodeJS.EventEmitter
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

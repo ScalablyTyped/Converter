@@ -1,5 +1,6 @@
 package typingsSlinky.stardustUiReactComponentRef
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -13,8 +14,8 @@ object stardustUiReactComponentRefBooleans {
   def `true`: `true` = true.asInstanceOf[`true`]
   
   @js.native
-  sealed trait `false` extends js.Object
+  sealed trait `false` extends StObject
   
   @js.native
-  sealed trait `true` extends js.Object
+  sealed trait `true` extends StObject
 }

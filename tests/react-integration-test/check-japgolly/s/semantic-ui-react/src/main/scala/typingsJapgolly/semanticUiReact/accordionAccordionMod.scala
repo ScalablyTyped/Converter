@@ -9,6 +9,7 @@ import typingsJapgolly.semanticUiReact.accordionAccordionAccordionMod.AccordionA
 import typingsJapgolly.semanticUiReact.accordionAccordionAccordionMod.StrictAccordionAccordionProps
 import typingsJapgolly.semanticUiReact.accordionContentMod.AccordionContentProps
 import typingsJapgolly.semanticUiReact.accordionTitleMod.AccordionTitleProps
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -60,37 +61,25 @@ object accordionAccordionMod {
     }
     
     @scala.inline
-    implicit class StrictAccordionPropsOps[Self <: StrictAccordionProps] (val x: Self) extends AnyVal {
+    implicit class StrictAccordionPropsMutableBuilder[Self <: StrictAccordionProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setFluid(value: Boolean): Self = StObject.set(x, "fluid", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setFluidUndefined: Self = StObject.set(x, "fluid", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setInverted(value: Boolean): Self = StObject.set(x, "inverted", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFluid(value: Boolean): Self = this.set("fluid", value.asInstanceOf[js.Any])
+      def setInvertedUndefined: Self = StObject.set(x, "inverted", js.undefined)
       
       @scala.inline
-      def deleteFluid: Self = this.set("fluid", js.undefined)
+      def setStyled(value: Boolean): Self = StObject.set(x, "styled", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInverted(value: Boolean): Self = this.set("inverted", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteInverted: Self = this.set("inverted", js.undefined)
-      
-      @scala.inline
-      def setStyled(value: Boolean): Self = this.set("styled", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteStyled: Self = this.set("styled", js.undefined)
+      def setStyledUndefined: Self = StObject.set(x, "styled", js.undefined)
     }
   }
   

@@ -11,6 +11,7 @@ import typingsSlinky.react.mod.ReactType
 import typingsSlinky.semanticUiReact.accordionContentMod.AccordionContentProps
 import typingsSlinky.semanticUiReact.accordionTitleMod.AccordionTitleProps
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -31,7 +32,7 @@ object accordionPanelMod {
   }
   
   @js.native
-  trait StrictAccordionPanelProps extends js.Object {
+  trait StrictAccordionPanelProps extends StObject {
     
     /** Whether or not the title is in the open state. */
     var active: js.UndefOr[Boolean] = js.native
@@ -68,65 +69,53 @@ object accordionPanelMod {
     }
     
     @scala.inline
-    implicit class StrictAccordionPanelPropsOps[Self <: StrictAccordionPanelProps] (val x: Self) extends AnyVal {
+    implicit class StrictAccordionPanelPropsMutableBuilder[Self <: StrictAccordionPanelProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setActive(value: Boolean): Self = StObject.set(x, "active", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setActiveUndefined: Self = StObject.set(x, "active", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setActive(value: Boolean): Self = this.set("active", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteActive: Self = this.set("active", js.undefined)
-      
-      @scala.inline
-      def setContentReactElement(value: ReactElement): Self = this.set("content", value.asInstanceOf[js.Any])
+      def setContent(value: SemanticShorthandItem[AccordionContentProps]): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setContentFunction3(
         value: (/* component */ ReactType[AccordionContentProps], AccordionContentProps, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
-      ): Self = this.set("content", js.Any.fromFunction3(value))
+      ): Self = StObject.set(x, "content", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setContent(value: SemanticShorthandItem[AccordionContentProps]): Self = this.set("content", value.asInstanceOf[js.Any])
+      def setContentReactElement(value: ReactElement): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteContent: Self = this.set("content", js.undefined)
+      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
       
       @scala.inline
-      def setIndex(value: Double | String): Self = this.set("index", value.asInstanceOf[js.Any])
+      def setIndex(value: Double | String): Self = StObject.set(x, "index", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteIndex: Self = this.set("index", js.undefined)
+      def setIndexUndefined: Self = StObject.set(x, "index", js.undefined)
       
       @scala.inline
-      def setOnTitleClick(value: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit): Self = this.set("onTitleClick", js.Any.fromFunction2(value))
+      def setOnTitleClick(value: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit): Self = StObject.set(x, "onTitleClick", js.Any.fromFunction2(value))
       
       @scala.inline
-      def deleteOnTitleClick: Self = this.set("onTitleClick", js.undefined)
+      def setOnTitleClickUndefined: Self = StObject.set(x, "onTitleClick", js.undefined)
       
       @scala.inline
-      def setTitleReactElement(value: ReactElement): Self = this.set("title", value.asInstanceOf[js.Any])
+      def setTitle(value: SemanticShorthandItem[AccordionTitleProps]): Self = StObject.set(x, "title", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setTitleFunction3(
         value: (/* component */ ReactType[AccordionTitleProps], AccordionTitleProps, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
-      ): Self = this.set("title", js.Any.fromFunction3(value))
+      ): Self = StObject.set(x, "title", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setTitle(value: SemanticShorthandItem[AccordionTitleProps]): Self = this.set("title", value.asInstanceOf[js.Any])
+      def setTitleReactElement(value: ReactElement): Self = StObject.set(x, "title", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteTitle: Self = this.set("title", js.undefined)
+      def setTitleUndefined: Self = StObject.set(x, "title", js.undefined)
     }
   }
   

@@ -2,6 +2,7 @@ package typings.rxjs
 
 import typings.rxjs.observableMod.Observable
 import typings.rxjs.subscriptionMod.Subscription
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -28,40 +29,28 @@ object typesMod {
     }
     
     @scala.inline
-    implicit class CompletionObserverOps[Self <: CompletionObserver[_], T] (val x: Self with CompletionObserver[T]) extends AnyVal {
+    implicit class CompletionObserverMutableBuilder[Self <: CompletionObserver[_], T] (val x: Self with CompletionObserver[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setClosedUndefined: Self = StObject.set(x, "closed", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setComplete(value: () => Unit): Self = StObject.set(x, "complete", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setComplete(value: () => Unit): Self = this.set("complete", js.Any.fromFunction0(value))
+      def setError(value: /* err */ js.Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setClosed(value: Boolean): Self = this.set("closed", value.asInstanceOf[js.Any])
+      def setErrorUndefined: Self = StObject.set(x, "error", js.undefined)
       
       @scala.inline
-      def deleteClosed: Self = this.set("closed", js.undefined)
+      def setNext(value: /* value */ T => Unit): Self = StObject.set(x, "next", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setError(value: /* err */ js.Any => Unit): Self = this.set("error", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def deleteError: Self = this.set("error", js.undefined)
-      
-      @scala.inline
-      def setNext(value: /* value */ T => Unit): Self = this.set("next", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def deleteNext: Self = this.set("next", js.undefined)
+      def setNextUndefined: Self = StObject.set(x, "next", js.undefined)
     }
   }
   
@@ -85,40 +74,28 @@ object typesMod {
     }
     
     @scala.inline
-    implicit class ErrorObserverOps[Self <: ErrorObserver[_], T] (val x: Self with ErrorObserver[T]) extends AnyVal {
+    implicit class ErrorObserverMutableBuilder[Self <: ErrorObserver[_], T] (val x: Self with ErrorObserver[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setClosedUndefined: Self = StObject.set(x, "closed", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setComplete(value: () => Unit): Self = StObject.set(x, "complete", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setError(value: js.Any => Unit): Self = this.set("error", js.Any.fromFunction1(value))
+      def setCompleteUndefined: Self = StObject.set(x, "complete", js.undefined)
       
       @scala.inline
-      def setClosed(value: Boolean): Self = this.set("closed", value.asInstanceOf[js.Any])
+      def setError(value: js.Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
       
       @scala.inline
-      def deleteClosed: Self = this.set("closed", js.undefined)
+      def setNext(value: /* value */ T => Unit): Self = StObject.set(x, "next", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setComplete(value: () => Unit): Self = this.set("complete", js.Any.fromFunction0(value))
-      
-      @scala.inline
-      def deleteComplete: Self = this.set("complete", js.undefined)
-      
-      @scala.inline
-      def setNext(value: /* value */ T => Unit): Self = this.set("next", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def deleteNext: Self = this.set("next", js.undefined)
+      def setNextUndefined: Self = StObject.set(x, "next", js.undefined)
     }
   }
   
@@ -142,45 +119,33 @@ object typesMod {
     }
     
     @scala.inline
-    implicit class NextObserverOps[Self <: NextObserver[_], T] (val x: Self with NextObserver[T]) extends AnyVal {
+    implicit class NextObserverMutableBuilder[Self <: NextObserver[_], T] (val x: Self with NextObserver[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setClosedUndefined: Self = StObject.set(x, "closed", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setComplete(value: () => Unit): Self = StObject.set(x, "complete", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setNext(value: T => Unit): Self = this.set("next", js.Any.fromFunction1(value))
+      def setCompleteUndefined: Self = StObject.set(x, "complete", js.undefined)
       
       @scala.inline
-      def setClosed(value: Boolean): Self = this.set("closed", value.asInstanceOf[js.Any])
+      def setError(value: /* err */ js.Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
       
       @scala.inline
-      def deleteClosed: Self = this.set("closed", js.undefined)
+      def setErrorUndefined: Self = StObject.set(x, "error", js.undefined)
       
       @scala.inline
-      def setComplete(value: () => Unit): Self = this.set("complete", js.Any.fromFunction0(value))
-      
-      @scala.inline
-      def deleteComplete: Self = this.set("complete", js.undefined)
-      
-      @scala.inline
-      def setError(value: /* err */ js.Any => Unit): Self = this.set("error", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def deleteError: Self = this.set("error", js.undefined)
+      def setNext(value: T => Unit): Self = StObject.set(x, "next", js.Any.fromFunction1(value))
     }
   }
   
   @js.native
-  trait Observer[T] extends js.Object {
+  trait Observer[T] extends StObject {
     
     var closed: js.UndefOr[Boolean] = js.native
     
@@ -199,34 +164,22 @@ object typesMod {
     }
     
     @scala.inline
-    implicit class ObserverOps[Self <: Observer[_], T] (val x: Self with Observer[T]) extends AnyVal {
+    implicit class ObserverMutableBuilder[Self <: Observer[_], T] (val x: Self with Observer[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setClosedUndefined: Self = StObject.set(x, "closed", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setComplete(value: () => Unit): Self = StObject.set(x, "complete", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setComplete(value: () => Unit): Self = this.set("complete", js.Any.fromFunction0(value))
+      def setError(value: js.Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setError(value: js.Any => Unit): Self = this.set("error", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def setNext(value: T => Unit): Self = this.set("next", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def setClosed(value: Boolean): Self = this.set("closed", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteClosed: Self = this.set("closed", js.undefined)
+      def setNext(value: T => Unit): Self = StObject.set(x, "next", js.Any.fromFunction1(value))
     }
   }
   
@@ -235,12 +188,12 @@ object typesMod {
     - typings.rxjs.typesMod.ErrorObserver[T]
     - typings.rxjs.typesMod.CompletionObserver[T]
   */
-  trait PartialObserver[T] extends js.Object
+  trait PartialObserver[T] extends StObject
   object PartialObserver {
     
     @scala.inline
-    def NextObserver[T](next: T => Unit): PartialObserver[T] = {
-      val __obj = js.Dynamic.literal(next = js.Any.fromFunction1(next))
+    def CompletionObserver[T](complete: () => Unit): PartialObserver[T] = {
+      val __obj = js.Dynamic.literal(complete = js.Any.fromFunction0(complete))
       __obj.asInstanceOf[PartialObserver[T]]
     }
     
@@ -251,8 +204,8 @@ object typesMod {
     }
     
     @scala.inline
-    def CompletionObserver[T](complete: () => Unit): PartialObserver[T] = {
-      val __obj = js.Dynamic.literal(complete = js.Any.fromFunction0(complete))
+    def NextObserver[T](next: T => Unit): PartialObserver[T] = {
+      val __obj = js.Dynamic.literal(next = js.Any.fromFunction1(next))
       __obj.asInstanceOf[PartialObserver[T]]
     }
   }
@@ -267,7 +220,7 @@ object typesMod {
   }
   
   @js.native
-  trait SchedulerLike extends js.Object {
+  trait SchedulerLike extends StObject {
     
     def now(): Double = js.native
     
@@ -289,7 +242,7 @@ object typesMod {
   }
   
   @js.native
-  trait Subscribable[T] extends js.Object {
+  trait Subscribable[T] extends StObject {
     
     def subscribe(): Unsubscribable = js.native
     def subscribe(
@@ -339,27 +292,15 @@ object typesMod {
     }
     
     @scala.inline
-    implicit class SubscriptionLikeOps[Self <: SubscriptionLike] (val x: Self) extends AnyVal {
+    implicit class SubscriptionLikeMutableBuilder[Self <: SubscriptionLike] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setClosed(value: Boolean): Self = this.set("closed", value.asInstanceOf[js.Any])
+      def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait Unsubscribable extends js.Object {
+  trait Unsubscribable extends StObject {
     
     def unsubscribe(): Unit = js.native
   }
@@ -372,22 +313,10 @@ object typesMod {
     }
     
     @scala.inline
-    implicit class UnsubscribableOps[Self <: Unsubscribable] (val x: Self) extends AnyVal {
+    implicit class UnsubscribableMutableBuilder[Self <: Unsubscribable] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setUnsubscribe(value: () => Unit): Self = this.set("unsubscribe", js.Any.fromFunction0(value))
+      def setUnsubscribe(value: () => Unit): Self = StObject.set(x, "unsubscribe", js.Any.fromFunction0(value))
     }
   }
   

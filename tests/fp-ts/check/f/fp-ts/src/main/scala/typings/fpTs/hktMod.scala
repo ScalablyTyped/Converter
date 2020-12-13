@@ -1,6 +1,7 @@
 package typings.fpTs
 
 import typings.fpTs.constMod.Const
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -8,7 +9,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object hktMod {
   
   @js.native
-  trait HKT[URI, A] extends js.Object {
+  trait HKT[URI, A] extends StObject {
     
     val _A: A = js.native
     
@@ -23,33 +24,21 @@ object hktMod {
     }
     
     @scala.inline
-    implicit class HKTOps[Self <: HKT[_, _], URI, A] (val x: Self with (HKT[URI, A])) extends AnyVal {
+    implicit class HKTMutableBuilder[Self <: HKT[_, _], URI, A] (val x: Self with (HKT[URI, A])) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def set_A(value: A): Self = StObject.set(x, "_A", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def set_A(value: A): Self = this.set("_A", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def set_URI(value: URI): Self = this.set("_URI", value.asInstanceOf[js.Any])
+      def set_URI(value: URI): Self = StObject.set(x, "_URI", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait URI2HKT[A] extends js.Object
+  trait URI2HKT[A] extends StObject
   
   @js.native
-  trait URI2HKT2[L, A] extends js.Object {
+  trait URI2HKT2[L, A] extends StObject {
     
     var Const: typings.fpTs.constMod.Const[L, A] = js.native
   }
@@ -62,22 +51,10 @@ object hktMod {
     }
     
     @scala.inline
-    implicit class URI2HKT2Ops[Self <: URI2HKT2[_, _], L, A] (val x: Self with (URI2HKT2[L, A])) extends AnyVal {
+    implicit class URI2HKT2MutableBuilder[Self <: URI2HKT2[_, _], L, A] (val x: Self with (URI2HKT2[L, A])) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setConst(value: Const[L, A]): Self = this.set("Const", value.asInstanceOf[js.Any])
+      def setConst(value: Const[L, A]): Self = StObject.set(x, "Const", value.asInstanceOf[js.Any])
     }
   }
   

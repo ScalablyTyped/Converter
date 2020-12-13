@@ -1,6 +1,7 @@
 package typings.lodash
 
 import typings.std.ArrayLike
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -16,14 +17,14 @@ object mod {
   implicit def __is(ignored: mod.type): LoDashStatic = typings.lodash.mod.^
   
   @js.native
-  trait CurriedFunction1[T1, R] extends js.Object {
+  trait CurriedFunction1[T1, R] extends StObject {
     
     def apply(): CurriedFunction1[T1, R] = js.native
     def apply(t1: T1): R = js.native
   }
   
   @js.native
-  trait CurriedFunction2[T1, T2, R] extends js.Object {
+  trait CurriedFunction2[T1, T2, R] extends StObject {
     
     def apply(): CurriedFunction2[T1, T2, R] = js.native
     def apply(t1: T1): CurriedFunction1[T2, R] = js.native
@@ -34,7 +35,7 @@ object mod {
   // add
   // assign
   @js.native
-  trait LoDashStatic extends js.Object {
+  trait LoDashStatic extends StObject {
     
     /**
       * Adds two numbers.
@@ -77,19 +78,19 @@ object mod {
     
     // tslint:disable-next-line:no-empty-interface
     @js.native
-    trait Map[K, V] extends js.Object
+    trait Map[K, V] extends StObject
     
     // tslint:disable-next-line:no-empty-interface
     @js.native
-    trait Set[T] extends js.Object
+    trait Set[T] extends StObject
     
     // tslint:disable-next-line:no-empty-interface
     @js.native
-    trait WeakMap[K /* <: js.Object */, V] extends js.Object
+    trait WeakMap[K /* <: js.Object */, V] extends StObject
     
     // tslint:disable-next-line:no-empty-interface
     @js.native
-    trait WeakSet[T] extends js.Object
+    trait WeakSet[T] extends StObject
   }
   
   type List[T] = ArrayLike[T]

@@ -1,6 +1,7 @@
 package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.Callback
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -62,44 +63,32 @@ object ComponentLifecycle {
   }
   
   @scala.inline
-  implicit class ComponentLifecycleOps[Self <: ComponentLifecycle[_, _, _], P, S, SS] (val x: Self with (ComponentLifecycle[P, S, SS])) extends AnyVal {
-    
-    @scala.inline
-    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-    
-    @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-    
-    @scala.inline
-    def set(key: String, value: js.Any): Self = {
-      x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-      x
-    }
+  implicit class ComponentLifecycleMutableBuilder[Self <: ComponentLifecycle[_, _, _], P, S, SS] (val x: Self with (ComponentLifecycle[P, S, SS])) extends AnyVal {
     
     @scala.inline
     def setComponentDidCatch(
       value: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Callback
-    ): Self = this.set("componentDidCatch", js.Any.fromFunction2((t0: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, t1: /* errorInfo */ ErrorInfo) => (value(t0, t1)).runNow()))
+    ): Self = StObject.set(x, "componentDidCatch", js.Any.fromFunction2((t0: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, t1: /* errorInfo */ ErrorInfo) => (value(t0, t1)).runNow()))
     
     @scala.inline
-    def deleteComponentDidCatch: Self = this.set("componentDidCatch", js.undefined)
+    def setComponentDidCatchUndefined: Self = StObject.set(x, "componentDidCatch", js.undefined)
     
     @scala.inline
-    def setComponentDidMount(value: Callback): Self = this.set("componentDidMount", value.toJsFn)
+    def setComponentDidMount(value: Callback): Self = StObject.set(x, "componentDidMount", value.toJsFn)
     
     @scala.inline
-    def deleteComponentDidMount: Self = this.set("componentDidMount", js.undefined)
+    def setComponentDidMountUndefined: Self = StObject.set(x, "componentDidMount", js.undefined)
     
     @scala.inline
-    def setComponentWillUnmount(value: Callback): Self = this.set("componentWillUnmount", value.toJsFn)
+    def setComponentWillUnmount(value: Callback): Self = StObject.set(x, "componentWillUnmount", value.toJsFn)
     
     @scala.inline
-    def deleteComponentWillUnmount: Self = this.set("componentWillUnmount", js.undefined)
+    def setComponentWillUnmountUndefined: Self = StObject.set(x, "componentWillUnmount", js.undefined)
     
     @scala.inline
-    def setShouldComponentUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Boolean): Self = this.set("shouldComponentUpdate", js.Any.fromFunction3(value))
+    def setShouldComponentUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Boolean): Self = StObject.set(x, "shouldComponentUpdate", js.Any.fromFunction3(value))
     
     @scala.inline
-    def deleteShouldComponentUpdate: Self = this.set("shouldComponentUpdate", js.undefined)
+    def setShouldComponentUpdateUndefined: Self = StObject.set(x, "shouldComponentUpdate", js.undefined)
   }
 }

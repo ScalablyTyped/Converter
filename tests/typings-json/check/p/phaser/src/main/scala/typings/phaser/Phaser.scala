@@ -1,11 +1,12 @@
 package typings.phaser
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait Phaser extends js.Object
+trait Phaser extends StObject
 object Phaser {
   
   /**
@@ -14,5 +15,5 @@ object Phaser {
     * It is created by the AnimationManager, consists of Animation.Frame objects and belongs to a single Game Object such as a Sprite.
     */
   @js.native
-  trait Animation extends js.Object
+  trait Animation extends StObject
 }

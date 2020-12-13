@@ -10,6 +10,7 @@ import typings.vue.optionsMod.DefaultProps
 import typings.vue.optionsMod.PropsDefinition
 import typings.vue.vueMod.Vue
 import typings.webpackEnv.NodeModule
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -37,7 +38,7 @@ object mod {
   def storiesOf(kind: String, module: NodeModule): Story = js.native
   
   @js.native
-  trait Story extends js.Object {
+  trait Story extends StObject {
     
     def add(storyName: String, getStory: StoryFunction): this.type = js.native
     
@@ -54,33 +55,21 @@ object mod {
     }
     
     @scala.inline
-    implicit class StoryOps[Self <: Story] (val x: Self) extends AnyVal {
+    implicit class StoryMutableBuilder[Self <: Story] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setAdd(value: (String, StoryFunction) => Story): Self = StObject.set(x, "add", js.Any.fromFunction2(value))
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setAddDecorator(value: StoryDecorator => Story): Self = StObject.set(x, "addDecorator", js.Any.fromFunction1(value))
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setAdd(value: (String, StoryFunction) => Story): Self = this.set("add", js.Any.fromFunction2(value))
-      
-      @scala.inline
-      def setAddDecorator(value: StoryDecorator => Story): Self = this.set("addDecorator", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def setKind(value: String): Self = this.set("kind", value.asInstanceOf[js.Any])
+      def setKind(value: String): Self = StObject.set(x, "kind", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait StoryObject extends js.Object {
+  trait StoryObject extends StObject {
     
     var name: String = js.native
     
@@ -96,7 +85,7 @@ object mod {
   }
   
   @js.native
-  trait StoryStore extends js.Object {
+  trait StoryStore extends StObject {
     
     var fileName: js.UndefOr[String] = js.native
     
@@ -113,34 +102,22 @@ object mod {
     }
     
     @scala.inline
-    implicit class StoryStoreOps[Self <: StoryStore] (val x: Self) extends AnyVal {
+    implicit class StoryStoreMutableBuilder[Self <: StoryStore] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setFileName(value: String): Self = StObject.set(x, "fileName", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setFileNameUndefined: Self = StObject.set(x, "fileName", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setKind(value: String): Self = StObject.set(x, "kind", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setKind(value: String): Self = this.set("kind", value.asInstanceOf[js.Any])
+      def setStories(value: js.Array[StoryObject]): Self = StObject.set(x, "stories", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setStoriesVarargs(value: StoryObject*): Self = this.set("stories", js.Array(value :_*))
-      
-      @scala.inline
-      def setStories(value: js.Array[StoryObject]): Self = this.set("stories", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setFileName(value: String): Self = this.set("fileName", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteFileName: Self = this.set("fileName", js.undefined)
+      def setStoriesVarargs(value: StoryObject*): Self = StObject.set(x, "stories", js.Array(value :_*))
     }
   }
   

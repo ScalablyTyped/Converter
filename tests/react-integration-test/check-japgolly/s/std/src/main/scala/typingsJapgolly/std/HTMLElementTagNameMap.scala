@@ -1,11 +1,12 @@
 package typingsJapgolly.std
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait HTMLElementTagNameMap extends js.Object {
+trait HTMLElementTagNameMap extends StObject {
   
   var a: org.scalajs.dom.raw.HTMLAnchorElement = js.native
   
@@ -331,330 +332,318 @@ object HTMLElementTagNameMap {
   }
   
   @scala.inline
-  implicit class HTMLElementTagNameMapOps[Self <: HTMLElementTagNameMap] (val x: Self) extends AnyVal {
+  implicit class HTMLElementTagNameMapMutableBuilder[Self <: HTMLElementTagNameMap] (val x: Self) extends AnyVal {
     
     @scala.inline
-    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    def setA(value: org.scalajs.dom.raw.HTMLAnchorElement): Self = StObject.set(x, "a", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    def setAbbr(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "abbr", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def set(key: String, value: js.Any): Self = {
-      x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-      x
-    }
+    def setAddress(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "address", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setA(value: org.scalajs.dom.raw.HTMLAnchorElement): Self = this.set("a", value.asInstanceOf[js.Any])
+    def setArea(value: org.scalajs.dom.raw.HTMLAreaElement): Self = StObject.set(x, "area", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAbbr(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("abbr", value.asInstanceOf[js.Any])
+    def setArticle(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "article", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAddress(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("address", value.asInstanceOf[js.Any])
+    def setAside(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "aside", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setArea(value: org.scalajs.dom.raw.HTMLAreaElement): Self = this.set("area", value.asInstanceOf[js.Any])
+    def setAudio(value: org.scalajs.dom.raw.HTMLAudioElement): Self = StObject.set(x, "audio", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setArticle(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("article", value.asInstanceOf[js.Any])
+    def setB(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "b", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAside(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("aside", value.asInstanceOf[js.Any])
+    def setBase(value: org.scalajs.dom.raw.HTMLBaseElement): Self = StObject.set(x, "base", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAudio(value: org.scalajs.dom.raw.HTMLAudioElement): Self = this.set("audio", value.asInstanceOf[js.Any])
+    def setBdi(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "bdi", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setB(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("b", value.asInstanceOf[js.Any])
+    def setBdo(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "bdo", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setBase(value: org.scalajs.dom.raw.HTMLBaseElement): Self = this.set("base", value.asInstanceOf[js.Any])
+    def setBlockquote(value: org.scalajs.dom.raw.HTMLQuoteElement): Self = StObject.set(x, "blockquote", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setBdi(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("bdi", value.asInstanceOf[js.Any])
+    def setBody(value: org.scalajs.dom.raw.HTMLBodyElement): Self = StObject.set(x, "body", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setBdo(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("bdo", value.asInstanceOf[js.Any])
+    def setBr(value: org.scalajs.dom.raw.HTMLBRElement): Self = StObject.set(x, "br", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setBlockquote(value: org.scalajs.dom.raw.HTMLQuoteElement): Self = this.set("blockquote", value.asInstanceOf[js.Any])
+    def setButton(value: org.scalajs.dom.raw.HTMLButtonElement): Self = StObject.set(x, "button", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setBody(value: org.scalajs.dom.raw.HTMLBodyElement): Self = this.set("body", value.asInstanceOf[js.Any])
+    def setCanvas(value: org.scalajs.dom.raw.HTMLCanvasElement): Self = StObject.set(x, "canvas", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setBr(value: org.scalajs.dom.raw.HTMLBRElement): Self = this.set("br", value.asInstanceOf[js.Any])
+    def setCite(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "cite", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setButton(value: org.scalajs.dom.raw.HTMLButtonElement): Self = this.set("button", value.asInstanceOf[js.Any])
+    def setCode(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "code", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCanvas(value: org.scalajs.dom.raw.HTMLCanvasElement): Self = this.set("canvas", value.asInstanceOf[js.Any])
+    def setCol(value: org.scalajs.dom.raw.HTMLTableColElement): Self = StObject.set(x, "col", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCite(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("cite", value.asInstanceOf[js.Any])
+    def setColgroup(value: org.scalajs.dom.raw.HTMLTableColElement): Self = StObject.set(x, "colgroup", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCode(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("code", value.asInstanceOf[js.Any])
+    def setData(value: org.scalajs.dom.raw.Element): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCol(value: org.scalajs.dom.raw.HTMLTableColElement): Self = this.set("col", value.asInstanceOf[js.Any])
+    def setDatalist(value: org.scalajs.dom.raw.HTMLDataListElement): Self = StObject.set(x, "datalist", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setColgroup(value: org.scalajs.dom.raw.HTMLTableColElement): Self = this.set("colgroup", value.asInstanceOf[js.Any])
+    def setDd(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "dd", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setData(value: org.scalajs.dom.raw.Element): Self = this.set("data", value.asInstanceOf[js.Any])
+    def setDel(value: org.scalajs.dom.raw.HTMLModElement): Self = StObject.set(x, "del", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDatalist(value: org.scalajs.dom.raw.HTMLDataListElement): Self = this.set("datalist", value.asInstanceOf[js.Any])
+    def setDfn(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "dfn", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDd(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("dd", value.asInstanceOf[js.Any])
+    def setDialog(value: org.scalajs.dom.raw.Element): Self = StObject.set(x, "dialog", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDel(value: org.scalajs.dom.raw.HTMLModElement): Self = this.set("del", value.asInstanceOf[js.Any])
+    def setDiv(value: org.scalajs.dom.raw.HTMLDivElement): Self = StObject.set(x, "div", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDfn(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("dfn", value.asInstanceOf[js.Any])
+    def setDl(value: org.scalajs.dom.raw.HTMLDListElement): Self = StObject.set(x, "dl", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDialog(value: org.scalajs.dom.raw.Element): Self = this.set("dialog", value.asInstanceOf[js.Any])
+    def setDt(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "dt", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDiv(value: org.scalajs.dom.raw.HTMLDivElement): Self = this.set("div", value.asInstanceOf[js.Any])
+    def setEm(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "em", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDl(value: org.scalajs.dom.raw.HTMLDListElement): Self = this.set("dl", value.asInstanceOf[js.Any])
+    def setEmbed(value: org.scalajs.dom.raw.HTMLEmbedElement): Self = StObject.set(x, "embed", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDt(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("dt", value.asInstanceOf[js.Any])
+    def setFieldset(value: org.scalajs.dom.raw.HTMLFieldSetElement): Self = StObject.set(x, "fieldset", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setEm(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("em", value.asInstanceOf[js.Any])
+    def setFigcaption(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "figcaption", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setEmbed(value: org.scalajs.dom.raw.HTMLEmbedElement): Self = this.set("embed", value.asInstanceOf[js.Any])
+    def setFigure(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "figure", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFieldset(value: org.scalajs.dom.raw.HTMLFieldSetElement): Self = this.set("fieldset", value.asInstanceOf[js.Any])
+    def setFooter(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "footer", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFigcaption(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("figcaption", value.asInstanceOf[js.Any])
+    def setForm(value: org.scalajs.dom.raw.HTMLFormElement): Self = StObject.set(x, "form", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFigure(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("figure", value.asInstanceOf[js.Any])
+    def setH1(value: org.scalajs.dom.raw.HTMLHeadingElement): Self = StObject.set(x, "h1", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFooter(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("footer", value.asInstanceOf[js.Any])
+    def setH2(value: org.scalajs.dom.raw.HTMLHeadingElement): Self = StObject.set(x, "h2", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setForm(value: org.scalajs.dom.raw.HTMLFormElement): Self = this.set("form", value.asInstanceOf[js.Any])
+    def setH3(value: org.scalajs.dom.raw.HTMLHeadingElement): Self = StObject.set(x, "h3", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setH1(value: org.scalajs.dom.raw.HTMLHeadingElement): Self = this.set("h1", value.asInstanceOf[js.Any])
+    def setH4(value: org.scalajs.dom.raw.HTMLHeadingElement): Self = StObject.set(x, "h4", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setH2(value: org.scalajs.dom.raw.HTMLHeadingElement): Self = this.set("h2", value.asInstanceOf[js.Any])
+    def setH5(value: org.scalajs.dom.raw.HTMLHeadingElement): Self = StObject.set(x, "h5", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setH3(value: org.scalajs.dom.raw.HTMLHeadingElement): Self = this.set("h3", value.asInstanceOf[js.Any])
+    def setH6(value: org.scalajs.dom.raw.HTMLHeadingElement): Self = StObject.set(x, "h6", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setH4(value: org.scalajs.dom.raw.HTMLHeadingElement): Self = this.set("h4", value.asInstanceOf[js.Any])
+    def setHead(value: org.scalajs.dom.raw.HTMLHeadElement): Self = StObject.set(x, "head", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setH5(value: org.scalajs.dom.raw.HTMLHeadingElement): Self = this.set("h5", value.asInstanceOf[js.Any])
+    def setHeader(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "header", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setH6(value: org.scalajs.dom.raw.HTMLHeadingElement): Self = this.set("h6", value.asInstanceOf[js.Any])
+    def setHgroup(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "hgroup", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHead(value: org.scalajs.dom.raw.HTMLHeadElement): Self = this.set("head", value.asInstanceOf[js.Any])
+    def setHr(value: org.scalajs.dom.raw.HTMLHRElement): Self = StObject.set(x, "hr", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHeader(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("header", value.asInstanceOf[js.Any])
+    def setHtml(value: org.scalajs.dom.raw.HTMLHtmlElement): Self = StObject.set(x, "html", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHgroup(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("hgroup", value.asInstanceOf[js.Any])
+    def setI(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "i", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHr(value: org.scalajs.dom.raw.HTMLHRElement): Self = this.set("hr", value.asInstanceOf[js.Any])
+    def setIframe(value: org.scalajs.dom.raw.HTMLIFrameElement): Self = StObject.set(x, "iframe", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHtml(value: org.scalajs.dom.raw.HTMLHtmlElement): Self = this.set("html", value.asInstanceOf[js.Any])
+    def setImg(value: org.scalajs.dom.raw.HTMLImageElement): Self = StObject.set(x, "img", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setI(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("i", value.asInstanceOf[js.Any])
+    def setInput(value: org.scalajs.dom.raw.HTMLInputElement): Self = StObject.set(x, "input", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setIframe(value: org.scalajs.dom.raw.HTMLIFrameElement): Self = this.set("iframe", value.asInstanceOf[js.Any])
+    def setIns(value: org.scalajs.dom.raw.HTMLModElement): Self = StObject.set(x, "ins", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setImg(value: org.scalajs.dom.raw.HTMLImageElement): Self = this.set("img", value.asInstanceOf[js.Any])
+    def setKbd(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "kbd", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setInput(value: org.scalajs.dom.raw.HTMLInputElement): Self = this.set("input", value.asInstanceOf[js.Any])
+    def setLabel(value: org.scalajs.dom.raw.HTMLLabelElement): Self = StObject.set(x, "label", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setIns(value: org.scalajs.dom.raw.HTMLModElement): Self = this.set("ins", value.asInstanceOf[js.Any])
+    def setLegend(value: org.scalajs.dom.raw.HTMLLegendElement): Self = StObject.set(x, "legend", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setKbd(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("kbd", value.asInstanceOf[js.Any])
+    def setLi(value: org.scalajs.dom.raw.HTMLLIElement): Self = StObject.set(x, "li", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLabel(value: org.scalajs.dom.raw.HTMLLabelElement): Self = this.set("label", value.asInstanceOf[js.Any])
+    def setLink(value: org.scalajs.dom.raw.HTMLLinkElement): Self = StObject.set(x, "link", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLegend(value: org.scalajs.dom.raw.HTMLLegendElement): Self = this.set("legend", value.asInstanceOf[js.Any])
+    def setMain(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "main", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLi(value: org.scalajs.dom.raw.HTMLLIElement): Self = this.set("li", value.asInstanceOf[js.Any])
+    def setMap(value: org.scalajs.dom.raw.HTMLMapElement): Self = StObject.set(x, "map", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLink(value: org.scalajs.dom.raw.HTMLLinkElement): Self = this.set("link", value.asInstanceOf[js.Any])
+    def setMark(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "mark", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMain(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("main", value.asInstanceOf[js.Any])
+    def setMeta(value: org.scalajs.dom.raw.HTMLMetaElement): Self = StObject.set(x, "meta", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMap(value: org.scalajs.dom.raw.HTMLMapElement): Self = this.set("map", value.asInstanceOf[js.Any])
+    def setNav(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "nav", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMark(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("mark", value.asInstanceOf[js.Any])
+    def setNoscript(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "noscript", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMeta(value: org.scalajs.dom.raw.HTMLMetaElement): Self = this.set("meta", value.asInstanceOf[js.Any])
+    def setObject(value: org.scalajs.dom.raw.HTMLObjectElement): Self = StObject.set(x, "object", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNav(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("nav", value.asInstanceOf[js.Any])
+    def setOl(value: org.scalajs.dom.raw.HTMLOListElement): Self = StObject.set(x, "ol", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNoscript(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("noscript", value.asInstanceOf[js.Any])
+    def setOptgroup(value: org.scalajs.dom.raw.HTMLOptGroupElement): Self = StObject.set(x, "optgroup", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setObject(value: org.scalajs.dom.raw.HTMLObjectElement): Self = this.set("object", value.asInstanceOf[js.Any])
+    def setOption(value: org.scalajs.dom.raw.HTMLOptionElement): Self = StObject.set(x, "option", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setOl(value: org.scalajs.dom.raw.HTMLOListElement): Self = this.set("ol", value.asInstanceOf[js.Any])
+    def setP(value: org.scalajs.dom.raw.HTMLParagraphElement): Self = StObject.set(x, "p", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setOptgroup(value: org.scalajs.dom.raw.HTMLOptGroupElement): Self = this.set("optgroup", value.asInstanceOf[js.Any])
+    def setParam(value: org.scalajs.dom.raw.HTMLParamElement): Self = StObject.set(x, "param", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setOption(value: org.scalajs.dom.raw.HTMLOptionElement): Self = this.set("option", value.asInstanceOf[js.Any])
+    def setPre(value: org.scalajs.dom.raw.HTMLPreElement): Self = StObject.set(x, "pre", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setP(value: org.scalajs.dom.raw.HTMLParagraphElement): Self = this.set("p", value.asInstanceOf[js.Any])
+    def setProgress(value: org.scalajs.dom.raw.HTMLProgressElement): Self = StObject.set(x, "progress", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setParam(value: org.scalajs.dom.raw.HTMLParamElement): Self = this.set("param", value.asInstanceOf[js.Any])
+    def setQ(value: org.scalajs.dom.raw.HTMLQuoteElement): Self = StObject.set(x, "q", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setPre(value: org.scalajs.dom.raw.HTMLPreElement): Self = this.set("pre", value.asInstanceOf[js.Any])
+    def setRp(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "rp", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setProgress(value: org.scalajs.dom.raw.HTMLProgressElement): Self = this.set("progress", value.asInstanceOf[js.Any])
+    def setRt(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "rt", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setQ(value: org.scalajs.dom.raw.HTMLQuoteElement): Self = this.set("q", value.asInstanceOf[js.Any])
+    def setRuby(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "ruby", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRp(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("rp", value.asInstanceOf[js.Any])
+    def setS(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "s", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRt(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("rt", value.asInstanceOf[js.Any])
+    def setSamp(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "samp", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRuby(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("ruby", value.asInstanceOf[js.Any])
+    def setScript(value: org.scalajs.dom.raw.HTMLScriptElement): Self = StObject.set(x, "script", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setS(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("s", value.asInstanceOf[js.Any])
+    def setSection(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "section", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSamp(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("samp", value.asInstanceOf[js.Any])
+    def setSelect(value: org.scalajs.dom.raw.HTMLSelectElement): Self = StObject.set(x, "select", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setScript(value: org.scalajs.dom.raw.HTMLScriptElement): Self = this.set("script", value.asInstanceOf[js.Any])
+    def setSmall(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "small", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSection(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("section", value.asInstanceOf[js.Any])
+    def setSource(value: org.scalajs.dom.raw.HTMLSourceElement): Self = StObject.set(x, "source", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSelect(value: org.scalajs.dom.raw.HTMLSelectElement): Self = this.set("select", value.asInstanceOf[js.Any])
+    def setSpan(value: org.scalajs.dom.raw.HTMLSpanElement): Self = StObject.set(x, "span", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSmall(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("small", value.asInstanceOf[js.Any])
+    def setStrong(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "strong", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSource(value: org.scalajs.dom.raw.HTMLSourceElement): Self = this.set("source", value.asInstanceOf[js.Any])
+    def setStyle(value: org.scalajs.dom.raw.HTMLStyleElement): Self = StObject.set(x, "style", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSpan(value: org.scalajs.dom.raw.HTMLSpanElement): Self = this.set("span", value.asInstanceOf[js.Any])
+    def setSub(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "sub", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setStrong(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("strong", value.asInstanceOf[js.Any])
+    def setSummary(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "summary", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setStyle(value: org.scalajs.dom.raw.HTMLStyleElement): Self = this.set("style", value.asInstanceOf[js.Any])
+    def setSup(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "sup", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSub(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("sub", value.asInstanceOf[js.Any])
+    def setTable(value: org.scalajs.dom.raw.HTMLTableElement): Self = StObject.set(x, "table", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSummary(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("summary", value.asInstanceOf[js.Any])
+    def setTbody(value: org.scalajs.dom.raw.HTMLTableSectionElement): Self = StObject.set(x, "tbody", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSup(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("sup", value.asInstanceOf[js.Any])
+    def setTd(value: org.scalajs.dom.raw.Element): Self = StObject.set(x, "td", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTable(value: org.scalajs.dom.raw.HTMLTableElement): Self = this.set("table", value.asInstanceOf[js.Any])
+    def setTemplate(value: org.scalajs.dom.raw.Element): Self = StObject.set(x, "template", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTbody(value: org.scalajs.dom.raw.HTMLTableSectionElement): Self = this.set("tbody", value.asInstanceOf[js.Any])
+    def setTextarea(value: org.scalajs.dom.raw.HTMLTextAreaElement): Self = StObject.set(x, "textarea", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTd(value: org.scalajs.dom.raw.Element): Self = this.set("td", value.asInstanceOf[js.Any])
+    def setTfoot(value: org.scalajs.dom.raw.HTMLTableSectionElement): Self = StObject.set(x, "tfoot", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTemplate(value: org.scalajs.dom.raw.Element): Self = this.set("template", value.asInstanceOf[js.Any])
+    def setTh(value: org.scalajs.dom.raw.Element): Self = StObject.set(x, "th", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTextarea(value: org.scalajs.dom.raw.HTMLTextAreaElement): Self = this.set("textarea", value.asInstanceOf[js.Any])
+    def setThead(value: org.scalajs.dom.raw.HTMLTableSectionElement): Self = StObject.set(x, "thead", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTfoot(value: org.scalajs.dom.raw.HTMLTableSectionElement): Self = this.set("tfoot", value.asInstanceOf[js.Any])
+    def setTitle(value: org.scalajs.dom.raw.HTMLTitleElement): Self = StObject.set(x, "title", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTh(value: org.scalajs.dom.raw.Element): Self = this.set("th", value.asInstanceOf[js.Any])
+    def setTr(value: org.scalajs.dom.raw.HTMLTableRowElement): Self = StObject.set(x, "tr", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setThead(value: org.scalajs.dom.raw.HTMLTableSectionElement): Self = this.set("thead", value.asInstanceOf[js.Any])
+    def setTrack(value: org.scalajs.dom.raw.HTMLTrackElement): Self = StObject.set(x, "track", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTitle(value: org.scalajs.dom.raw.HTMLTitleElement): Self = this.set("title", value.asInstanceOf[js.Any])
+    def setU(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "u", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTr(value: org.scalajs.dom.raw.HTMLTableRowElement): Self = this.set("tr", value.asInstanceOf[js.Any])
+    def setUl(value: org.scalajs.dom.raw.HTMLUListElement): Self = StObject.set(x, "ul", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTrack(value: org.scalajs.dom.raw.HTMLTrackElement): Self = this.set("track", value.asInstanceOf[js.Any])
+    def setVar(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "var", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setU(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("u", value.asInstanceOf[js.Any])
+    def setVideo(value: org.scalajs.dom.raw.HTMLVideoElement): Self = StObject.set(x, "video", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setUl(value: org.scalajs.dom.raw.HTMLUListElement): Self = this.set("ul", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setVar(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("var", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setVideo(value: org.scalajs.dom.raw.HTMLVideoElement): Self = this.set("video", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setWbr(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("wbr", value.asInstanceOf[js.Any])
+    def setWbr(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "wbr", value.asInstanceOf[js.Any])
   }
 }

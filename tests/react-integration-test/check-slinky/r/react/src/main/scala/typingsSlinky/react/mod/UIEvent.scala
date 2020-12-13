@@ -3,6 +3,7 @@ package typingsSlinky.react.mod
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
 import slinky.web.SyntheticUIEvent
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -42,24 +43,12 @@ object UIEvent {
   }
   
   @scala.inline
-  implicit class UIEventOps[Self <: SyntheticUIEvent[_], T] (val x: Self with SyntheticUIEvent[T]) extends AnyVal {
+  implicit class UIEventMutableBuilder[Self <: SyntheticUIEvent[_], T] (val x: Self with SyntheticUIEvent[T]) extends AnyVal {
     
     @scala.inline
-    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    def setDetail(value: Double): Self = StObject.set(x, "detail", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-    
-    @scala.inline
-    def set(key: String, value: js.Any): Self = {
-      x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-      x
-    }
-    
-    @scala.inline
-    def setDetail(value: Double): Self = this.set("detail", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setView(value: AbstractView): Self = this.set("view", value.asInstanceOf[js.Any])
+    def setView(value: AbstractView): Self = StObject.set(x, "view", value.asInstanceOf[js.Any])
   }
 }

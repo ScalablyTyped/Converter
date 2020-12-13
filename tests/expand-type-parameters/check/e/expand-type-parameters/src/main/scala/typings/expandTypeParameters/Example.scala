@@ -3,12 +3,13 @@ package typings.expandTypeParameters
 import typings.expandTypeParameters.expandTypeParametersStrings.a
 import typings.expandTypeParameters.expandTypeParametersStrings.b
 import typings.expandTypeParameters.expandTypeParametersStrings.c
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait Example extends js.Object {
+trait Example extends StObject {
   
   def expandAlias(bc: A): js.Any = js.native
   def expandAlias(bc: B): js.Any = js.native

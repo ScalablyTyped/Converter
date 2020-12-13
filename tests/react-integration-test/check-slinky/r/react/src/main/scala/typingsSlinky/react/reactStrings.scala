@@ -1,5 +1,6 @@
 package typingsSlinky.react
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -772,767 +773,767 @@ object reactStrings {
   def yes: yes = "yes".asInstanceOf[yes]
   
   @js.native
-  sealed trait `1` extends js.Object
+  sealed trait `1` extends StObject
   
   @js.native
-  sealed trait A extends js.Object
+  sealed trait A extends StObject
   
   @js.native
-  sealed trait I extends js.Object
+  sealed trait I extends StObject
   
   @js.native
-  sealed trait WeakValidationMap extends js.Object
+  sealed trait WeakValidationMap extends StObject
   
   @js.native
-  sealed trait _empty extends js.Object
+  sealed trait _empty extends StObject
   
   @js.native
-  sealed trait a_ extends js.Object
+  sealed trait a_ extends StObject
   
   @js.native
-  sealed trait abbr extends js.Object
+  sealed trait abbr extends StObject
   
   @js.native
-  sealed trait additions extends js.Object
+  sealed trait additions extends StObject
   
   @js.native
-  sealed trait `additions text` extends js.Object
+  sealed trait `additions text` extends StObject
   
   @js.native
-  sealed trait address extends js.Object
+  sealed trait address extends StObject
   
   @js.native
-  sealed trait `after-edge` extends js.Object
+  sealed trait `after-edge` extends StObject
   
   @js.native
-  sealed trait all extends js.Object
+  sealed trait all extends StObject
   
   @js.native
-  sealed trait alphabetic extends js.Object
+  sealed trait alphabetic extends StObject
   
   @js.native
-  sealed trait animate extends js.Object
+  sealed trait animate extends StObject
   
   @js.native
-  sealed trait anonymous extends js.Object
+  sealed trait anonymous extends StObject
   
   @js.native
-  sealed trait area extends js.Object
+  sealed trait area extends StObject
   
   @js.native
-  sealed trait article extends js.Object
+  sealed trait article extends StObject
   
   @js.native
-  sealed trait ascending extends js.Object
+  sealed trait ascending extends StObject
   
   @js.native
-  sealed trait aside extends js.Object
+  sealed trait aside extends StObject
   
   @js.native
-  sealed trait assertive extends js.Object
+  sealed trait assertive extends StObject
   
   @js.native
-  sealed trait async extends js.Object
+  sealed trait async extends StObject
   
   @js.native
-  sealed trait audio extends js.Object
+  sealed trait audio extends StObject
   
   @js.native
-  sealed trait auto extends js.Object
+  sealed trait auto extends StObject
   
   @js.native
-  sealed trait b extends js.Object
+  sealed trait b extends StObject
   
   @js.native
-  sealed trait base extends js.Object
+  sealed trait base extends StObject
   
   @js.native
-  sealed trait baseline extends js.Object
+  sealed trait baseline extends StObject
   
   @js.native
-  sealed trait bdi extends js.Object
+  sealed trait bdi extends StObject
   
   @js.native
-  sealed trait bdo extends js.Object
+  sealed trait bdo extends StObject
   
   @js.native
-  sealed trait `before-edge` extends js.Object
+  sealed trait `before-edge` extends StObject
   
   @js.native
-  sealed trait bevel extends js.Object
+  sealed trait bevel extends StObject
   
   @js.native
-  sealed trait big extends js.Object
+  sealed trait big extends StObject
   
   @js.native
-  sealed trait blockquote extends js.Object
+  sealed trait blockquote extends StObject
   
   @js.native
-  sealed trait body extends js.Object
+  sealed trait body extends StObject
   
   @js.native
-  sealed trait both extends js.Object
+  sealed trait both extends StObject
   
   @js.native
-  sealed trait bottom extends js.Object
+  sealed trait bottom extends StObject
   
   @js.native
-  sealed trait br extends js.Object
+  sealed trait br extends StObject
   
   @js.native
-  sealed trait butt extends js.Object
+  sealed trait butt extends StObject
   
   @js.native
-  sealed trait button extends js.Object
+  sealed trait button extends StObject
   
   @js.native
-  sealed trait canvas extends js.Object
+  sealed trait canvas extends StObject
   
   @js.native
-  sealed trait caption extends js.Object
+  sealed trait caption extends StObject
   
   @js.native
-  sealed trait center extends js.Object
+  sealed trait center extends StObject
   
   @js.native
-  sealed trait central extends js.Object
+  sealed trait central extends StObject
   
   @js.native
-  sealed trait char extends js.Object
+  sealed trait char extends StObject
   
   @js.native
-  sealed trait circle extends js.Object
+  sealed trait circle extends StObject
   
   @js.native
-  sealed trait cite extends js.Object
+  sealed trait cite extends StObject
   
   @js.native
-  sealed trait clipPath extends js.Object
+  sealed trait clipPath extends StObject
   
   @js.native
-  sealed trait code extends js.Object
+  sealed trait code extends StObject
   
   @js.native
-  sealed trait col extends js.Object
+  sealed trait col extends StObject
   
   @js.native
-  sealed trait colgroup extends js.Object
+  sealed trait colgroup extends StObject
   
   @js.native
-  sealed trait copy extends js.Object
+  sealed trait copy extends StObject
   
   @js.native
-  sealed trait data extends js.Object
+  sealed trait data extends StObject
   
   @js.native
-  sealed trait datalist extends js.Object
+  sealed trait datalist extends StObject
   
   @js.native
-  sealed trait date extends js.Object
+  sealed trait date extends StObject
   
   @js.native
-  sealed trait dd extends js.Object
+  sealed trait dd extends StObject
   
   @js.native
-  sealed trait defs extends js.Object
+  sealed trait defs extends StObject
   
   @js.native
-  sealed trait del extends js.Object
+  sealed trait del extends StObject
   
   @js.native
-  sealed trait desc extends js.Object
+  sealed trait desc extends StObject
   
   @js.native
-  sealed trait descending extends js.Object
+  sealed trait descending extends StObject
   
   @js.native
-  sealed trait details extends js.Object
+  sealed trait details extends StObject
   
   @js.native
-  sealed trait dfn extends js.Object
+  sealed trait dfn extends StObject
   
   @js.native
-  sealed trait dialog extends js.Object
+  sealed trait dialog extends StObject
   
   @js.native
-  sealed trait div extends js.Object
+  sealed trait div extends StObject
   
   @js.native
-  sealed trait dl extends js.Object
+  sealed trait dl extends StObject
   
   @js.native
-  sealed trait dt extends js.Object
+  sealed trait dt extends StObject
   
   @js.native
-  sealed trait ellipse extends js.Object
+  sealed trait ellipse extends StObject
   
   @js.native
-  sealed trait em extends js.Object
+  sealed trait em extends StObject
   
   @js.native
-  sealed trait embed extends js.Object
+  sealed trait embed extends StObject
   
   @js.native
-  sealed trait evenodd extends js.Object
+  sealed trait evenodd extends StObject
   
   @js.native
-  sealed trait execute extends js.Object
+  sealed trait execute extends StObject
   
   @js.native
-  sealed trait feBlend extends js.Object
+  sealed trait feBlend extends StObject
   
   @js.native
-  sealed trait feColorMatrix extends js.Object
+  sealed trait feColorMatrix extends StObject
   
   @js.native
-  sealed trait feComponentTransfer extends js.Object
+  sealed trait feComponentTransfer extends StObject
   
   @js.native
-  sealed trait feComposite extends js.Object
+  sealed trait feComposite extends StObject
   
   @js.native
-  sealed trait feConvolveMatrix extends js.Object
+  sealed trait feConvolveMatrix extends StObject
   
   @js.native
-  sealed trait feDiffuseLighting extends js.Object
+  sealed trait feDiffuseLighting extends StObject
   
   @js.native
-  sealed trait feDisplacementMap extends js.Object
+  sealed trait feDisplacementMap extends StObject
   
   @js.native
-  sealed trait feDistantLight extends js.Object
+  sealed trait feDistantLight extends StObject
   
   @js.native
-  sealed trait feDropShadow extends js.Object
+  sealed trait feDropShadow extends StObject
   
   @js.native
-  sealed trait feFlood extends js.Object
+  sealed trait feFlood extends StObject
   
   @js.native
-  sealed trait feFuncA extends js.Object
+  sealed trait feFuncA extends StObject
   
   @js.native
-  sealed trait feFuncB extends js.Object
+  sealed trait feFuncB extends StObject
   
   @js.native
-  sealed trait feFuncG extends js.Object
+  sealed trait feFuncG extends StObject
   
   @js.native
-  sealed trait feFuncR extends js.Object
+  sealed trait feFuncR extends StObject
   
   @js.native
-  sealed trait feGaussianBlur extends js.Object
+  sealed trait feGaussianBlur extends StObject
   
   @js.native
-  sealed trait feImage extends js.Object
+  sealed trait feImage extends StObject
   
   @js.native
-  sealed trait feMerge extends js.Object
+  sealed trait feMerge extends StObject
   
   @js.native
-  sealed trait feMergeNode extends js.Object
+  sealed trait feMergeNode extends StObject
   
   @js.native
-  sealed trait feMorphology extends js.Object
+  sealed trait feMorphology extends StObject
   
   @js.native
-  sealed trait feOffset extends js.Object
+  sealed trait feOffset extends StObject
   
   @js.native
-  sealed trait fePointLight extends js.Object
+  sealed trait fePointLight extends StObject
   
   @js.native
-  sealed trait feSpecularLighting extends js.Object
+  sealed trait feSpecularLighting extends StObject
   
   @js.native
-  sealed trait feSpotLight extends js.Object
+  sealed trait feSpotLight extends StObject
   
   @js.native
-  sealed trait feTile extends js.Object
+  sealed trait feTile extends StObject
   
   @js.native
-  sealed trait feTurbulence extends js.Object
+  sealed trait feTurbulence extends StObject
   
   @js.native
-  sealed trait fieldset extends js.Object
+  sealed trait fieldset extends StObject
   
   @js.native
-  sealed trait figcaption extends js.Object
+  sealed trait figcaption extends StObject
   
   @js.native
-  sealed trait figure extends js.Object
+  sealed trait figure extends StObject
   
   @js.native
-  sealed trait filter extends js.Object
+  sealed trait filter extends StObject
   
   @js.native
-  sealed trait footer extends js.Object
+  sealed trait footer extends StObject
   
   @js.native
-  sealed trait foreignObject extends js.Object
+  sealed trait foreignObject extends StObject
   
   @js.native
-  sealed trait form extends js.Object
+  sealed trait form extends StObject
   
   @js.native
-  sealed trait g extends js.Object
+  sealed trait g extends StObject
   
   @js.native
-  sealed trait grammar extends js.Object
+  sealed trait grammar extends StObject
   
   @js.native
-  sealed trait grid extends js.Object
+  sealed trait grid extends StObject
   
   @js.native
-  sealed trait h1 extends js.Object
+  sealed trait h1 extends StObject
   
   @js.native
-  sealed trait h2 extends js.Object
+  sealed trait h2 extends StObject
   
   @js.native
-  sealed trait h3 extends js.Object
+  sealed trait h3 extends StObject
   
   @js.native
-  sealed trait h4 extends js.Object
+  sealed trait h4 extends StObject
   
   @js.native
-  sealed trait h5 extends js.Object
+  sealed trait h5 extends StObject
   
   @js.native
-  sealed trait h6 extends js.Object
+  sealed trait h6 extends StObject
   
   @js.native
-  sealed trait hanging extends js.Object
+  sealed trait hanging extends StObject
   
   @js.native
-  sealed trait head extends js.Object
+  sealed trait head extends StObject
   
   @js.native
-  sealed trait header extends js.Object
+  sealed trait header extends StObject
   
   @js.native
-  sealed trait hgroup extends js.Object
+  sealed trait hgroup extends StObject
   
   @js.native
-  sealed trait horizontal extends js.Object
+  sealed trait horizontal extends StObject
   
   @js.native
-  sealed trait hr extends js.Object
+  sealed trait hr extends StObject
   
   @js.native
-  sealed trait html extends js.Object
+  sealed trait html extends StObject
   
   @js.native
-  sealed trait i_ extends js.Object
+  sealed trait i_ extends StObject
   
   @js.native
-  sealed trait ideographic extends js.Object
+  sealed trait ideographic extends StObject
   
   @js.native
-  sealed trait iframe extends js.Object
+  sealed trait iframe extends StObject
   
   @js.native
-  sealed trait image extends js.Object
+  sealed trait image extends StObject
   
   @js.native
-  sealed trait img extends js.Object
+  sealed trait img extends StObject
   
   @js.native
-  sealed trait inherit extends js.Object
+  sealed trait inherit extends StObject
   
   @js.native
-  sealed trait initial extends js.Object
+  sealed trait initial extends StObject
   
   @js.native
-  sealed trait `inline` extends js.Object
+  sealed trait `inline` extends StObject
   
   @js.native
-  sealed trait input extends js.Object
+  sealed trait input extends StObject
   
   @js.native
-  sealed trait ins extends js.Object
+  sealed trait ins extends StObject
   
   @js.native
-  sealed trait isolated extends js.Object
+  sealed trait isolated extends StObject
   
   @js.native
-  sealed trait justify extends js.Object
+  sealed trait justify extends StObject
   
   @js.native
-  sealed trait kbd extends js.Object
+  sealed trait kbd extends StObject
   
   @js.native
-  sealed trait keygen extends js.Object
+  sealed trait keygen extends StObject
   
   @js.native
-  sealed trait label extends js.Object
+  sealed trait label extends StObject
   
   @js.native
-  sealed trait left extends js.Object
+  sealed trait left extends StObject
   
   @js.native
-  sealed trait legend extends js.Object
+  sealed trait legend extends StObject
   
   @js.native
-  sealed trait li extends js.Object
+  sealed trait li extends StObject
   
   @js.native
-  sealed trait line extends js.Object
+  sealed trait line extends StObject
   
   @js.native
-  sealed trait linearGradient extends js.Object
+  sealed trait linearGradient extends StObject
   
   @js.native
-  sealed trait linearRGB extends js.Object
+  sealed trait linearRGB extends StObject
   
   @js.native
-  sealed trait link extends js.Object
+  sealed trait link extends StObject
   
   @js.native
-  sealed trait list extends js.Object
+  sealed trait list extends StObject
   
   @js.native
-  sealed trait listbox extends js.Object
+  sealed trait listbox extends StObject
   
   @js.native
-  sealed trait location extends js.Object
+  sealed trait location extends StObject
   
   @js.native
-  sealed trait main extends js.Object
+  sealed trait main extends StObject
   
   @js.native
-  sealed trait map extends js.Object
+  sealed trait map extends StObject
   
   @js.native
-  sealed trait mark extends js.Object
+  sealed trait mark extends StObject
   
   @js.native
-  sealed trait marker extends js.Object
+  sealed trait marker extends StObject
   
   @js.native
-  sealed trait mask extends js.Object
+  sealed trait mask extends StObject
   
   @js.native
-  sealed trait mathematical extends js.Object
+  sealed trait mathematical extends StObject
   
   @js.native
-  sealed trait medial extends js.Object
+  sealed trait medial extends StObject
   
   @js.native
-  sealed trait menu extends js.Object
+  sealed trait menu extends StObject
   
   @js.native
-  sealed trait menuitem extends js.Object
+  sealed trait menuitem extends StObject
   
   @js.native
-  sealed trait meta extends js.Object
+  sealed trait meta extends StObject
   
   @js.native
-  sealed trait metadata extends js.Object
+  sealed trait metadata extends StObject
   
   @js.native
-  sealed trait meter extends js.Object
+  sealed trait meter extends StObject
   
   @js.native
-  sealed trait middle extends js.Object
+  sealed trait middle extends StObject
   
   @js.native
-  sealed trait miter extends js.Object
+  sealed trait miter extends StObject
   
   @js.native
-  sealed trait mixed extends js.Object
+  sealed trait mixed extends StObject
   
   @js.native
-  sealed trait mount extends js.Object
+  sealed trait mount extends StObject
   
   @js.native
-  sealed trait mouse extends js.Object
+  sealed trait mouse extends StObject
   
   @js.native
-  sealed trait move extends js.Object
+  sealed trait move extends StObject
   
   @js.native
-  sealed trait nav extends js.Object
+  sealed trait nav extends StObject
   
   @js.native
-  sealed trait no extends js.Object
+  sealed trait no extends StObject
   
   @js.native
-  sealed trait none extends js.Object
+  sealed trait none extends StObject
   
   @js.native
-  sealed trait nonzero extends js.Object
+  sealed trait nonzero extends StObject
   
   @js.native
-  sealed trait noscript extends js.Object
+  sealed trait noscript extends StObject
   
   @js.native
-  sealed trait `object` extends js.Object
+  sealed trait `object` extends StObject
   
   @js.native
-  sealed trait off extends js.Object
+  sealed trait off extends StObject
   
   @js.native
-  sealed trait ol extends js.Object
+  sealed trait ol extends StObject
   
   @js.native
-  sealed trait on extends js.Object
+  sealed trait on extends StObject
   
   @js.native
-  sealed trait optgroup extends js.Object
+  sealed trait optgroup extends StObject
   
   @js.native
-  sealed trait option extends js.Object
+  sealed trait option extends StObject
   
   @js.native
-  sealed trait other extends js.Object
+  sealed trait other extends StObject
   
   @js.native
-  sealed trait output extends js.Object
+  sealed trait output extends StObject
   
   @js.native
-  sealed trait p extends js.Object
+  sealed trait p extends StObject
   
   @js.native
-  sealed trait page extends js.Object
+  sealed trait page extends StObject
   
   @js.native
-  sealed trait param extends js.Object
+  sealed trait param extends StObject
   
   @js.native
-  sealed trait path extends js.Object
+  sealed trait path extends StObject
   
   @js.native
-  sealed trait pattern extends js.Object
+  sealed trait pattern extends StObject
   
   @js.native
-  sealed trait pen extends js.Object
+  sealed trait pen extends StObject
   
   @js.native
-  sealed trait picture extends js.Object
+  sealed trait picture extends StObject
   
   @js.native
-  sealed trait polite extends js.Object
+  sealed trait polite extends StObject
   
   @js.native
-  sealed trait polygon extends js.Object
+  sealed trait polygon extends StObject
   
   @js.native
-  sealed trait polyline extends js.Object
+  sealed trait polyline extends StObject
   
   @js.native
-  sealed trait popup extends js.Object
+  sealed trait popup extends StObject
   
   @js.native
-  sealed trait pre extends js.Object
+  sealed trait pre extends StObject
   
   @js.native
-  sealed trait progress extends js.Object
+  sealed trait progress extends StObject
   
   @js.native
-  sealed trait q extends js.Object
+  sealed trait q extends StObject
   
   @js.native
-  sealed trait radialGradient extends js.Object
+  sealed trait radialGradient extends StObject
   
   @js.native
-  sealed trait rect extends js.Object
+  sealed trait rect extends StObject
   
   @js.native
-  sealed trait ref extends js.Object
+  sealed trait ref extends StObject
   
   @js.native
-  sealed trait removals extends js.Object
+  sealed trait removals extends StObject
   
   @js.native
-  sealed trait replace extends js.Object
+  sealed trait replace extends StObject
   
   @js.native
-  sealed trait reset extends js.Object
+  sealed trait reset extends StObject
   
   @js.native
-  sealed trait right extends js.Object
+  sealed trait right extends StObject
   
   @js.native
-  sealed trait round extends js.Object
+  sealed trait round extends StObject
   
   @js.native
-  sealed trait rp extends js.Object
+  sealed trait rp extends StObject
   
   @js.native
-  sealed trait rt extends js.Object
+  sealed trait rt extends StObject
   
   @js.native
-  sealed trait ruby extends js.Object
+  sealed trait ruby extends StObject
   
   @js.native
-  sealed trait s extends js.Object
+  sealed trait s extends StObject
   
   @js.native
-  sealed trait sRGB extends js.Object
+  sealed trait sRGB extends StObject
   
   @js.native
-  sealed trait samp extends js.Object
+  sealed trait samp extends StObject
   
   @js.native
-  sealed trait script extends js.Object
+  sealed trait script extends StObject
   
   @js.native
-  sealed trait section extends js.Object
+  sealed trait section extends StObject
   
   @js.native
-  sealed trait select extends js.Object
+  sealed trait select extends StObject
   
   @js.native
-  sealed trait small extends js.Object
+  sealed trait small extends StObject
   
   @js.native
-  sealed trait source extends js.Object
+  sealed trait source extends StObject
   
   @js.native
-  sealed trait span extends js.Object
+  sealed trait span extends StObject
   
   @js.native
-  sealed trait spelling extends js.Object
+  sealed trait spelling extends StObject
   
   @js.native
-  sealed trait square extends js.Object
+  sealed trait square extends StObject
   
   @js.native
-  sealed trait step extends js.Object
+  sealed trait step extends StObject
   
   @js.native
-  sealed trait stop extends js.Object
+  sealed trait stop extends StObject
   
   @js.native
-  sealed trait strong extends js.Object
+  sealed trait strong extends StObject
   
   @js.native
-  sealed trait style extends js.Object
+  sealed trait style extends StObject
   
   @js.native
-  sealed trait sub extends js.Object
+  sealed trait sub extends StObject
   
   @js.native
-  sealed trait submit extends js.Object
+  sealed trait submit extends StObject
   
   @js.native
-  sealed trait sum extends js.Object
+  sealed trait sum extends StObject
   
   @js.native
-  sealed trait summary extends js.Object
+  sealed trait summary extends StObject
   
   @js.native
-  sealed trait sup extends js.Object
+  sealed trait sup extends StObject
   
   @js.native
-  sealed trait svg extends js.Object
+  sealed trait svg extends StObject
   
   @js.native
-  sealed trait switch extends js.Object
+  sealed trait switch extends StObject
   
   @js.native
-  sealed trait symbol extends js.Object
+  sealed trait symbol extends StObject
   
   @js.native
-  sealed trait sync extends js.Object
+  sealed trait sync extends StObject
   
   @js.native
-  sealed trait table extends js.Object
+  sealed trait table extends StObject
   
   @js.native
-  sealed trait tbody extends js.Object
+  sealed trait tbody extends StObject
   
   @js.native
-  sealed trait td extends js.Object
+  sealed trait td extends StObject
   
   @js.native
-  sealed trait template extends js.Object
+  sealed trait template extends StObject
   
   @js.native
-  sealed trait terminal extends js.Object
+  sealed trait terminal extends StObject
   
   @js.native
-  sealed trait text extends js.Object
+  sealed trait text extends StObject
   
   @js.native
-  sealed trait `text-after-edge` extends js.Object
+  sealed trait `text-after-edge` extends StObject
   
   @js.native
-  sealed trait `text-before-edge` extends js.Object
+  sealed trait `text-before-edge` extends StObject
   
   @js.native
-  sealed trait textPath extends js.Object
+  sealed trait textPath extends StObject
   
   @js.native
-  sealed trait textarea extends js.Object
+  sealed trait textarea extends StObject
   
   @js.native
-  sealed trait tfoot extends js.Object
+  sealed trait tfoot extends StObject
   
   @js.native
-  sealed trait th extends js.Object
+  sealed trait th extends StObject
   
   @js.native
-  sealed trait thead extends js.Object
+  sealed trait thead extends StObject
   
   @js.native
-  sealed trait time extends js.Object
+  sealed trait time extends StObject
   
   @js.native
-  sealed trait title extends js.Object
+  sealed trait title extends StObject
   
   @js.native
-  sealed trait top extends js.Object
+  sealed trait top extends StObject
   
   @js.native
-  sealed trait touch extends js.Object
+  sealed trait touch extends StObject
   
   @js.native
-  sealed trait tr extends js.Object
+  sealed trait tr extends StObject
   
   @js.native
-  sealed trait track extends js.Object
+  sealed trait track extends StObject
   
   @js.native
-  sealed trait tree extends js.Object
+  sealed trait tree extends StObject
   
   @js.native
-  sealed trait tspan extends js.Object
+  sealed trait tspan extends StObject
   
   @js.native
-  sealed trait u extends js.Object
+  sealed trait u extends StObject
   
   @js.native
-  sealed trait ul extends js.Object
+  sealed trait ul extends StObject
   
   @js.native
-  sealed trait update extends js.Object
+  sealed trait update extends StObject
   
   @js.native
-  sealed trait use extends js.Object
+  sealed trait use extends StObject
   
   @js.native
-  sealed trait `use-credentials` extends js.Object
+  sealed trait `use-credentials` extends StObject
   
   @js.native
-  sealed trait `var` extends js.Object
+  sealed trait `var` extends StObject
   
   @js.native
-  sealed trait vertical extends js.Object
+  sealed trait vertical extends StObject
   
   @js.native
-  sealed trait video extends js.Object
+  sealed trait video extends StObject
   
   @js.native
-  sealed trait view extends js.Object
+  sealed trait view extends StObject
   
   @js.native
-  sealed trait wbr extends js.Object
+  sealed trait wbr extends StObject
   
   @js.native
-  sealed trait webview extends js.Object
+  sealed trait webview extends StObject
   
   @js.native
-  sealed trait yes extends js.Object
+  sealed trait yes extends StObject
 }

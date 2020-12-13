@@ -2,6 +2,7 @@ package typings.swiz
 
 import typings.swiz.mod.struct.IField
 import typings.swiz.mod.struct.IObj
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -9,7 +10,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object mod {
   
   @js.native
-  trait ISerializable extends js.Object {
+  trait ISerializable extends StObject {
     
     def getSerializerType(): String = js.native
   }
@@ -22,27 +23,15 @@ object mod {
     }
     
     @scala.inline
-    implicit class ISerializableOps[Self <: ISerializable] (val x: Self) extends AnyVal {
+    implicit class ISerializableMutableBuilder[Self <: ISerializable] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setGetSerializerType(value: () => String): Self = this.set("getSerializerType", js.Any.fromFunction0(value))
+      def setGetSerializerType(value: () => String): Self = StObject.set(x, "getSerializerType", js.Any.fromFunction0(value))
     }
   }
   
   @js.native
-  trait ISwizOptions extends js.Object {
+  trait ISwizOptions extends StObject {
     
     var `for`: js.UndefOr[String] = js.native
     
@@ -59,45 +48,33 @@ object mod {
     }
     
     @scala.inline
-    implicit class ISwizOptionsOps[Self <: ISwizOptions] (val x: Self) extends AnyVal {
+    implicit class ISwizOptionsMutableBuilder[Self <: ISwizOptions] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setFor(value: String): Self = StObject.set(x, "for", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setForUndefined: Self = StObject.set(x, "for", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setStripNulls(value: Boolean): Self = StObject.set(x, "stripNulls", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFor(value: String): Self = this.set("for", value.asInstanceOf[js.Any])
+      def setStripNullsUndefined: Self = StObject.set(x, "stripNulls", js.undefined)
       
       @scala.inline
-      def deleteFor: Self = this.set("for", js.undefined)
+      def setStripSerializerType(value: Boolean): Self = StObject.set(x, "stripSerializerType", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setStripNulls(value: Boolean): Self = this.set("stripNulls", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteStripNulls: Self = this.set("stripNulls", js.undefined)
-      
-      @scala.inline
-      def setStripSerializerType(value: Boolean): Self = this.set("stripSerializerType", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteStripSerializerType: Self = this.set("stripSerializerType", js.undefined)
+      def setStripSerializerTypeUndefined: Self = StObject.set(x, "stripSerializerType", js.undefined)
     }
   }
   
   @js.native
-  sealed trait SERIALIZATION extends js.Object
+  sealed trait SERIALIZATION extends StObject
   @JSImport("swiz", "SERIALIZATION")
   @js.native
-  object SERIALIZATION extends js.Object {
+  object SERIALIZATION extends StObject {
     
     @js.native
     sealed trait SERIALIZATION_JSON extends SERIALIZATION
@@ -120,7 +97,7 @@ object mod {
   
   @JSImport("swiz", "Swiz")
   @js.native
-  class Swiz protected () extends js.Object {
+  class Swiz protected () extends StObject {
     def this(defs: js.Array[IObj]) = this()
     def this(defs: js.Array[IObj], options: ISwizOptions) = this()
     
@@ -151,9 +128,9 @@ object mod {
   object struct {
     
     @js.native
-    trait IField extends js.Object
+    trait IField extends StObject
     
     @js.native
-    trait IObj extends js.Object
+    trait IObj extends StObject
   }
 }

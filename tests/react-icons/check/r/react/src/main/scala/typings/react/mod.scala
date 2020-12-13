@@ -10,6 +10,7 @@ import typings.react.reactStrings.clipPath
 import typings.std.Element
 import typings.std.Partial
 import typings.std.SVGElement
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -32,36 +33,24 @@ object mod {
     }
     
     @scala.inline
-    implicit class AllHTMLAttributesOps[Self <: AllHTMLAttributes[_], T] (val x: Self with AllHTMLAttributes[T]) extends AnyVal {
+    implicit class AllHTMLAttributesMutableBuilder[Self <: AllHTMLAttributes[_], T] (val x: Self with AllHTMLAttributes[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setAccept(value: String): Self = StObject.set(x, "accept", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setAcceptCharset(value: String): Self = StObject.set(x, "acceptCharset", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setAcceptCharsetUndefined: Self = StObject.set(x, "acceptCharset", js.undefined)
       
       @scala.inline
-      def setAccept(value: String): Self = this.set("accept", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteAccept: Self = this.set("accept", js.undefined)
-      
-      @scala.inline
-      def setAcceptCharset(value: String): Self = this.set("acceptCharset", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteAcceptCharset: Self = this.set("acceptCharset", js.undefined)
+      def setAcceptUndefined: Self = StObject.set(x, "accept", js.undefined)
     }
   }
   
   @js.native
-  trait Attributes extends js.Object {
+  trait Attributes extends StObject {
     
     var key: js.UndefOr[Key] = js.native
   }
@@ -74,25 +63,13 @@ object mod {
     }
     
     @scala.inline
-    implicit class AttributesOps[Self <: Attributes] (val x: Self) extends AnyVal {
+    implicit class AttributesMutableBuilder[Self <: Attributes] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setKey(value: Key): Self = this.set("key", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteKey: Self = this.set("key", js.undefined)
+      def setKeyUndefined: Self = StObject.set(x, "key", js.undefined)
     }
   }
   
@@ -110,33 +87,21 @@ object mod {
     }
     
     @scala.inline
-    implicit class ClassAttributesOps[Self <: ClassAttributes[_], T] (val x: Self with ClassAttributes[T]) extends AnyVal {
+    implicit class ClassAttributesMutableBuilder[Self <: ClassAttributes[_], T] (val x: Self with ClassAttributes[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setRef(value: Ref[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setRefFunction1(value: /* instance */ T | Null => js.Any): Self = StObject.set(x, "ref", js.Any.fromFunction1(value))
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setRefFunction1(value: /* instance */ T | Null => js.Any): Self = this.set("ref", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def setRef(value: Ref[T]): Self = this.set("ref", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteRef: Self = this.set("ref", js.undefined)
+      def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
     }
   }
   
   @js.native
-  trait Component[P, S] extends js.Object
+  trait Component[P, S] extends StObject
   
   @js.native
   trait ComponentClass[P]
@@ -153,10 +118,10 @@ object mod {
     - typings.react.mod.ComponentClass[P]
     - typings.react.mod.StatelessComponent[P]
   */
-  trait ComponentType[P] extends js.Object
+  trait ComponentType[P] extends StObject
   
   @js.native
-  trait DOMAttributes[T] extends js.Object {
+  trait DOMAttributes[T] extends StObject {
     
     var children: js.UndefOr[ReactNode] = js.native
     
@@ -171,31 +136,19 @@ object mod {
     }
     
     @scala.inline
-    implicit class DOMAttributesOps[Self <: DOMAttributes[_], T] (val x: Self with DOMAttributes[T]) extends AnyVal {
+    implicit class DOMAttributesMutableBuilder[Self <: DOMAttributes[_], T] (val x: Self with DOMAttributes[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setChildren(value: ReactNode): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setDangerouslySetInnerHTML(value: Html): Self = StObject.set(x, "dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildren(value: ReactNode): Self = this.set("children", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteChildren: Self = this.set("children", js.undefined)
-      
-      @scala.inline
-      def setDangerouslySetInnerHTML(value: Html): Self = this.set("dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteDangerouslySetInnerHTML: Self = this.set("dangerouslySetInnerHTML", js.undefined)
+      def setDangerouslySetInnerHTMLUndefined: Self = StObject.set(x, "dangerouslySetInnerHTML", js.undefined)
     }
   }
   
@@ -218,28 +171,16 @@ object mod {
     }
     
     @scala.inline
-    implicit class DOMElementOps[Self <: DOMElement[_, _], P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] (val x: Self with (DOMElement[P, T])) extends AnyVal {
+    implicit class DOMElementMutableBuilder[Self <: DOMElement[_, _], P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] (val x: Self with (DOMElement[P, T])) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setRef(value: Ref[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setRefFunction1(value: /* instance */ T | Null => js.Any): Self = StObject.set(x, "ref", js.Any.fromFunction1(value))
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setRefFunction1(value: /* instance */ T | Null => js.Any): Self = this.set("ref", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def setRef(value: Ref[T]): Self = this.set("ref", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setType(value: String): Self = this.set("type", value.asInstanceOf[js.Any])
+      def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
@@ -257,30 +198,18 @@ object mod {
     }
     
     @scala.inline
-    implicit class HTMLAttributesOps[Self <: HTMLAttributes[_], T] (val x: Self with HTMLAttributes[T]) extends AnyVal {
+    implicit class HTMLAttributesMutableBuilder[Self <: HTMLAttributes[_], T] (val x: Self with HTMLAttributes[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setDefaultChecked(value: Boolean): Self = StObject.set(x, "defaultChecked", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setDefaultChecked(value: Boolean): Self = this.set("defaultChecked", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteDefaultChecked: Self = this.set("defaultChecked", js.undefined)
+      def setDefaultCheckedUndefined: Self = StObject.set(x, "defaultChecked", js.undefined)
     }
   }
   
   @js.native
-  trait ReactElement extends js.Object {
+  trait ReactElement extends StObject {
     
     var key: Key | Null = js.native
     
@@ -298,36 +227,24 @@ object mod {
     }
     
     @scala.inline
-    implicit class ReactElementOps[Self <: ReactElement] (val x: Self) extends AnyVal {
+    implicit class ReactElementMutableBuilder[Self <: ReactElement] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setKeyNull: Self = StObject.set(x, "key", null)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setProps(value: js.Any): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setProps(value: js.Any): Self = this.set("props", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setType(value: String | ComponentClass[_]): Self = this.set("type", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setKey(value: Key): Self = this.set("key", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setKeyNull: Self = this.set("key", null)
+      def setType(value: String | ComponentClass[_]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait ReactSVG extends js.Object {
+  trait ReactSVG extends StObject {
     
     var animate: SVGFactory = js.native
     
@@ -344,28 +261,16 @@ object mod {
     }
     
     @scala.inline
-    implicit class ReactSVGOps[Self <: ReactSVG] (val x: Self) extends AnyVal {
+    implicit class ReactSVGMutableBuilder[Self <: ReactSVG] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setAnimate(value: SVGFactory): Self = StObject.set(x, "animate", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setCircle(value: SVGFactory): Self = StObject.set(x, "circle", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setAnimate(value: SVGFactory): Self = this.set("animate", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setCircle(value: SVGFactory): Self = this.set("circle", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setClipPath(value: SVGFactory): Self = this.set("clipPath", value.asInstanceOf[js.Any])
+      def setClipPath(value: SVGFactory): Self = StObject.set(x, "clipPath", value.asInstanceOf[js.Any])
     }
   }
   
@@ -386,22 +291,10 @@ object mod {
     }
     
     @scala.inline
-    implicit class ReactSVGElementOps[Self <: ReactSVGElement] (val x: Self) extends AnyVal {
+    implicit class ReactSVGElementMutableBuilder[Self <: ReactSVGElement] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setType(value: animate | circle | clipPath): Self = this.set("type", value.asInstanceOf[js.Any])
+      def setType(value: animate | circle | clipPath): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
@@ -425,37 +318,25 @@ object mod {
     }
     
     @scala.inline
-    implicit class SVGAttributesOps[Self <: SVGAttributes[_], T] (val x: Self with SVGAttributes[T]) extends AnyVal {
+    implicit class SVGAttributesMutableBuilder[Self <: SVGAttributes[_], T] (val x: Self with SVGAttributes[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setColor(value: String): Self = StObject.set(x, "color", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassName(value: String): Self = this.set("className", value.asInstanceOf[js.Any])
+      def setColorUndefined: Self = StObject.set(x, "color", js.undefined)
       
       @scala.inline
-      def deleteClassName: Self = this.set("className", js.undefined)
+      def setHeight(value: Double | String): Self = StObject.set(x, "height", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setColor(value: String): Self = this.set("color", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteColor: Self = this.set("color", js.undefined)
-      
-      @scala.inline
-      def setHeight(value: Double | String): Self = this.set("height", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteHeight: Self = this.set("height", js.undefined)
+      def setHeightUndefined: Self = StObject.set(x, "height", js.undefined)
     }
   }
   

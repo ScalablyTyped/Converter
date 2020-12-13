@@ -3,6 +3,7 @@ package typingsJapgolly.reactSelect
 import org.scalablytyped.runtime.StringDictionary
 import typingsJapgolly.react.mod.Component
 import typingsJapgolly.react.mod.Props
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -29,25 +30,13 @@ object mod {
     }
     
     @scala.inline
-    implicit class OptionOps[Self <: Option[_], TValue] (val x: Self with Option[TValue]) extends AnyVal {
+    implicit class OptionMutableBuilder[Self <: Option[_], TValue] (val x: Self with Option[TValue]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setValue(value: TValue): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setValue(value: TValue): Self = this.set("value", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteValue: Self = this.set("value", js.undefined)
+      def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
     }
   }
   
@@ -78,25 +67,13 @@ object mod {
     }
     
     @scala.inline
-    implicit class ReactSelectPropsOps[Self <: ReactSelectProps[_], TValue] (val x: Self with ReactSelectProps[TValue]) extends AnyVal {
+    implicit class ReactSelectPropsMutableBuilder[Self <: ReactSelectProps[_], TValue] (val x: Self with ReactSelectProps[TValue]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setAddLabelText(value: String): Self = StObject.set(x, "addLabelText", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setAddLabelText(value: String): Self = this.set("addLabelText", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteAddLabelText: Self = this.set("addLabelText", js.undefined)
+      def setAddLabelTextUndefined: Self = StObject.set(x, "addLabelText", js.undefined)
     }
   }
   

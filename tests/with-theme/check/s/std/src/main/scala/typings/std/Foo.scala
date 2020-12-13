@@ -1,11 +1,12 @@
 package typings.std
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait Foo extends js.Object {
+trait Foo extends StObject {
   
   var f: js.UndefOr[js.Function1[/* n */ Double, String]] = js.native
 }
@@ -18,24 +19,12 @@ object Foo {
   }
   
   @scala.inline
-  implicit class FooOps[Self <: Foo] (val x: Self) extends AnyVal {
+  implicit class FooMutableBuilder[Self <: Foo] (val x: Self) extends AnyVal {
     
     @scala.inline
-    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    def setF(value: /* n */ Double => String): Self = StObject.set(x, "f", js.Any.fromFunction1(value))
     
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-    
-    @scala.inline
-    def set(key: String, value: js.Any): Self = {
-      x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-      x
-    }
-    
-    @scala.inline
-    def setF(value: /* n */ Double => String): Self = this.set("f", js.Any.fromFunction1(value))
-    
-    @scala.inline
-    def deleteF: Self = this.set("f", js.undefined)
+    def setFUndefined: Self = StObject.set(x, "f", js.undefined)
   }
 }

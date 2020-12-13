@@ -53,7 +53,8 @@ object Printer {
   }
 
   val Imports: String =
-    """|import scala.scalajs.js
+    """|import org.scalablytyped.runtime.StObject
+       |import scala.scalajs.js
        |import scala.scalajs.js.`|`
        |import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}""".stripMargin
 
@@ -378,7 +379,7 @@ object Printer {
 
     def extendsClause(parents: IArray[TypeRef], isNative: Boolean, indent: Int): String =
       parents.toList.map(parent => formatTypeRef(indent + 6)(parent)) match {
-        case Nil if isNative                    => " extends js.Object"
+        case Nil if isNative                    => " extends StObject"
         case Nil                                => ""
         case head :: Nil if !head.contains(".") => " extends " + head
         case head :: Nil                        => "\n  extends " + head

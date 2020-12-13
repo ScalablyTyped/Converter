@@ -5,15 +5,12 @@ import typingsJapgolly.StBuildingComponent.Default
 import typingsJapgolly.react.anon.Html
 import typingsJapgolly.react.mod.DetailedHTMLProps
 import typingsJapgolly.react.mod.HTMLAttributes
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object abbr {
-  
-  val component: String = "abbr"
-  
-  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): Default[HTMLElement with js.Object] = new Default[HTMLElement with js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
   
   @scala.inline
   def apply(dangerouslySetInnerHTML: Html = null, defaultChecked: js.UndefOr[Boolean] = js.undefined): Default[HTMLElement with js.Object] = {
@@ -23,5 +20,9 @@ object abbr {
     new Default[HTMLElement with js.Object](js.Array(this.component, __props.asInstanceOf[DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]]))
   }
   
+  val component: String = "abbr"
+  
   implicit def make(companion: abbr.type): Default[HTMLElement with js.Object] = new Default[HTMLElement with js.Object](js.Array(this.component, js.Dictionary.empty))()
+  
+  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): Default[HTMLElement with js.Object] = new Default[HTMLElement with js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
 }
