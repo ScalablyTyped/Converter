@@ -9,6 +9,7 @@ import org.scalablytyped.runtime.StringDictionary
 import typingsJapgolly.react.mod.StatelessComponent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticTEXTALIGNMENTS
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -20,7 +21,7 @@ object testContainerTestContainerMod {
   val default: StatelessComponent[TestContainerProps] = js.native
   
   @js.native
-  trait StrictTestContainerProps extends js.Object {
+  trait StrictTestContainerProps extends StObject {
     
     /** An element type to render as (string or function). */
     var as: js.UndefOr[js.Any] = js.native
@@ -81,103 +82,91 @@ object testContainerTestContainerMod {
     }
     
     @scala.inline
-    implicit class StrictTestContainerPropsOps[Self <: StrictTestContainerProps] (val x: Self) extends AnyVal {
+    implicit class StrictTestContainerPropsMutableBuilder[Self <: StrictTestContainerProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRequiredFn0Number(value: CallbackTo[Double]): Self = this.set("requiredFn0Number", value.toJsFn)
+      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       @scala.inline
-      def setRequiredFn0Void(value: Callback): Self = this.set("requiredFn0Void", value.toJsFn)
+      def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRequiredFn1Number(value: Double => Double): Self = this.set("requiredFn1Number", js.Any.fromFunction1(value))
+      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRequiredFn1Void(value: Double => Callback): Self = this.set("requiredFn1Void", js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
-      def setAs(value: js.Any): Self = this.set("as", value.asInstanceOf[js.Any])
+      def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteAs: Self = this.set("as", js.undefined)
+      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
       
       @scala.inline
-      def setChildrenVdomElement(value: VdomElement): Self = this.set("children", value.rawElement.asInstanceOf[js.Any])
+      def setContentVdomElement(value: VdomElement): Self = StObject.set(x, "content", value.rawElement.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildren(value: VdomNode): Self = this.set("children", value.rawNode.asInstanceOf[js.Any])
+      def setFluid(value: Boolean): Self = StObject.set(x, "fluid", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteChildren: Self = this.set("children", js.undefined)
+      def setFluidUndefined: Self = StObject.set(x, "fluid", js.undefined)
       
       @scala.inline
-      def setClassName(value: String): Self = this.set("className", value.asInstanceOf[js.Any])
+      def setOptFn0Number(value: CallbackTo[Double]): Self = StObject.set(x, "optFn0Number", value.toJsFn)
       
       @scala.inline
-      def deleteClassName: Self = this.set("className", js.undefined)
+      def setOptFn0NumberUndefined: Self = StObject.set(x, "optFn0Number", js.undefined)
       
       @scala.inline
-      def setContentVdomElement(value: VdomElement): Self = this.set("content", value.rawElement.asInstanceOf[js.Any])
+      def setOptFn0Void(value: Callback): Self = StObject.set(x, "optFn0Void", value.toJsFn)
       
       @scala.inline
-      def setContent(value: SemanticShorthandContent): Self = this.set("content", value.asInstanceOf[js.Any])
+      def setOptFn0VoidUndefined: Self = StObject.set(x, "optFn0Void", js.undefined)
       
       @scala.inline
-      def deleteContent: Self = this.set("content", js.undefined)
+      def setOptFn1Number(value: /* x */ Double => Double): Self = StObject.set(x, "optFn1Number", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setFluid(value: Boolean): Self = this.set("fluid", value.asInstanceOf[js.Any])
+      def setOptFn1NumberUndefined: Self = StObject.set(x, "optFn1Number", js.undefined)
       
       @scala.inline
-      def deleteFluid: Self = this.set("fluid", js.undefined)
+      def setOptFn1Void(value: /* x */ Double => Callback): Self = StObject.set(x, "optFn1Void", js.Any.fromFunction1((t0: /* x */ Double) => value(t0).runNow()))
       
       @scala.inline
-      def setOptFn0Number(value: CallbackTo[Double]): Self = this.set("optFn0Number", value.toJsFn)
+      def setOptFn1VoidUndefined: Self = StObject.set(x, "optFn1Void", js.undefined)
       
       @scala.inline
-      def deleteOptFn0Number: Self = this.set("optFn0Number", js.undefined)
+      def setRequiredFn0Number(value: CallbackTo[Double]): Self = StObject.set(x, "requiredFn0Number", value.toJsFn)
       
       @scala.inline
-      def setOptFn0Void(value: Callback): Self = this.set("optFn0Void", value.toJsFn)
+      def setRequiredFn0Void(value: Callback): Self = StObject.set(x, "requiredFn0Void", value.toJsFn)
       
       @scala.inline
-      def deleteOptFn0Void: Self = this.set("optFn0Void", js.undefined)
+      def setRequiredFn1Number(value: Double => Double): Self = StObject.set(x, "requiredFn1Number", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setOptFn1Number(value: /* x */ Double => Double): Self = this.set("optFn1Number", js.Any.fromFunction1(value))
+      def setRequiredFn1Void(value: Double => Callback): Self = StObject.set(x, "requiredFn1Void", js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
       
       @scala.inline
-      def deleteOptFn1Number: Self = this.set("optFn1Number", js.undefined)
+      def setText(value: Boolean): Self = StObject.set(x, "text", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setOptFn1Void(value: /* x */ Double => Callback): Self = this.set("optFn1Void", js.Any.fromFunction1((t0: /* x */ Double) => value(t0).runNow()))
+      def setTextAlign(value: SemanticTEXTALIGNMENTS): Self = StObject.set(x, "textAlign", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteOptFn1Void: Self = this.set("optFn1Void", js.undefined)
+      def setTextAlignUndefined: Self = StObject.set(x, "textAlign", js.undefined)
       
       @scala.inline
-      def setText(value: Boolean): Self = this.set("text", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteText: Self = this.set("text", js.undefined)
-      
-      @scala.inline
-      def setTextAlign(value: SemanticTEXTALIGNMENTS): Self = this.set("textAlign", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteTextAlign: Self = this.set("textAlign", js.undefined)
+      def setTextUndefined: Self = StObject.set(x, "text", js.undefined)
     }
   }
   

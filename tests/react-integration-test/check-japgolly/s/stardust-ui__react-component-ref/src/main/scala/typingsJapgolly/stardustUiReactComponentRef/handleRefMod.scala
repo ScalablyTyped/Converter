@@ -1,6 +1,7 @@
 package typingsJapgolly.stardustUiReactComponentRef
 
 import japgolly.scalajs.react.raw.React.Ref
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

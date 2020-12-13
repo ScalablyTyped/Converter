@@ -1,5 +1,6 @@
 package typingsJapgolly.semanticUiReact.genericMod
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -54,7 +55,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typingsJapgolly.semanticUiReact.semanticUiReactStrings.fifteen
   - typingsJapgolly.semanticUiReact.semanticUiReactStrings.sixteen
 */
-trait SemanticWIDTHS extends js.Object
+trait SemanticWIDTHS extends StObject
 object SemanticWIDTHS {
   
   @scala.inline

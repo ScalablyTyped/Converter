@@ -12,6 +12,7 @@ import typingsJapgolly.react.mod.ReactType
 import typingsJapgolly.semanticUiReact.accordionTitleMod.AccordionTitleProps
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandItem
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -31,13 +32,17 @@ class SharedBuilder_AccordionTitleProps_248880662[R <: js.Object] (val args: js.
   def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
   
   @scala.inline
-  def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
-  
-  @scala.inline
   def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
   
   @scala.inline
-  def iconVdomElement(value: VdomElement): this.type = set("icon", value.rawElement.asInstanceOf[js.Any])
+  def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
+  
+  @scala.inline
+  def icon(
+    value: SemanticShorthandItem[
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
+    ]
+  ): this.type = set("icon", value.asInstanceOf[js.Any])
   
   @scala.inline
   def iconFunction3(
@@ -47,11 +52,7 @@ class SharedBuilder_AccordionTitleProps_248880662[R <: js.Object] (val args: js.
   ): this.type = set("icon", js.Any.fromFunction3(value))
   
   @scala.inline
-  def icon(
-    value: SemanticShorthandItem[
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
-    ]
-  ): this.type = set("icon", value.asInstanceOf[js.Any])
+  def iconVdomElement(value: VdomElement): this.type = set("icon", value.rawElement.asInstanceOf[js.Any])
   
   @scala.inline
   def index(value: Double | String): this.type = set("index", value.asInstanceOf[js.Any])

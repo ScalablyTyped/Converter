@@ -32,6 +32,7 @@ import typings.vue.vnodeMod.ScopedSlot
 import typings.vue.vnodeMod.VNode
 import typings.vue.vnodeMod.VNodeChildren
 import typings.vue.vnodeMod.VNodeData
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -43,7 +44,7 @@ object vueMod {
   val Vue: VueConstructor[typings.vue.vueMod.Vue] = js.native
   
   @js.native
-  trait CreateElement extends js.Object {
+  trait CreateElement extends StObject {
     
     def apply(): VNode = js.native
     def apply(tag: js.UndefOr[Component[_, _, _, _]], children: VNodeChildren): VNode = js.native
@@ -120,7 +121,7 @@ object vueMod {
   }
   
   @js.native
-  trait Vue extends js.Object {
+  trait Vue extends StObject {
     
     @JSName("$attrs")
     val $attrs: Record[String, String] = js.native
@@ -356,7 +357,7 @@ object vueMod {
   }
   
   @js.native
-  trait VueConfiguration extends js.Object {
+  trait VueConfiguration extends StObject {
     
     var devtools: Boolean = js.native
     
@@ -395,49 +396,37 @@ object vueMod {
     }
     
     @scala.inline
-    implicit class VueConfigurationOps[Self <: VueConfiguration] (val x: Self) extends AnyVal {
+    implicit class VueConfigurationMutableBuilder[Self <: VueConfiguration] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setDevtools(value: Boolean): Self = StObject.set(x, "devtools", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setErrorHandler(value: (Error, typings.vue.vueMod.Vue, String) => Unit): Self = StObject.set(x, "errorHandler", js.Any.fromFunction3(value))
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setIgnoredElements(value: js.Array[String | RegExp]): Self = StObject.set(x, "ignoredElements", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDevtools(value: Boolean): Self = this.set("devtools", value.asInstanceOf[js.Any])
+      def setIgnoredElementsVarargs(value: (String | RegExp)*): Self = StObject.set(x, "ignoredElements", js.Array(value :_*))
       
       @scala.inline
-      def setErrorHandler(value: (Error, typings.vue.vueMod.Vue, String) => Unit): Self = this.set("errorHandler", js.Any.fromFunction3(value))
+      def setKeyCodes(value: StringDictionary[Double | js.Array[Double]]): Self = StObject.set(x, "keyCodes", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIgnoredElementsVarargs(value: (String | RegExp)*): Self = this.set("ignoredElements", js.Array(value :_*))
+      def setOptionMergeStrategies(value: js.Any): Self = StObject.set(x, "optionMergeStrategies", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIgnoredElements(value: js.Array[String | RegExp]): Self = this.set("ignoredElements", value.asInstanceOf[js.Any])
+      def setPerformance(value: Boolean): Self = StObject.set(x, "performance", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setKeyCodes(value: StringDictionary[Double | js.Array[Double]]): Self = this.set("keyCodes", value.asInstanceOf[js.Any])
+      def setProductionTip(value: Boolean): Self = StObject.set(x, "productionTip", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setOptionMergeStrategies(value: js.Any): Self = this.set("optionMergeStrategies", value.asInstanceOf[js.Any])
+      def setSilent(value: Boolean): Self = StObject.set(x, "silent", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPerformance(value: Boolean): Self = this.set("performance", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setProductionTip(value: Boolean): Self = this.set("productionTip", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setSilent(value: Boolean): Self = this.set("silent", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setWarnHandler(value: (String, typings.vue.vueMod.Vue, String) => Unit): Self = this.set("warnHandler", js.Any.fromFunction3(value))
+      def setWarnHandler(value: (String, typings.vue.vueMod.Vue, String) => Unit): Self = StObject.set(x, "warnHandler", js.Any.fromFunction3(value))
     }
   }
   

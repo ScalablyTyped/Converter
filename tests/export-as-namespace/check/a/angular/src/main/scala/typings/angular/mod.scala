@@ -6,6 +6,7 @@ import typings.angular.mod.global.Function
 import typings.std.ArrayLike
 import typings.std.Document
 import typings.std.Element
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -25,7 +26,7 @@ object mod {
   // see http://docs.angularjs.org/api
   ///////////////////////////////////////////////////////////////////////////
   @js.native
-  trait IAngularStatic extends js.Object {
+  trait IAngularStatic extends StObject {
     
     /**
       * Wraps a raw DOM element or HTML string as a jQuery element.
@@ -59,7 +60,7 @@ object mod {
   
   // All service providers extend this interface
   @js.native
-  trait IServiceProvider extends js.Object {
+  trait IServiceProvider extends StObject {
     
     @JSName("$get")
     var $get: js.Any = js.native
@@ -73,22 +74,10 @@ object mod {
     }
     
     @scala.inline
-    implicit class IServiceProviderOps[Self <: IServiceProvider] (val x: Self) extends AnyVal {
+    implicit class IServiceProviderMutableBuilder[Self <: IServiceProvider] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def set$get(value: js.Any): Self = this.set("$get", value.asInstanceOf[js.Any])
+      def set$get(value: js.Any): Self = StObject.set(x, "$get", value.asInstanceOf[js.Any])
     }
   }
   
@@ -99,7 +88,7 @@ object mod {
     // see http://docs.angularjs.org/api/AUTO.$injector
     ///////////////////////////////////////////////////////////////////////
     @js.native
-    trait IInjectorService extends js.Object {
+    trait IInjectorService extends StObject {
       
       def annotate(fn: Function): js.Array[String] = js.native
       def annotate(fn: Function, strictDi: Boolean): js.Array[String] = js.native
@@ -130,7 +119,7 @@ object mod {
   object global {
     
     @js.native
-    trait Function extends js.Object {
+    trait Function extends StObject {
       
       @JSName("$inject")
       var $inject: js.UndefOr[js.Array[String]] = js.native

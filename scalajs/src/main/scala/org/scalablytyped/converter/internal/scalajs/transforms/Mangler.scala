@@ -193,12 +193,10 @@ object Mangler extends TreeTransformation {
           ),
         )
 
-    val base = pkg.copy(members = IArray.fromOption(hatModuleOpt) ++ forwarders)
-    if (needsCombining) {
-      val combined = ModulesCombine.combineModules(base)
-      val sorted   = Sorter.sorted(combined.members)
-      combined.copy(members = sorted)
-    } else base
+    pkg.copy(members = IArray.fromOption(hatModuleOpt) ++ forwarders) match {
+      case toCombine if needsCombining => ModulesCombine.combineModules(toCombine)
+      case ok                          => ok
+    }
   }
 
   def genModForwarders(mod: ModuleTree): ModuleTree = {

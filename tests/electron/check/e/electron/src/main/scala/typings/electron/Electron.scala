@@ -1,6 +1,7 @@
 package typings.electron
 
 import typings.electron.electronStrings.`accessibility-support-changed`
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -29,27 +30,15 @@ object Electron {
     }
     
     @scala.inline
-    implicit class AppOps[Self <: App] (val x: Self) extends AnyVal {
+    implicit class AppMutableBuilder[Self <: App] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setOn(value: (`accessibility-support-changed`, js.Any) => String): Self = this.set("on", js.Any.fromFunction2(value))
+      def setOn(value: (`accessibility-support-changed`, js.Any) => String): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
     }
   }
   
   @js.native
-  trait CommonInterface extends js.Object
+  trait CommonInterface extends StObject
   
   @js.native
   trait Event
@@ -76,54 +65,42 @@ object Electron {
     }
     
     @scala.inline
-    implicit class EventOps[Self <: Event] (val x: Self) extends AnyVal {
+    implicit class EventMutableBuilder[Self <: Event] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setAltKey(value: Boolean): Self = StObject.set(x, "altKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setAltKeyUndefined: Self = StObject.set(x, "altKey", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setCtrlKey(value: Boolean): Self = StObject.set(x, "ctrlKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPreventDefault(value: () => Unit): Self = this.set("preventDefault", js.Any.fromFunction0(value))
+      def setCtrlKeyUndefined: Self = StObject.set(x, "ctrlKey", js.undefined)
       
       @scala.inline
-      def setReturnValue(value: js.Any): Self = this.set("returnValue", value.asInstanceOf[js.Any])
+      def setMetaKey(value: Boolean): Self = StObject.set(x, "metaKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAltKey(value: Boolean): Self = this.set("altKey", value.asInstanceOf[js.Any])
+      def setMetaKeyUndefined: Self = StObject.set(x, "metaKey", js.undefined)
       
       @scala.inline
-      def deleteAltKey: Self = this.set("altKey", js.undefined)
+      def setPreventDefault(value: () => Unit): Self = StObject.set(x, "preventDefault", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setCtrlKey(value: Boolean): Self = this.set("ctrlKey", value.asInstanceOf[js.Any])
+      def setReturnValue(value: js.Any): Self = StObject.set(x, "returnValue", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteCtrlKey: Self = this.set("ctrlKey", js.undefined)
+      def setShiftKey(value: Boolean): Self = StObject.set(x, "shiftKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setMetaKey(value: Boolean): Self = this.set("metaKey", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteMetaKey: Self = this.set("metaKey", js.undefined)
-      
-      @scala.inline
-      def setShiftKey(value: Boolean): Self = this.set("shiftKey", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteShiftKey: Self = this.set("shiftKey", js.undefined)
+      def setShiftKeyUndefined: Self = StObject.set(x, "shiftKey", js.undefined)
     }
   }
   
   @js.native
-  trait EventEmitter extends js.Object {
+  trait EventEmitter extends StObject {
     
     def addListener(event: String, listener: js.Function): this.type = js.native
   }
@@ -136,22 +113,10 @@ object Electron {
     }
     
     @scala.inline
-    implicit class EventEmitterOps[Self <: EventEmitter] (val x: Self) extends AnyVal {
+    implicit class EventEmitterMutableBuilder[Self <: EventEmitter] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setAddListener(value: (String, js.Function) => EventEmitter): Self = this.set("addListener", js.Any.fromFunction2(value))
+      def setAddListener(value: (String, js.Function) => EventEmitter): Self = StObject.set(x, "addListener", js.Any.fromFunction2(value))
     }
   }
   
@@ -169,22 +134,10 @@ object Electron {
     }
     
     @scala.inline
-    implicit class MainInterfaceOps[Self <: MainInterface] (val x: Self) extends AnyVal {
+    implicit class MainInterfaceMutableBuilder[Self <: MainInterface] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setApp(value: App): Self = this.set("app", value.asInstanceOf[js.Any])
+      def setApp(value: App): Self = StObject.set(x, "app", value.asInstanceOf[js.Any])
     }
   }
   

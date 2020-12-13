@@ -1,11 +1,12 @@
 package typingsJapgolly.std
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait HTMLElementTagNameMap extends js.Object {
+trait HTMLElementTagNameMap extends StObject {
   
   var a: org.scalajs.dom.raw.HTMLAnchorElement = js.native
   

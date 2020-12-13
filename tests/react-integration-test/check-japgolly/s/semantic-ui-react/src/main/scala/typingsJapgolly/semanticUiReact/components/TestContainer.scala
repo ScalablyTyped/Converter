@@ -7,15 +7,29 @@ import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticTEXTALIGNMENTS
 import typingsJapgolly.semanticUiReact.testContainerTestContainerMod.TestContainerProps
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object TestContainer {
   
+  @scala.inline
+  def apply(
+    requiredFn0Number: CallbackTo[Double],
+    requiredFn0Void: Callback,
+    requiredFn1Number: Double => Double,
+    requiredFn1Void: Double => Callback
+  ): Builder = {
+    val __props = js.Dynamic.literal(requiredFn0Number = requiredFn0Number.toJsFn, requiredFn0Void = requiredFn0Void.toJsFn, requiredFn1Number = js.Any.fromFunction1(requiredFn1Number), requiredFn1Void = js.Any.fromFunction1((t0: Double) => requiredFn1Void(t0).runNow()))
+    new Builder(js.Array(this.component, __props.asInstanceOf[TestContainerProps]))
+  }
+  
   @JSImport("semantic-ui-react/dist/commonjs/elements/TestContainer/TestContainer", JSImport.Default)
   @js.native
   val component: js.Object = js.native
+  
+  def withProps(p: TestContainerProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])
@@ -29,10 +43,10 @@ object TestContainer {
     def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
+    def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
+    def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
     
     @scala.inline
     def fluid(value: Boolean): this.type = set("fluid", value.asInstanceOf[js.Any])
@@ -54,18 +68,5 @@ object TestContainer {
     
     @scala.inline
     def textAlign(value: SemanticTEXTALIGNMENTS): this.type = set("textAlign", value.asInstanceOf[js.Any])
-  }
-  
-  def withProps(p: TestContainerProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
-  
-  @scala.inline
-  def apply(
-    requiredFn0Number: CallbackTo[Double],
-    requiredFn0Void: Callback,
-    requiredFn1Number: Double => Double,
-    requiredFn1Void: Double => Callback
-  ): Builder = {
-    val __props = js.Dynamic.literal(requiredFn0Number = requiredFn0Number.toJsFn, requiredFn0Void = requiredFn0Void.toJsFn, requiredFn1Number = js.Any.fromFunction1(requiredFn1Number), requiredFn1Void = js.Any.fromFunction1((t0: Double) => requiredFn1Void(t0).runNow()))
-    new Builder(js.Array(this.component, __props.asInstanceOf[TestContainerProps]))
   }
 }

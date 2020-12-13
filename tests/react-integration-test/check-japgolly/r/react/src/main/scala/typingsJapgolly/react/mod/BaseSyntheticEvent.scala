@@ -4,6 +4,7 @@ import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactEventFrom
 import org.scalajs.dom.raw.Element
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -13,7 +14,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 // ----------------------------------------------------------------------
 // TODO: change any to unknown when moving to TS v3
 @js.native
-trait BaseSyntheticEvent[E, C, T] extends js.Object {
+trait BaseSyntheticEvent[E, C, T] extends StObject {
   
   var bubbles: Boolean = js.native
   
@@ -71,63 +72,51 @@ object BaseSyntheticEvent {
   }
   
   @scala.inline
-  implicit class BaseSyntheticEventOps[Self <: ReactEventFrom[Element], E, C, T] (val x: Self with (ReactEventFrom[C with Element])) extends AnyVal {
+  implicit class BaseSyntheticEventMutableBuilder[Self <: ReactEventFrom[Element], E, C, T] (val x: Self with (ReactEventFrom[C with Element])) extends AnyVal {
     
     @scala.inline
-    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    def setBubbles(value: Boolean): Self = StObject.set(x, "bubbles", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    def setCancelable(value: Boolean): Self = StObject.set(x, "cancelable", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def set(key: String, value: js.Any): Self = {
-      x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-      x
-    }
+    def setCurrentTarget(value: C): Self = StObject.set(x, "currentTarget", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setBubbles(value: Boolean): Self = this.set("bubbles", value.asInstanceOf[js.Any])
+    def setDefaultPrevented(value: Boolean): Self = StObject.set(x, "defaultPrevented", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCancelable(value: Boolean): Self = this.set("cancelable", value.asInstanceOf[js.Any])
+    def setEventPhase(value: Double): Self = StObject.set(x, "eventPhase", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCurrentTarget(value: C): Self = this.set("currentTarget", value.asInstanceOf[js.Any])
+    def setIsDefaultPrevented(value: CallbackTo[Boolean]): Self = StObject.set(x, "isDefaultPrevented", value.toJsFn)
     
     @scala.inline
-    def setDefaultPrevented(value: Boolean): Self = this.set("defaultPrevented", value.asInstanceOf[js.Any])
+    def setIsPropagationStopped(value: CallbackTo[Boolean]): Self = StObject.set(x, "isPropagationStopped", value.toJsFn)
     
     @scala.inline
-    def setEventPhase(value: Double): Self = this.set("eventPhase", value.asInstanceOf[js.Any])
+    def setIsTrusted(value: Boolean): Self = StObject.set(x, "isTrusted", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setIsDefaultPrevented(value: CallbackTo[Boolean]): Self = this.set("isDefaultPrevented", value.toJsFn)
+    def setNativeEvent(value: E): Self = StObject.set(x, "nativeEvent", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setIsPropagationStopped(value: CallbackTo[Boolean]): Self = this.set("isPropagationStopped", value.toJsFn)
+    def setPersist(value: Callback): Self = StObject.set(x, "persist", value.toJsFn)
     
     @scala.inline
-    def setIsTrusted(value: Boolean): Self = this.set("isTrusted", value.asInstanceOf[js.Any])
+    def setPreventDefault(value: Callback): Self = StObject.set(x, "preventDefault", value.toJsFn)
     
     @scala.inline
-    def setNativeEvent(value: E): Self = this.set("nativeEvent", value.asInstanceOf[js.Any])
+    def setStopPropagation(value: Callback): Self = StObject.set(x, "stopPropagation", value.toJsFn)
     
     @scala.inline
-    def setPersist(value: Callback): Self = this.set("persist", value.toJsFn)
+    def setTarget(value: T): Self = StObject.set(x, "target", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setPreventDefault(value: Callback): Self = this.set("preventDefault", value.toJsFn)
+    def setTimeStamp(value: Double): Self = StObject.set(x, "timeStamp", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setStopPropagation(value: Callback): Self = this.set("stopPropagation", value.toJsFn)
-    
-    @scala.inline
-    def setTarget(value: T): Self = this.set("target", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setTimeStamp(value: Double): Self = this.set("timeStamp", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setType(value: String): Self = this.set("type", value.asInstanceOf[js.Any])
+    def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
   }
 }

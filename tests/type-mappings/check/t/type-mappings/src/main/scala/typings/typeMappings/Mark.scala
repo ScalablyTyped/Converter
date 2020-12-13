@@ -2,6 +2,7 @@ package typings.typeMappings
 
 import typings.typeMappings.typeMappingsStrings.text
 import typings.typeMappings.typeMappingsStrings.trail
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -10,7 +11,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typings.typeMappings.TextMark
   - typings.typeMappings.TrailMark
 */
-trait Mark extends js.Object
+trait Mark extends StObject
 object Mark {
   
   @scala.inline

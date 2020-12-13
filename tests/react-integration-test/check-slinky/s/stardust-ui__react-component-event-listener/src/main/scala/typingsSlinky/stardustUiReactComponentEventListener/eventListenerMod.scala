@@ -4,6 +4,7 @@ import typingsSlinky.stardustUiReactComponentEventListener.anon.Capture
 import typingsSlinky.stardustUiReactComponentEventListener.anon.Listener
 import typingsSlinky.stardustUiReactComponentEventListener.typesMod.EventListenerOptions
 import typingsSlinky.stardustUiReactComponentEventListener.typesMod.EventTypes
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

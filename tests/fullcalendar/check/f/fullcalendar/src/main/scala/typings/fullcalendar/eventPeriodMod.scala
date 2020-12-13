@@ -1,5 +1,6 @@
 package typings.fullcalendar
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -8,7 +9,7 @@ object eventPeriodMod {
   
   @JSImport("fullcalendar/EventPeriod", "Default")
   @js.native
-  class Default_ protected () extends js.Object {
+  class Default_ protected () extends StObject {
     def this(start: js.Any, end: js.Any, timezone: js.Any) = this()
     
     var eventInstanceGroupsById: js.Any = js.native

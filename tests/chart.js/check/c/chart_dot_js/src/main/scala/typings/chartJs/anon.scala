@@ -8,6 +8,7 @@ import typings.chartJs.mod.ChartOptions
 import typings.std.ArrayLike
 import typings.std.CanvasRenderingContext2D
 import typings.std.HTMLCanvasElement
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -29,22 +30,10 @@ object anon {
     }
     
     @scala.inline
-    implicit class DictkeyOps[Self <: Dictkey] (val x: Self) extends AnyVal {
+    implicit class DictkeyMutableBuilder[Self <: Dictkey] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setGlobal(value: ChartOptions with ChartFontOptions): Self = this.set("global", value.asInstanceOf[js.Any])
+      def setGlobal(value: ChartOptions with ChartFontOptions): Self = StObject.set(x, "global", value.asInstanceOf[js.Any])
     }
   }
   

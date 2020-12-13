@@ -5,7 +5,7 @@ package build
 import java.time.ZonedDateTime
 
 import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
-import org.scalablytyped.converter.internal.ts.{TsIdent, TsIdentLibrary}
+import org.scalablytyped.converter.internal.ts.TsIdent
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
@@ -71,7 +71,7 @@ class ContentForPublishTest extends AnyFunSuite with Matchers {
         <dependency org="org.scala-js" name="scalajs-compiler_2.13.3" rev="1.3.0" conf="plugin-&gt;default(compile)"/>
         <dependency org="org.scala-js" name="scalajs-library_2.13" rev="1.3.0" conf="compile-&gt;default(compile)"/>
         <dependency org="org.scala-js" name="scalajs-test-interface_2.13" rev="1.3.0" conf="test-&gt;default(compile)"/>
-        <dependency org="com.olvind" name="scalablytyped-runtime_sjs1_2.13" rev="2.1.0" conf="compile-&gt;default(compile)"/>
+        <dependency org="com.olvind" name="scalablytyped-runtime_sjs1_2.13" rev="2.3.0" conf="compile-&gt;default(compile)"/>
         <dependency org="deporg" name="departifactid_sjs1_2.13" rev="depversion" conf="compile-&gt;default(compile)"/>
         <dependency org="externaldeporg" name="externaldepartifact_sjs1_2.13" rev="externaldepversion" conf="compile-&gt;default(compile)"/>
       </dependencies>
@@ -113,7 +113,7 @@ class ContentForPublishTest extends AnyFunSuite with Matchers {
         <dependency>
       <groupId>com.olvind</groupId>
       <artifactId>scalablytyped-runtime_sjs1_2.13</artifactId>
-      <version>2.1.0</version>
+      <version>2.3.0</version>
     </dependency>
         <dependency>
       <groupId>deporg</groupId>

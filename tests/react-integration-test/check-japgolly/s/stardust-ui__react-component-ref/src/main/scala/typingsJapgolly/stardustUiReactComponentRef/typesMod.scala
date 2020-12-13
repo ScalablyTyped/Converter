@@ -3,6 +3,7 @@ package typingsJapgolly.stardustUiReactComponentRef
 import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Ref
 import japgolly.scalajs.react.vdom.VdomElement
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -14,7 +15,7 @@ object typesMod {
   val refPropType: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ js.Any = js.native
   
   @js.native
-  trait RefProps extends js.Object {
+  trait RefProps extends StObject {
     
     var children: Element = js.native
     
@@ -34,28 +35,16 @@ object typesMod {
     }
     
     @scala.inline
-    implicit class RefPropsOps[Self <: RefProps] (val x: Self) extends AnyVal {
+    implicit class RefPropsMutableBuilder[Self <: RefProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setChildren(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setInnerRef(value: Ref): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setChildren(value: VdomElement): Self = this.set("children", value.rawElement.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setInnerRef(value: Ref): Self = this.set("innerRef", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setInnerRefNull: Self = this.set("innerRef", null)
+      def setInnerRefNull: Self = StObject.set(x, "innerRef", null)
     }
   }
 }

@@ -1,11 +1,12 @@
 package typingsJapgolly.std
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait SVGElementTagNameMap extends js.Object {
+trait SVGElementTagNameMap extends StObject {
   
   var circle: org.scalajs.dom.raw.SVGCircleElement = js.native
 }

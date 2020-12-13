@@ -6,6 +6,7 @@ import typingsSlinky.stardustUiReactComponentRef.anon.Children
 import typingsSlinky.stardustUiReactComponentRef.anon.InnerRef
 import typingsSlinky.stardustUiReactComponentRef.refFindNodeMod.default
 import typingsSlinky.stardustUiReactComponentRef.typesMod.RefProps
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

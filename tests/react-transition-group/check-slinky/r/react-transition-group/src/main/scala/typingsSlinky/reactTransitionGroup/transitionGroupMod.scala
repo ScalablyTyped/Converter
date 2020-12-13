@@ -6,6 +6,7 @@ import typingsSlinky.react.mod.ReactType
 import typingsSlinky.reactTransitionGroup.anon.ChildFactory
 import typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.abbr
 import typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.animate
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -18,7 +19,7 @@ object transitionGroupMod {
     extends Component[TransitionGroupProps[abbr, js.Any], js.Object]
   
   @js.native
-  trait ComponentTransitionGroupProps[T /* <: ReactType[_] */] extends js.Object {
+  trait ComponentTransitionGroupProps[T /* <: ReactType[_] */] extends StObject {
     
     var component: T = js.native
   }
@@ -31,27 +32,15 @@ object transitionGroupMod {
     }
     
     @scala.inline
-    implicit class ComponentTransitionGroupPropsOps[Self <: ComponentTransitionGroupProps[_], T /* <: ReactType[_] */] (val x: Self with ComponentTransitionGroupProps[T]) extends AnyVal {
+    implicit class ComponentTransitionGroupPropsMutableBuilder[Self <: ComponentTransitionGroupProps[_], T /* <: ReactType[_] */] (val x: Self with ComponentTransitionGroupProps[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setComponent(value: T): Self = this.set("component", value.asInstanceOf[js.Any])
+      def setComponent(value: T): Self = StObject.set(x, "component", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait IntrinsicTransitionGroupProps[T /* <: abbr | animate */] extends js.Object {
+  trait IntrinsicTransitionGroupProps[T /* <: abbr | animate */] extends StObject {
     
     var component: js.UndefOr[T] = js.native
   }
@@ -64,25 +53,13 @@ object transitionGroupMod {
     }
     
     @scala.inline
-    implicit class IntrinsicTransitionGroupPropsOps[Self <: IntrinsicTransitionGroupProps[_], T /* <: abbr | animate */] (val x: Self with IntrinsicTransitionGroupProps[T]) extends AnyVal {
+    implicit class IntrinsicTransitionGroupPropsMutableBuilder[Self <: IntrinsicTransitionGroupProps[_], T /* <: abbr | animate */] (val x: Self with IntrinsicTransitionGroupProps[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setComponent(value: T): Self = StObject.set(x, "component", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setComponent(value: T): Self = this.set("component", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteComponent: Self = this.set("component", js.undefined)
+      def setComponentUndefined: Self = StObject.set(x, "component", js.undefined)
     }
   }
   

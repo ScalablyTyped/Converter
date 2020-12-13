@@ -1,5 +1,6 @@
 package typingsSlinky.semanticUiReact.genericMod
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -19,7 +20,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typingsSlinky.semanticUiReact.semanticUiReactStrings.grey
   - typingsSlinky.semanticUiReact.semanticUiReactStrings.black
 */
-trait SemanticCOLORS extends js.Object
+trait SemanticCOLORS extends StObject
 object SemanticCOLORS {
   
   @scala.inline

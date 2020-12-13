@@ -10,6 +10,7 @@ import typingsSlinky.react.mod.ReactNodeArray
 import typingsSlinky.react.mod.ReactType
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandContent
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -34,7 +35,7 @@ object accordionTitleMod {
   }
   
   @js.native
-  trait StrictAccordionTitleProps extends js.Object {
+  trait StrictAccordionTitleProps extends StObject {
     
     /** Whether or not the title is in the open state. */
     var active: js.UndefOr[Boolean] = js.native
@@ -84,87 +85,75 @@ object accordionTitleMod {
     }
     
     @scala.inline
-    implicit class StrictAccordionTitlePropsOps[Self <: StrictAccordionTitleProps] (val x: Self) extends AnyVal {
+    implicit class StrictAccordionTitlePropsMutableBuilder[Self <: StrictAccordionTitleProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setActive(value: Boolean): Self = StObject.set(x, "active", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setActiveUndefined: Self = StObject.set(x, "active", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setActive(value: Boolean): Self = this.set("active", value.asInstanceOf[js.Any])
+      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
       @scala.inline
-      def deleteActive: Self = this.set("active", js.undefined)
+      def setChildren(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAs(value: js.Any): Self = this.set("as", value.asInstanceOf[js.Any])
+      def setChildrenReactElement(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteAs: Self = this.set("as", js.undefined)
+      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       @scala.inline
-      def setChildrenReactElement(value: ReactElement): Self = this.set("children", value.asInstanceOf[js.Any])
+      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildren(value: ReactElement): Self = this.set("children", value.asInstanceOf[js.Any])
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
-      def deleteChildren: Self = this.set("children", js.undefined)
+      def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassName(value: String): Self = this.set("className", value.asInstanceOf[js.Any])
+      def setContentReactElement(value: ReactElement): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteClassName: Self = this.set("className", js.undefined)
-      
-      @scala.inline
-      def setContentReactElement(value: ReactElement): Self = this.set("content", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setContent(value: SemanticShorthandContent): Self = this.set("content", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteContent: Self = this.set("content", js.undefined)
-      
-      @scala.inline
-      def setIconReactElement(value: ReactElement): Self = this.set("icon", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setIconFunction3(
-        value: (/* component */ ReactType[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
-            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
-      ): Self = this.set("icon", js.Any.fromFunction3(value))
+      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
       
       @scala.inline
       def setIcon(
         value: SemanticShorthandItem[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
             ]
-      ): Self = this.set("icon", value.asInstanceOf[js.Any])
+      ): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteIcon: Self = this.set("icon", js.undefined)
+      def setIconFunction3(
+        value: (/* component */ ReactType[
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
+            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
+      ): Self = StObject.set(x, "icon", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setIndex(value: Double | String): Self = this.set("index", value.asInstanceOf[js.Any])
+      def setIconReactElement(value: ReactElement): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteIndex: Self = this.set("index", js.undefined)
+      def setIconUndefined: Self = StObject.set(x, "icon", js.undefined)
       
       @scala.inline
-      def setOnClick(value: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit): Self = this.set("onClick", js.Any.fromFunction2(value))
+      def setIndex(value: Double | String): Self = StObject.set(x, "index", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteOnClick: Self = this.set("onClick", js.undefined)
+      def setIndexUndefined: Self = StObject.set(x, "index", js.undefined)
+      
+      @scala.inline
+      def setOnClick(value: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit): Self = StObject.set(x, "onClick", js.Any.fromFunction2(value))
+      
+      @scala.inline
+      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
     }
   }
   

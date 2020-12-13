@@ -6,6 +6,7 @@ import typings.std.Node
 import typings.vue.anon.Render
 import typings.vue.vueMod.Vue
 import typings.vue.vueMod.VueConstructor
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -13,7 +14,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object vnodeMod {
   
   @js.native
-  trait VNode extends js.Object {
+  trait VNode extends StObject {
     
     var children: js.UndefOr[js.Array[VNode]] = js.native
     
@@ -54,106 +55,94 @@ object vnodeMod {
     }
     
     @scala.inline
-    implicit class VNodeOps[Self <: VNode] (val x: Self) extends AnyVal {
+    implicit class VNodeMutableBuilder[Self <: VNode] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setChildren(value: js.Array[VNode]): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setChildrenVarargs(value: VNode*): Self = StObject.set(x, "children", js.Array(value :_*))
       
       @scala.inline
-      def setIsComment(value: Boolean): Self = this.set("isComment", value.asInstanceOf[js.Any])
+      def setComponentInstance(value: Vue): Self = StObject.set(x, "componentInstance", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIsRootInsert(value: Boolean): Self = this.set("isRootInsert", value.asInstanceOf[js.Any])
+      def setComponentInstanceUndefined: Self = StObject.set(x, "componentInstance", js.undefined)
       
       @scala.inline
-      def setChildrenVarargs(value: VNode*): Self = this.set("children", js.Array(value :_*))
+      def setComponentOptions(value: VNodeComponentOptions): Self = StObject.set(x, "componentOptions", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildren(value: js.Array[VNode]): Self = this.set("children", value.asInstanceOf[js.Any])
+      def setComponentOptionsUndefined: Self = StObject.set(x, "componentOptions", js.undefined)
       
       @scala.inline
-      def deleteChildren: Self = this.set("children", js.undefined)
+      def setContext(value: Vue): Self = StObject.set(x, "context", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setComponentInstance(value: Vue): Self = this.set("componentInstance", value.asInstanceOf[js.Any])
+      def setContextUndefined: Self = StObject.set(x, "context", js.undefined)
       
       @scala.inline
-      def deleteComponentInstance: Self = this.set("componentInstance", js.undefined)
+      def setData(value: VNodeData): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setComponentOptions(value: VNodeComponentOptions): Self = this.set("componentOptions", value.asInstanceOf[js.Any])
+      def setDataUndefined: Self = StObject.set(x, "data", js.undefined)
       
       @scala.inline
-      def deleteComponentOptions: Self = this.set("componentOptions", js.undefined)
+      def setElm(value: Node): Self = StObject.set(x, "elm", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setContext(value: Vue): Self = this.set("context", value.asInstanceOf[js.Any])
+      def setElmUndefined: Self = StObject.set(x, "elm", js.undefined)
       
       @scala.inline
-      def deleteContext: Self = this.set("context", js.undefined)
+      def setIsComment(value: Boolean): Self = StObject.set(x, "isComment", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setData(value: VNodeData): Self = this.set("data", value.asInstanceOf[js.Any])
+      def setIsRootInsert(value: Boolean): Self = StObject.set(x, "isRootInsert", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteData: Self = this.set("data", js.undefined)
+      def setIsStatic(value: Boolean): Self = StObject.set(x, "isStatic", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setElm(value: Node): Self = this.set("elm", value.asInstanceOf[js.Any])
+      def setIsStaticUndefined: Self = StObject.set(x, "isStatic", js.undefined)
       
       @scala.inline
-      def deleteElm: Self = this.set("elm", js.undefined)
+      def setKey(value: String | Double): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIsStatic(value: Boolean): Self = this.set("isStatic", value.asInstanceOf[js.Any])
+      def setKeyUndefined: Self = StObject.set(x, "key", js.undefined)
       
       @scala.inline
-      def deleteIsStatic: Self = this.set("isStatic", js.undefined)
+      def setNs(value: String): Self = StObject.set(x, "ns", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setKey(value: String | Double): Self = this.set("key", value.asInstanceOf[js.Any])
+      def setNsUndefined: Self = StObject.set(x, "ns", js.undefined)
       
       @scala.inline
-      def deleteKey: Self = this.set("key", js.undefined)
+      def setParent(value: VNode): Self = StObject.set(x, "parent", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNs(value: String): Self = this.set("ns", value.asInstanceOf[js.Any])
+      def setParentUndefined: Self = StObject.set(x, "parent", js.undefined)
       
       @scala.inline
-      def deleteNs: Self = this.set("ns", js.undefined)
+      def setRaw(value: Boolean): Self = StObject.set(x, "raw", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setParent(value: VNode): Self = this.set("parent", value.asInstanceOf[js.Any])
+      def setRawUndefined: Self = StObject.set(x, "raw", js.undefined)
       
       @scala.inline
-      def deleteParent: Self = this.set("parent", js.undefined)
+      def setTag(value: String): Self = StObject.set(x, "tag", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRaw(value: Boolean): Self = this.set("raw", value.asInstanceOf[js.Any])
+      def setTagUndefined: Self = StObject.set(x, "tag", js.undefined)
       
       @scala.inline
-      def deleteRaw: Self = this.set("raw", js.undefined)
+      def setText(value: String): Self = StObject.set(x, "text", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTag(value: String): Self = this.set("tag", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteTag: Self = this.set("tag", js.undefined)
-      
-      @scala.inline
-      def setText(value: String): Self = this.set("text", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteText: Self = this.set("text", js.undefined)
+      def setTextUndefined: Self = StObject.set(x, "text", js.undefined)
     }
   }
   
@@ -169,7 +158,7 @@ object vnodeMod {
   }
   
   @js.native
-  trait VNodeComponentOptions extends js.Object {
+  trait VNodeComponentOptions extends StObject {
     
     var Ctor: VueConstructor[Vue] = js.native
     
@@ -190,54 +179,42 @@ object vnodeMod {
     }
     
     @scala.inline
-    implicit class VNodeComponentOptionsOps[Self <: VNodeComponentOptions] (val x: Self) extends AnyVal {
+    implicit class VNodeComponentOptionsMutableBuilder[Self <: VNodeComponentOptions] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setChildren(value: VNodeChildren): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setChildrenVarargs(value: ScopedSlot*): Self = StObject.set(x, "children", js.Array(value :_*))
       
       @scala.inline
-      def setCtor(value: VueConstructor[Vue]): Self = this.set("Ctor", value.asInstanceOf[js.Any])
+      def setCtor(value: VueConstructor[Vue]): Self = StObject.set(x, "Ctor", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildrenVarargs(value: ScopedSlot*): Self = this.set("children", js.Array(value :_*))
+      def setListeners(value: js.Object): Self = StObject.set(x, "listeners", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildren(value: VNodeChildren): Self = this.set("children", value.asInstanceOf[js.Any])
+      def setListenersUndefined: Self = StObject.set(x, "listeners", js.undefined)
       
       @scala.inline
-      def deleteChildren: Self = this.set("children", js.undefined)
+      def setPropsData(value: js.Object): Self = StObject.set(x, "propsData", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setListeners(value: js.Object): Self = this.set("listeners", value.asInstanceOf[js.Any])
+      def setPropsDataUndefined: Self = StObject.set(x, "propsData", js.undefined)
       
       @scala.inline
-      def deleteListeners: Self = this.set("listeners", js.undefined)
+      def setTag(value: String): Self = StObject.set(x, "tag", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPropsData(value: js.Object): Self = this.set("propsData", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deletePropsData: Self = this.set("propsData", js.undefined)
-      
-      @scala.inline
-      def setTag(value: String): Self = this.set("tag", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteTag: Self = this.set("tag", js.undefined)
+      def setTagUndefined: Self = StObject.set(x, "tag", js.undefined)
     }
   }
   
   @js.native
-  trait VNodeData extends js.Object {
+  trait VNodeData extends StObject {
     
     var attrs: js.UndefOr[StringDictionary[js.Any]] = js.native
     
@@ -288,150 +265,138 @@ object vnodeMod {
     }
     
     @scala.inline
-    implicit class VNodeDataOps[Self <: VNodeData] (val x: Self) extends AnyVal {
+    implicit class VNodeDataMutableBuilder[Self <: VNodeData] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setAttrs(value: StringDictionary[js.Any]): Self = StObject.set(x, "attrs", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setAttrsUndefined: Self = StObject.set(x, "attrs", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setClass(value: js.Any): Self = StObject.set(x, "class", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAttrs(value: StringDictionary[js.Any]): Self = this.set("attrs", value.asInstanceOf[js.Any])
+      def setClassUndefined: Self = StObject.set(x, "class", js.undefined)
       
       @scala.inline
-      def deleteAttrs: Self = this.set("attrs", js.undefined)
+      def setDirectives(value: js.Array[VNodeDirective]): Self = StObject.set(x, "directives", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClass(value: js.Any): Self = this.set("class", value.asInstanceOf[js.Any])
+      def setDirectivesUndefined: Self = StObject.set(x, "directives", js.undefined)
       
       @scala.inline
-      def deleteClass: Self = this.set("class", js.undefined)
+      def setDirectivesVarargs(value: VNodeDirective*): Self = StObject.set(x, "directives", js.Array(value :_*))
       
       @scala.inline
-      def setDirectivesVarargs(value: VNodeDirective*): Self = this.set("directives", js.Array(value :_*))
+      def setDomProps(value: StringDictionary[js.Any]): Self = StObject.set(x, "domProps", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDirectives(value: js.Array[VNodeDirective]): Self = this.set("directives", value.asInstanceOf[js.Any])
+      def setDomPropsUndefined: Self = StObject.set(x, "domProps", js.undefined)
       
       @scala.inline
-      def deleteDirectives: Self = this.set("directives", js.undefined)
+      def setHook(value: StringDictionary[js.Function]): Self = StObject.set(x, "hook", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDomProps(value: StringDictionary[js.Any]): Self = this.set("domProps", value.asInstanceOf[js.Any])
+      def setHookUndefined: Self = StObject.set(x, "hook", js.undefined)
       
       @scala.inline
-      def deleteDomProps: Self = this.set("domProps", js.undefined)
+      def setInlineTemplate(value: Render): Self = StObject.set(x, "inlineTemplate", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setHook(value: StringDictionary[js.Function]): Self = this.set("hook", value.asInstanceOf[js.Any])
+      def setInlineTemplateUndefined: Self = StObject.set(x, "inlineTemplate", js.undefined)
       
       @scala.inline
-      def deleteHook: Self = this.set("hook", js.undefined)
+      def setKeepAlive(value: Boolean): Self = StObject.set(x, "keepAlive", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInlineTemplate(value: Render): Self = this.set("inlineTemplate", value.asInstanceOf[js.Any])
+      def setKeepAliveUndefined: Self = StObject.set(x, "keepAlive", js.undefined)
       
       @scala.inline
-      def deleteInlineTemplate: Self = this.set("inlineTemplate", js.undefined)
+      def setKey(value: String | Double): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setKeepAlive(value: Boolean): Self = this.set("keepAlive", value.asInstanceOf[js.Any])
+      def setKeyUndefined: Self = StObject.set(x, "key", js.undefined)
       
       @scala.inline
-      def deleteKeepAlive: Self = this.set("keepAlive", js.undefined)
+      def setNativeOn(value: StringDictionary[js.Function | js.Array[js.Function]]): Self = StObject.set(x, "nativeOn", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setKey(value: String | Double): Self = this.set("key", value.asInstanceOf[js.Any])
+      def setNativeOnUndefined: Self = StObject.set(x, "nativeOn", js.undefined)
       
       @scala.inline
-      def deleteKey: Self = this.set("key", js.undefined)
+      def setOn(value: StringDictionary[js.Function | js.Array[js.Function]]): Self = StObject.set(x, "on", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNativeOn(value: StringDictionary[js.Function | js.Array[js.Function]]): Self = this.set("nativeOn", value.asInstanceOf[js.Any])
+      def setOnUndefined: Self = StObject.set(x, "on", js.undefined)
       
       @scala.inline
-      def deleteNativeOn: Self = this.set("nativeOn", js.undefined)
+      def setProps(value: StringDictionary[js.Any]): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setOn(value: StringDictionary[js.Function | js.Array[js.Function]]): Self = this.set("on", value.asInstanceOf[js.Any])
+      def setPropsUndefined: Self = StObject.set(x, "props", js.undefined)
       
       @scala.inline
-      def deleteOn: Self = this.set("on", js.undefined)
+      def setRef(value: String): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setProps(value: StringDictionary[js.Any]): Self = this.set("props", value.asInstanceOf[js.Any])
+      def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
       
       @scala.inline
-      def deleteProps: Self = this.set("props", js.undefined)
+      def setScopedSlots(value: StringDictionary[ScopedSlot]): Self = StObject.set(x, "scopedSlots", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRef(value: String): Self = this.set("ref", value.asInstanceOf[js.Any])
+      def setScopedSlotsUndefined: Self = StObject.set(x, "scopedSlots", js.undefined)
       
       @scala.inline
-      def deleteRef: Self = this.set("ref", js.undefined)
+      def setShow(value: Boolean): Self = StObject.set(x, "show", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setScopedSlots(value: StringDictionary[ScopedSlot]): Self = this.set("scopedSlots", value.asInstanceOf[js.Any])
+      def setShowUndefined: Self = StObject.set(x, "show", js.undefined)
       
       @scala.inline
-      def deleteScopedSlots: Self = this.set("scopedSlots", js.undefined)
+      def setSlot(value: String): Self = StObject.set(x, "slot", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setShow(value: Boolean): Self = this.set("show", value.asInstanceOf[js.Any])
+      def setSlotUndefined: Self = StObject.set(x, "slot", js.undefined)
       
       @scala.inline
-      def deleteShow: Self = this.set("show", js.undefined)
+      def setStaticClass(value: String): Self = StObject.set(x, "staticClass", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setSlot(value: String): Self = this.set("slot", value.asInstanceOf[js.Any])
+      def setStaticClassUndefined: Self = StObject.set(x, "staticClass", js.undefined)
       
       @scala.inline
-      def deleteSlot: Self = this.set("slot", js.undefined)
+      def setStaticStyle(value: StringDictionary[js.Any]): Self = StObject.set(x, "staticStyle", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setStaticClass(value: String): Self = this.set("staticClass", value.asInstanceOf[js.Any])
+      def setStaticStyleUndefined: Self = StObject.set(x, "staticStyle", js.undefined)
       
       @scala.inline
-      def deleteStaticClass: Self = this.set("staticClass", js.undefined)
+      def setStyle(value: js.Array[js.Object] | js.Object): Self = StObject.set(x, "style", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setStaticStyle(value: StringDictionary[js.Any]): Self = this.set("staticStyle", value.asInstanceOf[js.Any])
+      def setStyleUndefined: Self = StObject.set(x, "style", js.undefined)
       
       @scala.inline
-      def deleteStaticStyle: Self = this.set("staticStyle", js.undefined)
+      def setStyleVarargs(value: js.Object*): Self = StObject.set(x, "style", js.Array(value :_*))
       
       @scala.inline
-      def setStyleVarargs(value: js.Object*): Self = this.set("style", js.Array(value :_*))
+      def setTag(value: String): Self = StObject.set(x, "tag", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setStyle(value: js.Array[js.Object] | js.Object): Self = this.set("style", value.asInstanceOf[js.Any])
+      def setTagUndefined: Self = StObject.set(x, "tag", js.undefined)
       
       @scala.inline
-      def deleteStyle: Self = this.set("style", js.undefined)
+      def setTransition(value: js.Object): Self = StObject.set(x, "transition", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTag(value: String): Self = this.set("tag", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteTag: Self = this.set("tag", js.undefined)
-      
-      @scala.inline
-      def setTransition(value: js.Object): Self = this.set("transition", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteTransition: Self = this.set("transition", js.undefined)
+      def setTransitionUndefined: Self = StObject.set(x, "transition", js.undefined)
     }
   }
   
   @js.native
-  trait VNodeDirective extends js.Object {
+  trait VNodeDirective extends StObject {
     
     val arg: String = js.native
     
@@ -461,37 +426,25 @@ object vnodeMod {
     }
     
     @scala.inline
-    implicit class VNodeDirectiveOps[Self <: VNodeDirective] (val x: Self) extends AnyVal {
+    implicit class VNodeDirectiveMutableBuilder[Self <: VNodeDirective] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setArg(value: String): Self = StObject.set(x, "arg", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setExpression(value: js.Any): Self = StObject.set(x, "expression", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setModifiers(value: StringDictionary[Boolean]): Self = StObject.set(x, "modifiers", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setArg(value: String): Self = this.set("arg", value.asInstanceOf[js.Any])
+      def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setExpression(value: js.Any): Self = this.set("expression", value.asInstanceOf[js.Any])
+      def setOldValue(value: js.Any): Self = StObject.set(x, "oldValue", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setModifiers(value: StringDictionary[Boolean]): Self = this.set("modifiers", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setName(value: String): Self = this.set("name", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setOldValue(value: js.Any): Self = this.set("oldValue", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setValue(value: js.Any): Self = this.set("value", value.asInstanceOf[js.Any])
+      def setValue(value: js.Any): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     }
   }
   

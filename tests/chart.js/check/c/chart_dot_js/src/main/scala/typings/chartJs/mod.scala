@@ -6,6 +6,7 @@ import typings.chartJs.anon.TypeofChart
 import typings.std.ArrayLike
 import typings.std.CanvasRenderingContext2D
 import typings.std.HTMLCanvasElement
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -15,9 +16,6 @@ object mod {
   
   @JSImport("chart.js", JSImport.Namespace)
   @js.native
-  val ^ : js.Any = js.native
-  @JSImport("chart.js", JSImport.Namespace)
-  @js.native
   class ^ protected ()
     extends typings.chartJs.mod.Chart {
     def this(context: String, options: js.Any) = this()
@@ -25,6 +23,9 @@ object mod {
     def this(context: CanvasRenderingContext2D, options: js.Any) = this()
     def this(context: HTMLCanvasElement, options: js.Any) = this()
   }
+  @JSImport("chart.js", JSImport.Namespace)
+  @js.native
+  val ^ : js.Any = js.native
   
   @JSImport("chart.js", "Chart")
   @js.native
@@ -43,7 +44,7 @@ object mod {
   def defaults_=(x: Dictkey): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("defaults")(x.asInstanceOf[js.Any])
   
   @js.native
-  trait Chart extends js.Object {
+  trait Chart extends StObject {
     
     def clear(): js.Object = js.native
     
@@ -77,7 +78,7 @@ object mod {
   }
   
   @js.native
-  trait ChartData extends js.Object {
+  trait ChartData extends StObject {
     
     var labels: js.UndefOr[js.Array[String | js.Array[String]]] = js.native
   }
@@ -90,33 +91,21 @@ object mod {
     }
     
     @scala.inline
-    implicit class ChartDataOps[Self <: ChartData] (val x: Self) extends AnyVal {
+    implicit class ChartDataMutableBuilder[Self <: ChartData] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setLabels(value: js.Array[String | js.Array[String]]): Self = StObject.set(x, "labels", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setLabelsUndefined: Self = StObject.set(x, "labels", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setLabelsVarargs(value: (String | js.Array[String])*): Self = this.set("labels", js.Array(value :_*))
-      
-      @scala.inline
-      def setLabels(value: js.Array[String | js.Array[String]]): Self = this.set("labels", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteLabels: Self = this.set("labels", js.undefined)
+      def setLabelsVarargs(value: (String | js.Array[String])*): Self = StObject.set(x, "labels", js.Array(value :_*))
     }
   }
   
   @js.native
-  trait ChartFontOptions extends js.Object {
+  trait ChartFontOptions extends StObject {
     
     var foo: Boolean = js.native
   }
@@ -129,27 +118,15 @@ object mod {
     }
     
     @scala.inline
-    implicit class ChartFontOptionsOps[Self <: ChartFontOptions] (val x: Self) extends AnyVal {
+    implicit class ChartFontOptionsMutableBuilder[Self <: ChartFontOptions] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setFoo(value: Boolean): Self = this.set("foo", value.asInstanceOf[js.Any])
+      def setFoo(value: Boolean): Self = StObject.set(x, "foo", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait ChartOptions extends js.Object {
+  trait ChartOptions extends StObject {
     
     // Plugins can require any options
     var plugins: js.UndefOr[StringDictionary[js.Any]] = js.native
@@ -165,31 +142,19 @@ object mod {
     }
     
     @scala.inline
-    implicit class ChartOptionsOps[Self <: ChartOptions] (val x: Self) extends AnyVal {
+    implicit class ChartOptionsMutableBuilder[Self <: ChartOptions] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setPlugins(value: StringDictionary[js.Any]): Self = StObject.set(x, "plugins", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setPluginsUndefined: Self = StObject.set(x, "plugins", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setResponsive(value: Boolean): Self = StObject.set(x, "responsive", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPlugins(value: StringDictionary[js.Any]): Self = this.set("plugins", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deletePlugins: Self = this.set("plugins", js.undefined)
-      
-      @scala.inline
-      def setResponsive(value: Boolean): Self = this.set("responsive", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteResponsive: Self = this.set("responsive", js.undefined)
+      def setResponsiveUndefined: Self = StObject.set(x, "responsive", js.undefined)
     }
   }
 }

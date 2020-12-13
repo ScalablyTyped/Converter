@@ -5,6 +5,7 @@ import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import typingsJapgolly.react.mod.ComponentType
 import typingsJapgolly.std.Exclude
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -12,7 +13,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object anon {
   
   @js.native
-  trait `0` extends js.Object {
+  trait `0` extends StObject {
     
     var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any = js.native
   }
@@ -27,27 +28,15 @@ object anon {
     }
     
     @scala.inline
-    implicit class `0Ops`[Self <: `0`] (val x: Self) extends AnyVal {
+    implicit class `0MutableBuilder`[Self <: `0`] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setDefaultProps(value: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any): Self = this.set("defaultProps", value.asInstanceOf[js.Any])
+      def setDefaultProps(value: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any): Self = StObject.set(x, "defaultProps", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait `1` extends js.Object {
+  trait `1` extends StObject {
     
     var ref: js.UndefOr[Exclude[_, String]] = js.native
   }
@@ -60,30 +49,18 @@ object anon {
     }
     
     @scala.inline
-    implicit class `1Ops`[Self <: `1`] (val x: Self) extends AnyVal {
+    implicit class `1MutableBuilder`[Self <: `1`] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setRef(value: Exclude[_, String]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setRef(value: Exclude[_, String]): Self = this.set("ref", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteRef: Self = this.set("ref", js.undefined)
+      def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
     }
   }
   
   @js.native
-  trait Children extends js.Object {
+  trait Children extends StObject {
     
     var children: js.UndefOr[Node] = js.native
   }
@@ -96,33 +73,21 @@ object anon {
     }
     
     @scala.inline
-    implicit class ChildrenOps[Self <: Children] (val x: Self) extends AnyVal {
+    implicit class ChildrenMutableBuilder[Self <: Children] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setChildrenVdomElement(value: VdomElement): Self = this.set("children", value.rawElement.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setChildren(value: VdomNode): Self = this.set("children", value.rawNode.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteChildren: Self = this.set("children", js.undefined)
+      def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait DefaultProps extends js.Object {
+  trait DefaultProps extends StObject {
     
     var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any = js.native
     
@@ -140,30 +105,18 @@ object anon {
     }
     
     @scala.inline
-    implicit class DefaultPropsOps[Self <: DefaultProps] (val x: Self) extends AnyVal {
+    implicit class DefaultPropsMutableBuilder[Self <: DefaultProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setDefaultProps(value: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any): Self = StObject.set(x, "defaultProps", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setDefaultProps(value: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any): Self = this.set("defaultProps", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setPropTypes(value: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any): Self = this.set("propTypes", value.asInstanceOf[js.Any])
+      def setPropTypes(value: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any): Self = StObject.set(x, "propTypes", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait Html extends js.Object {
+  trait Html extends StObject {
     
     var __html: String = js.native
   }
@@ -176,27 +129,15 @@ object anon {
     }
     
     @scala.inline
-    implicit class HtmlOps[Self <: Html] (val x: Self) extends AnyVal {
+    implicit class HtmlMutableBuilder[Self <: Html] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def set__html(value: String): Self = this.set("__html", value.asInstanceOf[js.Any])
+      def set__html(value: String): Self = StObject.set(x, "__html", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait PropTypes extends js.Object {
+  trait PropTypes extends StObject {
     
     var propTypes: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any = js.native
   }
@@ -209,27 +150,15 @@ object anon {
     }
     
     @scala.inline
-    implicit class PropTypesOps[Self <: PropTypes] (val x: Self) extends AnyVal {
+    implicit class PropTypesMutableBuilder[Self <: PropTypes] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setPropTypes(value: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any): Self = this.set("propTypes", value.asInstanceOf[js.Any])
+      def setPropTypes(value: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any): Self = StObject.set(x, "propTypes", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait Ref extends js.Object {
+  trait Ref extends StObject {
     
     var ref: js.UndefOr[
         /* import warning: importer.ImportType#apply Failed type conversion: infer R */ js.Any
@@ -244,30 +173,18 @@ object anon {
     }
     
     @scala.inline
-    implicit class RefOps[Self <: Ref] (val x: Self) extends AnyVal {
+    implicit class RefMutableBuilder[Self <: Ref] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setRef(value: /* import warning: importer.ImportType#apply Failed type conversion: infer R */ js.Any): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setRef(value: /* import warning: importer.ImportType#apply Failed type conversion: infer R */ js.Any): Self = this.set("ref", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteRef: Self = this.set("ref", js.undefined)
+      def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
     }
   }
   
   @js.native
-  trait Result[T /* <: ComponentType[_] */] extends js.Object {
+  trait Result[T /* <: ComponentType[_] */] extends StObject {
     
     val _result: T = js.native
   }
@@ -280,27 +197,15 @@ object anon {
     }
     
     @scala.inline
-    implicit class ResultOps[Self <: Result[_], T /* <: ComponentType[_] */] (val x: Self with Result[T]) extends AnyVal {
+    implicit class ResultMutableBuilder[Self <: Result[_], T /* <: ComponentType[_] */] (val x: Self with Result[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def set_result(value: T): Self = this.set("_result", value.asInstanceOf[js.Any])
+      def set_result(value: T): Self = StObject.set(x, "_result", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait Type[T /* <: ComponentType[_] */] extends js.Object {
+  trait Type[T /* <: ComponentType[_] */] extends StObject {
     
     val `type`: T = js.native
   }
@@ -314,22 +219,10 @@ object anon {
     }
     
     @scala.inline
-    implicit class TypeOps[Self <: Type[_], T /* <: ComponentType[_] */] (val x: Self with Type[T]) extends AnyVal {
+    implicit class TypeMutableBuilder[Self <: Type[_], T /* <: ComponentType[_] */] (val x: Self with Type[T]) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setType(value: T): Self = this.set("type", value.asInstanceOf[js.Any])
+      def setType(value: T): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
 }

@@ -2,6 +2,7 @@ package typings.node
 
 import typings.node.NodeJS.ReadableStream
 import typings.node.NodeJS.WritableStream
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -43,7 +44,7 @@ object streamMod {
   
   @JSImport("stream", "Stream")
   @js.native
-  class Stream () extends js.Object
+  class Stream () extends StObject
   
   @JSImport("stream", "Writable")
   @js.native

@@ -12,6 +12,7 @@ import typingsSlinky.semanticUiReact.accordionPanelMod.AccordionPanelProps
 import typingsSlinky.semanticUiReact.accordionTitleMod.AccordionTitleProps
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandCollection
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -22,16 +23,31 @@ object Accordion {
   @js.native
   val component: js.Object = js.native
   
+  implicit def make(companion: Accordion.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+  
+  def withProps(p: AccordionProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  
+  object Accordion {
+    
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Accordion")
+    @js.native
+    val component: js.Object = js.native
+    
+    implicit def make(companion: Accordion.type): SharedBuilder_AccordionAccordionProps_1044969128[typingsSlinky.semanticUiReact.accordionMod.default.Accordion] = new SharedBuilder_AccordionAccordionProps_1044969128[typingsSlinky.semanticUiReact.accordionMod.default.Accordion](js.Array(this.component, js.Dictionary.empty))()
+    
+    def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps_1044969128[typingsSlinky.semanticUiReact.accordionMod.default.Accordion] = new SharedBuilder_AccordionAccordionProps_1044969128[typingsSlinky.semanticUiReact.accordionMod.default.Accordion](js.Array(this.component, p.asInstanceOf[js.Any]))
+  }
+  
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[tag.type, default] {
     
     @scala.inline
-    def activeIndexVarargs(value: Double*): this.type = set("activeIndex", js.Array(value :_*))
+    def activeIndex(value: Double | js.Array[Double]): this.type = set("activeIndex", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def activeIndex(value: Double | js.Array[Double]): this.type = set("activeIndex", value.asInstanceOf[js.Any])
+    def activeIndexVarargs(value: Double*): this.type = set("activeIndex", js.Array(value :_*))
     
     @scala.inline
     def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
@@ -40,10 +56,10 @@ object Accordion {
     def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def defaultActiveIndexVarargs(value: Double*): this.type = set("defaultActiveIndex", js.Array(value :_*))
+    def defaultActiveIndex(value: Double | js.Array[Double]): this.type = set("defaultActiveIndex", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def defaultActiveIndex(value: Double | js.Array[Double]): this.type = set("defaultActiveIndex", value.asInstanceOf[js.Any])
+    def defaultActiveIndexVarargs(value: Double*): this.type = set("defaultActiveIndex", js.Array(value :_*))
     
     @scala.inline
     def exclusive(value: Boolean): this.type = set("exclusive", value.asInstanceOf[js.Any])
@@ -58,28 +74,13 @@ object Accordion {
     def onTitleClick(value: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit): this.type = set("onTitleClick", js.Any.fromFunction2(value))
     
     @scala.inline
-    def panelsVarargs(value: SemanticShorthandItem[AccordionPanelProps]*): this.type = set("panels", js.Array(value :_*))
-    
-    @scala.inline
     def panels(value: SemanticShorthandCollection[AccordionPanelProps]): this.type = set("panels", value.asInstanceOf[js.Any])
     
     @scala.inline
+    def panelsVarargs(value: SemanticShorthandItem[AccordionPanelProps]*): this.type = set("panels", js.Array(value :_*))
+    
+    @scala.inline
     def styled(value: Boolean): this.type = set("styled", value.asInstanceOf[js.Any])
-  }
-  
-  def withProps(p: AccordionProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
-  
-  implicit def make(companion: Accordion.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
-  
-  object Accordion {
-    
-    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Accordion")
-    @js.native
-    val component: js.Object = js.native
-    
-    def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps_1044969128[typingsSlinky.semanticUiReact.accordionMod.default.Accordion] = new SharedBuilder_AccordionAccordionProps_1044969128[typingsSlinky.semanticUiReact.accordionMod.default.Accordion](js.Array(this.component, p.asInstanceOf[js.Any]))
-    
-    implicit def make(companion: Accordion.type): SharedBuilder_AccordionAccordionProps_1044969128[typingsSlinky.semanticUiReact.accordionMod.default.Accordion] = new SharedBuilder_AccordionAccordionProps_1044969128[typingsSlinky.semanticUiReact.accordionMod.default.Accordion](js.Array(this.component, js.Dictionary.empty))()
   }
   
   object Content {
@@ -88,9 +89,9 @@ object Accordion {
     @js.native
     val component: js.Object = js.native
     
-    def withProps(p: AccordionContentProps): SharedBuilder_AccordionContentProps_1656243680 = new SharedBuilder_AccordionContentProps_1656243680(js.Array(this.component, p.asInstanceOf[js.Any]))
-    
     implicit def make(companion: Content.type): SharedBuilder_AccordionContentProps_1656243680 = new SharedBuilder_AccordionContentProps_1656243680(js.Array(this.component, js.Dictionary.empty))()
+    
+    def withProps(p: AccordionContentProps): SharedBuilder_AccordionContentProps_1656243680 = new SharedBuilder_AccordionContentProps_1656243680(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   object Title {
@@ -99,8 +100,8 @@ object Accordion {
     @js.native
     val component: js.Object = js.native
     
-    def withProps(p: AccordionTitleProps): SharedBuilder_AccordionTitleProps1986434512[typingsSlinky.semanticUiReact.accordionMod.default.Title] = new SharedBuilder_AccordionTitleProps1986434512[typingsSlinky.semanticUiReact.accordionMod.default.Title](js.Array(this.component, p.asInstanceOf[js.Any]))
-    
     implicit def make(companion: Title.type): SharedBuilder_AccordionTitleProps1986434512[typingsSlinky.semanticUiReact.accordionMod.default.Title] = new SharedBuilder_AccordionTitleProps1986434512[typingsSlinky.semanticUiReact.accordionMod.default.Title](js.Array(this.component, js.Dictionary.empty))()
+    
+    def withProps(p: AccordionTitleProps): SharedBuilder_AccordionTitleProps1986434512[typingsSlinky.semanticUiReact.accordionMod.default.Title] = new SharedBuilder_AccordionTitleProps1986434512[typingsSlinky.semanticUiReact.accordionMod.default.Title](js.Array(this.component, p.asInstanceOf[js.Any]))
   }
 }

@@ -5,7 +5,7 @@ package flavours
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
-import org.scalablytyped.converter.internal.scalajs.flavours.GenImplicitOpsClass.AvailableName
+import org.scalablytyped.converter.internal.scalajs.flavours.GenBuilderOpsClass.AvailableName
 import org.scalablytyped.converter.internal.scalajs.transforms.Mangler
 
 object JapgollyGenComponents {

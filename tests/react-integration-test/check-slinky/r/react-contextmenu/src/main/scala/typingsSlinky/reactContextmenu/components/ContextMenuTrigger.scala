@@ -6,15 +6,24 @@ import typingsSlinky.StBuildingComponent
 import typingsSlinky.react.mod.HTMLAttributes
 import typingsSlinky.react.mod.ReactType
 import typingsSlinky.reactContextmenu.mod.ContextMenuTriggerProps
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object ContextMenuTrigger {
   
+  @scala.inline
+  def apply(id: String): Builder = {
+    val __props = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
+    new Builder(js.Array(this.component, __props.asInstanceOf[ContextMenuTriggerProps]))
+  }
+  
   @JSImport("react-contextmenu", "ContextMenuTrigger")
   @js.native
   val component: js.Object = js.native
+  
+  def withProps(p: ContextMenuTriggerProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])
@@ -34,20 +43,12 @@ object ContextMenuTrigger {
     def holdToDisplay(value: Double): this.type = set("holdToDisplay", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def renderTagFunctionComponent(value: ReactComponentClass[_]): this.type = set("renderTag", value.asInstanceOf[js.Any])
+    def renderTag(value: ReactType[_]): this.type = set("renderTag", value.asInstanceOf[js.Any])
     
     @scala.inline
     def renderTagComponentClass(value: ReactComponentClass[_]): this.type = set("renderTag", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def renderTag(value: ReactType[_]): this.type = set("renderTag", value.asInstanceOf[js.Any])
-  }
-  
-  def withProps(p: ContextMenuTriggerProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
-  
-  @scala.inline
-  def apply(id: String): Builder = {
-    val __props = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
-    new Builder(js.Array(this.component, __props.asInstanceOf[ContextMenuTriggerProps]))
+    def renderTagFunctionComponent(value: ReactComponentClass[_]): this.type = set("renderTag", value.asInstanceOf[js.Any])
   }
 }

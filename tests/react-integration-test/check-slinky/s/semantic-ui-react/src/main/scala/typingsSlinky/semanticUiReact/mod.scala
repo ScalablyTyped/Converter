@@ -4,6 +4,7 @@ import slinky.core.ReactComponentClass
 import typingsSlinky.semanticUiReact.buttonContentMod.ButtonContentProps
 import typingsSlinky.semanticUiReact.buttonGroupMod.ButtonGroupProps
 import typingsSlinky.semanticUiReact.buttonOrMod.ButtonOrProps
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

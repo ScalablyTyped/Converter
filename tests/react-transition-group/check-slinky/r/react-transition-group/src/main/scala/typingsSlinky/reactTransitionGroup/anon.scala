@@ -1,6 +1,7 @@
 package typingsSlinky.reactTransitionGroup
 
 import slinky.core.facade.ReactElement
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -8,7 +9,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object anon {
   
   @js.native
-  trait ChildFactory extends js.Object {
+  trait ChildFactory extends StObject {
     
     var childFactory: js.UndefOr[js.Function1[/* child */ ReactElement, ReactElement]] = js.native
   }
@@ -21,25 +22,13 @@ object anon {
     }
     
     @scala.inline
-    implicit class ChildFactoryOps[Self <: ChildFactory] (val x: Self) extends AnyVal {
+    implicit class ChildFactoryMutableBuilder[Self <: ChildFactory] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setChildFactory(value: /* child */ ReactElement => ReactElement): Self = StObject.set(x, "childFactory", js.Any.fromFunction1(value))
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setChildFactory(value: /* child */ ReactElement => ReactElement): Self = this.set("childFactory", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def deleteChildFactory: Self = this.set("childFactory", js.undefined)
+      def setChildFactoryUndefined: Self = StObject.set(x, "childFactory", js.undefined)
     }
   }
 }

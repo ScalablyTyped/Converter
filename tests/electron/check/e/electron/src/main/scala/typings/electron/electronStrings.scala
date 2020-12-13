@@ -1,5 +1,6 @@
 package typings.electron
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -16,11 +17,11 @@ object electronStrings {
   def bar_ : bar_ = "bar".asInstanceOf[bar_]
   
   @js.native
-  sealed trait Bar extends js.Object
+  sealed trait Bar extends StObject
   
   @js.native
-  sealed trait `accessibility-support-changed` extends js.Object
+  sealed trait `accessibility-support-changed` extends StObject
   
   @js.native
-  sealed trait bar_ extends js.Object
+  sealed trait bar_ extends StObject
 }

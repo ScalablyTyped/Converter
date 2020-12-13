@@ -1,5 +1,6 @@
 package typings.cldrjs
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -15,7 +16,7 @@ object mod {
   implicit def __is(ignored: mod.type): CldrFactory = typings.cldrjs.mod.^
   
   @js.native
-  trait Attributes extends js.Object {
+  trait Attributes extends StObject {
     
     var language: js.Any = js.native
   }
@@ -28,27 +29,15 @@ object mod {
     }
     
     @scala.inline
-    implicit class AttributesOps[Self <: Attributes] (val x: Self) extends AnyVal {
+    implicit class AttributesMutableBuilder[Self <: Attributes] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setLanguage(value: js.Any): Self = this.set("language", value.asInstanceOf[js.Any])
+      def setLanguage(value: js.Any): Self = StObject.set(x, "language", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait CldrFactory extends js.Object {
+  trait CldrFactory extends StObject {
     
     def load(json: js.Any, otherJson: js.Any*): Unit = js.native
     
@@ -72,31 +61,19 @@ object mod {
     }
     
     @scala.inline
-    implicit class CldrFactoryOps[Self <: CldrFactory] (val x: Self) extends AnyVal {
+    implicit class CldrFactoryMutableBuilder[Self <: CldrFactory] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setLoad(value: (js.Any, /* repeated */ js.Any) => Unit): Self = StObject.set(x, "load", js.Any.fromFunction2(value))
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setOff(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "off", js.Any.fromFunction2(value))
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setOn(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
       
       @scala.inline
-      def setLoad(value: (js.Any, /* repeated */ js.Any) => Unit): Self = this.set("load", js.Any.fromFunction2(value))
-      
-      @scala.inline
-      def setOff(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = this.set("off", js.Any.fromFunction2(value))
-      
-      @scala.inline
-      def setOn(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = this.set("on", js.Any.fromFunction2(value))
-      
-      @scala.inline
-      def setOnce(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = this.set("once", js.Any.fromFunction2(value))
+      def setOnce(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "once", js.Any.fromFunction2(value))
     }
   }
   
@@ -109,7 +86,7 @@ object mod {
     * The cldr class definition.
     */
   @js.native
-  trait CldrStatic extends js.Object {
+  trait CldrStatic extends StObject {
     
     def get(path: String): js.Any = js.native
     
@@ -126,7 +103,7 @@ object mod {
   }
   
   @js.native
-  trait SupplementalStatic extends js.Object {
+  trait SupplementalStatic extends StObject {
     
     def apply(path: String): js.Any = js.native
     def apply(paths: js.Array[String]): js.Any = js.native
@@ -137,7 +114,7 @@ object mod {
   }
   
   @js.native
-  trait TimeDataStatic extends js.Object {
+  trait TimeDataStatic extends StObject {
     
     def allowed(): String = js.native
     
@@ -152,30 +129,18 @@ object mod {
     }
     
     @scala.inline
-    implicit class TimeDataStaticOps[Self <: TimeDataStatic] (val x: Self) extends AnyVal {
+    implicit class TimeDataStaticMutableBuilder[Self <: TimeDataStatic] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setAllowed(value: () => String): Self = StObject.set(x, "allowed", js.Any.fromFunction0(value))
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setAllowed(value: () => String): Self = this.set("allowed", js.Any.fromFunction0(value))
-      
-      @scala.inline
-      def setPreferred(value: () => String): Self = this.set("preferred", js.Any.fromFunction0(value))
+      def setPreferred(value: () => String): Self = StObject.set(x, "preferred", js.Any.fromFunction0(value))
     }
   }
   
   @js.native
-  trait WeekDataStatic extends js.Object {
+  trait WeekDataStatic extends StObject {
     
     def firstDay(): String = js.native
     
@@ -190,25 +155,13 @@ object mod {
     }
     
     @scala.inline
-    implicit class WeekDataStaticOps[Self <: WeekDataStatic] (val x: Self) extends AnyVal {
+    implicit class WeekDataStaticMutableBuilder[Self <: WeekDataStatic] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setFirstDay(value: () => String): Self = StObject.set(x, "firstDay", js.Any.fromFunction0(value))
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setFirstDay(value: () => String): Self = this.set("firstDay", js.Any.fromFunction0(value))
-      
-      @scala.inline
-      def setMinDays(value: () => Double): Self = this.set("minDays", js.Any.fromFunction0(value))
+      def setMinDays(value: () => Double): Self = StObject.set(x, "minDays", js.Any.fromFunction0(value))
     }
   }
 }

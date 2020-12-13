@@ -4,6 +4,7 @@ import org.scalablytyped.runtime.StringDictionary
 import typings.awsSdk.documentClientMod.DocumentClient.DocumentClientOptions
 import typings.awsSdk.dynamodbMod.ClientConfiguration
 import typings.awsSdk.dynamodbMod.^
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -15,13 +16,13 @@ object documentClientMod {
   /**
     * Creates a DynamoDB document client with a set of configuration options.
     */
-  class DocumentClient () extends js.Object {
+  class DocumentClient () extends StObject {
     def this(options: DocumentClientOptions with ClientConfiguration) = this()
   }
   object DocumentClient {
     
     @js.native
-    trait ConverterOptions extends js.Object {
+    trait ConverterOptions extends StObject {
       
       /**
         * An optional flag indicating that the document client should cast
@@ -45,31 +46,19 @@ object documentClientMod {
       }
       
       @scala.inline
-      implicit class ConverterOptionsOps[Self <: ConverterOptions] (val x: Self) extends AnyVal {
+      implicit class ConverterOptionsMutableBuilder[Self <: ConverterOptions] (val x: Self) extends AnyVal {
         
         @scala.inline
-        def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+        def setConvertEmptyValues(value: Boolean): Self = StObject.set(x, "convertEmptyValues", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+        def setConvertEmptyValuesUndefined: Self = StObject.set(x, "convertEmptyValues", js.undefined)
         
         @scala.inline
-        def set(key: String, value: js.Any): Self = {
-          x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-          x
-        }
+        def setWrapNumbers(value: Boolean): Self = StObject.set(x, "wrapNumbers", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setConvertEmptyValues(value: Boolean): Self = this.set("convertEmptyValues", value.asInstanceOf[js.Any])
-        
-        @scala.inline
-        def deleteConvertEmptyValues: Self = this.set("convertEmptyValues", js.undefined)
-        
-        @scala.inline
-        def setWrapNumbers(value: Boolean): Self = this.set("wrapNumbers", value.asInstanceOf[js.Any])
-        
-        @scala.inline
-        def deleteWrapNumbers: Self = this.set("wrapNumbers", js.undefined)
+        def setWrapNumbersUndefined: Self = StObject.set(x, "wrapNumbers", js.undefined)
       }
     }
     
@@ -95,35 +84,23 @@ object documentClientMod {
       }
       
       @scala.inline
-      implicit class DocumentClientOptionsOps[Self <: DocumentClientOptions] (val x: Self) extends AnyVal {
+      implicit class DocumentClientOptionsMutableBuilder[Self <: DocumentClientOptions] (val x: Self) extends AnyVal {
         
         @scala.inline
-        def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+        def setParams(value: StringDictionary[js.Any]): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+        def setParamsUndefined: Self = StObject.set(x, "params", js.undefined)
         
         @scala.inline
-        def set(key: String, value: js.Any): Self = {
-          x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-          x
-        }
+        def setService(value: ^): Self = StObject.set(x, "service", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setParams(value: StringDictionary[js.Any]): Self = this.set("params", value.asInstanceOf[js.Any])
-        
-        @scala.inline
-        def deleteParams: Self = this.set("params", js.undefined)
-        
-        @scala.inline
-        def setService(value: ^): Self = this.set("service", value.asInstanceOf[js.Any])
-        
-        @scala.inline
-        def deleteService: Self = this.set("service", js.undefined)
+        def setServiceUndefined: Self = StObject.set(x, "service", js.undefined)
       }
     }
     
-    trait _AttributeAction extends js.Object
+    trait _AttributeAction extends StObject
     
     /* Rewritten from type alias, can be one of: 
       - typings.awsSdk.awsSdkStrings.ADD

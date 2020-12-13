@@ -1,6 +1,7 @@
 package typings.awsSdk
 
 import typings.awsSdk.documentClientMod.DocumentClient._AttributeAction
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -29,5 +30,5 @@ object awsSdkStrings {
   sealed trait PUT extends _AttributeAction
   
   @js.native
-  sealed trait latest extends js.Object
+  sealed trait latest extends StObject
 }

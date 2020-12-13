@@ -3,6 +3,7 @@ package typingsSlinky.reactBootstrap
 import typingsSlinky.react.mod.Component
 import typingsSlinky.react.mod.HTMLProps
 import typingsSlinky.reactBootstrap.mod.Sizes
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -40,49 +41,37 @@ object buttonGroupMod {
     }
     
     @scala.inline
-    implicit class ButtonGroupPropsOps[Self <: ButtonGroupProps] (val x: Self) extends AnyVal {
+    implicit class ButtonGroupPropsMutableBuilder[Self <: ButtonGroupProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setBlock(value: Boolean): Self = StObject.set(x, "block", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setBlockUndefined: Self = StObject.set(x, "block", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setBsSize(value: Sizes): Self = StObject.set(x, "bsSize", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setBlock(value: Boolean): Self = this.set("block", value.asInstanceOf[js.Any])
+      def setBsSizeUndefined: Self = StObject.set(x, "bsSize", js.undefined)
       
       @scala.inline
-      def deleteBlock: Self = this.set("block", js.undefined)
+      def setBsStyle(value: String): Self = StObject.set(x, "bsStyle", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setBsSize(value: Sizes): Self = this.set("bsSize", value.asInstanceOf[js.Any])
+      def setBsStyleUndefined: Self = StObject.set(x, "bsStyle", js.undefined)
       
       @scala.inline
-      def deleteBsSize: Self = this.set("bsSize", js.undefined)
+      def setJustified(value: Boolean): Self = StObject.set(x, "justified", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setBsStyle(value: String): Self = this.set("bsStyle", value.asInstanceOf[js.Any])
+      def setJustifiedUndefined: Self = StObject.set(x, "justified", js.undefined)
       
       @scala.inline
-      def deleteBsStyle: Self = this.set("bsStyle", js.undefined)
+      def setVertical(value: Boolean): Self = StObject.set(x, "vertical", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setJustified(value: Boolean): Self = this.set("justified", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteJustified: Self = this.set("justified", js.undefined)
-      
-      @scala.inline
-      def setVertical(value: Boolean): Self = this.set("vertical", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteVertical: Self = this.set("vertical", js.undefined)
+      def setVerticalUndefined: Self = StObject.set(x, "vertical", js.undefined)
     }
   }
 }

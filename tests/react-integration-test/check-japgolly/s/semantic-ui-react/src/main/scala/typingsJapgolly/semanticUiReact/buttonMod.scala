@@ -32,6 +32,7 @@ import typingsJapgolly.semanticUiReact.semanticUiReactStrings.twitter
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.vertical
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.vk
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.youtube
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -148,194 +149,182 @@ object buttonMod {
     }
     
     @scala.inline
-    implicit class StrictButtonPropsOps[Self <: StrictButtonProps] (val x: Self) extends AnyVal {
+    implicit class StrictButtonPropsMutableBuilder[Self <: StrictButtonProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setActive(value: Boolean): Self = StObject.set(x, "active", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setActiveUndefined: Self = StObject.set(x, "active", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setAnimated(value: Boolean | fade | vertical): Self = StObject.set(x, "animated", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setActive(value: Boolean): Self = this.set("active", value.asInstanceOf[js.Any])
+      def setAnimatedUndefined: Self = StObject.set(x, "animated", js.undefined)
       
       @scala.inline
-      def deleteActive: Self = this.set("active", js.undefined)
+      def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAnimated(value: Boolean | fade | vertical): Self = this.set("animated", value.asInstanceOf[js.Any])
+      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
       @scala.inline
-      def deleteAnimated: Self = this.set("animated", js.undefined)
+      def setAttached(value: Boolean | left | right | top | bottom): Self = StObject.set(x, "attached", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAs(value: js.Any): Self = this.set("as", value.asInstanceOf[js.Any])
+      def setAttachedUndefined: Self = StObject.set(x, "attached", js.undefined)
       
       @scala.inline
-      def deleteAs: Self = this.set("as", js.undefined)
+      def setBasic(value: Boolean): Self = StObject.set(x, "basic", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAttached(value: Boolean | left | right | top | bottom): Self = this.set("attached", value.asInstanceOf[js.Any])
+      def setBasicUndefined: Self = StObject.set(x, "basic", js.undefined)
       
       @scala.inline
-      def deleteAttached: Self = this.set("attached", js.undefined)
+      def setCircular(value: Boolean): Self = StObject.set(x, "circular", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setBasic(value: Boolean): Self = this.set("basic", value.asInstanceOf[js.Any])
+      def setCircularUndefined: Self = StObject.set(x, "circular", js.undefined)
       
       @scala.inline
-      def deleteBasic: Self = this.set("basic", js.undefined)
+      def setColor(value: SemanticCOLORS | facebook | (`google plus`) | vk | twitter | linkedin | instagram | youtube): Self = StObject.set(x, "color", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCircular(value: Boolean): Self = this.set("circular", value.asInstanceOf[js.Any])
+      def setColorUndefined: Self = StObject.set(x, "color", js.undefined)
       
       @scala.inline
-      def deleteCircular: Self = this.set("circular", js.undefined)
+      def setCompact(value: Boolean): Self = StObject.set(x, "compact", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setColor(value: SemanticCOLORS | facebook | (`google plus`) | vk | twitter | linkedin | instagram | youtube): Self = this.set("color", value.asInstanceOf[js.Any])
+      def setCompactUndefined: Self = StObject.set(x, "compact", js.undefined)
       
       @scala.inline
-      def deleteColor: Self = this.set("color", js.undefined)
+      def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCompact(value: Boolean): Self = this.set("compact", value.asInstanceOf[js.Any])
+      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
       
       @scala.inline
-      def deleteCompact: Self = this.set("compact", js.undefined)
+      def setContentVdomElement(value: VdomElement): Self = StObject.set(x, "content", value.rawElement.asInstanceOf[js.Any])
       
       @scala.inline
-      def setContentVdomElement(value: VdomElement): Self = this.set("content", value.rawElement.asInstanceOf[js.Any])
+      def setFloated(value: SemanticFLOATS): Self = StObject.set(x, "floated", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setContent(value: SemanticShorthandContent): Self = this.set("content", value.asInstanceOf[js.Any])
+      def setFloatedUndefined: Self = StObject.set(x, "floated", js.undefined)
       
       @scala.inline
-      def deleteContent: Self = this.set("content", js.undefined)
+      def setFluid(value: Boolean): Self = StObject.set(x, "fluid", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFloated(value: SemanticFLOATS): Self = this.set("floated", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteFloated: Self = this.set("floated", js.undefined)
-      
-      @scala.inline
-      def setFluid(value: Boolean): Self = this.set("fluid", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteFluid: Self = this.set("fluid", js.undefined)
-      
-      @scala.inline
-      def setIconVdomElement(value: VdomElement): Self = this.set("icon", value.rawElement.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setIconFunction3(
-        value: (/* component */ ReactType[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
-            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
-      ): Self = this.set("icon", js.Any.fromFunction3(value))
+      def setFluidUndefined: Self = StObject.set(x, "fluid", js.undefined)
       
       @scala.inline
       def setIcon(
         value: Boolean | (SemanticShorthandItem[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
             ])
-      ): Self = this.set("icon", value.asInstanceOf[js.Any])
+      ): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteIcon: Self = this.set("icon", js.undefined)
-      
-      @scala.inline
-      def setInverted(value: Boolean): Self = this.set("inverted", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteInverted: Self = this.set("inverted", js.undefined)
-      
-      @scala.inline
-      def setLabelVdomElement(value: VdomElement): Self = this.set("label", value.rawElement.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setLabelFunction3(
+      def setIconFunction3(
         value: (/* component */ ReactType[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
-            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
-      ): Self = this.set("label", js.Any.fromFunction3(value))
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
+            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+      ): Self = StObject.set(x, "icon", js.Any.fromFunction3(value))
+      
+      @scala.inline
+      def setIconUndefined: Self = StObject.set(x, "icon", js.undefined)
+      
+      @scala.inline
+      def setIconVdomElement(value: VdomElement): Self = StObject.set(x, "icon", value.rawElement.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setInverted(value: Boolean): Self = StObject.set(x, "inverted", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setInvertedUndefined: Self = StObject.set(x, "inverted", js.undefined)
       
       @scala.inline
       def setLabel(
         value: SemanticShorthandItem[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
             ]
-      ): Self = this.set("label", value.asInstanceOf[js.Any])
+      ): Self = StObject.set(x, "label", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteLabel: Self = this.set("label", js.undefined)
+      def setLabelFunction3(
+        value: (/* component */ ReactType[
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
+            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+      ): Self = StObject.set(x, "label", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setLabelPosition(value: right | left): Self = this.set("labelPosition", value.asInstanceOf[js.Any])
+      def setLabelPosition(value: right | left): Self = StObject.set(x, "labelPosition", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteLabelPosition: Self = this.set("labelPosition", js.undefined)
+      def setLabelPositionUndefined: Self = StObject.set(x, "labelPosition", js.undefined)
       
       @scala.inline
-      def setLoading(value: Boolean): Self = this.set("loading", value.asInstanceOf[js.Any])
+      def setLabelUndefined: Self = StObject.set(x, "label", js.undefined)
       
       @scala.inline
-      def deleteLoading: Self = this.set("loading", js.undefined)
+      def setLabelVdomElement(value: VdomElement): Self = StObject.set(x, "label", value.rawElement.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNegative(value: Boolean): Self = this.set("negative", value.asInstanceOf[js.Any])
+      def setLoading(value: Boolean): Self = StObject.set(x, "loading", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteNegative: Self = this.set("negative", js.undefined)
+      def setLoadingUndefined: Self = StObject.set(x, "loading", js.undefined)
       
       @scala.inline
-      def setOnClick(value: (/* event */ ReactMouseEventFrom[HTMLButtonElement], /* data */ ButtonProps) => Callback): Self = this.set("onClick", js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLButtonElement], t1: /* data */ ButtonProps) => (value(t0, t1)).runNow()))
+      def setNegative(value: Boolean): Self = StObject.set(x, "negative", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteOnClick: Self = this.set("onClick", js.undefined)
+      def setNegativeUndefined: Self = StObject.set(x, "negative", js.undefined)
       
       @scala.inline
-      def setPositive(value: Boolean): Self = this.set("positive", value.asInstanceOf[js.Any])
+      def setOnClick(value: (/* event */ ReactMouseEventFrom[HTMLButtonElement], /* data */ ButtonProps) => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLButtonElement], t1: /* data */ ButtonProps) => (value(t0, t1)).runNow()))
       
       @scala.inline
-      def deletePositive: Self = this.set("positive", js.undefined)
+      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
       
       @scala.inline
-      def setPrimary(value: Boolean): Self = this.set("primary", value.asInstanceOf[js.Any])
+      def setPositive(value: Boolean): Self = StObject.set(x, "positive", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deletePrimary: Self = this.set("primary", js.undefined)
+      def setPositiveUndefined: Self = StObject.set(x, "positive", js.undefined)
       
       @scala.inline
-      def setSecondary(value: Boolean): Self = this.set("secondary", value.asInstanceOf[js.Any])
+      def setPrimary(value: Boolean): Self = StObject.set(x, "primary", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteSecondary: Self = this.set("secondary", js.undefined)
+      def setPrimaryUndefined: Self = StObject.set(x, "primary", js.undefined)
       
       @scala.inline
-      def setSize(value: SemanticSIZES): Self = this.set("size", value.asInstanceOf[js.Any])
+      def setSecondary(value: Boolean): Self = StObject.set(x, "secondary", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteSize: Self = this.set("size", js.undefined)
+      def setSecondaryUndefined: Self = StObject.set(x, "secondary", js.undefined)
       
       @scala.inline
-      def setTabIndex(value: Double | String): Self = this.set("tabIndex", value.asInstanceOf[js.Any])
+      def setSize(value: SemanticSIZES): Self = StObject.set(x, "size", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteTabIndex: Self = this.set("tabIndex", js.undefined)
+      def setSizeUndefined: Self = StObject.set(x, "size", js.undefined)
       
       @scala.inline
-      def setToggle(value: Boolean): Self = this.set("toggle", value.asInstanceOf[js.Any])
+      def setTabIndex(value: Double | String): Self = StObject.set(x, "tabIndex", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def deleteToggle: Self = this.set("toggle", js.undefined)
+      def setTabIndexUndefined: Self = StObject.set(x, "tabIndex", js.undefined)
+      
+      @scala.inline
+      def setToggle(value: Boolean): Self = StObject.set(x, "toggle", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setToggleUndefined: Self = StObject.set(x, "toggle", js.undefined)
     }
   }
   

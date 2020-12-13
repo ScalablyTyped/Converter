@@ -1,5 +1,6 @@
 package typings.phaser
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -7,7 +8,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object anon {
   
   @js.native
-  trait LowerBound extends js.Object {
+  trait LowerBound extends StObject {
     
     var lowerBound: js.UndefOr[js.Array[Double]] = js.native
     
@@ -22,37 +23,25 @@ object anon {
     }
     
     @scala.inline
-    implicit class LowerBoundOps[Self <: LowerBound] (val x: Self) extends AnyVal {
+    implicit class LowerBoundMutableBuilder[Self <: LowerBound] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setLowerBound(value: js.Array[Double]): Self = StObject.set(x, "lowerBound", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setLowerBoundUndefined: Self = StObject.set(x, "lowerBound", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setLowerBoundVarargs(value: Double*): Self = StObject.set(x, "lowerBound", js.Array(value :_*))
       
       @scala.inline
-      def setLowerBoundVarargs(value: Double*): Self = this.set("lowerBound", js.Array(value :_*))
+      def setUpperBound(value: js.Array[Double]): Self = StObject.set(x, "upperBound", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setLowerBound(value: js.Array[Double]): Self = this.set("lowerBound", value.asInstanceOf[js.Any])
+      def setUpperBoundUndefined: Self = StObject.set(x, "upperBound", js.undefined)
       
       @scala.inline
-      def deleteLowerBound: Self = this.set("lowerBound", js.undefined)
-      
-      @scala.inline
-      def setUpperBoundVarargs(value: Double*): Self = this.set("upperBound", js.Array(value :_*))
-      
-      @scala.inline
-      def setUpperBound(value: js.Array[Double]): Self = this.set("upperBound", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteUpperBound: Self = this.set("upperBound", js.undefined)
+      def setUpperBoundVarargs(value: Double*): Self = StObject.set(x, "upperBound", js.Array(value :_*))
     }
   }
 }

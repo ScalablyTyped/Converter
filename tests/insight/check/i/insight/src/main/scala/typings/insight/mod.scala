@@ -2,6 +2,7 @@ package typings.insight
 
 import typings.insight.mod.insight.IConfigstore
 import typings.insight.mod.insight.IOptions
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -15,7 +16,7 @@ object mod {
   }
   
   @js.native
-  trait Insight_ extends js.Object {
+  trait Insight_ extends StObject {
     
     var clientId: String = js.native
     
@@ -34,38 +35,26 @@ object mod {
     }
     
     @scala.inline
-    implicit class Insight_Ops[Self <: Insight_] (val x: Self) extends AnyVal {
+    implicit class Insight_MutableBuilder[Self <: Insight_] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setClientId(value: String): Self = StObject.set(x, "clientId", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setConfig(value: IConfigstore): Self = StObject.set(x, "config", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setOptOut(value: Boolean): Self = StObject.set(x, "optOut", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClientId(value: String): Self = this.set("clientId", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setConfig(value: IConfigstore): Self = this.set("config", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setOptOut(value: Boolean): Self = this.set("optOut", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setTrack(value: /* repeated */ String => Unit): Self = this.set("track", js.Any.fromFunction1(value))
+      def setTrack(value: /* repeated */ String => Unit): Self = StObject.set(x, "track", js.Any.fromFunction1(value))
     }
   }
   
   object insight {
     
     @js.native
-    trait IConfigstore extends js.Object {
+    trait IConfigstore extends StObject {
       
       var all: js.Any = js.native
       
@@ -92,39 +81,27 @@ object mod {
       }
       
       @scala.inline
-      implicit class IConfigstoreOps[Self <: IConfigstore] (val x: Self) extends AnyVal {
+      implicit class IConfigstoreMutableBuilder[Self <: IConfigstore] (val x: Self) extends AnyVal {
         
         @scala.inline
-        def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+        def setAll(value: js.Any): Self = StObject.set(x, "all", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+        def setDel(value: String => Unit): Self = StObject.set(x, "del", js.Any.fromFunction1(value))
         
         @scala.inline
-        def set(key: String, value: js.Any): Self = {
-          x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-          x
-        }
+        def setGet(value: String => js.Any): Self = StObject.set(x, "get", js.Any.fromFunction1(value))
         
         @scala.inline
-        def setAll(value: js.Any): Self = this.set("all", value.asInstanceOf[js.Any])
+        def setPath(value: String): Self = StObject.set(x, "path", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setDel(value: String => Unit): Self = this.set("del", js.Any.fromFunction1(value))
-        
-        @scala.inline
-        def setGet(value: String => js.Any): Self = this.set("get", js.Any.fromFunction1(value))
-        
-        @scala.inline
-        def setPath(value: String): Self = this.set("path", value.asInstanceOf[js.Any])
-        
-        @scala.inline
-        def setSet(value: (String, js.Any) => Unit): Self = this.set("set", js.Any.fromFunction2(value))
+        def setSet(value: (String, js.Any) => Unit): Self = StObject.set(x, "set", js.Any.fromFunction2(value))
       }
     }
     
     @js.native
-    trait IOptions extends js.Object {
+    trait IOptions extends StObject {
       
       var trackingCode: String = js.native
     }
@@ -137,22 +114,10 @@ object mod {
       }
       
       @scala.inline
-      implicit class IOptionsOps[Self <: IOptions] (val x: Self) extends AnyVal {
+      implicit class IOptionsMutableBuilder[Self <: IOptions] (val x: Self) extends AnyVal {
         
         @scala.inline
-        def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-        
-        @scala.inline
-        def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-        
-        @scala.inline
-        def set(key: String, value: js.Any): Self = {
-          x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-          x
-        }
-        
-        @scala.inline
-        def setTrackingCode(value: String): Self = this.set("trackingCode", value.asInstanceOf[js.Any])
+        def setTrackingCode(value: String): Self = StObject.set(x, "trackingCode", value.asInstanceOf[js.Any])
       }
     }
   }

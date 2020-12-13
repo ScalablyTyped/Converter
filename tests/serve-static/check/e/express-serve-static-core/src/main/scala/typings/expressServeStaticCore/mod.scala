@@ -1,5 +1,6 @@
 package typings.expressServeStaticCore
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -21,22 +22,10 @@ object mod {
     }
     
     @scala.inline
-    implicit class RequestOps[Self <: Request] (val x: Self) extends AnyVal {
+    implicit class RequestMutableBuilder[Self <: Request] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setUrl(value: String): Self = this.set("url", value.asInstanceOf[js.Any])
+      def setUrl(value: String): Self = StObject.set(x, "url", value.asInstanceOf[js.Any])
     }
   }
   
@@ -55,22 +44,10 @@ object mod {
     }
     
     @scala.inline
-    implicit class ResponseOps[Self <: Response] (val x: Self) extends AnyVal {
+    implicit class ResponseMutableBuilder[Self <: Response] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-      
-      @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setLocation(value: String => Response): Self = this.set("location", js.Any.fromFunction1(value))
+      def setLocation(value: String => Response): Self = StObject.set(x, "location", js.Any.fromFunction1(value))
     }
   }
   
@@ -79,15 +56,15 @@ object mod {
     object Express {
       
       @js.native
-      trait Application extends js.Object
+      trait Application extends StObject
       
       // These open interfaces may be extended in an application-specific manner via declaration merging.
       // See for example method-override.d.ts (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/method-override/index.d.ts)
       @js.native
-      trait Request extends js.Object
+      trait Request extends StObject
       
       @js.native
-      trait Response extends js.Object
+      trait Response extends StObject
     }
   }
   

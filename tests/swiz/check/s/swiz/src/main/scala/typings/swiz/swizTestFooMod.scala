@@ -3,13 +3,14 @@ package typings.swiz
 import typings.swiz.mod.SERIALIZATION
 import typings.swiz.mod.SERIALIZATION.java
 import typings.swiz.mod.SERIALIZATION.notify
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @JSImport("swiz-test-foo", JSImport.Namespace)
 @js.native
-object swizTestFooMod extends js.Object {
+object swizTestFooMod extends StObject {
   
   @JSBracketAccess
   def apply(value: Double): js.UndefOr[SERIALIZATION with Double] = js.native

@@ -10,6 +10,7 @@ import typingsSlinky.reactBootstrap.reactBootstrapStrings.defaultValue
 import typingsSlinky.reactBootstrap.reactBootstrapStrings.onChange
 import typingsSlinky.reactBootstrap.reactBootstrapStrings.radio
 import typingsSlinky.reactBootstrap.reactBootstrapStrings.value
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -22,7 +23,7 @@ object toggleButtonGroupMod {
     extends Component[ToggleButtonGroupProps, js.Object, js.Any]
   
   @js.native
-  trait BaseProps extends js.Object {
+  trait BaseProps extends StObject {
     
     /**
       * You'll usually want to use string|number|string[]|number[] here,
@@ -45,36 +46,24 @@ object toggleButtonGroupMod {
     }
     
     @scala.inline
-    implicit class BasePropsOps[Self <: BaseProps] (val x: Self) extends AnyVal {
+    implicit class BasePropsMutableBuilder[Self <: BaseProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setDefaultValue(value: js.Any): Self = StObject.set(x, "defaultValue", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setDefaultValueUndefined: Self = StObject.set(x, "defaultValue", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setValue(value: js.Any): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDefaultValue(value: js.Any): Self = this.set("defaultValue", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteDefaultValue: Self = this.set("defaultValue", js.undefined)
-      
-      @scala.inline
-      def setValue(value: js.Any): Self = this.set("value", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteValue: Self = this.set("value", js.undefined)
+      def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
     }
   }
   
   @js.native
-  trait CheckboxProps extends js.Object {
+  trait CheckboxProps extends StObject {
     
     var name: js.UndefOr[String] = js.native
     
@@ -92,39 +81,27 @@ object toggleButtonGroupMod {
     }
     
     @scala.inline
-    implicit class CheckboxPropsOps[Self <: CheckboxProps] (val x: Self) extends AnyVal {
+    implicit class CheckboxPropsMutableBuilder[Self <: CheckboxProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setOnChange(value: /* values */ js.Array[_] => Unit): Self = StObject.set(x, "onChange", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setType(value: checkbox): Self = this.set("type", value.asInstanceOf[js.Any])
+      def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       
       @scala.inline
-      def setName(value: String): Self = this.set("name", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteName: Self = this.set("name", js.undefined)
-      
-      @scala.inline
-      def setOnChange(value: /* values */ js.Array[_] => Unit): Self = this.set("onChange", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def deleteOnChange: Self = this.set("onChange", js.undefined)
+      def setType(value: checkbox): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
   @js.native
-  trait RadioProps extends js.Object {
+  trait RadioProps extends StObject {
     
     /** Required if `type` is set to "radio" */
     var name: String = js.native
@@ -143,31 +120,19 @@ object toggleButtonGroupMod {
     }
     
     @scala.inline
-    implicit class RadioPropsOps[Self <: RadioProps] (val x: Self) extends AnyVal {
+    implicit class RadioPropsMutableBuilder[Self <: RadioProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setOnChange(value: /* value */ js.Any => Unit): Self = StObject.set(x, "onChange", js.Any.fromFunction1(value))
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       
       @scala.inline
-      def setName(value: String): Self = this.set("name", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setType(value: radio): Self = this.set("type", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setOnChange(value: /* value */ js.Any => Unit): Self = this.set("onChange", js.Any.fromFunction1(value))
-      
-      @scala.inline
-      def deleteOnChange: Self = this.set("onChange", js.undefined)
+      def setType(value: radio): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   

@@ -6,6 +6,7 @@ import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.StringDictionary
 import typingsJapgolly.react.mod.StatelessComponent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -30,7 +31,7 @@ object accordionContentMod {
   }
   
   @js.native
-  trait StrictAccordionContentProps extends js.Object {
+  trait StrictAccordionContentProps extends StObject {
     
     /** Whether or not the content is visible. */
     var active: js.UndefOr[Boolean] = js.native
@@ -56,55 +57,43 @@ object accordionContentMod {
     }
     
     @scala.inline
-    implicit class StrictAccordionContentPropsOps[Self <: StrictAccordionContentProps] (val x: Self) extends AnyVal {
+    implicit class StrictAccordionContentPropsMutableBuilder[Self <: StrictAccordionContentProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setActive(value: Boolean): Self = StObject.set(x, "active", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setActiveUndefined: Self = StObject.set(x, "active", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setActive(value: Boolean): Self = this.set("active", value.asInstanceOf[js.Any])
+      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
       @scala.inline
-      def deleteActive: Self = this.set("active", js.undefined)
+      def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAs(value: js.Any): Self = this.set("as", value.asInstanceOf[js.Any])
+      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       @scala.inline
-      def deleteAs: Self = this.set("as", js.undefined)
+      def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildrenVdomElement(value: VdomElement): Self = this.set("children", value.rawElement.asInstanceOf[js.Any])
+      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildren(value: VdomNode): Self = this.set("children", value.rawNode.asInstanceOf[js.Any])
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
-      def deleteChildren: Self = this.set("children", js.undefined)
+      def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassName(value: String): Self = this.set("className", value.asInstanceOf[js.Any])
+      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
       
       @scala.inline
-      def deleteClassName: Self = this.set("className", js.undefined)
-      
-      @scala.inline
-      def setContentVdomElement(value: VdomElement): Self = this.set("content", value.rawElement.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setContent(value: SemanticShorthandContent): Self = this.set("content", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteContent: Self = this.set("content", js.undefined)
+      def setContentVdomElement(value: VdomElement): Self = StObject.set(x, "content", value.rawElement.asInstanceOf[js.Any])
     }
   }
 }

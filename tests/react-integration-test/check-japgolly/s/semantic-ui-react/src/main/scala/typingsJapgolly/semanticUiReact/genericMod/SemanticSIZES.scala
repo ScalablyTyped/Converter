@@ -1,5 +1,6 @@
 package typingsJapgolly.semanticUiReact.genericMod
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -14,7 +15,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typingsJapgolly.semanticUiReact.semanticUiReactStrings.huge
   - typingsJapgolly.semanticUiReact.semanticUiReactStrings.massive
 */
-trait SemanticSIZES extends js.Object
+trait SemanticSIZES extends StObject
 object SemanticSIZES {
   
   @scala.inline

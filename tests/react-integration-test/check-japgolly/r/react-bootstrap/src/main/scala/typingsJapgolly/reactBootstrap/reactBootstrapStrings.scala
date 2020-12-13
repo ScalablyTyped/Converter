@@ -1,6 +1,7 @@
 package typingsJapgolly.reactBootstrap
 
 import typingsJapgolly.reactBootstrap.mod.Sizes
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -47,10 +48,10 @@ object reactBootstrapStrings {
   def xsmall: xsmall = "xsmall".asInstanceOf[xsmall]
   
   @js.native
-  sealed trait checkbox extends js.Object
+  sealed trait checkbox extends StObject
   
   @js.native
-  sealed trait defaultValue extends js.Object
+  sealed trait defaultValue extends StObject
   
   @js.native
   sealed trait large extends Sizes
@@ -62,10 +63,10 @@ object reactBootstrapStrings {
   sealed trait medium extends Sizes
   
   @js.native
-  sealed trait onChange extends js.Object
+  sealed trait onChange extends StObject
   
   @js.native
-  sealed trait radio extends js.Object
+  sealed trait radio extends StObject
   
   @js.native
   sealed trait sm extends Sizes
@@ -74,10 +75,10 @@ object reactBootstrapStrings {
   sealed trait small extends Sizes
   
   @js.native
-  sealed trait `type` extends js.Object
+  sealed trait `type` extends StObject
   
   @js.native
-  sealed trait value extends js.Object
+  sealed trait value extends StObject
   
   @js.native
   sealed trait xs extends Sizes

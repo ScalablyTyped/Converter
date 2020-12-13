@@ -1,11 +1,12 @@
 package typingsSlinky.react.mod
 
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ReactPropTypes extends js.Object {
+trait ReactPropTypes extends StObject {
   
   var any: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.any */ js.Any = js.native
   
@@ -66,98 +67,86 @@ object ReactPropTypes {
   }
   
   @scala.inline
-  implicit class ReactPropTypesOps[Self <: ReactPropTypes] (val x: Self) extends AnyVal {
-    
-    @scala.inline
-    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
-    
-    @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-    
-    @scala.inline
-    def set(key: String, value: js.Any): Self = {
-      x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-      x
-    }
+  implicit class ReactPropTypesMutableBuilder[Self <: ReactPropTypes] (val x: Self) extends AnyVal {
     
     @scala.inline
     def setAny(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.any */ js.Any
-    ): Self = this.set("any", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "any", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setArray(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.array */ js.Any
-    ): Self = this.set("array", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "array", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setArrayOf(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.arrayOf */ js.Any
-    ): Self = this.set("arrayOf", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "arrayOf", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setBool(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.bool */ js.Any
-    ): Self = this.set("bool", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "bool", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setElement(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.element */ js.Any
-    ): Self = this.set("element", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "element", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setExact(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.exact */ js.Any
-    ): Self = this.set("exact", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "exact", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setFunc(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.func */ js.Any
-    ): Self = this.set("func", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "func", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setInstanceOf(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.instanceOf */ js.Any
-    ): Self = this.set("instanceOf", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "instanceOf", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setNode(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.node */ js.Any
-    ): Self = this.set("node", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "node", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setNumber(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.number */ js.Any
-    ): Self = this.set("number", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "number", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setObject(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.object */ js.Any
-    ): Self = this.set("object", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "object", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setObjectOf(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.objectOf */ js.Any
-    ): Self = this.set("objectOf", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "objectOf", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setOneOf(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.oneOf */ js.Any
-    ): Self = this.set("oneOf", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "oneOf", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setOneOfType(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.oneOfType */ js.Any
-    ): Self = this.set("oneOfType", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "oneOfType", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setShape(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.shape */ js.Any
-    ): Self = this.set("shape", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "shape", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setString(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.string */ js.Any
-    ): Self = this.set("string", value.asInstanceOf[js.Any])
+    ): Self = StObject.set(x, "string", value.asInstanceOf[js.Any])
   }
 }

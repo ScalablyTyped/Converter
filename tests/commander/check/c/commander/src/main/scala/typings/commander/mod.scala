@@ -5,6 +5,7 @@ import org.scalablytyped.runtime.Instantiable2
 import org.scalablytyped.runtime.StringDictionary
 import typings.node.NodeJS.EventEmitter
 import typings.std.RegExp
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -33,7 +34,7 @@ object mod {
   }
   
   @js.native
-  trait CommandOptions extends js.Object {
+  trait CommandOptions extends StObject {
     
     var isDefault: js.UndefOr[Boolean] = js.native
     
@@ -48,31 +49,19 @@ object mod {
     }
     
     @scala.inline
-    implicit class CommandOptionsOps[Self <: CommandOptions] (val x: Self) extends AnyVal {
+    implicit class CommandOptionsMutableBuilder[Self <: CommandOptions] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setIsDefault(value: Boolean): Self = StObject.set(x, "isDefault", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setIsDefaultUndefined: Self = StObject.set(x, "isDefault", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setNoHelp(value: Boolean): Self = StObject.set(x, "noHelp", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIsDefault(value: Boolean): Self = this.set("isDefault", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteIsDefault: Self = this.set("isDefault", js.undefined)
-      
-      @scala.inline
-      def setNoHelp(value: Boolean): Self = this.set("noHelp", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteNoHelp: Self = this.set("noHelp", js.undefined)
+      def setNoHelpUndefined: Self = StObject.set(x, "noHelp", js.undefined)
     }
   }
   
@@ -109,7 +98,7 @@ object mod {
   }
   
   @js.native
-  trait ParseOptionsResult extends js.Object {
+  trait ParseOptionsResult extends StObject {
     
     var args: js.Array[String] = js.native
     
@@ -124,31 +113,19 @@ object mod {
     }
     
     @scala.inline
-    implicit class ParseOptionsResultOps[Self <: ParseOptionsResult] (val x: Self) extends AnyVal {
+    implicit class ParseOptionsResultMutableBuilder[Self <: ParseOptionsResult] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setArgs(value: js.Array[String]): Self = StObject.set(x, "args", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setArgsVarargs(value: String*): Self = StObject.set(x, "args", js.Array(value :_*))
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setUnknown(value: js.Array[String]): Self = StObject.set(x, "unknown", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setArgsVarargs(value: String*): Self = this.set("args", js.Array(value :_*))
-      
-      @scala.inline
-      def setArgs(value: js.Array[String]): Self = this.set("args", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setUnknownVarargs(value: String*): Self = this.set("unknown", js.Array(value :_*))
-      
-      @scala.inline
-      def setUnknown(value: js.Array[String]): Self = this.set("unknown", value.asInstanceOf[js.Any])
+      def setUnknownVarargs(value: String*): Self = StObject.set(x, "unknown", js.Array(value :_*))
     }
   }
   
@@ -442,7 +419,7 @@ object mod {
     }
     
     @js.native
-    trait Option extends js.Object {
+    trait Option extends StObject {
       
       var bool: Boolean = js.native
       
@@ -474,43 +451,31 @@ object mod {
       }
       
       @scala.inline
-      implicit class OptionOps[Self <: typings.commander.mod.local.Option] (val x: Self) extends AnyVal {
+      implicit class OptionMutableBuilder[Self <: typings.commander.mod.local.Option] (val x: Self) extends AnyVal {
         
         @scala.inline
-        def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+        def setBool(value: Boolean): Self = StObject.set(x, "bool", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+        def setDescription(value: String): Self = StObject.set(x, "description", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def set(key: String, value: js.Any): Self = {
-          x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-          x
-        }
+        def setFlags(value: String): Self = StObject.set(x, "flags", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setBool(value: Boolean): Self = this.set("bool", value.asInstanceOf[js.Any])
+        def setLong(value: String): Self = StObject.set(x, "long", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setDescription(value: String): Self = this.set("description", value.asInstanceOf[js.Any])
+        def setOptional(value: Boolean): Self = StObject.set(x, "optional", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setFlags(value: String): Self = this.set("flags", value.asInstanceOf[js.Any])
+        def setRequired(value: Boolean): Self = StObject.set(x, "required", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setLong(value: String): Self = this.set("long", value.asInstanceOf[js.Any])
+        def setShort(value: String): Self = StObject.set(x, "short", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setOptional(value: Boolean): Self = this.set("optional", value.asInstanceOf[js.Any])
-        
-        @scala.inline
-        def setRequired(value: Boolean): Self = this.set("required", value.asInstanceOf[js.Any])
-        
-        @scala.inline
-        def setShort(value: String): Self = this.set("short", value.asInstanceOf[js.Any])
-        
-        @scala.inline
-        def deleteShort: Self = this.set("short", js.undefined)
+        def setShortUndefined: Self = StObject.set(x, "short", js.undefined)
       }
     }
   }

@@ -3,6 +3,7 @@ package typings.webpackEnv
 import org.scalablytyped.runtime.StringDictionary
 import typings.std.Error
 import typings.std.RegExp
+import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -10,7 +11,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object WebpackModuleApi {
   
   @js.native
-  trait AcceptOptions extends js.Object {
+  trait AcceptOptions extends StObject {
     
     /**
       * Indicates that apply() is automatically called by check function
@@ -31,36 +32,24 @@ object WebpackModuleApi {
     }
     
     @scala.inline
-    implicit class AcceptOptionsOps[Self <: AcceptOptions] (val x: Self) extends AnyVal {
+    implicit class AcceptOptionsMutableBuilder[Self <: AcceptOptions] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setAutoApply(value: Boolean): Self = StObject.set(x, "autoApply", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+      def setAutoApplyUndefined: Self = StObject.set(x, "autoApply", js.undefined)
       
       @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
+      def setIgnoreUnaccepted(value: Boolean): Self = StObject.set(x, "ignoreUnaccepted", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAutoApply(value: Boolean): Self = this.set("autoApply", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteAutoApply: Self = this.set("autoApply", js.undefined)
-      
-      @scala.inline
-      def setIgnoreUnaccepted(value: Boolean): Self = this.set("ignoreUnaccepted", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteIgnoreUnaccepted: Self = this.set("ignoreUnaccepted", js.undefined)
+      def setIgnoreUnacceptedUndefined: Self = StObject.set(x, "ignoreUnaccepted", js.undefined)
     }
   }
   
   @js.native
-  trait Hot extends js.Object {
+  trait Hot extends StObject {
     
     /**
       * Accept code updates for this module without notification of parents.
@@ -192,7 +181,7 @@ object WebpackModuleApi {
   }
   
   @js.native
-  trait Module extends js.Object {
+  trait Module extends StObject {
     
     var children: js.Array[_] = js.native
     
@@ -217,7 +206,7 @@ object WebpackModuleApi {
     * Inside env you can pass any variable
     */
   @js.native
-  trait NodeProcess extends js.Object {
+  trait NodeProcess extends StObject {
     
     var env: js.UndefOr[js.Any] = js.native
   }
@@ -230,30 +219,18 @@ object WebpackModuleApi {
     }
     
     @scala.inline
-    implicit class NodeProcessOps[Self <: NodeProcess] (val x: Self) extends AnyVal {
+    implicit class NodeProcessMutableBuilder[Self <: NodeProcess] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+      def setEnv(value: js.Any): Self = StObject.set(x, "env", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
-      
-      @scala.inline
-      def set(key: String, value: js.Any): Self = {
-        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
-        x
-      }
-      
-      @scala.inline
-      def setEnv(value: js.Any): Self = this.set("env", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def deleteEnv: Self = this.set("env", js.undefined)
+      def setEnvUndefined: Self = StObject.set(x, "env", js.undefined)
     }
   }
   
   @js.native
-  trait RequireContext extends js.Object {
+  trait RequireContext extends StObject {
     
     def apply(id: String): js.Any = js.native
     
@@ -263,7 +240,7 @@ object WebpackModuleApi {
   }
   
   @js.native
-  trait RequireFunction extends js.Object {
+  trait RequireFunction extends StObject {
     
     /**
       * Returns the exports from a dependency. The call is sync. No request to the server is fired. The compiler ensures that the dependency is available.
