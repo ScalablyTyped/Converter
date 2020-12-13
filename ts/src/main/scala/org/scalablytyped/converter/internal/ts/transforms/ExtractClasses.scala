@@ -11,10 +11,7 @@ object ExtractClasses extends TransformLeaveMembers {
 
     val rewrittenNameds: IArray[TsNamedDecl] =
       x.membersByName.flatMapToIArray {
-        case (name, sameName)
-            if name =/= TsIdent.namespaced => // todo: need to be a bit more intelligent with where we place the classes
-          extractClasses(scope, sameName, findName).getOrElse(sameName)
-        case (_, sameName) => sameName
+        case (_, sameName) => extractClasses(scope, sameName, findName).getOrElse(sameName)
       }
 
     x.unnamed ++ rewrittenNameds
@@ -69,6 +66,11 @@ object ExtractClasses extends TransformLeaveMembers {
                       ),
                     )
 
+                  val clsCodePath = clsName match {
+                    case TsIdent.namespaced => cp
+                    case other              => cp.replaceLast(other)
+                  }
+
                   TsDeclClass(
                     comments   = commentFor(wasBackup),
                     declared   = declared,
@@ -79,7 +81,7 @@ object ExtractClasses extends TransformLeaveMembers {
                     implements = Empty,
                     members    = realCtors,
                     jsLocation = jsLocation,
-                    codePath   = cp.replaceLast(clsName),
+                    codePath   = clsCodePath,
                   )
               }
             case _ => None
