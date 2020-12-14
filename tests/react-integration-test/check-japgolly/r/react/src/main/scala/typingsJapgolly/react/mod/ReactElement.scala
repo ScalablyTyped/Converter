@@ -18,10 +18,10 @@ trait ReactElement extends StObject {
 object ReactElement {
   
   @scala.inline
-  def apply(props: js.Any, `type`: js.Any): ReactElement = {
+  def apply(props: js.Any, `type`: js.Any): Element = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    __obj.asInstanceOf[ReactElement]
+    __obj.asInstanceOf[Element]
   }
   
   @scala.inline

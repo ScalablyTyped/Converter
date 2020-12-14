@@ -65,10 +65,10 @@ object BaseSyntheticEvent {
     target: T,
     timeStamp: Double,
     `type`: String
-  ): BaseSyntheticEvent[E, C, T] = {
+  ): ReactEventFrom[C with Element] = {
     val __obj = js.Dynamic.literal(bubbles = bubbles.asInstanceOf[js.Any], cancelable = cancelable.asInstanceOf[js.Any], currentTarget = currentTarget.asInstanceOf[js.Any], defaultPrevented = defaultPrevented.asInstanceOf[js.Any], eventPhase = eventPhase.asInstanceOf[js.Any], isDefaultPrevented = isDefaultPrevented.toJsFn, isPropagationStopped = isPropagationStopped.toJsFn, isTrusted = isTrusted.asInstanceOf[js.Any], nativeEvent = nativeEvent.asInstanceOf[js.Any], persist = persist.toJsFn, preventDefault = preventDefault.toJsFn, stopPropagation = stopPropagation.toJsFn, target = target.asInstanceOf[js.Any], timeStamp = timeStamp.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    __obj.asInstanceOf[BaseSyntheticEvent[E, C, T]]
+    __obj.asInstanceOf[ReactEventFrom[C with Element]]
   }
   
   @scala.inline

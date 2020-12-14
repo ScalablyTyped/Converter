@@ -18,10 +18,10 @@ trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Elemen
 object DOMElement {
   
   @scala.inline
-  def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: js.Any, `type`: js.Any): DOMElement[P, T] = {
+  def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: js.Any, `type`: js.Any): DomElement = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    __obj.asInstanceOf[DOMElement[P, T]]
+    __obj.asInstanceOf[DomElement]
   }
   
   @scala.inline

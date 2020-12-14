@@ -180,15 +180,15 @@ object mod {
   object Props {
     
     @scala.inline
-    def A(aCallback: () => Double, aMember: Double): Props = {
+    def A(aCallback: () => Double, aMember: Double): typingsSlinky.componentstest.mod.A = {
       val __obj = js.Dynamic.literal(aCallback = js.Any.fromFunction0(aCallback), aMember = aMember.asInstanceOf[js.Any])
-      __obj.asInstanceOf[Props]
+      __obj.asInstanceOf[typingsSlinky.componentstest.mod.A]
     }
     
     @scala.inline
-    def B(bMember: String): Props = {
+    def B(bMember: String): typingsSlinky.componentstest.mod.B = {
       val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
-      __obj.asInstanceOf[Props]
+      __obj.asInstanceOf[typingsSlinky.componentstest.mod.B]
     }
   }
 }

@@ -192,21 +192,21 @@ object typesMod {
   object PartialObserver {
     
     @scala.inline
-    def CompletionObserver[T](complete: () => Unit): PartialObserver[T] = {
+    def CompletionObserver[T](complete: () => Unit): typings.rxjs.typesMod.CompletionObserver[T] = {
       val __obj = js.Dynamic.literal(complete = js.Any.fromFunction0(complete))
-      __obj.asInstanceOf[PartialObserver[T]]
+      __obj.asInstanceOf[typings.rxjs.typesMod.CompletionObserver[T]]
     }
     
     @scala.inline
-    def ErrorObserver[T](error: js.Any => Unit): PartialObserver[T] = {
+    def ErrorObserver[T](error: js.Any => Unit): typings.rxjs.typesMod.ErrorObserver[T] = {
       val __obj = js.Dynamic.literal(error = js.Any.fromFunction1(error))
-      __obj.asInstanceOf[PartialObserver[T]]
+      __obj.asInstanceOf[typings.rxjs.typesMod.ErrorObserver[T]]
     }
     
     @scala.inline
-    def NextObserver[T](next: T => Unit): PartialObserver[T] = {
+    def NextObserver[T](next: T => Unit): typings.rxjs.typesMod.NextObserver[T] = {
       val __obj = js.Dynamic.literal(next = js.Any.fromFunction1(next))
-      __obj.asInstanceOf[PartialObserver[T]]
+      __obj.asInstanceOf[typings.rxjs.typesMod.NextObserver[T]]
     }
   }
   

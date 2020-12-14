@@ -445,9 +445,9 @@ object mod {
         long: String,
         optional: Boolean,
         required: Boolean
-      ): Option = {
+      ): typings.commander.mod.local.Option = {
         val __obj = js.Dynamic.literal(bool = bool.asInstanceOf[js.Any], description = description.asInstanceOf[js.Any], flags = flags.asInstanceOf[js.Any], long = long.asInstanceOf[js.Any], optional = optional.asInstanceOf[js.Any], required = required.asInstanceOf[js.Any])
-        __obj.asInstanceOf[Option]
+        __obj.asInstanceOf[typings.commander.mod.local.Option]
       }
       
       @scala.inline

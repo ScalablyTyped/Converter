@@ -58,7 +58,9 @@ object FindProps {
         case (IArray.Empty, ones, manies, _) =>
           val all = ones.toMap ++ maps.smash(manies)
           val distinctByName =
-            all.map { case (tr, t) => Name(nameFor(tr)) -> ((tr, t)) }.map { case (_, (tr, t)) => tr -> t }
+            all
+              .map { case (tr, t) => Name(nameFor(tr)) -> ((tr, t)) }
+              .map { case (_, (tr, t)) => tr -> t }
 
           if (distinctByName.size === 1) {
             val (name, value) = distinctByName.head

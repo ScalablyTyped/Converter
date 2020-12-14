@@ -14,9 +14,9 @@ trait RefObject[T] extends StObject {
 object RefObject {
   
   @scala.inline
-  def apply[T](): RefObject[T] = {
+  def apply[T](): ReactRef[T] = {
     val __obj = js.Dynamic.literal()
-    __obj.asInstanceOf[RefObject[T]]
+    __obj.asInstanceOf[ReactRef[T]]
   }
   
   @scala.inline

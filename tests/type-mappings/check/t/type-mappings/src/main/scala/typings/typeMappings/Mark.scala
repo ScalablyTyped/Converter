@@ -15,16 +15,16 @@ trait Mark extends StObject
 object Mark {
   
   @scala.inline
-  def TextMark(`type`: text): Mark = {
+  def TextMark(`type`: text): typings.typeMappings.TextMark = {
     val __obj = js.Dynamic.literal()
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    __obj.asInstanceOf[Mark]
+    __obj.asInstanceOf[typings.typeMappings.TextMark]
   }
   
   @scala.inline
-  def TrailMark(`type`: trail): Mark = {
+  def TrailMark(`type`: trail): typings.typeMappings.TrailMark = {
     val __obj = js.Dynamic.literal()
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    __obj.asInstanceOf[Mark]
+    __obj.asInstanceOf[typings.typeMappings.TrailMark]
   }
 }

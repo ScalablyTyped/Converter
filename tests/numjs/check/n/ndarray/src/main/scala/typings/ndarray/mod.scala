@@ -42,9 +42,9 @@ object mod {
   object ndarray {
     
     @scala.inline
-    def apply[T](T: typings.ndarray.mod.ndarray[T], data: Data[T]): ndarray[T] = {
+    def apply[T](T: typings.ndarray.mod.ndarray[T], data: Data[T]): typings.ndarray.mod.ndarray[T] = {
       val __obj = js.Dynamic.literal(T = T.asInstanceOf[js.Any], data = data.asInstanceOf[js.Any])
-      __obj.asInstanceOf[ndarray[T]]
+      __obj.asInstanceOf[typings.ndarray.mod.ndarray[T]]
     }
     
     @scala.inline
