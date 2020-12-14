@@ -1,14 +1,12 @@
 package org.scalablytyped.converter.internal
 package importer
 
-import java.io.File
-import java.net.URI
-
 import io.circe013._
-import org.scalablytyped.converter.internal.sets._
 import org.scalablytyped.converter.internal.ts._
 
-import scala.collection.immutable.SortedSet
+import java.io.File
+import java.net.URI
+import scala.collection.immutable.{SortedSet, TreeSet}
 
 object jsonCodecs {
   implicit def IArrayEncoder[T <: AnyRef: Encoder]: Encoder[IArray[T]] =
@@ -18,10 +16,10 @@ object jsonCodecs {
     Decoder[List[T]].map[IArray[T]](IArray.fromTraversable)
 
   implicit def SortedSetEncoder[T: Encoder: Ordering]: Encoder[SortedSet[T]] =
-    Encoder[Set[T]].contramap[SortedSet[T]](x => x)
+    Encoder[Vector[T]].contramap[SortedSet[T]](x => x.toVector)
 
   implicit def SortedSetDecoder[T: Decoder: Ordering]: Decoder[SortedSet[T]] =
-    Decoder[Set[T]].map[SortedSet[T]](_.sorted)
+    Decoder[Vector[T]].map[SortedSet[T]](ts => TreeSet.empty[T] ++ ts)
 
   implicit val FileEncoder:           Encoder[File]              = Encoder[String].contramap[File](_.toString)
   implicit val FileDecoder:           Decoder[File]              = Decoder[String].map[File](new File(_))
