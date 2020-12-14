@@ -198,7 +198,7 @@ class IdentifyReactComponents(
         val propsRef  = PropsRef(flattenedParams.headOption.map(_.tpe).getOrElse(TypeRef.Object))
         def validName = isUpper(method.name) || (Unnamed(method.name) && (isUpper(owner.name) || Unnamed(owner.name)))
 
-        if (!validName || !isTopLevel) None
+        if (!validName || !isTopLevel || !method.isNative) None
         else
           returnsElement(scope, method.resultType).map { _ =>
             method.name match {

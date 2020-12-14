@@ -6,7 +6,6 @@ import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
 import org.scalablytyped.converter.internal.scalajs.TypeParamTree.asTypeArgs
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
-import org.scalablytyped.converter.internal.scalajs.transforms.Sorter
 
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
@@ -75,7 +74,9 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
                     if (enableLongApplyMethod) props
                     else props.filter(_.optionality === Optionality.No)
 
-                  Some(generateCreator(propsRef.name, requiredProps, cls.codePath, cls.tparams))
+                  val tparams = cls.tparams.filter(tp => propsRef.targs.exists(_.name === tp.name))
+
+                  Some(generateCreator(propsRef.name, requiredProps, propsRef.typeName, tparams))
                     .filter(_.params.nonEmpty)
                     .filter(ensureNotTooManyStrings(scope))
               }
@@ -175,9 +176,8 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
       { case (x: Mutator, _)     => x },
       { case (x: Initializer, _) => x },
     )
-    val typeName = typeCp.parts.last
 
-    val ret = TypeRef(QualifiedName(IArray(typeName)), asTypeArgs(typeTparams), NoComments)
+    val ret = TypeRef(typeCp, asTypeArgs(typeTparams), NoComments)
 
     val impl: ExprTree = {
       val objName = Name("__obj")

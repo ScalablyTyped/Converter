@@ -199,10 +199,10 @@ object mod {
   object ReactElement {
     
     @scala.inline
-    def apply(props: js.Any, `type`: String | ReactComponentClass[_]): ReactElement = {
+    def apply(props: js.Any, `type`: String | ReactComponentClass[_]): slinky.core.facade.ReactElement = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-      __obj.asInstanceOf[ReactElement]
+      __obj.asInstanceOf[slinky.core.facade.ReactElement]
     }
     
     @scala.inline
