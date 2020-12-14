@@ -151,6 +151,7 @@ object LibrarySpecific {
     val ReactElement  = TsIdent("ReactElement")
     val ReactFragment = TsIdent("ReactFragment")
     val ReactNode     = TsIdent("ReactNode")
+    val CSSProperties = TsIdent("CSSProperties")
     val Readonly      = TsQIdent(IArray(TsIdent("Readonly")))
 
     //Somewhere in here we need to take a look at the component, and if it has an "as" member with a known mapping and we don't have
@@ -158,6 +159,19 @@ object LibrarySpecific {
 
     override def enterTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
       x.name match {
+        case CSSProperties =>
+          /* restore compatibility with old CSSProperties syntax, that it it's own syntax and you don't have to provide type parameters */
+          val hack = TsMemberProperty(
+            Comments(Comment("/* fake member to keep old syntax */\n")),
+            ProtectionLevel.Default,
+            TsIdentSimple("hack"),
+            Some(TsTypeUnion(IArray(TsTypeRef.any, TsTypeRef.undefined))),
+            None,
+            false,
+            true,
+          )
+          x.copy(members = x.members :+ hack)
+
         /* drop useless type parameters */
         case ReactElement =>
           val newX = x.copy(tparams = Empty)
