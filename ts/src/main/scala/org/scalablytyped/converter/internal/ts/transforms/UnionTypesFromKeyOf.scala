@@ -8,8 +8,6 @@ object UnionTypesFromKeyOf extends TreeTransformationScopedChanges {
       case TsTypeKeyOf(TsTypeRef(_, key, Empty)) if !scope.isAbstract(key) =>
         scope.lookup(key).headOption match {
           case Some(TsDeclInterface(_, _, _, _, _, members, _)) =>
-            scope.logger.info(s"Expanded keyof $key")
-
             val literals = members.collect {
               case TsMemberProperty(_, _, TsIdent(name), _, _, _, _) =>
                 TsTypeLiteral(TsLiteralString(name))

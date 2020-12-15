@@ -76,13 +76,13 @@ object BloopCompiler {
       logger.warn(globalClasspath)
       logger.warn(scalaJsCompiler)
 
-      new BloopCompiler(ec, failureCacheFolderOpt, v, globalClasspath, scalaCompiler, scalaJsCompiler)
+      new BloopCompiler(logger, failureCacheFolderOpt, v, globalClasspath, scalaCompiler, scalaJsCompiler)
     }
   }
 }
 
 class BloopCompiler private (
-    ec:                    ExecutionContext,
+    logger:                Logger[Unit],
     failureCacheFolderOpt: Option[Path],
     versions:              Versions,
     globalClassPath:       Array[AbsolutePath],
@@ -178,6 +178,11 @@ class BloopCompiler private (
 
         status match {
           case ExitStatus.Ok =>
+            outStream.toString(constants.Utf8.name).linesIterator.filter(_.contains("[W]")).toVector match {
+              case Vector() => ()
+              case warnings => warnings.foreach(warning => logger.warn(warning))
+            }
+
             /** bloop 1.4.3 apparently doesnt use `classesDir` as the path where it puts class files anymore.
               * Move them back to where we expect them
               */

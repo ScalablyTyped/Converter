@@ -51,7 +51,6 @@ object ExtractInterfaces {
 
       }
       interfaces.put(interface.name, interface)
-      scope.logger.info(s"Extracted anonymous interface ${interface.name}")
       interface.codePath.forceHasPath
     }
   }

@@ -58,10 +58,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
             codePath,
           ) =>
         if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), scope, singleInheritance)) i
-        else {
-          scope.logger.info("Simplified to type alias")
-          TsDeclTypeAlias(comments, declared, name, tparams, singleInheritance, codePath)
-        }
+        else TsDeclTypeAlias(comments, declared, name, tparams, singleInheritance, codePath)
 
       /**
         * We do this rewrite because in Scala we have no way to instantiate a new instance of `Foo`

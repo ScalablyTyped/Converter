@@ -47,18 +47,14 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
     x.members.flatMap {
       case m @ TsMemberCall(_, _, sig) =>
         expandTParams(scope / m, sig) match {
-          case None => IArray(m)
-          case Some(nonEmpty) =>
-            scope.logger.info(s"Expanding ${nonEmpty.length} call members")
-            RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))
+          case None           => IArray(m)
+          case Some(nonEmpty) => RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))
         }
 
       case m @ TsMemberFunction(_, _, name, MethodType.Normal, sig, _, _) =>
         expandTParams(scope / m, sig) match {
-          case None => IArray(m)
-          case Some(nonEmpty) =>
-            scope.logger.info(s"Expanding ${nonEmpty.length} members for $name")
-            RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))
+          case None           => IArray(m)
+          case Some(nonEmpty) => RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))
         }
 
       case other => IArray(other)
@@ -68,10 +64,8 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
     x.members.flatMap {
       case m @ TsDeclFunction(_, _, name, sig, _, _) =>
         expandTParams(scope / m, sig) match {
-          case None => IArray(m)
-          case Some(nonEmpty) =>
-            scope.logger.info(s"Expanding ${nonEmpty.length} members for $name")
-            RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))
+          case None           => IArray(m)
+          case Some(nonEmpty) => RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))
         }
 
       case other => IArray(other)
