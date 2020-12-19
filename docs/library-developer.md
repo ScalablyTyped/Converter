@@ -194,3 +194,13 @@ other usage of ScalablyTyped.
 A this point you can start adding your own code if wanted, and publish libraries completely 
 free-standing libraries.
 
+If you are only packaging a facade generated from scalablytyped, without any custom code, you are likely better by excluding the javadocs on the library package, which can be done with:
+
+```scala
+    sources in (Compile, doc) := Nil,
+    publishArtifact in (Compile, packageDoc) := false
+ ```
+
+## Troubleshooting
+
+If you get Stackoverflow errors, make sure that the `-Ymacro-annotations` compiler option is not enabled, while this works fine on application development, it commonly causes issues on library development. 
