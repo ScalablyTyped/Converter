@@ -9,6 +9,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  @JSImport("winston", "config")
+  @js.native
+  val config: Config = js.native
+  
   @js.native
   trait LoggerOptions extends StObject {
     
@@ -31,16 +35,5 @@ object mod {
       @scala.inline
       def setLevelsUndefined: Self = StObject.set(x, "levels", js.undefined)
     }
-  }
-  
-  object config {
-    
-    @JSImport("winston", "config")
-    @js.native
-    val ^ : Config = js.native
-    
-    /* Syntax to write `config` instead of `config.^` */
-    @scala.inline
-    implicit def __is(ignored: config.type): Config = typings.winston.mod.config.^
   }
 }

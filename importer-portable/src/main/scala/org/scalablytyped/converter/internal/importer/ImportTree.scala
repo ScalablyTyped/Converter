@@ -3,6 +3,7 @@ package importer
 
 import com.olvind.logging.Logger
 import org.scalablytyped.converter.internal.importer.Phase1Res.{LibTs, UnpackLibs}
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs._
 import org.scalablytyped.converter.internal.scalajs.transforms.{CleanIllegalNames, Mangler}
 import org.scalablytyped.converter.internal.ts.{ParentsResolver, _}
@@ -585,17 +586,27 @@ class ImportTree(
       case (inheritance, memberTrees, restTrees, cs2) =>
         val importedCp = importName(codePath)
 
+        val patchedRestTrees = restTrees.groupBy(_.name).flatMapToIArray {
+          case (_, sameName) =>
+            sameName.partitionCollect2({ case x: TypeAliasTree => x }, { case x: ClassTree => x }) match {
+              case (tas, cs, rest) if tas.nonEmpty && cs.nonEmpty =>
+                cs ++ rest
+              case _ => sameName
+            }
+        }
+
         setCodePath(
           importedCp,
           ModuleTree(
             annotations = ImportJsLocation(jsLocation),
             name        = importedCp.parts.last,
             parents     = inheritance,
-            members     = memberTrees ++ restTrees,
+            members     = memberTrees ++ patchedRestTrees,
             comments    = cs ++ cs2,
             codePath    = importedCp,
             isOverride  = false,
           ),
         )
+
     }
 }

@@ -230,8 +230,8 @@ object Phase1ReadTypescript {
         T.RemoveStubs >> //before HandleCommonJsModules and QualifyReferences
         T.InferTypeFromExpr >>
         T.InferEnumTypes /* before InlineConstEnum */ >>
-        T.NormalizeFunctions /* before FlattenTrees */
-      ).visitTsParsedFile(scope.enableUnqualifiedLookup.caching),
+        T.NormalizeFunctions /* before FlattenTrees */ >>
+        T.MoveStatics).visitTsParsedFile(scope.enableUnqualifiedLookup.caching),
       (modules.HandleCommonJsModules >> modules.RewriteExportStarAs)
         .visitTsParsedFile(scope), //before QualifyReferences
       new T.QualifyReferences(skipValidation = false).visitTsParsedFile(scope.enableUnqualifiedLookup.caching),

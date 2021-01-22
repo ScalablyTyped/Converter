@@ -523,6 +523,7 @@ object Libraries {
 
   def ignored: SortedSet[TsIdentLibrary] =
     SortedSet[String](
+      "tstl",
       "graphene-pk11",
       "rvo2",
       "yfiles",

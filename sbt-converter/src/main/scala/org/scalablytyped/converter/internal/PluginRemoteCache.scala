@@ -124,7 +124,6 @@ object PluginRemoteCache {
             Await.result(upload(relRunCachePath, os.Path((Global / stDir).value)), Duration.Inf)
 
             logger.warn(s"Pushed $numUploadedArtifacts files to S3 bucket $bucket")
-            numUploadedArtifacts
           }
       },
     )

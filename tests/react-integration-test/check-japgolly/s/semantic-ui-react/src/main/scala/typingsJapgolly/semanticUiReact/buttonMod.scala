@@ -331,30 +331,22 @@ object buttonMod {
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", JSImport.Default)
   @js.native
   class default () extends Button
-  /* static members */
   object default {
     
-    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", JSImport.Default)
-    @js.native
-    val ^ : js.Any = js.native
-    
+    /* was `typeof ButtonContent` */
     @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Content")
     @js.native
-    def Content: StatelessComponent[ButtonContentProps] = js.native
-    @scala.inline
-    def Content_=(x: StatelessComponent[ButtonContentProps]): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("Content")(x.asInstanceOf[js.Any])
+    val Content: StatelessComponent[ButtonContentProps] = js.native
     
+    /* was `typeof ButtonGroup` */
     @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Group")
     @js.native
-    def Group: StatelessComponent[ButtonGroupProps] = js.native
-    @scala.inline
-    def Group_=(x: StatelessComponent[ButtonGroupProps]): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("Group")(x.asInstanceOf[js.Any])
+    val Group: StatelessComponent[ButtonGroupProps] = js.native
     
+    /* was `typeof ButtonOr` */
     @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Or")
     @js.native
-    def Or: StatelessComponent[ButtonOrProps] = js.native
-    @scala.inline
-    def Or_=(x: StatelessComponent[ButtonOrProps]): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("Or")(x.asInstanceOf[js.Any])
+    val Or: StatelessComponent[ButtonOrProps] = js.native
   }
   
   type ButtonProps = StrictButtonProps

@@ -63,13 +63,13 @@ object global {
   @js.native
   class Phaser ()
     extends typings.phaser.Phaser
-  /* static members */
   object Phaser {
     
     @JSGlobal("Phaser")
     @js.native
     val ^ : js.Any = js.native
     
+    /* static member */
     @JSGlobal("Phaser.VERSION")
     @js.native
     def VERSION: String = js.native

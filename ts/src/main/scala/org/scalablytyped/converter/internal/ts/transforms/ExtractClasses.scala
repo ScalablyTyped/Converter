@@ -100,7 +100,7 @@ object ExtractClasses extends TransformLeaveMembers {
       case (base, false) =>
         s"/* $base. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */\n"
     }
-    Comments(Comment(msg))
+    Comments(List(CommentData(Markers.ExpandedClass), Comment(msg)))
   }
 
   def extractClassFromMember(
@@ -150,7 +150,7 @@ object ExtractClasses extends TransformLeaveMembers {
 
   object AnalyzedCtors {
     def from(scope: TsTreeScope, tpe: TsType): Option[AnalyzedCtors] = {
-      val ctors = findCtors(scope)(tpe)
+      val ctors = findCtors(scope, LoopDetector.initial)(tpe)
 
       val withSimpleType: IArray[(TsFunSig, TsTypeRef)] =
         ctors.collect {
@@ -179,7 +179,7 @@ object ExtractClasses extends TransformLeaveMembers {
       }
     }
 
-    def findCtors(scope: TsTreeScope)(tpe: TsType): IArray[TsFunSig] = {
+    def findCtors(scope: TsTreeScope, loopDetector: LoopDetector)(tpe: TsType): IArray[TsFunSig] = {
       def from(x: HasClassMembers): IArray[TsFunSig] =
         x.membersByName.get(TsIdent.constructor) match {
           case Some(ctors) =>
@@ -188,14 +188,18 @@ object ExtractClasses extends TransformLeaveMembers {
         }
 
       FollowAliases(scope)(tpe) match {
-        case TsTypeIntersect(types)                 => types.flatMap(findCtors(scope))
+        case TsTypeIntersect(types)                 => types.flatMap(findCtors(scope, loopDetector))
         case TsTypeConstructor(TsTypeFunction(sig)) => IArray(sig)
         case tr: TsTypeRef =>
-          scope.lookupType(tr.name).flatMap {
-            case x: TsDeclInterface =>
-              val xx = FillInTParams(x, tr.tparams)
-              from(xx) ++ xx.inheritance.flatMap(findCtors(scope))
-            case _ => Empty
+          loopDetector.including(tr, scope) match {
+            case Left(()) => Empty
+            case Right(newLd) =>
+              scope.lookupType(tr.name).flatMap {
+                case x: TsDeclInterface =>
+                  val xx = FillInTParams(x, tr.tparams)
+                  from(xx) ++ xx.inheritance.flatMap(findCtors(scope, newLd))
+                case _ => Empty
+              }
           }
         case x: TsTypeObject => from(x)
         case _ => Empty

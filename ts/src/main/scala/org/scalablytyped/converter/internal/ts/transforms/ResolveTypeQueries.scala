@@ -52,6 +52,9 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
     }
 
   override def newMembers(scope: TsTreeScope, tree: TsContainer): IArray[TsContainerOrDecl] = {
+    lazy val avoidCircular: Set[CodePath] =
+      scope.stack.collect { case x: HasCodePath => x.codePath }.toSet
+
     val addedClasses = mutable.Set.empty[TsIdentSimple]
 
     val rewritten = tree.members.flatMap {
@@ -64,6 +67,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
         }
 
         val founds = lookup(scope, Picker.NamedValues, expr).flatMap {
+          case (circular, _) if avoidCircular(circular.codePath) => Empty
           case (found, _) =>
             DeriveCopy(found.addComment(note), tree.codePath, Some(name)).map {
               SetJsLocation.visitTsNamedDecl(ownerLoc)
@@ -137,7 +141,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
 
     def unapply(decl: TsContainerOrDecl): Option[(TsDeclClass, TsType)] =
       decl match {
-        case _cls: TsDeclClass =>
+        case _cls: TsDeclClass if !_cls.comments.has[Markers.ExpandedClass.type] =>
           val cls = new TypeRewriter(_cls).visitTsDeclClass(
             _cls.tparams
               .map(tp =>

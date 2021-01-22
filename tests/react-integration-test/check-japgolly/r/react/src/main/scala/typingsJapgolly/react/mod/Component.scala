@@ -66,7 +66,6 @@ class Component[P, S, SS] protected () extends ComponentLifecycle[P, S, SS] {
   
   var state: S = js.native
 }
-/* static members */
 object Component {
   
   @JSImport("react", "Component")
@@ -94,6 +93,7 @@ object Component {
     *
     * @see https://reactjs.org/docs/context.html#classcontexttype
     */
+  /* static member */
   @JSImport("react", "Component.contextType")
   @js.native
   def contextType: js.UndefOr[Context[js.Any]] = js.native

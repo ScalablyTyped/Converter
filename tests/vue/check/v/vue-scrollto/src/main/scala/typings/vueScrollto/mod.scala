@@ -2,15 +2,12 @@ package typings.vueScrollto
 
 import typings.std.Element
 import typings.vue.pluginMod.PluginFunction
-import typings.vue.vueMod.Vue
-import typings.vue.vueMod.VueConstructor
 import typings.vueScrollto.vueScrolltoBooleans.`false`
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-/* static members */
 object mod {
   
   @JSImport("vue-scrollto", JSImport.Namespace)
@@ -20,15 +17,10 @@ object mod {
   @js.native
   val ^ : js.Any = js.native
   
+  /* static member */
   @JSImport("vue-scrollto", "install")
   @js.native
   def install: PluginFunction[scala.Nothing] = js.native
-  @JSImport("vue-scrollto", "install")
-  @js.native
-  def install(Vue: VueConstructor[Vue]): Unit = js.native
-  @JSImport("vue-scrollto", "install")
-  @js.native
-  def install(Vue: VueConstructor[Vue], options: scala.Nothing): Unit = js.native
   @scala.inline
   def install_=(x: PluginFunction[scala.Nothing]): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("install")(x.asInstanceOf[js.Any])
   

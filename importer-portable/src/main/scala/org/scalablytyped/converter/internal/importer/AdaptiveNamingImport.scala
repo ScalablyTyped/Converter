@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 
 import org.scalablytyped.converter.internal.scalajs.transforms.CleanIllegalNames
-import org.scalablytyped.converter.internal.scalajs.{Name, QualifiedName}
+import org.scalablytyped.converter.internal.scalajs.{Name, ObjectMembers, QualifiedName}
 import org.scalablytyped.converter.internal.stringUtils.{joinCamelCase, toCamelCase}
 import org.scalablytyped.converter.internal.ts._
 
@@ -54,7 +54,7 @@ object AdaptiveNamingImport {
       lowercaseIndex(s"${outputPkg.unescaped.toLowerCase}.node.mod") = IArray(TsIdentSimple("_____"))
     }
 
-    val illegalNames = cleanIllegalNames.Illegal.map(_.value)
+    val illegalNames = (cleanIllegalNames.Illegal ++ ObjectMembers.byName.keys).map(_.value)
 
     allReferences.foreach {
       case IArray.Empty => ()

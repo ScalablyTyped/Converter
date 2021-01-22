@@ -152,16 +152,7 @@ final case class TsGlobal(
 
   override def withCodePath(newCodePath: CodePath): HasCodePath = copy(codePath = newCodePath)
 }
-object A {
-  val B = TsQIdent(
-    IArray(
-      TsIdentLibrarySimple("inquirer"),
-      TsIdentModule(None, List("inquirer")),
-      TsIdentSimple("^"),
-      TsIdentSimple("Separator"),
-    ),
-  )
-}
+
 final case class TsDeclClass(
     comments:   Comments,
     declared:   Boolean,

@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "vue-scrollto"
-version := "2.7-d4e109"
+version := "2.7-6e53d6"
 scalaVersion := "2.13.3"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

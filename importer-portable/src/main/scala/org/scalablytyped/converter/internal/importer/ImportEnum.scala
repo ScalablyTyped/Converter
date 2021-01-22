@@ -199,7 +199,7 @@ object ImportEnum {
             enumName,
             parents    = Empty,
             members    = membersSyms ++ IArray.fromOption(applyMethod),
-            comments   = cs + CommentData(Mangler.LeaveAlone) + CommentData(Markers.EnumObject),
+            comments   = cs + CommentData(Markers.EnumObject),
             codePath   = importedCodePath,
             isOverride = false,
           )

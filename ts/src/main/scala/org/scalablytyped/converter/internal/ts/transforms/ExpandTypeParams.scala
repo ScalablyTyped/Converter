@@ -51,7 +51,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
           case Some(nonEmpty) => RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))
         }
 
-      case m @ TsMemberFunction(_, _, name, MethodType.Normal, sig, _, _) =>
+      case m @ TsMemberFunction(_, _, _, MethodType.Normal, sig, _, _) =>
         expandTParams(scope / m, sig) match {
           case None           => IArray(m)
           case Some(nonEmpty) => RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))
@@ -62,7 +62,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
 
   override def newMembers(scope: TsTreeScope, x: TsContainer): IArray[TsContainerOrDecl] =
     x.members.flatMap {
-      case m @ TsDeclFunction(_, _, name, sig, _, _) =>
+      case m @ TsDeclFunction(_, _, _, sig, _, _) =>
         expandTParams(scope / m, sig) match {
           case None           => IArray(m)
           case Some(nonEmpty) => RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))

@@ -12,9 +12,9 @@ object global {
   @js.native
   class Queue[S, T] ()
     extends typings.defaultedTparams.Queue[S, T]
-  /* static members */
   object Queue {
     
+    /* static member */
     @JSGlobal("Queue.from")
     @js.native
     def from[T](iterable: Iterable[T]): typings.defaultedTparams.Queue[T, T] = js.native

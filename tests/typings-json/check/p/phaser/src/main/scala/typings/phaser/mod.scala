@@ -7,7 +7,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 // Type definitions for Phaser 2.6.2 - 26th August 2016
 // Project: https://github.com/photonstorm/phaser
-/* static members */
 object mod {
   
   @JSImport("phaser", JSImport.Namespace)
@@ -17,6 +16,7 @@ object mod {
   @js.native
   val ^ : js.Any = js.native
   
+  /* static member */
   @JSImport("phaser", "VERSION")
   @js.native
   def VERSION: String = js.native

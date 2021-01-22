@@ -8,6 +8,7 @@ object Markers {
   case object CouldBeScalaJsDefined extends Comment.Data
   case object IsTrivial extends Comment.Data
   case object ExpandedCallables extends Comment.Data
+  case object ExpandedClass extends Comment.Data
   case object EnumObject extends Comment.Data
   case class NameHint(value: String) extends Comment.Data
 }

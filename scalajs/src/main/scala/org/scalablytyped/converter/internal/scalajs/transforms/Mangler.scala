@@ -11,10 +11,31 @@ object Mangler extends TreeTransformation {
     val rewrittenMembers = container.members.map {
       case pkg: PackageTree if pkg.comments.has[LeaveAlone.type] => pkg
       case pkg: PackageTree => genPkgForwarders(pkg, Empty)
+      case mod: ModuleTree if mod.comments.has[Markers.EnumObject.type] =>
+        def stripLocationAnns(tree: Tree): Tree = {
+          def filterAnns(anns: IArray[Annotation]): IArray[Annotation] =
+            anns.filter {
+              case Annotation.JsBracketAccess => true
+              case Annotation.JsName(_)       => true
+              case Annotation.JsNameSymbol(_) => true
+              case _                          => false
+            }
+
+          tree match {
+            case x: FieldTree =>
+              x.copy(annotations = filterAnns(x.annotations), isReadOnly = true)
+            case x: MethodTree =>
+              x.copy(annotations = filterAnns(x.annotations))
+            case x => x
+          }
+        }
+
+        mod.copy(members = mod.members.map(stripLocationAnns))
       case mod: ModuleTree if mod.comments.has[LeaveAlone.type] || !mod.isNative => mod
       case mod: ModuleTree =>
-        Action(scope, mod) match {
-          case Action.RemainModule => genModForwarders(mod)
+        Action(scope / mod, mod) match {
+          case Action.RemainModule =>
+            genModForwarders(mod)
 
           case Action.ConvertToPackage =>
             genPkgForwarders(
@@ -41,12 +62,30 @@ object Mangler extends TreeTransformation {
     case object RemainModule extends Action
     case object ConvertToPackage extends Action
 
-    def existsClassWithSameName(scope: TreeScope, name: Name): Option[QualifiedName] =
-      for {
-        owner <- scope.stack.collectFirst { case x: ContainerTree => x }
-        sameName <- owner.index.get(name)
-        cls <- sameName.collectFirst { case x: ClassTree => x.codePath }
-      } yield cls
+    // Checks if any parent object has a collision with a class.
+    //
+    // In the scala 3 world we have no encoding for a package and a class with the same path. In scala 2 we reused
+    //  a rewrite and a type alias with a "companion package"
+    //
+    // todo: This is pretty wacko and slow, but it's because we evaluate depth first. Should rewrite and do manual traversal
+    def parentClassCollision(scope: TreeScope): Option[ClassTree] = {
+      def classCollision(scope: TreeScope, name: Name): Option[ClassTree] =
+        for {
+          owner <- scope.stack.collectFirst { case x: ContainerTree => x }
+          sameName <- owner.index.get(name)
+          cls <- sameName.collectFirst { case x: ClassTree => x }
+        } yield cls
+
+      scope match {
+        case _:      TreeScope.Root[_] => None
+        case scoped: TreeScope.Scoped =>
+          scoped.current match {
+            case tree: ContainerTree =>
+              classCollision(scoped.`..`, tree.name).orElse(parentClassCollision(scope.`..`))
+            case _ => parentClassCollision(scoped.`..`)
+          }
+      }
+    }
 
     def apply(scope: TreeScope, mod: ModuleTree): Action = {
       val containsPackage = mod.members.exists {
@@ -54,8 +93,8 @@ object Mangler extends TreeTransformation {
         case _ => false
       }
 
-      val isCompanion: Option[QualifiedName] =
-        existsClassWithSameName(scope, mod.name)
+      val isCompanion: Option[ClassTree] =
+        parentClassCollision(scope)
 
       val maybePackage = (containsPackage, isCompanion) match {
         case (true, Some(_))  => scope.logger.fatal("Found package within companion")
@@ -64,7 +103,7 @@ object Mangler extends TreeTransformation {
         case (false, None)    => true
       }
 
-      def tooBig = {
+      val tooBig = {
         def countClasses(x: ContainerTree): Int =
           x.members.foldLeft(0) {
             case (n, xx: ContainerTree)   => n + 1 + countClasses(xx)
@@ -91,7 +130,6 @@ object Mangler extends TreeTransformation {
       else Cast(Ref(hatCp), TypeRef.Dynamic)
 
     var needsHatObject = false
-    var needsCombining = false
 
     val forwarders = pkg.members.flatMap {
       case m: MethodTree if m.location.isDefined =>
@@ -116,8 +154,6 @@ object Mangler extends TreeTransformation {
               impl        = impl,
               codePath    = m.codePath + Name.APPLY,
             )
-
-          needsCombining = true
 
           IArray(ModuleTree(Empty, m.name, Empty, IArray(asApply), NoComments, m.codePath, m.isOverride))
 
@@ -148,7 +184,7 @@ object Mangler extends TreeTransformation {
         }
 
         val setterOpt =
-          if (f.isReadOnly) None
+          if (f.isReadOnly || f.name.isEscaped) None
           else {
             val xParam = ParamTree(Name("x"), isImplicit = false, isVal = false, f.tpe, NotImplemented, NoComments)
 
@@ -180,23 +216,25 @@ object Mangler extends TreeTransformation {
 
     val hatModuleOpt =
       if ((!needsHatObject && inheritance.isEmpty) || isGlobal) None
-      else
+      else {
+        val parents = inheritance match {
+          case Empty    => Empty
+          case nonEmpty => IArray(TypeRef.TopLevel(TypeRef.Intersection(nonEmpty, NoComments)))
+        }
         Some(
           ModuleTree(
             annotations = pkg.annotations,
             name        = Name.namespaced,
-            parents     = inheritance,
+            parents     = parents,
             members     = Empty,
             comments    = NoComments,
             codePath    = hatCp,
             isOverride  = false,
           ),
         )
+      }
 
-    pkg.copy(members = IArray.fromOption(hatModuleOpt) ++ forwarders) match {
-      case toCombine if needsCombining => ModulesCombine.combineModules(toCombine)
-      case ok                          => ok
-    }
+    ModulesCombine.combineModules(pkg.copy(members = IArray.fromOption(hatModuleOpt) ++ forwarders))
   }
 
   def genModForwarders(mod: ModuleTree): ModuleTree = {
@@ -214,10 +252,13 @@ object Mangler extends TreeTransformation {
         case m: MethodTree =>
           IArray(m)
 
-        case f: FieldTree if f.isReadOnly =>
+        case f: FieldTree if f.isReadOnly || f.location.isEmpty =>
           IArray(f)
 
-        case f: FieldTree if !f.isReadOnly && f.location.isDefined =>
+        case f: FieldTree if f.name.isEscaped => // don't think it's possible to generate setters in backticks
+          IArray(f.copy(isReadOnly = true))
+
+        case f: FieldTree =>
           needsHatObject = true
 
           val setter = {

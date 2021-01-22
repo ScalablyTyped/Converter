@@ -68,7 +68,7 @@ class Phase2ToScalaJs(
             val cleanIllegalNames = new CleanIllegalNames(outputPkg)
 
             val ScalaTransforms = List[PackageTree => PackageTree](
-              (S.ModulesCombine >> S.ModulesSimplify).visitPackageTree(scope),
+              S.ModulesCombine.visitPackageTree(scope),
               (new S.RemoveDuplicateInheritance(new ParentsResolver) >>
                 S.CleanupTypeAliases >>
                 cleanIllegalNames >>
