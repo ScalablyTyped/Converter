@@ -16,8 +16,7 @@ package object parser {
         Right(t)
 
       case p.NoSuccess(msg, next) =>
-        val errorMsg = s"$inFile: Parse error at ${next.pos} $msg"
-        Left(errorMsg)
+        Left(s"Parse error at ${next.pos} $msg")
     }
   }
 }

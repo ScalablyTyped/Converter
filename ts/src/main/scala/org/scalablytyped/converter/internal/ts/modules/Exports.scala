@@ -86,7 +86,7 @@ object Exports {
             }
         }
 
-      case TsExport(_, _, exportType, TsExporteeStar(from)) =>
+      case TsExport(_, _, exportType, TsExporteeStar(_, from)) =>
         scope.moduleScopes.get(from) match {
           case Some(TsTreeScope.Scoped(newScope, mod: TsDeclModule)) =>
             val resolvedModule: TsDeclModule =
@@ -189,7 +189,7 @@ object Exports {
           case TsExporteeTree(other) =>
             sys.error(s"Unexpected $other")
 
-          case TsExporteeStar(_) =>
+          case TsExporteeStar(_, _) =>
             Some(PickedExport(e, wanted))
         }
     }

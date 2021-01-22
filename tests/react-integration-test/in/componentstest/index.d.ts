@@ -29,3 +29,9 @@ interface CardInterface extends React.FC<CardProps> {
 }
 export const Card: CardInterface;
 
+
+export const ObjectNames: React.FC<{
+    ne?(other: object): boolean;
+    equals?: boolean;
+    finalize(other: object): boolean;
+}>;

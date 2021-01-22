@@ -686,7 +686,7 @@ final case class TsExporteeNames(idents: IArray[(TsQIdent, Option[TsIdentSimple]
 
 final case class TsExporteeTree(decl: TsDecl) extends TsExportee
 
-final case class TsExporteeStar(from: TsIdentModule) extends TsExportee
+final case class TsExporteeStar(as: Option[TsIdentSimple], from: TsIdentModule) extends TsExportee
 
 sealed trait ExportType
 

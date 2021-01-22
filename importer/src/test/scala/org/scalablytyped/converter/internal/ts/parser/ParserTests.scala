@@ -72,6 +72,12 @@ final class ParserTests extends AnyFunSuite {
     }
   }
 
+  test("CR line endings") {
+    withTsFile("parsertests/mathfield.d.ts") { content =>
+      parseAs(content, TsParser.parsedTsFile)
+    }
+  }
+
   test("handle nbsp") {
     shouldParseAs("\u00a0var _: string", TsParser.tsDeclVars)(
       IArray(
@@ -2713,6 +2719,37 @@ export {};
               ),
               None,
             ),
+            isStatic   = false,
+            isReadOnly = false,
+          ),
+        ),
+        Zero,
+        CodePath.NoPath,
+      ),
+    )
+  }
+
+  test("#private") {
+    val content = """declare class Test {
+    #private;
+}
+"""
+    shouldParseAs(content, TsParser.tsDeclClass)(
+      TsDeclClass(
+        NoComments,
+        declared   = true,
+        isAbstract = false,
+        TsIdentSimple("Test"),
+        IArray(),
+        None,
+        IArray(),
+        IArray(
+          TsMemberProperty(
+            NoComments,
+            ProtectionLevel.Private,
+            TsIdentSimple("private"),
+            None,
+            None,
             isStatic   = false,
             isReadOnly = false,
           ),

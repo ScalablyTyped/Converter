@@ -138,7 +138,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
 
     decl match {
       /* fix for @angular/core */
-      case TsExport(NoComments, _, _, TsExporteeStar(name)) if owner.name === name =>
+      case TsExport(NoComments, _, _, TsExporteeStar(_, name)) if owner.name === name =>
         CanBeShadowed(maybe = false, Empty)
       case e: TsExport =>
         val ret = Exports.expandExport(scope, jsLocation, e, loopDetector, owner)
@@ -154,8 +154,8 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
           }
         }
         val canBeShadowed = e match {
-          case TsExport(_, _, ExportType.Named, TsExporteeStar(_)) => true
-          case _                                                   => false
+          case TsExport(_, _, ExportType.Named, TsExporteeStar(_, _)) => true
+          case _                                                      => false
         }
         CanBeShadowed(canBeShadowed, ret)
 

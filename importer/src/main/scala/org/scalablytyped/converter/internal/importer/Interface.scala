@@ -1,7 +1,6 @@
 package org.scalablytyped.converter.internal
 package importer
 
-import com.olvind.logging.Logger
 import org.scalablytyped.converter.internal.phases.PhaseListener
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import fansi.Color
@@ -11,8 +10,8 @@ import scala.collection.mutable
 import scala.util.Try
 
 object Interface {
-  def apply[T](debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stored]])(f: PhaseListener[Source] => T) = {
-    val i = new Interface(debugMode, storingErrorLogger)
+  def apply[T](debugMode: Boolean)(f: PhaseListener[Source] => T) = {
+    val i = new Interface(debugMode)
     i.start()
     try {
       f(i)
@@ -21,16 +20,14 @@ object Interface {
     }
   }
 
-  private class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stored]])
-      extends Thread
-      with PhaseListener[Source] {
+  private class Interface(debugMode: Boolean) extends Thread with PhaseListener[Source] {
 
     import PhaseListener._
     private val t0     = System.currentTimeMillis
     private val files  = mutable.Set.empty[InFile]
     private val status = mutable.Map.empty[TsIdentLibrary, Event[Source]]
+    private var failed = List.empty[(TsIdentLibrary, Failure[Source])]
 
-    private def failed    = status.collect { case (lib, x: Failure[Source]) => (lib, x) }
     private def ignored   = status.collect { case (lib, _: Ignored[Source]) => lib }
     private def active    = status.collect { case (lib, x: Started[Source]) => (lib, x) }
     private def blocked   = status.collect { case (lib, x: Blocked[Source]) => (lib, x) }
@@ -45,6 +42,12 @@ object Interface {
 
     override def on(phaseName: String, id: Source, event: PhaseListener.Event[Source]): Unit =
       synchronized {
+        event match {
+          case fail @ Failure(_, _) =>
+            failed = (id.libName -> fail) :: failed.filterNot(_._1 === id.libName)
+          case _ => ()
+        }
+
         id match {
           case Source.TsHelperFile(file, _, _) =>
             files += file
@@ -101,14 +104,34 @@ object Interface {
         .sorted
         .foreach(println)
 
-      println("Last ten errors: ")
-      storingErrorLogger.underlying.takeRight(10).foreach { stored =>
-        println(
-          stored.ctx.get("id").fold("")(Color.Red(_).render + ": ") + stored.message.render
-            .takeWhile(_ =/= '\n')
-            .take(200),
-        )
+      val n = math.min(10, failed.size)
+      println(s"Last $n errors: ")
+
+      failed.take(n).foreach {
+        case (lib, failure) =>
+          val errorStrings = failure.errors
+            .map {
+              case (lib: Source.TsLibSource, Left(th)) =>
+                s"dependency ${lib.libName.value} failed ${th.getClass.getSimpleName}: ${th.getMessage}"
+              case (lib: Source.TsLibSource, Right(str)) =>
+                s"dependency ${lib.libName.value} failed: $str"
+              case (file: Source.TsHelperFile, _) if file.inLib.libName =/= lib =>
+                s"dependency ${file.inLib.libName.value} failed"
+              case (file: Source.TsHelperFile, Left(th)) =>
+                s"file ${file.file.path} failed ${th.getClass.getSimpleName}: ${th.getMessage}"
+              case (file: Source.TsHelperFile, Right(str)) =>
+                s"file ${file.file.path} failed $str"
+            }
+
+          val errorMsg = errorStrings
+            .map(_.takeWhile(_ =/= '\n'))
+            .toVector
+            .distinct
+            .mkString(", ")
+
+          println(s"${Color.Red(lib.value)}: $errorMsg")
       }
+
       System.out.println(sb)
     }
   }

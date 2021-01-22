@@ -143,13 +143,12 @@ object Ci {
 }
 
 class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoinPool, ec: ExecutionContext) {
-  val RunId                      = constants.DateTimePattern.format(LocalDateTime.now)
-  private val storingErrorLogger = logging.storing()
-  private val logsFolder         = files.existing(paths.cacheFolder / 'logs)
+  val RunId              = constants.DateTimePattern.format(LocalDateTime.now)
+  private val logsFolder = files.existing(paths.cacheFolder / 'logs)
 
   private val logger = {
     val logFile = new FileWriter((logsFolder / s"${RunId}.log").toIO)
-    val base    = logging.appendable(logFile).zipWith(storingErrorLogger.filter(LogLevel.error))
+    val base    = logging.appendable(logFile)
     if (config.debugMode) base.zipWith(logging.stdout) else base
   }
 
@@ -308,7 +307,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
     }
 
     val results: Map[Source, PhaseRes[Source, PublishedSbtProject]] =
-      Interface(config.debugMode, storingErrorLogger) { listener =>
+      Interface(config.debugMode) { listener =>
         initial
           .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
           .toMap
