@@ -13,6 +13,7 @@ import lmcoursier.{CoursierConfiguration, CoursierDependencyResolution}
 import org.scalablytyped.converter.internal.importer.build.{Compiler, CompilerPaths}
 import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
 import sbt._
+import sbt.coursierint.CoursierInputsTasks.credentialsTask
 import sbt.coursierint.CoursierRepositoriesTasks.coursierResolversTask
 import sbt.internal.inc.classpath.ClassLoaderCache
 import sbt.internal.inc.{AnalyzingCompiler, LoggedReporter, PlainVirtualFile, ScalaInstance, ZincLmUtil, ZincUtil}
@@ -90,6 +91,7 @@ object ZincCompiler {
     val resolver = DependencyResolution(
       new CoursierDependencyResolution(
         CoursierConfiguration()
+          .withCredentials(credentialsTask.value.toVector)
           .withResolvers(coursierResolversTask.value.toVector),
       ),
     )
