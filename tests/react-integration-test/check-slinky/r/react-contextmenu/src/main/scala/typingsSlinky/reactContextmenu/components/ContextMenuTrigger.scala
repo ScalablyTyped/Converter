@@ -13,15 +13,15 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object ContextMenuTrigger {
   
-  @JSImport("react-contextmenu", "ContextMenuTrigger")
-  @js.native
-  val component: js.Object = js.native
-  
   @scala.inline
   def apply(id: String): Builder = {
     val __props = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
     new Builder(js.Array(this.component, __props.asInstanceOf[ContextMenuTriggerProps]))
   }
+  
+  @JSImport("react-contextmenu", "ContextMenuTrigger")
+  @js.native
+  val component: js.Object = js.native
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])

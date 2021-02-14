@@ -8,6 +8,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait AllHTMLAttributes[T] extends HTMLAttributes[T] {
   
+  var default: js.UndefOr[Boolean] = js.native
+  
   // Standard HTML Attributes
   var accept: js.UndefOr[String] = js.native
   
@@ -62,8 +64,6 @@ trait AllHTMLAttributes[T] extends HTMLAttributes[T] {
   var data: js.UndefOr[String] = js.native
   
   var dateTime: js.UndefOr[String] = js.native
-  
-  var default: js.UndefOr[Boolean] = js.native
   
   var defer: js.UndefOr[Boolean] = js.native
   

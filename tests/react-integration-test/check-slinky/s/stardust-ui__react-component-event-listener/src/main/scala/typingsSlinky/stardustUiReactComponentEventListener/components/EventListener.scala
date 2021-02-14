@@ -12,10 +12,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object EventListener {
   
-  @JSImport("@stardust-ui/react-component-event-listener", "EventListener")
-  @js.native
-  val component: js.Object = js.native
-  
   @scala.inline
   def apply[T /* <: EventTypes */](
     listener: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Unit,
@@ -28,6 +24,10 @@ object EventListener {
     __props.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     new Builder[T](js.Array(this.component, __props.asInstanceOf[EventListenerOptions[T]]))
   }
+  
+  @JSImport("@stardust-ui/react-component-event-listener", "EventListener")
+  @js.native
+  val component: js.Object = js.native
   
   @scala.inline
   class Builder[T /* <: EventTypes */] (val args: js.Array[js.Any])

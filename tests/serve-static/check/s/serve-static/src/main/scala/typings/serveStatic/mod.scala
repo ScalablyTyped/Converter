@@ -10,6 +10,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  @JSImport("serve-static", JSImport.Namespace)
+  @js.native
+  def apply(root: String): Handler = js.native
+  @JSImport("serve-static", JSImport.Namespace)
+  @js.native
+  def apply(root: String, options: ServeStaticOptions): Handler = js.native
+  
   object mime {
     
     @JSImport("serve-static", "mime.default_type")
@@ -38,13 +45,6 @@ object mod {
   @JSImport("serve-static", "serveStatic")
   @js.native
   def serveStatic(root: String, options: ServeStaticOptions): Handler = js.native
-  
-  @JSImport("serve-static", JSImport.Namespace)
-  @js.native
-  def apply(root: String): Handler = js.native
-  @JSImport("serve-static", JSImport.Namespace)
-  @js.native
-  def apply(root: String, options: ServeStaticOptions): Handler = js.native
   
   @js.native
   trait ServeStaticOptions extends StObject {

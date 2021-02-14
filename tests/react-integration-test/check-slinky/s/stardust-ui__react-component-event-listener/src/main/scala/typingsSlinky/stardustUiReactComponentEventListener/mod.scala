@@ -16,6 +16,9 @@ object mod {
     
     @JSImport("@stardust-ui/react-component-event-listener", "EventListener")
     @js.native
+    def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = js.native
+    @JSImport("@stardust-ui/react-component-event-listener", "EventListener")
+    @js.native
     val ^ : js.Any = js.native
     
     object defaultProps {
@@ -42,10 +45,6 @@ object mod {
     def propTypes: Capture | Listener = js.native
     @scala.inline
     def propTypes_=(x: Capture | Listener): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("propTypes")(x.asInstanceOf[js.Any])
-    
-    @JSImport("@stardust-ui/react-component-event-listener", "EventListener")
-    @js.native
-    def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = js.native
   }
   
   @JSImport("@stardust-ui/react-component-event-listener", "documentRef")

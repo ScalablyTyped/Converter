@@ -74,6 +74,9 @@ object ButtonGroup {
        with StBuildingComponent[tag.type, typingsSlinky.reactBootstrap.mod.ButtonGroup] {
     
     @scala.inline
+    def default(value: Boolean): this.type = set("default", value.asInstanceOf[js.Any])
+    
+    @scala.inline
     def about(value: String): this.type = set("about", value.asInstanceOf[js.Any])
     
     @scala.inline
@@ -339,9 +342,6 @@ object ButtonGroup {
     
     @scala.inline
     def dateTime(value: String): this.type = set("dateTime", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def default(value: Boolean): this.type = set("default", value.asInstanceOf[js.Any])
     
     @scala.inline
     def defaultChecked(value: Boolean): this.type = set("defaultChecked", value.asInstanceOf[js.Any])

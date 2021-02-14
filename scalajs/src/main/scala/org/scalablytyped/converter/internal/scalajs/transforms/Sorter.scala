@@ -29,17 +29,16 @@ object Sorter extends TreeTransformation {
       case _ => false
     }
   }
+  val Unnamed = Set(Name.Default, Name.namespaced, Name.APPLY)
 
   def sorted(members: IArray[Tree]): IArray[Tree] = {
     val nativeValueNamesOrCompanion
         : Set[String] = members.collect { case t if hasNativeLocation(t) => t.name.value }.toSet
 
     val (_1, _2, _3) = members.partitionCollect2(
-      // sort ^ first
-      { case x if x.name === Name.namespaced => x }, {
-        // getters and setters should be next to each other
-        case x if nativeValueNamesOrCompanion(x.name.unescaped.replace("_=", "")) => x
-      },
+      { case x if Unnamed(x.name) => x },
+      // getters and setters should be next to each other
+      { case x if nativeValueNamesOrCompanion(x.name.unescaped.replace("_=", "")) => x },
     )
 
     IArray(_1, _2, _3).map(_.sorted(TreeOrdering)).flatten

@@ -12,10 +12,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object Profiler {
   
-  @JSImport("react", "Profiler")
-  @js.native
-  val component: js.Object = js.native
-  
   @scala.inline
   def apply(
     id: String,
@@ -24,6 +20,10 @@ object Profiler {
     val __props = js.Dynamic.literal(id = id.asInstanceOf[js.Any], onRender = js.Any.fromFunction7(onRender))
     new Default[tag.type, js.Object](js.Array(this.component, __props.asInstanceOf[ProfilerProps]))
   }
+  
+  @JSImport("react", "Profiler")
+  @js.native
+  val component: js.Object = js.native
   
   def withProps(p: ProfilerProps): Default[tag.type, js.Object] = new Default[tag.type, js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

@@ -8,12 +8,12 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object accessibilityMod {
   
+  @JSImport("material-ui/svg-icons/action/accessibility", JSImport.Default)
+  @js.native
+  class default () extends ActionAccessibility
+  
   @JSImport("material-ui/svg-icons/action/accessibility", "ActionAccessibility")
   @js.native
   class ActionAccessibility ()
     extends Component[js.Object, js.Object]
-  
-  @JSImport("material-ui/svg-icons/action/accessibility", JSImport.Default)
-  @js.native
-  class default () extends ActionAccessibility
 }

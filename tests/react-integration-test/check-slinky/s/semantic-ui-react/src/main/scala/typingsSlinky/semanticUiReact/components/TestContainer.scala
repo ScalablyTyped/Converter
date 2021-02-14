@@ -13,10 +13,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object TestContainer {
   
-  @JSImport("semantic-ui-react/dist/commonjs/elements/TestContainer", JSImport.Default)
-  @js.native
-  val component: js.Object = js.native
-  
   @scala.inline
   def apply(
     requiredFn0Number: () => Double,
@@ -27,6 +23,10 @@ object TestContainer {
     val __props = js.Dynamic.literal(requiredFn0Number = js.Any.fromFunction0(requiredFn0Number), requiredFn0Void = js.Any.fromFunction0(requiredFn0Void), requiredFn1Number = js.Any.fromFunction1(requiredFn1Number), requiredFn1Void = js.Any.fromFunction1(requiredFn1Void))
     new Builder(js.Array(this.component, __props.asInstanceOf[TestContainerProps]))
   }
+  
+  @JSImport("semantic-ui-react/dist/commonjs/elements/TestContainer", JSImport.Default)
+  @js.native
+  val component: js.Object = js.native
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])

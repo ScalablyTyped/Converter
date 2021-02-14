@@ -7,15 +7,15 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  @JSImport("fullcalendar/EmitterMixin", JSImport.Default)
+  @js.native
+  class default () extends Default_
+  
   @JSImport("fullcalendar/EmitterMixin", "Default")
   @js.native
   class Default_ ()
     extends typings.fullcalendar.mixinMod.default
        with EmitterInterface
-  
-  @JSImport("fullcalendar/EmitterMixin", JSImport.Default)
-  @js.native
-  class default () extends Default_
   
   @js.native
   trait EmitterInterface extends StObject {

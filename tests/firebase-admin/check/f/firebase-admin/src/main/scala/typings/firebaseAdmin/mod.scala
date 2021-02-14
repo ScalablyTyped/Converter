@@ -10,6 +10,13 @@ object mod {
   
   object firestore {
     
+    @JSImport("firebase-admin", "firestore")
+    @js.native
+    def apply(): Firestore = js.native
+    @JSImport("firebase-admin", "firestore")
+    @js.native
+    def apply(str: String): Firestore = js.native
+    
     @JSImport("firebase-admin", "firestore.Firestore")
     @js.native
     /**
@@ -20,12 +27,5 @@ object mod {
       extends typings.googleCloudFirestore.FirebaseFirestore.Firestore {
       def this(settings: Settings) = this()
     }
-    
-    @JSImport("firebase-admin", "firestore")
-    @js.native
-    def apply(): Firestore = js.native
-    @JSImport("firebase-admin", "firestore")
-    @js.native
-    def apply(str: String): Firestore = js.native
   }
 }

@@ -12,30 +12,30 @@ object Component {
   
   object A {
     
-    @JSImport("componentstest", "Component")
-    @js.native
-    val component: js.Object = js.native
-    
     @scala.inline
     def apply(aCallback: CallbackTo[Double], aMember: Double): Default[js.Object] = {
       val __props = js.Dynamic.literal(aCallback = aCallback.toJsFn, aMember = aMember.asInstanceOf[js.Any])
       new Default[js.Object](js.Array(this.component, __props.asInstanceOf[typingsJapgolly.componentstest.mod.A]))
     }
     
+    @JSImport("componentstest", "Component")
+    @js.native
+    val component: js.Object = js.native
+    
     def withProps(p: typingsJapgolly.componentstest.mod.A): Default[js.Object] = new Default[js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   object B {
-    
-    @JSImport("componentstest", "Component")
-    @js.native
-    val component: js.Object = js.native
     
     @scala.inline
     def apply(bMember: String): Builder = {
       val __props = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
       new Builder(js.Array(this.component, __props.asInstanceOf[typingsJapgolly.componentstest.mod.B]))
     }
+    
+    @JSImport("componentstest", "Component")
+    @js.native
+    val component: js.Object = js.native
     
     @scala.inline
     class Builder (val args: js.Array[js.Any])

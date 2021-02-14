@@ -7,6 +7,12 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object eventPeriodMod {
   
+  @JSImport("fullcalendar/EventPeriod", JSImport.Default)
+  @js.native
+  class default protected () extends Default_ {
+    def this(start: js.Any, end: js.Any, timezone: js.Any) = this()
+  }
+  
   @JSImport("fullcalendar/EventPeriod", "Default")
   @js.native
   class Default_ protected () extends StObject {
@@ -27,11 +33,5 @@ object eventPeriodMod {
     var requestsByUid: js.Any = js.native
     
     def thaw(): Unit = js.native
-  }
-  
-  @JSImport("fullcalendar/EventPeriod", JSImport.Default)
-  @js.native
-  class default protected () extends Default_ {
-    def this(start: js.Any, end: js.Any, timezone: js.Any) = this()
   }
 }

@@ -11,15 +11,15 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object BottomNavigationItem {
   
-  @JSImport("material-ui/BottomNavigation/BottomNavigationItem", JSImport.Default)
-  @js.native
-  val component: js.Object = js.native
-  
   @scala.inline
   def apply(children: Double): Builder = {
     val __props = js.Dynamic.literal(children = children.asInstanceOf[js.Any])
     new Builder(js.Array(this.component, __props.asInstanceOf[BottomNavigationItemProps]))
   }
+  
+  @JSImport("material-ui/BottomNavigation/BottomNavigationItem", JSImport.Default)
+  @js.native
+  val component: js.Object = js.native
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])
