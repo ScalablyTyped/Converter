@@ -15,6 +15,43 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object accordionAccordionMod {
   
+  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", JSImport.Default)
+  @js.native
+  class default protected ()
+    extends Component[AccordionProps, js.Object, js.Any] {
+    def this(props: AccordionProps) = this()
+    def this(props: AccordionProps, context: js.Any) = this()
+  }
+  object default {
+    
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", JSImport.Default)
+    @js.native
+    val ^ : AccordionComponent = js.native
+    
+    /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", "default.Accordion")
+    @js.native
+    class Accordion protected ()
+      extends Component[AccordionAccordionProps, js.Object, js.Any] {
+      def this(props: AccordionAccordionProps) = this()
+      def this(props: AccordionAccordionProps, context: js.Any) = this()
+    }
+    
+    /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", "default.Title")
+    @js.native
+    class Title protected ()
+      extends Component[AccordionTitleProps, js.Object, js.Any] {
+      def this(props: AccordionTitleProps) = this()
+      def this(props: AccordionTitleProps, context: js.Any) = this()
+    }
+    
+    /* Syntax to write `default` instead of `default.^` */
+    @scala.inline
+    implicit def __is(ignored: default.type): AccordionComponent = typingsSlinky.semanticUiReact.accordionAccordionMod.default.^
+  }
+  
   @js.native
   trait AccordionComponent
     extends ComponentClass[AccordionProps, js.Object] {
@@ -79,43 +116,6 @@ object accordionAccordionMod {
       
       @scala.inline
       def setStyledUndefined: Self = StObject.set(x, "styled", js.undefined)
-    }
-  }
-  
-  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
-  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", JSImport.Default)
-  @js.native
-  class default protected ()
-    extends Component[AccordionProps, js.Object, js.Any] {
-    def this(props: AccordionProps) = this()
-    def this(props: AccordionProps, context: js.Any) = this()
-  }
-  object default {
-    
-    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", JSImport.Default)
-    @js.native
-    val ^ : AccordionComponent = js.native
-    
-    /* Syntax to write `default` instead of `default.^` */
-    @scala.inline
-    implicit def __is(ignored: default.type): AccordionComponent = typingsSlinky.semanticUiReact.accordionAccordionMod.default.^
-    
-    /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
-    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", "default.Accordion")
-    @js.native
-    class Accordion protected ()
-      extends Component[AccordionAccordionProps, js.Object, js.Any] {
-      def this(props: AccordionAccordionProps) = this()
-      def this(props: AccordionAccordionProps, context: js.Any) = this()
-    }
-    
-    /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
-    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/Accordion", "default.Title")
-    @js.native
-    class Title protected ()
-      extends Component[AccordionTitleProps, js.Object, js.Any] {
-      def this(props: AccordionTitleProps) = this()
-      def this(props: AccordionTitleProps, context: js.Any) = this()
     }
   }
 }

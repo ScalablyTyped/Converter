@@ -25,10 +25,6 @@ object AccordionPanel {
   @js.native
   val component: js.Object = js.native
   
-  implicit def make(companion: AccordionPanel.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
-  
-  def withProps(p: AccordionPanelProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
-  
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
@@ -67,4 +63,8 @@ object AccordionPanel {
     @scala.inline
     def titleVdomElement(value: VdomElement): this.type = set("title", value.rawElement.asInstanceOf[js.Any])
   }
+  
+  implicit def make(companion: AccordionPanel.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+  
+  def withProps(p: AccordionPanelProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

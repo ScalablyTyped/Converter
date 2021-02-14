@@ -92,13 +92,42 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object Button {
   
+  object Content {
+    
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Content")
+    @js.native
+    val component: js.Object = js.native
+    
+    implicit def make(companion: Content.type): SharedBuilder_ButtonContentProps1680783343 = new SharedBuilder_ButtonContentProps1680783343(js.Array(this.component, js.Dictionary.empty))()
+    
+    def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps1680783343 = new SharedBuilder_ButtonContentProps1680783343(js.Array(this.component, p.asInstanceOf[js.Any]))
+  }
+  
+  object Group {
+    
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Group")
+    @js.native
+    val component: js.Object = js.native
+    
+    implicit def make(companion: Group.type): SharedBuilder_ButtonGroupProps_158814638 = new SharedBuilder_ButtonGroupProps_158814638(js.Array(this.component, js.Dictionary.empty))()
+    
+    def withProps(p: ButtonGroupProps): SharedBuilder_ButtonGroupProps_158814638 = new SharedBuilder_ButtonGroupProps_158814638(js.Array(this.component, p.asInstanceOf[js.Any]))
+  }
+  
+  object Or {
+    
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Or")
+    @js.native
+    val component: js.Object = js.native
+    
+    implicit def make(companion: Or.type): SharedBuilder_ButtonOrProps_184214248 = new SharedBuilder_ButtonOrProps_184214248(js.Array(this.component, js.Dictionary.empty))()
+    
+    def withProps(p: ButtonOrProps): SharedBuilder_ButtonOrProps_184214248 = new SharedBuilder_ButtonOrProps_184214248(js.Array(this.component, p.asInstanceOf[js.Any]))
+  }
+  
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", JSImport.Default)
   @js.native
   val component: js.Object = js.native
-  
-  implicit def make(companion: Button.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
-  
-  def withProps(p: StrictButtonProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])
@@ -752,36 +781,7 @@ object Button {
     def vocab(value: String): this.type = set("vocab", value.asInstanceOf[js.Any])
   }
   
-  object Content {
-    
-    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Content")
-    @js.native
-    val component: js.Object = js.native
-    
-    implicit def make(companion: Content.type): SharedBuilder_ButtonContentProps1680783343 = new SharedBuilder_ButtonContentProps1680783343(js.Array(this.component, js.Dictionary.empty))()
-    
-    def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps1680783343 = new SharedBuilder_ButtonContentProps1680783343(js.Array(this.component, p.asInstanceOf[js.Any]))
-  }
+  implicit def make(companion: Button.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   
-  object Group {
-    
-    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Group")
-    @js.native
-    val component: js.Object = js.native
-    
-    implicit def make(companion: Group.type): SharedBuilder_ButtonGroupProps_158814638 = new SharedBuilder_ButtonGroupProps_158814638(js.Array(this.component, js.Dictionary.empty))()
-    
-    def withProps(p: ButtonGroupProps): SharedBuilder_ButtonGroupProps_158814638 = new SharedBuilder_ButtonGroupProps_158814638(js.Array(this.component, p.asInstanceOf[js.Any]))
-  }
-  
-  object Or {
-    
-    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Or")
-    @js.native
-    val component: js.Object = js.native
-    
-    implicit def make(companion: Or.type): SharedBuilder_ButtonOrProps_184214248 = new SharedBuilder_ButtonOrProps_184214248(js.Array(this.component, js.Dictionary.empty))()
-    
-    def withProps(p: ButtonOrProps): SharedBuilder_ButtonOrProps_184214248 = new SharedBuilder_ButtonOrProps_184214248(js.Array(this.component, p.asInstanceOf[js.Any]))
-  }
+  def withProps(p: StrictButtonProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

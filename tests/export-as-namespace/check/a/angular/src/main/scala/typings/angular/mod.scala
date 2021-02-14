@@ -17,10 +17,6 @@ object mod {
   @js.native
   val ^ : IAngularStatic = js.native
   
-  /* Syntax to write `mod` instead of `mod.^` */
-  @scala.inline
-  implicit def __is(ignored: mod.type): IAngularStatic = typings.angular.mod.^
-  
   ///////////////////////////////////////////////////////////////////////////
   // AngularStatic
   // see http://docs.angularjs.org/api
@@ -81,6 +77,12 @@ object mod {
     }
   }
   
+  type Injectable[T /* <: Function */] = T | (js.Array[String | T])
+  
+  /* Syntax to write `mod` instead of `mod.^` */
+  @scala.inline
+  implicit def __is(ignored: mod.type): IAngularStatic = typings.angular.mod.^
+  
   object auto {
     
     ///////////////////////////////////////////////////////////////////////
@@ -125,6 +127,4 @@ object mod {
       var $inject: js.UndefOr[js.Array[String]] = js.native
     }
   }
-  
-  type Injectable[T /* <: Function */] = T | (js.Array[String | T])
 }

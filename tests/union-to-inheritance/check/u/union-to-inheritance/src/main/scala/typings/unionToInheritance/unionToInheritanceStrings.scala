@@ -7,35 +7,25 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object unionToInheritanceStrings {
   
+  @js.native
+  sealed trait a1 extends _A
   @scala.inline
   def a1: a1 = "a1".asInstanceOf[a1]
   
+  @js.native
+  sealed trait a2 extends _A
   @scala.inline
   def a2: a2 = "a2".asInstanceOf[a2]
   
+  @js.native
+  sealed trait b1 extends _B
   @scala.inline
   def b1: b1 = "b1".asInstanceOf[b1]
   
-  @scala.inline
-  def b2: b2 = "b2".asInstanceOf[b2]
-  
-  @scala.inline
-  def bar: bar = "bar".asInstanceOf[bar]
-  
-  @scala.inline
-  def foo: foo = "foo".asInstanceOf[foo]
-  
-  @js.native
-  sealed trait a1 extends _A
-  
-  @js.native
-  sealed trait a2 extends _A
-  
-  @js.native
-  sealed trait b1 extends _B
-  
   @js.native
   sealed trait b2 extends _B
+  @scala.inline
+  def b2: b2 = "b2".asInstanceOf[b2]
   
   @js.native
   sealed trait bar
@@ -46,6 +36,8 @@ object unionToInheritanceStrings {
        with _Illegal2
        with _Illegal3[js.Any]
        with _Test[js.Any, js.Any, js.Any]
+  @scala.inline
+  def bar: bar = "bar".asInstanceOf[bar]
   
   @js.native
   sealed trait foo
@@ -56,4 +48,6 @@ object unionToInheritanceStrings {
        with _Illegal2
        with _Illegal3[js.Any]
        with _Test[js.Any, js.Any, js.Any]
+  @scala.inline
+  def foo: foo = "foo".asInstanceOf[foo]
 }

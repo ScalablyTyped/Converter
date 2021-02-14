@@ -10,6 +10,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  @JSImport("react-select", JSImport.Default)
+  @js.native
+  class default[TValue] () extends ReactSelectClass[TValue]
+  
   @js.native
   trait Option[TValue]
     extends /**
@@ -39,6 +43,8 @@ object mod {
       def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
     }
   }
+  
+  type OptionValues = String | Double | Boolean
   
   @js.native
   trait ReactSelectClass[TValue]
@@ -76,10 +82,4 @@ object mod {
       def setAddLabelTextUndefined: Self = StObject.set(x, "addLabelText", js.undefined)
     }
   }
-  
-  @JSImport("react-select", JSImport.Default)
-  @js.native
-  class default[TValue] () extends ReactSelectClass[TValue]
-  
-  type OptionValues = String | Double | Boolean
 }

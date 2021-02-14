@@ -39,87 +39,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object vueMod {
   
-  @JSImport("vue/types/vue", "Vue")
-  @js.native
-  val Vue: VueConstructor[typings.vue.vueMod.Vue] = js.native
-  
-  @js.native
-  trait CreateElement extends StObject {
-    
-    def apply(): VNode = js.native
-    def apply(tag: js.UndefOr[Component[_, _, _, _]], children: VNodeChildren): VNode = js.native
-    def apply(tag: js.UndefOr[Component[_, _, _, _]], data: js.UndefOr[scala.Nothing], children: VNodeChildren): VNode = js.native
-    def apply(tag: js.UndefOr[Component[_, _, _, _]], data: VNodeData): VNode = js.native
-    def apply(tag: js.UndefOr[Component[_, _, _, _]], data: VNodeData, children: VNodeChildren): VNode = js.native
-    def apply(tag: String): VNode = js.native
-    def apply(tag: String, children: VNodeChildren): VNode = js.native
-    def apply(tag: String, data: js.UndefOr[scala.Nothing], children: VNodeChildren): VNode = js.native
-    def apply(tag: String, data: VNodeData): VNode = js.native
-    def apply(tag: String, data: VNodeData, children: VNodeChildren): VNode = js.native
-    def apply(
-      tag: js.Function0[
-          Component[
-            DefaultData[typings.vue.vueMod.Vue], 
-            DefaultMethods[typings.vue.vueMod.Vue], 
-            DefaultComputed, 
-            DefaultProps
-          ]
-        ]
-    ): VNode = js.native
-    def apply(
-      tag: js.Function0[
-          Component[
-            DefaultData[typings.vue.vueMod.Vue], 
-            DefaultMethods[typings.vue.vueMod.Vue], 
-            DefaultComputed, 
-            DefaultProps
-          ]
-        ],
-      children: VNodeChildren
-    ): VNode = js.native
-    def apply(
-      tag: js.Function0[
-          Component[
-            DefaultData[typings.vue.vueMod.Vue], 
-            DefaultMethods[typings.vue.vueMod.Vue], 
-            DefaultComputed, 
-            DefaultProps
-          ]
-        ],
-      data: js.UndefOr[scala.Nothing],
-      children: VNodeChildren
-    ): VNode = js.native
-    def apply(
-      tag: js.Function0[
-          Component[
-            DefaultData[typings.vue.vueMod.Vue], 
-            DefaultMethods[typings.vue.vueMod.Vue], 
-            DefaultComputed, 
-            DefaultProps
-          ]
-        ],
-      data: VNodeData
-    ): VNode = js.native
-    def apply(
-      tag: js.Function0[
-          Component[
-            DefaultData[typings.vue.vueMod.Vue], 
-            DefaultMethods[typings.vue.vueMod.Vue], 
-            DefaultComputed, 
-            DefaultProps
-          ]
-        ],
-      data: VNodeData,
-      children: VNodeChildren
-    ): VNode = js.native
-    def apply(tag: AsyncComponent[_, _, _, _]): VNode = js.native
-    def apply(tag: AsyncComponent[_, _, _, _], children: VNodeChildren): VNode = js.native
-    def apply(tag: AsyncComponent[_, _, _, _], data: js.UndefOr[scala.Nothing], children: VNodeChildren): VNode = js.native
-    def apply(tag: AsyncComponent[_, _, _, _], data: VNodeData): VNode = js.native
-    def apply(tag: AsyncComponent[_, _, _, _], data: VNodeData, children: VNodeChildren): VNode = js.native
-    def apply(tag: Component[_, _, _, _]): VNode = js.native
-  }
-  
   @js.native
   trait Vue extends StObject {
     
@@ -355,6 +274,92 @@ object vueMod {
       options: WatchOptions
     ): js.Function0[Unit] = js.native
   }
+  @JSImport("vue/types/vue", "Vue")
+  @js.native
+  val Vue: VueConstructor[typings.vue.vueMod.Vue] = js.native
+  
+  type CombinedVueInstance[Instance /* <: typings.vue.vueMod.Vue */, Data, Methods, Computed, Props] = Data with Methods with Computed with Props with Instance
+  
+  @js.native
+  trait CreateElement extends StObject {
+    
+    def apply(): VNode = js.native
+    def apply(tag: js.UndefOr[Component[_, _, _, _]], children: VNodeChildren): VNode = js.native
+    def apply(tag: js.UndefOr[Component[_, _, _, _]], data: js.UndefOr[scala.Nothing], children: VNodeChildren): VNode = js.native
+    def apply(tag: js.UndefOr[Component[_, _, _, _]], data: VNodeData): VNode = js.native
+    def apply(tag: js.UndefOr[Component[_, _, _, _]], data: VNodeData, children: VNodeChildren): VNode = js.native
+    def apply(tag: String): VNode = js.native
+    def apply(tag: String, children: VNodeChildren): VNode = js.native
+    def apply(tag: String, data: js.UndefOr[scala.Nothing], children: VNodeChildren): VNode = js.native
+    def apply(tag: String, data: VNodeData): VNode = js.native
+    def apply(tag: String, data: VNodeData, children: VNodeChildren): VNode = js.native
+    def apply(
+      tag: js.Function0[
+          Component[
+            DefaultData[typings.vue.vueMod.Vue], 
+            DefaultMethods[typings.vue.vueMod.Vue], 
+            DefaultComputed, 
+            DefaultProps
+          ]
+        ]
+    ): VNode = js.native
+    def apply(
+      tag: js.Function0[
+          Component[
+            DefaultData[typings.vue.vueMod.Vue], 
+            DefaultMethods[typings.vue.vueMod.Vue], 
+            DefaultComputed, 
+            DefaultProps
+          ]
+        ],
+      children: VNodeChildren
+    ): VNode = js.native
+    def apply(
+      tag: js.Function0[
+          Component[
+            DefaultData[typings.vue.vueMod.Vue], 
+            DefaultMethods[typings.vue.vueMod.Vue], 
+            DefaultComputed, 
+            DefaultProps
+          ]
+        ],
+      data: js.UndefOr[scala.Nothing],
+      children: VNodeChildren
+    ): VNode = js.native
+    def apply(
+      tag: js.Function0[
+          Component[
+            DefaultData[typings.vue.vueMod.Vue], 
+            DefaultMethods[typings.vue.vueMod.Vue], 
+            DefaultComputed, 
+            DefaultProps
+          ]
+        ],
+      data: VNodeData
+    ): VNode = js.native
+    def apply(
+      tag: js.Function0[
+          Component[
+            DefaultData[typings.vue.vueMod.Vue], 
+            DefaultMethods[typings.vue.vueMod.Vue], 
+            DefaultComputed, 
+            DefaultProps
+          ]
+        ],
+      data: VNodeData,
+      children: VNodeChildren
+    ): VNode = js.native
+    def apply(tag: AsyncComponent[_, _, _, _]): VNode = js.native
+    def apply(tag: AsyncComponent[_, _, _, _], children: VNodeChildren): VNode = js.native
+    def apply(tag: AsyncComponent[_, _, _, _], data: js.UndefOr[scala.Nothing], children: VNodeChildren): VNode = js.native
+    def apply(tag: AsyncComponent[_, _, _, _], data: VNodeData): VNode = js.native
+    def apply(tag: AsyncComponent[_, _, _, _], data: VNodeData, children: VNodeChildren): VNode = js.native
+    def apply(tag: Component[_, _, _, _]): VNode = js.native
+  }
+  
+  type ExtendedVue[Instance /* <: typings.vue.vueMod.Vue */, Data, Methods, Computed, Props] = VueConstructor[
+    (CombinedVueInstance[Instance, Data, Methods, Computed, Props]) with typings.vue.vueMod.Vue
+  ]
   
   @js.native
   trait VueConfiguration extends StObject {
@@ -523,10 +528,4 @@ object vueMod {
     def use[T](plugin: PluginObject[T]): Unit = js.native
     def use[T](plugin: PluginObject[T], options: T): Unit = js.native
   }
-  
-  type CombinedVueInstance[Instance /* <: typings.vue.vueMod.Vue */, Data, Methods, Computed, Props] = Data with Methods with Computed with Props with Instance
-  
-  type ExtendedVue[Instance /* <: typings.vue.vueMod.Vue */, Data, Methods, Computed, Props] = VueConstructor[
-    (CombinedVueInstance[Instance, Data, Methods, Computed, Props]) with typings.vue.vueMod.Vue
-  ]
 }

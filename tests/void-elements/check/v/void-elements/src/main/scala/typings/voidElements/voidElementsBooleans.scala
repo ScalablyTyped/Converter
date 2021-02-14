@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object voidElementsBooleans {
   
-  @scala.inline
-  def `true`: `true` = true.asInstanceOf[`true`]
   @js.native
   sealed trait `true` extends StObject
+  @scala.inline
+  def `true`: `true` = true.asInstanceOf[`true`]
 }

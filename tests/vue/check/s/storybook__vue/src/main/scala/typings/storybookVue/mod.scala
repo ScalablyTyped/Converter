@@ -37,6 +37,8 @@ object mod {
   @js.native
   def storiesOf(kind: String, module: NodeModule): Story = js.native
   
+  type Addon = StringDictionary[js.Function2[/* storyName */ String, /* storyFn */ StoryFunction, Unit]]
+  
   @js.native
   trait Story extends StObject {
     
@@ -67,6 +69,36 @@ object mod {
       def setKind(value: String): Self = StObject.set(x, "kind", value.asInstanceOf[js.Any])
     }
   }
+  
+  type StoryDecorator = js.Function2[
+    /* story */ js.Function0[
+      ComponentOptions[
+        Vue, 
+        DefaultData[Vue], 
+        DefaultMethods[Vue], 
+        DefaultComputed, 
+        PropsDefinition[DefaultProps]
+      ]
+    ], 
+    /* context */ Kind, 
+    (ComponentOptions[
+      Vue, 
+      DefaultData[Vue], 
+      DefaultMethods[Vue], 
+      DefaultComputed, 
+      PropsDefinition[DefaultProps]
+    ]) | Null
+  ]
+  
+  type StoryFunction = js.Function0[
+    (ComponentOptions[
+      Vue, 
+      DefaultData[Vue], 
+      DefaultMethods[Vue], 
+      DefaultComputed, 
+      PropsDefinition[DefaultProps]
+    ]) | String
+  ]
   
   @js.native
   trait StoryObject extends StObject {
@@ -120,36 +152,4 @@ object mod {
       def setStoriesVarargs(value: StoryObject*): Self = StObject.set(x, "stories", js.Array(value :_*))
     }
   }
-  
-  type Addon = StringDictionary[js.Function2[/* storyName */ String, /* storyFn */ StoryFunction, Unit]]
-  
-  type StoryDecorator = js.Function2[
-    /* story */ js.Function0[
-      ComponentOptions[
-        Vue, 
-        DefaultData[Vue], 
-        DefaultMethods[Vue], 
-        DefaultComputed, 
-        PropsDefinition[DefaultProps]
-      ]
-    ], 
-    /* context */ Kind, 
-    (ComponentOptions[
-      Vue, 
-      DefaultData[Vue], 
-      DefaultMethods[Vue], 
-      DefaultComputed, 
-      PropsDefinition[DefaultProps]
-    ]) | Null
-  ]
-  
-  type StoryFunction = js.Function0[
-    (ComponentOptions[
-      Vue, 
-      DefaultData[Vue], 
-      DefaultMethods[Vue], 
-      DefaultComputed, 
-      PropsDefinition[DefaultProps]
-    ]) | String
-  ]
 }

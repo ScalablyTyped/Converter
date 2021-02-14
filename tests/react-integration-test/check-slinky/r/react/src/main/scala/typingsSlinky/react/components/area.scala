@@ -65,12 +65,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object area {
   
-  val component: String = "area"
-  
-  implicit def make(companion: area.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
-  
-  def withProps(p: DetailedHTMLProps[AreaHTMLAttributes[HTMLAreaElement], HTMLAreaElement]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
-  
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
@@ -619,4 +613,10 @@ object area {
     @scala.inline
     def vocab(value: String): this.type = set("vocab", value.asInstanceOf[js.Any])
   }
+  
+  val component: String = "area"
+  
+  implicit def make(companion: area.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+  
+  def withProps(p: DetailedHTMLProps[AreaHTMLAttributes[HTMLAreaElement], HTMLAreaElement]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

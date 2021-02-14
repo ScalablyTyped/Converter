@@ -10,6 +10,8 @@ object MaterialUI {
   
   object BottomNavigation {
     
+    type BottomNavigationItem = Component[BottomNavigationItemProps with js.Object, js.Object]
+    
     @js.native
     trait BottomNavigationItemProps extends StObject {
       
@@ -38,8 +40,6 @@ object MaterialUI {
         def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       }
     }
-    
-    type BottomNavigationItem = Component[BottomNavigationItemProps with js.Object, js.Object]
   }
   
   object Styles {

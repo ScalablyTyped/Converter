@@ -17,30 +17,6 @@ object mod {
   @js.native
   val Ref: ReactComponentClass[RefProps] = js.native
   
-  /**
-    * The function that correctly handles passing refs.
-    *
-    * @param ref An ref object or function
-    * @param node A node that should be passed by ref
-    */
-  @JSImport("@stardust-ui/react-component-ref", "handleRef")
-  @js.native
-  def handleRef[N](ref: typingsSlinky.react.mod.Ref[N], node: N): Unit = js.native
-  
-  /** Checks that the passed object is a valid React ref object. */
-  @JSImport("@stardust-ui/react-component-ref", "isRefObject")
-  @js.native
-  def isRefObject(ref: js.Any): /* is react.react.RefObject<any> */ Boolean = js.native
-  
-  @JSImport("@stardust-ui/react-component-ref", "refPropType")
-  @js.native
-  val refPropType: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ js.Any = js.native
-  
-  /** Creates a React ref object from existing DOM node. */
-  @JSImport("@stardust-ui/react-component-ref", "toRefObject")
-  @js.native
-  def toRefObject[T /* <: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): ReactRef[T] = js.native
-  
   @JSImport("@stardust-ui/react-component-ref", "RefFindNode")
   @js.native
   class RefFindNode () extends default
@@ -87,4 +63,28 @@ object mod {
     @scala.inline
     def propTypes_=(x: Children | InnerRef): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("propTypes")(x.asInstanceOf[js.Any])
   }
+  
+  /**
+    * The function that correctly handles passing refs.
+    *
+    * @param ref An ref object or function
+    * @param node A node that should be passed by ref
+    */
+  @JSImport("@stardust-ui/react-component-ref", "handleRef")
+  @js.native
+  def handleRef[N](ref: typingsSlinky.react.mod.Ref[N], node: N): Unit = js.native
+  
+  /** Checks that the passed object is a valid React ref object. */
+  @JSImport("@stardust-ui/react-component-ref", "isRefObject")
+  @js.native
+  def isRefObject(ref: js.Any): /* is react.react.RefObject<any> */ Boolean = js.native
+  
+  @JSImport("@stardust-ui/react-component-ref", "refPropType")
+  @js.native
+  val refPropType: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ js.Any = js.native
+  
+  /** Creates a React ref object from existing DOM node. */
+  @JSImport("@stardust-ui/react-component-ref", "toRefObject")
+  @js.native
+  def toRefObject[T /* <: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): ReactRef[T] = js.native
 }

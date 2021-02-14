@@ -10,12 +10,27 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @JSImport("serve-static", JSImport.Namespace)
-  @js.native
-  def apply(root: String): Handler = js.native
-  @JSImport("serve-static", JSImport.Namespace)
-  @js.native
-  def apply(root: String, options: ServeStaticOptions): Handler = js.native
+  object mime {
+    
+    @JSImport("serve-static", "mime.default_type")
+    @js.native
+    val defaultType: String = js.native
+    
+    @JSImport("serve-static", "mime.define")
+    @js.native
+    def define(mimes: TypeMap): Unit = js.native
+    @JSImport("serve-static", "mime.define")
+    @js.native
+    def define(mimes: TypeMap, force: Boolean): Unit = js.native
+    
+    @JSImport("serve-static", "mime.getExtension")
+    @js.native
+    def getExtension(mime: String): String | Null = js.native
+    
+    @JSImport("serve-static", "mime.getType")
+    @js.native
+    def getType(path: String): String | Null = js.native
+  }
   
   @JSImport("serve-static", "serveStatic")
   @js.native
@@ -23,6 +38,13 @@ object mod {
   @JSImport("serve-static", "serveStatic")
   @js.native
   def serveStatic(root: String, options: ServeStaticOptions): Handler = js.native
+  
+  @JSImport("serve-static", JSImport.Namespace)
+  @js.native
+  def apply(root: String): Handler = js.native
+  @JSImport("serve-static", JSImport.Namespace)
+  @js.native
+  def apply(root: String, options: ServeStaticOptions): Handler = js.native
   
   @js.native
   trait ServeStaticOptions extends StObject {
@@ -46,27 +68,5 @@ object mod {
       @scala.inline
       def setSetHeadersUndefined: Self = StObject.set(x, "setHeaders", js.undefined)
     }
-  }
-  
-  object mime {
-    
-    @JSImport("serve-static", "mime.default_type")
-    @js.native
-    val defaultType: String = js.native
-    
-    @JSImport("serve-static", "mime.define")
-    @js.native
-    def define(mimes: TypeMap): Unit = js.native
-    @JSImport("serve-static", "mime.define")
-    @js.native
-    def define(mimes: TypeMap, force: Boolean): Unit = js.native
-    
-    @JSImport("serve-static", "mime.getExtension")
-    @js.native
-    def getExtension(mime: String): String | Null = js.native
-    
-    @JSImport("serve-static", "mime.getType")
-    @js.native
-    def getType(path: String): String | Null = js.native
   }
 }

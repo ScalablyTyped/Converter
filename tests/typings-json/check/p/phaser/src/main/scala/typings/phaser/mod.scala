@@ -16,13 +16,6 @@ object mod {
   @js.native
   val ^ : js.Any = js.native
   
-  /* static member */
-  @JSImport("phaser", "VERSION")
-  @js.native
-  def VERSION: String = js.native
-  @scala.inline
-  def VERSION_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("VERSION")(x.asInstanceOf[js.Any])
-  
   /**
     * An Animation instance contains a single animation and the controls to play it.
     *
@@ -32,4 +25,11 @@ object mod {
   @js.native
   class Animation ()
     extends typings.phaser.Phaser.Animation
+  
+  /* static member */
+  @JSImport("phaser", "VERSION")
+  @js.native
+  def VERSION: String = js.native
+  @scala.inline
+  def VERSION_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("VERSION")(x.asInstanceOf[js.Any])
 }

@@ -60,6 +60,18 @@ trait StBuildingComponent[E, R <: js.Object] extends Any {
 }
 object StBuildingComponent {
   
+  @JSImport("react", JSImport.Namespace, "React")
+  @js.native
+  object ReactRaw
+    extends js.Object {
+    
+    val createElement: js.Dynamic = js.native
+  }
+  
+  class Default[E, R <: js.Object] (val args: js.Array[js.Any])
+    extends AnyVal
+       with StBuildingComponent[E, R]
+  
   @scala.inline
   implicit def make[E, R <: js.Object](comp: StBuildingComponent[_, _]): ReactElement = {
     if (!scala.scalajs.runtime.linkingInfo.productionMode) {
@@ -70,17 +82,5 @@ object StBuildingComponent {
     comp.args.update(0, null)
   }
     ret
-  }
-  
-  class Default[E, R <: js.Object] (val args: js.Array[js.Any])
-    extends AnyVal
-       with StBuildingComponent[E, R]
-  
-  @JSImport("react", JSImport.Namespace, "React")
-  @js.native
-  object ReactRaw
-    extends js.Object {
-    
-    val createElement: js.Dynamic = js.native
   }
 }

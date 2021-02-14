@@ -9,6 +9,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object configServicePlaceholdersMod {
   
+  @JSImport("aws-sdk/lib/config_service_placeholders", "ConfigurationServicePlaceholders")
+  @js.native
+  abstract class ConfigurationServicePlaceholders () extends StObject {
+    
+    var dynamodb: js.UndefOr[ClientConfiguration] = js.native
+  }
+  
   @js.native
   trait ConfigurationServiceApiVersions extends StObject {
     
@@ -31,12 +38,5 @@ object configServicePlaceholdersMod {
       @scala.inline
       def setDynamodbUndefined: Self = StObject.set(x, "dynamodb", js.undefined)
     }
-  }
-  
-  @JSImport("aws-sdk/lib/config_service_placeholders", "ConfigurationServicePlaceholders")
-  @js.native
-  abstract class ConfigurationServicePlaceholders () extends StObject {
-    
-    var dynamodb: js.UndefOr[ClientConfiguration] = js.native
   }
 }

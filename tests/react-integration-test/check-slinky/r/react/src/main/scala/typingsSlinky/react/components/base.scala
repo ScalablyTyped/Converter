@@ -65,12 +65,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object base {
   
-  val component: String = "base"
-  
-  implicit def make(companion: base.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
-  
-  def withProps(p: DetailedHTMLProps[BaseHTMLAttributes[HTMLBaseElement], HTMLBaseElement]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
-  
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
@@ -598,4 +592,10 @@ object base {
     @scala.inline
     def vocab(value: String): this.type = set("vocab", value.asInstanceOf[js.Any])
   }
+  
+  val component: String = "base"
+  
+  implicit def make(companion: base.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+  
+  def withProps(p: DetailedHTMLProps[BaseHTMLAttributes[HTMLBaseElement], HTMLBaseElement]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

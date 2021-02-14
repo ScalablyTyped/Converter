@@ -11,10 +11,6 @@ object mod {
   @js.native
   val ^ : CldrFactory = js.native
   
-  /* Syntax to write `mod` instead of `mod.^` */
-  @scala.inline
-  implicit def __is(ignored: mod.type): CldrFactory = typings.cldrjs.mod.^
-  
   @js.native
   trait Attributes extends StObject {
     
@@ -164,4 +160,8 @@ object mod {
       def setMinDays(value: () => Double): Self = StObject.set(x, "minDays", js.Any.fromFunction0(value))
     }
   }
+  
+  /* Syntax to write `mod` instead of `mod.^` */
+  @scala.inline
+  implicit def __is(ignored: mod.type): CldrFactory = typings.cldrjs.mod.^
 }

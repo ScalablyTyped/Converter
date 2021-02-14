@@ -114,6 +114,8 @@ object mod {
     var displayName: js.UndefOr[String] = js.native
   }
   
+  type ComponentState = js.Object
+  
   /* Rewritten from type alias, can be one of: 
     - typings.react.mod.ComponentClass[P]
     - typings.react.mod.StatelessComponent[P]
@@ -184,6 +186,12 @@ object mod {
     }
   }
   
+  type DOMFactory[P /* <: DOMAttributes[T] */, T /* <: Element */] = js.Function2[
+    /* props */ js.UndefOr[(ClassAttributes[T] with P) | Null], 
+    /* repeated */ ReactNode, 
+    DOMElement[P, T]
+  ]
+  
   @js.native
   trait HTMLAttributes[T] extends DOMAttributes[T] {
     
@@ -207,6 +215,8 @@ object mod {
       def setDefaultCheckedUndefined: Self = StObject.set(x, "defaultChecked", js.undefined)
     }
   }
+  
+  type Key = String | Double
   
   @js.native
   trait ReactElement extends StObject {
@@ -242,6 +252,8 @@ object mod {
       def setType(value: String | ComponentClass[_]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
+  
+  type ReactNode = js.UndefOr[String | Double | Boolean]
   
   @js.native
   trait ReactSVG extends StObject {
@@ -298,6 +310,10 @@ object mod {
     }
   }
   
+  type Ref[T] = String | (js.Function1[/* instance */ T | Null, js.Any])
+  
+  type SFC[P] = StatelessComponent[P]
+  
   @js.native
   trait SVGAttributes[T] extends DOMAttributes[T] {
     
@@ -348,6 +364,8 @@ object mod {
     def apply(props: Null, children: ReactNode*): ReactSVGElement = js.native
   }
   
+  type SVGProps[T] = ClassAttributes[T]
+  
   @js.native
   trait StatelessComponent[P] extends ComponentType[P] {
     
@@ -358,22 +376,4 @@ object mod {
     
     var displayName: js.UndefOr[String] = js.native
   }
-  
-  type ComponentState = js.Object
-  
-  type DOMFactory[P /* <: DOMAttributes[T] */, T /* <: Element */] = js.Function2[
-    /* props */ js.UndefOr[(ClassAttributes[T] with P) | Null], 
-    /* repeated */ ReactNode, 
-    DOMElement[P, T]
-  ]
-  
-  type Key = String | Double
-  
-  type ReactNode = js.UndefOr[String | Double | Boolean]
-  
-  type Ref[T] = String | (js.Function1[/* instance */ T | Null, js.Any])
-  
-  type SFC[P] = StatelessComponent[P]
-  
-  type SVGProps[T] = ClassAttributes[T]
 }

@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object stdStrings {
   
-  @scala.inline
-  def Partial: Partial = "Partial".asInstanceOf[Partial]
   @js.native
   sealed trait Partial extends StObject
+  @scala.inline
+  def Partial: Partial = "Partial".asInstanceOf[Partial]
 }

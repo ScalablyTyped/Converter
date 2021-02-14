@@ -91,12 +91,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object view {
   
-  val component: String = "view"
-  
-  implicit def make(companion: view.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
-  
-  def withProps(p: SVGProps[SVGViewElement]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
-  
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
@@ -1256,4 +1250,10 @@ object view {
     @scala.inline
     def zoomAndPan(value: String): this.type = set("zoomAndPan", value.asInstanceOf[js.Any])
   }
+  
+  val component: String = "view"
+  
+  implicit def make(companion: view.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+  
+  def withProps(p: SVGProps[SVGViewElement]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

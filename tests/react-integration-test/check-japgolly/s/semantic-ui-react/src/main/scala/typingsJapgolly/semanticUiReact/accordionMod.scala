@@ -26,10 +26,6 @@ object accordionMod {
     @js.native
     val ^ : AccordionComponent = js.native
     
-    /* Syntax to write `default` instead of `default.^` */
-    @scala.inline
-    implicit def __is(ignored: default.type): AccordionComponent = typingsJapgolly.semanticUiReact.accordionMod.default.^
-    
     /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
     @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Accordion")
     @js.native
@@ -47,5 +43,9 @@ object accordionMod {
       def this(props: AccordionTitleProps) = this()
       def this(props: AccordionTitleProps, context: js.Any) = this()
     }
+    
+    /* Syntax to write `default` instead of `default.^` */
+    @scala.inline
+    implicit def __is(ignored: default.type): AccordionComponent = typingsJapgolly.semanticUiReact.accordionMod.default.^
   }
 }

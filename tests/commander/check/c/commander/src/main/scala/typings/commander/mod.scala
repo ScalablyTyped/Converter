@@ -16,10 +16,6 @@ object mod {
   @js.native
   val ^ : CommanderStatic = js.native
   
-  /* Syntax to write `mod` instead of `mod.^` */
-  @scala.inline
-  implicit def __is(ignored: mod.type): CommanderStatic = typings.commander.mod.^
-  
   /* This class was inferred from a value with a constructor, it was renamed because a distinct type already exists with the same name. */
   @JSImport("commander", "Command")
   @js.native
@@ -32,6 +28,23 @@ object mod {
     extends typings.commander.mod.local.Command {
     def this(name: String) = this()
   }
+  
+  /* This class was inferred from a value with a constructor, it was renamed because a distinct type already exists with the same name. */
+  @JSImport("commander", "Option")
+  @js.native
+  class OptionCls protected ()
+    extends typings.commander.mod.local.Option {
+    /**
+      * Initialize a new `Option` with the given `flags` and `description`.
+      *
+      * @param {string} flags
+      * @param {string} [description]
+      */
+    def this(flags: String) = this()
+    def this(flags: String, description: String) = this()
+  }
+  
+  type Command = typings.commander.mod.local.Command
   
   @js.native
   trait CommandOptions extends StObject {
@@ -82,20 +95,7 @@ object mod {
     var ParseOptionsResult: typings.commander.mod.ParseOptionsResult = js.native
   }
   
-  /* This class was inferred from a value with a constructor, it was renamed because a distinct type already exists with the same name. */
-  @JSImport("commander", "Option")
-  @js.native
-  class OptionCls protected ()
-    extends typings.commander.mod.local.Option {
-    /**
-      * Initialize a new `Option` with the given `flags` and `description`.
-      *
-      * @param {string} flags
-      * @param {string} [description]
-      */
-    def this(flags: String) = this()
-    def this(flags: String, description: String) = this()
-  }
+  type Option = typings.commander.mod.local.Option
   
   @js.native
   trait ParseOptionsResult extends StObject {
@@ -128,6 +128,10 @@ object mod {
       def setUnknownVarargs(value: String*): Self = StObject.set(x, "unknown", js.Array(value :_*))
     }
   }
+  
+  /* Syntax to write `mod` instead of `mod.^` */
+  @scala.inline
+  implicit def __is(ignored: mod.type): CommanderStatic = typings.commander.mod.^
   
   object local {
     
@@ -479,8 +483,4 @@ object mod {
       }
     }
   }
-  
-  type Command = typings.commander.mod.local.Command
-  
-  type Option = typings.commander.mod.local.Option
 }

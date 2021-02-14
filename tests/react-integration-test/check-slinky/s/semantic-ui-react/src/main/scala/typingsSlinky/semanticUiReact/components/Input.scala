@@ -87,10 +87,6 @@ object Input {
   @js.native
   val component: js.Object = js.native
   
-  implicit def make(companion: Input.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
-  
-  def withProps(p: StrictInputProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
-  
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
@@ -780,4 +776,8 @@ object Input {
     @scala.inline
     def width(value: Double | String): this.type = set("width", value.asInstanceOf[js.Any])
   }
+  
+  implicit def make(companion: Input.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+  
+  def withProps(p: StrictInputProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

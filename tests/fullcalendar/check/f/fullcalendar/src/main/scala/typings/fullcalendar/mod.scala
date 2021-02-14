@@ -13,6 +13,10 @@ object mod {
     extends typings.fullcalendar.mixinMod.default
        with EmitterInterface
   
+  @JSImport("fullcalendar/EmitterMixin", JSImport.Default)
+  @js.native
+  class default () extends Default_
+  
   @js.native
   trait EmitterInterface extends StObject {
     
@@ -33,8 +37,4 @@ object mod {
       def setOn(value: (js.Any, js.Any) => js.Any): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
     }
   }
-  
-  @JSImport("fullcalendar/EmitterMixin", JSImport.Default)
-  @js.native
-  class default () extends Default_
 }

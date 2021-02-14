@@ -30,6 +30,8 @@ object mod {
   @js.native
   def useDropzone(options: DropzoneOptions): DropzoneState = js.native
   
+  type DropEvent = DragEvent[HTMLElement] | ChangeEvent[HTMLInputElement] | org.scalajs.dom.raw.DragEvent | Event
+  
   @js.native
   trait DropzoneInputProps extends InputHTMLAttributes[HTMLInputElement] {
     
@@ -397,6 +399,4 @@ object mod {
     @scala.inline
     def onDragOver: typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver = "onDragOver".asInstanceOf[typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver]
   }
-  
-  type DropEvent = DragEvent[HTMLElement] | ChangeEvent[HTMLInputElement] | org.scalajs.dom.raw.DragEvent | Event
 }

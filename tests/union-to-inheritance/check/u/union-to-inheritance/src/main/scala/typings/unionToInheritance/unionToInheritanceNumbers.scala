@@ -7,15 +7,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object unionToInheritanceNumbers {
   
+  @js.native
+  sealed trait `1` extends _C
   @scala.inline
   def `1`: `1` = 1.asInstanceOf[`1`]
   
-  @scala.inline
-  def `2`: `2` = 2.asInstanceOf[`2`]
-  
-  @js.native
-  sealed trait `1` extends _C
-  
   @js.native
   sealed trait `2` extends _C
+  @scala.inline
+  def `2`: `2` = 2.asInstanceOf[`2`]
 }

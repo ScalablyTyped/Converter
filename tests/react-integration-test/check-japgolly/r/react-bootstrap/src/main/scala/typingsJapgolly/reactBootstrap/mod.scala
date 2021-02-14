@@ -14,6 +14,30 @@ object mod {
   class ButtonGroup ()
     extends typingsJapgolly.reactBootstrap.libMod.ButtonGroup
   
+  @JSImport("react-bootstrap", "ToggleButtonGroup")
+  @js.native
+  class ToggleButtonGroup ()
+    extends typingsJapgolly.reactBootstrap.libMod.ToggleButtonGroup
+  
+  object utils {
+    
+    object bootstrapUtils {
+      
+      @JSImport("react-bootstrap", "utils.bootstrapUtils.getBsProps")
+      @js.native
+      def getBsProps(props: js.Any): BSProps = js.native
+    }
+    
+    @JSImport("react-bootstrap", "utils.createChainedFunction")
+    @js.native
+    def createChainedFunction(funcs: js.Function*): js.Function = js.native
+  }
+  
+  type Omit[T, K /* <: /* keyof T */ String */] = Pick[
+    T, 
+    /* import warning: importer.ImportType#apply Failed type conversion: {[ P in keyof T ]: P} & {[ P in K ]: never} & {[x: string] : never, [x: number] : never}[keyof T] */ js.Any
+  ]
+  
   /* Rewritten from type alias, can be one of: 
     - typingsJapgolly.reactBootstrap.reactBootstrapStrings.xs
     - typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall
@@ -47,28 +71,4 @@ object mod {
     @scala.inline
     def xsmall: typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall = "xsmall".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall]
   }
-  
-  @JSImport("react-bootstrap", "ToggleButtonGroup")
-  @js.native
-  class ToggleButtonGroup ()
-    extends typingsJapgolly.reactBootstrap.libMod.ToggleButtonGroup
-  
-  object utils {
-    
-    @JSImport("react-bootstrap", "utils.createChainedFunction")
-    @js.native
-    def createChainedFunction(funcs: js.Function*): js.Function = js.native
-    
-    object bootstrapUtils {
-      
-      @JSImport("react-bootstrap", "utils.bootstrapUtils.getBsProps")
-      @js.native
-      def getBsProps(props: js.Any): BSProps = js.native
-    }
-  }
-  
-  type Omit[T, K /* <: /* keyof T */ String */] = Pick[
-    T, 
-    /* import warning: importer.ImportType#apply Failed type conversion: {[ P in keyof T ]: P} & {[ P in K ]: never} & {[x: string] : never, [x: number] : never}[keyof T] */ js.Any
-  ]
 }

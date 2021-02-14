@@ -7,6 +7,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  type Handler = RequestHandler
+  
+  type NextFunction = js.Function1[/* err */ js.UndefOr[js.Any], Unit]
+  
   @js.native
   trait Request
     extends typings.expressServeStaticCore.mod.global.Express.Request {
@@ -28,6 +32,8 @@ object mod {
       def setUrl(value: String): Self = StObject.set(x, "url", value.asInstanceOf[js.Any])
     }
   }
+  
+  type RequestHandler = js.Function3[/* req */ Request, /* res */ Response, /* next */ NextFunction, js.Any]
   
   @js.native
   trait Response
@@ -67,10 +73,4 @@ object mod {
       trait Response extends StObject
     }
   }
-  
-  type Handler = RequestHandler
-  
-  type NextFunction = js.Function1[/* err */ js.UndefOr[js.Any], Unit]
-  
-  type RequestHandler = js.Function3[/* req */ Request, /* res */ Response, /* next */ NextFunction, js.Any]
 }

@@ -1,13 +1,13 @@
 organization := "org.scalablytyped"
 name := "stardust-ui__react-component-event-listener"
-version := "0.38.0-d2b6af"
+version := "0.38.0-fca3a2"
 scalaVersion := "2.13.3"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.3.0",
   "me.shadaj" %%% "slinky-web" % "0.6.6",
-  "org.scalablytyped" %%% "react" % "16.9.2-be6cea",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-bb4671")
+  "org.scalablytyped" %%% "react" % "16.9.2-e2839c",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-c10db0")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-feature", "-g:notailcalls", "-language:implicitConversions", "-language:higherKinds", "-language:existentials")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

@@ -7,21 +7,18 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object keyofStrings {
   
+  @js.native
+  sealed trait a extends StObject
   @scala.inline
   def a: a = "a".asInstanceOf[a]
   
+  @js.native
+  sealed trait b extends StObject
   @scala.inline
   def b: b = "b".asInstanceOf[b]
   
-  @scala.inline
-  def c: c = "c".asInstanceOf[c]
-  
-  @js.native
-  sealed trait a extends StObject
-  
-  @js.native
-  sealed trait b extends StObject
-  
   @js.native
   sealed trait c extends StObject
+  @scala.inline
+  def c: c = "c".asInstanceOf[c]
 }

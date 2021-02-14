@@ -32,6 +32,10 @@ object mod {
   @js.native
   def apply[T](data: Data[T], shape: js.Array[Double], stride: js.Array[Double], offset: Double): typings.ndarray.mod.ndarray[T] = js.native
   
+  type Data[T] = js.Array[T]
+  
+  type DataType = String
+  
   @js.native
   trait ndarray[T] extends StObject {
     
@@ -60,8 +64,4 @@ object mod {
       def setT(value: typings.ndarray.mod.ndarray[T]): Self = StObject.set(x, "T", value.asInstanceOf[js.Any])
     }
   }
-  
-  type Data[T] = js.Array[T]
-  
-  type DataType = String
 }

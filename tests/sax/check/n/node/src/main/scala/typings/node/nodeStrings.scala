@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object nodeStrings {
   
-  @scala.inline
-  def close: close = "close".asInstanceOf[close]
   @js.native
   sealed trait close extends StObject
+  @scala.inline
+  def close: close = "close".asInstanceOf[close]
 }

@@ -39,6 +39,39 @@ object streamMod {
     var writable: Boolean = js.native
   }
   
+  @JSImport("stream", "Readable")
+  @js.native
+  class Readable ()
+    extends Stream
+       with ReadableStream {
+    
+    @JSName("on")
+    def on_close(event: close, listener: js.Function0[Unit]): this.type = js.native
+  }
+  
+  @JSImport("stream", "Stream")
+  @js.native
+  class Stream () extends internal
+  
+  @JSImport("stream", "Writable")
+  @js.native
+  class Writable ()
+    extends Stream
+       with WritableStream {
+    def this(opts: WritableOptions) = this()
+    
+    def end(): Unit = js.native
+    def end(cb: js.Function): Unit = js.native
+    def end(chunk: js.Any): Unit = js.native
+    def end(chunk: js.Any, cb: js.Function): Unit = js.native
+    def end(chunk: js.Any, encoding: js.UndefOr[scala.Nothing], cb: js.Function): Unit = js.native
+    def end(chunk: js.Any, encoding: String): Unit = js.native
+    def end(chunk: js.Any, encoding: String, cb: js.Function): Unit = js.native
+    
+    @JSName("on")
+    def on_close(event: close, listener: js.Function0[Unit]): this.type = js.native
+  }
+  
   @js.native
   trait DuplexOptions
     extends ReadableOptions
@@ -63,16 +96,6 @@ object streamMod {
       @scala.inline
       def setAllowHalfOpenUndefined: Self = StObject.set(x, "allowHalfOpen", js.undefined)
     }
-  }
-  
-  @JSImport("stream", "Readable")
-  @js.native
-  class Readable ()
-    extends Stream
-       with ReadableStream {
-    
-    @JSName("on")
-    def on_close(event: close, listener: js.Function0[Unit]): this.type = js.native
   }
   
   @js.native
@@ -129,29 +152,6 @@ object streamMod {
       @scala.inline
       def setReadUndefined: Self = StObject.set(x, "read", js.undefined)
     }
-  }
-  
-  @JSImport("stream", "Stream")
-  @js.native
-  class Stream () extends internal
-  
-  @JSImport("stream", "Writable")
-  @js.native
-  class Writable ()
-    extends Stream
-       with WritableStream {
-    def this(opts: WritableOptions) = this()
-    
-    def end(): Unit = js.native
-    def end(cb: js.Function): Unit = js.native
-    def end(chunk: js.Any): Unit = js.native
-    def end(chunk: js.Any, cb: js.Function): Unit = js.native
-    def end(chunk: js.Any, encoding: js.UndefOr[scala.Nothing], cb: js.Function): Unit = js.native
-    def end(chunk: js.Any, encoding: String): Unit = js.native
-    def end(chunk: js.Any, encoding: String, cb: js.Function): Unit = js.native
-    
-    @JSName("on")
-    def on_close(event: close, listener: js.Function0[Unit]): this.type = js.native
   }
   
   @js.native

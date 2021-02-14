@@ -7,21 +7,18 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object stdStrings {
   
+  @js.native
+  sealed trait Partial extends StObject
   @scala.inline
   def Partial: Partial = "Partial".asInstanceOf[Partial]
   
+  @js.native
+  sealed trait Pick extends StObject
   @scala.inline
   def Pick: Pick = "Pick".asInstanceOf[Pick]
   
-  @scala.inline
-  def Readonly: Readonly = "Readonly".asInstanceOf[Readonly]
-  
-  @js.native
-  sealed trait Partial extends StObject
-  
-  @js.native
-  sealed trait Pick extends StObject
-  
   @js.native
   sealed trait Readonly extends StObject
+  @scala.inline
+  def Readonly: Readonly = "Readonly".asInstanceOf[Readonly]
 }

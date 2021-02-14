@@ -7,15 +7,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object reactTransitionGroupStrings {
   
+  @js.native
+  sealed trait abbr extends StObject
   @scala.inline
   def abbr: abbr = "abbr".asInstanceOf[abbr]
   
-  @scala.inline
-  def animate: animate = "animate".asInstanceOf[animate]
-  
-  @js.native
-  sealed trait abbr extends StObject
-  
   @js.native
   sealed trait animate extends StObject
+  @scala.inline
+  def animate: animate = "animate".asInstanceOf[animate]
 }

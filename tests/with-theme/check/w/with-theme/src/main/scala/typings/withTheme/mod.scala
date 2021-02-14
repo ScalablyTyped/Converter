@@ -16,6 +16,8 @@ object mod {
   @js.native
   def default(): js.Function1[/* component */ ComponentType[js.Any with WithTheme], ComponentClass[_]] = js.native
   
+  type ConsistentWith[T, U] = Pick[U, /* keyof T */ String]
+  
   @js.native
   trait WithTheme extends StObject {
     
@@ -44,6 +46,4 @@ object mod {
       def setTheme(value: String): Self = StObject.set(x, "theme", value.asInstanceOf[js.Any])
     }
   }
-  
-  type ConsistentWith[T, U] = Pick[U, /* keyof T */ String]
 }

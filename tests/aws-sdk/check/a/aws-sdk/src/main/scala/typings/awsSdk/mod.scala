@@ -12,10 +12,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @JSImport("aws-sdk", "config")
-  @js.native
-  val config: Config = js.native
-  
   @JSImport("aws-sdk", "DynamoDB")
   @js.native
   class DynamoDB ()
@@ -49,4 +45,8 @@ object mod {
       def this(options: DocumentClientOptions with ClientConfiguration) = this()
     }
   }
+  
+  @JSImport("aws-sdk", "config")
+  @js.native
+  val config: Config = js.native
 }

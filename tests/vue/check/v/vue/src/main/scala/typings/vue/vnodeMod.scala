@@ -13,6 +13,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object vnodeMod {
   
+  type ScopedSlot = js.Function1[/* props */ js.Any, VNodeChildrenArrayContents | String]
+  
   @js.native
   trait VNode extends StObject {
     
@@ -145,6 +147,8 @@ object vnodeMod {
       def setTextUndefined: Self = StObject.set(x, "text", js.undefined)
     }
   }
+  
+  type VNodeChildren = VNodeChildrenArrayContents | js.Array[ScopedSlot] | String
   
   @js.native
   trait VNodeChildrenArrayContents extends /* x */ NumberDictionary[VNode | String | VNodeChildren]
@@ -447,8 +451,4 @@ object vnodeMod {
       def setValue(value: js.Any): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     }
   }
-  
-  type ScopedSlot = js.Function1[/* props */ js.Any, VNodeChildrenArrayContents | String]
-  
-  type VNodeChildren = VNodeChildrenArrayContents | js.Array[ScopedSlot] | String
 }

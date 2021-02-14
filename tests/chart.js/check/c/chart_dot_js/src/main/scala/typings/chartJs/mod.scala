@@ -29,23 +29,6 @@ object mod {
     typings.chartJs.mod.Chart
   ] = js.native
   
-  /* static member */
-  @JSImport("chart.js", "Chart")
-  @js.native
-  val Chart: Instantiable2[
-    /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
-    /* options */ js.Any, 
-    typings.chartJs.mod.Chart
-  ] = js.native
-  
-  /* Syntax to write `mod` instead of `mod.^` */
-  @scala.inline
-  implicit def __is(ignored: mod.type): Instantiable2[
-    /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
-    /* options */ js.Any, 
-    typings.chartJs.mod.Chart
-  ] = typings.chartJs.mod.^
-  
   @js.native
   trait Chart extends StObject {
     
@@ -79,6 +62,14 @@ object mod {
     def update(duration: js.Any): js.Object = js.native
     def update(duration: js.Any, `lazy`: js.Any): js.Object = js.native
   }
+  /* static member */
+  @JSImport("chart.js", "Chart")
+  @js.native
+  val Chart: Instantiable2[
+    /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
+    /* options */ js.Any, 
+    typings.chartJs.mod.Chart
+  ] = js.native
   
   /* This class was inferred from a value with a constructor, it was renamed because a distinct type already exists with the same name. */
   @JSImport("chart.js", "Chart")
@@ -89,6 +80,20 @@ object mod {
     def this(context: ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement], options: js.Any) = this()
     def this(context: CanvasRenderingContext2D, options: js.Any) = this()
     def this(context: HTMLCanvasElement, options: js.Any) = this()
+  }
+  
+  /* static member */
+  object defaults {
+    
+    @JSImport("chart.js", "defaults")
+    @js.native
+    val ^ : js.Any = js.native
+    
+    @JSImport("chart.js", "defaults.global")
+    @js.native
+    def global: ChartOptions with ChartFontOptions = js.native
+    @scala.inline
+    def global_=(x: ChartOptions with ChartFontOptions): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("global")(x.asInstanceOf[js.Any])
   }
   
   @js.native
@@ -172,20 +177,14 @@ object mod {
     }
   }
   
-  /* static member */
-  object controllers
+  /* Syntax to write `mod` instead of `mod.^` */
+  @scala.inline
+  implicit def __is(ignored: mod.type): Instantiable2[
+    /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
+    /* options */ js.Any, 
+    typings.chartJs.mod.Chart
+  ] = typings.chartJs.mod.^
   
   /* static member */
-  object defaults {
-    
-    @JSImport("chart.js", "defaults")
-    @js.native
-    val ^ : js.Any = js.native
-    
-    @JSImport("chart.js", "defaults.global")
-    @js.native
-    def global: ChartOptions with ChartFontOptions = js.native
-    @scala.inline
-    def global_=(x: ChartOptions with ChartFontOptions): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("global")(x.asInstanceOf[js.Any])
-  }
+  object controllers
 }

@@ -59,6 +59,10 @@ object mod {
     var displayName: js.UndefOr[String] = js.native
   }
   
+  type ComponentState = js.Object
+  
+  type ComponentType[P] = ReactComponentClass[P]
+  
   @js.native
   trait DOMAttributes[T] extends StObject {
     
@@ -163,6 +167,8 @@ object mod {
     }
   }
   
+  type Key = String | Double
+  
   @js.native
   trait ReactElement extends StObject {
     
@@ -204,6 +210,12 @@ object mod {
     }
   }
   
+  type ReactNode = js.UndefOr[String | Double | Boolean]
+  
+  type SFC[P] = ReactComponentClass[P]
+  
+  type SVGAttributes[T] = DOMAttributes[T]
+  
   @js.native
   trait StatelessComponent[P] extends StObject {
     
@@ -214,16 +226,4 @@ object mod {
     
     var displayName: js.UndefOr[String] = js.native
   }
-  
-  type ComponentState = js.Object
-  
-  type ComponentType[P] = ReactComponentClass[P]
-  
-  type Key = String | Double
-  
-  type ReactNode = js.UndefOr[String | Double | Boolean]
-  
-  type SFC[P] = ReactComponentClass[P]
-  
-  type SVGAttributes[T] = DOMAttributes[T]
 }

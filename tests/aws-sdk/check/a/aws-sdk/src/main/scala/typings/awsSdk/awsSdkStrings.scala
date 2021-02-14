@@ -8,27 +8,23 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object awsSdkStrings {
   
+  @js.native
+  sealed trait ADD extends _AttributeAction
   @scala.inline
   def ADD: ADD = "ADD".asInstanceOf[ADD]
   
+  @js.native
+  sealed trait DELETE extends _AttributeAction
   @scala.inline
   def DELETE: DELETE = "DELETE".asInstanceOf[DELETE]
   
+  @js.native
+  sealed trait PUT extends _AttributeAction
   @scala.inline
   def PUT: PUT = "PUT".asInstanceOf[PUT]
   
-  @scala.inline
-  def latest: latest = "latest".asInstanceOf[latest]
-  
-  @js.native
-  sealed trait ADD extends _AttributeAction
-  
-  @js.native
-  sealed trait DELETE extends _AttributeAction
-  
-  @js.native
-  sealed trait PUT extends _AttributeAction
-  
   @js.native
   sealed trait latest extends StObject
+  @scala.inline
+  def latest: latest = "latest".asInstanceOf[latest]
 }

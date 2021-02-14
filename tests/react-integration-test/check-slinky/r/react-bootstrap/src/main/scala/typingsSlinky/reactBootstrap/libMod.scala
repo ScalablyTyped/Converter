@@ -20,15 +20,15 @@ object libMod {
   
   object utils {
     
-    @JSImport("react-bootstrap/lib", "utils.createChainedFunction")
-    @js.native
-    def createChainedFunction(funcs: js.Function*): js.Function = js.native
-    
     object bootstrapUtils {
       
       @JSImport("react-bootstrap/lib", "utils.bootstrapUtils.getBsProps")
       @js.native
       def getBsProps(props: js.Any): BSProps = js.native
     }
+    
+    @JSImport("react-bootstrap/lib", "utils.createChainedFunction")
+    @js.native
+    def createChainedFunction(funcs: js.Function*): js.Function = js.native
   }
 }

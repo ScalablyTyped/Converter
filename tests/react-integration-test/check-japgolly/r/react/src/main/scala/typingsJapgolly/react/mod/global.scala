@@ -15,6 +15,9 @@ object global {
   
   object JSX {
     
+    // tslint:disable-next-line:no-empty-interface
+    type Element = japgolly.scalajs.react.raw.React.Element
+    
     @js.native
     trait ElementAttributesProperty extends StObject
     
@@ -24,6 +27,12 @@ object global {
     @js.native
     trait ElementClass
       extends Component[js.Any, js.Object, js.Any]
+    
+    // tslint:disable-next-line:no-empty-interface
+    type IntrinsicAttributes = Attributes
+    
+    // tslint:disable-next-line:no-empty-interface
+    type IntrinsicClassAttributes[T] = ClassAttributes[T]
     
     @js.native
     trait IntrinsicElements extends StObject {
@@ -120,15 +129,6 @@ object global {
         def setView(value: SVGProps[SVGViewElement]): Self = StObject.set(x, "view", value.asInstanceOf[js.Any])
       }
     }
-    
-    // tslint:disable-next-line:no-empty-interface
-    type Element = japgolly.scalajs.react.raw.React.Element
-    
-    // tslint:disable-next-line:no-empty-interface
-    type IntrinsicAttributes = Attributes
-    
-    // tslint:disable-next-line:no-empty-interface
-    type IntrinsicClassAttributes[T] = ClassAttributes[T]
     
     // We can't recurse forever because `type` can't be self-referential;
     // let's assume it's reasonable to do a single React.lazy() around a single React.memo() / vice-versa

@@ -10,19 +10,15 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object ReactSelect {
   
+  @JSImport("react-select", JSImport.Default)
+  @js.native
+  val component: js.Object = js.native
+  
   @scala.inline
   def apply[TValue](): Builder[TValue] = {
     val __props = js.Dynamic.literal()
     new Builder[TValue](js.Array(this.component, __props.asInstanceOf[ReactSelectProps[TValue]]))
   }
-  
-  @JSImport("react-select", JSImport.Default)
-  @js.native
-  val component: js.Object = js.native
-  
-  implicit def make[TValue](companion: ReactSelect.type): Builder[TValue] = new Builder[TValue](js.Array(this.component, js.Dictionary.empty))()
-  
-  def withProps[TValue](p: ReactSelectProps[TValue]): Builder[TValue] = new Builder[TValue](js.Array(this.component, p.asInstanceOf[js.Any]))
   
   @scala.inline
   class Builder[TValue] (val args: js.Array[js.Any])
@@ -32,4 +28,8 @@ object ReactSelect {
     @scala.inline
     def addLabelText(value: String): this.type = set("addLabelText", value.asInstanceOf[js.Any])
   }
+  
+  implicit def make[TValue](companion: ReactSelect.type): Builder[TValue] = new Builder[TValue](js.Array(this.component, js.Dictionary.empty))()
+  
+  def withProps[TValue](p: ReactSelectProps[TValue]): Builder[TValue] = new Builder[TValue](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

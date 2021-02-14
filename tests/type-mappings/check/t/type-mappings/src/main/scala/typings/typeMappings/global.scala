@@ -12,6 +12,10 @@ object global {
   @js.native
   def foo(): Person = js.native
   
+  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+  @JSGlobal("newPerson")
+  @js.native
+  class newPerson () extends Person
   @JSGlobal("newPerson")
   @js.native
   val newPerson: Instantiable0[Person] = js.native
@@ -19,9 +23,4 @@ object global {
   @JSGlobal("proxy")
   @js.native
   val proxy: ProxiedPerson = js.native
-  
-  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
-  @JSGlobal("newPerson")
-  @js.native
-  class newPerson () extends Person
 }

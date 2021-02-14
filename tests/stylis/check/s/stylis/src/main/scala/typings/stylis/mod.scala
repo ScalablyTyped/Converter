@@ -19,10 +19,6 @@ object mod {
   @js.native
   val ^ : Stylis = js.native
   
-  /* Syntax to write `mod` instead of `mod.^` */
-  @scala.inline
-  implicit def __is(ignored: mod.type): Stylis = typings.stylis.mod.^
-  
   @js.native
   sealed trait Context extends StObject
   @JSImport("stylis/stylis", "Context")
@@ -46,6 +42,19 @@ object mod {
     
     @js.native
     sealed trait UNKWN extends Context
+  }
+  
+  object global {
+    
+    /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+    @JSGlobal("stylis")
+    @js.native
+    class stylis () extends Stylis {
+      def this(options: Options) = this()
+    }
+    @JSGlobal("stylis")
+    @js.native
+    val stylis: Stylis = js.native
   }
   
   @js.native
@@ -127,6 +136,22 @@ object mod {
     }
   }
   
+  type Plugin = js.ThisFunction9[
+    /* this */ Stylis, 
+    /* context */ Context, 
+    /* content */ String, 
+    /* selector */ Selectors, 
+    /* parent */ Selectors, 
+    /* line */ Double, 
+    /* column */ Double, 
+    /* length */ Double, 
+    /* at */ Double, 
+    /* depth */ Double, 
+    Null | Unit | String
+  ]
+  
+  type Selectors = js.Array[String]
+  
   @js.native
   trait Set extends StObject {
     
@@ -161,32 +186,7 @@ object mod {
     def apply(plugin: Plugin): Use = js.native
   }
   
-  object global {
-    
-    @JSGlobal("stylis")
-    @js.native
-    val stylis: Stylis = js.native
-    /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
-    @JSGlobal("stylis")
-    @js.native
-    class stylis () extends Stylis {
-      def this(options: Options) = this()
-    }
-  }
-  
-  type Plugin = js.ThisFunction9[
-    /* this */ Stylis, 
-    /* context */ Context, 
-    /* content */ String, 
-    /* selector */ Selectors, 
-    /* parent */ Selectors, 
-    /* line */ Double, 
-    /* column */ Double, 
-    /* length */ Double, 
-    /* at */ Double, 
-    /* depth */ Double, 
-    Null | Unit | String
-  ]
-  
-  type Selectors = js.Array[String]
+  /* Syntax to write `mod` instead of `mod.^` */
+  @scala.inline
+  implicit def __is(ignored: mod.type): Stylis = typings.stylis.mod.^
 }

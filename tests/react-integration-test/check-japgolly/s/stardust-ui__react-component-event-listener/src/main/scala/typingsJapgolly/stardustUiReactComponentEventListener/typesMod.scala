@@ -9,6 +9,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object typesMod {
   
+  type EventHandler[T /* <: EventTypes */] = js.Function1[
+    /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any, 
+    Unit
+  ]
+  
   @js.native
   trait EventListenerOptions[T /* <: EventTypes */] extends StObject {
     
@@ -66,11 +71,6 @@ object typesMod {
       def setType(value: T): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
-  
-  type EventHandler[T /* <: EventTypes */] = js.Function1[
-    /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any, 
-    Unit
-  ]
   
   type EventTypes = /* keyof / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any */ String
   

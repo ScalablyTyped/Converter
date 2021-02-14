@@ -32,12 +32,12 @@ object mod {
   @js.native
   def apply[T /* <: Error[Error[Err]] */](name: String, properties: js.Any): T = js.native
   
+  type Err = typings.std.Error
+  
   @js.native
   trait Error[T /* <: Err */]
     extends typings.std.Error
        with Instantiable0[T]
        with Instantiable1[/* message */ String, T]
        with Instantiable2[js.UndefOr[/* message */ String], /* obj */ js.Any, T]
-  
-  type Err = typings.std.Error
 }

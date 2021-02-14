@@ -36,12 +36,35 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object buttonMod {
   
+  @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", JSImport.Default)
+  @js.native
+  class default () extends Button
+  object default {
+    
+    /* was `typeof ButtonContent` */
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Content")
+    @js.native
+    val Content: ReactComponentClass[ButtonContentProps] = js.native
+    
+    /* was `typeof ButtonGroup` */
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Group")
+    @js.native
+    val Group: ReactComponentClass[ButtonGroupProps] = js.native
+    
+    /* was `typeof ButtonOr` */
+    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Or")
+    @js.native
+    val Or: ReactComponentClass[ButtonOrProps] = js.native
+  }
+  
   @js.native
   trait Button
     extends Component[ButtonProps, js.Object, js.Any] {
     
     def focus(): Unit = js.native
   }
+  
+  type ButtonProps = StrictButtonProps
   
   @js.native
   trait StrictButtonProps extends ButtonHTMLAttributes[HTMLButtonElement] {
@@ -324,27 +347,4 @@ object buttonMod {
       def setToggleUndefined: Self = StObject.set(x, "toggle", js.undefined)
     }
   }
-  
-  @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", JSImport.Default)
-  @js.native
-  class default () extends Button
-  object default {
-    
-    /* was `typeof ButtonContent` */
-    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Content")
-    @js.native
-    val Content: ReactComponentClass[ButtonContentProps] = js.native
-    
-    /* was `typeof ButtonGroup` */
-    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Group")
-    @js.native
-    val Group: ReactComponentClass[ButtonGroupProps] = js.native
-    
-    /* was `typeof ButtonOr` */
-    @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Or")
-    @js.native
-    val Or: ReactComponentClass[ButtonOrProps] = js.native
-  }
-  
-  type ButtonProps = StrictButtonProps
 }

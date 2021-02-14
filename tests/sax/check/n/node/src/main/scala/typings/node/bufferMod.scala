@@ -18,12 +18,6 @@ object bufferMod {
   @js.native
   val ^ : js.Any = js.native
   
-  @JSImport("buffer", "INSPECT_MAX_BYTES")
-  @js.native
-  def INSPECT_MAX_BYTES: Double = js.native
-  @scala.inline
-  def INSPECT_MAX_BYTES_=(x: Double): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("INSPECT_MAX_BYTES")(x.asInstanceOf[js.Any])
-  
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("buffer", "Buffer")
   @js.native
@@ -84,6 +78,12 @@ object bufferMod {
     @js.native
     def from(array: js.Array[_]): typings.node.Buffer = js.native
   }
+  
+  @JSImport("buffer", "INSPECT_MAX_BYTES")
+  @js.native
+  def INSPECT_MAX_BYTES: Double = js.native
+  @scala.inline
+  def INSPECT_MAX_BYTES_=(x: Double): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("INSPECT_MAX_BYTES")(x.asInstanceOf[js.Any])
   
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("buffer", "SlowBuffer")

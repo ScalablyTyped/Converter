@@ -118,6 +118,10 @@ object mod {
     var displayName: js.UndefOr[String] = js.native
   }
   
+  type ComponentState = js.Object
+  
+  type ComponentType[P] = ReactComponentClass[P]
+  
   @js.native
   trait DOMAttributes[T] extends StObject {
     
@@ -149,6 +153,8 @@ object mod {
       def setDangerouslySetInnerHTMLUndefined: Self = StObject.set(x, "dangerouslySetInnerHTML", js.undefined)
     }
   }
+  
+  type DetailedHTMLProps[E /* <: HTMLAttributes[T] */, T] = ClassAttributes[T] with E
   
   @js.native
   trait HTMLAttributes[T] extends DOMAttributes[T] {
@@ -186,6 +192,10 @@ object mod {
       __obj.asInstanceOf[HTMLProps[T]]
     }
   }
+  
+  type Key = String | Double
+  
+  type NativeAnimationEvent = AnimationEvent
   
   @js.native
   trait ReactElement extends StObject {
@@ -228,6 +238,18 @@ object mod {
     }
   }
   
+  type ReactNode = js.UndefOr[String | Double | Boolean]
+  
+  type ReactType[P] = String | ReactComponentClass[P]
+  
+  type Ref[T] = String | (js.Function1[/* instance */ T | Null, js.Any])
+  
+  type SFC[P] = ReactComponentClass[P]
+  
+  type SVGAttributes[T] = DOMAttributes[T]
+  
+  type SVGProps[T] = ClassAttributes[T]
+  
   @js.native
   trait StatelessComponent[P] extends StObject {
     
@@ -242,6 +264,9 @@ object mod {
   object global {
     
     object JSX {
+      
+      // tslint:disable-next-line:no-empty-interface
+      type Element = slinky.core.facade.ReactElement
       
       @js.native
       trait ElementAttributesProperty extends StObject
@@ -271,6 +296,12 @@ object mod {
         }
       }
       
+      // tslint:disable-next-line:no-empty-interface
+      type IntrinsicAttributes = Attributes
+      
+      // tslint:disable-next-line:no-empty-interface
+      type IntrinsicClassAttributes[T] = ClassAttributes[T]
+      
       @js.native
       trait IntrinsicElements extends StObject {
         
@@ -297,37 +328,6 @@ object mod {
           def setAnimate(value: SVGProps[SVGElement]): Self = StObject.set(x, "animate", value.asInstanceOf[js.Any])
         }
       }
-      
-      // tslint:disable-next-line:no-empty-interface
-      type Element = slinky.core.facade.ReactElement
-      
-      // tslint:disable-next-line:no-empty-interface
-      type IntrinsicAttributes = Attributes
-      
-      // tslint:disable-next-line:no-empty-interface
-      type IntrinsicClassAttributes[T] = ClassAttributes[T]
     }
   }
-  
-  type ComponentState = js.Object
-  
-  type ComponentType[P] = ReactComponentClass[P]
-  
-  type DetailedHTMLProps[E /* <: HTMLAttributes[T] */, T] = ClassAttributes[T] with E
-  
-  type Key = String | Double
-  
-  type NativeAnimationEvent = AnimationEvent
-  
-  type ReactNode = js.UndefOr[String | Double | Boolean]
-  
-  type ReactType[P] = String | ReactComponentClass[P]
-  
-  type Ref[T] = String | (js.Function1[/* instance */ T | Null, js.Any])
-  
-  type SFC[P] = ReactComponentClass[P]
-  
-  type SVGAttributes[T] = DOMAttributes[T]
-  
-  type SVGProps[T] = ClassAttributes[T]
 }

@@ -29,6 +29,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object inputInputMod {
   
+  @JSImport("semantic-ui-react/dist/commonjs/elements/Input/Input", JSImport.Default)
+  @js.native
+  class default () extends Input
+  
   @js.native
   trait Input
     extends Component[InputProps, js.Object, js.Any] {
@@ -59,6 +63,8 @@ object inputInputMod {
       def setValue(value: String): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     }
   }
+  
+  type InputProps = StrictInputProps
   
   @js.native
   trait StrictInputProps extends InputHTMLAttributes[HTMLInputElement] {
@@ -272,10 +278,4 @@ object inputInputMod {
       def setTransparentUndefined: Self = StObject.set(x, "transparent", js.undefined)
     }
   }
-  
-  @JSImport("semantic-ui-react/dist/commonjs/elements/Input/Input", JSImport.Default)
-  @js.native
-  class default () extends Input
-  
-  type InputProps = StrictInputProps
 }

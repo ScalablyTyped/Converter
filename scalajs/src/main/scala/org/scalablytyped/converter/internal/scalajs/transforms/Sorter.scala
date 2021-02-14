@@ -15,17 +15,34 @@ object Sorter extends TreeTransformation {
   override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
     s.copy(members = sorted(s.members))
 
+  def hasNativeLocation(t: Tree): Boolean = {
+    def has(anns: IArray[Annotation]): Boolean =
+      anns.exists {
+        case _: LocationAnnotation => true
+        case _ => false
+      }
+
+    t match {
+      case tree: ContainerTree => has(tree.annotations) || tree.members.exists(hasNativeLocation)
+      case tree: ClassTree     => has(tree.annotations)
+      case tree: MemberTree    => has(tree.annotations)
+      case _ => false
+    }
+  }
+
   def sorted(members: IArray[Tree]): IArray[Tree] = {
-    val (_1, _2, _3, _4) = members.partitionCollect3(
+    val nativeValueNamesOrCompanion
+        : Set[String] = members.collect { case t if hasNativeLocation(t) => t.name.value }.toSet
+
+    val (_1, _2, _3) = members.partitionCollect2(
       // sort ^ first
-      { case x if x.name === Name.namespaced => x },
-      // sort methods and fields together
-      { case x: MemberTree => x },
-      // and sort traits and objects together
-      { case x: InheritanceTree => x },
+      { case x if x.name === Name.namespaced => x }, {
+        // getters and setters should be next to each other
+        case x if nativeValueNamesOrCompanion(x.name.unescaped.replace("_=", "")) => x
+      },
     )
 
-    IArray(_1, _2, _3, _4).map(_.sorted(TreeOrdering)).flatten
+    IArray(_1, _2, _3).map(_.sorted(TreeOrdering)).flatten
   }
   object TreeOrdering extends Ordering[Tree] {
     override def compare(x: Tree, y: Tree): Int =

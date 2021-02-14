@@ -69,13 +69,6 @@ object global {
     @js.native
     val ^ : js.Any = js.native
     
-    /* static member */
-    @JSGlobal("Phaser.VERSION")
-    @js.native
-    def VERSION: String = js.native
-    @scala.inline
-    def VERSION_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("VERSION")(x.asInstanceOf[js.Any])
-    
     /**
       * An Animation instance contains a single animation and the controls to play it.
       *
@@ -85,6 +78,13 @@ object global {
     @js.native
     class Animation ()
       extends typings.phaser.Phaser.Animation
+    
+    /* static member */
+    @JSGlobal("Phaser.VERSION")
+    @js.native
+    def VERSION: String = js.native
+    @scala.inline
+    def VERSION_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("VERSION")(x.asInstanceOf[js.Any])
   }
   
   object p2 {

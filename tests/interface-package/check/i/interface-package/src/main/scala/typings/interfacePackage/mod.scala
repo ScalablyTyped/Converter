@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  type DummyInt = Double
+  
   @js.native
   trait Package extends StObject
-  
-  type DummyInt = Double
 }

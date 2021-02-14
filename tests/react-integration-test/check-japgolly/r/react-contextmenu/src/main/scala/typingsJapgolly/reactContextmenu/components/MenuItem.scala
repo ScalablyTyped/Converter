@@ -19,10 +19,6 @@ object MenuItem {
   @js.native
   val component: js.Object = js.native
   
-  implicit def make(companion: MenuItem.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
-  
-  def withProps(p: MenuItemProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
-  
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
@@ -63,4 +59,8 @@ object MenuItem {
     @scala.inline
     def preventClose(value: Boolean): this.type = set("preventClose", value.asInstanceOf[js.Any])
   }
+  
+  implicit def make(companion: MenuItem.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+  
+  def withProps(p: MenuItemProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

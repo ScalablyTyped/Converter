@@ -10,6 +10,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  @JSImport("react-icon-base", JSImport.Default)
+  @js.native
+  class default ()
+    extends Component[IconBaseProps, js.Object]
+  
+  type IconBaseClass = Component[IconBaseProps, js.Object]
+  
   @js.native
   trait IconBaseProps extends ClassAttributes[ReactSVGElement] {
     
@@ -33,11 +40,4 @@ object mod {
       def setSizeUndefined: Self = StObject.set(x, "size", js.undefined)
     }
   }
-  
-  @JSImport("react-icon-base", JSImport.Default)
-  @js.native
-  class default ()
-    extends Component[IconBaseProps, js.Object]
-  
-  type IconBaseClass = Component[IconBaseProps, js.Object]
 }

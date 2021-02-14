@@ -12,10 +12,6 @@ object mod {
   @js.native
   val ^ : LoDashStatic = js.native
   
-  /* Syntax to write `mod` instead of `mod.^` */
-  @scala.inline
-  implicit def __is(ignored: mod.type): LoDashStatic = typings.lodash.mod.^
-  
   @js.native
   trait CurriedFunction1[T1, R] extends StObject {
     
@@ -30,6 +26,8 @@ object mod {
     def apply(t1: T1): CurriedFunction1[T2, R] = js.native
     def apply(t1: T1, t2: T2): R = js.native
   }
+  
+  type List[T] = ArrayLike[T]
   
   // tslint:disable-next-line no-empty-interface (This will be augmented)
   // add
@@ -73,6 +71,18 @@ object mod {
     def at_T[T](`object`: Null, props: PropertyPath*): js.Array[T] = js.native
   }
   
+  type Many[T] = T | js.Array[T]
+  
+  type PartialObject[T] = GlobalPartial[T]
+  
+  type PropertyName = String | Double | js.Symbol
+  
+  type PropertyPath = Many[PropertyName]
+  
+  /* Syntax to write `mod` instead of `mod.^` */
+  @scala.inline
+  implicit def __is(ignored: mod.type): LoDashStatic = typings.lodash.mod.^
+  
   // Backward compatibility with --target es5
   object global {
     
@@ -92,14 +102,4 @@ object mod {
     @js.native
     trait WeakSet[T] extends StObject
   }
-  
-  type List[T] = ArrayLike[T]
-  
-  type Many[T] = T | js.Array[T]
-  
-  type PartialObject[T] = GlobalPartial[T]
-  
-  type PropertyName = String | Double | js.Symbol
-  
-  type PropertyPath = Many[PropertyName]
 }

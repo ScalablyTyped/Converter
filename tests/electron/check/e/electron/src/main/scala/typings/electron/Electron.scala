@@ -8,6 +8,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object Electron {
   
+  type AllElectron = MainInterface
+  
   @js.native
   trait App extends EventEmitter {
     
@@ -140,6 +142,4 @@ object Electron {
       def setApp(value: App): Self = StObject.set(x, "app", value.asInstanceOf[js.Any])
     }
   }
-  
-  type AllElectron = MainInterface
 }

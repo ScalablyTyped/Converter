@@ -12,13 +12,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object refForwardMod {
   
-  @js.native
-  trait RefForward
-    extends Component[RefProps, js.Object, js.Any] {
-    
-    def handleRefOverride(node: HTMLElement): Unit = js.native
-  }
-  
   @JSImport("@stardust-ui/react-component-ref/dist/es/RefForward", JSImport.Default)
   @js.native
   class default () extends RefForward
@@ -40,5 +33,12 @@ object refForwardMod {
     def propTypes: Children | InnerRef = js.native
     @scala.inline
     def propTypes_=(x: Children | InnerRef): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("propTypes")(x.asInstanceOf[js.Any])
+  }
+  
+  @js.native
+  trait RefForward
+    extends Component[RefProps, js.Object, js.Any] {
+    
+    def handleRefOverride(node: HTMLElement): Unit = js.native
   }
 }

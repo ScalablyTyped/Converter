@@ -12,17 +12,15 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object ContextMenu {
   
+  @JSImport("react-contextmenu", "ContextMenu")
+  @js.native
+  val component: js.Object = js.native
+  
   @scala.inline
   def apply(id: String): Builder = {
     val __props = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
     new Builder(js.Array(this.component, __props.asInstanceOf[ContextMenuProps]))
   }
-  
-  @JSImport("react-contextmenu", "ContextMenu")
-  @js.native
-  val component: js.Object = js.native
-  
-  def withProps(p: ContextMenuProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   
   @scala.inline
   class Builder (val args: js.Array[js.Any])
@@ -62,4 +60,6 @@ object ContextMenu {
     @scala.inline
     def rtl(value: Boolean): this.type = set("rtl", value.asInstanceOf[js.Any])
   }
+  
+  def withProps(p: ContextMenuProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

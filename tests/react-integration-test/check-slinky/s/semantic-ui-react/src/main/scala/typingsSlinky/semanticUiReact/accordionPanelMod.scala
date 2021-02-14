@@ -18,6 +18,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object accordionPanelMod {
   
+  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionPanel", JSImport.Default)
+  @js.native
+  class default ()
+    extends Component[AccordionPanelProps, js.Object, js.Any]
+  
+  type AccordionPanel = ReactComponentClass[AccordionPanelProps]
+  
   @js.native
   trait AccordionPanelProps
     extends StrictAccordionPanelProps
@@ -118,11 +125,4 @@ object accordionPanelMod {
       def setTitleUndefined: Self = StObject.set(x, "title", js.undefined)
     }
   }
-  
-  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionPanel", JSImport.Default)
-  @js.native
-  class default ()
-    extends Component[AccordionPanelProps, js.Object, js.Any]
-  
-  type AccordionPanel = ReactComponentClass[AccordionPanelProps]
 }

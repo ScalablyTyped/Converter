@@ -104,6 +104,10 @@ object mod {
     var displayName: js.UndefOr[String] = js.native
   }
   
+  type ComponentState = js.Object
+  
+  type ComponentType[P] = (ComponentClassP[P with js.Object]) | StatelessComponent[P]
+  
   @js.native
   trait DOMAttributes[T] extends StObject {
     
@@ -121,6 +125,8 @@ object mod {
       __obj.asInstanceOf[DOMAttributes[T]]
     }
   }
+  
+  type DetailedHTMLProps[E /* <: HTMLAttributes[T] */, T] = ClassAttributes[T] with E
   
   @js.native
   trait HTMLAttributes[T] extends DOMAttributes[T] {
@@ -171,6 +177,10 @@ object mod {
     }
   }
   
+  type Key = String | Double
+  
+  type NativeAnimationEvent = AnimationEvent
+  
   @js.native
   trait ReactElement extends StObject {
     
@@ -190,6 +200,18 @@ object mod {
     }
   }
   
+  type ReactNode = js.UndefOr[String | Double | Boolean]
+  
+  type ReactType[P] = String | ComponentType[P]
+  
+  type Ref[T] = String | (js.Function1[/* instance */ T | Null, js.Any])
+  
+  type SFC[P] = StatelessComponent[P]
+  
+  type SVGAttributes[T] = DOMAttributes[T]
+  
+  type SVGProps[T] = ClassAttributes[T]
+  
   @js.native
   trait StatelessComponent[P] extends StObject {
     
@@ -204,6 +226,9 @@ object mod {
   object global {
     
     object JSX {
+      
+      // tslint:disable-next-line:no-empty-interface
+      type Element = japgolly.scalajs.react.raw.React.Element
       
       @js.native
       trait ElementAttributesProperty extends StObject
@@ -226,6 +251,12 @@ object mod {
         }
       }
       
+      // tslint:disable-next-line:no-empty-interface
+      type IntrinsicAttributes = Attributes
+      
+      // tslint:disable-next-line:no-empty-interface
+      type IntrinsicClassAttributes[T] = ClassAttributes[T]
+      
       @js.native
       trait IntrinsicElements extends StObject {
         
@@ -242,37 +273,6 @@ object mod {
           __obj.asInstanceOf[IntrinsicElements]
         }
       }
-      
-      // tslint:disable-next-line:no-empty-interface
-      type Element = japgolly.scalajs.react.raw.React.Element
-      
-      // tslint:disable-next-line:no-empty-interface
-      type IntrinsicAttributes = Attributes
-      
-      // tslint:disable-next-line:no-empty-interface
-      type IntrinsicClassAttributes[T] = ClassAttributes[T]
     }
   }
-  
-  type ComponentState = js.Object
-  
-  type ComponentType[P] = (ComponentClassP[P with js.Object]) | StatelessComponent[P]
-  
-  type DetailedHTMLProps[E /* <: HTMLAttributes[T] */, T] = ClassAttributes[T] with E
-  
-  type Key = String | Double
-  
-  type NativeAnimationEvent = AnimationEvent
-  
-  type ReactNode = js.UndefOr[String | Double | Boolean]
-  
-  type ReactType[P] = String | ComponentType[P]
-  
-  type Ref[T] = String | (js.Function1[/* instance */ T | Null, js.Any])
-  
-  type SFC[P] = StatelessComponent[P]
-  
-  type SVGAttributes[T] = DOMAttributes[T]
-  
-  type SVGProps[T] = ClassAttributes[T]
 }

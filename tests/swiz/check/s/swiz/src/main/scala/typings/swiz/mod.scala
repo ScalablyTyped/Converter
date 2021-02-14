@@ -10,6 +10,61 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object mod {
   
   @js.native
+  sealed trait SERIALIZATION extends StObject
+  @JSImport("swiz", "SERIALIZATION")
+  @js.native
+  object SERIALIZATION extends StObject {
+    
+    @js.native
+    sealed trait SERIALIZATION_JSON extends SERIALIZATION
+    
+    @js.native
+    sealed trait SERIALIZATION_XML extends SERIALIZATION
+    
+    @js.native
+    sealed trait _underscore extends SERIALIZATION
+    
+    @js.native
+    sealed trait java extends SERIALIZATION
+    
+    @js.native
+    sealed trait js extends SERIALIZATION
+    
+    @js.native
+    sealed trait notify extends SERIALIZATION
+  }
+  
+  @JSImport("swiz", "Swiz")
+  @js.native
+  class Swiz protected () extends StObject {
+    def this(defs: js.Array[IObj]) = this()
+    def this(defs: js.Array[IObj], options: ISwizOptions) = this()
+    
+    def deserialize(
+      mode: SERIALIZATION,
+      version: Double,
+      raw: String,
+      callback: js.Function2[/* err */ js.Any, /* result */ js.Any, Unit]
+    ): Unit = js.native
+    
+    def getFieldDefinition(stype: String, name: String): IField = js.native
+    
+    def serialize(
+      mode: SERIALIZATION,
+      version: Double,
+      obj: ISerializable,
+      callback: js.Function2[/* err */ js.Any, /* result */ String, Unit]
+    ): Unit = js.native
+    
+    def serializeForPagination(
+      mode: SERIALIZATION,
+      array: js.Array[_],
+      metadata: js.Any,
+      callback: js.Function2[/* err */ js.Any, /* result */ String, Unit]
+    ): Unit = js.native
+  }
+  
+  @js.native
   trait ISerializable extends StObject {
     
     def getSerializerType(): String = js.native
@@ -68,61 +123,6 @@ object mod {
       @scala.inline
       def setStripSerializerTypeUndefined: Self = StObject.set(x, "stripSerializerType", js.undefined)
     }
-  }
-  
-  @js.native
-  sealed trait SERIALIZATION extends StObject
-  @JSImport("swiz", "SERIALIZATION")
-  @js.native
-  object SERIALIZATION extends StObject {
-    
-    @js.native
-    sealed trait SERIALIZATION_JSON extends SERIALIZATION
-    
-    @js.native
-    sealed trait SERIALIZATION_XML extends SERIALIZATION
-    
-    @js.native
-    sealed trait _underscore extends SERIALIZATION
-    
-    @js.native
-    sealed trait java extends SERIALIZATION
-    
-    @js.native
-    sealed trait js extends SERIALIZATION
-    
-    @js.native
-    sealed trait notify extends SERIALIZATION
-  }
-  
-  @JSImport("swiz", "Swiz")
-  @js.native
-  class Swiz protected () extends StObject {
-    def this(defs: js.Array[IObj]) = this()
-    def this(defs: js.Array[IObj], options: ISwizOptions) = this()
-    
-    def deserialize(
-      mode: SERIALIZATION,
-      version: Double,
-      raw: String,
-      callback: js.Function2[/* err */ js.Any, /* result */ js.Any, Unit]
-    ): Unit = js.native
-    
-    def getFieldDefinition(stype: String, name: String): IField = js.native
-    
-    def serialize(
-      mode: SERIALIZATION,
-      version: Double,
-      obj: ISerializable,
-      callback: js.Function2[/* err */ js.Any, /* result */ String, Unit]
-    ): Unit = js.native
-    
-    def serializeForPagination(
-      mode: SERIALIZATION,
-      array: js.Array[_],
-      metadata: js.Any,
-      callback: js.Function2[/* err */ js.Any, /* result */ String, Unit]
-    ): Unit = js.native
   }
   
   object struct {

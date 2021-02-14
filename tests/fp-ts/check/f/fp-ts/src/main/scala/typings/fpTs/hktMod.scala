@@ -34,6 +34,8 @@ object hktMod {
     }
   }
   
+  type Type[URI /* <: URIS */, A] = /* import warning: importer.ImportType#apply Failed type conversion: fp-ts.fp-ts/lib/HKT.URI2HKT<A>[URI] */ js.Any
+  
   @js.native
   trait URI2HKT[A] extends StObject
   
@@ -57,8 +59,6 @@ object hktMod {
       def setConst(value: Const[L, A]): Self = StObject.set(x, "Const", value.asInstanceOf[js.Any])
     }
   }
-  
-  type Type[URI /* <: URIS */, A] = /* import warning: importer.ImportType#apply Failed type conversion: fp-ts.fp-ts/lib/HKT.URI2HKT<A>[URI] */ js.Any
   
   type URIS = /* import warning: importer.ImportType#apply Failed type conversion: fp-ts.fp-ts/lib/HKT.HKT<never, never>['_URI'] */ js.Any
 }

@@ -8,6 +8,14 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object global {
   
+  object NodeJS {
+    
+    @JSGlobal("NodeJS.EventEmitter")
+    @js.native
+    class EventEmitter ()
+      extends typings.node.NodeJS.EventEmitter
+  }
+  
   @JSGlobal("Symbol")
   @js.native
   val Symbol: SymbolConstructor = js.native
@@ -17,12 +25,4 @@ object global {
   def process: Process = js.native
   @scala.inline
   def process_=(x: Process): Unit = js.Dynamic.global.updateDynamic("process")(x.asInstanceOf[js.Any])
-  
-  object NodeJS {
-    
-    @JSGlobal("NodeJS.EventEmitter")
-    @js.native
-    class EventEmitter ()
-      extends typings.node.NodeJS.EventEmitter
-  }
 }

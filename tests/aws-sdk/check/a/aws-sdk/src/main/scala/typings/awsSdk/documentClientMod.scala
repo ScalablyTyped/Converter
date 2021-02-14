@@ -21,6 +21,14 @@ object documentClientMod {
   }
   object DocumentClient {
     
+    /* Rewritten from type alias, can be one of: 
+      - typings.awsSdk.awsSdkStrings.ADD
+      - typings.awsSdk.awsSdkStrings.PUT
+      - typings.awsSdk.awsSdkStrings.DELETE
+      - java.lang.String
+    */
+    type AttributeAction = _AttributeAction | String
+    
     @js.native
     trait ConverterOptions extends StObject {
       
@@ -101,13 +109,5 @@ object documentClientMod {
     }
     
     trait _AttributeAction extends StObject
-    
-    /* Rewritten from type alias, can be one of: 
-      - typings.awsSdk.awsSdkStrings.ADD
-      - typings.awsSdk.awsSdkStrings.PUT
-      - typings.awsSdk.awsSdkStrings.DELETE
-      - java.lang.String
-    */
-    type AttributeAction = _AttributeAction | String
   }
 }

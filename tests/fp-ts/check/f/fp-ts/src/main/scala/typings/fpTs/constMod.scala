@@ -7,10 +7,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object constMod {
   
-  @JSImport("fp-ts/lib/Const", "URI")
-  @js.native
-  val URI: /* "Const" */ String = js.native
-  
   @JSImport("fp-ts/lib/Const", "Const")
   @js.native
   class Const[L, A] protected () extends StObject {
@@ -32,6 +28,11 @@ object constMod {
     
     val value: L = js.native
   }
+  
+  @JSImport("fp-ts/lib/Const", "URI")
+  @js.native
+  val URI: /* "Const" */ String = js.native
+  type URI = /* "Const" */ String
   
   /* augmented module */
   object fpTsLibHKTAugmentingMod {
@@ -57,6 +58,4 @@ object constMod {
       }
     }
   }
-  
-  type URI = /* "Const" */ String
 }

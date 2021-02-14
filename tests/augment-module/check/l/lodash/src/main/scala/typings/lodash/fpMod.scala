@@ -14,10 +14,6 @@ object fpMod {
   @js.native
   val ^ : LoDashFp = js.native
   
-  /* Syntax to write `fpMod` instead of `fpMod.^` */
-  @scala.inline
-  implicit def __is(ignored: fpMod.type): LoDashFp = typings.lodash.fpMod.^
-  
   @js.native
   trait LoDashFp extends StObject {
     
@@ -26,6 +22,10 @@ object fpMod {
     @JSName("curry")
     var curry_Original: Curry = js.native
   }
+  
+  /* Syntax to write `fpMod` instead of `fpMod.^` */
+  @scala.inline
+  implicit def __is(ignored: fpMod.type): LoDashFp = typings.lodash.fpMod.^
   
   // Backward compatibility with --target es5
   object global {

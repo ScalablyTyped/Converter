@@ -183,6 +183,8 @@ object typesMod {
     }
   }
   
+  type OperatorFunction[T, R] = UnaryFunction[Observable[T], Observable[R]]
+  
   /* Rewritten from type alias, can be one of: 
     - typings.rxjs.typesMod.NextObserver[T]
     - typings.rxjs.typesMod.ErrorObserver[T]
@@ -299,6 +301,8 @@ object typesMod {
     }
   }
   
+  type UnaryFunction[T, R] = js.Function1[/* source */ T, R]
+  
   @js.native
   trait Unsubscribable extends StObject {
     
@@ -319,8 +323,4 @@ object typesMod {
       def setUnsubscribe(value: () => Unit): Self = StObject.set(x, "unsubscribe", js.Any.fromFunction0(value))
     }
   }
-  
-  type OperatorFunction[T, R] = UnaryFunction[Observable[T], Observable[R]]
-  
-  type UnaryFunction[T, R] = js.Function1[/* source */ T, R]
 }

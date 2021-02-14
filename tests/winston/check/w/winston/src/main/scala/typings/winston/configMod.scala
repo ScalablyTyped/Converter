@@ -13,9 +13,7 @@ object configMod {
   @js.native
   val ^ : Config = js.native
   
-  /* Syntax to write `configMod` instead of `configMod.^` */
-  @scala.inline
-  implicit def __is(ignored: configMod.type): Config = typings.winston.configMod.^
+  type AbstractConfigSetLevels = StringDictionary[Double]
   
   @js.native
   trait Config extends StObject {
@@ -38,5 +36,7 @@ object configMod {
     }
   }
   
-  type AbstractConfigSetLevels = StringDictionary[Double]
+  /* Syntax to write `configMod` instead of `configMod.^` */
+  @scala.inline
+  implicit def __is(ignored: configMod.type): Config = typings.winston.configMod.^
 }

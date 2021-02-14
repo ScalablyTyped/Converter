@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object stdStrings {
   
-  @scala.inline
-  def Pick: Pick = "Pick".asInstanceOf[Pick]
   @js.native
   sealed trait Pick extends StObject
+  @scala.inline
+  def Pick: Pick = "Pick".asInstanceOf[Pick]
 }

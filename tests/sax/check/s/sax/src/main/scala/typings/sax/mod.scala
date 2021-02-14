@@ -19,6 +19,22 @@ object mod {
   @scala.inline
   def EVENTS_=(x: js.Array[String]): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("EVENTS")(x.asInstanceOf[js.Any])
   
+  @JSImport("sax", "SAXParser")
+  @js.native
+  class SAXParser protected () extends StObject {
+    def this(strict: Boolean, opt: SAXOptions) = this()
+    
+    def write(s: String): SAXParser = js.native
+  }
+  
+  @JSImport("sax", "SAXStream")
+  @js.native
+  class SAXStream protected () extends Duplex {
+    def this(strict: Boolean, opt: SAXOptions) = this()
+    
+    var _parser: SAXParser = js.native
+  }
+  
   @JSImport("sax", "createStream")
   @js.native
   def createStream(strict: Boolean, opt: SAXOptions): SAXStream = js.native
@@ -212,22 +228,6 @@ object mod {
       @scala.inline
       def setXmlnsUndefined: Self = StObject.set(x, "xmlns", js.undefined)
     }
-  }
-  
-  @JSImport("sax", "SAXParser")
-  @js.native
-  class SAXParser protected () extends StObject {
-    def this(strict: Boolean, opt: SAXOptions) = this()
-    
-    def write(s: String): SAXParser = js.native
-  }
-  
-  @JSImport("sax", "SAXStream")
-  @js.native
-  class SAXStream protected () extends Duplex {
-    def this(strict: Boolean, opt: SAXOptions) = this()
-    
-    var _parser: SAXParser = js.native
   }
   
   @js.native

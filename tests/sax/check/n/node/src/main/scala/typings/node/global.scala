@@ -10,17 +10,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object global {
   
-  /************************************************
-  *                                               *
-  *                   GLOBAL                      *
-  *                                               *
-  ************************************************/
-  @JSGlobal("global")
-  @js.native
-  def global: Global = js.native
-  @scala.inline
-  def global_=(x: Global): Unit = js.Dynamic.global.updateDynamic("global")(x.asInstanceOf[js.Any])
-  
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSGlobal("Buffer")
   @js.native
@@ -124,4 +113,15 @@ object global {
     @js.native
     def isBuffer(obj: js.Any): Boolean = js.native
   }
+  
+  /************************************************
+  *                                               *
+  *                   GLOBAL                      *
+  *                                               *
+  ************************************************/
+  @JSGlobal("global")
+  @js.native
+  def global: Global = js.native
+  @scala.inline
+  def global_=(x: Global): Unit = js.Dynamic.global.updateDynamic("global")(x.asInstanceOf[js.Any])
 }

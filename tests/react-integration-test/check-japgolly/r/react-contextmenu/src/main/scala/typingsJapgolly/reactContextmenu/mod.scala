@@ -19,18 +19,50 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+  @JSImport("react-contextmenu", "ContextMenu")
+  @js.native
+  class ContextMenu protected ()
+    extends Component[ContextMenuProps, js.Object, js.Any] {
+    def this(props: ContextMenuProps) = this()
+    def this(props: ContextMenuProps, context: js.Any) = this()
+  }
   @JSImport("react-contextmenu", "ContextMenu")
   @js.native
   val ContextMenu: ComponentClassP[ContextMenuProps with js.Object] = js.native
   
+  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+  @JSImport("react-contextmenu", "ContextMenuTrigger")
+  @js.native
+  class ContextMenuTrigger protected ()
+    extends Component[ContextMenuTriggerProps, js.Object, js.Any] {
+    def this(props: ContextMenuTriggerProps) = this()
+    def this(props: ContextMenuTriggerProps, context: js.Any) = this()
+  }
   @JSImport("react-contextmenu", "ContextMenuTrigger")
   @js.native
   val ContextMenuTrigger: ComponentClassP[ContextMenuTriggerProps with js.Object] = js.native
   
+  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+  @JSImport("react-contextmenu", "MenuItem")
+  @js.native
+  class MenuItem protected ()
+    extends Component[MenuItemProps, js.Object, js.Any] {
+    def this(props: MenuItemProps) = this()
+    def this(props: MenuItemProps, context: js.Any) = this()
+  }
   @JSImport("react-contextmenu", "MenuItem")
   @js.native
   val MenuItem: ComponentClassP[MenuItemProps with js.Object] = js.native
   
+  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
+  @JSImport("react-contextmenu", "SubMenu")
+  @js.native
+  class SubMenu protected ()
+    extends Component[SubMenuProps, js.Object, js.Any] {
+    def this(props: SubMenuProps) = this()
+    def this(props: SubMenuProps, context: js.Any) = this()
+  }
   @JSImport("react-contextmenu", "SubMenu")
   @js.native
   val SubMenu: ComponentClassP[SubMenuProps with js.Object] = js.native
@@ -64,15 +96,6 @@ object mod {
   @JSImport("react-contextmenu", "showMenu")
   @js.native
   def showMenu(opts: js.Any, target: HTMLElement): Unit = js.native
-  
-  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
-  @JSImport("react-contextmenu", "ContextMenu")
-  @js.native
-  class ContextMenu protected ()
-    extends Component[ContextMenuProps, js.Object, js.Any] {
-    def this(props: ContextMenuProps) = this()
-    def this(props: ContextMenuProps, context: js.Any) = this()
-  }
   
   @js.native
   trait ContextMenuProps extends StObject {
@@ -170,15 +193,6 @@ object mod {
     }
   }
   
-  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
-  @JSImport("react-contextmenu", "ContextMenuTrigger")
-  @js.native
-  class ContextMenuTrigger protected ()
-    extends Component[ContextMenuTriggerProps, js.Object, js.Any] {
-    def this(props: ContextMenuTriggerProps) = this()
-    def this(props: ContextMenuTriggerProps, context: js.Any) = this()
-  }
-  
   @js.native
   trait ContextMenuTriggerProps extends StObject {
     
@@ -241,15 +255,6 @@ object mod {
       @scala.inline
       def setRenderTagUndefined: Self = StObject.set(x, "renderTag", js.undefined)
     }
-  }
-  
-  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
-  @JSImport("react-contextmenu", "MenuItem")
-  @js.native
-  class MenuItem protected ()
-    extends Component[MenuItemProps, js.Object, js.Any] {
-    def this(props: MenuItemProps) = this()
-    def this(props: MenuItemProps, context: js.Any) = this()
   }
   
   @js.native
@@ -345,15 +350,6 @@ object mod {
       @scala.inline
       def setPreventCloseUndefined: Self = StObject.set(x, "preventClose", js.undefined)
     }
-  }
-  
-  /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
-  @JSImport("react-contextmenu", "SubMenu")
-  @js.native
-  class SubMenu protected ()
-    extends Component[SubMenuProps, js.Object, js.Any] {
-    def this(props: SubMenuProps) = this()
-    def this(props: SubMenuProps, context: js.Any) = this()
   }
   
   @js.native

@@ -10,6 +10,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object pluginMod {
   
+  type PluginFunction[T] = js.Function2[/* Vue */ VueConstructor[Vue], /* options */ js.UndefOr[T], Unit]
+  
   @js.native
   trait PluginObject[T]
     extends /* key */ StringDictionary[js.Any] {
@@ -19,6 +21,4 @@ object pluginMod {
     @JSName("install")
     var install_Original: PluginFunction[T] = js.native
   }
-  
-  type PluginFunction[T] = js.Function2[/* Vue */ VueConstructor[Vue], /* options */ js.UndefOr[T], Unit]
 }

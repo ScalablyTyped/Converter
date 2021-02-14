@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object vueScrolltoBooleans {
   
-  @scala.inline
-  def `false`: `false` = false.asInstanceOf[`false`]
   @js.native
   sealed trait `false` extends StObject
+  @scala.inline
+  def `false`: `false` = false.asInstanceOf[`false`]
 }

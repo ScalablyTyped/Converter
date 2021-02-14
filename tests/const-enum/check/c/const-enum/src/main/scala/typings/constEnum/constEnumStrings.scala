@@ -8,8 +8,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object constEnumStrings {
   
-  @scala.inline
-  def C: C = "C".asInstanceOf[C]
   @js.native
   sealed trait C extends Foo_
+  @scala.inline
+  def C: C = "C".asInstanceOf[C]
 }

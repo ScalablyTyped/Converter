@@ -202,6 +202,8 @@ object WebpackModuleApi {
     def require_T_T[T](id: String): T = js.native
   }
   
+  type ModuleId = String | Double
+  
   /**
     * Inside env you can pass any variable
     */
@@ -228,6 +230,10 @@ object WebpackModuleApi {
       def setEnvUndefined: Self = StObject.set(x, "env", js.undefined)
     }
   }
+  
+  type Require1 = js.Function1[/* id */ String, js.Any]
+  
+  type Require2 = js.Function1[/* id */ String, js.Any]
   
   @js.native
   trait RequireContext extends StObject {
@@ -290,12 +296,6 @@ object WebpackModuleApi {
       */
     def resolveWeak(path: String): Double | String = js.native
   }
-  
-  type ModuleId = String | Double
-  
-  type Require1 = js.Function1[/* id */ String, js.Any]
-  
-  type Require2 = js.Function1[/* id */ String, js.Any]
   
   type RequireLambda = Require1 with Require2
 }

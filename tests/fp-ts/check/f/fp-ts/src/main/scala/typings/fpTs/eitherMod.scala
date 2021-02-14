@@ -10,8 +10,7 @@ object eitherMod {
   @JSImport("fp-ts/lib/Either", "URI")
   @js.native
   val URI: /* "Either" */ String = js.native
+  type URI = /* "Either" */ String
   
   type Either[L, A] = js.Any
-  
-  type URI = /* "Either" */ String
 }

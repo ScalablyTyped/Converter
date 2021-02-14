@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object stdStrings {
   
-  @scala.inline
-  def Readonly: Readonly = "Readonly".asInstanceOf[Readonly]
   @js.native
   sealed trait Readonly extends StObject
+  @scala.inline
+  def Readonly: Readonly = "Readonly".asInstanceOf[Readonly]
 }
