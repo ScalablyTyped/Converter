@@ -1,5 +1,6 @@
 package typingsSlinky.semanticUiReact
 
+import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import slinky.core.ReactComponentClass
 import slinky.core.facade.ReactElement
@@ -20,7 +21,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object buttonGroupMod {
+object buttonGroupMod extends Shortcut {
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonGroup", JSImport.Default)
   @js.native
@@ -261,4 +262,9 @@ object buttonGroupMod {
       def setWidthsUndefined: Self = StObject.set(x, "widths", js.undefined)
     }
   }
+  
+  type _To = ReactComponentClass[ButtonGroupProps]
+  
+  /* This means you don't have to write `default`, but can instead just say `buttonGroupMod.foo` */
+  override def _to: ReactComponentClass[ButtonGroupProps] = default
 }

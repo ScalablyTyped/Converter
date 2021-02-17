@@ -1,5 +1,6 @@
 package typings.lodash
 
+import org.scalablytyped.runtime.Shortcut
 import typings.lodash.curryMod.Curry
 import typings.lodash.mod.CurriedFunction1
 import typings.lodash.mod.CurriedFunction2
@@ -8,7 +9,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object fpMod {
+object fpMod extends Shortcut {
   
   @JSImport("lodash/fp", JSImport.Namespace)
   @js.native
@@ -23,9 +24,10 @@ object fpMod {
     var curry_Original: Curry = js.native
   }
   
-  /* Syntax to write `fpMod` instead of `fpMod.^` */
-  @scala.inline
-  implicit def __is(ignored: fpMod.type): LoDashFp = typings.lodash.fpMod.^
+  type _To = LoDashFp
+  
+  /* This means you don't have to write `^`, but can instead just say `fpMod.foo` */
+  override def _to: LoDashFp = ^
   
   // Backward compatibility with --target es5
   object global {

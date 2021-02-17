@@ -1,5 +1,6 @@
 package typingsSlinky.semanticUiReact
 
+import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import slinky.core.ReactComponentClass
 import slinky.core.facade.ReactElement
@@ -10,7 +11,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object testContainerTestContainerMod {
+object testContainerTestContainerMod extends Shortcut {
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/TestContainer/TestContainer", JSImport.Default)
   @js.native
@@ -183,4 +184,9 @@ object testContainerTestContainerMod {
       __obj.asInstanceOf[TestContainerProps]
     }
   }
+  
+  type _To = ReactComponentClass[TestContainerProps]
+  
+  /* This means you don't have to write `default`, but can instead just say `testContainerTestContainerMod.foo` */
+  override def _to: ReactComponentClass[TestContainerProps] = default
 }

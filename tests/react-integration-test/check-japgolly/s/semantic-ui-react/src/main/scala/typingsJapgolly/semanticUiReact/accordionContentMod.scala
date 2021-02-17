@@ -3,6 +3,7 @@ package typingsJapgolly.semanticUiReact
 import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
+import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import typingsJapgolly.react.mod.StatelessComponent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
@@ -11,7 +12,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object accordionContentMod {
+object accordionContentMod extends Shortcut {
   
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionContent", JSImport.Default)
   @js.native
@@ -96,4 +97,9 @@ object accordionContentMod {
       def setContentVdomElement(value: VdomElement): Self = StObject.set(x, "content", value.rawElement.asInstanceOf[js.Any])
     }
   }
+  
+  type _To = StatelessComponent[AccordionContentProps]
+  
+  /* This means you don't have to write `default`, but can instead just say `accordionContentMod.foo` */
+  override def _to: StatelessComponent[AccordionContentProps] = default
 }

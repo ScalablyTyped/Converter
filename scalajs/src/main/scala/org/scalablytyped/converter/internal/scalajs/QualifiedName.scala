@@ -69,6 +69,7 @@ object QualifiedName {
   val NumberDictionary:           QualifiedName = Runtime + Name("NumberDictionary")
   val StringDictionary:           QualifiedName = Runtime + Name("StringDictionary")
   val TopLevel:                   QualifiedName = Runtime + Name("TopLevel")
+  val Shortcut:                   QualifiedName = Runtime + Name("Shortcut")
   val StObject:                   QualifiedName = Runtime + Name("StObject")
   val UNION:                      QualifiedName = QualifiedName(IArray(Name.UNION))
   val INTERSECTION:               QualifiedName = QualifiedName(IArray(Name.INTERSECTION))

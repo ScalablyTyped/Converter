@@ -6,6 +6,7 @@ import japgolly.scalajs.react.raw.React.ComponentClassP
 import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
+import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLDivElement
 import typingsJapgolly.react.mod.Component
@@ -18,7 +19,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object accordionAccordionAccordionMod {
+object accordionAccordionAccordionMod extends Shortcut {
   
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionAccordion", JSImport.Default)
@@ -157,4 +158,9 @@ object accordionAccordionAccordionMod {
       def setPanelsVarargs(value: SemanticShorthandItem[AccordionPanelProps]*): Self = StObject.set(x, "panels", js.Array(value :_*))
     }
   }
+  
+  type _To = ComponentClassP[AccordionAccordionProps with js.Object]
+  
+  /* This means you don't have to write `default`, but can instead just say `accordionAccordionAccordionMod.foo` */
+  override def _to: ComponentClassP[AccordionAccordionProps with js.Object] = default
 }

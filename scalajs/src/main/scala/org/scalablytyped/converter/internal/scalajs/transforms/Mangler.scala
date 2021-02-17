@@ -305,68 +305,74 @@ object Mangler extends TreeTransformation {
           IArray(other)
       }
 
-    val hatModuleOpt: IArray[MemberTree] = {
+    val hatOpt: Option[FieldTree] = {
       val tpe = TypeRef.Intersection(mod.parents, NoComments) match {
         case TypeRef.Nothing => TypeRef.Any
         case other           => other
       }
 
-      if ((tpe === TypeRef.Any && !needsHatObject) || isGlobal) Empty
-      else {
-        val field = FieldTree(
-          annotations = mod.annotations,
-          name        = Name.namespaced,
-          tpe         = tpe,
-          impl        = ExprTree.native,
-          isReadOnly  = true,
-          isOverride  = false,
-          comments    = NoComments,
-          codePath    = hatCp,
+      if ((tpe === TypeRef.Any && !needsHatObject) || isGlobal) None
+      else
+        Some(
+          FieldTree(
+            annotations = mod.annotations,
+            name        = Name.namespaced,
+            tpe         = tpe,
+            impl        = ExprTree.native,
+            isReadOnly  = true,
+            isOverride  = false,
+            comments    = NoComments,
+            codePath    = hatCp,
+          ),
         )
-
-        val __is = Name("__is")
-        val selectOpt = tpe match {
-          case TypeRef.Any => None
-          case other =>
-            Some(
-              MethodTree(
-                annotations = IArray(Annotation.Inline),
-                level       = ProtectionLevel.Default,
-                name        = __is,
-                tparams     = Empty,
-                params = IArray(
-                  IArray(
-                    ParamTree(
-                      name       = Name("ignored"),
-                      isImplicit = false,
-                      isVal      = false,
-                      tpe        = TypeRef.Singleton(TypeRef(mod.codePath)),
-                      default    = NotImplemented,
-                      comments   = NoComments,
-                    ),
-                  ),
-                ),
-                impl       = ExprTree.Ref(hatCp),
-                resultType = other,
-                isOverride = false,
-                comments = Comments(
-                  Comment(s"/* Syntax to write `${mod.name.unescaped}` instead of `${mod.name.unescaped}.^` */\n"),
-                ),
-                codePath   = mod.codePath + __is,
-                isImplicit = true,
-              ),
-            )
-        }
-
-        IArray.fromOptions(Some(field), selectOpt)
-      }
     }
 
-    mod.copy(
-      annotations = Empty,
-      parents     = Empty,
-      members     = hatModuleOpt ++ rewrittenMembers,
-      comments    = mod.comments,
-    )
+    val shortcut: Option[FieldTree] =
+      hatOpt
+        .orElse(mod.index.get(Name.Default) match {
+          case Some(defaults) => defaults.collectFirst { case x: FieldTree => x }
+          case None           => None
+        })
+        .filter(_.tpe =/= TypeRef.Any)
+
+    shortcut.foldLeft(
+      mod.copy(
+        annotations = Empty,
+        parents     = Empty,
+        members     = rewrittenMembers ++ IArray.fromOption(hatOpt),
+        comments    = mod.comments,
+      ),
+    ) {
+      case (mod, field) =>
+        // implement the `Shortcut` trait for some nicer syntax
+        val parent = TypeRef(QualifiedName.Shortcut)
+        val to = {
+          val name = Name("_to")
+          MethodTree(
+            Empty,
+            ProtectionLevel.Default,
+            name,
+            Empty,
+            Empty,
+            Ref(field.name),
+            field.tpe,
+            isOverride = true,
+            Comments(
+              Comment(
+                s"/* This means you don't have to write `${field.name.value}`, but can instead just say `${mod.name.value}.foo` */\n",
+              ),
+            ),
+            mod.codePath + name,
+            isImplicit = false,
+          )
+        }
+
+        val To = {
+          val name = Name("_To")
+          TypeAliasTree(name, Empty, field.tpe, NoComments, mod.codePath + name)
+        }
+
+        mod.copy(parents = mod.parents :+ parent, members = IArray(to, To) ++ mod.members)
+    }
   }
 }

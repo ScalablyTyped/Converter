@@ -2,6 +2,7 @@ package typings.commander
 
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
+import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import typings.node.NodeJS.EventEmitter
 import typings.std.RegExp
@@ -10,7 +11,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object mod {
+object mod extends Shortcut {
   
   @JSImport("commander", JSImport.Namespace)
   @js.native
@@ -129,9 +130,10 @@ object mod {
     }
   }
   
-  /* Syntax to write `mod` instead of `mod.^` */
-  @scala.inline
-  implicit def __is(ignored: mod.type): CommanderStatic = typings.commander.mod.^
+  type _To = CommanderStatic
+  
+  /* This means you don't have to write `^`, but can instead just say `mod.foo` */
+  override def _to: CommanderStatic = ^
   
   object local {
     

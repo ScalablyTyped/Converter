@@ -1,5 +1,6 @@
 package typingsSlinky.semanticUiReact
 
+import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import slinky.core.ReactComponentClass
 import slinky.core.facade.ReactElement
@@ -9,7 +10,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object accordionContentMod {
+object accordionContentMod extends Shortcut {
   
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionContent", JSImport.Default)
   @js.native
@@ -94,4 +95,9 @@ object accordionContentMod {
       def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
     }
   }
+  
+  type _To = ReactComponentClass[AccordionContentProps]
+  
+  /* This means you don't have to write `default`, but can instead just say `accordionContentMod.foo` */
+  override def _to: ReactComponentClass[AccordionContentProps] = default
 }

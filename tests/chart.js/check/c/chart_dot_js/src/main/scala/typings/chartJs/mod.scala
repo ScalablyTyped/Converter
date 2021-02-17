@@ -1,6 +1,7 @@
 package typings.chartJs
 
 import org.scalablytyped.runtime.Instantiable2
+import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import typings.std.ArrayLike
 import typings.std.CanvasRenderingContext2D
@@ -10,7 +11,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object mod {
+object mod extends Shortcut {
   
   @JSImport("chart.js", JSImport.Namespace)
   @js.native
@@ -177,13 +178,18 @@ object mod {
     }
   }
   
-  /* Syntax to write `mod` instead of `mod.^` */
-  @scala.inline
-  implicit def __is(ignored: mod.type): Instantiable2[
+  type _To = Instantiable2[
     /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
     /* options */ js.Any, 
     typings.chartJs.mod.Chart
-  ] = typings.chartJs.mod.^
+  ]
+  
+  /* This means you don't have to write `^`, but can instead just say `mod.foo` */
+  override def _to: Instantiable2[
+    /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
+    /* options */ js.Any, 
+    typings.chartJs.mod.Chart
+  ] = ^
   
   /* static member */
   object controllers

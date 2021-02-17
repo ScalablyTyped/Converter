@@ -3,6 +3,7 @@ package typingsJapgolly.semanticUiReact
 import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
+import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import typingsJapgolly.react.mod.StatelessComponent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
@@ -12,7 +13,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object containerContainerMod {
+object containerContainerMod extends Shortcut {
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Container/Container", JSImport.Default)
   @js.native
@@ -115,4 +116,9 @@ object containerContainerMod {
       def setTextUndefined: Self = StObject.set(x, "text", js.undefined)
     }
   }
+  
+  type _To = StatelessComponent[ContainerProps]
+  
+  /* This means you don't have to write `default`, but can instead just say `containerContainerMod.foo` */
+  override def _to: StatelessComponent[ContainerProps] = default
 }

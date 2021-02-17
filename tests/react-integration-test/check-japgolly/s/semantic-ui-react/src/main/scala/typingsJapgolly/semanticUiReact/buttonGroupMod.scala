@@ -3,6 +3,7 @@ package typingsJapgolly.semanticUiReact
 import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
+import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import typingsJapgolly.react.mod.StatelessComponent
 import typingsJapgolly.semanticUiReact.buttonMod.ButtonProps
@@ -22,7 +23,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object buttonGroupMod {
+object buttonGroupMod extends Shortcut {
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonGroup", JSImport.Default)
   @js.native
@@ -263,4 +264,9 @@ object buttonGroupMod {
       def setWidthsUndefined: Self = StObject.set(x, "widths", js.undefined)
     }
   }
+  
+  type _To = StatelessComponent[ButtonGroupProps]
+  
+  /* This means you don't have to write `default`, but can instead just say `buttonGroupMod.foo` */
+  override def _to: StatelessComponent[ButtonGroupProps] = default
 }

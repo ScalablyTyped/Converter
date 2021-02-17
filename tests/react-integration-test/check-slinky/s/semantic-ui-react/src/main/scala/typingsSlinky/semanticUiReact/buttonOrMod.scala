@@ -1,5 +1,6 @@
 package typingsSlinky.semanticUiReact
 
+import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import slinky.core.ReactComponentClass
 import org.scalablytyped.runtime.StObject
@@ -7,7 +8,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object buttonOrMod {
+object buttonOrMod extends Shortcut {
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonOr", JSImport.Default)
   @js.native
@@ -68,4 +69,9 @@ object buttonOrMod {
       def setTextUndefined: Self = StObject.set(x, "text", js.undefined)
     }
   }
+  
+  type _To = ReactComponentClass[ButtonOrProps]
+  
+  /* This means you don't have to write `default`, but can instead just say `buttonOrMod.foo` */
+  override def _to: ReactComponentClass[ButtonOrProps] = default
 }

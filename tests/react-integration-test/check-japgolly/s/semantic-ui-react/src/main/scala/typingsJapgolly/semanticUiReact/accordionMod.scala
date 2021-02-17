@@ -1,5 +1,6 @@
 package typingsJapgolly.semanticUiReact
 
+import org.scalablytyped.runtime.Shortcut
 import typingsJapgolly.react.mod.Component
 import typingsJapgolly.semanticUiReact.accordionAccordionAccordionMod.AccordionAccordionProps
 import typingsJapgolly.semanticUiReact.accordionAccordionMod.AccordionComponent
@@ -20,7 +21,7 @@ object accordionMod {
     def this(props: AccordionProps) = this()
     def this(props: AccordionProps, context: js.Any) = this()
   }
-  object default {
+  object default extends Shortcut {
     
     @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", JSImport.Default)
     @js.native
@@ -44,8 +45,9 @@ object accordionMod {
       def this(props: AccordionTitleProps, context: js.Any) = this()
     }
     
-    /* Syntax to write `default` instead of `default.^` */
-    @scala.inline
-    implicit def __is(ignored: default.type): AccordionComponent = typingsJapgolly.semanticUiReact.accordionMod.default.^
+    type _To = AccordionComponent
+    
+    /* This means you don't have to write `^`, but can instead just say `default.foo` */
+    override def _to: AccordionComponent = ^
   }
 }

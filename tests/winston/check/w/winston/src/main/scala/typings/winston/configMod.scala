@@ -1,5 +1,6 @@
 package typings.winston
 
+import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import typings.winston.winstonStrings.bar
 import org.scalablytyped.runtime.StObject
@@ -7,7 +8,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object configMod {
+object configMod extends Shortcut {
   
   @JSImport("winston/lib/winston/config", JSImport.Namespace)
   @js.native
@@ -36,7 +37,8 @@ object configMod {
     }
   }
   
-  /* Syntax to write `configMod` instead of `configMod.^` */
-  @scala.inline
-  implicit def __is(ignored: configMod.type): Config = typings.winston.configMod.^
+  type _To = Config
+  
+  /* This means you don't have to write `^`, but can instead just say `configMod.foo` */
+  override def _to: Config = ^
 }

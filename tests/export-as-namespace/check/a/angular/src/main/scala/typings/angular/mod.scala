@@ -1,5 +1,6 @@
 package typings.angular
 
+import org.scalablytyped.runtime.Shortcut
 import typings.angular.anon.Instantiable
 import typings.angular.mod.auto.IInjectorService
 import typings.angular.mod.global.Function
@@ -11,7 +12,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object mod {
+object mod extends Shortcut {
   
   @JSImport("angular", JSImport.Namespace)
   @js.native
@@ -79,9 +80,10 @@ object mod {
   
   type Injectable[T /* <: Function */] = T | (js.Array[String | T])
   
-  /* Syntax to write `mod` instead of `mod.^` */
-  @scala.inline
-  implicit def __is(ignored: mod.type): IAngularStatic = typings.angular.mod.^
+  type _To = IAngularStatic
+  
+  /* This means you don't have to write `^`, but can instead just say `mod.foo` */
+  override def _to: IAngularStatic = ^
   
   object auto {
     

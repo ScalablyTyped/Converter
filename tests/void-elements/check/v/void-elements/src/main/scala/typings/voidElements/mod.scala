@@ -1,5 +1,6 @@
 package typings.voidElements
 
+import org.scalablytyped.runtime.Shortcut
 import typings.std.Partial
 import typings.std.Record
 import typings.voidElements.voidElementsBooleans.`true`
@@ -8,13 +9,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object mod {
+object mod extends Shortcut {
   
   @JSImport("void-elements", JSImport.Namespace)
   @js.native
   val ^ : Partial[Record[String, `true`]] = js.native
   
-  /* Syntax to write `mod` instead of `mod.^` */
-  @scala.inline
-  implicit def __is(ignored: mod.type): Partial[Record[String, `true`]] = typings.voidElements.mod.^
+  type _To = Partial[Record[String, `true`]]
+  
+  /* This means you don't have to write `^`, but can instead just say `mod.foo` */
+  override def _to: Partial[Record[String, `true`]] = ^
 }

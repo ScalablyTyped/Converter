@@ -2,12 +2,13 @@ package typings.stylis
 
 import org.scalablytyped.runtime.Instantiable0
 import org.scalablytyped.runtime.Instantiable1
+import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object mod {
+object mod extends Shortcut {
   
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("stylis/stylis", JSImport.Namespace)
@@ -186,7 +187,8 @@ object mod {
     def apply(plugin: Plugin): Use = js.native
   }
   
-  /* Syntax to write `mod` instead of `mod.^` */
-  @scala.inline
-  implicit def __is(ignored: mod.type): Stylis = typings.stylis.mod.^
+  type _To = Stylis
+  
+  /* This means you don't have to write `^`, but can instead just say `mod.foo` */
+  override def _to: Stylis = ^
 }

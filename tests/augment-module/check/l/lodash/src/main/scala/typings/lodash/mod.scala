@@ -1,12 +1,13 @@
 package typings.lodash
 
+import org.scalablytyped.runtime.Shortcut
 import typings.std.ArrayLike
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object mod {
+object mod extends Shortcut {
   
   @JSImport("lodash", JSImport.Namespace)
   @js.native
@@ -79,9 +80,10 @@ object mod {
   
   type PropertyPath = Many[PropertyName]
   
-  /* Syntax to write `mod` instead of `mod.^` */
-  @scala.inline
-  implicit def __is(ignored: mod.type): LoDashStatic = typings.lodash.mod.^
+  type _To = LoDashStatic
+  
+  /* This means you don't have to write `^`, but can instead just say `mod.foo` */
+  override def _to: LoDashStatic = ^
   
   // Backward compatibility with --target es5
   object global {
