@@ -1,5 +1,5 @@
 addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.15.0")
-addSbtPlugin("org.scalameta" % "sbt-mdoc" % "2.2.16")
+addSbtPlugin("org.scalameta" % "sbt-mdoc" % "2.2.18")
 addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.6.1")
 addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.16")
 addSbtPlugin("com.dwijnand" % "sbt-dynver" % "4.1.1")
