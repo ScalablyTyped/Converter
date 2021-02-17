@@ -41,7 +41,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
 
         val hasImplementation: Boolean =
           container.index.getOrElse(cls.name, Empty).exists {
-            case _: ContainerTree => true
+            case c: ContainerTree => c.index.contains(Name.APPLY)
             case _: MemberTree    => true
             case _ => false
           }
