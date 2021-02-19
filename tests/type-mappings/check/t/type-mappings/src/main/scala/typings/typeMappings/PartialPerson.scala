@@ -2,7 +2,6 @@ package typings.typeMappings
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined std.Partial<type-mappings.Person> */
@@ -31,12 +30,12 @@ object PartialPerson {
     def setAgeNull: Self = StObject.set(x, "age", null)
     
     @scala.inline
-    def setAgeUndefined: Self = StObject.set(x, "age", js.undefined)
+    def setAgeUndefined: Self = StObject.set(x, "age", ())
     
     @scala.inline
     def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
+    def setNameUndefined: Self = StObject.set(x, "name", ())
   }
 }

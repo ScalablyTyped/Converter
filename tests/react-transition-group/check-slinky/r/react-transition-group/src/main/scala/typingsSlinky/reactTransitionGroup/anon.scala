@@ -3,7 +3,6 @@ package typingsSlinky.reactTransitionGroup
 import slinky.core.facade.ReactElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
@@ -28,7 +27,7 @@ object anon {
       def setChildFactory(value: /* child */ ReactElement => ReactElement): Self = StObject.set(x, "childFactory", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setChildFactoryUndefined: Self = StObject.set(x, "childFactory", js.undefined)
+      def setChildFactoryUndefined: Self = StObject.set(x, "childFactory", ())
     }
   }
 }

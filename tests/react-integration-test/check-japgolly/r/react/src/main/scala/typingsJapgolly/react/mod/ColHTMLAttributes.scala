@@ -2,7 +2,6 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -21,18 +20,18 @@ object ColHTMLAttributes {
   }
   
   @scala.inline
-  implicit class ColHTMLAttributesMutableBuilder[Self <: ColHTMLAttributes[_], T] (val x: Self with ColHTMLAttributes[T]) extends AnyVal {
+  implicit class ColHTMLAttributesMutableBuilder[Self <: ColHTMLAttributes[?], T] (val x: Self & ColHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setSpan(value: Double): Self = StObject.set(x, "span", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSpanUndefined: Self = StObject.set(x, "span", js.undefined)
+    def setSpanUndefined: Self = StObject.set(x, "span", ())
     
     @scala.inline
     def setWidth(value: Double | String): Self = StObject.set(x, "width", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setWidthUndefined: Self = StObject.set(x, "width", js.undefined)
+    def setWidthUndefined: Self = StObject.set(x, "width", ())
   }
 }

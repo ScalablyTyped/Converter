@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -37,13 +36,13 @@ object MediaHTMLAttributes {
   }
   
   @scala.inline
-  implicit class MediaHTMLAttributesMutableBuilder[Self <: MediaHTMLAttributes[_], T] (val x: Self with MediaHTMLAttributes[T]) extends AnyVal {
+  implicit class MediaHTMLAttributesMutableBuilder[Self <: MediaHTMLAttributes[?], T] (val x: Self & MediaHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAutoPlay(value: Boolean): Self = StObject.set(x, "autoPlay", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAutoPlayUndefined: Self = StObject.set(x, "autoPlay", js.undefined)
+    def setAutoPlayUndefined: Self = StObject.set(x, "autoPlay", ())
     
     @scala.inline
     def setControls(value: Boolean): Self = StObject.set(x, "controls", value.asInstanceOf[js.Any])
@@ -52,51 +51,51 @@ object MediaHTMLAttributes {
     def setControlsList(value: String): Self = StObject.set(x, "controlsList", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setControlsListUndefined: Self = StObject.set(x, "controlsList", js.undefined)
+    def setControlsListUndefined: Self = StObject.set(x, "controlsList", ())
     
     @scala.inline
-    def setControlsUndefined: Self = StObject.set(x, "controls", js.undefined)
+    def setControlsUndefined: Self = StObject.set(x, "controls", ())
     
     @scala.inline
     def setCrossOrigin(value: String): Self = StObject.set(x, "crossOrigin", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCrossOriginUndefined: Self = StObject.set(x, "crossOrigin", js.undefined)
+    def setCrossOriginUndefined: Self = StObject.set(x, "crossOrigin", ())
     
     @scala.inline
     def setLoop(value: Boolean): Self = StObject.set(x, "loop", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLoopUndefined: Self = StObject.set(x, "loop", js.undefined)
+    def setLoopUndefined: Self = StObject.set(x, "loop", ())
     
     @scala.inline
     def setMediaGroup(value: String): Self = StObject.set(x, "mediaGroup", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMediaGroupUndefined: Self = StObject.set(x, "mediaGroup", js.undefined)
+    def setMediaGroupUndefined: Self = StObject.set(x, "mediaGroup", ())
     
     @scala.inline
     def setMuted(value: Boolean): Self = StObject.set(x, "muted", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMutedUndefined: Self = StObject.set(x, "muted", js.undefined)
+    def setMutedUndefined: Self = StObject.set(x, "muted", ())
     
     @scala.inline
     def setPlaysinline(value: Boolean): Self = StObject.set(x, "playsinline", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setPlaysinlineUndefined: Self = StObject.set(x, "playsinline", js.undefined)
+    def setPlaysinlineUndefined: Self = StObject.set(x, "playsinline", ())
     
     @scala.inline
     def setPreload(value: String): Self = StObject.set(x, "preload", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setPreloadUndefined: Self = StObject.set(x, "preload", js.undefined)
+    def setPreloadUndefined: Self = StObject.set(x, "preload", ())
     
     @scala.inline
     def setSrc(value: String): Self = StObject.set(x, "src", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSrcUndefined: Self = StObject.set(x, "src", js.undefined)
+    def setSrcUndefined: Self = StObject.set(x, "src", ())
   }
 }

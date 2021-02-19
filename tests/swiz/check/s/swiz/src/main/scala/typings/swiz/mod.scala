@@ -4,7 +4,6 @@ import typings.swiz.mod.struct.IField
 import typings.swiz.mod.struct.IObj
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -109,19 +108,19 @@ object mod {
       def setFor(value: String): Self = StObject.set(x, "for", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setForUndefined: Self = StObject.set(x, "for", js.undefined)
+      def setForUndefined: Self = StObject.set(x, "for", ())
       
       @scala.inline
       def setStripNulls(value: Boolean): Self = StObject.set(x, "stripNulls", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setStripNullsUndefined: Self = StObject.set(x, "stripNulls", js.undefined)
+      def setStripNullsUndefined: Self = StObject.set(x, "stripNulls", ())
       
       @scala.inline
       def setStripSerializerType(value: Boolean): Self = StObject.set(x, "stripSerializerType", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setStripSerializerTypeUndefined: Self = StObject.set(x, "stripSerializerType", js.undefined)
+      def setStripSerializerTypeUndefined: Self = StObject.set(x, "stripSerializerType", ())
     }
   }
   

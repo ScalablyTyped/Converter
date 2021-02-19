@@ -78,6 +78,7 @@ object ImportTypingsGenSources {
       .next(
         new Phase2ToScalaJs(
           pedantic             = false,
+          scalaVersion         = input.conversion.versions.scala,
           enableScalaJsDefined = input.conversion.enableScalaJsDefined,
           outputPkg            = conversion.outputPackage,
           flavour              = input.conversion.flavourImpl,
@@ -119,7 +120,15 @@ object ImportTypingsGenSources {
                   Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
                 } else lib.packageTree
 
-              val outFiles = Printer(globalScope, new ParentsResolver, minimized, conversion.outputPackage).map {
+              val printed = Printer(
+                globalScope,
+                new ParentsResolver,
+                minimized,
+                conversion.outputPackage,
+                conversion.versions.scala,
+              )
+
+              val outFiles = printed.map {
                 case (relPath, content) => targetFolder / relPath -> content
               }
               val minimizedMessage = if (willMinimize) "minimized " else ""

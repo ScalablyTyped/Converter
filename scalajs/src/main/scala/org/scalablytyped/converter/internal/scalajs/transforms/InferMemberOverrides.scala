@@ -9,7 +9,7 @@ import org.scalablytyped.converter.internal.maps.sum
   * When a class inherits the same method/field from two ancestors,
   * we need to provide an override
   */
-class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransformation {
+class InferMemberOverrides(erasure: Erasure, parentsResolver: ParentsResolver) extends TreeTransformation {
 
   override def leaveModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree =
     if (mod.parents.length > 1 && mod.isNative)
@@ -32,7 +32,7 @@ class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransfo
       fields.groupBy(_.name)
 
     val methodsByBase: Map[MethodBase, IArray[MethodTree]] =
-      methods.groupBy(Erasure.base(scope))
+      methods.groupBy(erasure.base(scope))
 
     val inheritedFields: Map[Name, IArray[(FieldTree, TypeRef)]] =
       sum(
@@ -67,7 +67,7 @@ class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransfo
       root.transitiveParents.flatMapToIArray { case (_, v) => v.members.collect { case c: MethodTree => c } }
 
     val addedMethods: IArray[MethodTree] =
-      IArray.fromTraversable(inheritedMethods.groupBy(Erasure.base(scope))).collect {
+      IArray.fromTraversable(inheritedMethods.groupBy(erasure.base(scope))).collect {
         case (base, fs) if fs.length > 1 && !methodsByBase.contains(base) =>
           fs.head.copy(
             isOverride = true,

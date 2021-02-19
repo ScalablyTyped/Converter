@@ -5,7 +5,6 @@ import japgolly.scalajs.react.raw.React.Node
 import org.scalablytyped.runtime.StringDictionary
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -24,7 +23,7 @@ object ComponentSpec {
   }
   
   @scala.inline
-  implicit class ComponentSpecMutableBuilder[Self <: ComponentSpec[_, _], P, S] (val x: Self with (ComponentSpec[P, S])) extends AnyVal {
+  implicit class ComponentSpecMutableBuilder[Self <: ComponentSpec[?, ?], P, S] (val x: Self & (ComponentSpec[P, S])) extends AnyVal {
     
     @scala.inline
     def setRender(value: CallbackTo[Node]): Self = StObject.set(x, "render", value.toJsFn)

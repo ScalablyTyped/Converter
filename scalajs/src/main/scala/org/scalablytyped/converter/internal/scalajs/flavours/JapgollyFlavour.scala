@@ -8,14 +8,14 @@ import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIl
 case class JapgollyFlavour(
     outputPkg:              Name,
     enableLongApplyMethod:  Boolean,
-    scalaVersion:           Versions.Scala,
+    versions:               Versions,
     enableReactTreeShaking: Selection[Name],
 ) extends FlavourImplReact {
   override val rewrites      = JapgollyTypeConversions(reactNames, scalaJsDomNames)
-  override val dependencies  = Set(Versions.runtime, Versions.scalajsReact)
+  override val dependencies  = Set(versions.runtime, versions.scalajsReact)
   val memberToPro            = new JapgollyMemberToProp(reactNamesProxy, rewrites)
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToPro, parentsResolver)
-  val genStBuildingComponent = new JapgollyGenStBuildingComponent(outputPkg, scalaVersion)
+  val genStBuildingComponent = new JapgollyGenStBuildingComponent(outputPkg, versions.scala)
   val genComponents =
     new JapgollyGenComponents(findProps, genStBuildingComponent, reactNamesProxy, enableLongApplyMethod)
   val genCompanions = new GenCompanions(findProps, enableLongApplyMethod)

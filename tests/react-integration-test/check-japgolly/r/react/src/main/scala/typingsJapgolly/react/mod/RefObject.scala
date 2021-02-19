@@ -2,7 +2,6 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -19,7 +18,7 @@ object RefObject {
   }
   
   @scala.inline
-  implicit class RefObjectMutableBuilder[Self <: RefObject[_], T] (val x: Self with RefObject[T]) extends AnyVal {
+  implicit class RefObjectMutableBuilder[Self <: RefObject[?], T] (val x: Self & RefObject[T]) extends AnyVal {
     
     @scala.inline
     def setCurrent(value: T): Self = StObject.set(x, "current", value.asInstanceOf[js.Any])

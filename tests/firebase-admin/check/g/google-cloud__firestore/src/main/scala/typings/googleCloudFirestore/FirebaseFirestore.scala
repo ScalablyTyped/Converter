@@ -2,7 +2,6 @@ package typings.googleCloudFirestore
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object FirebaseFirestore {
@@ -60,7 +59,7 @@ object FirebaseFirestore {
       def setProjectId(value: String): Self = StObject.set(x, "projectId", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setProjectIdUndefined: Self = StObject.set(x, "projectId", js.undefined)
+      def setProjectIdUndefined: Self = StObject.set(x, "projectId", ())
     }
   }
 }

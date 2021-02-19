@@ -2,7 +2,6 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -35,60 +34,60 @@ object ScriptHTMLAttributes {
   }
   
   @scala.inline
-  implicit class ScriptHTMLAttributesMutableBuilder[Self <: ScriptHTMLAttributes[_], T] (val x: Self with ScriptHTMLAttributes[T]) extends AnyVal {
+  implicit class ScriptHTMLAttributesMutableBuilder[Self <: ScriptHTMLAttributes[?], T] (val x: Self & ScriptHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAsync(value: Boolean): Self = StObject.set(x, "async", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAsyncUndefined: Self = StObject.set(x, "async", js.undefined)
+    def setAsyncUndefined: Self = StObject.set(x, "async", ())
     
     @scala.inline
     def setCharSet(value: String): Self = StObject.set(x, "charSet", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCharSetUndefined: Self = StObject.set(x, "charSet", js.undefined)
+    def setCharSetUndefined: Self = StObject.set(x, "charSet", ())
     
     @scala.inline
     def setCrossOrigin(value: String): Self = StObject.set(x, "crossOrigin", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCrossOriginUndefined: Self = StObject.set(x, "crossOrigin", js.undefined)
+    def setCrossOriginUndefined: Self = StObject.set(x, "crossOrigin", ())
     
     @scala.inline
     def setDefer(value: Boolean): Self = StObject.set(x, "defer", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDeferUndefined: Self = StObject.set(x, "defer", js.undefined)
+    def setDeferUndefined: Self = StObject.set(x, "defer", ())
     
     @scala.inline
     def setIntegrity(value: String): Self = StObject.set(x, "integrity", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setIntegrityUndefined: Self = StObject.set(x, "integrity", js.undefined)
+    def setIntegrityUndefined: Self = StObject.set(x, "integrity", ())
     
     @scala.inline
     def setNoModule(value: Boolean): Self = StObject.set(x, "noModule", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNoModuleUndefined: Self = StObject.set(x, "noModule", js.undefined)
+    def setNoModuleUndefined: Self = StObject.set(x, "noModule", ())
     
     @scala.inline
     def setNonce(value: String): Self = StObject.set(x, "nonce", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNonceUndefined: Self = StObject.set(x, "nonce", js.undefined)
+    def setNonceUndefined: Self = StObject.set(x, "nonce", ())
     
     @scala.inline
     def setSrc(value: String): Self = StObject.set(x, "src", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSrcUndefined: Self = StObject.set(x, "src", js.undefined)
+    def setSrcUndefined: Self = StObject.set(x, "src", ())
     
     @scala.inline
     def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
+    def setTypeUndefined: Self = StObject.set(x, "type", ())
   }
 }

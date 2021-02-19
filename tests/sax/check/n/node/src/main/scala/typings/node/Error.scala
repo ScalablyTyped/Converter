@@ -2,7 +2,6 @@ package typings.node
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -25,6 +24,6 @@ object Error {
     def setStack(value: String): Self = StObject.set(x, "stack", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setStackUndefined: Self = StObject.set(x, "stack", js.undefined)
+    def setStackUndefined: Self = StObject.set(x, "stack", ())
   }
 }

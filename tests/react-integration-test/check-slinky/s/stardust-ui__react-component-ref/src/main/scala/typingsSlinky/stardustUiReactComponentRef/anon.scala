@@ -2,7 +2,6 @@ package typingsSlinky.stardustUiReactComponentRef
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
@@ -43,8 +42,26 @@ object anon {
   @js.native
   trait InnerRef extends StObject {
     
-    var children: js.UndefOr[scala.Nothing] = js.native
+    var children: Unit = js.native
     
-    var innerRef: js.UndefOr[scala.Nothing] = js.native
+    var innerRef: Unit = js.native
+  }
+  object InnerRef {
+    
+    @scala.inline
+    def apply(children: Unit, innerRef: Unit): InnerRef = {
+      val __obj = js.Dynamic.literal(children = children.asInstanceOf[js.Any], innerRef = innerRef.asInstanceOf[js.Any])
+      __obj.asInstanceOf[InnerRef]
+    }
+    
+    @scala.inline
+    implicit class InnerRefMutableBuilder[Self <: InnerRef] (val x: Self) extends AnyVal {
+      
+      @scala.inline
+      def setChildren(value: Unit): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setInnerRef(value: Unit): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
+    }
   }
 }

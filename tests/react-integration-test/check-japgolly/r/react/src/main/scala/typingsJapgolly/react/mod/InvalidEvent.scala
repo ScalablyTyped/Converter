@@ -6,14 +6,13 @@ import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait InvalidEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
+trait InvalidEvent[T] extends BaseSyntheticEvent[Event, EventTarget & T, EventTarget] {
   
   @JSName("target")
-  var target_InvalidEvent: EventTarget with T = js.native
+  var target_InvalidEvent: EventTarget & T = js.native
 }
 object InvalidEvent {
   
@@ -21,7 +20,7 @@ object InvalidEvent {
   def apply[T](
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: EventTarget with T,
+    currentTarget: EventTarget & T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     isDefaultPrevented: CallbackTo[Boolean],
@@ -31,7 +30,7 @@ object InvalidEvent {
     persist: Callback,
     preventDefault: Callback,
     stopPropagation: Callback,
-    target: EventTarget with T,
+    target: EventTarget & T,
     timeStamp: Double,
     `type`: String
   ): InvalidEvent[T] = {
@@ -41,9 +40,9 @@ object InvalidEvent {
   }
   
   @scala.inline
-  implicit class InvalidEventMutableBuilder[Self <: InvalidEvent[_], T] (val x: Self with InvalidEvent[T]) extends AnyVal {
+  implicit class InvalidEventMutableBuilder[Self <: InvalidEvent[?], T] (val x: Self & InvalidEvent[T]) extends AnyVal {
     
     @scala.inline
-    def setTarget(value: EventTarget with T): Self = StObject.set(x, "target", value.asInstanceOf[js.Any])
+    def setTarget(value: EventTarget & T): Self = StObject.set(x, "target", value.asInstanceOf[js.Any])
   }
 }

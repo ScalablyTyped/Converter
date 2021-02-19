@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -19,7 +18,7 @@ object ChildContextProvider {
   }
   
   @scala.inline
-  implicit class ChildContextProviderMutableBuilder[Self <: ChildContextProvider[_], CC] (val x: Self with ChildContextProvider[CC]) extends AnyVal {
+  implicit class ChildContextProviderMutableBuilder[Self <: ChildContextProvider[?], CC] (val x: Self & ChildContextProvider[CC]) extends AnyVal {
     
     @scala.inline
     def setGetChildContext(value: () => CC): Self = StObject.set(x, "getChildContext", js.Any.fromFunction0(value))

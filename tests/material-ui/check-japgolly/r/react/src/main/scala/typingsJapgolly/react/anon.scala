@@ -8,7 +8,6 @@ import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
@@ -36,7 +35,7 @@ object anon {
       def setChildrenNull: Self = StObject.set(x, "children", null)
       
       @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      def setChildrenUndefined: Self = StObject.set(x, "children", ())
       
       @scala.inline
       def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))

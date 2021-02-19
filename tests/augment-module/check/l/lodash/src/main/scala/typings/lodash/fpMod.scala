@@ -6,7 +6,6 @@ import typings.lodash.mod.CurriedFunction1
 import typings.lodash.mod.CurriedFunction2
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object fpMod extends Shortcut {

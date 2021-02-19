@@ -2,7 +2,6 @@ package typings.expandTypeParameters
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -25,6 +24,6 @@ object C {
     def setC(value: Double): Self = StObject.set(x, "c", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCUndefined: Self = StObject.set(x, "c", js.undefined)
+    def setCUndefined: Self = StObject.set(x, "c", ())
   }
 }

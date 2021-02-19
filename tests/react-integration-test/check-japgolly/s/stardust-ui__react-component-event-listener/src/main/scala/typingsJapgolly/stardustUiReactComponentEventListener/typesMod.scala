@@ -4,7 +4,6 @@ import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.raw.React.RefHandle
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object typesMod {
@@ -47,13 +46,13 @@ object typesMod {
     }
     
     @scala.inline
-    implicit class EventListenerOptionsMutableBuilder[Self <: EventListenerOptions[_], T /* <: EventTypes */] (val x: Self with EventListenerOptions[T]) extends AnyVal {
+    implicit class EventListenerOptionsMutableBuilder[Self <: EventListenerOptions[?], T /* <: EventTypes */] (val x: Self & EventListenerOptions[T]) extends AnyVal {
       
       @scala.inline
       def setCapture(value: Boolean): Self = StObject.set(x, "capture", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCaptureUndefined: Self = StObject.set(x, "capture", js.undefined)
+      def setCaptureUndefined: Self = StObject.set(x, "capture", ())
       
       @scala.inline
       def setListener(

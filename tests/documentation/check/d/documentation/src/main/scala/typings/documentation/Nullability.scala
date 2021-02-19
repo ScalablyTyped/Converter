@@ -2,7 +2,6 @@ package typings.documentation
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -34,7 +33,7 @@ object Nullability {
     def setB(value: Double): Self = StObject.set(x, "b", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setBUndefined: Self = StObject.set(x, "b", js.undefined)
+    def setBUndefined: Self = StObject.set(x, "b", ())
     
     @scala.inline
     def setC(value: Double): Self = StObject.set(x, "c", value.asInstanceOf[js.Any])
@@ -49,6 +48,6 @@ object Nullability {
     def setDNull: Self = StObject.set(x, "d", null)
     
     @scala.inline
-    def setDUndefined: Self = StObject.set(x, "d", js.undefined)
+    def setDUndefined: Self = StObject.set(x, "d", ())
   }
 }

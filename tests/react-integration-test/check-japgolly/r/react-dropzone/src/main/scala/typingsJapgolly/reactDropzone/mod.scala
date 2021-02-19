@@ -16,7 +16,6 @@ import typingsJapgolly.react.mod.RefAttributes
 import typingsJapgolly.react.mod.global.JSX.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -26,7 +25,7 @@ object mod {
   val ^ : js.Any = js.native
   
   @scala.inline
-  def default(props: DropzoneProps with RefAttributes[DropzoneRef]): Element = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(props.asInstanceOf[js.Any]).asInstanceOf[Element]
+  def default(props: DropzoneProps & RefAttributes[DropzoneRef]): Element = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(props.asInstanceOf[js.Any]).asInstanceOf[Element]
   
   @scala.inline
   def useDropzone(): DropzoneState = ^.asInstanceOf[js.Dynamic].applyDynamic("useDropzone")().asInstanceOf[DropzoneState]
@@ -55,7 +54,7 @@ object mod {
       def setRefKey(value: String): Self = StObject.set(x, "refKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRefKeyUndefined: Self = StObject.set(x, "refKey", js.undefined)
+      def setRefKeyUndefined: Self = StObject.set(x, "refKey", ())
     }
   }
   
@@ -146,7 +145,7 @@ object mod {
       def setAccept(value: String | js.Array[String]): Self = StObject.set(x, "accept", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAcceptUndefined: Self = StObject.set(x, "accept", js.undefined)
+      def setAcceptUndefined: Self = StObject.set(x, "accept", ())
       
       @scala.inline
       def setAcceptVarargs(value: String*): Self = StObject.set(x, "accept", js.Array(value :_*))
@@ -155,7 +154,7 @@ object mod {
       def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
+      def setDisabledUndefined: Self = StObject.set(x, "disabled", ())
       
       @scala.inline
       def setGetFilesFromEvent(
@@ -163,31 +162,31 @@ object mod {
       ): Self = StObject.set(x, "getFilesFromEvent", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setGetFilesFromEventUndefined: Self = StObject.set(x, "getFilesFromEvent", js.undefined)
+      def setGetFilesFromEventUndefined: Self = StObject.set(x, "getFilesFromEvent", ())
       
       @scala.inline
       def setMaxSize(value: Double): Self = StObject.set(x, "maxSize", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setMaxSizeUndefined: Self = StObject.set(x, "maxSize", js.undefined)
+      def setMaxSizeUndefined: Self = StObject.set(x, "maxSize", ())
       
       @scala.inline
       def setMinSize(value: Double): Self = StObject.set(x, "minSize", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setMinSizeUndefined: Self = StObject.set(x, "minSize", js.undefined)
+      def setMinSizeUndefined: Self = StObject.set(x, "minSize", ())
       
       @scala.inline
       def setMultiple(value: Boolean): Self = StObject.set(x, "multiple", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setMultipleUndefined: Self = StObject.set(x, "multiple", js.undefined)
+      def setMultipleUndefined: Self = StObject.set(x, "multiple", ())
       
       @scala.inline
       def setNoClick(value: Boolean): Self = StObject.set(x, "noClick", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNoClickUndefined: Self = StObject.set(x, "noClick", js.undefined)
+      def setNoClickUndefined: Self = StObject.set(x, "noClick", ())
       
       @scala.inline
       def setNoDrag(value: Boolean): Self = StObject.set(x, "noDrag", value.asInstanceOf[js.Any])
@@ -196,34 +195,34 @@ object mod {
       def setNoDragEventsBubbling(value: Boolean): Self = StObject.set(x, "noDragEventsBubbling", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNoDragEventsBubblingUndefined: Self = StObject.set(x, "noDragEventsBubbling", js.undefined)
+      def setNoDragEventsBubblingUndefined: Self = StObject.set(x, "noDragEventsBubbling", ())
       
       @scala.inline
-      def setNoDragUndefined: Self = StObject.set(x, "noDrag", js.undefined)
+      def setNoDragUndefined: Self = StObject.set(x, "noDrag", ())
       
       @scala.inline
       def setNoKeyboard(value: Boolean): Self = StObject.set(x, "noKeyboard", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNoKeyboardUndefined: Self = StObject.set(x, "noKeyboard", js.undefined)
+      def setNoKeyboardUndefined: Self = StObject.set(x, "noKeyboard", ())
       
       @scala.inline
-      def setOnDragEnter(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+      def setOnDragEnter(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
       
       @scala.inline
-      def setOnDragEnterUndefined: Self = StObject.set(x, "onDragEnter", js.undefined)
+      def setOnDragEnterUndefined: Self = StObject.set(x, "onDragEnter", ())
       
       @scala.inline
-      def setOnDragLeave(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+      def setOnDragLeave(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
       
       @scala.inline
-      def setOnDragLeaveUndefined: Self = StObject.set(x, "onDragLeave", js.undefined)
+      def setOnDragLeaveUndefined: Self = StObject.set(x, "onDragLeave", ())
       
       @scala.inline
-      def setOnDragOver(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+      def setOnDragOver(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
       
       @scala.inline
-      def setOnDragOverUndefined: Self = StObject.set(x, "onDragOver", js.undefined)
+      def setOnDragOverUndefined: Self = StObject.set(x, "onDragOver", ())
       
       @scala.inline
       def setOnDrop(
@@ -248,7 +247,7 @@ object mod {
             ], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
       
       @scala.inline
-      def setOnDropAcceptedUndefined: Self = StObject.set(x, "onDropAccepted", js.undefined)
+      def setOnDropAcceptedUndefined: Self = StObject.set(x, "onDropAccepted", ())
       
       @scala.inline
       def setOnDropRejected(
@@ -260,22 +259,22 @@ object mod {
             ], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
       
       @scala.inline
-      def setOnDropRejectedUndefined: Self = StObject.set(x, "onDropRejected", js.undefined)
+      def setOnDropRejectedUndefined: Self = StObject.set(x, "onDropRejected", ())
       
       @scala.inline
-      def setOnDropUndefined: Self = StObject.set(x, "onDrop", js.undefined)
+      def setOnDropUndefined: Self = StObject.set(x, "onDrop", ())
       
       @scala.inline
       def setOnFileDialogCancel(value: Callback): Self = StObject.set(x, "onFileDialogCancel", value.toJsFn)
       
       @scala.inline
-      def setOnFileDialogCancelUndefined: Self = StObject.set(x, "onFileDialogCancel", js.undefined)
+      def setOnFileDialogCancelUndefined: Self = StObject.set(x, "onFileDialogCancel", ())
       
       @scala.inline
       def setPreventDropOnDocument(value: Boolean): Self = StObject.set(x, "preventDropOnDocument", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPreventDropOnDocumentUndefined: Self = StObject.set(x, "preventDropOnDocument", js.undefined)
+      def setPreventDropOnDocumentUndefined: Self = StObject.set(x, "preventDropOnDocument", ())
     }
   }
   
@@ -299,7 +298,7 @@ object mod {
       def setChildren(value: /* state */ DropzoneState => Element): Self = StObject.set(x, "children", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      def setChildrenUndefined: Self = StObject.set(x, "children", ())
     }
   }
   
@@ -346,7 +345,7 @@ object mod {
       def setRefKey(value: String): Self = StObject.set(x, "refKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRefKeyUndefined: Self = StObject.set(x, "refKey", js.undefined)
+      def setRefKeyUndefined: Self = StObject.set(x, "refKey", ())
     }
   }
   

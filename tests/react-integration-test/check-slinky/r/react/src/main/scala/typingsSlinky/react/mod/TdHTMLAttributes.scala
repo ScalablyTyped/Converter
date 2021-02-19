@@ -11,7 +11,6 @@ import typingsSlinky.react.reactStrings.right
 import typingsSlinky.react.reactStrings.top
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -38,42 +37,42 @@ object TdHTMLAttributes {
   }
   
   @scala.inline
-  implicit class TdHTMLAttributesMutableBuilder[Self <: TdHTMLAttributes[_], T] (val x: Self with TdHTMLAttributes[T]) extends AnyVal {
+  implicit class TdHTMLAttributesMutableBuilder[Self <: TdHTMLAttributes[?], T] (val x: Self & TdHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAlign(value: left | center | right | justify | char): Self = StObject.set(x, "align", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAlignUndefined: Self = StObject.set(x, "align", js.undefined)
+    def setAlignUndefined: Self = StObject.set(x, "align", ())
     
     @scala.inline
     def setColSpan(value: Double): Self = StObject.set(x, "colSpan", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setColSpanUndefined: Self = StObject.set(x, "colSpan", js.undefined)
+    def setColSpanUndefined: Self = StObject.set(x, "colSpan", ())
     
     @scala.inline
     def setHeaders(value: String): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHeadersUndefined: Self = StObject.set(x, "headers", js.undefined)
+    def setHeadersUndefined: Self = StObject.set(x, "headers", ())
     
     @scala.inline
     def setRowSpan(value: Double): Self = StObject.set(x, "rowSpan", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRowSpanUndefined: Self = StObject.set(x, "rowSpan", js.undefined)
+    def setRowSpanUndefined: Self = StObject.set(x, "rowSpan", ())
     
     @scala.inline
     def setScope(value: String): Self = StObject.set(x, "scope", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setScopeUndefined: Self = StObject.set(x, "scope", js.undefined)
+    def setScopeUndefined: Self = StObject.set(x, "scope", ())
     
     @scala.inline
     def setValign(value: top | middle | bottom | baseline): Self = StObject.set(x, "valign", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setValignUndefined: Self = StObject.set(x, "valign", js.undefined)
+    def setValignUndefined: Self = StObject.set(x, "valign", ())
   }
 }

@@ -8,19 +8,19 @@ import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIl
 case class SlinkyNativeFlavour(
     outputPkg:              Name,
     enableLongApplyMethod:  Boolean,
-    scalaVersion:           Versions.Scala,
+    versions:               Versions,
     enableReactTreeShaking: Selection[Name],
 ) extends FlavourImplReact {
 
   override val dependencies: Set[Dep] =
-    Set(Versions.runtime, Versions.slinkyNative, Versions.scalaJsDom)
+    Set(versions.runtime, versions.slinkyNative, versions.scalaJsDom)
 
   override val rewrites: IArray[CastConversion] =
     SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = false)
 
   val memberToProp           = new MemberToProp.Default(rewrites)
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
-  val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg, scalaVersion)
+  val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg, versions.scala)
   val gen                    = new SlinkyGenComponents(SlinkyGenComponents.Native(()), findProps, genStBuildingComponent, reactNamesProxy)
   val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod)
 

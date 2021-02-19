@@ -3,7 +3,6 @@ package typingsSlinky.react.mod
 import slinky.core.ReactComponentClass
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // will show `Memo(${Component.displayName || Component.name})` in devtools by default,

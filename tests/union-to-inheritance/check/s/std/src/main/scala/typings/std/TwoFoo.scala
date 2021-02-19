@@ -2,7 +2,6 @@ package typings.std
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* let's pretend */
@@ -20,7 +19,7 @@ object TwoFoo {
   }
   
   @scala.inline
-  implicit class TwoFooMutableBuilder[Self <: TwoFoo[_, _], Foo1, Foo2] (val x: Self with (TwoFoo[Foo1, Foo2])) extends AnyVal {
+  implicit class TwoFooMutableBuilder[Self <: TwoFoo[?, ?], Foo1, Foo2] (val x: Self & (TwoFoo[Foo1, Foo2])) extends AnyVal {
     
     @scala.inline
     def setValue(value: Foo1): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])

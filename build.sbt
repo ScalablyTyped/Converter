@@ -26,7 +26,7 @@ lazy val docs = project
   .settings(
     mdocVariables := Map("VERSION" -> latestTag),
     moduleName := "converter-docs",
-    skip in publish := true,
+    publish / skip := true,
   )
   .enablePlugins(MdocPlugin, DocusaurusPlugin)
 
@@ -59,17 +59,17 @@ lazy val importer = project
       Deps.bloop,
       Deps.scalatest % Test,
     ),
-    test in assembly := {},
-    mainClass in assembly := Some("org.scalablytyped.converter.Main"),
+    assembly / test := {},
+    assembly / mainClass := Some("org.scalablytyped.converter.Main"),
     /* meh meh meh */
-    assemblyMergeStrategy in assembly := {
+    assembly / assemblyMergeStrategy := {
       case foo if foo.contains("io/github/soc/directories/") => MergeStrategy.first
       case foo if foo.endsWith("module-info.class")          => MergeStrategy.discard
       case foo if foo.contains("org/fusesource")             => MergeStrategy.first
       case foo if foo.contains("META-INF/native/")           => MergeStrategy.first
       case other                                             => (assembly / assemblyMergeStrategy).value(other)
     },
-    testOptions in Test += Tests.Argument("-P4"),
+    Test / testOptions += Tests.Argument("-P4"),
   )
 
 lazy val cli = project
@@ -106,7 +106,7 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "converter-root",
-    skip in publish := true,
+    publish / skip := true,
   )
   .configure(baseSettings)
   .aggregate(logging, core, phases, ts, scalajs, `importer-portable`, `sbt-converter`, importer, cli)
@@ -129,7 +129,7 @@ lazy val baseSettings: Project => Project =
     scalaVersion := "2.12.14",
     scalacOptions ~= (_.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-unused:params", "-Xfatal-warnings"))),
     /* disable scaladoc */
-    sources in (Compile, doc) := Nil,
+    Compile / doc / sources := Nil,
   )
 
 lazy val optimize: Project => Project =

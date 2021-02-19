@@ -16,6 +16,21 @@ object IArray {
   implicit def IArrayDecoder[T <: AnyRef: Decoder]: Decoder[IArray[T]] =
     Decoder[List[T]].map[IArray[T]](IArray.fromTraversable)
 
+  implicit def ordering[T <: AnyRef: Ordering]: Ordering[IArray[T]] =
+    new Ordering[IArray[T]] {
+      override def compare(x: IArray[T], y: IArray[T]): Int = {
+        val xe = x.iterator
+        val ye = y.iterator
+
+        while (xe.hasNext && ye.hasNext) {
+          val res = implicitly[Ordering[T]].compare(xe.next(), ye.next())
+          if (res != 0) return res
+        }
+
+        Ordering.Boolean.compare(xe.hasNext, ye.hasNext)
+      }
+    }
+
   def apply[A <: AnyRef](as: A*): IArray[A] =
     as match {
       case x: ofRef[A]                => fromArray(x.array)
@@ -1023,6 +1038,25 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
     System.arraycopy(array, 0, ret, 0, length)
     ret(index) = elem
     fromArrayAndSize[A](ret, length)
+  }
+
+  def intersect[B >: A <: AnyRef](that: IArray[B]): IArray[B] = {
+    val occ = occCounts(that)
+    val b   = IArray.Builder.empty[B]
+    for (x <- this) {
+      val ox = occ(x) // Avoid multiple map lookups
+      if (ox > 0) {
+        b += x
+        occ(x) = ox - 1
+      }
+    }
+    b.result()
+  }
+
+  private def occCounts[B <: AnyRef](sq: IArray[B]): mutable.Map[B, Int] = {
+    val occ = new mutable.HashMap[B, Int] { override def default(k: B) = 0 }
+    for (y <- sq) occ(y) += 1
+    occ
   }
 
   def mkString: String =

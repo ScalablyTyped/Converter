@@ -2,7 +2,6 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -25,6 +24,6 @@ object Attributes {
     def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setKeyUndefined: Self = StObject.set(x, "key", js.undefined)
+    def setKeyUndefined: Self = StObject.set(x, "key", ())
   }
 }

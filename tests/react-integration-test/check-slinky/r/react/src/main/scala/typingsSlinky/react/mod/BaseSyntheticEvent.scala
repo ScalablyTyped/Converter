@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 //
@@ -68,7 +67,7 @@ object BaseSyntheticEvent {
   }
   
   @scala.inline
-  implicit class BaseSyntheticEventMutableBuilder[Self <: BaseSyntheticEvent[_, _, _], E, C, T] (val x: Self with (BaseSyntheticEvent[E, C, T])) extends AnyVal {
+  implicit class BaseSyntheticEventMutableBuilder[Self <: BaseSyntheticEvent[?, ?, ?], E, C, T] (val x: Self & (BaseSyntheticEvent[E, C, T])) extends AnyVal {
     
     @scala.inline
     def setBubbles(value: Boolean): Self = StObject.set(x, "bubbles", value.asInstanceOf[js.Any])

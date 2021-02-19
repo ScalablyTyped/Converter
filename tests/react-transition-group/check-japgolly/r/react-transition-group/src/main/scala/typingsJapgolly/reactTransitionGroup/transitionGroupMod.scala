@@ -7,7 +7,6 @@ import typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr
 import typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.animate
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object transitionGroupMod {
@@ -46,7 +45,7 @@ object transitionGroupMod {
     }
   }
   
-  type TransitionGroup = japgolly.scalajs.react.raw.React.Component[(TransitionGroupProps[abbr, js.Any]) with js.Object, js.Object]
+  type TransitionGroup = japgolly.scalajs.react.raw.React.Component[(TransitionGroupProps[abbr, js.Any]) & js.Object, js.Object]
   
-  type TransitionGroupProps[T /* <: abbr | animate */, V /* <: ReactType[js.Any] */] = (IntrinsicTransitionGroupProps[T] with (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)) | (ComponentTransitionGroupProps[V] with ChildFactory)
+  type TransitionGroupProps[T /* <: abbr | animate */, V /* <: ReactType[js.Any] */] = (IntrinsicTransitionGroupProps[T] & (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)) | (ComponentTransitionGroupProps[V] & ChildFactory)
 }

@@ -3,7 +3,6 @@ package typingsSlinky.react.mod
 import slinky.core.facade.ReactRef
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 //
@@ -41,19 +40,19 @@ object Props {
   }
   
   @scala.inline
-  implicit class PropsMutableBuilder[Self <: Props[_], T] (val x: Self with Props[T]) extends AnyVal {
+  implicit class PropsMutableBuilder[Self <: Props[?], T] (val x: Self & Props[T]) extends AnyVal {
     
     @scala.inline
     def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+    def setChildrenUndefined: Self = StObject.set(x, "children", ())
     
     @scala.inline
     def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setKeyUndefined: Self = StObject.set(x, "key", js.undefined)
+    def setKeyUndefined: Self = StObject.set(x, "key", ())
     
     @scala.inline
     def setRef(value: LegacyRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
@@ -68,6 +67,6 @@ object Props {
     def setRefReactRef(value: ReactRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
+    def setRefUndefined: Self = StObject.set(x, "ref", ())
   }
 }

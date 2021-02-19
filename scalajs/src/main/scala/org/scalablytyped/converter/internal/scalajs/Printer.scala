@@ -37,10 +37,11 @@ object Printer {
       parentsResolver: ParentsResolver,
       tree:            ContainerTree,
       outputPackage:   Name,
+      scalaVersion:    Versions.Scala,
   ): Map[os.RelPath, Array[Byte]] = {
     val reg = new Registry()
 
-    new Impl(outputPackage).apply(
+    new Impl(outputPackage, scalaVersion).apply(
       _scope          = scope,
       parentsResolver = parentsResolver,
       reg             = reg,
@@ -51,12 +52,6 @@ object Printer {
 
     reg.result
   }
-
-  val Imports: String =
-    """|import org.scalablytyped.runtime.StObject
-       |import scala.scalajs.js
-       |import scala.scalajs.js.`|`
-       |import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}""".stripMargin
 
   private final case class Indenter(a: Appendable) {
     private var hasIndented: Boolean = false
@@ -85,7 +80,19 @@ object Printer {
     }
   }
 
-  sealed class Impl(outputPackage: Name) {
+  sealed class Impl(outputPackage: Name, scalaVersion: Versions.Scala) {
+    val Imports: String = {
+      if (scalaVersion.is3)
+        """|import org.scalablytyped.runtime.StObject
+           |import scala.scalajs.js
+           |import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}""".stripMargin
+      else
+        """|import org.scalablytyped.runtime.StObject
+           |import scala.scalajs.js
+           |import scala.scalajs.js.`|`
+           |import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}""".stripMargin
+
+    }
     def apply(
         _scope:          TreeScope,
         parentsResolver: ParentsResolver,
@@ -145,6 +152,24 @@ object Printer {
             case _ => sys.error("i was too lazy to prove this with types")
           }
 
+        case (ScalaOutput.PackageObject, members) if scalaVersion.is3 =>
+          reg.write(targetFolder / packageScalaFileName) { writer =>
+            writer.println(s"package ${formatQN(QualifiedName(packages))}")
+            writer.println("")
+            writer.println(Imports)
+            writer.println("")
+            printTrees(
+              scope,
+              parentsResolver,
+              reg,
+              Indenter(writer),
+              packages,
+              targetFolder,
+              2,
+              members,
+            )
+          }
+
         case (ScalaOutput.PackageObject, members) =>
           reg.write(targetFolder / packageScalaFileName) { writer =>
             packages.dropRight(1) match {
@@ -169,6 +194,7 @@ object Printer {
             )
             writer.println("}")
           }
+
       }
     }
 
@@ -443,9 +469,13 @@ object Printer {
             }
             s"$params => ${formatTypeRef(indent)(retType)}"
 
-          case TypeRef.ThisType(_)           => "this.type"
-          case TypeRef.Wildcard              => "_"
-          case TypeRef.Singleton(underlying) => formatTypeRef(indent)(underlying) |+| ".type"
+          case TypeRef.ThisType(_)                  => "this.type"
+          case TypeRef.Wildcard if scalaVersion.is3 => "?"
+          case TypeRef.Wildcard                     => "_"
+          case TypeRef.Singleton(underlying)        => formatTypeRef(indent)(underlying) |+| ".type"
+
+          case TypeRef.Intersection(types, _) if scalaVersion.is3 =>
+            types.map(formatTypeRef(indent)).map(paramsIfNeeded).mkString(" & ")
 
           case TypeRef.Intersection(types, _) =>
             types.map(formatTypeRef(indent)).map(paramsIfNeeded).mkString(" with ")
@@ -454,7 +484,7 @@ object Printer {
             formatTypeRef(indent)(TypeRef(QualifiedName.JsUndefOr, IArray(tpe), NoComments))
 
           case TypeRef.undefined => // keep this line after TypeRef.UndefOr. This line covers if it appears outside a union type
-            formatTypeRef(indent)(TypeRef(QualifiedName.JsUndefOr, IArray(TypeRef.Nothing), NoComments))
+            formatTypeRef(indent)(TypeRef.Unit)
 
           case TypeRef.Union(types, _) =>
             types.map(formatTypeRef(indent)).map(paramsIfNeeded).mkString(" | ")
@@ -543,6 +573,8 @@ object Printer {
           s"if (${formatExpr(indent)(pred)}) ${formatExpr(indent)(ifTrue)}"
         case ExprTree.Block(es) =>
           es.map(e => "  " + formatExpr(indent)(e)).mkString("{\n", "\n", "\n}")
+        case ExprTree.undefined =>
+          "()"
         case ExprTree.Null =>
           "null"
         case ExprTree.`:_*`(e) =>

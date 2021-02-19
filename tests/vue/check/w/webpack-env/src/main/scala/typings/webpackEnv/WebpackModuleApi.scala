@@ -5,7 +5,6 @@ import typings.std.Error
 import typings.std.RegExp
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object WebpackModuleApi {
@@ -38,13 +37,13 @@ object WebpackModuleApi {
       def setAutoApply(value: Boolean): Self = StObject.set(x, "autoApply", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAutoApplyUndefined: Self = StObject.set(x, "autoApply", js.undefined)
+      def setAutoApplyUndefined: Self = StObject.set(x, "autoApply", ())
       
       @scala.inline
       def setIgnoreUnaccepted(value: Boolean): Self = StObject.set(x, "ignoreUnaccepted", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIgnoreUnacceptedUndefined: Self = StObject.set(x, "ignoreUnaccepted", js.undefined)
+      def setIgnoreUnacceptedUndefined: Self = StObject.set(x, "ignoreUnaccepted", ())
     }
   }
   
@@ -227,7 +226,7 @@ object WebpackModuleApi {
       def setEnv(value: js.Any): Self = StObject.set(x, "env", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEnvUndefined: Self = StObject.set(x, "env", js.undefined)
+      def setEnvUndefined: Self = StObject.set(x, "env", ())
     }
   }
   
@@ -263,9 +262,9 @@ object WebpackModuleApi {
     var cache: StringDictionary[js.Any] = js.native
     
     def context(path: String): RequireContext = js.native
-    def context(path: String, deep: js.UndefOr[scala.Nothing], filter: RegExp): RequireContext = js.native
     def context(path: String, deep: Boolean): RequireContext = js.native
     def context(path: String, deep: Boolean, filter: RegExp): RequireContext = js.native
+    def context(path: String, deep: Unit, filter: RegExp): RequireContext = js.native
     
     /**
       * Download additional dependencies on demand. The paths array lists modules that should be available. When they are, callback is called. If the callback is a function expression, dependencies in that source part are extracted and also loaded on demand. A single request is fired to the server, except if all modules are already available.

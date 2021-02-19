@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -20,12 +19,12 @@ object FunctionComponentElement {
   }
   
   @scala.inline
-  implicit class FunctionComponentElementMutableBuilder[Self <: FunctionComponentElement[_], P] (val x: Self with FunctionComponentElement[P]) extends AnyVal {
+  implicit class FunctionComponentElementMutableBuilder[Self <: FunctionComponentElement[?], P] (val x: Self & FunctionComponentElement[P]) extends AnyVal {
     
     @scala.inline
     def setRef(value: js.Any): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
+    def setRefUndefined: Self = StObject.set(x, "ref", ())
   }
 }

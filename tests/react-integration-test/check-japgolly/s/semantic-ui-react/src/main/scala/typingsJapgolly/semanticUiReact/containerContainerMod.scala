@@ -13,7 +13,6 @@ import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticTEXTALIGNMENTS
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object containerContainerMod extends Shortcut {
@@ -74,7 +73,7 @@ object containerContainerMod extends Shortcut {
       def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
+      def setAsUndefined: Self = StObject.set(x, "as", ())
       
       @scala.inline
       def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
@@ -83,7 +82,7 @@ object containerContainerMod extends Shortcut {
       def setChildrenNull: Self = StObject.set(x, "children", null)
       
       @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      def setChildrenUndefined: Self = StObject.set(x, "children", ())
       
       @scala.inline
       def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
@@ -95,7 +94,7 @@ object containerContainerMod extends Shortcut {
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+      def setClassNameUndefined: Self = StObject.set(x, "className", ())
       
       @scala.inline
       def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
@@ -104,7 +103,7 @@ object containerContainerMod extends Shortcut {
       def setContentNull: Self = StObject.set(x, "content", null)
       
       @scala.inline
-      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
+      def setContentUndefined: Self = StObject.set(x, "content", ())
       
       @scala.inline
       def setContentVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "content", js.Array(value :_*))
@@ -116,7 +115,7 @@ object containerContainerMod extends Shortcut {
       def setFluid(value: Boolean): Self = StObject.set(x, "fluid", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFluidUndefined: Self = StObject.set(x, "fluid", js.undefined)
+      def setFluidUndefined: Self = StObject.set(x, "fluid", ())
       
       @scala.inline
       def setText(value: Boolean): Self = StObject.set(x, "text", value.asInstanceOf[js.Any])
@@ -125,10 +124,10 @@ object containerContainerMod extends Shortcut {
       def setTextAlign(value: SemanticTEXTALIGNMENTS): Self = StObject.set(x, "textAlign", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTextAlignUndefined: Self = StObject.set(x, "textAlign", js.undefined)
+      def setTextAlignUndefined: Self = StObject.set(x, "textAlign", ())
       
       @scala.inline
-      def setTextUndefined: Self = StObject.set(x, "text", js.undefined)
+      def setTextUndefined: Self = StObject.set(x, "text", ())
     }
   }
   

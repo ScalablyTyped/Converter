@@ -5,7 +5,6 @@ import slinky.core.facade.ReactRef
 import typingsSlinky.react.mod.Ref
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object typesMod {

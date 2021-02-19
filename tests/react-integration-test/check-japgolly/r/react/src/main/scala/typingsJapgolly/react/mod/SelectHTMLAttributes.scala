@@ -5,7 +5,6 @@ import japgolly.scalajs.react.ReactEventFrom
 import org.scalajs.dom.raw.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -41,67 +40,67 @@ object SelectHTMLAttributes {
   }
   
   @scala.inline
-  implicit class SelectHTMLAttributesMutableBuilder[Self <: SelectHTMLAttributes[_], T] (val x: Self with SelectHTMLAttributes[T]) extends AnyVal {
+  implicit class SelectHTMLAttributesMutableBuilder[Self <: SelectHTMLAttributes[?], T] (val x: Self & SelectHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAutoComplete(value: String): Self = StObject.set(x, "autoComplete", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAutoCompleteUndefined: Self = StObject.set(x, "autoComplete", js.undefined)
+    def setAutoCompleteUndefined: Self = StObject.set(x, "autoComplete", ())
     
     @scala.inline
     def setAutoFocus(value: Boolean): Self = StObject.set(x, "autoFocus", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAutoFocusUndefined: Self = StObject.set(x, "autoFocus", js.undefined)
+    def setAutoFocusUndefined: Self = StObject.set(x, "autoFocus", ())
     
     @scala.inline
     def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
+    def setDisabledUndefined: Self = StObject.set(x, "disabled", ())
     
     @scala.inline
     def setForm(value: String): Self = StObject.set(x, "form", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFormUndefined: Self = StObject.set(x, "form", js.undefined)
+    def setFormUndefined: Self = StObject.set(x, "form", ())
     
     @scala.inline
     def setMultiple(value: Boolean): Self = StObject.set(x, "multiple", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMultipleUndefined: Self = StObject.set(x, "multiple", js.undefined)
+    def setMultipleUndefined: Self = StObject.set(x, "multiple", ())
     
     @scala.inline
     def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
+    def setNameUndefined: Self = StObject.set(x, "name", ())
     
     @scala.inline
-    def setOnChange(value: ReactEventFrom[T with Element] => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    def setOnChange(value: ReactEventFrom[T & Element] => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: ReactEventFrom[T & Element]) => value(t0).runNow()))
     
     @scala.inline
-    def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
+    def setOnChangeUndefined: Self = StObject.set(x, "onChange", ())
     
     @scala.inline
     def setRequired(value: Boolean): Self = StObject.set(x, "required", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRequiredUndefined: Self = StObject.set(x, "required", js.undefined)
+    def setRequiredUndefined: Self = StObject.set(x, "required", ())
     
     @scala.inline
     def setSize(value: Double): Self = StObject.set(x, "size", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSizeUndefined: Self = StObject.set(x, "size", js.undefined)
+    def setSizeUndefined: Self = StObject.set(x, "size", ())
     
     @scala.inline
     def setValue(value: String | js.Array[String] | Double): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
+    def setValueUndefined: Self = StObject.set(x, "value", ())
     
     @scala.inline
     def setValueVarargs(value: String*): Self = StObject.set(x, "value", js.Array(value :_*))

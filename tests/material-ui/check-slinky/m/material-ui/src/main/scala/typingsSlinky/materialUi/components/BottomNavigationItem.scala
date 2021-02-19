@@ -6,7 +6,6 @@ import typingsSlinky.materialUi.MaterialUI.BottomNavigation.BottomNavigationItem
 import typingsSlinky.materialUi.bottomNavigationItemMod.default
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object BottomNavigationItem {

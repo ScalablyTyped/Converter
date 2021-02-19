@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -25,31 +24,31 @@ object OptionHTMLAttributes {
   }
   
   @scala.inline
-  implicit class OptionHTMLAttributesMutableBuilder[Self <: OptionHTMLAttributes[_], T] (val x: Self with OptionHTMLAttributes[T]) extends AnyVal {
+  implicit class OptionHTMLAttributesMutableBuilder[Self <: OptionHTMLAttributes[?], T] (val x: Self & OptionHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
+    def setDisabledUndefined: Self = StObject.set(x, "disabled", ())
     
     @scala.inline
     def setLabel(value: String): Self = StObject.set(x, "label", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLabelUndefined: Self = StObject.set(x, "label", js.undefined)
+    def setLabelUndefined: Self = StObject.set(x, "label", ())
     
     @scala.inline
     def setSelected(value: Boolean): Self = StObject.set(x, "selected", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSelectedUndefined: Self = StObject.set(x, "selected", js.undefined)
+    def setSelectedUndefined: Self = StObject.set(x, "selected", ())
     
     @scala.inline
     def setValue(value: String | js.Array[String] | Double): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
+    def setValueUndefined: Self = StObject.set(x, "value", ())
     
     @scala.inline
     def setValueVarargs(value: String*): Self = StObject.set(x, "value", js.Array(value :_*))

@@ -8,18 +8,17 @@ import slinky.core.facade.ReactRef
 import typingsSlinky.StBuildingComponent.make
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 trait StBuildingComponent[E, R <: js.Object] extends Any {
   
   @scala.inline
   def apply(mods: TagMod[E]*): this.type = {
-    mods.foreach((mod: TagMod[E]) => if (mod.isInstanceOf[AttrPair[_]]) {
-    val a = mod.asInstanceOf[AttrPair[_]]
+    mods.foreach((mod: TagMod[E]) => if (mod.isInstanceOf[AttrPair[?]]) {
+    val a = mod.asInstanceOf[AttrPair[?]]
     set(a.name, a.value)
-  } else if (mod.isInstanceOf[OptionalAttrPair[_]]) {
-    val o = mod.asInstanceOf[OptionalAttrPair[_]]
+  } else if (mod.isInstanceOf[OptionalAttrPair[?]]) {
+    val o = mod.asInstanceOf[OptionalAttrPair[?]]
     if (o.value.isDefined) set(o.name, o.value.get)
   } else args.push(mod))
     this

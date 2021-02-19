@@ -9,7 +9,6 @@ import typingsSlinky.react.mod.FunctionComponent
 import typingsSlinky.react.mod.MouseEventHandler
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -78,7 +77,7 @@ object mod {
       def setBCallback(value: () => String): Self = StObject.set(x, "bCallback", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setBCallbackUndefined: Self = StObject.set(x, "bCallback", js.undefined)
+      def setBCallbackUndefined: Self = StObject.set(x, "bCallback", ())
       
       @scala.inline
       def setBMember(value: String): Self = StObject.set(x, "bMember", value.asInstanceOf[js.Any])
@@ -111,25 +110,25 @@ object mod {
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+      def setClassNameUndefined: Self = StObject.set(x, "className", ())
       
       @scala.inline
       def setHoverable(value: Boolean): Self = StObject.set(x, "hoverable", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setHoverableUndefined: Self = StObject.set(x, "hoverable", js.undefined)
+      def setHoverableUndefined: Self = StObject.set(x, "hoverable", ())
       
       @scala.inline
       def setPrefixCls(value: String): Self = StObject.set(x, "prefixCls", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", js.undefined)
+      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", ())
       
       @scala.inline
       def setStyle(value: CSSProperties): Self = StObject.set(x, "style", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setStyleUndefined: Self = StObject.set(x, "style", js.undefined)
+      def setStyleUndefined: Self = StObject.set(x, "style", ())
     }
   }
   
@@ -162,13 +161,13 @@ object mod {
       def setOnClick(value: SyntheticMouseEvent[HTMLDivElement] => Unit): Self = StObject.set(x, "onClick", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
+      def setOnClickUndefined: Self = StObject.set(x, "onClick", ())
       
       @scala.inline
       def setPrefixCls(value: String): Self = StObject.set(x, "prefixCls", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", js.undefined)
+      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", ())
     }
   }
   

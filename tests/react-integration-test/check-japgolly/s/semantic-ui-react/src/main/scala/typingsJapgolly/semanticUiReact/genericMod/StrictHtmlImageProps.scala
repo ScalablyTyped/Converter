@@ -2,7 +2,6 @@ package typingsJapgolly.semanticUiReact.genericMod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -25,6 +24,6 @@ object StrictHtmlImageProps {
     def setSrc(value: String): Self = StObject.set(x, "src", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSrcUndefined: Self = StObject.set(x, "src", js.undefined)
+    def setSrcUndefined: Self = StObject.set(x, "src", ())
   }
 }

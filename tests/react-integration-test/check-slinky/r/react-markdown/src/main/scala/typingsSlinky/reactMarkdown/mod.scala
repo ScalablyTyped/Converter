@@ -5,7 +5,6 @@ import org.scalablytyped.runtime.TopLevel
 import slinky.core.facade.ReactElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -47,13 +46,13 @@ object mod {
   
   type LinkTargetResolver = js.Function3[/* uri */ String, /* text */ String, /* title */ js.UndefOr[String], String]
   
-  type MutuallyExclusive[T, U] = (T with Not[U]) | (U with Not[T])
+  type MutuallyExclusive[T, U] = (T & Not[U]) | (U & Not[T])
   
   type Not[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ key in keyof T ]:? never}
-    */ typingsSlinky.reactMarkdown.reactMarkdownStrings.Not with TopLevel[js.Any]
+    */ typingsSlinky.reactMarkdown.reactMarkdownStrings.Not & TopLevel[js.Any]
   
-  type ReactMarkdownProps = ReactMarkdownPropsBase with (MutuallyExclusive[ChildrenProp, SourceProp])
+  type ReactMarkdownProps = ReactMarkdownPropsBase & (MutuallyExclusive[ChildrenProp, SourceProp])
   
   @js.native
   trait ReactMarkdownPropsBase extends StObject {
@@ -88,13 +87,13 @@ object mod {
       def setAllowNode(value: /* index */ Double => Boolean): Self = StObject.set(x, "allowNode", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setAllowNodeUndefined: Self = StObject.set(x, "allowNode", js.undefined)
+      def setAllowNodeUndefined: Self = StObject.set(x, "allowNode", ())
       
       @scala.inline
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+      def setClassNameUndefined: Self = StObject.set(x, "className", ())
       
       @scala.inline
       def setLinkTarget(value: String | LinkTargetResolver): Self = StObject.set(x, "linkTarget", value.asInstanceOf[js.Any])
@@ -103,7 +102,7 @@ object mod {
       def setLinkTargetFunction3(value: (/* uri */ String, /* text */ String, /* title */ js.UndefOr[String]) => String): Self = StObject.set(x, "linkTarget", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setLinkTargetUndefined: Self = StObject.set(x, "linkTarget", js.undefined)
+      def setLinkTargetUndefined: Self = StObject.set(x, "linkTarget", ())
       
       @scala.inline
       def setTransformLinkUri(
@@ -114,7 +113,7 @@ object mod {
       def setTransformLinkUriNull: Self = StObject.set(x, "transformLinkUri", null)
       
       @scala.inline
-      def setTransformLinkUriUndefined: Self = StObject.set(x, "transformLinkUri", js.undefined)
+      def setTransformLinkUriUndefined: Self = StObject.set(x, "transformLinkUri", ())
     }
   }
   

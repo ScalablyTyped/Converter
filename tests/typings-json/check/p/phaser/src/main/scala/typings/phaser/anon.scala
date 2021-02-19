@@ -2,7 +2,6 @@ package typings.phaser
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
@@ -29,7 +28,7 @@ object anon {
       def setLowerBound(value: js.Array[Double]): Self = StObject.set(x, "lowerBound", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setLowerBoundUndefined: Self = StObject.set(x, "lowerBound", js.undefined)
+      def setLowerBoundUndefined: Self = StObject.set(x, "lowerBound", ())
       
       @scala.inline
       def setLowerBoundVarargs(value: Double*): Self = StObject.set(x, "lowerBound", js.Array(value :_*))
@@ -38,7 +37,7 @@ object anon {
       def setUpperBound(value: js.Array[Double]): Self = StObject.set(x, "upperBound", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setUpperBoundUndefined: Self = StObject.set(x, "upperBound", js.undefined)
+      def setUpperBoundUndefined: Self = StObject.set(x, "upperBound", ())
       
       @scala.inline
       def setUpperBoundVarargs(value: Double*): Self = StObject.set(x, "upperBound", js.Array(value :_*))

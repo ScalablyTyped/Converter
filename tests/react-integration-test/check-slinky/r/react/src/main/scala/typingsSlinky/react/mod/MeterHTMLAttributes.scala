@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -31,49 +30,49 @@ object MeterHTMLAttributes {
   }
   
   @scala.inline
-  implicit class MeterHTMLAttributesMutableBuilder[Self <: MeterHTMLAttributes[_], T] (val x: Self with MeterHTMLAttributes[T]) extends AnyVal {
+  implicit class MeterHTMLAttributesMutableBuilder[Self <: MeterHTMLAttributes[?], T] (val x: Self & MeterHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setForm(value: String): Self = StObject.set(x, "form", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFormUndefined: Self = StObject.set(x, "form", js.undefined)
+    def setFormUndefined: Self = StObject.set(x, "form", ())
     
     @scala.inline
     def setHigh(value: Double): Self = StObject.set(x, "high", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHighUndefined: Self = StObject.set(x, "high", js.undefined)
+    def setHighUndefined: Self = StObject.set(x, "high", ())
     
     @scala.inline
     def setLow(value: Double): Self = StObject.set(x, "low", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLowUndefined: Self = StObject.set(x, "low", js.undefined)
+    def setLowUndefined: Self = StObject.set(x, "low", ())
     
     @scala.inline
     def setMax(value: Double | String): Self = StObject.set(x, "max", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMaxUndefined: Self = StObject.set(x, "max", js.undefined)
+    def setMaxUndefined: Self = StObject.set(x, "max", ())
     
     @scala.inline
     def setMin(value: Double | String): Self = StObject.set(x, "min", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMinUndefined: Self = StObject.set(x, "min", js.undefined)
+    def setMinUndefined: Self = StObject.set(x, "min", ())
     
     @scala.inline
     def setOptimum(value: Double): Self = StObject.set(x, "optimum", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setOptimumUndefined: Self = StObject.set(x, "optimum", js.undefined)
+    def setOptimumUndefined: Self = StObject.set(x, "optimum", ())
     
     @scala.inline
     def setValue(value: String | js.Array[String] | Double): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
+    def setValueUndefined: Self = StObject.set(x, "value", ())
     
     @scala.inline
     def setValueVarargs(value: String*): Self = StObject.set(x, "value", js.Array(value :_*))

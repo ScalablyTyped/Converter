@@ -14,7 +14,7 @@ import org.scalablytyped.converter.internal.maps._
   * We also detect conflicts (same method with different type parameter sets, non-compatible return types),
   *  and rename methods when needed.
   */
-object CombineOverloads extends TreeTransformation {
+class CombineOverloads(erasure: Erasure) extends TreeTransformation {
 
   override def leaveClassTree(scope: TreeScope)(s: ClassTree): ClassTree = {
     val (methods, fields, Empty) = s.members.partitionCollect2(
@@ -126,7 +126,7 @@ object CombineOverloads extends TreeTransformation {
 
   def combineOverloads(scope: TreeScope, methods: IArray[MethodTree]): IArray[MethodTree] = {
 
-    val methodsByBase = methods.groupBy(Erasure.base(scope))
+    val methodsByBase = methods.groupBy(erasure.base(scope))
 
     val newMethods: IArray[MethodTree] =
       methodsByBase.flatMapToIArray {

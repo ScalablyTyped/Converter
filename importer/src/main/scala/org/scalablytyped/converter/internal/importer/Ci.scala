@@ -113,8 +113,10 @@ object Ci {
                 stdLibs              = SortedSet("esnext.full"),
                 expandTypeMappings   = EnabledTypeMappingExpansion.DefaultSelection,
                 versions = Versions(
-                  if (flags contains "-scala212") Versions.Scala212 else Versions.Scala213,
-                  if (flags contains ("-scalajs06")) Versions.ScalaJs06 else Versions.ScalaJs1,
+                  if (flags contains "-scala213") Versions.Scala213
+                  else if (flags contains "-scala212") Versions.Scala212
+                  else Versions.Scala3,
+                  Versions.ScalaJs1,
                 ),
                 organization           = organization,
                 enableReactTreeShaking = Selection.None,
@@ -271,6 +273,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
         .next(
           new Phase2ToScalaJs(
             config.pedantic,
+            scalaVersion         = config.conversion.versions.scala,
             enableScalaJsDefined = config.conversion.enableScalaJsDefined,
             outputPkg            = config.conversion.outputPackage,
             flavour              = config.conversion.flavourImpl,

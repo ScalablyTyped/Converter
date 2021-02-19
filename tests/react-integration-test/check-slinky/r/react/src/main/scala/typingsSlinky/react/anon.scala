@@ -4,7 +4,6 @@ import slinky.core.facade.ReactElement
 import typingsSlinky.std.Exclude
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
@@ -52,7 +51,7 @@ object anon {
       def setRef(value: Exclude[js.Any, String]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
+      def setRefUndefined: Self = StObject.set(x, "ref", ())
     }
   }
   
@@ -76,7 +75,7 @@ object anon {
       def setChildren(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      def setChildrenUndefined: Self = StObject.set(x, "children", ())
     }
   }
   
@@ -173,7 +172,7 @@ object anon {
       def setRef(value: /* import warning: importer.ImportType#apply Failed type conversion: infer R */ js.Any): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
+      def setRefUndefined: Self = StObject.set(x, "ref", ())
     }
   }
 }

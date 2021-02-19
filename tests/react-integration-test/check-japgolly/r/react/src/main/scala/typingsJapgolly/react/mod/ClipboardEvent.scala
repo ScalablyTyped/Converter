@@ -6,11 +6,10 @@ import org.scalajs.dom.raw.DataTransfer
 import org.scalajs.dom.raw.EventTarget
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ClipboardEvent[T] extends BaseSyntheticEvent[NativeClipboardEvent, EventTarget with T, EventTarget] {
+trait ClipboardEvent[T] extends BaseSyntheticEvent[NativeClipboardEvent, EventTarget & T, EventTarget] {
   
   var clipboardData: DataTransfer = js.native
 }
@@ -21,7 +20,7 @@ object ClipboardEvent {
     bubbles: Boolean,
     cancelable: Boolean,
     clipboardData: DataTransfer,
-    currentTarget: EventTarget with T,
+    currentTarget: EventTarget & T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     isDefaultPrevented: CallbackTo[Boolean],
@@ -41,7 +40,7 @@ object ClipboardEvent {
   }
   
   @scala.inline
-  implicit class ClipboardEventMutableBuilder[Self <: ClipboardEvent[_], T] (val x: Self with ClipboardEvent[T]) extends AnyVal {
+  implicit class ClipboardEventMutableBuilder[Self <: ClipboardEvent[?], T] (val x: Self & ClipboardEvent[T]) extends AnyVal {
     
     @scala.inline
     def setClipboardData(value: DataTransfer): Self = StObject.set(x, "clipboardData", value.asInstanceOf[js.Any])

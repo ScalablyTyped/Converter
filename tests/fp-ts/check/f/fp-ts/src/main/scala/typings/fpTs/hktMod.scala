@@ -3,7 +3,6 @@ package typings.fpTs
 import typings.fpTs.constMod.Const
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object hktMod {
@@ -24,7 +23,7 @@ object hktMod {
     }
     
     @scala.inline
-    implicit class HKTMutableBuilder[Self <: HKT[_, _], URI, A] (val x: Self with (HKT[URI, A])) extends AnyVal {
+    implicit class HKTMutableBuilder[Self <: HKT[?, ?], URI, A] (val x: Self & (HKT[URI, A])) extends AnyVal {
       
       @scala.inline
       def set_A(value: A): Self = StObject.set(x, "_A", value.asInstanceOf[js.Any])
@@ -53,7 +52,7 @@ object hktMod {
     }
     
     @scala.inline
-    implicit class URI2HKT2MutableBuilder[Self <: URI2HKT2[_, _], L, A] (val x: Self with (URI2HKT2[L, A])) extends AnyVal {
+    implicit class URI2HKT2MutableBuilder[Self <: URI2HKT2[?, ?], L, A] (val x: Self & (URI2HKT2[L, A])) extends AnyVal {
       
       @scala.inline
       def setConst(value: Const[L, A]): Self = StObject.set(x, "Const", value.asInstanceOf[js.Any])

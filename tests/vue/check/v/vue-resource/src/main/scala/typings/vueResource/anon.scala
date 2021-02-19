@@ -7,7 +7,6 @@ import typings.vueResource.vuejs.HttpResponse
 import typings.vueResource.vuejs.http
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
@@ -18,49 +17,49 @@ object anon {
     def apply(options: HttpOptions): js.Thenable[HttpResponse] = js.native
     
     def delete(url: String): js.Thenable[HttpResponse] = js.native
-    def delete(url: String, data: js.UndefOr[scala.Nothing], options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def delete(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
     def delete(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def delete(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def delete(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     @JSName("delete")
     var delete_Original: http = js.native
     
     def get(url: String): js.Thenable[HttpResponse] = js.native
-    def get(url: String, data: js.UndefOr[scala.Nothing], options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def get(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
     def get(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def get(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def get(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     @JSName("get")
     var get_Original: http = js.native
     
     def jsonp(url: String): js.Thenable[HttpResponse] = js.native
-    def jsonp(url: String, data: js.UndefOr[scala.Nothing], options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def jsonp(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
     def jsonp(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def jsonp(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def jsonp(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     @JSName("jsonp")
     var jsonp_Original: http = js.native
     
     def patch(url: String): js.Thenable[HttpResponse] = js.native
-    def patch(url: String, data: js.UndefOr[scala.Nothing], options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def patch(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
     def patch(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def patch(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def patch(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     @JSName("patch")
     var patch_Original: http = js.native
     
     def post(url: String): js.Thenable[HttpResponse] = js.native
-    def post(url: String, data: js.UndefOr[scala.Nothing], options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def post(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
     def post(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def post(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def post(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     @JSName("post")
     var post_Original: http = js.native
     
     def put(url: String): js.Thenable[HttpResponse] = js.native
-    def put(url: String, data: js.UndefOr[scala.Nothing], options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def put(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
     def put(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def put(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def put(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     @JSName("put")
     var put_Original: http = js.native
@@ -107,55 +106,55 @@ object anon {
       def setBefore(value: /* request */ js.Any => js.Any): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setBeforeUndefined: Self = StObject.set(x, "before", js.undefined)
+      def setBeforeUndefined: Self = StObject.set(x, "before", ())
       
       @scala.inline
       def setBody(value: js.Any): Self = StObject.set(x, "body", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setBodyUndefined: Self = StObject.set(x, "body", js.undefined)
+      def setBodyUndefined: Self = StObject.set(x, "body", ())
       
       @scala.inline
       def setCredentials(value: Boolean): Self = StObject.set(x, "credentials", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCredentialsUndefined: Self = StObject.set(x, "credentials", js.undefined)
+      def setCredentialsUndefined: Self = StObject.set(x, "credentials", ())
       
       @scala.inline
       def setEmulateHTTP(value: Boolean): Self = StObject.set(x, "emulateHTTP", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEmulateHTTPUndefined: Self = StObject.set(x, "emulateHTTP", js.undefined)
+      def setEmulateHTTPUndefined: Self = StObject.set(x, "emulateHTTP", ())
       
       @scala.inline
       def setEmulateJSON(value: Boolean): Self = StObject.set(x, "emulateJSON", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEmulateJSONUndefined: Self = StObject.set(x, "emulateJSON", js.undefined)
+      def setEmulateJSONUndefined: Self = StObject.set(x, "emulateJSON", ())
       
       @scala.inline
       def setHeaders(value: js.Any): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setHeadersUndefined: Self = StObject.set(x, "headers", js.undefined)
+      def setHeadersUndefined: Self = StObject.set(x, "headers", ())
       
       @scala.inline
       def setMethod(value: String): Self = StObject.set(x, "method", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setMethodUndefined: Self = StObject.set(x, "method", js.undefined)
+      def setMethodUndefined: Self = StObject.set(x, "method", ())
       
       @scala.inline
       def setParams(value: js.Any): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setParamsUndefined: Self = StObject.set(x, "params", js.undefined)
+      def setParamsUndefined: Self = StObject.set(x, "params", ())
       
       @scala.inline
       def setProgress(value: /* event */ js.Any => js.Any): Self = StObject.set(x, "progress", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setProgressUndefined: Self = StObject.set(x, "progress", js.undefined)
+      def setProgressUndefined: Self = StObject.set(x, "progress", ())
       
       @scala.inline
       def setRoot(value: String): Self = StObject.set(x, "root", value.asInstanceOf[js.Any])
@@ -164,7 +163,7 @@ object anon {
       def setUrl(value: String): Self = StObject.set(x, "url", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setUrlUndefined: Self = StObject.set(x, "url", js.undefined)
+      def setUrlUndefined: Self = StObject.set(x, "url", ())
     }
   }
   
@@ -204,7 +203,7 @@ object anon {
     
     var emulateJSON: js.UndefOr[Boolean] = js.native
     
-    var headers: js.UndefOr[HttpHeaders] with js.UndefOr[js.Any] = js.native
+    var headers: js.UndefOr[HttpHeaders] & js.UndefOr[js.Any] = js.native
     
     var method: js.UndefOr[String] = js.native
     
@@ -217,7 +216,7 @@ object anon {
   object headersHttpHeadersundefin {
     
     @scala.inline
-    def apply(headers: js.UndefOr[HttpHeaders] with js.UndefOr[js.Any]): headersHttpHeadersundefin = {
+    def apply(headers: js.UndefOr[HttpHeaders] & js.UndefOr[js.Any]): headersHttpHeadersundefin = {
       val __obj = js.Dynamic.literal(headers = headers.asInstanceOf[js.Any])
       __obj.asInstanceOf[headersHttpHeadersundefin]
     }
@@ -229,58 +228,58 @@ object anon {
       def setBefore(value: /* request */ js.Any => js.Any): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setBeforeUndefined: Self = StObject.set(x, "before", js.undefined)
+      def setBeforeUndefined: Self = StObject.set(x, "before", ())
       
       @scala.inline
       def setBody(value: js.Any): Self = StObject.set(x, "body", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setBodyUndefined: Self = StObject.set(x, "body", js.undefined)
+      def setBodyUndefined: Self = StObject.set(x, "body", ())
       
       @scala.inline
       def setCredentials(value: Boolean): Self = StObject.set(x, "credentials", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCredentialsUndefined: Self = StObject.set(x, "credentials", js.undefined)
+      def setCredentialsUndefined: Self = StObject.set(x, "credentials", ())
       
       @scala.inline
       def setEmulateHTTP(value: Boolean): Self = StObject.set(x, "emulateHTTP", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEmulateHTTPUndefined: Self = StObject.set(x, "emulateHTTP", js.undefined)
+      def setEmulateHTTPUndefined: Self = StObject.set(x, "emulateHTTP", ())
       
       @scala.inline
       def setEmulateJSON(value: Boolean): Self = StObject.set(x, "emulateJSON", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEmulateJSONUndefined: Self = StObject.set(x, "emulateJSON", js.undefined)
+      def setEmulateJSONUndefined: Self = StObject.set(x, "emulateJSON", ())
       
       @scala.inline
-      def setHeaders(value: js.UndefOr[HttpHeaders] with js.UndefOr[js.Any]): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
+      def setHeaders(value: js.UndefOr[HttpHeaders] & js.UndefOr[js.Any]): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setMethod(value: String): Self = StObject.set(x, "method", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setMethodUndefined: Self = StObject.set(x, "method", js.undefined)
+      def setMethodUndefined: Self = StObject.set(x, "method", ())
       
       @scala.inline
       def setParams(value: js.Any): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setParamsUndefined: Self = StObject.set(x, "params", js.undefined)
+      def setParamsUndefined: Self = StObject.set(x, "params", ())
       
       @scala.inline
       def setProgress(value: /* event */ js.Any => js.Any): Self = StObject.set(x, "progress", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setProgressUndefined: Self = StObject.set(x, "progress", js.undefined)
+      def setProgressUndefined: Self = StObject.set(x, "progress", ())
       
       @scala.inline
       def setUrl(value: String): Self = StObject.set(x, "url", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setUrlUndefined: Self = StObject.set(x, "url", js.undefined)
+      def setUrlUndefined: Self = StObject.set(x, "url", ())
     }
   }
 }

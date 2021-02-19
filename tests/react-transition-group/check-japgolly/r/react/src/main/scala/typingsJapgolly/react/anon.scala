@@ -4,7 +4,6 @@ import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
@@ -17,7 +16,7 @@ object anon {
   object Children {
     
     @scala.inline
-    def apply(children: js.UndefOr[Null | VdomNode] = js.undefined): Children = {
+    def apply(children: js.UndefOr[Null | VdomNode] = ()): Children = {
       val __obj = js.Dynamic.literal()
       if (!js.isUndefined(children)) __obj.updateDynamic("children")(if (children != null) children.asInstanceOf[VdomNode].rawNode.asInstanceOf[js.Any] else null)
       __obj.asInstanceOf[Children]

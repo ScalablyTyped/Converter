@@ -7,7 +7,6 @@ import typings.node.eventsMod.EventEmitter
 import typings.node.nodeStrings.close
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object streamMod {
@@ -32,9 +31,9 @@ object streamMod {
     def end(cb: js.Function): Unit = js.native
     def end(chunk: js.Any): Unit = js.native
     def end(chunk: js.Any, cb: js.Function): Unit = js.native
-    def end(chunk: js.Any, encoding: js.UndefOr[scala.Nothing], cb: js.Function): Unit = js.native
     def end(chunk: js.Any, encoding: String): Unit = js.native
     def end(chunk: js.Any, encoding: String, cb: js.Function): Unit = js.native
+    def end(chunk: js.Any, encoding: Unit, cb: js.Function): Unit = js.native
     
     var writable: Boolean = js.native
   }
@@ -64,9 +63,9 @@ object streamMod {
     def end(cb: js.Function): Unit = js.native
     def end(chunk: js.Any): Unit = js.native
     def end(chunk: js.Any, cb: js.Function): Unit = js.native
-    def end(chunk: js.Any, encoding: js.UndefOr[scala.Nothing], cb: js.Function): Unit = js.native
     def end(chunk: js.Any, encoding: String): Unit = js.native
     def end(chunk: js.Any, encoding: String, cb: js.Function): Unit = js.native
+    def end(chunk: js.Any, encoding: Unit, cb: js.Function): Unit = js.native
     
     @JSName("on")
     def on_close(event: close, listener: js.Function0[Unit]): this.type = js.native
@@ -94,7 +93,7 @@ object streamMod {
       def setAllowHalfOpen(value: Boolean): Self = StObject.set(x, "allowHalfOpen", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAllowHalfOpenUndefined: Self = StObject.set(x, "allowHalfOpen", js.undefined)
+      def setAllowHalfOpenUndefined: Self = StObject.set(x, "allowHalfOpen", ())
     }
   }
   
@@ -126,31 +125,31 @@ object streamMod {
       def setDestroy(value: /* error */ js.UndefOr[Error] => js.Any): Self = StObject.set(x, "destroy", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setDestroyUndefined: Self = StObject.set(x, "destroy", js.undefined)
+      def setDestroyUndefined: Self = StObject.set(x, "destroy", ())
       
       @scala.inline
       def setEncoding(value: String): Self = StObject.set(x, "encoding", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEncodingUndefined: Self = StObject.set(x, "encoding", js.undefined)
+      def setEncodingUndefined: Self = StObject.set(x, "encoding", ())
       
       @scala.inline
       def setHighWaterMark(value: Double): Self = StObject.set(x, "highWaterMark", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setHighWaterMarkUndefined: Self = StObject.set(x, "highWaterMark", js.undefined)
+      def setHighWaterMarkUndefined: Self = StObject.set(x, "highWaterMark", ())
       
       @scala.inline
       def setObjectMode(value: Boolean): Self = StObject.set(x, "objectMode", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setObjectModeUndefined: Self = StObject.set(x, "objectMode", js.undefined)
+      def setObjectModeUndefined: Self = StObject.set(x, "objectMode", ())
       
       @scala.inline
       def setRead(value: js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], js.Any]): Self = StObject.set(x, "read", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setReadUndefined: Self = StObject.set(x, "read", js.undefined)
+      def setReadUndefined: Self = StObject.set(x, "read", ())
     }
   }
   
@@ -176,7 +175,7 @@ object streamMod {
       def setFinal(value: /* callback */ js.Function1[/* error */ js.UndefOr[Error], Unit] => Unit): Self = StObject.set(x, "final", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setFinalUndefined: Self = StObject.set(x, "final", js.undefined)
+      def setFinalUndefined: Self = StObject.set(x, "final", ())
     }
   }
   

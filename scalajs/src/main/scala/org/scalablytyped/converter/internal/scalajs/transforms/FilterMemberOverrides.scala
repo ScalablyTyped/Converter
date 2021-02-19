@@ -11,7 +11,7 @@ package transforms
   *
   * Note that no subtype calculation is done for now.
   */
-class FilterMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransformation {
+class FilterMemberOverrides(erasure: Erasure, parentsResolver: ParentsResolver) extends TreeTransformation {
 
   override def leaveClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
     s.copy(members = newMembers(scope, s, s.members, s.parents))
@@ -55,7 +55,7 @@ class FilterMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransf
       inheritedFields.groupBy(_.name)
 
     val inheritedMethodsByBase: Map[MethodBase, IArray[MethodTree]] =
-      inheritedMethods.groupBy(Erasure.base(scope))
+      inheritedMethods.groupBy(erasure.base(scope))
 
     val inheritedMethodsByName: Map[Name, IArray[MethodTree]] =
       inheritedMethods.groupBy(_.name)
@@ -115,7 +115,7 @@ class FilterMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransf
       case m if inheritedFieldsByName.contains(m.name) =>
         if (alreadySuffixed) Empty else IArray(m.withSuffix("M" + owner.name.value))
       case m =>
-        val mBase = Erasure.base(scope)(m)
+        val mBase = erasure.base(scope)(m)
         inheritedMethodsByBase.get(mBase) match {
           case Some(conflicting @ _) => Empty
           case _                     => IArray(m)

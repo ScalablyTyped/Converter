@@ -6,7 +6,6 @@ import typings.vue.vnodeMod.VNode
 import typings.vue.vueMod.CreateElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
@@ -33,13 +32,13 @@ object anon {
       def setDefault(value: js.Any): Self = StObject.set(x, "default", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDefaultUndefined: Self = StObject.set(x, "default", js.undefined)
+      def setDefaultUndefined: Self = StObject.set(x, "default", ())
       
       @scala.inline
       def setFrom(value: InjectKey): Self = StObject.set(x, "from", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFromUndefined: Self = StObject.set(x, "from", js.undefined)
+      def setFromUndefined: Self = StObject.set(x, "from", ())
     }
   }
   
@@ -65,13 +64,13 @@ object anon {
       def setEvent(value: String): Self = StObject.set(x, "event", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEventUndefined: Self = StObject.set(x, "event", js.undefined)
+      def setEventUndefined: Self = StObject.set(x, "event", ())
       
       @scala.inline
       def setProp(value: String): Self = StObject.set(x, "prop", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPropUndefined: Self = StObject.set(x, "prop", js.undefined)
+      def setPropUndefined: Self = StObject.set(x, "prop", ())
     }
   }
   
@@ -91,7 +90,7 @@ object anon {
   
   @js.native
   trait Instantiable[T]
-    extends Instantiable1[/* args (repeated) */ js.Any, T with js.Object]
+    extends Instantiable1[/* args (repeated) */ js.Any, T & js.Object]
   
   @js.native
   trait Render extends StObject {

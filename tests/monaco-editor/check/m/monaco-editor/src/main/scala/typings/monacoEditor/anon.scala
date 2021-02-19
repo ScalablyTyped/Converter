@@ -3,7 +3,6 @@ package typings.monacoEditor
 import typings.monacoEditor.monaco.Promise
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
@@ -24,7 +23,7 @@ object anon {
     }
     
     @scala.inline
-    implicit class KeyMutableBuilder[Self <: Key[_], T] (val x: Self with Key[T]) extends AnyVal {
+    implicit class KeyMutableBuilder[Self <: Key[?], T] (val x: Self & Key[T]) extends AnyVal {
       
       @scala.inline
       def setKey(value: String): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])

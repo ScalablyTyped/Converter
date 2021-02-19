@@ -2,7 +2,6 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -21,18 +20,18 @@ object CanvasHTMLAttributes {
   }
   
   @scala.inline
-  implicit class CanvasHTMLAttributesMutableBuilder[Self <: CanvasHTMLAttributes[_], T] (val x: Self with CanvasHTMLAttributes[T]) extends AnyVal {
+  implicit class CanvasHTMLAttributesMutableBuilder[Self <: CanvasHTMLAttributes[?], T] (val x: Self & CanvasHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setHeight(value: Double | String): Self = StObject.set(x, "height", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHeightUndefined: Self = StObject.set(x, "height", js.undefined)
+    def setHeightUndefined: Self = StObject.set(x, "height", ())
     
     @scala.inline
     def setWidth(value: Double | String): Self = StObject.set(x, "width", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setWidthUndefined: Self = StObject.set(x, "width", js.undefined)
+    def setWidthUndefined: Self = StObject.set(x, "width", ())
   }
 }

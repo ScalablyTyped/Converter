@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -27,36 +26,36 @@ object VideoHTMLAttributes {
   }
   
   @scala.inline
-  implicit class VideoHTMLAttributesMutableBuilder[Self <: VideoHTMLAttributes[_], T] (val x: Self with VideoHTMLAttributes[T]) extends AnyVal {
+  implicit class VideoHTMLAttributesMutableBuilder[Self <: VideoHTMLAttributes[?], T] (val x: Self & VideoHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setDisablePictureInPicture(value: Boolean): Self = StObject.set(x, "disablePictureInPicture", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDisablePictureInPictureUndefined: Self = StObject.set(x, "disablePictureInPicture", js.undefined)
+    def setDisablePictureInPictureUndefined: Self = StObject.set(x, "disablePictureInPicture", ())
     
     @scala.inline
     def setHeight(value: Double | String): Self = StObject.set(x, "height", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHeightUndefined: Self = StObject.set(x, "height", js.undefined)
+    def setHeightUndefined: Self = StObject.set(x, "height", ())
     
     @scala.inline
     def setPlaysInline(value: Boolean): Self = StObject.set(x, "playsInline", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setPlaysInlineUndefined: Self = StObject.set(x, "playsInline", js.undefined)
+    def setPlaysInlineUndefined: Self = StObject.set(x, "playsInline", ())
     
     @scala.inline
     def setPoster(value: String): Self = StObject.set(x, "poster", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setPosterUndefined: Self = StObject.set(x, "poster", js.undefined)
+    def setPosterUndefined: Self = StObject.set(x, "poster", ())
     
     @scala.inline
     def setWidth(value: Double | String): Self = StObject.set(x, "width", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setWidthUndefined: Self = StObject.set(x, "width", js.undefined)
+    def setWidthUndefined: Self = StObject.set(x, "width", ())
   }
 }

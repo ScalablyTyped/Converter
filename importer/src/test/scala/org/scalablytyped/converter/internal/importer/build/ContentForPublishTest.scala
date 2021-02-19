@@ -66,12 +66,12 @@ class ContentForPublishTest extends AnyFunSuite with Matchers {
         <artifact name="sbtprojectartifactid_sjs1_2.13" type="src" ext="jar" conf="compile" e:classifier="sources"/>
       </publications>
       <dependencies>
-        <dependency org="org.scala-lang" name="scala-compiler" rev="2.13.3" conf="scala-tool-&gt;default,optional(default)"/>
-        <dependency org="org.scala-lang" name="scala-library" rev="2.13.3" conf="scala-tool-&gt;default,optional(default);compile-&gt;default(compile)"/>
-        <dependency org="org.scala-js" name="scalajs-compiler_2.13.3" rev="1.3.0" conf="plugin-&gt;default(compile)"/>
-        <dependency org="org.scala-js" name="scalajs-library_2.13" rev="1.3.0" conf="compile-&gt;default(compile)"/>
-        <dependency org="org.scala-js" name="scalajs-test-interface_2.13" rev="1.3.0" conf="test-&gt;default(compile)"/>
-        <dependency org="com.olvind" name="scalablytyped-runtime_sjs1_2.13" rev="2.4.0" conf="compile-&gt;default(compile)"/>
+        <dependency org="org.scala-lang" name="scala-compiler" rev="2.13.5" conf="scala-tool-&gt;default,optional(default)"/>
+        <dependency org="org.scala-lang" name="scala-library" rev="2.13.5" conf="scala-tool-&gt;default,optional(default);compile-&gt;default(compile)"/>
+        <dependency org="org.scala-js" name="scalajs-compiler_2.13.5" rev="1.5.1" conf="plugin-&gt;default(compile)"/>
+        <dependency org="org.scala-js" name="scalajs-library_2.13" rev="1.5.1" conf="compile-&gt;default(compile)"/>
+        <dependency org="org.scala-js" name="scalajs-test-interface_2.13" rev="1.5.1" conf="test-&gt;default(compile)"/>
+        <dependency org="com.olvind" name="scalablytyped-runtime_sjs1_2.13" rev="2.4.2" conf="compile-&gt;default(compile)"/>
         <dependency org="deporg" name="departifactid_sjs1_2.13" rev="depversion" conf="compile-&gt;default(compile)"/>
         <dependency org="externaldeporg" name="externaldepartifact_sjs1_2.13" rev="externaldepversion" conf="compile-&gt;default(compile)"/>
       </dependencies>
@@ -97,23 +97,23 @@ class ContentForPublishTest extends AnyFunSuite with Matchers {
         <dependency>
       <groupId>org.scala-lang</groupId>
       <artifactId>scala-library</artifactId>
-      <version>2.13.3</version>
+      <version>2.13.5</version>
     </dependency>
         <dependency>
       <groupId>org.scala-js</groupId>
       <artifactId>scalajs-library_2.13</artifactId>
-      <version>1.3.0</version>
+      <version>1.5.1</version>
     </dependency>
         <dependency>
       <groupId>org.scala-js</groupId>
       <artifactId>scalajs-test-interface_2.13</artifactId>
-      <version>1.3.0</version>
+      <version>1.5.1</version>
       <scope>test</scope>
     </dependency>
         <dependency>
       <groupId>com.olvind</groupId>
       <artifactId>scalablytyped-runtime_sjs1_2.13</artifactId>
-      <version>2.4.0</version>
+      <version>2.4.2</version>
     </dependency>
         <dependency>
       <groupId>deporg</groupId>

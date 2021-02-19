@@ -13,7 +13,6 @@ import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandContent
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object accordionTitleMod extends Shortcut {
@@ -100,31 +99,31 @@ object accordionTitleMod extends Shortcut {
       def setActive(value: Boolean): Self = StObject.set(x, "active", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setActiveUndefined: Self = StObject.set(x, "active", js.undefined)
+      def setActiveUndefined: Self = StObject.set(x, "active", ())
       
       @scala.inline
       def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
+      def setAsUndefined: Self = StObject.set(x, "as", ())
       
       @scala.inline
       def setChildren(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      def setChildrenUndefined: Self = StObject.set(x, "children", ())
       
       @scala.inline
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+      def setClassNameUndefined: Self = StObject.set(x, "className", ())
       
       @scala.inline
       def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
+      def setContentUndefined: Self = StObject.set(x, "content", ())
       
       @scala.inline
       def setIcon(
@@ -144,19 +143,19 @@ object accordionTitleMod extends Shortcut {
       def setIconReactElement(value: ReactElement): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIconUndefined: Self = StObject.set(x, "icon", js.undefined)
+      def setIconUndefined: Self = StObject.set(x, "icon", ())
       
       @scala.inline
       def setIndex(value: Double | String): Self = StObject.set(x, "index", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIndexUndefined: Self = StObject.set(x, "index", js.undefined)
+      def setIndexUndefined: Self = StObject.set(x, "index", ())
       
       @scala.inline
       def setOnClick(value: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit): Self = StObject.set(x, "onClick", js.Any.fromFunction2(value))
       
       @scala.inline
-      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
+      def setOnClickUndefined: Self = StObject.set(x, "onClick", ())
     }
   }
   

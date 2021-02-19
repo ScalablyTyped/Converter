@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -21,18 +20,18 @@ object LabelHTMLAttributes {
   }
   
   @scala.inline
-  implicit class LabelHTMLAttributesMutableBuilder[Self <: LabelHTMLAttributes[_], T] (val x: Self with LabelHTMLAttributes[T]) extends AnyVal {
+  implicit class LabelHTMLAttributesMutableBuilder[Self <: LabelHTMLAttributes[?], T] (val x: Self & LabelHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setForm(value: String): Self = StObject.set(x, "form", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFormUndefined: Self = StObject.set(x, "form", js.undefined)
+    def setFormUndefined: Self = StObject.set(x, "form", ())
     
     @scala.inline
     def setHtmlFor(value: String): Self = StObject.set(x, "htmlFor", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHtmlForUndefined: Self = StObject.set(x, "htmlFor", js.undefined)
+    def setHtmlForUndefined: Self = StObject.set(x, "htmlFor", ())
   }
 }

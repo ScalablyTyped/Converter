@@ -5,16 +5,15 @@ import japgolly.scalajs.react.CallbackTo
 import org.scalajs.dom.raw.EventTarget
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait FocusEvent[T] extends BaseSyntheticEvent[NativeFocusEvent, EventTarget with T, EventTarget] {
+trait FocusEvent[T] extends BaseSyntheticEvent[NativeFocusEvent, EventTarget & T, EventTarget] {
   
   var relatedTarget: EventTarget = js.native
   
   @JSName("target")
-  var target_FocusEvent: EventTarget with T = js.native
+  var target_FocusEvent: EventTarget & T = js.native
 }
 object FocusEvent {
   
@@ -22,7 +21,7 @@ object FocusEvent {
   def apply[T](
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: EventTarget with T,
+    currentTarget: EventTarget & T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     isDefaultPrevented: CallbackTo[Boolean],
@@ -33,7 +32,7 @@ object FocusEvent {
     preventDefault: Callback,
     relatedTarget: EventTarget,
     stopPropagation: Callback,
-    target: EventTarget with T,
+    target: EventTarget & T,
     timeStamp: Double,
     `type`: String
   ): FocusEvent[T] = {
@@ -43,12 +42,12 @@ object FocusEvent {
   }
   
   @scala.inline
-  implicit class FocusEventMutableBuilder[Self <: FocusEvent[_], T] (val x: Self with FocusEvent[T]) extends AnyVal {
+  implicit class FocusEventMutableBuilder[Self <: FocusEvent[?], T] (val x: Self & FocusEvent[T]) extends AnyVal {
     
     @scala.inline
     def setRelatedTarget(value: EventTarget): Self = StObject.set(x, "relatedTarget", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTarget(value: EventTarget with T): Self = StObject.set(x, "target", value.asInstanceOf[js.Any])
+    def setTarget(value: EventTarget & T): Self = StObject.set(x, "target", value.asInstanceOf[js.Any])
   }
 }

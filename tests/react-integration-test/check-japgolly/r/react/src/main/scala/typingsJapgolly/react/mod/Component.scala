@@ -5,7 +5,6 @@ import org.scalablytyped.runtime.StringDictionary
 import typingsJapgolly.std.Pick
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // Base component for plain JS classes
@@ -39,7 +38,7 @@ class Component[P, S, SS] protected () extends ComponentLifecycle[P, S, SS] {
   // always pass children as variadic arguments to `createElement`.
   // In the future, if we can define its call signature conditionally
   // on the existence of `children` in `P`, then we should remove this.
-  val props: P with typingsJapgolly.react.anon.Children = js.native
+  val props: P & typingsJapgolly.react.anon.Children = js.native
   
   /**
     * @deprecated

@@ -17,7 +17,7 @@ import CompleteClass._
   * weirdly enough.
   *
   */
-class CompleteClass(parentsResolver: ParentsResolver) extends TreeTransformation {
+class CompleteClass(erasure: Erasure, parentsResolver: ParentsResolver) extends TreeTransformation {
 
   override def leaveClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
     val parents = parentsResolver(scope, cls)
@@ -39,7 +39,8 @@ class CompleteClass(parentsResolver: ParentsResolver) extends TreeTransformation
       .collect {
         case x: FieldTree if x.impl === NotImplemented && !c.index.contains(x.name) =>
           x.copy(isOverride = true, impl = ExprTree.native, comments = x.comments + Comment("/* CompleteClass */\n"))
-        case x: MethodTree if x.impl === NotImplemented && !isAlreadyImplemented(scope, x, c.index.get(x.name)) =>
+        case x: MethodTree
+            if x.impl === NotImplemented && !isAlreadyImplemented(erasure, scope, x, c.index.get(x.name)) =>
           x.copy(isOverride = true, impl = ExprTree.native, comments = x.comments + Comment("/* CompleteClass */\n"))
       }
       .carefulDistinct
@@ -52,13 +53,18 @@ class CompleteClass(parentsResolver: ParentsResolver) extends TreeTransformation
 }
 
 object CompleteClass {
-  def isAlreadyImplemented(scope: TreeScope, potential: MethodTree, existing: Option[IArray[Tree]]): Boolean = {
-    lazy val currentErasure = Erasure.base(scope)(potential)
+  def isAlreadyImplemented(
+      erasure:   Erasure,
+      scope:     TreeScope,
+      potential: MethodTree,
+      existing:  Option[IArray[Tree]],
+  ): Boolean = {
+    lazy val currentErasure = erasure.base(scope)(potential)
     existing match {
       case None => false
       case Some(existings) =>
         existings.exists {
-          case xx: MethodTree if Erasure.base(scope)(xx) === currentErasure => true
+          case xx: MethodTree if erasure.base(scope)(xx) === currentErasure => true
           case _ => false
         }
     }

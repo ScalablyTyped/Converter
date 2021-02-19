@@ -5,7 +5,6 @@ import typings.react.mod.Component
 import typings.react.mod.ReactSVGElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -37,7 +36,7 @@ object mod {
       def setSize(value: String | Double): Self = StObject.set(x, "size", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setSizeUndefined: Self = StObject.set(x, "size", js.undefined)
+      def setSizeUndefined: Self = StObject.set(x, "size", ())
     }
   }
 }

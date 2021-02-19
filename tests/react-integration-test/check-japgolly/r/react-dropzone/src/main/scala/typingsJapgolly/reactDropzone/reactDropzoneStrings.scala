@@ -3,7 +3,6 @@ package typingsJapgolly.reactDropzone
 import typingsJapgolly.reactDropzone.mod.PropTypes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object reactDropzoneStrings {

@@ -2,7 +2,6 @@ package typings.tstl
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object std {
@@ -23,7 +22,7 @@ object std {
     }
     
     @scala.inline
-    implicit class Queue_MutableBuilder[Self <: Queue_[_], T] (val x: Self with Queue_[T]) extends AnyVal {
+    implicit class Queue_MutableBuilder[Self <: Queue_[?], T] (val x: Self & Queue_[T]) extends AnyVal {
       
       @scala.inline
       def setContainer_(value: js.Any): Self = StObject.set(x, "container_", value.asInstanceOf[js.Any])

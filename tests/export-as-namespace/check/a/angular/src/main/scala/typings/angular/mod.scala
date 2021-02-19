@@ -9,7 +9,6 @@ import typings.std.Document
 import typings.std.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod extends Shortcut {
@@ -85,7 +84,7 @@ object mod extends Shortcut {
       def setResumeBootstrap(value: /* extraModules */ js.UndefOr[js.Array[String]] => IInjectorService): Self = StObject.set(x, "resumeBootstrap", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setResumeBootstrapUndefined: Self = StObject.set(x, "resumeBootstrap", js.undefined)
+      def setResumeBootstrapUndefined: Self = StObject.set(x, "resumeBootstrap", ())
     }
   }
   
@@ -141,15 +140,15 @@ object mod extends Shortcut {
       def instantiate[T](typeConstructor: Instantiable[T], locals: js.Any): T = js.native
       
       def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ js.Any, T])]): T = js.native
-      def invoke[T](
-        func: Injectable[Function | (js.Function1[/* repeated */ js.Any, T])],
-        context: js.UndefOr[scala.Nothing],
-        locals: js.Any
-      ): T = js.native
       def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ js.Any, T])], context: js.Any): T = js.native
       def invoke[T](
         func: Injectable[Function | (js.Function1[/* repeated */ js.Any, T])],
         context: js.Any,
+        locals: js.Any
+      ): T = js.native
+      def invoke[T](
+        func: Injectable[Function | (js.Function1[/* repeated */ js.Any, T])],
+        context: Unit,
         locals: js.Any
       ): T = js.native
       

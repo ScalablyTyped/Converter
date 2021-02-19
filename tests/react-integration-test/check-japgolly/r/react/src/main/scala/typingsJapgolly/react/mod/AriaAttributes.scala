@@ -37,7 +37,6 @@ import typingsJapgolly.react.reactStrings.tree
 import typingsJapgolly.react.reactStrings.vertical
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
@@ -291,288 +290,288 @@ object AriaAttributes {
     def `setAria-activedescendant`(value: String): Self = StObject.set(x, "aria-activedescendant", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-activedescendantUndefined`: Self = StObject.set(x, "aria-activedescendant", js.undefined)
+    def `setAria-activedescendantUndefined`: Self = StObject.set(x, "aria-activedescendant", ())
     
     @scala.inline
     def `setAria-atomic`(value: Boolean): Self = StObject.set(x, "aria-atomic", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-atomicUndefined`: Self = StObject.set(x, "aria-atomic", js.undefined)
+    def `setAria-atomicUndefined`: Self = StObject.set(x, "aria-atomic", ())
     
     @scala.inline
     def `setAria-autocomplete`(value: none | `inline` | list | both): Self = StObject.set(x, "aria-autocomplete", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-autocompleteUndefined`: Self = StObject.set(x, "aria-autocomplete", js.undefined)
+    def `setAria-autocompleteUndefined`: Self = StObject.set(x, "aria-autocomplete", ())
     
     @scala.inline
     def `setAria-busy`(value: Boolean): Self = StObject.set(x, "aria-busy", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-busyUndefined`: Self = StObject.set(x, "aria-busy", js.undefined)
+    def `setAria-busyUndefined`: Self = StObject.set(x, "aria-busy", ())
     
     @scala.inline
     def `setAria-checked`(value: Boolean | mixed): Self = StObject.set(x, "aria-checked", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-checkedUndefined`: Self = StObject.set(x, "aria-checked", js.undefined)
+    def `setAria-checkedUndefined`: Self = StObject.set(x, "aria-checked", ())
     
     @scala.inline
     def `setAria-colcount`(value: Double): Self = StObject.set(x, "aria-colcount", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-colcountUndefined`: Self = StObject.set(x, "aria-colcount", js.undefined)
+    def `setAria-colcountUndefined`: Self = StObject.set(x, "aria-colcount", ())
     
     @scala.inline
     def `setAria-colindex`(value: Double): Self = StObject.set(x, "aria-colindex", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-colindexUndefined`: Self = StObject.set(x, "aria-colindex", js.undefined)
+    def `setAria-colindexUndefined`: Self = StObject.set(x, "aria-colindex", ())
     
     @scala.inline
     def `setAria-colspan`(value: Double): Self = StObject.set(x, "aria-colspan", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-colspanUndefined`: Self = StObject.set(x, "aria-colspan", js.undefined)
+    def `setAria-colspanUndefined`: Self = StObject.set(x, "aria-colspan", ())
     
     @scala.inline
     def `setAria-controls`(value: String): Self = StObject.set(x, "aria-controls", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-controlsUndefined`: Self = StObject.set(x, "aria-controls", js.undefined)
+    def `setAria-controlsUndefined`: Self = StObject.set(x, "aria-controls", ())
     
     @scala.inline
     def `setAria-current`(value: Boolean | page | step | location | date | time): Self = StObject.set(x, "aria-current", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-currentUndefined`: Self = StObject.set(x, "aria-current", js.undefined)
+    def `setAria-currentUndefined`: Self = StObject.set(x, "aria-current", ())
     
     @scala.inline
     def `setAria-describedby`(value: String): Self = StObject.set(x, "aria-describedby", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-describedbyUndefined`: Self = StObject.set(x, "aria-describedby", js.undefined)
+    def `setAria-describedbyUndefined`: Self = StObject.set(x, "aria-describedby", ())
     
     @scala.inline
     def `setAria-details`(value: String): Self = StObject.set(x, "aria-details", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-detailsUndefined`: Self = StObject.set(x, "aria-details", js.undefined)
+    def `setAria-detailsUndefined`: Self = StObject.set(x, "aria-details", ())
     
     @scala.inline
     def `setAria-disabled`(value: Boolean): Self = StObject.set(x, "aria-disabled", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-disabledUndefined`: Self = StObject.set(x, "aria-disabled", js.undefined)
+    def `setAria-disabledUndefined`: Self = StObject.set(x, "aria-disabled", ())
     
     @scala.inline
     def `setAria-dropeffect`(value: none | copy | execute | link | move | popup): Self = StObject.set(x, "aria-dropeffect", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-dropeffectUndefined`: Self = StObject.set(x, "aria-dropeffect", js.undefined)
+    def `setAria-dropeffectUndefined`: Self = StObject.set(x, "aria-dropeffect", ())
     
     @scala.inline
     def `setAria-errormessage`(value: String): Self = StObject.set(x, "aria-errormessage", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-errormessageUndefined`: Self = StObject.set(x, "aria-errormessage", js.undefined)
+    def `setAria-errormessageUndefined`: Self = StObject.set(x, "aria-errormessage", ())
     
     @scala.inline
     def `setAria-expanded`(value: Boolean): Self = StObject.set(x, "aria-expanded", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-expandedUndefined`: Self = StObject.set(x, "aria-expanded", js.undefined)
+    def `setAria-expandedUndefined`: Self = StObject.set(x, "aria-expanded", ())
     
     @scala.inline
     def `setAria-flowto`(value: String): Self = StObject.set(x, "aria-flowto", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-flowtoUndefined`: Self = StObject.set(x, "aria-flowto", js.undefined)
+    def `setAria-flowtoUndefined`: Self = StObject.set(x, "aria-flowto", ())
     
     @scala.inline
     def `setAria-grabbed`(value: Boolean): Self = StObject.set(x, "aria-grabbed", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-grabbedUndefined`: Self = StObject.set(x, "aria-grabbed", js.undefined)
+    def `setAria-grabbedUndefined`: Self = StObject.set(x, "aria-grabbed", ())
     
     @scala.inline
     def `setAria-haspopup`(value: Boolean | menu | listbox | tree | grid | dialog): Self = StObject.set(x, "aria-haspopup", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-haspopupUndefined`: Self = StObject.set(x, "aria-haspopup", js.undefined)
+    def `setAria-haspopupUndefined`: Self = StObject.set(x, "aria-haspopup", ())
     
     @scala.inline
     def `setAria-hidden`(value: Boolean): Self = StObject.set(x, "aria-hidden", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-hiddenUndefined`: Self = StObject.set(x, "aria-hidden", js.undefined)
+    def `setAria-hiddenUndefined`: Self = StObject.set(x, "aria-hidden", ())
     
     @scala.inline
     def `setAria-invalid`(value: Boolean | grammar | spelling): Self = StObject.set(x, "aria-invalid", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-invalidUndefined`: Self = StObject.set(x, "aria-invalid", js.undefined)
+    def `setAria-invalidUndefined`: Self = StObject.set(x, "aria-invalid", ())
     
     @scala.inline
     def `setAria-keyshortcuts`(value: String): Self = StObject.set(x, "aria-keyshortcuts", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-keyshortcutsUndefined`: Self = StObject.set(x, "aria-keyshortcuts", js.undefined)
+    def `setAria-keyshortcutsUndefined`: Self = StObject.set(x, "aria-keyshortcuts", ())
     
     @scala.inline
     def `setAria-label`(value: String): Self = StObject.set(x, "aria-label", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-labelUndefined`: Self = StObject.set(x, "aria-label", js.undefined)
+    def `setAria-labelUndefined`: Self = StObject.set(x, "aria-label", ())
     
     @scala.inline
     def `setAria-labelledby`(value: String): Self = StObject.set(x, "aria-labelledby", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-labelledbyUndefined`: Self = StObject.set(x, "aria-labelledby", js.undefined)
+    def `setAria-labelledbyUndefined`: Self = StObject.set(x, "aria-labelledby", ())
     
     @scala.inline
     def `setAria-level`(value: Double): Self = StObject.set(x, "aria-level", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-levelUndefined`: Self = StObject.set(x, "aria-level", js.undefined)
+    def `setAria-levelUndefined`: Self = StObject.set(x, "aria-level", ())
     
     @scala.inline
     def `setAria-live`(value: off | assertive | polite): Self = StObject.set(x, "aria-live", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-liveUndefined`: Self = StObject.set(x, "aria-live", js.undefined)
+    def `setAria-liveUndefined`: Self = StObject.set(x, "aria-live", ())
     
     @scala.inline
     def `setAria-modal`(value: Boolean): Self = StObject.set(x, "aria-modal", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-modalUndefined`: Self = StObject.set(x, "aria-modal", js.undefined)
+    def `setAria-modalUndefined`: Self = StObject.set(x, "aria-modal", ())
     
     @scala.inline
     def `setAria-multiline`(value: Boolean): Self = StObject.set(x, "aria-multiline", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-multilineUndefined`: Self = StObject.set(x, "aria-multiline", js.undefined)
+    def `setAria-multilineUndefined`: Self = StObject.set(x, "aria-multiline", ())
     
     @scala.inline
     def `setAria-multiselectable`(value: Boolean): Self = StObject.set(x, "aria-multiselectable", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-multiselectableUndefined`: Self = StObject.set(x, "aria-multiselectable", js.undefined)
+    def `setAria-multiselectableUndefined`: Self = StObject.set(x, "aria-multiselectable", ())
     
     @scala.inline
     def `setAria-orientation`(value: horizontal | vertical): Self = StObject.set(x, "aria-orientation", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-orientationUndefined`: Self = StObject.set(x, "aria-orientation", js.undefined)
+    def `setAria-orientationUndefined`: Self = StObject.set(x, "aria-orientation", ())
     
     @scala.inline
     def `setAria-owns`(value: String): Self = StObject.set(x, "aria-owns", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-ownsUndefined`: Self = StObject.set(x, "aria-owns", js.undefined)
+    def `setAria-ownsUndefined`: Self = StObject.set(x, "aria-owns", ())
     
     @scala.inline
     def `setAria-placeholder`(value: String): Self = StObject.set(x, "aria-placeholder", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-placeholderUndefined`: Self = StObject.set(x, "aria-placeholder", js.undefined)
+    def `setAria-placeholderUndefined`: Self = StObject.set(x, "aria-placeholder", ())
     
     @scala.inline
     def `setAria-posinset`(value: Double): Self = StObject.set(x, "aria-posinset", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-posinsetUndefined`: Self = StObject.set(x, "aria-posinset", js.undefined)
+    def `setAria-posinsetUndefined`: Self = StObject.set(x, "aria-posinset", ())
     
     @scala.inline
     def `setAria-pressed`(value: Boolean | mixed): Self = StObject.set(x, "aria-pressed", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-pressedUndefined`: Self = StObject.set(x, "aria-pressed", js.undefined)
+    def `setAria-pressedUndefined`: Self = StObject.set(x, "aria-pressed", ())
     
     @scala.inline
     def `setAria-readonly`(value: Boolean): Self = StObject.set(x, "aria-readonly", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-readonlyUndefined`: Self = StObject.set(x, "aria-readonly", js.undefined)
+    def `setAria-readonlyUndefined`: Self = StObject.set(x, "aria-readonly", ())
     
     @scala.inline
     def `setAria-relevant`(value: additions | (`additions text`) | all | removals | text): Self = StObject.set(x, "aria-relevant", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-relevantUndefined`: Self = StObject.set(x, "aria-relevant", js.undefined)
+    def `setAria-relevantUndefined`: Self = StObject.set(x, "aria-relevant", ())
     
     @scala.inline
     def `setAria-required`(value: Boolean): Self = StObject.set(x, "aria-required", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-requiredUndefined`: Self = StObject.set(x, "aria-required", js.undefined)
+    def `setAria-requiredUndefined`: Self = StObject.set(x, "aria-required", ())
     
     @scala.inline
     def `setAria-roledescription`(value: String): Self = StObject.set(x, "aria-roledescription", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-roledescriptionUndefined`: Self = StObject.set(x, "aria-roledescription", js.undefined)
+    def `setAria-roledescriptionUndefined`: Self = StObject.set(x, "aria-roledescription", ())
     
     @scala.inline
     def `setAria-rowcount`(value: Double): Self = StObject.set(x, "aria-rowcount", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-rowcountUndefined`: Self = StObject.set(x, "aria-rowcount", js.undefined)
+    def `setAria-rowcountUndefined`: Self = StObject.set(x, "aria-rowcount", ())
     
     @scala.inline
     def `setAria-rowindex`(value: Double): Self = StObject.set(x, "aria-rowindex", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-rowindexUndefined`: Self = StObject.set(x, "aria-rowindex", js.undefined)
+    def `setAria-rowindexUndefined`: Self = StObject.set(x, "aria-rowindex", ())
     
     @scala.inline
     def `setAria-rowspan`(value: Double): Self = StObject.set(x, "aria-rowspan", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-rowspanUndefined`: Self = StObject.set(x, "aria-rowspan", js.undefined)
+    def `setAria-rowspanUndefined`: Self = StObject.set(x, "aria-rowspan", ())
     
     @scala.inline
     def `setAria-selected`(value: Boolean): Self = StObject.set(x, "aria-selected", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-selectedUndefined`: Self = StObject.set(x, "aria-selected", js.undefined)
+    def `setAria-selectedUndefined`: Self = StObject.set(x, "aria-selected", ())
     
     @scala.inline
     def `setAria-setsize`(value: Double): Self = StObject.set(x, "aria-setsize", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-setsizeUndefined`: Self = StObject.set(x, "aria-setsize", js.undefined)
+    def `setAria-setsizeUndefined`: Self = StObject.set(x, "aria-setsize", ())
     
     @scala.inline
     def `setAria-sort`(value: none | ascending | descending | other): Self = StObject.set(x, "aria-sort", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-sortUndefined`: Self = StObject.set(x, "aria-sort", js.undefined)
+    def `setAria-sortUndefined`: Self = StObject.set(x, "aria-sort", ())
     
     @scala.inline
     def `setAria-valuemax`(value: Double): Self = StObject.set(x, "aria-valuemax", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-valuemaxUndefined`: Self = StObject.set(x, "aria-valuemax", js.undefined)
+    def `setAria-valuemaxUndefined`: Self = StObject.set(x, "aria-valuemax", ())
     
     @scala.inline
     def `setAria-valuemin`(value: Double): Self = StObject.set(x, "aria-valuemin", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-valueminUndefined`: Self = StObject.set(x, "aria-valuemin", js.undefined)
+    def `setAria-valueminUndefined`: Self = StObject.set(x, "aria-valuemin", ())
     
     @scala.inline
     def `setAria-valuenow`(value: Double): Self = StObject.set(x, "aria-valuenow", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-valuenowUndefined`: Self = StObject.set(x, "aria-valuenow", js.undefined)
+    def `setAria-valuenowUndefined`: Self = StObject.set(x, "aria-valuenow", ())
     
     @scala.inline
     def `setAria-valuetext`(value: String): Self = StObject.set(x, "aria-valuetext", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def `setAria-valuetextUndefined`: Self = StObject.set(x, "aria-valuetext", js.undefined)
+    def `setAria-valuetextUndefined`: Self = StObject.set(x, "aria-valuetext", ())
   }
 }

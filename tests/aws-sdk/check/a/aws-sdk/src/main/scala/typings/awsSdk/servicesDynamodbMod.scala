@@ -6,7 +6,6 @@ import typings.awsSdk.documentClientMod.DocumentClient.DocumentClientOptions
 import typings.awsSdk.dynamodbMod.ClientConfiguration
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object servicesDynamodbMod {
@@ -28,13 +27,13 @@ object servicesDynamodbMod {
     @JSImport("aws-sdk/lib/services/dynamodb", "DynamoDBCustomizations.DocumentClient")
     @js.native
     def DocumentClient: Instantiable1[
-        /* options */ js.UndefOr[DocumentClientOptions with ClientConfiguration], 
+        /* options */ js.UndefOr[DocumentClientOptions & ClientConfiguration], 
         typings.awsSdk.documentClientMod.DocumentClient
       ] = js.native
     @scala.inline
     def DocumentClient_=(
       x: Instantiable1[
-          /* options */ js.UndefOr[DocumentClientOptions with ClientConfiguration], 
+          /* options */ js.UndefOr[DocumentClientOptions & ClientConfiguration], 
           DocumentClient
         ]
     ): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("DocumentClient")(x.asInstanceOf[js.Any])

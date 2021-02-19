@@ -11,7 +11,6 @@ import typingsJapgolly.react.reactStrings.mount
 import typingsJapgolly.react.reactStrings.update
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -44,7 +43,7 @@ object ProfilerProps {
     def setChildrenNull: Self = StObject.set(x, "children", null)
     
     @scala.inline
-    def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+    def setChildrenUndefined: Self = StObject.set(x, "children", ())
     
     @scala.inline
     def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))

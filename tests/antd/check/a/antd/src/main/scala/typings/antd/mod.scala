@@ -2,7 +2,6 @@ package typings.antd
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -30,13 +29,13 @@ object mod {
       def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
+      def setNameUndefined: Self = StObject.set(x, "name", ())
       
       @scala.inline
       def setPrefixCls(value: String): Self = StObject.set(x, "prefixCls", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", js.undefined)
+      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", ())
     }
   }
 }

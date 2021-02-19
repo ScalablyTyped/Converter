@@ -21,7 +21,6 @@ import typingsSlinky.semanticUiReact.semanticUiReactStrings.right
 import typingsSlinky.semanticUiReact.semanticUiReactStrings.small
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object inputInputMod {
@@ -149,34 +148,34 @@ object inputInputMod {
       def setActionPosition(value: left): Self = StObject.set(x, "actionPosition", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setActionPositionUndefined: Self = StObject.set(x, "actionPosition", js.undefined)
+      def setActionPositionUndefined: Self = StObject.set(x, "actionPosition", ())
       
       @scala.inline
-      def setActionUndefined: Self = StObject.set(x, "action", js.undefined)
+      def setActionUndefined: Self = StObject.set(x, "action", ())
       
       @scala.inline
       def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
+      def setAsUndefined: Self = StObject.set(x, "as", ())
       
       @scala.inline
       def setError(value: Boolean): Self = StObject.set(x, "error", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setErrorUndefined: Self = StObject.set(x, "error", js.undefined)
+      def setErrorUndefined: Self = StObject.set(x, "error", ())
       
       @scala.inline
       def setFluid(value: Boolean): Self = StObject.set(x, "fluid", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFluidUndefined: Self = StObject.set(x, "fluid", js.undefined)
+      def setFluidUndefined: Self = StObject.set(x, "fluid", ())
       
       @scala.inline
       def setFocus(value: Boolean): Self = StObject.set(x, "focus", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFocusUndefined: Self = StObject.set(x, "focus", js.undefined)
+      def setFocusUndefined: Self = StObject.set(x, "focus", ())
       
       @scala.inline
       def setIcon(value: js.Any | SemanticShorthandItem[InputProps]): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
@@ -190,13 +189,13 @@ object inputInputMod {
       def setIconPosition(value: left): Self = StObject.set(x, "iconPosition", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIconPositionUndefined: Self = StObject.set(x, "iconPosition", js.undefined)
+      def setIconPositionUndefined: Self = StObject.set(x, "iconPosition", ())
       
       @scala.inline
       def setIconReactElement(value: ReactElement): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIconUndefined: Self = StObject.set(x, "icon", js.undefined)
+      def setIconUndefined: Self = StObject.set(x, "icon", ())
       
       @scala.inline
       def setInput(value: SemanticShorthandItem[HtmlInputrops]): Self = StObject.set(x, "input", value.asInstanceOf[js.Any])
@@ -210,13 +209,13 @@ object inputInputMod {
       def setInputReactElement(value: ReactElement): Self = StObject.set(x, "input", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInputUndefined: Self = StObject.set(x, "input", js.undefined)
+      def setInputUndefined: Self = StObject.set(x, "input", ())
       
       @scala.inline
       def setInverted(value: Boolean): Self = StObject.set(x, "inverted", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInvertedUndefined: Self = StObject.set(x, "inverted", js.undefined)
+      def setInvertedUndefined: Self = StObject.set(x, "inverted", ())
       
       @scala.inline
       def setLabel(
@@ -236,43 +235,43 @@ object inputInputMod {
       def setLabelPosition(value: left | right | (`left corner`) | (`right corner`)): Self = StObject.set(x, "labelPosition", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setLabelPositionUndefined: Self = StObject.set(x, "labelPosition", js.undefined)
+      def setLabelPositionUndefined: Self = StObject.set(x, "labelPosition", ())
       
       @scala.inline
       def setLabelReactElement(value: ReactElement): Self = StObject.set(x, "label", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setLabelUndefined: Self = StObject.set(x, "label", js.undefined)
+      def setLabelUndefined: Self = StObject.set(x, "label", ())
       
       @scala.inline
       def setLoading(value: Boolean): Self = StObject.set(x, "loading", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setLoadingUndefined: Self = StObject.set(x, "loading", js.undefined)
+      def setLoadingUndefined: Self = StObject.set(x, "loading", ())
       
       @scala.inline
       def setOnChange(value: (/* event */ ChangeEvent[HTMLInputElement], /* data */ InputOnChangeData) => Unit): Self = StObject.set(x, "onChange", js.Any.fromFunction2(value))
       
       @scala.inline
-      def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
+      def setOnChangeUndefined: Self = StObject.set(x, "onChange", ())
       
       @scala.inline
       def setSize(value: mini | small | large | big | huge | massive): Self = StObject.set(x, "size", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setSizeUndefined: Self = StObject.set(x, "size", js.undefined)
+      def setSizeUndefined: Self = StObject.set(x, "size", ())
       
       @scala.inline
       def setTabIndex(value: Double | String): Self = StObject.set(x, "tabIndex", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTabIndexUndefined: Self = StObject.set(x, "tabIndex", js.undefined)
+      def setTabIndexUndefined: Self = StObject.set(x, "tabIndex", ())
       
       @scala.inline
       def setTransparent(value: Boolean): Self = StObject.set(x, "transparent", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTransparentUndefined: Self = StObject.set(x, "transparent", js.undefined)
+      def setTransparentUndefined: Self = StObject.set(x, "transparent", ())
     }
   }
 }

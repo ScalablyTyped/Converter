@@ -60,7 +60,6 @@ import typingsSlinky.react.reactStrings.tree
 import typingsSlinky.react.reactStrings.vertical
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object area {
@@ -329,7 +328,7 @@ object area {
     def onAuxClick(value: SyntheticMouseEvent[HTMLAreaElement] => Unit): this.type = set("onAuxClick", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onBeforeInput(value: SyntheticEvent[EventTarget with HTMLAreaElement, Event] => Unit): this.type = set("onBeforeInput", js.Any.fromFunction1(value))
+    def onBeforeInput(value: SyntheticEvent[EventTarget & HTMLAreaElement, Event] => Unit): this.type = set("onBeforeInput", js.Any.fromFunction1(value))
     
     @scala.inline
     def onBlur(value: SyntheticFocusEvent[HTMLAreaElement] => Unit): this.type = set("onBlur", js.Any.fromFunction1(value))
@@ -341,7 +340,7 @@ object area {
     def onCanPlayThrough(value: SyntheticEvent[Event, HTMLAreaElement] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onChange(value: SyntheticEvent[EventTarget with HTMLAreaElement, Event] => Unit): this.type = set("onChange", js.Any.fromFunction1(value))
+    def onChange(value: SyntheticEvent[EventTarget & HTMLAreaElement, Event] => Unit): this.type = set("onChange", js.Any.fromFunction1(value))
     
     @scala.inline
     def onClick(value: SyntheticMouseEvent[HTMLAreaElement] => Unit): this.type = set("onClick", js.Any.fromFunction1(value))
@@ -410,10 +409,10 @@ object area {
     def onFocus(value: SyntheticFocusEvent[HTMLAreaElement] => Unit): this.type = set("onFocus", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onInput(value: SyntheticEvent[EventTarget with HTMLAreaElement, Event] => Unit): this.type = set("onInput", js.Any.fromFunction1(value))
+    def onInput(value: SyntheticEvent[EventTarget & HTMLAreaElement, Event] => Unit): this.type = set("onInput", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onInvalid(value: SyntheticEvent[EventTarget with HTMLAreaElement, Event] => Unit): this.type = set("onInvalid", js.Any.fromFunction1(value))
+    def onInvalid(value: SyntheticEvent[EventTarget & HTMLAreaElement, Event] => Unit): this.type = set("onInvalid", js.Any.fromFunction1(value))
     
     @scala.inline
     def onKeyDown(value: SyntheticKeyboardEvent[HTMLAreaElement] => Unit): this.type = set("onKeyDown", js.Any.fromFunction1(value))
@@ -500,7 +499,7 @@ object area {
     def onRateChange(value: SyntheticEvent[Event, HTMLAreaElement] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onReset(value: SyntheticEvent[EventTarget with HTMLAreaElement, Event] => Unit): this.type = set("onReset", js.Any.fromFunction1(value))
+    def onReset(value: SyntheticEvent[EventTarget & HTMLAreaElement, Event] => Unit): this.type = set("onReset", js.Any.fromFunction1(value))
     
     @scala.inline
     def onScroll(value: SyntheticUIEvent[HTMLAreaElement] => Unit): this.type = set("onScroll", js.Any.fromFunction1(value))
@@ -518,7 +517,7 @@ object area {
     def onStalled(value: SyntheticEvent[Event, HTMLAreaElement] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onSubmit(value: SyntheticEvent[EventTarget with HTMLAreaElement, Event] => Unit): this.type = set("onSubmit", js.Any.fromFunction1(value))
+    def onSubmit(value: SyntheticEvent[EventTarget & HTMLAreaElement, Event] => Unit): this.type = set("onSubmit", js.Any.fromFunction1(value))
     
     @scala.inline
     def onSuspend(value: SyntheticEvent[Event, HTMLAreaElement] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))

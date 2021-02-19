@@ -5,7 +5,6 @@ import typingsSlinky.react.mod.Component
 import typingsSlinky.react.mod.Props
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -34,13 +33,13 @@ object mod {
     }
     
     @scala.inline
-    implicit class OptionMutableBuilder[Self <: Option[_], TValue] (val x: Self with Option[TValue]) extends AnyVal {
+    implicit class OptionMutableBuilder[Self <: Option[?], TValue] (val x: Self & Option[TValue]) extends AnyVal {
       
       @scala.inline
       def setValue(value: TValue): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
+      def setValueUndefined: Self = StObject.set(x, "value", ())
     }
   }
   
@@ -73,13 +72,13 @@ object mod {
     }
     
     @scala.inline
-    implicit class ReactSelectPropsMutableBuilder[Self <: ReactSelectProps[_], TValue] (val x: Self with ReactSelectProps[TValue]) extends AnyVal {
+    implicit class ReactSelectPropsMutableBuilder[Self <: ReactSelectProps[?], TValue] (val x: Self & ReactSelectProps[TValue]) extends AnyVal {
       
       @scala.inline
       def setAddLabelText(value: String): Self = StObject.set(x, "addLabelText", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAddLabelTextUndefined: Self = StObject.set(x, "addLabelText", js.undefined)
+      def setAddLabelTextUndefined: Self = StObject.set(x, "addLabelText", ())
     }
   }
 }

@@ -5,7 +5,6 @@ import japgolly.scalajs.react.ReactEventFrom
 import org.scalajs.dom.raw.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -86,55 +85,55 @@ object InputHTMLAttributes {
   }
   
   @scala.inline
-  implicit class InputHTMLAttributesMutableBuilder[Self <: InputHTMLAttributes[_], T] (val x: Self with InputHTMLAttributes[T]) extends AnyVal {
+  implicit class InputHTMLAttributesMutableBuilder[Self <: InputHTMLAttributes[?], T] (val x: Self & InputHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAccept(value: String): Self = StObject.set(x, "accept", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAcceptUndefined: Self = StObject.set(x, "accept", js.undefined)
+    def setAcceptUndefined: Self = StObject.set(x, "accept", ())
     
     @scala.inline
     def setAlt(value: String): Self = StObject.set(x, "alt", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAltUndefined: Self = StObject.set(x, "alt", js.undefined)
+    def setAltUndefined: Self = StObject.set(x, "alt", ())
     
     @scala.inline
     def setAutoComplete(value: String): Self = StObject.set(x, "autoComplete", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAutoCompleteUndefined: Self = StObject.set(x, "autoComplete", js.undefined)
+    def setAutoCompleteUndefined: Self = StObject.set(x, "autoComplete", ())
     
     @scala.inline
     def setAutoFocus(value: Boolean): Self = StObject.set(x, "autoFocus", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAutoFocusUndefined: Self = StObject.set(x, "autoFocus", js.undefined)
+    def setAutoFocusUndefined: Self = StObject.set(x, "autoFocus", ())
     
     @scala.inline
     def setCapture(value: Boolean | String): Self = StObject.set(x, "capture", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCaptureUndefined: Self = StObject.set(x, "capture", js.undefined)
+    def setCaptureUndefined: Self = StObject.set(x, "capture", ())
     
     @scala.inline
     def setChecked(value: Boolean): Self = StObject.set(x, "checked", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCheckedUndefined: Self = StObject.set(x, "checked", js.undefined)
+    def setCheckedUndefined: Self = StObject.set(x, "checked", ())
     
     @scala.inline
     def setCrossOrigin(value: String): Self = StObject.set(x, "crossOrigin", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCrossOriginUndefined: Self = StObject.set(x, "crossOrigin", js.undefined)
+    def setCrossOriginUndefined: Self = StObject.set(x, "crossOrigin", ())
     
     @scala.inline
     def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
+    def setDisabledUndefined: Self = StObject.set(x, "disabled", ())
     
     @scala.inline
     def setForm(value: String): Self = StObject.set(x, "form", value.asInstanceOf[js.Any])
@@ -143,46 +142,46 @@ object InputHTMLAttributes {
     def setFormAction(value: String): Self = StObject.set(x, "formAction", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFormActionUndefined: Self = StObject.set(x, "formAction", js.undefined)
+    def setFormActionUndefined: Self = StObject.set(x, "formAction", ())
     
     @scala.inline
     def setFormEncType(value: String): Self = StObject.set(x, "formEncType", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFormEncTypeUndefined: Self = StObject.set(x, "formEncType", js.undefined)
+    def setFormEncTypeUndefined: Self = StObject.set(x, "formEncType", ())
     
     @scala.inline
     def setFormMethod(value: String): Self = StObject.set(x, "formMethod", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFormMethodUndefined: Self = StObject.set(x, "formMethod", js.undefined)
+    def setFormMethodUndefined: Self = StObject.set(x, "formMethod", ())
     
     @scala.inline
     def setFormNoValidate(value: Boolean): Self = StObject.set(x, "formNoValidate", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFormNoValidateUndefined: Self = StObject.set(x, "formNoValidate", js.undefined)
+    def setFormNoValidateUndefined: Self = StObject.set(x, "formNoValidate", ())
     
     @scala.inline
     def setFormTarget(value: String): Self = StObject.set(x, "formTarget", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFormTargetUndefined: Self = StObject.set(x, "formTarget", js.undefined)
+    def setFormTargetUndefined: Self = StObject.set(x, "formTarget", ())
     
     @scala.inline
-    def setFormUndefined: Self = StObject.set(x, "form", js.undefined)
+    def setFormUndefined: Self = StObject.set(x, "form", ())
     
     @scala.inline
     def setHeight(value: Double | String): Self = StObject.set(x, "height", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHeightUndefined: Self = StObject.set(x, "height", js.undefined)
+    def setHeightUndefined: Self = StObject.set(x, "height", ())
     
     @scala.inline
     def setList(value: String): Self = StObject.set(x, "list", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setListUndefined: Self = StObject.set(x, "list", js.undefined)
+    def setListUndefined: Self = StObject.set(x, "list", ())
     
     @scala.inline
     def setMax(value: Double | String): Self = StObject.set(x, "max", value.asInstanceOf[js.Any])
@@ -191,10 +190,10 @@ object InputHTMLAttributes {
     def setMaxLength(value: Double): Self = StObject.set(x, "maxLength", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMaxLengthUndefined: Self = StObject.set(x, "maxLength", js.undefined)
+    def setMaxLengthUndefined: Self = StObject.set(x, "maxLength", ())
     
     @scala.inline
-    def setMaxUndefined: Self = StObject.set(x, "max", js.undefined)
+    def setMaxUndefined: Self = StObject.set(x, "max", ())
     
     @scala.inline
     def setMin(value: Double | String): Self = StObject.set(x, "min", value.asInstanceOf[js.Any])
@@ -203,76 +202,76 @@ object InputHTMLAttributes {
     def setMinLength(value: Double): Self = StObject.set(x, "minLength", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMinLengthUndefined: Self = StObject.set(x, "minLength", js.undefined)
+    def setMinLengthUndefined: Self = StObject.set(x, "minLength", ())
     
     @scala.inline
-    def setMinUndefined: Self = StObject.set(x, "min", js.undefined)
+    def setMinUndefined: Self = StObject.set(x, "min", ())
     
     @scala.inline
     def setMultiple(value: Boolean): Self = StObject.set(x, "multiple", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMultipleUndefined: Self = StObject.set(x, "multiple", js.undefined)
+    def setMultipleUndefined: Self = StObject.set(x, "multiple", ())
     
     @scala.inline
     def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
+    def setNameUndefined: Self = StObject.set(x, "name", ())
     
     @scala.inline
-    def setOnChange(value: ReactEventFrom[T with Element] => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    def setOnChange(value: ReactEventFrom[T & Element] => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: ReactEventFrom[T & Element]) => value(t0).runNow()))
     
     @scala.inline
-    def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
+    def setOnChangeUndefined: Self = StObject.set(x, "onChange", ())
     
     @scala.inline
     def setPattern(value: String): Self = StObject.set(x, "pattern", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setPatternUndefined: Self = StObject.set(x, "pattern", js.undefined)
+    def setPatternUndefined: Self = StObject.set(x, "pattern", ())
     
     @scala.inline
     def setReadOnly(value: Boolean): Self = StObject.set(x, "readOnly", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setReadOnlyUndefined: Self = StObject.set(x, "readOnly", js.undefined)
+    def setReadOnlyUndefined: Self = StObject.set(x, "readOnly", ())
     
     @scala.inline
     def setRequired(value: Boolean): Self = StObject.set(x, "required", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRequiredUndefined: Self = StObject.set(x, "required", js.undefined)
+    def setRequiredUndefined: Self = StObject.set(x, "required", ())
     
     @scala.inline
     def setSize(value: Double): Self = StObject.set(x, "size", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSizeUndefined: Self = StObject.set(x, "size", js.undefined)
+    def setSizeUndefined: Self = StObject.set(x, "size", ())
     
     @scala.inline
     def setSrc(value: String): Self = StObject.set(x, "src", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSrcUndefined: Self = StObject.set(x, "src", js.undefined)
+    def setSrcUndefined: Self = StObject.set(x, "src", ())
     
     @scala.inline
     def setStep(value: Double | String): Self = StObject.set(x, "step", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setStepUndefined: Self = StObject.set(x, "step", js.undefined)
+    def setStepUndefined: Self = StObject.set(x, "step", ())
     
     @scala.inline
     def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
+    def setTypeUndefined: Self = StObject.set(x, "type", ())
     
     @scala.inline
     def setValue(value: String | js.Array[String] | Double): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
+    def setValueUndefined: Self = StObject.set(x, "value", ())
     
     @scala.inline
     def setValueVarargs(value: String*): Self = StObject.set(x, "value", js.Array(value :_*))
@@ -281,6 +280,6 @@ object InputHTMLAttributes {
     def setWidth(value: Double | String): Self = StObject.set(x, "width", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setWidthUndefined: Self = StObject.set(x, "width", js.undefined)
+    def setWidthUndefined: Self = StObject.set(x, "width", ())
   }
 }

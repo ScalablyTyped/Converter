@@ -12,7 +12,6 @@ import typingsSlinky.reactDropzone.mod.DropzoneRef
 import typingsSlinky.reactDropzone.mod.DropzoneState
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object ReactDropzone {
@@ -105,5 +104,5 @@ object ReactDropzone {
   
   implicit def make(companion: ReactDropzone.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: DropzoneProps with RefAttributes[DropzoneRef]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: DropzoneProps & RefAttributes[DropzoneRef]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

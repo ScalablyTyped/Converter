@@ -1,12 +1,12 @@
 organization := "org.scalablytyped"
 name := "commander"
-version := "2.15.1-3555b8"
-scalaVersion := "2.13.3"
+version := "2.15.1-58ecd3"
+scalaVersion := "3.0.0"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
-  "com.olvind" %%% "scalablytyped-runtime" % "2.4.0",
-  "org.scalablytyped" %%% "node" % "0.0-unknown-ff2158",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-fd8dd2")
+  "com.olvind" %%% "scalablytyped-runtime" % "2.4.2",
+  "org.scalablytyped" %%% "node" % "0.0-unknown-1cdf89",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-cc59a4")
 publishArtifact in packageDoc := false
-scalacOptions ++= List("-encoding", "utf-8", "-feature", "-g:notailcalls", "-language:implicitConversions", "-language:higherKinds", "-language:existentials")
+scalacOptions ++= List("-encoding", "utf-8", "-feature", "-language:implicitConversions", "-language:higherKinds", "-language:existentials", "-no-indent")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

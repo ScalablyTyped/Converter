@@ -2,7 +2,6 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -35,13 +34,13 @@ object AnchorHTMLAttributes {
   }
   
   @scala.inline
-  implicit class AnchorHTMLAttributesMutableBuilder[Self <: AnchorHTMLAttributes[_], T] (val x: Self with AnchorHTMLAttributes[T]) extends AnyVal {
+  implicit class AnchorHTMLAttributesMutableBuilder[Self <: AnchorHTMLAttributes[?], T] (val x: Self & AnchorHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setDownload(value: js.Any): Self = StObject.set(x, "download", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDownloadUndefined: Self = StObject.set(x, "download", js.undefined)
+    def setDownloadUndefined: Self = StObject.set(x, "download", ())
     
     @scala.inline
     def setHref(value: String): Self = StObject.set(x, "href", value.asInstanceOf[js.Any])
@@ -50,45 +49,45 @@ object AnchorHTMLAttributes {
     def setHrefLang(value: String): Self = StObject.set(x, "hrefLang", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHrefLangUndefined: Self = StObject.set(x, "hrefLang", js.undefined)
+    def setHrefLangUndefined: Self = StObject.set(x, "hrefLang", ())
     
     @scala.inline
-    def setHrefUndefined: Self = StObject.set(x, "href", js.undefined)
+    def setHrefUndefined: Self = StObject.set(x, "href", ())
     
     @scala.inline
     def setMedia(value: String): Self = StObject.set(x, "media", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMediaUndefined: Self = StObject.set(x, "media", js.undefined)
+    def setMediaUndefined: Self = StObject.set(x, "media", ())
     
     @scala.inline
     def setPing(value: String): Self = StObject.set(x, "ping", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setPingUndefined: Self = StObject.set(x, "ping", js.undefined)
+    def setPingUndefined: Self = StObject.set(x, "ping", ())
     
     @scala.inline
     def setReferrerPolicy(value: String): Self = StObject.set(x, "referrerPolicy", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setReferrerPolicyUndefined: Self = StObject.set(x, "referrerPolicy", js.undefined)
+    def setReferrerPolicyUndefined: Self = StObject.set(x, "referrerPolicy", ())
     
     @scala.inline
     def setRel(value: String): Self = StObject.set(x, "rel", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRelUndefined: Self = StObject.set(x, "rel", js.undefined)
+    def setRelUndefined: Self = StObject.set(x, "rel", ())
     
     @scala.inline
     def setTarget(value: String): Self = StObject.set(x, "target", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTargetUndefined: Self = StObject.set(x, "target", js.undefined)
+    def setTargetUndefined: Self = StObject.set(x, "target", ())
     
     @scala.inline
     def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
+    def setTypeUndefined: Self = StObject.set(x, "type", ())
   }
 }

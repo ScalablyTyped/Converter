@@ -94,12 +94,12 @@ object ContentForPublish {
         <artifact name={p.reference.mangledArtifact} type="src" ext="jar" conf="compile" e:classifier="sources"/>
       </publications>
       <dependencies>
-        {v.scala.compiler.asIvy("scala-tool->default,optional(default)")}
+        {v.scala.compiler.concrete(v).asIvy("scala-tool->default,optional(default)")}
         {v.scala.library.asIvy("scala-tool->default,optional(default);compile->default(compile)")}
-        {v.scalaJs.compiler.concrete(v).asIvy("plugin->default(compile)")}
-        {v.scalaJs.library.concrete(v).asIvy()}
-        {v.scalaJs.testInterface.concrete(v).asIvy("test->default(compile)")}
-        {Versions.runtime.concrete(v).asIvy()}
+        {v.scalaJsCompiler.toList.map(_.concrete(v).asIvy("plugin->default(compile)"))}
+        {v.scalaJsLibrary.concrete(v).asIvy()}
+        {v.scalaJsTestInterface.concrete(v).asIvy("test->default(compile)")}
+        {v.runtime.concrete(v).asIvy()}
         {p.deps.map { case (_, d) => d.project.reference.asIvy() }}
         {externalDeps.map(d => d.concrete(v).asIvy())}
       </dependencies>
@@ -119,9 +119,9 @@ object ContentForPublish {
       </organization>
       <dependencies>
         {v.scala.library.concrete(v).asMaven}
-        {v.scalaJs.library.concrete(v).asMaven}
-        {v.scalaJs.testInterface.concrete(v).asMavenTest}
-        {Versions.runtime.concrete(v).asMaven}
+        {v.scalaJsLibrary.concrete(v).asMaven}
+        {v.scalaJsTestInterface.concrete(v).asMavenTest}
+        {v.runtime.concrete(v).asMaven}
         {p.deps.map { case (_, d) => d.project.reference.asMaven }}
         {externalDeps.map(d => d.concrete(v).asMaven)}
       </dependencies>

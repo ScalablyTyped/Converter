@@ -3,7 +3,6 @@ package typingsSlinky.react.mod
 import org.scalablytyped.runtime.StringDictionary
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -22,7 +21,7 @@ object ComponentSpec {
   }
   
   @scala.inline
-  implicit class ComponentSpecMutableBuilder[Self <: ComponentSpec[_, _], P, S] (val x: Self with (ComponentSpec[P, S])) extends AnyVal {
+  implicit class ComponentSpecMutableBuilder[Self <: ComponentSpec[?, ?], P, S] (val x: Self & (ComponentSpec[P, S])) extends AnyVal {
     
     @scala.inline
     def setRender(value: () => slinky.core.facade.ReactElement): Self = StObject.set(x, "render", js.Any.fromFunction0(value))

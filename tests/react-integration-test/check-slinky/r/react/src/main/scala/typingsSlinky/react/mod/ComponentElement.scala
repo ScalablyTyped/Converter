@@ -4,7 +4,6 @@ import slinky.core.ReactComponentClass
 import slinky.core.facade.ReactRef
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -22,7 +21,7 @@ object ComponentElement {
   }
   
   @scala.inline
-  implicit class ComponentElementMutableBuilder[Self <: ComponentElement[_, _], P, T /* <: ReactComponentClass[P] */] (val x: Self with (ComponentElement[P, T])) extends AnyVal {
+  implicit class ComponentElementMutableBuilder[Self <: ComponentElement[?, ?], P, T /* <: ReactComponentClass[P] */] (val x: Self & (ComponentElement[P, T])) extends AnyVal {
     
     @scala.inline
     def setRef(value: LegacyRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
@@ -37,6 +36,6 @@ object ComponentElement {
     def setRefReactRef(value: ReactRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
+    def setRefUndefined: Self = StObject.set(x, "ref", ())
   }
 }

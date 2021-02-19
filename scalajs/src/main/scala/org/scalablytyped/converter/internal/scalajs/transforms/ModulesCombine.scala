@@ -10,9 +10,8 @@ object ModulesCombine extends TreeTransformation {
 
   def combineModules[C <: ContainerTree](c: C): C = {
     val combinedMembers = c.index.flatMapToIArray {
-      case (_, sameName) =>
+      case (name, sameName) =>
         sameName.partitionCollect3({ case x: ModuleTree => x }, { case x: FieldTree => x }, { case x: MethodTree => x }) match {
-
           case (IArray.headTail(baseModule, restModules), fields, methods, rest)
               if fields.nonEmpty || methods.nonEmpty || restModules.nonEmpty =>
             val asHats: IArray[FieldTree] =
@@ -81,6 +80,22 @@ object ModulesCombine extends TreeTransformation {
             )
 
             rest :+ asField
+
+          case (Empty, Empty, methods, rest) if methods.nonEmpty && rest.exists(_.isInstanceOf[ClassTree]) =>
+            val asApplies: IArray[MethodTree] =
+              methods.map(m => m.copy(name = Name.APPLY, codePath = m.codePath + Name.APPLY))
+
+            val asMod = ModuleTree(
+              annotations = Empty,
+              name        = name,
+              parents     = Empty,
+              members     = asApplies,
+              comments    = NoComments,
+              codePath    = methods.head.codePath,
+              isOverride  = false,
+            )
+
+            asMod +: rest
 
           case _ => sameName
         }

@@ -3,7 +3,6 @@ package typingsSlinky.react.mod
 import slinky.core.facade.ReactRef
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -20,7 +19,7 @@ object RefAttributes {
   }
   
   @scala.inline
-  implicit class RefAttributesMutableBuilder[Self <: RefAttributes[_], T] (val x: Self with RefAttributes[T]) extends AnyVal {
+  implicit class RefAttributesMutableBuilder[Self <: RefAttributes[?], T] (val x: Self & RefAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setRef(value: Ref[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
@@ -35,6 +34,6 @@ object RefAttributes {
     def setRefReactRef(value: ReactRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
+    def setRefUndefined: Self = StObject.set(x, "ref", ())
   }
 }

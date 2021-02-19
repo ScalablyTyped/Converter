@@ -3,7 +3,6 @@ package typings.electron
 import typings.electron.electronStrings.`accessibility-support-changed`
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object Electron {
@@ -73,19 +72,19 @@ object Electron {
       def setAltKey(value: Boolean): Self = StObject.set(x, "altKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAltKeyUndefined: Self = StObject.set(x, "altKey", js.undefined)
+      def setAltKeyUndefined: Self = StObject.set(x, "altKey", ())
       
       @scala.inline
       def setCtrlKey(value: Boolean): Self = StObject.set(x, "ctrlKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCtrlKeyUndefined: Self = StObject.set(x, "ctrlKey", js.undefined)
+      def setCtrlKeyUndefined: Self = StObject.set(x, "ctrlKey", ())
       
       @scala.inline
       def setMetaKey(value: Boolean): Self = StObject.set(x, "metaKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setMetaKeyUndefined: Self = StObject.set(x, "metaKey", js.undefined)
+      def setMetaKeyUndefined: Self = StObject.set(x, "metaKey", ())
       
       @scala.inline
       def setPreventDefault(value: () => Unit): Self = StObject.set(x, "preventDefault", js.Any.fromFunction0(value))
@@ -97,7 +96,7 @@ object Electron {
       def setShiftKey(value: Boolean): Self = StObject.set(x, "shiftKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setShiftKeyUndefined: Self = StObject.set(x, "shiftKey", js.undefined)
+      def setShiftKeyUndefined: Self = StObject.set(x, "shiftKey", ())
     }
   }
   

@@ -12,7 +12,6 @@ import typingsJapgolly.reactDropzone.mod.DropzoneRef
 import typingsJapgolly.reactDropzone.mod.DropzoneState
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object ReactDropzone {
@@ -65,13 +64,13 @@ object ReactDropzone {
     def noKeyboard(value: Boolean): this.type = set("noKeyboard", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def onDragEnter(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    def onDragEnter(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
     @scala.inline
-    def onDragLeave(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    def onDragLeave(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
     @scala.inline
-    def onDragOver(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    def onDragOver(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
     @scala.inline
     def onDrop(
@@ -113,5 +112,5 @@ object ReactDropzone {
   
   implicit def make(companion: ReactDropzone.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: DropzoneProps with RefAttributes[DropzoneRef]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: DropzoneProps & RefAttributes[DropzoneRef]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

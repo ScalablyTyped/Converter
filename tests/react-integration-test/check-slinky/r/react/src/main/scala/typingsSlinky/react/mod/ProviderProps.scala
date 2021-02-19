@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // Context via RenderProps
@@ -22,13 +21,13 @@ object ProviderProps {
   }
   
   @scala.inline
-  implicit class ProviderPropsMutableBuilder[Self <: ProviderProps[_], T] (val x: Self with ProviderProps[T]) extends AnyVal {
+  implicit class ProviderPropsMutableBuilder[Self <: ProviderProps[?], T] (val x: Self & ProviderProps[T]) extends AnyVal {
     
     @scala.inline
     def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+    def setChildrenUndefined: Self = StObject.set(x, "children", ())
     
     @scala.inline
     def setValue(value: T): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])

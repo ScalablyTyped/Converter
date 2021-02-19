@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 //
@@ -11,6 +10,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait Factory[P] extends StObject {
   
-  def apply(props: Attributes with P, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = js.native
-  def apply(props: js.UndefOr[scala.Nothing], children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = js.native
+  def apply(props: Attributes & P, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = js.native
+  def apply(props: Unit, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = js.native
 }

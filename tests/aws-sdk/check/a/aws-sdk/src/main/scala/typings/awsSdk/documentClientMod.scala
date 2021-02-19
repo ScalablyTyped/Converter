@@ -6,7 +6,6 @@ import typings.awsSdk.dynamodbMod.ClientConfiguration
 import typings.awsSdk.dynamodbMod.^
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object documentClientMod {
@@ -17,7 +16,7 @@ object documentClientMod {
     * Creates a DynamoDB document client with a set of configuration options.
     */
   class DocumentClient () extends StObject {
-    def this(options: DocumentClientOptions with ClientConfiguration) = this()
+    def this(options: DocumentClientOptions & ClientConfiguration) = this()
   }
   object DocumentClient {
     
@@ -60,13 +59,13 @@ object documentClientMod {
         def setConvertEmptyValues(value: Boolean): Self = StObject.set(x, "convertEmptyValues", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setConvertEmptyValuesUndefined: Self = StObject.set(x, "convertEmptyValues", js.undefined)
+        def setConvertEmptyValuesUndefined: Self = StObject.set(x, "convertEmptyValues", ())
         
         @scala.inline
         def setWrapNumbers(value: Boolean): Self = StObject.set(x, "wrapNumbers", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setWrapNumbersUndefined: Self = StObject.set(x, "wrapNumbers", js.undefined)
+        def setWrapNumbersUndefined: Self = StObject.set(x, "wrapNumbers", ())
       }
     }
     
@@ -98,13 +97,13 @@ object documentClientMod {
         def setParams(value: StringDictionary[js.Any]): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setParamsUndefined: Self = StObject.set(x, "params", js.undefined)
+        def setParamsUndefined: Self = StObject.set(x, "params", ())
         
         @scala.inline
         def setService(value: ^): Self = StObject.set(x, "service", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setServiceUndefined: Self = StObject.set(x, "service", js.undefined)
+        def setServiceUndefined: Self = StObject.set(x, "service", ())
       }
     }
     

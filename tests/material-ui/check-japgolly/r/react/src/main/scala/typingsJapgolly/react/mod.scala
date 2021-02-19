@@ -16,7 +16,6 @@ import typingsJapgolly.react.reactStrings.foo
 import typingsJapgolly.std.Partial
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -37,7 +36,7 @@ object mod {
     }
     
     @scala.inline
-    implicit class AllHTMLAttributesMutableBuilder[Self <: AllHTMLAttributes[_], T] (val x: Self with AllHTMLAttributes[T]) extends AnyVal {
+    implicit class AllHTMLAttributesMutableBuilder[Self <: AllHTMLAttributes[?], T] (val x: Self & AllHTMLAttributes[T]) extends AnyVal {
       
       @scala.inline
       def setAccept(value: String): Self = StObject.set(x, "accept", value.asInstanceOf[js.Any])
@@ -46,10 +45,10 @@ object mod {
       def setAcceptCharset(value: String): Self = StObject.set(x, "acceptCharset", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAcceptCharsetUndefined: Self = StObject.set(x, "acceptCharset", js.undefined)
+      def setAcceptCharsetUndefined: Self = StObject.set(x, "acceptCharset", ())
       
       @scala.inline
-      def setAcceptUndefined: Self = StObject.set(x, "accept", js.undefined)
+      def setAcceptUndefined: Self = StObject.set(x, "accept", ())
     }
   }
   
@@ -60,12 +59,12 @@ object mod {
   trait ComponentClass[P]
     extends Instantiable1[
           /* props */ P, 
-          japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object]
+          japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object]
         ]
        with Instantiable2[
           /* props */ P, 
           /* context */ js.Any, 
-          japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object]
+          japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object]
         ] {
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
@@ -75,7 +74,7 @@ object mod {
   
   type ComponentState = js.Object
   
-  type ComponentType[P] = (ComponentClassP[P with js.Object]) | StatelessComponent[P]
+  type ComponentType[P] = (ComponentClassP[P & js.Object]) | StatelessComponent[P]
   
   @js.native
   trait DOMAttributes[T] extends StObject {
@@ -95,7 +94,7 @@ object mod {
     }
     
     @scala.inline
-    implicit class DOMAttributesMutableBuilder[Self <: DOMAttributes[_], T] (val x: Self with DOMAttributes[T]) extends AnyVal {
+    implicit class DOMAttributesMutableBuilder[Self <: DOMAttributes[?], T] (val x: Self & DOMAttributes[T]) extends AnyVal {
       
       @scala.inline
       def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
@@ -104,7 +103,7 @@ object mod {
       def setChildrenNull: Self = StObject.set(x, "children", null)
       
       @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      def setChildrenUndefined: Self = StObject.set(x, "children", ())
       
       @scala.inline
       def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
@@ -116,7 +115,7 @@ object mod {
       def setDangerouslySetInnerHTML(value: Html): Self = StObject.set(x, "dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDangerouslySetInnerHTMLUndefined: Self = StObject.set(x, "dangerouslySetInnerHTML", js.undefined)
+      def setDangerouslySetInnerHTMLUndefined: Self = StObject.set(x, "dangerouslySetInnerHTML", ())
       
       @scala.inline
       def setOnClick(value: Double | (js.Function1[/* x */ String, Unit])): Self = StObject.set(x, "onClick", value.asInstanceOf[js.Any])
@@ -125,7 +124,7 @@ object mod {
       def setOnClickFunction1(value: /* x */ String => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: /* x */ String) => value(t0).runNow()))
       
       @scala.inline
-      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
+      def setOnClickUndefined: Self = StObject.set(x, "onClick", ())
     }
   }
   
@@ -143,13 +142,13 @@ object mod {
     }
     
     @scala.inline
-    implicit class HTMLAttributesMutableBuilder[Self <: HTMLAttributes[_], T] (val x: Self with HTMLAttributes[T]) extends AnyVal {
+    implicit class HTMLAttributesMutableBuilder[Self <: HTMLAttributes[?], T] (val x: Self & HTMLAttributes[T]) extends AnyVal {
       
       @scala.inline
       def setDefaultChecked(value: Boolean): Self = StObject.set(x, "defaultChecked", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDefaultCheckedUndefined: Self = StObject.set(x, "defaultChecked", js.undefined)
+      def setDefaultCheckedUndefined: Self = StObject.set(x, "defaultChecked", ())
     }
   }
   
@@ -174,7 +173,7 @@ object mod {
     }
     
     @scala.inline
-    implicit class HTMLPropsMutableBuilder[Self <: HTMLProps[_], T] (val x: Self with HTMLProps[T]) extends AnyVal {
+    implicit class HTMLPropsMutableBuilder[Self <: HTMLProps[?], T] (val x: Self & HTMLProps[T]) extends AnyVal {
       
       @scala.inline
       def setDefaultValue(value: foo): Self = StObject.set(x, "defaultValue", value.asInstanceOf[js.Any])
@@ -199,12 +198,12 @@ object mod {
     
     var props: js.Any = js.native
     
-    var `type`: String | (ComponentClassP[js.Any with js.Object]) | SFC[js.Any] = js.native
+    var `type`: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any] = js.native
   }
   object ReactElement {
     
     @scala.inline
-    def apply(props: js.Any, `type`: String | (ComponentClassP[js.Any with js.Object]) | SFC[js.Any]): ReactElement = {
+    def apply(props: js.Any, `type`: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any]): ReactElement = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
       __obj.asInstanceOf[ReactElement]
@@ -223,7 +222,7 @@ object mod {
       def setProps(value: js.Any): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setType(value: String | (ComponentClassP[js.Any with js.Object]) | SFC[js.Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      def setType(value: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
@@ -236,8 +235,8 @@ object mod {
   @js.native
   trait StatelessComponent[P] extends StObject {
     
-    def apply(props: P with Children): Element | Null = js.native
-    def apply(props: P with Children, context: js.Any): Element | Null = js.native
+    def apply(props: P & Children): Element | Null = js.native
+    def apply(props: P & Children, context: js.Any): Element | Null = js.native
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
     

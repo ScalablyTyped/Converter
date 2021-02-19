@@ -5,7 +5,6 @@ import typings.vue.vueMod.Vue
 import typings.vue.vueMod.VueConstructor
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object pluginMod {
@@ -30,7 +29,7 @@ object pluginMod {
     }
     
     @scala.inline
-    implicit class PluginObjectMutableBuilder[Self <: PluginObject[_], T] (val x: Self with PluginObject[T]) extends AnyVal {
+    implicit class PluginObjectMutableBuilder[Self <: PluginObject[?], T] (val x: Self & PluginObject[T]) extends AnyVal {
       
       @scala.inline
       def setInstall(value: (/* Vue */ VueConstructor[Vue], /* options */ js.UndefOr[T]) => Unit): Self = StObject.set(x, "install", js.Any.fromFunction2(value))

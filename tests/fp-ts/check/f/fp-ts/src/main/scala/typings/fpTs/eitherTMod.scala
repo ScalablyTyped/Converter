@@ -5,7 +5,6 @@ import typings.fpTs.eitherMod.URI
 import typings.fpTs.hktMod.HKT
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object eitherTMod {
@@ -26,7 +25,7 @@ object eitherTMod {
     }
     
     @scala.inline
-    implicit class EitherTMutableBuilder[Self <: EitherT[_], F] (val x: Self with EitherT[F]) extends AnyVal {
+    implicit class EitherTMutableBuilder[Self <: EitherT[?], F] (val x: Self & EitherT[F]) extends AnyVal {
       
       @scala.inline
       def setChain(

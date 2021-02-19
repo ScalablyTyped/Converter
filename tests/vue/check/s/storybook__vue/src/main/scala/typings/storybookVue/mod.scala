@@ -12,7 +12,6 @@ import typings.vue.vueMod.Vue
 import typings.webpackEnv.NodeModule
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -174,7 +173,7 @@ object mod {
       def setFileName(value: String): Self = StObject.set(x, "fileName", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFileNameUndefined: Self = StObject.set(x, "fileName", js.undefined)
+      def setFileNameUndefined: Self = StObject.set(x, "fileName", ())
       
       @scala.inline
       def setKind(value: String): Self = StObject.set(x, "kind", value.asInstanceOf[js.Any])

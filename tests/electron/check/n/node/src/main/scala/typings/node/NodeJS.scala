@@ -3,7 +3,6 @@ package typings.node
 import typings.node.nodeStrings.foo
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object NodeJS {
@@ -34,25 +33,25 @@ object NodeJS {
       def setCode(value: String): Self = StObject.set(x, "code", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCodeUndefined: Self = StObject.set(x, "code", js.undefined)
+      def setCodeUndefined: Self = StObject.set(x, "code", ())
       
       @scala.inline
       def setErrno(value: Double): Self = StObject.set(x, "errno", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setErrnoUndefined: Self = StObject.set(x, "errno", js.undefined)
+      def setErrnoUndefined: Self = StObject.set(x, "errno", ())
       
       @scala.inline
       def setPath(value: String): Self = StObject.set(x, "path", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPathUndefined: Self = StObject.set(x, "path", js.undefined)
+      def setPathUndefined: Self = StObject.set(x, "path", ())
       
       @scala.inline
       def setSyscall(value: String): Self = StObject.set(x, "syscall", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setSyscallUndefined: Self = StObject.set(x, "syscall", js.undefined)
+      def setSyscallUndefined: Self = StObject.set(x, "syscall", ())
     }
   }
   

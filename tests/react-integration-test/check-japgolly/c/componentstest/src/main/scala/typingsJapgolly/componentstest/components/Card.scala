@@ -9,7 +9,6 @@ import typingsJapgolly.componentstest.mod.CardGridProps
 import typingsJapgolly.componentstest.mod.CardProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object Card {
@@ -35,7 +34,7 @@ object Card {
        with StBuildingComponent[js.Object] {
     
     @scala.inline
-    def onClick(value: ReactMouseEventFrom[HTMLDivElement with Element] => Callback): this.type = set("onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement with Element]) => value(t0).runNow()))
+    def onClick(value: ReactMouseEventFrom[HTMLDivElement & Element] => Callback): this.type = set("onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement & Element]) => value(t0).runNow()))
     
     @scala.inline
     def prefixCls(value: String): this.type = set("prefixCls", value.asInstanceOf[js.Any])

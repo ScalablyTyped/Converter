@@ -9,7 +9,7 @@ class JapgollyMemberToProp(reactNames: ReactNamesProxy, rewrites: IArray[CastCon
 
   override def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
     default(scope, x, isInherited).map {
-      case prop: Prop.Normal => prop.rewrite(toScalaJsReact(scope))
+      case prop: Prop.Normal => prop.rewrite(toScalaJsReact)
       case other => other
     }
 
@@ -25,8 +25,7 @@ class JapgollyMemberToProp(reactNames: ReactNamesProxy, rewrites: IArray[CastCon
       case other        => TypeRef(JapgollyNames.CallbackTo, IArray(other), NoComments)
     }
 
-  def toScalaJsReact(scope: TreeScope)(variant: Prop.Variant): Prop.Variant = {
-
+  def toScalaJsReact(variant: Prop.Variant): Prop.Variant =
     variant.tpe match {
       case TypeRef.ScalaFunction(Empty, retType) =>
         Prop.Variant(CallbackTo(retType), ref => Select(ref, Name("toJsFn")), isRewritten = true, extendsAnyVal = true)
@@ -67,5 +66,4 @@ class JapgollyMemberToProp(reactNames: ReactNamesProxy, rewrites: IArray[CastCon
         )
       case _ => variant
     }
-  }
 }

@@ -2,7 +2,6 @@ package typings.documentation
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -19,7 +18,7 @@ object Parent {
   }
   
   @scala.inline
-  implicit class ParentMutableBuilder[Self <: Parent[_], T] (val x: Self with Parent[T]) extends AnyVal {
+  implicit class ParentMutableBuilder[Self <: Parent[?], T] (val x: Self & Parent[T]) extends AnyVal {
     
     @scala.inline
     def setT(value: T): Self = StObject.set(x, "t", value.asInstanceOf[js.Any])

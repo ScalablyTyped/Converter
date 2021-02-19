@@ -68,7 +68,7 @@ object MemberToProp {
                 tpe           = tpe,
                 asExpr        = ref => Cast(ref, TypeRef.JsAny),
                 isRewritten   = wasRewritten,
-                extendsAnyVal = TypeRef.Primitive(TypeRef(Erasure.simplify(scope / x, dealiased))),
+                extendsAnyVal = TypeRef.Primitive(FollowAliases(scope / x)(dealiased)),
               )
               Some(Prop.Normal(main, isInherited, optionality, variants, f))
           }

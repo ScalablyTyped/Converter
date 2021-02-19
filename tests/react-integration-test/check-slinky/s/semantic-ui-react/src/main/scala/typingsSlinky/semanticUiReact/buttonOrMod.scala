@@ -5,7 +5,6 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.ReactComponentClass
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object buttonOrMod extends Shortcut {
@@ -54,19 +53,19 @@ object buttonOrMod extends Shortcut {
       def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
+      def setAsUndefined: Self = StObject.set(x, "as", ())
       
       @scala.inline
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+      def setClassNameUndefined: Self = StObject.set(x, "className", ())
       
       @scala.inline
       def setText(value: Double | String): Self = StObject.set(x, "text", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTextUndefined: Self = StObject.set(x, "text", js.undefined)
+      def setTextUndefined: Self = StObject.set(x, "text", ())
     }
   }
   

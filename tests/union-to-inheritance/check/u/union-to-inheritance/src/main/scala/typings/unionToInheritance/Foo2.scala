@@ -2,7 +2,6 @@ package typings.unionToInheritance
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -24,7 +23,7 @@ object Foo2 {
   }
   
   @scala.inline
-  implicit class Foo2MutableBuilder[Self <: Foo2[_, _], U, V] (val x: Self with (Foo2[U, V])) extends AnyVal {
+  implicit class Foo2MutableBuilder[Self <: Foo2[?, ?], U, V] (val x: Self & (Foo2[U, V])) extends AnyVal {
     
     @scala.inline
     def setU(value: U): Self = StObject.set(x, "u", value.asInstanceOf[js.Any])

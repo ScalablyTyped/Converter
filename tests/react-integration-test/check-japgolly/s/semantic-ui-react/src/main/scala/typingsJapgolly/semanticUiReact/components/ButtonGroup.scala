@@ -3,7 +3,6 @@ package typingsJapgolly.semanticUiReact.components
 import typingsJapgolly.semanticUiReact.buttonGroupMod.ButtonGroupProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object ButtonGroup {

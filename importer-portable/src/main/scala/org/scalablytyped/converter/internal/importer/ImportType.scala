@@ -55,7 +55,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       TsQIdent.string -> StringM,
       TsQIdent.String -> StringM,
       TsQIdent.symbol -> RefMapping(TypeRef(stdNames.Symbol), TypeRef(stdNames.Symbol), TypeRef.JsSymbol),
-      TsQIdent.undefined -> RefMapping(TypeRef.JsAny, TypeRef.JsAny, TypeRef.UndefOr(TypeRef.Nothing)),
+      TsQIdent.undefined -> RefMapping(TypeRef.JsAny, TypeRef.JsAny, TypeRef.Unit),
       TsQIdent.void -> RefMapping(TypeRef.JsAny, TypeRef.JsAny, TypeRef.Unit),
     )
   }
@@ -71,7 +71,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
         apply(scope, importName)(withComments)
 
-      case TsTypeRef(cs, base: TsQIdent, targs: IArray[TsType]) =>
+      case tr @ TsTypeRef(cs, base: TsQIdent, targs: IArray[TsType]) =>
         base match {
           case TsQIdent.any | TsQIdent.unknown =>
             TypeRef.JsAny.withComments(cs)
@@ -186,11 +186,12 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             }
           }
 
-        val rewritten = patched.map {
+        val imported = patched.map {
           case TsTypeRef.undefined => TypeRef.undefined
           case other               => apply(scope, importName)(other)
         }
-        TypeRef.Union(rewritten, NoComments, sort = false)
+
+        TypeRef.Union(imported, NoComments, sort = false)
 
       case TsTypeIntersect(types) =>
         TypeRef.Intersection(types.map(apply(scope, importName)), NoComments)
@@ -318,9 +319,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
     )
   }
 
-  private def funParam(scope: TsTreeScope, importName: AdaptiveNamingImport)(
-      param:                      TsFunParam,
-  ): TypeRef =
+  private def funParam(scope: TsTreeScope, importName: AdaptiveNamingImport)(param: TsFunParam): TypeRef =
     orAny(scope / param, importName)(param.tpe).withComments(Comments(s"/* ${param.name.value} */"))
 }
 

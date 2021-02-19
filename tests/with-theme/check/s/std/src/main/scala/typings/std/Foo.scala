@@ -2,7 +2,6 @@ package typings.std
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -25,6 +24,6 @@ object Foo {
     def setF(value: /* n */ Double => String): Self = StObject.set(x, "f", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setFUndefined: Self = StObject.set(x, "f", js.undefined)
+    def setFUndefined: Self = StObject.set(x, "f", ())
   }
 }

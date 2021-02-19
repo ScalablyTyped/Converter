@@ -2,7 +2,6 @@ package typings.typeMappings
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined std.Required<std.Pick<type-mappings.CSSProperties, 'fontFamily' | 'fontSize' | 'fontWeight' | 'color'>> & std.Partial<std.Pick<type-mappings.CSSProperties, 'letterSpacing' | 'lineHeight' | 'textTransform'>> */
@@ -50,18 +49,18 @@ object TypographyStyle {
     def setLetterSpacing(value: String): Self = StObject.set(x, "letterSpacing", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLetterSpacingUndefined: Self = StObject.set(x, "letterSpacing", js.undefined)
+    def setLetterSpacingUndefined: Self = StObject.set(x, "letterSpacing", ())
     
     @scala.inline
     def setLineHeight(value: String): Self = StObject.set(x, "lineHeight", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLineHeightUndefined: Self = StObject.set(x, "lineHeight", js.undefined)
+    def setLineHeightUndefined: Self = StObject.set(x, "lineHeight", ())
     
     @scala.inline
     def setTextTransform(value: String): Self = StObject.set(x, "textTransform", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTextTransformUndefined: Self = StObject.set(x, "textTransform", js.undefined)
+    def setTextTransformUndefined: Self = StObject.set(x, "textTransform", ())
   }
 }

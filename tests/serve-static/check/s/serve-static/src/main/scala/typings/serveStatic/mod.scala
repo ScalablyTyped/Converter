@@ -5,7 +5,6 @@ import typings.expressServeStaticCore.mod.Response
 import typings.mime.mod.TypeMap
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -66,7 +65,7 @@ object mod {
       def setSetHeaders(value: (/* res */ Response, /* path */ String, /* stat */ js.Any) => js.Any): Self = StObject.set(x, "setHeaders", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setSetHeadersUndefined: Self = StObject.set(x, "setHeaders", js.undefined)
+      def setSetHeadersUndefined: Self = StObject.set(x, "setHeaders", ())
     }
   }
 }

@@ -2,7 +2,6 @@ package typings.node
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
@@ -27,7 +26,7 @@ object anon {
       def setEnd(value: Boolean): Self = StObject.set(x, "end", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEndUndefined: Self = StObject.set(x, "end", js.undefined)
+      def setEndUndefined: Self = StObject.set(x, "end", ())
     }
   }
 }

@@ -1,11 +1,9 @@
-package typingsSlinky.semanticUiReact
+package typingsSlinky.semanticUiReact.genericMod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-package object genericMod {
   
   type SemanticShorthandCollection[TProps] = js.Array[typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem[TProps]]
   
@@ -19,4 +17,3 @@ package object genericMod {
     /* children */ js.UndefOr[slinky.core.facade.ReactElement | typingsSlinky.react.mod.ReactNodeArray], 
     slinky.core.facade.ReactElement | scala.Null
   ]
-}

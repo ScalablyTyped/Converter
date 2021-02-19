@@ -15,7 +15,6 @@ import typingsJapgolly.react.anon.Html
 import typingsJapgolly.std.Partial
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -33,16 +32,16 @@ object mod {
     def apply[T](
       accept: String = null,
       acceptCharset: String = null,
-      children: js.UndefOr[Null | VdomNode] = js.undefined,
+      children: js.UndefOr[Null | VdomNode] = (),
       dangerouslySetInnerHTML: Html = null,
-      defaultChecked: js.UndefOr[Boolean] = js.undefined
+      defaultChecked: js.UndefOr[Boolean] = ()
     ): AllHTMLAttributes[T] = {
       val __obj = js.Dynamic.literal()
       if (accept != null) __obj.updateDynamic("accept")(accept.asInstanceOf[js.Any])
       if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset.asInstanceOf[js.Any])
       if (!js.isUndefined(children)) __obj.updateDynamic("children")(if (children != null) children.asInstanceOf[VdomNode].rawNode.asInstanceOf[js.Any] else null)
       if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
-      if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked.get.asInstanceOf[js.Any])
+      if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked.asInstanceOf[js.Any])
       __obj.asInstanceOf[AllHTMLAttributes[T]]
     }
   }
@@ -91,12 +90,12 @@ object mod {
   trait ComponentClass[P]
     extends Instantiable1[
           /* props */ P, 
-          japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object]
+          japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object]
         ]
        with Instantiable2[
           /* props */ P, 
           /* context */ js.Any, 
-          japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object]
+          japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object]
         ] {
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
@@ -106,7 +105,7 @@ object mod {
   
   type ComponentState = js.Object
   
-  type ComponentType[P] = (ComponentClassP[P with js.Object]) | StatelessComponent[P]
+  type ComponentType[P] = (ComponentClassP[P & js.Object]) | StatelessComponent[P]
   
   @js.native
   trait DOMAttributes[T] extends StObject {
@@ -118,7 +117,7 @@ object mod {
   object DOMAttributes {
     
     @scala.inline
-    def apply[T](children: js.UndefOr[Null | VdomNode] = js.undefined, dangerouslySetInnerHTML: Html = null): DOMAttributes[T] = {
+    def apply[T](children: js.UndefOr[Null | VdomNode] = (), dangerouslySetInnerHTML: Html = null): DOMAttributes[T] = {
       val __obj = js.Dynamic.literal()
       if (!js.isUndefined(children)) __obj.updateDynamic("children")(if (children != null) children.asInstanceOf[VdomNode].rawNode.asInstanceOf[js.Any] else null)
       if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
@@ -126,7 +125,7 @@ object mod {
     }
   }
   
-  type DetailedHTMLProps[E /* <: HTMLAttributes[T] */, T] = ClassAttributes[T] with E
+  type DetailedHTMLProps[E /* <: HTMLAttributes[T] */, T] = ClassAttributes[T] & E
   
   @js.native
   trait HTMLAttributes[T] extends DOMAttributes[T] {
@@ -137,14 +136,14 @@ object mod {
     
     @scala.inline
     def apply[T](
-      children: js.UndefOr[Null | VdomNode] = js.undefined,
+      children: js.UndefOr[Null | VdomNode] = (),
       dangerouslySetInnerHTML: Html = null,
-      defaultChecked: js.UndefOr[Boolean] = js.undefined
+      defaultChecked: js.UndefOr[Boolean] = ()
     ): HTMLAttributes[T] = {
       val __obj = js.Dynamic.literal()
       if (!js.isUndefined(children)) __obj.updateDynamic("children")(if (children != null) children.asInstanceOf[VdomNode].rawNode.asInstanceOf[js.Any] else null)
       if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
-      if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked.get.asInstanceOf[js.Any])
+      if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked.asInstanceOf[js.Any])
       __obj.asInstanceOf[HTMLAttributes[T]]
     }
   }
@@ -159,9 +158,9 @@ object mod {
     def apply[T](
       accept: String = null,
       acceptCharset: String = null,
-      children: js.UndefOr[Null | VdomNode] = js.undefined,
+      children: js.UndefOr[Null | VdomNode] = (),
       dangerouslySetInnerHTML: Html = null,
-      defaultChecked: js.UndefOr[Boolean] = js.undefined,
+      defaultChecked: js.UndefOr[Boolean] = (),
       key: Key = null,
       ref: Ref[T] = null
     ): HTMLProps[T] = {
@@ -170,7 +169,7 @@ object mod {
       if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset.asInstanceOf[js.Any])
       if (!js.isUndefined(children)) __obj.updateDynamic("children")(if (children != null) children.asInstanceOf[VdomNode].rawNode.asInstanceOf[js.Any] else null)
       if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
-      if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked.get.asInstanceOf[js.Any])
+      if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked.asInstanceOf[js.Any])
       if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
       if (ref != null) __obj.updateDynamic("ref")(ref.asInstanceOf[js.Any])
       __obj.asInstanceOf[HTMLProps[T]]
@@ -188,14 +187,14 @@ object mod {
     
     var props: js.Any = js.native
     
-    var `type`: String | (ComponentClassP[js.Any with js.Object]) | SFC[js.Any] = js.native
+    var `type`: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any] = js.native
   }
   object ReactElement {
     
     @scala.inline
     def apply(
       props: js.Any,
-      `type`: String | (ComponentClassP[js.Any with js.Object]) | SFC[js.Any],
+      `type`: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any],
       key: Key = null
     ): ReactElement = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
@@ -220,8 +219,8 @@ object mod {
   @js.native
   trait StatelessComponent[P] extends StObject {
     
-    def apply(props: P with Children): Element | Null = js.native
-    def apply(props: P with Children, context: js.Any): Element | Null = js.native
+    def apply(props: P & Children): Element | Null = js.native
+    def apply(props: P & Children, context: js.Any): Element | Null = js.native
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
     

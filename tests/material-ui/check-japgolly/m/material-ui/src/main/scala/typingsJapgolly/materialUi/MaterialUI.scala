@@ -3,14 +3,13 @@ package typingsJapgolly.materialUi
 import japgolly.scalajs.react.raw.React.Component
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object MaterialUI {
   
   object BottomNavigation {
     
-    type BottomNavigationItem = Component[BottomNavigationItemProps with js.Object, js.Object]
+    type BottomNavigationItem = Component[BottomNavigationItemProps & js.Object, js.Object]
     
     @js.native
     trait BottomNavigationItemProps extends StObject {
@@ -37,7 +36,7 @@ object MaterialUI {
         def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+        def setClassNameUndefined: Self = StObject.set(x, "className", ())
       }
     }
   }
@@ -64,7 +63,7 @@ object MaterialUI {
         def setSpacing(value: js.Any): Self = StObject.set(x, "spacing", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setSpacingUndefined: Self = StObject.set(x, "spacing", js.undefined)
+        def setSpacingUndefined: Self = StObject.set(x, "spacing", ())
       }
     }
   }
