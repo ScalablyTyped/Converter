@@ -6,7 +6,7 @@ import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
 import org.scalablytyped.converter.internal.scalajs.TypeParamTree.asTypeArgs
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
-import org.scalablytyped.converter.internal.scalajs.transforms.ModulesCombine
+import org.scalablytyped.converter.internal.scalajs.transforms.{ModulesCombine, UnionToInheritance}
 
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
@@ -38,13 +38,19 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
               case _                                   => None
             }
           }
+        val hasImplementation: Boolean = {
 
-        val hasImplementation: Boolean =
-          container.index.getOrElse(cls.name, Empty).exists {
-            case c: ContainerTree => c.index.contains(Name.APPLY)
-            case _: MemberTree    => true
-            case _ => false
-          }
+          /** When we rewrite type unions to inheritance we might produce two companions in the same scope, see `echarts` test.
+            *  This test catches a bit too much (meaning we might not generate some companions), but it should be fairly safe */
+          if (cls.comments.has[UnionToInheritance.WasUnion])
+            container.index(cls.name).length > 1
+          else
+            container.index(cls.name).exists {
+              case c: ContainerTree => c.index.contains(Name.APPLY)
+              case _: MemberTree    => true
+              case _ => false
+            }
+        }
 
         val generatedCreators: IArray[Tree] =
           if (hasImplementation) Empty
