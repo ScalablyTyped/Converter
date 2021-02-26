@@ -15,20 +15,21 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @JSImport("const-enum", "bar")
+  @JSImport("const-enum", JSImport.Namespace)
   @js.native
-  def bar(x: Foo_): `22` = js.native
+  val ^ : js.Any = js.native
   
-  @JSImport("const-enum", "foo2")
-  @js.native
-  def foo2(x: Foo2_): Double = js.native
+  @scala.inline
+  def bar(x: Foo_): `22` = ^.asInstanceOf[js.Dynamic].applyDynamic("bar")(x.asInstanceOf[js.Any]).asInstanceOf[`22`]
   
-  @JSImport("const-enum", "foo")
-  @js.native
-  def foo_1(x: `1`): Double = js.native
-  @JSImport("const-enum", "foo")
-  @js.native
-  def foo_C(x: C): Double = js.native
+  @scala.inline
+  def foo2(x: Foo2_): Double = ^.asInstanceOf[js.Dynamic].applyDynamic("foo2")(x.asInstanceOf[js.Any]).asInstanceOf[Double]
+  
+  @scala.inline
+  def foo_1(x: `1`): Double = ^.asInstanceOf[js.Dynamic].applyDynamic("foo")(x.asInstanceOf[js.Any]).asInstanceOf[Double]
+  
+  @scala.inline
+  def foo_C(x: C): Double = ^.asInstanceOf[js.Dynamic].applyDynamic("foo")(x.asInstanceOf[js.Any]).asInstanceOf[Double]
   
   /* Rewritten from type alias, can be one of: 
     - typings.constEnum.constEnumNumbers.`0`

@@ -27,12 +27,14 @@ object mod {
     /* static members */
     object Converter {
       
-      @JSImport("aws-sdk", "DynamoDB.Converter.input")
+      @JSImport("aws-sdk", "DynamoDB.Converter")
       @js.native
-      def input(data: js.Any): AttributeValue = js.native
-      @JSImport("aws-sdk", "DynamoDB.Converter.input")
-      @js.native
-      def input(data: js.Any, options: ConverterOptions): AttributeValue = js.native
+      val ^ : js.Any = js.native
+      
+      @scala.inline
+      def input(data: js.Any): AttributeValue = ^.asInstanceOf[js.Dynamic].applyDynamic("input")(data.asInstanceOf[js.Any]).asInstanceOf[AttributeValue]
+      @scala.inline
+      def input(data: js.Any, options: ConverterOptions): AttributeValue = (^.asInstanceOf[js.Dynamic].applyDynamic("input")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[AttributeValue]
     }
     
     @JSImport("aws-sdk", "DynamoDB.DocumentClient")

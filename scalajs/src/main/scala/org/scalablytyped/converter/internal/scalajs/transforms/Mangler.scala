@@ -6,6 +6,8 @@ import org.scalablytyped.converter.internal.scalajs.ExprTree._
 
 object Mangler extends TreeTransformation {
   case object LeaveAlone extends Comment.Data
+  case object WasJsNative extends Comment.Data
+  val WasJsNativeComment = Comments(List(CommentData(WasJsNative)))
 
   override def leaveContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree = {
     val rewrittenMembers = container.members.map {
@@ -152,12 +154,16 @@ object Mangler extends TreeTransformation {
               annotations = IArray(Annotation.Inline),
               name        = Name.APPLY,
               impl        = impl,
+              comments    = m.comments ++ WasJsNativeComment,
               codePath    = m.codePath + Name.APPLY,
             )
 
           IArray(ModuleTree(Empty, m.name, Empty, IArray(asApply), NoComments, m.codePath, m.isOverride))
 
-        } else IArray(m.copy(annotations = IArray(Annotation.Inline), impl = impl))
+        } else
+          IArray(
+            m.copy(annotations = IArray(Annotation.Inline), impl = impl, comments = m.comments ++ WasJsNativeComment),
+          )
 
       case f: FieldTree if f.tpe.typeName === QualifiedName.THIS => Empty
       case f: FieldTree if f.location.isDefined =>
@@ -177,7 +183,7 @@ object Mangler extends TreeTransformation {
             impl        = impl,
             resultType  = f.tpe,
             isOverride  = false,
-            comments    = f.comments,
+            comments    = f.comments ++ WasJsNativeComment,
             codePath    = f.codePath,
             isImplicit  = false,
           )
@@ -202,7 +208,7 @@ object Mangler extends TreeTransformation {
               impl        = impl,
               resultType  = TypeRef.Unit,
               isOverride  = false,
-              comments    = NoComments,
+              comments    = WasJsNativeComment,
               codePath    = f.codePath,
               isImplicit  = false,
             )
@@ -249,8 +255,36 @@ object Mangler extends TreeTransformation {
 
     val rewrittenMembers: IArray[Tree] =
       mod.members.flatMap {
-        case m: MethodTree =>
-          IArray(m)
+        case m: MethodTree if m.location.isDefined =>
+          needsHatObject = true
+
+          val impl = {
+            def call(params: IArray[Arg]) = m.originalName match {
+              case Name.APPLY =>
+                Call(Select(dynamicRef, Name("apply")), IArray(params))
+              case name =>
+                Call(Select(dynamicRef, Name("applyDynamic")), IArray(IArray(StringLit(name.unescaped)), params))
+            }
+
+            Cast(call(m.params.flatten.map(p => Cast(Ref(p.name), TypeRef.Any))), m.resultType)
+          }
+
+          if (mod.index(m.name).exists(_.isInstanceOf[ClassTree])) {
+            val asApply =
+              m.copy(
+                comments    = m.comments ++ WasJsNativeComment,
+                annotations = IArray(Annotation.Inline),
+                name        = Name.APPLY,
+                impl        = impl,
+                codePath    = m.codePath + Name.APPLY,
+              )
+
+            IArray(ModuleTree(Empty, m.name, Empty, IArray(asApply), NoComments, m.codePath, m.isOverride))
+
+          } else
+            IArray(
+              m.copy(annotations = IArray(Annotation.Inline), impl = impl, comments = m.comments ++ WasJsNativeComment),
+            )
 
         case f: FieldTree if f.isReadOnly || f.location.isEmpty =>
           IArray(f)
@@ -278,7 +312,7 @@ object Mangler extends TreeTransformation {
               impl        = impl,
               resultType  = TypeRef.Unit,
               isOverride  = false,
-              comments    = NoComments,
+              comments    = WasJsNativeComment,
               codePath    = f.codePath,
               isImplicit  = false,
             )
@@ -294,7 +328,7 @@ object Mangler extends TreeTransformation {
               impl        = f.impl,
               resultType  = f.tpe,
               isOverride  = f.isOverride,
-              comments    = f.comments,
+              comments    = f.comments ++ WasJsNativeComment,
               codePath    = f.codePath,
               isImplicit  = false,
             )

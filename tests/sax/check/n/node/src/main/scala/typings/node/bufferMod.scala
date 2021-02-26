@@ -71,12 +71,15 @@ object bufferMod {
   /* was `typeof Buffer` */
   object Buffer {
     
+    @JSImport("buffer", "Buffer")
+    @js.native
+    val ^ : js.Any = js.native
+    
     /**
       * Allocates a new Buffer using an {array} of octets.
       */
-    @JSImport("buffer", "Buffer.from")
-    @js.native
-    def from(array: js.Array[_]): typings.node.Buffer = js.native
+    @scala.inline
+    def from(array: js.Array[_]): typings.node.Buffer = ^.asInstanceOf[js.Dynamic].applyDynamic("from")(array.asInstanceOf[js.Any]).asInstanceOf[typings.node.Buffer]
   }
   
   @JSImport("buffer", "INSPECT_MAX_BYTES")
@@ -98,22 +101,21 @@ object bufferMod {
   /* was `typeof SlowBuffer` */
   object SlowBuffer {
     
-    @JSImport("buffer", "SlowBuffer.byteLength")
+    @JSImport("buffer", "SlowBuffer")
     @js.native
-    def byteLength(string: String): Double = js.native
-    @JSImport("buffer", "SlowBuffer.byteLength")
-    @js.native
-    def byteLength(string: String, encoding: String): Double = js.native
+    val ^ : js.Any = js.native
     
-    @JSImport("buffer", "SlowBuffer.concat")
-    @js.native
-    def concat(list: js.Array[typings.node.Buffer]): typings.node.Buffer = js.native
-    @JSImport("buffer", "SlowBuffer.concat")
-    @js.native
-    def concat(list: js.Array[typings.node.Buffer], totalLength: Double): typings.node.Buffer = js.native
+    @scala.inline
+    def byteLength(string: String): Double = ^.asInstanceOf[js.Dynamic].applyDynamic("byteLength")(string.asInstanceOf[js.Any]).asInstanceOf[Double]
+    @scala.inline
+    def byteLength(string: String, encoding: String): Double = (^.asInstanceOf[js.Dynamic].applyDynamic("byteLength")(string.asInstanceOf[js.Any], encoding.asInstanceOf[js.Any])).asInstanceOf[Double]
     
-    @JSImport("buffer", "SlowBuffer.isBuffer")
-    @js.native
-    def isBuffer(obj: js.Any): Boolean = js.native
+    @scala.inline
+    def concat(list: js.Array[typings.node.Buffer]): typings.node.Buffer = ^.asInstanceOf[js.Dynamic].applyDynamic("concat")(list.asInstanceOf[js.Any]).asInstanceOf[typings.node.Buffer]
+    @scala.inline
+    def concat(list: js.Array[typings.node.Buffer], totalLength: Double): typings.node.Buffer = (^.asInstanceOf[js.Dynamic].applyDynamic("concat")(list.asInstanceOf[js.Any], totalLength.asInstanceOf[js.Any])).asInstanceOf[typings.node.Buffer]
+    
+    @scala.inline
+    def isBuffer(obj: js.Any): Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("isBuffer")(obj.asInstanceOf[js.Any]).asInstanceOf[Boolean]
   }
 }

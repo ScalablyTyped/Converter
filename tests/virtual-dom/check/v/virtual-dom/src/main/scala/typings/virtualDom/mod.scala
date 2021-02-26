@@ -7,7 +7,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  @scala.inline
+  def apply(): js.Any = ^.asInstanceOf[js.Dynamic].apply().asInstanceOf[js.Any]
+  
   @JSImport("virtual-dom/h", JSImport.Namespace)
   @js.native
-  def apply(): js.Any = js.native
+  val ^ : js.Any = js.native
 }

@@ -8,29 +8,25 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object actionsMod {
   
-  @JSImport("react-contextmenu/modules/actions", "hideMenu")
+  @JSImport("react-contextmenu/modules/actions", JSImport.Namespace)
   @js.native
-  def hideMenu(): Unit = js.native
-  @JSImport("react-contextmenu/modules/actions", "hideMenu")
-  @js.native
-  def hideMenu(opts: js.UndefOr[scala.Nothing], target: HTMLElement): Unit = js.native
-  @JSImport("react-contextmenu/modules/actions", "hideMenu")
-  @js.native
-  def hideMenu(opts: js.Any): Unit = js.native
-  @JSImport("react-contextmenu/modules/actions", "hideMenu")
-  @js.native
-  def hideMenu(opts: js.Any, target: HTMLElement): Unit = js.native
+  val ^ : js.Any = js.native
   
-  @JSImport("react-contextmenu/modules/actions", "showMenu")
-  @js.native
-  def showMenu(): Unit = js.native
-  @JSImport("react-contextmenu/modules/actions", "showMenu")
-  @js.native
-  def showMenu(opts: js.UndefOr[scala.Nothing], target: HTMLElement): Unit = js.native
-  @JSImport("react-contextmenu/modules/actions", "showMenu")
-  @js.native
-  def showMenu(opts: js.Any): Unit = js.native
-  @JSImport("react-contextmenu/modules/actions", "showMenu")
-  @js.native
-  def showMenu(opts: js.Any, target: HTMLElement): Unit = js.native
+  @scala.inline
+  def hideMenu(): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")().asInstanceOf[Unit]
+  @scala.inline
+  def hideMenu(opts: js.UndefOr[scala.Nothing], target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  @scala.inline
+  def hideMenu(opts: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  @scala.inline
+  def hideMenu(opts: js.Any, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  
+  @scala.inline
+  def showMenu(): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")().asInstanceOf[Unit]
+  @scala.inline
+  def showMenu(opts: js.UndefOr[scala.Nothing], target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  @scala.inline
+  def showMenu(opts: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  @scala.inline
+  def showMenu(opts: js.Any, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
 }

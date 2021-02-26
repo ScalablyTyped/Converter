@@ -14,12 +14,14 @@ object converterMod {
   /* static members */
   object Converter {
     
-    @JSImport("aws-sdk/lib/dynamodb/converter", "Converter.input")
+    @JSImport("aws-sdk/lib/dynamodb/converter", "Converter")
     @js.native
-    def input(data: js.Any): AttributeValue = js.native
-    @JSImport("aws-sdk/lib/dynamodb/converter", "Converter.input")
-    @js.native
-    def input(data: js.Any, options: ConverterOptions): AttributeValue = js.native
+    val ^ : js.Any = js.native
+    
+    @scala.inline
+    def input(data: js.Any): AttributeValue = ^.asInstanceOf[js.Dynamic].applyDynamic("input")(data.asInstanceOf[js.Any]).asInstanceOf[AttributeValue]
+    @scala.inline
+    def input(data: js.Any, options: ConverterOptions): AttributeValue = (^.asInstanceOf[js.Dynamic].applyDynamic("input")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[AttributeValue]
     
     type ConverterOptions = typings.awsSdk.documentClientMod.DocumentClient.ConverterOptions
   }

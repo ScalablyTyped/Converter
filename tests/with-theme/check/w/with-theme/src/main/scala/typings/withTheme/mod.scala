@@ -12,9 +12,12 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @JSImport("with-theme", JSImport.Default)
+  @JSImport("with-theme", JSImport.Namespace)
   @js.native
-  def default(): js.Function1[/* component */ ComponentType[js.Any with WithTheme], ComponentClass[_]] = js.native
+  val ^ : js.Any = js.native
+  
+  @scala.inline
+  def default(): js.Function1[/* component */ ComponentType[js.Any with WithTheme], ComponentClass[_]] = ^.asInstanceOf[js.Dynamic].applyDynamic("default")().asInstanceOf[js.Function1[/* component */ ComponentType[js.Any with WithTheme], ComponentClass[_]]]
   
   type ConsistentWith[T, U] = Pick[U, /* keyof T */ String]
   
