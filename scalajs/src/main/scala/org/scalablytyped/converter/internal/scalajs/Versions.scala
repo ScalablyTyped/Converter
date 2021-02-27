@@ -22,7 +22,7 @@ object Versions {
     }
   }
 
-  val Scala212 = Scala("2.12.13")
+  val Scala212 = Scala("2.13.5")
 
   val Scala213 = Scala("2.13.3")
 
