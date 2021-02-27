@@ -21,16 +21,22 @@ object mod {
   
   object utils {
     
+    @JSImport("react-bootstrap", "utils")
+    @js.native
+    val ^ : js.Any = js.native
+    
     object bootstrapUtils {
       
-      @JSImport("react-bootstrap", "utils.bootstrapUtils.getBsProps")
+      @JSImport("react-bootstrap", "utils.bootstrapUtils")
       @js.native
-      def getBsProps(props: js.Any): BSProps = js.native
+      val ^ : js.Any = js.native
+      
+      @scala.inline
+      def getBsProps(props: js.Any): BSProps = ^.asInstanceOf[js.Dynamic].applyDynamic("getBsProps")(props.asInstanceOf[js.Any]).asInstanceOf[BSProps]
     }
     
-    @JSImport("react-bootstrap", "utils.createChainedFunction")
-    @js.native
-    def createChainedFunction(funcs: js.Function*): js.Function = js.native
+    @scala.inline
+    def createChainedFunction(funcs: js.Function*): js.Function = ^.asInstanceOf[js.Dynamic].applyDynamic("createChainedFunction")(funcs.asInstanceOf[js.Any]).asInstanceOf[js.Function]
   }
   
   type Omit[T, K /* <: /* keyof T */ String */] = Pick[

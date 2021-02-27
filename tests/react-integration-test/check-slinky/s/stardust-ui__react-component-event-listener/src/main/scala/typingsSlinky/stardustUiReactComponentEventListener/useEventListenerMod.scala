@@ -8,7 +8,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object useEventListenerMod {
   
-  @JSImport("@stardust-ui/react-component-event-listener/dist/es/useEventListener", JSImport.Default)
+  @JSImport("@stardust-ui/react-component-event-listener/dist/es/useEventListener", JSImport.Namespace)
   @js.native
-  def default[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91 */ js.Any */](options: EventListenerOptions[T]): Unit = js.native
+  val ^ : js.Any = js.native
+  
+  @scala.inline
+  def default[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91 */ js.Any */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
 }

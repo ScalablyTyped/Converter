@@ -22,18 +22,22 @@ object Sorter extends TreeTransformation {
         case _ => false
       }
 
+    def had(comments: Comments): Boolean =
+      comments.has[Mangler.WasJsNative.type]
+
     t match {
-      case tree: ContainerTree => has(tree.annotations) || tree.members.exists(hasNativeLocation)
-      case tree: ClassTree     => has(tree.annotations)
-      case tree: MemberTree    => has(tree.annotations)
+      case tree: ContainerTree => has(tree.annotations) || tree.members.exists(hasNativeLocation) || had(tree.comments)
+      case tree: ClassTree     => has(tree.annotations) || had(tree.comments)
+      case tree: MemberTree    => has(tree.annotations) || had(tree.comments)
       case _ => false
     }
   }
   val Unnamed = Set(Name.Default, Name.namespaced, Name.APPLY)
 
   def sorted(members: IArray[Tree]): IArray[Tree] = {
-    val nativeValueNamesOrCompanion
-        : Set[String] = members.collect { case t if hasNativeLocation(t) => t.name.value }.toSet
+    val nativeValueNamesOrCompanion: Set[String] = members.collect {
+      case t if hasNativeLocation(t) => t.name.unescaped
+    }.toSet
 
     val (_1, _2, _3) = members.partitionCollect2(
       { case x if Unnamed(x.name) => x },

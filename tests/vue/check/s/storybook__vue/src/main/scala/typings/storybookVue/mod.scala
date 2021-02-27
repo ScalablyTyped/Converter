@@ -17,25 +17,24 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @JSImport("@storybook/vue", "addDecorator")
+  @JSImport("@storybook/vue", JSImport.Namespace)
   @js.native
-  def addDecorator(decorator: StoryDecorator): Unit = js.native
+  val ^ : js.Any = js.native
   
-  @JSImport("@storybook/vue", "configure")
-  @js.native
-  def configure(loaders: js.Function0[Unit], module: NodeModule): Unit = js.native
+  @scala.inline
+  def addDecorator(decorator: StoryDecorator): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("addDecorator")(decorator.asInstanceOf[js.Any]).asInstanceOf[Unit]
   
-  @JSImport("@storybook/vue", "getStorybook")
-  @js.native
-  def getStorybook(): js.Array[StoryStore] = js.native
+  @scala.inline
+  def configure(loaders: js.Function0[Unit], module: NodeModule): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("configure")(loaders.asInstanceOf[js.Any], module.asInstanceOf[js.Any])).asInstanceOf[Unit]
   
-  @JSImport("@storybook/vue", "setAddon")
-  @js.native
-  def setAddon(addon: Addon): Unit = js.native
+  @scala.inline
+  def getStorybook(): js.Array[StoryStore] = ^.asInstanceOf[js.Dynamic].applyDynamic("getStorybook")().asInstanceOf[js.Array[StoryStore]]
   
-  @JSImport("@storybook/vue", "storiesOf")
-  @js.native
-  def storiesOf(kind: String, module: NodeModule): Story = js.native
+  @scala.inline
+  def setAddon(addon: Addon): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("setAddon")(addon.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  
+  @scala.inline
+  def storiesOf(kind: String, module: NodeModule): Story = (^.asInstanceOf[js.Dynamic].applyDynamic("storiesOf")(kind.asInstanceOf[js.Any], module.asInstanceOf[js.Any])).asInstanceOf[Story]
   
   type Addon = StringDictionary[js.Function2[/* storyName */ String, /* storyFn */ StoryFunction, Unit]]
   

@@ -12,9 +12,8 @@ object mod {
   @js.native
   val ^ : js.Any = js.native
   
-  @JSImport("material-ui/styles", "getMuiTheme")
-  @js.native
-  def getMuiTheme(muiTheme: MuiTheme*): MuiTheme = js.native
+  @scala.inline
+  def getMuiTheme(muiTheme: MuiTheme*): MuiTheme = ^.asInstanceOf[js.Dynamic].applyDynamic("getMuiTheme")(muiTheme.asInstanceOf[js.Any]).asInstanceOf[MuiTheme]
   
   @JSImport("material-ui/styles", "spacing")
   @js.native

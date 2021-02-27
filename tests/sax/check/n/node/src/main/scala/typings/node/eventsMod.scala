@@ -19,12 +19,14 @@ object eventsMod {
   /* static members */
   object EventEmitter {
     
-    @JSImport("events", "EventEmitter.listenerCount")
+    @JSImport("events", "EventEmitter")
     @js.native
-    def listenerCount(emitter: EventEmitter, event: String): Double = js.native
-    @JSImport("events", "EventEmitter.listenerCount")
-    @js.native
-    def listenerCount(emitter: EventEmitter, event: js.Symbol): Double = js.native
+    val ^ : js.Any = js.native
+    
+    @scala.inline
+    def listenerCount(emitter: EventEmitter, event: String): Double = (^.asInstanceOf[js.Dynamic].applyDynamic("listenerCount")(emitter.asInstanceOf[js.Any], event.asInstanceOf[js.Any])).asInstanceOf[Double]
+    @scala.inline
+    def listenerCount(emitter: EventEmitter, event: js.Symbol): Double = (^.asInstanceOf[js.Dynamic].applyDynamic("listenerCount")(emitter.asInstanceOf[js.Any], event.asInstanceOf[js.Any])).asInstanceOf[Double]
   }
   
   type internal = typings.node.NodeJS.EventEmitter

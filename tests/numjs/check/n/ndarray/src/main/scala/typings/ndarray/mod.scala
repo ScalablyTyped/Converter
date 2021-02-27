@@ -7,30 +7,26 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  @scala.inline
+  def apply[T](data: Data[T]): typings.ndarray.mod.ndarray[T] = ^.asInstanceOf[js.Dynamic].apply(data.asInstanceOf[js.Any]).asInstanceOf[typings.ndarray.mod.ndarray[T]]
+  @scala.inline
+  def apply[T](data: Data[T], shape: js.UndefOr[scala.Nothing], stride: js.UndefOr[scala.Nothing], offset: Double): typings.ndarray.mod.ndarray[T] = (^.asInstanceOf[js.Dynamic].apply(data.asInstanceOf[js.Any], shape.asInstanceOf[js.Any], stride.asInstanceOf[js.Any], offset.asInstanceOf[js.Any])).asInstanceOf[typings.ndarray.mod.ndarray[T]]
+  @scala.inline
+  def apply[T](data: Data[T], shape: js.UndefOr[scala.Nothing], stride: js.Array[Double]): typings.ndarray.mod.ndarray[T] = (^.asInstanceOf[js.Dynamic].apply(data.asInstanceOf[js.Any], shape.asInstanceOf[js.Any], stride.asInstanceOf[js.Any])).asInstanceOf[typings.ndarray.mod.ndarray[T]]
+  @scala.inline
+  def apply[T](data: Data[T], shape: js.UndefOr[scala.Nothing], stride: js.Array[Double], offset: Double): typings.ndarray.mod.ndarray[T] = (^.asInstanceOf[js.Dynamic].apply(data.asInstanceOf[js.Any], shape.asInstanceOf[js.Any], stride.asInstanceOf[js.Any], offset.asInstanceOf[js.Any])).asInstanceOf[typings.ndarray.mod.ndarray[T]]
+  @scala.inline
+  def apply[T](data: Data[T], shape: js.Array[Double]): typings.ndarray.mod.ndarray[T] = (^.asInstanceOf[js.Dynamic].apply(data.asInstanceOf[js.Any], shape.asInstanceOf[js.Any])).asInstanceOf[typings.ndarray.mod.ndarray[T]]
+  @scala.inline
+  def apply[T](data: Data[T], shape: js.Array[Double], stride: js.UndefOr[scala.Nothing], offset: Double): typings.ndarray.mod.ndarray[T] = (^.asInstanceOf[js.Dynamic].apply(data.asInstanceOf[js.Any], shape.asInstanceOf[js.Any], stride.asInstanceOf[js.Any], offset.asInstanceOf[js.Any])).asInstanceOf[typings.ndarray.mod.ndarray[T]]
+  @scala.inline
+  def apply[T](data: Data[T], shape: js.Array[Double], stride: js.Array[Double]): typings.ndarray.mod.ndarray[T] = (^.asInstanceOf[js.Dynamic].apply(data.asInstanceOf[js.Any], shape.asInstanceOf[js.Any], stride.asInstanceOf[js.Any])).asInstanceOf[typings.ndarray.mod.ndarray[T]]
+  @scala.inline
+  def apply[T](data: Data[T], shape: js.Array[Double], stride: js.Array[Double], offset: Double): typings.ndarray.mod.ndarray[T] = (^.asInstanceOf[js.Dynamic].apply(data.asInstanceOf[js.Any], shape.asInstanceOf[js.Any], stride.asInstanceOf[js.Any], offset.asInstanceOf[js.Any])).asInstanceOf[typings.ndarray.mod.ndarray[T]]
+  
   @JSImport("ndarray", JSImport.Namespace)
   @js.native
-  def apply[T](data: Data[T]): typings.ndarray.mod.ndarray[T] = js.native
-  @JSImport("ndarray", JSImport.Namespace)
-  @js.native
-  def apply[T](data: Data[T], shape: js.UndefOr[scala.Nothing], stride: js.UndefOr[scala.Nothing], offset: Double): typings.ndarray.mod.ndarray[T] = js.native
-  @JSImport("ndarray", JSImport.Namespace)
-  @js.native
-  def apply[T](data: Data[T], shape: js.UndefOr[scala.Nothing], stride: js.Array[Double]): typings.ndarray.mod.ndarray[T] = js.native
-  @JSImport("ndarray", JSImport.Namespace)
-  @js.native
-  def apply[T](data: Data[T], shape: js.UndefOr[scala.Nothing], stride: js.Array[Double], offset: Double): typings.ndarray.mod.ndarray[T] = js.native
-  @JSImport("ndarray", JSImport.Namespace)
-  @js.native
-  def apply[T](data: Data[T], shape: js.Array[Double]): typings.ndarray.mod.ndarray[T] = js.native
-  @JSImport("ndarray", JSImport.Namespace)
-  @js.native
-  def apply[T](data: Data[T], shape: js.Array[Double], stride: js.UndefOr[scala.Nothing], offset: Double): typings.ndarray.mod.ndarray[T] = js.native
-  @JSImport("ndarray", JSImport.Namespace)
-  @js.native
-  def apply[T](data: Data[T], shape: js.Array[Double], stride: js.Array[Double]): typings.ndarray.mod.ndarray[T] = js.native
-  @JSImport("ndarray", JSImport.Namespace)
-  @js.native
-  def apply[T](data: Data[T], shape: js.Array[Double], stride: js.Array[Double], offset: Double): typings.ndarray.mod.ndarray[T] = js.native
+  val ^ : js.Any = js.native
   
   type Data[T] = js.Array[T]
   

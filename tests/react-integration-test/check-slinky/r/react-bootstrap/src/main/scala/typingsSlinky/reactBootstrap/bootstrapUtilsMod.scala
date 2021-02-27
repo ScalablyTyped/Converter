@@ -7,9 +7,12 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object bootstrapUtilsMod {
   
-  @JSImport("react-bootstrap/lib/utils/bootstrapUtils", "getBsProps")
+  @JSImport("react-bootstrap/lib/utils/bootstrapUtils", JSImport.Namespace)
   @js.native
-  def getBsProps(props: js.Any): BSProps = js.native
+  val ^ : js.Any = js.native
+  
+  @scala.inline
+  def getBsProps(props: js.Any): BSProps = ^.asInstanceOf[js.Dynamic].applyDynamic("getBsProps")(props.asInstanceOf[js.Any]).asInstanceOf[BSProps]
   
   @js.native
   trait BSProps extends StObject {

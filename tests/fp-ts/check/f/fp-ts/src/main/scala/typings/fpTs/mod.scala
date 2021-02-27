@@ -17,8 +17,11 @@ object mod {
   
   object task {
     
-    @JSImport("fp-ts", "task.tryCatch")
+    @JSImport("fp-ts", "task")
     @js.native
-    def tryCatch[L, A](f: js.Any, onrejected: js.Function1[/* reason */ js.Object, L]): Either[L, A] = js.native
+    val ^ : js.Any = js.native
+    
+    @scala.inline
+    def tryCatch[L, A](f: js.Any, onrejected: js.Function1[/* reason */ js.Object, L]): Either[L, A] = (^.asInstanceOf[js.Dynamic].applyDynamic("tryCatch")(f.asInstanceOf[js.Any], onrejected.asInstanceOf[js.Any])).asInstanceOf[Either[L, A]]
   }
 }

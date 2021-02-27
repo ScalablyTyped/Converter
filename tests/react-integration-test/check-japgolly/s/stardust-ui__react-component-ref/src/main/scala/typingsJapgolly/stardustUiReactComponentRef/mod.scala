@@ -13,6 +13,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  @JSImport("@stardust-ui/react-component-ref", JSImport.Namespace)
+  @js.native
+  val ^ : js.Any = js.native
+  
   @JSImport("@stardust-ui/react-component-ref", "Ref")
   @js.native
   val Ref: FunctionComponent[RefProps] = js.native
@@ -70,21 +74,18 @@ object mod {
     * @param ref An ref object or function
     * @param node A node that should be passed by ref
     */
-  @JSImport("@stardust-ui/react-component-ref", "handleRef")
-  @js.native
-  def handleRef[N](ref: japgolly.scalajs.react.raw.React.Ref, node: N): Unit = js.native
+  @scala.inline
+  def handleRef[N](ref: japgolly.scalajs.react.raw.React.Ref, node: N): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("handleRef")(ref.asInstanceOf[js.Any], node.asInstanceOf[js.Any])).asInstanceOf[Unit]
   
   /** Checks that the passed object is a valid React ref object. */
-  @JSImport("@stardust-ui/react-component-ref", "isRefObject")
-  @js.native
-  def isRefObject(ref: js.Any): /* is react.react.RefObject<any> */ Boolean = js.native
+  @scala.inline
+  def isRefObject(ref: js.Any): /* is react.react.RefObject<any> */ Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("isRefObject")(ref.asInstanceOf[js.Any]).asInstanceOf[/* is react.react.RefObject<any> */ Boolean]
   
   @JSImport("@stardust-ui/react-component-ref", "refPropType")
   @js.native
   val refPropType: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ js.Any = js.native
   
   /** Creates a React ref object from existing DOM node. */
-  @JSImport("@stardust-ui/react-component-ref", "toRefObject")
-  @js.native
-  def toRefObject[T /* <: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): RefHandle[T] = js.native
+  @scala.inline
+  def toRefObject[T /* <: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): RefHandle[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("toRefObject")(node.asInstanceOf[js.Any]).asInstanceOf[RefHandle[T]]
 }

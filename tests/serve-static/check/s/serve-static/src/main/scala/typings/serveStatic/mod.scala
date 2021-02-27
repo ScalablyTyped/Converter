@@ -10,41 +10,41 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  @scala.inline
+  def apply(root: String): Handler = ^.asInstanceOf[js.Dynamic].apply(root.asInstanceOf[js.Any]).asInstanceOf[Handler]
+  @scala.inline
+  def apply(root: String, options: ServeStaticOptions): Handler = (^.asInstanceOf[js.Dynamic].apply(root.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[Handler]
+  
   @JSImport("serve-static", JSImport.Namespace)
   @js.native
-  def apply(root: String): Handler = js.native
-  @JSImport("serve-static", JSImport.Namespace)
-  @js.native
-  def apply(root: String, options: ServeStaticOptions): Handler = js.native
+  val ^ : js.Any = js.native
   
   object mime {
+    
+    @JSImport("serve-static", "mime")
+    @js.native
+    val ^ : js.Any = js.native
     
     @JSImport("serve-static", "mime.default_type")
     @js.native
     val defaultType: String = js.native
     
-    @JSImport("serve-static", "mime.define")
-    @js.native
-    def define(mimes: TypeMap): Unit = js.native
-    @JSImport("serve-static", "mime.define")
-    @js.native
-    def define(mimes: TypeMap, force: Boolean): Unit = js.native
+    @scala.inline
+    def define(mimes: TypeMap): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("define")(mimes.asInstanceOf[js.Any]).asInstanceOf[Unit]
+    @scala.inline
+    def define(mimes: TypeMap, force: Boolean): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("define")(mimes.asInstanceOf[js.Any], force.asInstanceOf[js.Any])).asInstanceOf[Unit]
     
-    @JSImport("serve-static", "mime.getExtension")
-    @js.native
-    def getExtension(mime: String): String | Null = js.native
+    @scala.inline
+    def getExtension(mime: String): String | Null = ^.asInstanceOf[js.Dynamic].applyDynamic("getExtension")(mime.asInstanceOf[js.Any]).asInstanceOf[String | Null]
     
-    @JSImport("serve-static", "mime.getType")
-    @js.native
-    def getType(path: String): String | Null = js.native
+    @scala.inline
+    def getType(path: String): String | Null = ^.asInstanceOf[js.Dynamic].applyDynamic("getType")(path.asInstanceOf[js.Any]).asInstanceOf[String | Null]
   }
   
-  @JSImport("serve-static", "serveStatic")
-  @js.native
-  def serveStatic(root: String): Handler = js.native
-  @JSImport("serve-static", "serveStatic")
-  @js.native
-  def serveStatic(root: String, options: ServeStaticOptions): Handler = js.native
+  @scala.inline
+  def serveStatic(root: String): Handler = ^.asInstanceOf[js.Dynamic].applyDynamic("serveStatic")(root.asInstanceOf[js.Any]).asInstanceOf[Handler]
+  @scala.inline
+  def serveStatic(root: String, options: ServeStaticOptions): Handler = (^.asInstanceOf[js.Dynamic].applyDynamic("serveStatic")(root.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[Handler]
   
   @js.native
   trait ServeStaticOptions extends StObject {

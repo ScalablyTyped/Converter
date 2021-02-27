@@ -19,16 +19,17 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @JSImport("react-dropzone", JSImport.Default)
+  @JSImport("react-dropzone", JSImport.Namespace)
   @js.native
-  def default(props: DropzoneProps with RefAttributes[DropzoneRef]): ReactElement = js.native
+  val ^ : js.Any = js.native
   
-  @JSImport("react-dropzone", "useDropzone")
-  @js.native
-  def useDropzone(): DropzoneState = js.native
-  @JSImport("react-dropzone", "useDropzone")
-  @js.native
-  def useDropzone(options: DropzoneOptions): DropzoneState = js.native
+  @scala.inline
+  def default(props: DropzoneProps with RefAttributes[DropzoneRef]): ReactElement = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(props.asInstanceOf[js.Any]).asInstanceOf[ReactElement]
+  
+  @scala.inline
+  def useDropzone(): DropzoneState = ^.asInstanceOf[js.Dynamic].applyDynamic("useDropzone")().asInstanceOf[DropzoneState]
+  @scala.inline
+  def useDropzone(options: DropzoneOptions): DropzoneState = ^.asInstanceOf[js.Dynamic].applyDynamic("useDropzone")(options.asInstanceOf[js.Any]).asInstanceOf[DropzoneState]
   
   type DropEvent = DragEvent[HTMLElement] | ChangeEvent[HTMLInputElement] | org.scalajs.dom.raw.DragEvent | Event
   

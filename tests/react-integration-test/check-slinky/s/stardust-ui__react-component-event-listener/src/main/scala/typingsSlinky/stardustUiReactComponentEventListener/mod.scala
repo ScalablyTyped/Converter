@@ -12,11 +12,15 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  @JSImport("@stardust-ui/react-component-event-listener", JSImport.Namespace)
+  @js.native
+  val ^ : js.Any = js.native
+  
   object EventListener {
     
-    @JSImport("@stardust-ui/react-component-event-listener", "EventListener")
-    @js.native
-    def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = js.native
+    @scala.inline
+    def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = ^.asInstanceOf[js.Dynamic].applyDynamic("EventListener")(props.asInstanceOf[js.Any]).asInstanceOf[js.Any]
+    
     @JSImport("@stardust-ui/react-component-event-listener", "EventListener")
     @js.native
     val ^ : js.Any = js.native
@@ -53,9 +57,8 @@ object mod {
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
   ] = js.native
   
-  @JSImport("@stardust-ui/react-component-event-listener", "useEventListener")
-  @js.native
-  def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91 */ js.Any */](options: EventListenerOptions[T]): Unit = js.native
+  @scala.inline
+  def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91 */ js.Any */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("useEventListener")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
   
   @JSImport("@stardust-ui/react-component-event-listener", "windowRef")
   @js.native

@@ -35,13 +35,11 @@ object mod {
     var _parser: SAXParser = js.native
   }
   
-  @JSImport("sax", "createStream")
-  @js.native
-  def createStream(strict: Boolean, opt: SAXOptions): SAXStream = js.native
+  @scala.inline
+  def createStream(strict: Boolean, opt: SAXOptions): SAXStream = (^.asInstanceOf[js.Dynamic].applyDynamic("createStream")(strict.asInstanceOf[js.Any], opt.asInstanceOf[js.Any])).asInstanceOf[SAXStream]
   
-  @JSImport("sax", "parser")
-  @js.native
-  def parser(strict: Boolean, opt: SAXOptions): SAXParser = js.native
+  @scala.inline
+  def parser(strict: Boolean, opt: SAXOptions): SAXParser = (^.asInstanceOf[js.Dynamic].applyDynamic("parser")(strict.asInstanceOf[js.Any], opt.asInstanceOf[js.Any])).asInstanceOf[SAXParser]
   
   @js.native
   trait BaseTag extends StObject {

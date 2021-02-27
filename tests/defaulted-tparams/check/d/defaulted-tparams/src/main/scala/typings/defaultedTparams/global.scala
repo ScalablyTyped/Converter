@@ -14,12 +14,14 @@ object global {
     extends typings.defaultedTparams.Queue[S, T]
   object Queue {
     
+    @JSGlobal("Queue")
+    @js.native
+    val ^ : js.Any = js.native
+    
     /* static member */
-    @JSGlobal("Queue.from")
-    @js.native
-    def from[T](iterable: Iterable[T]): typings.defaultedTparams.Queue[T, T] = js.native
-    @JSGlobal("Queue.from")
-    @js.native
-    def from[T](iterable: Iterable[T], length: Double): typings.defaultedTparams.Queue[T, T] = js.native
+    @scala.inline
+    def from[T](iterable: Iterable[T]): typings.defaultedTparams.Queue[T, T] = ^.asInstanceOf[js.Dynamic].applyDynamic("from")(iterable.asInstanceOf[js.Any]).asInstanceOf[typings.defaultedTparams.Queue[T, T]]
+    @scala.inline
+    def from[T](iterable: Iterable[T], length: Double): typings.defaultedTparams.Queue[T, T] = (^.asInstanceOf[js.Dynamic].applyDynamic("from")(iterable.asInstanceOf[js.Any], length.asInstanceOf[js.Any])).asInstanceOf[typings.defaultedTparams.Queue[T, T]]
   }
 }

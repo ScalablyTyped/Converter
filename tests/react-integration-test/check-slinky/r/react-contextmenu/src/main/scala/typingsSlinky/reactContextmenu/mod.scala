@@ -17,6 +17,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
+  @JSImport("react-contextmenu", JSImport.Namespace)
+  @js.native
+  val ^ : js.Any = js.native
+  
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("react-contextmenu", "ContextMenu")
   @js.native
@@ -65,35 +69,26 @@ object mod {
   @js.native
   val SubMenu: ReactComponentClass[SubMenuProps] = js.native
   
-  @JSImport("react-contextmenu", "connectMenu")
-  @js.native
-  def connectMenu(menuId: String): js.Function1[/* menu */ js.Any, _] = js.native
+  @scala.inline
+  def connectMenu(menuId: String): js.Function1[/* menu */ js.Any, _] = ^.asInstanceOf[js.Dynamic].applyDynamic("connectMenu")(menuId.asInstanceOf[js.Any]).asInstanceOf[js.Function1[/* menu */ js.Any, _]]
   
-  @JSImport("react-contextmenu", "hideMenu")
-  @js.native
-  def hideMenu(): Unit = js.native
-  @JSImport("react-contextmenu", "hideMenu")
-  @js.native
-  def hideMenu(opts: js.UndefOr[scala.Nothing], target: HTMLElement): Unit = js.native
-  @JSImport("react-contextmenu", "hideMenu")
-  @js.native
-  def hideMenu(opts: js.Any): Unit = js.native
-  @JSImport("react-contextmenu", "hideMenu")
-  @js.native
-  def hideMenu(opts: js.Any, target: HTMLElement): Unit = js.native
+  @scala.inline
+  def hideMenu(): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")().asInstanceOf[Unit]
+  @scala.inline
+  def hideMenu(opts: js.UndefOr[scala.Nothing], target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  @scala.inline
+  def hideMenu(opts: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  @scala.inline
+  def hideMenu(opts: js.Any, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
   
-  @JSImport("react-contextmenu", "showMenu")
-  @js.native
-  def showMenu(): Unit = js.native
-  @JSImport("react-contextmenu", "showMenu")
-  @js.native
-  def showMenu(opts: js.UndefOr[scala.Nothing], target: HTMLElement): Unit = js.native
-  @JSImport("react-contextmenu", "showMenu")
-  @js.native
-  def showMenu(opts: js.Any): Unit = js.native
-  @JSImport("react-contextmenu", "showMenu")
-  @js.native
-  def showMenu(opts: js.Any, target: HTMLElement): Unit = js.native
+  @scala.inline
+  def showMenu(): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")().asInstanceOf[Unit]
+  @scala.inline
+  def showMenu(opts: js.UndefOr[scala.Nothing], target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  @scala.inline
+  def showMenu(opts: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  @scala.inline
+  def showMenu(opts: js.Any, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
   
   @js.native
   trait ContextMenuProps extends StObject {

@@ -33,9 +33,12 @@ object global {
     /* static members */
     object Promise {
       
-      @JSGlobal("monaco.Promise.any")
+      @JSGlobal("monaco.Promise")
       @js.native
-      def any[T](promises: js.Array[T | js.Thenable[T]]): typings.monacoEditor.monaco.Promise[Key[T], _] = js.native
+      val ^ : js.Any = js.native
+      
+      @scala.inline
+      def any[T](promises: js.Array[T | js.Thenable[T]]): typings.monacoEditor.monaco.Promise[Key[T], _] = ^.asInstanceOf[js.Dynamic].applyDynamic("any")(promises.asInstanceOf[js.Any]).asInstanceOf[typings.monacoEditor.monaco.Promise[Key[T], _]]
     }
   }
 }
