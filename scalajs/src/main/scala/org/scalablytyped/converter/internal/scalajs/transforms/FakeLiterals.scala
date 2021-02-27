@@ -51,8 +51,8 @@ object FakeLiterals {
       if (collected.isEmpty) None
       else {
         val members =
-          collected.flatMap {
-            case (underlying: ExprTree.Lit, name) =>
+          collected.zipWithIndex.flatMap {
+            case ((underlying: ExprTree.Lit, name), idx) =>
               val codePath = tree.codePath + moduleName + name
               val `trait` =
                 ClassTree(
@@ -69,7 +69,7 @@ object FakeLiterals {
                   codePath,
                 )
 
-              val `def` =
+              def `def` =
                 MethodTree(
                   IArray(Annotation.Inline),
                   ProtectionLevel.Default,
@@ -83,7 +83,10 @@ object FakeLiterals {
                   codePath,
                   isImplicit = false,
                 )
-              List(`trait`, `def`)
+
+              // for instance @expo/vector-icons has 11500 different literal strings,
+              // and it causes: Class too large: typings/expoVectorIcons/expoVectorIconsStrings
+              if (idx <= 10000) List(`trait`, `def`) else List(`trait`)
           }
 
         Some(
