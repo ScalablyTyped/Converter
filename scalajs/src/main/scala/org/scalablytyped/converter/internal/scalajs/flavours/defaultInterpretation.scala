@@ -3,6 +3,7 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
+import org.scalablytyped.converter.internal.scalajs.transforms.FakeLiterals
 
 sealed trait ObjectUpdater
 case class Initializer(value: ExprTree.Arg.Named) extends ObjectUpdater
@@ -24,6 +25,24 @@ object defaultInterpretation {
           Mutator(ref => if (isRequired) asExpr(ref) else If(BinaryOp(Ref(name), "!=", Null), asExpr(ref), None))
 
         (updater, Right(param))
+
+      case prop @ Prop.Normal(Prop.Variant(tpe, asExpr, _, _), _, Optionality.No, _, _)
+          if tpe.comments.has[FakeLiterals.WasLiteral] =>
+        def updateObj(value: ExprTree): Mutator =
+          Mutator(ref =>
+            Call(
+              Select(ref, Name("updateDynamic")),
+              IArray(IArray(StringLit(prop.originalName.unescaped)), IArray(value)),
+            ),
+          )
+
+        val lit = tpe.comments.extract { case FakeLiterals.WasLiteral(lit) => lit }.get._1
+
+        val updater =
+          if (prop.canBeInitializer) Initializer(Arg.Named(prop.name, asExpr(Ref(prop.name))))
+          else updateObj(asExpr(Ref(prop.name)))
+
+        (updater, Left(Val(prop.name, lit)))
 
       case prop @ Prop.Normal(Prop.Variant(tpe, asExpr, _, _), _, optionality, _, _) =>
         def updateObj(value: ExprTree): Mutator =

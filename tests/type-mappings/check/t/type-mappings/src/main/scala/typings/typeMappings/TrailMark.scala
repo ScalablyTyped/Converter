@@ -14,7 +14,8 @@ trait TrailMark extends Mark {
 object TrailMark {
   
   @scala.inline
-  def apply(`type`: trail): TrailMark = {
+  def apply(): TrailMark = {
+    val `type` = "trail"
     val __obj = js.Dynamic.literal()
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[TrailMark]

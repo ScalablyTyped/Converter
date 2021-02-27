@@ -24,7 +24,8 @@ object configMod extends Shortcut {
   object Config {
     
     @scala.inline
-    def apply(foo: bar): Config = {
+    def apply(): Config = {
+      val foo = "bar"
       val __obj = js.Dynamic.literal(foo = foo.asInstanceOf[js.Any])
       __obj.asInstanceOf[Config]
     }

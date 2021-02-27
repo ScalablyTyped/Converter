@@ -1,7 +1,5 @@
 package typings.typeMappings
 
-import typings.typeMappings.typeMappingsStrings.text
-import typings.typeMappings.typeMappingsStrings.trail
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -15,14 +13,16 @@ trait Mark extends StObject
 object Mark {
   
   @scala.inline
-  def TextMark(`type`: text): typings.typeMappings.TextMark = {
+  def TextMark(): typings.typeMappings.TextMark = {
+    val `type` = "text"
     val __obj = js.Dynamic.literal()
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[typings.typeMappings.TextMark]
   }
   
   @scala.inline
-  def TrailMark(`type`: trail): typings.typeMappings.TrailMark = {
+  def TrailMark(): typings.typeMappings.TrailMark = {
+    val `type` = "trail"
     val __obj = js.Dynamic.literal()
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[typings.typeMappings.TrailMark]
