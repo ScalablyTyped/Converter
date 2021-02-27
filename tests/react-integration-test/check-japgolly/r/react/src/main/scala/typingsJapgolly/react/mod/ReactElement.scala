@@ -19,7 +19,8 @@ object ReactElement {
   
   @scala.inline
   def apply(props: js.Any, `type`: js.Any): Element = {
-    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
+    val key = null
+    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = key.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[Element]
   }

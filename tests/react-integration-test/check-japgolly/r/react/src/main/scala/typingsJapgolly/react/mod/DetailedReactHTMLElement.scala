@@ -12,7 +12,9 @@ object DetailedReactHTMLElement {
   
   @scala.inline
   def apply[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](props: js.Any, `type`: js.Any): DetailedReactHTMLElement[P, T] = {
-    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
+    val key = null
+    val ref = null
+    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = key.asInstanceOf[js.Any], ref = ref.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[DetailedReactHTMLElement[P, T]]
   }
