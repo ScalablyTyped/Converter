@@ -14,7 +14,8 @@ trait TextMark extends Mark {
 object TextMark {
   
   @scala.inline
-  def apply(`type`: text): TextMark = {
+  def apply(): TextMark = {
+    val `type` = "text"
     val __obj = js.Dynamic.literal()
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[TextMark]
