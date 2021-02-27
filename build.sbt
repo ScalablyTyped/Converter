@@ -109,7 +109,7 @@ lazy val root = project
 lazy val baseSettings: Project => Project =
   _.settings(
     licenses += ("GPL-3.0", url("https://opensource.org/licenses/GPL-3.0")),
-    scalaVersion := "2.12.11",
+    scalaVersion := "2.12.13",
     organization := "org.scalablytyped.converter",
     scalacOptions ~= (_.filterNot(
       Set(
