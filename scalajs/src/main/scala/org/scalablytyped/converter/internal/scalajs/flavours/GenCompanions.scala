@@ -66,10 +66,10 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
                 Empty
 
               case Res.One(_, props) if props.isEmpty => Empty
-              case Res.One(_, props) =>
+              case Res.One(_, props: IArray[Prop]) =>
                 val requiredProps =
                   if (enableLongApplyMethod) props
-                  else props.filter(_.optionality === Optionality.No)
+                  else props.filter(p => p.optionality === Optionality.No || p.optionality === Optionality.Null)
 
                 IArray.fromOptions(
                   Some(generateCreator(Name.APPLY, requiredProps, cls.codePath, cls.tparams))
@@ -150,6 +150,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
     val impl: ExprTree = {
       val objName = Name("__obj")
       Block.flatten(
+        interpretedProps.collect { case (_, Left(valDef)) => valDef },
         IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(initializers.map(_.value))))),
         mutators.map(f => f.value(Ref(objName))),
         IArray(Cast(Ref(QualifiedName(IArray(objName))), ret)),
@@ -161,7 +162,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
       level       = ProtectionLevel.Default,
       name        = name,
       tparams     = typeTparams,
-      params      = IArray(interpretedProps.map(_._2)),
+      params      = IArray(interpretedProps.collect { case (_, Right(param)) => param }),
       impl        = impl,
       resultType  = ret,
       isOverride  = false,

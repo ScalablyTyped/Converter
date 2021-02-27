@@ -193,7 +193,8 @@ object mod {
     
     @scala.inline
     def apply(props: js.Any, `type`: String | ComponentClassP[js.Object] | SFC[_]): Element = {
-      val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
+      val key = null
+      val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = key.asInstanceOf[js.Any])
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
       __obj.asInstanceOf[Element]
     }

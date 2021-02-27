@@ -538,6 +538,7 @@ class SlinkyGenComponents(
       )
 
       Block.flatten(
+        interpretedProps.collect { case (_, Left(valDef)) => valDef },
         IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(initializers.map(_.value))))),
         mutators.map(f => f.value(Ref(objName))),
         IArray(newed),
@@ -545,7 +546,7 @@ class SlinkyGenComponents(
     }
 
     val paramsOpt: Option[IArray[IArray[ParamTree]]] =
-      interpretedProps.map(_._2) match {
+      interpretedProps.collect { case (_, Right(param)) => param } match {
         case Empty if tparams.nonEmpty => Some(IArray(IArray())) // allow nullary apply if there are type parameters
         case Empty                     => None
         case nonEmpty                  => Some(IArray(nonEmpty))
