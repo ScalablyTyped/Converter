@@ -43,6 +43,7 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   test("cldrjs")(assertImportsOk("cldrjs", pedantic                                 = true, update  = update))
   test("void-elements")(assertImportsOk("void-elements", pedantic                   = true, update  = update))
   test("type-mappings")(assertImportsOk("type-mappings", pedantic                   = true, update  = update))
+  test("documentation")(assertImportsOk("documentation", pedantic                   = true, update  = update))
   test("swiz")(assertImportsOk("swiz", pedantic                                     = true, update  = update))
   test("defaulted-tparams")(assertImportsOk("defaulted-tparams", pedantic           = true, update  = update))
   test("union-to-inheritance")(assertImportsOk("union-to-inheritance", pedantic     = true, update  = update))
