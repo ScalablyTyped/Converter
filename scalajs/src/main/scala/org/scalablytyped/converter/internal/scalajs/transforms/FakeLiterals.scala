@@ -41,18 +41,18 @@ object FakeLiterals {
       }
 
     val StringModuleName   = Name(tree.name.unescaped + "Strings")
-    val collectedStrings   = mutable.HashMap.empty[ExprTree.Lit, Name]
+    val collectedStrings   = mutable.HashMap.empty[Name, ExprTree.Lit]
     val NumbersModuleName  = Name(tree.name.unescaped + "Numbers")
-    val collectedNumbers   = mutable.HashMap.empty[ExprTree.Lit, Name]
+    val collectedNumbers   = mutable.HashMap.empty[Name, ExprTree.Lit]
     val BooleansModuleName = Name(tree.name.unescaped + "Booleans")
-    val collectedBooleans  = mutable.HashMap.empty[ExprTree.Lit, Name]
+    val collectedBooleans  = mutable.HashMap.empty[Name, ExprTree.Lit]
 
-    def module(collected: mutable.HashMap[ExprTree.Lit, Name], moduleName: Name): Option[ModuleTree] =
+    def module(collected: mutable.HashMap[Name, ExprTree.Lit], moduleName: Name): Option[ModuleTree] =
       if (collected.isEmpty) None
       else {
         val members =
           collected.zipWithIndex.flatMap {
-            case ((underlying: ExprTree.Lit, name), idx) =>
+            case ((name, underlying: ExprTree.Lit), idx) =>
               val codePath = tree.codePath + moduleName + name
               val `trait` =
                 ClassTree(
@@ -107,7 +107,7 @@ object FakeLiterals {
         case TypeRef.StringLiteral(underlying) =>
           val name = calculateName(underlying)
           val lit  = ExprTree.StringLit(underlying)
-          collectedStrings(lit) = name
+          collectedStrings(name) = lit
           TypeRef(
             QualifiedName(IArray(outputPkg, tree.name, StringModuleName, name)),
             Empty,
@@ -117,7 +117,7 @@ object FakeLiterals {
         case TypeRef.BooleanLiteral(underlying) =>
           val name = Name(underlying)
           val lit  = ExprTree.BooleanLit(underlying.toBoolean)
-          collectedBooleans(lit) = name
+          collectedBooleans(name) = lit
           TypeRef(
             QualifiedName(IArray(outputPkg, tree.name, BooleansModuleName, name)),
             Empty,
@@ -133,7 +133,7 @@ object FakeLiterals {
             }
 
           val lit = ExprTree.NumberLit(newUnderlying)
-          collectedNumbers(lit) = name
+          collectedNumbers(name) = lit
           TypeRef(
             QualifiedName(IArray(outputPkg, tree.name, NumbersModuleName, name)),
             Empty,
