@@ -123,15 +123,16 @@ object FlattenTrees {
       case that: TsDeclTypeAlias =>
         rets.addOrUpdateMatching(that)(x => x) {
           case existing: TsDeclTypeAlias if that.name === existing.name =>
-            TsDeclTypeAlias(
-              comments = mergeComments(existing.comments, that.comments),
-              declared = existing.declared || that.declared,
-              name     = existing.name,
-              tparams  = mergeTypeParams(existing.tparams, that.tparams),
-              alias    = TsTypeIntersect.simplified(IArray(existing.alias, that.alias)),
-              codePath = mergeCodePath(existing.codePath, that.codePath),
-            )
-
+            IArray(existing, that).find(ta => !ta.comments.has[Markers.IsTrivial.type]).getOrElse {
+              TsDeclTypeAlias(
+                comments = mergeComments(existing.comments, that.comments),
+                declared = existing.declared || that.declared,
+                name     = existing.name,
+                tparams  = mergeTypeParams(existing.tparams, that.tparams),
+                alias    = TsTypeIntersect.simplified(IArray(existing.alias, that.alias)),
+                codePath = mergeCodePath(existing.codePath, that.codePath),
+              )
+            }
         }
 
       case that => rets += that
