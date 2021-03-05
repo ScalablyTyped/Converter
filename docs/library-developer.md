@@ -3,9 +3,7 @@ id: library-developer
 title: How to share code
 ---
 
-The normal approach of using ScalablyTyped is geared towards writing applications.
-
-If you want to distribute code written on top of ScalablyTyped, so there is now another workflow 
+If you want to distribute code written on top of ScalablyTyped, so there is a special workflow 
 for producing free-standing libraries based on the generated code.
 
 ## Example project
