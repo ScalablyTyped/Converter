@@ -13,6 +13,7 @@ final case class Name(unescaped: String) {
 }
 
 object Name {
+  val mod:        Name = Name("mod")
   val std:        Name = Name("std")
   val typings:    Name = Name("typings")
   val global:     Name = Name("global")

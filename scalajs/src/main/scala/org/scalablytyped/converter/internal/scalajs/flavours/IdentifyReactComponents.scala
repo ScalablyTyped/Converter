@@ -195,8 +195,9 @@ class IdentifyReactComponents(
           case _: ClassTree => false
           case _ => true
         }
-        val propsRef  = PropsRef(flattenedParams.headOption.map(_.tpe).getOrElse(TypeRef.Object))
-        def validName = isUpper(method.name) || (Unnamed(method.name) && (isUpper(owner.name) || Unnamed(owner.name)))
+        val propsRef = PropsRef(flattenedParams.headOption.map(_.tpe).getOrElse(TypeRef.Object))
+        def validName =
+          isUpper(method.name) || (Unnamed(method.name) && (isUpper(owner.name) || Unnamed(owner.name) || owner.name === Name.mod))
 
         if (!validName || !isTopLevel || !method.isNative) None
         else
@@ -385,7 +386,7 @@ class IdentifyReactComponents(
       val fromCodePath = codePath.parts
         .filterNot(Unnamed)
         .reverse
-        .takeWhile(n => !n.unescaped.endsWith("Mod") && n.unescaped != "mod")
+        .takeWhile(n => !n.unescaped.endsWith("Mod") && n != Name.mod)
         .headOption
 
       val name = fromCodePath.orElse(fromAnnotations(anns))

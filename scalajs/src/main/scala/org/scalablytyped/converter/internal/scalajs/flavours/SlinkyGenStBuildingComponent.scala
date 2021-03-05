@@ -194,7 +194,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
         comments   = NoComments,
       )
       val impl = {
-        val modParam = ParamTree(Name("mod"), isImplicit = false, isVal = false, TagModE, NotImplemented, NoComments)
+        val modParam = ParamTree(Name.mod, isImplicit = false, isVal = false, TagModE, NotImplemented, NoComments)
         val modRef   = Ref(modParam.name)
 
         val AttrPair = TypeRef(SlinkyGenComponents.names.AttrPair, IArray(TypeRef.Wildcard), NoComments)
