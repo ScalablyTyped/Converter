@@ -130,7 +130,7 @@ object AdaptiveNamingImport {
   }
 
   private def addMod(str: String) = str match {
-    case ""       => "mod"
+    case ""       => Name.mod.unescaped
     case nonEmpty => nonEmpty + "Mod"
   }
 

@@ -4,7 +4,7 @@ package flavours
 
 class ReactNames(val outputPkg: Name) {
   val libName              = Name("react")
-  val mod                  = QualifiedName(IArray(outputPkg, libName, Name("mod")))
+  val mod                  = QualifiedName(IArray(outputPkg, libName, Name.mod))
   val Ref                  = mod + Name("Ref")
   val LegacyRef            = mod + Name("LegacyRef")
   val RefObject            = mod + Name("RefObject")
