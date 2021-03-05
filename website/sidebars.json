@@ -1,15 +1,5 @@
 {
   "docs": {
-    "ScalablyTyped": [
-      "readme",
-      "usage",
-      "conversion-options",
-      "flavour",
-      "encoding",
-      "changelog",
-      "import-problems",
-      "remotecache"
-    ],
     "Getting started (application)": [
       "plugin",
       "plugin-no-bundler",
@@ -18,7 +8,18 @@
     "Getting started (library)": [
       "library-developer"
     ],
+    "Usage": [
+      "usage",
+      "objects",
+      "flavour",
+      "encoding"
+    ],
+    "Configuration": [
+      "conversion-options",
+      "remotecache"
+    ],
     "Development": [
+      "import-problems",
       "devel/about",
       "devel/running"
     ]

@@ -22,7 +22,7 @@ const users = [
 
 const siteConfig = {
     title: 'ScalablyTyped', // Title for your website.
-    tagline: 'The official website of the ScalablyTyped project',
+    tagline: 'The Javascript ecosystem for Scala.js!',
     url: 'https://scalablytyped.org', // Your website URL
     baseUrl: '/', // Base URL for your project */
     // For github.io type URLs, you would set the url and baseUrl like:

@@ -3,9 +3,6 @@ id: readme
 title: The Javascript ecosystem for Scala.js!
 ---
 
-Typescript is now used to describe almost all useful Javascript libraries.
-
-This project aims to make all of that useful from Scala.js by converting typescript type definitions automatically in your build.   
 
 
 ## Getting started
@@ -23,6 +20,6 @@ This project took [scala-js-ts-importer](https://github.com/sjrd/scala-js-ts-imp
 and inherited a lot of decisions from it.
 
 ## License
-ScalablyTypedConverter code is distributed under the [GPL version 3](https://opensource.org/licenses/GPL-3.0).
+The ScalablyTyped Converter code is distributed under the [GPL version 3](https://opensource.org/licenses/GPL-3.0).
 Everything else is MIT licensed.
  
