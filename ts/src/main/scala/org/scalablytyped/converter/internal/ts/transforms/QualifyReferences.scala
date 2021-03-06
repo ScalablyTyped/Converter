@@ -6,12 +6,12 @@ class QualifyReferences(skipValidation: Boolean) extends TreeTransformationScope
 
   override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
     x match {
-      case x: TsTypeRef => TsTypeIntersect.simplified(resolveTypeRef(scope, x, Picker.Types))
+      case x: TsTypeRef => TsTypeIntersect.simplified(resolveTypeRef(scope, x, None))
       case other => other
     }
 
   override def enterTsTypeRef(scope: TsTreeScope)(x: TsTypeRef): TsTypeRef =
-    resolveTypeRef(scope, x, Picker.Types) match {
+    resolveTypeRef(scope, x, None) match {
       case IArray.exactlyOne(one) => one
       case multiple               =>
         /* due to the type signature we can't intersect these */
@@ -27,31 +27,54 @@ class QualifyReferences(skipValidation: Boolean) extends TreeTransformationScope
   override def enterTsDeclTypeAlias(scope: TsTreeScope)(ta: TsDeclTypeAlias): TsDeclTypeAlias =
     ta.alias match {
       case x: TsTypeRef =>
-        val picker   = Picker.ButNot(Picker.Types, ta)
-        val newAlias = TsTypeIntersect.simplified(resolveTypeRef(scope, x, picker))
+        val resolved = resolveTypeRef(scope, x, Some(_.codePath =/= ta.codePath))
+        val newAlias = TsTypeIntersect.simplified(resolved)
         ta.copy(alias = newAlias)
       case _ => ta
     }
 
-  /* Special case because sometimes classes inherit from an interface with the same name */
   override def enterTsDeclClass(scope: TsTreeScope)(x: TsDeclClass): TsDeclClass = {
-    val picker      = Picker.ButNot(Picker.Types, x)
-    val inheritance = x.parent.foldRight(x.implements)(_ +: _)
-    val qualified   = inheritance.flatMap(i => resolveTypeRef(scope, i, picker))
+    val all: IArray[TsTypeRef] =
+      x.parent.foldRight(x.implements)(_ +: _)
+
+    /** Special case because sometimes classes inherit from an interface with the same name
+      * We'll just merge them instead
+      */
+    val filtered: IArray[TsTypeRef] =
+      all.filter {
+        case TsTypeRef(_, TsQIdent(IArray.exactlyOne(x.name)), _) => false
+        case _                                                    => true
+      }
+
+    val qualified: IArray[TsTypeRef] =
+      filtered.flatMap(i => resolveTypeRef(scope, i, None))
+
     x.copy(parent = qualified.headOption, implements = qualified.drop(1))
   }
 
-  def resolveTypeRef(scope: TsTreeScope, tr: TsTypeRef, picker: Picker[TsNamedDecl]): IArray[TsTypeRef] =
+  def resolveTypeRef(
+      scope:       TsTreeScope,
+      tr:          TsTypeRef,
+      maybeFilter: Option[TsNamedDecl => Boolean],
+  ): IArray[TsTypeRef] =
     if (shouldQualify(tr.name, scope)) {
-      val many = referenceFrom(scope.lookupBase(picker, tr.name, skipValidation = skipValidation)) match {
-        case Empty if skipValidation => IArray(tr)
-        case Empty =>
-          val msg = s"Couldn't qualify ${TsTypeFormatter(tr)}"
-          scope.logger.warn(msg)
-          IArray(TsTypeRef.any.copy(comments = Comments(Comment.warning(msg))))
-        case locations =>
-          locations.map(loc => tr.copy(name = loc.codePath))
-      }
+      val all: IArray[TsNamedDecl] =
+        scope.lookupType(tr.name, skipValidation = skipValidation)
+
+      val filtered: IArray[TsNamedDecl] =
+        maybeFilter.foldLeft(all)(_.filter(_))
+
+      val many: IArray[TsTypeRef] =
+        filtered.map(_.codePath.forceHasPath) match {
+          case Empty if skipValidation => IArray(tr)
+          case Empty =>
+            val msg = s"Couldn't qualify ${TsTypeFormatter(tr)}"
+            scope.logger.warn(msg)
+            IArray(TsTypeRef.any.copy(comments = Comments(Comment.warning(msg))))
+          case locations =>
+            locations.map(loc => tr.copy(name = loc.codePath))
+        }
+
       /* todo: let's drop this extra information for now, need to analyze the changes first */
       many.take(1)
     } else IArray(tr)
@@ -61,9 +84,4 @@ class QualifyReferences(skipValidation: Boolean) extends TreeTransformationScope
     else if (name.parts.head.isInstanceOf[TsIdentLibrary]) false
     else if (scope.isAbstract(name)) false
     else true
-
-  def referenceFrom(types: IArray[(TsNamedDecl, TsTreeScope)]): IArray[CodePath.HasPath] =
-    types.map {
-      case (named, _) => named.codePath.forceHasPath
-    }
 }
