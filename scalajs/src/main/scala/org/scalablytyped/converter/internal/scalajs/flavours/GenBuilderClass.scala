@@ -8,13 +8,8 @@ import ExprTree._
 
 import scala.collection.mutable
 
-object GenBuilderOpsClass {
-  def apply(
-      original: ClassTree,
-      props:    IArray[Prop],
-      ownerCp:  QualifiedName,
-      scope:    TreeScope,
-  ): Option[ClassTree] = {
+object GenBuilderClass {
+  def apply(original: ClassTree, props: IArray[Prop], ownerCp: QualifiedName): Option[ClassTree] = {
     val x           = Name("x")
     val clsName     = Name(s"${original.name.unescaped}MutableBuilder")
     val clsCodePath = ownerCp + clsName

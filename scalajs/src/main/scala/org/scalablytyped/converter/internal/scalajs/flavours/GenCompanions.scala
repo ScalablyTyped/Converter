@@ -24,7 +24,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
       case cls: ClassTree =>
         val clsRef = TypeRef(cls.codePath, asTypeArgs(cls.tparams), NoComments)
 
-        val generatedImplicitOps: Option[ClassTree] =
+        val generatedBuilder: Option[ClassTree] =
           if (enableLongApplyMethod) None
           else {
             findProps.forClassTree(
@@ -34,7 +34,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
               acceptNativeTraits = false,
               selfRef            = clsRef,
             ) match {
-              case Res.One(_, props) if props.nonEmpty => GenBuilderOpsClass(cls, props, cls.codePath, scope)
+              case Res.One(_, props) if props.nonEmpty => GenBuilderClass(cls, props, cls.codePath)
               case _                                   => None
             }
           }
@@ -93,7 +93,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
                 }
             }
 
-        generatedCreators ++ IArray.fromOption(generatedImplicitOps) match {
+        generatedCreators ++ IArray.fromOption(generatedBuilder) match {
           case Empty => None
           case some =>
             val related      = Minimization.Related(some.collect { case m: HasCodePath => TypeRef(m.codePath) })

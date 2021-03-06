@@ -12,7 +12,7 @@ case class Mutator(value:     ExprTree => ExprTree) extends ObjectUpdater
 /**
   *  The process of "interpretation" takes a `Prop` and returns a parameter and a way to update a given object
   *
-  *  Note that this is not the only possible way of doing it, [[GenBuilderOpsClass]] does it differently
+  *  Note that this is not the only possible way of doing it, [[GenBuilderClass]] does it differently
   */
 object defaultInterpretation {
   def apply(prop: Prop): (ObjectUpdater, Either[ExprTree.Val, ParamTree]) =
