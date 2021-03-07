@@ -789,4 +789,19 @@ object optionsMod {
     @JSName("handler")
     var handler_Original: WatchHandler[T] = js.native
   }
+  object WatchOptionsWithHandler {
+    
+    @scala.inline
+    def apply[T](handler: (T, T) => Unit): WatchOptionsWithHandler[T] = {
+      val __obj = js.Dynamic.literal(handler = js.Any.fromFunction2(handler))
+      __obj.asInstanceOf[WatchOptionsWithHandler[T]]
+    }
+    
+    @scala.inline
+    implicit class WatchOptionsWithHandlerMutableBuilder[Self <: WatchOptionsWithHandler[_], T] (val x: Self with WatchOptionsWithHandler[T]) extends AnyVal {
+      
+      @scala.inline
+      def setHandler(value: (T, T) => Unit): Self = StObject.set(x, "handler", js.Any.fromFunction2(value))
+    }
+  }
 }

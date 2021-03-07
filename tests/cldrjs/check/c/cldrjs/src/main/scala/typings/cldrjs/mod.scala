@@ -98,6 +98,39 @@ object mod extends Shortcut {
     @JSName("supplemental")
     var supplemental_Original: SupplementalStatic = js.native
   }
+  object CldrStatic {
+    
+    @scala.inline
+    def apply(
+      get: String => js.Any,
+      off: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit,
+      on: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit,
+      once: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit,
+      supplemental: SupplementalStatic
+    ): CldrStatic = {
+      val __obj = js.Dynamic.literal(get = js.Any.fromFunction1(get), off = js.Any.fromFunction2(off), on = js.Any.fromFunction2(on), once = js.Any.fromFunction2(once), supplemental = supplemental.asInstanceOf[js.Any])
+      __obj.asInstanceOf[CldrStatic]
+    }
+    
+    @scala.inline
+    implicit class CldrStaticMutableBuilder[Self <: CldrStatic] (val x: Self) extends AnyVal {
+      
+      @scala.inline
+      def setGet(value: String => js.Any): Self = StObject.set(x, "get", js.Any.fromFunction1(value))
+      
+      @scala.inline
+      def setOff(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "off", js.Any.fromFunction2(value))
+      
+      @scala.inline
+      def setOn(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
+      
+      @scala.inline
+      def setOnce(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "once", js.Any.fromFunction2(value))
+      
+      @scala.inline
+      def setSupplemental(value: SupplementalStatic): Self = StObject.set(x, "supplemental", value.asInstanceOf[js.Any])
+    }
+  }
   
   @js.native
   trait SupplementalStatic extends StObject {

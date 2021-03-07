@@ -114,6 +114,41 @@ object mod {
     @JSName("render")
     var render_Original: StoryFunction = js.native
   }
+  object StoryObject {
+    
+    @scala.inline
+    def apply(
+      name: String,
+      render: () => (ComponentOptions[
+          Vue, 
+          DefaultData[Vue], 
+          DefaultMethods[Vue], 
+          DefaultComputed, 
+          PropsDefinition[DefaultProps]
+        ]) | String
+    ): StoryObject = {
+      val __obj = js.Dynamic.literal(name = name.asInstanceOf[js.Any], render = js.Any.fromFunction0(render))
+      __obj.asInstanceOf[StoryObject]
+    }
+    
+    @scala.inline
+    implicit class StoryObjectMutableBuilder[Self <: StoryObject] (val x: Self) extends AnyVal {
+      
+      @scala.inline
+      def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setRender(
+        value: () => (ComponentOptions[
+              Vue, 
+              DefaultData[Vue], 
+              DefaultMethods[Vue], 
+              DefaultComputed, 
+              PropsDefinition[DefaultProps]
+            ]) | String
+      ): Self = StObject.set(x, "render", js.Any.fromFunction0(value))
+    }
+  }
   
   @js.native
   trait StoryStore extends StObject {

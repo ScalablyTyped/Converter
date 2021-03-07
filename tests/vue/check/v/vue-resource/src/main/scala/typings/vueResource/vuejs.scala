@@ -352,6 +352,58 @@ object vuejs {
     @JSName("put")
     var put_Original: http = js.native
   }
+  object Http_ {
+    
+    @scala.inline
+    def apply(
+      delete: http,
+      get: http,
+      headers: HttpHeaders,
+      interceptors: js.Array[HttpInterceptor | js.Function0[HttpInterceptor]],
+      jsonp: http,
+      options: HttpOptionsrootstring,
+      patch: http,
+      post: http,
+      put: http
+    ): Http_ = {
+      val __obj = js.Dynamic.literal(delete = delete.asInstanceOf[js.Any], get = get.asInstanceOf[js.Any], headers = headers.asInstanceOf[js.Any], interceptors = interceptors.asInstanceOf[js.Any], jsonp = jsonp.asInstanceOf[js.Any], options = options.asInstanceOf[js.Any], patch = patch.asInstanceOf[js.Any], post = post.asInstanceOf[js.Any], put = put.asInstanceOf[js.Any])
+      __obj.asInstanceOf[Http_]
+    }
+    
+    @scala.inline
+    implicit class Http_MutableBuilder[Self <: Http_] (val x: Self) extends AnyVal {
+      
+      @scala.inline
+      def setDelete(value: http): Self = StObject.set(x, "delete", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setGet(value: http): Self = StObject.set(x, "get", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setHeaders(value: HttpHeaders): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setInterceptors(value: js.Array[HttpInterceptor | js.Function0[HttpInterceptor]]): Self = StObject.set(x, "interceptors", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setInterceptorsVarargs(value: (HttpInterceptor | js.Function0[HttpInterceptor])*): Self = StObject.set(x, "interceptors", js.Array(value :_*))
+      
+      @scala.inline
+      def setJsonp(value: http): Self = StObject.set(x, "jsonp", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setOptions(value: HttpOptionsrootstring): Self = StObject.set(x, "options", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setPatch(value: http): Self = StObject.set(x, "patch", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setPost(value: http): Self = StObject.set(x, "post", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setPut(value: http): Self = StObject.set(x, "put", value.asInstanceOf[js.Any])
+    }
+  }
   
   @js.native
   trait ResourceActions extends StObject {
@@ -558,6 +610,43 @@ object vuejs {
     @JSName("update")
     var update_Original: ResourceMethod = js.native
   }
+  object ResourceMethods {
+    
+    @scala.inline
+    def apply(
+      delete: ResourceMethod,
+      get: ResourceMethod,
+      query: ResourceMethod,
+      remove: ResourceMethod,
+      save: ResourceMethod,
+      update: ResourceMethod
+    ): ResourceMethods = {
+      val __obj = js.Dynamic.literal(delete = delete.asInstanceOf[js.Any], get = get.asInstanceOf[js.Any], query = query.asInstanceOf[js.Any], remove = remove.asInstanceOf[js.Any], save = save.asInstanceOf[js.Any], update = update.asInstanceOf[js.Any])
+      __obj.asInstanceOf[ResourceMethods]
+    }
+    
+    @scala.inline
+    implicit class ResourceMethodsMutableBuilder[Self <: ResourceMethods] (val x: Self) extends AnyVal {
+      
+      @scala.inline
+      def setDelete(value: ResourceMethod): Self = StObject.set(x, "delete", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setGet(value: ResourceMethod): Self = StObject.set(x, "get", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setQuery(value: ResourceMethod): Self = StObject.set(x, "query", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setRemove(value: ResourceMethod): Self = StObject.set(x, "remove", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setSave(value: ResourceMethod): Self = StObject.set(x, "save", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setUpdate(value: ResourceMethod): Self = StObject.set(x, "update", value.asInstanceOf[js.Any])
+    }
+  }
   
   @js.native
   trait Resource_ extends resource {
@@ -596,6 +685,29 @@ object vuejs {
     def $resource(url: String, params: js.Object, actions: js.Any, options: HttpOptions): ResourceMethods = js.native
     @JSName("$resource")
     var $resource_Original: resource = js.native
+  }
+  object Vue {
+    
+    @scala.inline
+    def apply(
+      $http: Call,
+      $resource: (/* url */ String, /* params */ js.UndefOr[js.Object], /* actions */ js.UndefOr[js.Any], /* options */ js.UndefOr[HttpOptions]) => ResourceMethods
+    ): Vue = {
+      val __obj = js.Dynamic.literal($http = $http.asInstanceOf[js.Any], $resource = js.Any.fromFunction4($resource))
+      __obj.asInstanceOf[Vue]
+    }
+    
+    @scala.inline
+    implicit class VueMutableBuilder[Self <: Vue] (val x: Self) extends AnyVal {
+      
+      @scala.inline
+      def set$http(value: Call): Self = StObject.set(x, "$http", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def set$resource(
+        value: (/* url */ String, /* params */ js.UndefOr[js.Object], /* actions */ js.UndefOr[js.Any], /* options */ js.UndefOr[HttpOptions]) => ResourceMethods
+      ): Self = StObject.set(x, "$resource", js.Any.fromFunction4(value))
+    }
   }
   
   @js.native

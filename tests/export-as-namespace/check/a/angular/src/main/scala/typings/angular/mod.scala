@@ -54,6 +54,40 @@ object mod extends Shortcut {
       */
     var resumeBootstrap: js.UndefOr[js.Function1[/* extraModules */ js.UndefOr[js.Array[String]], IInjectorService]] = js.native
   }
+  object IAngularStatic {
+    
+    @scala.inline
+    def apply(
+      element: /* element */ String | Element | Document | JQuery | ArrayLike[Element] | js.Function0[Unit] => JQLite,
+      equals_ : (js.Any, js.Any) => Boolean,
+      extend: (js.Any, /* repeated */ js.Any) => js.Any
+    ): IAngularStatic = {
+      val __obj = js.Dynamic.literal(element = js.Any.fromFunction1(element), extend = js.Any.fromFunction2(extend))
+      __obj.updateDynamic("equals")(js.Any.fromFunction2(equals_))
+      __obj.asInstanceOf[IAngularStatic]
+    }
+    
+    @scala.inline
+    implicit class IAngularStaticMutableBuilder[Self <: IAngularStatic] (val x: Self) extends AnyVal {
+      
+      @scala.inline
+      def setElement(
+        value: /* element */ String | Element | Document | JQuery | ArrayLike[Element] | js.Function0[Unit] => JQLite
+      ): Self = StObject.set(x, "element", js.Any.fromFunction1(value))
+      
+      @scala.inline
+      def setEquals_(value: (js.Any, js.Any) => Boolean): Self = StObject.set(x, "equals", js.Any.fromFunction2(value))
+      
+      @scala.inline
+      def setExtend(value: (js.Any, /* repeated */ js.Any) => js.Any): Self = StObject.set(x, "extend", js.Any.fromFunction2(value))
+      
+      @scala.inline
+      def setResumeBootstrap(value: /* extraModules */ js.UndefOr[js.Array[String]] => IInjectorService): Self = StObject.set(x, "resumeBootstrap", js.Any.fromFunction1(value))
+      
+      @scala.inline
+      def setResumeBootstrapUndefined: Self = StObject.set(x, "resumeBootstrap", js.undefined)
+    }
+  }
   
   // All service providers extend this interface
   @js.native

@@ -206,7 +206,7 @@ class ImportTree(
       case i @ TsDeclInterface(cs, _, _, tparams, inheritance, members, codePath) =>
         val withParents = ParentsResolver(scope, i)
 
-        val (anns, newComments, isScalaJsDefined) = (CanBeScalaJsDefined(withParents), enableScalaJsDefined) match {
+        val (anns, newComments, isScalaJsDefined) = (IsUserImplementable(withParents), enableScalaJsDefined) match {
           case (true, true)  => (IArray(Annotation.ScalaJSDefined), cs, true)
           case (true, false) => (IArray(Annotation.JsNative), cs + CommentData(Markers.CouldBeScalaJsDefined), false)
           case (false, _)    => (IArray(Annotation.JsNative), cs, false)
@@ -486,9 +486,9 @@ class ImportTree(
   def hack(f: FieldTree): Option[FieldTree] =
     f.comments.extract { case Markers.ExpandedCallables => () } match {
       case None => Some(f)
-      case Some((_, restCs)) =>
+      case Some((_, _)) =>
         if (f.name === Name.namespaced) None
-        else Some(f.withSuffix("Original").copy(comments = restCs))
+        else Some(f.withSuffix("Original"))
     }
 
   def typeParam(scope: TsTreeScope, importName: AdaptiveNamingImport)(tp: TsTypeParam): TypeParamTree =

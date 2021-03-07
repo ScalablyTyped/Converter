@@ -255,8 +255,11 @@ final class FindProps(
 
   private def combine(ms: IArray[MemberTree]): MemberTree =
     ms.partitionCollect2({ case x: FieldTree => x }, { case x: MethodTree => x }) match {
-      case (_, IArray.exactlyOne(method), IArray.Empty) => method
-      case (_, methods, IArray.Empty) if methods.nonEmpty =>
+      case (IArray.exactlyOne(field), _, _) if field.comments.has[Markers.ExpandedCallables.type] =>
+        field
+      case (_, IArray.exactlyOne(method), Empty) =>
+        method
+      case (_, methods, Empty) if methods.nonEmpty =>
         val tparams          = methods.maxBy(_.tparams.length).tparams
         val paramsForMethods = methods.map(_.params.flatten)
         val longestParams    = paramsForMethods.maxBy(_.length)
@@ -270,8 +273,8 @@ final class FindProps(
         }
         val resultType = TypeRef.Union(methods.map(_.resultType), NoComments, sort = true)
         methods.head.copy(tparams = tparams, params = IArray(params), resultType = resultType)
-      case (IArray.exactlyOne(field), _, IArray.Empty) => field
-      case (fields, _, IArray.Empty) if fields.nonEmpty =>
+      case (IArray.exactlyOne(field), _, Empty) => field
+      case (fields, _, Empty) if fields.nonEmpty =>
         fields.head.copy(tpe = TypeRef.Union(fields.map(_.tpe), NoComments, sort = true))
 
       case other => sys.error(s"Unexpected: ${other}")

@@ -160,6 +160,21 @@ object mod {
     @JSName("scrollTo")
     var scrollTo_Original: VueStatic = js.native
   }
+  object VueScrollTo {
+    
+    @scala.inline
+    def apply(scrollTo: VueStatic): VueScrollTo = {
+      val __obj = js.Dynamic.literal(scrollTo = scrollTo.asInstanceOf[js.Any])
+      __obj.asInstanceOf[VueScrollTo]
+    }
+    
+    @scala.inline
+    implicit class VueScrollToMutableBuilder[Self <: VueScrollTo] (val x: Self) extends AnyVal {
+      
+      @scala.inline
+      def setScrollTo(value: VueStatic): Self = StObject.set(x, "scrollTo", value.asInstanceOf[js.Any])
+    }
+  }
   
   @js.native
   trait VueStatic extends StObject {
@@ -200,6 +215,21 @@ object mod {
       def $scrollTo(options: Options): Unit = js.native
       @JSName("$scrollTo")
       var $scrollTo_Original: VueStatic = js.native
+    }
+    object Vue {
+      
+      @scala.inline
+      def apply($scrollTo: VueStatic): Vue = {
+        val __obj = js.Dynamic.literal($scrollTo = $scrollTo.asInstanceOf[js.Any])
+        __obj.asInstanceOf[Vue]
+      }
+      
+      @scala.inline
+      implicit class VueMutableBuilder[Self <: Vue] (val x: Self) extends AnyVal {
+        
+        @scala.inline
+        def set$scrollTo(value: VueStatic): Self = StObject.set(x, "$scrollTo", value.asInstanceOf[js.Any])
+      }
     }
   }
 }
