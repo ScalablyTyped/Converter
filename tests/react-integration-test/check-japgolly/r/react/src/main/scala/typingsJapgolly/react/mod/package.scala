@@ -685,12 +685,6 @@ package object mod {
     japgolly.scalajs.react.ReactClipboardEventFrom[T with org.scalajs.dom.raw.Element]
   ]
   
-  type ComponentFactory[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] = js.Function2[
-    /* props */ js.UndefOr[typingsJapgolly.react.mod.ClassAttributes[T] with P], 
-    /* repeated */ japgolly.scalajs.react.raw.React.Node, 
-    typingsJapgolly.react.mod.CElement[P, T]
-  ]
-  
   /**
     * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
     * or ComponentPropsWithoutRef when refs are not supported.
@@ -714,12 +708,6 @@ package object mod {
   type Consumer[T] = typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.mod.ConsumerProps[T]]
   
   type ContextType[C /* <: typingsJapgolly.react.mod.Context[_] */] = js.Any
-  
-  type DOMFactory[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */] = js.Function2[
-    /* props */ js.UndefOr[(typingsJapgolly.react.mod.ClassAttributes[T] with P) | scala.Null], 
-    /* repeated */ japgolly.scalajs.react.raw.React.Node, 
-    japgolly.scalajs.react.raw.React.DomElement
-  ]
   
   // Any prop that has a default prop becomes optional, but its type is unchanged
   // Undeclared default props are augmented into the resulting allowable attributes
@@ -770,27 +758,12 @@ package object mod {
   
   type FC[P] = typingsJapgolly.react.mod.FunctionComponent[P]
   
-  //
-  // Factories
-  // ----------------------------------------------------------------------
-  type Factory[P] = js.Function2[
-    /* props */ js.UndefOr[typingsJapgolly.react.mod.Attributes with P], 
-    /* repeated */ japgolly.scalajs.react.raw.React.Node, 
-    japgolly.scalajs.react.raw.React.Element
-  ]
-  
   type FocusEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactFocusEventFrom[T with org.scalajs.dom.raw.Element]]
   
   // tslint:disable-next-line:no-empty-interface
   type FormEvent[T] = japgolly.scalajs.react.ReactEventFrom[T with org.scalajs.dom.raw.Element]
   
   type FormEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactEventFrom[T with org.scalajs.dom.raw.Element]]
-  
-  type FunctionComponentFactory[P] = js.Function2[
-    /* props */ js.UndefOr[typingsJapgolly.react.mod.Attributes with P], 
-    /* repeated */ japgolly.scalajs.react.raw.React.Node, 
-    typingsJapgolly.react.mod.FunctionComponentElement[P]
-  ]
   
   type GetDerivedStateFromError[P, S] = /**
     * This lifecycle is invoked after an error has been thrown by a descendant component.

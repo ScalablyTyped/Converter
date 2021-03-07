@@ -187,11 +187,13 @@ object mod {
     }
   }
   
-  type DOMFactory[P /* <: DOMAttributes[T] */, T /* <: Element */] = js.Function2[
-    /* props */ js.UndefOr[(ClassAttributes[T] with P) | Null], 
-    /* repeated */ ReactNode, 
-    DOMElement[P, T]
-  ]
+  @js.native
+  trait DOMFactory[P /* <: DOMAttributes[T] */, T /* <: Element */] extends StObject {
+    
+    def apply(props: ClassAttributes[T] with P, children: ReactNode*): DOMElement[P, T] = js.native
+    def apply(props: js.UndefOr[scala.Nothing], children: ReactNode*): DOMElement[P, T] = js.native
+    def apply(props: Null, children: ReactNode*): DOMElement[P, T] = js.native
+  }
   
   @js.native
   trait HTMLAttributes[T] extends DOMAttributes[T] {
@@ -360,12 +362,7 @@ object mod {
   }
   
   @js.native
-  trait SVGFactory extends DOMFactory[SVGAttributes[SVGElement], SVGElement] {
-    
-    def apply(props: ClassAttributes[SVGElement] with SVGAttributes[SVGElement], children: ReactNode*): ReactSVGElement = js.native
-    def apply(props: js.UndefOr[scala.Nothing], children: ReactNode*): ReactSVGElement = js.native
-    def apply(props: Null, children: ReactNode*): ReactSVGElement = js.native
-  }
+  trait SVGFactory extends DOMFactory[SVGAttributes[SVGElement], SVGElement]
   
   type SVGProps[T] = ClassAttributes[T]
   

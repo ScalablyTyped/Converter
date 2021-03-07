@@ -665,12 +665,6 @@ package object mod {
   
   type ClipboardEventHandler[T] = typingsSlinky.react.mod.EventHandler[slinky.web.SyntheticClipboardEvent[T]]
   
-  type ComponentFactory[P, T /* <: slinky.core.ReactComponentClass[P] */] = js.Function2[
-    /* props */ js.UndefOr[typingsSlinky.react.mod.ClassAttributes[T] with P], 
-    /* repeated */ slinky.core.facade.ReactElement, 
-    typingsSlinky.react.mod.CElement[P, T]
-  ]
-  
   /**
     * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
     * or ComponentPropsWithoutRef when refs are not supported.
@@ -692,12 +686,6 @@ package object mod {
   type Consumer[T] = slinky.core.ReactComponentClass[typingsSlinky.react.mod.ConsumerProps[T]]
   
   type ContextType[C /* <: typingsSlinky.react.mod.Context[_] */] = js.Any
-  
-  type DOMFactory[P /* <: typingsSlinky.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */] = js.Function2[
-    /* props */ js.UndefOr[(typingsSlinky.react.mod.ClassAttributes[T] with P) | scala.Null], 
-    /* repeated */ slinky.core.facade.ReactElement, 
-    slinky.core.facade.ReactElement
-  ]
   
   // Any prop that has a default prop becomes optional, but its type is unchanged
   // Undeclared default props are augmented into the resulting allowable attributes
@@ -748,15 +736,6 @@ package object mod {
   
   type FC[P] = slinky.core.ReactComponentClass[P]
   
-  //
-  // Factories
-  // ----------------------------------------------------------------------
-  type Factory[P] = js.Function2[
-    /* props */ js.UndefOr[typingsSlinky.react.mod.Attributes with P], 
-    /* repeated */ slinky.core.facade.ReactElement, 
-    slinky.core.facade.ReactElement
-  ]
-  
   type FocusEventHandler[T] = typingsSlinky.react.mod.EventHandler[slinky.web.SyntheticFocusEvent[T]]
   
   // tslint:disable-next-line:no-empty-interface
@@ -764,12 +743,6 @@ package object mod {
   
   type FormEventHandler[T] = typingsSlinky.react.mod.EventHandler[
     slinky.core.SyntheticEvent[org.scalajs.dom.raw.EventTarget with T, org.scalajs.dom.raw.Event]
-  ]
-  
-  type FunctionComponentFactory[P] = js.Function2[
-    /* props */ js.UndefOr[typingsSlinky.react.mod.Attributes with P], 
-    /* repeated */ slinky.core.facade.ReactElement, 
-    typingsSlinky.react.mod.FunctionComponentElement[P]
   ]
   
   type GetDerivedStateFromError[P, S] = /**
