@@ -11,7 +11,7 @@ import com.ning.http.client._
 import com.ning.http.client.listenable.AbstractListenableFuture
 import dispatch.{FunctionHandler, Http, StatusCode}
 import gigahorse.Status
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.scalajs.Dep
 import org.scalablytyped.converter.internal.stringUtils.quote
 

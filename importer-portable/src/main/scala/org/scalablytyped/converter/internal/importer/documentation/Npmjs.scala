@@ -2,8 +2,8 @@ package org.scalablytyped.converter.internal
 package importer.documentation
 
 import com.olvind.logging.Logger
-import io.circe013.generic.semiauto.{deriveDecoder, deriveEncoder}
-import io.circe013.{Decoder, Encoder}
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.importer.Source
 
 import scala.concurrent.Future

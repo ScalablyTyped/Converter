@@ -1,6 +1,6 @@
 package org.scalablytyped.converter.internal.scalajs
 
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.stringUtils.quote
 
 import scala.xml.Elem
@@ -75,6 +75,6 @@ object Dep {
     override def version: String = dep.version
   }
 
-  implicit val DepDecoder: Decoder[Dep] = io.circe013.generic.semiauto.deriveDecoder[Dep]
-  implicit val DepEncoder: Encoder[Dep] = io.circe013.generic.semiauto.deriveEncoder[Dep]
+  implicit val DepDecoder: Decoder[Dep] = io.circe.generic.semiauto.deriveDecoder[Dep]
+  implicit val DepEncoder: Encoder[Dep] = io.circe.generic.semiauto.deriveEncoder[Dep]
 }
