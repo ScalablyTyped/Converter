@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package importer
 
-import io.circe013._
+import io.circe._
 import org.scalablytyped.converter.internal.ts._
 
 import java.io.File
@@ -34,7 +34,7 @@ object jsonCodecs {
   implicit val TsIdentLibraryKeyDec:  KeyDecoder[TsIdentLibrary] = KeyDecoder[String].map(TsIdentLibrary.apply)
   implicit val TsIdentLibraryKeyEnc:  KeyEncoder[TsIdentLibrary] = KeyEncoder[String].contramap[TsIdentLibrary](_.value)
 
-  import io.circe013.generic.semiauto._
+  import io.circe.generic.semiauto._
 
   implicit val CompilerOptionsEncoder:   Encoder[CompilerOptions]   = deriveEncoder[CompilerOptions]
   implicit val CompilerOptionsDecoder:   Decoder[CompilerOptions]   = deriveDecoder[CompilerOptions]

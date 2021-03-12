@@ -2,9 +2,9 @@ package org.scalablytyped.converter.internal
 package importer
 
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
-import io.circe013.Decoder.Result
-import io.circe013.generic.semiauto.{deriveDecoder, deriveEncoder}
-import io.circe013.{Decoder, Encoder, HCursor}
+import io.circe.Decoder.Result
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.{Decoder, Encoder, HCursor}
 
 case class Summary(
     successes: Set[TsIdentLibrary],

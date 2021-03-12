@@ -15,6 +15,10 @@ object Deps {
   val awssdkS3          = "software.amazon.awssdk" % "s3" % "2.15.28"
   val java8Compat       = "org.scala-lang.modules" %% "scala-java8-compat" % "0.9.1"
 
-  val circe: Seq[ModuleID] =
-    Seq("core", "generic", "parser", "jackson29").map(s => "io.circe013" %% s"circe-$s" % "0.13.0")
+  val circe: List[ModuleID] = {
+    List(
+      "io.circe" %% s"circe-generic" % "0.13.0",
+      "io.circe" %% s"circe-jackson29" % "0.13.0",
+    )
+  }
 }

@@ -1,6 +1,6 @@
 package org.scalablytyped.converter.internal.importer
 
-import io.circe013.parser._
+import io.circe.parser._
 import org.scalablytyped.converter.internal.IArray
 import org.scalablytyped.converter.internal.importer.jsonCodecs._
 import org.scalablytyped.converter.internal.ts._

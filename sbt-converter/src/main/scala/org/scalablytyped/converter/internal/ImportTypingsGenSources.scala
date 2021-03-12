@@ -6,7 +6,7 @@ import java.nio.file.Path
 
 import com.olvind.logging
 import com.olvind.logging.{LogLevel, Logger}
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.importer.Source.TsLibSource
 import org.scalablytyped.converter.internal.importer._
 import org.scalablytyped.converter.internal.maps._
@@ -30,7 +30,7 @@ object ImportTypingsGenSources {
   )
 
   object Input {
-    import io.circe013.generic.auto._
+    import io.circe.generic.auto._
     import jsonCodecs._
 
     implicit val ConfigEncoder: Encoder[Input] = exportEncoder[Input].instance
