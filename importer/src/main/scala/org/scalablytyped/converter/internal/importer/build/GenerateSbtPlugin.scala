@@ -15,11 +15,10 @@ object GenerateSbtPlugin {
       projectDir:    os.Path,
       projects:      Set[PublishedSbtProject],
       pluginVersion: String,
-      publisherOpt:  Option[Publisher],
       action:        String,
   ): Unit = {
     files.sync(
-      contents(isDeprecated, versions, organization, projectName, projects, pluginVersion, publisherOpt),
+      contents(isDeprecated, versions, organization, projectName, projects, pluginVersion),
       projectDir,
       deleteUnknowns = true,
       soft           = true,
@@ -41,7 +40,6 @@ object GenerateSbtPlugin {
       projectName:   ProjectName,
       projects:      Set[PublishedSbtProject],
       pluginVersion: String,
-      publisherOpt:  Option[Publisher],
   ): Map[os.RelPath, Array[Byte]] = {
 
     val buildSbt = s"""name := "sbt-${projectName.value}"
@@ -51,7 +49,7 @@ object GenerateSbtPlugin {
       |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
       |publishMavenStyle := true
       |crossSbtVersions := Vector("0.13.16", ${quote(Versions.sbtVersion)})
-      |""".stripMargin + publisherOpt.fold("")(_.sbtPublishTo + "\n")
+      |""".stripMargin
 
     /* we have at least a `clone` and a `notify` library - of course */
     def fix(name: String): String =
@@ -79,11 +77,6 @@ object GenerateSbtPlugin {
         }
         .mkString("\n")
 
-    val resolvers = publisherOpt match {
-      case Some(publisher) => s"\n    resolvers += ${publisher.sbtResolver}"
-      case None            => ""
-    }
-
     val deprecationNotice =
       if (isDeprecated)
         """
@@ -99,9 +92,6 @@ object GenerateSbtPlugin {
       |object ${projectName.value}Plugin extends AutoPlugin {
       |  override def trigger = allRequirements
       |  override def requires = sbt.plugins.JvmPlugin
-      |  override def globalSettings = List($resolvers
-      |  )
-      |
       |  object autoImport {
       |    object ${projectName.value} {
       |$projectsByLetter
@@ -111,11 +101,8 @@ object GenerateSbtPlugin {
 
     val pluginSourcePath = os.RelPath("src") / 'main / 'scala / 'com / 'olvind / 'sbt / "ScalablytypedPlugin.scala"
 
-    val pluginsSbt = publisherOpt.map(_.sbtPlugin).map(dep => s"addSbtPlugin(${dep.asSbt})").mkString("\n")
-
     Map(
       os.RelPath("build.sbt") -> buildSbt,
-      os.RelPath("project") / "plugins.sbt" -> pluginsSbt,
       os.RelPath("project") / "build.properties" -> s"sbt.version=${Versions.sbtVersion}",
       pluginSourcePath -> pluginSource,
     ).map {

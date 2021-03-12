@@ -8,7 +8,6 @@ Global / bspEnabled := false
 autoStartServer := false
 Global / excludeLintKeys += autoStartServer
 
-
 lazy val utils = project
   .configure(baseSettings, publicationSettings)
   .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode) ++ Deps.circe)
@@ -58,8 +57,6 @@ lazy val importer = project
   .settings(
     libraryDependencies ++= Seq(
       Deps.bloop,
-      Deps.bintry,
-      Deps.asyncHttpClient,
       Deps.scalatest % Test,
     ),
     test in assembly := {},
@@ -165,16 +162,9 @@ lazy val publicationSettings: Project => Project = _.settings(
         </developer>
       </developers>
   ),
-  bintrayRepository := {
-    if (isSnapshot.value) "converter-snapshots" else "converter"
-  },
 )
 
 lazy val preventPublication: Project => Project =
   _.settings(
-    publish := {},
-    publishTo := Some(Resolver.file("Unused transient repository", target.value / "fakepublish")),
-    publishArtifact := false,
-    publishLocal := {},
-    packagedArtifacts := Map.empty,
-  ) // doesn't work - https://github.com/sbt/sbt-pgp/issues/42
+    skip in publish := true,
+  )

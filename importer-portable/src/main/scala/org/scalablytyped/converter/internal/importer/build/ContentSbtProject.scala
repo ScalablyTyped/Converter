@@ -13,7 +13,6 @@ object ContentSbtProject {
       organization:    String,
       name:            String,
       version:         String,
-      publisherOpt:    Option[Publisher],
       localDeps:       IArray[PublishedSbtProject],
       deps:            Set[Dep],
       scalaFiles:      Map[os.RelPath, Array[Byte]],
@@ -28,11 +27,6 @@ object ContentSbtProject {
       )
       val depsString = allDeps.map(_.asSbt).distinct.sorted.mkString("Seq(\n  ", ",\n  ", ")")
 
-      val resolverInfo = publisherOpt match {
-        case Some(publisher) => s"${publisher.sbtPublishTo}\nresolvers += ${publisher.sbtResolver}\n"
-        case None            => ""
-      }
-
       s"""|organization := ${quote(organization)}
           |name := ${quote(name)}
           |version := ${quote(version)}
@@ -42,11 +36,10 @@ object ContentSbtProject {
           |publishArtifact in packageDoc := false
           |scalacOptions ++= ${versions.scalacOptions.map(quote).mkString("List(", ", ", ")")}
           |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
-          |""".stripMargin ++ resolverInfo
+          |""".stripMargin
     }
 
-    val pluginsSbt = IArray
-      .fromOptions(Some(versions.scalaJs.sbtPlugin), publisherOpt.map(_.sbtPlugin))
+    val pluginsSbt = IArray(versions.scalaJs.sbtPlugin)
       .map(dep => s"addSbtPlugin(${dep.asSbt})")
       .mkString("", "\n", "\n")
 

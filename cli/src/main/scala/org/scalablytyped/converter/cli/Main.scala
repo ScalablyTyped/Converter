@@ -5,12 +5,7 @@ import java.net.URI
 import com.olvind.logging.{stdout, storing, LogLevel, Logger}
 import fansi.{Attr, Color, Str}
 import org.scalablytyped.converter.internal.importer._
-import org.scalablytyped.converter.internal.importer.build.{
-  BinTrayPublisher,
-  BloopCompiler,
-  PublishedSbtProject,
-  SbtProject,
-}
+import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, PublishedSbtProject, SbtProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.importer.jsonCodecs._
 import org.scalablytyped.converter.internal.phases.PhaseListener.NoListener
@@ -54,13 +49,11 @@ object Main {
   )
 
   case class Config(
-      conversion:         ConversionOptions,
-      wantedLibs:         SortedSet[TsIdentLibrary],
-      publishBintrayRepo: Option[ProjectName],
-      publishGitUrl:      Option[URI],
-      inDirectory:        os.Path,
-      includeDev:         Boolean,
-      includeProject:     Boolean,
+      conversion:     ConversionOptions,
+      wantedLibs:     SortedSet[TsIdentLibrary],
+      inDirectory:    os.Path,
+      includeDev:     Boolean,
+      includeProject: Boolean,
   ) {
     lazy val paths = new Paths(inDirectory)
     def mapConversion(f: ConversionOptions => ConversionOptions) = copy(conversion = f(conversion))
@@ -68,12 +61,10 @@ object Main {
 
   val DefaultConfig = Config(
     DefaultOptions,
-    wantedLibs         = SortedSet(),
-    publishBintrayRepo = None,
-    publishGitUrl      = None,
-    inDirectory        = os.pwd,
-    includeDev         = false,
-    includeProject     = false,
+    wantedLibs     = SortedSet(),
+    inDirectory    = os.pwd,
+    includeDev     = false,
+    includeProject = false,
   )
 
   val parseCachePath = Some(files.existing(constants.defaultCacheFolder / 'parse).toNIO)
@@ -174,14 +165,6 @@ object Main {
       opt[Boolean]("enableLongApplyMethod")
         .action((x, c) => c.mapConversion(_.copy(enableLongApplyMethod = x)))
         .text(s"Enables long apply methods, instead of implicit ops builders"),
-      opt[ProjectName]("publish-to-bintray-repo")
-        .action((x, c) => c.copy(publishBintrayRepo = Some(x)))
-        .text(
-          s"Enable publishing to your bintray repo. You must also provide ${BinTrayPublisher.bintrayCredentialsFile} with user and password, and set publish-git-repo-link",
-        ),
-      opt[URI]("publish-git-repo-link")
-        .action((x, c) => c.copy(publishGitUrl = Some(x)))
-        .text("Must set a public git repo uri since published artifacts must be open source"),
       arg[Seq[TsIdentLibrary]]("libs")
         .text("Libraries you want to convert from node_modules")
         .unbounded()
@@ -204,8 +187,6 @@ object Main {
           c @ Config(
             conversion,
             libsFromCmdLine,
-            publishBintrayRepoOpt,
-            publishGitUrlOpt,
             inDir,
             includeDev,
             includeProject,
@@ -229,14 +210,6 @@ object Main {
               require(ret.nonEmpty, s"All libraries in package.json ignored")
               ret
             case otherwise => otherwise
-          }
-
-        val publisherOpt: Option[Publisher] =
-          publishBintrayRepoOpt.map { repo =>
-            BinTrayPublisher(None, repo, publishGitUrlOpt, global) match {
-              case Left(err)    => sys.error(s"Couldn't setup publishing: $err")
-              case Right(value) => value
-            }
           }
 
         val bootstrapped = Bootstrap.fromNodeModules(InFolder(nodeModulesPath), conversion, wantedLibs)
@@ -303,7 +276,6 @@ object Main {
                 compiler                   = compiler,
                 targetFolder               = c.paths.out,
                 organization               = conversion.organization,
-                publisherOpt               = None,
                 publishLocalFolder         = constants.defaultLocalPublishFolder,
                 metadataFetcher            = Npmjs.No,
                 softWrites                 = true,
@@ -313,7 +285,6 @@ object Main {
               ),
               "build",
             )
-            .nextOpt(publisherOpt.flatMap(_.enabled).map(Phase4Publish), "publish")
 
         val results: Map[Source, PhaseRes[Source, PublishedSbtProject]] =
           sources

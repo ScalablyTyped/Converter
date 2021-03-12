@@ -19,7 +19,6 @@ import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.ts._
 
 import scala.collection.immutable.SortedSet
-import scala.collection.parallel.ForkJoinTaskSupport
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.util.Try
@@ -37,7 +36,6 @@ object Ci {
   case class Config(
       conversion:       ConversionOptions,
       wantedLibs:       SortedSet[TsIdentLibrary],
-      enablePublish:    Boolean,
       offline:          Boolean,
       pedantic:         Boolean,
       forceCommit:      Boolean,
@@ -124,7 +122,6 @@ object Ci {
                 enableLongApplyMethod  = false,
               ),
               wantedLibs       = wantedLibNames,
-              enablePublish    = flags contains "-publish",
               offline          = flags contains "-offline",
               pedantic         = flags contains "-pedantic",
               forceCommit      = flags contains "-forceCommit",
@@ -142,7 +139,7 @@ object Ci {
   }
 }
 
-class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoinPool, ec: ExecutionContext) {
+class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionContext) {
   val RunId              = constants.DateTimePattern.format(LocalDateTime.now)
   private val logsFolder = files.existing(paths.cacheFolder / 'logs)
 
@@ -288,7 +285,6 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
             compiler                   = compiler,
             targetFolder               = targetFolder,
             organization               = config.conversion.organization,
-            publisherOpt               = Some(publisher),
             publishLocalFolder         = paths.publishLocalFolder,
             metadataFetcher            = NpmjsFetcher(paths.npmjs)(ec),
             softWrites                 = config.softWrites,
@@ -298,7 +294,6 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
           ),
           "build",
         )
-        .nextOpt(publisher.enabled.map(Phase4Publish), "publish")
 
     val initial = bootstrapped.initialLibs match {
       case Left(unresolved) =>
@@ -371,8 +366,7 @@ target/
         projectDir    = sbtProjectDir,
         projects      = successes.values.to[Set],
         pluginVersion = RunId,
-        publisherOpt  = Some(publisher),
-        action        = if (publisher.enabled.isDefined) "^publish" else "publishLocal",
+        action        = "publishLocal",
       )
 
       CommitChanges(

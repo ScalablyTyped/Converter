@@ -14,9 +14,6 @@ and then start the conversion.
 The output is a set of locally published jar files which you can paste into sbt 
 or your build tool of choice.
 
-You can also use the tool to publish directly to a bintray repository if you
- want to share the artifacts.
- 
 ## Running
 The easiest way to run is with coursier's excellent runner.
 
@@ -46,28 +43,13 @@ Usage: stc [options] [libs]
   -s, --stdlib <value>     Which parts of typescript stdlib you want to enable
   --organization <value>   Organization used (locally) publish artifacts
   --ignoredLibs <value>    Libraries you want to ignore
-  --publish-to-bintray-repo <value>
-                           Enable publishing to your bintray repo. You must also provide ~/.bintray/.credentials with user and password, and set publish-git-repo-link 
-  --publish-git-repo-link <value>
-                           Must set a public git repo uri since published artifacts must be open source
   libs                     Libraries you want to convert from node_modules
 ```
 
 ## Publishing
-
-Only publishing to bintray is supported for now
-1) register at bintray.com and create a maven repo
-2) provide Bintray credentials (user name and API key) in `~/.bintray/.credentials`:
-```
-user = username
-password = token
-```
-Create the file if missing
-
-3) Run the cli tool with at least the following parameters:
-`--publish-to-bintray-repo=mymavenreponame`
-`--publish-git-repo-link=https://github.com/foo`
-`--organization my.org`
+The command line tool used to support publishing to bintray, but that service shut down.
+As such, the flags `-publish-to-bintray-repo` and `--publish-git-repo-link` are now gone.
+If you want this to return, make some noise (or a PR) at https://github.com/ScalablyTyped/Converter/issues/262
 
 ## Convert your Typescript project
 

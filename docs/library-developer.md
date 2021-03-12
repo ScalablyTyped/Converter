@@ -29,19 +29,7 @@ So don't do that, it's a dead end anyway.
 ## Add to your `project/plugins.sbt`
 
 ```scala
-resolvers += Resolver.bintrayRepo("oyvindberg", "converter")
-
-// Current, for Scala.js 1.x.x
 addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "@VERSION@")
-
-// The last version published for sbt 1.4.x and Scala.js 0.6.x was
-addSbtPlugin("org.scalablytyped.converter" % "sbt-converter06" % "1.0.0-beta28")
-
-// the last version published for sbt 1.3.x and Scala.js 1.x was :
-addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "1.0.0-beta26")
-
-// the last version published for sbt 1.3.x and Scala.js 0.6.x was :
-addSbtPlugin("org.scalablytyped.converter" % "sbt-converter06" % "1.0.0-beta26")
 ```
 
 ## Activate the plugin for a project in your `build.sbt`:

@@ -112,7 +112,6 @@ object ImportTypings {
           compiler                   = compiler,
           targetFolder               = targetFolder,
           organization               = input.conversion.organization,
-          publisherOpt               = None,
           publishLocalFolder         = publishLocalFolder,
           metadataFetcher            = Npmjs.No,
           softWrites                 = true,
