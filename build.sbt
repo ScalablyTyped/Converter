@@ -2,6 +2,13 @@ import scala.sys.process.stringToProcess
 
 lazy val latestTag = "git tag -l --sort=committerdate".!!.linesIterator.toVector.last.drop( /* 'v' */ 1)
 
+// BSP setup to use with bloop
+Global / bloopExportJarClassifiers := Some(Set("sources"))
+Global / bspEnabled := false
+autoStartServer := false
+Global / excludeLintKeys += autoStartServer
+
+
 lazy val utils = project
   .configure(baseSettings, publicationSettings)
   .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode) ++ Deps.circe)

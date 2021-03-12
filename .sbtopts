@@ -1,3 +1,2 @@
 -J-XX:+UseG1GC
--J-XX:+CMSClassUnloadingEnabled
 
