@@ -9,15 +9,15 @@ autoStartServer := false
 Global / excludeLintKeys += autoStartServer
 
 lazy val utils = project
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings)
   .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode) ++ Deps.circe)
 
 lazy val logging = project
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings)
   .settings(libraryDependencies ++= Seq(Deps.sourcecode, Deps.fansi))
 
 lazy val ts = project
-  .configure(baseSettings, publicationSettings, optimize)
+  .configure(baseSettings, optimize)
   .dependsOn(utils, logging)
   .settings(libraryDependencies += Deps.parserCombinators)
 
@@ -26,21 +26,21 @@ lazy val docs = project
   .settings(
     mdocVariables := Map("VERSION" -> latestTag),
     moduleName := "converter-docs",
+    skip in publish := true,
   )
-  .configure(preventPublication)
   .enablePlugins(MdocPlugin, DocusaurusPlugin)
 
 lazy val scalajs = project
   .dependsOn(utils, logging)
-  .configure(baseSettings, publicationSettings, optimize)
+  .configure(baseSettings, optimize)
   .settings(libraryDependencies ++= Seq(Deps.scalaXml))
 
 lazy val phases = project
   .dependsOn(utils, logging)
-  .configure(baseSettings, publicationSettings, optimize)
+  .configure(baseSettings, optimize)
 
 lazy val `importer-portable` = project
-  .configure(baseSettings, publicationSettings, optimize)
+  .configure(baseSettings, optimize)
   .dependsOn(ts, scalajs, phases)
   .enablePlugins(BuildInfoPlugin)
   .settings(
@@ -53,7 +53,7 @@ lazy val `importer-portable` = project
 
 lazy val importer = project
   .dependsOn(`importer-portable`)
-  .configure(baseSettings, publicationSettings, optimize)
+  .configure(baseSettings, optimize)
   .settings(
     libraryDependencies ++= Seq(
       Deps.bloop,
@@ -74,13 +74,13 @@ lazy val importer = project
 
 lazy val cli = project
   .dependsOn(importer)
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings)
   .settings(libraryDependencies += Deps.scopt)
 
 lazy val `sbt-converter` = project
   .dependsOn(`importer-portable`)
   .enablePlugins(ScriptedPlugin)
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings)
   .settings(
     name := "sbt-converter",
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0"),
@@ -96,8 +96,11 @@ lazy val `sbt-converter` = project
 
 lazy val root = project
   .in(file("."))
-  .settings(name := "converter-root")
-  .configure(baseSettings, preventPublication)
+  .settings(
+    name := "converter-root",
+    skip in publish := true,
+  )
+  .configure(baseSettings)
   .aggregate(
     logging,
     utils,
@@ -112,20 +115,22 @@ lazy val root = project
 
 lazy val baseSettings: Project => Project =
   _.settings(
-    licenses += ("GPL-3.0", url("https://opensource.org/licenses/GPL-3.0")),
-    scalaVersion := "2.12.13",
+    sonatypeCredentialHost := Sonatype.sonatype01,
     organization := "org.scalablytyped.converter",
-    scalacOptions ~= (_.filterNot(
-      Set(
-        "-Ywarn-unused:imports",
-        "-Ywarn-unused:params",
-        "-Xfatal-warnings",
+    licenses += ("GPL-3.0", url("https://opensource.org/licenses/GPL-3.0")),
+    homepage := Some(url("https://github.com/ScalablyTyped/Converter")),
+    developers := List(
+      Developer(
+        "oyvindberg",
+        "Øyvind Raddum Berg",
+        "elacin@gmail.com",
+        url("https://github.com/oyvindberg"),
       ),
-    )),
+    ),
+    scalaVersion := "2.12.13",
+    scalacOptions ~= (_.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-unused:params", "-Xfatal-warnings"))),
     /* disable scaladoc */
     sources in (Compile, doc) := Nil,
-    publishArtifact in (Compile, packageDoc) := false,
-    resolvers += Resolver.bintrayRepo("oyvindberg", "converter"),
   )
 
 lazy val optimize: Project => Project =
@@ -143,28 +148,4 @@ lazy val optimize: Project => Project =
       "-opt-inline-from:org.scalablytyped.converter.internal.**",
       "-opt-warnings",
     ),
-  )
-
-lazy val publicationSettings: Project => Project = _.settings(
-  publishMavenStyle := true,
-  homepage := Some(new URL("https://github.com/oyvindberg/ScalablyTypedConverter")),
-  startYear := Some(2019),
-  pomExtra := (
-    <scm>
-      <connection>scm:git:github.com:/oyvindberg/ScalablyTypedConverter</connection>
-      <developerConnection>scm:git:git@github.com:oyvindberg/ScalablyTypedConverter.git</developerConnection>
-      <url>github.com:oyvindberg/ScalablyTypedConverter.git</url>
-    </scm>
-      <developers>
-        <developer>
-          <id>oyvindberg</id>
-          <name>Øyvind Raddum Berg</name>
-        </developer>
-      </developers>
-  ),
-)
-
-lazy val preventPublication: Project => Project =
-  _.settings(
-    skip in publish := true,
   )
