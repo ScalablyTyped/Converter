@@ -67,10 +67,10 @@ case class Repo(version: String)(implicit val wd: os.Path) {
   }
 
   def cleanLocal() = {
-    val existing = os.walk(os.home / ".ivy2"/ "local" / "org.scalablytyped.converter").filter(_.last == version)
+    val existing = os.walk(os.home / ".ivy2" / "local" / "org.scalablytyped.converter").filter(_.last == version)
     if (existing.nonEmpty) {
       println(s"Cleaning existing locally published")
-      existing foreach println
+      existing.foreach(println)
       existing.foreach(folder => os.remove.all(folder))
     }
   }
@@ -79,27 +79,35 @@ case class Repo(version: String)(implicit val wd: os.Path) {
     %("sbt", "clean", "publishLocal")
 
   def publish() = {
-    %("sbt", "publish", "docs/mdoc")
+    %("sbt", "ci-release", "docs/mdoc")
     %("yarn", "publish-gh-pages")(wd / "website")
     %.git("push", "origin", "HEAD")
     %.git("push", "origin", tag)
   }
 }
 
+def mustHave(name: String) =
+    sys.env.getOrElse(name, sys.error(s"Set env $name"))
+
 @main
-  def doRelease(version: String): Int = {
-    val repo = Repo(version)(os.pwd)
-    repo.assertClean()
-    repo.refreshTag()
-    repo.cleanLocal()
-    repo.publishLocal()
-    val demoRepos = DemoRepo.initialized(os.Path("/tmp/st-release-temp"))
-    demoRepos.foreach(_.update())
-    demoRepos.foreach(_.build(version))
-    demoRepos.foreach(_.pushCache())
-    // at this point we're ready to push everything
-    repo.assertClean()
-    repo.publish()
-    demoRepos.foreach(_.pushGit())
-    0
-  }
+def doRelease(version: String): Int = {
+  mustHave("PGP_PASSPHRASE")
+  mustHave("PGP_SECRET")
+  mustHave("SONATYPE_PASSWORD")
+  mustHave("SONATYPE_USERNAME")
+
+  val repo = Repo(version)(os.pwd)
+  repo.assertClean()
+  repo.refreshTag()
+  repo.cleanLocal()
+  repo.publishLocal()
+  val demoRepos = DemoRepo.initialized(os.Path("/tmp/st-release-temp"))
+  demoRepos.foreach(_.update())
+  demoRepos.foreach(_.build(version))
+  demoRepos.foreach(_.pushCache())
+  // at this point we're ready to push everything
+  repo.assertClean()
+  repo.publish()
+  demoRepos.foreach(_.pushGit())
+  0
+}

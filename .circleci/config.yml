@@ -36,7 +36,7 @@ jobs:
           condition:
             equal: [ master, <<pipeline.git.branch>> ]
           steps:
-            - run: cat /dev/null | sbt publish
+            - run: cat /dev/null | sbt ci-release
 
       - save_cache:
           paths:

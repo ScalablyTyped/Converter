@@ -1,7 +1,8 @@
 addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.15.0")
 addSbtPlugin("org.scalameta" % "sbt-mdoc" % "2.2.18")
 addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.16")
-addSbtPlugin("com.dwijnand" % "sbt-dynver" % "4.1.1")
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2")
 addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.10.0")
 addSbtPlugin("ch.epfl.scala" % "sbt-bloop" % "1.4.8")
+addSbtPlugin("com.geirsson" % "sbt-ci-release" % "1.5.6")
+addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.7") // remove on next release of sbt-ci-release
