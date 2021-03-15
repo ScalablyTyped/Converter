@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "antd"
-version := "4.3.1-b54e38"
+version := "4.3.1-f96b39"
 scalaVersion := "2.13.3"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
@@ -8,5 +8,3 @@ libraryDependencies ++= Seq(
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-feature", "-g:notailcalls", "-language:implicitConversions", "-language:higherKinds", "-language:existentials")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
-bintrayRepository := "ScalablyTyped"
-resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")

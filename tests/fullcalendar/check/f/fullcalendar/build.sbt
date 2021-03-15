@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "fullcalendar"
-version := "0.0-unknown-0c462d"
+version := "0.0-unknown-e552f8"
 scalaVersion := "2.13.3"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
@@ -8,5 +8,3 @@ libraryDependencies ++= Seq(
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-feature", "-g:notailcalls", "-language:implicitConversions", "-language:higherKinds", "-language:existentials")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
-bintrayRepository := "ScalablyTyped"
-resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")

@@ -30,7 +30,6 @@ For development you'll always use "debug mode".
 | `-scalajs06`          | Build libraries with Scala.js 0.6 instead of 1 
 | `-offline`            | Skip pulling newest DefinitelyTyped and running `npm update`
 | `-pedantic`           | Make the converter more strict. Most things don't work yet in this mode
-| `-publish`            | Publish to bintray. You'll need credentials in `~/.bintray/.credentials`
 | `-softWrites`         | Will only write changed/deleted files. This is essential if you want to keep ScalablyTyped products open in an IDE to avoid reindexing the world.
 | `-flavourNormal`      | default 
 | `-flavourSlinky`      | Use slinky flavour, integrate with scala-js-dom, and generate slinky components 

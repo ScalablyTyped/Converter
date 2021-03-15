@@ -9,7 +9,7 @@ import com.olvind.logging
 import com.olvind.logging.{LogLevel, LogRegistry}
 import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.importer.Source.StdLibSource
-import org.scalablytyped.converter.internal.importer.build.{BinTrayPublisher, BloopCompiler, PublishedSbtProject}
+import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, PublishedSbtProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
@@ -31,7 +31,7 @@ trait ImporterHarness extends AnyFunSuite {
   val failureCacheDir = baseDir / 'compileFailures
   os.makeDir.all(failureCacheDir)
 
-  val testLogger = logging.stdout.filter(LogLevel.info)
+  val testLogger = logging.stdout.filter(LogLevel.warn)
   val version    = Versions(Versions.Scala213, Versions.ScalaJs1)
 
   private val bloop = Await.result(
@@ -84,7 +84,6 @@ trait ImporterHarness extends AnyFunSuite {
             compiler                   = bloop,
             targetFolder               = targetFolder,
             organization               = "org.scalablytyped",
-            publisherOpt               = Some(BinTrayPublisher.Dummy),
             publishLocalFolder         = publishLocalFolder,
             metadataFetcher            = Npmjs.No,
             softWrites                 = true,
