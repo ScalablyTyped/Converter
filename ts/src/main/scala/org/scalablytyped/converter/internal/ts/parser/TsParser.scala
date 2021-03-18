@@ -386,12 +386,12 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
     /** Represent in tree? **/
     lazy val destructuredObj: Parser[TsIdentSimple] =
-      "{" ~>! rep((tsIdent | ("..." ~> tsIdent)) <~ (":" <~ (tsIdent | destructured)).? <~ ",".?) <~ "}" ^^ (
+      "{" ~>! rep((tsIdentLiberal | ("..." ~> tsIdent)) <~ (":" <~ (tsIdent | destructured)).? <~ ",".?) <~ "}" ^^ (
           ids =>
             TsIdent("has" + ids.map(_.value.capitalize).mkString("")),
         )
     lazy val destructuredArray: Parser[TsIdentSimple] =
-      "[" ~>! repsep(tsIdent <~ (":" <~ (tsIdent | destructured)).?, ",") <~ "]" ^^ (
+      "[" ~>! ",".? ~> repsep(tsIdent <~ (":" <~ (tsIdent | destructured)).?, ",") <~ "]" ^^ (
           ids =>
             TsIdent("has" + ids.map(_.value.capitalize).mkString("")),
         )
