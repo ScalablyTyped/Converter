@@ -15,8 +15,8 @@ object Deps {
 
   val circe: List[ModuleID] = {
     List(
-      "io.circe" %% s"circe-generic" % "0.11.1",
-      "io.circe" %% s"circe-jackson29" % "0.11.1",
+      "io.circe" %% s"circe-generic" % "0.11.2",
+      "io.circe" %% s"circe-jackson29" % "0.11.2",
     )
   }
 }
