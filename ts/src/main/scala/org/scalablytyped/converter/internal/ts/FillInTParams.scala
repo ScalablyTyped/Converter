@@ -60,7 +60,10 @@ object FillInTParams {
           case (TsTypeParam(_, expected, _, default), idx) =>
             val provided =
               if (providedTParams.lengthCompare(idx) > 0) providedTParams(idx)
-              else default.getOrElse(sys.error("Type parameter not provided"))
+              else
+                default.getOrElse(
+                  TsTypeRef.any.copy(comments = Comments(Comment.warning(s"${expected.value} not provided"))),
+                )
 
             TsTypeRef(expected) -> provided
         }.toMap
