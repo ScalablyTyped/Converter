@@ -439,7 +439,7 @@ object IArray {
   }
 }
 
-final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: Int) extends Serializable {
+final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: Int) extends Serializable { self =>
   @inline def isEmpty: Boolean =
     length == 0
 
@@ -844,7 +844,7 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
 
   def iterator: Iterator[A] = new Iterator[A] {
     var idx = 0
-    override def hasNext: Boolean = idx < length
+    override def hasNext: Boolean = idx < self.length
 
     override def next(): A = {
       val ret = array(idx).asInstanceOf[A]

@@ -105,10 +105,12 @@ object ImportTypingsGenSources {
           false,
         )
 
-        lazy val referencesToKeep: Minimization.KeepIndex =
-          Minimization.findReferences(globalScope, input.minimizeKeep, IArray.fromTraversable(libs).map {
-            case (s, l) => (minimize(s.libName), l.packageTree)
-          })
+        lazy val referencesToKeep: Minimization.KeepIndex = {
+          val packagesWithShouldMinimize: IArray[(PackageTree, Boolean)] =
+            IArray.fromTraversable(libs).map { case (s, l) => (l.packageTree, minimize(s.libName)) }
+
+          Minimization.findReferences(globalScope, input.minimizeKeep, packagesWithShouldMinimize)
+        }
 
         val outFiles: Map[os.Path, Array[Byte]] =
           libs.par.flatMap {

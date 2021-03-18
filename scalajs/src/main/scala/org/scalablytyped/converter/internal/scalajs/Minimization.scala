@@ -14,54 +14,59 @@ object Minimization {
   /* Similar to above, but it's conditional. If the object with this marker is included, only then include the related objects as well */
   final case class Related(related: IArray[TypeRef]) extends Comment.Data
 
-  def findReferences(
-      globalScope:  TreeScope,
-      minimizeKeep: IArray[QualifiedName],
-      trees:        IArray[(Boolean, PackageTree)],
-  ): KeepIndex = {
-    val allKeptReferences: IArray[QualifiedName] = {
-      val found = trees.flatMap {
-        case (true, tree) =>
-          TreeTraverse.collect(tree) { case KeptRefs(refs) => refs }.flatten.distinct
-        case (false, tree) =>
-          TreeTraverse
-            .collect(tree) {
-              case KeptRefs(refs)          => refs
-              case TypeRef(typeName, _, _) => IArray(typeName)
-            }
-            .flatten
-            .distinct
-      }
+  /* some refs we only keep when they refer to objects/packages */
+  type OnlyStatic = Boolean
 
-      (found ++ minimizeKeep).distinct
+  type KeepIndex = Map[QualifiedName, OnlyStatic]
+
+  def findReferences(
+      globalScope:                TreeScope,
+      entryPoints:                IArray[QualifiedName],
+      packagesWithShouldMinimize: IArray[(PackageTree, Boolean)],
+  ): KeepIndex = {
+
+    val keep = mutable.Map.empty[QualifiedName, OnlyStatic]
+    keep.sizeHint(50000)
+
+    def addStaticParents(qname: QualifiedName): Unit = {
+      var idx = 1
+      while (idx < qname.parts.length) {
+        val parent = QualifiedName(qname.parts.take(idx))
+
+        if (keep.contains(parent)) ()
+        else {
+          if (!keep.contains(parent))
+            keep(parent) = true
+
+          addStaticParents(parent)
+
+          globalScope.lookup(parent).foreach {
+            case (tree, _) =>
+              tree.comments.extract {
+                case Related(related) =>
+                  TreeTraverse.foreach(related) {
+                    case TypeRef(typeName, _, _) if typeName =/= parent =>
+                      expand(typeName)
+                    case _ => ()
+                  }
+              }
+          }
+        }
+
+        idx += 1
+      }
     }
 
-//    val inheritanceTree: Map[QualifiedName, Traversable[QualifiedName]] = {
-//      val superSub = trees.flatMap {
-//        case (_, tree) =>
-//          TreeTraverse
-//            .collect(tree) {
-//              case cls: ClassTree if cls.parents.nonEmpty =>
-//                cls.parents.collect {
-//                  case TypeRef(name, _, _) if name.parts.take(2) === cls.codePath.parts.take(2) => name -> cls.codePath
-//                }
-//            }
-//            .flatten
-//      }
-//      superSub.groupBy(_._1).map { case (supr, subs) => supr -> subs.map(_._2) }
-//    }
+    def expand(qname: QualifiedName): Unit =
+      keep.get(qname) match {
+        case Some(false) => ()
+        case _ =>
+          keep(qname) = false
 
-    var queue: List[QualifiedName]                               = allKeptReferences.toList
-    val keep:  IArray.Builder[QualifiedName]                     = IArray.Builder(allKeptReferences, allKeptReferences.length)
-    val cache: mutable.Map[QualifiedName, IArray[QualifiedName]] = mutable.Map.empty
+          addStaticParents(qname)
 
-    while (queue.nonEmpty) {
-      queue match {
-        case head :: tail if cache contains head =>
-          queue = tail
-        case head :: tail =>
           val trees: IArray[Tree] =
-            globalScope.lookup(head).map(_._1)
+            globalScope.lookup(qname).map(_._1)
 
           val relatedRefs: IArray[TypeRef] =
             trees.flatMap { t =>
@@ -71,60 +76,35 @@ object Minimization {
               }
             }
 
-          val referenced: IArray[QualifiedName] =
-            TreeTraverse.collectIArray(relatedRefs ++ trees) {
-              case TypeRef(typeName, _, _) if typeName =/= head && !cache.contains(typeName) => typeName
+          TreeTraverse.foreach(relatedRefs ++ trees) {
+            case TypeRef(typeName, _, _) if typeName =/= qname =>
+              expand(typeName)
+            case _ => ()
+          }
+
+      }
+
+    entryPoints.foreach(expand)
+
+    packagesWithShouldMinimize.foreach {
+      case (pkg, shouldMinimize) =>
+        TreeTraverse.foreach(pkg) {
+          case tree: Tree with HasCodePath =>
+            tree.comments.extract {
+              case Keep(related) =>
+                expand(tree.codePath)
+                TreeTraverse.foreach(related) {
+                  case TypeRef(typeName, _, _) => expand(typeName)
+                  case _                       => ()
+                }
             }
-
-//          println(s"${Printer.formatQN(head)} => ${referenced.map(Printer.formatQN).mkString(",  ")}")
-          cache.put(head, referenced)
-          keep ++= referenced
-          queue = referenced.toList ++ tail
-      }
-    }
-
-    Index(keep.result())
-  }
-
-  /* some refs we only keep when they refer to objects/packages */
-  type OnlyStatic = Boolean
-
-  type KeepIndex = Map[QualifiedName, OnlyStatic]
-
-  object Index {
-    def apply(keep: IArray[QualifiedName]): KeepIndex = {
-      val ret = mutable.Map.empty[QualifiedName, OnlyStatic]
-      keep.foreach(k => ret(k) = false)
-
-      keep.foreach { qname =>
-        qname.parts.indices.foreach { n =>
-          val subQname = QualifiedName(qname.parts.take(n + 1))
-          if (!ret.contains(subQname)) {
-            ret(subQname) = true
-          }
+          case TypeRef(typeName, _, _) if !shouldMinimize =>
+            expand(typeName)
+          case _ => ()
         }
-      }
-      ret.toMap
     }
-  }
 
-  private object KeptRefs {
-    def unapply(arg: Tree): Option[IArray[QualifiedName]] =
-      arg match {
-        case tree: HasCodePath =>
-          tree.comments.extract { case Keep(related) => related }.map {
-            case (refs, _) =>
-              val related = TreeTraverse.collectIArray(refs) {
-                case TypeRef(typeName, _, _) => typeName
-              }
-              val fromTree = TreeTraverse.collect(tree) {
-                case TypeRef(typeName, _, _) => typeName
-              }
-
-              tree.codePath +: (fromTree ++ related)
-          }
-        case _ => None
-      }
+    keep.toMap
   }
 
   def apply(globalScope: TreeScope, keep: KeepIndex, logger: Logger[Unit], lib: PackageTree): PackageTree =
@@ -133,17 +113,19 @@ object Minimization {
   private final class FilteringTransformation(keep: KeepIndex) extends TreeTransformation {
     override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
       if (s.comments.has[Keep]) s
-      else
-        s.copy(
-          parents = s.parents.filter(tr => keep.contains(tr.typeName)),
-          members = s.members.filter {
-            case x: ClassTree                           => keep.contains(x.codePath) && !keep(x.codePath)
-            case x: TypeAliasTree                       => keep.contains(x.codePath) && !keep(x.codePath)
-            case x: MemberTree if x.name === Name.APPLY => true
-            case x: HasCodePath                         => keep.contains(x.codePath)
-            case _ => false
-          },
-        )
+      else {
+        val newParents = s.parents.filter(tr => keep.contains(tr.typeName))
+        val newMembers = s.members.filter {
+          case x: ClassTree                           => keep.contains(x.codePath) && !keep(x.codePath)
+          case x: TypeAliasTree                       => keep.contains(x.codePath) && !keep(x.codePath)
+          case x: MemberTree if x.name === Name.APPLY => true
+          case x: HasCodePath                         => keep.contains(x.codePath)
+          case _ => false
+        }
+
+        s.copy(parents = newParents, members = newMembers)
+      }
+
     override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
       s.copy(members = s.members.filter {
         case x: ClassTree     => keep.contains(x.codePath) && !keep(x.codePath)

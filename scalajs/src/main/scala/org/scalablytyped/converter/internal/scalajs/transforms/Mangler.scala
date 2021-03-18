@@ -240,7 +240,21 @@ object Mangler extends TreeTransformation {
         )
       }
 
-    ModulesCombine.combineModules(pkg.copy(members = IArray.fromOption(hatModuleOpt) ++ forwarders))
+    val comments = {
+      val addedRelated: IArray[TypeRef] = IArray.fromOption(
+        hatModuleOpt.map(hat => TypeRef(hat.codePath)),
+      )
+
+      pkg.comments.extract { case Minimization.Related(related) => related } match {
+        case Some((existingRelated, restComments)) =>
+          restComments + CommentData(Minimization.Related(existingRelated ++ addedRelated))
+        case None => pkg.comments + CommentData(Minimization.Related(addedRelated))
+      }
+    }
+
+    ModulesCombine.combineModules(
+      pkg.copy(comments = comments, members = IArray.fromOption(hatModuleOpt) ++ forwarders),
+    )
   }
 
   def genModForwarders(mod: ModuleTree): ModuleTree = {
@@ -406,7 +420,21 @@ object Mangler extends TreeTransformation {
           TypeAliasTree(name, Empty, field.tpe, NoComments, mod.codePath + name)
         }
 
-        mod.copy(parents = mod.parents :+ parent, members = IArray(to, To) ++ mod.members)
+        val comments = {
+          val addedRelated: IArray[TypeRef] = IArray.fromOptions(
+            Some(TypeRef(to.codePath)),
+            Some(TypeRef(To.codePath)),
+            hatOpt.map(hat => TypeRef(hat.codePath)),
+          )
+
+          mod.comments.extract { case Minimization.Related(related) => related } match {
+            case Some((existingRelated, restComments)) =>
+              restComments + CommentData(Minimization.Related(existingRelated ++ addedRelated))
+            case None => mod.comments + CommentData(Minimization.Related(addedRelated))
+          }
+        }
+
+        mod.copy(comments = comments, parents = mod.parents :+ parent, members = IArray(to, To) ++ mod.members)
     }
   }
 }
