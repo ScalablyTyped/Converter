@@ -2759,4 +2759,54 @@ export {};
       ),
     )
   }
+
+  test("function isNotTestHost([, sectionItem]: ConfigurationSectionEntry): boolean;") {
+    val content = "declare function isNotTestHost([, sectionItem]: ConfigurationSectionEntry): boolean"
+    shouldParseAs(content, TsParser.tsDeclFunction)(
+      TsDeclFunction(
+        NoComments,
+        true,
+        TsIdentSimple("isNotTestHost"),
+        TsFunSig(
+          NoComments,
+          IArray(),
+          IArray(
+            TsFunParam(
+              NoComments,
+              TsIdentSimple("hasSectionItem"),
+              Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("ConfigurationSectionEntry"))), IArray())),
+            ),
+          ),
+          Some(TsTypeRef.boolean),
+        ),
+        Zero,
+        CodePath.NoPath,
+      ),
+    )
+  }
+
+  test("function foo({ 'com.foo': _, ...entitlementsPlist }: Plist): Plist") {
+    val content = "declare function foo({ 'com.foo': _, ...entitlementsPlist }: Plist): Plist"
+    shouldParseAs(content, TsParser.tsDeclFunction)(
+      TsDeclFunction(
+        NoComments,
+        true,
+        TsIdentSimple("foo"),
+        TsFunSig(
+          NoComments,
+          IArray(),
+          IArray(
+            TsFunParam(
+              NoComments,
+              TsIdentSimple("hasCom.apple.developer.contacts.notesEntitlementsPlist"),
+              Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Plist"))), IArray())),
+            ),
+          ),
+          Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Plist"))), IArray())),
+        ),
+        Zero,
+        CodePath.NoPath,
+      ),
+    )
+  }
 }
