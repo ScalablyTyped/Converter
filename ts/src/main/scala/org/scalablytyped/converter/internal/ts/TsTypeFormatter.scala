@@ -113,6 +113,11 @@ class TsTypeFormatter(val keepComments: Boolean) {
     case TsLiteralNumber(num)   => num
   }
 
+  def tupleElement(elem: TsTupleElement): String = {
+    val label = elem.label.map(_.value + ": ").getOrElse("")
+    label + apply(elem.tpe)
+  }
+
   def apply(tpe: TsType): String =
     tpe match {
       case TsTypeRef(cs, name, ts) =>
@@ -122,7 +127,7 @@ class TsTypeFormatter(val keepComments: Boolean) {
       case TsTypeFunction(s)                        => s"${sig(s)}"
       case TsTypeConstructor(f)                     => s"new ${apply(f)}"
       case TsTypeIs(ident, x)                       => s"${ident.value} is ${apply(x)}"
-      case TsTypeTuple(tparams)                     => s"[${tparams.map(apply).mkString(", ")}]"
+      case TsTypeTuple(elems)                       => s"[${elems.map(tupleElement).mkString(", ")}]"
       case TsTypeQuery(expr)                        => s"typeof ${qident(expr)}"
       case TsTypeRepeated(underlying)               => s"...${apply(underlying)}"
       case TsTypeKeyOf(key)                         => s"keyof ${apply(key)}"

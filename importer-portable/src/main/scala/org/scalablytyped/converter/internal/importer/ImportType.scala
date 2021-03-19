@@ -213,7 +213,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
       case TsTypeTuple(targs) =>
         targs match {
-          case IArray.initLast(init, TsTypeRepeated(repeated)) =>
+          case IArray.initLast(init, TsTupleElement(_, TsTypeRepeated(repeated))) =>
             ts.FollowAliases(scope)(repeated) match {
               case TsTypeRef(
                   _,
@@ -222,7 +222,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
                   ) =>
                 TypeRef(
                   importName(TsQIdent.Array),
-                  IArray(apply(wildcards, scope, importName)(TsTypeUnion(init :+ elem))).distinct,
+                  IArray(apply(wildcards, scope, importName)(TsTypeUnion(init.map(_.tpe) :+ elem))).distinct,
                   NoComments,
                 )
               case other =>
@@ -230,7 +230,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
                 TypeRef(importName(TsQIdent.Array), Empty, Comments(c))
             }
           case nonRepeating =>
-            TypeRef.Tuple(nonRepeating.map(apply(wildcards.maybeAllow, scope, importName)))
+            TypeRef.Tuple(nonRepeating.map(elem => apply(wildcards.maybeAllow, scope, importName)(elem.tpe)))
         }
 
       case TsTypeRepeated(underlying) =>

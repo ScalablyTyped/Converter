@@ -2243,7 +2243,11 @@ type Readonly<T> = {
                   TsFunParam(
                     NoComments,
                     TsIdentSimple("hasKeyVal"),
-                    Some(TsTypeTuple(IArray(TsTypeRef.any, TsTypeRef.any))),
+                    Some(
+                      TsTypeTuple(
+                        IArray(TsTupleElement.unlabeled(TsTypeRef.any), TsTupleElement.unlabeled(TsTypeRef.any)),
+                      ),
+                    ),
                   ),
                 ),
                 Some(TsTypeRef.any),
@@ -2289,7 +2293,12 @@ type Readonly<T> = {
       "[number, number?]",
       TsParser.tsType,
     )(
-      TsTypeTuple(IArray(TsTypeRef.number, TsTypeUnion(IArray(TsTypeRef.number, TsTypeRef.undefined)))),
+      TsTypeTuple(
+        IArray(
+          TsTupleElement.unlabeled(TsTypeRef.number),
+          TsTupleElement.unlabeled(TsTypeUnion(IArray(TsTypeRef.number, TsTypeRef.undefined))),
+        ),
+      ),
     )
   }
 
@@ -2300,9 +2309,13 @@ type Readonly<T> = {
     )(
       TsTypeTuple(
         IArray(
-          TsTypeRef(NoComments, TsQIdent.number, Empty),
-          TsTypeRef(NoComments, TsQIdent.number, Empty),
-          TsTypeRepeated(TsTypeRef(NoComments, TsQIdent.Array, IArray(TsTypeRef(NoComments, TsQIdent.of("T"), Empty)))),
+          TsTupleElement.unlabeled(TsTypeRef(NoComments, TsQIdent.number, Empty)),
+          TsTupleElement.unlabeled(TsTypeRef(NoComments, TsQIdent.number, Empty)),
+          TsTupleElement.unlabeled(
+            TsTypeRepeated(
+              TsTypeRef(NoComments, TsQIdent.Array, IArray(TsTypeRef(NoComments, TsQIdent.of("T"), Empty))),
+            ),
+          ),
         ),
       ),
     )
@@ -2370,8 +2383,8 @@ type Readonly<T> = {
         IArray(
           TsTypeTuple(
             IArray(
-              TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), Empty),
-              TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("V"))), Empty),
+              TsTupleElement.unlabeled(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), Empty)),
+              TsTupleElement.unlabeled(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("V"))), Empty)),
             ),
           ),
         ),
@@ -2500,7 +2513,85 @@ export {};
 
   test("[string, ...PrimitiveArray]") {
     shouldParseAs("""[string, ...PrimitiveArray]""", TsParser.tsTypeTuple)(
-      TsTypeTuple(IArray(TsTypeRef.string, TsTypeRepeated(TsTypeRef(TsIdentSimple("PrimitiveArray"))))),
+      TsTypeTuple(
+        IArray(
+          TsTupleElement.unlabeled(TsTypeRef.string),
+          TsTupleElement.unlabeled(TsTypeRepeated(TsTypeRef(TsIdentSimple("PrimitiveArray")))),
+        ),
+      ),
+    )
+  }
+
+  test("[x: string, y: number]") {
+    shouldParseAs("""[x: string, y: number]""", TsParser.tsTypeTuple)(
+      TsTypeTuple(
+        IArray(
+          TsTupleElement(label = Some(TsIdentSimple("x")), TsTypeRef.string),
+          TsTupleElement(label = Some(TsIdentSimple("y")), TsTypeRef.number),
+        ),
+      ),
+    )
+  }
+
+  test("[x: string, y?: number]") {
+    shouldParseAs("""[x: string, y?: number]""", TsParser.tsTypeTuple)(
+      TsTypeTuple(
+        IArray(
+          TsTupleElement(label = Some(TsIdentSimple("x")), TsTypeRef.string),
+          TsTupleElement(label = Some(TsIdentSimple("y")), TsTypeUnion(IArray(TsTypeRef.number, TsTypeRef.undefined))),
+        ),
+      ),
+    )
+  }
+
+  test("[x: string, ...ys: PrimitiveArray]") {
+    shouldParseAs("""[x: string, ...ys: PrimitiveArray]""", TsParser.tsTypeTuple)(
+      TsTypeTuple(
+        IArray(
+          TsTupleElement(label = Some(TsIdentSimple("x")), TsTypeRef.string),
+          TsTupleElement(
+            label = Some(TsIdentSimple("ys")),
+            TsTypeRepeated(TsTypeRef(TsIdentSimple("PrimitiveArray"))),
+          ),
+        ),
+      ),
+    )
+  }
+
+  test("[...xs: PrimitiveArray, y: number]") {
+    shouldParseAs("""[...xs: PrimitiveArray, y: number]""", TsParser.tsTypeTuple)(
+      TsTypeTuple(
+        IArray(
+          TsTupleElement(
+            label = Some(TsIdentSimple("xs")),
+            TsTypeRepeated(TsTypeRef(TsIdentSimple("PrimitiveArray"))),
+          ),
+          TsTupleElement(label = Some(TsIdentSimple("y")), TsTypeRef.number),
+        ),
+      ),
+    )
+  }
+
+  test("[string, ...PrimitiveArray, number]") {
+    shouldParseAs("""[string, ...PrimitiveArray, number]""", TsParser.tsTypeTuple)(
+      TsTypeTuple(
+        IArray(
+          TsTupleElement.unlabeled(TsTypeRef.string),
+          TsTupleElement.unlabeled(TsTypeRepeated(TsTypeRef(TsIdentSimple("PrimitiveArray")))),
+          TsTupleElement.unlabeled(TsTypeRef.number),
+        ),
+      ),
+    )
+  }
+
+  test("[...PrimitiveArray, number]") {
+    shouldParseAs("""[...PrimitiveArray, number]""", TsParser.tsTypeTuple)(
+      TsTypeTuple(
+        IArray(
+          TsTupleElement.unlabeled(TsTypeRepeated(TsTypeRef(TsIdentSimple("PrimitiveArray")))),
+          TsTupleElement.unlabeled(TsTypeRef.number),
+        ),
+      ),
     )
   }
 

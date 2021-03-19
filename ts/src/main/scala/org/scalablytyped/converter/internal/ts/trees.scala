@@ -541,7 +541,13 @@ final case class TsTypeIs(ident: TsIdent, tpe: TsType) extends TsType
 
 final case class TsTypeAsserts(ident: TsIdentSimple, isOpt: Option[TsTypeRef]) extends TsType
 
-final case class TsTypeTuple(tparams: IArray[TsType]) extends TsType
+final case class TsTupleElement(label: Option[TsIdent], tpe: TsType)
+
+object TsTupleElement {
+  def unlabeled(tpe: TsType): TsTupleElement = TsTupleElement(label = None, tpe)
+}
+
+final case class TsTypeTuple(elems: IArray[TsTupleElement]) extends TsType
 
 final case class TsTypeQuery(expr: TsQIdent) extends TsType
 
