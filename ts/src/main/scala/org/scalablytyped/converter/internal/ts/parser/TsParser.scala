@@ -488,16 +488,26 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   }
 
   lazy val tsTypeTuple: Parser[TsTypeTuple] = {
-    val tsTypeRepeated: Parser[TsTypeRepeated] =
-      "..." ~>! tsType ^^ TsTypeRepeated
+    val repeatedElem: Parser[TsTupleElement] =
+      "..." ~>! (tsIdent <~ ":").? ~ tsType ^^ {
+        case label ~ tpe => TsTupleElement(label, TsTypeRepeated(tpe))
+      }
 
-    val normal: Parser[TsType] =
+    val unlabeledNonRepeatedElem: Parser[TsType] =
       tsType ~ "?".isDefined ^^ {
         case tpe ~ true  => TsTypeUnion(IArray(tpe, TsTypeRef.undefined))
         case tpe ~ false => tpe
       }
 
-    "[" ~>! ((tsTypeRepeated | normal) <~ ",".?).** <~ "]" ^^ TsTypeTuple
+    val nonRepeatedElem: Parser[TsTupleElement] = (tsIdent ~ "?".isDefined <~ ":").? ~ unlabeledNonRepeatedElem ^^ {
+      case None ~ tpe                => TsTupleElement(None, tpe)
+      case Some(label ~ false) ~ tpe => TsTupleElement(Some(label), tpe)
+      case Some(label ~ true) ~ tpe  => TsTupleElement(Some(label), TsTypeUnion(IArray(tpe, TsTypeRef.undefined)))
+    }
+
+    val tupleElem = repeatedElem | nonRepeatedElem
+
+    "[" ~>! (tupleElem <~ ",".?).** <~ "]" ^^ TsTypeTuple
   }
 
   lazy val tsTypeRef: Parser[TsTypeRef] = {

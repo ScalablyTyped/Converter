@@ -467,7 +467,7 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsTypeTuple(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsTypeTuple(_1) => TsTypeTuple(_1.map(visitTsType(tt)))
+      case TsTypeTuple(_1) => TsTypeTuple(_1.map(visitTsTupleElem(tt)))
     }
   }
   final def visitTsTypeUnion(t: T)(x: TsTypeUnion): TsTypeUnion = {
@@ -587,6 +587,9 @@ trait TreeTransformation[T] { self =>
       case x: TsTypeTuple       => visitTsTypeTuple(t)(x)
       case x: TsTypeUnion       => visitTsTypeUnion(t)(x)
     })
+
+  final def visitTsTupleElem(t: T)(tupleElem: TsTupleElement): TsTupleElement =
+    TsTupleElement(tupleElem.label, visitTsType(t)(tupleElem.tpe))
 
   final def visitTsMember(t: T)(x: TsMember): TsMember =
     enterTsMember(withTree(t, x))(x) match {
