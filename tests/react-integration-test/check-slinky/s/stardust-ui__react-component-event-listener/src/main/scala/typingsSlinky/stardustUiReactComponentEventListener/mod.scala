@@ -19,7 +19,7 @@ object mod {
   object EventListener {
     
     @scala.inline
-    def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = ^.asInstanceOf[js.Dynamic].applyDynamic("EventListener")(props.asInstanceOf[js.Any]).asInstanceOf[js.Any]
+    def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = ^.asInstanceOf[js.Dynamic].apply(props.asInstanceOf[js.Any]).asInstanceOf[js.Any]
     
     @JSImport("@stardust-ui/react-component-event-listener", "EventListener")
     @js.native

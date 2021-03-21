@@ -138,11 +138,11 @@ object Mangler extends TreeTransformation {
         needsHatObject = true
 
         val impl = {
-          def call(params: IArray[Arg]) = m.originalName match {
+          def call(params: IArray[Arg]) = m.name match {
             case Name.APPLY =>
               Call(Select(dynamicRef, Name("apply")), IArray(params))
-            case name =>
-              Call(Select(dynamicRef, Name("applyDynamic")), IArray(IArray(StringLit(name.unescaped)), params))
+            case _ =>
+              Call(Select(dynamicRef, Name("applyDynamic")), IArray(IArray(StringLit(m.originalName.unescaped)), params))
           }
 
           Cast(call(m.params.flatten.map(p => Cast(Ref(p.name), TypeRef.Any))), m.resultType)
@@ -273,11 +273,11 @@ object Mangler extends TreeTransformation {
           needsHatObject = true
 
           val impl = {
-            def call(params: IArray[Arg]) = m.originalName match {
+            def call(params: IArray[Arg]) = m.name match {
               case Name.APPLY =>
                 Call(Select(dynamicRef, Name("apply")), IArray(params))
-              case name =>
-                Call(Select(dynamicRef, Name("applyDynamic")), IArray(IArray(StringLit(name.unescaped)), params))
+              case _ =>
+                Call(Select(dynamicRef, Name("applyDynamic")), IArray(IArray(StringLit(m.originalName.unescaped)), params))
             }
 
             Cast(call(m.params.flatten.map(p => Cast(Ref(p.name), TypeRef.Any))), m.resultType)
