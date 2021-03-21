@@ -1,5 +1,8 @@
 {
   "docs": {
+    "ScalablyTyped": [
+      "readme"
+    ],
     "Getting started (application)": [
       "plugin",
       "plugin-no-bundler",
