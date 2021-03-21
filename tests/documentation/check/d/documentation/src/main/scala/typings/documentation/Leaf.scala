@@ -16,9 +16,8 @@ object Leaf {
   
   @scala.inline
   def apply[T](value: T): Leaf[T] = {
-    val `type` = "Leaf"
     val __obj = js.Dynamic.literal(value = value.asInstanceOf[js.Any])
-    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+    __obj.updateDynamic("type")("Leaf")
     __obj.asInstanceOf[Leaf[T]]
   }
   

@@ -20,8 +20,7 @@ object Nullability {
   
   @scala.inline
   def apply(a: Double): Nullability = {
-    val c = null.asInstanceOf[Double]
-    val __obj = js.Dynamic.literal(a = a.asInstanceOf[js.Any], c = c.asInstanceOf[js.Any])
+    val __obj = js.Dynamic.literal(a = a.asInstanceOf[js.Any], c = null)
     __obj.asInstanceOf[Nullability]
   }
   

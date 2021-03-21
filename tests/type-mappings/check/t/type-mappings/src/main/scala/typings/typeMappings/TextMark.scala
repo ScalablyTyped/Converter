@@ -15,9 +15,8 @@ object TextMark {
   
   @scala.inline
   def apply(): TextMark = {
-    val `type` = "text"
     val __obj = js.Dynamic.literal()
-    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+    __obj.updateDynamic("type")("text")
     __obj.asInstanceOf[TextMark]
   }
   

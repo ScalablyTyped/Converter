@@ -145,12 +145,8 @@ object mod {
     
     @scala.inline
     def apply[T](): HTMLProps[T] = {
-      val defaultValue = "foo"
-      val onChange = "foo"
-      val `type` = "foo"
-      val value = "foo"
-      val __obj = js.Dynamic.literal(defaultValue = defaultValue.asInstanceOf[js.Any], onChange = onChange.asInstanceOf[js.Any], value = value.asInstanceOf[js.Any])
-      __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+      val __obj = js.Dynamic.literal(defaultValue = "foo", onChange = "foo", value = "foo")
+      __obj.updateDynamic("type")("foo")
       __obj.asInstanceOf[HTMLProps[T]]
     }
     
@@ -186,8 +182,7 @@ object mod {
     
     @scala.inline
     def apply(props: js.Any, `type`: String | ReactComponentClass[_]): slinky.core.facade.ReactElement = {
-      val key = null
-      val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = key.asInstanceOf[js.Any])
+      val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
       __obj.asInstanceOf[slinky.core.facade.ReactElement]
     }

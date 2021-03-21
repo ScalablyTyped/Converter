@@ -158,17 +158,17 @@ object JapgollyGenComponents {
   * Generate a package with Slinky compatible react components
   */
 class JapgollyGenComponents(
-    findProps:    FindProps,
-    genStBuilder: JapgollyGenStBuildingComponent,
-    reactNames:   ReactNames,
+    findProps:             FindProps,
+    genStBuilder:          JapgollyGenStBuildingComponent,
+    reactNames:            ReactNames,
+    enableLongApplyMethod: Boolean,
 ) {
   import JapgollyGenComponents._
 
   def apply(
-      scope:                 TreeScope,
-      tree:                  ContainerTree,
-      components:            IArray[Component],
-      enableLongApplyMethod: Boolean,
+      scope:      TreeScope,
+      tree:       ContainerTree,
+      components: IArray[Component],
   ): ContainerTree = {
     /* Every tree knows it's own location (called `CodePath`).
              It's used for a lot of things, so it's important to get right */
@@ -437,14 +437,7 @@ class JapgollyGenComponents(
   ): Option[MethodTree] =
     if (splitProps.propsInApply.isEmpty && tparams.isEmpty) None
     else {
-      val props = splitProps.propsInApply
-
-      val interpretedProps = props.map(defaultInterpretation.apply)
-
-      val (mutators, initializers, Empty) = interpretedProps.partitionCollect2(
-        { case (x: Mutator, _)     => x },
-        { case (x: Initializer, _) => x },
-      )
+      val cm = CreatorMethod(splitProps.propsInApply, longApplyMethod = enableLongApplyMethod)
 
       val impl: ExprTree = {
         val objName = Name("__props")
@@ -465,9 +458,8 @@ class JapgollyGenComponents(
         )
 
         Block.flatten(
-          interpretedProps.collect { case (_, Left(valDef)) => valDef },
-          IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(initializers.map(_.value))))),
-          mutators.map(f => f.value(Ref(objName))),
+          IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(cm.initializers.map(_.value))))),
+          cm.mutators.map(f => f.value(Ref(objName))),
           IArray(newed),
         )
       }
@@ -478,7 +470,7 @@ class JapgollyGenComponents(
           level       = ProtectionLevel.Default,
           name        = name,
           tparams     = tparams,
-          params      = IArray(interpretedProps.collect { case (_, Right(param)) => param }),
+          params      = IArray(cm.params),
           impl        = impl,
           resultType  = builderRef,
           isOverride  = false,

@@ -193,10 +193,10 @@ object mod {
   object ReactElement {
     
     @scala.inline
-    def apply(props: js.Any, `type`: String | ComponentClassP[js.Object] | SFC[_]): Element = {
-      val key = null
-      val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = key.asInstanceOf[js.Any])
+    def apply(props: js.Any, `type`: String | ComponentClassP[js.Object] | SFC[_], key: Key = null): Element = {
+      val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+      __obj.updateDynamic("key")(if (key != null) key.asInstanceOf[Key].asInstanceOf[js.Any] else null)
       __obj.asInstanceOf[Element]
     }
   }

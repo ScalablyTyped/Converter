@@ -17,9 +17,7 @@ object DOMElement {
   
   @scala.inline
   def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: js.Any, `type`: js.Any): slinky.core.facade.ReactElement = {
-    val key = null
-    val ref = null
-    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = key.asInstanceOf[js.Any], ref = ref.asInstanceOf[js.Any])
+    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null, ref = null)
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[slinky.core.facade.ReactElement]
   }

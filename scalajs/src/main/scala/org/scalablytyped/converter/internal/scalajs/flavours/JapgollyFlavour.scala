@@ -16,7 +16,7 @@ case class JapgollyFlavour(
   val memberToPro            = new JapgollyMemberToProp(reactNames, rewriter)
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToPro, parentsResolver)
   val genStBuildingComponent = new JapgollyGenStBuildingComponent(outputPkg, scalaVersion)
-  val genComponents          = new JapgollyGenComponents(findProps, genStBuildingComponent, reactNames)
+  val genComponents          = new JapgollyGenComponents(findProps, genStBuildingComponent, reactNames, enableLongApplyMethod)
   val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod)
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
@@ -28,7 +28,7 @@ case class JapgollyFlavour(
           identifyComponents.oneOfEach(scope / withCompanions, withCompanions) ++
             identifyComponents.intrinsics(scope / withCompanions)
 
-        val ret = Adapter(scope)((t, s) => genComponents(s, t, components, enableLongApplyMethod))(withCompanions)
+        val ret = Adapter(scope)((t, s) => genComponents(s, t, components))(withCompanions)
 
         if (isReact(scope))
           ret.copy(members = ret.members ++ IArray(genStBuildingComponent.Trait, genStBuildingComponent.Object.tree))

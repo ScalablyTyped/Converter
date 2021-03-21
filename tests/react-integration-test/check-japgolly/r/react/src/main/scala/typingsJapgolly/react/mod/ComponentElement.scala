@@ -16,8 +16,7 @@ object ComponentElement {
   
   @scala.inline
   def apply[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */](props: js.Any, `type`: js.Any): ComponentElement[P, T] = {
-    val key = null
-    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = key.asInstanceOf[js.Any])
+    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[ComponentElement[P, T]]
   }

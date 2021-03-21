@@ -512,15 +512,7 @@ class SlinkyGenComponents(
   ): Option[MethodTree] =
     if (!splitProps.hasRequiredProps && tparams.isEmpty) None
     else {
-      val props = splitProps.props.filter(_.isRequired)
-
-      val interpretedProps = props.map(defaultInterpretation.apply)
-
-      val (mutators, initializers, Empty) = interpretedProps.partitionCollect2(
-        { case (x: Mutator, _)     => x },
-        { case (x: Initializer, _) => x },
-      )
-
+      val cm = CreatorMethod(splitProps.props, longApplyMethod = false)
       val impl: ExprTree = {
         val objName = Name("__props")
 
@@ -540,9 +532,8 @@ class SlinkyGenComponents(
         )
 
         Block.flatten(
-          interpretedProps.collect { case (_, Left(valDef)) => valDef },
-          IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(initializers.map(_.value))))),
-          mutators.map(f => f.value(Ref(objName))),
+          IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(cm.initializers.map(_.value))))),
+          cm.mutators.map(f => f.value(Ref(objName))),
           IArray(newed),
         )
       }
@@ -553,7 +544,7 @@ class SlinkyGenComponents(
           level       = ProtectionLevel.Default,
           name        = name,
           tparams     = tparams,
-          params      = IArray(interpretedProps.collect { case (_, Right(param)) => param }),
+          params      = IArray(cm.params),
           impl        = impl,
           resultType  = builderRef,
           isOverride  = false,

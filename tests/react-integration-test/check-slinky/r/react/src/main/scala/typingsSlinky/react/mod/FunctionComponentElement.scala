@@ -14,8 +14,7 @@ object FunctionComponentElement {
   
   @scala.inline
   def apply[P](props: js.Any, `type`: js.Any): FunctionComponentElement[P] = {
-    val key = null
-    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = key.asInstanceOf[js.Any])
+    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[FunctionComponentElement[P]]
   }

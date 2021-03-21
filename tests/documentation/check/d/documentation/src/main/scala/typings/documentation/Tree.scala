@@ -14,17 +14,15 @@ object Tree {
   
   @scala.inline
   def Branch[T](left: T, right: T): typings.documentation.Branch[T] = {
-    val `type` = "Branch"
     val __obj = js.Dynamic.literal(left = left.asInstanceOf[js.Any], right = right.asInstanceOf[js.Any])
-    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+    __obj.updateDynamic("type")("Branch")
     __obj.asInstanceOf[typings.documentation.Branch[T]]
   }
   
   @scala.inline
   def Leaf[T](value: T): typings.documentation.Leaf[T] = {
-    val `type` = "Leaf"
     val __obj = js.Dynamic.literal(value = value.asInstanceOf[js.Any])
-    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+    __obj.updateDynamic("type")("Leaf")
     __obj.asInstanceOf[typings.documentation.Leaf[T]]
   }
 }

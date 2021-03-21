@@ -30,8 +30,7 @@ object typesMod {
     
     @scala.inline
     def apply(children: ReactElement): RefProps = {
-      val innerRef = null
-      val __obj = js.Dynamic.literal(children = children.asInstanceOf[js.Any], innerRef = innerRef.asInstanceOf[js.Any])
+      val __obj = js.Dynamic.literal(children = children.asInstanceOf[js.Any], innerRef = null)
       __obj.asInstanceOf[RefProps]
     }
     

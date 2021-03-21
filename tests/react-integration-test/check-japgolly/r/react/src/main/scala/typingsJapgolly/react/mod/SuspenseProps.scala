@@ -20,8 +20,7 @@ object SuspenseProps {
   
   @scala.inline
   def apply(): SuspenseProps = {
-    val fallback = null
-    val __obj = js.Dynamic.literal(fallback = fallback.asInstanceOf[js.Any])
+    val __obj = js.Dynamic.literal(fallback = null)
     __obj.asInstanceOf[SuspenseProps]
   }
   

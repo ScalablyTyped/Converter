@@ -75,9 +75,8 @@ object toggleButtonGroupMod {
     
     @scala.inline
     def apply(): CheckboxProps = {
-      val `type` = "checkbox"
       val __obj = js.Dynamic.literal()
-      __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+      __obj.updateDynamic("type")("checkbox")
       __obj.asInstanceOf[CheckboxProps]
     }
     
@@ -115,9 +114,8 @@ object toggleButtonGroupMod {
     
     @scala.inline
     def apply(name: String): RadioProps = {
-      val `type` = "radio"
       val __obj = js.Dynamic.literal(name = name.asInstanceOf[js.Any])
-      __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+      __obj.updateDynamic("type")("radio")
       __obj.asInstanceOf[RadioProps]
     }
     

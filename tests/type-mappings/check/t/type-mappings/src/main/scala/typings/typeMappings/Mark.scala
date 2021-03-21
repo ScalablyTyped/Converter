@@ -14,17 +14,15 @@ object Mark {
   
   @scala.inline
   def TextMark(): typings.typeMappings.TextMark = {
-    val `type` = "text"
     val __obj = js.Dynamic.literal()
-    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+    __obj.updateDynamic("type")("text")
     __obj.asInstanceOf[typings.typeMappings.TextMark]
   }
   
   @scala.inline
   def TrailMark(): typings.typeMappings.TrailMark = {
-    val `type` = "trail"
     val __obj = js.Dynamic.literal()
-    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+    __obj.updateDynamic("type")("trail")
     __obj.asInstanceOf[typings.typeMappings.TrailMark]
   }
 }

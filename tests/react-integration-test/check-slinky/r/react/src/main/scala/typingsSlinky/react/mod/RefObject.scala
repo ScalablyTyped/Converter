@@ -15,8 +15,7 @@ object RefObject {
   
   @scala.inline
   def apply[T](): ReactRef[T] = {
-    val current = null
-    val __obj = js.Dynamic.literal(current = current.asInstanceOf[js.Any])
+    val __obj = js.Dynamic.literal(current = null)
     __obj.asInstanceOf[ReactRef[T]]
   }
   

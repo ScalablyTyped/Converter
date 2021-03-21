@@ -18,9 +18,8 @@ object Branch {
   
   @scala.inline
   def apply[T](left: T, right: T): Branch[T] = {
-    val `type` = "Branch"
     val __obj = js.Dynamic.literal(left = left.asInstanceOf[js.Any], right = right.asInstanceOf[js.Any])
-    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+    __obj.updateDynamic("type")("Branch")
     __obj.asInstanceOf[Branch[T]]
   }
   

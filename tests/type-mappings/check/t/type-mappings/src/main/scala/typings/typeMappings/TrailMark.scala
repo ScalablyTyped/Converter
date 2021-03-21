@@ -15,9 +15,8 @@ object TrailMark {
   
   @scala.inline
   def apply(): TrailMark = {
-    val `type` = "trail"
     val __obj = js.Dynamic.literal()
-    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+    __obj.updateDynamic("type")("trail")
     __obj.asInstanceOf[TrailMark]
   }
   

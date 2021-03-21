@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "type-mappings"
-version := "0.0-unknown-14232f"
+version := "0.0-unknown-a43bcd"
 scalaVersion := "2.13.3"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

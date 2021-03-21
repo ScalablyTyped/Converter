@@ -67,12 +67,10 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
 
               case Res.One(_, props) if props.isEmpty => Empty
               case Res.One(_, props: IArray[Prop]) =>
-                val requiredProps =
-                  if (enableLongApplyMethod) props
-                  else props.filter(p => p.optionality === Optionality.No || p.optionality === Optionality.Null)
+                val cm = CreatorMethod(props, longApplyMethod = enableLongApplyMethod)
 
                 IArray.fromOptions(
-                  Some(generateCreator(Name.APPLY, requiredProps, cls.codePath, cls.tparams))
+                  Some(generateCreator(Name.APPLY, cm, cls.codePath, cls.tparams))
                     .filter(_.params.nonEmpty)
                     .filter(ensureNotTooManyStrings(scope)),
                 )
@@ -81,13 +79,11 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
                 propsMap.toIArray.mapNotNone {
                   case (_, props) if props.isEmpty => None
                   case (propsRef, props) =>
-                    val requiredProps =
-                      if (enableLongApplyMethod) props
-                      else props.filter(_.optionality === Optionality.No)
+                    val cm = CreatorMethod(props, longApplyMethod = enableLongApplyMethod)
 
                     val tparams = cls.tparams.filter(tp => propsRef.targs.exists(_.name === tp.name))
 
-                    Some(generateCreator(propsRef.name, requiredProps, propsRef.typeName, tparams))
+                    Some(generateCreator(propsRef.name, cm, propsRef.typeName, tparams))
                       .filter(_.params.nonEmpty)
                       .filter(ensureNotTooManyStrings(scope))
                 }
@@ -133,26 +129,19 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
   }
 
   def generateCreator(
-      name:        Name,
-      props:       IArray[Prop],
-      typeCp:      QualifiedName,
-      typeTparams: IArray[TypeParamTree],
+      name:          Name,
+      creatorMethod: CreatorMethod,
+      typeCp:        QualifiedName,
+      typeTparams:   IArray[TypeParamTree],
   ): MethodTree = {
-    val interpretedProps = props.map(defaultInterpretation.apply)
-
-    val (mutators, initializers, Empty) = interpretedProps.partitionCollect2(
-      { case (x: Mutator, _)     => x },
-      { case (x: Initializer, _) => x },
-    )
 
     val ret = TypeRef(typeCp, asTypeArgs(typeTparams), NoComments)
 
     val impl: ExprTree = {
       val objName = Name("__obj")
       Block.flatten(
-        interpretedProps.collect { case (_, Left(valDef)) => valDef },
-        IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(initializers.map(_.value))))),
-        mutators.map(f => f.value(Ref(objName))),
+        IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(creatorMethod.initializers.map(_.value))))),
+        creatorMethod.mutators.map(f => f.value(Ref(objName))),
         IArray(Cast(Ref(QualifiedName(IArray(objName))), ret)),
       )
     }
@@ -162,7 +151,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
       level       = ProtectionLevel.Default,
       name        = name,
       tparams     = typeTparams,
-      params      = IArray(interpretedProps.collect { case (_, Right(param)) => param }),
+      params      = IArray(creatorMethod.params),
       impl        = impl,
       resultType  = ret,
       isOverride  = false,
