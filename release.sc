@@ -8,20 +8,24 @@ case class DemoRepo(repo: String, name: String)(implicit path: os.Path) {
     %.git("checkout", "master")
     %.git("fetch")
     %.git("reset", "--hard", "origin/master")
+    // pick up changes from `update` branch if any
+    Try(%.git("merge", "origin/update"))
   }
 
   def build(version: String): Unit = {
     val pluginsFile = path / "project" / "plugins.sbt"
-    val newLines = os.read.lines(pluginsFile).map {
+    val newLines = os.read.lines(pluginsFile).flatMap {
       case line if line.contains(s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" %""") =>
-        s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.3.0")"""
+        Some(s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.5.0")""")
       case line if line.contains(s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" %""") =>
-        s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0")"""
+        Some(s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0")""")
       case line if line.contains(s"""addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" %""") =>
-        s"""addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "$version")"""
-      case line => line
+        Some(s"""addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "$version")""")
+      case line if line.contains("resolvers +=") =>
+        None
+      case line => Some(line)
     }
-    os.write.over(path / "project" / "build.properties", "sbt.version=1.4.1")
+    os.write.over(path / "project" / "build.properties", "sbt.version=1.4.9")
     os.write.over(pluginsFile, newLines.mkString("\n"))
     %.sbt("compile", "dist")
     %.git("add", "-A")
