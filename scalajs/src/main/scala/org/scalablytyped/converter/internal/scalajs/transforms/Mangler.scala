@@ -142,7 +142,10 @@ object Mangler extends TreeTransformation {
             case Name.APPLY =>
               Call(Select(dynamicRef, Name("apply")), IArray(params))
             case _ =>
-              Call(Select(dynamicRef, Name("applyDynamic")), IArray(IArray(StringLit(m.originalName.unescaped)), params))
+              Call(
+                Select(dynamicRef, Name("applyDynamic")),
+                IArray(IArray(StringLit(m.originalName.unescaped)), params),
+              )
           }
 
           Cast(call(m.params.flatten.map(p => Cast(Ref(p.name), TypeRef.Any))), m.resultType)
@@ -277,7 +280,10 @@ object Mangler extends TreeTransformation {
               case Name.APPLY =>
                 Call(Select(dynamicRef, Name("apply")), IArray(params))
               case _ =>
-                Call(Select(dynamicRef, Name("applyDynamic")), IArray(IArray(StringLit(m.originalName.unescaped)), params))
+                Call(
+                  Select(dynamicRef, Name("applyDynamic")),
+                  IArray(IArray(StringLit(m.originalName.unescaped)), params),
+                )
             }
 
             Cast(call(m.params.flatten.map(p => Cast(Ref(p.name), TypeRef.Any))), m.resultType)

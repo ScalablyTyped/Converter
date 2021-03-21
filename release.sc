@@ -99,6 +99,7 @@ def doRelease(version: String): Int = {
   mustHave("PGP_SECRET")
   mustHave("SONATYPE_PASSWORD")
   mustHave("SONATYPE_USERNAME")
+  mustHave("CI_COMMIT_TAG") // just set to true
 
   val repo = Repo(version)(os.pwd)
   repo.assertClean()
