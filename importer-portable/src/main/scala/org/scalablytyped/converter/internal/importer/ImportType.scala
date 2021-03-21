@@ -212,25 +212,34 @@ class ImportType(stdNames: QualifiedName.StdNames) {
         ret.withComments(Comments(Comment(s"/* ${TsTypeFormatter(keyof)} */")))
 
       case TsTypeTuple(targs) =>
+        def labelComment(elem: TsTupleElement): Comments =
+          elem.label match {
+            case Some(value) => Comments(s"/* ${value.value} */")
+            case None        => NoComments
+          }
+
         targs match {
-          case IArray.initLast(init, TsTupleElement(_, TsTypeRepeated(repeated))) =>
+          case IArray.initLast(init, elem @ TsTupleElement(_, TsTypeRepeated(repeated))) =>
             ts.FollowAliases(scope)(repeated) match {
               case TsTypeRef(
                   _,
                   TsQIdent.Std.Array | TsQIdent.Std.ReadonlyArray | TsQIdent.Array | TsQIdent.ReadonlyArray,
-                  IArray.exactlyOne(elem),
+                  IArray.exactlyOne(tpe),
                   ) =>
                 TypeRef(
                   importName(TsQIdent.Array),
-                  IArray(apply(wildcards, scope, importName)(TsTypeUnion(init.map(_.tpe) :+ elem))).distinct,
-                  NoComments,
+                  IArray(apply(wildcards, scope, importName)(TsTypeUnion(init.map(_.tpe) :+ tpe))).distinct,
+                  labelComment(elem),
                 )
               case other =>
                 val c = Comment.warning(s"repeated non-array type: ${TsTypeFormatter(other)}")
-                TypeRef(importName(TsQIdent.Array), Empty, Comments(c))
+                TypeRef(importName(TsQIdent.Array), Empty, Comments(c) ++ labelComment(elem))
             }
           case nonRepeating =>
-            TypeRef.Tuple(nonRepeating.map(elem => apply(wildcards.maybeAllow, scope, importName)(elem.tpe)))
+            TypeRef.Tuple(nonRepeating.map { elem =>
+              apply(wildcards.maybeAllow, scope, importName)(elem.tpe)
+                .withComments(labelComment(elem))
+            })
         }
 
       case TsTypeRepeated(underlying) =>
