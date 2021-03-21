@@ -1,0 +1,334 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Working with objects · ScalablyTyped</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Javascript is remarkably flexible. When we integrate with arbitrary Javascript code in Scala.js, we need a very flexible"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Working with objects · ScalablyTyped"/><meta property="og:type" content="website"/><meta property="og:url" content="https://scalablytyped.org/"/><meta property="og:description" content="Javascript is remarkably flexible. When we integrate with arbitrary Javascript code in Scala.js, we need a very flexible"/><meta property="og:image" content="https://scalablytyped.org/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://scalablytyped.org/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon-st1.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo-3.svg" alt="ScalablyTyped"/><h2 class="headerTitleWithLogo">ScalablyTyped</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://github.com/ScalablyTyped/Converter" target="_self">Github</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Usage</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Getting started (application)<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/plugin">SBT plugin</a></li><li class="navListItem"><a class="navItem" href="/docs/plugin-no-bundler">SBT plugin without scalajs-bundler</a></li><li class="navListItem"><a class="navItem" href="/docs/cli">Command line tool</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Getting started (library)<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/library-developer">How to share code</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Usage<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/usage">What do I do now?</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/objects">Working with objects</a></li><li class="navListItem"><a class="navItem" href="/docs/flavour">Flavour</a></li><li class="navListItem"><a class="navItem" href="/docs/encoding">Encoding</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Configuration<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/conversion-options">Customize the generated code.</a></li><li class="navListItem"><a class="navItem" href="/docs/remotecache">Remote cache</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Development<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/import-problems">What if I hit problems importing libraries?</a></li><li class="navListItem"><a class="navItem" href="/docs/devel/about">Development</a></li><li class="navListItem"><a class="navItem" href="/docs/devel/running">Running</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Working with objects</h1></header><article><div><span><p>Javascript is remarkably flexible. When we integrate with arbitrary Javascript code in Scala.js, we need a very flexible
+encoding to tag along. The encoding chosen for ScalablyTyped is the result of years of experimentation, and has
+a much more dynamic feeling than what you may be used to.</p>
+<p>Let's start with an example of a type definition we want to use:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Point</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StObject</span> </span>{
+
+ <span class="hljs-keyword">var</span> x: <span class="hljs-type">Double</span> = js.native
+
+ <span class="hljs-keyword">var</span> y: <span class="hljs-type">Double</span> = js.native
+}
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Point</span> </span>{
+
+ <span class="hljs-meta">@scala</span>.inline
+ <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply</span></span>(x: <span class="hljs-type">Double</span>, y: <span class="hljs-type">Double</span>): <span class="hljs-type">Point</span> = {
+  <span class="hljs-keyword">val</span> __obj = js.<span class="hljs-type">Dynamic</span>.literal(x = x.asInstanceOf[js.<span class="hljs-type">Any</span>], y = y.asInstanceOf[js.<span class="hljs-type">Any</span>])
+  __obj.asInstanceOf[<span class="hljs-type">Point</span>]
+ }
+
+ <span class="hljs-meta">@scala</span>.inline
+ <span class="hljs-keyword">implicit</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PointMutableBuilder</span>[<span class="hljs-type">Self</span> &lt;: <span class="hljs-type">Point</span>] (<span class="hljs-params">val x: <span class="hljs-type">Self</span></span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">AnyVal</span> </span>{
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setX</span></span>(value: <span class="hljs-type">Double</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"x"</span>, value.asInstanceOf[js.<span class="hljs-type">Any</span>])
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setY</span></span>(value: <span class="hljs-type">Double</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"y"</span>, value.asInstanceOf[js.<span class="hljs-type">Any</span>])
+ }
+}
+</code></pre>
+<p>We notice several things:</p>
+<ul>
+<li>it's a <code>@js.native</code> trait, so we cannot <code>new</code> it ourselves. This can be <a href="/docs/conversion-options#stenablescalajsdefined"><code>changed</code></a>, but it's not recommended.</li>
+<li>it has two required members (<code>x</code> and <code>y</code>). Optional members would typically be wrapped in <code>js.UndefOr</code></li>
+<li>it has an <code>object</code> with syntax to help us work with it</li>
+<li>the entire syntax is built on mutability. It's Javascript, after all. more on that further down</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="basic-usage"></a><a href="#basic-usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Basic usage</h3>
+<pre><code class="hljs css language-scala"><span class="hljs-comment">// At construction time we need to supply all required parameters</span>
+<span class="hljs-keyword">val</span> p = <span class="hljs-type">Point</span>(x = <span class="hljs-number">1</span>,y = <span class="hljs-number">2</span>)
+
+<span class="hljs-comment">// we can mutate what we have</span>
+<span class="hljs-comment">// this is equivalent to typescript `p.x = 3</span>
+<span class="hljs-keyword">val</span> p2 = p.setX(<span class="hljs-number">3</span>) 
+
+<span class="hljs-comment">// or we can duplicate and then mutate.</span>
+<span class="hljs-comment">// this is equivalent to typescript `const p2 = {...p, x: 3}</span>
+<span class="hljs-keyword">val</span> p3 = p.duplicate.setX(<span class="hljs-number">3</span>) 
+
+<span class="hljs-comment">// we can combine with other javascript objects. </span>
+<span class="hljs-comment">// this is equivalent to javascript `const p3 = {...p, {}}`</span>
+<span class="hljs-keyword">val</span> p4: <span class="hljs-type">Point</span> <span class="hljs-keyword">with</span> <span class="hljs-type">TickOptions</span> = p.combineWith(<span class="hljs-type">TickOptions</span>())
+
+<span class="hljs-comment">// fallback, if the type definitions are wrong or for any other reason you can break the contract</span>
+<span class="hljs-keyword">val</span> p5: p.duplicate.set(<span class="hljs-string">"x"</span>, <span class="hljs-string">"foo"</span>)
+
+<span class="hljs-comment">// you can also set any other property</span>
+<span class="hljs-keyword">val</span> p6: p.duplicate.set(<span class="hljs-string">"x2"</span>, <span class="hljs-string">"foo"</span>)
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="optionalnullable-members"></a><a href="#optionalnullable-members" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Optional/nullable members</h3>
+<pre><code class="hljs css language-scala"><span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Nullability</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StObject</span> </span>{
+ <span class="hljs-comment">// number</span>
+ <span class="hljs-keyword">var</span> a: scala.<span class="hljs-type">Double</span> = js.native
+ <span class="hljs-comment">// number | undefined </span>
+ <span class="hljs-keyword">var</span> b: js.<span class="hljs-type">UndefOr</span>[scala.<span class="hljs-type">Double</span>] = js.native
+ <span class="hljs-comment">// number | null</span>
+ <span class="hljs-keyword">var</span> c: scala.<span class="hljs-type">Double</span> | <span class="hljs-type">Null</span> = js.native
+ <span class="hljs-comment">// number | null | undefined</span>
+ <span class="hljs-keyword">var</span> d: js.<span class="hljs-type">UndefOr</span>[scala.<span class="hljs-type">Double</span> | <span class="hljs-type">Null</span>] = js.native
+}
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Nullability</span> </span>{
+
+ <span class="hljs-meta">@scala</span>.inline
+ <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply</span></span>(a: scala.<span class="hljs-type">Double</span>): <span class="hljs-type">Nullability</span> = {
+  <span class="hljs-keyword">val</span> c = <span class="hljs-literal">null</span>.asInstanceOf[scala.<span class="hljs-type">Double</span>]
+  <span class="hljs-keyword">val</span> __obj = js.<span class="hljs-type">Dynamic</span>.literal(a = a.asInstanceOf[js.<span class="hljs-type">Any</span>], c = c.asInstanceOf[js.<span class="hljs-type">Any</span>])
+  __obj.asInstanceOf[<span class="hljs-type">Nullability</span>]
+ }
+
+ <span class="hljs-meta">@scala</span>.inline
+ <span class="hljs-keyword">implicit</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NullabilityMutableBuilder</span>[<span class="hljs-type">Self</span> &lt;: <span class="hljs-type">Nullability</span>] (<span class="hljs-params">val x: <span class="hljs-type">Self</span></span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">AnyVal</span> </span>{
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setA</span></span>(value: scala.<span class="hljs-type">Double</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"a"</span>, value.asInstanceOf[js.<span class="hljs-type">Any</span>])
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setB</span></span>(value: scala.<span class="hljs-type">Double</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"b"</span>, value.asInstanceOf[js.<span class="hljs-type">Any</span>])
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setBUndefined</span></span>: <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"b"</span>, js.undefined)
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setC</span></span>(value: scala.<span class="hljs-type">Double</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"c"</span>, value.asInstanceOf[js.<span class="hljs-type">Any</span>])
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setCNull</span></span>: <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"c"</span>, <span class="hljs-literal">null</span>)
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setD</span></span>(value: scala.<span class="hljs-type">Double</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"d"</span>, value.asInstanceOf[js.<span class="hljs-type">Any</span>])
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setDNull</span></span>: <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"d"</span>, <span class="hljs-literal">null</span>)
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setDUndefined</span></span>: <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"d"</span>, js.undefined)
+ }
+}
+</code></pre>
+<p>We can see that:</p>
+<ul>
+<li>we need to supply <code>a</code></li>
+<li><code>apply</code> sets <code>c</code> to <code>null</code>, because it cannot be <code>undefined</code>.</li>
+<li><code>d</code> can also be null, but since it can be <code>undefined</code> it's left at that.</li>
+<li>there are various setters for <code>b</code>, <code>c</code> and <code>d</code>. This is primarily because of type inference. For instance if <code>setC</code> was defined as <code>def setC(value: js.UndefOr[Double]): Self</code> you can't call it like <code>.setC(1)</code>, because it would require two conversions by the compiler when it'll only do one.</li>
+</ul>
+<p>To fully construct the object you'll typically call various setters on it:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-type">Nullability</span>(a = <span class="hljs-number">1</span>)
+  .setB(<span class="hljs-number">2</span>)
+  .setC(<span class="hljs-number">3</span>)
+  .setDNull
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="what-if-i-have-optional-types-as-input"></a><a href="#what-if-i-have-optional-types-as-input" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What if I have optional types as input?</h4>
+<pre><code class="hljs css language-scalac"><span class="hljs-keyword">val</span> n = Nullability(<span class="hljs-number">1</span>)
+<span class="hljs-keyword">val</span> bOpt: js.UndefOr[<span class="hljs-built_in">Double</span>] = <span class="hljs-number">1</span>
+
+<span class="hljs-keyword">val</span> n2: Nullability = ???
+</code></pre>
+<p>The API is admittedly not great for this right now.</p>
+<pre><code class="hljs css language-scala"><span class="hljs-comment">// if you don't know that `b` is empty in the object you receive</span>
+bOpt.fold(n.duplicate.setBUndefined)(b =&gt; n.duplicate.setB(b))
+<span class="hljs-comment">// if you're constructing an object and you know `b` is empty</span>
+bOpt.foreach(n.setB)
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="overloads-for-complicated-types"></a><a href="#overloads-for-complicated-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overloads for complicated types</h3>
+<p>Here is a trait with a member which can be either a function or a string. this is typically hopeless for type inference.
+With the mutable builder encoding we're free to generate as many overloads as we want:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Complex</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StObject</span> </span>{
+  
+  <span class="hljs-keyword">var</span> a: (js.<span class="hljs-type">Function1</span>[<span class="hljs-comment">/* n */</span> scala.<span class="hljs-type">Double</span>, <span class="hljs-type">Unit</span>]) | <span class="hljs-type">String</span> = js.native
+}
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Complex</span> </span>{
+  
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply</span></span>(a: (js.<span class="hljs-type">Function1</span>[<span class="hljs-comment">/* n */</span> scala.<span class="hljs-type">Double</span>, <span class="hljs-type">Unit</span>]) | <span class="hljs-type">String</span>): <span class="hljs-type">Complex</span> = {
+    <span class="hljs-keyword">val</span> __obj = js.<span class="hljs-type">Dynamic</span>.literal(a = a.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    __obj.asInstanceOf[<span class="hljs-type">Complex</span>]
+  }
+  
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-keyword">implicit</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ComplexMutableBuilder</span>[<span class="hljs-type">Self</span> &lt;: <span class="hljs-type">Complex</span>] (<span class="hljs-params">val x: <span class="hljs-type">Self</span></span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">AnyVal</span> </span>{
+    
+    <span class="hljs-meta">@scala</span>.inline
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setA</span></span>(value: (js.<span class="hljs-type">Function1</span>[<span class="hljs-comment">/* n */</span> scala.<span class="hljs-type">Double</span>, <span class="hljs-type">Unit</span>]) | <span class="hljs-type">String</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"a"</span>, value.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    
+    <span class="hljs-meta">@scala</span>.inline
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setAFunction1</span></span>(value: <span class="hljs-comment">/* n */</span> scala.<span class="hljs-type">Double</span> =&gt; <span class="hljs-type">Unit</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"a"</span>, js.<span class="hljs-type">Any</span>.fromFunction1(value))
+  }
+}
+<span class="hljs-comment">// usage</span>
+<span class="hljs-type">Complex</span>().setAFunction1(n =&gt; println(n))
+</code></pre>
+<p>Note that <code>setAFunction1</code> takes a scala function and converts it to a javascript function in the body.
+This is actually an extensible mechanism, through <a href="/docs/flavour">flavours</a>, so if you use the scalajs-react flavour it would look like this:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setAFunction1</span></span>(value: <span class="hljs-comment">/* n */</span> scala.<span class="hljs-type">Double</span> =&gt; <span class="hljs-type">Callback</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"a"</span>, js.<span class="hljs-type">Any</span>.fromFunction1((t0: <span class="hljs-comment">/* n */</span> scala.<span class="hljs-type">Double</span>) =&gt; value(t0).runNow()))
+</code></pre>
+<p>There is no <code>setAString</code> method because the converter knows that the implicit conversion from <code>String</code> to <code>(js.Function1[/* n */ scala.Double, Unit]) | String</code> will succeed.</p>
+<h3><a class="anchor" aria-hidden="true" id="inheritance-and-type-parameters"></a><a href="#inheritance-and-type-parameters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inheritance and type parameters</h3>
+<pre><code class="hljs css language-scala"><span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Parent</span>[<span class="hljs-type">T</span>] <span class="hljs-keyword">extends</span> <span class="hljs-title">StObject</span> </span>{
+  
+  <span class="hljs-keyword">var</span> t: <span class="hljs-type">T</span> = js.native
+}
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Parent</span> </span>{
+  
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply</span></span>[<span class="hljs-type">T</span>](t: <span class="hljs-type">T</span>): <span class="hljs-type">Parent</span>[<span class="hljs-type">T</span>] = {
+    <span class="hljs-keyword">val</span> __obj = js.<span class="hljs-type">Dynamic</span>.literal(t = t.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    __obj.asInstanceOf[<span class="hljs-type">Parent</span>[<span class="hljs-type">T</span>]]
+  }
+  
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-keyword">implicit</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ParentMutableBuilder</span>[<span class="hljs-type">Self</span> &lt;: <span class="hljs-type">Parent</span>[_], <span class="hljs-title">T</span>] (<span class="hljs-params">val x: <span class="hljs-type">Self</span> with <span class="hljs-type">Parent</span>[<span class="hljs-type">T</span>]</span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">AnyVal</span> </span>{
+    
+    <span class="hljs-meta">@scala</span>.inline
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setT</span></span>(value: <span class="hljs-type">T</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"t"</span>, value.asInstanceOf[js.<span class="hljs-type">Any</span>])
+  }
+}
+
+<span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Child</span>[<span class="hljs-type">T1</span>, <span class="hljs-type">T2</span>] <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span>[<span class="hljs-type">T1</span>] </span>{
+
+ <span class="hljs-keyword">var</span> t2: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">T2</span>] = js.native
+}
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Child</span> </span>{
+
+ <span class="hljs-meta">@scala</span>.inline
+ <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply</span></span>[<span class="hljs-type">T1</span>, <span class="hljs-type">T2</span>](t: <span class="hljs-type">T1</span>): <span class="hljs-type">Child</span>[<span class="hljs-type">T1</span>, <span class="hljs-type">T2</span>] = {
+  <span class="hljs-keyword">val</span> __obj = js.<span class="hljs-type">Dynamic</span>.literal(t = t.asInstanceOf[js.<span class="hljs-type">Any</span>])
+  __obj.asInstanceOf[<span class="hljs-type">Child</span>[<span class="hljs-type">T1</span>, <span class="hljs-type">T2</span>]]
+ }
+
+ <span class="hljs-meta">@scala</span>.inline
+ <span class="hljs-keyword">implicit</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChildMutableBuilder</span>[<span class="hljs-type">Self</span> &lt;: <span class="hljs-type">Child</span>[_, _], <span class="hljs-title">T1</span>, <span class="hljs-title">T2</span>] (<span class="hljs-params">val x: <span class="hljs-type">Self</span> with (<span class="hljs-type">Child</span>[<span class="hljs-type">T1</span>, <span class="hljs-type">T2</span>]</span>)) <span class="hljs-keyword">extends</span> <span class="hljs-title">AnyVal</span> </span>{
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setT2</span></span>(value: <span class="hljs-type">T2</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"t2"</span>, value.asInstanceOf[js.<span class="hljs-type">Any</span>])
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setT2Undefined</span></span>: <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"t2"</span>, js.undefined)
+ }
+}
+
+</code></pre>
+<p>The important takeaway is that type parameters work, and you can use the setters from all parents on your object:</p>
+<pre><code class="hljs css language-scala">  <span class="hljs-keyword">val</span> c = <span class="hljs-type">Child</span>[<span class="hljs-type">Int</span>, <span class="hljs-type">String</span>](<span class="hljs-number">1</span>)
+  <span class="hljs-keyword">val</span> c2 = c.setT2(<span class="hljs-string">"foo"</span>)
+  <span class="hljs-keyword">val</span> c3: <span class="hljs-type">Child</span>[<span class="hljs-type">Int</span>, <span class="hljs-type">String</span>] = c.setT(<span class="hljs-number">1</span>)
+</code></pre>
+<p>This is where the <code>Self</code> type parameter and the intersection type comes into play. It's necessary to use parent setters without losing type information.</p>
+<h3><a class="anchor" aria-hidden="true" id="literal-types"></a><a href="#literal-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Literal types</h3>
+<p>Given this typescript definition:</p>
+<pre><code class="hljs css language-typescript"><span class="hljs-keyword">interface</span> Branch&lt;T&gt; {
+ <span class="hljs-keyword">type</span>: <span class="hljs-string">"Branch"</span>
+ left: T
+ right: T
+}
+
+<span class="hljs-keyword">interface</span> Leaf&lt;T&gt;  {
+ <span class="hljs-keyword">type</span>: <span class="hljs-string">"Leaf"</span>
+ value: T
+}
+
+<span class="hljs-keyword">type</span> Tree&lt;T&gt; = Branch&lt;T&gt; | Leaf&lt;T&gt;
+</code></pre>
+<p>This is what we end up with for <code>Branch</code>. As you can see the <code>type</code> member is set to the only value it can have.</p>
+<pre><code class="hljs css language-scala"><span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Branch</span>[<span class="hljs-type">T</span>] <span class="hljs-keyword">extends</span> <span class="hljs-title">Tree</span>[<span class="hljs-type">T</span>] </span>{
+
+ <span class="hljs-keyword">var</span> left: <span class="hljs-type">T</span> = js.native
+
+ <span class="hljs-keyword">var</span> right: <span class="hljs-type">T</span> = js.native
+
+ <span class="hljs-keyword">var</span> `<span class="hljs-class"><span class="hljs-keyword">type</span>`</span>: typings.documentation.documentationStrings.<span class="hljs-type">Branch</span> = js.native
+}
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Branch</span> </span>{
+
+ <span class="hljs-meta">@scala</span>.inline
+ <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply</span></span>[<span class="hljs-type">T</span>](left: <span class="hljs-type">T</span>, right: <span class="hljs-type">T</span>): <span class="hljs-type">Branch</span>[<span class="hljs-type">T</span>] = {
+  <span class="hljs-keyword">val</span> `<span class="hljs-class"><span class="hljs-keyword">type</span>` </span>= <span class="hljs-string">"Branch"</span>
+  <span class="hljs-keyword">val</span> __obj = js.<span class="hljs-type">Dynamic</span>.literal(left = left.asInstanceOf[js.<span class="hljs-type">Any</span>], right = right.asInstanceOf[js.<span class="hljs-type">Any</span>])
+  __obj.updateDynamic(<span class="hljs-string">"type"</span>)(`<span class="hljs-class"><span class="hljs-keyword">type</span>`.<span class="hljs-title">asInstanceOf</span>[js.<span class="hljs-type">Any</span>])</span>
+  __obj.asInstanceOf[<span class="hljs-type">Branch</span>[<span class="hljs-type">T</span>]]
+ }
+
+ <span class="hljs-meta">@scala</span>.inline
+ <span class="hljs-keyword">implicit</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BranchMutableBuilder</span>[<span class="hljs-type">Self</span> &lt;: <span class="hljs-type">Branch</span>[_], <span class="hljs-title">T</span>] (<span class="hljs-params">val x: <span class="hljs-type">Self</span> with <span class="hljs-type">Branch</span>[<span class="hljs-type">T</span>]</span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">AnyVal</span> </span>{
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setLeft</span></span>(value: <span class="hljs-type">T</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"left"</span>, value.asInstanceOf[js.<span class="hljs-type">Any</span>])
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setRight</span></span>(value: <span class="hljs-type">T</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"right"</span>, value.asInstanceOf[js.<span class="hljs-type">Any</span>])
+
+  <span class="hljs-meta">@scala</span>.inline
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setType</span></span>(value: typings.documentation.documentationStrings.<span class="hljs-type">Branch</span>): <span class="hljs-type">Self</span> = <span class="hljs-type">StObject</span>.set(x, <span class="hljs-string">"type"</span>, value.asInstanceOf[js.<span class="hljs-type">Any</span>])
+ }
+}
+</code></pre>
+<p>Usage:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-type">Branch</span>(<span class="hljs-type">Leaf</span>(<span class="hljs-number">1</span>), <span class="hljs-type">Leaf</span>(<span class="hljs-number">1</span>))
+</code></pre>
+<p>The constructor methods are also exposed through <code>Tree</code>, which makes them even easier to find in your IDE:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-type">Tree</span>.<span class="hljs-type">Branch</span>(<span class="hljs-type">Tree</span>.<span class="hljs-type">Leaf</span>(<span class="hljs-number">1</span>), <span class="hljs-type">Tree</span>.<span class="hljs-type">Leaf</span>(<span class="hljs-number">1</span>))
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/usage"><span class="arrow-prev">← </span><span>What do I do now?</span></a><a class="docs-next button" href="/docs/flavour"><span>Flavour</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo-1.svg" alt="ScalablyTyped" width="66" height="58"/></a><div><h5>Community</h5><a href="https://gitter.im/ScalablyTyped/community/">Project Chat</a></div><div><h5>More</h5><a href="https://github.com/oyvindberg/ScalablyTypedConverter/">GitHub</a><a class="github-button" href="https://github.com/ScalablyTyped/Converter/" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2021 Øyvind Raddum Berg</section></footer></div></body></html>
