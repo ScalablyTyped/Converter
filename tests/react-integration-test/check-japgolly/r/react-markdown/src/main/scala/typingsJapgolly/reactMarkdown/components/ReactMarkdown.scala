@@ -1,20 +1,47 @@
 package typingsJapgolly.reactMarkdown.components
 
-import typingsJapgolly.StBuildingComponent.Default
+import japgolly.scalajs.react.raw.React.Node
+import typingsJapgolly.StBuildingComponent
+import typingsJapgolly.reactMarkdown.mod.LinkTargetResolver
 import typingsJapgolly.reactMarkdown.mod.ReactMarkdownProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-/* The props of this component has an unsupported shape. You can use `set` manually to use it, but with no compiler support :/ . Couldn't find props for typingsJapgolly.reactMarkdown.mod.ReactMarkdownProps because: IArray(Couldn't find props for typingsJapgolly.reactMarkdown.mod.ChildrenProp with typingsJapgolly.reactMarkdown.reactMarkdownStrings.Not with js.Any because: IArray(Could't extract props from js.Any because couldn't resolve ClassTree.), Couldn't find props for typingsJapgolly.reactMarkdown.mod.SourceProp with typingsJapgolly.reactMarkdown.reactMarkdownStrings.Not with js.Any because: IArray(Could't extract props from js.Any because couldn't resolve ClassTree.)) */
 object ReactMarkdown {
-  
-  def apply(p: ReactMarkdownProps): Default[js.Object] = new Default[js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
   
   @JSImport("react-markdown", JSImport.Namespace)
   @js.native
   val component: js.Object = js.native
   
-  implicit def make(companion: ReactMarkdown.type): Default[js.Object] = new Default[js.Object](js.Array(this.component, js.Dictionary.empty))()
+  @scala.inline
+  class Builder (val args: js.Array[js.Any])
+    extends AnyVal
+       with StBuildingComponent[js.Object] {
+    
+    @scala.inline
+    def allowNode(value: /* index */ Double => Boolean): this.type = set("allowNode", js.Any.fromFunction1(value))
+    
+    @scala.inline
+    def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
+    
+    @scala.inline
+    def linkTarget(value: String | LinkTargetResolver): this.type = set("linkTarget", value.asInstanceOf[js.Any])
+    
+    @scala.inline
+    def linkTargetFunction3(value: (/* uri */ String, /* text */ String, /* title */ js.UndefOr[String]) => String): this.type = set("linkTarget", js.Any.fromFunction3(value))
+    
+    @scala.inline
+    def transformLinkUri(
+      value: (/* uri */ String, /* children */ js.UndefOr[Node], /* title */ js.UndefOr[String]) => String
+    ): this.type = set("transformLinkUri", js.Any.fromFunction3(value))
+    
+    @scala.inline
+    def transformLinkUriNull: this.type = set("transformLinkUri", null)
+  }
+  
+  implicit def make(companion: ReactMarkdown.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+  
+  def withProps(p: ReactMarkdownProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

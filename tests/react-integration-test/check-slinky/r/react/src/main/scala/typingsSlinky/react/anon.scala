@@ -1,6 +1,5 @@
 package typingsSlinky.react
 
-import slinky.core.ReactComponentClass
 import slinky.core.facade.ReactElement
 import typingsSlinky.std.Exclude
 import org.scalablytyped.runtime.StObject
@@ -178,49 +177,6 @@ object anon {
       
       @scala.inline
       def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
-    }
-  }
-  
-  @js.native
-  trait Result[T /* <: ReactComponentClass[_] */] extends StObject {
-    
-    val _result: T = js.native
-  }
-  object Result {
-    
-    @scala.inline
-    def apply[T /* <: ReactComponentClass[_] */](_result: T): Result[T] = {
-      val __obj = js.Dynamic.literal(_result = _result.asInstanceOf[js.Any])
-      __obj.asInstanceOf[Result[T]]
-    }
-    
-    @scala.inline
-    implicit class ResultMutableBuilder[Self <: Result[_], T /* <: ReactComponentClass[_] */] (val x: Self with Result[T]) extends AnyVal {
-      
-      @scala.inline
-      def set_result(value: T): Self = StObject.set(x, "_result", value.asInstanceOf[js.Any])
-    }
-  }
-  
-  @js.native
-  trait Type[T /* <: ReactComponentClass[_] */] extends StObject {
-    
-    val `type`: T = js.native
-  }
-  object Type {
-    
-    @scala.inline
-    def apply[T /* <: ReactComponentClass[_] */](`type`: T): Type[T] = {
-      val __obj = js.Dynamic.literal()
-      __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-      __obj.asInstanceOf[Type[T]]
-    }
-    
-    @scala.inline
-    implicit class TypeMutableBuilder[Self <: Type[_], T /* <: ReactComponentClass[_] */] (val x: Self with Type[T]) extends AnyVal {
-      
-      @scala.inline
-      def setType(value: T): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
 }
