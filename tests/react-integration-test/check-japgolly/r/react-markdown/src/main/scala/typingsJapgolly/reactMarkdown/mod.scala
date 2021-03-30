@@ -55,17 +55,7 @@ object mod {
   {[ key in keyof T ]:? never}
     */ typingsJapgolly.reactMarkdown.reactMarkdownStrings.Not with TopLevel[js.Any]
   
-  /* import warning: RemoveDifficultInheritance.summarizeChanges 
-  - Dropped react-markdown.react-markdown.ChildrenProp & react-markdown.react-markdown.Not<react-markdown.react-markdown.SourceProp> | react-markdown.react-markdown.SourceProp & react-markdown.react-markdown.Not<react-markdown.react-markdown.ChildrenProp> */ @js.native
-  trait ReactMarkdownProps extends ReactMarkdownPropsBase
-  object ReactMarkdownProps {
-    
-    @scala.inline
-    def apply(): ReactMarkdownProps = {
-      val __obj = js.Dynamic.literal()
-      __obj.asInstanceOf[ReactMarkdownProps]
-    }
-  }
+  type ReactMarkdownProps = ReactMarkdownPropsBase with (MutuallyExclusive[ChildrenProp, SourceProp])
   
   @js.native
   trait ReactMarkdownPropsBase extends StObject {
