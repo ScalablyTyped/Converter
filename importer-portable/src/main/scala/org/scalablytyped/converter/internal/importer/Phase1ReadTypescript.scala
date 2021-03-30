@@ -240,7 +240,10 @@ object Phase1ReadTypescript {
       new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.enableUnqualifiedLookup.caching),
       modules.MoveGlobals.apply,
       FlattenTrees.apply,
-      T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
+      (
+        T.DefaultedTypeArguments >> //after FlattenTrees
+          T.TypeAliasIntersection // before ExpandTypeMappings
+      ).visitTsParsedFile(scope.caching),
       if (expandTypeMappings(libName)) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
       if (expandTypeMappings(libName)) T.ExpandTypeMappings.After.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
       (

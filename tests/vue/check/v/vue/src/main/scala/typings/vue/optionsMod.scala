@@ -732,21 +732,45 @@ object optionsMod {
     }
   }
   
-  type ThisTypedComponentOptionsWithArrayProps[V /* <: Vue */, Data, Methods, Computed, PropNames /* <: String */] = js.Object with (ComponentOptions[
-    V, 
-    Data | (js.ThisFunction0[/* this */ (Record[PropNames, _]) with V, Data]), 
-    Methods, 
-    Computed, 
-    js.Array[PropNames]
-  ]) with (ThisType[CombinedVueInstance[V, Data, Methods, Computed, Record[PropNames, _]]])
+  /* import warning: RemoveDifficultInheritance.summarizeChanges 
+  - Dropped object */ @js.native
+  trait ThisTypedComponentOptionsWithArrayProps[V /* <: Vue */, Data, Methods, Computed, PropNames /* <: String */]
+    extends ComponentOptions[
+          V, 
+          Data | (js.ThisFunction0[/* this */ (Record[PropNames, _]) with V, Data]), 
+          Methods, 
+          Computed, 
+          js.Array[PropNames]
+        ]
+       with ThisType[CombinedVueInstance[V, Data, Methods, Computed, Record[PropNames, js.Any]]]
+  object ThisTypedComponentOptionsWithArrayProps {
+    
+    @scala.inline
+    def apply[V /* <: Vue */, Data, Methods, Computed, PropNames /* <: String */](): ThisTypedComponentOptionsWithArrayProps[V, Data, Methods, Computed, PropNames] = {
+      val __obj = js.Dynamic.literal()
+      __obj.asInstanceOf[ThisTypedComponentOptionsWithArrayProps[V, Data, Methods, Computed, PropNames]]
+    }
+  }
   
-  type ThisTypedComponentOptionsWithRecordProps[V /* <: Vue */, Data, Methods, Computed, Props] = js.Object with (ComponentOptions[
-    V, 
-    Data | (js.ThisFunction0[/* this */ Props with V, Data]), 
-    Methods, 
-    Computed, 
-    RecordPropsDefinition[Props]
-  ]) with (ThisType[CombinedVueInstance[V, Data, Methods, Computed, Props]])
+  /* import warning: RemoveDifficultInheritance.summarizeChanges 
+  - Dropped object */ @js.native
+  trait ThisTypedComponentOptionsWithRecordProps[V /* <: Vue */, Data, Methods, Computed, Props]
+    extends ComponentOptions[
+          V, 
+          Data | (js.ThisFunction0[/* this */ Props with V, Data]), 
+          Methods, 
+          Computed, 
+          RecordPropsDefinition[Props]
+        ]
+       with ThisType[CombinedVueInstance[V, Data, Methods, Computed, Props]]
+  object ThisTypedComponentOptionsWithRecordProps {
+    
+    @scala.inline
+    def apply[V /* <: Vue */, Data, Methods, Computed, Props](): ThisTypedComponentOptionsWithRecordProps[V, Data, Methods, Computed, Props] = {
+      val __obj = js.Dynamic.literal()
+      __obj.asInstanceOf[ThisTypedComponentOptionsWithRecordProps[V, Data, Methods, Computed, Props]]
+    }
+  }
   
   type WatchHandler[T] = js.Function2[/* val */ T, /* oldVal */ T, Unit]
   

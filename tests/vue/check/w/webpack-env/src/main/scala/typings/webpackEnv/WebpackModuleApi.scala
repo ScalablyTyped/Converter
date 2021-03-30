@@ -297,5 +297,8 @@ object WebpackModuleApi {
     def resolveWeak(path: String): Double | String = js.native
   }
   
-  type RequireLambda = Require1 with Require2
+  /* import warning: transforms.RemoveMultipleInheritance#findNewParents newComments Dropped parents 
+  - js.Function because Already inherited
+  - typings.webpackEnv.WebpackModuleApi.Require2 because Already inherited */ @js.native
+  trait RequireLambda extends Require1
 }

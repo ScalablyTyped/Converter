@@ -3,7 +3,6 @@ package typingsJapgolly.react
 import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
-import typingsJapgolly.react.mod.ComponentType
 import typingsJapgolly.std.Exclude
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
@@ -180,49 +179,6 @@ object anon {
       
       @scala.inline
       def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
-    }
-  }
-  
-  @js.native
-  trait Result[T /* <: ComponentType[_] */] extends StObject {
-    
-    val _result: T = js.native
-  }
-  object Result {
-    
-    @scala.inline
-    def apply[T /* <: ComponentType[_] */](_result: T): Result[T] = {
-      val __obj = js.Dynamic.literal(_result = _result.asInstanceOf[js.Any])
-      __obj.asInstanceOf[Result[T]]
-    }
-    
-    @scala.inline
-    implicit class ResultMutableBuilder[Self <: Result[_], T /* <: ComponentType[_] */] (val x: Self with Result[T]) extends AnyVal {
-      
-      @scala.inline
-      def set_result(value: T): Self = StObject.set(x, "_result", value.asInstanceOf[js.Any])
-    }
-  }
-  
-  @js.native
-  trait Type[T /* <: ComponentType[_] */] extends StObject {
-    
-    val `type`: T = js.native
-  }
-  object Type {
-    
-    @scala.inline
-    def apply[T /* <: ComponentType[_] */](`type`: T): Type[T] = {
-      val __obj = js.Dynamic.literal()
-      __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-      __obj.asInstanceOf[Type[T]]
-    }
-    
-    @scala.inline
-    implicit class TypeMutableBuilder[Self <: Type[_], T /* <: ComponentType[_] */] (val x: Self with Type[T]) extends AnyVal {
-      
-      @scala.inline
-      def setType(value: T): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
 }
