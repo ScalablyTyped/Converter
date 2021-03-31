@@ -4,8 +4,8 @@ import java.io.File
 import java.nio.file.{Files, Path}
 
 import cats.data.ValidatedNel
-import io.circe._
-import io.circe.syntax._
+import io.circe013._
+import io.circe013.syntax._
 
 import scala.io.Source
 import scala.util.control.NonFatal
@@ -18,7 +18,7 @@ object Json {
   object CustomJacksonParser extends Parser {
     import com.fasterxml.jackson.core.{JsonFactory, JsonParser}
     import com.fasterxml.jackson.databind.ObjectMapper
-    import io.circe.jackson.CirceJsonModule
+    import io.circe013.jackson.CirceJsonModule
 
 //    val Features = Set[JsonReadFeature](
 //      JsonReadFeature.ALLOW_JAVA_COMMENTS,

@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal.importer
 
-import io.circe.parser._
-import io.circe.syntax._
+import io.circe013.syntax._
+import org.scalablytyped.converter.internal.Json
 import org.scalablytyped.converter.internal.importer.ScalaJsBundlerDepFile.NpmDependencies
 import org.scalatest.funsuite.AnyFunSuite
 
@@ -19,10 +19,10 @@ class ScalaJsBundlerDepTest extends AnyFunSuite {
   val expected = NpmDependencies(deps, deps, Nil, Nil)
 
   test("parses existing") {
-    assert(decode[ScalaJsBundlerDepFile.NpmDependencies](content) === Right(expected))
+    assert(Json[ScalaJsBundlerDepFile.NpmDependencies](content) === Right(expected))
   }
 
   test("roundtrips") {
-    assert(decode[ScalaJsBundlerDepFile.NpmDependencies](expected.asJson.spaces4) === Right(expected))
+    assert(Json[ScalaJsBundlerDepFile.NpmDependencies](expected.asJson.spaces4) === Right(expected))
   }
 }

@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-import io.circe.Decoder
+import io.circe013.Decoder
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.QualifiedName.StdNames
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.names.{
@@ -159,9 +159,9 @@ object SlinkyTagsLoader {
   /* extract what we need from the slinky json files */
   type AttrsByTag = Map[TagName.Concrete, (Tag, Set[String])]
   object AttrsByTag {
-    implicit val TagDecoder:       Decoder[Tag]       = io.circe.generic.semiauto.deriveDecoder[Tag]
-    implicit val AttributeDecoder: Decoder[Attribute] = io.circe.generic.semiauto.deriveDecoder[Attribute]
-    implicit val TagsModelDecoder: Decoder[TagsModel] = io.circe.generic.semiauto.deriveDecoder[TagsModel]
+    implicit val TagDecoder:       Decoder[Tag]       = io.circe013.generic.semiauto.deriveDecoder[Tag]
+    implicit val AttributeDecoder: Decoder[Attribute] = io.circe013.generic.semiauto.deriveDecoder[Attribute]
+    implicit val TagsModelDecoder: Decoder[TagsModel] = io.circe013.generic.semiauto.deriveDecoder[TagsModel]
 
     private def massage(model: TagsModel): AttrsByTag =
       model.tags.map { tag =>
