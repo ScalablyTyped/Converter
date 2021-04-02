@@ -1,12 +1,12 @@
 organization := "org.scalablytyped"
 name := "semantic-ui-react"
-version := "0.0-unknown-869b18"
+version := "0.0-unknown-e39471"
 scalaVersion := "2.13.3"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.0",
   "me.shadaj" %%% "slinky-web" % "0.6.6",
-  "org.scalablytyped" %%% "react" % "16.9.2-aa973a",
+  "org.scalablytyped" %%% "react" % "16.9.2-1ec69f",
   "org.scalablytyped" %%% "std" % "0.0-unknown-aa3c92")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-feature", "-g:notailcalls", "-language:implicitConversions", "-language:higherKinds", "-language:existentials")

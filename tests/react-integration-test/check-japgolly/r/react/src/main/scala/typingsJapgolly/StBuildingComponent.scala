@@ -86,7 +86,7 @@ object StBuildingComponent {
        with StBuildingComponent[R]
   
   @scala.inline
-  implicit def make(comp: StBuildingComponent[_]): VdomElement = {
+  implicit def make[R <: js.Object](comp: StBuildingComponent[R]): VdomElement = {
     if (!scalajs.runtime.linkingInfo.productionMode) {
     if (comp.args(0) == null) throw new IllegalStateException("This component has already been built into a ReactElement, and cannot be reused")
   }
