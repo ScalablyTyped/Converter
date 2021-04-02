@@ -2,7 +2,7 @@ package org.scalablytyped.converter
 package internal
 package importer
 
-import io.circe.{Decoder, Encoder}
+import io.circe013.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.scalajs.{flavours, Name, Versions}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 
@@ -42,7 +42,7 @@ case class ConversionOptions(
 }
 
 object ConversionOptions {
-  import io.circe.generic.auto._
+  import io.circe013.generic.auto._
   import jsonCodecs._
 
   implicit val encodes: Encoder[ConversionOptions] = exportEncoder[ConversionOptions].instance

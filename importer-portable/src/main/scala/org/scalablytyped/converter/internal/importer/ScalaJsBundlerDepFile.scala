@@ -2,9 +2,9 @@ package org.scalablytyped.converter.internal
 package importer
 
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
-import io.circe.{Decoder, Encoder}
-import io.circe.syntax._
+import io.circe013.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe013.{Decoder, Encoder}
+import io.circe013.syntax._
 
 object ScalaJsBundlerDepFile {
 
