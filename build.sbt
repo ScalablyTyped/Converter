@@ -8,7 +8,7 @@ Global / bspEnabled := false
 autoStartServer := false
 Global / excludeLintKeys += autoStartServer
 
-lazy val utils = project
+lazy val core = project
   .configure(baseSettings)
   .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode) ++ Deps.circe)
 
@@ -18,7 +18,7 @@ lazy val logging = project
 
 lazy val ts = project
   .configure(baseSettings, optimize)
-  .dependsOn(utils, logging)
+  .dependsOn(core, logging)
   .settings(libraryDependencies += Deps.parserCombinators)
 
 lazy val docs = project
@@ -31,12 +31,12 @@ lazy val docs = project
   .enablePlugins(MdocPlugin, DocusaurusPlugin)
 
 lazy val scalajs = project
-  .dependsOn(utils, logging)
+  .dependsOn(core, logging)
   .configure(baseSettings, optimize)
   .settings(libraryDependencies ++= Seq(Deps.scalaXml))
 
 lazy val phases = project
-  .dependsOn(utils, logging)
+  .dependsOn(core, logging)
   .configure(baseSettings, optimize)
 
 lazy val `importer-portable` = project
@@ -101,17 +101,7 @@ lazy val root = project
     skip in publish := true,
   )
   .configure(baseSettings)
-  .aggregate(
-    logging,
-    utils,
-    phases,
-    ts,
-    scalajs,
-    `importer-portable`,
-    `sbt-converter`,
-    importer,
-    cli,
-  )
+  .aggregate(logging, core, phases, ts, scalajs, `importer-portable`, `sbt-converter`, importer, cli)
 
 lazy val baseSettings: Project => Project =
   _.settings(
@@ -136,17 +126,20 @@ lazy val baseSettings: Project => Project =
 
 lazy val optimize: Project => Project =
   _.settings(
-    scalacOptions ++= Seq(
-      "-opt:l:inline",
-      "-opt:l:method",
-      "-opt:simplify-jumps",
-      "-opt:compact-locals",
-      "-opt:copy-propagation",
-      "-opt:redundant-casts",
-      "-opt:box-unbox",
-      "-opt:nullness-tracking",
-      //      "-opt:closure-invocations",
-      "-opt-inline-from:org.scalablytyped.converter.internal.**",
-      "-opt-warnings",
-    ),
+    scalacOptions ++= {
+      if (insideCI.value || !isSnapshot.value)
+        Seq(
+          "-opt:l:inline",
+          "-opt:l:method",
+          "-opt:simplify-jumps",
+          "-opt:compact-locals",
+          "-opt:copy-propagation",
+          "-opt:redundant-casts",
+          "-opt:box-unbox",
+          "-opt:nullness-tracking",
+          "-opt-inline-from:org.scalablytyped.converter.internal.**",
+          "-opt-warnings",
+        )
+      else Nil
+    },
   )

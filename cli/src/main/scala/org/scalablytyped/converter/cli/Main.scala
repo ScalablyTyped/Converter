@@ -1,20 +1,17 @@
 package org.scalablytyped.converter.cli
 
-import java.net.URI
-
 import com.olvind.logging.{stdout, storing, LogLevel, Logger}
 import fansi.{Attr, Color, Str}
 import org.scalablytyped.converter.internal.importer._
 import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, PublishedSbtProject, SbtProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
-import org.scalablytyped.converter.internal.importer.jsonCodecs._
 import org.scalablytyped.converter.internal.phases.PhaseListener.NoListener
 import org.scalablytyped.converter.internal.phases.{PhaseRes, PhaseRunner, RecPhase}
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts.CalculateLibraryVersion.PackageJsonOnly
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
-import org.scalablytyped.converter.internal.{constants, files, sets, BuildInfo, IArray, InFolder, Json}
+import org.scalablytyped.converter.internal.{constants, files, sets, BuildInfo, InFolder, Json}
 import org.scalablytyped.converter.{Flavour, Selection}
 import scopt.{OParser, OParserBuilder, Read}
 
@@ -74,13 +71,13 @@ object Main {
     storing().zipWith(stdout.filter(LogLevel.warn))
 
   implicit val ReadsFlavour: Read[Flavour] =
-    Read.reads(s => Flavour.all.getOrElse(s, sys.error(s"'$s' is not among ${Flavour.all.keys}")))
+    Read.reads(s => Flavour.byName.getOrElse(s, sys.error(s"'$s' is not among ${Flavour.byName.keys}")))
 
   implicit val ReadsVersionsScalaJs: Read[Versions.ScalaJs] =
-    Read.stringRead.map(Versions.ScalaJs)
+    Read.stringRead.map(Versions.ScalaJs.apply)
 
   implicit val ReadsVersionsScala: Read[Versions.Scala] =
-    Read.stringRead.map(Versions.Scala)
+    Read.stringRead.map(Versions.Scala.apply)
 
   implicit val ReadsTsIdentLibrary: Read[TsIdentLibrary] =
     Read.stringRead.map(TsIdentLibrary.apply)
@@ -133,7 +130,7 @@ object Main {
       opt[Flavour]('f', "flavour")
         .action((x, c) => c.mapConversion(_.copy(flavour = x)))
         .text(
-          s"One of ${Flavour.all.keys.mkString(", ")}. See https://scalablytyped.org/docs/flavour",
+          s"One of ${Flavour.byName.keys.mkString(", ")}. See https://scalablytyped.org/docs/flavour",
         ),
       opt[Versions.ScalaJs]("scalajs")
         .action((x, c) => c.mapConversion(cc => cc.copy(versions = cc.versions.copy(scalaJs = x))))

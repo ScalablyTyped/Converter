@@ -6,6 +6,7 @@ import java.nio.file.{Files, Path}
 import java.util
 
 import ammonite.ops.%
+import io.circe013.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.environment.OpSystem
 
 import scala.util.Try
@@ -29,6 +30,10 @@ object InFile {
 
 final case class InFolder(path: os.Path) {
   def name: String = path.last
+}
+object InFolder {
+  implicit val encodes: Encoder[InFolder] = orphanCodecs.PathEncoder.contramap(_.path)
+  implicit val decodes: Decoder[InFolder] = orphanCodecs.PathDecoder.map(InFolder.apply)
 }
 
 trait Layout[F, V] {

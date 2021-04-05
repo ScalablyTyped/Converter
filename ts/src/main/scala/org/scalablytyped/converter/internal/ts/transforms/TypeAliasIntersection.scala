@@ -22,7 +22,7 @@ object TypeAliasIntersection extends TreeTransformationScopedChanges {
   def legalInheritance(x: TsType): Boolean =
     x match {
       case TsTypeRef(_, _, _)       => true
-      case TsTypeObject(_, members) => !ExtractInterfaces.isTypeMapping(members)
+      case TsTypeObject(_, members) => !TsType.isTypeMapping(members)
       case TsTypeFunction(_)        => true
       case _                        => false
     }

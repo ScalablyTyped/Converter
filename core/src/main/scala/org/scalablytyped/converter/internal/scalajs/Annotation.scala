@@ -1,6 +1,8 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
+import io.circe013.{Decoder, Encoder}
+
 sealed trait Annotation extends Product with Serializable
 sealed trait LocationAnnotation extends Annotation
 
@@ -9,6 +11,9 @@ object Imported {
   case object Namespace extends Imported
   case object Default extends Imported
   case class Named(name: IArray[Name]) extends Imported
+
+  implicit val encodes: Encoder[Imported] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[Imported] = io.circe013.generic.semiauto.deriveDecoder
 }
 
 object Annotation {
@@ -23,6 +28,11 @@ object Annotation {
   case class JsNameSymbol(name: QualifiedName) extends Annotation
   case class JsImport(module:   String, imported: Imported, global: Option[JsGlobal]) extends LocationAnnotation
   case class JsGlobal(name:     QualifiedName) extends LocationAnnotation
+
+  object JsGlobal {
+    implicit val encodes: Encoder[JsGlobal] = io.circe013.generic.semiauto.deriveEncoder
+    implicit val decodes: Decoder[JsGlobal] = io.circe013.generic.semiauto.deriveDecoder
+  }
 
   def renamedFrom(newName: Name)(oldAnnotations: IArray[Annotation]): IArray[Annotation] = {
     val (names, others) =
@@ -40,4 +50,7 @@ object Annotation {
 
     others ++ updatedNames
   }
+
+  implicit lazy val encodes: Encoder[Annotation] = io.circe013.generic.semiauto.deriveEncoder
+  implicit lazy val decodes: Decoder[Annotation] = io.circe013.generic.semiauto.deriveDecoder
 }

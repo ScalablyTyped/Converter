@@ -178,7 +178,7 @@ final class CommentTests extends AnyFunSuite with Matchers {
         NoComments,
         typeOnly = false,
         ExportType.Named,
-        TsExporteeTree(
+        TsExportee.Tree(
           TsDeclFunction(
             NoComments,
             declared = false,

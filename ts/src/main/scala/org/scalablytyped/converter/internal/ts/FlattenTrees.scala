@@ -123,7 +123,7 @@ object FlattenTrees {
       case that: TsDeclTypeAlias =>
         rets.addOrUpdateMatching(that)(x => x) {
           case existing: TsDeclTypeAlias if that.name === existing.name =>
-            IArray(existing, that).find(ta => !ta.comments.has[Markers.IsTrivial.type]).getOrElse {
+            IArray(existing, that).find(ta => !ta.comments.has[Marker.IsTrivial.type]).getOrElse {
               TsDeclTypeAlias(
                 comments = mergeComments(existing.comments, that.comments),
                 declared = existing.declared || that.declared,

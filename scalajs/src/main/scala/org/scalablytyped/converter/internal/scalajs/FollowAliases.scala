@@ -1,8 +1,6 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-import org.scalablytyped.converter.internal.scalajs.transforms.UnionToInheritance
-
 object FollowAliases {
   def apply(scope: TreeScope)(tpe: TypeRef): TypeRef =
     tpe match {
@@ -20,9 +18,9 @@ object FollowAliases {
           .collectFirst {
             case (ta: TypeAliasTree, newScope) =>
               apply(newScope)(FillInTParams(ta, scope, ref.targs, Empty).alias)
-            case (_cls: ClassTree, newScope) if _cls.comments.has[UnionToInheritance.WasUnion] =>
+            case (_cls: ClassTree, newScope) if _cls.comments.has[Marker.WasUnion] =>
               val cls = FillInTParams(_cls, newScope, ref.targs, Empty)
-              cls.comments.extract { case UnionToInheritance.WasUnion(types) => types } match {
+              cls.comments.extract { case Marker.WasUnion(types) => types } match {
                 case Some((types, _)) => TypeRef.Union(types, NoComments, sort = true)
                 case None             => ref
               }

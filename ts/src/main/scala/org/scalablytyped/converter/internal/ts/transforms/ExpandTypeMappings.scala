@@ -20,8 +20,8 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         scope.stack.exists {
           case TsTypeObject(Comments(cs), _) =>
             cs.exists {
-              case CommentData(Markers.NameHint(`nameHint`)) => true
-              case _                                         => false
+              case Marker.NameHint(`nameHint`) => true
+              case _                           => false
             }
           case _ => false
         }
@@ -53,7 +53,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
           val notices = Comments(
             List(
               Comment("/* Inlined " + TsTypeFormatter(x) + " */\n"),
-              CommentData(Markers.NameHint(nameHint)),
+              Marker.NameHint(nameHint),
             ),
           )
           TsTypeObject(notices, newMembers)
@@ -81,7 +81,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         }
 
       case ta @ TsDeclTypeAlias(comments, declared, name, tparams, alias, codePath)
-          if !comments.has[Markers.IsTrivial.type] && !pointsToConcreteType(scope, alias) =>
+          if !comments.has[Marker.IsTrivial.type] && !pointsToConcreteType(scope, alias) =>
         AllMembersFor.forType(scope, LoopDetector.initial)(alias) match {
           case Problems(_) =>
             evaluateKeys(scope, LoopDetector.initial)(alias) match {
@@ -226,9 +226,9 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
     def keysFor(members: IArray[TsMember]): IArray[TaggedLiteral] =
       members.collect {
         case TsMemberProperty(_, _, name, Some(OptionalType(_)), _, _, _) =>
-          TaggedLiteral(TsLiteralString(name.value))(isOptional = true)
-        case x: TsMemberProperty => TaggedLiteral(TsLiteralString(x.name.value))(isOptional = false)
-        case x: TsMemberFunction => TaggedLiteral(TsLiteralString(x.name.value))(isOptional = false)
+          TaggedLiteral(TsLiteral.Str(name.value))(isOptional = true)
+        case x: TsMemberProperty => TaggedLiteral(TsLiteral.Str(x.name.value))(isOptional = false)
+        case x: TsMemberFunction => TaggedLiteral(TsLiteral.Str(x.name.value))(isOptional = false)
       }
 
     val res: Res[Set[TaggedLiteral]] = FollowAliases(scope)(keys) match {

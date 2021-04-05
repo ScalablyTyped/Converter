@@ -62,6 +62,10 @@ object Dep {
     </dependency>
     // format: on
   }
+  object Concrete {
+    implicit val encodes: Encoder[Concrete] = io.circe013.generic.semiauto.deriveEncoder
+    implicit val decodes: Decoder[Concrete] = io.circe013.generic.semiauto.deriveDecoder
+  }
 
   case class Java(org: String, name: String, version: String) extends Concrete {
     override def mangledArtifact: String = name
@@ -75,6 +79,6 @@ object Dep {
     override def version: String = dep.version
   }
 
-  implicit val DepDecoder: Decoder[Dep] = io.circe013.generic.semiauto.deriveDecoder[Dep]
-  implicit val DepEncoder: Encoder[Dep] = io.circe013.generic.semiauto.deriveEncoder[Dep]
+  implicit val decodes: Decoder[Dep] = io.circe013.generic.semiauto.deriveDecoder
+  implicit val encodes: Encoder[Dep] = io.circe013.generic.semiauto.deriveEncoder
 }

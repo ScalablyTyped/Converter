@@ -1,6 +1,8 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
+import io.circe013.{Decoder, Encoder}
+
 final case class Name(unescaped: String) {
   def withSuffix[T: ToSuffix](t: T): Name =
     new Name(unescaped + "_" + ToSuffix(t).unescaped)
@@ -13,6 +15,9 @@ final case class Name(unescaped: String) {
 }
 
 object Name {
+  implicit val encodes: Encoder[Name] = Encoder[String].contramap(_.unescaped)
+  implicit val decodes: Decoder[Name] = Decoder[String].map(Name.apply)
+
   val mod:        Name = Name("mod")
   val std:        Name = Name("std")
   val typings:    Name = Name("typings")

@@ -2,7 +2,7 @@ package org.scalablytyped.converter
 package plugin
 
 import org.scalablytyped.converter.internal._
-import org.scalablytyped.converter.internal.importer.jsonCodecs.{FileDecoder, FileEncoder}
+import org.scalablytyped.converter.internal.orphanCodecs.{FileDecoder, FileEncoder}
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.{Name, QualifiedName}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary

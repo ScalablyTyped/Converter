@@ -120,12 +120,12 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
       case TsTypeObject(_, ms) if ExtractInterfaces.isDictionary(ms) =>
         val (numbers, strings, Empty) = ms.partitionCollect2(
-          { case x @ TsMemberIndex(_, _, _, IndexingDict(_, TsTypeRef.number), _) => x },
-          { case x @ TsMemberIndex(_, _, _, IndexingDict(_, _), _)                => x },
+          { case x @ TsMemberIndex(_, _, _, Indexing.Dict(_, TsTypeRef.number), _) => x },
+          { case x @ TsMemberIndex(_, _, _, Indexing.Dict(_, _), _)                => x },
         )
 
         val translatedStrings = strings.collect {
-          case TsMemberIndex(cs, _, _, IndexingDict(_, _), valueType) =>
+          case TsMemberIndex(cs, _, _, Indexing.Dict(_, _), valueType) =>
             (cs, orAny(wildcards, scope, importName)(valueType))
         }
         val stringDict = translatedStrings match {
@@ -140,7 +140,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             )
         }
         val translatedNumbers = numbers.collect {
-          case TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.number), valueType) =>
+          case TsMemberIndex(cs, _, _, Indexing.Dict(_, TsTypeRef.number), valueType) =>
             (cs, orAny(wildcards, scope, importName)(valueType))
         }
         val numberDict = translatedNumbers match {
@@ -181,8 +181,8 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           if (!types.contains(TsTypeRef.boolean)) types
           else {
             types.partitionCollect {
-              case TsTypeLiteral(TsLiteralString("true" | "false")) => null
-              case TsTypeLiteral(TsLiteralBoolean(true | false))    => null
+              case TsTypeLiteral(TsLiteral.Str("true" | "false")) => null
+              case TsTypeLiteral(TsLiteral.Bool(true | false))    => null
             } match {
               case (_, rest) => rest
             }
@@ -258,9 +258,9 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
       case TsTypeLiteral(lit) =>
         lit match {
-          case TsLiteralNumber(value)  => TypeRef.NumberLiteral(value)
-          case TsLiteralString(value)  => TypeRef.StringLiteral(value)
-          case TsLiteralBoolean(value) => TypeRef.BooleanLiteral(value.toString)
+          case TsLiteral.Num(value)  => TypeRef.NumberLiteral(value)
+          case TsLiteral.Str(value)  => TypeRef.StringLiteral(value)
+          case TsLiteral.Bool(value) => TypeRef.BooleanLiteral(value.toString)
         }
 
       case TsTypeThis() =>

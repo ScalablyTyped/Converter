@@ -5,7 +5,7 @@ import com.olvind.logging.Logger
 import org.scalablytyped.converter.internal.importer.Phase1Res.{LibTs, UnpackLibs}
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs._
-import org.scalablytyped.converter.internal.scalajs.transforms.{CleanIllegalNames, Mangler}
+import org.scalablytyped.converter.internal.scalajs.transforms.CleanIllegalNames
 import org.scalablytyped.converter.internal.ts.{ParentsResolver, _}
 
 class ImportTree(
@@ -45,7 +45,7 @@ class ImportTree(
             Comment("""/* This can be used to `require` the library as a side effect.
   If it is a global library this will make scalajs-bundler include it */
 """),
-            CommentData(Mangler.LeaveAlone),
+            Marker.ManglerLeaveAlone,
           ),
         ),
         codePath   = QualifiedName(IArray(outputPkg, libName, name)),
@@ -63,6 +63,9 @@ class ImportTree(
       QualifiedName(IArray(outputPkg)),
     )
   }
+
+  implicit val TypeRefOrdering: Ordering[TypeRef] =
+    Ordering.by[TypeRef, String](Printer.formatTypeRef(0))
 
   def decl(_scope: TsTreeScope)(t1: TsContainerOrDecl): IArray[Tree] = {
     val scope: TsTreeScope = _scope / t1
@@ -208,7 +211,7 @@ class ImportTree(
 
         val (anns, newComments, isScalaJsDefined) = (IsUserImplementable(withParents), enableScalaJsDefined) match {
           case (true, true)  => (IArray(Annotation.ScalaJSDefined), cs, true)
-          case (true, false) => (IArray(Annotation.JsNative), cs + CommentData(Markers.CouldBeScalaJsDefined), false)
+          case (true, false) => (IArray(Annotation.JsNative), cs + Marker.CouldBeScalaJsDefined, false)
           case (false, _)    => (IArray(Annotation.JsNative), cs, false)
         }
 
@@ -358,7 +361,7 @@ class ImportTree(
 
       case m: TsMemberIndex =>
         m.indexing match {
-          case IndexingDict(indexName, indexType) =>
+          case Indexing.Dict(indexName, indexType) =>
             val indexTpe = importType(Wildcards.No, scope, importName)(indexType)
             val valueTpe = importType.orAny(Wildcards.No, scope, importName)(m.valueType)
 
@@ -370,7 +373,7 @@ class ImportTree(
               else scope.logger.fatal(s"Unsupported index type $indexTpe")
 
             IArray(MemberRet.Inheritance(rewritten))
-          case IndexingSingle(name) =>
+          case Indexing.Single(name) =>
             val KnownSymbols = Set(
               "hasInstance",
               "isConcatSpreadable",
@@ -484,7 +487,7 @@ class ImportTree(
     }
 
   def hack(f: FieldTree): Option[FieldTree] =
-    f.comments.extract { case Markers.ExpandedCallables => () } match {
+    f.comments.extract { case Marker.ExpandedCallables => () } match {
       case None => Some(f)
       case Some((_, _)) =>
         if (f.name === Name.namespaced) None

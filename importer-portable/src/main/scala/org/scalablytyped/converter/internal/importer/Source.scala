@@ -34,8 +34,6 @@ object Source {
   }
 
   sealed trait TsLibSource extends TsSource with TsTreeScope.TsLib {
-    import jsonCodecs._
-
     override lazy val packageJsonOpt: Option[PackageJsonDeps] =
       Json.opt[PackageJsonDeps](folder.path / "package.json").orElse /* discover stdlib package.json as well */ (
         Json.opt[PackageJsonDeps](folder.path / os.up / "package.json"),
@@ -68,8 +66,6 @@ object Source {
     def fromTypingsJson(fromFolder: Source.FromFolder, fileOpt: Option[String]): IArray[InFile] =
       fileOpt match {
         case Some(path) if path.endsWith("typings.json") =>
-          import jsonCodecs._
-
           val typingsJsonPath = fromFolder.folder.path / os.RelPath(path)
           val typingsJson     = Json.force[TypingsJson](typingsJsonPath)
           IArray(InFile(typingsJsonPath / os.up / typingsJson.main))

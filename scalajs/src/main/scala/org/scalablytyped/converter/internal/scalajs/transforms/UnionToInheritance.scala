@@ -67,8 +67,6 @@ package transforms
   * ```
   */
 object UnionToInheritance {
-  final case class WasUnion(related: IArray[TypeRef]) extends Comment.Data
-
   def apply(
       scope:               TreeScope,
       tree:                ContainerTree,
@@ -121,8 +119,7 @@ object UnionToInheritance {
               Empty,
               ClassType.Trait,
               isSealed = false,
-              ta.comments ++? commentsOpt + CommentData(Minimization.Related(asInheritance)) +
-                CommentData(WasUnion(asInheritance)),
+              ta.comments ++? commentsOpt + Marker.MinimizationRelated(asInheritance) + Marker.WasUnion(asInheritance),
               ta.codePath,
             )
 
@@ -139,9 +136,7 @@ object UnionToInheritance {
               Empty,
               ClassType.Trait,
               isSealed = false,
-              Comments(
-                List(CommentData(Minimization.Related(asInheritance)), CommentData(WasUnion(asInheritance))),
-              ),
+              Comments(List(Marker.MinimizationRelated(asInheritance), Marker.WasUnion(asInheritance))),
               patchedTa.codePath,
             )
             val newTa = ta.copy(

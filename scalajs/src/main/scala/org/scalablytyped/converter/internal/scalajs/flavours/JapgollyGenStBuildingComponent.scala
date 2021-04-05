@@ -437,7 +437,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         name,
         IArray(TypeRef.Object),
         IArray(createElementField),
-        Minimization.KeepMarker + CommentData(Mangler.LeaveAlone),
+        Minimization.KeepMarker + Marker.ManglerLeaveAlone,
         ReactRawCp,
         isOverride = false,
       )
@@ -513,7 +513,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       StBuildingComponent,
       Empty,
       IArray(ReactRaw, make, Default),
-      Minimization.KeepMarker + CommentData(Mangler.LeaveAlone),
+      Minimization.KeepMarker + Marker.ManglerLeaveAlone,
       builderCp,
       isOverride = false,
     )

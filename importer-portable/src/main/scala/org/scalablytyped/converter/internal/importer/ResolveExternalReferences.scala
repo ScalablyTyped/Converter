@@ -19,11 +19,11 @@ object ResolveExternalReferences {
   def apply(resolve: LibraryResolver, source: TsSource, tsParsedFile: TsParsedFile, logger: Logger[Unit]): Result = {
     val imported: Set[TsIdentModule] = {
       val fromImports = tsParsedFile.imports.collect {
-        case TsImport(_, _, TsImporteeFrom(from))     => from
-        case TsImport(_, _, TsImporteeRequired(from)) => from
+        case TsImport(_, _, TsImportee.From(from))     => from
+        case TsImport(_, _, TsImportee.Required(from)) => from
       }
       val fromExports = tsParsedFile.exports.collect {
-        case TsExport(_, _, _, TsExporteeNames(_, Some(from))) => from
+        case TsExport(_, _, _, TsExportee.Names(_, Some(from))) => from
       }
       fromImports.toSet ++ fromExports.toSet
     }
@@ -48,7 +48,7 @@ object ResolveExternalReferences {
     val newImports: IArray[TsImport] =
       v.importTypes.mapToIArray {
         case (TsIdentImport(from), name) =>
-          TsImport(typeOnly = false, IArray(TsImportedStar(Some(name))), TsImporteeFrom(from))
+          TsImport(typeOnly = false, IArray(TsImported.Star(Some(name))), TsImportee.From(from))
       }
 
     Result(after.withMembers(after.members ++ newImports), v.foundSources.to[Set], v.notFound.to[Set])
@@ -93,16 +93,16 @@ object ResolveExternalReferences {
         case other => other
       }
 
-    override def enterTsExporteeStar(t: TsTreeScope)(x: TsExporteeStar): TsExporteeStar =
+    override def enterTsExporteeStar(t: TsTreeScope)(x: TsExportee.Star): TsExportee.Star =
       x.copy(from = resolveAndStore(x.from))
 
-    override def enterTsImporteeRequired(t: TsTreeScope)(x: TsImporteeRequired): TsImporteeRequired =
+    override def enterTsImporteeRequired(t: TsTreeScope)(x: TsImportee.Required): TsImportee.Required =
       x.copy(from = resolveAndStore(x.from))
 
-    override def enterTsImporteeFrom(t: TsTreeScope)(x: TsImporteeFrom): TsImporteeFrom =
+    override def enterTsImporteeFrom(t: TsTreeScope)(x: TsImportee.From): TsImportee.From =
       x.copy(from = resolveAndStore(x.from))
 
-    override def enterTsExporteeNames(t: TsTreeScope)(x: TsExporteeNames): TsExporteeNames =
+    override def enterTsExporteeNames(t: TsTreeScope)(x: TsExportee.Names): TsExportee.Names =
       x.fromOpt.fold(x)(from => x.copy(fromOpt = Some(resolveAndStore(from))))
 
     override def enterTsQIdent(t: TsTreeScope)(x: TsQIdent): TsQIdent =

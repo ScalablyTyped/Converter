@@ -6,13 +6,7 @@ import com.olvind.logging.Logger
 import scala.collection.mutable
 
 object Minimization {
-  val KeepMarker = Comments(CommentData(Minimization.Keep(Empty)))
-
-  /* Disable the minimizer for object with this marker */
-  final case class Keep(related: IArray[TypeRef]) extends Comment.Data
-
-  /* Similar to above, but it's conditional. If the object with this marker is included, only then include the related objects as well */
-  final case class Related(related: IArray[TypeRef]) extends Comment.Data
+  val KeepMarker = Comments(Marker.MinimizationKeep(Empty))
 
   /* some refs we only keep when they refer to objects/packages */
   type OnlyStatic = Boolean
@@ -43,13 +37,14 @@ object Minimization {
           globalScope.lookup(parent).foreach {
             case (tree, _) =>
               tree.comments.extract {
-                case Related(related) =>
+                case Marker.MinimizationRelated(related) =>
                   TreeTraverse.foreach(related) {
                     case TypeRef(typeName, _, _) if typeName =/= parent =>
                       expand(typeName)
                     case _ => ()
                   }
               }
+              ()
           }
         }
 
@@ -70,7 +65,7 @@ object Minimization {
 
           val relatedRefs: IArray[TypeRef] =
             trees.flatMap { t =>
-              t.comments.extract { case Related(x) => x } match {
+              t.comments.extract { case Marker.MinimizationRelated(x) => x } match {
                 case Some(value) => value._1
                 case None        => Empty
               }
@@ -91,13 +86,14 @@ object Minimization {
         TreeTraverse.foreach(pkg) {
           case tree: Tree with HasCodePath =>
             tree.comments.extract {
-              case Keep(related) =>
+              case Marker.MinimizationKeep(related) =>
                 expand(tree.codePath)
                 TreeTraverse.foreach(related) {
                   case TypeRef(typeName, _, _) => expand(typeName)
                   case _                       => ()
                 }
             }
+            ()
           case TypeRef(typeName, _, _) if !shouldMinimize =>
             expand(typeName)
           case _ => ()
@@ -112,7 +108,7 @@ object Minimization {
 
   private final class FilteringTransformation(keep: KeepIndex) extends TreeTransformation {
     override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-      if (s.comments.has[Keep]) s
+      if (s.comments.has[Marker.MinimizationKeep]) s
       else {
         val newParents = s.parents.filter(tr => keep.contains(tr.typeName))
         val newMembers = s.members.filter {

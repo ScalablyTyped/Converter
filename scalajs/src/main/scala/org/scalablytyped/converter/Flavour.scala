@@ -1,17 +1,22 @@
 package org.scalablytyped.converter
 
-sealed trait Flavour
+import io.circe013.{Decoder, Encoder}
+
+sealed abstract class Flavour(val id: String)
 
 object Flavour {
-  case object Normal extends Flavour
-  case object Slinky extends Flavour
-  case object SlinkyNative extends Flavour
-  case object Japgolly extends Flavour
+  case object Normal extends Flavour("normal")
+  case object Slinky extends Flavour("slinky")
+  case object SlinkyNative extends Flavour("slinky-native")
+  case object Japgolly extends Flavour("japgolly")
 
-  val all = Map(
-    "normal" -> Flavour.Normal,
-    "japgolly" -> Flavour.Japgolly,
-    "slinky" -> Flavour.Slinky,
-    "slinky-native" -> Flavour.SlinkyNative,
-  )
+  val All: List[Flavour] =
+    List(Normal, Slinky, SlinkyNative, Japgolly)
+
+  val byName: Map[String, Flavour] =
+    All.map(f => f.id -> f).toMap
+
+  implicit val encodes: Encoder[Flavour] = Encoder[String].contramap(_.id)
+  implicit val decodes: Decoder[Flavour] =
+    Decoder[String].emap(str => byName.get(str).toRight(s"flavour '$str' not among ${byName.keys}"))
 }

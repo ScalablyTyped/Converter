@@ -272,7 +272,7 @@ class JapgollyGenComponents(
       case nonEmpty =>
         val newPackage = setCodePath(
           pkgCp,
-          PackageTree(Empty, names.components, nonEmpty, Comments(CommentData(Mangler.LeaveAlone)), pkgCp),
+          PackageTree(Empty, names.components, nonEmpty, Comments(Marker.ManglerLeaveAlone), pkgCp),
         )
         tree.withMembers(tree.members :+ newPackage)
     }

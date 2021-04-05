@@ -5,70 +5,69 @@ package ts
 trait TreeTransformation[T] { self =>
   def withTree(t: T, tree: TsTree): T
 
-  def enterTsDeclClass(t:            T)(x: TsDeclClass):            TsDeclClass            = x
-  def enterTsDeclEnum(t:             T)(x: TsDeclEnum):             TsDeclEnum             = x
-  def enterTsDeclFunction(t:         T)(x: TsDeclFunction):         TsDeclFunction         = x
-  def enterTsGlobal(t:               T)(x: TsGlobal):               TsGlobal               = x
-  def enterTsDeclInterface(t:        T)(x: TsDeclInterface):        TsDeclInterface        = x
-  def enterTsDeclModule(t:           T)(x: TsDeclModule):           TsDeclModule           = x
-  def enterTsAugmentedModule(t:      T)(x: TsAugmentedModule):      TsAugmentedModule      = x
-  def enterTsDeclNamespace(t:        T)(x: TsDeclNamespace):        TsDeclNamespace        = x
-  def enterTsDeclTypeAlias(t:        T)(x: TsDeclTypeAlias):        TsDeclTypeAlias        = x
-  def enterTsDeclVar(t:              T)(x: TsDeclVar):              TsDeclVar              = x
-  def enterTsEnumMember(t:           T)(x: TsEnumMember):           TsEnumMember           = x
-  def enterTsExportAsNamespace(t:    T)(x: TsExportAsNamespace):    TsExportAsNamespace    = x
-  def enterTsExporteeNames(t:        T)(x: TsExporteeNames):        TsExporteeNames        = x
-  def enterTsExporteeStar(t:         T)(x: TsExporteeStar):         TsExporteeStar         = x
-  def enterTsExporteeTree(t:         T)(x: TsExporteeTree):         TsExporteeTree         = x
-  def enterTsExport(t:               T)(x: TsExport):               TsExport               = x
-  def enterTsFunParam(t:             T)(x: TsFunParam):             TsFunParam             = x
-  def enterTsFunSig(t:               T)(x: TsFunSig):               TsFunSig               = x
-  def enterTsImportedDestructured(t: T)(x: TsImportedDestructured): TsImportedDestructured = x
-  def enterTsImportedIdent(t:        T)(x: TsImportedIdent):        TsImportedIdent        = x
-  def enterTsImportedStar(t:         T)(x: TsImportedStar):         TsImportedStar         = x
-  def enterTsImporteeFrom(t:         T)(x: TsImporteeFrom):         TsImporteeFrom         = x
-  def enterTsImporteeLocal(t:        T)(x: TsImporteeLocal):        TsImporteeLocal        = x
-  def enterTsImporteeRequired(t:     T)(x: TsImporteeRequired):     TsImporteeRequired     = x
-  def enterTsImport(t:               T)(x: TsImport):               TsImport               = x
-  def enterTsLiteralBoolean(t:       T)(x: TsLiteralBoolean):       TsLiteralBoolean       = x
-  def enterTsLiteralNumber(t:        T)(x: TsLiteralNumber):        TsLiteralNumber        = x
-  def enterTsLiteralString(t:        T)(x: TsLiteralString):        TsLiteralString        = x
-  def enterTsMemberCall(t:           T)(x: TsMemberCall):           TsMemberCall           = x
-  def enterTsMemberCtor(t:           T)(x: TsMemberCtor):           TsMemberCtor           = x
-  def enterTsMemberFunction(t:       T)(x: TsMemberFunction):       TsMemberFunction       = x
-  def enterTsMemberIndex(t:          T)(x: TsMemberIndex):          TsMemberIndex          = x
-  def enterTsMemberProperty(t:       T)(x: TsMemberProperty):       TsMemberProperty       = x
-  def enterTsMemberTypeMapped(t:     T)(x: TsMemberTypeMapped):     TsMemberTypeMapped     = x
-  def enterTsParsedFile(t:           T)(x: TsParsedFile):           TsParsedFile           = x
-  def enterTsQIdent(t:               T)(x: TsQIdent):               TsQIdent               = x
-  def enterTsTypeAsserts(t:          T)(x: TsTypeAsserts):          TsTypeAsserts          = x
-  def enterTsTypeConstructor(t:      T)(x: TsTypeConstructor):      TsTypeConstructor      = x
-  def enterTsTypeConditional(t:      T)(x: TsTypeConditional):      TsTypeConditional      = x
-  def enterTsTypeExtends(t:          T)(x: TsTypeExtends):          TsTypeExtends          = x
-  def enterTsTypeFunction(t:         T)(x: TsTypeFunction):         TsTypeFunction         = x
-  def enterTsTypeKeyOf(t:            T)(x: TsTypeKeyOf):            TsTypeKeyOf            = x
-  def enterTsTypeIntersect(t:        T)(x: TsTypeIntersect):        TsTypeIntersect        = x
-  def enterTsTypeIs(t:               T)(x: TsTypeIs):               TsTypeIs               = x
-  def enterTsTypeInfer(t:            T)(x: TsTypeInfer):            TsTypeInfer            = x
-  def enterTsTypeLiteral(t:          T)(x: TsTypeLiteral):          TsTypeLiteral          = x
-  def enterTsTypeLookup(t:           T)(x: TsTypeLookup):           TsTypeLookup           = x
-  def enterTsTypeObject(t:           T)(x: TsTypeObject):           TsTypeObject           = x
-  def enterTsTypeParam(t:            T)(x: TsTypeParam):            TsTypeParam            = x
-  def enterTsTypeQuery(t:            T)(x: TsTypeQuery):            TsTypeQuery            = x
-  def enterTsTypeRef(t:              T)(x: TsTypeRef):              TsTypeRef              = x
-  def enterTsTypeRepeated(t:         T)(x: TsTypeRepeated):         TsTypeRepeated         = x
-  def enterTsTypeThis(t:             T)(x: TsTypeThis):             TsTypeThis             = x
-  def enterTsTypeTuple(t:            T)(x: TsTypeTuple):            TsTypeTuple            = x
-  def enterTsTypeUnion(t:            T)(x: TsTypeUnion):            TsTypeUnion            = x
-  def enterIndexingDict(t:           T)(x: IndexingDict):           IndexingDict           = x
-  def enterIndexingSingle(t:         T)(x: IndexingSingle):         IndexingSingle         = x
+  def enterTsDeclClass(t:            T)(x: TsDeclClass):             TsDeclClass             = x
+  def enterTsDeclEnum(t:             T)(x: TsDeclEnum):              TsDeclEnum              = x
+  def enterTsDeclFunction(t:         T)(x: TsDeclFunction):          TsDeclFunction          = x
+  def enterTsGlobal(t:               T)(x: TsGlobal):                TsGlobal                = x
+  def enterTsDeclInterface(t:        T)(x: TsDeclInterface):         TsDeclInterface         = x
+  def enterTsDeclModule(t:           T)(x: TsDeclModule):            TsDeclModule            = x
+  def enterTsAugmentedModule(t:      T)(x: TsAugmentedModule):       TsAugmentedModule       = x
+  def enterTsDeclNamespace(t:        T)(x: TsDeclNamespace):         TsDeclNamespace         = x
+  def enterTsDeclTypeAlias(t:        T)(x: TsDeclTypeAlias):         TsDeclTypeAlias         = x
+  def enterTsDeclVar(t:              T)(x: TsDeclVar):               TsDeclVar               = x
+  def enterTsEnumMember(t:           T)(x: TsEnumMember):            TsEnumMember            = x
+  def enterTsExportAsNamespace(t:    T)(x: TsExportAsNamespace):     TsExportAsNamespace     = x
+  def enterTsExporteeNames(t:        T)(x: TsExportee.Names):        TsExportee.Names        = x
+  def enterTsExporteeStar(t:         T)(x: TsExportee.Star):         TsExportee.Star         = x
+  def enterTsExporteeTree(t:         T)(x: TsExportee.Tree):         TsExportee.Tree         = x
+  def enterTsExport(t:               T)(x: TsExport):                TsExport                = x
+  def enterTsFunParam(t:             T)(x: TsFunParam):              TsFunParam              = x
+  def enterTsFunSig(t:               T)(x: TsFunSig):                TsFunSig                = x
+  def enterTsImportedDestructured(t: T)(x: TsImported.Destructured): TsImported.Destructured = x
+  def enterTsImportedIdent(t:        T)(x: TsImported.Ident):        TsImported.Ident        = x
+  def enterTsImportedStar(t:         T)(x: TsImported.Star):         TsImported.Star         = x
+  def enterTsImporteeFrom(t:         T)(x: TsImportee.From):         TsImportee.From         = x
+  def enterTsImporteeLocal(t:        T)(x: TsImportee.Local):        TsImportee.Local        = x
+  def enterTsImporteeRequired(t:     T)(x: TsImportee.Required):     TsImportee.Required     = x
+  def enterTsImport(t:               T)(x: TsImport):                TsImport                = x
+  def enterTsLiteralBoolean(t:       T)(x: TsLiteral.Bool):          TsLiteral.Bool          = x
+  def enterTsLiteralNumber(t:        T)(x: TsLiteral.Num):           TsLiteral.Num           = x
+  def enterTsLiteralString(t:        T)(x: TsLiteral.Str):           TsLiteral.Str           = x
+  def enterTsMemberCall(t:           T)(x: TsMemberCall):            TsMemberCall            = x
+  def enterTsMemberCtor(t:           T)(x: TsMemberCtor):            TsMemberCtor            = x
+  def enterTsMemberFunction(t:       T)(x: TsMemberFunction):        TsMemberFunction        = x
+  def enterTsMemberIndex(t:          T)(x: TsMemberIndex):           TsMemberIndex           = x
+  def enterTsMemberProperty(t:       T)(x: TsMemberProperty):        TsMemberProperty        = x
+  def enterTsMemberTypeMapped(t:     T)(x: TsMemberTypeMapped):      TsMemberTypeMapped      = x
+  def enterTsParsedFile(t:           T)(x: TsParsedFile):            TsParsedFile            = x
+  def enterTsQIdent(t:               T)(x: TsQIdent):                TsQIdent                = x
+  def enterTsTypeAsserts(t:          T)(x: TsTypeAsserts):           TsTypeAsserts           = x
+  def enterTsTypeConstructor(t:      T)(x: TsTypeConstructor):       TsTypeConstructor       = x
+  def enterTsTypeConditional(t:      T)(x: TsTypeConditional):       TsTypeConditional       = x
+  def enterTsTypeExtends(t:          T)(x: TsTypeExtends):           TsTypeExtends           = x
+  def enterTsTypeFunction(t:         T)(x: TsTypeFunction):          TsTypeFunction          = x
+  def enterTsTypeKeyOf(t:            T)(x: TsTypeKeyOf):             TsTypeKeyOf             = x
+  def enterTsTypeIntersect(t:        T)(x: TsTypeIntersect):         TsTypeIntersect         = x
+  def enterTsTypeIs(t:               T)(x: TsTypeIs):                TsTypeIs                = x
+  def enterTsTypeInfer(t:            T)(x: TsTypeInfer):             TsTypeInfer             = x
+  def enterTsTypeLiteral(t:          T)(x: TsTypeLiteral):           TsTypeLiteral           = x
+  def enterTsTypeLookup(t:           T)(x: TsTypeLookup):            TsTypeLookup            = x
+  def enterTsTypeObject(t:           T)(x: TsTypeObject):            TsTypeObject            = x
+  def enterTsTypeParam(t:            T)(x: TsTypeParam):             TsTypeParam             = x
+  def enterTsTypeQuery(t:            T)(x: TsTypeQuery):             TsTypeQuery             = x
+  def enterTsTypeRef(t:              T)(x: TsTypeRef):               TsTypeRef               = x
+  def enterTsTypeRepeated(t:         T)(x: TsTypeRepeated):          TsTypeRepeated          = x
+  def enterTsTypeThis(t:             T)(x: TsTypeThis):              TsTypeThis              = x
+  def enterTsTypeTuple(t:            T)(x: TsTypeTuple):             TsTypeTuple             = x
+  def enterTsTypeUnion(t:            T)(x: TsTypeUnion):             TsTypeUnion             = x
+  def enterIndexingDict(t:           T)(x: Indexing.Dict):           Indexing.Dict           = x
+  def enterIndexingSingle(t:         T)(x: Indexing.Single):         Indexing.Single         = x
 
   def enterTsTree(t:            T)(x: TsTree):            TsTree            = x
   def enterTsDecl(t:            T)(x: TsDecl):            TsDecl            = x
   def enterTsNamedDecl(t:       T)(x: TsNamedDecl):       TsNamedDecl       = x
   def enterTsContainer(t:       T)(x: TsContainer):       TsContainer       = x
   def enterTsContainerOrDecl(t: T)(x: TsContainerOrDecl): TsContainerOrDecl = x
-  def enterTsTerm(t:            T)(x: TsTerm):            TsTerm            = x
   def enterTsLiteral(t:         T)(x: TsLiteral):         TsLiteral         = x
   def enterTsType(t:            T)(x: TsType):            TsType            = x
   def enterTsMember(t:          T)(x: TsMember):          TsMember          = x
@@ -206,24 +205,24 @@ trait TreeTransformation[T] { self =>
   final def visitTsExportAsNamespace(t: T)(x: TsExportAsNamespace): TsExportAsNamespace =
     enterTsExportAsNamespace(withTree(t, x))(x)
 
-  final def visitTsExporteeNames(t: T)(x: TsExporteeNames): TsExporteeNames = {
+  final def visitTsExporteeNames(t: T)(x: TsExportee.Names): TsExportee.Names = {
     val xx = enterTsExporteeNames(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsExporteeNames(_1, _2) =>
-        TsExporteeNames(_1.map(a => (visitTsQIdent(tt)(a._1), a._2)), _2)
+      case TsExportee.Names(_1, _2) =>
+        TsExportee.Names(_1.map(a => (visitTsQIdent(tt)(a._1), a._2)), _2)
     }
   }
 
-  final def visitTsExporteeStar(t: T)(x: TsExporteeStar): TsExporteeStar =
+  final def visitTsExporteeStar(t: T)(x: TsExportee.Star): TsExportee.Star =
     enterTsExporteeStar(withTree(t, x))(x)
 
-  final def visitTsExporteeTree(t: T)(x: TsExporteeTree): TsExporteeTree = {
+  final def visitTsExporteeTree(t: T)(x: TsExportee.Tree): TsExportee.Tree = {
     val xx = enterTsExporteeTree(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsExporteeTree(_1) =>
-        TsExporteeTree(visitTsDecl(tt)(_1))
+      case TsExportee.Tree(_1) =>
+        TsExportee.Tree(visitTsDecl(tt)(_1))
     }
   }
   final def visitTsExport(t: T)(x: TsExport): TsExport = {
@@ -250,24 +249,22 @@ trait TreeTransformation[T] { self =>
     }
   }
 
-  final def visitTsImportedDestructured(
-      t: T,
-  )(x:   TsImportedDestructured): TsImportedDestructured =
+  final def visitTsImportedDestructured(t: T)(x: TsImported.Destructured): TsImported.Destructured =
     enterTsImportedDestructured(withTree(t, x))(x)
-  final def visitTsImportedIdent(t: T)(x: TsImportedIdent): TsImportedIdent =
+  final def visitTsImportedIdent(t: T)(x: TsImported.Ident): TsImported.Ident =
     enterTsImportedIdent(withTree(t, x))(x)
-  final def visitTsImportedStar(t: T)(x: TsImportedStar): TsImportedStar =
+  final def visitTsImportedStar(t: T)(x: TsImported.Star): TsImported.Star =
     enterTsImportedStar(withTree(t, x))(x)
-  final def visitTsImporteeFrom(t: T)(x: TsImporteeFrom): TsImporteeFrom =
+  final def visitTsImporteeFrom(t: T)(x: TsImportee.From): TsImportee.From =
     enterTsImporteeFrom(withTree(t, x))(x)
-  final def visitTsImporteeLocal(t: T)(x: TsImporteeLocal): TsImporteeLocal = {
+  final def visitTsImporteeLocal(t: T)(x: TsImportee.Local): TsImportee.Local = {
     val xx = enterTsImporteeLocal(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsImporteeLocal(_1) => TsImporteeLocal(visitTsQIdent(tt)(_1))
+      case TsImportee.Local(_1) => TsImportee.Local(visitTsQIdent(tt)(_1))
     }
   }
-  final def visitTsImporteeRequired(t: T)(x: TsImporteeRequired): TsImporteeRequired =
+  final def visitTsImporteeRequired(t: T)(x: TsImportee.Required): TsImportee.Required =
     enterTsImporteeRequired(withTree(t, x))(x)
   final def visitTsImport(t: T)(x: TsImport): TsImport = {
     val xx = enterTsImport(withTree(t, x))(x)
@@ -276,11 +273,11 @@ trait TreeTransformation[T] { self =>
       case TsImport(_1, _2, _3) => TsImport(_1, _2.map(visitTsImported(tt)), visitTsImportee(tt)(_3))
     }
   }
-  final def visitTsLiteralBoolean(t: T)(x: TsLiteralBoolean): TsLiteralBoolean =
+  final def visitTsLiteralBoolean(t: T)(x: TsLiteral.Bool): TsLiteral.Bool =
     enterTsLiteralBoolean(withTree(t, x))(x)
-  final def visitTsLiteralNumber(t: T)(x: TsLiteralNumber): TsLiteralNumber =
+  final def visitTsLiteralNumber(t: T)(x: TsLiteral.Num): TsLiteral.Num =
     enterTsLiteralNumber(withTree(t, x))(x)
-  final def visitTsLiteralString(t: T)(x: TsLiteralString): TsLiteralString =
+  final def visitTsLiteralString(t: T)(x: TsLiteral.Str): TsLiteral.Str =
     enterTsLiteralString(withTree(t, x))(x)
   final def visitTsMemberCall(t: T)(x: TsMemberCall): TsMemberCall = {
     val xx = enterTsMemberCall(withTree(t, x))(x)
@@ -478,18 +475,18 @@ trait TreeTransformation[T] { self =>
     }
   }
 
-  final def visitIndexingDict(t: T)(x: IndexingDict): IndexingDict = {
+  final def visitIndexingDict(t: T)(x: Indexing.Dict): Indexing.Dict = {
     val xx = enterIndexingDict(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case IndexingDict(_1, _2) => IndexingDict(_1, visitTsType(tt)(_2))
+      case Indexing.Dict(_1, _2) => Indexing.Dict(_1, visitTsType(tt)(_2))
     }
   }
-  final def visitIndexingSingle(t: T)(x: IndexingSingle): IndexingSingle = {
+  final def visitIndexingSingle(t: T)(x: Indexing.Single): Indexing.Single = {
     val xx = enterIndexingSingle(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case IndexingSingle(_1) => IndexingSingle(visitTsQIdent(tt)(_1))
+      case Indexing.Single(_1) => Indexing.Single(visitTsQIdent(tt)(_1))
     }
   }
 
@@ -498,7 +495,6 @@ trait TreeTransformation[T] { self =>
       case x: TsContainerOrDecl => visitTsContainerOrDecl(t)(x)
       case x: TsType            => visitTsType(t)(x)
       case x: TsMember          => visitTsMember(t)(x)
-      case x: TsTerm            => visitTsTerm(t)(x)
       case x: TsEnumMember      => visitTsEnumMember(t)(x)
       case x: TsFunSig          => visitTsFunSig(t)(x)
       case x: TsFunParam        => visitTsFunParam(t)(x)
@@ -548,22 +544,16 @@ trait TreeTransformation[T] { self =>
 
   final def visitTsExportee(t: T)(x: TsExportee): TsExportee =
     enterTsExportee(withTree(t, x))(x) match {
-      case x: TsExporteeNames => visitTsExporteeNames(t)(x)
-      case x: TsExporteeTree  => visitTsExporteeTree(t)(x)
-      case x: TsExporteeStar  => visitTsExporteeStar(t)(x)
-    }
-
-  final def visitTsTerm(t: T)(x: TsTerm): TsTerm =
-    enterTsTerm(withTree(t, x))(x) match {
-      case x: TsLiteral => visitTsLiteral(t)(x)
-      case x: TsIdent   => x
+      case x: TsExportee.Names => visitTsExporteeNames(t)(x)
+      case x: TsExportee.Tree  => visitTsExporteeTree(t)(x)
+      case x: TsExportee.Star  => visitTsExporteeStar(t)(x)
     }
 
   final def visitTsLiteral(t: T)(x: TsLiteral): TsLiteral =
     enterTsLiteral(withTree(t, x))(x) match {
-      case x: TsLiteralBoolean => visitTsLiteralBoolean(t)(x)
-      case x: TsLiteralString  => visitTsLiteralString(t)(x)
-      case x: TsLiteralNumber  => visitTsLiteralNumber(t)(x)
+      case x: TsLiteral.Bool => visitTsLiteralBoolean(t)(x)
+      case x: TsLiteral.Str  => visitTsLiteralString(t)(x)
+      case x: TsLiteral.Num  => visitTsLiteralNumber(t)(x)
     }
 
   final def visitTsType(t: T)(x: TsType): TsType =
@@ -603,22 +593,22 @@ trait TreeTransformation[T] { self =>
 
   final def visitTsImported(t: T)(x: TsImported): TsImported =
     enterTsImported(withTree(t, x))(x) match {
-      case x: TsImportedIdent        => visitTsImportedIdent(t)(x)
-      case x: TsImportedDestructured => visitTsImportedDestructured(t)(x)
-      case x: TsImportedStar         => visitTsImportedStar(t)(x)
+      case x: TsImported.Ident        => visitTsImportedIdent(t)(x)
+      case x: TsImported.Destructured => visitTsImportedDestructured(t)(x)
+      case x: TsImported.Star         => visitTsImportedStar(t)(x)
     }
 
   final def visitTsImportee(t: T)(x: TsImportee): TsImportee =
     enterTsImportee(withTree(t, x))(x) match {
-      case x: TsImporteeRequired => visitTsImporteeRequired(t)(x)
-      case x: TsImporteeFrom     => visitTsImporteeFrom(t)(x)
-      case x: TsImporteeLocal    => visitTsImporteeLocal(t)(x)
+      case x: TsImportee.Required => visitTsImporteeRequired(t)(x)
+      case x: TsImportee.From     => visitTsImporteeFrom(t)(x)
+      case x: TsImportee.Local    => visitTsImporteeLocal(t)(x)
     }
 
   final def visitIndexing(t: T)(x: Indexing): Indexing =
     enterIndexing(withTree(t, x))(x) match {
-      case x: IndexingDict   => visitIndexingDict(t)(x)
-      case x: IndexingSingle => visitIndexingSingle(t)(x)
+      case x: Indexing.Dict   => visitIndexingDict(t)(x)
+      case x: Indexing.Single => visitIndexingSingle(t)(x)
     }
 
   final def >>(that: TreeTransformation[T]): TreeTransformation[T] =
@@ -650,11 +640,11 @@ trait TreeTransformation[T] { self =>
         self.enterTsEnumMember(t)(that.enterTsEnumMember(t)(x))
       override def enterTsExportAsNamespace(t: T)(x: TsExportAsNamespace): TsExportAsNamespace =
         self.enterTsExportAsNamespace(t)(that.enterTsExportAsNamespace(t)(x))
-      override def enterTsExporteeNames(t: T)(x: TsExporteeNames): TsExporteeNames =
+      override def enterTsExporteeNames(t: T)(x: TsExportee.Names): TsExportee.Names =
         self.enterTsExporteeNames(t)(that.enterTsExporteeNames(t)(x))
-      override def enterTsExporteeStar(t: T)(x: TsExporteeStar): TsExporteeStar =
+      override def enterTsExporteeStar(t: T)(x: TsExportee.Star): TsExportee.Star =
         self.enterTsExporteeStar(t)(that.enterTsExporteeStar(t)(x))
-      override def enterTsExporteeTree(t: T)(x: TsExporteeTree): TsExporteeTree =
+      override def enterTsExporteeTree(t: T)(x: TsExportee.Tree): TsExportee.Tree =
         self.enterTsExporteeTree(t)(that.enterTsExporteeTree(t)(x))
       override def enterTsExport(t: T)(x: TsExport): TsExport =
         self.enterTsExport(t)(that.enterTsExport(t)(x))
@@ -662,25 +652,25 @@ trait TreeTransformation[T] { self =>
         self.enterTsFunParam(t)(that.enterTsFunParam(t)(x))
       override def enterTsFunSig(t: T)(x: TsFunSig): TsFunSig =
         self.enterTsFunSig(t)(that.enterTsFunSig(t)(x))
-      override def enterTsImportedDestructured(t: T)(x: TsImportedDestructured): TsImportedDestructured =
+      override def enterTsImportedDestructured(t: T)(x: TsImported.Destructured): TsImported.Destructured =
         self.enterTsImportedDestructured(t)(that.enterTsImportedDestructured(t)(x))
-      override def enterTsImportedIdent(t: T)(x: TsImportedIdent): TsImportedIdent =
+      override def enterTsImportedIdent(t: T)(x: TsImported.Ident): TsImported.Ident =
         self.enterTsImportedIdent(t)(that.enterTsImportedIdent(t)(x))
-      override def enterTsImportedStar(t: T)(x: TsImportedStar): TsImportedStar =
+      override def enterTsImportedStar(t: T)(x: TsImported.Star): TsImported.Star =
         self.enterTsImportedStar(t)(that.enterTsImportedStar(t)(x))
-      override def enterTsImporteeFrom(t: T)(x: TsImporteeFrom): TsImporteeFrom =
+      override def enterTsImporteeFrom(t: T)(x: TsImportee.From): TsImportee.From =
         self.enterTsImporteeFrom(t)(that.enterTsImporteeFrom(t)(x))
-      override def enterTsImporteeLocal(t: T)(x: TsImporteeLocal): TsImporteeLocal =
+      override def enterTsImporteeLocal(t: T)(x: TsImportee.Local): TsImportee.Local =
         self.enterTsImporteeLocal(t)(that.enterTsImporteeLocal(t)(x))
-      override def enterTsImporteeRequired(t: T)(x: TsImporteeRequired): TsImporteeRequired =
+      override def enterTsImporteeRequired(t: T)(x: TsImportee.Required): TsImportee.Required =
         self.enterTsImporteeRequired(t)(that.enterTsImporteeRequired(t)(x))
       override def enterTsImport(t: T)(x: TsImport): TsImport =
         self.enterTsImport(t)(that.enterTsImport(t)(x))
-      override def enterTsLiteralBoolean(t: T)(x: TsLiteralBoolean): TsLiteralBoolean =
+      override def enterTsLiteralBoolean(t: T)(x: TsLiteral.Bool): TsLiteral.Bool =
         self.enterTsLiteralBoolean(t)(that.enterTsLiteralBoolean(t)(x))
-      override def enterTsLiteralNumber(t: T)(x: TsLiteralNumber): TsLiteralNumber =
+      override def enterTsLiteralNumber(t: T)(x: TsLiteral.Num): TsLiteral.Num =
         self.enterTsLiteralNumber(t)(that.enterTsLiteralNumber(t)(x))
-      override def enterTsLiteralString(t: T)(x: TsLiteralString): TsLiteralString =
+      override def enterTsLiteralString(t: T)(x: TsLiteral.Str): TsLiteral.Str =
         self.enterTsLiteralString(t)(that.enterTsLiteralString(t)(x))
       override def enterTsMemberCall(t: T)(x: TsMemberCall): TsMemberCall =
         self.enterTsMemberCall(t)(that.enterTsMemberCall(t)(x))
@@ -742,8 +732,6 @@ trait TreeTransformation[T] { self =>
         self.enterTsDecl(t)(that.enterTsDecl(t)(x))
       override def enterTsContainer(t: T)(x: TsContainer): TsContainer =
         self.enterTsContainer(t)(that.enterTsContainer(t)(x))
-      override def enterTsTerm(t: T)(x: TsTerm): TsTerm =
-        self.enterTsTerm(t)(that.enterTsTerm(t)(x))
       override def enterTsLiteral(t: T)(x: TsLiteral): TsLiteral =
         self.enterTsLiteral(t)(that.enterTsLiteral(t)(x))
       override def enterTsType(t: T)(x: TsType): TsType =

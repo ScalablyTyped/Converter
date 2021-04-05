@@ -117,14 +117,13 @@ object CastConversion {
     *  then replacing the type parameter with something that actually conforms.
     */
   object UndoDamage {
-    case class WasDefaulted(among: Set[QualifiedName]) extends Comment.Data
 
     def comment(among: Set[QualifiedName]) =
-      Comments(CommentData(WasDefaulted(among)))
+      Comments(Marker.WasDefaulted(among))
 
     def apply(x: TypeRef): TypeRef = x match {
       case TypeRef.Intersection(IArray.exactlyTwo(original, _), comments: Comments) =>
-        comments.extract { case WasDefaulted(among) => among } match {
+        comments.extract { case Marker.WasDefaulted(among) => among } match {
           case Some((among, _)) if among.contains(original.typeName) => original
           case _                                                     => x
         }

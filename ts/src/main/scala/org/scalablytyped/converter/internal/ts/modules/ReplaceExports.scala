@@ -27,7 +27,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
     if (x.exports.isEmpty && x.imports.isEmpty) x
     else {
       val newMembers: IArray[TsContainerOrDecl] = x.members.flatMap {
-        case TsExport(_, _, ExportType.Named, TsExporteeTree(tree)) =>
+        case TsExport(_, _, ExportType.Named, TsExportee.Tree(tree)) =>
           tree match {
             case namedExport: TsNamedDecl =>
               export(
@@ -40,7 +40,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
                 loopDetector,
               )
 
-            case TsImport(_, IArray.exactlyOne(TsImportedIdent(to)), TsImporteeLocal(from)) =>
+            case TsImport(_, IArray.exactlyOne(TsImported.Ident(to)), TsImportee.Local(from)) =>
               scope
                 .lookupInternal(Picker.ButNot(Picker.All, x), from.parts, loopDetector)
                 .map { case (d, _) => d.withName(to) }
@@ -49,7 +49,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
             case other =>
               scope.logger.fatal(s"Unexpected $other")
           }
-        case TsExport(NoComments, _, ExportType.Named, TsExporteeNames(Empty, None)) =>
+        case TsExport(NoComments, _, ExportType.Named, TsExportee.Names(Empty, None)) =>
           Empty
         case e: TsExport =>
           scope.fatalMaybe(s"Dropping unexpected export in namespace $e")
@@ -86,8 +86,8 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
   override def leaveTsParsedFile(t: TsTreeScope)(x: TsParsedFile): TsParsedFile =
     x.copy(members = x.members.mapNotNone {
       case _: TsImport => None
-      case TsExport(_, _, _, TsExporteeTree(x)) => Some(x)
-      case other                                => Some(other)
+      case TsExport(_, _, _, TsExportee.Tree(x)) => Some(x)
+      case other                                 => Some(other)
     })
 
   def ensureTypesPresent[T <: TsContainer](old: T, `new`: T): T = {
@@ -97,7 +97,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
     val missingTypes: IArray[TsContainerOrDecl] =
       old.members
         .collect {
-          case TsExport(_, _, _, TsExporteeTree(Picker.Types(tpe))) if !newTypes.contains(tpe.name) =>
+          case TsExport(_, _, _, TsExportee.Tree(Picker.Types(tpe))) if !newTypes.contains(tpe.name) =>
             KeepTypesOnly(tpe)
           case Picker.Types(tpe) if !newTypes.contains(tpe.name) => KeepTypesOnly(tpe)
         }
@@ -131,22 +131,22 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
   ): CanBeShadowed = {
     lazy val hasExportedValues: Boolean =
       owner.exports.exists {
-        case TsExport(_, _, _, TsExporteeTree(_: TsDeclInterface | _: TsDeclTypeAlias)) => false
+        case TsExport(_, _, _, TsExportee.Tree(_: TsDeclInterface | _: TsDeclTypeAlias)) => false
         case _: TsExport => true
         case _ => false
       }
 
     decl match {
       /* fix for @angular/core */
-      case TsExport(NoComments, _, _, TsExporteeStar(_, name)) if owner.name === name =>
+      case TsExport(NoComments, _, _, TsExportee.Star(_, name)) if owner.name === name =>
         CanBeShadowed(maybe = false, Empty)
       case e: TsExport =>
         val ret = Exports.expandExport(scope, jsLocation, e, loopDetector, owner)
         if (ret.isEmpty && scope.root.pedantic) {
           e match {
             /* OF COURSE somebody had to export an empty object */
-            case TsExport(_, _, ExportType.Named, TsExporteeNames(names, None)) if names.isEmpty => ()
-            case other                                                                           =>
+            case TsExport(_, _, ExportType.Named, TsExportee.Names(names, None)) if names.isEmpty => ()
+            case other                                                                            =>
               // for debugging
               Exports.expandExport(scope, jsLocation, other, loopDetector, owner: TsDeclNamespaceOrModule)
 
@@ -154,8 +154,8 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
           }
         }
         val canBeShadowed = e match {
-          case TsExport(_, _, ExportType.Named, TsExporteeStar(_, _)) => true
-          case _                                                      => false
+          case TsExport(_, _, ExportType.Named, TsExportee.Star(_, _)) => true
+          case _                                                       => false
         }
         CanBeShadowed(canBeShadowed, ret)
 
@@ -163,7 +163,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
         val ret: IArray[TsNamedDecl] =
           ms.collect {
               case x: TsNamedDecl => x
-              case TsExport(_, _, _, TsExporteeTree(x: TsNamedDecl)) => x
+              case TsExport(_, _, _, TsExportee.Tree(x: TsNamedDecl)) => x
             }
             .map(x => Utils.withJsLocation(x, JsLocation.Global(TsQIdent.of(x.name))))
 

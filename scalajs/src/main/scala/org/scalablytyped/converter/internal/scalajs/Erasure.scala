@@ -62,7 +62,7 @@ object Erasure {
       case QualifiedName(IArray.exactlyOne(head)) if scope.tparams.contains(head) => QualifiedName.ScalaAny
 
       // if run after FakeSingletons
-      case name @ QualifiedName(parts) if parts.length > 2 && (tpe.comments.has[FakeLiterals.WasLiteral]) => name
+      case name @ QualifiedName(parts) if parts.length > 2 && (tpe.comments.has[Marker.WasLiteral]) => name
 
       case other =>
         scope

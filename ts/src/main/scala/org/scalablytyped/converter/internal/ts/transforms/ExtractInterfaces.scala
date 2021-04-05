@@ -56,18 +56,12 @@ object ExtractInterfaces {
   }
 
   def partOfTypeMapping(stack: List[TsTree], obj: TsTypeObject): Boolean =
-    stack.exists(_.isInstanceOf[TsMemberTypeMapped]) || isTypeMapping(obj.members)
-
-  def isTypeMapping(members: IArray[TsMember]): Boolean =
-    members match {
-      case IArray.exactlyOne(_: TsMemberTypeMapped) => true
-      case _ => false
-    }
+    stack.exists(_.isInstanceOf[TsMemberTypeMapped]) || TsType.isTypeMapping(obj.members)
 
   def isDictionary(members: IArray[TsMember]): Boolean =
     members.nonEmpty && members.forall {
-      case TsMemberIndex(_, _, _, IndexingDict(_, _), _) => true
-      case _                                             => false
+      case TsMemberIndex(_, _, _, Indexing.Dict(_, _), _) => true
+      case _                                              => false
     }
 
   private class LiftTypeObjects(store: ConflictHandlingStore) extends TreeTransformationScopedChanges {
@@ -88,7 +82,7 @@ object ExtractInterfaces {
                 case _ => false
               }
 
-            obj.comments.extract { case Markers.NameHint(hint) => hint } match {
+            obj.comments.extract { case Marker.NameHint(hint) => hint } match {
               case Some((nameHint, _)) => nameHint.take(25)
               case None if isFunction  => DeriveNonConflictingName.Fn
               case None                => DeriveNonConflictingName.Anon
@@ -97,7 +91,7 @@ object ExtractInterfaces {
 
           val codePath = store.addInterface(scope, prefix, obj.members, referencedTparams) { name =>
             TsDeclInterface(
-              obj.comments.extract { case Markers.NameHint(hint) => hint }.fold(obj.comments)(_._2),
+              obj.comments.extract { case Marker.NameHint(hint) => hint }.fold(obj.comments)(_._2),
               declared = true,
               name,
               referencedTparams,

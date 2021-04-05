@@ -45,7 +45,7 @@ type AA = Partial<A>
     type Ta = OptionalKey<A>
 """).extract[TsDeclTypeAlias]("Ta")
 
-    out.alias.shouldBe(TsTypeUnion(IArray("c", "d", "e", "f").map(str => TsTypeLiteral(TsLiteralString(str)))))
+    out.alias.shouldBe(TsTypeUnion(IArray("c", "d", "e", "f").map(str => TsTypeLiteral(TsLiteral.Str(str)))))
   }
 
   test("Except from union type") {

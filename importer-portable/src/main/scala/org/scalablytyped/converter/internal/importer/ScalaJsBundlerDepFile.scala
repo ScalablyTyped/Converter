@@ -2,7 +2,6 @@ package org.scalablytyped.converter.internal
 package importer
 
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
-import io.circe013.generic.semiauto.{deriveDecoder, deriveEncoder}
 import io.circe013.{Decoder, Encoder}
 import io.circe013.syntax._
 
@@ -21,8 +20,8 @@ object ScalaJsBundlerDepFile {
   )
 
   object NpmDependencies {
-    implicit val Encoder: Encoder[NpmDependencies] = deriveEncoder[NpmDependencies]
-    implicit val Decoder: Decoder[NpmDependencies] = deriveDecoder[NpmDependencies]
+    implicit val Encoder: Encoder[NpmDependencies] = io.circe013.generic.semiauto.deriveEncoder
+    implicit val Decoder: Decoder[NpmDependencies] = io.circe013.generic.semiauto.deriveDecoder
   }
 
   def apply(libName: TsIdentLibrary, v: LibraryVersion): Map[os.RelPath, Array[Byte]] =

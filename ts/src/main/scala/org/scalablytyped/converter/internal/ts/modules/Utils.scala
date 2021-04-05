@@ -8,7 +8,7 @@ import org.scalablytyped.converter.internal.ts.transforms.SetJsLocation
 object Utils {
   def withJsLocation[T <: TsTree](tree: T, jsLocation: JsLocation): T =
     tree match {
-      case x: HasJsLocation =>
+      case x: JsLocation.Has =>
         x.withJsLocation(jsLocation) match {
           case xx: TsContainer =>
             xx.withMembers(xx.members.map(SetJsLocation.visitTsContainerOrDecl(jsLocation))).asInstanceOf[T]

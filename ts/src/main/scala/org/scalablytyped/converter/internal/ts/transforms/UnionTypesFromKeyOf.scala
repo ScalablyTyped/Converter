@@ -10,7 +10,7 @@ object UnionTypesFromKeyOf extends TreeTransformationScopedChanges {
           case Some(TsDeclInterface(_, _, _, _, _, members, _)) =>
             val literals = members.collect {
               case TsMemberProperty(_, _, TsIdent(name), _, _, _, _) =>
-                TsTypeLiteral(TsLiteralString(name))
+                TsTypeLiteral(TsLiteral.Str(name))
             }
 
             literals.length match {

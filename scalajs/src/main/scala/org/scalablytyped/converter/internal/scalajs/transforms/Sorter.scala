@@ -23,7 +23,7 @@ object Sorter extends TreeTransformation {
       }
 
     def had(comments: Comments): Boolean =
-      comments.has[Mangler.WasJsNative.type]
+      comments.has[Marker.ManglerWasJsNative.type]
 
     t match {
       case tree: ContainerTree => has(tree.annotations) || tree.members.exists(hasNativeLocation) || had(tree.comments)

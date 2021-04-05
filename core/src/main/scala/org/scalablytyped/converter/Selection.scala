@@ -1,5 +1,7 @@
 package org.scalablytyped.converter
 
+import io.circe013.{Decoder, Encoder}
+
 import scala.collection.immutable.{SortedSet, TreeSet}
 
 sealed trait Selection[T] {
@@ -47,4 +49,6 @@ object Selection {
 
   final case class Or[T](_1: Selection[T], _2: Selection[T]) extends Selection[T]
 
+  implicit def encodes[T: Encoder: Ordering]: Encoder[Selection[T]] = io.circe013.generic.semiauto.deriveEncoder
+  implicit def decodes[T: Decoder: Ordering]: Decoder[Selection[T]] = io.circe013.generic.semiauto.deriveDecoder
 }

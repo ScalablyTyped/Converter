@@ -74,7 +74,7 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
                 case TsTypeIntersect(types) =>
                   Res.combine(types.map {
                     case next: TsTypeRef => cleanParentRef(newScope)(next)
-                    case TsTypeObject(_, members) if !ExtractInterfaces.isTypeMapping(members) =>
+                    case TsTypeObject(_, members) if !TsType.isTypeMapping(members) =>
                       Res(Empty, Empty, Map(tr -> members))
                     case other => Res(Empty, other +: Empty, Map.empty)
                   })
@@ -82,7 +82,7 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
                 case _: TsTypeFunction => Res(tr +: Empty, Empty, Map.empty)
                 case TsTypeObject(_, members) if ExtractInterfaces.isDictionary(members) =>
                   Res(IArray(tr), Empty, Map.empty)
-                case TsTypeObject(_, members) if !ExtractInterfaces.isTypeMapping(members) =>
+                case TsTypeObject(_, members) if !TsType.isTypeMapping(members) =>
                   Res(Empty, Empty, Map(tr -> members))
                 case dropUnknown => Res(Empty, dropUnknown +: Empty, Map.empty)
               }

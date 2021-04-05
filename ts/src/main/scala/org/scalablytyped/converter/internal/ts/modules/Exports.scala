@@ -23,12 +23,12 @@ object Exports {
     val codePath = owner.codePath.forceHasPath
 
     val ret: IArray[TsNamedDecl] = e match {
-      case TsExport(_, _, exportType, TsExporteeTree(exported)) =>
+      case TsExport(_, _, exportType, TsExportee.Tree(exported)) =>
         exported match {
           case decl: TsNamedDecl =>
             export(codePath, jsLocation, scope, exportType, decl, None, loopDetector)
 
-          case i @ TsImport(_, IArray.exactlyOne(TsImportedIdent(ident)), _) =>
+          case i @ TsImport(_, IArray.exactlyOne(TsImported.Ident(ident)), _) =>
             Imports.expandImportee(i.from, scope, loopDetector) match {
               case founds if founds.nonEmpty =>
                 founds match {
@@ -60,7 +60,7 @@ object Exports {
             }
         }
 
-      case TsExport(_, _, exportType, TsExporteeNames(idents, fromOpt)) =>
+      case TsExport(_, _, exportType, TsExportee.Names(idents, fromOpt)) =>
         val newScope = fromOpt match {
           case Some(from) =>
             scope.moduleScopes.get(from) match {
@@ -86,7 +86,7 @@ object Exports {
             }
         }
 
-      case TsExport(_, _, exportType, TsExporteeStar(_, from)) =>
+      case TsExport(_, _, exportType, TsExportee.Star(_, from)) =>
         scope.moduleScopes.get(from) match {
           case Some(TsTreeScope.Scoped(newScope, mod: TsDeclModule)) =>
             val resolvedModule: TsDeclModule =
@@ -174,22 +174,22 @@ object Exports {
 
       case e @ TsExport(_, _, ExportType.Named, exported) =>
         exported match {
-          case exported @ TsExporteeNames(idents, _) => //
+          case exported @ TsExportee.Names(idents, _) => //
             idents.collectFirst {
               case tuple @ (TsQIdent(parts), None) if wanted.startsWith(parts) =>
                 PickedExport(e.copy(exported = exported.copy(idents = IArray(tuple))), wanted.drop(parts.length))
             }
 
-          case TsExporteeTree(i: TsImport) =>
-            Imports.validImport(wanted)(i).map(ii => PickedExport(e.copy(exported = TsExporteeTree(ii)), wanted))
+          case TsExportee.Tree(i: TsImport) =>
+            Imports.validImport(wanted)(i).map(ii => PickedExport(e.copy(exported = TsExportee.Tree(ii)), wanted))
 
-          case TsExporteeTree(x: TsNamedDecl) =>
+          case TsExportee.Tree(x: TsNamedDecl) =>
             if (wanted.headOption.contains(x.name)) Some(PickedExport(e, wanted)) else None
 
-          case TsExporteeTree(other) =>
+          case TsExportee.Tree(other) =>
             sys.error(s"Unexpected $other")
 
-          case TsExporteeStar(_, _) =>
+          case TsExportee.Star(_, _) =>
             Some(PickedExport(e, wanted))
         }
     }

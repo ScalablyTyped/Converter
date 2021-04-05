@@ -34,7 +34,7 @@ object ExpandCallables extends TransformClassMembers {
           case Expand(callables, keepOriginalMember) if callables.nonEmpty =>
             val keptOpt: Option[TsMemberProperty] =
               if (keepOriginalMember || !isReadonly)
-                Some(m.copy(comments = m.comments + CommentData(Markers.ExpandedCallables)))
+                Some(m.copy(comments = m.comments + Marker.ExpandedCallables))
               else None
 
             val fs: IArray[TsMemberFunction] =

@@ -6,9 +6,6 @@ import scala.collection.mutable
 import scala.util.{Success, Try}
 
 object FakeLiterals {
-  /* hack: I needed some out of band communication that a TypeRef is actually to a fake literal type. We use reference equality */
-  case class WasLiteral(lit: ExprTree.Lit) extends Comment.Data
-
   def apply(outputPkg: Name, scope: TreeScope, illegalNames: CleanIllegalNames)(tree: ContainerTree): ContainerTree =
     LiteralRewriter(outputPkg, illegalNames, tree, scope).output
 
@@ -111,7 +108,7 @@ object FakeLiterals {
           TypeRef(
             QualifiedName(IArray(outputPkg, tree.name, StringModuleName, name)),
             Empty,
-            Comments(CommentData(WasLiteral(lit))),
+            Comments(Marker.WasLiteral(lit)),
           )
 
         case TypeRef.BooleanLiteral(underlying) =>
@@ -121,7 +118,7 @@ object FakeLiterals {
           TypeRef(
             QualifiedName(IArray(outputPkg, tree.name, BooleansModuleName, name)),
             Empty,
-            Comments(CommentData(WasLiteral(lit))),
+            Comments(Marker.WasLiteral(lit)),
           )
 
         case TypeRef.NumberLiteral(underlying) =>
@@ -137,7 +134,7 @@ object FakeLiterals {
           TypeRef(
             QualifiedName(IArray(outputPkg, tree.name, NumbersModuleName, name)),
             Empty,
-            Comments(CommentData(WasLiteral(lit))),
+            Comments(Marker.WasLiteral(lit)),
           )
 
         case other =>
