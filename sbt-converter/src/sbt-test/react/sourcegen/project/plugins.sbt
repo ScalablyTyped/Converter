@@ -1,4 +1,3 @@
-resolvers += Resolver.bintrayRepo("oyvindberg", "converter")
 
 val pluginVersion = System.getProperty("plugin.version")
 if (pluginVersion == null)
@@ -6,5 +5,5 @@ if (pluginVersion == null)
                                   |Specify this property using the scriptedLaunchOpts -D.""".stripMargin)
 else addSbtPlugin("org.scalablytyped.converter" % """sbt-converter""" % pluginVersion)
 
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.3.0")
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.5.1")
 addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0")

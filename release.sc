@@ -16,7 +16,7 @@ case class DemoRepo(repo: String, name: String)(implicit path: os.Path) {
     val pluginsFile = path / "project" / "plugins.sbt"
     val newLines = os.read.lines(pluginsFile).flatMap {
       case line if line.contains(s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" %""") =>
-        Some(s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.5.0")""")
+        Some(s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.5.1")""")
       case line if line.contains(s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" %""") =>
         Some(s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0")""")
       case line if line.contains(s"""addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" %""") =>
@@ -25,7 +25,7 @@ case class DemoRepo(repo: String, name: String)(implicit path: os.Path) {
         None
       case line => Some(line)
     }
-    os.write.over(path / "project" / "build.properties", "sbt.version=1.4.9")
+    os.write.over(path / "project" / "build.properties", "sbt.version=1.5.0")
     os.write.over(pluginsFile, newLines.mkString("\n"))
     %.sbt("compile", "dist")
     %.git("add", "-A")
