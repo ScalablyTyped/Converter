@@ -16,8 +16,7 @@ Have a look at [mobx-slinky](https://github.com/ScalablyTyped/mobx-slinky)
 
 ## Requirements
 
-**This plugin needs sbt 1.4.x**. Not higher or lower. 
-This is unfortunate, but some more design work is needed to avoid this.
+**This plugin needs sbt 1.4.x or 1.5.x**.  
 
 Since we generate source code, it should work with any combination of 
 Scala 2.12 / 2.13 and Scala.js 1.x. 

@@ -102,14 +102,14 @@ object ScalablyTypedPluginBase extends AutoPlugin {
   override lazy val globalSettings =
     Seq(
       Global / Keys.onLoad := (state => {
-        val old        = (Global / Keys.onLoad).value
-        val ret        = old(state)
-        val sbtVersion = Keys.sbtVersion.value
-        val Supported  = "1.4"
-        if (!sbtVersion.startsWith(Supported)) {
-          val msg =
-            s"This version of the ScalablyTyped plugin only supports sbt $Supported.x . You're currently using $sbtVersion"
-          sys.error(msg)
+        val old = (Global / Keys.onLoad).value
+        val ret = old(state)
+        Keys.sbtVersion.value match {
+          case valid if valid.startsWith("1.4") || valid.startsWith("1.5") => ret
+          case invalid =>
+            sys.error(
+              s"This version of the ScalablyTyped plugin only supports sbt 1.4.x or 1.5.x. You're currently using $invalid",
+            )
         }
         ret
       }),
