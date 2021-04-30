@@ -62,13 +62,18 @@ class Phase1ReadTypescript(
       case s @ Source.TsHelperFile(file, inLib, _) =>
         val L = logger.withContext(file)
 
-        val resolveDep = (value: String) =>
-          PhaseRes.fromOption(source, resolve.module(s, value).map(_._1: Source), Right(s"Couldn't resolve $value"))
-
         def assertPartsOnly(m: SortedMap[Source, Phase1Res]): SortedMap[Source, LibraryPart] =
           m.map {
             case (s, part: LibraryPart) => s -> part
             case (s, other) => sys.error(s"$s: Unexpected $other")
+          }
+
+        def orWarn(ot: Option[Source])(onEmpty: String): PhaseRes[Source, Source] =
+          ot match {
+            case Some(value) => PhaseRes.Ok(value)
+            case None =>
+              L.warn(onEmpty)
+              PhaseRes.Ignore()
           }
 
         PhaseRes.fromEither(source, parser(file)).flatMap { parsed: TsParsedFile =>
@@ -84,13 +89,16 @@ class Phase1ReadTypescript(
                   case r @ Directive.PathRef(value) =>
                     val maybeSource: Option[Source] =
                       LibraryResolver.file(file.folder, value).map(Source.helperFile(inLib))
-                    PhaseRes.fromOption(source, maybeSource, Right(s"Couldn't resolve $r"))
-                },
-                { case Directive.TypesRef(value) => resolveDep(value) }, {
+                    orWarn(maybeSource)(s"Couldn't resolve $r")
+                }, {
+                  case Directive.TypesRef(value) =>
+                    val maybeSource: Option[Source] = resolve.module(s, value).map(_._1)
+                    orWarn(maybeSource)(s"Couldn't resolve $value")
+                }, {
                   case r @ Directive.LibRef(value) if inLib.libName === TsIdent.std =>
                     val maybeSource: Option[Source] =
                       LibraryResolver.file(resolve.stdLib.folder, s"lib.$value.d.ts").map(Source.helperFile(inLib))
-                    PhaseRes.fromOption(source, maybeSource, Right(s"Couldn't resolve $r"))
+                    orWarn(maybeSource)(s"Couldn't resolve $r")
                 },
               )
 
@@ -114,7 +122,9 @@ class Phase1ReadTypescript(
               withExternals.unresolvedDeps,
               L,
             )
-            inferredDeps <- PhaseRes.sequenceSet(inferredDepNames.map(n => resolveDep(n.value)))
+            inferredDeps <- PhaseRes.sequenceSet(
+              inferredDepNames.map(n => orWarn(resolve.module(s, n.value).map(_._1))(s"Couldn't resolve ${n.value}")),
+            )
 
             /* look up all resulting dependencies */
             deps <- getDeps((withExternals.resolvedDeps ++ typeReferencedDeps ++ inferredDeps).sorted)
