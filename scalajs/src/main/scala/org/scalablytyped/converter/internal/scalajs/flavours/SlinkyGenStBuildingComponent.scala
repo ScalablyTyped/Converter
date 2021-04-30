@@ -388,7 +388,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
         name,
         IArray(TypeRef.Object),
         IArray(createElementField),
-        Minimization.KeepMarker + CommentData(Mangler.LeaveAlone),
+        Minimization.KeepMarker + Marker.ManglerLeaveAlone,
         ReactRawCp,
         isOverride = false,
       )
@@ -465,7 +465,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       StBuildingComponent,
       Empty,
       IArray(ReactRaw, make, Default),
-      Minimization.KeepMarker + CommentData(Mangler.LeaveAlone),
+      Minimization.KeepMarker + Marker.ManglerLeaveAlone,
       builderCp,
       isOverride = false,
     )

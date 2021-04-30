@@ -42,7 +42,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
 
           /** When we rewrite type unions to inheritance we might produce two companions in the same scope, see `echarts` test.
             *  This test catches a bit too much (meaning we might not generate some companions), but it should be fairly safe */
-          if (cls.comments.has[UnionToInheritance.WasUnion])
+          if (cls.comments.has[Marker.WasUnion])
             container.index(cls.name).length > 1
           else
             container.index(cls.name).exists {
@@ -92,8 +92,8 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
         generatedCreators ++ IArray.fromOption(generatedBuilder) match {
           case Empty => None
           case some =>
-            val related      = Minimization.Related(some.collect { case m: HasCodePath => TypeRef(m.codePath) })
-            val dontMinimize = Comments(CommentData(related))
+            val related      = Marker.MinimizationRelated(some.collect { case m: HasCodePath => TypeRef(m.codePath) })
+            val dontMinimize = Comments(related)
             val mod          = ModuleTree(Empty, cls.name, Empty, some, dontMinimize, cls.codePath, isOverride = false)
             Some(mod)
         }

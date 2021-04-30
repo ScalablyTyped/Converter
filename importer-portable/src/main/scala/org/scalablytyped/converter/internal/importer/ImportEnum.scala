@@ -10,9 +10,9 @@ object ImportEnum {
     val found = e.members.collect {
       case TsEnumMember(_, _, Some(TsExpr.Literal(lit))) =>
         lit match {
-          case _: TsLiteralString  => TypeRef.String
-          case _: TsLiteralNumber  => TypeRef.Double
-          case _: TsLiteralBoolean => TypeRef.Boolean
+          case _: TsLiteral.Str  => TypeRef.String
+          case _: TsLiteral.Num  => TypeRef.Double
+          case _: TsLiteral.Bool => TypeRef.Boolean
         }
     }
     TypeRef.Union(found, NoComments, sort = true)
@@ -32,7 +32,7 @@ object ImportEnum {
       case TsDeclEnum(cs, _, true, _, _, _, Some(exportedFrom), _, codePath) =>
         val tpe        = importType(Wildcards.No, scope, importName)(exportedFrom)
         val importedCp = importName(codePath)
-        IArray(TypeAliasTree(importedCp.parts.last, Empty, tpe, cs + CommentData(Markers.IsTrivial), importedCp))
+        IArray(TypeAliasTree(importedCp.parts.last, Empty, tpe, cs + Marker.IsTrivial, importedCp))
 
       /* normal const enum? type alias. And output a scala object with values if possible, otherwise a comment */
       case TsDeclEnum(cs, _, true, _, members, _, None, _, codePath) =>
@@ -69,7 +69,7 @@ object ImportEnum {
             .distinctBy(_.name.unescaped)
 
           /* keep module members when minimizing */
-          val related = Comments(CommentData(Minimization.Related(newMembers.map(m => TypeRef(m.codePath)))))
+          val related = Comments(Marker.MinimizationRelated(newMembers.map(m => TypeRef(m.codePath))))
           ModuleTree(
             Empty,
             importedCodePath.parts.last,
@@ -102,7 +102,7 @@ object ImportEnum {
                 name     = enumName,
                 tparams  = Empty,
                 alias    = importType(Wildcards.No, scope, importName)(TsTypeRef(NoComments, ef.name, Empty)),
-                comments = Comments(CommentData(Markers.IsTrivial)),
+                comments = Comments(Marker.IsTrivial),
                 codePath = importedCodePath,
               )
             case None =>
@@ -199,7 +199,7 @@ object ImportEnum {
             enumName,
             parents    = Empty,
             members    = membersSyms ++ IArray.fromOption(applyMethod),
-            comments   = cs + CommentData(Markers.EnumObject),
+            comments   = cs + Marker.EnumObject,
             codePath   = importedCodePath,
             isOverride = false,
           )

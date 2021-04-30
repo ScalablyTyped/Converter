@@ -100,7 +100,7 @@ object ExtractClasses extends TransformLeaveMembers {
       case (base, false) =>
         s"/* $base. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */\n"
     }
-    Comments(List(CommentData(Markers.ExpandedClass), Comment(msg)))
+    Comments(List(Marker.ExpandedClass, Comment(msg)))
   }
 
   def extractClassFromMember(

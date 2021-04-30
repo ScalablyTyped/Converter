@@ -53,7 +53,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
 
   override def newMembers(scope: TsTreeScope, tree: TsContainer): IArray[TsContainerOrDecl] = {
     lazy val avoidCircular: Set[CodePath] =
-      scope.stack.collect { case x: HasCodePath => x.codePath }.toSet
+      scope.stack.collect { case x: CodePath.Has => x.codePath }.toSet
 
     val addedClasses = mutable.Set.empty[TsIdentSimple]
 
@@ -62,7 +62,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
         val note = Comment(s"/* was `${TsTypeFormatter(tpe)}` */\n")
 
         lazy val ownerLoc = tree match {
-          case x: HasJsLocation => x.jsLocation
+          case x: JsLocation.Has => x.jsLocation
           case _ => JsLocation.Zero
         }
 
@@ -141,7 +141,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
 
     def unapply(decl: TsContainerOrDecl): Option[(TsDeclClass, TsType)] =
       decl match {
-        case _cls: TsDeclClass if !_cls.comments.has[Markers.ExpandedClass.type] =>
+        case _cls: TsDeclClass if !_cls.comments.has[Marker.ExpandedClass.type] =>
           val cls = new TypeRewriter(_cls).visitTsDeclClass(
             _cls.tparams
               .map(tp =>
@@ -169,7 +169,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
           statics match {
             case Empty => Some((cls, ctor))
             case some =>
-              val nameHint = Comments(CommentData(Markers.NameHint(s"Typeof${cls.name.value}")))
+              val nameHint = Comments(Marker.NameHint(s"Typeof${cls.name.value}"))
               Some(
                 (
                   cls,
@@ -300,7 +300,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
         case TsDeclModule(_, _, name, _, _, _)    => s"Typeof${name.value}"
         case TsAugmentedModule(_, name, _, _, _)  => s"Typeof${name.value}"
       }
-      Some(TsTypeObject(Comments(CommentData(Markers.NameHint(namehint))), rewritten))
+      Some(TsTypeObject(Comments(Marker.NameHint(namehint)), rewritten))
     }
   }
 

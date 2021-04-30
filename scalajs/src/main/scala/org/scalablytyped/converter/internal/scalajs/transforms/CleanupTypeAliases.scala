@@ -29,7 +29,7 @@ object CleanupTypeAliases extends TreeTransformation {
   def removeTrivialTypeAlias(members: IArray[Tree]): IArray[Tree] =
     members.mapNotNone {
       case ta: TypeAliasTree =>
-        ta.comments.extract { case Markers.IsTrivial => () } match {
+        ta.comments.extract { case Marker.IsTrivial => () } match {
           case None => Some(ta)
           case Some((_, restCs)) =>
             if (restCs.cs.nonEmpty)
@@ -37,7 +37,7 @@ object CleanupTypeAliases extends TreeTransformation {
             None
         }
 
-      case x: FieldTree if x.comments.has[Markers.IsTrivial.type] => None
+      case x: FieldTree if x.comments.has[Marker.IsTrivial.type] => None
       case other => Some(other)
     }
 }

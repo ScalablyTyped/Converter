@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 
 import java.util
 
+import io.circe013.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.IArray.fromArrayAndSize
 
 import scala.collection.immutable.{Range, SortedSet}
@@ -9,6 +10,12 @@ import scala.collection.mutable.WrappedArray.ofRef
 import scala.collection.{immutable, mutable, GenTraversableOnce, Iterator}
 
 object IArray {
+  implicit def IArrayEncoder[T <: AnyRef: Encoder]: Encoder[IArray[T]] =
+    Encoder[List[T]].contramap[IArray[T]](_.toList)
+
+  implicit def IArrayDecoder[T <: AnyRef: Decoder]: Decoder[IArray[T]] =
+    Decoder[List[T]].map[IArray[T]](IArray.fromTraversable)
+
   def apply[A <: AnyRef](as: A*): IArray[A] =
     as match {
       case x: ofRef[A]                => fromArray(x.array)

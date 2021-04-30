@@ -1,8 +1,7 @@
 package org.scalablytyped.converter.internal
 package ts
 
-import com.olvind.logging.Formatter
-import org.scalablytyped.converter.internal.ts.transforms.ExtractInterfaces
+import io.circe013.{Decoder, Encoder, KeyDecoder, KeyEncoder}
 
 import scala.util.hashing.MurmurHash3.productHash
 
@@ -27,13 +26,13 @@ sealed trait TsContainerOrDecl extends TsTree
 
 sealed trait TsDecl extends TsContainerOrDecl
 
-sealed trait TsContainer extends TsContainerOrDecl with MemberCache with HasCodePath {
+sealed trait TsContainer extends TsContainerOrDecl with MemberCache with CodePath.Has {
   def members: IArray[TsContainerOrDecl]
 
   def withMembers(newMembers: IArray[TsContainerOrDecl]): TsContainer
 }
 
-sealed trait TsNamedDecl extends TsDecl with HasCodePath {
+sealed trait TsNamedDecl extends TsDecl with CodePath.Has {
   val comments: Comments
   def withComments(cs:    Comments): TsNamedDecl
   final def addComment(c: Comment) = withComments(comments + c)
@@ -53,17 +52,18 @@ final case class TsParsedFile(
 
   lazy val isStdLib: Boolean =
     directives.exists {
-      case DirectiveNoStdLib => true
-      case _                 => false
+      case Directive.NoStdLib => true
+      case _                  => false
     }
 
   override def withMembers(newMembers: IArray[TsContainerOrDecl]): TsParsedFile =
     copy(members = newMembers)
 
-  override def withCodePath(newCodePath: CodePath): HasCodePath = copy(codePath = newCodePath)
+  override def withCodePath(newCodePath: CodePath): CodePath.Has = copy(codePath = newCodePath)
 }
 
-sealed trait TsDeclNamespaceOrModule extends TsContainer with TsNamedValueDecl with HasJsLocation
+sealed trait TsDeclNamespaceOrModule extends TsContainer with TsNamedValueDecl with JsLocation.Has
+
 sealed trait TsDeclModuleLike extends TsDeclNamespaceOrModule
 
 final case class TsDeclNamespace(
@@ -146,11 +146,11 @@ final case class TsGlobal(
     members:  IArray[TsContainerOrDecl],
     codePath: CodePath,
 ) extends TsContainer
-    with HasCodePath {
+    with CodePath.Has {
   override def withMembers(newMembers: IArray[TsContainerOrDecl]): TsGlobal =
     copy(members = newMembers)
 
-  override def withCodePath(newCodePath: CodePath): HasCodePath = copy(codePath = newCodePath)
+  override def withCodePath(newCodePath: CodePath): CodePath.Has = copy(codePath = newCodePath)
 }
 
 final case class TsDeclClass(
@@ -165,7 +165,7 @@ final case class TsDeclClass(
     jsLocation: JsLocation,
     codePath:   CodePath,
 ) extends TsNamedValueDecl
-    with HasJsLocation
+    with JsLocation.Has
     with HasClassMembers
     with TsNamedDecl {
 
@@ -216,7 +216,7 @@ final case class TsDeclEnum(
     jsLocation:   JsLocation,
     codePath:     CodePath,
 ) extends TsNamedValueDecl
-    with HasJsLocation
+    with JsLocation.Has
     with TsNamedDecl {
 
   override def withCodePath(newCodePath: CodePath): TsDeclEnum =
@@ -245,7 +245,7 @@ final case class TsDeclVar(
     jsLocation: JsLocation,
     codePath:   CodePath,
 ) extends TsNamedValueDecl
-    with HasJsLocation
+    with JsLocation.Has
     with TsNamedDecl {
 
   override def withCodePath(newCodePath: CodePath): TsDeclVar =
@@ -269,7 +269,7 @@ final case class TsDeclFunction(
     jsLocation: JsLocation,
     codePath:   CodePath,
 ) extends TsNamedValueDecl
-    with HasJsLocation
+    with JsLocation.Has
     with TsNamedDecl {
 
   override def withCodePath(newCodePath: CodePath): TsDeclFunction =
@@ -334,21 +334,18 @@ object TsTypeParam {
   def asTypeArgs(tps: IArray[TsTypeParam]): IArray[TsTypeRef] =
     tps.map(tp => TsTypeRef(tp.name))
 }
-// terms
 
-sealed trait TsTerm extends TsTree
-
-sealed abstract class TsLiteral(repr: String) extends TsTerm {
+sealed abstract class TsLiteral(repr: String) extends TsTree {
   val literal = repr
 }
 
-final case class TsLiteralNumber(value: String) extends TsLiteral(value)
+object TsLiteral {
+  final case class Num(value:  String) extends TsLiteral(value)
+  final case class Str(value:  String) extends TsLiteral(value)
+  final case class Bool(value: Boolean) extends TsLiteral(value.toString)
+}
 
-final case class TsLiteralString(value: String) extends TsLiteral(value)
-
-final case class TsLiteralBoolean(value: Boolean) extends TsLiteral(value.toString)
-
-sealed trait TsIdent extends TsTerm {
+sealed trait TsIdent extends TsTree {
   val value: String
 }
 
@@ -357,8 +354,6 @@ final case class TsIdentSimple(value: String) extends TsIdent
 final case class TsIdentImport(from: TsIdentModule) extends TsIdent {
   override val value: String = from.value
 }
-
-final case class ModuleAliases(aliases: IArray[TsIdentModule]) extends Comment.Data
 
 final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]) extends TsIdent {
   @deprecated("this doesnt really work for node", "")
@@ -386,6 +381,9 @@ final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]
 object TsIdentModule {
   def simple(s: String): TsIdentModule =
     TsIdentModule(None, s :: Nil)
+
+  implicit val encodes: Encoder[TsIdentModule] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[TsIdentModule] = io.circe013.generic.semiauto.deriveDecoder
 }
 
 sealed trait TsIdentLibrary extends TsIdent {
@@ -398,9 +396,14 @@ sealed trait TsIdentLibrary extends TsIdent {
 object TsIdentLibrary {
   implicit val ordering: Ordering[TsIdentLibrary] =
     Ordering[String].on[TsIdentLibrary](_.value)
-
-  implicit val FormatterTsIdentLibrary: Formatter[TsIdentLibrary] =
-    i => i.value
+  implicit val TsIdentLibraryDecoder: Decoder[TsIdentLibrary] =
+    Decoder[String].map(TsIdentLibrary.apply)
+  implicit val TsIdentLibraryEncoder: Encoder[TsIdentLibrary] =
+    Encoder[String].contramap[TsIdentLibrary](_.value)
+  implicit val TsIdentLibraryKeyDec: KeyDecoder[TsIdentLibrary] =
+    KeyDecoder[String].map(TsIdentLibrary.apply)
+  implicit val TsIdentLibraryKeyEnc: KeyEncoder[TsIdentLibrary] =
+    KeyEncoder[String].contramap[TsIdentLibrary](_.value)
 
   val Scoped   = "@([^/]+)/(.+)".r
   val Scoped__ = "(.+)__(.+)".r
@@ -422,6 +425,11 @@ final case class TsIdentLibraryScoped(scope: String, name: String) extends TsIde
 }
 
 object TsIdent {
+  implicit val encodes: Encoder[TsIdent] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[TsIdent] = io.circe013.generic.semiauto.deriveDecoder
+
+  implicit object TsIdentKey extends IsKey[TsIdent]
+
   def apply(str: String): TsIdentSimple =
     TsIdentSimple(str)
 
@@ -444,8 +452,6 @@ object TsIdent {
   val dummyLibrary: TsIdentLibrary = TsIdentLibrarySimple("dummyLibrary")
   val std:          TsIdentLibrary = TsIdentLibrarySimple("std")
   val node:         TsIdentLibrary = TsIdentLibrarySimple("node")
-
-  implicit object TsIdentKey extends IsKey[TsIdent]
 }
 
 final case class TsQIdent(parts: IArray[TsIdent]) extends TsTree {
@@ -457,6 +463,8 @@ final case class TsQIdent(parts: IArray[TsIdent]) extends TsTree {
 }
 
 object TsQIdent {
+  implicit val encodes: Encoder[TsQIdent] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[TsQIdent] = io.circe013.generic.semiauto.deriveDecoder
 
   def of(ss:      String*) = TsQIdent(IArray.fromTraversable(ss.map(TsIdent.apply)))
   def of(tsIdent: TsIdent) = TsQIdent(IArray(tsIdent))
@@ -505,6 +513,14 @@ object TsQIdent {
 //types
 
 sealed abstract class TsType extends TsTree
+
+object TsType {
+  def isTypeMapping(members: IArray[TsMember]): Boolean =
+    members match {
+      case IArray.exactlyOne(_: TsMemberTypeMapped) => true
+      case _ => false
+    }
+}
 
 final case class TsTypeRef(comments: Comments, name: TsQIdent, tparams: IArray[TsType]) extends TsType
 
@@ -559,7 +575,7 @@ final case class TsTypeLookup(from: TsType, key: TsType) extends TsType
 
 final case class TsTypeThis() extends TsType
 
-final case class TsTypeIntersect private (types: IArray[TsType]) extends TsType
+final case class TsTypeIntersect(types: IArray[TsType]) extends TsType
 
 object TsTypeIntersect {
   private def flatten(types: IArray[TsType]): IArray[TsType] =
@@ -570,7 +586,7 @@ object TsTypeIntersect {
 
   def simplified(types: IArray[TsType]): TsType = {
     val withCombinedObjects = types.partitionCollect {
-      case x: TsTypeObject if !ExtractInterfaces.isTypeMapping(x.members) => x
+      case x: TsTypeObject if !TsType.isTypeMapping(x.members) => x
     } match {
       case (Empty, all)              => all
       case (IArray.exactlyOne(_), _) => types // just keep order
@@ -584,7 +600,7 @@ object TsTypeIntersect {
   }
 }
 
-final case class TsTypeUnion private (types: IArray[TsType]) extends TsType
+final case class TsTypeUnion(types: IArray[TsType]) extends TsType
 
 object TsTypeUnion {
   private def flatten(types: IArray[TsType]): IArray[TsType] =
@@ -631,8 +647,10 @@ final case class TsMemberFunction(
 ) extends TsMember
 
 sealed trait Indexing extends TsTree
-case class IndexingDict(name:   TsIdent, tpe: TsType) extends Indexing
-case class IndexingSingle(name: TsQIdent) extends Indexing
+object Indexing {
+  case class Dict(name:   TsIdent, tpe: TsType) extends Indexing
+  case class Single(name: TsQIdent) extends Indexing
+}
 
 final case class TsMemberIndex(
     comments:   Comments,
@@ -641,40 +659,6 @@ final case class TsMemberIndex(
     indexing:   Indexing,
     valueType:  Option[TsType],
 ) extends TsMember
-
-sealed trait OptionalModifier {
-  def apply(tpe: TsType): TsType =
-    this match {
-      case OptionalModifier.Noop        => tpe
-      case OptionalModifier.Optionalize => OptionalType(tpe)
-      case OptionalModifier.Deoptionalize =>
-        tpe match {
-          case OptionalType(rest) => rest
-          case other              => other
-        }
-    }
-}
-
-object OptionalModifier {
-  case object Noop extends OptionalModifier
-  case object Optionalize extends OptionalModifier
-  case object Deoptionalize extends OptionalModifier
-}
-
-sealed trait ReadonlyModifier {
-  def apply(wasReadonly: Boolean): Boolean =
-    this match {
-      case ReadonlyModifier.Noop => wasReadonly
-      case ReadonlyModifier.Yes  => true
-      case ReadonlyModifier.No   => false
-    }
-}
-
-object ReadonlyModifier {
-  case object Noop extends ReadonlyModifier
-  case object Yes extends ReadonlyModifier
-  case object No extends ReadonlyModifier
-}
 
 final case class TsMemberTypeMapped(
     comments:    Comments,
@@ -699,53 +683,30 @@ final case class TsMemberProperty(
 //imports
 
 sealed trait TsImported extends TsTree
-
-final case class TsImportedIdent(ident: TsIdentSimple) extends TsImported
-
-final case class TsImportedDestructured(idents: IArray[(TsIdent, Option[TsIdentSimple])]) extends TsImported
-
-final case class TsImportedStar(asOpt: Option[TsIdentSimple]) extends TsImported
+object TsImported {
+  final case class Ident(ident:         TsIdentSimple) extends TsImported
+  final case class Destructured(idents: IArray[(TsIdent, Option[TsIdentSimple])]) extends TsImported
+  final case class Star(asOpt:          Option[TsIdentSimple]) extends TsImported
+}
 
 sealed trait TsImportee extends TsTree
-
-final case class TsImporteeRequired(from: TsIdentModule) extends TsImportee
-
-final case class TsImporteeFrom(from: TsIdentModule) extends TsImportee
-
-final case class TsImporteeLocal(qident: TsQIdent) extends TsImportee
+object TsImportee {
+  final case class Required(from: TsIdentModule) extends TsImportee
+  final case class From(from:     TsIdentModule) extends TsImportee
+  final case class Local(qident:  TsQIdent) extends TsImportee
+}
 
 final case class TsImport(typeOnly: Boolean, imported: IArray[TsImported], from: TsImportee) extends TsDecl with TsTree
 
 //exports
 
 sealed trait TsExportee extends TsTree
-
-final case class TsExporteeNames(idents: IArray[(TsQIdent, Option[TsIdentSimple])], fromOpt: Option[TsIdentModule])
-    extends TsExportee
-
-final case class TsExporteeTree(decl: TsDecl) extends TsExportee
-
-final case class TsExporteeStar(as: Option[TsIdentSimple], from: TsIdentModule) extends TsExportee
-
-sealed trait ExportType
-
-object ExportType {
-  val NotNamed: Set[ExportType] = Set(ExportType.Namespaced, ExportType.Defaulted)
-
-  case object Named extends ExportType
-
-  case object Defaulted extends ExportType
-
-  case object Namespaced extends ExportType
+object TsExportee {
+  case class Names(idents: IArray[(TsQIdent, Option[TsIdentSimple])], fromOpt: Option[TsIdentModule]) extends TsExportee
+  case class Tree(decl:    TsDecl) extends TsExportee
+  case class Star(as:      Option[TsIdentSimple], from: TsIdentModule) extends TsExportee
 }
 
 final case class TsExport(comments: Comments, typeOnly: Boolean, tpe: ExportType, exported: TsExportee) extends TsDecl
 
 final case class TsExportAsNamespace(ident: TsIdent) extends TsDecl
-
-sealed trait MethodType
-object MethodType {
-  case object Normal extends MethodType
-  case object Getter extends MethodType
-  case object Setter extends MethodType
-}

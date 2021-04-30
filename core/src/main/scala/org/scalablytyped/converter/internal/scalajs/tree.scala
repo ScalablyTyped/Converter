@@ -1,6 +1,8 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
+import io.circe013.{Decoder, Encoder}
+
 import scala.util.hashing.MurmurHash3.productHash
 
 sealed trait Tree extends Product with Serializable {
@@ -8,6 +10,11 @@ sealed trait Tree extends Product with Serializable {
   val comments: Comments
   override def canEqual(that: Any): Boolean = that.## == ##
   override lazy val hashCode: Int = productHash(this)
+}
+
+object Tree {
+  implicit val encodes: Encoder[Tree] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[Tree] = io.circe013.generic.semiauto.deriveDecoder
 }
 
 sealed trait HasCodePath {
@@ -49,7 +56,7 @@ sealed trait ContainerTree extends Tree with HasCodePath with HasAnnotations wit
 
 sealed trait InheritanceTree extends Tree with HasCodePath with HasAnnotations with HasMembers {
   def isScalaJsDefined:  Boolean = annotations contains Annotation.ScalaJSDefined
-  def receivesCompanion: Boolean = isScalaJsDefined || comments.has[Markers.CouldBeScalaJsDefined.type]
+  def receivesCompanion: Boolean = isScalaJsDefined || comments.has[Marker.CouldBeScalaJsDefined.type]
 
   def isNative: Boolean =
     annotations.exists {
@@ -179,6 +186,9 @@ final case class CtorTree(level: ProtectionLevel, params: IArray[ParamTree], com
 }
 
 object CtorTree {
+  implicit val encodes: Encoder[CtorTree] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[CtorTree] = io.circe013.generic.semiauto.deriveDecoder
+
   val defaultPublic    = CtorTree(ProtectionLevel.Default, IArray(), NoComments)
   val defaultProtected = CtorTree(ProtectionLevel.Protected, IArray(), NoComments)
 }
@@ -195,7 +205,9 @@ object TypeParamTree {
   def asTypeArgs(tps: IArray[TypeParamTree]): IArray[TypeRef] =
     tps.map(x => TypeRef(x.name))
 
-  implicit val TypeParamToSuffix: ToSuffix[TypeParamTree] = tp => ToSuffix(tp.name) +? tp.upperBound
+  implicit val suffix:  ToSuffix[TypeParamTree] = tp => ToSuffix(tp.name) +? tp.upperBound
+  implicit val encodes: Encoder[TypeParamTree]  = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[TypeParamTree]  = io.circe013.generic.semiauto.deriveDecoder
 }
 
 final case class ParamTree(
@@ -206,6 +218,11 @@ final case class ParamTree(
     default:    ImplTree,
     comments:   Comments,
 ) extends Tree
+
+object ParamTree {
+  implicit val encodes: Encoder[ParamTree] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[ParamTree] = io.circe013.generic.semiauto.deriveDecoder
+}
 
 final case class TypeRef(typeName: QualifiedName, targs: IArray[TypeRef], comments: Comments) extends Tree {
   override val name: Name = typeName.parts.last
@@ -218,6 +235,10 @@ final case class TypeRef(typeName: QualifiedName, targs: IArray[TypeRef], commen
 }
 
 object TypeRef {
+  implicit val suffix:       ToSuffix[TypeRef] = t => ToSuffix(t.typeName) ++ t.targs
+  implicit lazy val encodes: Encoder[TypeRef]  = io.circe013.generic.semiauto.deriveEncoder
+  implicit lazy val decodes: Decoder[TypeRef]  = io.circe013.generic.semiauto.deriveDecoder
+
   def apply(n: Name): TypeRef =
     TypeRef(QualifiedName(IArray(n)), Empty, NoComments)
   def apply(qn: QualifiedName): TypeRef =
@@ -494,23 +515,23 @@ object TypeRef {
         case _ => None
       }
   }
-
-  implicit val TypeRefSuffix: ToSuffix[TypeRef] =
-    t => ToSuffix(t.typeName) ++ t.targs
-
-  implicit val TypeRefOrdering: Ordering[TypeRef] =
-    Ordering.by[TypeRef, String](Printer.formatTypeRef(0))
 }
 
 sealed trait ImplTree extends Tree {
   override val name:     Name     = Name("ImplTree")
   override val comments: Comments = NoComments
 }
+object ImplTree {
+  implicit val encodes: Encoder[ImplTree] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[ImplTree] = io.circe013.generic.semiauto.deriveDecoder
+}
 
 case object NotImplemented extends ImplTree
 sealed trait ExprTree extends ImplTree
 
 object ExprTree {
+  implicit val encodes: Encoder[ExprTree] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[ExprTree] = io.circe013.generic.semiauto.deriveDecoder
 
   val undefined = Ref(QualifiedName.scala_js + Name("undefined"))
   val native    = Ref(QualifiedName.scala_js + Name("native"))
@@ -544,6 +565,11 @@ object ExprTree {
       }
   }
   sealed trait Lit extends ExprTree
+  object Lit {
+    implicit val encodes: Encoder[Lit] = io.circe013.generic.semiauto.deriveEncoder
+    implicit val decodes: Decoder[Lit] = io.circe013.generic.semiauto.deriveDecoder
+  }
+
   case class BooleanLit(value: Boolean) extends Lit
   case class NumberLit(value:  String) extends Lit
   case class StringLit(value:  String) extends Lit
@@ -555,6 +581,8 @@ object ExprTree {
     case class Variable(expr:           ExprTree) extends Arg
     implicit def fromExpr(expr: ExprTree):         Arg = Pos(expr)
     implicit def fromTuple(t:   (Name, ExprTree)): Arg = Named(t._1, t._2)
+    implicit val encodes: Encoder[Arg] = io.circe013.generic.semiauto.deriveEncoder
+    implicit val decodes: Decoder[Arg] = io.circe013.generic.semiauto.deriveDecoder
   }
 
   object Block {

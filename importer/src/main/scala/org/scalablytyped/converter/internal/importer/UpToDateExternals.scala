@@ -2,7 +2,6 @@ package org.scalablytyped.converter.internal
 package importer
 
 import com.olvind.logging.Logger
-import org.scalablytyped.converter.internal.importer.jsonCodecs._
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
 
 object UpToDateExternals {

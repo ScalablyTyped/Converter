@@ -1,7 +1,9 @@
 package org.scalablytyped.converter.internal
 package ts
 
+import io.circe013.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.sets.SetOps
+import org.scalablytyped.converter.internal.orphanCodecs._
 
 import scala.collection.immutable.SortedSet
 
@@ -18,10 +20,20 @@ case class CompilerOptions(
     forceConsistentCasingInFileNames: Option[Boolean],
 )
 
+object CompilerOptions {
+  implicit val encodes: Encoder[CompilerOptions] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[CompilerOptions] = io.circe013.generic.semiauto.deriveDecoder
+}
+
 case class TsConfig(
     compilerOptions: Option[CompilerOptions],
     files:           Option[IArray[String]],
 )
+
+object TsConfig {
+  implicit val encodes: Encoder[TsConfig] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[TsConfig] = io.circe013.generic.semiauto.deriveDecoder
+}
 
 case class PackageJsonDeps(
     version:          Option[String],
@@ -39,12 +51,23 @@ case class PackageJsonDeps(
       .sorted
 }
 
+object PackageJsonDeps {
+  implicit val encodes: Encoder[PackageJsonDeps] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[PackageJsonDeps] = io.circe013.generic.semiauto.deriveDecoder
+}
+
 case class NotNeededPackage(
     libraryName:        String,
     typingsPackageName: TsIdentLibrary,
     sourceRepoURL:      Option[String],
     asOfVersion:        String,
 )
+
+object NotNeededPackage {
+  implicit val encodes: Encoder[NotNeededPackage] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[NotNeededPackage] = io.circe013.generic.semiauto.deriveDecoder
+}
+
 case class TypingsJson(
     name:   String,
     main:   String,
@@ -52,4 +75,14 @@ case class TypingsJson(
     global: Boolean,
 )
 
+object TypingsJson {
+  implicit val encodes: Encoder[TypingsJson] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[TypingsJson] = io.circe013.generic.semiauto.deriveDecoder
+}
+
 case class NotNeededPackages(packages: IArray[NotNeededPackage])
+
+object NotNeededPackages {
+  implicit val encodes: Encoder[NotNeededPackages] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[NotNeededPackages] = io.circe013.generic.semiauto.deriveDecoder
+}

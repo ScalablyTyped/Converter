@@ -10,7 +10,7 @@ object InferEnumTypes extends TreeTransformationScopedChanges {
     var lastUnspecifiedIndex = 0
     members.map {
       case em @ TsEnumMember(_, _, None) =>
-        val ret = em.copy(expr = Some(TsExpr.Literal(TsLiteralNumber(lastUnspecifiedIndex.toString))))
+        val ret = em.copy(expr = Some(TsExpr.Literal(TsLiteral.Num(lastUnspecifiedIndex.toString))))
         lastUnspecifiedIndex += 1
         ret
       case other => other

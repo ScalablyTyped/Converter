@@ -70,8 +70,8 @@ object CreatorMethod {
 
       // required literals
       case prop @ Prop.Normal(Prop.Variant(tpe, _, _, _), _, Optionality.No, _, _)
-          if tpe.comments.has[FakeLiterals.WasLiteral] =>
-        val literal = tpe.comments.extract { case FakeLiterals.WasLiteral(lit) => lit }.get._1
+          if tpe.comments.has[Marker.WasLiteral] =>
+        val literal = tpe.comments.extract { case Marker.WasLiteral(lit) => lit }.get._1
 
         Const(requiredProp(prop, literal))
 
@@ -103,8 +103,8 @@ object CreatorMethod {
         )
 
       case prop @ Prop.Normal(Prop.Variant(tpe, _, _, _), _, Optionality.No, _, _)
-          if tpe.comments.has[FakeLiterals.WasLiteral] =>
-        val lit = tpe.comments.extract { case FakeLiterals.WasLiteral(lit) => lit }.get._1
+          if tpe.comments.has[Marker.WasLiteral] =>
+        val lit = tpe.comments.extract { case Marker.WasLiteral(lit) => lit }.get._1
 
         Const(requiredProp(prop, lit))
 

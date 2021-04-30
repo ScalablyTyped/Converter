@@ -30,11 +30,9 @@ object ImportTypingsGenSources {
   )
 
   object Input {
-    import io.circe013.generic.auto._
-    import jsonCodecs._
-
-    implicit val ConfigEncoder: Encoder[Input] = exportEncoder[Input].instance
-    implicit val ConfigDecoder: Decoder[Input] = exportDecoder[Input].instance
+    import orphanCodecs._
+    implicit val encodes: Encoder[Input] = io.circe013.generic.semiauto.deriveEncoder
+    implicit val decodes: Decoder[Input] = io.circe013.generic.semiauto.deriveDecoder
   }
 
   def apply(

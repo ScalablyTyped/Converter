@@ -144,7 +144,7 @@ final class FindProps(
       acceptNativeTraits: Boolean,
       selfRef:            TypeRef,
   ): Res[IArray[String], IArray[Prop]] =
-    cls.comments.extract { case UnionToInheritance.WasUnion(subclassRefs) => subclassRefs } match {
+    cls.comments.extract { case Marker.WasUnion(subclassRefs) => subclassRefs } match {
       case Some((subclassRefs, _)) =>
         Res.combine(subclassRefs.map { subClsRef =>
           scope
@@ -255,7 +255,7 @@ final class FindProps(
 
   private def combine(ms: IArray[MemberTree]): MemberTree =
     ms.partitionCollect2({ case x: FieldTree => x }, { case x: MethodTree => x }) match {
-      case (IArray.exactlyOne(field), _, _) if field.comments.has[Markers.ExpandedCallables.type] =>
+      case (IArray.exactlyOne(field), _, _) if field.comments.has[Marker.ExpandedCallables.type] =>
         field
       case (_, IArray.exactlyOne(method), Empty) =>
         method

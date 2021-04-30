@@ -1,8 +1,6 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-import org.scalablytyped.converter.internal.scalajs.transforms.UnionToInheritance
-
 object FillInTParams {
   def apply(
       cls:             ClassTree,
@@ -15,11 +13,11 @@ object FillInTParams {
       val rewriter = TypeRewriter(rewrites(cls.tparams, providedTParams))
       val newCls   = rewriter.visitClassTree(scope)(cls)
 
-      newCls.comments.extract { case UnionToInheritance.WasUnion(related) => related } match {
+      newCls.comments.extract { case Marker.WasUnion(related) => related } match {
         case None                  => newCls
         case Some((related, rest)) =>
           // https://en.wikipedia.org/wiki/Leaky_abstraction
-          val newRelated = CommentData(UnionToInheritance.WasUnion(related.map(rewriter.visitTypeRef(scope))))
+          val newRelated = Marker.WasUnion(related.map(rewriter.visitTypeRef(scope)))
           newCls.copy(comments = rest + newRelated)
       }
     }.copy(tparams = newTParams)

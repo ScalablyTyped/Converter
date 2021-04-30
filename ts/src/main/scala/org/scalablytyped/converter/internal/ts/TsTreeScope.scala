@@ -540,7 +540,7 @@ object TsTreeScope {
     addAlternative(mod.name, modScope)
     ret += (mod.name -> modScope)
     mod.comments.cs.foreach {
-      case CommentData(ModuleAliases(aliases)) =>
+      case Marker.ModuleAliases(aliases) =>
         aliases.foreach { alias =>
           ret += ((alias, modScope))
           addAlternative(alias, modScope)

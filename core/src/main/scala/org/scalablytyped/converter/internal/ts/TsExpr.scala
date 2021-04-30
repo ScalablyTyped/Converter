@@ -15,17 +15,17 @@ object TsExpr {
 
   def format(expr: TsExpr): String =
     expr match {
-      case Ref(value)                      => TsTypeFormatter.qident(value)
-      case Literal(TsLiteralString(value)) => stringUtils.quote(value)
+      case Ref(value)                    => TsTypeFormatter.qident(value)
+      case Literal(TsLiteral.Str(value)) => stringUtils.quote(value)
       case Literal(Num.Long(long)) =>
         if (long > Int.MaxValue) long + ".0" // long's wont work in scala.js, so we'll just YOLO this
         else long.toString
-      case Literal(TsLiteralNumber(value))  => value
-      case Literal(TsLiteralBoolean(value)) => value.toString
-      case Call(function, params)           => s"${format(function)}(${params.map(format).mkString(", ")})"
-      case Unary(op, expr)                  => s"$op${format(expr)}"
-      case BinaryOp(one, op, two)           => s"${format(one)} $op ${format(two)}"
-      case Cast(expr, tpe)                  => s"${format(expr)} as ${TsTypeFormatter(tpe)}"
+      case Literal(TsLiteral.Num(value))  => value
+      case Literal(TsLiteral.Bool(value)) => value.toString
+      case Call(function, params)         => s"${format(function)}(${params.map(format).mkString(", ")})"
+      case Unary(op, expr)                => s"$op${format(expr)}"
+      case BinaryOp(one, op, two)         => s"${format(one)} $op ${format(two)}"
+      case Cast(expr, tpe)                => s"${format(expr)} as ${TsTypeFormatter(tpe)}"
     }
 
   object Num {
@@ -37,7 +37,7 @@ object TsExpr {
 
     def unapply(x: TsLiteral): Option[BigDecimal] =
       x match {
-        case TsLiteralNumber(value) if value.forall(c => c.isDigit || c === '.') => Some(BigDecimal(value))
+        case TsLiteral.Num(value) if value.forall(c => c.isDigit || c === '.') => Some(BigDecimal(value))
         case _ => None
       }
 
@@ -49,7 +49,7 @@ object TsExpr {
         }
       def unapply(x: TsLiteral): Option[Long] =
         x match {
-          case TsLiteralNumber(value) if value.forall(c => c.isDigit) => Some(value.toLong)
+          case TsLiteral.Num(value) if value.forall(c => c.isDigit) => Some(value.toLong)
           case _ => None
         }
     }
@@ -65,13 +65,13 @@ object TsExpr {
       case BinaryOp(e1, op, e2) =>
         (typeOf(e1), op, typeOf(e2)) match {
           case (Num(n1), "+", Num(n2)) =>
-            TsTypeLiteral(TsLiteralNumber((n1 + n2).toString))
+            TsTypeLiteral(TsLiteral.Num((n1 + n2).toString))
           case (Num(n1), "*", Num(n2)) =>
-            TsTypeLiteral(TsLiteralNumber((n1 * n2).toString))
+            TsTypeLiteral(TsLiteral.Num((n1 * n2).toString))
           case (Num.Long(n1), "<<", Num.Long(n2)) =>
-            TsTypeLiteral(TsLiteralNumber((n1 << n2).toString))
+            TsTypeLiteral(TsLiteral.Num((n1 << n2).toString))
           case (Num.Long(n1), ">>", Num.Long(n2)) =>
-            TsTypeLiteral(TsLiteralNumber((n1 >> n2).toString))
+            TsTypeLiteral(TsLiteral.Num((n1 >> n2).toString))
           case (t, _, _) => widen(t)
         }
     }
@@ -84,12 +84,12 @@ object TsExpr {
 
   def widen(tpe: TsType): TsType =
     tpe match {
-      case TsTypeLiteral(TsLiteralString(_))  => TsTypeRef.string
-      case TsTypeLiteral(TsLiteralNumber(_))  => TsTypeRef.number
-      case TsTypeLiteral(TsLiteralBoolean(_)) => TsTypeRef.boolean
-      case TsTypeRef.string                   => TsTypeRef.string
-      case TsTypeRef.number                   => TsTypeRef.number
-      case _                                  => Default
+      case TsTypeLiteral(TsLiteral.Str(_))  => TsTypeRef.string
+      case TsTypeLiteral(TsLiteral.Num(_))  => TsTypeRef.number
+      case TsTypeLiteral(TsLiteral.Bool(_)) => TsTypeRef.boolean
+      case TsTypeRef.string                 => TsTypeRef.string
+      case TsTypeRef.number                 => TsTypeRef.number
+      case _                                => Default
     }
 
   def visit(e: TsExpr)(f: TsExpr => TsExpr): TsExpr =

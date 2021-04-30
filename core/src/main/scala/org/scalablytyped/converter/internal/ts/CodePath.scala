@@ -1,11 +1,6 @@
 package org.scalablytyped.converter.internal
 package ts
 
-trait HasCodePath {
-  def codePath: CodePath
-  def withCodePath(newCodePath: CodePath): HasCodePath
-}
-
 sealed trait CodePath {
   def forceHasPath: CodePath.HasPath =
     get.getOrElse(sys.error("Expected code path"))
@@ -27,11 +22,16 @@ sealed trait CodePath {
 }
 
 object CodePath {
+  trait Has {
+    def codePath: CodePath
+    def withCodePath(newCodePath: CodePath): CodePath.Has
+  }
+
   case object NoPath extends CodePath {
     def +(ident: TsIdent): NoPath.type = NoPath
   }
 
-  case class HasPath private (inLibrary: TsIdent, codePathPart: TsQIdent) extends CodePath {
+  case class HasPath(inLibrary: TsIdent, codePathPart: TsQIdent) extends CodePath {
     lazy val codePath: TsQIdent =
       TsQIdent(inLibrary +: codePathPart.parts)
 

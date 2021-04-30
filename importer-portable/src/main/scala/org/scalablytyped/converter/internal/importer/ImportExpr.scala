@@ -13,13 +13,13 @@ class ImportExpr(importType: ImportType, importName: AdaptiveNamingImport) {
 
       case TsExpr.Literal(value) =>
         value match {
-          case TsLiteralNumber(value) =>
+          case TsLiteral.Num(value) =>
             FakeLiterals.isTooBigForInt(value) match {
               case Some(long) => ExprTree.NumberLit(long.toString + ".0")
               case None       => ExprTree.NumberLit(value)
             }
-          case TsLiteralString(value)  => ExprTree.StringLit(value)
-          case TsLiteralBoolean(value) => ExprTree.BooleanLit(value)
+          case TsLiteral.Str(value)  => ExprTree.StringLit(value)
+          case TsLiteral.Bool(value) => ExprTree.BooleanLit(value)
         }
       case TsExpr.Cast(expr, tpe) =>
         ExprTree.Cast(apply(expr, scope), importType(Wildcards.No, scope, importName)(tpe))

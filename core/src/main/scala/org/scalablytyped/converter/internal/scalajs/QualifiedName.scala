@@ -1,6 +1,9 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
+import io.circe013.{Decoder, Encoder}
+import io.circe013.generic.semiauto.{deriveDecoder, deriveEncoder}
+
 final case class QualifiedName(parts: IArray[Name]) {
   def +(name: Name) =
     QualifiedName(parts :+ name)
@@ -113,5 +116,7 @@ object QualifiedName {
       case n     => scala_js + Name("Tuple" + n.toString)
     }
 
-  implicit val QualifiedNameSuffix: ToSuffix[QualifiedName] = t => ToSuffix(t.parts.last)
+  implicit val suffix:  ToSuffix[QualifiedName] = t => ToSuffix(t.parts.last)
+  implicit val encodes: Encoder[QualifiedName]  = deriveEncoder
+  implicit val decodes: Decoder[QualifiedName]  = deriveDecoder
 }

@@ -5,15 +5,13 @@ package transforms
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
 
 object Mangler extends TreeTransformation {
-  case object LeaveAlone extends Comment.Data
-  case object WasJsNative extends Comment.Data
-  val WasJsNativeComment = Comments(List(CommentData(WasJsNative)))
+  val WasJsNativeComment = Comments(List(Marker.ManglerWasJsNative))
 
   override def leaveContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree = {
     val rewrittenMembers = container.members.map {
-      case pkg: PackageTree if pkg.comments.has[LeaveAlone.type] => pkg
+      case pkg: PackageTree if pkg.comments.has[Marker.ManglerLeaveAlone.type] => pkg
       case pkg: PackageTree => genPkgForwarders(pkg, Empty)
-      case mod: ModuleTree if mod.comments.has[Markers.EnumObject.type] =>
+      case mod: ModuleTree if mod.comments.has[Marker.EnumObject.type] =>
         def stripLocationAnns(tree: Tree): Tree = {
           def filterAnns(anns: IArray[Annotation]): IArray[Annotation] =
             anns.filter {
@@ -33,7 +31,7 @@ object Mangler extends TreeTransformation {
         }
 
         mod.copy(members = mod.members.map(stripLocationAnns))
-      case mod: ModuleTree if mod.comments.has[LeaveAlone.type] || !mod.isNative => mod
+      case mod: ModuleTree if mod.comments.has[Marker.ManglerLeaveAlone.type] || !mod.isNative => mod
       case mod: ModuleTree =>
         Action(scope / mod, mod) match {
           case Action.RemainModule =>
@@ -49,7 +47,7 @@ object Mangler extends TreeTransformation {
     }
 
     val isTopLevel = scope.stack.length < 3 // typings, libName
-    if (isTopLevel && !container.comments.has[LeaveAlone.type])
+    if (isTopLevel && !container.comments.has[Marker.ManglerLeaveAlone.type])
       genPkgForwarders(
         PackageTree(container.annotations, container.name, rewrittenMembers, container.comments, container.codePath),
         Empty,
@@ -113,7 +111,7 @@ object Mangler extends TreeTransformation {
             case (n, _) => n
           }
 
-        if (mod.comments.has[Markers.EnumObject.type]) false
+        if (mod.comments.has[Marker.EnumObject.type]) false
         else countClasses(mod) > 40
       }
 
@@ -248,10 +246,10 @@ object Mangler extends TreeTransformation {
         hatModuleOpt.map(hat => TypeRef(hat.codePath)),
       )
 
-      pkg.comments.extract { case Minimization.Related(related) => related } match {
+      pkg.comments.extract { case Marker.MinimizationRelated(related) => related } match {
         case Some((existingRelated, restComments)) =>
-          restComments + CommentData(Minimization.Related(existingRelated ++ addedRelated))
-        case None => pkg.comments + CommentData(Minimization.Related(addedRelated))
+          restComments + Marker.MinimizationRelated(existingRelated ++ addedRelated)
+        case None => pkg.comments + Marker.MinimizationRelated(addedRelated)
       }
     }
 
@@ -433,10 +431,10 @@ object Mangler extends TreeTransformation {
             hatOpt.map(hat => TypeRef(hat.codePath)),
           )
 
-          mod.comments.extract { case Minimization.Related(related) => related } match {
+          mod.comments.extract { case Marker.MinimizationRelated(related) => related } match {
             case Some((existingRelated, restComments)) =>
-              restComments + CommentData(Minimization.Related(existingRelated ++ addedRelated))
-            case None => mod.comments + CommentData(Minimization.Related(addedRelated))
+              restComments + Marker.MinimizationRelated(existingRelated ++ addedRelated)
+            case None => mod.comments + Marker.MinimizationRelated(addedRelated)
           }
         }
 

@@ -77,8 +77,8 @@ class TsTypeFormatter(val keepComments: Boolean) {
         if (isReadOnly) Some("readonly") else None,
         level(l),
         Some(indexing match {
-          case IndexingDict(name, tpe) => s"[${name.value}: ${apply(tpe)}]"
-          case IndexingSingle(name)    => s"[${qident(name)}]"
+          case Indexing.Dict(name, tpe) => s"[${name.value}: ${apply(tpe)}]"
+          case Indexing.Single(name)    => s"[${qident(name)}]"
         }),
         valueType.map(tpe => s": ${apply(tpe)}"),
       ).flatten.mkString(" ").replaceAllLiterally(" ?", "?")
@@ -108,9 +108,9 @@ class TsTypeFormatter(val keepComments: Boolean) {
   }
 
   def lit(lit: TsLiteral): String = lit match {
-    case TsLiteralString(str)   => s"'$str'"
-    case TsLiteralBoolean(bool) => bool.toString
-    case TsLiteralNumber(num)   => num
+    case TsLiteral.Str(str)   => s"'$str'"
+    case TsLiteral.Bool(bool) => bool.toString
+    case TsLiteral.Num(num)   => num
   }
 
   def tupleElement(elem: TsTupleElement): String = {

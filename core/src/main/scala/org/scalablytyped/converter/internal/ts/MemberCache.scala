@@ -21,7 +21,7 @@ trait MemberCache {
 
   lazy val isModule: Boolean =
     exports.nonEmpty || imports.exists {
-      case TsImport(_, _, _: TsImporteeLocal) => false
+      case TsImport(_, _, _: TsImportee.Local) => false
       case _ => true
     }
 
@@ -45,7 +45,7 @@ trait MemberCache {
         }
       case x: TsNamedDecl =>
         ret(x.name) = x :: ret.getOrElseUpdate(x.name, Nil)
-      case TsExport(_, _, _, TsExporteeTree(x: TsNamedDecl)) =>
+      case TsExport(_, _, _, TsExportee.Tree(x: TsNamedDecl)) =>
         ret(x.name) = x :: ret.getOrElseUpdate(x.name, Nil)
       case _ => ()
     }

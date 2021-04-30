@@ -2,7 +2,6 @@ package org.scalablytyped.converter.plugin
 
 import com.olvind.logging.Formatter
 import org.scalablytyped.converter.internal._
-import org.scalablytyped.converter.internal.importer.jsonCodecs.PackageJsonDepsDecoder
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
 import org.scalajs.sbtplugin.ScalaJSPlugin

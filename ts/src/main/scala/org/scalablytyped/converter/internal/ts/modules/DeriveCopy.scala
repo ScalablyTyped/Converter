@@ -58,7 +58,7 @@ object DeriveCopy {
           case x: TsDeclInterface =>
             IArray(
               TsDeclTypeAlias(
-                comments = Comments(CommentData(Markers.IsTrivial)),
+                comments = Comments(Marker.IsTrivial),
                 declared = true,
                 name     = name,
                 tparams  = x.tparams,
@@ -89,7 +89,7 @@ object DeriveCopy {
           case x: TsDeclTypeAlias =>
             IArray(
               TsDeclTypeAlias(
-                Comments(CommentData(Markers.IsTrivial)),
+                Comments(Marker.IsTrivial),
                 declared = false,
                 name,
                 x.tparams,

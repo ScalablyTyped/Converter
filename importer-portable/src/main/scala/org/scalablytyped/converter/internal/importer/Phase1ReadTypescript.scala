@@ -81,13 +81,13 @@ class Phase1ReadTypescript(
             parsed.directives.toSet
               .partitionCollect3(
                 {
-                  case r @ DirectivePathRef(value) =>
+                  case r @ Directive.PathRef(value) =>
                     val maybeSource: Option[Source] =
                       LibraryResolver.file(file.folder, value).map(Source.helperFile(inLib))
                     PhaseRes.fromOption(source, maybeSource, Right(s"Couldn't resolve $r"))
                 },
-                { case DirectiveTypesRef(value) => resolveDep(value) }, {
-                  case r @ DirectiveLibRef(value) if inLib.libName === TsIdent.std =>
+                { case Directive.TypesRef(value) => resolveDep(value) }, {
+                  case r @ Directive.LibRef(value) if inLib.libName === TsIdent.std =>
                     val maybeSource: Option[Source] =
                       LibraryResolver.file(resolve.stdLib.folder, s"lib.$value.d.ts").map(Source.helperFile(inLib))
                     PhaseRes.fromOption(source, maybeSource, Right(s"Couldn't resolve $r"))
@@ -173,7 +173,7 @@ class Phase1ReadTypescript(
                       case more =>
                         _2.copy(members = _2.members.map {
                           case m: TsDeclModule if more.contains(m.name) =>
-                            m.copy(comments = m.comments + CommentData(ModuleAliases(more.filterNot(_ === m.name))))
+                            m.copy(comments = m.comments + Marker.ModuleAliases(more.filterNot(_ === m.name)))
                           case other => other
                         })
                     }

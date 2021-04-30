@@ -52,7 +52,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
               _,
               _,
               ExportType.Namespaced,
-              TsExporteeNames(IArray.exactlyOne((TsQIdent(qident), None)), _),
+              TsExportee.Names(IArray.exactlyOne((TsQIdent(qident), None)), _),
             ) =>
           e -> qident
       }
@@ -98,7 +98,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
           val flattened = namespaces
             .flatMap(_.members)
             .map {
-              case x: TsNamedDecl => TsExport(NoComments, typeOnly = false, ExportType.Named, TsExporteeTree(x))
+              case x: TsNamedDecl => TsExport(NoComments, typeOnly = false, ExportType.Named, TsExportee.Tree(x))
               case other => other
             }
             .map(x => SetCodePath.visitTsContainerOrDecl(mod.codePath.forceHasPath)(x))
@@ -127,11 +127,11 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
                   _,
                   _,
                   ExportType.Named,
-                  TsExporteeTree(
+                  TsExportee.Tree(
                     TsImport(
                       _,
-                      IArray.exactlyOne(TsImportedIdent(newName)),
-                      TsImporteeLocal(TsQIdent(IArray.exactlyOne(name))),
+                      IArray.exactlyOne(TsImported.Ident(newName)),
+                      TsImportee.Local(TsQIdent(IArray.exactlyOne(name))),
                     ),
                   ),
                   ) if name.value === target.value =>
@@ -139,9 +139,9 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
                   NoComments,
                   typeOnly = false,
                   ExportType.Named,
-                  TsExporteeTree(
+                  TsExportee.Tree(
                     TsDeclVar(
-                      Comments(CommentData(Markers.IsTrivial)),
+                      Comments(Marker.IsTrivial),
                       declared = true,
                       readOnly = true,
                       newName,

@@ -29,11 +29,8 @@ object ImportTypings {
   }
 
   object Input {
-    import io.circe013.generic.auto._
-    import jsonCodecs._
-
-    implicit val InputEncoder: Encoder[Input] = exportEncoder[Input].instance
-    implicit val InputDecoder: Decoder[Input] = exportDecoder[Input].instance
+    implicit val encodes: Encoder[Input] = io.circe013.generic.semiauto.deriveEncoder
+    implicit val decodes: Decoder[Input] = io.circe013.generic.semiauto.deriveDecoder
   }
 
   case class Output(externalDeps: Set[Dep.Concrete], allProjects: Seq[Dep.Concrete]) {
@@ -48,10 +45,8 @@ object ImportTypings {
   }
 
   object Output {
-    import io.circe013.generic.auto._
-    import jsonCodecs._
-    implicit val OutputEncoder: Encoder[Output] = exportEncoder[Output].instance
-    implicit val OutputDecoder: Decoder[Output] = exportDecoder[Output].instance
+    implicit val encodes: Encoder[Output] = io.circe013.generic.semiauto.deriveEncoder
+    implicit val decodes: Decoder[Output] = io.circe013.generic.semiauto.deriveDecoder
   }
 
   def apply(

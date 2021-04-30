@@ -17,7 +17,7 @@ final class ParserTests extends AnyFunSuite {
       val expected =
         TsParsedFile(
           NoComments,
-          IArray(DirectivePathRef("./path-case.d.ts")),
+          IArray(Directive.PathRef("./path-case.d.ts")),
           IArray(
             TsDeclModule(
               NoComments,
@@ -52,7 +52,7 @@ final class ParserTests extends AnyFunSuite {
                   NoComments,
                   typeOnly = false,
                   ExportType.Namespaced,
-                  TsExporteeNames(IArray((TsQIdent(IArray(TsIdent("pathCase"))), None)), None),
+                  TsExportee.Names(IArray((TsQIdent(IArray(TsIdent("pathCase"))), None)), None),
                 ),
               ),
               CodePath.NoPath,
@@ -191,7 +191,7 @@ final class ParserTests extends AnyFunSuite {
                             NoComments,
                             isReadOnly = false,
                             level      = ProtectionLevel.Default,
-                            indexing   = IndexingDict(TsIdent("key"), TsTypeRef.string),
+                            indexing   = Indexing.Dict(TsIdent("key"), TsTypeRef.string),
                             valueType  = Some(TsTypeRef.any),
                           ),
                         ),
@@ -250,8 +250,8 @@ final class ParserTests extends AnyFunSuite {
         isConst  = false,
         TsIdent("LoggingLevel"),
         IArray(
-          TsEnumMember(NoComments, TsIdent("ERROR"), Some(TsExpr.Literal(TsLiteralNumber("0")))),
-          TsEnumMember(NoComments, TsIdent("WARNING"), Some(TsExpr.Literal(TsLiteralNumber("1")))),
+          TsEnumMember(NoComments, TsIdent("ERROR"), Some(TsExpr.Literal(TsLiteral.Num("0")))),
+          TsEnumMember(NoComments, TsIdent("WARNING"), Some(TsExpr.Literal(TsLiteral.Num("1")))),
         ),
         isValue      = true,
         exportedFrom = None,
@@ -270,8 +270,8 @@ final class ParserTests extends AnyFunSuite {
         isConst  = true,
         TsIdent("ErrorCode"),
         IArray(
-          TsEnumMember(NoComments, TsIdent("OTHER_CAUSE"), Some(TsExpr.Literal(TsLiteralNumber("-1")))),
-          TsEnumMember(NoComments, TsIdent("INTERNAL_SERVER_ERROR"), Some(TsExpr.Literal(TsLiteralNumber("1")))),
+          TsEnumMember(NoComments, TsIdent("OTHER_CAUSE"), Some(TsExpr.Literal(TsLiteral.Num("-1")))),
+          TsEnumMember(NoComments, TsIdent("INTERNAL_SERVER_ERROR"), Some(TsExpr.Literal(TsLiteral.Num("1")))),
         ),
         isValue      = true,
         exportedFrom = None,
@@ -442,7 +442,7 @@ final class ParserTests extends AnyFunSuite {
         NoComments,
         typeOnly = false,
         ExportType.Named,
-        TsExporteeTree(
+        TsExportee.Tree(
           TsDeclFunction(
             NoComments,
             declared = false,
@@ -505,7 +505,7 @@ final class ParserTests extends AnyFunSuite {
       NoComments,
       typeOnly = false,
       ExportType.Named,
-      TsExporteeTree(
+      TsExportee.Tree(
         TsDeclTypeAlias(
           NoComments,
           declared = false,
@@ -572,9 +572,9 @@ final class ParserTests extends AnyFunSuite {
           OptionalType(
             TsTypeUnion(
               IArray(
-                TsTypeLiteral(TsLiteralString("ProtectionLevel.Default")),
-                TsTypeLiteral(TsLiteralString("top")),
-                TsTypeLiteral(TsLiteralString("bottom")),
+                TsTypeLiteral(TsLiteral.Str("ProtectionLevel.Default")),
+                TsTypeLiteral(TsLiteral.Str("top")),
+                TsTypeLiteral(TsLiteral.Str("bottom")),
               ),
             ),
           ),
@@ -596,8 +596,8 @@ final class ParserTests extends AnyFunSuite {
           OptionalType(
             TsTypeUnion(
               IArray(
-                TsTypeLiteral(TsLiteralNumber("0")),
-                TsTypeLiteral(TsLiteralNumber("1")),
+                TsTypeLiteral(TsLiteral.Num("0")),
+                TsTypeLiteral(TsLiteral.Num("1")),
                 TsTypeRef(NoComments, TsQIdent.boolean, Empty),
               ),
             ),
@@ -612,12 +612,12 @@ final class ParserTests extends AnyFunSuite {
 
   test("negative numbers") {
     shouldParseAs("OTHER_CAUSE = -1", TsParser.tsEnumMembers.map(_.head))(
-      TsEnumMember(NoComments, TsIdent("OTHER_CAUSE"), Some(TsExpr.Literal(TsLiteralNumber("-1")))),
+      TsEnumMember(NoComments, TsIdent("OTHER_CAUSE"), Some(TsExpr.Literal(TsLiteral.Num("-1")))),
     )
   }
 
   test("bigint literals") {
-    shouldParseAs("-1n", TsParser.tsLiteral)(TsLiteralNumber("-1"))
+    shouldParseAs("-1n", TsParser.tsLiteral)(TsLiteral.Num("-1"))
   }
 
   test("this type") {
@@ -1089,7 +1089,7 @@ final class ParserTests extends AnyFunSuite {
           comments   = NoComments,
           isReadOnly = true,
           level      = ProtectionLevel.Default,
-          indexing   = IndexingDict(TsIdent("index"), TsTypeRef(NoComments, TsQIdent.number, Empty)),
+          indexing   = Indexing.Dict(TsIdent("index"), TsTypeRef(NoComments, TsQIdent.number, Empty)),
           valueType  = Some(TsTypeRef.string),
         ),
       ),
@@ -1350,8 +1350,8 @@ type Readonly<T> = {
             comments   = NoComments,
             isReadOnly = true,
             level      = ProtectionLevel.Default,
-            indexing   = IndexingSingle(TsQIdent(IArray(TsIdent("Symbol"), TsIdent("toStringTag")))),
-            valueType  = Some(TsTypeLiteral(TsLiteralString("Symbol"))),
+            indexing   = Indexing.Single(TsQIdent(IArray(TsIdent("Symbol"), TsIdent("toStringTag")))),
+            valueType  = Some(TsTypeLiteral(TsLiteral.Str("Symbol"))),
           ),
         ),
         CodePath.NoPath,
@@ -1445,8 +1445,8 @@ type Readonly<T> = {
   }
 
   test("boolean expr") {
-    shouldParseAs("true", TsParser.tsLiteral)(TsLiteralBoolean(true))
-    shouldParseAs("false", TsParser.tsLiteral)(TsLiteralBoolean(false))
+    shouldParseAs("true", TsParser.tsLiteral)(TsLiteral.Bool(true))
+    shouldParseAs("false", TsParser.tsLiteral)(TsLiteral.Bool(false))
     shouldParseAs("boolean", TsParser.tsType)(
       TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("boolean"))), Empty),
     )
@@ -1635,7 +1635,7 @@ type Readonly<T> = {
     shouldParseAs("KeywordTypeNode[\"kind\"]", TsParser.tsType)(
       TsTypeLookup(
         TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("KeywordTypeNode"))), Empty),
-        TsTypeLiteral(TsLiteralString("kind")),
+        TsTypeLiteral(TsLiteral.Str("kind")),
       ),
     )
   }
@@ -1646,7 +1646,7 @@ type Readonly<T> = {
         NoComments,
         ProtectionLevel.Default,
         TsIdentSimple("swipeVelocityThreshold"),
-        Some(TsTypeLiteral(TsLiteralNumber("0.25"))),
+        Some(TsTypeLiteral(TsLiteral.Num("0.25"))),
         expr       = None,
         isStatic   = false,
         isReadOnly = false,
@@ -1863,7 +1863,7 @@ type Readonly<T> = {
               ),
             ),
           ),
-          TsTypeLiteral(TsLiteralString("bivarianceHack")),
+          TsTypeLiteral(TsLiteral.Str("bivarianceHack")),
         ),
         CodePath.NoPath,
       ),
@@ -1878,8 +1878,8 @@ type Readonly<T> = {
         TsQIdent(IArray(TsIdentSimple("UnionType"))),
         IArray(
           RTS,
-          TsTypeLookup(TsTypeLookup(RTS, TsTypeLiteral(TsLiteralString("_A"))), TsTypeLiteral(TsLiteralString("_A"))),
-          TsTypeLookup(TsTypeLookup(RTS, TsTypeLiteral(TsLiteralString("_A"))), TsTypeLiteral(TsLiteralString("_O"))),
+          TsTypeLookup(TsTypeLookup(RTS, TsTypeLiteral(TsLiteral.Str("_A"))), TsTypeLiteral(TsLiteral.Str("_A"))),
+          TsTypeLookup(TsTypeLookup(RTS, TsTypeLiteral(TsLiteral.Str("_A"))), TsTypeLiteral(TsLiteral.Str("_O"))),
           TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("mixed"))), Empty),
         ),
       ),
@@ -1898,7 +1898,7 @@ type Readonly<T> = {
         isConst  = true,
         TsIdentSimple("Button"),
         IArray(
-          TsEnumMember(NoComments, TsIdentSimple("MINUS"), Some(TsExpr.Literal(TsLiteralNumber("0x00000004")))),
+          TsEnumMember(NoComments, TsIdentSimple("MINUS"), Some(TsExpr.Literal(TsLiteral.Num("0x00000004")))),
           TsEnumMember(NoComments, TsIdentSimple("SELECT"), Some(TsExpr.Ref(TsQIdent(IArray(TsIdentSimple("MINUS")))))),
         ),
         isValue      = true,
@@ -2172,8 +2172,8 @@ type Readonly<T> = {
 
   test("conditional types part 2") {
     val TT    = T
-    val True  = TsTypeLiteral(TsLiteralBoolean(true))
-    val False = TsTypeLiteral(TsLiteralBoolean(false))
+    val True  = TsTypeLiteral(TsLiteral.Bool(true))
+    val False = TsTypeLiteral(TsLiteral.Bool(false))
     shouldParseAs(
       "type IsOptional<T> = undefined | null extends T ? true : undefined extends T ? true : null extends T ? true : false",
       TsParser.tsDeclTypeAlias,
@@ -2213,7 +2213,7 @@ type Readonly<T> = {
             comments   = NoComments,
             isReadOnly = false,
             level      = ProtectionLevel.Default,
-            indexing   = IndexingSingle(TsQIdent(IArray(TsIdentSimple("nominalTypeHack")))),
+            indexing   = Indexing.Single(TsQIdent(IArray(TsIdentSimple("nominalTypeHack")))),
             valueType  = Some(OptionalType(T)),
           ),
         ),
@@ -2352,7 +2352,7 @@ type Readonly<T> = {
           TsQIdent.Array,
           IArray(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("T"))), Empty)),
         ),
-        TsTypeLiteral(TsLiteralString("forEach")),
+        TsTypeLiteral(TsLiteral.Str("forEach")),
       ),
     )
 
@@ -2366,7 +2366,7 @@ type Readonly<T> = {
         IArray(
           TsTypeLookup(
             TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("T"))), Empty),
-            TsTypeLiteral(TsLiteralString("forEach")),
+            TsTypeLiteral(TsLiteral.Str("forEach")),
           ),
         ),
       ),
@@ -2402,7 +2402,7 @@ export {};
       TsParsedFile(
         NoComments,
         Empty,
-        IArray(TsExport(NoComments, typeOnly = false, ExportType.Named, TsExporteeNames(Empty, None))),
+        IArray(TsExport(NoComments, typeOnly = false, ExportType.Named, TsExportee.Names(Empty, None))),
         CodePath.NoPath,
       ),
     )
@@ -2417,7 +2417,7 @@ export {};
         NoComments,
         isReadOnly = false,
         ProtectionLevel.Private,
-        IndexingSingle(TsQIdent(IArray(TsIdentSimple("kChannel")))),
+        Indexing.Single(TsQIdent(IArray(TsIdentSimple("kChannel")))),
         None,
       ),
     )
@@ -2432,7 +2432,7 @@ export {};
             NoComments,
             isReadOnly = false,
             ProtectionLevel.Default,
-            IndexingDict(TsIdentSimple("attributeName"), TsTypeRef.string),
+            Indexing.Dict(TsIdentSimple("attributeName"), TsTypeRef.string),
             Some(
               TsTypeUnion(
                 IArray(
@@ -2597,7 +2597,7 @@ export {};
 
   test("expr with parents") {
     shouldParseAs("""(1 << 2)""", TsParser.expr)(
-      TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("1")), "<<", TsExpr.Literal(TsLiteralNumber("2"))),
+      TsExpr.BinaryOp(TsExpr.Literal(TsLiteral.Num("1")), "<<", TsExpr.Literal(TsLiteral.Num("2"))),
     )
   }
 
@@ -2642,7 +2642,7 @@ export {};
         NoComments,
         typeOnly = false,
         ExportType.Named,
-        TsExporteeTree(
+        TsExportee.Tree(
           TsDeclVar(
             NoComments,
             declared = true,
@@ -2673,7 +2673,7 @@ export {};
     shouldParseAs("""LoggingLevel.ERROR(6 + 7)""", TsParser.expr)(
       TsExpr.Call(
         TsExpr.Ref(TsQIdent(IArray(TsIdentSimple("LoggingLevel"), TsIdentSimple("ERROR")))),
-        IArray(TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("6")), "+", TsExpr.Literal(TsLiteralNumber("7")))),
+        IArray(TsExpr.BinaryOp(TsExpr.Literal(TsLiteral.Num("6")), "+", TsExpr.Literal(TsLiteral.Num("7")))),
       ),
     )
 
@@ -2698,25 +2698,25 @@ export {};
     )
 
     shouldParseAs("""1e-7""", TsParser.expr)(
-      TsExpr.Literal(TsLiteralNumber("1e-7")),
+      TsExpr.Literal(TsLiteral.Num("1e-7")),
     )
 
     shouldParseAs("""(0x000FFFF2 + 2)""", TsParser.expr)(
-      TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("0x000FFFF2")), "+", TsExpr.Literal(TsLiteralNumber("2"))),
+      TsExpr.BinaryOp(TsExpr.Literal(TsLiteral.Num("0x000FFFF2")), "+", TsExpr.Literal(TsLiteral.Num("2"))),
     )
     shouldParseAs("""(4)""", TsParser.expr)(
-      TsExpr.Literal(TsLiteralNumber("4")),
+      TsExpr.Literal(TsLiteral.Num("4")),
     )
 
     shouldParseAs("""(4) >> 2""", TsParser.expr)(
-      TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("4")), ">>", TsExpr.Literal(TsLiteralNumber("2"))),
+      TsExpr.BinaryOp(TsExpr.Literal(TsLiteral.Num("4")), ">>", TsExpr.Literal(TsLiteral.Num("2"))),
     )
 
     shouldParseAs("""(0x000FFFFF + 1) >> 2""", TsParser.expr)(
       TsExpr.BinaryOp(
-        TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("0x000FFFFF")), "+", TsExpr.Literal(TsLiteralNumber("1"))),
+        TsExpr.BinaryOp(TsExpr.Literal(TsLiteral.Num("0x000FFFFF")), "+", TsExpr.Literal(TsLiteral.Num("1"))),
         ">>",
-        TsExpr.Literal(TsLiteralNumber("2")),
+        TsExpr.Literal(TsLiteral.Num("2")),
       ),
     )
   }

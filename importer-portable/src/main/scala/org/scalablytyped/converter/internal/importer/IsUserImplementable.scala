@@ -29,8 +29,8 @@ object IsUserImplementable {
       case int: TsDeclInterface =>
         val fromUnnamed = int.unnamed.forall {
           case _: TsMemberTypeMapped => false
-          case TsMemberIndex(_, _, _, IndexingSingle(_), _) => false
-          case _                                            => true
+          case TsMemberIndex(_, _, _, Indexing.Single(_), _) => false
+          case _                                             => true
         }
 
         val fromNamed = int.membersByName.forall {
@@ -43,7 +43,7 @@ object IsUserImplementable {
             val toConsider: IArray[TsMember] =
               sameName
                 .collectFirst {
-                  case x: TsMemberProperty if x.comments.has[Markers.ExpandedCallables.type] => IArray(x)
+                  case x: TsMemberProperty if x.comments.has[Marker.ExpandedCallables.type] => IArray(x)
                 }
                 .getOrElse(sameName)
 

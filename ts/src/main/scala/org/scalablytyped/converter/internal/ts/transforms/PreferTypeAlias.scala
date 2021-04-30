@@ -20,7 +20,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         * There is little value in keep these two types distinct
         */
       case i @ TsDeclInterface(comments, declared, name, tparams, Empty, members, codePath)
-          if ExtractInterfaces.isTypeMapping(members) || ExtractInterfaces.isDictionary(members) =>
+          if TsType.isTypeMapping(members) || ExtractInterfaces.isDictionary(members) =>
         if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), scope, members.head)) i
         else
           TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(NoComments, members), codePath)
@@ -97,7 +97,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         */
       case TsDeclTypeAlias(cs, dec, name, tparams, AllTypeObjects(members), cp)
           if members.nonEmpty &&
-            !ExtractInterfaces.isTypeMapping(members) &&
+            !TsType.isTypeMapping(members) &&
             !ExtractInterfaces.isDictionary(members) =>
         TsDeclInterface(cs, dec, name, tparams, Empty, members, cp)
 

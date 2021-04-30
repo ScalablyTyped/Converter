@@ -19,7 +19,7 @@ object AugmentModules {
   def target(mod: TsDeclModule, scope: TsTreeScope): CodePath.HasPath = {
     val exportedNamespaceOpt: Option[CodePath] =
       mod.exports.firstDefined {
-        case TsExport(_, _, exportType, TsExporteeNames(IArray.exactlyOne((qIdent, None)), None))
+        case TsExport(_, _, exportType, TsExportee.Names(IArray.exactlyOne((qIdent, None)), None))
             if ExportType.NotNamed(exportType) =>
           (scope / mod)
             .lookupBase(Picker.Namespaces, qIdent, skipValidation = true)

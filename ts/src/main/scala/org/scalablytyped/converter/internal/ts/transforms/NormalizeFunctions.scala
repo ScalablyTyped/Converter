@@ -43,7 +43,7 @@ object NormalizeFunctions extends TransformMembers with TransformClassMembers {
       case other => IArray(other)
     }
 
-  override def enterTsExporteeTree(t: TsTreeScope)(x: TsExporteeTree): TsExporteeTree =
+  override def enterTsExporteeTree(t: TsTreeScope)(x: TsExportee.Tree): TsExportee.Tree =
     rewriteDecl(x.decl) match {
       case IArray.exactlyOne(one) => x.copy(decl = one)
       case _                      => x

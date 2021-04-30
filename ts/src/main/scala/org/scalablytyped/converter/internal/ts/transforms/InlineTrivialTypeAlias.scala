@@ -44,7 +44,7 @@ object InlineTrivialTypeAlias extends TreeTransformationScopedChanges {
   def followTrivialAliases(scope: TsTreeScope)(cur: TsDeclTypeAlias): Option[TsQIdent] =
     cur match {
       case TsDeclTypeAlias(cs, _, _, _, EffectiveTypeRef(TsTypeRef(_, nextName, _)), codePath)
-          if cs.has[Markers.IsTrivial.type] =>
+          if cs.has[Marker.IsTrivial.type] =>
         scope
           .lookupTypeIncludeScope(nextName)
           .firstDefined {

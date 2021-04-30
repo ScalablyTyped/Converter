@@ -157,8 +157,8 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
         members.collect {
           case TsMemberProperty(_, _, TsIdentSimple(n), Some(tpe), _, false, _) =>
             val rewrites = Map[TsType, TsType](
-              TsTypeRef(exp.typeParam) -> TsTypeLiteral(TsLiteralString(n)),
-              TsTypeLookup(ref, TsTypeLiteral(TsLiteralString(n))) -> tpe,
+              TsTypeRef(exp.typeParam) -> TsTypeLiteral(TsLiteral.Str(n)),
+              TsTypeLookup(ref, TsTypeLiteral(TsLiteral.Str(n))) -> tpe,
             )
 
             new TypeRewriter(sigCleaned).visitTsFunSig(rewrites)(sigCleaned)

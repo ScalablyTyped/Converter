@@ -1,38 +1,26 @@
 package org.scalablytyped.converter.internal
 
+import io.circe013.{Decoder, Encoder}
+import org.scalablytyped.converter.internal.seqs._
+
 import scala.collection.mutable
-import seqs._
-
 import scala.reflect.ClassTag
-
-sealed trait Comment
-final case class CommentRaw(raw:   String) extends Comment
-final case class CommentData(data: Comment.Data) extends Comment
-
-object Comment {
-  trait Data
-
-  def apply(raw: String): Comment = CommentRaw(raw)
-
-  def warning(s: String)(implicit e: sourcecode.Enclosing): Comment =
-    Comment(s"/* import warning: ${e.value.split("\\.").takeRight(2).mkString(".")} $s */")
-}
 
 @SerialVersionUID(8167323919307012581L) // something about this class seems brittle
 sealed class Comments(val cs: List[Comment]) extends Serializable {
-  def rawCs = cs.collect { case CommentRaw(raw) => raw }
+  def rawCs = cs.collect { case Comment.Raw(raw) => raw }
 
-  def extract[T](pf: PartialFunction[Comment.Data, T]): Option[(T, Comments)] =
+  def extract[T](pf: PartialFunction[Marker, T]): Option[(T, Comments)] =
     cs.partitionCollect {
-      case CommentData(data) if pf.isDefinedAt(data) => pf(data)
+      case marker: Marker if pf.isDefinedAt(marker) => pf(marker)
     } match {
       case (Nil, _)     => None
       case (some, rest) => Some((some.head, Comments(rest)))
     }
 
-  def has[T <: Comment.Data: ClassTag]: Boolean =
+  def has[T <: Marker: ClassTag]: Boolean =
     cs.exists {
-      case CommentData(_: T) => true
+      case _: T => true
       case _ => false
     }
 
@@ -80,6 +68,9 @@ case object NoComments extends Comments(Nil) {
 }
 
 object Comments {
+  implicit val encodes: Encoder[Comments] = Encoder[List[Comment]].contramap(_.cs)
+  implicit val decodes: Decoder[Comments] = Decoder[List[Comment]].map(Comments.apply)
+
   def apply(h: String, tail: String*): Comments =
     new Comments(Comment(h) +: tail.map(Comment.apply).toList)
 
@@ -119,4 +110,5 @@ object Comments {
 
   def format(comments: Comments, keepComments: Boolean): String =
     if (keepComments) format(comments) else ""
+
 }

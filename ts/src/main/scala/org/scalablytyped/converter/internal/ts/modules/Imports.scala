@@ -23,7 +23,7 @@ object Imports {
         val expanded: ExpandedMod = expandImportee(chosenImport.from, scope, loopDetector)
 
         chosenImport.imported.flatMap {
-          case TsImportedStar(Some(renamed)) =>
+          case TsImported.Star(Some(renamed)) =>
             val all: IArray[TsNamedDecl] =
               expanded match {
                 case ExpandedMod.Picked(things) =>
@@ -43,7 +43,7 @@ object Imports {
               }
             Utils.searchAmong(scope, Pick, wanted, all, loopDetector)
 
-          case TsImportedStar(None) =>
+          case TsImported.Star(None) =>
             val all: IArray[TsNamedDecl] =
               expanded match {
                 case ExpandedMod.Picked(things) =>
@@ -54,7 +54,7 @@ object Imports {
 
             Utils.searchAmong(scope, Pick, wanted, all, loopDetector)
 
-          case TsImportedIdent(ident) =>
+          case TsImported.Ident(ident) =>
             val all: IArray[TsNamedDecl] =
               expanded match {
                 case ExpandedMod.Picked(things) =>
@@ -75,7 +75,7 @@ object Imports {
 
             Utils.searchAmong(scope, Pick, wanted, all, loopDetector)
 
-          case TsImportedDestructured(idents: IArray[(TsIdent, Option[TsIdentSimple])]) =>
+          case TsImported.Destructured(idents: IArray[(TsIdent, Option[TsIdentSimple])]) =>
             val all: IArray[TsNamedDecl] =
               expanded match {
                 case ExpandedMod.Picked(things) =>
@@ -117,7 +117,7 @@ object Imports {
     }
 
     val ret: ExpandedMod = from match {
-      case TsImporteeRequired(fromModule) =>
+      case TsImportee.Required(fromModule) =>
         scope.moduleScopes.get(fromModule) match {
           case Some(modScope @ TsTreeScope.Scoped(_, mod: TsDeclModule)) =>
             val newMod: TsDeclModule = CachedReplaceExports(modScope.`..`, loopDetector, mod)
@@ -144,7 +144,7 @@ object Imports {
             ExpandedMod.Picked(Empty)
         }
 
-      case TsImporteeFrom(fromModule) =>
+      case TsImportee.From(fromModule) =>
         scope.moduleScopes.get(fromModule) match {
           case Some(modScope @ TsTreeScope.Scoped(_, mod: TsDeclModule)) =>
             val newMod = CachedReplaceExports(modScope.`..`, loopDetector, mod)
@@ -172,7 +172,7 @@ object Imports {
             ExpandedMod.Picked(Empty)
         }
 
-      case TsImporteeLocal(qident) =>
+      case TsImportee.Local(qident) =>
         ExpandedMod.Picked(scope.lookupInternal(Picker.NotModules, qident.parts, loopDetector))
     }
 
@@ -192,20 +192,20 @@ object Imports {
       case IArray.Empty => None
       case IArray.first(first) =>
         val newImported: IArray[TsImported] = i.imported.mapNotNone {
-          case im @ TsImportedIdent(`first`) =>
+          case im @ TsImported.Ident(`first`) =>
             Some(im)
 
-          case TsImportedIdent(_) => None
+          case TsImported.Ident(_) => None
 
-          case TsImportedDestructured(idents) =>
+          case TsImported.Destructured(idents) =>
             idents.collectFirst {
-              case t @ (`first`, None)    => TsImportedDestructured(IArray(t))
-              case t @ (_, Some(`first`)) => TsImportedDestructured(IArray(t))
+              case t @ (`first`, None)    => TsImported.Destructured(IArray(t))
+              case t @ (_, Some(`first`)) => TsImported.Destructured(IArray(t))
             }
 
-          case im @ TsImportedStar(Some(`first`)) =>
+          case im @ TsImported.Star(Some(`first`)) =>
             Some(im)
-          case TsImportedStar(_) => None
+          case TsImported.Star(_) => None
         }
 
         if (newImported.nonEmpty) Some(i.copy(imported = newImported)) else None

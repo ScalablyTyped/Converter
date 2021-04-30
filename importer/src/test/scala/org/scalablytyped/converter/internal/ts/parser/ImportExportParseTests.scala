@@ -36,7 +36,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         NoComments,
         typeOnly = false,
         ExportType.Namespaced,
-        TsExporteeNames(
+        TsExportee.Names(
           IArray(
             (TsQIdent(IArray(TsIdent("AuthenticationContext"))), None),
             (TsQIdent(IArray(TsIdent("Logging"))), None),
@@ -53,7 +53,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         NoComments,
         typeOnly = false,
         ExportType.Defaulted,
-        TsExporteeNames(IArray((TsQIdent(IArray(TsIdent("Abs"))), None)), None),
+        TsExportee.Names(IArray((TsQIdent(IArray(TsIdent("Abs"))), None)), None),
       ),
     )
   }
@@ -64,7 +64,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         NoComments,
         typeOnly = false,
         ExportType.Named,
-        TsExporteeNames(
+        TsExportee.Names(
           IArray(
             (TsQIdent(IArray(TsIdent("Pool"))), None),
             (TsQIdent(IArray(TsIdent("PoolConfig"))), None),
@@ -77,7 +77,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
 
   test("export alias") {
     shouldParseAs("""export * from "aphrodite"""", TsParser.tsExport)(
-      TsExport(NoComments, typeOnly = false, ExportType.Named, TsExporteeStar(None, TsIdentModule.simple("aphrodite"))),
+      TsExport(NoComments, typeOnly = false, ExportType.Named, TsExportee.Star(None, TsIdentModule.simple("aphrodite"))),
     )
   }
 
@@ -87,7 +87,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         NoComments,
         typeOnly = false,
         ExportType.Named,
-        TsExporteeTree(
+        TsExportee.Tree(
           TsDeclEnum(
             NoComments,
             declared = false,
@@ -108,8 +108,8 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("import http = require('http')", TsParser.tsImport)(
       TsImport(
         typeOnly = false,
-        IArray(TsImportedIdent(TsIdent("http"))),
-        TsImporteeRequired(TsIdentModule.simple("http")),
+        IArray(TsImported.Ident(TsIdent("http"))),
+        TsImportee.Required(TsIdentModule.simple("http")),
       ),
     )
   }
@@ -118,8 +118,8 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("""import {EventEmitter} from "events"""", TsParser.tsImport)(
       TsImport(
         typeOnly = false,
-        IArray(TsImportedDestructured(IArray((TsIdent("EventEmitter"), None)))),
-        TsImporteeFrom(TsIdentModule.simple("events")),
+        IArray(TsImported.Destructured(IArray((TsIdent("EventEmitter"), None)))),
+        TsImportee.From(TsIdentModule.simple("events")),
       ),
     )
   }
@@ -128,8 +128,8 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("""import * as e from 'express'""", TsParser.tsImport)(
       TsImport(
         typeOnly = false,
-        IArray(TsImportedStar(Some(TsIdent("e")))),
-        TsImporteeFrom(TsIdentModule.simple("express")),
+        IArray(TsImported.Star(Some(TsIdent("e")))),
+        TsImportee.From(TsIdentModule.simple("express")),
       ),
     )
   }
@@ -138,8 +138,8 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("""import ng = angular.dynamicLocale""", TsParser.tsImport)(
       TsImport(
         typeOnly = false,
-        IArray(TsImportedIdent(TsIdent("ng"))),
-        TsImporteeLocal(TsQIdent(IArray(TsIdent("angular"), TsIdent("dynamicLocale")))),
+        IArray(TsImported.Ident(TsIdent("ng"))),
+        TsImportee.Local(TsQIdent(IArray(TsIdent("angular"), TsIdent("dynamicLocale")))),
       ),
     )
   }
@@ -148,8 +148,8 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("""import ng = angular""", TsParser.tsImport)(
       TsImport(
         typeOnly = false,
-        IArray(TsImportedIdent(TsIdent("ng"))),
-        TsImporteeLocal(TsQIdent(IArray(TsIdent("angular")))),
+        IArray(TsImported.Ident(TsIdent("ng"))),
+        TsImportee.Local(TsQIdent(IArray(TsIdent("angular")))),
       ),
     )
   }
@@ -158,8 +158,8 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("""import traverse, {Visitor} from "babel-traverse"""", TsParser.tsImport)(
       TsImport(
         typeOnly = false,
-        IArray(TsImportedIdent(TsIdent("traverse")), TsImportedDestructured(IArray((TsIdent("Visitor"), None)))),
-        TsImporteeFrom(TsIdentModule.simple("babel-traverse")),
+        IArray(TsImported.Ident(TsIdent("traverse")), TsImported.Destructured(IArray((TsIdent("Visitor"), None)))),
+        TsImportee.From(TsIdentModule.simple("babel-traverse")),
       ),
     )
   }
@@ -170,11 +170,11 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         NoComments,
         typeOnly = false,
         ExportType.Named,
-        TsExporteeTree(
+        TsExportee.Tree(
           TsImport(
             typeOnly = false,
-            IArray(TsImportedIdent(TsIdent("AppBar"))),
-            TsImporteeLocal(TsQIdent(IArray(TsIdent("__MaterialUI"), TsIdent("AppBar")))),
+            IArray(TsImported.Ident(TsIdent("AppBar"))),
+            TsImportee.Local(TsQIdent(IArray(TsIdent("__MaterialUI"), TsIdent("AppBar")))),
           ),
         ),
       ),
@@ -191,8 +191,8 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("""import { default as SidebarPushable } from './SidebarPushable'""", TsParser.tsImport)(
       TsImport(
         typeOnly = false,
-        IArray(TsImportedDestructured(IArray((TsIdent("default"), Some(TsIdent("SidebarPushable")))))),
-        TsImporteeFrom(TsIdentModule(None, "." :: "SidebarPushable" :: Nil)),
+        IArray(TsImported.Destructured(IArray((TsIdent("default"), Some(TsIdent("SidebarPushable")))))),
+        TsImportee.From(TsIdentModule(None, "." :: "SidebarPushable" :: Nil)),
       ),
     )
   }
@@ -208,7 +208,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
       TsImport(
         typeOnly = false,
         IArray(
-          TsImportedDestructured(
+          TsImported.Destructured(
             IArray(
               (TsIdent("ValidationOptions"), Some(TsIdent("JoiValidationOptions"))),
               (TsIdent("SchemaMap"), Some(TsIdent("JoiSchemaMap"))),
@@ -216,7 +216,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
             ),
           ),
         ),
-        TsImporteeFrom(TsIdentModule.simple("joi")),
+        TsImportee.From(TsIdentModule.simple("joi")),
       ),
     )
   }
@@ -229,7 +229,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         NoComments,
         typeOnly = false,
         ExportType.Defaulted,
-        TsExporteeTree(
+        TsExportee.Tree(
           TsDeclFunction(
             NoComments,
             declared = false,
@@ -272,13 +272,13 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
 
   test("import 'foo'") {
     shouldParseAs("""import 'jquery'""", TsParser.tsImport)(
-      TsImport(typeOnly = false, IArray(TsImportedStar(None)), TsImporteeFrom(TsIdentModule.simple("jquery"))),
+      TsImport(typeOnly = false, IArray(TsImported.Star(None)), TsImportee.From(TsIdentModule.simple("jquery"))),
     )
     shouldParseAs("""import "../index"""", TsParser.tsImport)(
       TsImport(
         typeOnly = false,
-        IArray(TsImportedStar(None)),
-        TsImporteeFrom(TsIdentModule(None, ".." :: "index" :: Nil)),
+        IArray(TsImported.Star(None)),
+        TsImportee.From(TsIdentModule(None, ".." :: "index" :: Nil)),
       ),
     )
   }
@@ -289,7 +289,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         NoComments,
         typeOnly = false,
         ExportType.Defaulted,
-        TsExporteeTree(
+        TsExportee.Tree(
           TsDeclClass(
             NoComments,
             declared   = false,
@@ -335,7 +335,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         NoComments,
         typeOnly = false,
         ExportType.Defaulted,
-        TsExporteeTree(
+        TsExportee.Tree(
           TsDeclClass(
             NoComments,
             declared   = false,
@@ -358,11 +358,11 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
       TsImport(
         typeOnly = true,
         IArray(
-          TsImportedDestructured(
+          TsImported.Destructured(
             IArray((TsIdentSimple("DiffOptions"), None), (TsIdentSimple("DiffOptionsNormalized"), None)),
           ),
         ),
-        TsImporteeFrom(TsIdentModule(None, List(".", "types"))),
+        TsImportee.From(TsIdentModule(None, List(".", "types"))),
       ),
     )
   }
@@ -372,7 +372,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         NoComments,
         typeOnly = true,
         tpe      = ExportType.Named,
-        exported = TsExporteeNames(
+        exported = TsExportee.Names(
           IArray(
             (TsQIdent(IArray(TsIdentSimple("DiffOptions"))), None),
             (TsQIdent(IArray(TsIdentSimple("DiffOptionsColor"))), None),
@@ -398,13 +398,13 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
           TsImport(
             typeOnly = true,
             IArray(),
-            TsImporteeLocal(TsQIdent(IArray(TsIdentSimple("__esri"), TsIdentSimple("type")))),
+            TsImportee.Local(TsQIdent(IArray(TsIdentSimple("__esri"), TsIdentSimple("type")))),
           ),
           TsExport(
             NoComments,
             typeOnly = false,
             ExportType.Namespaced,
-            TsExporteeNames(IArray((TsQIdent(IArray(TsIdentSimple("type"))), None)), None),
+            TsExportee.Names(IArray((TsQIdent(IArray(TsIdentSimple("type"))), None)), None),
           ),
         ),
         CodePath.NoPath,
@@ -420,7 +420,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         NoComments,
         false,
         ExportType.Named,
-        TsExporteeStar(Some(TsIdentSimple("specialChars")), TsIdentModule(None, List(".", "specialChars"))),
+        TsExportee.Star(Some(TsIdentSimple("specialChars")), TsIdentModule(None, List(".", "specialChars"))),
       ),
     )
   }
