@@ -106,7 +106,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
 
         (Try(Json.force[ImportTypingsGenSources.Input](cachedInputs)).toOption, Json.opt[Seq[File]](cachedOutputs)) match {
           case (Some(`input`), Some(output)) =>
-            logger.warn("Nothing to do")
+            logger.info("Nothing to do")
             output
           case _ =>
             ImportTypingsGenSources(
