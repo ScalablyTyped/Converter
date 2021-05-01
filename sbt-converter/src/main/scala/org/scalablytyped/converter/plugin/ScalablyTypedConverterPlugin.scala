@@ -1,7 +1,9 @@
 package org.scalablytyped.converter
 package plugin
 
-import com.olvind.logging.Formatter
+import _root_.io.circe013.syntax._
+import com.olvind.logging.{Formatter, LogLevel}
+import org.scalablytyped.converter.internal.RunCache.Present
 import org.scalablytyped.converter.internal._
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
@@ -10,17 +12,14 @@ import sbt._
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
 import scala.concurrent.ExecutionContext
-import scala.util.Try
 
 object ScalablyTypedConverterPlugin extends AutoPlugin {
-  private implicit val PathFormatter: Formatter[os.Path] = _.toString
-
   override def requires = ScalablyTypedPluginBase && ScalaJSBundlerPlugin
 
   private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
   object autoImport {
-    val stImport       = taskKey[(os.Path, ImportTypings.Output)]("Imports all the bundled npm and generates bindings")
+    val stImport       = taskKey[ImportTypings.InOut]("Imports all the bundled npm and generates bindings")
     val stPublishCache = taskKey[Unit]("Publish all necessary files to cache")
   }
 
@@ -28,7 +27,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
   import autoImport._
   import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
 
-  private[plugin] val stImportTask = Def.taskDyn[(os.Path, ImportTypings.Output)] {
+  private[plugin] val stImportTask = Def.taskDyn[ImportTypings.InOut] {
     val cacheDir           = os.Path((Global / stDir).value)
     val stLogger           = WrapSbtLogger.task.value
     val allDeps            = (Compile / npmDependencies).value ++ (Test / npmDependencies).value
@@ -44,32 +43,30 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
       wantedLibs       = wantedLibs,
     )
 
-    val runCacheKey  = RunCacheKey(input)
-    val runCachePath = runCacheKey.path(cacheDir)
+    val runCacheKey = RunCache.Key(input)
 
-    PluginRemoteCache.fetch(
+    stLogger.debug(input.asJson.spaces2)
+    stLogger.debug(input.packageJsonHash)
+    stLogger.debug(runCacheKey)
+
+    val completeRunPresent = RunCache.fetch(
       (Global / stRemoteCache).value,
       runCacheKey,
       cacheDir,
       publishLocalFolder,
       stLogger,
-      ExecutionContext.global,
-    )
+    )(ExecutionContext.global)
 
-    Try(Json.force[ImportTypings.InOut](runCachePath)).toOption match {
-      case Some((`input`, output)) if output.allPaths(publishLocalFolder).forall(files.exists) =>
-        Def.task {
-          stLogger.withContext(runCachePath).info(s"Using cached result :)")
-          (runCachePath, output)
-        }
-
-      case _ =>
+    completeRunPresent match {
+      case Present.Yes(output) =>
+        Def.task((input, output))
+      case Present.No =>
         val t = Def.task {
           (Compile / npmInstallDependencies).value
 
           ImportTypings(
             input              = input,
-            logger             = stLogger,
+            logger             = stLogger.filter(LogLevel.warn),
             parseCacheDirOpt   = Some(cacheDir.toNIO.resolve("parse")),
             publishLocalFolder = publishLocalFolder,
             fromFolder         = fromFolder,
@@ -77,8 +74,8 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
             compiler           = stInternalZincCompiler.value,
           ) match {
             case Right(output) =>
-              Json.persist[ImportTypings.InOut](runCachePath)((input, output))
-              (runCachePath, output)
+              Json.persist[ImportTypings.InOut](runCacheKey.path(cacheDir))((input, output))
+              (input, output)
             case Left(errors) =>
               errors.foreach {
                 case (_, Left(th)) => throw th
@@ -100,6 +97,6 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
       stImport := stImportTask.value,
       stInternalZincCompiler := ZincCompiler.task.value,
       ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
-      stPublishCache := PluginRemoteCache.publishCacheTask(stImport).value,
+      stPublishCache := RunCache.publishCacheTask(stImport).value,
     )
 }

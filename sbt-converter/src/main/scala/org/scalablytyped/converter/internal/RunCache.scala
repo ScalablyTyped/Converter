@@ -3,7 +3,8 @@ package org.scalablytyped.converter.internal
 import java.net.URI
 import java.util.concurrent.CompletionException
 
-import com.olvind.logging.Logger
+import _root_.io.circe013.syntax._
+import com.olvind.logging.{Formatter, Logger}
 import gigahorse.support.okhttp.Gigahorse
 import okhttp3.{OkHttpClient, Request, Response}
 import org.scalablytyped.converter.internal.ImportTypings.InOut
@@ -25,8 +26,24 @@ import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.util.control.NonFatal
 
-object PluginRemoteCache {
-  implicit class UriOps(uri: URI) {
+object RunCache {
+  case class Key(input: ImportTypings.Input) {
+    lazy val digest: Digest = Digest.of(List(input.asJson.noSpaces))
+    def path(cacheDir: os.Path): os.Path = cacheDir / "runs" / s"${digest.hexString}.json"
+  }
+
+  object Key {
+    implicit val formatter: Formatter[Key] =
+      _.digest.hexString
+  }
+
+  sealed trait Present
+  object Present {
+    case class Yes(output: ImportTypings.Output) extends Present
+    case object No extends Present
+  }
+
+  private implicit class UriOps(uri: URI) {
     def /(relPath: os.RelPath): URI =
       new URI(uri.toString + "/" + relPath.toString())
   }
@@ -34,15 +51,17 @@ object PluginRemoteCache {
   private object Lock
 
   // lazy and implement this with rsync since it's exactly what we want
-  def publishCacheTask(inTask: TaskKey[(os.Path, ImportTypings.Output)]): Def.Initialize[Task[Unit]] =
+  def publishCacheTask(inTask: TaskKey[ImportTypings.InOut]): Def.Initialize[Task[Unit]] =
     Def.task(
       (Global / stRemoteCache).value match {
         case RemoteCache.Disabled =>
           ()
         case RemoteCache.Rsync(pushLocation, _) =>
-          val (runCachePath, output) = inTask.value
-          val logger                 = WrapSbtLogger.task.value.withContext("run", runCachePath.last)
-          val cmd                    = new Cmd(logger, Some(500))
+          val (input, output) = inTask.value
+          val key             = Key(input)
+          val runCachePath    = key.path(os.Path((Global / stDir).value))
+          val logger          = WrapSbtLogger.task.value.withContext("run", key)
+          val cmd             = new Cmd(logger, Some(500))
           Lock.synchronized {
             locally {
               implicit val wd = Utils.IvyLocal.value
@@ -56,11 +75,13 @@ object PluginRemoteCache {
               cmd.run("rsync", "-aR", relPath, pushLocation)
             }
           }
-          logger.warn(s"pushed to $pushLocation")
+          logger.info(s"pushed to $pushLocation")
 
         case RemoteCache.S3(bucket, _, prefix, region, endpoint, credentialsProvider) =>
-          val (runCachePath, output) = inTask.value
-          val logger                 = WrapSbtLogger.task.value.withContext("run", runCachePath.last)
+          val (input, output) = inTask.value
+          val key             = Key(input)
+          val runCachePath    = key.path(os.Path((Global / stDir).value))
+          val logger          = WrapSbtLogger.task.value.withContext("run", key)
 
           val s3 = {
             implicit class RichBuilder(s3ClientBuilder: S3AsyncClientBuilder) {
@@ -123,89 +144,111 @@ object PluginRemoteCache {
             val relRunCachePath = runCachePath.relativeTo(os.Path((Global / stDir).value))
             Await.result(upload(relRunCachePath, os.Path((Global / stDir).value)), Duration.Inf)
 
-            logger.warn(s"Pushed $numUploadedArtifacts files to S3 bucket $bucket")
+            logger.info(s"Pushed $numUploadedArtifacts files to S3 bucket $bucket")
           }
       },
     )
 
   def fetch(
       remoteCache: RemoteCache,
-      runCacheKey: RunCacheKey,
+      key:         Key,
       cacheDir:    os.Path,
       ivyLocal:    os.Path,
       logger:      Logger[Unit],
-      ec:          ExecutionContext,
-  ): Int = {
-    def pull(pullUri: URI) = {
-      val localRunFile = runCacheKey.path(cacheDir)
-      if (files.exists(localRunFile)) 0
-      else
-        Lock.synchronized {
-          implicit val ec_ = ec
+  )(implicit ec:   ExecutionContext): Present = {
+    val localRunFile     = key.path(cacheDir)
+    val loggerRemoteFile = logger.withContext(localRunFile.toString)
 
-          val remoteRunFile: URI = pullUri / localRunFile.relativeTo(cacheDir)
-          val loggerRemoteFile = logger.withContext(remoteRunFile)
+    def pull(pullUri: URI) =
+      Lock.synchronized {
+        val downloads: Future[Present] =
+          mehttp.ensureDownloaded(pullUri / localRunFile.relativeTo(cacheDir), localRunFile).flatMap {
+            case yes: PresentFile.Yes =>
+              val (input, output) = Json.force[InOut](new String(yes.bytes, constants.Utf8))
 
-          val downloads: Future[Int] =
-            mehttp.download(remoteRunFile, localRunFile).flatMap {
-              case Ok(bytes) =>
-                val (_, output) = Json.force[InOut](new String(bytes, constants.Utf8))
+              require(input === key.input)
 
-                val downloads: Seq[Future[Res[Array[Byte]]]] =
-                  output.allRelPaths.flatMap { relPath =>
-                    val localPath = ivyLocal / relPath
-                    if (files.exists(localPath)) None
-                    else Option(mehttp.download(pullUri / relPath, localPath))
-                  }
+              val files: Seq[Future[PresentFile]] =
+                output.allRelPaths
+                  .map(relPath => mehttp.ensureDownloaded(uri = pullUri / relPath, dest = ivyLocal / relPath))
 
-                Future.sequence(downloads).map { results =>
-                  val (errors, notFounds, oks, Nil) = results.partitionCollect3(
-                    { case x: Err => x }, { case NotFound => NotFound; case Forbidden => Forbidden }, {
-                      case Ok(b) => b
+              Future.sequence(files).map { presentFiles: Seq[PresentFile] =>
+                // format: off
+                val (errors, notFounds, cacheds, downloadeds, Nil) =
+                  presentFiles.partitionCollect4(
+                    { case x: PresentFile.Err => x },
+                    {
+                      case PresentFile.NotFound  => PresentFile.NotFound
+                      case PresentFile.Forbidden => PresentFile.Forbidden
                     },
+                    { case cached @ PresentFile.Cached(_) => cached },
+                    { case ok @ PresentFile.Downloaded(_) => ok },
                   )
+                // format: on
 
-                  val numCached = output.allRelPaths.size - results.size
+                val msgs = IArray.fromOptions(
+                  if (cacheds.nonEmpty) Some(s"${cacheds.size} cached files") else None,
+                  if (downloadeds.nonEmpty) Some(s"${downloadeds.size} files downloaded") else None,
+                  if (notFounds.nonEmpty) Some(s"${notFounds.size} files not found") else None,
+                  if (errors.nonEmpty) Some(s"${errors.size} files failed to download") else None,
+                )
 
-                  val msgs = IArray.fromOptions(
-                    if (numCached == 0) None else Some(s"$numCached cached files"),
-                    if (oks.nonEmpty) Some(s"${oks.size} files downloaded") else None,
-                    if (notFounds.nonEmpty) Some(s"${notFounds.size} files not found") else None,
-                    if (errors.nonEmpty) Some(s"${errors.size} files failed to download") else None,
-                  )
+                if (yes.wasCached && presentFiles.size == cacheds.size)
+                  loggerRemoteFile.debug("Using cached result :")
+                else
+                  loggerRemoteFile.info(msgs.mkString(", "))
 
-                  logger.withContext(runCacheKey).warn(msgs.mkString(", "))
+                if (notFounds.size + errors.size == 0) Present.Yes(output) else Present.No
+              }
 
-                  oks.size
-                }
+            case PresentFile.NotFound =>
+              loggerRemoteFile.info("No cached run")
+              Future.successful(Present.No)
+            case PresentFile.Forbidden =>
+              loggerRemoteFile.info("Probably no cached run (403)")
+              Future.successful(Present.No)
+            case PresentFile.Err(th) =>
+              loggerRemoteFile.warn("Couldn't fetch cache", th)
+              Future.successful(Present.No)
+          }
 
-              case NotFound =>
-                loggerRemoteFile.warn("No cached run")
-                Future.successful(0)
-              case Forbidden =>
-                loggerRemoteFile.warn("Probably no cached run (403)")
-                Future.successful(0)
-              case Err(th) =>
-                loggerRemoteFile.warn("Couldn't fetch cache", th)
-                Future.successful(0)
-            }
-
-          Await.result(downloads, Duration.Inf)
-        }
-    }
+        Await.result(downloads, Duration.Inf)
+      }
 
     remoteCache match {
-      case RemoteCache.Disabled                   => 0
+      case RemoteCache.Disabled =>
+        if (files.exists(localRunFile)) {
+          val (input, output) = Json.force[InOut](new String(os.read.bytes(localRunFile), constants.Utf8))
+          require(input === key.input)
+          if (output.allRelPaths.forall(relPath => files.exists(ivyLocal / relPath))) {
+            loggerRemoteFile.debug("Using cached result :")
+            Present.Yes(output)
+          } else Present.No
+        } else Present.No
       case RemoteCache.S3(_, pullUri, _, _, _, _) => pull(pullUri)
       case RemoteCache.Rsync(_, pullUri)          => pull(pullUri)
     }
   }
 
-  sealed trait Res[+T]
-  case class Err(th: Throwable) extends Res[Nothing]
-  case object NotFound extends Res[Nothing]
-  case object Forbidden extends Res[Nothing]
-  case class Ok[T](value: T) extends Res[T]
+  sealed trait PresentFile
+  object PresentFile {
+    case class Err(th: Throwable) extends PresentFile
+    case object NotFound extends PresentFile
+    case object Forbidden extends PresentFile
+
+    sealed trait Yes extends PresentFile {
+      def bytes:     Array[Byte]
+      def wasCached: Boolean
+    }
+
+    case class Downloaded(bytes: Array[Byte]) extends Yes {
+      override def wasCached: Boolean = false
+    }
+    case class Cached[T](file: os.Path) extends Yes {
+      def bytes:              Array[Byte] = os.read.bytes(file)
+      override def wasCached: Boolean     = true
+    }
+  }
 
   // Meh, I have no idea
   //
@@ -228,31 +271,30 @@ object PluginRemoteCache {
         .followSslRedirects(true)
         .build
 
-    def download(uri: URI, dest: os.Path)(implicit ec: ExecutionContext): Future[Res[Array[Byte]]] =
-      Future {
-        getUrl(uri) match {
-          case Ok(bytes) =>
-            files.writeBytes(dest.toNIO, bytes)
-            Ok(bytes)
-          case otherwise => otherwise
+    def ensureDownloaded(uri: URI, dest: os.Path)(implicit ec: ExecutionContext): Future[PresentFile] =
+      if (files.exists(dest)) Future.successful(PresentFile.Cached(dest))
+      else
+        Future {
+          getUrl(uri) match {
+            case ok @ PresentFile.Downloaded(bytes) =>
+              files.writeBytes(dest.toNIO, bytes)
+              ok
+            case otherwise => otherwise
+          }
         }
-      }
 
-    def get(url: URI)(implicit ec: ExecutionContext): Future[Res[Array[Byte]]] =
-      Future(getUrl(url))
-
-    private def getUrl(uri: URI): Res[Array[Byte]] = {
+    private def getUrl(uri: URI): PresentFile = {
       var response: Response = null
       try {
         response = http.newCall(new Request.Builder().url(uri.toString).get().build()).execute()
         response.code() match {
-          case success if success > 199 && success < 300 => Ok(response.body().bytes())
-          case 404                                       => NotFound
-          case 403                                       => Forbidden
-          case other                                     => Err(new RuntimeException(s"Got status code $other"))
+          case success if success > 199 && success < 300 => PresentFile.Downloaded(response.body().bytes())
+          case 404                                       => PresentFile.NotFound
+          case 403                                       => PresentFile.Forbidden
+          case other                                     => PresentFile.Err(new RuntimeException(s"Got status code $other"))
         }
       } catch {
-        case NonFatal(th) => Err(th)
+        case NonFatal(th) => PresentFile.Err(th)
       } finally {
         if (response != null) response.close()
       }

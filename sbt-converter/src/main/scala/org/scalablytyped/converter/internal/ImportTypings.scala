@@ -74,7 +74,7 @@ object ImportTypings {
       case Right(initial)   => initial
     }
 
-    logger.warn(s"Importing ${initial.map(_.libName.value).mkString(", ")}")
+    logger.info(s"Importing ${initial.map(_.libName.value).mkString(", ")}")
 
     val cachedParser = PersistingParser(parseCacheDirOpt, bootstrapped.inputFolders, logger)
 

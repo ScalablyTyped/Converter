@@ -34,7 +34,7 @@ object WrapSbtLogger {
     val _sbtLogger = streams.value.log
 
     if ((Global / ScalablyTypedPluginBase.autoImport.stQuiet).value) logging.Logger.DevNull
-    else WrapSbtLogger(_sbtLogger, Instant.now).filter(LogLevel.warn).void.withContext("project", moduleName.value)
+    else WrapSbtLogger(_sbtLogger, Instant.now).void.withContext("project", moduleName.value)
   }
 
   def apply(x: ManagedLogger, started: Instant) = new WrapSbtLogger(x, Map.empty, new WrapPattern(started))
@@ -61,9 +61,12 @@ object WrapSbtLogger {
     override def apply[T: Formatter](t: => Text[T], throwable: Option[Throwable], m: Metadata, ctx: Ctx): Str = {
       val color  = colorFor(m.logLevel)
       val subtle = subtleColorFor(m.logLevel)
+      val source = if (t.source.startsWith("\"") || t.source.startsWith("s\"")) "" else t.source
 
       Str.join(
         subtle(Str.join(Formatter(new sbt.File(m.file.value)), ":", Formatter(m.line.value))),
+        " ",
+        subtle(source),
         " ",
         color(Formatter(t.value)),
         " ",

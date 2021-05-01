@@ -58,7 +58,7 @@ object ImportTypingsGenSources {
       case Right(initial)   => initial
     }
 
-    logger.warn(s"Importing ${initial.map(_.libName.value).mkString(", ")}")
+    logger.info(s"Importing ${initial.map(_.libName.value).mkString(", ")}")
 
     val cachedParser = PersistingParser(parseCacheDirOpt, bootstrapped.inputFolders, logger)
 
@@ -123,7 +123,7 @@ object ImportTypingsGenSources {
                 case (relPath, content) => targetFolder / relPath -> content
               }
               val minimizedMessage = if (willMinimize) "minimized " else ""
-              logger.warn(
+              logger.info(
                 s"Wrote $minimizedMessage${source.libName.value} (${outFiles.size} files) to $targetFolder...",
               )
               outFiles
