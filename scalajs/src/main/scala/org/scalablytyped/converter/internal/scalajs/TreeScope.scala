@@ -16,13 +16,13 @@ sealed abstract class TreeScope { outer =>
 
   final def `..` : TreeScope =
     this match {
-      case root:   TreeScope.Root[_] => root
-      case scoped: TreeScope.Scoped  => scoped.outer
+      case root:   TreeScope.Root   => root
+      case scoped: TreeScope.Scoped => scoped.outer
     }
-  final def root: TreeScope.Root[_] =
+  final def root: TreeScope.Root =
     this match {
-      case root: TreeScope.Root[_] => root
-      case x:    TreeScope.Scoped  => x.outer.root
+      case root: TreeScope.Root   => root
+      case x:    TreeScope.Scoped => x.outer.root
     }
 
   final def lookup(wanted: QualifiedName): IArray[(Tree, TreeScope)] =
@@ -33,11 +33,11 @@ sealed abstract class TreeScope { outer =>
       var continue = true
       while (continue) {
         searchFrom match {
-          case _: TreeScope.Root[_] =>
+          case _: TreeScope.Root =>
             continue = false
           case x: TreeScope.Scoped =>
             x.outer match {
-              case _: TreeScope.Root[_] =>
+              case _: TreeScope.Root =>
                 continue = false
               case outer: TreeScope.Scoped =>
                 searchFrom = outer
@@ -106,7 +106,7 @@ object TreeScope {
 
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 
-  class Root[Source](
+  class Root(
       val outputPkg: Name,
       val libName:   Name,
       _dependencies: Map[Name, ContainerTree],

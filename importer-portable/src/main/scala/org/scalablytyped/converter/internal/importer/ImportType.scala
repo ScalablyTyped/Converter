@@ -10,13 +10,13 @@ import org.scalablytyped.converter.internal.ts.transforms.ExtractInterfaces
 class ImportType(stdNames: QualifiedName.StdNames) {
 
   def orAny(wildcards: Wildcards, scope: TsTreeScope, importName: AdaptiveNamingImport)(ott: Option[TsType]): TypeRef =
-    ott.map(apply(wildcards, scope, importName)).getOrElse(TypeRef.Any)
+    ott.map(apply(wildcards, scope, importName)).getOrElse(TypeRef.JsAny)
 
   def orExprOrAny(wildcards: Wildcards, scope: TsTreeScope, importName: AdaptiveNamingImport)(
       ott:                   Option[TsType],
   ): TypeRef =
     ott match {
-      case None    => TypeRef.Any
+      case None    => TypeRef.JsAny
       case Some(x) => apply(wildcards, scope, importName)(x)
     }
 
@@ -25,12 +25,12 @@ class ImportType(stdNames: QualifiedName.StdNames) {
     * prefer types from there. Handle resolved and unresolved qidents
     */
   private val Mappings = {
-    val ArrayM    = NameMapping(stdNames.Array, stdNames.Array, QualifiedName.Array)
+    val ArrayM    = NameMapping(stdNames.Array, stdNames.Array, QualifiedName.JsArray)
     val BooleanM  = RefMapping(TypeRef(stdNames.Boolean), TypeRef(stdNames.Boolean), TypeRef.Boolean)
-    val FunctionM = RefMapping(TypeRef.FunctionBase, TypeRef.FunctionBase, TypeRef.FunctionBase)
-    val ObjectM   = RefMapping(TypeRef(stdNames.Object), TypeRef(stdNames.Object), TypeRef.Object)
+    val FunctionM = RefMapping(TypeRef.JsFunctionBase, TypeRef.JsFunctionBase, TypeRef.JsFunctionBase)
+    val ObjectM   = RefMapping(TypeRef(stdNames.Object), TypeRef(stdNames.Object), TypeRef.JsObject)
     val StringM   = RefMapping(TypeRef(stdNames.String), TypeRef(stdNames.String), TypeRef.String)
-    val BigIntM   = RefMapping(TypeRef(stdNames.BigInt), TypeRef(stdNames.BigInt), TypeRef.BigInt)
+    val BigIntM   = RefMapping(TypeRef(stdNames.BigInt), TypeRef(stdNames.BigInt), TypeRef.JsBigInt)
 
     Map[TsQIdent, Mapping[_]](
       TsQIdent.Array -> ArrayM,
@@ -39,26 +39,26 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       TsQIdent.boolean -> BooleanM,
       TsQIdent.Boolean -> BooleanM,
       TsQIdent.Function -> FunctionM,
-      TsQIdent.never -> RefMapping(TypeRef.Any, TypeRef.Any, TypeRef.Nothing),
-      TsQIdent.`null` -> RefMapping(TypeRef.Any, TypeRef.Any, TypeRef.Null),
+      TsQIdent.never -> RefMapping(TypeRef.JsAny, TypeRef.JsAny, TypeRef.Nothing),
+      TsQIdent.`null` -> RefMapping(TypeRef.JsAny, TypeRef.JsAny, TypeRef.Null),
       TsQIdent.number -> RefMapping(TypeRef(stdNames.Number), TypeRef(stdNames.Number), TypeRef.Double),
       TsQIdent.`object` -> ObjectM,
       TsQIdent.Object -> ObjectM,
       TsQIdent.Std.Array -> ArrayM,
       TsQIdent.Std.Boolean -> BooleanM,
       TsQIdent.Std.BigInt -> BigIntM,
-      TsQIdent.Std.ConcatArray -> NameMapping(stdNames.ConcatArray, stdNames.ConcatArray, QualifiedName.Array),
+      TsQIdent.Std.ConcatArray -> NameMapping(stdNames.ConcatArray, stdNames.ConcatArray, QualifiedName.JsArray),
       TsQIdent.Std.Function -> FunctionM,
       TsQIdent.Std.Object -> ObjectM,
-      TsQIdent.Std.PromiseLike -> NameMapping(stdNames.PromiseLike, stdNames.PromiseLike, QualifiedName.Thenable),
-      TsQIdent.Std.Promise -> NameMapping(QualifiedName.Promise, stdNames.Promise, QualifiedName.Promise),
-      TsQIdent.Std.ReadonlyArray -> NameMapping(stdNames.ReadonlyArray, stdNames.ReadonlyArray, QualifiedName.Array),
+      TsQIdent.Std.PromiseLike -> NameMapping(stdNames.PromiseLike, stdNames.PromiseLike, QualifiedName.JsThenable),
+      TsQIdent.Std.Promise -> NameMapping(QualifiedName.JsPromise, stdNames.Promise, QualifiedName.JsPromise),
+      TsQIdent.Std.ReadonlyArray -> NameMapping(stdNames.ReadonlyArray, stdNames.ReadonlyArray, QualifiedName.JsArray),
       TsQIdent.Std.String -> StringM,
       TsQIdent.string -> StringM,
       TsQIdent.String -> StringM,
-      TsQIdent.symbol -> RefMapping(TypeRef(stdNames.Symbol), TypeRef(stdNames.Symbol), TypeRef.Symbol),
-      TsQIdent.undefined -> RefMapping(TypeRef.Any, TypeRef.Any, TypeRef.UndefOr(TypeRef.Nothing)),
-      TsQIdent.void -> RefMapping(TypeRef.Any, TypeRef.Any, TypeRef.Unit),
+      TsQIdent.symbol -> RefMapping(TypeRef(stdNames.Symbol), TypeRef(stdNames.Symbol), TypeRef.JsSymbol),
+      TsQIdent.undefined -> RefMapping(TypeRef.JsAny, TypeRef.JsAny, TypeRef.UndefOr(TypeRef.Nothing)),
+      TsQIdent.void -> RefMapping(TypeRef.JsAny, TypeRef.JsAny, TypeRef.Unit),
     )
   }
 
@@ -76,7 +76,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case TsTypeRef(cs, base: TsQIdent, targs: IArray[TsType]) =>
         base match {
           case TsQIdent.any | TsQIdent.unknown =>
-            (if (wildcards.allowed) TypeRef.Wildcard else TypeRef.Any).withComments(cs)
+            (if (wildcards.allowed) TypeRef.Wildcard else TypeRef.JsAny).withComments(cs)
 
           case other =>
             lazy val isInheritance = IsInheritance(other, scope)
@@ -90,7 +90,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
         }
 
       case TsTypeObject(_, Empty) =>
-        TypeRef(QualifiedName.Object, Empty, NoComments)
+        TypeRef(QualifiedName.JsObject, Empty, NoComments)
 
       /* Proper handling (of static) cases will be done in `ApplyTypeMapping`.
        * This piece of code just ignores the effect of the type mapping.
@@ -104,7 +104,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
         val base = lookups match {
           case IArray.exactlyOne(one) => apply(wildcards, scope, importName)(one)
-          case _                      => TypeRef.Any
+          case _                      => TypeRef.JsAny
         }
 
         def c = Comments(Comment.warning(s"Unsupported type mapping: \n${TsTypeFormatter(tpe)}\n"))
@@ -157,7 +157,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
         TypeRef.Intersection(IArray.fromOptions(stringDict, numberDict), NoComments)
 
       case TsTypeFunction(sig) =>
-        if (sig.params.length > 22) TypeRef.FunctionBase
+        if (sig.params.length > 22) TypeRef.JsFunctionBase
         else {
           val newSig = ts.FillInTParams.inlineTParams(sig)
 
@@ -169,7 +169,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
                 (None, all)
             }
 
-          TypeRef.Function(
+          TypeRef.JsFunction(
             thisType,
             restParams.map(funParam(wildcards, scope, importName)),
             orAny(wildcards.maybeAllow, scope, importName)(newSig.resultType),
@@ -236,7 +236,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
                 TypeRef(importName(TsQIdent.Array), Empty, Comments(c) ++ labelComment(elem))
             }
           case nonRepeating =>
-            TypeRef.Tuple(nonRepeating.map { elem =>
+            TypeRef.JsTuple(nonRepeating.map { elem =>
               apply(wildcards.maybeAllow, scope, importName)(elem.tpe)
                 .withComments(labelComment(elem))
             })
@@ -272,7 +272,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case other =>
         val msg = s"Failed type conversion: ${TsTypeFormatter(other)}"
         scope.logger.info(msg)
-        TypeRef(QualifiedName.Any, Empty, Comments(Comment.warning(msg)))
+        TypeRef(QualifiedName.JsAny, Empty, Comments(Comment.warning(msg)))
     }
   }
 

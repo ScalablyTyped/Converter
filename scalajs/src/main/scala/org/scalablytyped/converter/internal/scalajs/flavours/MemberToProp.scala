@@ -16,7 +16,7 @@ object MemberToProp {
         case f @ FieldTree(_, _, origTpe, _, _, _, _, _) =>
           Optionality(FollowAliases(scope)(origTpe)) match {
 
-            case (optionality, TypeRef.Function(paramTypes, retType)) =>
+            case (optionality, TypeRef.JsFunction(paramTypes, retType)) =>
               if (paramTypes.contains(TypeRef.Nothing)) None // edge case which doesnt work
               else if (paramTypes.length > 22) None
               else {
@@ -32,7 +32,7 @@ object MemberToProp {
             case (optionality, dealiased) =>
               /* Undo effect of FollowAliases above */
               val tpe = Optional.unapply(origTpe).getOrElse(origTpe) match {
-                case TypeRef.Wildcard => TypeRef.Any
+                case TypeRef.Wildcard => TypeRef.JsAny
                 case other            => other
               }
 
@@ -52,11 +52,11 @@ object MemberToProp {
                         case x: Prop.Normal => x.allVariants
                         case _ => Empty
                       }
-                  case TypeRef(QualifiedName.Array, IArray.exactlyOne(t), _) =>
+                  case TypeRef(QualifiedName.JsArray, IArray.exactlyOne(t), _) =>
                     IArray(
                       Prop.Variant(
                         TypeRef.Repeated(Wildcards.Remove.visitTypeRef(scope)(t), NoComments),
-                        e => Call(Ref(QualifiedName.Array), IArray(IArray(`:_*`(e)))),
+                        e => Call(Ref(QualifiedName.JsArray), IArray(IArray(`:_*`(e)))),
                         isRewritten   = true,
                         extendsAnyVal = false,
                       ),
@@ -66,7 +66,7 @@ object MemberToProp {
 
               val main = Prop.Variant(
                 tpe           = tpe,
-                asExpr        = ref => Cast(ref, TypeRef.Any),
+                asExpr        = ref => Cast(ref, TypeRef.JsAny),
                 isRewritten   = willBeRewritten,
                 extendsAnyVal = TypeRef.Primitive(TypeRef(Erasure.simplify(scope / x, dealiased))),
               )
@@ -74,7 +74,7 @@ object MemberToProp {
           }
 
         case _m: MethodTree =>
-          val m               = FillInTParams(_m, scope, _m.tparams.map(_ => TypeRef.Any), Empty)
+          val m               = FillInTParams(_m, scope, _m.tparams.map(_ => TypeRef.JsAny), Empty)
           val flattenedParams = m.params.flatten
 
           if (flattenedParams.exists(_.tpe === TypeRef.Nothing)) None // edge case which doesnt work

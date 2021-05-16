@@ -2,8 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-import ExprTree._
-import org.scalablytyped.converter.internal.scalajs.transforms.Mangler
+import org.scalablytyped.converter.internal.scalajs.ExprTree._
 
 class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versions.Scala) {
 
@@ -12,7 +11,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
   val StBuildingComponent = Name("StBuildingComponent")
   val builderCp           = QualifiedName(IArray(outputPkg, StBuildingComponent))
-  val R                   = TypeParamTree(Name("R"), Empty, Some(TypeRef.Object), NoComments, ignoreBound = false)
+  val R                   = TypeParamTree(Name("R"), Empty, Some(TypeRef.JsObject), NoComments, ignoreBound = false)
   val builderTparams      = IArray(R)
   val builderRef          = TypeRef(builderCp, TypeParamTree.asTypeArgs(builderTparams), NoComments)
 
@@ -26,7 +25,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       Empty,
       Empty,
       NotImplemented,
-      TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments),
+      TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments),
       isOverride = false,
       NoComments,
       builderCp + name,
@@ -42,11 +41,11 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
     val keyParam =
       ParamTree(Name("key"), isImplicit = false, isVal = false, TypeRef.String, NotImplemented, NoComments)
     val valueParam =
-      ParamTree(Name("value"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments)
+      ParamTree(Name("value"), isImplicit = false, isVal = false, TypeRef.JsAny, NotImplemented, NoComments)
 
     val impl = Block(
       Call(
-        Select(Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.Dynamic), Name("updateDynamic")),
+        Select(Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.JsDynamic), Name("updateDynamic")),
         IArray(IArray(Ref(keyParam.name)), IArray(Ref(valueParam.name))),
       ),
       Ref(QualifiedName.THIS),
@@ -78,7 +77,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         Name("f"),
         isImplicit = false,
         isVal      = false,
-        TypeRef.ScalaFunction(IArray(TypeRef.Any), TypeRef.Any, NoComments),
+        TypeRef.ScalaFunction(IArray(TypeRef.JsAny), TypeRef.JsAny, NoComments),
         NotImplemented,
         NoComments,
       )
@@ -114,14 +113,14 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
   val Trait: ClassTree = {
     val unsafeSpread = {
-      val param = ParamTree(Name("obj"), false, false, TypeRef.Any, NotImplemented, NoComments)
+      val param = ParamTree(Name("obj"), false, false, TypeRef.JsAny, NotImplemented, NoComments)
       val name  = Name("unsafeSpread")
       val assign = Call(
-        Ref(QualifiedName.Object + Name("assign")),
+        Ref(QualifiedName.JsObject + Name("assign")),
         IArray(
           IArray(
-            Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.Object),
-            Cast(Ref(param.name), TypeRef.Object),
+            Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.JsObject),
+            Cast(Ref(param.name), TypeRef.JsObject),
           ),
         ),
       )
@@ -197,7 +196,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
                 childrenName,
                 false,
                 false,
-                TypeRef(QualifiedName.Array, IArray(ReactNode), NoComments),
+                TypeRef(QualifiedName.JsArray, IArray(ReactNode), NoComments),
                 NotImplemented,
                 NoComments,
               ),
@@ -233,7 +232,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
                 Val(ttName, Cast(Ref(tParam.name), VdomNode)),
                 Call(
                   Select(Ref(args.name), Name("push")),
-                  IArray(IArray(Cast(Select(Ref(ttName), Name("rawNode")), TypeRef.Any))),
+                  IArray(IArray(Cast(Select(Ref(ttName), Name("rawNode")), TypeRef.JsAny))),
                 ),
               ),
               Some(fallback),
@@ -309,12 +308,13 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         name        = name,
         tparams     = Empty,
         params      = IArray(IArray(param)),
-        impl        = Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Cast(Ref(param.name), TypeRef.Any)))),
-        resultType  = TypeRef(QualifiedName.THIS),
-        isOverride  = false,
-        comments    = NoComments,
-        codePath    = builderCp + name,
-        isImplicit  = false,
+        impl =
+          Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Cast(Ref(param.name), TypeRef.JsAny)))),
+        resultType = TypeRef(QualifiedName.THIS),
+        isOverride = false,
+        comments   = NoComments,
+        codePath   = builderCp + name,
+        isImplicit = false,
       )
     }
 
@@ -367,7 +367,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       annotations = Empty,
       name        = StBuildingComponent,
       tparams     = builderTparams,
-      parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.ScalaAny)),
+      parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.Any)),
       ctors       = Empty,
       members     = IArray(args, set, withComponent, unsafeSpread, build, applyTagMod, apply, withKey, withRef1, withRef2),
       classType   = ClassType.Trait,
@@ -385,7 +385,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
           Name("args"),
           isImplicit = false,
           isVal      = true,
-          TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments),
+          TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments),
           NotImplemented,
           NoComments,
         ),
@@ -422,7 +422,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       val createElementField = FieldTree(
         annotations = Empty,
         name        = createElement,
-        tpe         = TypeRef.Dynamic,
+        tpe         = TypeRef.JsDynamic,
         impl        = ExprTree.native,
         isReadOnly  = true,
         isOverride  = false,
@@ -435,7 +435,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
           Annotation.JsNative,
         ), // todo global
         name,
-        IArray(TypeRef.Object),
+        IArray(TypeRef.JsObject),
         IArray(createElementField),
         Minimization.KeepMarker + Marker.ManglerLeaveAlone,
         ReactRawCp,
@@ -463,11 +463,18 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       val compArgs           = Select(Ref(compParam.name), Name("args"))
       val args0              = Call(compArgs, IArray(IArray(NumberLit("0"))))
       val reactRawName       = Ref(ReactRaw.name)
-      val createElementApply = Select(Select(reactRawName, Name("createElement")), Name("applyDynamic"))
+      val createElementApply = reactRawName.select("createElement", "applyDynamic")
       val ret                = Name("ret")
 
       def inDevMode(expr: ExprTree) =
-        If(Unary("!", Ref(QualifiedName.linkingInfo_productionMode)), Block(expr), None)
+        If(
+          Unary(
+            "!",
+            Ref(QualifiedName.scala_scalajs).select("runtime", "linkingInfo", "productionMode"),
+          ),
+          Block(expr),
+          None,
+        )
 
       val impl = Block(
         inDevMode(

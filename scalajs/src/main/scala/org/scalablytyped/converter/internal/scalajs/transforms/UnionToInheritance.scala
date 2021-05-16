@@ -264,7 +264,7 @@ object UnionToInheritance {
         codePath,
         tParamRefs.map {
           case (_, Some(idx)) => TypeRef(tparams(idx).name)
-          case (_, None)      => TypeRef.Any
+          case (_, None)      => TypeRef.JsAny
         },
         NoComments,
       )

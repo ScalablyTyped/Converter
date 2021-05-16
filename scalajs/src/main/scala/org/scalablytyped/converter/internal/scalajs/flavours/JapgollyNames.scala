@@ -1,6 +1,5 @@
-package org.scalablytyped.converter.internal.scalajs.flavours
-
-import org.scalablytyped.converter.internal.scalajs.QualifiedName
+package org.scalablytyped.converter.internal.scalajs
+package flavours
 
 object JapgollyNames {
   val Callback                  = QualifiedName("japgolly.scalajs.react.Callback")

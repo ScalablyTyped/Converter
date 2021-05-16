@@ -48,7 +48,7 @@ class JapgollyMemberToProp(reactNames: ReactNames, typeRewriter: TypeRewriterCas
           val body =
             Call(Select(Call(ref, IArray(params.map(p => Ref(p.name)))), Name("runNow")), IArray(IArray()))
 
-          Call(Ref(QualifiedName.Any + Name(s"fromFunction${params.length}")), IArray(IArray(Lambda(params, body))))
+          Call(Ref(QualifiedName.JsAny + Name(s"fromFunction${params.length}")), IArray(IArray(Lambda(params, body))))
         }
 
         val newRetType = TypeRef.ScalaFunction(paramTypes, Callback, NoComments)
@@ -62,14 +62,14 @@ class JapgollyMemberToProp(reactNames: ReactNames, typeRewriter: TypeRewriterCas
       case TypeRef(reactNames.ReactElement, _, _) =>
         Prop.Variant(
           TypeRef(JapgollyNames.vdom.ReactElement),
-          ref => Cast(Select(ref, Name("rawElement")), TypeRef.Any),
+          ref => Cast(Select(ref, Name("rawElement")), TypeRef.JsAny),
           isRewritten   = true,
           extendsAnyVal = false,
         )
       case TypeRef(reactNames.ReactNode, _, _) =>
         Prop.Variant(
           TypeRef(JapgollyNames.vdom.VdomNode),
-          ref => Cast(Select(ref, Name("rawNode")), TypeRef.Any),
+          ref => Cast(Select(ref, Name("rawNode")), TypeRef.JsAny),
           isRewritten   = true,
           extendsAnyVal = false,
         )

@@ -15,9 +15,9 @@ object CastConversion {
   sealed trait TParam {
     def eval(provided: IArray[TypeRef]): TypeRef =
       this match {
-        case TParam._1           => provided.applyOrElse(0, _ => TypeRef.Any)
-        case TParam._2           => provided.applyOrElse(1, _ => TypeRef.Any)
-        case TParam._3           => provided.applyOrElse(2, _ => TypeRef.Any)
+        case TParam._1           => provided.applyOrElse(0, _ => TypeRef.JsAny)
+        case TParam._2           => provided.applyOrElse(1, _ => TypeRef.JsAny)
+        case TParam._3           => provided.applyOrElse(2, _ => TypeRef.JsAny)
         case TParam.Ref(typeRef) => typeRef
         case TParam.Constrained(outer, among, default) =>
           outer.eval(provided) match {

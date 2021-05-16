@@ -4,7 +4,7 @@ package scalajs
 object FollowAliases {
   def apply(scope: TreeScope)(tpe: TypeRef): TypeRef =
     tpe match {
-      case TypeRef.Wildcard    => TypeRef.Any
+      case TypeRef.Wildcard    => TypeRef.JsAny
       case TypeRef.TopLevel(x) => apply(scope)(x)
       case TypeRef.Union(types, cs) =>
         TypeRef.Union(types.map(FollowAliases(scope)), cs, sort = false)

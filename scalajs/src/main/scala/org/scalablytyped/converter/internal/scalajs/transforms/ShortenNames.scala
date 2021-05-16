@@ -59,7 +59,6 @@ object ShortenNames {
               longName.parts.head =/= Name.SUPER &&
               !Forbidden.contains(shortName) &&
               owner.name =/= shortName &&
-              !longName.startsWith(QualifiedName.linkingInfo) && //unstable path cannot be imported
               longName.parts.length > 1 &&
               /* the printer has special logic for these */
               longName =/= TypeRef.Nothing.typeName &&

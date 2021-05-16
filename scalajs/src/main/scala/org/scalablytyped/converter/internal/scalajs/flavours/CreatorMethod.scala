@@ -136,7 +136,7 @@ object CreatorMethod {
               ObjectUpdater.Mutator { ref =>
                 If(
                   pred    = Unary("!", Call(Ref(QualifiedName.isUndefined), IArray(IArray(Ref(prop.name))))),
-                  ifTrue  = updateObj(prop, asExpr(Select(Ref(prop.name), Name("get")))).value(ref),
+                  ifTrue  = updateObj(prop, asExpr(Ref(prop.name).select("get"))).value(ref),
                   ifFalse = None,
                 )
               },
@@ -160,7 +160,7 @@ object CreatorMethod {
               val shortedDefaultImplementation =
                 asExpr(Null) match {
                   // default implementation, save boilerplate
-                  case Cast(Null, TypeRef.Any) =>
+                  case Cast(Null, TypeRef.JsAny) =>
                     updateObj(prop, asExpr(Ref(prop.name)))
                   case _ =>
                     updateObj(

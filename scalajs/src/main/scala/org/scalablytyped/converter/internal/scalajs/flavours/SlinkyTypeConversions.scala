@@ -9,8 +9,8 @@ object SlinkyTypeConversions {
   def apply(scalaJsDomNames: ScalaJsDomNames, reactNames: ReactNames, isWeb: Boolean): IArray[CastConversion] = {
     val react: IArray[CastConversion] =
       IArray(
-        CastConversion(reactNames.ComponentState, QualifiedName.Object),
-        CastConversion(reactNames.ReactDOM, QualifiedName.Any),
+        CastConversion(reactNames.ComponentState, QualifiedName.JsObject),
+        CastConversion(reactNames.ReactDOM, QualifiedName.JsAny),
         CastConversion(reactNames.ReactNode, names.ReactElement),
         CastConversion(reactNames.RefObject, names.ReactRef, _1),
         CastConversion(reactNames.ReactElement, names.ReactElement),

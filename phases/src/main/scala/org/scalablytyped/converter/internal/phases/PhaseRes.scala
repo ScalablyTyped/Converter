@@ -40,12 +40,6 @@ object PhaseRes {
       case Left(error)  => Failure(Map(id -> Right(error)))
     }
 
-  def fromOption[Id, T](id: Id, e: Option[T], onEmpty: => Either[Throwable, String]): PhaseRes[Id, T] =
-    e match {
-      case Some(value) => Ok(value)
-      case None        => Failure(Map(id -> onEmpty))
-    }
-
   def sequenceSet[Id, T](rs: Set[PhaseRes[Id, T]]): PhaseRes[Id, Set[T]] =
     rs.foldLeft[PhaseRes[Id, Set[T]]](Ok(Set.empty)) {
       case (other, Ignore())                 => other

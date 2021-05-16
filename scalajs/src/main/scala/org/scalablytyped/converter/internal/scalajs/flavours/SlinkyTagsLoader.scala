@@ -4,7 +4,6 @@ package flavours
 
 import io.circe013.Decoder
 import org.scalablytyped.converter.internal.maps._
-import org.scalablytyped.converter.internal.scalajs.QualifiedName.StdNames
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.names.{
   AnyHtmlElement,
   SlinkyHtmlElement,
@@ -19,7 +18,7 @@ import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyWeb.{Combined
 object SlinkyTagsLoader {
 
   def apply(
-      stdNames:        StdNames,
+      stdNames:        QualifiedName.StdNames,
       reactNames:      ReactNames,
       scalaJsDomNames: ScalaJsDomNames,
       scope:           TreeScope,

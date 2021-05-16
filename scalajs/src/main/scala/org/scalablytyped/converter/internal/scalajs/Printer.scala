@@ -451,10 +451,10 @@ object Printer {
             types.map(formatTypeRef(indent)).map(paramsIfNeeded).mkString(" with ")
 
           case TypeRef.UndefOr(tpe, _) =>
-            formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, IArray(tpe), NoComments))
+            formatTypeRef(indent)(TypeRef(QualifiedName.JsUndefOr, IArray(tpe), NoComments))
 
           case TypeRef.undefined => // keep this line after TypeRef.UndefOr. This line covers if it appears outside a union type
-            formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, IArray(TypeRef.Nothing), NoComments))
+            formatTypeRef(indent)(TypeRef(QualifiedName.JsUndefOr, IArray(TypeRef.Nothing), NoComments))
 
           case TypeRef.Union(types, _) =>
             types.map(formatTypeRef(indent)).map(paramsIfNeeded).mkString(" | ")

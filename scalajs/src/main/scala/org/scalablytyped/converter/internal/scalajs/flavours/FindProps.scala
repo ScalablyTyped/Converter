@@ -75,7 +75,11 @@ object FindProps {
     name -> Prop.CompressedProp(
       name,
       typeRef,
-      ref => Call(Ref(QualifiedName.DynamicGlobalObjectAssign), IArray(IArray(ref, Ref(name)))),
+      ref =>
+        Call(
+          Ref(QualifiedName.JsDynamic).select("global", "Object", "assign"),
+          IArray(IArray(ref, Ref(name))),
+        ),
       isRequired,
     )
   }
@@ -95,7 +99,7 @@ final class FindProps(
       acceptNativeTraits: Boolean,
   ): Res[IArray[String], IArray[Prop]] =
     FollowAliases(scope)(typeRef) match {
-      case TypeRef.Object => Res.One(typeRef, Empty)
+      case TypeRef.JsObject => Res.One(typeRef, Empty)
       case TypeRef.Intersection(types, _) =>
         val results: IArray[Res[IArray[String], IArray[Prop]]] =
           types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits))

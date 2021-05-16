@@ -77,7 +77,7 @@ object Mangler extends TreeTransformation {
         } yield cls
 
       scope match {
-        case _:      TreeScope.Root[_] => None
+        case _:      TreeScope.Root => None
         case scoped: TreeScope.Scoped =>
           scoped.current match {
             case tree: ContainerTree =>
@@ -126,8 +126,8 @@ object Mangler extends TreeTransformation {
     val isGlobal = pkg.annotations.contains(Annotation.JsGlobalScope)
 
     val dynamicRef: ExprTree =
-      if (isGlobal) Ref(QualifiedName.DynamicGlobal)
-      else Cast(Ref(hatCp), TypeRef.Dynamic)
+      if (isGlobal) Ref(QualifiedName.JsDynamic).select("global")
+      else Cast(Ref(hatCp), TypeRef.JsDynamic)
 
     var needsHatObject = false
 
@@ -146,7 +146,7 @@ object Mangler extends TreeTransformation {
               )
           }
 
-          Cast(call(m.params.flatten.map(p => Cast(Ref(p.name), TypeRef.Any))), m.resultType)
+          Cast(call(m.params.flatten.map(p => Cast(Ref(p.name), TypeRef.JsAny))), m.resultType)
         }
 
         if (pkg.index(m.name).exists(_.isInstanceOf[ClassTree])) {
@@ -197,7 +197,7 @@ object Mangler extends TreeTransformation {
 
             val impl = Call(
               Select(dynamicRef, Name("updateDynamic")),
-              IArray(IArray(StringLit(f.originalName.unescaped)), IArray(Cast(Ref(xParam.name), TypeRef.Any))),
+              IArray(IArray(StringLit(f.originalName.unescaped)), IArray(Cast(Ref(xParam.name), TypeRef.JsAny))),
             )
 
             val m = MethodTree(
@@ -263,8 +263,8 @@ object Mangler extends TreeTransformation {
     val hatCp    = mod.codePath + Name.namespaced
 
     val dynamicRef: ExprTree =
-      if (isGlobal) Ref(QualifiedName.DynamicGlobal)
-      else Cast(Ref(Name.namespaced), TypeRef.Dynamic)
+      if (isGlobal) Ref(QualifiedName.JsDynamic).select("global")
+      else Cast(Ref(Name.namespaced), TypeRef.JsDynamic)
 
     var needsHatObject = false
 
@@ -284,7 +284,7 @@ object Mangler extends TreeTransformation {
                 )
             }
 
-            Cast(call(m.params.flatten.map(p => Cast(Ref(p.name), TypeRef.Any))), m.resultType)
+            Cast(call(m.params.flatten.map(p => Cast(Ref(p.name), TypeRef.JsAny))), m.resultType)
           }
 
           if (mod.index(m.name).exists(_.isInstanceOf[ClassTree])) {
@@ -318,7 +318,7 @@ object Mangler extends TreeTransformation {
 
             val impl = Call(
               Select(dynamicRef, Name("updateDynamic")),
-              IArray(IArray(StringLit(f.originalName.unescaped)), IArray(Cast(Ref(xParam.name), TypeRef.Any))),
+              IArray(IArray(StringLit(f.originalName.unescaped)), IArray(Cast(Ref(xParam.name), TypeRef.JsAny))),
             )
 
             MethodTree(
@@ -359,11 +359,11 @@ object Mangler extends TreeTransformation {
 
     val hatOpt: Option[FieldTree] = {
       val tpe = TypeRef.Intersection(mod.parents, NoComments) match {
-        case TypeRef.Nothing => TypeRef.Any
+        case TypeRef.Nothing => TypeRef.JsAny
         case other           => other
       }
 
-      if ((tpe === TypeRef.Any && !needsHatObject) || isGlobal) None
+      if ((tpe === TypeRef.JsAny && !needsHatObject) || isGlobal) None
       else
         Some(
           FieldTree(
@@ -385,7 +385,7 @@ object Mangler extends TreeTransformation {
           case Some(defaults) => defaults.collectFirst { case x: FieldTree => x }
           case None           => None
         })
-        .filter(_.tpe =/= TypeRef.Any)
+        .filter(_.tpe =/= TypeRef.JsAny)
 
     shortcut.foldLeft(
       mod.copy(

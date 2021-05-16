@@ -32,14 +32,14 @@ object ScalaJsClasses {
         CtorTree(ProtectionLevel.Default, IArray(ParamTree(Name("args"), isImplicit = false, isVal = false, TypeRef.Repeated(TypeRef.String, NoComments), NotImplemented, NoComments)), NoComments),
       ),
       IArray(
-        FieldTree(Empty, Name("length"), TypeRef.Int, ExprTree.native, isReadOnly = false, isOverride = false, NoComments, QualifiedName.Function + Name("length")),
-        MethodTree(Empty, ProtectionLevel.Default, Name("call"), Empty, IArray(IArray(ParamTree(Name("thisArg"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments), ParamTree(Name("argArray"), isImplicit = false, isVal = false, TypeRef.Repeated(TypeRef.Dynamic, NoComments), NotImplemented, NoComments))), ExprTree.native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("call"), false),
-        MethodTree(Empty, ProtectionLevel.Default, Name("bind"), Empty, IArray(IArray(ParamTree(Name("thisArg"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments), ParamTree(Name("argArray"), isImplicit = false, isVal = false, TypeRef.Repeated(TypeRef.Dynamic, NoComments), NotImplemented, NoComments))), ExprTree.native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("bind"), false),
+        FieldTree(Empty, Name("length"), TypeRef.Int, ExprTree.native, isReadOnly = false, isOverride = false, NoComments, QualifiedName.JsFunction + Name("length")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("call"), Empty, IArray(IArray(ParamTree(Name("thisArg"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments), ParamTree(Name("argArray"), isImplicit = false, isVal = false, TypeRef.Repeated(TypeRef.JsDynamic, NoComments), NotImplemented, NoComments))), ExprTree.native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.JsFunction + Name("call"), false),
+        MethodTree(Empty, ProtectionLevel.Default, Name("bind"), Empty, IArray(IArray(ParamTree(Name("thisArg"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments), ParamTree(Name("argArray"), isImplicit = false, isVal = false, TypeRef.Repeated(TypeRef.JsDynamic, NoComments), NotImplemented, NoComments))), ExprTree.native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.JsFunction + Name("bind"), false),
       ),
       ClassType.Class,
       isSealed = false,
       NoComments,
-      QualifiedName.Function,
+      QualifiedName.JsFunction,
     )
   // format: on
 
@@ -50,13 +50,13 @@ object ScalaJsClasses {
       IArray(Annotation.JsNative, Annotation.JsGlobalScope),
       Name("Promise"),
       IArray(TypeParamTree(Name("T"), Empty, None, NoComments, ignoreBound = true)),
-      parents = IArray(TypeRef(QualifiedName.Thenable)),
+      parents = IArray(TypeRef(QualifiedName.JsThenable)),
       Empty,
       Empty,
       ClassType.Class,
       isSealed = false,
       NoComments,
-      QualifiedName.Promise,
+      QualifiedName.JsPromise,
     )
   // format: on
 
@@ -73,7 +73,7 @@ object ScalaJsClasses {
       ClassType.Class,
       isSealed = false,
       NoComments,
-      QualifiedName.Thenable,
+      QualifiedName.JsThenable,
     )
   // format: on
 
@@ -119,7 +119,7 @@ object ScalaJsClasses {
       annotations = IArray(Annotation.JsNative),
       name        = codePath.parts.last,
       tparams     = ThisTParam ++ inputTParams ++ outputTParams,
-      parents     = IArray(TypeRef(QualifiedName.Function)),
+      parents     = IArray(TypeRef(QualifiedName.JsFunction)),
       ctors       = Empty,
       members     = IArray(Apply),
       classType   = ClassType.Trait,

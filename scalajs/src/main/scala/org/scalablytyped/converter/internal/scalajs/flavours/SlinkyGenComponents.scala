@@ -354,8 +354,8 @@ class SlinkyGenComponents(
         scope
           .lookup(value.typeName)
           .collectFirst { case (_: ClassTree, _) => value }
-          .getOrElse(TypeRef.Intersection(IArray(value, TypeRef.Object), NoComments))
-      case None => TypeRef.Object
+          .getOrElse(TypeRef.Intersection(IArray(value, TypeRef.JsObject), NoComments))
+      case None => TypeRef.JsObject
     }
 
   def findPropsAndInferDomInfo(
@@ -520,7 +520,7 @@ class SlinkyGenComponents(
           builderRef,
           IArray(
             Call(
-              Ref(QualifiedName.Array),
+              Ref(QualifiedName.JsArray),
               IArray(
                 IArray(
                   Ref(QualifiedName(IArray(Name.THIS, names.component))),
@@ -532,7 +532,9 @@ class SlinkyGenComponents(
         )
 
         Block.flatten(
-          IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(cm.initializers.map(_.value))))),
+          IArray(
+            Val(objName, Call(Ref(QualifiedName.JsDynamic).select("literal"), IArray(cm.initializers.map(_.value)))),
+          ),
           cm.mutators.map(f => f.value(Ref(objName))),
           IArray(newed),
         )
@@ -581,9 +583,12 @@ class SlinkyGenComponents(
             builderRef,
             IArray(
               Call(
-                Ref(QualifiedName.Array),
+                Ref(QualifiedName.JsArray),
                 IArray(
-                  IArray(Ref(QualifiedName(IArray(Name.THIS, names.component))), Ref(QualifiedName.DictionaryEmpty)),
+                  IArray(
+                    Ref(QualifiedName(IArray(Name.THIS, names.component))),
+                    Select(Ref(QualifiedName.JsDictionary), Name("empty")),
+                  ),
                 ),
               ),
             ),
@@ -630,8 +635,10 @@ class SlinkyGenComponents(
         builderRef,
         IArray(
           Call(
-            Ref(QualifiedName.Array),
-            IArray(IArray(Ref(QualifiedName(IArray(Name.THIS, names.component))), Cast(Ref(param.name), TypeRef.Any))),
+            Ref(QualifiedName.JsArray),
+            IArray(
+              IArray(Ref(QualifiedName(IArray(Name.THIS, names.component))), Cast(Ref(param.name), TypeRef.JsAny)),
+            ),
           ),
         ),
       )
@@ -668,7 +675,7 @@ class SlinkyGenComponents(
         FieldTree(
           annotations = IArray(Annotation.JsNative, location),
           name        = names.component,
-          tpe         = TypeRef.Object,
+          tpe         = TypeRef.JsObject,
           impl        = ExprTree.native,
           isReadOnly  = true,
           isOverride  = false,
@@ -786,7 +793,7 @@ class SlinkyGenComponents(
           Name("args"),
           isImplicit = false,
           isVal      = true,
-          TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments),
+          TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments),
           NotImplemented,
           NoComments,
         ),
