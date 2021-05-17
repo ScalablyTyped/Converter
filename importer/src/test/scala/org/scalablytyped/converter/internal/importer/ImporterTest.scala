@@ -11,7 +11,8 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   val update   = !constants.isCi
   val Slinky   = SlinkyFlavour(Name("typingsSlinky"), enableLongApplyMethod = false, version.scala, Selection.None)
   val Japgolly = JapgollyFlavour(Name("typingsJapgolly"), enableLongApplyMethod = false, version.scala, Selection.All)
-  val JapgollyLong = JapgollyFlavour(Name("typingsJapgolly"), enableLongApplyMethod = true, version.scala, Selection.All)
+  val JapgollyLong =
+    JapgollyFlavour(Name("typingsJapgolly"), enableLongApplyMethod = true, version.scala, Selection.All)
 
   test("augment-module")(assertImportsOk("augment-module", pedantic                 = false, update = update))
   test("typings-json")(assertImportsOk("typings-json", pedantic                     = true, update  = update))

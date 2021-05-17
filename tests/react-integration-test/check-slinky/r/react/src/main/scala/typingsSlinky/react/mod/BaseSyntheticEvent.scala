@@ -61,14 +61,14 @@ object BaseSyntheticEvent {
     target: T,
     timeStamp: Double,
     `type`: String
-  ): slinky.core.SyntheticEvent[C, E] = {
+  ): BaseSyntheticEvent[E, C, T] = {
     val __obj = js.Dynamic.literal(bubbles = bubbles.asInstanceOf[js.Any], cancelable = cancelable.asInstanceOf[js.Any], currentTarget = currentTarget.asInstanceOf[js.Any], defaultPrevented = defaultPrevented.asInstanceOf[js.Any], eventPhase = eventPhase.asInstanceOf[js.Any], isDefaultPrevented = js.Any.fromFunction0(isDefaultPrevented), isPropagationStopped = js.Any.fromFunction0(isPropagationStopped), isTrusted = isTrusted.asInstanceOf[js.Any], nativeEvent = nativeEvent.asInstanceOf[js.Any], persist = js.Any.fromFunction0(persist), preventDefault = js.Any.fromFunction0(preventDefault), stopPropagation = js.Any.fromFunction0(stopPropagation), target = target.asInstanceOf[js.Any], timeStamp = timeStamp.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    __obj.asInstanceOf[slinky.core.SyntheticEvent[C, E]]
+    __obj.asInstanceOf[BaseSyntheticEvent[E, C, T]]
   }
   
   @scala.inline
-  implicit class BaseSyntheticEventMutableBuilder[Self <: slinky.core.SyntheticEvent[_, _], E, C, T] (val x: Self with (slinky.core.SyntheticEvent[C, E])) extends AnyVal {
+  implicit class BaseSyntheticEventMutableBuilder[Self <: BaseSyntheticEvent[_, _, _], E, C, T] (val x: Self with (BaseSyntheticEvent[E, C, T])) extends AnyVal {
     
     @scala.inline
     def setBubbles(value: Boolean): Self = StObject.set(x, "bubbles", value.asInstanceOf[js.Any])

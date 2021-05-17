@@ -3,14 +3,17 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
-import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 
 trait MemberToProp {
   def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop]
 }
 
 object MemberToProp {
-  final class Default(val rewriterOpt: Option[TypeRewriterCast]) extends MemberToProp {
+  class Default(conversions: IArray[CastConversion]) extends MemberToProp {
+    // might want to phase out this logic. it generates some overloads which can be used instead of a base with union type
+    val conversionsTo: Set[QualifiedName] =
+      conversions.collect { case c if !c.to.parts.contains(Name.scalajs) => c.to }.toSet
+
     override def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
       x match {
         case f @ FieldTree(_, _, origTpe, _, _, _, _, _) =>
@@ -36,22 +39,19 @@ object MemberToProp {
                 case other            => other
               }
 
-              def willBeRewritten = rewriterOpt match {
-                case Some(rewriter) =>
-                  rewriter.conversionsForTypeName.contains(dealiased.typeName) ||
-                    rewriter.conversionsForTypeName.contains(origTpe.typeName)
-                case None => false
-              }
+              val wasRewritten =
+                conversionsTo.contains(dealiased.typeName) || conversionsTo.contains(origTpe.typeName)
 
               val variants: IArray[Prop.Variant] =
                 dealiased match {
-                  case TypeRef.Union(types, _) if !willBeRewritten =>
+                  case TypeRef.Union(types, _) if !wasRewritten =>
                     types
                       .mapNotNone(tpe => apply(scope, f.copy(tpe = tpe), isInherited))
                       .flatMap {
                         case x: Prop.Normal => x.allVariants
                         case _ => Empty
                       }
+
                   case TypeRef(QualifiedName.JsArray, IArray.exactlyOne(t), _) =>
                     IArray(
                       Prop.Variant(
@@ -67,7 +67,7 @@ object MemberToProp {
               val main = Prop.Variant(
                 tpe           = tpe,
                 asExpr        = ref => Cast(ref, TypeRef.JsAny),
-                isRewritten   = willBeRewritten,
+                isRewritten   = wasRewritten,
                 extendsAnyVal = TypeRef.Primitive(TypeRef(Erasure.simplify(scope / x, dealiased))),
               )
               Some(Prop.Normal(main, isInherited, optionality, variants, f))

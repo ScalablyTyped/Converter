@@ -47,9 +47,6 @@ object Props {
     def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setChildrenReactElement(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
-    
-    @scala.inline
     def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
     
     @scala.inline
@@ -68,7 +65,7 @@ object Props {
     def setRefNull: Self = StObject.set(x, "ref", null)
     
     @scala.inline
-    def setRefRefObject(value: ReactRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
+    def setRefReactRef(value: ReactRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)

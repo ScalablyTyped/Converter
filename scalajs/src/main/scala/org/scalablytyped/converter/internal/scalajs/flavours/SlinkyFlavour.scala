@@ -3,7 +3,6 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.Selection
-import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
 
 case class SlinkyFlavour(
@@ -13,9 +12,10 @@ case class SlinkyFlavour(
     enableReactTreeShaking: Selection[Name],
 ) extends FlavourImplReact {
 
-  override val dependencies  = Set(Versions.runtime, Versions.slinkyWeb)
-  val rewriter               = new TypeRewriterCast(SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true))
-  val memberToProp           = new MemberToProp.Default(Some(rewriter))
+  override val dependencies = Set(Versions.runtime, Versions.slinkyWeb)
+  override val rewrites     = SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true)
+
+  val memberToProp           = new MemberToProp.Default(rewrites)
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
   val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod)
   val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg, scalaVersion)
@@ -43,7 +43,12 @@ case class SlinkyFlavour(
           identifyComponents.intrinsics(scope / withCompanions)
 
       val gen =
-        new SlinkyGenComponents(SlinkyGenComponents.Web(slinkyWebOpt), findProps, genStBuildingComponent, reactNames)
+        new SlinkyGenComponents(
+          SlinkyGenComponents.Web(slinkyWebOpt),
+          findProps,
+          genStBuildingComponent,
+          reactNamesProxy,
+        )
 
       val ret = Adapter(scope)((t, s) => gen(s, t, components))(withCompanions)
 
@@ -53,8 +58,6 @@ case class SlinkyFlavour(
 
     } else withCompanions
 
-    rewriter.visitPackageTree(scope)(withComponents)
+    withComponents
   }
-
-  override val rewritesOpt: Option[CastConversion.TypeRewriterCast] = Some(rewriter)
 }

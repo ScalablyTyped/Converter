@@ -2,10 +2,10 @@ package typingsJapgolly.reactDropzone.components
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactDragEventFrom
-import japgolly.scalajs.react.raw.React.Element
 import org.scalajs.dom.raw.HTMLElement
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.react.mod.RefAttributes
+import typingsJapgolly.react.mod.global.JSX.Element
 import typingsJapgolly.reactDropzone.mod.DropEvent
 import typingsJapgolly.reactDropzone.mod.DropzoneProps
 import typingsJapgolly.reactDropzone.mod.DropzoneRef
@@ -65,13 +65,13 @@ object ReactDropzone {
     def noKeyboard(value: Boolean): this.type = set("noKeyboard", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def onDragEnter(value: ReactDragEventFrom[HTMLElement] => Callback): this.type = set("onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement]) => value(t0).runNow()))
+    def onDragEnter(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
     @scala.inline
-    def onDragLeave(value: ReactDragEventFrom[HTMLElement] => Callback): this.type = set("onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement]) => value(t0).runNow()))
+    def onDragLeave(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
     @scala.inline
-    def onDragOver(value: ReactDragEventFrom[HTMLElement] => Callback): this.type = set("onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement]) => value(t0).runNow()))
+    def onDragOver(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
     @scala.inline
     def onDrop(

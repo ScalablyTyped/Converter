@@ -2,6 +2,8 @@ package typingsJapgolly.semanticUiReact
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactEventFrom
+import japgolly.scalajs.react.raw.Empty
+import japgolly.scalajs.react.raw.JsNumber
 import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
@@ -190,6 +192,9 @@ object inputInputMod {
       ): Self = StObject.set(x, "icon", js.Any.fromFunction3(value))
       
       @scala.inline
+      def setIconNull: Self = StObject.set(x, "icon", null)
+      
+      @scala.inline
       def setIconPosition(value: left): Self = StObject.set(x, "iconPosition", value.asInstanceOf[js.Any])
       
       @scala.inline
@@ -197,6 +202,9 @@ object inputInputMod {
       
       @scala.inline
       def setIconUndefined: Self = StObject.set(x, "icon", js.undefined)
+      
+      @scala.inline
+      def setIconVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "icon", js.Array(value :_*))
       
       @scala.inline
       def setIconVdomElement(value: VdomElement): Self = StObject.set(x, "icon", value.rawElement.asInstanceOf[js.Any])
@@ -210,7 +218,13 @@ object inputInputMod {
       ): Self = StObject.set(x, "input", js.Any.fromFunction3(value))
       
       @scala.inline
+      def setInputNull: Self = StObject.set(x, "input", null)
+      
+      @scala.inline
       def setInputUndefined: Self = StObject.set(x, "input", js.undefined)
+      
+      @scala.inline
+      def setInputVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "input", js.Array(value :_*))
       
       @scala.inline
       def setInputVdomElement(value: VdomElement): Self = StObject.set(x, "input", value.rawElement.asInstanceOf[js.Any])
@@ -236,6 +250,9 @@ object inputInputMod {
       ): Self = StObject.set(x, "label", js.Any.fromFunction3(value))
       
       @scala.inline
+      def setLabelNull: Self = StObject.set(x, "label", null)
+      
+      @scala.inline
       def setLabelPosition(value: left | right | (`left corner`) | (`right corner`)): Self = StObject.set(x, "labelPosition", value.asInstanceOf[js.Any])
       
       @scala.inline
@@ -243,6 +260,9 @@ object inputInputMod {
       
       @scala.inline
       def setLabelUndefined: Self = StObject.set(x, "label", js.undefined)
+      
+      @scala.inline
+      def setLabelVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "label", js.Array(value :_*))
       
       @scala.inline
       def setLabelVdomElement(value: VdomElement): Self = StObject.set(x, "label", value.rawElement.asInstanceOf[js.Any])

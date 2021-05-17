@@ -17,14 +17,14 @@ trait ReactElement extends StObject {
 object ReactElement {
   
   @scala.inline
-  def apply(props: js.Any, `type`: js.Any): slinky.core.facade.ReactElement = {
+  def apply(props: js.Any, `type`: js.Any): ReactElement = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    __obj.asInstanceOf[slinky.core.facade.ReactElement]
+    __obj.asInstanceOf[ReactElement]
   }
   
   @scala.inline
-  implicit class ReactElementMutableBuilder[Self <: slinky.core.facade.ReactElement] (val x: Self) extends AnyVal {
+  implicit class ReactElementMutableBuilder[Self <: ReactElement] (val x: Self) extends AnyVal {
     
     @scala.inline
     def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])

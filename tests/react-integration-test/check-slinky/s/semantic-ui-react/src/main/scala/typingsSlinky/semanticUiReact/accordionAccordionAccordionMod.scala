@@ -32,8 +32,8 @@ object accordionAccordionAccordionMod extends Shortcut {
   
   @js.native
   trait AccordionAccordionProps
-    extends StrictAccordionAccordionProps
-       with /* key */ StringDictionary[js.Any]
+    extends /* key */ StringDictionary[js.Any]
+       with StrictAccordionAccordionProps
   object AccordionAccordionProps {
     
     @scala.inline
@@ -109,9 +109,6 @@ object accordionAccordionAccordionMod extends Shortcut {
       
       @scala.inline
       def setChildren(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setChildrenReactElement(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)

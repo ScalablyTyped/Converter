@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TParam._1
+import org.scalablytyped.converter.internal.scalajs.CastConversion.TParam._1
 
 class ScalaJsDomNames(stdNames: QualifiedName.StdNames) {
 
@@ -546,7 +546,7 @@ class ScalaJsDomNames(stdNames: QualifiedName.StdNames) {
     )
     val globals = base.map {
       case CastConversion(from, to, tparams @_*) =>
-        val newFrom = QualifiedName(stdNames.lib.parts ++ IArray[Name](Name.global) ++ from.parts.drop(stdNames.lib.parts.length))
+        val newFrom = QualifiedName(stdNames.lib.parts ++ IArray(Name.global) ++ from.parts.drop(stdNames.lib.parts.length))
         CastConversion(newFrom, to, tparams :_*)
     }
     base ++ globals

@@ -27,8 +27,6 @@ final case class QualifiedName(parts: IArray[Name]) {
 object QualifiedName {
   def apply(str: String): QualifiedName = QualifiedName(IArray.fromArray(str.split("\\.")).map(Name(_)))
 
-  val ScalaJsDom: QualifiedName = QualifiedName(IArray(Name("org"), Name("scalajs"), Name("dom")))
-
   val java_lang: QualifiedName = QualifiedName(IArray(Name.java, Name.lang))
   val String:    QualifiedName = java_lang + Name.String
   val Array:     QualifiedName = java_lang + Name.Array

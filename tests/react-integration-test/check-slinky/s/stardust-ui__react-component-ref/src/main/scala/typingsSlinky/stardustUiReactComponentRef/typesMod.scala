@@ -50,7 +50,7 @@ object typesMod {
       def setInnerRefNull: Self = StObject.set(x, "innerRef", null)
       
       @scala.inline
-      def setInnerRefRefObject(value: ReactRef[_]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
+      def setInnerRefReactRef(value: ReactRef[_]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
     }
   }
 }

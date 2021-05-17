@@ -6,17 +6,11 @@ import com.olvind.logging.Logger
 import org.scalablytyped.converter.internal.importer.Phase1Res.{LibTs, LibraryPart}
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
+import org.scalablytyped.converter.internal.scalajs.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.QualifiedName.StdNames
 import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
-import org.scalablytyped.converter.internal.scalajs.{
-  Name,
-  PackageTree,
-  ParentsResolver,
-  QualifiedName,
-  TreeScope,
-  transforms => S,
-}
+import org.scalablytyped.converter.internal.scalajs.{Name, PackageTree, ParentsResolver, TreeScope, transforms => S}
 import org.scalablytyped.converter.internal.ts.{TsIdentLibrary, TsTreeTraverse}
 
 import scala.collection.immutable.SortedSet
@@ -31,11 +25,6 @@ class Phase2ToScalaJs(
     outputPkg:            Name,
     flavour:              FlavourImpl,
 ) extends Phase[Source, Phase1Res, LibScalaJs] {
-
-  val willBeExternalTypes: Set[QualifiedName] = flavour.rewritesOpt match {
-    case Some(rewrites) => rewrites.conversionsForTypeName.keys.to[Set]
-    case None           => Set()
-  }
 
   override def apply(
       source:     Source,
@@ -69,12 +58,13 @@ class Phase2ToScalaJs(
 
             val ScalaTransforms = List[PackageTree => PackageTree](
               S.ModulesCombine.visitPackageTree(scope),
+              new TypeRewriterCast(flavour.rewrites).visitPackageTree(scope),
               (new S.RemoveDuplicateInheritance(new ParentsResolver) >>
                 S.CleanupTypeAliases >>
                 cleanIllegalNames >>
                 S.Deduplicator).visitPackageTree(scope),
               Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s, cleanIllegalNames)(tree)),
-              Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName, willBeExternalTypes)), // after FakeLiterals
+              Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals
               S.LimitUnionLength.visitPackageTree(scope), // after UnionToInheritance
               new S.RemoveMultipleInheritance(new ParentsResolver).visitPackageTree(scope),
               S.CombineOverloads.visitPackageTree(scope), //must have stable types, so FakeLiterals run before

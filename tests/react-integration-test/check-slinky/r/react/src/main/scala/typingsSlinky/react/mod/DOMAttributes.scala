@@ -215,9 +215,6 @@ object DOMAttributes {
     def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setChildrenReactElement(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
-    
-    @scala.inline
     def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
     
     @scala.inline

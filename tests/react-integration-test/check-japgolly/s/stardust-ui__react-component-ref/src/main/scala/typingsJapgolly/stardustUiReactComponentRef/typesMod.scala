@@ -1,8 +1,9 @@
 package typingsJapgolly.stardustUiReactComponentRef
 
+import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.Ref
 import japgolly.scalajs.react.vdom.VdomElement
+import typingsJapgolly.react.mod.Ref
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -24,7 +25,7 @@ object typesMod {
       *
       * @param {HTMLElement} node - Referred node.
       */
-    var innerRef: Ref = js.native
+    var innerRef: Ref[_] = js.native
   }
   object RefProps {
     
@@ -41,7 +42,10 @@ object typesMod {
       def setChildren(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInnerRef(value: Ref): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
+      def setInnerRef(value: Ref[_]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setInnerRefFunction1(value: /* instance */ js.Any | Null => Callback): Self = StObject.set(x, "innerRef", js.Any.fromFunction1((t0: /* instance */ js.Any | Null) => value(t0).runNow()))
       
       @scala.inline
       def setInnerRefNull: Self = StObject.set(x, "innerRef", null)

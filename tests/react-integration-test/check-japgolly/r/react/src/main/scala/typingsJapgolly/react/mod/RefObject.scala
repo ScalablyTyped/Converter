@@ -1,6 +1,5 @@
 package typingsJapgolly.react.mod
 
-import japgolly.scalajs.react.raw.React.RefHandle
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -14,13 +13,13 @@ trait RefObject[T] extends StObject {
 object RefObject {
   
   @scala.inline
-  def apply[T](): RefHandle[T] = {
+  def apply[T](): RefObject[T] = {
     val __obj = js.Dynamic.literal(current = null)
-    __obj.asInstanceOf[RefHandle[T]]
+    __obj.asInstanceOf[RefObject[T]]
   }
   
   @scala.inline
-  implicit class RefObjectMutableBuilder[Self <: RefHandle[_], T] (val x: Self with RefHandle[T]) extends AnyVal {
+  implicit class RefObjectMutableBuilder[Self <: RefObject[_], T] (val x: Self with RefObject[T]) extends AnyVal {
     
     @scala.inline
     def setCurrent(value: T): Self = StObject.set(x, "current", value.asInstanceOf[js.Any])

@@ -1,6 +1,5 @@
 package typingsSlinky.semanticUiReact.components
 
-import slinky.core.facade.ReactElement
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
 import typingsSlinky.semanticUiReact.buttonMod.ButtonProps
@@ -51,9 +50,6 @@ class SharedBuilder_ButtonGroupProps1227330619 (val args: js.Array[js.Any])
   
   @scala.inline
   def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
-  
-  @scala.inline
-  def contentReactElement(value: ReactElement): this.type = set("content", value.asInstanceOf[js.Any])
   
   @scala.inline
   def floated(value: SemanticFLOATS): this.type = set("floated", value.asInstanceOf[js.Any])

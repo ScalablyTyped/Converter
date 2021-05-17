@@ -223,9 +223,6 @@ object buttonMod {
       def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setContentReactElement(value: ReactElement): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
-      
-      @scala.inline
       def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
       
       @scala.inline

@@ -12,7 +12,7 @@ object bdi {
   
   val component: String = "bdi"
   
-  implicit def make(companion: bdi.type): SharedBuilder_DetailedHTMLProps1276931637[HTMLElement with js.Object] = new SharedBuilder_DetailedHTMLProps1276931637[HTMLElement with js.Object](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: bdi.type): SharedBuilder_DetailedHTMLProps_1799989450[HTMLElement] = new SharedBuilder_DetailedHTMLProps_1799989450[HTMLElement](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): SharedBuilder_DetailedHTMLProps1276931637[HTMLElement with js.Object] = new SharedBuilder_DetailedHTMLProps1276931637[HTMLElement with js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): SharedBuilder_DetailedHTMLProps_1799989450[HTMLElement] = new SharedBuilder_DetailedHTMLProps_1799989450[HTMLElement](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

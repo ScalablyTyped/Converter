@@ -1,20 +1,21 @@
-package org.scalablytyped.converter.internal.scalajs.flavours
+package org.scalablytyped.converter.internal
+package scalajs
+package flavours
 
-import org.scalablytyped.converter.internal.IArray
-import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TParam
-import org.scalablytyped.converter.internal.scalajs.{QualifiedName, TypeRef}
+import org.scalablytyped.converter.internal.scalajs.CastConversion.TParam
 
 object JapgollyTypeConversions {
   def apply(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomNames): IArray[CastConversion] = {
-    val _1Element = TParam._1.among(scalaJsDomNames.AllElements, scalaJsDomNames.Element)
-    val _2Element = TParam._2.among(scalaJsDomNames.AllElements, scalaJsDomNames.Element)
-    val _1Object  = TParam._1.among(Set.empty, QualifiedName.JsObject)
+    val AllElements = scalaJsDomNames.AllElements + reactNames.JsxReactElement
+    val _1Element   = TParam._1.among(AllElements, scalaJsDomNames.Element)
+    val _2Element   = TParam._2.among(AllElements, scalaJsDomNames.Element)
+    val _1Object    = TParam._1.among(Set.empty, QualifiedName.JsObject)
 
     scalaJsDomNames.All ++ IArray(
       CastConversion(reactNames.ComponentState, QualifiedName.JsObject),
       CastConversion(reactNames.ReactDOM, QualifiedName.JsAny),
       CastConversion(reactNames.ReactNode, JapgollyNames.rawReact.Node),
-      CastConversion(reactNames.Ref, JapgollyNames.rawReact.Ref),
+      CastConversion(reactNames.RefCallback, JapgollyNames.rawReact.RefFn, TParam._1),
       CastConversion(reactNames.RefObject, JapgollyNames.rawReact.RefHandle, TParam._1),
       CastConversion(reactNames.Component, JapgollyNames.rawReact.Component, _1Object, TypeRef.JsObject),
       CastConversion(reactNames.ComponentClass, JapgollyNames.rawReact.ComponentClassP, _1Object),

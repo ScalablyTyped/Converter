@@ -10,11 +10,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait ComponentClass[P, S]
-  extends StaticLifecycle[P, S]
-     with Instantiable1[
+  extends Instantiable1[
       /* props */ P, 
       japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object]
     ]
+     with StaticLifecycle[P, S]
      with Instantiable2[
       /* props */ P, 
       /* context */ js.Any, 

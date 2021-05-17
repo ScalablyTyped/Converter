@@ -3,10 +3,9 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
-import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 
-class JapgollyMemberToProp(reactNames: ReactNames, typeRewriter: TypeRewriterCast) extends MemberToProp {
-  val default = new MemberToProp.Default(Some(typeRewriter))
+class JapgollyMemberToProp(reactNames: ReactNamesProxy, rewrites: IArray[CastConversion]) extends MemberToProp {
+  val default = new MemberToProp.Default(rewrites)
 
   override def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
     default(scope, x, isInherited).map {
@@ -59,14 +58,14 @@ class JapgollyMemberToProp(reactNames: ReactNames, typeRewriter: TypeRewriterCas
           isRewritten   = true,
           extendsAnyVal = false,
         )
-      case TypeRef(reactNames.ReactElement, _, _) =>
+      case TypeRef(tpe, _, _) if reactNames.isElement(tpe) =>
         Prop.Variant(
           TypeRef(JapgollyNames.vdom.ReactElement),
           ref => Cast(Select(ref, Name("rawElement")), TypeRef.JsAny),
           isRewritten   = true,
           extendsAnyVal = false,
         )
-      case TypeRef(reactNames.ReactNode, _, _) =>
+      case TypeRef(tpe, _, _) if reactNames.isNode(tpe) =>
         Prop.Variant(
           TypeRef(JapgollyNames.vdom.VdomNode),
           ref => Cast(Select(ref, Name("rawNode")), TypeRef.JsAny),

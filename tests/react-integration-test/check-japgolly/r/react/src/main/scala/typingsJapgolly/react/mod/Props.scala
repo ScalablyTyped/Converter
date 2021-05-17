@@ -1,8 +1,10 @@
 package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.raw.Empty
+import japgolly.scalajs.react.raw.JsNumber
+import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Node
-import japgolly.scalajs.react.raw.React.RefHandle
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.StObject
@@ -51,7 +53,13 @@ object Props {
     def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
     
     @scala.inline
+    def setChildrenNull: Self = StObject.set(x, "children", null)
+    
+    @scala.inline
     def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+    
+    @scala.inline
+    def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
     
     @scala.inline
     def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
@@ -70,9 +78,6 @@ object Props {
     
     @scala.inline
     def setRefNull: Self = StObject.set(x, "ref", null)
-    
-    @scala.inline
-    def setRefRefObject(value: RefHandle[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)

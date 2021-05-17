@@ -1,11 +1,11 @@
 package typingsSlinky.reactDropzone.components
 
 import org.scalajs.dom.raw.HTMLElement
-import slinky.core.facade.ReactElement
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
 import typingsSlinky.react.mod.DragEvent
 import typingsSlinky.react.mod.RefAttributes
+import typingsSlinky.react.mod.global.JSX.Element
 import typingsSlinky.reactDropzone.mod.DropEvent
 import typingsSlinky.reactDropzone.mod.DropzoneProps
 import typingsSlinky.reactDropzone.mod.DropzoneRef
@@ -33,7 +33,7 @@ object ReactDropzone {
     def acceptVarargs(value: String*): this.type = set("accept", js.Array(value :_*))
     
     @scala.inline
-    def children(value: /* state */ DropzoneState => ReactElement): this.type = set("children", js.Any.fromFunction1(value))
+    def children(value: /* state */ DropzoneState => Element): this.type = set("children", js.Any.fromFunction1(value))
     
     @scala.inline
     def disabled(value: Boolean): this.type = set("disabled", value.asInstanceOf[js.Any])

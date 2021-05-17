@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.HTMLElement
 import org.scalajs.dom.raw.HTMLInputElement
-import slinky.core.facade.ReactElement
 import slinky.core.facade.ReactRef
 import typingsSlinky.react.mod.ChangeEvent
 import typingsSlinky.react.mod.DragEvent
@@ -12,6 +11,7 @@ import typingsSlinky.react.mod.DragEventHandler
 import typingsSlinky.react.mod.HTMLAttributes
 import typingsSlinky.react.mod.InputHTMLAttributes
 import typingsSlinky.react.mod.RefAttributes
+import typingsSlinky.react.mod.global.JSX.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -24,7 +24,7 @@ object mod {
   val ^ : js.Any = js.native
   
   @scala.inline
-  def default(props: DropzoneProps with RefAttributes[DropzoneRef]): ReactElement = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(props.asInstanceOf[js.Any]).asInstanceOf[ReactElement]
+  def default(props: DropzoneProps with RefAttributes[DropzoneRef]): Element = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(props.asInstanceOf[js.Any]).asInstanceOf[Element]
   
   @scala.inline
   def useDropzone(): DropzoneState = ^.asInstanceOf[js.Dynamic].applyDynamic("useDropzone")().asInstanceOf[DropzoneState]
@@ -272,7 +272,7 @@ object mod {
   @js.native
   trait DropzoneProps extends DropzoneOptions {
     
-    var children: js.UndefOr[js.Function1[/* state */ DropzoneState, ReactElement]] = js.native
+    var children: js.UndefOr[js.Function1[/* state */ DropzoneState, Element]] = js.native
   }
   object DropzoneProps {
     
@@ -286,7 +286,7 @@ object mod {
     implicit class DropzonePropsMutableBuilder[Self <: DropzoneProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def setChildren(value: /* state */ DropzoneState => ReactElement): Self = StObject.set(x, "children", js.Any.fromFunction1(value))
+      def setChildren(value: /* state */ DropzoneState => Element): Self = StObject.set(x, "children", js.Any.fromFunction1(value))
       
       @scala.inline
       def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
@@ -316,8 +316,8 @@ object mod {
   
   @js.native
   trait DropzoneRootProps
-    extends HTMLAttributes[HTMLElement]
-       with /* key */ StringDictionary[js.Any] {
+    extends /* key */ StringDictionary[js.Any]
+       with HTMLAttributes[HTMLElement] {
     
     var refKey: js.UndefOr[String] = js.native
   }

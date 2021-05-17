@@ -1,6 +1,5 @@
 package typingsSlinky.react.mod
 
-import slinky.core.facade.ReactRef
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -14,13 +13,13 @@ trait RefObject[T] extends StObject {
 object RefObject {
   
   @scala.inline
-  def apply[T](): ReactRef[T] = {
+  def apply[T](): RefObject[T] = {
     val __obj = js.Dynamic.literal(current = null)
-    __obj.asInstanceOf[ReactRef[T]]
+    __obj.asInstanceOf[RefObject[T]]
   }
   
   @scala.inline
-  implicit class RefObjectMutableBuilder[Self <: ReactRef[_], T] (val x: Self with ReactRef[T]) extends AnyVal {
+  implicit class RefObjectMutableBuilder[Self <: RefObject[_], T] (val x: Self with RefObject[T]) extends AnyVal {
     
     @scala.inline
     def setCurrent(value: T): Self = StObject.set(x, "current", value.asInstanceOf[js.Any])

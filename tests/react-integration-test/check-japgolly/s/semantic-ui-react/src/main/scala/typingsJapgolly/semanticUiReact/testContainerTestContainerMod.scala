@@ -2,6 +2,9 @@ package typingsJapgolly.semanticUiReact
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
+import japgolly.scalajs.react.raw.Empty
+import japgolly.scalajs.react.raw.JsNumber
+import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
@@ -95,7 +98,13 @@ object testContainerTestContainerMod extends Shortcut {
       def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
       
       @scala.inline
+      def setChildrenNull: Self = StObject.set(x, "children", null)
+      
+      @scala.inline
       def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      
+      @scala.inline
+      def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
       
       @scala.inline
       def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
@@ -110,7 +119,13 @@ object testContainerTestContainerMod extends Shortcut {
       def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
+      def setContentNull: Self = StObject.set(x, "content", null)
+      
+      @scala.inline
       def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
+      
+      @scala.inline
+      def setContentVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "content", js.Array(value :_*))
       
       @scala.inline
       def setContentVdomElement(value: VdomElement): Self = StObject.set(x, "content", value.rawElement.asInstanceOf[js.Any])
@@ -173,8 +188,8 @@ object testContainerTestContainerMod extends Shortcut {
   
   @js.native
   trait TestContainerProps
-    extends StrictTestContainerProps
-       with /* key */ StringDictionary[js.Any]
+    extends /* key */ StringDictionary[js.Any]
+       with StrictTestContainerProps
   object TestContainerProps {
     
     @scala.inline

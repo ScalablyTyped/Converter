@@ -16,8 +16,15 @@ object mod {
   object TransportRequestPromise {
     
     @scala.inline
-    def apply[T](abort: () => Unit): TransportRequestPromise[T] = {
-      val __obj = js.Dynamic.literal(abort = js.Any.fromFunction0(abort))
+    def apply[T](
+      abort: () => Unit,
+      `catch`: js.UndefOr[js.Function1[Any, js.Any | js.Thenable[js.Any]]] => js.Promise[js.Any],
+      executor: (js.Function1[T | js.Thenable[T], _], js.Function1[Any, _]) => _,
+      `then`: ((js.Function1[T, js.Any | js.Thenable[js.Any]]) | Unit, js.UndefOr[js.Function1[Any, js.Any | js.Thenable[js.Any]]]) => js.Promise[js.Any]
+    ): TransportRequestPromise[T] = {
+      val __obj = js.Dynamic.literal(abort = js.Any.fromFunction0(abort), executor = js.Any.fromFunction2(executor))
+      __obj.updateDynamic("catch")(js.Any.fromFunction1(`catch`))
+      __obj.updateDynamic("then")(js.Any.fromFunction2(`then`))
       __obj.asInstanceOf[TransportRequestPromise[T]]
     }
     

@@ -6,7 +6,6 @@ import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 import org.scalablytyped.converter.internal.scalajs.flavours.GenBuilderClass.AvailableName
-import org.scalablytyped.converter.internal.scalajs.transforms.Mangler
 
 object JapgollyGenComponents {
 
@@ -14,7 +13,7 @@ object JapgollyGenComponents {
     val hasRequiredProps = propsInApply.exists(_.isRequired) || propsInBuilder.exists(_.isRequired)
   }
 
-  def SplitProps(reactNames: ReactNames, scope: TreeScope, enableLongApplyMethod: Boolean)(
+  def SplitProps(reactNames: ReactNamesProxy, scope: TreeScope, enableLongApplyMethod: Boolean)(
       allProps:              IArray[Prop],
   ): SplitProps = {
     object Ref {
@@ -27,9 +26,7 @@ object JapgollyGenComponents {
           }
     }
 
-    val isVdomNode = Set(
-      reactNames.ReactNode,
-      reactNames.ReactElement,
+    val isVdomNode = reactNames.isElementOrNode ++ Set(
       JapgollyNames.vdom.VdomNode,
       JapgollyNames.vdom.ReactElement,
       JapgollyNames.vdom.Array,
@@ -43,8 +40,8 @@ object JapgollyGenComponents {
         /* we have special syntax already for `withKey` */
         case (names.key, _) => true
         /* we have special syntax for passing children already, as long as they are react nodes */
-        case (names.children, TypeRef(qname, _, _)) => isVdomNode(qname)
-        case _                                      => false
+        case (names.children, tpe) => isVdomNode(tpe.typeName)
+        case _                     => false
       }
 
     val (refTypes: IArray[TypeRef], _, filteredProps: IArray[Prop]) = allProps.partitionCollect2(
@@ -160,7 +157,7 @@ object JapgollyGenComponents {
 class JapgollyGenComponents(
     findProps:             FindProps,
     genStBuilder:          JapgollyGenStBuildingComponent,
-    reactNames:            ReactNames,
+    reactNames:            ReactNamesProxy,
     enableLongApplyMethod: Boolean,
 ) {
   import JapgollyGenComponents._

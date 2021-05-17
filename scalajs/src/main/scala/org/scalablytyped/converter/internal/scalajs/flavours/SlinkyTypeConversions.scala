@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TParam.{_1, _}
+import org.scalablytyped.converter.internal.scalajs.CastConversion.TParam.{_1, _}
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.names
 
 object SlinkyTypeConversions {

@@ -6,7 +6,7 @@ import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.maps._
 
 class IdentifyReactComponents(
-    reactNames:             ReactNames,
+    reactNames:             ReactNamesProxy,
     parentsResolver:        ParentsResolver,
     enableReactTreeShaking: Selection[Name],
 ) {

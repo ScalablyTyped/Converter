@@ -483,6 +483,12 @@ object TypeRef {
   object StringLiteral extends LiteralCompanion(QualifiedName.STRING_LITERAL)
   object NumberLiteral extends LiteralCompanion(QualifiedName.NUMBER_LITERAL)
   object BooleanLiteral extends LiteralCompanion(QualifiedName.BOOLEAN_LITERAL)
+  object Literal {
+    def unapply(typeRef: TypeRef): Boolean =
+      typeRef.typeName === QualifiedName.STRING_LITERAL ||
+        typeRef.typeName === QualifiedName.NUMBER_LITERAL ||
+        typeRef.typeName === QualifiedName.BOOLEAN_LITERAL
+  }
 
   object Repeated {
     def apply(underlying: TypeRef, comments: Comments): TypeRef =

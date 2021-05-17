@@ -2,6 +2,8 @@ package typingsJapgolly.semanticUiReact
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.raw.Empty
+import japgolly.scalajs.react.raw.JsNumber
 import japgolly.scalajs.react.raw.React.ComponentClassP
 import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Node
@@ -36,8 +38,8 @@ object accordionTitleMod extends Shortcut {
   
   @js.native
   trait AccordionTitleProps
-    extends StrictAccordionTitleProps
-       with /* key */ StringDictionary[js.Any]
+    extends /* key */ StringDictionary[js.Any]
+       with StrictAccordionTitleProps
   object AccordionTitleProps {
     
     @scala.inline
@@ -116,7 +118,13 @@ object accordionTitleMod extends Shortcut {
       def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
       
       @scala.inline
+      def setChildrenNull: Self = StObject.set(x, "children", null)
+      
+      @scala.inline
       def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      
+      @scala.inline
+      def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
       
       @scala.inline
       def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
@@ -131,7 +139,13 @@ object accordionTitleMod extends Shortcut {
       def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
+      def setContentNull: Self = StObject.set(x, "content", null)
+      
+      @scala.inline
       def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
+      
+      @scala.inline
+      def setContentVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "content", js.Array(value :_*))
       
       @scala.inline
       def setContentVdomElement(value: VdomElement): Self = StObject.set(x, "content", value.rawElement.asInstanceOf[js.Any])
@@ -151,7 +165,13 @@ object accordionTitleMod extends Shortcut {
       ): Self = StObject.set(x, "icon", js.Any.fromFunction3(value))
       
       @scala.inline
+      def setIconNull: Self = StObject.set(x, "icon", null)
+      
+      @scala.inline
       def setIconUndefined: Self = StObject.set(x, "icon", js.undefined)
+      
+      @scala.inline
+      def setIconVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "icon", js.Array(value :_*))
       
       @scala.inline
       def setIconVdomElement(value: VdomElement): Self = StObject.set(x, "icon", value.rawElement.asInstanceOf[js.Any])

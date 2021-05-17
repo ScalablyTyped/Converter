@@ -13,8 +13,8 @@ trait ReactPortal extends ReactElement {
 object ReactPortal {
   
   @scala.inline
-  def apply(props: js.Any, `type`: js.Any): ReactPortal = {
-    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
+  def apply(children: slinky.core.facade.ReactElement, props: js.Any, `type`: js.Any): ReactPortal = {
+    val __obj = js.Dynamic.literal(children = children.asInstanceOf[js.Any], props = props.asInstanceOf[js.Any], key = null)
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[ReactPortal]
   }
@@ -24,8 +24,5 @@ object ReactPortal {
     
     @scala.inline
     def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
   }
 }

@@ -1,6 +1,5 @@
 package typingsSlinky.reactContextmenu.components
 
-import slinky.core.ReactComponentClass
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
 import typingsSlinky.react.mod.HTMLAttributes
@@ -42,12 +41,6 @@ object ContextMenuTrigger {
     
     @scala.inline
     def renderTag(value: ReactType[_]): this.type = set("renderTag", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def renderTagComponentClass(value: ReactComponentClass[_]): this.type = set("renderTag", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def renderTagFunctionComponent(value: ReactComponentClass[_]): this.type = set("renderTag", value.asInstanceOf[js.Any])
   }
   
   def withProps(p: ContextMenuTriggerProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))

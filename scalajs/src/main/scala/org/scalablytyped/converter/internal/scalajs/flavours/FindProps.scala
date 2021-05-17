@@ -99,6 +99,9 @@ final class FindProps(
       acceptNativeTraits: Boolean,
   ): Res[IArray[String], IArray[Prop]] =
     FollowAliases(scope)(typeRef) match {
+      case TypeRef.JsAny => // todo: now that we can resolve `js.Any` we need a not found type or something.
+        val msg = s"Could't extract props from ${Printer.formatTypeRef(0)(typeRef)} because couldn't resolve ClassTree."
+        Res.Error(IArray(msg))
       case TypeRef.JsObject => Res.One(typeRef, Empty)
       case TypeRef.Intersection(types, _) =>
         val results: IArray[Res[IArray[String], IArray[Prop]]] =
@@ -198,7 +201,7 @@ final class FindProps(
               }
               .groupBy(x => realNameFrom(x.annotations, x.name))
               .collect {
-                case (name, ms) if ObjectMembers.ScalaObject.index.contains(name) =>
+                case (name, ms) if ScalaJsClasses.Any.index.contains(name) =>
                   name -> combine(ms).renamed(name.withSuffix(""))
                 case (name, ms) if name =/= Name.APPLY && name =/= Name.namespaced =>
                   name -> combine(ms).renamed(name)
@@ -221,7 +224,10 @@ final class FindProps(
 
               val inlinedPropsFromParent: Map[Name, Prop] = {
                 def go(p: ParentsResolver.Parent): Map[Name, MemberTree] =
-                  maps.smash(p.parents.map(go)) ++ membersFrom(p.classTree)
+                  p.classTree.codePath match {
+                    case QualifiedName.Any | QualifiedName.JsObject => Map.empty
+                    case _                                          => maps.smash(p.parents.map(go)) ++ membersFrom(p.classTree)
+                  }
 
                 maps.smash(inlineParents.map(go)).mapNotNone {
                   case (_, member) => memberToProp(scope, member, isInherited = true)

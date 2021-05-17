@@ -3,7 +3,6 @@ package typingsJapgolly.reactDropzone
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactDragEventFrom
 import japgolly.scalajs.react.ReactEventFrom
-import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.RefHandle
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.DragEvent
@@ -14,6 +13,7 @@ import typingsJapgolly.react.mod.DragEventHandler
 import typingsJapgolly.react.mod.HTMLAttributes
 import typingsJapgolly.react.mod.InputHTMLAttributes
 import typingsJapgolly.react.mod.RefAttributes
+import typingsJapgolly.react.mod.global.JSX.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -208,19 +208,19 @@ object mod {
       def setNoKeyboardUndefined: Self = StObject.set(x, "noKeyboard", js.undefined)
       
       @scala.inline
-      def setOnDragEnter(value: ReactDragEventFrom[HTMLElement] => Callback): Self = StObject.set(x, "onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement]) => value(t0).runNow()))
+      def setOnDragEnter(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
       
       @scala.inline
       def setOnDragEnterUndefined: Self = StObject.set(x, "onDragEnter", js.undefined)
       
       @scala.inline
-      def setOnDragLeave(value: ReactDragEventFrom[HTMLElement] => Callback): Self = StObject.set(x, "onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement]) => value(t0).runNow()))
+      def setOnDragLeave(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
       
       @scala.inline
       def setOnDragLeaveUndefined: Self = StObject.set(x, "onDragLeave", js.undefined)
       
       @scala.inline
-      def setOnDragOver(value: ReactDragEventFrom[HTMLElement] => Callback): Self = StObject.set(x, "onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement]) => value(t0).runNow()))
+      def setOnDragOver(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
       
       @scala.inline
       def setOnDragOverUndefined: Self = StObject.set(x, "onDragOver", js.undefined)
@@ -306,8 +306,8 @@ object mod {
   
   @js.native
   trait DropzoneRootProps
-    extends HTMLAttributes[HTMLElement]
-       with /* key */ StringDictionary[js.Any] {
+    extends /* key */ StringDictionary[js.Any]
+       with HTMLAttributes[HTMLElement] {
     
     var refKey: js.UndefOr[String] = js.native
   }

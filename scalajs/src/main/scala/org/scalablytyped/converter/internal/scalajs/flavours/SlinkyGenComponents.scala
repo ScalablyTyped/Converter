@@ -8,7 +8,6 @@ import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 import org.scalablytyped.converter.internal.scalajs.flavours.GenBuilderClass.AvailableName
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.Mode
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyWeb.TagName
-import org.scalablytyped.converter.internal.scalajs.transforms.Mangler
 
 object SlinkyGenComponents {
   sealed trait Mode[N, W] {
@@ -42,7 +41,7 @@ object SlinkyGenComponents {
     val hasRequiredProps = props.exists(_.isRequired)
   }
 
-  def SplitProps(reactNames: ReactNames, scope: TreeScope)(_props: IArray[Prop]): SplitProps = {
+  def SplitProps(reactNames: ReactNamesProxy, scope: TreeScope)(_props: IArray[Prop]): SplitProps = {
     object Ref {
       def unapply(maybeRef: TypeRef): Option[TypeRef] =
         if (reactNames.isRef(maybeRef.typeName)) Some(maybeRef.targs.head)
@@ -60,8 +59,8 @@ object SlinkyGenComponents {
         /* we have special syntax already for `withKey` */
         case (names.key, _) => true
         /* we have special syntax for passing children already, as long as they are react nodes */
-        case (names.children, TypeRef(reactNames.ReactNode | reactNames.ReactElement, _, _)) => true
-        case _                                                                               => false
+        case (names.children, TypeRef(tpe, _, _)) if reactNames.isElementOrNode(tpe) => true
+        case _                                                                       => false
       }
 
     val (refTypes: IArray[TypeRef], _, props: IArray[Prop]) = _props.partitionCollect2(
@@ -205,7 +204,7 @@ class SlinkyGenComponents(
     mode:         Mode[Unit, Option[SlinkyWeb]],
     findProps:    FindProps,
     genStBuilder: SlinkyGenStBuildingComponent,
-    reactNames:   ReactNames,
+    reactNames:   ReactNamesProxy,
 ) {
   import SlinkyGenComponents._
 

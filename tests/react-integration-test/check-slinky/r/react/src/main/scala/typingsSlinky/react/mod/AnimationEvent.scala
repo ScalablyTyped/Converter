@@ -1,15 +1,13 @@
 package typingsSlinky.react.mod
 
-import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
-import slinky.web.SyntheticAnimationEvent
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait AnimationEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
+trait AnimationEvent[T] extends BaseSyntheticEvent[NativeAnimationEvent, EventTarget with T, EventTarget] {
   
   var animationName: String = js.native
   
@@ -31,7 +29,7 @@ object AnimationEvent {
     isDefaultPrevented: () => Boolean,
     isPropagationStopped: () => Boolean,
     isTrusted: Boolean,
-    nativeEvent: Event,
+    nativeEvent: NativeAnimationEvent,
     persist: () => Unit,
     preventDefault: () => Unit,
     pseudoElement: String,
@@ -39,14 +37,14 @@ object AnimationEvent {
     target: EventTarget,
     timeStamp: Double,
     `type`: String
-  ): SyntheticAnimationEvent[T] = {
+  ): AnimationEvent[T] = {
     val __obj = js.Dynamic.literal(animationName = animationName.asInstanceOf[js.Any], bubbles = bubbles.asInstanceOf[js.Any], cancelable = cancelable.asInstanceOf[js.Any], currentTarget = currentTarget.asInstanceOf[js.Any], defaultPrevented = defaultPrevented.asInstanceOf[js.Any], elapsedTime = elapsedTime.asInstanceOf[js.Any], eventPhase = eventPhase.asInstanceOf[js.Any], isDefaultPrevented = js.Any.fromFunction0(isDefaultPrevented), isPropagationStopped = js.Any.fromFunction0(isPropagationStopped), isTrusted = isTrusted.asInstanceOf[js.Any], nativeEvent = nativeEvent.asInstanceOf[js.Any], persist = js.Any.fromFunction0(persist), preventDefault = js.Any.fromFunction0(preventDefault), pseudoElement = pseudoElement.asInstanceOf[js.Any], stopPropagation = js.Any.fromFunction0(stopPropagation), target = target.asInstanceOf[js.Any], timeStamp = timeStamp.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    __obj.asInstanceOf[SyntheticAnimationEvent[T]]
+    __obj.asInstanceOf[AnimationEvent[T]]
   }
   
   @scala.inline
-  implicit class AnimationEventMutableBuilder[Self <: SyntheticAnimationEvent[_], T] (val x: Self with SyntheticAnimationEvent[T]) extends AnyVal {
+  implicit class AnimationEventMutableBuilder[Self <: AnimationEvent[_], T] (val x: Self with AnimationEvent[T]) extends AnyVal {
     
     @scala.inline
     def setAnimationName(value: String): Self = StObject.set(x, "animationName", value.asInstanceOf[js.Any])

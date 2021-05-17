@@ -13,16 +13,16 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object abbr {
   
   @scala.inline
-  def apply(dangerouslySetInnerHTML: Html = null, defaultChecked: js.UndefOr[Boolean] = js.undefined): Default[HTMLElement with js.Object] = {
+  def apply(dangerouslySetInnerHTML: Html = null, defaultChecked: js.UndefOr[Boolean] = js.undefined): Default[HTMLElement] = {
     val __props = js.Dynamic.literal()
     if (dangerouslySetInnerHTML != null) __props.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
     if (!js.isUndefined(defaultChecked)) __props.updateDynamic("defaultChecked")(defaultChecked.get.asInstanceOf[js.Any])
-    new Default[HTMLElement with js.Object](js.Array(this.component, __props.asInstanceOf[DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]]))
+    new Default[HTMLElement](js.Array(this.component, __props.asInstanceOf[DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]]))
   }
   
   val component: String = "abbr"
   
-  implicit def make(companion: abbr.type): Default[HTMLElement with js.Object] = new Default[HTMLElement with js.Object](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: abbr.type): Default[HTMLElement] = new Default[HTMLElement](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): Default[HTMLElement with js.Object] = new Default[HTMLElement with js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): Default[HTMLElement] = new Default[HTMLElement](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

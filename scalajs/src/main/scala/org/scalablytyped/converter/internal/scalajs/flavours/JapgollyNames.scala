@@ -31,7 +31,7 @@ object JapgollyNames {
   object rawReact {
     val Element         = QualifiedName("japgolly.scalajs.react.raw.React.Element")
     val Node            = QualifiedName("japgolly.scalajs.react.raw.React.Node")
-    val Ref             = QualifiedName("japgolly.scalajs.react.raw.React.Ref")
+    val RefFn           = QualifiedName("japgolly.scalajs.react.raw.React.RefFn")
     val RefHandle       = QualifiedName("japgolly.scalajs.react.raw.React.RefHandle")
     val Component       = QualifiedName("japgolly.scalajs.react.raw.React.Component")
     val ComponentClassP = QualifiedName("japgolly.scalajs.react.raw.React.ComponentClassP")

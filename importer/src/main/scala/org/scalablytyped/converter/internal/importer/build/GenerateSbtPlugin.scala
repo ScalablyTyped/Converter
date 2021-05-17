@@ -3,7 +3,7 @@ package importer
 package build
 
 import ammonite.ops.%
-import org.scalablytyped.converter.internal.scalajs.{Name, ObjectMembers, ScalaNameEscape, Versions}
+import org.scalablytyped.converter.internal.scalajs.{Name, ScalaJsClasses, ScalaNameEscape, Versions}
 import org.scalablytyped.converter.internal.stringUtils.quote
 
 object GenerateSbtPlugin {
@@ -53,7 +53,7 @@ object GenerateSbtPlugin {
 
     /* we have at least a `clone` and a `notify` library - of course */
     def fix(name: String): String =
-      ObjectMembers.byName.get(Name(name)) match {
+      ScalaJsClasses.jsObjectMembersByName.get(Name(name)) match {
         case Some(_) => s"_$name"
         case None    => name
       }

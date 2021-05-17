@@ -23,5 +23,5 @@ class SharedBuilder_RefProps1237054395[R <: js.Object] (val args: js.Array[js.An
   def innerRefNull: this.type = set("innerRef", null)
   
   @scala.inline
-  def innerRefRefObject(value: ReactRef[_]): this.type = set("innerRef", value.asInstanceOf[js.Any])
+  def innerRefReactRef(value: ReactRef[_]): this.type = set("innerRef", value.asInstanceOf[js.Any])
 }

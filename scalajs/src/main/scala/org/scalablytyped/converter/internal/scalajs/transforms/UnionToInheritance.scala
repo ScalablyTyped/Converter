@@ -68,12 +68,11 @@ package transforms
   */
 object UnionToInheritance {
   def apply(
-      scope:               TreeScope,
-      tree:                ContainerTree,
-      inLib:               Name,
-      willBeExternalTypes: Set[QualifiedName],
+      scope: TreeScope,
+      tree:  ContainerTree,
+      inLib: Name,
   ): ContainerTree = {
-    val rewrites = Rewrite.identify(inLib, tree, scope / tree, willBeExternalTypes)
+    val rewrites = Rewrite.identify(inLib, tree, scope / tree)
 
     val newParentsByCodePath: Map[QualifiedName, IArray[InvertingTypeParamRef]] =
       rewrites
@@ -181,12 +180,7 @@ object UnionToInheritance {
   final case class Rewrite(original: TypeAliasTree, asInheritance: IArray[TypeRef], unchanged: IArray[TypeRef])
 
   object Rewrite {
-    def identify(
-        inLib:               Name,
-        p:                   ContainerTree,
-        scope:               TreeScope,
-        willBeExternalTypes: Set[QualifiedName],
-    ): IArray[Rewrite] = {
+    def identify(inLib: Name, p: ContainerTree, scope: TreeScope): IArray[Rewrite] = {
       def go(p: ContainerTree, scope: TreeScope): IArray[Rewrite] = {
         def legalClassName(name: Name): Boolean =
           p.index(name).forall {
@@ -194,9 +188,8 @@ object UnionToInheritance {
             case _ => true
           }
         p.members.flatMap {
-          case p:  ContainerTree => identify(inLib, p, scope / p, willBeExternalTypes)
-          case ta: TypeAliasTree if legalClassName(ta.name) =>
-            IArray.fromOption(canRewrite(inLib, ta, scope / ta, willBeExternalTypes))
+          case p:  ContainerTree                            => identify(inLib, p, scope / p)
+          case ta: TypeAliasTree if legalClassName(ta.name) => IArray.fromOption(canRewrite(inLib, ta, scope / ta))
           case _ => Empty
         }
       }
@@ -220,21 +213,18 @@ object UnionToInheritance {
     }
 
     def canRewrite(
-        inLib:               Name,
-        ta:                  TypeAliasTree,
-        scope:               TreeScope,
-        willBeExternalTypes: Set[QualifiedName],
+        inLib: Name,
+        ta:    TypeAliasTree,
+        scope: TreeScope,
     ): Option[Rewrite] =
       ta.alias match {
         case TypeRef.Union(types, _) =>
           def legalTarget(tr: TypeRef): Boolean =
-            if (willBeExternalTypes(tr.typeName)) false
-            else
-              scope.lookup(tr.typeName).exists {
-                case (_:  ClassTree, _)     => true
-                case (ta: TypeAliasTree, _) => canRewrite(inLib, ta, scope, willBeExternalTypes).isDefined
-                case _ => false
-              }
+            scope.lookup(tr.typeName).exists {
+              case (_:  ClassTree, _)     => true
+              case (ta: TypeAliasTree, _) => canRewrite(inLib, ta, scope).isDefined
+              case _ => false
+            }
 
           val InLibrary: PartialFunction[TypeRef, TypeRef] = {
             case tr @ TypeRef(QualifiedName(parts), _, _)

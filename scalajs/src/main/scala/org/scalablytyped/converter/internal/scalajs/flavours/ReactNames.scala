@@ -6,6 +6,7 @@ class ReactNames(val outputPkg: Name) {
   val libName              = Name("react")
   val mod                  = QualifiedName(IArray(outputPkg, libName, Name.mod))
   val Ref                  = mod + Name("Ref")
+  val RefCallback          = mod + Name("RefCallback")
   val LegacyRef            = mod + Name("LegacyRef")
   val RefObject            = mod + Name("RefObject")
   val ReactNode            = mod + Name("ReactNode")
@@ -23,15 +24,15 @@ class ReactNames(val outputPkg: Name) {
   val Jsx                  = mod + Name.global + Name("JSX")
   val JsxIntrinsicElements = Jsx + Name("IntrinsicElements")
   val JsxReactElement      = Jsx + Name("Element")
-  val isElement            = Set(ReactElement, JsxReactElement)
 
-  val isRef: Set[QualifiedName] = Set(Ref, LegacyRef, RefObject)
+  val isRef: Set[QualifiedName] = Set(Ref, LegacyRef, RefObject, RefCallback)
 
   val WrappedComponents: Set[String] = Set(
     "MemoExoticComponent",
     "LazyExoticComponent",
     "RefForwardingComponent",
   )
+
   val WrappedComponentsQNames: Set[QualifiedName] =
     WrappedComponents.map(mod + Name(_))
 
@@ -58,14 +59,6 @@ class ReactNames(val outputPkg: Name) {
 
   val ComponentLike: Set[QualifiedName] =
     ComponentQNames ++ WrappedComponentsQNames
-
-  def isComponent(tr: TypeRef): Option[PropsRef] =
-    tr match {
-      case TypeRef.Intersection(types, _)                                => types.firstDefined(isComponent)
-      case TypeRef(c, IArray.first(props), _) if ComponentQNames(c)      => Some(PropsRef(props))
-      case TypeRef(c, IArray.first(cc), _) if WrappedComponentsQNames(c) => isComponent(cc)
-      case _                                                             => None
-    }
 
   // events
   val BaseSyntheticEvent = mod + Name("BaseSyntheticEvent")

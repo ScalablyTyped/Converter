@@ -99,7 +99,7 @@ lazy val `import-scalajs-definitions` = project
   .dependsOn(importer)
   .settings(
     libraryDependencies ++= List("org.scala-lang" % "scalap" % scalaVersion.value),
-    publish / skip := true
+    publish / skip := true,
   )
 
 lazy val root = project

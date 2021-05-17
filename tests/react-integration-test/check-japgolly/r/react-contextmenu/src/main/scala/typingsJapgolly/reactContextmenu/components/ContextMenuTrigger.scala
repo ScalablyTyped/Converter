@@ -1,6 +1,5 @@
 package typingsJapgolly.reactContextmenu.components
 
-import japgolly.scalajs.react.raw.React.ComponentClassP
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.react.mod.HTMLAttributes
 import typingsJapgolly.react.mod.ReactType
@@ -41,9 +40,6 @@ object ContextMenuTrigger {
     
     @scala.inline
     def renderTag(value: ReactType[_]): this.type = set("renderTag", value.asInstanceOf[js.Any])
-    
-    @scala.inline
-    def renderTagComponentClass(value: ComponentClassP[js.Object]): this.type = set("renderTag", value.asInstanceOf[js.Any])
   }
   
   def withProps(p: ContextMenuTriggerProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))

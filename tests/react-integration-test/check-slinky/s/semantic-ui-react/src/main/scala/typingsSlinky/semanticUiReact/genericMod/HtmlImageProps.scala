@@ -8,8 +8,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait HtmlImageProps
-  extends StrictHtmlImageProps
-     with /* key */ StringDictionary[js.Any]
+  extends /* key */ StringDictionary[js.Any]
+     with StrictHtmlImageProps
 object HtmlImageProps {
   
   @scala.inline

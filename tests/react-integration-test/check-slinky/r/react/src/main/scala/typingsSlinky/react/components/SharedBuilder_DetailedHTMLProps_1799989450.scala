@@ -62,7 +62,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-class SharedBuilder_DetailedHTMLProps1276931637[R <: js.Object] (val args: js.Array[js.Any])
+class SharedBuilder_DetailedHTMLProps_1799989450[R <: js.Object] (val args: js.Array[js.Any])
   extends AnyVal
      with StBuildingComponent[tag.type, R] {
   

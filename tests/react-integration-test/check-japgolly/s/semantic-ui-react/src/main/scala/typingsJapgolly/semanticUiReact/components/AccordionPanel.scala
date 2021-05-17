@@ -2,6 +2,8 @@ package typingsJapgolly.semanticUiReact.components
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.raw.Empty
+import japgolly.scalajs.react.raw.JsNumber
 import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
@@ -42,6 +44,12 @@ object AccordionPanel {
     ): this.type = set("content", js.Any.fromFunction3(value))
     
     @scala.inline
+    def contentNull: this.type = set("content", null)
+    
+    @scala.inline
+    def contentVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("content", js.Array(value :_*))
+    
+    @scala.inline
     def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
     
     @scala.inline
@@ -59,6 +67,12 @@ object AccordionPanel {
     def titleFunction3(
       value: (/* component */ ReactType[AccordionTitleProps], AccordionTitleProps, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
     ): this.type = set("title", js.Any.fromFunction3(value))
+    
+    @scala.inline
+    def titleNull: this.type = set("title", null)
+    
+    @scala.inline
+    def titleVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("title", js.Array(value :_*))
     
     @scala.inline
     def titleVdomElement(value: VdomElement): this.type = set("title", value.rawElement.asInstanceOf[js.Any])
