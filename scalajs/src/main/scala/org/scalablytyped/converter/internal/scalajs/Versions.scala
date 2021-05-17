@@ -28,7 +28,7 @@ object Versions {
     implicit val decodes: Decoder[Scala] = Decoder[String].map(Scala.apply)
   }
 
-  val Scala212 = Scala("2.12.13")
+  val Scala212 = Scala("2.13.6")
 
   val Scala213 = Scala("2.13.3")
 
