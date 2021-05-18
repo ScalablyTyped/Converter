@@ -429,6 +429,7 @@ object Mangler extends TreeTransformation {
             Some(TypeRef(to.codePath)),
             Some(TypeRef(To.codePath)),
             hatOpt.map(hat => TypeRef(hat.codePath)),
+            shortcut.map(s => TypeRef(s.codePath)),
           )
 
           mod.comments.extract { case Marker.MinimizationRelated(related) => related } match {
