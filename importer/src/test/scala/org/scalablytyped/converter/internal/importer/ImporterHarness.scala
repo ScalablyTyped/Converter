@@ -130,6 +130,7 @@ trait ImporterHarness extends AnyFunSuite {
       case _: SlinkyFlavour       => "check-slinky"
       case _: SlinkyNativeFlavour => "check-slinky-native"
       case _: JapgollyFlavour     => "check-japgolly"
+      case _: LaminarFlavour      => "check-laminar"
       case other => sys.error(s"Unexpected $other")
     })
 

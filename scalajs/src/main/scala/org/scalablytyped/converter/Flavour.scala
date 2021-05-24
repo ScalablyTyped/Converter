@@ -9,9 +9,10 @@ object Flavour {
   case object Slinky extends Flavour("slinky")
   case object SlinkyNative extends Flavour("slinky-native")
   case object Japgolly extends Flavour("japgolly")
+  case object Laminar extends Flavour("laminar")
 
   val All: List[Flavour] =
-    List(Normal, Slinky, SlinkyNative, Japgolly)
+    List(Normal, Slinky, SlinkyNative, Japgolly, Laminar)
 
   val byName: Map[String, Flavour] =
     All.map(f => f.id -> f).toMap

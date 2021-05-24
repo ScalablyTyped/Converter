@@ -38,6 +38,8 @@ case class ConversionOptions(
         SlinkyNativeFlavour(outputPackage, enableLongApplyMethod, versions.scala, enableReactTreeShaking)
       case Flavour.Japgolly =>
         JapgollyFlavour(outputPackage, enableLongApplyMethod, versions.scala, enableReactTreeShaking)
+      case Flavour.Laminar =>
+        LaminarFlavour(outputPackage)
     }
 
 }

@@ -2,7 +2,6 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.transforms.CleanIllegalNames
 
@@ -10,10 +9,7 @@ case class NormalFlavour(
     shouldUseScalaJsDomTypes: Boolean,
     enableLongApplyMethod:    Boolean,
     outputPkg:                Name,
-) extends FlavourImplReact {
-
-  override val enableReactTreeShaking: Selection[Name] =
-    Selection.None
+) extends FlavourImpl {
 
   override val dependencies: Set[Dep] =
     if (shouldUseScalaJsDomTypes) Set(Versions.scalaJsDom, Versions.runtime) else Set(Versions.runtime)

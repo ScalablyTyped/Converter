@@ -7,6 +7,7 @@ import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TPar
 class ScalaJsDomNames(stdNames: QualifiedName.StdNames) {
 
   val Element: QualifiedName = QualifiedName("org.scalajs.dom.raw.Element")
+  val HTMLElement = QualifiedName("org.scalajs.dom.raw.HTMLElement")
 
   // format: off
   val All: IArray[CastConversion] = {
@@ -151,7 +152,7 @@ class ScalaJsDomNames(stdNames: QualifiedName.StdNames) {
       CastConversion(stdNames.lib + Name("HTMLDataListElement"), QualifiedName("org.scalajs.dom.raw.HTMLDataListElement")),
       CastConversion(stdNames.lib + Name("HTMLDivElement"), QualifiedName("org.scalajs.dom.raw.HTMLDivElement")),
       CastConversion(stdNames.lib + Name("HTMLDocument"), QualifiedName("org.scalajs.dom.raw.HTMLDocument")),
-      CastConversion(stdNames.lib + Name("HTMLElement"), QualifiedName("org.scalajs.dom.raw.HTMLElement")),
+      CastConversion(stdNames.lib + Name("HTMLElement"), HTMLElement),
       CastConversion(stdNames.lib + Name("HTMLEmbedElement"), QualifiedName("org.scalajs.dom.raw.HTMLEmbedElement")),
       CastConversion(stdNames.lib + Name("HTMLFieldSetElement"), QualifiedName("org.scalajs.dom.raw.HTMLFieldSetElement")),
       CastConversion(stdNames.lib + Name("HTMLFormElement"), QualifiedName("org.scalajs.dom.raw.HTMLFormElement")),

@@ -11,15 +11,16 @@ trait FlavourImpl {
 
   val rewritesOpt: Option[CastConversion.TypeRewriterCast]
 
+  lazy val parentsResolver    = new ParentsResolver
+  lazy val stdNames           = new QualifiedName.StdNames(outputPkg)
+  lazy val scalaJsDomNames    = new ScalaJsDomNames(stdNames)
+
   override val toString = getClass.getSimpleName
 }
 
 trait FlavourImplReact extends FlavourImpl {
   val enableReactTreeShaking: Selection[Name]
 
-  lazy val parentsResolver    = new ParentsResolver
-  lazy val stdNames           = new QualifiedName.StdNames(outputPkg)
-  lazy val scalaJsDomNames    = new ScalaJsDomNames(stdNames)
   lazy val reactNames         = new ReactNames(outputPkg)
   lazy val identifyComponents = new IdentifyReactComponents(reactNames, parentsResolver, enableReactTreeShaking)
 
