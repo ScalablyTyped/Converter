@@ -166,7 +166,7 @@ class BloopCompiler private (
           bloop.engine.Run(
             Commands.Compile(
               projects    = List(name),
-              incremental = true,
+              incremental = false,
               cliOptions = CliOptions(
                 configDir = Some(bloopFolder.toNIO),
                 common    = CommonOptions(err = printStream, out = printStream),
