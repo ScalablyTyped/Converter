@@ -8,7 +8,7 @@ object Versions {
   val runtime      = Dep.ScalaJs("com.olvind", "scalablytyped-runtime", "2.4.0")
   val scalaJsDom   = Dep.ScalaJs("org.scala-js", "scalajs-dom", "1.1.0")
   val slinkyWeb    = Dep.ScalaJs("me.shadaj", "slinky-web", "0.6.6")
-  val laminar    = Dep.ScalaJs("com.raquo", "laminar", "0.13.0")
+  val laminar      = Dep.ScalaJs("com.raquo", "laminar", "0.13.0")
   val slinkyNative = Dep.ScalaJs("me.shadaj", "slinky-native", "0.6.6")
   val scalajsReact = Dep.ScalaJs("com.github.japgolly.scalajs-react", "core", "1.7.5")
 
