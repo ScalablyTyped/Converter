@@ -35,7 +35,7 @@ object bufferMod {
       *
       * @param array The octets to store.
       */
-    def this(array: js.Array[_]) = this()
+    def this(array: js.Array[js.Any]) = this()
     /**
       * Allocates a new buffer containing the given {array} of octets.
       *
@@ -79,7 +79,7 @@ object bufferMod {
       * Allocates a new Buffer using an {array} of octets.
       */
     @scala.inline
-    def from(array: js.Array[_]): typings.node.Buffer = ^.asInstanceOf[js.Dynamic].applyDynamic("from")(array.asInstanceOf[js.Any]).asInstanceOf[typings.node.Buffer]
+    def from(array: js.Array[js.Any]): typings.node.Buffer = ^.asInstanceOf[js.Dynamic].applyDynamic("from")(array.asInstanceOf[js.Any]).asInstanceOf[typings.node.Buffer]
   }
   
   @JSImport("buffer", "INSPECT_MAX_BYTES")
@@ -92,7 +92,7 @@ object bufferMod {
   @JSImport("buffer", "SlowBuffer")
   @js.native
   class SlowBuffer protected () extends NodeBuffer {
-    def this(array: js.Array[_]) = this()
+    def this(array: js.Array[js.Any]) = this()
     def this(size: Double) = this()
     def this(size: Uint8Array) = this()
     def this(str: String) = this()

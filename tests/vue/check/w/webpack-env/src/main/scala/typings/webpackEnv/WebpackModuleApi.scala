@@ -183,7 +183,7 @@ object WebpackModuleApi {
   @js.native
   trait Module extends StObject {
     
-    var children: js.Array[_] = js.native
+    var children: js.Array[js.Any] = js.native
     
     var exports: js.Any = js.native
     

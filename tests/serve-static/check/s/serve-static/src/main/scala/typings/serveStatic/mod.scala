@@ -49,7 +49,7 @@ object mod {
   @js.native
   trait ServeStaticOptions extends StObject {
     
-    var setHeaders: js.UndefOr[js.Function3[/* res */ Response, /* path */ String, /* stat */ js.Any, _]] = js.native
+    var setHeaders: js.UndefOr[js.Function3[/* res */ Response, /* path */ String, /* stat */ js.Any, js.Any]] = js.native
   }
   object ServeStaticOptions {
     
@@ -63,7 +63,7 @@ object mod {
     implicit class ServeStaticOptionsMutableBuilder[Self <: ServeStaticOptions] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def setSetHeaders(value: (/* res */ Response, /* path */ String, /* stat */ js.Any) => _): Self = StObject.set(x, "setHeaders", js.Any.fromFunction3(value))
+      def setSetHeaders(value: (/* res */ Response, /* path */ String, /* stat */ js.Any) => js.Any): Self = StObject.set(x, "setHeaders", js.Any.fromFunction3(value))
       
       @scala.inline
       def setSetHeadersUndefined: Self = StObject.set(x, "setHeaders", js.undefined)

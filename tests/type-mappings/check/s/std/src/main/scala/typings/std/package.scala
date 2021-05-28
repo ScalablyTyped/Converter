@@ -67,5 +67,5 @@ package object std {
   /**
     * Obtain the return type of a function type
     */
-  type ReturnType[T /* <: js.Function1[/* repeated */ js.Any, _] */] = js.Any
+  type ReturnType[T /* <: js.Function1[/* repeated */ js.Any, js.Any] */] = js.Any
 }

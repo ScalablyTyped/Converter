@@ -28,7 +28,6 @@ object Erasure {
       case QualifiedName.UNDEFINED => QualifiedName.`|`
       case QualifiedName.JsUndefOr => QualifiedName.`|`
       case QualifiedName.UNION     => QualifiedName.`|`
-      case QualifiedName.WILDCARD  => QualifiedName.Any
       case QualifiedName.THIS      => QualifiedName.THIS
       case QualifiedName.REPEATED  => QualifiedName.Array
       // the way we fake literal means these are true enough

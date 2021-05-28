@@ -56,7 +56,11 @@ object optionsMod {
     
     var comments: js.UndefOr[Boolean] = js.native
     
-    var components: js.UndefOr[StringDictionary[(Component[_, _, _, _]) | (AsyncComponent[_, _, _, _])]] = js.native
+    var components: js.UndefOr[
+        StringDictionary[
+          (Component[js.Any, js.Any, js.Any, js.Any]) | (AsyncComponent[js.Any, js.Any, js.Any, js.Any])
+        ]
+      ] = js.native
     
     var computed: js.UndefOr[Accessors[Computed]] = js.native
     
@@ -133,7 +137,7 @@ object optionsMod {
     
     var updated: js.UndefOr[js.Function0[Unit]] = js.native
     
-    var watch: js.UndefOr[Record[String, WatchOptionsWithHandler[_] | WatchHandler[_] | String]] = js.native
+    var watch: js.UndefOr[Record[String, WatchOptionsWithHandler[js.Any] | WatchHandler[js.Any] | String]] = js.native
   }
   object ComponentOptions {
     
@@ -183,7 +187,11 @@ object optionsMod {
       def setCommentsUndefined: Self = StObject.set(x, "comments", js.undefined)
       
       @scala.inline
-      def setComponents(value: StringDictionary[(Component[_, _, _, _]) | (AsyncComponent[_, _, _, _])]): Self = StObject.set(x, "components", value.asInstanceOf[js.Any])
+      def setComponents(
+        value: StringDictionary[
+              (Component[js.Any, js.Any, js.Any, js.Any]) | (AsyncComponent[js.Any, js.Any, js.Any, js.Any])
+            ]
+      ): Self = StObject.set(x, "components", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setComponentsUndefined: Self = StObject.set(x, "components", js.undefined)
@@ -395,7 +403,7 @@ object optionsMod {
       def setUpdatedUndefined: Self = StObject.set(x, "updated", js.undefined)
       
       @scala.inline
-      def setWatch(value: Record[String, WatchOptionsWithHandler[_] | WatchHandler[_] | String]): Self = StObject.set(x, "watch", value.asInstanceOf[js.Any])
+      def setWatch(value: Record[String, WatchOptionsWithHandler[js.Any] | WatchHandler[js.Any] | String]): Self = StObject.set(x, "watch", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setWatchUndefined: Self = StObject.set(x, "watch", js.undefined)
@@ -737,7 +745,7 @@ object optionsMod {
   trait ThisTypedComponentOptionsWithArrayProps[V /* <: Vue */, Data, Methods, Computed, PropNames /* <: String */]
     extends ComponentOptions[
           V, 
-          Data | (js.ThisFunction0[/* this */ (Record[PropNames, _]) with V, Data]), 
+          Data | (js.ThisFunction0[/* this */ (Record[PropNames, js.Any]) with V, Data]), 
           Methods, 
           Computed, 
           js.Array[PropNames]

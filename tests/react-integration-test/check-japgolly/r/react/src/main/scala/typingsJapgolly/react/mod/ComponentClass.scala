@@ -21,11 +21,11 @@ trait ComponentClass[P, S]
       japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object]
     ] {
   
-  var childContextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  var childContextTypes: js.UndefOr[ValidationMap[js.Any]] = js.native
   
-  var contextType: js.UndefOr[Context[_]] = js.native
+  var contextType: js.UndefOr[Context[js.Any]] = js.native
   
-  var contextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  var contextTypes: js.UndefOr[ValidationMap[js.Any]] = js.native
   
   var defaultProps: js.UndefOr[Partial[P]] = js.native
   

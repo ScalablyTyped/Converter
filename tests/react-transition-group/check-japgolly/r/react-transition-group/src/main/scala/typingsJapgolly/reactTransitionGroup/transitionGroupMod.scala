@@ -18,14 +18,14 @@ object transitionGroupMod {
     extends Component[TransitionGroupProps[abbr, js.Any], js.Object]
   
   @js.native
-  trait ComponentTransitionGroupProps[T /* <: ReactType[_] */] extends StObject {
+  trait ComponentTransitionGroupProps[T /* <: ReactType[js.Any] */] extends StObject {
     
     var component: T = js.native
   }
   object ComponentTransitionGroupProps {
     
     @scala.inline
-    def apply[T /* <: ReactType[_] */](component: T): ComponentTransitionGroupProps[T] = {
+    def apply[T /* <: ReactType[js.Any] */](component: T): ComponentTransitionGroupProps[T] = {
       val __obj = js.Dynamic.literal(component = component.asInstanceOf[js.Any])
       __obj.asInstanceOf[ComponentTransitionGroupProps[T]]
     }
@@ -48,5 +48,5 @@ object transitionGroupMod {
   
   type TransitionGroup = japgolly.scalajs.react.raw.React.Component[(TransitionGroupProps[abbr, js.Any]) with js.Object, js.Object]
   
-  type TransitionGroupProps[T /* <: abbr | animate */, V /* <: ReactType[_] */] = (IntrinsicTransitionGroupProps[T] with (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)) | (ComponentTransitionGroupProps[V] with ChildFactory)
+  type TransitionGroupProps[T /* <: abbr | animate */, V /* <: ReactType[js.Any] */] = (IntrinsicTransitionGroupProps[T] with (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)) | (ComponentTransitionGroupProps[V] with ChildFactory)
 }

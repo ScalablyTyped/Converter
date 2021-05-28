@@ -26,19 +26,12 @@ class JapgollyMemberToProp(reactNames: ReactNamesProxy, rewrites: IArray[CastCon
     }
 
   def toScalaJsReact(scope: TreeScope)(variant: Prop.Variant): Prop.Variant = {
-    object StripWildcards {
-      def unapply(tr: TypeRef): Some[TypeRef] =
-        Some(Wildcards.Remove.visitTypeRef(scope)(tr))
-
-      def unapply(trs: IArray[TypeRef]): Some[IArray[TypeRef]] =
-        Some(trs.map(Wildcards.Remove.visitTypeRef(scope)))
-    }
 
     variant.tpe match {
-      case TypeRef.ScalaFunction(Empty, StripWildcards(retType)) =>
+      case TypeRef.ScalaFunction(Empty, retType) =>
         Prop.Variant(CallbackTo(retType), ref => Select(ref, Name("toJsFn")), isRewritten = true, extendsAnyVal = true)
 
-      case TypeRef.ScalaFunction(StripWildcards(paramTypes), StripWildcards(TypeRef.Unit)) =>
+      case TypeRef.ScalaFunction(paramTypes, TypeRef.Unit) =>
         def fn(ref: ExprTree): ExprTree = {
           val params = paramTypes.zipWithIndex.map {
             case (tpe, i) =>

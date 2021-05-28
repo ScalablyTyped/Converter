@@ -40,7 +40,7 @@ object ReactDropzone {
     
     @scala.inline
     def getFilesFromEvent(
-      value: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
+      value: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ js.Any
     ): this.type = set("getFilesFromEvent", js.Any.fromFunction1(value))
     
     @scala.inline
@@ -76,23 +76,23 @@ object ReactDropzone {
     @scala.inline
     def onDrop(
       value: (/* acceptedFiles */ js.Array[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
         ], /* rejectedFiles */ js.Array[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
         ], /* event */ DropEvent) => Unit
     ): this.type = set("onDrop", js.Any.fromFunction3(value))
     
     @scala.inline
     def onDropAccepted(
       value: (/* files */ js.Array[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
         ], /* event */ DropEvent) => Unit
     ): this.type = set("onDropAccepted", js.Any.fromFunction2(value))
     
     @scala.inline
     def onDropRejected(
       value: (/* files */ js.Array[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
         ], /* event */ DropEvent) => Unit
     ): this.type = set("onDropRejected", js.Any.fromFunction2(value))
     

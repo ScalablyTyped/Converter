@@ -40,7 +40,7 @@ object ReactDropzone {
     
     @scala.inline
     def getFilesFromEvent(
-      value: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
+      value: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ js.Any
     ): this.type = set("getFilesFromEvent", js.Any.fromFunction1(value))
     
     @scala.inline
@@ -75,14 +75,34 @@ object ReactDropzone {
     
     @scala.inline
     def onDrop(
-      value: (/* acceptedFiles */ js.Array[js.Any], /* rejectedFiles */ js.Array[js.Any], /* event */ DropEvent) => Callback
-    ): this.type = set("onDrop", js.Any.fromFunction3((t0: /* acceptedFiles */ js.Array[js.Any], t1: /* rejectedFiles */ js.Array[js.Any], t2: /* event */ DropEvent) => (value(t0, t1, t2)).runNow()))
+      value: (/* acceptedFiles */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], /* rejectedFiles */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], /* event */ DropEvent) => Callback
+    ): this.type = set("onDrop", js.Any.fromFunction3((t0: /* acceptedFiles */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], t1: /* rejectedFiles */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], t2: /* event */ DropEvent) => (value(t0, t1, t2)).runNow()))
     
     @scala.inline
-    def onDropAccepted(value: (/* files */ js.Array[js.Any], /* event */ DropEvent) => Callback): this.type = set("onDropAccepted", js.Any.fromFunction2((t0: /* files */ js.Array[js.Any], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
+    def onDropAccepted(
+      value: (/* files */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], /* event */ DropEvent) => Callback
+    ): this.type = set("onDropAccepted", js.Any.fromFunction2((t0: /* files */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
     
     @scala.inline
-    def onDropRejected(value: (/* files */ js.Array[js.Any], /* event */ DropEvent) => Callback): this.type = set("onDropRejected", js.Any.fromFunction2((t0: /* files */ js.Array[js.Any], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
+    def onDropRejected(
+      value: (/* files */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], /* event */ DropEvent) => Callback
+    ): this.type = set("onDropRejected", js.Any.fromFunction2((t0: /* files */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
     
     @scala.inline
     def onFileDialogCancel(value: Callback): this.type = set("onFileDialogCancel", value.toJsFn)

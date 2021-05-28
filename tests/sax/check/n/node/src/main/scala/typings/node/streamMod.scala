@@ -101,7 +101,7 @@ object streamMod {
   @js.native
   trait ReadableOptions extends StObject {
     
-    var destroy: js.UndefOr[js.Function1[/* error */ js.UndefOr[Error], _]] = js.native
+    var destroy: js.UndefOr[js.Function1[/* error */ js.UndefOr[Error], js.Any]] = js.native
     
     var encoding: js.UndefOr[String] = js.native
     
@@ -109,7 +109,7 @@ object streamMod {
     
     var objectMode: js.UndefOr[Boolean] = js.native
     
-    var read: js.UndefOr[js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], _]] = js.native
+    var read: js.UndefOr[js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], js.Any]] = js.native
   }
   object ReadableOptions {
     
@@ -123,7 +123,7 @@ object streamMod {
     implicit class ReadableOptionsMutableBuilder[Self <: ReadableOptions] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def setDestroy(value: /* error */ js.UndefOr[Error] => _): Self = StObject.set(x, "destroy", js.Any.fromFunction1(value))
+      def setDestroy(value: /* error */ js.UndefOr[Error] => js.Any): Self = StObject.set(x, "destroy", js.Any.fromFunction1(value))
       
       @scala.inline
       def setDestroyUndefined: Self = StObject.set(x, "destroy", js.undefined)
@@ -147,7 +147,7 @@ object streamMod {
       def setObjectModeUndefined: Self = StObject.set(x, "objectMode", js.undefined)
       
       @scala.inline
-      def setRead(value: js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], _]): Self = StObject.set(x, "read", value.asInstanceOf[js.Any])
+      def setRead(value: js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], js.Any]): Self = StObject.set(x, "read", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setReadUndefined: Self = StObject.set(x, "read", js.undefined)

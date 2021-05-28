@@ -15,11 +15,11 @@ trait ComponentClass[P, S]
      with StaticLifecycle[P, S]
      with Instantiable2[/* props */ P, /* context */ js.Any, ReactComponentClass[P]] {
   
-  var childContextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  var childContextTypes: js.UndefOr[ValidationMap[js.Any]] = js.native
   
-  var contextType: js.UndefOr[Context[_]] = js.native
+  var contextType: js.UndefOr[Context[js.Any]] = js.native
   
-  var contextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  var contextTypes: js.UndefOr[ValidationMap[js.Any]] = js.native
   
   var defaultProps: js.UndefOr[Partial[P]] = js.native
   

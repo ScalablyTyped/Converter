@@ -58,7 +58,7 @@ object mod {
     
     def serializeForPagination(
       mode: SERIALIZATION,
-      array: js.Array[_],
+      array: js.Array[js.Any],
       metadata: js.Any,
       callback: js.Function2[/* err */ js.Any, /* result */ String, Unit]
     ): Unit = js.native

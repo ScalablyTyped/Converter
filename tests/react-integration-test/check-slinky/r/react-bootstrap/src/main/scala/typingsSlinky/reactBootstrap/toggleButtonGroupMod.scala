@@ -67,7 +67,7 @@ object toggleButtonGroupMod {
     
     var name: js.UndefOr[String] = js.native
     
-    var onChange: js.UndefOr[js.Function1[/* values */ js.Array[_], Unit]] = js.native
+    var onChange: js.UndefOr[js.Function1[/* values */ js.Array[js.Any], Unit]] = js.native
     
     var `type`: checkbox = js.native
   }
@@ -90,7 +90,7 @@ object toggleButtonGroupMod {
       def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
       
       @scala.inline
-      def setOnChange(value: /* values */ js.Array[_] => Unit): Self = StObject.set(x, "onChange", js.Any.fromFunction1(value))
+      def setOnChange(value: /* values */ js.Array[js.Any] => Unit): Self = StObject.set(x, "onChange", js.Any.fromFunction1(value))
       
       @scala.inline
       def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)

@@ -227,12 +227,12 @@ object mod {
     
     var props: js.Any = js.native
     
-    var `type`: String | ComponentClass[_] = js.native
+    var `type`: String | ComponentClass[js.Any] = js.native
   }
   object ReactElement {
     
     @scala.inline
-    def apply(props: js.Any, `type`: String | ComponentClass[_]): ReactElement = {
+    def apply(props: js.Any, `type`: String | ComponentClass[js.Any]): ReactElement = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
       __obj.asInstanceOf[ReactElement]
@@ -251,7 +251,7 @@ object mod {
       def setProps(value: js.Any): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setType(value: String | ComponentClass[_]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      def setType(value: String | ComponentClass[js.Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   

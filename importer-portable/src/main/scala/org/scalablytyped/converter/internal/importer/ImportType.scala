@@ -9,15 +9,13 @@ import org.scalablytyped.converter.internal.ts.transforms.ExtractInterfaces
 
 class ImportType(stdNames: QualifiedName.StdNames) {
 
-  def orAny(wildcards: Wildcards, scope: TsTreeScope, importName: AdaptiveNamingImport)(ott: Option[TsType]): TypeRef =
-    ott.map(apply(wildcards, scope, importName)).getOrElse(TypeRef.JsAny)
+  def orAny(scope: TsTreeScope, importName: AdaptiveNamingImport)(ott: Option[TsType]): TypeRef =
+    ott.map(apply(scope, importName)).getOrElse(TypeRef.JsAny)
 
-  def orExprOrAny(wildcards: Wildcards, scope: TsTreeScope, importName: AdaptiveNamingImport)(
-      ott:                   Option[TsType],
-  ): TypeRef =
+  def orExprOrAny(scope: TsTreeScope, importName: AdaptiveNamingImport)(ott: Option[TsType]): TypeRef =
     ott match {
       case None    => TypeRef.JsAny
-      case Some(x) => apply(wildcards, scope, importName)(x)
+      case Some(x) => apply(scope, importName)(x)
     }
 
   /**
@@ -62,7 +60,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
     )
   }
 
-  def apply(wildcards: Wildcards, _scope: TsTreeScope, importName: AdaptiveNamingImport)(t1: TsType): TypeRef = {
+  def apply(_scope: TsTreeScope, importName: AdaptiveNamingImport)(t1: TsType): TypeRef = {
     val scope = _scope / t1
     t1 match {
       case TsTypeRef(cs, TsQIdent.Std.Readonly, IArray.exactlyOne(one)) =>
@@ -71,16 +69,16 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           case other => other
         }
 
-        apply(wildcards, scope, importName)(withComments)
+        apply(scope, importName)(withComments)
 
       case TsTypeRef(cs, base: TsQIdent, targs: IArray[TsType]) =>
         base match {
           case TsQIdent.any | TsQIdent.unknown =>
-            (if (wildcards.allowed) TypeRef.Wildcard else TypeRef.JsAny).withComments(cs)
+            TypeRef.JsAny.withComments(cs)
 
           case other =>
             lazy val isInheritance = IsInheritance(other, scope)
-            lazy val targs2        = targs.map(apply(wildcards.maybeAllow, scope, importName))
+            lazy val targs2        = targs.map(apply(scope, importName))
 
             Mappings.get(other) match {
               case Some(m: RefMapping)  => m.pick(isInheritance).withComments(cs)
@@ -103,7 +101,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           TsTreeTraverse.collect(to) { case TsTypeLookup(from: TsTypeRef, _) => from }
 
         val base = lookups match {
-          case IArray.exactlyOne(one) => apply(wildcards, scope, importName)(one)
+          case IArray.exactlyOne(one) => apply(scope, importName)(one)
           case _                      => TypeRef.JsAny
         }
 
@@ -126,7 +124,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
         val translatedStrings = strings.collect {
           case TsMemberIndex(cs, _, _, Indexing.Dict(_, _), valueType) =>
-            (cs, orAny(wildcards, scope, importName)(valueType))
+            (cs, orAny(scope, importName)(valueType))
         }
         val stringDict = translatedStrings match {
           case Empty => None
@@ -141,7 +139,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
         }
         val translatedNumbers = numbers.collect {
           case TsMemberIndex(cs, _, _, Indexing.Dict(_, TsTypeRef.number), valueType) =>
-            (cs, orAny(wildcards, scope, importName)(valueType))
+            (cs, orAny(scope, importName)(valueType))
         }
         val numberDict = translatedNumbers match {
           case Empty => None
@@ -164,15 +162,15 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           val (thisType, restParams) =
             newSig.params match {
               case IArray.headTail(first, tail) if first.name === TsIdent.`this` =>
-                (Some(funParam(wildcards, scope, importName)(first)), tail)
+                (Some(funParam(scope, importName)(first)), tail)
               case all =>
                 (None, all)
             }
 
           TypeRef.JsFunction(
             thisType,
-            restParams.map(funParam(wildcards, scope, importName)),
-            orAny(wildcards.maybeAllow, scope, importName)(newSig.resultType),
+            restParams.map(funParam(scope, importName)),
+            orAny(scope, importName)(newSig.resultType),
             newSig.comments,
           )
         }
@@ -190,12 +188,12 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
         val rewritten = patched.map {
           case TsTypeRef.undefined => TypeRef.undefined
-          case other               => apply(wildcards, scope, importName)(other)
+          case other               => apply(scope, importName)(other)
         }
         TypeRef.Union(rewritten, NoComments, sort = false)
 
       case TsTypeIntersect(types) =>
-        TypeRef.Intersection(types.map(apply(Wildcards.No, scope, importName)), NoComments)
+        TypeRef.Intersection(types.map(apply(scope, importName)), NoComments)
 
       case TsTypeConstructor(_, TsTypeFunction(sig)) =>
         newableFunction(scope, importName, sig, NoComments)
@@ -228,7 +226,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
                   ) =>
                 TypeRef(
                   importName(TsQIdent.Array),
-                  IArray(apply(wildcards, scope, importName)(TsTypeUnion(init.map(_.tpe) :+ tpe))).distinct,
+                  IArray(apply(scope, importName)(TsTypeUnion(init.map(_.tpe) :+ tpe))).distinct,
                   labelComment(elem),
                 )
               case other =>
@@ -237,13 +235,13 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             }
           case nonRepeating =>
             TypeRef.JsTuple(nonRepeating.map { elem =>
-              apply(wildcards.maybeAllow, scope, importName)(elem.tpe)
+              apply(scope, importName)(elem.tpe)
                 .withComments(labelComment(elem))
             })
         }
 
       case TsTypeRepeated(underlying) =>
-        TypeRef.Repeated(apply(wildcards, scope, importName)(underlying), NoComments)
+        TypeRef.Repeated(apply(scope, importName)(underlying), NoComments)
 
       case TsTypeIs(_, tpe) =>
         tpe match {
@@ -267,7 +265,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
         TypeRef.ThisType(NoComments)
 
       case x: TsTypeConditional =>
-        apply(wildcards, _scope, importName)(unify(IArray(x.ifFalse, x.ifTrue)))
+        apply(scope, importName)(unify(IArray(x.ifFalse, x.ifTrue)))
 
       case other =>
         val msg = s"Failed type conversion: ${TsTypeFormatter(other)}"
@@ -307,11 +305,11 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
         val comment = Comment(s"/* ${param.name.value}${if (isRepeated) " (repeated)" else ""} */")
 
-        orAny(Wildcards.Prohibit, scope, importName)(baseType).withComments(Comments(comment))
+        orAny(scope, importName)(baseType).withComments(Comments(comment))
       }
 
     val ret: TypeRef =
-      orAny(Wildcards.Prohibit, scope, importName)(sig.resultType)
+      orAny(scope, importName)(sig.resultType)
 
     TypeRef(
       QualifiedName.Instantiable(sig.params.length),
@@ -320,10 +318,10 @@ class ImportType(stdNames: QualifiedName.StdNames) {
     )
   }
 
-  private def funParam(wildcards: Wildcards, scope: TsTreeScope, importName: AdaptiveNamingImport)(
+  private def funParam(scope: TsTreeScope, importName: AdaptiveNamingImport)(
       param:                      TsFunParam,
   ): TypeRef =
-    orAny(wildcards, scope / param, importName)(param.tpe).withComments(Comments(s"/* ${param.name.value} */"))
+    orAny(scope / param, importName)(param.tpe).withComments(Comments(s"/* ${param.name.value} */"))
 }
 
 object ImportType {

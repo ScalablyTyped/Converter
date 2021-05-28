@@ -48,15 +48,15 @@ class SharedBuilder_AccordionTitleProps_248880662[R <: js.Object] (val args: js.
   @scala.inline
   def icon(
     value: SemanticShorthandItem[
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
     ]
   ): this.type = set("icon", value.asInstanceOf[js.Any])
   
   @scala.inline
   def iconFunction3(
     value: (/* component */ ReactType[
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
-    ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
+    ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
   ): this.type = set("icon", js.Any.fromFunction3(value))
   
   @scala.inline

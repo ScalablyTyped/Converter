@@ -375,11 +375,7 @@ object TypeRef {
 
     def apply(types: IArray[TypeRef], comments: Comments): TypeRef = {
       val base: IArray[TypeRef] =
-        flattened(types).distinct.partitionCollect { case TypeRef.Wildcard => TypeRef.Wildcard } match {
-          // keep wildcard only if there is nothing else
-          case (wildcards, Empty) => wildcards
-          case (_, rest)          => rest
-        }
+        flattened(types).distinct
 
       val ret = base match {
         case IArray.Empty           => TypeRef.Nothing

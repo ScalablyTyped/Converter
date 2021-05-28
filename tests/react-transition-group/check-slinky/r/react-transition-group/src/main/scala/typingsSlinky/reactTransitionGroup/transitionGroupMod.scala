@@ -19,20 +19,20 @@ object transitionGroupMod {
     extends Component[TransitionGroupProps[abbr, js.Any], js.Object]
   
   @js.native
-  trait ComponentTransitionGroupProps[T /* <: ReactType[_] */] extends StObject {
+  trait ComponentTransitionGroupProps[T /* <: ReactType[js.Any] */] extends StObject {
     
     var component: T = js.native
   }
   object ComponentTransitionGroupProps {
     
     @scala.inline
-    def apply[T /* <: ReactType[_] */](component: T): ComponentTransitionGroupProps[T] = {
+    def apply[T /* <: ReactType[js.Any] */](component: T): ComponentTransitionGroupProps[T] = {
       val __obj = js.Dynamic.literal(component = component.asInstanceOf[js.Any])
       __obj.asInstanceOf[ComponentTransitionGroupProps[T]]
     }
     
     @scala.inline
-    implicit class ComponentTransitionGroupPropsMutableBuilder[Self <: ComponentTransitionGroupProps[_], T /* <: ReactType[_] */] (val x: Self with ComponentTransitionGroupProps[T]) extends AnyVal {
+    implicit class ComponentTransitionGroupPropsMutableBuilder[Self <: ComponentTransitionGroupProps[_], T /* <: ReactType[js.Any] */] (val x: Self with ComponentTransitionGroupProps[T]) extends AnyVal {
       
       @scala.inline
       def setComponent(value: T): Self = StObject.set(x, "component", value.asInstanceOf[js.Any])
@@ -65,5 +65,5 @@ object transitionGroupMod {
   
   type TransitionGroup = ReactComponentClass[TransitionGroupProps[abbr, js.Any]]
   
-  type TransitionGroupProps[T /* <: abbr | animate */, V /* <: ReactType[_] */] = (IntrinsicTransitionGroupProps[T] with (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)) | (ComponentTransitionGroupProps[V] with ChildFactory)
+  type TransitionGroupProps[T /* <: abbr | animate */, V /* <: ReactType[js.Any] */] = (IntrinsicTransitionGroupProps[T] with (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)) | (ComponentTransitionGroupProps[V] with ChildFactory)
 }

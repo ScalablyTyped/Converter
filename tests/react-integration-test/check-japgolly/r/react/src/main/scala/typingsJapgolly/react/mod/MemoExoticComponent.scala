@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
 // but can be given its own specific name
 @js.native
-trait MemoExoticComponent[T /* <: ComponentType[_] */] extends NamedExoticComponent[ComponentPropsWithRef[T]] {
+trait MemoExoticComponent[T /* <: ComponentType[js.Any] */] extends NamedExoticComponent[ComponentPropsWithRef[T]] {
   
   val `type`: T = js.native
 }

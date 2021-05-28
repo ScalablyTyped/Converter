@@ -13,12 +13,12 @@ object anon {
     
     var key: String = js.native
     
-    var value: Promise[T, _] = js.native
+    var value: Promise[T, js.Any] = js.native
   }
   object Key {
     
     @scala.inline
-    def apply[T](key: String, value: Promise[T, _]): Key[T] = {
+    def apply[T](key: String, value: Promise[T, js.Any]): Key[T] = {
       val __obj = js.Dynamic.literal(key = key.asInstanceOf[js.Any], value = value.asInstanceOf[js.Any])
       __obj.asInstanceOf[Key[T]]
     }
@@ -30,7 +30,7 @@ object anon {
       def setKey(value: String): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setValue(value: Promise[T, _]): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
+      def setValue(value: Promise[T, js.Any]): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     }
   }
 }

@@ -11,9 +11,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait Mixin[P, S]
   extends ComponentLifecycle[P, S, js.Any] {
   
-  var childContextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  var childContextTypes: js.UndefOr[ValidationMap[js.Any]] = js.native
   
-  var contextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  var contextTypes: js.UndefOr[ValidationMap[js.Any]] = js.native
   
   var displayName: js.UndefOr[String] = js.native
   
@@ -23,7 +23,7 @@ trait Mixin[P, S]
   
   var mixins: js.UndefOr[js.Array[Mixin[P, S]]] = js.native
   
-  var propTypes: js.UndefOr[ValidationMap[_]] = js.native
+  var propTypes: js.UndefOr[ValidationMap[js.Any]] = js.native
   
   var statics: js.UndefOr[StringDictionary[js.Any]] = js.native
 }
@@ -39,13 +39,13 @@ object Mixin {
   implicit class MixinMutableBuilder[Self <: Mixin[_, _], P, S] (val x: Self with (Mixin[P, S])) extends AnyVal {
     
     @scala.inline
-    def setChildContextTypes(value: ValidationMap[_]): Self = StObject.set(x, "childContextTypes", value.asInstanceOf[js.Any])
+    def setChildContextTypes(value: ValidationMap[js.Any]): Self = StObject.set(x, "childContextTypes", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setChildContextTypesUndefined: Self = StObject.set(x, "childContextTypes", js.undefined)
     
     @scala.inline
-    def setContextTypes(value: ValidationMap[_]): Self = StObject.set(x, "contextTypes", value.asInstanceOf[js.Any])
+    def setContextTypes(value: ValidationMap[js.Any]): Self = StObject.set(x, "contextTypes", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setContextTypesUndefined: Self = StObject.set(x, "contextTypes", js.undefined)
@@ -78,7 +78,7 @@ object Mixin {
     def setMixinsVarargs(value: (Mixin[P, S])*): Self = StObject.set(x, "mixins", js.Array(value :_*))
     
     @scala.inline
-    def setPropTypes(value: ValidationMap[_]): Self = StObject.set(x, "propTypes", value.asInstanceOf[js.Any])
+    def setPropTypes(value: ValidationMap[js.Any]): Self = StObject.set(x, "propTypes", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setPropTypesUndefined: Self = StObject.set(x, "propTypes", js.undefined)

@@ -30,7 +30,7 @@ object ImportEnum {
     e match {
       /* exported const enum? type alias */
       case TsDeclEnum(cs, _, true, _, _, _, Some(exportedFrom), _, codePath) =>
-        val tpe        = importType(Wildcards.No, scope, importName)(exportedFrom)
+        val tpe        = importType(scope, importName)(exportedFrom)
         val importedCp = importName(codePath)
         IArray(TypeAliasTree(importedCp.parts.last, Empty, tpe, cs + Marker.IsTrivial, importedCp))
 
@@ -40,7 +40,7 @@ object ImportEnum {
         val ta = TypeAliasTree(
           name     = importedCodePath.parts.last,
           tparams  = Empty,
-          alias    = importType(Wildcards.No, scope, importName)(TsTypeUnion(e.members.map(m => TsExpr.typeOfOpt(m.expr)))),
+          alias    = importType(scope, importName)(TsTypeUnion(e.members.map(m => TsExpr.typeOfOpt(m.expr)))),
           comments = cs,
           codePath = importedCodePath,
         )
@@ -50,7 +50,7 @@ object ImportEnum {
             .map {
               case TsEnumMember(memberCs, ImportName(memberName), exprOpt) =>
                 val expr            = exprOpt.getOrElse(sys.error("Expression cannot be empty here"))
-                val tpe             = importType(Wildcards.No, scope, importName)(TsExpr.typeOf(expr))
+                val tpe             = importType(scope, importName)(TsExpr.typeOf(expr))
                 val memberNameFixed = if (illegalNames.Illegal(memberName)) memberName.withSuffix("") else memberName
                 MethodTree(
                   IArray(Annotation.Inline),
@@ -89,7 +89,7 @@ object ImportEnum {
         val enumName         = importedCodePath.parts.last
 
         val baseInterface: TypeRef =
-          importType(Wildcards.No, scope, importName)(
+          importType(scope, importName)(
             TsTypeRef(NoComments, exportedFrom.fold(codePath.forceHasPath.codePath)(_.name), Empty),
           )
 
@@ -101,7 +101,7 @@ object ImportEnum {
               scalajs.TypeAliasTree(
                 name     = enumName,
                 tparams  = Empty,
-                alias    = importType(Wildcards.No, scope, importName)(TsTypeRef(NoComments, ef.name, Empty)),
+                alias    = importType(scope, importName)(TsTypeRef(NoComments, ef.name, Empty)),
                 comments = Comments(Marker.IsTrivial),
                 codePath = importedCodePath,
               )
