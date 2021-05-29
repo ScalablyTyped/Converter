@@ -59,6 +59,7 @@ lazy val importer = project
       Deps.bloop,
       Deps.scalatest % Test,
     ),
+    Test / fork := true,
     assembly / test := {},
     assembly / mainClass := Some("org.scalablytyped.converter.Main"),
     /* meh meh meh */
