@@ -6,8 +6,8 @@ import io.circe013.{Decoder, Encoder}
 object Versions {
   val sbtVersion = "1.5.2"
 
-  private val StableVersion = "(\\d+).(\\d+).(\\d+)".r
-  private val Milestone     = "(.+)-bin-(.+)".r
+  // this accepts any nightly or milestone with the same binversion as a major release. good enough for now
+  private val Version = "(\\d+).(\\d+).(\\d+).*".r
 
   case class Scala(scalaVersion: String) {
     val is3 = scalaVersion.startsWith("3.")
@@ -28,10 +28,9 @@ object Versions {
       else None
 
     val binVersion: String = scalaVersion match {
-      case StableVersion("3", _, _)     => s"3"
-      case StableVersion("2", minor, _) => s"2.$minor"
-      case Milestone(bin, _)            => bin
-      case other                        => other
+      case Version("3", _, _)     => s"3"
+      case Version("2", minor, _) => s"2.$minor"
+      case other                  => other
     }
 
     val compilerBridge: Option[Dep.Java] =
@@ -47,14 +46,14 @@ object Versions {
 
   val Scala212 = Scala("2.12.14")
   val Scala213 = Scala("2.13.5")
-  val Scala3   = Scala("3.0.0")
+  val Scala3   = Scala("3.0.1-RC2")
 
   case class ScalaJs(scalaJsVersion: String) {
     val scalaJsBinVersion: String =
       scalaJsVersion match {
-        case StableVersion("1", _, _)   => "1"
-        case StableVersion("0", "6", _) => "0.6"
-        case other                      => other
+        case Version("1", _, _)   => "1"
+        case Version("0", "6", _) => "0.6"
+        case other                => other
       }
 
     val scalaJsOrganization = "org.scala-js"

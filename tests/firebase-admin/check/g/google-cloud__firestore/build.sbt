@@ -1,7 +1,7 @@
 organization := "org.scalablytyped"
 name := "google-cloud__firestore"
-version := "2.2.3-4f35d5"
-scalaVersion := "3.0.0"
+version := "2.2.3-df3bba"
+scalaVersion := "3.0.1-RC2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2")

@@ -1,7 +1,7 @@
 organization := "org.scalablytyped"
 name := "aws-sdk"
-version := "2.247.1-9d6e4d"
-scalaVersion := "3.0.0"
+version := "2.247.1-ada389"
+scalaVersion := "3.0.1-RC2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2")

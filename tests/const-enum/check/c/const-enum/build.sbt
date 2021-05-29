@@ -1,7 +1,7 @@
 organization := "org.scalablytyped"
 name := "const-enum"
-version := "0.0-unknown-594abb"
-scalaVersion := "3.0.0"
+version := "0.0-unknown-6d36de"
+scalaVersion := "3.0.1-RC2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2")

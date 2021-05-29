@@ -1,7 +1,7 @@
 organization := "org.scalablytyped"
 name := "rxjs"
-version := "0.0-unknown-1bc3c9"
-scalaVersion := "3.0.0"
+version := "0.0-unknown-de95ee"
+scalaVersion := "3.0.1-RC2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2")
