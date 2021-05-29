@@ -339,7 +339,7 @@ class SlinkyGenComponents(
   }
 
   def refFromProps[E](resProps: Res[E, SplitProps]): Option[TypeRef] =
-    resProps.asMap.flatMapToIArray { case (_, v) => v.refTypes }.headOption
+    resProps.asMap.flatMapToIArray { case (_, v) => v.refTypes }.filterNot(_ === TypeRef.JsAny).headOption
 
   def effectiveRef(
       scope:             TreeScope,
