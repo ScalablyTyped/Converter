@@ -122,8 +122,18 @@ class ImportTree(
       case TsDeclVar(cs, _, readOnly, _, tpeOpt, _, jsLocation, codePath) =>
         val importedCp = importName(codePath)
         val name       = importedCp.parts.last
-        val tpe        = importType.orAny(scope, importName)(tpeOpt)
-        val anns       = ImportJsLocation(jsLocation)
+        val tpe = {
+          tpeOpt match {
+            case Some(TsTypeRef.`null`) =>
+              TypeRef.JsAny.withComments(
+                Comments("/* is `Null`, but independent javascript fields cannot be in scala 3 */"),
+              )
+            case _ =>
+              importType.orAny(scope, importName)(tpeOpt)
+          }
+        }
+
+        val anns = ImportJsLocation(jsLocation)
 
         /* need to reach well known symbols through a stable path */
         if (name === Name.Symbol)
