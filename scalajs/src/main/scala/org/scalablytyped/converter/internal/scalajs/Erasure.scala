@@ -56,8 +56,10 @@ class Erasure(scalaVersion: Versions.Scala) {
           erasedParentLattices.reduce(_.intersect(_)).lastOption.getOrElse(QualifiedName.Any)
         }
 
-      case QualifiedName.UNION    => QualifiedName.`|`
-      case QualifiedName.THIS     => QualifiedName.THIS
+      case QualifiedName.UNION => QualifiedName.`|`
+      case QualifiedName.THIS =>
+        scope.stack.collectFirst { case x: ClassTree => x.codePath }.getOrElse(QualifiedName.THIS)
+
       case QualifiedName.REPEATED => QualifiedName.Array
       // the way we fake literal means these are true enough
       case QualifiedName.STRING_LITERAL  => tpe.targs.head.typeName
