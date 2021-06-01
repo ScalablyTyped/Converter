@@ -389,6 +389,7 @@ final class ParserTests extends AnyFunSuite {
         TsIdentSimple("ActionsClassConstructor"),
         Empty,
         TsTypeConstructor(
+          isAbstract = false,
           TsTypeFunction(
             TsFunSig(
               NoComments,
@@ -2038,6 +2039,7 @@ type Readonly<T> = {
             TsIdentSimple("T"),
             Some(
               TsTypeConstructor(
+                isAbstract = false,
                 TsTypeFunction(
                   TsFunSig(
                     NoComments,
@@ -2061,6 +2063,7 @@ type Readonly<T> = {
           TsTypeExtends(
             T,
             TsTypeConstructor(
+              isAbstract = false,
               TsTypeFunction(
                 TsFunSig(
                   NoComments,
@@ -2856,7 +2859,7 @@ export {};
     shouldParseAs(content, TsParser.tsDeclFunction)(
       TsDeclFunction(
         NoComments,
-        true,
+        declared = true,
         TsIdentSimple("isNotTestHost"),
         TsFunSig(
           NoComments,
@@ -2881,7 +2884,7 @@ export {};
     shouldParseAs(content, TsParser.tsDeclFunction)(
       TsDeclFunction(
         NoComments,
-        true,
+        declared = true,
         TsIdentSimple("foo"),
         TsFunSig(
           NoComments,
@@ -2896,6 +2899,64 @@ export {};
           Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Plist"))), IArray())),
         ),
         Zero,
+        CodePath.NoPath,
+      ),
+    )
+  }
+
+  test("T extends abstract new") {
+    val content =
+      "type ConstructorParameters<T extends abstract new (...args: any) => any> = T extends abstract new (...args: infer P) => any ? P : never"
+
+    shouldParseAs(content, TsParser.tsDeclTypeAlias)(
+      TsDeclTypeAlias(
+        NoComments,
+        declared = false,
+        TsIdentSimple("ConstructorParameters"),
+        IArray(
+          TsTypeParam(
+            NoComments,
+            TsIdentSimple("T"),
+            Some(
+              TsTypeConstructor(
+                isAbstract = true,
+                TsTypeFunction(
+                  TsFunSig(
+                    NoComments,
+                    IArray(),
+                    IArray(TsFunParam(NoComments, TsIdentSimple("args"), Some(TsTypeRef.any))),
+                    Some(TsTypeRef.any),
+                  ),
+                ),
+              ),
+            ),
+            None,
+          ),
+        ),
+        TsTypeConditional(
+          TsTypeExtends(
+            T,
+            TsTypeConstructor(
+              isAbstract = true,
+              TsTypeFunction(
+                TsFunSig(
+                  NoComments,
+                  IArray(),
+                  IArray(
+                    TsFunParam(
+                      NoComments,
+                      TsIdentSimple("any"),
+                      Some(TsTypeInfer(TsTypeParam(NoComments, TsIdentSimple("P"), None, None))),
+                    ),
+                  ),
+                  Some(TsTypeRef.any),
+                ),
+              ),
+            ),
+          ),
+          TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("P"))), IArray()),
+          TsTypeRef.never,
+        ),
         CodePath.NoPath,
       ),
     )

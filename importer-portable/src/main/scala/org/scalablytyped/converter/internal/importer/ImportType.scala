@@ -197,7 +197,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case TsTypeIntersect(types) =>
         TypeRef.Intersection(types.map(apply(Wildcards.No, scope, importName)), NoComments)
 
-      case TsTypeConstructor(TsTypeFunction(sig)) =>
+      case TsTypeConstructor(_, TsTypeFunction(sig)) =>
         newableFunction(scope, importName, sig, NoComments)
 
       case keyof @ TsTypeKeyOf(of) =>

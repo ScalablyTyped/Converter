@@ -125,7 +125,8 @@ class TsTypeFormatter(val keepComments: Boolean) {
       case TsTypeLiteral(l)                         => lit(l)
       case TsTypeObject(cs, members)                => Comments.format(cs, keepComments) + s"{${members.map(member).mkString(", ")}}"
       case TsTypeFunction(s)                        => s"${sig(s)}"
-      case TsTypeConstructor(f)                     => s"new ${apply(f)}"
+      case TsTypeConstructor(true, f)               => s"abstract new ${apply(f)}"
+      case TsTypeConstructor(false, f)              => s"new ${apply(f)}"
       case TsTypeIs(ident, x)                       => s"${ident.value} is ${apply(x)}"
       case TsTypeTuple(elems)                       => s"[${elems.map(tupleElement).mkString(", ")}]"
       case TsTypeQuery(expr)                        => s"typeof ${qident(expr)}"

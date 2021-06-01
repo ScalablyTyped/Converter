@@ -446,7 +446,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     ((tsIdent <~ "is") ~ tsType ^^ TsTypeIs
       | comments ~ tsMembers ^^ TsTypeObject
       | tsTypeFunction
-      | "new" ~> tsTypeFunction ^^ TsTypeConstructor
+      | ("abstract".isDefined <~ "new") ~ tsTypeFunction ^^ TsTypeConstructor
       | "unique" ~> "symbol" ~> success(TsTypeRef(NoComments, TsQIdent.symbol, Empty))
       | "typeof" ~> qualifiedIdent ^^ TsTypeQuery
       | tsTypeTuple
