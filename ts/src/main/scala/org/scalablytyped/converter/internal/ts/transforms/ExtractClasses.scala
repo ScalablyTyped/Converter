@@ -188,8 +188,8 @@ object ExtractClasses extends TransformLeaveMembers {
         }
 
       FollowAliases(scope)(tpe) match {
-        case TsTypeIntersect(types)                 => types.flatMap(findCtors(scope, loopDetector))
-        case TsTypeConstructor(TsTypeFunction(sig)) => IArray(sig)
+        case TsTypeIntersect(types)                    => types.flatMap(findCtors(scope, loopDetector))
+        case TsTypeConstructor(_, TsTypeFunction(sig)) => IArray(sig)
         case tr: TsTypeRef =>
           loopDetector.including(tr, scope) match {
             case Left(()) => Empty

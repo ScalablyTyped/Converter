@@ -123,6 +123,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
   object RewrittenClass {
     def asTypeCtor(cls: TsDeclClass, cs: Comments, params: IArray[TsFunParam]) =
       TsTypeConstructor(
+        isAbstract = false,
         TsTypeFunction(
           TsFunSig(
             comments = cs,

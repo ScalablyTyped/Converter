@@ -551,7 +551,7 @@ final case class TsTypeObject(comments: Comments, members: IArray[TsMember]) ext
 
 final case class TsTypeFunction(signature: TsFunSig) extends TsType
 
-final case class TsTypeConstructor(signature: TsTypeFunction) extends TsType
+final case class TsTypeConstructor(isAbstract: Boolean, signature: TsTypeFunction) extends TsType
 
 final case class TsTypeIs(ident: TsIdent, tpe: TsType) extends TsType
 
