@@ -14,7 +14,8 @@ object transitionGroupMod {
   @JSImport("react-transition-group/TransitionGroup", JSImport.Namespace)
   @js.native
   class ^ ()
-    extends Component[TransitionGroupProps[abbr, js.Any], js.Object]
+    extends StObject
+       with Component[TransitionGroupProps[abbr, js.Any], js.Object]
   
   @js.native
   trait ComponentTransitionGroupProps[T /* <: ReactType[js.Any] */] extends StObject {

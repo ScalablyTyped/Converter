@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait B extends TA {
+trait B
+  extends StObject
+     with TA {
   
   var b: String = js.native
 }

@@ -7,8 +7,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait ComponentSpec[P, S]
-  extends /* propertyName */ StringDictionary[js.Any]
-     with Mixin[P, S] {
+  extends StObject
+     with Mixin[P, S]
+     with /* propertyName */ StringDictionary[js.Any] {
   
   def render(): slinky.core.facade.ReactElement = js.native
 }

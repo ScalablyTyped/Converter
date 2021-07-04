@@ -150,7 +150,9 @@ object vnodeMod {
   type VNodeChildren = VNodeChildrenArrayContents | js.Array[ScopedSlot] | String
   
   @js.native
-  trait VNodeChildrenArrayContents extends /* x */ NumberDictionary[VNode | String | VNodeChildren]
+  trait VNodeChildrenArrayContents
+    extends StObject
+       with /* x */ NumberDictionary[VNode | String | VNodeChildren]
   object VNodeChildrenArrayContents {
     
     @scala.inline

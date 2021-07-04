@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait OptgroupHTMLAttributes[T] extends HTMLAttributes[T] {
+trait OptgroupHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var disabled: js.UndefOr[Boolean] = js.native
   

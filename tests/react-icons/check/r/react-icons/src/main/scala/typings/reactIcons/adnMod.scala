@@ -11,7 +11,8 @@ object adnMod {
   @JSImport("react-icons/fa/adn", JSImport.Default)
   @js.native
   class default ()
-    extends Component[IconBaseProps, js.Object]
+    extends StObject
+       with Component[IconBaseProps, js.Object]
   
   type FaAdn = Component[IconBaseProps, js.Object]
 }

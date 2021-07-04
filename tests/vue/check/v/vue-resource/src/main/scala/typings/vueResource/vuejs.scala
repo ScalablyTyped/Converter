@@ -38,7 +38,8 @@ object vuejs {
   
   @js.native
   trait HttpHeaders
-    extends /* key */ StringDictionary[js.Any] {
+    extends StObject
+       with /* key */ StringDictionary[js.Any] {
     
     var common: js.UndefOr[StringDictionary[String]] = js.native
     

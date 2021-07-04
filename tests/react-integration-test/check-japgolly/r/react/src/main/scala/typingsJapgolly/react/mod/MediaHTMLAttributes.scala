@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait MediaHTMLAttributes[T] extends HTMLAttributes[T] {
+trait MediaHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var autoPlay: js.UndefOr[Boolean] = js.native
   

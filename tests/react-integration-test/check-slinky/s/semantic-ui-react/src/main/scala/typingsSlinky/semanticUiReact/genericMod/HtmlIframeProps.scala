@@ -7,8 +7,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait HtmlIframeProps
-  extends /* key */ StringDictionary[js.Any]
+  extends StObject
      with StrictHtmlIframeProps
+     with /* key */ StringDictionary[js.Any]
 object HtmlIframeProps {
   
   @scala.inline

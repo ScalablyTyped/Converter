@@ -7,7 +7,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 // ReactSVG for ReactSVGElement
 @js.native
-trait ReactSVGElement extends DOMElement[SVGAttributes[SVGElement], SVGElement]
+trait ReactSVGElement
+  extends StObject
+     with DOMElement[SVGAttributes[SVGElement], SVGElement]
 object ReactSVGElement {
   
   @scala.inline

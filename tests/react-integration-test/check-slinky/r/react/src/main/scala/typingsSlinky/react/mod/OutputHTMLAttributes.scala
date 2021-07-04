@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait OutputHTMLAttributes[T] extends HTMLAttributes[T] {
+trait OutputHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var form: js.UndefOr[String] = js.native
   

@@ -6,7 +6,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ClassAttributes[T] extends Attributes {
+trait ClassAttributes[T]
+  extends StObject
+     with Attributes {
   
   var ref: js.UndefOr[LegacyRef[T]] = js.native
 }

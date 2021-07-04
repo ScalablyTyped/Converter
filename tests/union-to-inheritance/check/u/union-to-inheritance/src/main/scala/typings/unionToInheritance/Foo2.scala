@@ -6,7 +6,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait Foo2[U, V]
-  extends Legal2[V, U]
+  extends StObject
+     with Legal2[V, U]
      with Legal3[U, js.Any, V]
      with _Test[U, js.Any, V] {
   

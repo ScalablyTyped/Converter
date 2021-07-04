@@ -8,7 +8,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait HTMLAttributes[T]
-  extends AriaAttributes
+  extends StObject
+     with AriaAttributes
      with DOMAttributes[T] {
   
   // RDFa Attributes

@@ -37,8 +37,9 @@ object accordionTitleMod extends Shortcut {
   
   @js.native
   trait AccordionTitleProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictAccordionTitleProps
+       with /* key */ StringDictionary[js.Any]
   object AccordionTitleProps {
     
     @scala.inline

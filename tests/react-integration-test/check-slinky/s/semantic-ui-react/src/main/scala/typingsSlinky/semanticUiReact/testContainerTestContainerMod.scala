@@ -162,8 +162,9 @@ object testContainerTestContainerMod extends Shortcut {
   
   @js.native
   trait TestContainerProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictTestContainerProps
+       with /* key */ StringDictionary[js.Any]
   object TestContainerProps {
     
     @scala.inline

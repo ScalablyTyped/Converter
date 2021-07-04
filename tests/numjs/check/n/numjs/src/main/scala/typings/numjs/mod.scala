@@ -10,7 +10,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object mod {
   
   @js.native
-  trait NdArray[T] extends ndarray[T] {
+  trait NdArray[T]
+    extends StObject
+       with ndarray[T] {
     
     @JSName("T")
     var T_NdArray: NdArray[T] = js.native

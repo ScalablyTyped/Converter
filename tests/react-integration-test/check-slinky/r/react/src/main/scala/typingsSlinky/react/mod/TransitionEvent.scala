@@ -6,7 +6,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait TransitionEvent[T] extends BaseSyntheticEvent[NativeTransitionEvent, EventTarget & T, EventTarget] {
+trait TransitionEvent[T]
+  extends StObject
+     with BaseSyntheticEvent[NativeTransitionEvent, EventTarget & T, EventTarget] {
   
   var elapsedTime: Double = js.native
   

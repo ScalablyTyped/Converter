@@ -25,7 +25,8 @@ object mod extends Shortcut {
     * @param {string} [name]
     */
   class CommandCls ()
-    extends typings.commander.mod.local.Command {
+    extends StObject
+       with typings.commander.mod.local.Command {
     def this(name: String) = this()
   }
   
@@ -33,7 +34,8 @@ object mod extends Shortcut {
   @JSImport("commander", "Option")
   @js.native
   class OptionCls protected ()
-    extends typings.commander.mod.local.Option {
+    extends StObject
+       with typings.commander.mod.local.Option {
     /**
       * Initialize a new `Option` with the given `flags` and `description`.
       *
@@ -80,7 +82,8 @@ object mod extends Shortcut {
   
   @js.native
   trait CommanderStatic
-    extends typings.commander.mod.local.Command {
+    extends StObject
+       with typings.commander.mod.local.Command {
     
     var Command: Instantiable1[/* name */ js.UndefOr[String], typings.commander.mod.local.Command] = js.native
     
@@ -138,8 +141,9 @@ object mod extends Shortcut {
     
     @js.native
     trait Command
-      extends /* key */ StringDictionary[js.Any]
-         with EventEmitter {
+      extends StObject
+         with EventEmitter
+         with /* key */ StringDictionary[js.Any] {
       
       /**
         * Register callback `fn` for the command.

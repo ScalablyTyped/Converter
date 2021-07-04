@@ -67,7 +67,8 @@ object QualifiedName {
   val StringDictionary: QualifiedName = Runtime + Name("StringDictionary")
   val TopLevel:         QualifiedName = Runtime + Name("TopLevel")
   val Shortcut:         QualifiedName = Runtime + Name("Shortcut")
-  val StObject:         QualifiedName = Runtime + Name("StObject")
+  // Note: this is special. we use `jsObject` throughout, and only talk about this very late, in the `Printer`.
+  val StObject: QualifiedName = Runtime + Name("StObject")
 
   val UNION:           QualifiedName = QualifiedName(IArray(Name.UNION))
   val INTERSECTION:    QualifiedName = QualifiedName(IArray(Name.INTERSECTION))

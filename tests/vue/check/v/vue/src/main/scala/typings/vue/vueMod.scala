@@ -448,7 +448,8 @@ object vueMod {
   
   @js.native
   trait VueConstructor[V /* <: typings.vue.vueMod.Vue */]
-    extends // ideally, the return type should just contains Props, not Record<keyof Props, any>. But TS requires Base constructors must all have the same return type.
+    extends StObject
+       with // ideally, the return type should just contains Props, not Record<keyof Props, any>. But TS requires Base constructors must all have the same return type.
   Instantiable0[
           CombinedVueInstance[V, js.Object, js.Object, js.Object, Record[/* keyof object */ String, js.Any]]
         ]

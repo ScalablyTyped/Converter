@@ -16,7 +16,8 @@ object global {
       * {@link https://firebase.google.com/docs/firestore/}
       */
     class Firestore ()
-      extends typings.googleCloudFirestore.FirebaseFirestore.Firestore {
+      extends StObject
+         with typings.googleCloudFirestore.FirebaseFirestore.Firestore {
       def this(settings: Settings) = this()
     }
   }

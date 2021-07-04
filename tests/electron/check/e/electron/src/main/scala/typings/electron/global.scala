@@ -12,7 +12,8 @@ object global {
     @JSGlobal("Electron.EventEmitter")
     @js.native
     class EventEmitter ()
-      extends typings.electron.Electron.EventEmitter
+      extends StObject
+         with typings.electron.Electron.EventEmitter
     
     @JSGlobal("Electron.app")
     @js.native

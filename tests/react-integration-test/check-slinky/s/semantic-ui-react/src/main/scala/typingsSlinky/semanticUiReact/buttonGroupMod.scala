@@ -28,8 +28,9 @@ object buttonGroupMod extends Shortcut {
   
   @js.native
   trait ButtonGroupProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictButtonGroupProps
+       with /* key */ StringDictionary[js.Any]
   object ButtonGroupProps {
     
     @scala.inline

@@ -451,7 +451,8 @@ object optionsMod {
   
   @js.native
   trait Constructor
-    extends Instantiable1[/* args (repeated) */ js.Any, js.Any]
+    extends StObject
+       with Instantiable1[/* args (repeated) */ js.Any, js.Any]
   
   type DefaultComputed = StringDictionary[js.Any]
   
@@ -742,7 +743,8 @@ object optionsMod {
   /* import warning: RemoveDifficultInheritance.summarizeChanges 
   - Dropped object */ @js.native
   trait ThisTypedComponentOptionsWithArrayProps[V /* <: Vue */, Data, Methods, Computed, PropNames /* <: String */]
-    extends ComponentOptions[
+    extends StObject
+       with ComponentOptions[
           V, 
           Data | (js.ThisFunction0[/* this */ (Record[PropNames, js.Any]) & V, Data]), 
           Methods, 
@@ -762,7 +764,8 @@ object optionsMod {
   /* import warning: RemoveDifficultInheritance.summarizeChanges 
   - Dropped object */ @js.native
   trait ThisTypedComponentOptionsWithRecordProps[V /* <: Vue */, Data, Methods, Computed, Props]
-    extends ComponentOptions[
+    extends StObject
+       with ComponentOptions[
           V, 
           Data | (js.ThisFunction0[/* this */ Props & V, Data]), 
           Methods, 
@@ -814,7 +817,9 @@ object optionsMod {
   }
   
   @js.native
-  trait WatchOptionsWithHandler[T] extends WatchOptions {
+  trait WatchOptionsWithHandler[T]
+    extends StObject
+       with WatchOptions {
     
     def handler(`val`: T, oldVal: T): Unit = js.native
     @JSName("handler")

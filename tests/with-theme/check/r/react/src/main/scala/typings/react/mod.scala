@@ -9,7 +9,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object mod {
   
   @js.native
-  trait AllHTMLAttributes[T] extends HTMLAttributes[T] {
+  trait AllHTMLAttributes[T]
+    extends StObject
+       with HTMLAttributes[T] {
     
     var accept: js.UndefOr[String] = js.native
     
@@ -79,7 +81,9 @@ object mod {
   }
   
   @js.native
-  trait HTMLAttributes[T] extends DOMAttributes[T] {
+  trait HTMLAttributes[T]
+    extends StObject
+       with DOMAttributes[T] {
     
     var defaultChecked: js.UndefOr[Boolean] = js.native
   }
@@ -103,7 +107,9 @@ object mod {
   }
   
   @js.native
-  trait HTMLProps[T] extends AllHTMLAttributes[T] {
+  trait HTMLProps[T]
+    extends StObject
+       with AllHTMLAttributes[T] {
     
     var defaultValue: foo = js.native
     

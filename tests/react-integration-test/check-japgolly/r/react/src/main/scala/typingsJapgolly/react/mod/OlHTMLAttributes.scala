@@ -10,7 +10,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait OlHTMLAttributes[T] extends HTMLAttributes[T] {
+trait OlHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var reversed: js.UndefOr[Boolean] = js.native
   

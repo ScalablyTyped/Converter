@@ -8,7 +8,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait Mixin[P, S]
-  extends ComponentLifecycle[P, S, js.Any] {
+  extends StObject
+     with ComponentLifecycle[P, S, js.Any] {
   
   var childContextTypes: js.UndefOr[ValidationMap[js.Any]] = js.native
   

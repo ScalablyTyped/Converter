@@ -8,7 +8,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object NodeJS {
   
   @js.native
-  trait ErrnoException extends Error {
+  trait ErrnoException
+    extends StObject
+       with Error {
     
     var code: js.UndefOr[String] = js.native
     
@@ -63,24 +65,31 @@ object NodeJS {
   }
   
   @js.native
-  trait Process extends EventEmitter {
+  trait Process
+    extends StObject
+       with EventEmitter {
     
     var bar: foo = js.native
   }
   
   @js.native
   trait ReadWriteStream
-    extends ReadableStream
+    extends StObject
+       with ReadableStream
        with WritableStream
   
   @js.native
-  trait ReadableStream extends EventEmitter {
+  trait ReadableStream
+    extends StObject
+       with EventEmitter {
     
     var readable: Boolean = js.native
   }
   
   @js.native
-  trait WritableStream extends EventEmitter {
+  trait WritableStream
+    extends StObject
+       with EventEmitter {
     
     var writable: Boolean = js.native
   }

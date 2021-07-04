@@ -6,7 +6,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait HTMLProps[T]
-  extends AllHTMLAttributes[T]
+  extends StObject
+     with AllHTMLAttributes[T]
      with ClassAttributes[T]
 object HTMLProps {
   

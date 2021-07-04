@@ -10,7 +10,8 @@ object global {
   @JSGlobal("Queue")
   @js.native
   class Queue[S, T] ()
-    extends typings.defaultedTparams.Queue[S, T]
+    extends StObject
+       with typings.defaultedTparams.Queue[S, T]
   object Queue {
     
     @JSGlobal("Queue")

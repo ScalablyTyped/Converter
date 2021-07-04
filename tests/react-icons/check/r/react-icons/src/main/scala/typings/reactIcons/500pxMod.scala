@@ -11,7 +11,8 @@ object `500pxMod` {
   @JSImport("react-icons/fa/500px", JSImport.Default)
   @js.native
   class default ()
-    extends Component[IconBaseProps, js.Object]
+    extends StObject
+       with Component[IconBaseProps, js.Object]
   
   type Fa500px = Component[IconBaseProps, js.Object]
 }

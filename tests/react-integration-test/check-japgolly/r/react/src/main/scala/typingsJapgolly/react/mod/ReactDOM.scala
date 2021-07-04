@@ -64,7 +64,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait ReactDOM
-  extends ReactHTML
+  extends StObject
+     with ReactHTML
      with ReactSVG
 object ReactDOM {
   

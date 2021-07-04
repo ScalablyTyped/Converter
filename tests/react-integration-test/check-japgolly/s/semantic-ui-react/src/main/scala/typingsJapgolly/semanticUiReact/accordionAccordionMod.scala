@@ -56,7 +56,8 @@ object accordionAccordionMod {
   
   @js.native
   trait AccordionComponent
-    extends ComponentClass[AccordionProps, js.Object] {
+    extends StObject
+       with ComponentClass[AccordionProps, js.Object] {
     
     var Accordion: ComponentClassP[AccordionAccordionProps & js.Object] = js.native
     
@@ -67,8 +68,9 @@ object accordionAccordionMod {
   
   @js.native
   trait AccordionProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictAccordionProps
+       with /* key */ StringDictionary[js.Any]
   object AccordionProps {
     
     @scala.inline
@@ -79,7 +81,9 @@ object accordionAccordionMod {
   }
   
   @js.native
-  trait StrictAccordionProps extends StrictAccordionAccordionProps {
+  trait StrictAccordionProps
+    extends StObject
+       with StrictAccordionAccordionProps {
     
     /** Format to take up the width of its container. */
     var fluid: js.UndefOr[Boolean] = js.native

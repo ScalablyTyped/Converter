@@ -5,6 +5,7 @@ import java.io._
 
 import org.scalablytyped.converter.internal.scalajs.transforms.ShortenNames
 import org.scalablytyped.converter.internal.stringUtils.quote
+
 import scala.collection.mutable
 
 object debugPrinter extends Printer.Impl(Name(""), Versions.Scala3)
@@ -301,7 +302,7 @@ object Printer {
             print(formatParams(indent + 2)(defaultCtor.params))
           }
 
-          print(extendsClause(parents, c.isNative, indent))
+          print(extendsClause(comments, parents, c.isNative, indent))
 
           if (members.nonEmpty || restCtors.nonEmpty) {
             println(" {")
@@ -323,7 +324,7 @@ object Printer {
             if (isOverride) "override " else "",
             "object ",
             formatName(name),
-            extendsClause(parents, isNative, indent),
+            extendsClause(comments, parents, isNative, indent),
           )
 
           if (members.nonEmpty) {
@@ -403,14 +404,29 @@ object Printer {
       paramString
     }
 
-    def extendsClause(parents: IArray[TypeRef], isNative: Boolean, indent: Int): String =
-      parents.toList.map(parent => formatTypeRef(indent + 6)(parent)) match {
-        case Nil if isNative                    => " extends StObject"
+    // This is unfortunate, the the `Printer` still changes the AST somewhat before printing: Namely it adds
+    // `StObject` to the list of parents for native types.
+    // The reason why it's still done here is that it significantly degrades the quality of the output if we do it
+    //  earlier because of a number of type computations which would need exceptions.
+    def extendsClause(cs: Comments, parents: IArray[TypeRef], isNative: Boolean, indent: Int): String = {
+      val hasClass = cs.has[Marker.HasClassParent.type]
+      val formattedParents = parents.toList.map {
+        case TypeRef.JsObject => "StObject"
+        case parent           => formatTypeRef(indent + 6)(parent)
+      }
+
+      val patchedParents =
+        if (isNative && (parents.isEmpty || !hasClass))
+          ("StObject" :: formattedParents).distinct
+        else formattedParents
+
+      patchedParents match {
         case Nil                                => ""
         case head :: Nil if !head.contains(".") => " extends " + head
         case head :: Nil                        => "\n  extends " + head
         case head :: tail                       => "\n  extends " + head + tail.mkString("\n     with ", "\n     with ", "")
       }
+    }
 
     def formatTypeParams(indent: Int)(tparams: IArray[TypeParamTree]): String =
       if (tparams.isEmpty) ""

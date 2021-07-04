@@ -10,4 +10,5 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   - typings.unionToInheritance.Foo[T]
 */
 trait Legal1[T]
-  extends _Test2[js.Any, T]
+  extends StObject
+     with _Test2[js.Any, T]

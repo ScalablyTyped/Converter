@@ -13,7 +13,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 // methods are present.
 @js.native
 trait ComponentLifecycle[P, S, SS]
-  extends NewLifecycle[P, S, SS]
+  extends StObject
+     with NewLifecycle[P, S, SS]
      with DeprecatedLifecycle[P, S] {
   
   /**

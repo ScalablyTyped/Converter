@@ -17,7 +17,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object mod {
   
   @js.native
-  trait AllHTMLAttributes[T] extends HTMLAttributes[T] {
+  trait AllHTMLAttributes[T]
+    extends StObject
+       with HTMLAttributes[T] {
     
     var accept: js.UndefOr[String] = js.native
     
@@ -73,7 +75,9 @@ object mod {
   }
   
   @js.native
-  trait ClassAttributes[T] extends Attributes {
+  trait ClassAttributes[T]
+    extends StObject
+       with Attributes {
     
     var ref: js.UndefOr[Ref[T]] = js.native
   }
@@ -104,7 +108,8 @@ object mod {
   
   @js.native
   trait ComponentClass[P]
-    extends Instantiable1[/* props */ P, Component[P, ComponentState]]
+    extends StObject
+       with Instantiable1[/* props */ P, Component[P, ComponentState]]
        with Instantiable2[/* props */ P, /* context */ js.Any, Component[P, ComponentState]]
        with ComponentType[P] {
     
@@ -155,7 +160,9 @@ object mod {
   
   // string fallback for custom web-components
   @js.native
-  trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] extends ReactElement {
+  trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */]
+    extends StObject
+       with ReactElement {
     
     var ref: Ref[T] = js.native
     
@@ -194,7 +201,9 @@ object mod {
   }
   
   @js.native
-  trait HTMLAttributes[T] extends DOMAttributes[T] {
+  trait HTMLAttributes[T]
+    extends StObject
+       with DOMAttributes[T] {
     
     var defaultChecked: js.UndefOr[Boolean] = js.native
   }
@@ -289,7 +298,9 @@ object mod {
   
   // ReactSVG for ReactSVGElement
   @js.native
-  trait ReactSVGElement extends DOMElement[SVGAttributes[SVGElement], SVGElement] {
+  trait ReactSVGElement
+    extends StObject
+       with DOMElement[SVGAttributes[SVGElement], SVGElement] {
     
     @JSName("type")
     var type_ReactSVGElement: animate | circle | clipPath = js.native
@@ -316,7 +327,9 @@ object mod {
   type SFC[P] = StatelessComponent[P]
   
   @js.native
-  trait SVGAttributes[T] extends DOMAttributes[T] {
+  trait SVGAttributes[T]
+    extends StObject
+       with DOMAttributes[T] {
     
     // Attributes which also defined in HTMLAttributes
     // See comment in SVGDOMPropertyConfig.js
@@ -358,12 +371,16 @@ object mod {
   }
   
   @js.native
-  trait SVGFactory extends DOMFactory[SVGAttributes[SVGElement], SVGElement]
+  trait SVGFactory
+    extends StObject
+       with DOMFactory[SVGAttributes[SVGElement], SVGElement]
   
   type SVGProps[T] = ClassAttributes[T]
   
   @js.native
-  trait StatelessComponent[P] extends ComponentType[P] {
+  trait StatelessComponent[P]
+    extends StObject
+       with ComponentType[P] {
     
     def apply(props: P & Children): ReactElement | Null = js.native
     def apply(props: P & Children, context: js.Any): ReactElement | Null = js.native

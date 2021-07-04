@@ -33,7 +33,9 @@ object mod {
   type DropEvent = DragEvent[HTMLElement] | ChangeEvent[HTMLInputElement] | org.scalajs.dom.raw.DragEvent | Event
   
   @js.native
-  trait DropzoneInputProps extends InputHTMLAttributes[HTMLInputElement] {
+  trait DropzoneInputProps
+    extends StObject
+       with InputHTMLAttributes[HTMLInputElement] {
     
     var refKey: js.UndefOr[String] = js.native
   }
@@ -269,7 +271,9 @@ object mod {
   }
   
   @js.native
-  trait DropzoneProps extends DropzoneOptions {
+  trait DropzoneProps
+    extends StObject
+       with DropzoneOptions {
     
     var children: js.UndefOr[js.Function1[/* state */ DropzoneState, Element]] = js.native
   }
@@ -315,8 +319,9 @@ object mod {
   
   @js.native
   trait DropzoneRootProps
-    extends /* key */ StringDictionary[js.Any]
-       with HTMLAttributes[HTMLElement] {
+    extends StObject
+       with HTMLAttributes[HTMLElement]
+       with /* key */ StringDictionary[js.Any] {
     
     var refKey: js.UndefOr[String] = js.native
   }
@@ -340,7 +345,9 @@ object mod {
   }
   
   @js.native
-  trait DropzoneState extends DropzoneRef {
+  trait DropzoneState
+    extends StObject
+       with DropzoneRef {
     
     var acceptedFiles: js.Array[
         /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any

@@ -22,7 +22,8 @@ object mod {
     
     @js.native
     trait Model[T /* <: Document */]
-      extends EventEmitter
+      extends StObject
+         with EventEmitter
          with ModelProperties {
       
       def findRandom(conditions: js.Object): Unit = js.native

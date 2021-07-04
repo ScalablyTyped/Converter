@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ReactPortal extends ReactElement {
+trait ReactPortal
+  extends StObject
+     with ReactElement {
   
   var children: slinky.core.facade.ReactElement = js.native
 }

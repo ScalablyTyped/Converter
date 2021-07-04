@@ -13,7 +13,9 @@ object subscriptionMod {
     * @param {function(): void} [unsubscribe] A function describing how to
     * perform the disposal of resources when the `unsubscribe` method is called.
     */
-  class Subscription () extends SubscriptionLike {
+  class Subscription ()
+    extends StObject
+       with SubscriptionLike {
     def this(unsubscribe: js.Function0[Unit]) = this()
     
     /** @internal */

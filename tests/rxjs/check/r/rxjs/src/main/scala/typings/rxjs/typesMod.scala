@@ -9,7 +9,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object typesMod {
   
   @js.native
-  trait CompletionObserver[T] extends PartialObserver[T] {
+  trait CompletionObserver[T]
+    extends StObject
+       with PartialObserver[T] {
     
     var closed: js.UndefOr[Boolean] = js.native
     
@@ -54,7 +56,9 @@ object typesMod {
   }
   
   @js.native
-  trait ErrorObserver[T] extends PartialObserver[T] {
+  trait ErrorObserver[T]
+    extends StObject
+       with PartialObserver[T] {
     
     var closed: js.UndefOr[Boolean] = js.native
     
@@ -99,7 +103,9 @@ object typesMod {
   }
   
   @js.native
-  trait NextObserver[T] extends PartialObserver[T] {
+  trait NextObserver[T]
+    extends StObject
+       with PartialObserver[T] {
     
     var closed: js.UndefOr[Boolean] = js.native
     
@@ -268,7 +274,9 @@ object typesMod {
   }
   
   @js.native
-  trait SubscriptionLike extends Unsubscribable {
+  trait SubscriptionLike
+    extends StObject
+       with Unsubscribable {
     
     val closed: Boolean = js.native
   }

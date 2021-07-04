@@ -12,7 +12,8 @@ object mod {
   
   @js.native
   trait Request
-    extends typings.expressServeStaticCore.mod.global.Express.Request {
+    extends StObject
+       with typings.expressServeStaticCore.mod.global.Express.Request {
     
     var url: String = js.native
   }
@@ -36,7 +37,8 @@ object mod {
   
   @js.native
   trait Response
-    extends typings.expressServeStaticCore.mod.global.Express.Response {
+    extends StObject
+       with typings.expressServeStaticCore.mod.global.Express.Response {
     
     def location(url: String): Response = js.native
   }

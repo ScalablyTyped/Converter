@@ -10,7 +10,8 @@ object mod {
   @JSImport("electron", "EventEmitter")
   @js.native
   class EventEmitter ()
-    extends typings.electron.Electron.EventEmitter
+    extends StObject
+       with typings.electron.Electron.EventEmitter
   
   @JSImport("electron", "app")
   @js.native

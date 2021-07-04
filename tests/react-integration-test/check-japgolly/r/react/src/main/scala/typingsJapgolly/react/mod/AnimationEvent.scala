@@ -8,7 +8,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait AnimationEvent[T] extends BaseSyntheticEvent[NativeAnimationEvent, EventTarget & T, EventTarget] {
+trait AnimationEvent[T]
+  extends StObject
+     with BaseSyntheticEvent[NativeAnimationEvent, EventTarget & T, EventTarget] {
   
   var animationName: String = js.native
   

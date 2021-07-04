@@ -10,7 +10,9 @@ object mod {
   
   @JSImport("insight", JSImport.Namespace)
   @js.native
-  class ^ protected () extends Insight_ {
+  class ^ protected ()
+    extends StObject
+       with Insight_ {
     def this(options: IOptions) = this()
   }
   

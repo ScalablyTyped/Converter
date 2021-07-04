@@ -6,7 +6,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait MouseEvent[T, E] extends BaseSyntheticEvent[E, EventTarget & T, EventTarget] {
+trait MouseEvent[T, E]
+  extends StObject
+     with BaseSyntheticEvent[E, EventTarget & T, EventTarget] {
   
   var altKey: Boolean = js.native
   

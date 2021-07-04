@@ -31,8 +31,9 @@ object accordionAccordionAccordionMod extends Shortcut {
   
   @js.native
   trait AccordionAccordionProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictAccordionAccordionProps
+       with /* key */ StringDictionary[js.Any]
   object AccordionAccordionProps {
     
     @scala.inline

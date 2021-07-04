@@ -7,7 +7,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait InvalidEvent[T] extends BaseSyntheticEvent[Event, EventTarget & T, EventTarget] {
+trait InvalidEvent[T]
+  extends StObject
+     with BaseSyntheticEvent[Event, EventTarget & T, EventTarget] {
   
   @JSName("target")
   var target_InvalidEvent: EventTarget & T = js.native

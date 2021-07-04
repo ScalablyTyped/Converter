@@ -12,7 +12,8 @@ object global {
     @JSGlobal("monaco.Promise")
     @js.native
     class Promise[T, TProgress] protected ()
-      extends typings.monacoEditor.monaco.Promise[T, TProgress] {
+      extends StObject
+         with typings.monacoEditor.monaco.Promise[T, TProgress] {
       def this(executor: js.Function3[
                 /* resolve */ js.Function1[/* value */ T | js.Thenable[T], Unit], 
                 /* reject */ js.Function1[/* reason */ js.Any, Unit], 

@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait OptionHTMLAttributes[T] extends HTMLAttributes[T] {
+trait OptionHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var disabled: js.UndefOr[Boolean] = js.native
   

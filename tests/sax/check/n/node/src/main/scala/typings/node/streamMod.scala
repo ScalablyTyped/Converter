@@ -73,7 +73,8 @@ object streamMod {
   
   @js.native
   trait DuplexOptions
-    extends ReadableOptions
+    extends StObject
+       with ReadableOptions
        with WritableOptions {
     
     var allowHalfOpen: js.UndefOr[Boolean] = js.native

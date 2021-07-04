@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait Branch[T] extends Tree[T] {
+trait Branch[T]
+  extends StObject
+     with Tree[T] {
   
   var left: T = js.native
   

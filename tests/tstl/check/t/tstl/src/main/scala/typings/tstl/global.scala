@@ -11,7 +11,8 @@ object global {
     @JSGlobal("std.Queue")
     @js.native
     class Queue_[T] ()
-      extends typings.tstl.std.Queue_[T] {
+      extends StObject
+         with typings.tstl.std.Queue_[T] {
       def this(container: typings.tstl.std.Queue_[T]) = this()
     }
     
@@ -19,7 +20,8 @@ object global {
     @JSGlobal("std.queue")
     @js.native
     class queue[T] ()
-      extends typings.tstl.std.Queue_[T] {
+      extends StObject
+         with typings.tstl.std.Queue_[T] {
       def this(container: typings.tstl.std.Queue_[T]) = this()
     }
   }

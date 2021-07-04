@@ -15,7 +15,8 @@ object mod {
   
   @js.native
   trait Option[TValue]
-    extends /**
+    extends StObject
+       with /**
     * In the event that a custom menuRenderer is provided, Option should be able
     * to accept arbitrary key-value pairs. See react-virtualized-select.
     */
@@ -55,7 +56,9 @@ object mod {
   }
   
   @js.native
-  trait ReactSelectProps[TValue] extends Props[ReactSelectClass[TValue]] {
+  trait ReactSelectProps[TValue]
+    extends StObject
+       with Props[ReactSelectClass[TValue]] {
     
     /**
       * text to display when `allowCreate` is true.

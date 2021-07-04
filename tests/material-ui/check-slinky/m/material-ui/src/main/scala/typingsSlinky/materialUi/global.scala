@@ -16,7 +16,8 @@ object global {
       @JSGlobal("__MaterialUI.BottomNavigation.BottomNavigationItem")
       @js.native
       class BottomNavigationItem ()
-        extends Component[BottomNavigationItemProps, js.Object]
+        extends StObject
+           with Component[BottomNavigationItemProps, js.Object]
     }
     
     object Styles {
@@ -56,6 +57,7 @@ object global {
     @JSGlobal("__MaterialUI.SvgIcon")
     @js.native
     class SvgIcon ()
-      extends Component[js.Object, js.Object]
+      extends StObject
+         with Component[js.Object, js.Object]
   }
 }

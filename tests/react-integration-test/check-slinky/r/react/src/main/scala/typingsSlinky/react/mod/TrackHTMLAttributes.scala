@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait TrackHTMLAttributes[T] extends HTMLAttributes[T] {
+trait TrackHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var default: js.UndefOr[Boolean] = js.native
   

@@ -45,7 +45,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 //   - union of string literals
 @js.native
 trait SVGAttributes[T]
-  extends AriaAttributes
+  extends StObject
+     with AriaAttributes
      with DOMAttributes[T] {
   
   // SVG Specific attributes

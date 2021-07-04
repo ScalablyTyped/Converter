@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait MenuHTMLAttributes[T] extends HTMLAttributes[T] {
+trait MenuHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var `type`: js.UndefOr[String] = js.native
 }

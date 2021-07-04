@@ -12,7 +12,8 @@ object global {
     @JSGlobal("NodeJS.EventEmitter")
     @js.native
     class EventEmitter ()
-      extends typings.node.NodeJS.EventEmitter
+      extends StObject
+         with typings.node.NodeJS.EventEmitter
   }
   
   @JSGlobal("Symbol")

@@ -12,12 +12,15 @@ object mod {
   @JSImport("react-icon-base", JSImport.Default)
   @js.native
   class default ()
-    extends Component[IconBaseProps, js.Object]
+    extends StObject
+       with Component[IconBaseProps, js.Object]
   
   type IconBaseClass = Component[IconBaseProps, js.Object]
   
   @js.native
-  trait IconBaseProps extends ClassAttributes[ReactSVGElement] {
+  trait IconBaseProps
+    extends StObject
+       with ClassAttributes[ReactSVGElement] {
     
     var size: js.UndefOr[String | Double] = js.native
   }

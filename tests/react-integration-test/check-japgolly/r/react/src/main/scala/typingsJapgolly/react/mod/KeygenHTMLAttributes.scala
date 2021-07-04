@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait KeygenHTMLAttributes[T] extends HTMLAttributes[T] {
+trait KeygenHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var autoFocus: js.UndefOr[Boolean] = js.native
   

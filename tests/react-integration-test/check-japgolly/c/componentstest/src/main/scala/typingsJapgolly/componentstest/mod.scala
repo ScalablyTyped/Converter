@@ -34,7 +34,9 @@ object mod {
   val ObjectNames: FC[Equals] = js.native
   
   @js.native
-  trait A extends Props {
+  trait A
+    extends StObject
+       with Props {
     
     def aCallback(): Double = js.native
     
@@ -60,7 +62,9 @@ object mod {
   }
   
   @js.native
-  trait B extends Props {
+  trait B
+    extends StObject
+       with Props {
     
     var bCallback: js.UndefOr[js.Function0[String]] = js.native
     
@@ -137,7 +141,9 @@ object mod {
   }
   
   @js.native
-  trait CardInterface extends FunctionComponent[CardProps] {
+  trait CardInterface
+    extends StObject
+       with FunctionComponent[CardProps] {
     
     var Grid2: FC[CardGridProps] = js.native
   }

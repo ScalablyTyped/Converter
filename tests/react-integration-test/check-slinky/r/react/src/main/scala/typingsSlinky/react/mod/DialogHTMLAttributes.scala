@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait DialogHTMLAttributes[T] extends HTMLAttributes[T] {
+trait DialogHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var open: js.UndefOr[Boolean] = js.native
 }

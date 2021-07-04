@@ -10,7 +10,9 @@ object Electron {
   type AllElectron = MainInterface
   
   @js.native
-  trait App extends EventEmitter {
+  trait App
+    extends StObject
+       with EventEmitter {
     
     // Docs: http://electron.atom.io/docs/api/app
     /**
@@ -43,7 +45,8 @@ object Electron {
   
   @js.native
   trait Event
-    extends typings.std.Event {
+    extends StObject
+       with typings.std.Event {
     
     var altKey: js.UndefOr[Boolean] = js.native
     
@@ -122,7 +125,9 @@ object Electron {
   }
   
   @js.native
-  trait MainInterface extends CommonInterface {
+  trait MainInterface
+    extends StObject
+       with CommonInterface {
     
     var app: App = js.native
   }

@@ -15,22 +15,34 @@ object mod {
   object SERIALIZATION extends StObject {
     
     @js.native
-    sealed trait SERIALIZATION_JSON extends SERIALIZATION
+    sealed trait SERIALIZATION_JSON
+      extends StObject
+         with SERIALIZATION
     
     @js.native
-    sealed trait SERIALIZATION_XML extends SERIALIZATION
+    sealed trait SERIALIZATION_XML
+      extends StObject
+         with SERIALIZATION
     
     @js.native
-    sealed trait _underscore extends SERIALIZATION
+    sealed trait _underscore
+      extends StObject
+         with SERIALIZATION
     
     @js.native
-    sealed trait java extends SERIALIZATION
+    sealed trait java
+      extends StObject
+         with SERIALIZATION
     
     @js.native
-    sealed trait js extends SERIALIZATION
+    sealed trait js
+      extends StObject
+         with SERIALIZATION
     
     @js.native
-    sealed trait notify extends SERIALIZATION
+    sealed trait notify
+      extends StObject
+         with SERIALIZATION
   }
   
   @JSImport("swiz", "Swiz")

@@ -11,7 +11,8 @@ object adjustMod {
   @JSImport("react-icons/fa/adjust", JSImport.Default)
   @js.native
   class default ()
-    extends Component[IconBaseProps, js.Object]
+    extends StObject
+       with Component[IconBaseProps, js.Object]
   
   type FaAdjust = Component[IconBaseProps, js.Object]
 }

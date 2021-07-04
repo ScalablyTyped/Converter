@@ -20,7 +20,9 @@ object bufferMod {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("buffer", "Buffer")
   @js.native
-  class Buffer protected () extends NodeBuffer {
+  class Buffer protected ()
+    extends StObject
+       with NodeBuffer {
     /**
       * Produces a Buffer backed by the same allocated memory as
       * the given {ArrayBuffer}.
@@ -90,7 +92,9 @@ object bufferMod {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("buffer", "SlowBuffer")
   @js.native
-  class SlowBuffer protected () extends NodeBuffer {
+  class SlowBuffer protected ()
+    extends StObject
+       with NodeBuffer {
     def this(array: js.Array[js.Any]) = this()
     def this(size: Double) = this()
     def this(size: Uint8Array) = this()

@@ -13,7 +13,8 @@ object pluginMod {
   
   @js.native
   trait PluginObject[T]
-    extends /* key */ StringDictionary[js.Any] {
+    extends StObject
+       with /* key */ StringDictionary[js.Any] {
     
     def install(Vue: VueConstructor[Vue]): Unit = js.native
     def install(Vue: VueConstructor[Vue], options: T): Unit = js.native

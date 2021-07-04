@@ -9,12 +9,14 @@ object eventsMod {
   @JSImport("events", JSImport.Namespace)
   @js.native
   class ^ ()
-    extends typings.node.NodeJS.EventEmitter
+    extends StObject
+       with typings.node.NodeJS.EventEmitter
   
   @JSImport("events", "EventEmitter")
   @js.native
   class EventEmitter ()
-    extends typings.node.NodeJS.EventEmitter
+    extends StObject
+       with typings.node.NodeJS.EventEmitter
   /* static members */
   object EventEmitter {
     

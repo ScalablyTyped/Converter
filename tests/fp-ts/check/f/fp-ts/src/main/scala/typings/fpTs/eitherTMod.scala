@@ -10,7 +10,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object eitherTMod {
   
   @js.native
-  trait EitherT[F] extends Foo[F, URI] {
+  trait EitherT[F]
+    extends StObject
+       with Foo[F, URI] {
     
     def chain[L, A, B](f: js.Function1[/* a */ A, HKT[F, Either[L, B]]], fa: HKT[F, Either[L, A]]): HKT[F, Either[L, B]] = js.native
   }

@@ -17,8 +17,9 @@ object buttonContentMod extends Shortcut {
   
   @js.native
   trait ButtonContentProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictButtonContentProps
+       with /* key */ StringDictionary[js.Any]
   object ButtonContentProps {
     
     @scala.inline

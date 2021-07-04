@@ -9,7 +9,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ChangeEvent[T] extends BaseSyntheticEvent[Event, EventTarget & T, EventTarget] {
+trait ChangeEvent[T]
+  extends StObject
+     with BaseSyntheticEvent[Event, EventTarget & T, EventTarget] {
   
   @JSName("target")
   var target_ChangeEvent: EventTarget & T = js.native

@@ -44,7 +44,9 @@ object inputInputMod {
   }
   
   @js.native
-  trait InputOnChangeData extends StrictInputProps {
+  trait InputOnChangeData
+    extends StObject
+       with StrictInputProps {
     
     @JSName("value")
     var value_InputOnChangeData: String = js.native
@@ -68,7 +70,9 @@ object inputInputMod {
   type InputProps = StrictInputProps
   
   @js.native
-  trait StrictInputProps extends InputHTMLAttributes[HTMLInputElement] {
+  trait StrictInputProps
+    extends StObject
+       with InputHTMLAttributes[HTMLInputElement] {
     
     /** An Input can be formatted to alert the user to an action they may perform. */
     var action: js.UndefOr[js.Any | Boolean] = js.native

@@ -6,7 +6,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait WheelEvent[T] extends MouseEvent[T, NativeWheelEvent] {
+trait WheelEvent[T]
+  extends StObject
+     with MouseEvent[T, NativeWheelEvent] {
   
   var deltaMode: Double = js.native
   

@@ -6,7 +6,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait TouchList extends /* index */ NumberDictionary[Touch] {
+trait TouchList
+  extends StObject
+     with /* index */ NumberDictionary[Touch] {
   
   def identifiedTouch(identifier: Double): Touch = js.native
   

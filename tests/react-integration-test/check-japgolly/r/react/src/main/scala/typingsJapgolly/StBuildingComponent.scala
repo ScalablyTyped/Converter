@@ -74,8 +74,7 @@ object StBuildingComponent {
   
   @JSImport("react", JSImport.Namespace, "React")
   @js.native
-  object ReactRaw
-    extends js.Object {
+  object ReactRaw extends StObject {
     
     val createElement: js.Dynamic = js.native
   }

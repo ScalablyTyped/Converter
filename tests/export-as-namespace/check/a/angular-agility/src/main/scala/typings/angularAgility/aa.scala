@@ -8,7 +8,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object aa {
   
   @js.native
-  trait INotifyConfigProvider extends IServiceProvider {
+  trait INotifyConfigProvider
+    extends StObject
+       with IServiceProvider {
     
     var defaultNotifyConfig: String = js.native
     

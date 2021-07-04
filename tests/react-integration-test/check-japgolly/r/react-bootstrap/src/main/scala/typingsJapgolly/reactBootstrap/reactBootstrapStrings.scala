@@ -18,17 +18,23 @@ object reactBootstrapStrings {
   def defaultValue: defaultValue = "defaultValue".asInstanceOf[defaultValue]
   
   @js.native
-  sealed trait large extends Sizes
+  sealed trait large
+    extends StObject
+       with Sizes
   @scala.inline
   def large: large = "large".asInstanceOf[large]
   
   @js.native
-  sealed trait lg extends Sizes
+  sealed trait lg
+    extends StObject
+       with Sizes
   @scala.inline
   def lg: lg = "lg".asInstanceOf[lg]
   
   @js.native
-  sealed trait medium extends Sizes
+  sealed trait medium
+    extends StObject
+       with Sizes
   @scala.inline
   def medium: medium = "medium".asInstanceOf[medium]
   
@@ -43,12 +49,16 @@ object reactBootstrapStrings {
   def radio: radio = "radio".asInstanceOf[radio]
   
   @js.native
-  sealed trait sm extends Sizes
+  sealed trait sm
+    extends StObject
+       with Sizes
   @scala.inline
   def sm: sm = "sm".asInstanceOf[sm]
   
   @js.native
-  sealed trait small extends Sizes
+  sealed trait small
+    extends StObject
+       with Sizes
   @scala.inline
   def small: small = "small".asInstanceOf[small]
   
@@ -63,12 +73,16 @@ object reactBootstrapStrings {
   def value: value = "value".asInstanceOf[value]
   
   @js.native
-  sealed trait xs extends Sizes
+  sealed trait xs
+    extends StObject
+       with Sizes
   @scala.inline
   def xs: xs = "xs".asInstanceOf[xs]
   
   @js.native
-  sealed trait xsmall extends Sizes
+  sealed trait xsmall
+    extends StObject
+       with Sizes
   @scala.inline
   def xsmall: xsmall = "xsmall".asInstanceOf[xsmall]
 }

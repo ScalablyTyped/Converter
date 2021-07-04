@@ -14,7 +14,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait TdHTMLAttributes[T] extends HTMLAttributes[T] {
+trait TdHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var align: js.UndefOr[left | center | right | justify | char] = js.native
   

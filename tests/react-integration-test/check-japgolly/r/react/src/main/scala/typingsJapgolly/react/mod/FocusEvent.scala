@@ -8,7 +8,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait FocusEvent[T] extends BaseSyntheticEvent[NativeFocusEvent, EventTarget & T, EventTarget] {
+trait FocusEvent[T]
+  extends StObject
+     with BaseSyntheticEvent[NativeFocusEvent, EventTarget & T, EventTarget] {
   
   var relatedTarget: EventTarget = js.native
   

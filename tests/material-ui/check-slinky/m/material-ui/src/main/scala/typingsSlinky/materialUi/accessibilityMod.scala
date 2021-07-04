@@ -14,5 +14,6 @@ object accessibilityMod {
   @JSImport("material-ui/svg-icons/action/accessibility", "ActionAccessibility")
   @js.native
   class ActionAccessibility ()
-    extends Component[js.Object, js.Object]
+    extends StObject
+       with Component[js.Object, js.Object]
 }

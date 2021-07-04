@@ -66,7 +66,9 @@ object buttonMod {
   type ButtonProps = StrictButtonProps
   
   @js.native
-  trait StrictButtonProps extends ButtonHTMLAttributes[HTMLButtonElement] {
+  trait StrictButtonProps
+    extends StObject
+       with ButtonHTMLAttributes[HTMLButtonElement] {
     
     /** A button can show it is currently the active user selection. */
     var active: js.UndefOr[Boolean] = js.native

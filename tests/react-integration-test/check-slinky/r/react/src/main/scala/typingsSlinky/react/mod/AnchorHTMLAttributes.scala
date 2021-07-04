@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait AnchorHTMLAttributes[T] extends HTMLAttributes[T] {
+trait AnchorHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var download: js.UndefOr[js.Any] = js.native
   

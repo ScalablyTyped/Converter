@@ -70,7 +70,9 @@ object documentClientMod {
     }
     
     @js.native
-    trait DocumentClientOptions extends ConverterOptions {
+    trait DocumentClientOptions
+      extends StObject
+         with ConverterOptions {
       
       /**
         * An optional map of parameters to bind to every request sent by this service object.

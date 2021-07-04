@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait IframeHTMLAttributes[T] extends HTMLAttributes[T] {
+trait IframeHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var allow: js.UndefOr[String] = js.native
   

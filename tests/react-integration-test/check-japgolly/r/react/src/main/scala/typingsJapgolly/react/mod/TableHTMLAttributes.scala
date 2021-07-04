@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait TableHTMLAttributes[T] extends HTMLAttributes[T] {
+trait TableHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var cellPadding: js.UndefOr[Double | String] = js.native
   

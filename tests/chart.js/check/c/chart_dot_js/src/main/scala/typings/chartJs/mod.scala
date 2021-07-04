@@ -15,7 +15,8 @@ object mod extends Shortcut {
   @JSImport("chart.js", JSImport.Namespace)
   @js.native
   class ^ protected ()
-    extends typings.chartJs.mod.Chart {
+    extends StObject
+       with typings.chartJs.mod.Chart {
     def this(context: String, options: js.Any) = this()
     def this(context: ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement], options: js.Any) = this()
     def this(context: CanvasRenderingContext2D, options: js.Any) = this()
@@ -23,11 +24,11 @@ object mod extends Shortcut {
   }
   @JSImport("chart.js", JSImport.Namespace)
   @js.native
-  val ^ : Instantiable2[
+  val ^ : js.Object & (Instantiable2[
     /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
     /* options */ js.Any, 
     typings.chartJs.mod.Chart
-  ] = js.native
+  ]) = js.native
   
   @js.native
   trait Chart extends StObject {
@@ -75,7 +76,8 @@ object mod extends Shortcut {
   @JSImport("chart.js", "Chart")
   @js.native
   class ChartCls protected ()
-    extends typings.chartJs.mod.Chart {
+    extends StObject
+       with typings.chartJs.mod.Chart {
     def this(context: String, options: js.Any) = this()
     def this(context: ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement], options: js.Any) = this()
     def this(context: CanvasRenderingContext2D, options: js.Any) = this()
@@ -177,18 +179,18 @@ object mod extends Shortcut {
     }
   }
   
-  type _To = Instantiable2[
+  type _To = js.Object & (Instantiable2[
     /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
     /* options */ js.Any, 
     typings.chartJs.mod.Chart
-  ]
+  ])
   
   /* This means you don't have to write `^`, but can instead just say `mod.foo` */
-  override def _to: Instantiable2[
+  override def _to: js.Object & (Instantiable2[
     /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
     /* options */ js.Any, 
     typings.chartJs.mod.Chart
-  ] = ^
+  ]) = ^
   
   /* static member */
   object controllers

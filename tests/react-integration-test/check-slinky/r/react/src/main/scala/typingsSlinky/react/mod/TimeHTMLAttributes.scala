@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait TimeHTMLAttributes[T] extends HTMLAttributes[T] {
+trait TimeHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var dateTime: js.UndefOr[String] = js.native
 }

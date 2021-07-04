@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ProgressHTMLAttributes[T] extends HTMLAttributes[T] {
+trait ProgressHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var max: js.UndefOr[Double | String] = js.native
   

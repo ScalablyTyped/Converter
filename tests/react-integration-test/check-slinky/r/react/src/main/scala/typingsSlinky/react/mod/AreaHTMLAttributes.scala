@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait AreaHTMLAttributes[T] extends HTMLAttributes[T] {
+trait AreaHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var alt: js.UndefOr[String] = js.native
   

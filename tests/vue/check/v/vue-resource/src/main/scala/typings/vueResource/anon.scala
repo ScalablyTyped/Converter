@@ -191,7 +191,8 @@ object anon {
   /* Inlined {  headers :vue-resource.vuejs.HttpHeaders | undefined, [key: string] : any} & vue-resource.vuejs.HttpOptions */
   @js.native
   trait headersHttpHeadersundefin
-    extends /* key */ StringDictionary[js.Any] {
+    extends StObject
+       with /* key */ StringDictionary[js.Any] {
     
     var before: js.UndefOr[js.Function1[/* request */ js.Any, js.Any]] = js.native
     

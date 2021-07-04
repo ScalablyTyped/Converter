@@ -46,14 +46,18 @@ object NodeJS {
   }
   
   @js.native
-  trait ReadableStream extends EventEmitter {
+  trait ReadableStream
+    extends StObject
+       with EventEmitter {
     
     def read(): String | Buffer = js.native
     def read(size: Double): String | Buffer = js.native
   }
   
   @js.native
-  trait WritableStream extends EventEmitter {
+  trait WritableStream
+    extends StObject
+       with EventEmitter {
     
     def end(str: String): Unit = js.native
     def end(str: String, encoding: String): Unit = js.native

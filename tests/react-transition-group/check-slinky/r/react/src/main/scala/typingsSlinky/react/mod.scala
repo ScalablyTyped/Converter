@@ -16,7 +16,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object mod {
   
   @js.native
-  trait AllHTMLAttributes[T] extends HTMLAttributes[T] {
+  trait AllHTMLAttributes[T]
+    extends StObject
+       with HTMLAttributes[T] {
     
     var accept: js.UndefOr[String] = js.native
     
@@ -78,7 +80,9 @@ object mod {
   }
   
   @js.native
-  trait ClassAttributes[T] extends Attributes {
+  trait ClassAttributes[T]
+    extends StObject
+       with Attributes {
     
     var ref: js.UndefOr[Ref[T]] = js.native
   }
@@ -109,7 +113,8 @@ object mod {
   
   @js.native
   trait ComponentClass[P]
-    extends Instantiable1[/* props */ P, ReactComponentClass[P]]
+    extends StObject
+       with Instantiable1[/* props */ P, ReactComponentClass[P]]
        with Instantiable2[/* props */ P, /* context */ js.Any, ReactComponentClass[P]] {
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
@@ -156,7 +161,9 @@ object mod {
   type DetailedHTMLProps[E /* <: HTMLAttributes[T] */, T] = ClassAttributes[T] & E
   
   @js.native
-  trait HTMLAttributes[T] extends DOMAttributes[T] {
+  trait HTMLAttributes[T]
+    extends StObject
+       with DOMAttributes[T] {
     
     var defaultChecked: js.UndefOr[Boolean] = js.native
   }
@@ -181,7 +188,8 @@ object mod {
   
   @js.native
   trait HTMLProps[T]
-    extends AllHTMLAttributes[T]
+    extends StObject
+       with AllHTMLAttributes[T]
        with ClassAttributes[T]
   object HTMLProps {
     
@@ -272,7 +280,8 @@ object mod {
       
       @js.native
       trait ElementClass
-        extends Component[js.Any, js.Object] {
+        extends StObject
+           with Component[js.Any, js.Object] {
         
         def render(): slinky.core.facade.ReactElement = js.native
       }

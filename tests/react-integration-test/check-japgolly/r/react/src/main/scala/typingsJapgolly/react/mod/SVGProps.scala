@@ -6,7 +6,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait SVGProps[T]
-  extends SVGAttributes[T]
+  extends StObject
+     with SVGAttributes[T]
      with ClassAttributes[T]
 object SVGProps {
   

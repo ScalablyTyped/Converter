@@ -7,8 +7,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait HtmlInputrops
-  extends /* key */ StringDictionary[js.Any]
+  extends StObject
      with StrictHtmlInputrops
+     with /* key */ StringDictionary[js.Any]
 object HtmlInputrops {
   
   @scala.inline

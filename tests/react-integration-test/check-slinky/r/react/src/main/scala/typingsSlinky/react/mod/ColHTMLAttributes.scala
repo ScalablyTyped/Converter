@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ColHTMLAttributes[T] extends HTMLAttributes[T] {
+trait ColHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var span: js.UndefOr[Double] = js.native
   

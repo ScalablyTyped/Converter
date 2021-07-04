@@ -10,7 +10,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object NodeJS {
   
   @js.native
-  trait Process extends EventEmitter {
+  trait Process
+    extends StObject
+       with EventEmitter {
     
     var foo: bar_ | Bar = js.native
   }

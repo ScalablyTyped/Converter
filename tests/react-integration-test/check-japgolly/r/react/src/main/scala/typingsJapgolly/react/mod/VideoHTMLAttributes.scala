@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait VideoHTMLAttributes[T] extends MediaHTMLAttributes[T] {
+trait VideoHTMLAttributes[T]
+  extends StObject
+     with MediaHTMLAttributes[T] {
   
   var disablePictureInPicture: js.UndefOr[Boolean] = js.native
   

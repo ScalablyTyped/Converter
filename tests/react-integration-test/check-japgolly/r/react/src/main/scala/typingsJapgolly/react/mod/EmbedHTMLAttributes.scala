@@ -5,7 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait EmbedHTMLAttributes[T] extends HTMLAttributes[T] {
+trait EmbedHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var height: js.UndefOr[Double | String] = js.native
   

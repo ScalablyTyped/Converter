@@ -8,7 +8,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait UIEvent[T] extends BaseSyntheticEvent[NativeUIEvent, EventTarget & T, EventTarget] {
+trait UIEvent[T]
+  extends StObject
+     with BaseSyntheticEvent[NativeUIEvent, EventTarget & T, EventTarget] {
   
   var detail: Double = js.native
   

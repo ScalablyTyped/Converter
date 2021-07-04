@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "react-bootstrap"
-version := "0.32-63c73e"
+version := "0.32-f0094d"
 scalaVersion := "3.0.1-RC2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2",
-  "org.scalablytyped" %%% "react" % "16.9.2-58b06f",
+  "org.scalablytyped" %%% "react" % "16.9.2-d5249c",
   "org.scalablytyped" %%% "std" % "0.0-unknown-e15da5",
   ("com.github.japgolly.scalajs-react" %%% "core" % "1.7.5").cross(CrossVersion.for3Use2_13))
 publishArtifact in packageDoc := false

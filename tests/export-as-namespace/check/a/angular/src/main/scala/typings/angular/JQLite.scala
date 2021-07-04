@@ -9,8 +9,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 @js.native
 trait JQLite
-  extends /* index */ NumberDictionary[HTMLElement]
+  extends StObject
      with JQuery
+     with /* index */ NumberDictionary[HTMLElement]
 object JQLite {
   
   @scala.inline

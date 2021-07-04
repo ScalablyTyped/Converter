@@ -61,7 +61,8 @@ object global {
   @JSGlobal("Phaser")
   @js.native
   class Phaser ()
-    extends typings.phaser.Phaser
+    extends StObject
+       with typings.phaser.Phaser
   object Phaser {
     
     @JSGlobal("Phaser")
@@ -76,7 +77,8 @@ object global {
     @JSGlobal("Phaser.Animation")
     @js.native
     class Animation ()
-      extends typings.phaser.Phaser.Animation
+      extends StObject
+         with typings.phaser.Phaser.Animation
     
     /* static member */
     @JSGlobal("Phaser.VERSION")
@@ -91,7 +93,8 @@ object global {
     @JSGlobal("p2.AABB")
     @js.native
     class AABB ()
-      extends typings.phaser.p2.AABB {
+      extends StObject
+         with typings.phaser.p2.AABB {
       def this(options: LowerBound) = this()
     }
   }

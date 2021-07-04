@@ -10,7 +10,9 @@ object observableMod {
   
   @JSImport("rxjs/internal/Observable", "Observable")
   @js.native
-  class Observable[T] () extends Subscribable[T] {
+  class Observable[T] ()
+    extends StObject
+       with Subscribable[T] {
     
     /** Internal implementation detail, do not use directly. */
     var _isScalar: Boolean = js.native

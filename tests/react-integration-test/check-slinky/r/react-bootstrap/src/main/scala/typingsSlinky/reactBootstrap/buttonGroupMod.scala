@@ -19,7 +19,9 @@ object buttonGroupMod {
     extends Component[ButtonGroupProps, js.Object, js.Any]
   
   @js.native
-  trait ButtonGroupProps extends HTMLProps[ButtonGroup] {
+  trait ButtonGroupProps
+    extends StObject
+       with HTMLProps[ButtonGroup] {
     
     var block: js.UndefOr[Boolean] = js.native
     
