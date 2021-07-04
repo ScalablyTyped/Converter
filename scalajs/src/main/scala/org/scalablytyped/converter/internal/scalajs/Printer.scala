@@ -7,10 +7,10 @@ import org.scalablytyped.converter.internal.scalajs.transforms.ShortenNames
 import org.scalablytyped.converter.internal.stringUtils.quote
 import scala.collection.mutable
 
-object Printer {
-  implicit def defaulted(comp: Printer.type): debug.type = debug
+object debugPrinter extends Printer.Impl(Name(""), Versions.Scala3)
 
-  val debug = new Impl(Name(""))
+object Printer {
+  implicit def defaulted(comp: Printer.type): debugPrinter.type = debugPrinter
 
   private[Printer] class Registry() {
 
@@ -85,7 +85,7 @@ object Printer {
     }
   }
 
-  final class Impl private[Printer] (outputPackage: Name) {
+  sealed class Impl(outputPackage: Name) {
     def apply(
         _scope:          TreeScope,
         parentsResolver: ParentsResolver,
