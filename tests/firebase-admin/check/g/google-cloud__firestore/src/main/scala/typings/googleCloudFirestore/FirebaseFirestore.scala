@@ -59,7 +59,7 @@ object FirebaseFirestore {
       def setProjectId(value: String): Self = StObject.set(x, "projectId", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setProjectIdUndefined: Self = StObject.set(x, "projectId", ())
+      def setProjectIdUndefined: Self = StObject.set(x, "projectId", js.undefined)
     }
   }
 }

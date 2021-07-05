@@ -33,7 +33,7 @@ object anon {
       def setEquals_(value: Boolean): Self = StObject.set(x, "equals", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEquals_Undefined: Self = StObject.set(x, "equals", ())
+      def setEquals_Undefined: Self = StObject.set(x, "equals", js.undefined)
       
       @scala.inline
       def setFinalize_(value: js.Object => Boolean): Self = StObject.set(x, "finalize", js.Any.fromFunction1(value))
@@ -42,7 +42,7 @@ object anon {
       def setNe_(value: /* other */ js.Object => Boolean): Self = StObject.set(x, "ne", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setNe_Undefined: Self = StObject.set(x, "ne", ())
+      def setNe_Undefined: Self = StObject.set(x, "ne", js.undefined)
     }
   }
 }

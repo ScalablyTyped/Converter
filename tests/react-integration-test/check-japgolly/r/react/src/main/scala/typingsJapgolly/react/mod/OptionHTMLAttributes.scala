@@ -32,25 +32,25 @@ object OptionHTMLAttributes {
     def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDisabledUndefined: Self = StObject.set(x, "disabled", ())
+    def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
     
     @scala.inline
     def setLabel(value: String): Self = StObject.set(x, "label", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLabelUndefined: Self = StObject.set(x, "label", ())
+    def setLabelUndefined: Self = StObject.set(x, "label", js.undefined)
     
     @scala.inline
     def setSelected(value: Boolean): Self = StObject.set(x, "selected", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSelectedUndefined: Self = StObject.set(x, "selected", ())
+    def setSelectedUndefined: Self = StObject.set(x, "selected", js.undefined)
     
     @scala.inline
     def setValue(value: String | js.Array[String] | Double): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setValueUndefined: Self = StObject.set(x, "value", ())
+    def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
     
     @scala.inline
     def setValueVarargs(value: String*): Self = StObject.set(x, "value", js.Array(value :_*))

@@ -129,25 +129,25 @@ object buttonGroupMod extends Shortcut {
       def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAsUndefined: Self = StObject.set(x, "as", ())
+      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
       @scala.inline
       def setAttached(value: Boolean | left | right | top | bottom): Self = StObject.set(x, "attached", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAttachedUndefined: Self = StObject.set(x, "attached", ())
+      def setAttachedUndefined: Self = StObject.set(x, "attached", js.undefined)
       
       @scala.inline
       def setBasic(value: Boolean): Self = StObject.set(x, "basic", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setBasicUndefined: Self = StObject.set(x, "basic", ())
+      def setBasicUndefined: Self = StObject.set(x, "basic", js.undefined)
       
       @scala.inline
       def setButtons(value: SemanticShorthandCollection[ButtonProps]): Self = StObject.set(x, "buttons", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setButtonsUndefined: Self = StObject.set(x, "buttons", ())
+      def setButtonsUndefined: Self = StObject.set(x, "buttons", js.undefined)
       
       @scala.inline
       def setButtonsVarargs(value: SemanticShorthandItem[ButtonProps]*): Self = StObject.set(x, "buttons", js.Array(value :_*))
@@ -159,7 +159,7 @@ object buttonGroupMod extends Shortcut {
       def setChildrenNull: Self = StObject.set(x, "children", null)
       
       @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", ())
+      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       @scala.inline
       def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
@@ -171,19 +171,19 @@ object buttonGroupMod extends Shortcut {
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", ())
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
       def setColor(value: SemanticCOLORS): Self = StObject.set(x, "color", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setColorUndefined: Self = StObject.set(x, "color", ())
+      def setColorUndefined: Self = StObject.set(x, "color", js.undefined)
       
       @scala.inline
       def setCompact(value: Boolean): Self = StObject.set(x, "compact", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCompactUndefined: Self = StObject.set(x, "compact", ())
+      def setCompactUndefined: Self = StObject.set(x, "compact", js.undefined)
       
       @scala.inline
       def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
@@ -192,7 +192,7 @@ object buttonGroupMod extends Shortcut {
       def setContentNull: Self = StObject.set(x, "content", null)
       
       @scala.inline
-      def setContentUndefined: Self = StObject.set(x, "content", ())
+      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
       
       @scala.inline
       def setContentVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "content", js.Array(value :_*))
@@ -204,79 +204,79 @@ object buttonGroupMod extends Shortcut {
       def setFloated(value: SemanticFLOATS): Self = StObject.set(x, "floated", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFloatedUndefined: Self = StObject.set(x, "floated", ())
+      def setFloatedUndefined: Self = StObject.set(x, "floated", js.undefined)
       
       @scala.inline
       def setFluid(value: Boolean): Self = StObject.set(x, "fluid", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFluidUndefined: Self = StObject.set(x, "fluid", ())
+      def setFluidUndefined: Self = StObject.set(x, "fluid", js.undefined)
       
       @scala.inline
       def setIcon(value: Boolean): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIconUndefined: Self = StObject.set(x, "icon", ())
+      def setIconUndefined: Self = StObject.set(x, "icon", js.undefined)
       
       @scala.inline
       def setInverted(value: Boolean): Self = StObject.set(x, "inverted", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInvertedUndefined: Self = StObject.set(x, "inverted", ())
+      def setInvertedUndefined: Self = StObject.set(x, "inverted", js.undefined)
       
       @scala.inline
       def setLabeled(value: Boolean): Self = StObject.set(x, "labeled", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setLabeledUndefined: Self = StObject.set(x, "labeled", ())
+      def setLabeledUndefined: Self = StObject.set(x, "labeled", js.undefined)
       
       @scala.inline
       def setNegative(value: Boolean): Self = StObject.set(x, "negative", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNegativeUndefined: Self = StObject.set(x, "negative", ())
+      def setNegativeUndefined: Self = StObject.set(x, "negative", js.undefined)
       
       @scala.inline
       def setPositive(value: Boolean): Self = StObject.set(x, "positive", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPositiveUndefined: Self = StObject.set(x, "positive", ())
+      def setPositiveUndefined: Self = StObject.set(x, "positive", js.undefined)
       
       @scala.inline
       def setPrimary(value: Boolean): Self = StObject.set(x, "primary", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPrimaryUndefined: Self = StObject.set(x, "primary", ())
+      def setPrimaryUndefined: Self = StObject.set(x, "primary", js.undefined)
       
       @scala.inline
       def setSecondary(value: Boolean): Self = StObject.set(x, "secondary", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setSecondaryUndefined: Self = StObject.set(x, "secondary", ())
+      def setSecondaryUndefined: Self = StObject.set(x, "secondary", js.undefined)
       
       @scala.inline
       def setSize(value: SemanticSIZES): Self = StObject.set(x, "size", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setSizeUndefined: Self = StObject.set(x, "size", ())
+      def setSizeUndefined: Self = StObject.set(x, "size", js.undefined)
       
       @scala.inline
       def setToggle(value: Boolean): Self = StObject.set(x, "toggle", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setToggleUndefined: Self = StObject.set(x, "toggle", ())
+      def setToggleUndefined: Self = StObject.set(x, "toggle", js.undefined)
       
       @scala.inline
       def setVertical(value: Boolean): Self = StObject.set(x, "vertical", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setVerticalUndefined: Self = StObject.set(x, "vertical", ())
+      def setVerticalUndefined: Self = StObject.set(x, "vertical", js.undefined)
       
       @scala.inline
       def setWidths(value: SemanticWIDTHS): Self = StObject.set(x, "widths", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setWidthsUndefined: Self = StObject.set(x, "widths", ())
+      def setWidthsUndefined: Self = StObject.set(x, "widths", js.undefined)
     }
   }
   

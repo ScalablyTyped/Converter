@@ -132,19 +132,19 @@ object mod {
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", ())
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
       def setData(value: js.Any): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDataUndefined: Self = StObject.set(x, "data", ())
+      def setDataUndefined: Self = StObject.set(x, "data", js.undefined)
       
       @scala.inline
       def setHideOnLeave(value: Boolean): Self = StObject.set(x, "hideOnLeave", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setHideOnLeaveUndefined: Self = StObject.set(x, "hideOnLeave", ())
+      def setHideOnLeaveUndefined: Self = StObject.set(x, "hideOnLeave", js.undefined)
       
       @scala.inline
       def setId(value: String): Self = StObject.set(x, "id", value.asInstanceOf[js.Any])
@@ -153,7 +153,7 @@ object mod {
       def setOnHide(value: /* event */ js.Any => Callback): Self = StObject.set(x, "onHide", js.Any.fromFunction1((t0: /* event */ js.Any) => value(t0).runNow()))
       
       @scala.inline
-      def setOnHideUndefined: Self = StObject.set(x, "onHide", ())
+      def setOnHideUndefined: Self = StObject.set(x, "onHide", js.undefined)
       
       @scala.inline
       def setOnMouseLeave(
@@ -171,19 +171,19 @@ object mod {
       ): Self = StObject.set(x, "onMouseLeave", js.Any.fromFunction3((t0: /* event */ ReactMouseEventFrom[HTMLElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, t2: /* target */ HTMLElement) => (value(t0, t1, t2)).runNow()))
       
       @scala.inline
-      def setOnMouseLeaveUndefined: Self = StObject.set(x, "onMouseLeave", ())
+      def setOnMouseLeaveUndefined: Self = StObject.set(x, "onMouseLeave", js.undefined)
       
       @scala.inline
       def setOnShow(value: /* event */ js.Any => Callback): Self = StObject.set(x, "onShow", js.Any.fromFunction1((t0: /* event */ js.Any) => value(t0).runNow()))
       
       @scala.inline
-      def setOnShowUndefined: Self = StObject.set(x, "onShow", ())
+      def setOnShowUndefined: Self = StObject.set(x, "onShow", js.undefined)
       
       @scala.inline
       def setRtl(value: Boolean): Self = StObject.set(x, "rtl", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRtlUndefined: Self = StObject.set(x, "rtl", ())
+      def setRtlUndefined: Self = StObject.set(x, "rtl", js.undefined)
     }
   }
   
@@ -217,25 +217,25 @@ object mod {
       def setAttributes(value: HTMLAttributes[js.Any]): Self = StObject.set(x, "attributes", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAttributesUndefined: Self = StObject.set(x, "attributes", ())
+      def setAttributesUndefined: Self = StObject.set(x, "attributes", js.undefined)
       
       @scala.inline
       def setCollect(value: /* data */ js.Any => js.Any): Self = StObject.set(x, "collect", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setCollectUndefined: Self = StObject.set(x, "collect", ())
+      def setCollectUndefined: Self = StObject.set(x, "collect", js.undefined)
       
       @scala.inline
       def setDisable(value: Boolean): Self = StObject.set(x, "disable", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDisableUndefined: Self = StObject.set(x, "disable", ())
+      def setDisableUndefined: Self = StObject.set(x, "disable", js.undefined)
       
       @scala.inline
       def setHoldToDisplay(value: Double): Self = StObject.set(x, "holdToDisplay", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setHoldToDisplayUndefined: Self = StObject.set(x, "holdToDisplay", ())
+      def setHoldToDisplayUndefined: Self = StObject.set(x, "holdToDisplay", js.undefined)
       
       @scala.inline
       def setId(value: String): Self = StObject.set(x, "id", value.asInstanceOf[js.Any])
@@ -244,7 +244,7 @@ object mod {
       def setRenderTag(value: ReactType[js.Any]): Self = StObject.set(x, "renderTag", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRenderTagUndefined: Self = StObject.set(x, "renderTag", ())
+      def setRenderTagUndefined: Self = StObject.set(x, "renderTag", js.undefined)
     }
   }
   
@@ -289,13 +289,13 @@ object mod {
       def setAttributes(value: HTMLAttributes[HTMLDivElement]): Self = StObject.set(x, "attributes", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAttributesUndefined: Self = StObject.set(x, "attributes", ())
+      def setAttributesUndefined: Self = StObject.set(x, "attributes", js.undefined)
       
       @scala.inline
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", ())
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
       def setData(
@@ -303,19 +303,19 @@ object mod {
       ): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDataUndefined: Self = StObject.set(x, "data", ())
+      def setDataUndefined: Self = StObject.set(x, "data", js.undefined)
       
       @scala.inline
       def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDisabledUndefined: Self = StObject.set(x, "disabled", ())
+      def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
       
       @scala.inline
       def setDivider(value: Boolean): Self = StObject.set(x, "divider", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDividerUndefined: Self = StObject.set(x, "divider", ())
+      def setDividerUndefined: Self = StObject.set(x, "divider", js.undefined)
       
       @scala.inline
       def setOnClick(
@@ -333,13 +333,13 @@ object mod {
       ): Self = StObject.set(x, "onClick", js.Any.fromFunction3((t0: /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, t2: /* target */ HTMLElement) => (value(t0, t1, t2)).runNow()))
       
       @scala.inline
-      def setOnClickUndefined: Self = StObject.set(x, "onClick", ())
+      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
       
       @scala.inline
       def setPreventClose(value: Boolean): Self = StObject.set(x, "preventClose", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPreventCloseUndefined: Self = StObject.set(x, "preventClose", ())
+      def setPreventCloseUndefined: Self = StObject.set(x, "preventClose", js.undefined)
     }
   }
   
@@ -382,19 +382,19 @@ object mod {
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", ())
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
       def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDisabledUndefined: Self = StObject.set(x, "disabled", ())
+      def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
       
       @scala.inline
       def setHoverDelay(value: Double): Self = StObject.set(x, "hoverDelay", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setHoverDelayUndefined: Self = StObject.set(x, "hoverDelay", ())
+      def setHoverDelayUndefined: Self = StObject.set(x, "hoverDelay", js.undefined)
       
       @scala.inline
       def setOnClick(
@@ -412,19 +412,19 @@ object mod {
       ): Self = StObject.set(x, "onClick", js.Any.fromFunction3((t0: /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, t2: /* target */ HTMLElement) => (value(t0, t1, t2)).runNow()))
       
       @scala.inline
-      def setOnClickUndefined: Self = StObject.set(x, "onClick", ())
+      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
       
       @scala.inline
       def setPreventCloseOnClick(value: Boolean): Self = StObject.set(x, "preventCloseOnClick", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPreventCloseOnClickUndefined: Self = StObject.set(x, "preventCloseOnClick", ())
+      def setPreventCloseOnClickUndefined: Self = StObject.set(x, "preventCloseOnClick", js.undefined)
       
       @scala.inline
       def setRtl(value: Boolean): Self = StObject.set(x, "rtl", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRtlUndefined: Self = StObject.set(x, "rtl", ())
+      def setRtlUndefined: Self = StObject.set(x, "rtl", js.undefined)
       
       @scala.inline
       def setTitle(value: Element | ReactText): Self = StObject.set(x, "title", value.asInstanceOf[js.Any])

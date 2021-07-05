@@ -82,7 +82,7 @@ object accordionPanelMod {
       def setActive(value: Boolean): Self = StObject.set(x, "active", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setActiveUndefined: Self = StObject.set(x, "active", ())
+      def setActiveUndefined: Self = StObject.set(x, "active", js.undefined)
       
       @scala.inline
       def setContent(value: SemanticShorthandItem[AccordionContentProps]): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
@@ -96,19 +96,19 @@ object accordionPanelMod {
       def setContentReactElement(value: ReactElement): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setContentUndefined: Self = StObject.set(x, "content", ())
+      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
       
       @scala.inline
       def setIndex(value: Double | String): Self = StObject.set(x, "index", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIndexUndefined: Self = StObject.set(x, "index", ())
+      def setIndexUndefined: Self = StObject.set(x, "index", js.undefined)
       
       @scala.inline
       def setOnTitleClick(value: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit): Self = StObject.set(x, "onTitleClick", js.Any.fromFunction2(value))
       
       @scala.inline
-      def setOnTitleClickUndefined: Self = StObject.set(x, "onTitleClick", ())
+      def setOnTitleClickUndefined: Self = StObject.set(x, "onTitleClick", js.undefined)
       
       @scala.inline
       def setTitle(value: SemanticShorthandItem[AccordionTitleProps]): Self = StObject.set(x, "title", value.asInstanceOf[js.Any])
@@ -122,7 +122,7 @@ object accordionPanelMod {
       def setTitleReactElement(value: ReactElement): Self = StObject.set(x, "title", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTitleUndefined: Self = StObject.set(x, "title", ())
+      def setTitleUndefined: Self = StObject.set(x, "title", js.undefined)
     }
   }
 }

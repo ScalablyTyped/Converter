@@ -24,6 +24,6 @@ object Foo {
     def setF(value: /* n */ Double => String): Self = StObject.set(x, "f", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setFUndefined: Self = StObject.set(x, "f", ())
+    def setFUndefined: Self = StObject.set(x, "f", js.undefined)
   }
 }

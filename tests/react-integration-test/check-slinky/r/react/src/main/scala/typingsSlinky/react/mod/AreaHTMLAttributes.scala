@@ -42,19 +42,19 @@ object AreaHTMLAttributes {
     def setAlt(value: String): Self = StObject.set(x, "alt", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAltUndefined: Self = StObject.set(x, "alt", ())
+    def setAltUndefined: Self = StObject.set(x, "alt", js.undefined)
     
     @scala.inline
     def setCoords(value: String): Self = StObject.set(x, "coords", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCoordsUndefined: Self = StObject.set(x, "coords", ())
+    def setCoordsUndefined: Self = StObject.set(x, "coords", js.undefined)
     
     @scala.inline
     def setDownload(value: js.Any): Self = StObject.set(x, "download", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDownloadUndefined: Self = StObject.set(x, "download", ())
+    def setDownloadUndefined: Self = StObject.set(x, "download", js.undefined)
     
     @scala.inline
     def setHref(value: String): Self = StObject.set(x, "href", value.asInstanceOf[js.Any])
@@ -63,33 +63,33 @@ object AreaHTMLAttributes {
     def setHrefLang(value: String): Self = StObject.set(x, "hrefLang", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHrefLangUndefined: Self = StObject.set(x, "hrefLang", ())
+    def setHrefLangUndefined: Self = StObject.set(x, "hrefLang", js.undefined)
     
     @scala.inline
-    def setHrefUndefined: Self = StObject.set(x, "href", ())
+    def setHrefUndefined: Self = StObject.set(x, "href", js.undefined)
     
     @scala.inline
     def setMedia(value: String): Self = StObject.set(x, "media", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMediaUndefined: Self = StObject.set(x, "media", ())
+    def setMediaUndefined: Self = StObject.set(x, "media", js.undefined)
     
     @scala.inline
     def setRel(value: String): Self = StObject.set(x, "rel", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRelUndefined: Self = StObject.set(x, "rel", ())
+    def setRelUndefined: Self = StObject.set(x, "rel", js.undefined)
     
     @scala.inline
     def setShape(value: String): Self = StObject.set(x, "shape", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setShapeUndefined: Self = StObject.set(x, "shape", ())
+    def setShapeUndefined: Self = StObject.set(x, "shape", js.undefined)
     
     @scala.inline
     def setTarget(value: String): Self = StObject.set(x, "target", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTargetUndefined: Self = StObject.set(x, "target", ())
+    def setTargetUndefined: Self = StObject.set(x, "target", js.undefined)
   }
 }

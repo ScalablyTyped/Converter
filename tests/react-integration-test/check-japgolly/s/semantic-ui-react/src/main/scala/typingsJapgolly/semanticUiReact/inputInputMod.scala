@@ -157,34 +157,34 @@ object inputInputMod {
       def setActionPosition(value: left): Self = StObject.set(x, "actionPosition", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setActionPositionUndefined: Self = StObject.set(x, "actionPosition", ())
+      def setActionPositionUndefined: Self = StObject.set(x, "actionPosition", js.undefined)
       
       @scala.inline
-      def setActionUndefined: Self = StObject.set(x, "action", ())
+      def setActionUndefined: Self = StObject.set(x, "action", js.undefined)
       
       @scala.inline
       def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAsUndefined: Self = StObject.set(x, "as", ())
+      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
       @scala.inline
       def setError(value: Boolean): Self = StObject.set(x, "error", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setErrorUndefined: Self = StObject.set(x, "error", ())
+      def setErrorUndefined: Self = StObject.set(x, "error", js.undefined)
       
       @scala.inline
       def setFluid(value: Boolean): Self = StObject.set(x, "fluid", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFluidUndefined: Self = StObject.set(x, "fluid", ())
+      def setFluidUndefined: Self = StObject.set(x, "fluid", js.undefined)
       
       @scala.inline
       def setFocus(value: Boolean): Self = StObject.set(x, "focus", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFocusUndefined: Self = StObject.set(x, "focus", ())
+      def setFocusUndefined: Self = StObject.set(x, "focus", js.undefined)
       
       @scala.inline
       def setIcon(value: js.Any | SemanticShorthandItem[InputProps]): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
@@ -201,10 +201,10 @@ object inputInputMod {
       def setIconPosition(value: left): Self = StObject.set(x, "iconPosition", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIconPositionUndefined: Self = StObject.set(x, "iconPosition", ())
+      def setIconPositionUndefined: Self = StObject.set(x, "iconPosition", js.undefined)
       
       @scala.inline
-      def setIconUndefined: Self = StObject.set(x, "icon", ())
+      def setIconUndefined: Self = StObject.set(x, "icon", js.undefined)
       
       @scala.inline
       def setIconVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "icon", js.Array(value :_*))
@@ -224,7 +224,7 @@ object inputInputMod {
       def setInputNull: Self = StObject.set(x, "input", null)
       
       @scala.inline
-      def setInputUndefined: Self = StObject.set(x, "input", ())
+      def setInputUndefined: Self = StObject.set(x, "input", js.undefined)
       
       @scala.inline
       def setInputVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "input", js.Array(value :_*))
@@ -236,7 +236,7 @@ object inputInputMod {
       def setInverted(value: Boolean): Self = StObject.set(x, "inverted", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInvertedUndefined: Self = StObject.set(x, "inverted", ())
+      def setInvertedUndefined: Self = StObject.set(x, "inverted", js.undefined)
       
       @scala.inline
       def setLabel(
@@ -259,10 +259,10 @@ object inputInputMod {
       def setLabelPosition(value: left | right | (`left corner`) | (`right corner`)): Self = StObject.set(x, "labelPosition", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setLabelPositionUndefined: Self = StObject.set(x, "labelPosition", ())
+      def setLabelPositionUndefined: Self = StObject.set(x, "labelPosition", js.undefined)
       
       @scala.inline
-      def setLabelUndefined: Self = StObject.set(x, "label", ())
+      def setLabelUndefined: Self = StObject.set(x, "label", js.undefined)
       
       @scala.inline
       def setLabelVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "label", js.Array(value :_*))
@@ -274,31 +274,31 @@ object inputInputMod {
       def setLoading(value: Boolean): Self = StObject.set(x, "loading", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setLoadingUndefined: Self = StObject.set(x, "loading", ())
+      def setLoadingUndefined: Self = StObject.set(x, "loading", js.undefined)
       
       @scala.inline
       def setOnChange(value: (/* event */ ReactEventFrom[HTMLInputElement], /* data */ InputOnChangeData) => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction2((t0: /* event */ ReactEventFrom[HTMLInputElement], t1: /* data */ InputOnChangeData) => (value(t0, t1)).runNow()))
       
       @scala.inline
-      def setOnChangeUndefined: Self = StObject.set(x, "onChange", ())
+      def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       
       @scala.inline
       def setSize(value: mini | small | large | big | huge | massive): Self = StObject.set(x, "size", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setSizeUndefined: Self = StObject.set(x, "size", ())
+      def setSizeUndefined: Self = StObject.set(x, "size", js.undefined)
       
       @scala.inline
       def setTabIndex(value: Double | String): Self = StObject.set(x, "tabIndex", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTabIndexUndefined: Self = StObject.set(x, "tabIndex", ())
+      def setTabIndexUndefined: Self = StObject.set(x, "tabIndex", js.undefined)
       
       @scala.inline
       def setTransparent(value: Boolean): Self = StObject.set(x, "transparent", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTransparentUndefined: Self = StObject.set(x, "transparent", ())
+      def setTransparentUndefined: Self = StObject.set(x, "transparent", js.undefined)
     }
   }
 }

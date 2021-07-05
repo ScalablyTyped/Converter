@@ -28,12 +28,12 @@ object ColHTMLAttributes {
     def setSpan(value: Double): Self = StObject.set(x, "span", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSpanUndefined: Self = StObject.set(x, "span", ())
+    def setSpanUndefined: Self = StObject.set(x, "span", js.undefined)
     
     @scala.inline
     def setWidth(value: Double | String): Self = StObject.set(x, "width", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setWidthUndefined: Self = StObject.set(x, "width", ())
+    def setWidthUndefined: Self = StObject.set(x, "width", js.undefined)
   }
 }

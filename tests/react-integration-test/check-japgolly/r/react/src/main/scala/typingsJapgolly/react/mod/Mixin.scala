@@ -42,37 +42,37 @@ object Mixin {
     def setChildContextTypes(value: ValidationMap[js.Any]): Self = StObject.set(x, "childContextTypes", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setChildContextTypesUndefined: Self = StObject.set(x, "childContextTypes", ())
+    def setChildContextTypesUndefined: Self = StObject.set(x, "childContextTypes", js.undefined)
     
     @scala.inline
     def setContextTypes(value: ValidationMap[js.Any]): Self = StObject.set(x, "contextTypes", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setContextTypesUndefined: Self = StObject.set(x, "contextTypes", ())
+    def setContextTypesUndefined: Self = StObject.set(x, "contextTypes", js.undefined)
     
     @scala.inline
     def setDisplayName(value: String): Self = StObject.set(x, "displayName", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDisplayNameUndefined: Self = StObject.set(x, "displayName", ())
+    def setDisplayNameUndefined: Self = StObject.set(x, "displayName", js.undefined)
     
     @scala.inline
     def setGetDefaultProps(value: CallbackTo[P]): Self = StObject.set(x, "getDefaultProps", value.toJsFn)
     
     @scala.inline
-    def setGetDefaultPropsUndefined: Self = StObject.set(x, "getDefaultProps", ())
+    def setGetDefaultPropsUndefined: Self = StObject.set(x, "getDefaultProps", js.undefined)
     
     @scala.inline
     def setGetInitialState(value: CallbackTo[S]): Self = StObject.set(x, "getInitialState", value.toJsFn)
     
     @scala.inline
-    def setGetInitialStateUndefined: Self = StObject.set(x, "getInitialState", ())
+    def setGetInitialStateUndefined: Self = StObject.set(x, "getInitialState", js.undefined)
     
     @scala.inline
     def setMixins(value: js.Array[Mixin[P, S]]): Self = StObject.set(x, "mixins", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMixinsUndefined: Self = StObject.set(x, "mixins", ())
+    def setMixinsUndefined: Self = StObject.set(x, "mixins", js.undefined)
     
     @scala.inline
     def setMixinsVarargs(value: (Mixin[P, S])*): Self = StObject.set(x, "mixins", js.Array(value :_*))
@@ -81,12 +81,12 @@ object Mixin {
     def setPropTypes(value: ValidationMap[js.Any]): Self = StObject.set(x, "propTypes", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setPropTypesUndefined: Self = StObject.set(x, "propTypes", ())
+    def setPropTypesUndefined: Self = StObject.set(x, "propTypes", js.undefined)
     
     @scala.inline
     def setStatics(value: StringDictionary[js.Any]): Self = StObject.set(x, "statics", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setStaticsUndefined: Self = StObject.set(x, "statics", ())
+    def setStaticsUndefined: Self = StObject.set(x, "statics", js.undefined)
   }
 }

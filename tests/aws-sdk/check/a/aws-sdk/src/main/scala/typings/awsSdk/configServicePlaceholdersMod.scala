@@ -35,7 +35,7 @@ object configServicePlaceholdersMod {
       def setDynamodb(value: apiVersion): Self = StObject.set(x, "dynamodb", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDynamodbUndefined: Self = StObject.set(x, "dynamodb", ())
+      def setDynamodbUndefined: Self = StObject.set(x, "dynamodb", js.undefined)
     }
   }
 }

@@ -36,7 +36,7 @@ object MaterialUI {
         def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setClassNameUndefined: Self = StObject.set(x, "className", ())
+        def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       }
     }
   }
@@ -63,7 +63,7 @@ object MaterialUI {
         def setSpacing(value: js.Any): Self = StObject.set(x, "spacing", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setSpacingUndefined: Self = StObject.set(x, "spacing", ())
+        def setSpacingUndefined: Self = StObject.set(x, "spacing", js.undefined)
       }
     }
   }

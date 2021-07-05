@@ -26,7 +26,7 @@ object mod {
       def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNameUndefined: Self = StObject.set(x, "name", ())
+      def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
     }
   }
 }

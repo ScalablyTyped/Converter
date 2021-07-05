@@ -70,13 +70,13 @@ object mod extends Shortcut {
       def setIsDefault(value: Boolean): Self = StObject.set(x, "isDefault", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIsDefaultUndefined: Self = StObject.set(x, "isDefault", ())
+      def setIsDefaultUndefined: Self = StObject.set(x, "isDefault", js.undefined)
       
       @scala.inline
       def setNoHelp(value: Boolean): Self = StObject.set(x, "noHelp", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNoHelpUndefined: Self = StObject.set(x, "noHelp", ())
+      def setNoHelpUndefined: Self = StObject.set(x, "noHelp", js.undefined)
     }
   }
   
@@ -475,7 +475,7 @@ object mod extends Shortcut {
         def setShort(value: String): Self = StObject.set(x, "short", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setShortUndefined: Self = StObject.set(x, "short", ())
+        def setShortUndefined: Self = StObject.set(x, "short", js.undefined)
       }
     }
   }

@@ -109,19 +109,19 @@ object accordionAccordionMod {
       def setFluid(value: Boolean): Self = StObject.set(x, "fluid", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFluidUndefined: Self = StObject.set(x, "fluid", ())
+      def setFluidUndefined: Self = StObject.set(x, "fluid", js.undefined)
       
       @scala.inline
       def setInverted(value: Boolean): Self = StObject.set(x, "inverted", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInvertedUndefined: Self = StObject.set(x, "inverted", ())
+      def setInvertedUndefined: Self = StObject.set(x, "inverted", js.undefined)
       
       @scala.inline
       def setStyled(value: Boolean): Self = StObject.set(x, "styled", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setStyledUndefined: Self = StObject.set(x, "styled", ())
+      def setStyledUndefined: Self = StObject.set(x, "styled", js.undefined)
     }
   }
 }

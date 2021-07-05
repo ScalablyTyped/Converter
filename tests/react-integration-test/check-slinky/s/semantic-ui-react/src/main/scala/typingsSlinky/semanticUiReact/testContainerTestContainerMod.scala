@@ -84,55 +84,55 @@ object testContainerTestContainerMod extends Shortcut {
       def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAsUndefined: Self = StObject.set(x, "as", ())
+      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
       @scala.inline
       def setChildren(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", ())
+      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       @scala.inline
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", ())
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
       def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setContentUndefined: Self = StObject.set(x, "content", ())
+      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
       
       @scala.inline
       def setFluid(value: Boolean): Self = StObject.set(x, "fluid", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFluidUndefined: Self = StObject.set(x, "fluid", ())
+      def setFluidUndefined: Self = StObject.set(x, "fluid", js.undefined)
       
       @scala.inline
       def setOptFn0Number(value: () => Double): Self = StObject.set(x, "optFn0Number", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setOptFn0NumberUndefined: Self = StObject.set(x, "optFn0Number", ())
+      def setOptFn0NumberUndefined: Self = StObject.set(x, "optFn0Number", js.undefined)
       
       @scala.inline
       def setOptFn0Void(value: () => Unit): Self = StObject.set(x, "optFn0Void", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setOptFn0VoidUndefined: Self = StObject.set(x, "optFn0Void", ())
+      def setOptFn0VoidUndefined: Self = StObject.set(x, "optFn0Void", js.undefined)
       
       @scala.inline
       def setOptFn1Number(value: /* x */ Double => Double): Self = StObject.set(x, "optFn1Number", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setOptFn1NumberUndefined: Self = StObject.set(x, "optFn1Number", ())
+      def setOptFn1NumberUndefined: Self = StObject.set(x, "optFn1Number", js.undefined)
       
       @scala.inline
       def setOptFn1Void(value: /* x */ Double => Unit): Self = StObject.set(x, "optFn1Void", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setOptFn1VoidUndefined: Self = StObject.set(x, "optFn1Void", ())
+      def setOptFn1VoidUndefined: Self = StObject.set(x, "optFn1Void", js.undefined)
       
       @scala.inline
       def setRequiredFn0Number(value: () => Double): Self = StObject.set(x, "requiredFn0Number", js.Any.fromFunction0(value))
@@ -153,10 +153,10 @@ object testContainerTestContainerMod extends Shortcut {
       def setTextAlign(value: SemanticTEXTALIGNMENTS): Self = StObject.set(x, "textAlign", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTextAlignUndefined: Self = StObject.set(x, "textAlign", ())
+      def setTextAlignUndefined: Self = StObject.set(x, "textAlign", js.undefined)
       
       @scala.inline
-      def setTextUndefined: Self = StObject.set(x, "text", ())
+      def setTextUndefined: Self = StObject.set(x, "text", js.undefined)
     }
   }
   

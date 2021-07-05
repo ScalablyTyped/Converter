@@ -39,7 +39,7 @@ object mod {
       def setSize(value: String | Double): Self = StObject.set(x, "size", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setSizeUndefined: Self = StObject.set(x, "size", ())
+      def setSizeUndefined: Self = StObject.set(x, "size", js.undefined)
     }
   }
 }

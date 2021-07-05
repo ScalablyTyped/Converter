@@ -26,6 +26,6 @@ object CSSProperties {
     def setHack(value: js.Any): Self = StObject.set(x, "hack", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHackUndefined: Self = StObject.set(x, "hack", ())
+    def setHackUndefined: Self = StObject.set(x, "hack", js.undefined)
   }
 }

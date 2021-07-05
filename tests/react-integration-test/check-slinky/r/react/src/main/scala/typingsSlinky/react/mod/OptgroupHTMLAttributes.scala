@@ -28,12 +28,12 @@ object OptgroupHTMLAttributes {
     def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDisabledUndefined: Self = StObject.set(x, "disabled", ())
+    def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
     
     @scala.inline
     def setLabel(value: String): Self = StObject.set(x, "label", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLabelUndefined: Self = StObject.set(x, "label", ())
+    def setLabelUndefined: Self = StObject.set(x, "label", js.undefined)
   }
 }

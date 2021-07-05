@@ -24,6 +24,6 @@ object C {
     def setC(value: Double): Self = StObject.set(x, "c", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCUndefined: Self = StObject.set(x, "c", ())
+    def setCUndefined: Self = StObject.set(x, "c", js.undefined)
   }
 }

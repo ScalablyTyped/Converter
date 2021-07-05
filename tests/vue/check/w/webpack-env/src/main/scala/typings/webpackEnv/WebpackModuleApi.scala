@@ -37,13 +37,13 @@ object WebpackModuleApi {
       def setAutoApply(value: Boolean): Self = StObject.set(x, "autoApply", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAutoApplyUndefined: Self = StObject.set(x, "autoApply", ())
+      def setAutoApplyUndefined: Self = StObject.set(x, "autoApply", js.undefined)
       
       @scala.inline
       def setIgnoreUnaccepted(value: Boolean): Self = StObject.set(x, "ignoreUnaccepted", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIgnoreUnacceptedUndefined: Self = StObject.set(x, "ignoreUnaccepted", ())
+      def setIgnoreUnacceptedUndefined: Self = StObject.set(x, "ignoreUnaccepted", js.undefined)
     }
   }
   
@@ -226,7 +226,7 @@ object WebpackModuleApi {
       def setEnv(value: js.Any): Self = StObject.set(x, "env", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEnvUndefined: Self = StObject.set(x, "env", ())
+      def setEnvUndefined: Self = StObject.set(x, "env", js.undefined)
     }
   }
   

@@ -32,7 +32,7 @@ object mod {
       def setLevels(value: AbstractConfigSetLevels): Self = StObject.set(x, "levels", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setLevelsUndefined: Self = StObject.set(x, "levels", ())
+      def setLevelsUndefined: Self = StObject.set(x, "levels", js.undefined)
     }
   }
 }

@@ -214,55 +214,55 @@ object DOMAttributes {
     def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setChildrenUndefined: Self = StObject.set(x, "children", ())
+    def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
     
     @scala.inline
     def setDangerouslySetInnerHTML(value: Html): Self = StObject.set(x, "dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDangerouslySetInnerHTMLUndefined: Self = StObject.set(x, "dangerouslySetInnerHTML", ())
+    def setDangerouslySetInnerHTMLUndefined: Self = StObject.set(x, "dangerouslySetInnerHTML", js.undefined)
     
     @scala.inline
     def setOnAbort(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onAbort", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnAbortUndefined: Self = StObject.set(x, "onAbort", ())
+    def setOnAbortUndefined: Self = StObject.set(x, "onAbort", js.undefined)
     
     @scala.inline
     def setOnAnimationEnd(value: SyntheticAnimationEvent[T] => Unit): Self = StObject.set(x, "onAnimationEnd", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnAnimationEndUndefined: Self = StObject.set(x, "onAnimationEnd", ())
+    def setOnAnimationEndUndefined: Self = StObject.set(x, "onAnimationEnd", js.undefined)
     
     @scala.inline
     def setOnAnimationIteration(value: SyntheticAnimationEvent[T] => Unit): Self = StObject.set(x, "onAnimationIteration", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnAnimationIterationUndefined: Self = StObject.set(x, "onAnimationIteration", ())
+    def setOnAnimationIterationUndefined: Self = StObject.set(x, "onAnimationIteration", js.undefined)
     
     @scala.inline
     def setOnAnimationStart(value: SyntheticAnimationEvent[T] => Unit): Self = StObject.set(x, "onAnimationStart", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnAnimationStartUndefined: Self = StObject.set(x, "onAnimationStart", ())
+    def setOnAnimationStartUndefined: Self = StObject.set(x, "onAnimationStart", js.undefined)
     
     @scala.inline
     def setOnAuxClick(value: SyntheticMouseEvent[T] => Unit): Self = StObject.set(x, "onAuxClick", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnAuxClickUndefined: Self = StObject.set(x, "onAuxClick", ())
+    def setOnAuxClickUndefined: Self = StObject.set(x, "onAuxClick", js.undefined)
     
     @scala.inline
     def setOnBeforeInput(value: slinky.core.SyntheticEvent[EventTarget & T, Event] => Unit): Self = StObject.set(x, "onBeforeInput", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnBeforeInputUndefined: Self = StObject.set(x, "onBeforeInput", ())
+    def setOnBeforeInputUndefined: Self = StObject.set(x, "onBeforeInput", js.undefined)
     
     @scala.inline
     def setOnBlur(value: SyntheticFocusEvent[T] => Unit): Self = StObject.set(x, "onBlur", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnBlurUndefined: Self = StObject.set(x, "onBlur", ())
+    def setOnBlurUndefined: Self = StObject.set(x, "onBlur", js.undefined)
     
     @scala.inline
     def setOnCanPlay(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onCanPlay", js.Any.fromFunction1(value))
@@ -271,64 +271,64 @@ object DOMAttributes {
     def setOnCanPlayThrough(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onCanPlayThrough", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnCanPlayThroughUndefined: Self = StObject.set(x, "onCanPlayThrough", ())
+    def setOnCanPlayThroughUndefined: Self = StObject.set(x, "onCanPlayThrough", js.undefined)
     
     @scala.inline
-    def setOnCanPlayUndefined: Self = StObject.set(x, "onCanPlay", ())
+    def setOnCanPlayUndefined: Self = StObject.set(x, "onCanPlay", js.undefined)
     
     @scala.inline
     def setOnChange(value: slinky.core.SyntheticEvent[EventTarget & T, Event] => Unit): Self = StObject.set(x, "onChange", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnChangeUndefined: Self = StObject.set(x, "onChange", ())
+    def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
     
     @scala.inline
     def setOnClick(value: SyntheticMouseEvent[T] => Unit): Self = StObject.set(x, "onClick", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnClickUndefined: Self = StObject.set(x, "onClick", ())
+    def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
     
     @scala.inline
     def setOnCompositionEnd(value: SyntheticCompositionEvent[T] => Unit): Self = StObject.set(x, "onCompositionEnd", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnCompositionEndUndefined: Self = StObject.set(x, "onCompositionEnd", ())
+    def setOnCompositionEndUndefined: Self = StObject.set(x, "onCompositionEnd", js.undefined)
     
     @scala.inline
     def setOnCompositionStart(value: SyntheticCompositionEvent[T] => Unit): Self = StObject.set(x, "onCompositionStart", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnCompositionStartUndefined: Self = StObject.set(x, "onCompositionStart", ())
+    def setOnCompositionStartUndefined: Self = StObject.set(x, "onCompositionStart", js.undefined)
     
     @scala.inline
     def setOnCompositionUpdate(value: SyntheticCompositionEvent[T] => Unit): Self = StObject.set(x, "onCompositionUpdate", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnCompositionUpdateUndefined: Self = StObject.set(x, "onCompositionUpdate", ())
+    def setOnCompositionUpdateUndefined: Self = StObject.set(x, "onCompositionUpdate", js.undefined)
     
     @scala.inline
     def setOnContextMenu(value: SyntheticMouseEvent[T] => Unit): Self = StObject.set(x, "onContextMenu", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnContextMenuUndefined: Self = StObject.set(x, "onContextMenu", ())
+    def setOnContextMenuUndefined: Self = StObject.set(x, "onContextMenu", js.undefined)
     
     @scala.inline
     def setOnCopy(value: SyntheticClipboardEvent[T] => Unit): Self = StObject.set(x, "onCopy", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnCopyUndefined: Self = StObject.set(x, "onCopy", ())
+    def setOnCopyUndefined: Self = StObject.set(x, "onCopy", js.undefined)
     
     @scala.inline
     def setOnCut(value: SyntheticClipboardEvent[T] => Unit): Self = StObject.set(x, "onCut", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnCutUndefined: Self = StObject.set(x, "onCut", ())
+    def setOnCutUndefined: Self = StObject.set(x, "onCut", js.undefined)
     
     @scala.inline
     def setOnDoubleClick(value: SyntheticMouseEvent[T] => Unit): Self = StObject.set(x, "onDoubleClick", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnDoubleClickUndefined: Self = StObject.set(x, "onDoubleClick", ())
+    def setOnDoubleClickUndefined: Self = StObject.set(x, "onDoubleClick", js.undefined)
     
     @scala.inline
     def setOnDrag(value: DragEvent[T] => Unit): Self = StObject.set(x, "onDrag", js.Any.fromFunction1(value))
@@ -337,112 +337,112 @@ object DOMAttributes {
     def setOnDragEnd(value: DragEvent[T] => Unit): Self = StObject.set(x, "onDragEnd", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnDragEndUndefined: Self = StObject.set(x, "onDragEnd", ())
+    def setOnDragEndUndefined: Self = StObject.set(x, "onDragEnd", js.undefined)
     
     @scala.inline
     def setOnDragEnter(value: DragEvent[T] => Unit): Self = StObject.set(x, "onDragEnter", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnDragEnterUndefined: Self = StObject.set(x, "onDragEnter", ())
+    def setOnDragEnterUndefined: Self = StObject.set(x, "onDragEnter", js.undefined)
     
     @scala.inline
     def setOnDragExit(value: DragEvent[T] => Unit): Self = StObject.set(x, "onDragExit", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnDragExitUndefined: Self = StObject.set(x, "onDragExit", ())
+    def setOnDragExitUndefined: Self = StObject.set(x, "onDragExit", js.undefined)
     
     @scala.inline
     def setOnDragLeave(value: DragEvent[T] => Unit): Self = StObject.set(x, "onDragLeave", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnDragLeaveUndefined: Self = StObject.set(x, "onDragLeave", ())
+    def setOnDragLeaveUndefined: Self = StObject.set(x, "onDragLeave", js.undefined)
     
     @scala.inline
     def setOnDragOver(value: DragEvent[T] => Unit): Self = StObject.set(x, "onDragOver", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnDragOverUndefined: Self = StObject.set(x, "onDragOver", ())
+    def setOnDragOverUndefined: Self = StObject.set(x, "onDragOver", js.undefined)
     
     @scala.inline
     def setOnDragStart(value: DragEvent[T] => Unit): Self = StObject.set(x, "onDragStart", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnDragStartUndefined: Self = StObject.set(x, "onDragStart", ())
+    def setOnDragStartUndefined: Self = StObject.set(x, "onDragStart", js.undefined)
     
     @scala.inline
-    def setOnDragUndefined: Self = StObject.set(x, "onDrag", ())
+    def setOnDragUndefined: Self = StObject.set(x, "onDrag", js.undefined)
     
     @scala.inline
     def setOnDrop(value: DragEvent[T] => Unit): Self = StObject.set(x, "onDrop", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnDropUndefined: Self = StObject.set(x, "onDrop", ())
+    def setOnDropUndefined: Self = StObject.set(x, "onDrop", js.undefined)
     
     @scala.inline
     def setOnDurationChange(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onDurationChange", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnDurationChangeUndefined: Self = StObject.set(x, "onDurationChange", ())
+    def setOnDurationChangeUndefined: Self = StObject.set(x, "onDurationChange", js.undefined)
     
     @scala.inline
     def setOnEmptied(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onEmptied", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnEmptiedUndefined: Self = StObject.set(x, "onEmptied", ())
+    def setOnEmptiedUndefined: Self = StObject.set(x, "onEmptied", js.undefined)
     
     @scala.inline
     def setOnEncrypted(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onEncrypted", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnEncryptedUndefined: Self = StObject.set(x, "onEncrypted", ())
+    def setOnEncryptedUndefined: Self = StObject.set(x, "onEncrypted", js.undefined)
     
     @scala.inline
     def setOnEnded(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onEnded", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnEndedUndefined: Self = StObject.set(x, "onEnded", ())
+    def setOnEndedUndefined: Self = StObject.set(x, "onEnded", js.undefined)
     
     @scala.inline
     def setOnError(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onError", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnErrorUndefined: Self = StObject.set(x, "onError", ())
+    def setOnErrorUndefined: Self = StObject.set(x, "onError", js.undefined)
     
     @scala.inline
     def setOnFocus(value: SyntheticFocusEvent[T] => Unit): Self = StObject.set(x, "onFocus", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnFocusUndefined: Self = StObject.set(x, "onFocus", ())
+    def setOnFocusUndefined: Self = StObject.set(x, "onFocus", js.undefined)
     
     @scala.inline
     def setOnInput(value: slinky.core.SyntheticEvent[EventTarget & T, Event] => Unit): Self = StObject.set(x, "onInput", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnInputUndefined: Self = StObject.set(x, "onInput", ())
+    def setOnInputUndefined: Self = StObject.set(x, "onInput", js.undefined)
     
     @scala.inline
     def setOnInvalid(value: slinky.core.SyntheticEvent[EventTarget & T, Event] => Unit): Self = StObject.set(x, "onInvalid", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnInvalidUndefined: Self = StObject.set(x, "onInvalid", ())
+    def setOnInvalidUndefined: Self = StObject.set(x, "onInvalid", js.undefined)
     
     @scala.inline
     def setOnKeyDown(value: SyntheticKeyboardEvent[T] => Unit): Self = StObject.set(x, "onKeyDown", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnKeyDownUndefined: Self = StObject.set(x, "onKeyDown", ())
+    def setOnKeyDownUndefined: Self = StObject.set(x, "onKeyDown", js.undefined)
     
     @scala.inline
     def setOnKeyPress(value: SyntheticKeyboardEvent[T] => Unit): Self = StObject.set(x, "onKeyPress", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnKeyPressUndefined: Self = StObject.set(x, "onKeyPress", ())
+    def setOnKeyPressUndefined: Self = StObject.set(x, "onKeyPress", js.undefined)
     
     @scala.inline
     def setOnKeyUp(value: SyntheticKeyboardEvent[T] => Unit): Self = StObject.set(x, "onKeyUp", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnKeyUpUndefined: Self = StObject.set(x, "onKeyUp", ())
+    def setOnKeyUpUndefined: Self = StObject.set(x, "onKeyUp", js.undefined)
     
     @scala.inline
     def setOnLoad(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onLoad", js.Any.fromFunction1(value))
@@ -451,249 +451,249 @@ object DOMAttributes {
     def setOnLoadStart(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onLoadStart", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnLoadStartUndefined: Self = StObject.set(x, "onLoadStart", ())
+    def setOnLoadStartUndefined: Self = StObject.set(x, "onLoadStart", js.undefined)
     
     @scala.inline
-    def setOnLoadUndefined: Self = StObject.set(x, "onLoad", ())
+    def setOnLoadUndefined: Self = StObject.set(x, "onLoad", js.undefined)
     
     @scala.inline
     def setOnLoadedData(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onLoadedData", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnLoadedDataUndefined: Self = StObject.set(x, "onLoadedData", ())
+    def setOnLoadedDataUndefined: Self = StObject.set(x, "onLoadedData", js.undefined)
     
     @scala.inline
     def setOnLoadedMetadata(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onLoadedMetadata", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnLoadedMetadataUndefined: Self = StObject.set(x, "onLoadedMetadata", ())
+    def setOnLoadedMetadataUndefined: Self = StObject.set(x, "onLoadedMetadata", js.undefined)
     
     @scala.inline
     def setOnMouseDown(value: SyntheticMouseEvent[T] => Unit): Self = StObject.set(x, "onMouseDown", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnMouseDownUndefined: Self = StObject.set(x, "onMouseDown", ())
+    def setOnMouseDownUndefined: Self = StObject.set(x, "onMouseDown", js.undefined)
     
     @scala.inline
     def setOnMouseEnter(value: SyntheticMouseEvent[T] => Unit): Self = StObject.set(x, "onMouseEnter", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnMouseEnterUndefined: Self = StObject.set(x, "onMouseEnter", ())
+    def setOnMouseEnterUndefined: Self = StObject.set(x, "onMouseEnter", js.undefined)
     
     @scala.inline
     def setOnMouseLeave(value: SyntheticMouseEvent[T] => Unit): Self = StObject.set(x, "onMouseLeave", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnMouseLeaveUndefined: Self = StObject.set(x, "onMouseLeave", ())
+    def setOnMouseLeaveUndefined: Self = StObject.set(x, "onMouseLeave", js.undefined)
     
     @scala.inline
     def setOnMouseMove(value: SyntheticMouseEvent[T] => Unit): Self = StObject.set(x, "onMouseMove", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnMouseMoveUndefined: Self = StObject.set(x, "onMouseMove", ())
+    def setOnMouseMoveUndefined: Self = StObject.set(x, "onMouseMove", js.undefined)
     
     @scala.inline
     def setOnMouseOut(value: SyntheticMouseEvent[T] => Unit): Self = StObject.set(x, "onMouseOut", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnMouseOutUndefined: Self = StObject.set(x, "onMouseOut", ())
+    def setOnMouseOutUndefined: Self = StObject.set(x, "onMouseOut", js.undefined)
     
     @scala.inline
     def setOnMouseOver(value: SyntheticMouseEvent[T] => Unit): Self = StObject.set(x, "onMouseOver", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnMouseOverUndefined: Self = StObject.set(x, "onMouseOver", ())
+    def setOnMouseOverUndefined: Self = StObject.set(x, "onMouseOver", js.undefined)
     
     @scala.inline
     def setOnMouseUp(value: SyntheticMouseEvent[T] => Unit): Self = StObject.set(x, "onMouseUp", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnMouseUpUndefined: Self = StObject.set(x, "onMouseUp", ())
+    def setOnMouseUpUndefined: Self = StObject.set(x, "onMouseUp", js.undefined)
     
     @scala.inline
     def setOnPaste(value: SyntheticClipboardEvent[T] => Unit): Self = StObject.set(x, "onPaste", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnPasteUndefined: Self = StObject.set(x, "onPaste", ())
+    def setOnPasteUndefined: Self = StObject.set(x, "onPaste", js.undefined)
     
     @scala.inline
     def setOnPause(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onPause", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnPauseUndefined: Self = StObject.set(x, "onPause", ())
+    def setOnPauseUndefined: Self = StObject.set(x, "onPause", js.undefined)
     
     @scala.inline
     def setOnPlay(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onPlay", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnPlayUndefined: Self = StObject.set(x, "onPlay", ())
+    def setOnPlayUndefined: Self = StObject.set(x, "onPlay", js.undefined)
     
     @scala.inline
     def setOnPlaying(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onPlaying", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnPlayingUndefined: Self = StObject.set(x, "onPlaying", ())
+    def setOnPlayingUndefined: Self = StObject.set(x, "onPlaying", js.undefined)
     
     @scala.inline
     def setOnPointerCancel(value: SyntheticPointerEvent[T] => Unit): Self = StObject.set(x, "onPointerCancel", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnPointerCancelUndefined: Self = StObject.set(x, "onPointerCancel", ())
+    def setOnPointerCancelUndefined: Self = StObject.set(x, "onPointerCancel", js.undefined)
     
     @scala.inline
     def setOnPointerDown(value: SyntheticPointerEvent[T] => Unit): Self = StObject.set(x, "onPointerDown", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnPointerDownUndefined: Self = StObject.set(x, "onPointerDown", ())
+    def setOnPointerDownUndefined: Self = StObject.set(x, "onPointerDown", js.undefined)
     
     @scala.inline
     def setOnPointerEnter(value: SyntheticPointerEvent[T] => Unit): Self = StObject.set(x, "onPointerEnter", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnPointerEnterUndefined: Self = StObject.set(x, "onPointerEnter", ())
+    def setOnPointerEnterUndefined: Self = StObject.set(x, "onPointerEnter", js.undefined)
     
     @scala.inline
     def setOnPointerLeave(value: SyntheticPointerEvent[T] => Unit): Self = StObject.set(x, "onPointerLeave", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnPointerLeaveUndefined: Self = StObject.set(x, "onPointerLeave", ())
+    def setOnPointerLeaveUndefined: Self = StObject.set(x, "onPointerLeave", js.undefined)
     
     @scala.inline
     def setOnPointerMove(value: SyntheticPointerEvent[T] => Unit): Self = StObject.set(x, "onPointerMove", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnPointerMoveUndefined: Self = StObject.set(x, "onPointerMove", ())
+    def setOnPointerMoveUndefined: Self = StObject.set(x, "onPointerMove", js.undefined)
     
     @scala.inline
     def setOnPointerOut(value: SyntheticPointerEvent[T] => Unit): Self = StObject.set(x, "onPointerOut", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnPointerOutUndefined: Self = StObject.set(x, "onPointerOut", ())
+    def setOnPointerOutUndefined: Self = StObject.set(x, "onPointerOut", js.undefined)
     
     @scala.inline
     def setOnPointerOver(value: SyntheticPointerEvent[T] => Unit): Self = StObject.set(x, "onPointerOver", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnPointerOverUndefined: Self = StObject.set(x, "onPointerOver", ())
+    def setOnPointerOverUndefined: Self = StObject.set(x, "onPointerOver", js.undefined)
     
     @scala.inline
     def setOnPointerUp(value: SyntheticPointerEvent[T] => Unit): Self = StObject.set(x, "onPointerUp", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnPointerUpUndefined: Self = StObject.set(x, "onPointerUp", ())
+    def setOnPointerUpUndefined: Self = StObject.set(x, "onPointerUp", js.undefined)
     
     @scala.inline
     def setOnProgress(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onProgress", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnProgressUndefined: Self = StObject.set(x, "onProgress", ())
+    def setOnProgressUndefined: Self = StObject.set(x, "onProgress", js.undefined)
     
     @scala.inline
     def setOnRateChange(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onRateChange", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnRateChangeUndefined: Self = StObject.set(x, "onRateChange", ())
+    def setOnRateChangeUndefined: Self = StObject.set(x, "onRateChange", js.undefined)
     
     @scala.inline
     def setOnReset(value: slinky.core.SyntheticEvent[EventTarget & T, Event] => Unit): Self = StObject.set(x, "onReset", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnResetUndefined: Self = StObject.set(x, "onReset", ())
+    def setOnResetUndefined: Self = StObject.set(x, "onReset", js.undefined)
     
     @scala.inline
     def setOnScroll(value: SyntheticUIEvent[T] => Unit): Self = StObject.set(x, "onScroll", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnScrollUndefined: Self = StObject.set(x, "onScroll", ())
+    def setOnScrollUndefined: Self = StObject.set(x, "onScroll", js.undefined)
     
     @scala.inline
     def setOnSeeked(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onSeeked", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnSeekedUndefined: Self = StObject.set(x, "onSeeked", ())
+    def setOnSeekedUndefined: Self = StObject.set(x, "onSeeked", js.undefined)
     
     @scala.inline
     def setOnSeeking(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onSeeking", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnSeekingUndefined: Self = StObject.set(x, "onSeeking", ())
+    def setOnSeekingUndefined: Self = StObject.set(x, "onSeeking", js.undefined)
     
     @scala.inline
     def setOnSelect(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onSelect", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnSelectUndefined: Self = StObject.set(x, "onSelect", ())
+    def setOnSelectUndefined: Self = StObject.set(x, "onSelect", js.undefined)
     
     @scala.inline
     def setOnStalled(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onStalled", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnStalledUndefined: Self = StObject.set(x, "onStalled", ())
+    def setOnStalledUndefined: Self = StObject.set(x, "onStalled", js.undefined)
     
     @scala.inline
     def setOnSubmit(value: slinky.core.SyntheticEvent[EventTarget & T, Event] => Unit): Self = StObject.set(x, "onSubmit", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnSubmitUndefined: Self = StObject.set(x, "onSubmit", ())
+    def setOnSubmitUndefined: Self = StObject.set(x, "onSubmit", js.undefined)
     
     @scala.inline
     def setOnSuspend(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onSuspend", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnSuspendUndefined: Self = StObject.set(x, "onSuspend", ())
+    def setOnSuspendUndefined: Self = StObject.set(x, "onSuspend", js.undefined)
     
     @scala.inline
     def setOnTimeUpdate(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onTimeUpdate", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnTimeUpdateUndefined: Self = StObject.set(x, "onTimeUpdate", ())
+    def setOnTimeUpdateUndefined: Self = StObject.set(x, "onTimeUpdate", js.undefined)
     
     @scala.inline
     def setOnTouchCancel(value: SyntheticTouchEvent[T] => Unit): Self = StObject.set(x, "onTouchCancel", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnTouchCancelUndefined: Self = StObject.set(x, "onTouchCancel", ())
+    def setOnTouchCancelUndefined: Self = StObject.set(x, "onTouchCancel", js.undefined)
     
     @scala.inline
     def setOnTouchEnd(value: SyntheticTouchEvent[T] => Unit): Self = StObject.set(x, "onTouchEnd", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnTouchEndUndefined: Self = StObject.set(x, "onTouchEnd", ())
+    def setOnTouchEndUndefined: Self = StObject.set(x, "onTouchEnd", js.undefined)
     
     @scala.inline
     def setOnTouchMove(value: SyntheticTouchEvent[T] => Unit): Self = StObject.set(x, "onTouchMove", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnTouchMoveUndefined: Self = StObject.set(x, "onTouchMove", ())
+    def setOnTouchMoveUndefined: Self = StObject.set(x, "onTouchMove", js.undefined)
     
     @scala.inline
     def setOnTouchStart(value: SyntheticTouchEvent[T] => Unit): Self = StObject.set(x, "onTouchStart", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnTouchStartUndefined: Self = StObject.set(x, "onTouchStart", ())
+    def setOnTouchStartUndefined: Self = StObject.set(x, "onTouchStart", js.undefined)
     
     @scala.inline
     def setOnTransitionEnd(value: SyntheticTransitionEvent[T] => Unit): Self = StObject.set(x, "onTransitionEnd", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnTransitionEndUndefined: Self = StObject.set(x, "onTransitionEnd", ())
+    def setOnTransitionEndUndefined: Self = StObject.set(x, "onTransitionEnd", js.undefined)
     
     @scala.inline
     def setOnVolumeChange(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onVolumeChange", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnVolumeChangeUndefined: Self = StObject.set(x, "onVolumeChange", ())
+    def setOnVolumeChangeUndefined: Self = StObject.set(x, "onVolumeChange", js.undefined)
     
     @scala.inline
     def setOnWaiting(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onWaiting", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnWaitingUndefined: Self = StObject.set(x, "onWaiting", ())
+    def setOnWaitingUndefined: Self = StObject.set(x, "onWaiting", js.undefined)
     
     @scala.inline
     def setOnWheel(value: SyntheticWheelEvent[T] => Unit): Self = StObject.set(x, "onWheel", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setOnWheelUndefined: Self = StObject.set(x, "onWheel", ())
+    def setOnWheelUndefined: Self = StObject.set(x, "onWheel", js.undefined)
   }
 }

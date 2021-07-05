@@ -84,7 +84,7 @@ object mod extends Shortcut {
       def setResumeBootstrap(value: /* extraModules */ js.UndefOr[js.Array[String]] => IInjectorService): Self = StObject.set(x, "resumeBootstrap", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setResumeBootstrapUndefined: Self = StObject.set(x, "resumeBootstrap", ())
+      def setResumeBootstrapUndefined: Self = StObject.set(x, "resumeBootstrap", js.undefined)
     }
   }
   

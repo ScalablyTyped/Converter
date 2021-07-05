@@ -590,7 +590,7 @@ object Printer {
         case ExprTree.Block(es) =>
           es.map(e => "  " + formatExpr(indent)(e)).mkString("{\n", "\n", "\n}")
         case ExprTree.undefined =>
-          "()"
+          "js.undefined"
         case ExprTree.Null =>
           "null"
         case ExprTree.`:_*`(e) =>

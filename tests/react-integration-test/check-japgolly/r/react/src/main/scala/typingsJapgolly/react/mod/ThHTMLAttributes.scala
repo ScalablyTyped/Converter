@@ -39,30 +39,30 @@ object ThHTMLAttributes {
     def setAlign(value: left | center | right | justify | char): Self = StObject.set(x, "align", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAlignUndefined: Self = StObject.set(x, "align", ())
+    def setAlignUndefined: Self = StObject.set(x, "align", js.undefined)
     
     @scala.inline
     def setColSpan(value: Double): Self = StObject.set(x, "colSpan", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setColSpanUndefined: Self = StObject.set(x, "colSpan", ())
+    def setColSpanUndefined: Self = StObject.set(x, "colSpan", js.undefined)
     
     @scala.inline
     def setHeaders(value: String): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHeadersUndefined: Self = StObject.set(x, "headers", ())
+    def setHeadersUndefined: Self = StObject.set(x, "headers", js.undefined)
     
     @scala.inline
     def setRowSpan(value: Double): Self = StObject.set(x, "rowSpan", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRowSpanUndefined: Self = StObject.set(x, "rowSpan", ())
+    def setRowSpanUndefined: Self = StObject.set(x, "rowSpan", js.undefined)
     
     @scala.inline
     def setScope(value: String): Self = StObject.set(x, "scope", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setScopeUndefined: Self = StObject.set(x, "scope", ())
+    def setScopeUndefined: Self = StObject.set(x, "scope", js.undefined)
   }
 }

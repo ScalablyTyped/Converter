@@ -56,7 +56,7 @@ object anon {
       def setRef(value: Exclude[js.Any, String]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRefUndefined: Self = StObject.set(x, "ref", ())
+      def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
     }
   }
   
@@ -83,7 +83,7 @@ object anon {
       def setChildrenNull: Self = StObject.set(x, "children", null)
       
       @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", ())
+      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       @scala.inline
       def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
@@ -186,7 +186,7 @@ object anon {
       def setRef(value: /* import warning: importer.ImportType#apply Failed type conversion: infer R */ js.Any): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRefUndefined: Self = StObject.set(x, "ref", ())
+      def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
     }
   }
 }

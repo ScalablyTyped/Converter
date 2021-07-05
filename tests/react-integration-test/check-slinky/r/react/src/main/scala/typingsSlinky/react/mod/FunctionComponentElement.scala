@@ -27,6 +27,6 @@ object FunctionComponentElement {
     def setRef(value: js.Any): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setRefUndefined: Self = StObject.set(x, "ref", ())
+    def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
   }
 }

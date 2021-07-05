@@ -34,13 +34,13 @@ object SourceHTMLAttributes {
     def setMedia(value: String): Self = StObject.set(x, "media", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMediaUndefined: Self = StObject.set(x, "media", ())
+    def setMediaUndefined: Self = StObject.set(x, "media", js.undefined)
     
     @scala.inline
     def setSizes(value: String): Self = StObject.set(x, "sizes", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSizesUndefined: Self = StObject.set(x, "sizes", ())
+    def setSizesUndefined: Self = StObject.set(x, "sizes", js.undefined)
     
     @scala.inline
     def setSrc(value: String): Self = StObject.set(x, "src", value.asInstanceOf[js.Any])
@@ -49,15 +49,15 @@ object SourceHTMLAttributes {
     def setSrcSet(value: String): Self = StObject.set(x, "srcSet", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSrcSetUndefined: Self = StObject.set(x, "srcSet", ())
+    def setSrcSetUndefined: Self = StObject.set(x, "srcSet", js.undefined)
     
     @scala.inline
-    def setSrcUndefined: Self = StObject.set(x, "src", ())
+    def setSrcUndefined: Self = StObject.set(x, "src", js.undefined)
     
     @scala.inline
     def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTypeUndefined: Self = StObject.set(x, "type", ())
+    def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
   }
 }

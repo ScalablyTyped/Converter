@@ -24,6 +24,6 @@ object StrictHtmlInputrops {
     def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTypeUndefined: Self = StObject.set(x, "type", ())
+    def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
   }
 }

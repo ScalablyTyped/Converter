@@ -12,7 +12,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object abbr {
   
   @scala.inline
-  def apply(dangerouslySetInnerHTML: Html = null, defaultChecked: js.UndefOr[Boolean] = ()): Default[HTMLElement] = {
+  def apply(dangerouslySetInnerHTML: Html = null, defaultChecked: js.UndefOr[Boolean] = js.undefined): Default[HTMLElement] = {
     val __props = js.Dynamic.literal()
     if (dangerouslySetInnerHTML != null) __props.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
     if (!js.isUndefined(defaultChecked)) __props.updateDynamic("defaultChecked")(defaultChecked.asInstanceOf[js.Any])

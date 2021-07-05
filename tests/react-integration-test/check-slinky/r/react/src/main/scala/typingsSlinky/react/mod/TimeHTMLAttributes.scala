@@ -26,6 +26,6 @@ object TimeHTMLAttributes {
     def setDateTime(value: String): Self = StObject.set(x, "dateTime", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDateTimeUndefined: Self = StObject.set(x, "dateTime", ())
+    def setDateTimeUndefined: Self = StObject.set(x, "dateTime", js.undefined)
   }
 }

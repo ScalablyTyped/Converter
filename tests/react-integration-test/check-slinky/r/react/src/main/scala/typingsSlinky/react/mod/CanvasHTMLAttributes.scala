@@ -28,12 +28,12 @@ object CanvasHTMLAttributes {
     def setHeight(value: Double | String): Self = StObject.set(x, "height", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHeightUndefined: Self = StObject.set(x, "height", ())
+    def setHeightUndefined: Self = StObject.set(x, "height", js.undefined)
     
     @scala.inline
     def setWidth(value: Double | String): Self = StObject.set(x, "width", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setWidthUndefined: Self = StObject.set(x, "width", ())
+    def setWidthUndefined: Self = StObject.set(x, "width", js.undefined)
   }
 }

@@ -27,7 +27,7 @@ object anon {
       def setChildFactory(value: /* child */ ReactElement => ReactElement): Self = StObject.set(x, "childFactory", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setChildFactoryUndefined: Self = StObject.set(x, "childFactory", ())
+      def setChildFactoryUndefined: Self = StObject.set(x, "childFactory", js.undefined)
     }
   }
 }

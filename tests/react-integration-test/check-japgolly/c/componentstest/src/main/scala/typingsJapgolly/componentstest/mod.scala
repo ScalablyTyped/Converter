@@ -85,7 +85,7 @@ object mod {
       def setBCallback(value: CallbackTo[String]): Self = StObject.set(x, "bCallback", value.toJsFn)
       
       @scala.inline
-      def setBCallbackUndefined: Self = StObject.set(x, "bCallback", ())
+      def setBCallbackUndefined: Self = StObject.set(x, "bCallback", js.undefined)
       
       @scala.inline
       def setBMember(value: String): Self = StObject.set(x, "bMember", value.asInstanceOf[js.Any])
@@ -118,25 +118,25 @@ object mod {
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", ())
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
       def setHoverable(value: Boolean): Self = StObject.set(x, "hoverable", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setHoverableUndefined: Self = StObject.set(x, "hoverable", ())
+      def setHoverableUndefined: Self = StObject.set(x, "hoverable", js.undefined)
       
       @scala.inline
       def setPrefixCls(value: String): Self = StObject.set(x, "prefixCls", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", ())
+      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", js.undefined)
       
       @scala.inline
       def setStyle(value: CSSProperties): Self = StObject.set(x, "style", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setStyleUndefined: Self = StObject.set(x, "style", ())
+      def setStyleUndefined: Self = StObject.set(x, "style", js.undefined)
     }
   }
   
@@ -171,13 +171,13 @@ object mod {
       def setOnClick(value: ReactMouseEventFrom[HTMLDivElement & Element] => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement & Element]) => value(t0).runNow()))
       
       @scala.inline
-      def setOnClickUndefined: Self = StObject.set(x, "onClick", ())
+      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
       
       @scala.inline
       def setPrefixCls(value: String): Self = StObject.set(x, "prefixCls", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", ())
+      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", js.undefined)
     }
   }
   

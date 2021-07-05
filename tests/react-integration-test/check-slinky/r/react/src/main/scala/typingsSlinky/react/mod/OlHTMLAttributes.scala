@@ -35,18 +35,18 @@ object OlHTMLAttributes {
     def setReversed(value: Boolean): Self = StObject.set(x, "reversed", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setReversedUndefined: Self = StObject.set(x, "reversed", ())
+    def setReversedUndefined: Self = StObject.set(x, "reversed", js.undefined)
     
     @scala.inline
     def setStart(value: Double): Self = StObject.set(x, "start", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setStartUndefined: Self = StObject.set(x, "start", ())
+    def setStartUndefined: Self = StObject.set(x, "start", js.undefined)
     
     @scala.inline
     def setType(value: `1` | a_ | A | i_ | I): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTypeUndefined: Self = StObject.set(x, "type", ())
+    def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
   }
 }

@@ -26,6 +26,6 @@ object Child {
     def setT2(value: T2): Self = StObject.set(x, "t2", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setT2Undefined: Self = StObject.set(x, "t2", ())
+    def setT2Undefined: Self = StObject.set(x, "t2", js.undefined)
   }
 }

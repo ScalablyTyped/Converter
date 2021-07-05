@@ -40,7 +40,7 @@ object mod {
       def setValue(value: TValue): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setValueUndefined: Self = StObject.set(x, "value", ())
+      def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
     }
   }
   
@@ -81,7 +81,7 @@ object mod {
       def setAddLabelText(value: String): Self = StObject.set(x, "addLabelText", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAddLabelTextUndefined: Self = StObject.set(x, "addLabelText", ())
+      def setAddLabelTextUndefined: Self = StObject.set(x, "addLabelText", js.undefined)
     }
   }
 }

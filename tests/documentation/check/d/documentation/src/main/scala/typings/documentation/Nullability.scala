@@ -33,7 +33,7 @@ object Nullability {
     def setB(value: Double): Self = StObject.set(x, "b", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setBUndefined: Self = StObject.set(x, "b", ())
+    def setBUndefined: Self = StObject.set(x, "b", js.undefined)
     
     @scala.inline
     def setC(value: Double): Self = StObject.set(x, "c", value.asInstanceOf[js.Any])
@@ -48,6 +48,6 @@ object Nullability {
     def setDNull: Self = StObject.set(x, "d", null)
     
     @scala.inline
-    def setDUndefined: Self = StObject.set(x, "d", ())
+    def setDUndefined: Self = StObject.set(x, "d", js.undefined)
   }
 }

@@ -29,13 +29,13 @@ object mod {
       def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNameUndefined: Self = StObject.set(x, "name", ())
+      def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
       
       @scala.inline
       def setPrefixCls(value: String): Self = StObject.set(x, "prefixCls", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", ())
+      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", js.undefined)
     }
   }
 }

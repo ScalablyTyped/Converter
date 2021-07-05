@@ -49,18 +49,18 @@ object TypographyStyle {
     def setLetterSpacing(value: String): Self = StObject.set(x, "letterSpacing", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLetterSpacingUndefined: Self = StObject.set(x, "letterSpacing", ())
+    def setLetterSpacingUndefined: Self = StObject.set(x, "letterSpacing", js.undefined)
     
     @scala.inline
     def setLineHeight(value: String): Self = StObject.set(x, "lineHeight", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLineHeightUndefined: Self = StObject.set(x, "lineHeight", ())
+    def setLineHeightUndefined: Self = StObject.set(x, "lineHeight", js.undefined)
     
     @scala.inline
     def setTextTransform(value: String): Self = StObject.set(x, "textTransform", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTextTransformUndefined: Self = StObject.set(x, "textTransform", ())
+    def setTextTransformUndefined: Self = StObject.set(x, "textTransform", js.undefined)
   }
 }

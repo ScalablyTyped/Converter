@@ -76,43 +76,43 @@ object mod {
       def setCancelable(value: Boolean): Self = StObject.set(x, "cancelable", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCancelableUndefined: Self = StObject.set(x, "cancelable", ())
+      def setCancelableUndefined: Self = StObject.set(x, "cancelable", js.undefined)
       
       @scala.inline
       def setContainer(value: String | Element): Self = StObject.set(x, "container", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setContainerUndefined: Self = StObject.set(x, "container", ())
+      def setContainerUndefined: Self = StObject.set(x, "container", js.undefined)
       
       @scala.inline
       def setDuration(value: Double): Self = StObject.set(x, "duration", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDurationUndefined: Self = StObject.set(x, "duration", ())
+      def setDurationUndefined: Self = StObject.set(x, "duration", js.undefined)
       
       @scala.inline
       def setEasing(value: String): Self = StObject.set(x, "easing", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEasingUndefined: Self = StObject.set(x, "easing", ())
+      def setEasingUndefined: Self = StObject.set(x, "easing", js.undefined)
       
       @scala.inline
       def setEl(value: String | Element): Self = StObject.set(x, "el", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setElUndefined: Self = StObject.set(x, "el", ())
+      def setElUndefined: Self = StObject.set(x, "el", js.undefined)
       
       @scala.inline
       def setElement(value: String | Element): Self = StObject.set(x, "element", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setElementUndefined: Self = StObject.set(x, "element", ())
+      def setElementUndefined: Self = StObject.set(x, "element", js.undefined)
       
       @scala.inline
       def setOffset(value: Double): Self = StObject.set(x, "offset", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setOffsetUndefined: Self = StObject.set(x, "offset", ())
+      def setOffsetUndefined: Self = StObject.set(x, "offset", js.undefined)
       
       @scala.inline
       def setOnCancel(value: js.Function0[Unit] | `false`): Self = StObject.set(x, "onCancel", value.asInstanceOf[js.Any])
@@ -121,7 +121,7 @@ object mod {
       def setOnCancelFunction0(value: () => Unit): Self = StObject.set(x, "onCancel", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setOnCancelUndefined: Self = StObject.set(x, "onCancel", ())
+      def setOnCancelUndefined: Self = StObject.set(x, "onCancel", js.undefined)
       
       @scala.inline
       def setOnDone(value: js.Function0[Unit] | `false`): Self = StObject.set(x, "onDone", value.asInstanceOf[js.Any])
@@ -130,19 +130,19 @@ object mod {
       def setOnDoneFunction0(value: () => Unit): Self = StObject.set(x, "onDone", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setOnDoneUndefined: Self = StObject.set(x, "onDone", ())
+      def setOnDoneUndefined: Self = StObject.set(x, "onDone", js.undefined)
       
       @scala.inline
       def setX(value: Boolean): Self = StObject.set(x, "x", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setXUndefined: Self = StObject.set(x, "x", ())
+      def setXUndefined: Self = StObject.set(x, "x", js.undefined)
       
       @scala.inline
       def setY(value: Boolean): Self = StObject.set(x, "y", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setYUndefined: Self = StObject.set(x, "y", ())
+      def setYUndefined: Self = StObject.set(x, "y", js.undefined)
     }
   }
   

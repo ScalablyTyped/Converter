@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "material-ui"
-version := "0.0-unknown-ebf948"
+version := "0.0-unknown-dd6d90"
 scalaVersion := "3.0.1-RC2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2",
-  "org.scalablytyped" %%% "react" % "0.0-unknown-13e040",
+  "org.scalablytyped" %%% "react" % "0.0-unknown-7e5561",
   "org.scalablytyped" %%% "std" % "0.0-unknown-142e22",
   ("me.shadaj" %%% "slinky-web" % "0.6.7").cross(CrossVersion.for3Use2_13))
 publishArtifact in packageDoc := false

@@ -36,7 +36,7 @@ object typesMod {
       def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClosedUndefined: Self = StObject.set(x, "closed", ())
+      def setClosedUndefined: Self = StObject.set(x, "closed", js.undefined)
       
       @scala.inline
       def setComplete(value: () => Unit): Self = StObject.set(x, "complete", js.Any.fromFunction0(value))
@@ -45,13 +45,13 @@ object typesMod {
       def setError(value: /* err */ js.Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setErrorUndefined: Self = StObject.set(x, "error", ())
+      def setErrorUndefined: Self = StObject.set(x, "error", js.undefined)
       
       @scala.inline
       def setNext(value: /* value */ T => Unit): Self = StObject.set(x, "next", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setNextUndefined: Self = StObject.set(x, "next", ())
+      def setNextUndefined: Self = StObject.set(x, "next", js.undefined)
     }
   }
   
@@ -83,13 +83,13 @@ object typesMod {
       def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClosedUndefined: Self = StObject.set(x, "closed", ())
+      def setClosedUndefined: Self = StObject.set(x, "closed", js.undefined)
       
       @scala.inline
       def setComplete(value: () => Unit): Self = StObject.set(x, "complete", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setCompleteUndefined: Self = StObject.set(x, "complete", ())
+      def setCompleteUndefined: Self = StObject.set(x, "complete", js.undefined)
       
       @scala.inline
       def setError(value: js.Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
@@ -98,7 +98,7 @@ object typesMod {
       def setNext(value: /* value */ T => Unit): Self = StObject.set(x, "next", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setNextUndefined: Self = StObject.set(x, "next", ())
+      def setNextUndefined: Self = StObject.set(x, "next", js.undefined)
     }
   }
   
@@ -130,19 +130,19 @@ object typesMod {
       def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClosedUndefined: Self = StObject.set(x, "closed", ())
+      def setClosedUndefined: Self = StObject.set(x, "closed", js.undefined)
       
       @scala.inline
       def setComplete(value: () => Unit): Self = StObject.set(x, "complete", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setCompleteUndefined: Self = StObject.set(x, "complete", ())
+      def setCompleteUndefined: Self = StObject.set(x, "complete", js.undefined)
       
       @scala.inline
       def setError(value: /* err */ js.Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setErrorUndefined: Self = StObject.set(x, "error", ())
+      def setErrorUndefined: Self = StObject.set(x, "error", js.undefined)
       
       @scala.inline
       def setNext(value: T => Unit): Self = StObject.set(x, "next", js.Any.fromFunction1(value))
@@ -175,7 +175,7 @@ object typesMod {
       def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClosedUndefined: Self = StObject.set(x, "closed", ())
+      def setClosedUndefined: Self = StObject.set(x, "closed", js.undefined)
       
       @scala.inline
       def setComplete(value: () => Unit): Self = StObject.set(x, "complete", js.Any.fromFunction0(value))

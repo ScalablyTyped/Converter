@@ -28,12 +28,12 @@ object DelHTMLAttributes {
     def setCite(value: String): Self = StObject.set(x, "cite", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCiteUndefined: Self = StObject.set(x, "cite", ())
+    def setCiteUndefined: Self = StObject.set(x, "cite", js.undefined)
     
     @scala.inline
     def setDateTime(value: String): Self = StObject.set(x, "dateTime", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDateTimeUndefined: Self = StObject.set(x, "dateTime", ())
+    def setDateTimeUndefined: Self = StObject.set(x, "dateTime", js.undefined)
   }
 }

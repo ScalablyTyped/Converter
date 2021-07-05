@@ -30,18 +30,18 @@ object TableHTMLAttributes {
     def setCellPadding(value: Double | String): Self = StObject.set(x, "cellPadding", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCellPaddingUndefined: Self = StObject.set(x, "cellPadding", ())
+    def setCellPaddingUndefined: Self = StObject.set(x, "cellPadding", js.undefined)
     
     @scala.inline
     def setCellSpacing(value: Double | String): Self = StObject.set(x, "cellSpacing", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCellSpacingUndefined: Self = StObject.set(x, "cellSpacing", ())
+    def setCellSpacingUndefined: Self = StObject.set(x, "cellSpacing", js.undefined)
     
     @scala.inline
     def setSummary(value: String): Self = StObject.set(x, "summary", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSummaryUndefined: Self = StObject.set(x, "summary", ())
+    def setSummaryUndefined: Self = StObject.set(x, "summary", js.undefined)
   }
 }

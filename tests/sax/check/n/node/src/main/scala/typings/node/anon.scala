@@ -26,7 +26,7 @@ object anon {
       def setEnd(value: Boolean): Self = StObject.set(x, "end", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEndUndefined: Self = StObject.set(x, "end", ())
+      def setEndUndefined: Self = StObject.set(x, "end", js.undefined)
     }
   }
 }

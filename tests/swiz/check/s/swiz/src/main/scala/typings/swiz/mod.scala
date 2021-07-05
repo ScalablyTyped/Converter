@@ -120,19 +120,19 @@ object mod {
       def setFor(value: String): Self = StObject.set(x, "for", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setForUndefined: Self = StObject.set(x, "for", ())
+      def setForUndefined: Self = StObject.set(x, "for", js.undefined)
       
       @scala.inline
       def setStripNulls(value: Boolean): Self = StObject.set(x, "stripNulls", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setStripNullsUndefined: Self = StObject.set(x, "stripNulls", ())
+      def setStripNullsUndefined: Self = StObject.set(x, "stripNulls", js.undefined)
       
       @scala.inline
       def setStripSerializerType(value: Boolean): Self = StObject.set(x, "stripSerializerType", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setStripSerializerTypeUndefined: Self = StObject.set(x, "stripSerializerType", ())
+      def setStripSerializerTypeUndefined: Self = StObject.set(x, "stripSerializerType", js.undefined)
     }
   }
   

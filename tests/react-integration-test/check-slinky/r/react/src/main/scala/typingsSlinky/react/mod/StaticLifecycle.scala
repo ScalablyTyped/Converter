@@ -28,12 +28,12 @@ object StaticLifecycle {
     def setGetDerivedStateFromError(value: /* error */ js.Any => Partial[S] | Null): Self = StObject.set(x, "getDerivedStateFromError", js.Any.fromFunction1(value))
     
     @scala.inline
-    def setGetDerivedStateFromErrorUndefined: Self = StObject.set(x, "getDerivedStateFromError", ())
+    def setGetDerivedStateFromErrorUndefined: Self = StObject.set(x, "getDerivedStateFromError", js.undefined)
     
     @scala.inline
     def setGetDerivedStateFromProps(value: (P, S) => Partial[S] | Null): Self = StObject.set(x, "getDerivedStateFromProps", js.Any.fromFunction2(value))
     
     @scala.inline
-    def setGetDerivedStateFromPropsUndefined: Self = StObject.set(x, "getDerivedStateFromProps", ())
+    def setGetDerivedStateFromPropsUndefined: Self = StObject.set(x, "getDerivedStateFromProps", js.undefined)
   }
 }

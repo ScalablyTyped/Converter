@@ -56,13 +56,13 @@ object configMod {
       def setApiVersion(value: latest | String): Self = StObject.set(x, "apiVersion", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setApiVersionUndefined: Self = StObject.set(x, "apiVersion", ())
+      def setApiVersionUndefined: Self = StObject.set(x, "apiVersion", js.undefined)
       
       @scala.inline
       def setApiVersions(value: ConfigurationServiceApiVersions): Self = StObject.set(x, "apiVersions", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setApiVersionsUndefined: Self = StObject.set(x, "apiVersions", ())
+      def setApiVersionsUndefined: Self = StObject.set(x, "apiVersions", js.undefined)
     }
   }
 }

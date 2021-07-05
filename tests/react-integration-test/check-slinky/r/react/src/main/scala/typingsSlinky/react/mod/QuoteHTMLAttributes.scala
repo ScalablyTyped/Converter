@@ -26,6 +26,6 @@ object QuoteHTMLAttributes {
     def setCite(value: String): Self = StObject.set(x, "cite", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCiteUndefined: Self = StObject.set(x, "cite", ())
+    def setCiteUndefined: Self = StObject.set(x, "cite", js.undefined)
   }
 }

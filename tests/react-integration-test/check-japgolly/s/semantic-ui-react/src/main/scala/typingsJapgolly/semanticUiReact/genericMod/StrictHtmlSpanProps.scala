@@ -33,7 +33,7 @@ object StrictHtmlSpanProps {
     def setChildrenNull: Self = StObject.set(x, "children", null)
     
     @scala.inline
-    def setChildrenUndefined: Self = StObject.set(x, "children", ())
+    def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
     
     @scala.inline
     def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))

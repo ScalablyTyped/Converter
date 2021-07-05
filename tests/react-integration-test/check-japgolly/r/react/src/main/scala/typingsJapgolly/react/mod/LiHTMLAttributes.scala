@@ -26,7 +26,7 @@ object LiHTMLAttributes {
     def setValue(value: String | js.Array[String] | Double): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setValueUndefined: Self = StObject.set(x, "value", ())
+    def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
     
     @scala.inline
     def setValueVarargs(value: String*): Self = StObject.set(x, "value", js.Array(value :_*))

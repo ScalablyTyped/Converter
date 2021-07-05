@@ -30,18 +30,18 @@ object FieldsetHTMLAttributes {
     def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDisabledUndefined: Self = StObject.set(x, "disabled", ())
+    def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
     
     @scala.inline
     def setForm(value: String): Self = StObject.set(x, "form", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFormUndefined: Self = StObject.set(x, "form", ())
+    def setFormUndefined: Self = StObject.set(x, "form", js.undefined)
     
     @scala.inline
     def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNameUndefined: Self = StObject.set(x, "name", ())
+    def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
   }
 }

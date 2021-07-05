@@ -48,31 +48,31 @@ object ImgHTMLAttributes {
     def setAlt(value: String): Self = StObject.set(x, "alt", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAltUndefined: Self = StObject.set(x, "alt", ())
+    def setAltUndefined: Self = StObject.set(x, "alt", js.undefined)
     
     @scala.inline
     def setCrossOrigin(value: anonymous | `use-credentials` | _empty): Self = StObject.set(x, "crossOrigin", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCrossOriginUndefined: Self = StObject.set(x, "crossOrigin", ())
+    def setCrossOriginUndefined: Self = StObject.set(x, "crossOrigin", js.undefined)
     
     @scala.inline
     def setDecoding(value: async | auto | sync): Self = StObject.set(x, "decoding", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDecodingUndefined: Self = StObject.set(x, "decoding", ())
+    def setDecodingUndefined: Self = StObject.set(x, "decoding", js.undefined)
     
     @scala.inline
     def setHeight(value: Double | String): Self = StObject.set(x, "height", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHeightUndefined: Self = StObject.set(x, "height", ())
+    def setHeightUndefined: Self = StObject.set(x, "height", js.undefined)
     
     @scala.inline
     def setSizes(value: String): Self = StObject.set(x, "sizes", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSizesUndefined: Self = StObject.set(x, "sizes", ())
+    def setSizesUndefined: Self = StObject.set(x, "sizes", js.undefined)
     
     @scala.inline
     def setSrc(value: String): Self = StObject.set(x, "src", value.asInstanceOf[js.Any])
@@ -81,21 +81,21 @@ object ImgHTMLAttributes {
     def setSrcSet(value: String): Self = StObject.set(x, "srcSet", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSrcSetUndefined: Self = StObject.set(x, "srcSet", ())
+    def setSrcSetUndefined: Self = StObject.set(x, "srcSet", js.undefined)
     
     @scala.inline
-    def setSrcUndefined: Self = StObject.set(x, "src", ())
+    def setSrcUndefined: Self = StObject.set(x, "src", js.undefined)
     
     @scala.inline
     def setUseMap(value: String): Self = StObject.set(x, "useMap", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setUseMapUndefined: Self = StObject.set(x, "useMap", ())
+    def setUseMapUndefined: Self = StObject.set(x, "useMap", js.undefined)
     
     @scala.inline
     def setWidth(value: Double | String): Self = StObject.set(x, "width", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setWidthUndefined: Self = StObject.set(x, "width", ())
+    def setWidthUndefined: Self = StObject.set(x, "width", js.undefined)
   }
 }

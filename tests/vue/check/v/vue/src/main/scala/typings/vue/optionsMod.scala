@@ -153,37 +153,37 @@ object optionsMod {
       def setActivated(value: () => Unit): Self = StObject.set(x, "activated", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setActivatedUndefined: Self = StObject.set(x, "activated", ())
+      def setActivatedUndefined: Self = StObject.set(x, "activated", js.undefined)
       
       @scala.inline
       def setBeforeCreate(value: js.ThisFunction0[/* this */ V, Unit]): Self = StObject.set(x, "beforeCreate", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setBeforeCreateUndefined: Self = StObject.set(x, "beforeCreate", ())
+      def setBeforeCreateUndefined: Self = StObject.set(x, "beforeCreate", js.undefined)
       
       @scala.inline
       def setBeforeDestroy(value: () => Unit): Self = StObject.set(x, "beforeDestroy", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setBeforeDestroyUndefined: Self = StObject.set(x, "beforeDestroy", ())
+      def setBeforeDestroyUndefined: Self = StObject.set(x, "beforeDestroy", js.undefined)
       
       @scala.inline
       def setBeforeMount(value: () => Unit): Self = StObject.set(x, "beforeMount", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setBeforeMountUndefined: Self = StObject.set(x, "beforeMount", ())
+      def setBeforeMountUndefined: Self = StObject.set(x, "beforeMount", js.undefined)
       
       @scala.inline
       def setBeforeUpdate(value: () => Unit): Self = StObject.set(x, "beforeUpdate", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setBeforeUpdateUndefined: Self = StObject.set(x, "beforeUpdate", ())
+      def setBeforeUpdateUndefined: Self = StObject.set(x, "beforeUpdate", js.undefined)
       
       @scala.inline
       def setComments(value: Boolean): Self = StObject.set(x, "comments", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCommentsUndefined: Self = StObject.set(x, "comments", ())
+      def setCommentsUndefined: Self = StObject.set(x, "comments", js.undefined)
       
       @scala.inline
       def setComponents(
@@ -193,61 +193,61 @@ object optionsMod {
       ): Self = StObject.set(x, "components", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setComponentsUndefined: Self = StObject.set(x, "components", ())
+      def setComponentsUndefined: Self = StObject.set(x, "components", js.undefined)
       
       @scala.inline
       def setComputed(value: Accessors[Computed]): Self = StObject.set(x, "computed", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setComputedUndefined: Self = StObject.set(x, "computed", ())
+      def setComputedUndefined: Self = StObject.set(x, "computed", js.undefined)
       
       @scala.inline
       def setCreated(value: () => Unit): Self = StObject.set(x, "created", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setCreatedUndefined: Self = StObject.set(x, "created", ())
+      def setCreatedUndefined: Self = StObject.set(x, "created", js.undefined)
       
       @scala.inline
       def setData(value: Data): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDataUndefined: Self = StObject.set(x, "data", ())
+      def setDataUndefined: Self = StObject.set(x, "data", js.undefined)
       
       @scala.inline
       def setDeactivated(value: () => Unit): Self = StObject.set(x, "deactivated", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setDeactivatedUndefined: Self = StObject.set(x, "deactivated", ())
+      def setDeactivatedUndefined: Self = StObject.set(x, "deactivated", js.undefined)
       
       @scala.inline
       def setDelimiters(value: js.Tuple2[String, String]): Self = StObject.set(x, "delimiters", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDelimitersUndefined: Self = StObject.set(x, "delimiters", ())
+      def setDelimitersUndefined: Self = StObject.set(x, "delimiters", js.undefined)
       
       @scala.inline
       def setDestroyed(value: () => Unit): Self = StObject.set(x, "destroyed", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setDestroyedUndefined: Self = StObject.set(x, "destroyed", ())
+      def setDestroyedUndefined: Self = StObject.set(x, "destroyed", js.undefined)
       
       @scala.inline
       def setDirectives(value: StringDictionary[DirectiveFunction | DirectiveOptions]): Self = StObject.set(x, "directives", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDirectivesUndefined: Self = StObject.set(x, "directives", ())
+      def setDirectivesUndefined: Self = StObject.set(x, "directives", js.undefined)
       
       @scala.inline
       def setEl(value: Element | String): Self = StObject.set(x, "el", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setElUndefined: Self = StObject.set(x, "el", ())
+      def setElUndefined: Self = StObject.set(x, "el", js.undefined)
       
       @scala.inline
       def setErrorCaptured(value: () => Boolean | Unit): Self = StObject.set(x, "errorCaptured", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setErrorCapturedUndefined: Self = StObject.set(x, "errorCaptured", ())
+      def setErrorCapturedUndefined: Self = StObject.set(x, "errorCaptured", js.undefined)
       
       @scala.inline
       def setExtends(
@@ -261,25 +261,25 @@ object optionsMod {
       ): Self = StObject.set(x, "extends", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setExtendsUndefined: Self = StObject.set(x, "extends", ())
+      def setExtendsUndefined: Self = StObject.set(x, "extends", js.undefined)
       
       @scala.inline
       def setFilters(value: StringDictionary[js.Function]): Self = StObject.set(x, "filters", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFiltersUndefined: Self = StObject.set(x, "filters", ())
+      def setFiltersUndefined: Self = StObject.set(x, "filters", js.undefined)
       
       @scala.inline
       def setInheritAttrs(value: Boolean): Self = StObject.set(x, "inheritAttrs", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInheritAttrsUndefined: Self = StObject.set(x, "inheritAttrs", ())
+      def setInheritAttrsUndefined: Self = StObject.set(x, "inheritAttrs", js.undefined)
       
       @scala.inline
       def setInject(value: InjectOptions): Self = StObject.set(x, "inject", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInjectUndefined: Self = StObject.set(x, "inject", ())
+      def setInjectUndefined: Self = StObject.set(x, "inject", js.undefined)
       
       @scala.inline
       def setInjectVarargs(value: String*): Self = StObject.set(x, "inject", js.Array(value :_*))
@@ -288,7 +288,7 @@ object optionsMod {
       def setMethods(value: Methods): Self = StObject.set(x, "methods", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setMethodsUndefined: Self = StObject.set(x, "methods", ())
+      def setMethodsUndefined: Self = StObject.set(x, "methods", js.undefined)
       
       @scala.inline
       def setMixins(
@@ -304,7 +304,7 @@ object optionsMod {
       ): Self = StObject.set(x, "mixins", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setMixinsUndefined: Self = StObject.set(x, "mixins", ())
+      def setMixinsUndefined: Self = StObject.set(x, "mixins", js.undefined)
       
       @scala.inline
       def setMixinsVarargs(
@@ -321,25 +321,25 @@ object optionsMod {
       def setModel(value: Event): Self = StObject.set(x, "model", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setModelUndefined: Self = StObject.set(x, "model", ())
+      def setModelUndefined: Self = StObject.set(x, "model", js.undefined)
       
       @scala.inline
       def setMounted(value: () => Unit): Self = StObject.set(x, "mounted", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setMountedUndefined: Self = StObject.set(x, "mounted", ())
+      def setMountedUndefined: Self = StObject.set(x, "mounted", js.undefined)
       
       @scala.inline
       def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNameUndefined: Self = StObject.set(x, "name", ())
+      def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
       
       @scala.inline
       def setParent(value: Vue): Self = StObject.set(x, "parent", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setParentUndefined: Self = StObject.set(x, "parent", ())
+      def setParentUndefined: Self = StObject.set(x, "parent", js.undefined)
       
       @scala.inline
       def setProps(value: PropsDef): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
@@ -348,10 +348,10 @@ object optionsMod {
       def setPropsData(value: js.Object): Self = StObject.set(x, "propsData", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPropsDataUndefined: Self = StObject.set(x, "propsData", ())
+      def setPropsDataUndefined: Self = StObject.set(x, "propsData", js.undefined)
       
       @scala.inline
-      def setPropsUndefined: Self = StObject.set(x, "props", ())
+      def setPropsUndefined: Self = StObject.set(x, "props", js.undefined)
       
       @scala.inline
       def setProvide(value: js.Object | js.Function0[js.Object]): Self = StObject.set(x, "provide", value.asInstanceOf[js.Any])
@@ -360,7 +360,7 @@ object optionsMod {
       def setProvideFunction0(value: () => js.Object): Self = StObject.set(x, "provide", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setProvideUndefined: Self = StObject.set(x, "provide", ())
+      def setProvideUndefined: Self = StObject.set(x, "provide", js.undefined)
       
       @scala.inline
       def setRender(value: /* createElement */ CreateElement => VNode): Self = StObject.set(x, "render", js.Any.fromFunction1(value))
@@ -369,16 +369,16 @@ object optionsMod {
       def setRenderError(value: (/* h */ js.Function0[VNode], /* err */ Error) => VNode): Self = StObject.set(x, "renderError", js.Any.fromFunction2(value))
       
       @scala.inline
-      def setRenderErrorUndefined: Self = StObject.set(x, "renderError", ())
+      def setRenderErrorUndefined: Self = StObject.set(x, "renderError", js.undefined)
       
       @scala.inline
-      def setRenderUndefined: Self = StObject.set(x, "render", ())
+      def setRenderUndefined: Self = StObject.set(x, "render", js.undefined)
       
       @scala.inline
       def setStaticRenderFns(value: js.Array[js.Function1[/* createElement */ CreateElement, VNode]]): Self = StObject.set(x, "staticRenderFns", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setStaticRenderFnsUndefined: Self = StObject.set(x, "staticRenderFns", ())
+      def setStaticRenderFnsUndefined: Self = StObject.set(x, "staticRenderFns", js.undefined)
       
       @scala.inline
       def setStaticRenderFnsVarargs(value: (js.Function1[/* createElement */ CreateElement, VNode])*): Self = StObject.set(x, "staticRenderFns", js.Array(value :_*))
@@ -387,25 +387,25 @@ object optionsMod {
       def setTemplate(value: String): Self = StObject.set(x, "template", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTemplateUndefined: Self = StObject.set(x, "template", ())
+      def setTemplateUndefined: Self = StObject.set(x, "template", js.undefined)
       
       @scala.inline
       def setTransitions(value: StringDictionary[js.Object]): Self = StObject.set(x, "transitions", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setTransitionsUndefined: Self = StObject.set(x, "transitions", ())
+      def setTransitionsUndefined: Self = StObject.set(x, "transitions", js.undefined)
       
       @scala.inline
       def setUpdated(value: () => Unit): Self = StObject.set(x, "updated", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setUpdatedUndefined: Self = StObject.set(x, "updated", ())
+      def setUpdatedUndefined: Self = StObject.set(x, "updated", js.undefined)
       
       @scala.inline
       def setWatch(value: Record[String, WatchOptionsWithHandler[js.Any] | WatchHandler[js.Any] | String]): Self = StObject.set(x, "watch", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setWatchUndefined: Self = StObject.set(x, "watch", ())
+      def setWatchUndefined: Self = StObject.set(x, "watch", js.undefined)
     }
   }
   
@@ -433,19 +433,19 @@ object optionsMod {
       def setCache(value: Boolean): Self = StObject.set(x, "cache", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCacheUndefined: Self = StObject.set(x, "cache", ())
+      def setCacheUndefined: Self = StObject.set(x, "cache", js.undefined)
       
       @scala.inline
       def setGet(value: () => T): Self = StObject.set(x, "get", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setGetUndefined: Self = StObject.set(x, "get", ())
+      def setGetUndefined: Self = StObject.set(x, "get", js.undefined)
       
       @scala.inline
       def setSet(value: /* value */ T => Unit): Self = StObject.set(x, "set", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setSetUndefined: Self = StObject.set(x, "set", ())
+      def setSetUndefined: Self = StObject.set(x, "set", js.undefined)
     }
   }
   
@@ -500,7 +500,7 @@ object optionsMod {
       ): Self = StObject.set(x, "bind", js.Any.fromFunction4(value))
       
       @scala.inline
-      def setBindUndefined: Self = StObject.set(x, "bind", ())
+      def setBindUndefined: Self = StObject.set(x, "bind", js.undefined)
       
       @scala.inline
       def setComponentUpdated(
@@ -508,7 +508,7 @@ object optionsMod {
       ): Self = StObject.set(x, "componentUpdated", js.Any.fromFunction4(value))
       
       @scala.inline
-      def setComponentUpdatedUndefined: Self = StObject.set(x, "componentUpdated", ())
+      def setComponentUpdatedUndefined: Self = StObject.set(x, "componentUpdated", js.undefined)
       
       @scala.inline
       def setInserted(
@@ -516,7 +516,7 @@ object optionsMod {
       ): Self = StObject.set(x, "inserted", js.Any.fromFunction4(value))
       
       @scala.inline
-      def setInsertedUndefined: Self = StObject.set(x, "inserted", ())
+      def setInsertedUndefined: Self = StObject.set(x, "inserted", js.undefined)
       
       @scala.inline
       def setUnbind(
@@ -524,7 +524,7 @@ object optionsMod {
       ): Self = StObject.set(x, "unbind", js.Any.fromFunction4(value))
       
       @scala.inline
-      def setUnbindUndefined: Self = StObject.set(x, "unbind", ())
+      def setUnbindUndefined: Self = StObject.set(x, "unbind", js.undefined)
       
       @scala.inline
       def setUpdate(
@@ -532,7 +532,7 @@ object optionsMod {
       ): Self = StObject.set(x, "update", js.Any.fromFunction4(value))
       
       @scala.inline
-      def setUpdateUndefined: Self = StObject.set(x, "update", ())
+      def setUpdateUndefined: Self = StObject.set(x, "update", js.undefined)
     }
   }
   
@@ -588,7 +588,7 @@ object optionsMod {
       def setInject(value: InjectOptions): Self = StObject.set(x, "inject", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInjectUndefined: Self = StObject.set(x, "inject", ())
+      def setInjectUndefined: Self = StObject.set(x, "inject", js.undefined)
       
       @scala.inline
       def setInjectVarargs(value: String*): Self = StObject.set(x, "inject", js.Array(value :_*))
@@ -597,13 +597,13 @@ object optionsMod {
       def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNameUndefined: Self = StObject.set(x, "name", ())
+      def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
       
       @scala.inline
       def setProps(value: PropDefs): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPropsUndefined: Self = StObject.set(x, "props", ())
+      def setPropsUndefined: Self = StObject.set(x, "props", js.undefined)
       
       @scala.inline
       def setRender(value: (CreateElement, RenderContext[Props]) => VNode): Self = StObject.set(x, "render", js.Any.fromFunction2(value))
@@ -648,13 +648,13 @@ object optionsMod {
       def setDefaultNull: Self = StObject.set(x, "default", null)
       
       @scala.inline
-      def setDefaultUndefined: Self = StObject.set(x, "default", ())
+      def setDefaultUndefined: Self = StObject.set(x, "default", js.undefined)
       
       @scala.inline
       def setRequired(value: Boolean): Self = StObject.set(x, "required", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRequiredUndefined: Self = StObject.set(x, "required", ())
+      def setRequiredUndefined: Self = StObject.set(x, "required", js.undefined)
       
       @scala.inline
       def setType(value: Prop[T] | js.Array[Prop[T]]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
@@ -663,7 +663,7 @@ object optionsMod {
       def setTypeFunction0(value: () => T): Self = StObject.set(x, "type", js.Any.fromFunction0(value))
       
       @scala.inline
-      def setTypeUndefined: Self = StObject.set(x, "type", ())
+      def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
       
       @scala.inline
       def setTypeVarargs(value: Prop[T]*): Self = StObject.set(x, "type", js.Array(value :_*))
@@ -672,7 +672,7 @@ object optionsMod {
       def setValidator(value: /* value */ T => Boolean): Self = StObject.set(x, "validator", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setValidatorUndefined: Self = StObject.set(x, "validator", ())
+      def setValidatorUndefined: Self = StObject.set(x, "validator", js.undefined)
     }
   }
   
@@ -806,13 +806,13 @@ object optionsMod {
       def setDeep(value: Boolean): Self = StObject.set(x, "deep", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDeepUndefined: Self = StObject.set(x, "deep", ())
+      def setDeepUndefined: Self = StObject.set(x, "deep", js.undefined)
       
       @scala.inline
       def setImmediate(value: Boolean): Self = StObject.set(x, "immediate", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setImmediateUndefined: Self = StObject.set(x, "immediate", ())
+      def setImmediateUndefined: Self = StObject.set(x, "immediate", js.undefined)
     }
   }
   

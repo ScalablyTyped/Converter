@@ -32,24 +32,24 @@ object EmbedHTMLAttributes {
     def setHeight(value: Double | String): Self = StObject.set(x, "height", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHeightUndefined: Self = StObject.set(x, "height", ())
+    def setHeightUndefined: Self = StObject.set(x, "height", js.undefined)
     
     @scala.inline
     def setSrc(value: String): Self = StObject.set(x, "src", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSrcUndefined: Self = StObject.set(x, "src", ())
+    def setSrcUndefined: Self = StObject.set(x, "src", js.undefined)
     
     @scala.inline
     def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTypeUndefined: Self = StObject.set(x, "type", ())
+    def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
     
     @scala.inline
     def setWidth(value: Double | String): Self = StObject.set(x, "width", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setWidthUndefined: Self = StObject.set(x, "width", ())
+    def setWidthUndefined: Self = StObject.set(x, "width", js.undefined)
   }
 }

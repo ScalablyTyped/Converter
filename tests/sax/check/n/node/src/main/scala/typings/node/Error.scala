@@ -24,6 +24,6 @@ object Error {
     def setStack(value: String): Self = StObject.set(x, "stack", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setStackUndefined: Self = StObject.set(x, "stack", ())
+    def setStackUndefined: Self = StObject.set(x, "stack", js.undefined)
   }
 }

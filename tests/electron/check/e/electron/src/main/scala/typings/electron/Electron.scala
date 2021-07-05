@@ -75,19 +75,19 @@ object Electron {
       def setAltKey(value: Boolean): Self = StObject.set(x, "altKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAltKeyUndefined: Self = StObject.set(x, "altKey", ())
+      def setAltKeyUndefined: Self = StObject.set(x, "altKey", js.undefined)
       
       @scala.inline
       def setCtrlKey(value: Boolean): Self = StObject.set(x, "ctrlKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCtrlKeyUndefined: Self = StObject.set(x, "ctrlKey", ())
+      def setCtrlKeyUndefined: Self = StObject.set(x, "ctrlKey", js.undefined)
       
       @scala.inline
       def setMetaKey(value: Boolean): Self = StObject.set(x, "metaKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setMetaKeyUndefined: Self = StObject.set(x, "metaKey", ())
+      def setMetaKeyUndefined: Self = StObject.set(x, "metaKey", js.undefined)
       
       @scala.inline
       def setPreventDefault(value: () => Unit): Self = StObject.set(x, "preventDefault", js.Any.fromFunction0(value))
@@ -99,7 +99,7 @@ object Electron {
       def setShiftKey(value: Boolean): Self = StObject.set(x, "shiftKey", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setShiftKeyUndefined: Self = StObject.set(x, "shiftKey", ())
+      def setShiftKeyUndefined: Self = StObject.set(x, "shiftKey", js.undefined)
     }
   }
   

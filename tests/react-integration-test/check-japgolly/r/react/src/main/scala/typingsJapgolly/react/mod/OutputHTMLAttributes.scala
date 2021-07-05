@@ -30,18 +30,18 @@ object OutputHTMLAttributes {
     def setForm(value: String): Self = StObject.set(x, "form", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setFormUndefined: Self = StObject.set(x, "form", ())
+    def setFormUndefined: Self = StObject.set(x, "form", js.undefined)
     
     @scala.inline
     def setHtmlFor(value: String): Self = StObject.set(x, "htmlFor", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHtmlForUndefined: Self = StObject.set(x, "htmlFor", ())
+    def setHtmlForUndefined: Self = StObject.set(x, "htmlFor", js.undefined)
     
     @scala.inline
     def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNameUndefined: Self = StObject.set(x, "name", ())
+    def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
   }
 }

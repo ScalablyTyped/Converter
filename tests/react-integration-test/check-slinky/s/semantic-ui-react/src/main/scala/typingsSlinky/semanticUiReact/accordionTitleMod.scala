@@ -100,31 +100,31 @@ object accordionTitleMod extends Shortcut {
       def setActive(value: Boolean): Self = StObject.set(x, "active", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setActiveUndefined: Self = StObject.set(x, "active", ())
+      def setActiveUndefined: Self = StObject.set(x, "active", js.undefined)
       
       @scala.inline
       def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAsUndefined: Self = StObject.set(x, "as", ())
+      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
       @scala.inline
       def setChildren(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", ())
+      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       @scala.inline
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", ())
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
       def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setContentUndefined: Self = StObject.set(x, "content", ())
+      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
       
       @scala.inline
       def setIcon(
@@ -144,19 +144,19 @@ object accordionTitleMod extends Shortcut {
       def setIconReactElement(value: ReactElement): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIconUndefined: Self = StObject.set(x, "icon", ())
+      def setIconUndefined: Self = StObject.set(x, "icon", js.undefined)
       
       @scala.inline
       def setIndex(value: Double | String): Self = StObject.set(x, "index", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setIndexUndefined: Self = StObject.set(x, "index", ())
+      def setIndexUndefined: Self = StObject.set(x, "index", js.undefined)
       
       @scala.inline
       def setOnClick(value: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit): Self = StObject.set(x, "onClick", js.Any.fromFunction2(value))
       
       @scala.inline
-      def setOnClickUndefined: Self = StObject.set(x, "onClick", ())
+      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
     }
   }
   

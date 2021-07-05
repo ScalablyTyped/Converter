@@ -28,13 +28,13 @@ object ProgressHTMLAttributes {
     def setMax(value: Double | String): Self = StObject.set(x, "max", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMaxUndefined: Self = StObject.set(x, "max", ())
+    def setMaxUndefined: Self = StObject.set(x, "max", js.undefined)
     
     @scala.inline
     def setValue(value: String | js.Array[String] | Double): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setValueUndefined: Self = StObject.set(x, "value", ())
+    def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
     
     @scala.inline
     def setValueVarargs(value: String*): Self = StObject.set(x, "value", js.Array(value :_*))

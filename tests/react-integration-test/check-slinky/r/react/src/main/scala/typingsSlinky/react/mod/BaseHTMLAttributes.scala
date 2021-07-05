@@ -28,12 +28,12 @@ object BaseHTMLAttributes {
     def setHref(value: String): Self = StObject.set(x, "href", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHrefUndefined: Self = StObject.set(x, "href", ())
+    def setHrefUndefined: Self = StObject.set(x, "href", js.undefined)
     
     @scala.inline
     def setTarget(value: String): Self = StObject.set(x, "target", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTargetUndefined: Self = StObject.set(x, "target", ())
+    def setTargetUndefined: Self = StObject.set(x, "target", js.undefined)
   }
 }

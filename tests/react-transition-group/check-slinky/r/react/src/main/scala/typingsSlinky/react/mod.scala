@@ -42,10 +42,10 @@ object mod {
       def setAcceptCharset(value: String): Self = StObject.set(x, "acceptCharset", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAcceptCharsetUndefined: Self = StObject.set(x, "acceptCharset", ())
+      def setAcceptCharsetUndefined: Self = StObject.set(x, "acceptCharset", js.undefined)
       
       @scala.inline
-      def setAcceptUndefined: Self = StObject.set(x, "accept", ())
+      def setAcceptUndefined: Self = StObject.set(x, "accept", js.undefined)
     }
   }
   
@@ -75,7 +75,7 @@ object mod {
       def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setKeyUndefined: Self = StObject.set(x, "key", ())
+      def setKeyUndefined: Self = StObject.set(x, "key", js.undefined)
     }
   }
   
@@ -104,7 +104,7 @@ object mod {
       def setRefFunction1(value: /* instance */ T | Null => js.Any): Self = StObject.set(x, "ref", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setRefUndefined: Self = StObject.set(x, "ref", ())
+      def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
     }
   }
   
@@ -148,13 +148,13 @@ object mod {
       def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", ())
+      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       @scala.inline
       def setDangerouslySetInnerHTML(value: Html): Self = StObject.set(x, "dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDangerouslySetInnerHTMLUndefined: Self = StObject.set(x, "dangerouslySetInnerHTML", ())
+      def setDangerouslySetInnerHTMLUndefined: Self = StObject.set(x, "dangerouslySetInnerHTML", js.undefined)
     }
   }
   
@@ -182,7 +182,7 @@ object mod {
       def setDefaultChecked(value: Boolean): Self = StObject.set(x, "defaultChecked", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDefaultCheckedUndefined: Self = StObject.set(x, "defaultChecked", ())
+      def setDefaultCheckedUndefined: Self = StObject.set(x, "defaultChecked", js.undefined)
     }
   }
   

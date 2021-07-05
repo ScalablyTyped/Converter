@@ -26,6 +26,6 @@ object DialogHTMLAttributes {
     def setOpen(value: Boolean): Self = StObject.set(x, "open", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setOpenUndefined: Self = StObject.set(x, "open", ())
+    def setOpenUndefined: Self = StObject.set(x, "open", js.undefined)
   }
 }

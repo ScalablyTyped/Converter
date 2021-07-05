@@ -70,24 +70,24 @@ object ComponentLifecycle {
     ): Self = StObject.set(x, "componentDidCatch", js.Any.fromFunction2(value))
     
     @scala.inline
-    def setComponentDidCatchUndefined: Self = StObject.set(x, "componentDidCatch", ())
+    def setComponentDidCatchUndefined: Self = StObject.set(x, "componentDidCatch", js.undefined)
     
     @scala.inline
     def setComponentDidMount(value: () => Unit): Self = StObject.set(x, "componentDidMount", js.Any.fromFunction0(value))
     
     @scala.inline
-    def setComponentDidMountUndefined: Self = StObject.set(x, "componentDidMount", ())
+    def setComponentDidMountUndefined: Self = StObject.set(x, "componentDidMount", js.undefined)
     
     @scala.inline
     def setComponentWillUnmount(value: () => Unit): Self = StObject.set(x, "componentWillUnmount", js.Any.fromFunction0(value))
     
     @scala.inline
-    def setComponentWillUnmountUndefined: Self = StObject.set(x, "componentWillUnmount", ())
+    def setComponentWillUnmountUndefined: Self = StObject.set(x, "componentWillUnmount", js.undefined)
     
     @scala.inline
     def setShouldComponentUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Boolean): Self = StObject.set(x, "shouldComponentUpdate", js.Any.fromFunction3(value))
     
     @scala.inline
-    def setShouldComponentUpdateUndefined: Self = StObject.set(x, "shouldComponentUpdate", ())
+    def setShouldComponentUpdateUndefined: Self = StObject.set(x, "shouldComponentUpdate", js.undefined)
   }
 }

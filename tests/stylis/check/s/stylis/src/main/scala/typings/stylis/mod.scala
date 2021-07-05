@@ -107,25 +107,25 @@ object mod extends Shortcut {
       def setCascade(value: Boolean): Self = StObject.set(x, "cascade", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCascadeUndefined: Self = StObject.set(x, "cascade", ())
+      def setCascadeUndefined: Self = StObject.set(x, "cascade", js.undefined)
       
       @scala.inline
       def setCompress(value: Boolean): Self = StObject.set(x, "compress", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCompressUndefined: Self = StObject.set(x, "compress", ())
+      def setCompressUndefined: Self = StObject.set(x, "compress", js.undefined)
       
       @scala.inline
       def setGlobal(value: Boolean): Self = StObject.set(x, "global", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setGlobalUndefined: Self = StObject.set(x, "global", ())
+      def setGlobalUndefined: Self = StObject.set(x, "global", js.undefined)
       
       @scala.inline
       def setKeyframe(value: Boolean): Self = StObject.set(x, "keyframe", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setKeyframeUndefined: Self = StObject.set(x, "keyframe", ())
+      def setKeyframeUndefined: Self = StObject.set(x, "keyframe", js.undefined)
       
       @scala.inline
       def setPrefix(
@@ -136,19 +136,19 @@ object mod extends Shortcut {
       def setPrefixFunction3(value: (/* key */ String, /* value */ String, /* context */ Double) => Boolean): Self = StObject.set(x, "prefix", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setPrefixUndefined: Self = StObject.set(x, "prefix", ())
+      def setPrefixUndefined: Self = StObject.set(x, "prefix", js.undefined)
       
       @scala.inline
       def setPreserve(value: Boolean): Self = StObject.set(x, "preserve", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPreserveUndefined: Self = StObject.set(x, "preserve", ())
+      def setPreserveUndefined: Self = StObject.set(x, "preserve", js.undefined)
       
       @scala.inline
       def setSemicolon(value: Boolean): Self = StObject.set(x, "semicolon", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setSemicolonUndefined: Self = StObject.set(x, "semicolon", ())
+      def setSemicolonUndefined: Self = StObject.set(x, "semicolon", js.undefined)
     }
   }
   

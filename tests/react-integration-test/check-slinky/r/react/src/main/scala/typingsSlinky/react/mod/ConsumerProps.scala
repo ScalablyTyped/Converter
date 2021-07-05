@@ -29,6 +29,6 @@ object ConsumerProps {
     def setUnstable_observedBits(value: Double): Self = StObject.set(x, "unstable_observedBits", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setUnstable_observedBitsUndefined: Self = StObject.set(x, "unstable_observedBits", ())
+    def setUnstable_observedBitsUndefined: Self = StObject.set(x, "unstable_observedBits", js.undefined)
   }
 }

@@ -173,7 +173,7 @@ object mod {
       def setFileName(value: String): Self = StObject.set(x, "fileName", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFileNameUndefined: Self = StObject.set(x, "fileName", ())
+      def setFileNameUndefined: Self = StObject.set(x, "fileName", js.undefined)
       
       @scala.inline
       def setKind(value: String): Self = StObject.set(x, "kind", value.asInstanceOf[js.Any])

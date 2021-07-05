@@ -28,7 +28,7 @@ object anon {
       def setLowerBound(value: js.Array[Double]): Self = StObject.set(x, "lowerBound", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setLowerBoundUndefined: Self = StObject.set(x, "lowerBound", ())
+      def setLowerBoundUndefined: Self = StObject.set(x, "lowerBound", js.undefined)
       
       @scala.inline
       def setLowerBoundVarargs(value: Double*): Self = StObject.set(x, "lowerBound", js.Array(value :_*))
@@ -37,7 +37,7 @@ object anon {
       def setUpperBound(value: js.Array[Double]): Self = StObject.set(x, "upperBound", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setUpperBoundUndefined: Self = StObject.set(x, "upperBound", ())
+      def setUpperBoundUndefined: Self = StObject.set(x, "upperBound", js.undefined)
       
       @scala.inline
       def setUpperBoundVarargs(value: Double*): Self = StObject.set(x, "upperBound", js.Array(value :_*))

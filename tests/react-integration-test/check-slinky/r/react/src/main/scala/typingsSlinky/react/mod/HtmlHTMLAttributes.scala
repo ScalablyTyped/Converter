@@ -26,6 +26,6 @@ object HtmlHTMLAttributes {
     def setManifest(value: String): Self = StObject.set(x, "manifest", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setManifestUndefined: Self = StObject.set(x, "manifest", ())
+    def setManifestUndefined: Self = StObject.set(x, "manifest", js.undefined)
   }
 }

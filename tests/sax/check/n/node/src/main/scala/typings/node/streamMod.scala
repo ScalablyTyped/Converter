@@ -94,7 +94,7 @@ object streamMod {
       def setAllowHalfOpen(value: Boolean): Self = StObject.set(x, "allowHalfOpen", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setAllowHalfOpenUndefined: Self = StObject.set(x, "allowHalfOpen", ())
+      def setAllowHalfOpenUndefined: Self = StObject.set(x, "allowHalfOpen", js.undefined)
     }
   }
   
@@ -126,31 +126,31 @@ object streamMod {
       def setDestroy(value: /* error */ js.UndefOr[Error] => js.Any): Self = StObject.set(x, "destroy", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setDestroyUndefined: Self = StObject.set(x, "destroy", ())
+      def setDestroyUndefined: Self = StObject.set(x, "destroy", js.undefined)
       
       @scala.inline
       def setEncoding(value: String): Self = StObject.set(x, "encoding", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEncodingUndefined: Self = StObject.set(x, "encoding", ())
+      def setEncodingUndefined: Self = StObject.set(x, "encoding", js.undefined)
       
       @scala.inline
       def setHighWaterMark(value: Double): Self = StObject.set(x, "highWaterMark", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setHighWaterMarkUndefined: Self = StObject.set(x, "highWaterMark", ())
+      def setHighWaterMarkUndefined: Self = StObject.set(x, "highWaterMark", js.undefined)
       
       @scala.inline
       def setObjectMode(value: Boolean): Self = StObject.set(x, "objectMode", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setObjectModeUndefined: Self = StObject.set(x, "objectMode", ())
+      def setObjectModeUndefined: Self = StObject.set(x, "objectMode", js.undefined)
       
       @scala.inline
       def setRead(value: js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], js.Any]): Self = StObject.set(x, "read", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setReadUndefined: Self = StObject.set(x, "read", ())
+      def setReadUndefined: Self = StObject.set(x, "read", js.undefined)
     }
   }
   
@@ -176,7 +176,7 @@ object streamMod {
       def setFinal(value: /* callback */ js.Function1[/* error */ js.UndefOr[Error], Unit] => Unit): Self = StObject.set(x, "final", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setFinalUndefined: Self = StObject.set(x, "final", ())
+      def setFinalUndefined: Self = StObject.set(x, "final", js.undefined)
     }
   }
   

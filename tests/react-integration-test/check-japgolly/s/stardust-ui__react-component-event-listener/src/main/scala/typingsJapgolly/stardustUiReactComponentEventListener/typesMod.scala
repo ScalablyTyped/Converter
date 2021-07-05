@@ -52,7 +52,7 @@ object typesMod {
       def setCapture(value: Boolean): Self = StObject.set(x, "capture", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCaptureUndefined: Self = StObject.set(x, "capture", ())
+      def setCaptureUndefined: Self = StObject.set(x, "capture", js.undefined)
       
       @scala.inline
       def setListener(

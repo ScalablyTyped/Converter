@@ -59,7 +59,7 @@ object transitionGroupMod {
       def setComponent(value: T): Self = StObject.set(x, "component", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setComponentUndefined: Self = StObject.set(x, "component", ())
+      def setComponentUndefined: Self = StObject.set(x, "component", js.undefined)
     }
   }
   

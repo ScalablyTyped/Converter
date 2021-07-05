@@ -32,13 +32,13 @@ object anon {
       def setDefault(value: js.Any): Self = StObject.set(x, "default", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDefaultUndefined: Self = StObject.set(x, "default", ())
+      def setDefaultUndefined: Self = StObject.set(x, "default", js.undefined)
       
       @scala.inline
       def setFrom(value: InjectKey): Self = StObject.set(x, "from", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setFromUndefined: Self = StObject.set(x, "from", ())
+      def setFromUndefined: Self = StObject.set(x, "from", js.undefined)
     }
   }
   
@@ -64,13 +64,13 @@ object anon {
       def setEvent(value: String): Self = StObject.set(x, "event", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setEventUndefined: Self = StObject.set(x, "event", ())
+      def setEventUndefined: Self = StObject.set(x, "event", js.undefined)
       
       @scala.inline
       def setProp(value: String): Self = StObject.set(x, "prop", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPropUndefined: Self = StObject.set(x, "prop", ())
+      def setPropUndefined: Self = StObject.set(x, "prop", js.undefined)
     }
   }
   

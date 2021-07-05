@@ -32,24 +32,24 @@ object MetaHTMLAttributes {
     def setCharSet(value: String): Self = StObject.set(x, "charSet", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setCharSetUndefined: Self = StObject.set(x, "charSet", ())
+    def setCharSetUndefined: Self = StObject.set(x, "charSet", js.undefined)
     
     @scala.inline
     def setContent(value: String): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setContentUndefined: Self = StObject.set(x, "content", ())
+    def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
     
     @scala.inline
     def setHttpEquiv(value: String): Self = StObject.set(x, "httpEquiv", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setHttpEquivUndefined: Self = StObject.set(x, "httpEquiv", ())
+    def setHttpEquivUndefined: Self = StObject.set(x, "httpEquiv", js.undefined)
     
     @scala.inline
     def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNameUndefined: Self = StObject.set(x, "name", ())
+    def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
   }
 }

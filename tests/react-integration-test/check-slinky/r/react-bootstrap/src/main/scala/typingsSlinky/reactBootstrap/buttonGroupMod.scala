@@ -48,31 +48,31 @@ object buttonGroupMod {
       def setBlock(value: Boolean): Self = StObject.set(x, "block", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setBlockUndefined: Self = StObject.set(x, "block", ())
+      def setBlockUndefined: Self = StObject.set(x, "block", js.undefined)
       
       @scala.inline
       def setBsSize(value: Sizes): Self = StObject.set(x, "bsSize", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setBsSizeUndefined: Self = StObject.set(x, "bsSize", ())
+      def setBsSizeUndefined: Self = StObject.set(x, "bsSize", js.undefined)
       
       @scala.inline
       def setBsStyle(value: String): Self = StObject.set(x, "bsStyle", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setBsStyleUndefined: Self = StObject.set(x, "bsStyle", ())
+      def setBsStyleUndefined: Self = StObject.set(x, "bsStyle", js.undefined)
       
       @scala.inline
       def setJustified(value: Boolean): Self = StObject.set(x, "justified", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setJustifiedUndefined: Self = StObject.set(x, "justified", ())
+      def setJustifiedUndefined: Self = StObject.set(x, "justified", js.undefined)
       
       @scala.inline
       def setVertical(value: Boolean): Self = StObject.set(x, "vertical", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setVerticalUndefined: Self = StObject.set(x, "vertical", ())
+      def setVerticalUndefined: Self = StObject.set(x, "vertical", js.undefined)
     }
   }
 }

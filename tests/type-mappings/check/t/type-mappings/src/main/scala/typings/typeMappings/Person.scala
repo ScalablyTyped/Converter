@@ -29,7 +29,7 @@ object Person {
     def setAgeNull: Self = StObject.set(x, "age", null)
     
     @scala.inline
-    def setAgeUndefined: Self = StObject.set(x, "age", ())
+    def setAgeUndefined: Self = StObject.set(x, "age", js.undefined)
     
     @scala.inline
     def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])

@@ -30,12 +30,12 @@ object PartialPerson {
     def setAgeNull: Self = StObject.set(x, "age", null)
     
     @scala.inline
-    def setAgeUndefined: Self = StObject.set(x, "age", ())
+    def setAgeUndefined: Self = StObject.set(x, "age", js.undefined)
     
     @scala.inline
     def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNameUndefined: Self = StObject.set(x, "name", ())
+    def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
   }
 }

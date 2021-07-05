@@ -118,7 +118,7 @@ object mod extends Shortcut {
       def setLabels(value: js.Array[String | js.Array[String]]): Self = StObject.set(x, "labels", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setLabelsUndefined: Self = StObject.set(x, "labels", ())
+      def setLabelsUndefined: Self = StObject.set(x, "labels", js.undefined)
       
       @scala.inline
       def setLabelsVarargs(value: (String | js.Array[String])*): Self = StObject.set(x, "labels", js.Array(value :_*))
@@ -169,13 +169,13 @@ object mod extends Shortcut {
       def setPlugins(value: StringDictionary[js.Any]): Self = StObject.set(x, "plugins", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPluginsUndefined: Self = StObject.set(x, "plugins", ())
+      def setPluginsUndefined: Self = StObject.set(x, "plugins", js.undefined)
       
       @scala.inline
       def setResponsive(value: Boolean): Self = StObject.set(x, "responsive", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setResponsiveUndefined: Self = StObject.set(x, "responsive", ())
+      def setResponsiveUndefined: Self = StObject.set(x, "responsive", js.undefined)
     }
   }
   

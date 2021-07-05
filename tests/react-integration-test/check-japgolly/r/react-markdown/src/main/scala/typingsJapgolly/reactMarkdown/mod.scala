@@ -89,13 +89,13 @@ object mod {
       def setAllowNode(value: /* index */ Double => Boolean): Self = StObject.set(x, "allowNode", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setAllowNodeUndefined: Self = StObject.set(x, "allowNode", ())
+      def setAllowNodeUndefined: Self = StObject.set(x, "allowNode", js.undefined)
       
       @scala.inline
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", ())
+      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       @scala.inline
       def setLinkTarget(value: String | LinkTargetResolver): Self = StObject.set(x, "linkTarget", value.asInstanceOf[js.Any])
@@ -104,7 +104,7 @@ object mod {
       def setLinkTargetFunction3(value: (/* uri */ String, /* text */ String, /* title */ js.UndefOr[String]) => String): Self = StObject.set(x, "linkTarget", js.Any.fromFunction3(value))
       
       @scala.inline
-      def setLinkTargetUndefined: Self = StObject.set(x, "linkTarget", ())
+      def setLinkTargetUndefined: Self = StObject.set(x, "linkTarget", js.undefined)
       
       @scala.inline
       def setTransformLinkUri(
@@ -115,7 +115,7 @@ object mod {
       def setTransformLinkUriNull: Self = StObject.set(x, "transformLinkUri", null)
       
       @scala.inline
-      def setTransformLinkUriUndefined: Self = StObject.set(x, "transformLinkUri", ())
+      def setTransformLinkUriUndefined: Self = StObject.set(x, "transformLinkUri", js.undefined)
     }
   }
   

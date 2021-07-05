@@ -40,48 +40,48 @@ object FormHTMLAttributes {
     def setAcceptCharset(value: String): Self = StObject.set(x, "acceptCharset", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAcceptCharsetUndefined: Self = StObject.set(x, "acceptCharset", ())
+    def setAcceptCharsetUndefined: Self = StObject.set(x, "acceptCharset", js.undefined)
     
     @scala.inline
     def setAction(value: String): Self = StObject.set(x, "action", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setActionUndefined: Self = StObject.set(x, "action", ())
+    def setActionUndefined: Self = StObject.set(x, "action", js.undefined)
     
     @scala.inline
     def setAutoComplete(value: String): Self = StObject.set(x, "autoComplete", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAutoCompleteUndefined: Self = StObject.set(x, "autoComplete", ())
+    def setAutoCompleteUndefined: Self = StObject.set(x, "autoComplete", js.undefined)
     
     @scala.inline
     def setEncType(value: String): Self = StObject.set(x, "encType", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setEncTypeUndefined: Self = StObject.set(x, "encType", ())
+    def setEncTypeUndefined: Self = StObject.set(x, "encType", js.undefined)
     
     @scala.inline
     def setMethod(value: String): Self = StObject.set(x, "method", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMethodUndefined: Self = StObject.set(x, "method", ())
+    def setMethodUndefined: Self = StObject.set(x, "method", js.undefined)
     
     @scala.inline
     def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNameUndefined: Self = StObject.set(x, "name", ())
+    def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
     
     @scala.inline
     def setNoValidate(value: Boolean): Self = StObject.set(x, "noValidate", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNoValidateUndefined: Self = StObject.set(x, "noValidate", ())
+    def setNoValidateUndefined: Self = StObject.set(x, "noValidate", js.undefined)
     
     @scala.inline
     def setTarget(value: String): Self = StObject.set(x, "target", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTargetUndefined: Self = StObject.set(x, "target", ())
+    def setTargetUndefined: Self = StObject.set(x, "target", js.undefined)
   }
 }

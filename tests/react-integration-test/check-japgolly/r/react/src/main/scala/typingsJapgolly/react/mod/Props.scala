@@ -55,7 +55,7 @@ object Props {
     def setChildrenNull: Self = StObject.set(x, "children", null)
     
     @scala.inline
-    def setChildrenUndefined: Self = StObject.set(x, "children", ())
+    def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
     
     @scala.inline
     def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
@@ -67,7 +67,7 @@ object Props {
     def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setKeyUndefined: Self = StObject.set(x, "key", ())
+    def setKeyUndefined: Self = StObject.set(x, "key", js.undefined)
     
     @scala.inline
     def setRef(value: LegacyRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
@@ -79,6 +79,6 @@ object Props {
     def setRefNull: Self = StObject.set(x, "ref", null)
     
     @scala.inline
-    def setRefUndefined: Self = StObject.set(x, "ref", ())
+    def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
   }
 }

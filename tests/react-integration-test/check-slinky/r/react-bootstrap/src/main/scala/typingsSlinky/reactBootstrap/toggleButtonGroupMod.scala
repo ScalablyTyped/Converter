@@ -51,13 +51,13 @@ object toggleButtonGroupMod {
       def setDefaultValue(value: js.Any): Self = StObject.set(x, "defaultValue", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setDefaultValueUndefined: Self = StObject.set(x, "defaultValue", ())
+      def setDefaultValueUndefined: Self = StObject.set(x, "defaultValue", js.undefined)
       
       @scala.inline
       def setValue(value: js.Any): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setValueUndefined: Self = StObject.set(x, "value", ())
+      def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
     }
   }
   
@@ -86,13 +86,13 @@ object toggleButtonGroupMod {
       def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setNameUndefined: Self = StObject.set(x, "name", ())
+      def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
       
       @scala.inline
       def setOnChange(value: /* values */ js.Array[js.Any] => Unit): Self = StObject.set(x, "onChange", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setOnChangeUndefined: Self = StObject.set(x, "onChange", ())
+      def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       
       @scala.inline
       def setType(value: checkbox): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
@@ -128,7 +128,7 @@ object toggleButtonGroupMod {
       def setOnChange(value: /* value */ js.Any => Unit): Self = StObject.set(x, "onChange", js.Any.fromFunction1(value))
       
       @scala.inline
-      def setOnChangeUndefined: Self = StObject.set(x, "onChange", ())
+      def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       
       @scala.inline
       def setType(value: radio): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])

@@ -32,24 +32,24 @@ object StyleHTMLAttributes {
     def setMedia(value: String): Self = StObject.set(x, "media", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setMediaUndefined: Self = StObject.set(x, "media", ())
+    def setMediaUndefined: Self = StObject.set(x, "media", js.undefined)
     
     @scala.inline
     def setNonce(value: String): Self = StObject.set(x, "nonce", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setNonceUndefined: Self = StObject.set(x, "nonce", ())
+    def setNonceUndefined: Self = StObject.set(x, "nonce", js.undefined)
     
     @scala.inline
     def setScoped(value: Boolean): Self = StObject.set(x, "scoped", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setScopedUndefined: Self = StObject.set(x, "scoped", ())
+    def setScopedUndefined: Self = StObject.set(x, "scoped", js.undefined)
     
     @scala.inline
     def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setTypeUndefined: Self = StObject.set(x, "type", ())
+    def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
   }
 }

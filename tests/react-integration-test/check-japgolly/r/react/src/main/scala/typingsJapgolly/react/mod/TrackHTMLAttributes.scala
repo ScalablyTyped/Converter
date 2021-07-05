@@ -34,19 +34,19 @@ object TrackHTMLAttributes {
     def setDefault(value: Boolean): Self = StObject.set(x, "default", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setDefaultUndefined: Self = StObject.set(x, "default", ())
+    def setDefaultUndefined: Self = StObject.set(x, "default", js.undefined)
     
     @scala.inline
     def setKind(value: String): Self = StObject.set(x, "kind", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setKindUndefined: Self = StObject.set(x, "kind", ())
+    def setKindUndefined: Self = StObject.set(x, "kind", js.undefined)
     
     @scala.inline
     def setLabel(value: String): Self = StObject.set(x, "label", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setLabelUndefined: Self = StObject.set(x, "label", ())
+    def setLabelUndefined: Self = StObject.set(x, "label", js.undefined)
     
     @scala.inline
     def setSrc(value: String): Self = StObject.set(x, "src", value.asInstanceOf[js.Any])
@@ -55,9 +55,9 @@ object TrackHTMLAttributes {
     def setSrcLang(value: String): Self = StObject.set(x, "srcLang", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSrcLangUndefined: Self = StObject.set(x, "srcLang", ())
+    def setSrcLangUndefined: Self = StObject.set(x, "srcLang", js.undefined)
     
     @scala.inline
-    def setSrcUndefined: Self = StObject.set(x, "src", ())
+    def setSrcUndefined: Self = StObject.set(x, "src", js.undefined)
   }
 }

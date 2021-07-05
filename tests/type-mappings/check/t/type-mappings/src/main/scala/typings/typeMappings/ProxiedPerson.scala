@@ -29,7 +29,7 @@ object ProxiedPerson {
     def setAge(value: Get): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setAgeUndefined: Self = StObject.set(x, "age", ())
+    def setAgeUndefined: Self = StObject.set(x, "age", js.undefined)
     
     @scala.inline
     def setName(value: Set): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])

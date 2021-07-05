@@ -24,6 +24,6 @@ object StrictHtmlImageProps {
     def setSrc(value: String): Self = StObject.set(x, "src", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSrcUndefined: Self = StObject.set(x, "src", ())
+    def setSrcUndefined: Self = StObject.set(x, "src", js.undefined)
   }
 }

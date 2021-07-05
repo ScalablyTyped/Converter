@@ -42,7 +42,7 @@ object mod {
       def setInnerRef(value: Ref[js.Any] | RefObject[js.Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInnerRefUndefined: Self = StObject.set(x, "innerRef", ())
+      def setInnerRefUndefined: Self = StObject.set(x, "innerRef", js.undefined)
       
       @scala.inline
       def setTheme(value: String): Self = StObject.set(x, "theme", value.asInstanceOf[js.Any])

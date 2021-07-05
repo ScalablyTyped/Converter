@@ -35,25 +35,25 @@ object NodeJS {
       def setCode(value: String): Self = StObject.set(x, "code", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setCodeUndefined: Self = StObject.set(x, "code", ())
+      def setCodeUndefined: Self = StObject.set(x, "code", js.undefined)
       
       @scala.inline
       def setErrno(value: Double): Self = StObject.set(x, "errno", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setErrnoUndefined: Self = StObject.set(x, "errno", ())
+      def setErrnoUndefined: Self = StObject.set(x, "errno", js.undefined)
       
       @scala.inline
       def setPath(value: String): Self = StObject.set(x, "path", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setPathUndefined: Self = StObject.set(x, "path", ())
+      def setPathUndefined: Self = StObject.set(x, "path", js.undefined)
       
       @scala.inline
       def setSyscall(value: String): Self = StObject.set(x, "syscall", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setSyscallUndefined: Self = StObject.set(x, "syscall", ())
+      def setSyscallUndefined: Self = StObject.set(x, "syscall", js.undefined)
     }
   }
   

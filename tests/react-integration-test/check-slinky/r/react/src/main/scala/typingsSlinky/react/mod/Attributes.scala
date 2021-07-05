@@ -24,6 +24,6 @@ object Attributes {
     def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setKeyUndefined: Self = StObject.set(x, "key", ())
+    def setKeyUndefined: Self = StObject.set(x, "key", js.undefined)
   }
 }

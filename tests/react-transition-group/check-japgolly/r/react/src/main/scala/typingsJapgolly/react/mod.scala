@@ -34,9 +34,9 @@ object mod {
     def apply[T](
       accept: String = null,
       acceptCharset: String = null,
-      children: js.UndefOr[Null | VdomNode] = (),
+      children: js.UndefOr[Null | VdomNode] = js.undefined,
       dangerouslySetInnerHTML: Html = null,
-      defaultChecked: js.UndefOr[Boolean] = ()
+      defaultChecked: js.UndefOr[Boolean] = js.undefined
     ): AllHTMLAttributes[T] = {
       val __obj = js.Dynamic.literal()
       if (accept != null) __obj.updateDynamic("accept")(accept.asInstanceOf[js.Any])
@@ -122,7 +122,7 @@ object mod {
   object DOMAttributes {
     
     @scala.inline
-    def apply[T](children: js.UndefOr[Null | VdomNode] = (), dangerouslySetInnerHTML: Html = null): DOMAttributes[T] = {
+    def apply[T](children: js.UndefOr[Null | VdomNode] = js.undefined, dangerouslySetInnerHTML: Html = null): DOMAttributes[T] = {
       val __obj = js.Dynamic.literal()
       if (!js.isUndefined(children)) __obj.updateDynamic("children")(if (children != null) children.asInstanceOf[VdomNode].rawNode.asInstanceOf[js.Any] else null)
       if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
@@ -143,9 +143,9 @@ object mod {
     
     @scala.inline
     def apply[T](
-      children: js.UndefOr[Null | VdomNode] = (),
+      children: js.UndefOr[Null | VdomNode] = js.undefined,
       dangerouslySetInnerHTML: Html = null,
-      defaultChecked: js.UndefOr[Boolean] = ()
+      defaultChecked: js.UndefOr[Boolean] = js.undefined
     ): HTMLAttributes[T] = {
       val __obj = js.Dynamic.literal()
       if (!js.isUndefined(children)) __obj.updateDynamic("children")(if (children != null) children.asInstanceOf[VdomNode].rawNode.asInstanceOf[js.Any] else null)
@@ -166,9 +166,9 @@ object mod {
     def apply[T](
       accept: String = null,
       acceptCharset: String = null,
-      children: js.UndefOr[Null | VdomNode] = (),
+      children: js.UndefOr[Null | VdomNode] = js.undefined,
       dangerouslySetInnerHTML: Html = null,
-      defaultChecked: js.UndefOr[Boolean] = (),
+      defaultChecked: js.UndefOr[Boolean] = js.undefined,
       key: Key = null,
       ref: Ref[T] = null
     ): HTMLProps[T] = {

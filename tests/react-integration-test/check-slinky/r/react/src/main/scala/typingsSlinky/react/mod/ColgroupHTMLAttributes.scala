@@ -26,6 +26,6 @@ object ColgroupHTMLAttributes {
     def setSpan(value: Double): Self = StObject.set(x, "span", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setSpanUndefined: Self = StObject.set(x, "span", ())
+    def setSpanUndefined: Self = StObject.set(x, "span", js.undefined)
   }
 }

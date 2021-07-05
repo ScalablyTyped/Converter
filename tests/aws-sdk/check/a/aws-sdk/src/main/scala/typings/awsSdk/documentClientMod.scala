@@ -59,13 +59,13 @@ object documentClientMod {
         def setConvertEmptyValues(value: Boolean): Self = StObject.set(x, "convertEmptyValues", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setConvertEmptyValuesUndefined: Self = StObject.set(x, "convertEmptyValues", ())
+        def setConvertEmptyValuesUndefined: Self = StObject.set(x, "convertEmptyValues", js.undefined)
         
         @scala.inline
         def setWrapNumbers(value: Boolean): Self = StObject.set(x, "wrapNumbers", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setWrapNumbersUndefined: Self = StObject.set(x, "wrapNumbers", ())
+        def setWrapNumbersUndefined: Self = StObject.set(x, "wrapNumbers", js.undefined)
       }
     }
     
@@ -99,13 +99,13 @@ object documentClientMod {
         def setParams(value: StringDictionary[js.Any]): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setParamsUndefined: Self = StObject.set(x, "params", ())
+        def setParamsUndefined: Self = StObject.set(x, "params", js.undefined)
         
         @scala.inline
         def setService(value: ^): Self = StObject.set(x, "service", value.asInstanceOf[js.Any])
         
         @scala.inline
-        def setServiceUndefined: Self = StObject.set(x, "service", ())
+        def setServiceUndefined: Self = StObject.set(x, "service", js.undefined)
       }
     }
     
