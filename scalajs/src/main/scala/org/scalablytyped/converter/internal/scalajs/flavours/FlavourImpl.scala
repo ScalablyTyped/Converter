@@ -8,8 +8,7 @@ trait FlavourImpl {
   def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree
   def dependencies: Set[Dep]
   val outputPkg: Name
-
-  val rewritesOpt: Option[CastConversion.TypeRewriterCast]
+  val rewrites:  IArray[CastConversion]
 
   override val toString = getClass.getSimpleName
 }
@@ -21,7 +20,8 @@ trait FlavourImplReact extends FlavourImpl {
   lazy val stdNames           = new QualifiedName.StdNames(outputPkg)
   lazy val scalaJsDomNames    = new ScalaJsDomNames(stdNames)
   lazy val reactNames         = new ReactNames(outputPkg)
-  lazy val identifyComponents = new IdentifyReactComponents(reactNames, parentsResolver, enableReactTreeShaking)
+  lazy val reactNamesProxy    = new ReactNamesProxy(reactNames, rewrites)
+  lazy val identifyComponents = new IdentifyReactComponents(reactNamesProxy, parentsResolver, enableReactTreeShaking)
 
   def involvesReact(scope: TreeScope): Boolean = {
     val react = Name("react")

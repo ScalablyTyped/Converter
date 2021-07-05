@@ -27,65 +27,60 @@ final case class QualifiedName(parts: IArray[Name]) {
 object QualifiedName {
   def apply(str: String): QualifiedName = QualifiedName(IArray.fromArray(str.split("\\.")).map(Name(_)))
 
-  val java_lang:                  QualifiedName = QualifiedName(IArray(Name.java, Name.lang))
-  val scala:                      QualifiedName = QualifiedName(IArray(Name.scala))
-  val scala_scalajs:              QualifiedName = scala + Name.scalajs
-  val scalajs_runtime:            QualifiedName = scala_scalajs + Name("runtime")
-  val linkingInfo:                QualifiedName = scalajs_runtime + Name("linkingInfo")
-  val linkingInfo_productionMode: QualifiedName = linkingInfo + Name("productionMode")
-  val scala_js:                   QualifiedName = scala_scalajs + Name.js
-  val scala_js_ann:               QualifiedName = scala_js + Name("annotation")
-  val Runtime:                    QualifiedName = QualifiedName(IArray(Name("org"), Name("scalablytyped"), Name("runtime")))
-  val ScalaJsDom:                 QualifiedName = QualifiedName(IArray(Name("org"), Name("scalajs"), Name("dom")))
-  val String:                     QualifiedName = java_lang + Name.String
-  val JArray:                     QualifiedName = java_lang + Name.Array
-  val ScalaAny:                   QualifiedName = scala + Name.Any
-  val AnyVal:                     QualifiedName = scala + Name.AnyVal
-  val Double:                     QualifiedName = scala + Name.Double
-  val Int:                        QualifiedName = scala + Name.Int
-  val Long:                       QualifiedName = scala + Name.Long
-  val Boolean:                    QualifiedName = scala + Name.Boolean
-  val Unit:                       QualifiedName = scala + Name.Unit
-  val Null:                       QualifiedName = scala + Name.Null
-  val Nothing:                    QualifiedName = scala + Name.Nothing
-  val Any:                        QualifiedName = scala_js + Name.Any
-  val Object:                     QualifiedName = scala_js + Name.Object
-  val Array:                      QualifiedName = scala_js + Name.Array
-  val BigInt:                     QualifiedName = scala_js + Name("BigInt")
-  val Thenable:                   QualifiedName = scala_js + Name("Thenable")
-  val Promise:                    QualifiedName = scala_js + Name("Promise")
-  val `|`                       : QualifiedName = scala_js + Name("|")
-  val Function:                   QualifiedName = scala_js + Name.Function
-  val Symbol:                     QualifiedName = scala_js + Name.Symbol
-  val UndefOr:                    QualifiedName = scala_js + Name.UndefOr
-  val constructorOf:              QualifiedName = scala_js + Name("constructorOf")
-  val special:                    QualifiedName = scala_js + Name("special")
-  val isUndefined:                QualifiedName = scala_js + Name("isUndefined")
-  val specialDelete:              QualifiedName = special + Name("delete")
-  val Dictionary:                 QualifiedName = scala_js + Name("Dictionary")
-  val DictionaryEmpty:            QualifiedName = Dictionary + Name("empty")
-  val Dynamic:                    QualifiedName = scala_js + Name.Dynamic
-  val DynamicLiteral:             QualifiedName = Dynamic + Name("literal")
-  val DynamicGlobal:              QualifiedName = Dynamic + Name("global")
-  val DynamicGlobalObject:        QualifiedName = DynamicGlobal + Name("Object")
-  val DynamicGlobalObjectAssign:  QualifiedName = DynamicGlobalObject + Name("assign")
-  val NumberDictionary:           QualifiedName = Runtime + Name("NumberDictionary")
-  val StringDictionary:           QualifiedName = Runtime + Name("StringDictionary")
-  val TopLevel:                   QualifiedName = Runtime + Name("TopLevel")
-  val Shortcut:                   QualifiedName = Runtime + Name("Shortcut")
-  val StObject:                   QualifiedName = Runtime + Name("StObject")
-  val UNION:                      QualifiedName = QualifiedName(IArray(Name.UNION))
-  val INTERSECTION:               QualifiedName = QualifiedName(IArray(Name.INTERSECTION))
-  val STRING_LITERAL:             QualifiedName = QualifiedName(IArray(Name.STRING_LITERAL))
-  val NUMBER_LITERAL:             QualifiedName = QualifiedName(IArray(Name.NUMBER_LITERAL))
-  val BOOLEAN_LITERAL:            QualifiedName = QualifiedName(IArray(Name.BOOLEAN_LITERAL))
-  val THIS:                       QualifiedName = QualifiedName(IArray(Name.THIS))
-  val WILDCARD:                   QualifiedName = QualifiedName(IArray(Name.WILDCARD))
-  val REPEATED:                   QualifiedName = QualifiedName(IArray(Name.REPEATED))
-  val SINGLETON:                  QualifiedName = QualifiedName(IArray(Name.SINGLETON))
-  val UNDEFINED:                  QualifiedName = QualifiedName(IArray(Name.UNDEFINED))
+  val java_lang: QualifiedName = QualifiedName(IArray(Name.java, Name.lang))
+  val String:    QualifiedName = java_lang + Name.String
+  val Array:     QualifiedName = java_lang + Name.Array
 
-  def AnyFromFunction(n: Int): QualifiedName = Any + Name(s"fromFunction$n")
+  val scala:   QualifiedName = QualifiedName(IArray(Name.scala))
+  val Any:     QualifiedName = scala + Name.Any
+  val AnyRef:  QualifiedName = scala + Name.AnyRef
+  val AnyVal:  QualifiedName = scala + Name.AnyVal
+  val Byte:    QualifiedName = scala + Name.Byte
+  val Short:   QualifiedName = scala + Name.Short
+  val Float:   QualifiedName = scala + Name.Float
+  val Double:  QualifiedName = scala + Name.Double
+  val Int:     QualifiedName = scala + Name.Int
+  val Long:    QualifiedName = scala + Name.Long
+  val Boolean: QualifiedName = scala + Name.Boolean
+  val Unit:    QualifiedName = scala + Name.Unit
+  val Null:    QualifiedName = scala + Name.Null
+  val Nothing: QualifiedName = scala + Name.Nothing
+
+  val scala_scalajs: QualifiedName = scala + Name.scalajs
+  val scala_js:      QualifiedName = scala_scalajs + Name.js
+  val JsAny:         QualifiedName = scala_js + Name.Any
+  val JsObject:      QualifiedName = scala_js + Name.Object
+  val JsArray:       QualifiedName = scala_js + Name.Array
+  val JsBigInt:      QualifiedName = scala_js + Name("BigInt")
+  val JsThenable:    QualifiedName = scala_js + Name("Thenable")
+  val JsPromise:     QualifiedName = scala_js + Name("Promise")
+  val JsFunction:    QualifiedName = scala_js + Name.Function
+  val JsSymbol:      QualifiedName = scala_js + Name.Symbol
+  val JsUndefOr:     QualifiedName = scala_js + Name.UndefOr
+  val `|`          : QualifiedName = scala_js + Name("|")
+  val isUndefined:   QualifiedName = scala_js + Name("isUndefined")
+  val JsDictionary:  QualifiedName = scala_js + Name("Dictionary")
+  val JsDynamic:     QualifiedName = scala_js + Name.Dynamic
+
+  val Runtime:          QualifiedName = QualifiedName(IArray(Name("org"), Name("scalablytyped"), Name("runtime")))
+  val NumberDictionary: QualifiedName = Runtime + Name("NumberDictionary")
+  val StringDictionary: QualifiedName = Runtime + Name("StringDictionary")
+  val TopLevel:         QualifiedName = Runtime + Name("TopLevel")
+  val Shortcut:         QualifiedName = Runtime + Name("Shortcut")
+  val StObject:         QualifiedName = Runtime + Name("StObject")
+
+  val UNION:           QualifiedName = QualifiedName(IArray(Name.UNION))
+  val INTERSECTION:    QualifiedName = QualifiedName(IArray(Name.INTERSECTION))
+  val STRING_LITERAL:  QualifiedName = QualifiedName(IArray(Name.STRING_LITERAL))
+  val NUMBER_LITERAL:  QualifiedName = QualifiedName(IArray(Name.NUMBER_LITERAL))
+  val BOOLEAN_LITERAL: QualifiedName = QualifiedName(IArray(Name.BOOLEAN_LITERAL))
+  val THIS:            QualifiedName = QualifiedName(IArray(Name.THIS))
+  val WILDCARD:        QualifiedName = QualifiedName(IArray(Name.WILDCARD))
+  val REPEATED:        QualifiedName = QualifiedName(IArray(Name.REPEATED))
+  val SINGLETON:       QualifiedName = QualifiedName(IArray(Name.SINGLETON))
+  val UNDEFINED:       QualifiedName = QualifiedName(IArray(Name.UNDEFINED))
+
+  def AnyFromFunction(n: Int): QualifiedName = JsAny + Name(s"fromFunction$n")
 
   class StdNames(outputPkg: Name) {
     val lib:                   QualifiedName = QualifiedName(IArray(outputPkg, Name.std))
@@ -112,7 +107,7 @@ object QualifiedName {
 
   def Tuple(arity: Int): QualifiedName =
     arity match {
-      case 0 | 1 => Array
+      case 0 | 1 => JsArray
       case n     => scala_js + Name("Tuple" + n.toString)
     }
 

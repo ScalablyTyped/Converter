@@ -1,6 +1,10 @@
 package typingsJapgolly.react.mod
 
+import japgolly.scalajs.react.raw.Empty
+import japgolly.scalajs.react.raw.JsNumber
+import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
@@ -16,7 +20,7 @@ object ReactPortal {
   
   @scala.inline
   def apply(props: js.Any, `type`: js.Any): ReactPortal = {
-    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
+    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], children = null, key = null)
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[ReactPortal]
   }
@@ -28,6 +32,12 @@ object ReactPortal {
     def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
     
     @scala.inline
-    def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+    def setChildrenNull: Self = StObject.set(x, "children", null)
+    
+    @scala.inline
+    def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
+    
+    @scala.inline
+    def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
   }
 }

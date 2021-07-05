@@ -29,8 +29,8 @@ object buttonGroupMod extends Shortcut {
   
   @js.native
   trait ButtonGroupProps
-    extends StrictButtonGroupProps
-       with /* key */ StringDictionary[js.Any]
+    extends /* key */ StringDictionary[js.Any]
+       with StrictButtonGroupProps
   object ButtonGroupProps {
     
     @scala.inline
@@ -151,9 +151,6 @@ object buttonGroupMod extends Shortcut {
       def setChildren(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setChildrenReactElement(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
-      
-      @scala.inline
       def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       @scala.inline
@@ -176,9 +173,6 @@ object buttonGroupMod extends Shortcut {
       
       @scala.inline
       def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setContentReactElement(value: ReactElement): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setContentUndefined: Self = StObject.set(x, "content", js.undefined)

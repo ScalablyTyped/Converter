@@ -68,8 +68,8 @@ object accordionAccordionMod {
   
   @js.native
   trait AccordionProps
-    extends StrictAccordionProps
-       with /* key */ StringDictionary[js.Any]
+    extends /* key */ StringDictionary[js.Any]
+       with StrictAccordionProps
   object AccordionProps {
     
     @scala.inline

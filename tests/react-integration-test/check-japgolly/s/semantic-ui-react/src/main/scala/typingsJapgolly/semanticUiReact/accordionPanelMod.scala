@@ -2,6 +2,8 @@ package typingsJapgolly.semanticUiReact
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.raw.Empty
+import japgolly.scalajs.react.raw.JsNumber
 import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
@@ -29,8 +31,8 @@ object accordionPanelMod {
   
   @js.native
   trait AccordionPanelProps
-    extends StrictAccordionPanelProps
-       with /* key */ StringDictionary[js.Any]
+    extends /* key */ StringDictionary[js.Any]
+       with StrictAccordionPanelProps
   object AccordionPanelProps {
     
     @scala.inline
@@ -95,7 +97,13 @@ object accordionPanelMod {
       ): Self = StObject.set(x, "content", js.Any.fromFunction3(value))
       
       @scala.inline
+      def setContentNull: Self = StObject.set(x, "content", null)
+      
+      @scala.inline
       def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
+      
+      @scala.inline
+      def setContentVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "content", js.Array(value :_*))
       
       @scala.inline
       def setContentVdomElement(value: VdomElement): Self = StObject.set(x, "content", value.rawElement.asInstanceOf[js.Any])
@@ -123,7 +131,13 @@ object accordionPanelMod {
       ): Self = StObject.set(x, "title", js.Any.fromFunction3(value))
       
       @scala.inline
+      def setTitleNull: Self = StObject.set(x, "title", null)
+      
+      @scala.inline
       def setTitleUndefined: Self = StObject.set(x, "title", js.undefined)
+      
+      @scala.inline
+      def setTitleVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "title", js.Array(value :_*))
       
       @scala.inline
       def setTitleVdomElement(value: VdomElement): Self = StObject.set(x, "title", value.rawElement.asInstanceOf[js.Any])

@@ -3,7 +3,6 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.Selection
-import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
 
 case class SlinkyNativeFlavour(
@@ -16,11 +15,13 @@ case class SlinkyNativeFlavour(
   override val dependencies: Set[Dep] =
     Set(Versions.runtime, Versions.slinkyNative, Versions.scalaJsDom)
 
-  val rewriter               = new TypeRewriterCast(SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = false))
-  val memberToProp           = new MemberToProp.Default(Some(rewriter))
+  override val rewrites: IArray[CastConversion] =
+    SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = false)
+
+  val memberToProp           = new MemberToProp.Default(rewrites)
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
   val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg, scalaVersion)
-  val gen                    = new SlinkyGenComponents(SlinkyGenComponents.Native(()), findProps, genStBuildingComponent, reactNames)
+  val gen                    = new SlinkyGenComponents(SlinkyGenComponents.Native(()), findProps, genStBuildingComponent, reactNamesProxy)
   val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod)
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
@@ -38,8 +39,6 @@ case class SlinkyNativeFlavour(
 
     } else withCompanions
 
-    rewriter.visitPackageTree(scope)(withComponents)
+    withComponents
   }
-
-  override val rewritesOpt: Option[CastConversion.TypeRewriterCast] = Some(rewriter)
 }

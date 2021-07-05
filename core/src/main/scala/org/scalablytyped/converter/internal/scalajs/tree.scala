@@ -244,30 +244,36 @@ object TypeRef {
   def apply(qn: QualifiedName): TypeRef =
     TypeRef(qn, Empty, NoComments)
 
-  def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.Any))
+  def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.JsAny))
 
-  val Wildcard     = TypeRef(QualifiedName.WILDCARD, Empty, NoComments)
-  val ScalaAny     = TypeRef(QualifiedName.ScalaAny, Empty, NoComments)
-  val Any          = TypeRef(QualifiedName.Any, Empty, NoComments)
-  val AnyVal       = TypeRef(QualifiedName.AnyVal, Empty, NoComments)
-  val BigInt       = TypeRef(QualifiedName.BigInt, Empty, NoComments)
-  val Boolean      = TypeRef(QualifiedName.Boolean, Empty, NoComments)
-  val Double       = TypeRef(QualifiedName.Double, Empty, NoComments)
-  val Dynamic      = TypeRef(QualifiedName.Dynamic, Empty, NoComments)
-  val Int          = TypeRef(QualifiedName.Int, Empty, NoComments)
-  val Long         = TypeRef(QualifiedName.Long, Empty, NoComments)
-  val Nothing      = TypeRef(QualifiedName.Nothing, Empty, NoComments)
-  val Null         = TypeRef(QualifiedName.Null, Empty, NoComments)
-  val Object       = TypeRef(QualifiedName.Object, Empty, NoComments)
-  val String       = TypeRef(QualifiedName.String, Empty, NoComments)
-  val Symbol       = TypeRef(QualifiedName.Symbol, Empty, NoComments)
-  val Unit         = TypeRef(QualifiedName.Unit, Empty, NoComments)
-  val FunctionBase = TypeRef(QualifiedName.Function, Empty, NoComments)
+  val Wildcard = TypeRef(QualifiedName.WILDCARD, Empty, NoComments)
 
-  /* we represent `js.UndefOr` as this fake type ref inside a union type. Note that t can also appear on it's own */
+  val AnyRef  = TypeRef(QualifiedName.AnyRef, Empty, NoComments)
+  val Any     = TypeRef(QualifiedName.Any, Empty, NoComments)
+  val AnyVal  = TypeRef(QualifiedName.AnyVal, Empty, NoComments)
+  val Boolean = TypeRef(QualifiedName.Boolean, Empty, NoComments)
+  val Byte    = TypeRef(QualifiedName.Byte, Empty, NoComments)
+  val Double  = TypeRef(QualifiedName.Double, Empty, NoComments)
+  val Float   = TypeRef(QualifiedName.Float, Empty, NoComments)
+  val Int     = TypeRef(QualifiedName.Int, Empty, NoComments)
+  val Long    = TypeRef(QualifiedName.Long, Empty, NoComments)
+  val Nothing = TypeRef(QualifiedName.Nothing, Empty, NoComments)
+  val Null    = TypeRef(QualifiedName.Null, Empty, NoComments)
+  val Short   = TypeRef(QualifiedName.Short, Empty, NoComments)
+  val String  = TypeRef(QualifiedName.String, Empty, NoComments)
+  val Unit    = TypeRef(QualifiedName.Unit, Empty, NoComments)
+
+  val JsAny          = TypeRef(QualifiedName.JsAny, Empty, NoComments)
+  val JsBigInt       = TypeRef(QualifiedName.JsBigInt, Empty, NoComments)
+  val JsDynamic      = TypeRef(QualifiedName.JsDynamic, Empty, NoComments)
+  val JsFunctionBase = TypeRef(QualifiedName.JsFunction, Empty, NoComments)
+  val JsObject       = TypeRef(QualifiedName.JsObject, Empty, NoComments)
+  val JsSymbol       = TypeRef(QualifiedName.JsSymbol, Empty, NoComments)
+
+  /* we represent `js.UndefOr` as this fake type ref inside a union type. Note that it can also appear on its own */
   val undefined = TypeRef(QualifiedName.UNDEFINED, Empty, NoComments)
 
-  val Primitive = Set(Double, Int, Long, Boolean, Unit, Nothing)
+  val Primitive = Set(Boolean, Byte, Double, Float, Int, Long, Nothing, Null, Short, Unit)
 
   def StringDictionary(typeParam: TypeRef, comments: Comments): TypeRef =
     TypeRef(QualifiedName.StringDictionary, IArray(typeParam), comments)
@@ -286,7 +292,7 @@ object TypeRef {
       }
   }
 
-  object Function {
+  object JsFunction {
     def apply(thisType: Option[TypeRef], typeParams: IArray[TypeRef], resType: TypeRef, comments: Comments): TypeRef = {
       val rewriteRepeated: IArray[TypeRef] =
         typeParams.lastOption match {
@@ -352,11 +358,11 @@ object TypeRef {
       }
   }
 
-  def Tuple(typeParams: IArray[TypeRef]): TypeRef =
+  def JsTuple(typeParams: IArray[TypeRef]): TypeRef =
     typeParams match {
-      case IArray.Empty                   => TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments)
-      case IArray.exactlyOne(one)         => TypeRef(QualifiedName.Array, IArray(one), NoComments)
-      case catch22 if catch22.length > 22 => TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments)
+      case IArray.Empty                   => TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments)
+      case IArray.exactlyOne(one)         => TypeRef(QualifiedName.JsArray, IArray(one), NoComments)
+      case catch22 if catch22.length > 22 => TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments)
       case _                              => TypeRef(QualifiedName.Tuple(typeParams.length), typeParams, NoComments)
     }
 
@@ -477,6 +483,12 @@ object TypeRef {
   object StringLiteral extends LiteralCompanion(QualifiedName.STRING_LITERAL)
   object NumberLiteral extends LiteralCompanion(QualifiedName.NUMBER_LITERAL)
   object BooleanLiteral extends LiteralCompanion(QualifiedName.BOOLEAN_LITERAL)
+  object Literal {
+    def unapply(typeRef: TypeRef): Boolean =
+      typeRef.typeName === QualifiedName.STRING_LITERAL ||
+        typeRef.typeName === QualifiedName.NUMBER_LITERAL ||
+        typeRef.typeName === QualifiedName.BOOLEAN_LITERAL
+  }
 
   object Repeated {
     def apply(underlying: TypeRef, comments: Comments): TypeRef =
@@ -527,7 +539,10 @@ object ImplTree {
 }
 
 case object NotImplemented extends ImplTree
-sealed trait ExprTree extends ImplTree
+sealed trait ExprTree extends ImplTree {
+  def select(strings: String*): ExprTree =
+    strings.foldLeft(this)((acc, str) => ExprTree.Select(acc, Name(str)))
+}
 
 object ExprTree {
   implicit val encodes: Encoder[ExprTree] = io.circe013.generic.semiauto.deriveEncoder

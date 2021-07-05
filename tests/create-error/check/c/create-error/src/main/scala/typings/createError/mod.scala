@@ -33,8 +33,8 @@ object mod {
   
   @js.native
   trait Error[T /* <: Err */]
-    extends typings.std.Error
-       with Instantiable0[T]
+    extends Instantiable0[T]
+       with typings.std.Error
        with Instantiable1[/* message */ String, T]
        with Instantiable2[js.UndefOr[/* message */ String], /* obj */ js.Any, T]
 }

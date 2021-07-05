@@ -2,6 +2,8 @@ package typingsJapgolly.semanticUiReact.components
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.raw.Empty
+import japgolly.scalajs.react.raw.JsNumber
 import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
@@ -35,6 +37,12 @@ class SharedBuilder_AccordionTitleProps_248880662[R <: js.Object] (val args: js.
   def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
   
   @scala.inline
+  def contentNull: this.type = set("content", null)
+  
+  @scala.inline
+  def contentVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("content", js.Array(value :_*))
+  
+  @scala.inline
   def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
   
   @scala.inline
@@ -50,6 +58,12 @@ class SharedBuilder_AccordionTitleProps_248880662[R <: js.Object] (val args: js.
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
     ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
   ): this.type = set("icon", js.Any.fromFunction3(value))
+  
+  @scala.inline
+  def iconNull: this.type = set("icon", null)
+  
+  @scala.inline
+  def iconVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("icon", js.Array(value :_*))
   
   @scala.inline
   def iconVdomElement(value: VdomElement): this.type = set("icon", value.rawElement.asInstanceOf[js.Any])

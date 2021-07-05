@@ -74,11 +74,11 @@ object StBuildingComponent {
   
   @scala.inline
   implicit def make[E, R <: js.Object](comp: StBuildingComponent[_, _]): ReactElement = {
-    if (!scala.scalajs.runtime.linkingInfo.productionMode) {
+    if (!scalajs.runtime.linkingInfo.productionMode) {
     if (comp.args(0) == null) throw new IllegalStateException("This component has already been built into a ReactElement, and cannot be reused")
   }
     val ret = (ReactRaw.createElement.applyDynamic("apply")(ReactRaw, comp.args)).asInstanceOf[ReactElement]
-    if (!scala.scalajs.runtime.linkingInfo.productionMode) {
+    if (!scalajs.runtime.linkingInfo.productionMode) {
     comp.args.update(0, null)
   }
     ret

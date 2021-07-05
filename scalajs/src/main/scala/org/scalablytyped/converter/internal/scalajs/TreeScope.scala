@@ -3,7 +3,6 @@ package scalajs
 
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.internal.scalajs.TypeRef.ThisType
-import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents
 
 sealed abstract class TreeScope { outer =>
   def stack: List[Tree]
@@ -16,28 +15,29 @@ sealed abstract class TreeScope { outer =>
 
   final def `..` : TreeScope =
     this match {
-      case root:   TreeScope.Root[_] => root
-      case scoped: TreeScope.Scoped  => scoped.outer
+      case root:   TreeScope.Root   => root
+      case scoped: TreeScope.Scoped => scoped.outer
     }
-  final def root: TreeScope.Root[_] =
+  final def root: TreeScope.Root =
     this match {
-      case root: TreeScope.Root[_] => root
-      case x:    TreeScope.Scoped  => x.outer.root
+      case root: TreeScope.Root   => root
+      case x:    TreeScope.Scoped => x.outer.root
     }
 
   final def lookup(wanted: QualifiedName): IArray[(Tree, TreeScope)] =
     if (ScalaJsClasses.ScalaJsTypes.contains(wanted)) IArray((ScalaJsClasses.ScalaJsTypes(wanted), this))
-    else if (TreeScope.dontLookup(wanted)) Empty
+    else if (wanted.parts.isEmpty) Empty
+    else if (Name.Internal(wanted.parts.last)) Empty
     else {
       var searchFrom: TreeScope = this
       var continue = true
       while (continue) {
         searchFrom match {
-          case _: TreeScope.Root[_] =>
+          case _: TreeScope.Root =>
             continue = false
           case x: TreeScope.Scoped =>
             x.outer match {
-              case _: TreeScope.Root[_] =>
+              case _: TreeScope.Root =>
                 continue = false
               case outer: TreeScope.Scoped =>
                 searchFrom = outer
@@ -88,25 +88,9 @@ sealed abstract class TreeScope { outer =>
 }
 
 object TreeScope {
-  object dontLookup {
-    private val ExternalsPrefixes: Set[Name] = Set(
-      Name.scala,
-      Name.java,
-      Name("japgolly"),
-      SlinkyGenComponents.slinkyName,
-    ) ++ Name.Internal
-
-    def apply(wanted: QualifiedName): Boolean =
-      if (wanted.parts.isEmpty) false
-      else if (ExternalsPrefixes(wanted.parts(0))) true
-      else if (wanted.parts(0) === Name.org)
-        wanted.parts.startsWith(QualifiedName.Runtime.parts) || wanted.parts.startsWith(QualifiedName.ScalaJsDom.parts)
-      else false
-  }
-
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 
-  class Root[Source](
+  class Root(
       val outputPkg: Name,
       val libName:   Name,
       _dependencies: Map[Name, ContainerTree],

@@ -2,8 +2,6 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-import org.scalablytyped.converter.internal.scalajs.transforms.Mangler
-
 /**
   * This generated class is our replacement for Slinkys ExternalComponent... types, which didnt really work.
   */
@@ -16,7 +14,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
   val StBuildingComponent = Name("StBuildingComponent")
   val builderCp           = QualifiedName(IArray(outputPkg, StBuildingComponent))
   val E                   = TypeParamTree(Name("E"), Empty, None, NoComments, ignoreBound = false)
-  val R                   = TypeParamTree(Name("R"), Empty, Some(TypeRef.Object), NoComments, ignoreBound = false)
+  val R                   = TypeParamTree(Name("R"), Empty, Some(TypeRef.JsObject), NoComments, ignoreBound = false)
   val builderTparams      = IArray(E, R)
   val builderRef          = TypeRef(builderCp, TypeParamTree.asTypeArgs(builderTparams), NoComments)
 
@@ -30,7 +28,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       Empty,
       Empty,
       NotImplemented,
-      TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments),
+      TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments),
       isOverride = false,
       NoComments,
       builderCp + name,
@@ -46,11 +44,11 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
     val keyParam =
       ParamTree(Name("key"), isImplicit = false, isVal = false, TypeRef.String, NotImplemented, NoComments)
     val valueParam =
-      ParamTree(Name("value"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments)
+      ParamTree(Name("value"), isImplicit = false, isVal = false, TypeRef.JsAny, NotImplemented, NoComments)
 
     val impl = Block(
       Call(
-        Select(Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.Dynamic), Name("updateDynamic")),
+        Select(Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.JsDynamic), Name("updateDynamic")),
         IArray(IArray(Ref(keyParam.name)), IArray(Ref(valueParam.name))),
       ),
       Ref(QualifiedName.THIS),
@@ -82,7 +80,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
         Name("f"),
         isImplicit = false,
         isVal      = false,
-        TypeRef.ScalaFunction(IArray(TypeRef.Any), TypeRef.Any, NoComments),
+        TypeRef.ScalaFunction(IArray(TypeRef.JsAny), TypeRef.JsAny, NoComments),
         NotImplemented,
         NoComments,
       )
@@ -140,14 +138,14 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
     }
 
     val unsafeSpread = {
-      val param = ParamTree(Name("obj"), false, false, TypeRef.Any, NotImplemented, NoComments)
+      val param = ParamTree(Name("obj"), false, false, TypeRef.JsAny, NotImplemented, NoComments)
       val name  = Name("unsafeSpread")
       val assign = Call(
-        Ref(QualifiedName.Object + Name("assign")),
+        Ref(QualifiedName.JsObject + Name("assign")),
         IArray(
           IArray(
-            Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.Object),
-            Cast(Ref(param.name), TypeRef.Object),
+            Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.JsObject),
+            Cast(Ref(param.name), TypeRef.JsObject),
           ),
         ),
       )
@@ -317,7 +315,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       annotations = Empty,
       name        = StBuildingComponent,
       tparams     = builderTparams,
-      parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.ScalaAny)),
+      parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.Any)),
       ctors       = Empty,
       members     = IArray(args, set, withComponent, build, unsafeSpread, apply, withKey, withRef1, withRef2),
       classType   = ClassType.Trait,
@@ -335,7 +333,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
           Name("args"),
           isImplicit = false,
           isVal      = true,
-          TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments),
+          TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments),
           NotImplemented,
           NoComments,
         ),
@@ -373,7 +371,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       val createElementField = FieldTree(
         annotations = Empty,
         name        = createElement,
-        tpe         = TypeRef.Dynamic,
+        tpe         = TypeRef.JsDynamic,
         impl        = ExprTree.native,
         isReadOnly  = true,
         isOverride  = false,
@@ -386,7 +384,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
           Annotation.JsNative,
         ), // todo global
         name,
-        IArray(TypeRef.Object),
+        IArray(TypeRef.JsObject),
         IArray(createElementField),
         Minimization.KeepMarker + Marker.ManglerLeaveAlone,
         ReactRawCp,
@@ -415,11 +413,18 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       val compArgs           = Select(Ref(compParam.name), Name("args"))
       val args0              = Call(compArgs, IArray(IArray(NumberLit("0"))))
       val reactRawName       = Ref(ReactRaw.name)
-      val createElementApply = Select(Select(reactRawName, Name("createElement")), Name("applyDynamic"))
+      val createElementApply = reactRawName.select("createElement", "applyDynamic")
       val ret                = Name("ret")
 
       def inDevMode(expr: ExprTree) =
-        If(Unary("!", Ref(QualifiedName.linkingInfo_productionMode)), Block(expr), None)
+        If(
+          Unary(
+            "!",
+            Ref(QualifiedName.scala_scalajs).select("runtime", "linkingInfo", "productionMode"),
+          ),
+          Block(expr),
+          None,
+        )
 
       val impl = Block(
         inDevMode(

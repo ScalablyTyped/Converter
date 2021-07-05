@@ -105,9 +105,9 @@ object mod {
   
   @js.native
   trait ComponentClass[P]
-    extends ComponentType[P]
-       with Instantiable1[/* props */ P, Component[P, ComponentState]]
-       with Instantiable2[/* props */ P, /* context */ js.Any, Component[P, ComponentState]] {
+    extends Instantiable1[/* props */ P, Component[P, ComponentState]]
+       with Instantiable2[/* props */ P, /* context */ js.Any, Component[P, ComponentState]]
+       with ComponentType[P] {
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
     

@@ -6,7 +6,6 @@ import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 import org.scalablytyped.converter.internal.scalajs.flavours.GenBuilderClass.AvailableName
-import org.scalablytyped.converter.internal.scalajs.transforms.Mangler
 
 object JapgollyGenComponents {
 
@@ -14,7 +13,7 @@ object JapgollyGenComponents {
     val hasRequiredProps = propsInApply.exists(_.isRequired) || propsInBuilder.exists(_.isRequired)
   }
 
-  def SplitProps(reactNames: ReactNames, scope: TreeScope, enableLongApplyMethod: Boolean)(
+  def SplitProps(reactNames: ReactNamesProxy, scope: TreeScope, enableLongApplyMethod: Boolean)(
       allProps:              IArray[Prop],
   ): SplitProps = {
     object Ref {
@@ -27,9 +26,7 @@ object JapgollyGenComponents {
           }
     }
 
-    val isVdomNode = Set(
-      reactNames.ReactNode,
-      reactNames.ReactElement,
+    val isVdomNode = reactNames.isElementOrNode ++ Set(
       JapgollyNames.vdom.VdomNode,
       JapgollyNames.vdom.ReactElement,
       JapgollyNames.vdom.Array,
@@ -43,8 +40,8 @@ object JapgollyGenComponents {
         /* we have special syntax already for `withKey` */
         case (names.key, _) => true
         /* we have special syntax for passing children already, as long as they are react nodes */
-        case (names.children, TypeRef(qname, _, _)) => isVdomNode(qname)
-        case _                                      => false
+        case (names.children, tpe) => isVdomNode(tpe.typeName)
+        case _                     => false
       }
 
     val (refTypes: IArray[TypeRef], _, filteredProps: IArray[Prop]) = allProps.partitionCollect2(
@@ -160,7 +157,7 @@ object JapgollyGenComponents {
 class JapgollyGenComponents(
     findProps:             FindProps,
     genStBuilder:          JapgollyGenStBuildingComponent,
-    reactNames:            ReactNames,
+    reactNames:            ReactNamesProxy,
     enableLongApplyMethod: Boolean,
 ) {
   import JapgollyGenComponents._
@@ -324,8 +321,8 @@ class JapgollyGenComponents(
         scope
           .lookup(value.typeName)
           .collectFirst { case (_: ClassTree, _) => value }
-          .getOrElse(TypeRef.Intersection(IArray(value, TypeRef.Object), NoComments))
-      case None => TypeRef.Object
+          .getOrElse(TypeRef.Intersection(IArray(value, TypeRef.JsObject), NoComments))
+      case None => TypeRef.JsObject
     }
 
   def genComponent(pkgCp: QualifiedName, builderLookup: BuildersByGroup)(c: Component): ModuleTree = {
@@ -446,7 +443,7 @@ class JapgollyGenComponents(
           builderRef,
           IArray(
             Call(
-              Ref(QualifiedName.Array),
+              Ref(QualifiedName.JsArray),
               IArray(
                 IArray(
                   Ref(QualifiedName(IArray(Name.THIS, names.component))),
@@ -458,7 +455,9 @@ class JapgollyGenComponents(
         )
 
         Block.flatten(
-          IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(cm.initializers.map(_.value))))),
+          IArray(
+            Val(objName, Call(Ref(QualifiedName.JsDynamic).select("literal"), IArray(cm.initializers.map(_.value)))),
+          ),
           cm.mutators.map(f => f.value(Ref(objName))),
           IArray(newed),
         )
@@ -507,9 +506,12 @@ class JapgollyGenComponents(
             builderRef,
             IArray(
               Call(
-                Ref(QualifiedName.Array),
+                Ref(QualifiedName.JsArray),
                 IArray(
-                  IArray(Ref(QualifiedName(IArray(Name.THIS, names.component))), Ref(QualifiedName.DictionaryEmpty)),
+                  IArray(
+                    Ref(QualifiedName(IArray(Name.THIS, names.component))),
+                    Select(Ref(QualifiedName.JsDictionary), Name("empty")),
+                  ),
                 ),
               ),
             ),
@@ -556,8 +558,10 @@ class JapgollyGenComponents(
         builderRef,
         IArray(
           Call(
-            Ref(QualifiedName.Array),
-            IArray(IArray(Ref(QualifiedName(IArray(Name.THIS, names.component))), Cast(Ref(param.name), TypeRef.Any))),
+            Ref(QualifiedName.JsArray),
+            IArray(
+              IArray(Ref(QualifiedName(IArray(Name.THIS, names.component))), Cast(Ref(param.name), TypeRef.JsAny)),
+            ),
           ),
         ),
       )
@@ -594,7 +598,7 @@ class JapgollyGenComponents(
         FieldTree(
           annotations = IArray(Annotation.JsNative, location),
           name        = names.component,
-          tpe         = TypeRef.Object,
+          tpe         = TypeRef.JsObject,
           impl        = ExprTree.native,
           isReadOnly  = true,
           isOverride  = false,
@@ -712,7 +716,7 @@ class JapgollyGenComponents(
           Name("args"),
           isImplicit = false,
           isVal      = true,
-          TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments),
+          TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments),
           NotImplemented,
           NoComments,
         ),

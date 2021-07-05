@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 
 import org.scalablytyped.converter.internal.scalajs._
-import org.scalablytyped.converter.internal.scalajs.transforms.{CleanIllegalNames, Mangler}
+import org.scalablytyped.converter.internal.scalajs.transforms.CleanIllegalNames
 import org.scalablytyped.converter.internal.ts._
 
 object ImportEnum {
@@ -170,7 +170,7 @@ object ImportEnum {
                 val memberValue: Option[Tree] =
                   if (isValue) {
                     val (anns, name) =
-                      if (illegalNames.Illegal(memberName) || ObjectMembers.byName.contains(memberName))
+                      if (illegalNames.Illegal(memberName) || ScalaJsClasses.jsObjectMembersByName.contains(memberName))
                         (IArray(Annotation.JsName(memberName)), memberName.withSuffix(""))
                       else (Empty, memberName)
 

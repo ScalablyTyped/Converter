@@ -34,7 +34,7 @@ object ComponentElement {
     def setRefNull: Self = StObject.set(x, "ref", null)
     
     @scala.inline
-    def setRefRefObject(value: ReactRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
+    def setRefReactRef(value: ReactRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)

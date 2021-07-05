@@ -3,6 +3,7 @@ package typingsJapgolly.componentstest
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactMouseEventFrom
+import org.scalajs.dom.raw.Element
 import org.scalajs.dom.raw.HTMLDivElement
 import typingsJapgolly.componentstest.anon.Equals
 import typingsJapgolly.react.mod.CSSProperties
@@ -162,7 +163,7 @@ object mod {
     implicit class CardPropsMutableBuilder[Self <: CardProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def setOnClick(value: ReactMouseEventFrom[HTMLDivElement] => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement]) => value(t0).runNow()))
+      def setOnClick(value: ReactMouseEventFrom[HTMLDivElement with Element] => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement with Element]) => value(t0).runNow()))
       
       @scala.inline
       def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)

@@ -6,7 +6,7 @@ import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.maps._
 
 class IdentifyReactComponents(
-    reactNames:             ReactNames,
+    reactNames:             ReactNamesProxy,
     parentsResolver:        ParentsResolver,
     enableReactTreeShaking: Selection[Name],
 ) {
@@ -169,7 +169,7 @@ class IdentifyReactComponents(
   def maybeMethodComponent(method: MethodTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
       if (reactNames.isElement(current.typeName)) Some(current)
-      else if (current === TypeRef.Any)
+      else if (current === TypeRef.JsAny)
         Some(current) // unfortunately this conforms on the TS side, let's see how it works out
       else if (scope.isAbstract(current)) None
       else
@@ -195,7 +195,7 @@ class IdentifyReactComponents(
           case _: ClassTree => false
           case _ => true
         }
-        val propsRef = PropsRef(flattenedParams.headOption.map(_.tpe).getOrElse(TypeRef.Object))
+        val propsRef = PropsRef(flattenedParams.headOption.map(_.tpe).getOrElse(TypeRef.JsObject))
         def validName =
           isUpper(method.name) || (Unnamed(method.name) && (isUpper(owner.name) || Unnamed(owner.name) || owner.name === Name.mod))
 
@@ -334,7 +334,7 @@ class IdentifyReactComponents(
     )
     def isAliasToFC: Option[Component] =
       FollowAliases(scope)(field.tpe) match {
-        case TypeRef.Function(paramTypes, ret) =>
+        case TypeRef.JsFunction(paramTypes, ret) =>
           val params =
             paramTypes.map(tpe =>
               ParamTree(Name.dummy, isImplicit = false, isVal = false, tpe, NotImplemented, NoComments),

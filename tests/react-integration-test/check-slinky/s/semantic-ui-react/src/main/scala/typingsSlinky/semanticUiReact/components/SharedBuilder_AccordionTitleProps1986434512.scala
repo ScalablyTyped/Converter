@@ -33,9 +33,6 @@ class SharedBuilder_AccordionTitleProps1986434512[R <: js.Object] (val args: js.
   def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
   
   @scala.inline
-  def contentReactElement(value: ReactElement): this.type = set("content", value.asInstanceOf[js.Any])
-  
-  @scala.inline
   def icon(
     value: SemanticShorthandItem[
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _

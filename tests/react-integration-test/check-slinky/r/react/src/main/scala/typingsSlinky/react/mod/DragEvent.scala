@@ -1,7 +1,6 @@
 package typingsSlinky.react.mod
 
 import org.scalajs.dom.raw.DataTransfer
-import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
@@ -9,7 +8,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait DragEvent[T] extends MouseEvent[T, Event] {
+trait DragEvent[T] extends MouseEvent[T, NativeDragEvent] {
   
   var dataTransfer: DataTransfer = js.native
 }
@@ -36,7 +35,7 @@ object DragEvent {
     metaKey: Boolean,
     movementX: Double,
     movementY: Double,
-    nativeEvent: Event,
+    nativeEvent: NativeDragEvent,
     pageX: Double,
     pageY: Double,
     persist: () => Unit,

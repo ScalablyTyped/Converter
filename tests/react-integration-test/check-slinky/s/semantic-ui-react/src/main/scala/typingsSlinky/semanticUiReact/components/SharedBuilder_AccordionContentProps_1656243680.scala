@@ -1,6 +1,5 @@
 package typingsSlinky.semanticUiReact.components
 
-import slinky.core.facade.ReactElement
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandContent
@@ -25,7 +24,4 @@ class SharedBuilder_AccordionContentProps_1656243680 (val args: js.Array[js.Any]
   
   @scala.inline
   def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
-  
-  @scala.inline
-  def contentReactElement(value: ReactElement): this.type = set("content", value.asInstanceOf[js.Any])
 }

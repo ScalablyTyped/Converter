@@ -1,6 +1,6 @@
 package typingsJapgolly.stardustUiReactComponentRef
 
-import japgolly.scalajs.react.raw.React.Ref
+import typingsJapgolly.react.mod.Ref
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -19,5 +19,5 @@ object handleRefMod {
     * @param node A node that should be passed by ref
     */
   @scala.inline
-  def default[N](ref: Ref, node: N): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("default")(ref.asInstanceOf[js.Any], node.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  def default[N](ref: Ref[N], node: N): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("default")(ref.asInstanceOf[js.Any], node.asInstanceOf[js.Any])).asInstanceOf[Unit]
 }

@@ -96,7 +96,7 @@ object view {
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
-       with StBuildingComponent[tag.type, SVGViewElement with js.Object] {
+       with StBuildingComponent[tag.type, SVGViewElement] {
     
     @scala.inline
     def accentHeight(value: Double | String): this.type = set("accentHeight", value.asInstanceOf[js.Any])

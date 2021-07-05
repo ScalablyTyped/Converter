@@ -1,8 +1,6 @@
 package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.raw.React.DomElement
-import japgolly.scalajs.react.raw.React.RefHandle
 import org.scalajs.dom.raw.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
@@ -18,14 +16,14 @@ trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Elemen
 object DOMElement {
   
   @scala.inline
-  def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: js.Any, `type`: js.Any): DomElement = {
+  def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: js.Any, `type`: js.Any): DOMElement[P, T] = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null, ref = null)
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    __obj.asInstanceOf[DomElement]
+    __obj.asInstanceOf[DOMElement[P, T]]
   }
   
   @scala.inline
-  implicit class DOMElementMutableBuilder[Self <: DomElement, P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] (val x: Self with DomElement) extends AnyVal {
+  implicit class DOMElementMutableBuilder[Self <: DOMElement[_, _], P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] (val x: Self with (DOMElement[P, T])) extends AnyVal {
     
     @scala.inline
     def setRef(value: LegacyRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
@@ -35,8 +33,5 @@ object DOMElement {
     
     @scala.inline
     def setRefNull: Self = StObject.set(x, "ref", null)
-    
-    @scala.inline
-    def setRefRefObject(value: RefHandle[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
   }
 }

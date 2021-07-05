@@ -91,7 +91,7 @@ case class Repo(version: String)(implicit val wd: os.Path) {
 }
 
 def mustHave(name: String) =
-    sys.env.getOrElse(name, sys.error(s"Set env $name"))
+  sys.env.getOrElse(name, sys.error(s"Set env $name"))
 
 @main
 def doRelease(version: String): Int = {

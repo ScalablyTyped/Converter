@@ -77,7 +77,12 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
 
   test("export alias") {
     shouldParseAs("""export * from "aphrodite"""", TsParser.tsExport)(
-      TsExport(NoComments, typeOnly = false, ExportType.Named, TsExportee.Star(None, TsIdentModule.simple("aphrodite"))),
+      TsExport(
+        NoComments,
+        typeOnly = false,
+        ExportType.Named,
+        TsExportee.Star(None, TsIdentModule.simple("aphrodite")),
+      ),
     )
   }
 

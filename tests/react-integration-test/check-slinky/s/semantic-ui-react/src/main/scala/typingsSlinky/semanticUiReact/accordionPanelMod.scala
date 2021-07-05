@@ -27,8 +27,8 @@ object accordionPanelMod {
   
   @js.native
   trait AccordionPanelProps
-    extends StrictAccordionPanelProps
-       with /* key */ StringDictionary[js.Any]
+    extends /* key */ StringDictionary[js.Any]
+       with StrictAccordionPanelProps
   object AccordionPanelProps {
     
     @scala.inline

@@ -94,6 +94,14 @@ lazy val `sbt-converter` = project
     libraryDependencies ++= Seq(Deps.awssdkS3, Deps.java8Compat),
   )
 
+lazy val `import-scalajs-definitions` = project
+  .configure(baseSettings)
+  .dependsOn(importer)
+  .settings(
+    libraryDependencies ++= List("org.scala-lang" % "scalap" % scalaVersion.value),
+    publish / skip := true,
+  )
+
 lazy val root = project
   .in(file("."))
   .settings(

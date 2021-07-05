@@ -26,9 +26,6 @@ object StrictHtmlSpanProps {
     def setChildren(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def setChildrenReactElement(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
-    
-    @scala.inline
     def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
   }
 }

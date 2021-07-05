@@ -245,9 +245,6 @@ object mod {
       def setRenderTag(value: ReactType[_]): Self = StObject.set(x, "renderTag", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRenderTagComponentClass(value: ComponentClassP[js.Object]): Self = StObject.set(x, "renderTag", value.asInstanceOf[js.Any])
-      
-      @scala.inline
       def setRenderTagUndefined: Self = StObject.set(x, "renderTag", js.undefined)
     }
   }

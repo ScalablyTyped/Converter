@@ -71,7 +71,7 @@ object CompleteClass {
       ms.groupBy(_.name)
         .foreach {
           case (_, IArray.exactlyOne(one)) => ret += one
-          case (_, sameName)               => ret ++= sameName.distinctBy(_.withCodePath(QualifiedName.Any))
+          case (_, sameName)               => ret ++= sameName.distinctBy(_.withCodePath(QualifiedName.JsAny))
         }
 
       ret.result()

@@ -139,8 +139,8 @@ object mod extends Shortcut {
     
     @js.native
     trait Command
-      extends EventEmitter
-         with /* key */ StringDictionary[js.Any] {
+      extends /* key */ StringDictionary[js.Any]
+         with EventEmitter {
       
       /**
         * Register callback `fn` for the command.

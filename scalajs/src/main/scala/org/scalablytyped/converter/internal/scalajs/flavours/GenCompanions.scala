@@ -140,7 +140,12 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
     val impl: ExprTree = {
       val objName = Name("__obj")
       Block.flatten(
-        IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(creatorMethod.initializers.map(_.value))))),
+        IArray(
+          Val(
+            objName,
+            Call(Ref(QualifiedName.JsDynamic).select("literal"), IArray(creatorMethod.initializers.map(_.value))),
+          ),
+        ),
         creatorMethod.mutators.map(f => f.value(Ref(objName))),
         IArray(Cast(Ref(QualifiedName(IArray(objName))), ret)),
       )

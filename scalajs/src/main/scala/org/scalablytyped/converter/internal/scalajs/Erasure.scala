@@ -26,11 +26,11 @@ object Erasure {
   def simplify(scope: TreeScope, tpe: TypeRef): QualifiedName =
     tpe.typeName match {
       case QualifiedName.UNDEFINED => QualifiedName.`|`
-      case QualifiedName.UndefOr   => QualifiedName.`|`
+      case QualifiedName.JsUndefOr => QualifiedName.`|`
       case QualifiedName.UNION     => QualifiedName.`|`
-      case QualifiedName.WILDCARD  => QualifiedName.ScalaAny
+      case QualifiedName.WILDCARD  => QualifiedName.Any
       case QualifiedName.THIS      => QualifiedName.THIS
-      case QualifiedName.REPEATED  => QualifiedName.JArray
+      case QualifiedName.REPEATED  => QualifiedName.Array
       // the way we fake literal means these are true enough
       case QualifiedName.STRING_LITERAL  => tpe.targs.head.typeName
       case QualifiedName.NUMBER_LITERAL  => tpe.targs.head.typeName
@@ -44,22 +44,22 @@ object Erasure {
 
         primitive.getOrElse {
           simplify(scope, tpe.targs.head) match {
-            case QualifiedName.Any if tpe.targs.length > 1 =>
+            case QualifiedName.JsAny if tpe.targs.length > 1 =>
               simplify(scope, tpe.targs(1)) match {
-                case QualifiedName.ScalaAny => QualifiedName.Any
-                case other                  => other
+                case QualifiedName.Any => QualifiedName.JsAny
+                case other             => other
               }
-            case QualifiedName.Object if tpe.targs.length > 1 =>
+            case QualifiedName.JsObject if tpe.targs.length > 1 =>
               simplify(scope, tpe.targs(1)) match {
-                case QualifiedName.ScalaAny => QualifiedName.Object
-                case other                  => other
+                case QualifiedName.Any => QualifiedName.JsObject
+                case other             => other
               }
             case other => other
           }
         }
 
       // if this is a type parameter
-      case QualifiedName(IArray.exactlyOne(head)) if scope.tparams.contains(head) => QualifiedName.ScalaAny
+      case QualifiedName(IArray.exactlyOne(head)) if scope.tparams.contains(head) => QualifiedName.Any
 
       // if run after FakeSingletons
       case name @ QualifiedName(parts) if parts.length > 2 && (tpe.comments.has[Marker.WasLiteral]) => name
@@ -69,7 +69,7 @@ object Erasure {
           .lookup(other)
           .collectFirst {
             case (x: TypeAliasTree, s) =>
-              if (x.alias.typeName === other) QualifiedName.ScalaAny
+              if (x.alias.typeName === other) QualifiedName.Any
               else simplify(s, FillInTParams(x, s, tpe.targs, Empty).alias)
             case (x: ClassTree, _) => x.codePath
           }

@@ -1,9 +1,12 @@
 package typingsJapgolly.react
 
 import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.raw.Empty
+import japgolly.scalajs.react.raw.JsNumber
 import japgolly.scalajs.react.raw.React.ComponentClassP
 import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
@@ -98,7 +101,16 @@ object mod {
       def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
       
       @scala.inline
+      def setChildrenNull: Self = StObject.set(x, "children", null)
+      
+      @scala.inline
       def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      
+      @scala.inline
+      def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
+      
+      @scala.inline
+      def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
       
       @scala.inline
       def setDangerouslySetInnerHTML(value: Html): Self = StObject.set(x, "dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
@@ -192,14 +204,14 @@ object mod {
   object ReactElement {
     
     @scala.inline
-    def apply(props: js.Any, `type`: String | ComponentClassP[js.Object] | SFC[_]): Element = {
+    def apply(props: js.Any, `type`: String | ComponentClassP[js.Object] | SFC[_]): ReactElement = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-      __obj.asInstanceOf[Element]
+      __obj.asInstanceOf[ReactElement]
     }
     
     @scala.inline
-    implicit class ReactElementMutableBuilder[Self <: Element] (val x: Self) extends AnyVal {
+    implicit class ReactElementMutableBuilder[Self <: ReactElement] (val x: Self) extends AnyVal {
       
       @scala.inline
       def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
@@ -212,9 +224,6 @@ object mod {
       
       @scala.inline
       def setType(value: String | ComponentClassP[js.Object] | SFC[_]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
-      
-      @scala.inline
-      def setTypeComponentClass(value: ComponentClassP[js.Object]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   

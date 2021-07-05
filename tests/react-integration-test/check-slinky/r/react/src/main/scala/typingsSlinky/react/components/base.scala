@@ -68,7 +68,7 @@ object base {
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
-       with StBuildingComponent[tag.type, HTMLBaseElement with js.Object] {
+       with StBuildingComponent[tag.type, HTMLBaseElement] {
     
     @scala.inline
     def about(value: String): this.type = set("about", value.asInstanceOf[js.Any])

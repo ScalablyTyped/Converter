@@ -2,6 +2,7 @@ package typingsJapgolly.componentstest.components
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
+import org.scalajs.dom.raw.Element
 import org.scalajs.dom.raw.HTMLDivElement
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.componentstest.mod.CardGridProps
@@ -34,7 +35,7 @@ object Card {
        with StBuildingComponent[js.Object] {
     
     @scala.inline
-    def onClick(value: ReactMouseEventFrom[HTMLDivElement] => Callback): this.type = set("onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement]) => value(t0).runNow()))
+    def onClick(value: ReactMouseEventFrom[HTMLDivElement with Element] => Callback): this.type = set("onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement with Element]) => value(t0).runNow()))
     
     @scala.inline
     def prefixCls(value: String): this.type = set("prefixCls", value.asInstanceOf[js.Any])

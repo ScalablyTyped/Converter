@@ -46,7 +46,7 @@ class FilterMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransf
       }
 
     val (inheritedMethods, inheritedFields, _) =
-      (ObjectMembers.members ++ IArray.fromTraversable(parents).flatMap(_._2.members)).partitionCollect2(
+      (ScalaJsClasses.jsObjectMembers ++ IArray.fromTraversable(parents).flatMap(_._2.members)).partitionCollect2(
         { case x: MethodTree => x },
         { case x: FieldTree  => x },
       )
@@ -73,7 +73,8 @@ class FilterMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransf
 
     val newFields: IArray[FieldTree] = fields.flatMap { f =>
       allMethods.get(f.name) match {
-        case Some(ms) if ms.exists(_.params.flatten.length === 0) || ObjectMembers.members.exists(_.name === f.name) =>
+        case Some(ms)
+            if ms.exists(_.params.flatten.length === 0) || ScalaJsClasses.jsObjectMembers.exists(_.name === f.name) =>
           if (alreadySuffixed) Empty else IArray(f.withSuffix("F" + owner.name.value))
         case _ =>
           inheritedFieldsByName.get(f.name) match {
@@ -81,7 +82,7 @@ class FilterMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransf
               /* but to retain a field with a different type, we rename it */
               val withSuffix = f.withSuffix(owner.name)
 
-              if (f.tpe === TypeRef.Any || f.tpe === TypeRef.Nothing || (conflicting.exists(_.tpe === f.tpe)))
+              if (f.tpe === TypeRef.JsAny || f.tpe === TypeRef.Nothing || (conflicting.exists(_.tpe === f.tpe)))
                 /* there is no point in emitting duplicate fields */
                 Empty
               else if (allFields.contains(withSuffix.name)) Empty
@@ -96,7 +97,8 @@ class FilterMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransf
 
     val newModules: IArray[ModuleTree] = modules.flatMap { m =>
       allMethods.get(m.name) match {
-        case Some(ms) if ms.exists(_.params.flatten.length === 0) || ObjectMembers.members.exists(_.name === m.name) =>
+        case Some(ms)
+            if ms.exists(_.params.flatten.length === 0) || ScalaJsClasses.jsObjectMembers.exists(_.name === m.name) =>
           Empty
         case _ => IArray(m)
       }

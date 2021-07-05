@@ -75,7 +75,7 @@ object mod {
     * @param node A node that should be passed by ref
     */
   @scala.inline
-  def handleRef[N](ref: japgolly.scalajs.react.raw.React.Ref, node: N): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("handleRef")(ref.asInstanceOf[js.Any], node.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  def handleRef[N](ref: typingsJapgolly.react.mod.Ref[N], node: N): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("handleRef")(ref.asInstanceOf[js.Any], node.asInstanceOf[js.Any])).asInstanceOf[Unit]
   
   /** Checks that the passed object is a valid React ref object. */
   @scala.inline

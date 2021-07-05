@@ -390,7 +390,7 @@ class ImportTree(
             name.parts match {
               case IArray.exactlyTwo(TsIdent.Symbol, sym) if KnownSymbols(sym.value) =>
                 val symName    = ImportName.skipConversion(sym)
-                val a          = Annotation.JsNameSymbol(QualifiedName.Symbol + symName)
+                val a          = Annotation.JsNameSymbol(QualifiedName.JsSymbol + symName)
                 val isOptional = m.valueType.exists(tpe => OptionalType.unapply(tpe).isDefined)
                 val fieldType: ImplTree =
                   (scalaJsDefined, isOptional) match {
@@ -545,7 +545,7 @@ class ImportTree(
           val tpe = sig.resultType
             .filter(_ =/= TsTypeRef.any)
             .map(importType(Wildcards.No, scope, importName))
-            .getOrElse(TypeRef.Any)
+            .getOrElse(TypeRef.JsAny)
           (name, tpe)
       }
 

@@ -11,13 +11,14 @@ case class JapgollyFlavour(
     scalaVersion:           Versions.Scala,
     enableReactTreeShaking: Selection[Name],
 ) extends FlavourImplReact {
+  override val rewrites      = JapgollyTypeConversions(reactNames, scalaJsDomNames)
   override val dependencies  = Set(Versions.runtime, Versions.scalajsReact)
-  val rewriter               = new CastConversion.TypeRewriterCast(JapgollyTypeConversions(reactNames, scalaJsDomNames))
-  val memberToPro            = new JapgollyMemberToProp(reactNames, rewriter)
+  val memberToPro            = new JapgollyMemberToProp(reactNamesProxy, rewrites)
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToPro, parentsResolver)
   val genStBuildingComponent = new JapgollyGenStBuildingComponent(outputPkg, scalaVersion)
-  val genComponents          = new JapgollyGenComponents(findProps, genStBuildingComponent, reactNames, enableLongApplyMethod)
-  val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod)
+  val genComponents =
+    new JapgollyGenComponents(findProps, genStBuildingComponent, reactNamesProxy, enableLongApplyMethod)
+  val genCompanions = new GenCompanions(findProps, enableLongApplyMethod)
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
     val withCompanions = genCompanions.visitPackageTree(scope)(tree)
@@ -36,8 +37,6 @@ case class JapgollyFlavour(
 
       } else withCompanions
 
-    rewriter.visitPackageTree(scope)(withComponents)
+    withComponents
   }
-
-  override val rewritesOpt: Option[CastConversion.TypeRewriterCast] = Some(rewriter)
 }

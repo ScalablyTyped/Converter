@@ -10,7 +10,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait RefForwardingComponent[T, P] extends StObject {
   
-  def apply(props: PropsWithChildren[P], ref: japgolly.scalajs.react.raw.React.Ref): Element | Null = js.native
+  def apply(props: PropsWithChildren[P], ref: Ref[T]): Element | Null = js.native
   
   var contextTypes: js.UndefOr[ValidationMap[_]] = js.native
   

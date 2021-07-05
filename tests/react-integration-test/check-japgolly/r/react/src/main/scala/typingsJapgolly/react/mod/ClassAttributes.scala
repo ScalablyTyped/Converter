@@ -1,7 +1,6 @@
 package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.raw.React.RefHandle
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -31,9 +30,6 @@ object ClassAttributes {
     
     @scala.inline
     def setRefNull: Self = StObject.set(x, "ref", null)
-    
-    @scala.inline
-    def setRefRefObject(value: RefHandle[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
     
     @scala.inline
     def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)

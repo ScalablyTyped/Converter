@@ -17,9 +17,9 @@ object anon {
   object Children {
     
     @scala.inline
-    def apply(children: VdomNode = null): Children = {
+    def apply(children: js.UndefOr[Null | VdomNode] = js.undefined): Children = {
       val __obj = js.Dynamic.literal()
-      if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
+      if (!js.isUndefined(children)) __obj.updateDynamic("children")(if (children != null) children.asInstanceOf[VdomNode].rawNode.asInstanceOf[js.Any] else null)
       __obj.asInstanceOf[Children]
     }
   }

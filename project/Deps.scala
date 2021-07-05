@@ -16,6 +16,6 @@ object Deps {
   val circe: Seq[ModuleID] =
     Seq(
       "org.scalablytyped.circe013" %% "circe-generic" % "0.13.0-shaded-2",
-      "org.scalablytyped.circe013" %% "circe-jackson29" % "0.13.0-shaded-2"
+      "org.scalablytyped.circe013" %% "circe-jackson29" % "0.13.0-shaded-2",
     )
 }

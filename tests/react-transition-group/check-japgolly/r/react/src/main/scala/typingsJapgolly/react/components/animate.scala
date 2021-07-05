@@ -12,7 +12,7 @@ object animate {
   
   val component: String = "animate"
   
-  implicit def make(companion: animate.type): Default[SVGElement with js.Object] = new Default[SVGElement with js.Object](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: animate.type): Default[SVGElement] = new Default[SVGElement](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: ClassAttributes[SVGElement]): Default[SVGElement with js.Object] = new Default[SVGElement with js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: ClassAttributes[SVGElement]): Default[SVGElement] = new Default[SVGElement](js.Array(this.component, p.asInstanceOf[js.Any]))
 }
