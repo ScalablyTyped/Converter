@@ -85,7 +85,8 @@ class Phase2ToScalaJs(
               new S.FilterMemberOverrides(erasure(), parentResolver()).visitPackageTree(scope), //
               new S.InferMemberOverrides(erasure(), parentResolver())
                 .visitPackageTree(scope), //runs in phase after FilterMemberOverrides
-              new S.CompleteClass(erasure(), parentResolver()).visitPackageTree(scope), //after FilterMemberOverrides
+              new S.CompleteClass(erasure(), parentResolver(), scalaVersion)
+                .visitPackageTree(scope), //after FilterMemberOverrides
             )
 
             val importName = AdaptiveNamingImport(

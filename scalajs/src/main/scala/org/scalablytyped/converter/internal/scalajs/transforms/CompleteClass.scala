@@ -17,7 +17,8 @@ import CompleteClass._
   * weirdly enough.
   *
   */
-class CompleteClass(erasure: Erasure, parentsResolver: ParentsResolver) extends TreeTransformation {
+class CompleteClass(erasure: Erasure, parentsResolver: ParentsResolver, scalaVersion: Versions.Scala)
+    extends TreeTransformation {
 
   override def leaveClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
     val parents = parentsResolver(scope, cls)
@@ -38,7 +39,14 @@ class CompleteClass(erasure: Erasure, parentsResolver: ParentsResolver) extends 
       .flatMapToIArray { case (_, v) => v.members }
       .collect {
         case x: FieldTree if x.impl === NotImplemented && !c.index.contains(x.name) =>
-          x.copy(isOverride = true, impl = ExprTree.native, comments = x.comments + Comment("/* CompleteClass */\n"))
+          // workaround https://github.com/lampepfl/dotty/issues/13019
+          val isOverride = if (scalaVersion.is3 && !x.isReadOnly) false else true
+
+          x.copy(
+            isOverride = isOverride,
+            impl       = ExprTree.native,
+            comments   = x.comments + Comment("/* CompleteClass */\n"),
+          )
         case x: MethodTree
             if x.impl === NotImplemented && !isAlreadyImplemented(erasure, scope, x, c.index.get(x.name)) =>
           x.copy(isOverride = true, impl = ExprTree.native, comments = x.comments + Comment("/* CompleteClass */\n"))
