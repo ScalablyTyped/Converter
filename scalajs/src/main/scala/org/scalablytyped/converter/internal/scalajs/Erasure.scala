@@ -67,7 +67,12 @@ class Erasure(scalaVersion: Versions.Scala) {
       case QualifiedName.BOOLEAN_LITERAL => tpe.targs.head.typeName
 
       case QualifiedName.INTERSECTION if scalaVersion.is3 =>
-        val fromClass: Option[QualifiedName] =
+        // this is not in the spec, but for instance `foo(String & Double)` clashes with `foo(Double)` regardless of order, etc
+        def fromPrimitive = tpe.targs.collectFirst {
+          case tr if TypeRef.Primitive(tr) => tr.typeName
+        }
+
+        def fromClass: Option[QualifiedName] =
           tpe.targs.firstDefined { t =>
             scope.lookup(simplify(scope, t)).collectFirst {
               case (ClassTree(_, _, _, _, _, _, _, ClassType.Class, _, _, codePath), _) => codePath
@@ -77,7 +82,7 @@ class Erasure(scalaVersion: Versions.Scala) {
         def fromAlphabetic: QualifiedName =
           tpe.targs.map(targ => simplify(scope, targ)).min(ByName)
 
-        fromClass.getOrElse(fromAlphabetic)
+        fromPrimitive.orElse(fromClass).getOrElse(fromAlphabetic)
 
       /* approximate intersections. scalac seems to use the first type, unless that is a supertype of a later mentioned type */
       case QualifiedName.INTERSECTION =>
