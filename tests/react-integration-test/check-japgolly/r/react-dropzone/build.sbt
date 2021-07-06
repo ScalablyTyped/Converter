@@ -1,13 +1,13 @@
 organization := "org.scalablytyped"
 name := "react-dropzone"
-version := "10.1.10-8786c8"
+version := "10.1.10-4245a8"
 scalaVersion := "3.0.1-RC2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
+  "com.github.japgolly.scalajs-react" %%% "core" % "2.0.0-RC1",
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2",
-  "org.scalablytyped" %%% "react" % "16.9.2-a893c4",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-e15da5",
-  ("com.github.japgolly.scalajs-react" %%% "core" % "1.7.5").cross(CrossVersion.for3Use2_13))
+  "org.scalablytyped" %%% "react" % "16.9.2-f86faf",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-98329d")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-feature", "-language:implicitConversions", "-language:higherKinds", "-language:existentials", "-no-indent")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

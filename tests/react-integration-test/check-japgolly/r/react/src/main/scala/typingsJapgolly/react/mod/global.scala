@@ -15,7 +15,7 @@ object global {
   object JSX {
     
     // tslint:disable-next-line:no-empty-interface
-    type Element = japgolly.scalajs.react.raw.React.Element
+    type Element = japgolly.scalajs.react.facade.React.Element
     
     @js.native
     trait ElementAttributesProperty extends StObject

@@ -3,7 +3,7 @@ package typingsJapgolly.reactDropzone
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactDragEventFrom
 import japgolly.scalajs.react.ReactEventFrom
-import japgolly.scalajs.react.raw.React.RefHandle
+import japgolly.scalajs.react.facade.React.RefHandle
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.DragEvent
 import org.scalajs.dom.raw.Event

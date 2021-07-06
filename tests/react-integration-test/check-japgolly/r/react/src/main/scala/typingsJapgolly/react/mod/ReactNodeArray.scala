@@ -1,6 +1,6 @@
 package typingsJapgolly.react.mod
 
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.facade.React.Node
 import typingsJapgolly.std.Array
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js

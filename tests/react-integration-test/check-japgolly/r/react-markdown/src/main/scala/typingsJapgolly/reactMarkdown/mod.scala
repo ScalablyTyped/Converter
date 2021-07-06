@@ -1,8 +1,8 @@
 package typingsJapgolly.reactMarkdown
 
-import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.ElementType
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.facade.React.Element
+import japgolly.scalajs.react.facade.React.ElementType
+import japgolly.scalajs.react.facade.React.Node
 import org.scalablytyped.runtime.StringDictionary
 import org.scalablytyped.runtime.TopLevel
 import org.scalablytyped.runtime.StObject
