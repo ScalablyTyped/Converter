@@ -13,10 +13,9 @@ object bootstrapUtilsMod {
   @scala.inline
   def getBsProps(props: js.Any): BSProps = ^.asInstanceOf[js.Dynamic].applyDynamic("getBsProps")(props.asInstanceOf[js.Any]).asInstanceOf[BSProps]
   
-  @js.native
   trait BSProps extends StObject {
     
-    var bsClass: js.Any = js.native
+    var bsClass: js.Any
   }
   object BSProps {
     

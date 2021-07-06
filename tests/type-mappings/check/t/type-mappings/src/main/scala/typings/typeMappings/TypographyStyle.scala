@@ -5,22 +5,21 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined std.Required<std.Pick<type-mappings.CSSProperties, 'fontFamily' | 'fontSize' | 'fontWeight' | 'color'>> & std.Partial<std.Pick<type-mappings.CSSProperties, 'letterSpacing' | 'lineHeight' | 'textTransform'>> */
-@js.native
 trait TypographyStyle extends StObject {
   
-  var color: String = js.native
+  var color: String
   
-  var fontFamily: String = js.native
+  var fontFamily: String
   
-  var fontSize: String = js.native
+  var fontSize: String
   
-  var fontWeight: String = js.native
+  var fontWeight: String
   
-  var letterSpacing: js.UndefOr[String] = js.native
+  var letterSpacing: js.UndefOr[String] = js.undefined
   
-  var lineHeight: js.UndefOr[String] = js.native
+  var lineHeight: js.UndefOr[String] = js.undefined
   
-  var textTransform: js.UndefOr[String] = js.native
+  var textTransform: js.UndefOr[String] = js.undefined
 }
 object TypographyStyle {
   

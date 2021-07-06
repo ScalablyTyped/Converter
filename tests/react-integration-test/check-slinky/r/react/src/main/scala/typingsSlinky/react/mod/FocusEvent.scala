@@ -5,15 +5,14 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait FocusEvent[T]
   extends StObject
      with BaseSyntheticEvent[NativeFocusEvent, EventTarget & T, EventTarget] {
   
-  var relatedTarget: EventTarget = js.native
+  var relatedTarget: EventTarget
   
   @JSName("target")
-  var target_FocusEvent: EventTarget & T = js.native
+  var target_FocusEvent: EventTarget & T
 }
 object FocusEvent {
   

@@ -4,14 +4,13 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait ReactElement extends StObject {
   
-  var key: Key | Null = js.native
+  var key: Key | Null
   
-  var props: js.Any = js.native
+  var props: js.Any
   
-  var `type`: js.Any = js.native
+  var `type`: js.Any
 }
 object ReactElement {
   

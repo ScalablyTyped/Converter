@@ -98,10 +98,9 @@ object mod extends Shortcut {
     def global_=(x: ChartOptions & ChartFontOptions): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("global")(x.asInstanceOf[js.Any])
   }
   
-  @js.native
   trait ChartData extends StObject {
     
-    var labels: js.UndefOr[js.Array[String | js.Array[String]]] = js.native
+    var labels: js.UndefOr[js.Array[String | js.Array[String]]] = js.undefined
   }
   object ChartData {
     
@@ -125,10 +124,9 @@ object mod extends Shortcut {
     }
   }
   
-  @js.native
   trait ChartFontOptions extends StObject {
     
-    var foo: Boolean = js.native
+    var foo: Boolean
   }
   object ChartFontOptions {
     
@@ -146,13 +144,12 @@ object mod extends Shortcut {
     }
   }
   
-  @js.native
   trait ChartOptions extends StObject {
     
     // Plugins can require any options
-    var plugins: js.UndefOr[StringDictionary[js.Any]] = js.native
+    var plugins: js.UndefOr[StringDictionary[js.Any]] = js.undefined
     
-    var responsive: js.UndefOr[Boolean] = js.native
+    var responsive: js.UndefOr[Boolean] = js.undefined
   }
   object ChartOptions {
     

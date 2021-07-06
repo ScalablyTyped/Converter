@@ -29,14 +29,13 @@ object mod {
   @js.native
   val ObjectNames: ReactComponentClass[Equals] = js.native
   
-  @js.native
   trait A
     extends StObject
        with Props {
     
-    def aCallback(): Double = js.native
+    def aCallback(): Double
     
-    var aMember: Double = js.native
+    var aMember: Double
   }
   object A {
     
@@ -57,14 +56,13 @@ object mod {
     }
   }
   
-  @js.native
   trait B
     extends StObject
        with Props {
     
-    var bCallback: js.UndefOr[js.Function0[String]] = js.native
+    var bCallback: js.UndefOr[js.Function0[String]] = js.undefined
     
-    var bMember: String = js.native
+    var bMember: String
   }
   object B {
     
@@ -88,16 +86,15 @@ object mod {
     }
   }
   
-  @js.native
   trait CardGridProps extends StObject {
     
-    var className: js.UndefOr[String] = js.native
+    var className: js.UndefOr[String] = js.undefined
     
-    var hoverable: js.UndefOr[Boolean] = js.native
+    var hoverable: js.UndefOr[Boolean] = js.undefined
     
-    var prefixCls: js.UndefOr[String] = js.native
+    var prefixCls: js.UndefOr[String] = js.undefined
     
-    var style: js.UndefOr[CSSProperties] = js.native
+    var style: js.UndefOr[CSSProperties] = js.undefined
   }
   object CardGridProps {
     
@@ -145,12 +142,11 @@ object mod {
   }
   
   /* Inlined parent std.Omit<std.Pick<react.react.HTMLAttributes<std.HTMLDivElement>, 'title' | 'onClick'>, 'title'> */
-  @js.native
   trait CardProps extends StObject {
     
-    var onClick: js.UndefOr[MouseEventHandler[HTMLDivElement]] = js.native
+    var onClick: js.UndefOr[MouseEventHandler[HTMLDivElement]] = js.undefined
     
-    var prefixCls: js.UndefOr[String] = js.native
+    var prefixCls: js.UndefOr[String] = js.undefined
   }
   object CardProps {
     

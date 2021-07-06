@@ -10,12 +10,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 // Browser Interfaces
 // https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
 // ----------------------------------------------------------------------
-@js.native
 trait AbstractView extends StObject {
   
-  var document: Document = js.native
+  var document: Document
   
-  var styleMedia: StyleMedia = js.native
+  var styleMedia: StyleMedia
 }
 object AbstractView {
   

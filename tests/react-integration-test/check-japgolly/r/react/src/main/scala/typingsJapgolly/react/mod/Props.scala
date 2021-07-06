@@ -28,14 +28,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   * };
   * ```
   */
-@js.native
 trait Props[T] extends StObject {
   
-  var children: js.UndefOr[Node] = js.native
+  var children: js.UndefOr[Node] = js.undefined
   
-  var key: js.UndefOr[Key] = js.native
+  var key: js.UndefOr[Key] = js.undefined
   
-  var ref: js.UndefOr[LegacyRef[T]] = js.native
+  var ref: js.UndefOr[LegacyRef[T]] = js.undefined
 }
 object Props {
   

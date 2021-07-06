@@ -13,7 +13,6 @@ object buttonOrMod extends Shortcut {
   @js.native
   val default: ReactComponentClass[ButtonOrProps] = js.native
   
-  @js.native
   trait ButtonOrProps
     extends StObject
        with StrictButtonOrProps
@@ -27,17 +26,16 @@ object buttonOrMod extends Shortcut {
     }
   }
   
-  @js.native
   trait StrictButtonOrProps extends StObject {
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.native
+    var as: js.UndefOr[js.Any] = js.undefined
     
     /** Additional classes. */
-    var className: js.UndefOr[String] = js.native
+    var className: js.UndefOr[String] = js.undefined
     
     /** Or buttons can have their text localized, or adjusted by using the text prop. */
-    var text: js.UndefOr[Double | String] = js.native
+    var text: js.UndefOr[Double | String] = js.undefined
   }
   object StrictButtonOrProps {
     

@@ -5,12 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined std.Record<type-mappings.Mark['type'], string> */
-@js.native
 trait Marking extends StObject {
   
-  var text: String = js.native
+  var text: String
   
-  var trail: String = js.native
+  var trail: String
 }
 object Marking {
   

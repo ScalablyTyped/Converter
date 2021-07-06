@@ -372,26 +372,25 @@ object vueMod {
     (CombinedVueInstance[Instance, Data, Methods, Computed, Props]) & typings.vue.vueMod.Vue
   ]
   
-  @js.native
   trait VueConfiguration extends StObject {
     
-    var devtools: Boolean = js.native
+    var devtools: Boolean
     
-    def errorHandler(err: Error, vm: typings.vue.vueMod.Vue, info: String): Unit = js.native
+    def errorHandler(err: Error, vm: typings.vue.vueMod.Vue, info: String): Unit
     
-    var ignoredElements: js.Array[String | RegExp] = js.native
+    var ignoredElements: js.Array[String | RegExp]
     
-    var keyCodes: StringDictionary[Double | js.Array[Double]] = js.native
+    var keyCodes: StringDictionary[Double | js.Array[Double]]
     
-    var optionMergeStrategies: js.Any = js.native
+    var optionMergeStrategies: js.Any
     
-    var performance: Boolean = js.native
+    var performance: Boolean
     
-    var productionTip: Boolean = js.native
+    var productionTip: Boolean
     
-    var silent: Boolean = js.native
+    var silent: Boolean
     
-    def warnHandler(msg: String, vm: typings.vue.vueMod.Vue, trace: String): Unit = js.native
+    def warnHandler(msg: String, vm: typings.vue.vueMod.Vue, trace: String): Unit
   }
   object VueConfiguration {
     

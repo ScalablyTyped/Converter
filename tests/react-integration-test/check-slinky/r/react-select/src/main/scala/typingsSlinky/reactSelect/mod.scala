@@ -13,7 +13,6 @@ object mod {
   @js.native
   class default[TValue] () extends ReactSelectClass[TValue]
   
-  @js.native
   trait Option[TValue]
     extends StObject
        with /**
@@ -23,7 +22,7 @@ object mod {
   /* property */ StringDictionary[js.Any] {
     
     /** Value for searching */
-    var value: js.UndefOr[TValue] = js.native
+    var value: js.UndefOr[TValue] = js.undefined
   }
   object Option {
     
@@ -55,7 +54,6 @@ object mod {
     def setValue(value: Option[TValue]): Unit = js.native
   }
   
-  @js.native
   trait ReactSelectProps[TValue]
     extends StObject
        with Props[ReactSelectClass[TValue]] {
@@ -64,7 +62,7 @@ object mod {
       * text to display when `allowCreate` is true.
       * @default 'Add "{label}"?'
       */
-    var addLabelText: js.UndefOr[String] = js.native
+    var addLabelText: js.UndefOr[String] = js.undefined
   }
   object ReactSelectProps {
     

@@ -8,14 +8,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @js.native
   trait AllHTMLAttributes[T]
     extends StObject
        with HTMLAttributes[T] {
     
-    var accept: js.UndefOr[String] = js.native
+    var accept: js.UndefOr[String] = js.undefined
     
-    var acceptCharset: js.UndefOr[String] = js.native
+    var acceptCharset: js.UndefOr[String] = js.undefined
   }
   object AllHTMLAttributes {
     
@@ -42,18 +41,15 @@ object mod {
     }
   }
   
-  @js.native
   trait ComponentClass[P] extends StObject
   
-  @js.native
   trait ComponentType[P] extends StObject
   
-  @js.native
   trait DOMAttributes[T] extends StObject {
     
-    var children: js.UndefOr[ReactNode] = js.native
+    var children: js.UndefOr[ReactNode] = js.undefined
     
-    var dangerouslySetInnerHTML: js.UndefOr[Html] = js.native
+    var dangerouslySetInnerHTML: js.UndefOr[Html] = js.undefined
   }
   object DOMAttributes {
     
@@ -80,12 +76,11 @@ object mod {
     }
   }
   
-  @js.native
   trait HTMLAttributes[T]
     extends StObject
        with DOMAttributes[T] {
     
-    var defaultChecked: js.UndefOr[Boolean] = js.native
+    var defaultChecked: js.UndefOr[Boolean] = js.undefined
   }
   object HTMLAttributes {
     
@@ -106,18 +101,17 @@ object mod {
     }
   }
   
-  @js.native
   trait HTMLProps[T]
     extends StObject
        with AllHTMLAttributes[T] {
     
-    var defaultValue: foo = js.native
+    var defaultValue: foo
     
-    var onChange: foo = js.native
+    var onChange: foo
     
-    var `type`: foo = js.native
+    var `type`: foo
     
-    var value: foo = js.native
+    var value: foo
   }
   object HTMLProps {
     

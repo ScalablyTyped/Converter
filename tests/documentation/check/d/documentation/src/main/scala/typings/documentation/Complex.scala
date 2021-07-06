@@ -4,10 +4,9 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait Complex extends StObject {
   
-  var a: (js.Function1[/* n */ Double, Unit]) | String = js.native
+  var a: (js.Function1[/* n */ Double, Unit]) | String
 }
 object Complex {
   

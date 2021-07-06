@@ -7,13 +7,12 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 //
 // Error Interfaces
 // ----------------------------------------------------------------------
-@js.native
 trait ErrorInfo extends StObject {
   
   /**
     * Captures which component contained the exception, and its ancestors.
     */
-  var componentStack: String = js.native
+  var componentStack: String
 }
 object ErrorInfo {
   

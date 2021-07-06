@@ -7,12 +7,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object hktMod {
   
-  @js.native
   trait HKT[URI, A] extends StObject {
     
-    val _A: A = js.native
+    val _A: A
     
-    val _URI: URI = js.native
+    val _URI: URI
   }
   object HKT {
     
@@ -35,13 +34,11 @@ object hktMod {
   
   type Type[URI /* <: URIS */, A] = /* import warning: importer.ImportType#apply Failed type conversion: fp-ts.fp-ts/lib/HKT.URI2HKT<A>[URI] */ js.Any
   
-  @js.native
   trait URI2HKT[A] extends StObject
   
-  @js.native
   trait URI2HKT2[L, A] extends StObject {
     
-    var Const: typings.fpTs.constMod.Const[L, A] = js.native
+    var Const: typings.fpTs.constMod.Const[L, A]
   }
   object URI2HKT2 {
     

@@ -7,14 +7,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 /**
   * defined in scheduler/tracing
   */
-@js.native
 trait SchedulerInteraction extends StObject {
   
-  var id: Double = js.native
+  var id: Double
   
-  var name: String = js.native
+  var name: String
   
-  var timestamp: Double = js.native
+  var timestamp: Double
 }
 object SchedulerInteraction {
   

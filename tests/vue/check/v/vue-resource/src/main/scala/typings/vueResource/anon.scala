@@ -66,30 +66,29 @@ object anon {
   }
   
   /* Inlined vue-resource.vuejs.HttpOptions & {  root :string} */
-  @js.native
   trait HttpOptionsrootstring extends StObject {
     
-    var before: js.UndefOr[js.Function1[/* request */ js.Any, js.Any]] = js.native
+    var before: js.UndefOr[js.Function1[/* request */ js.Any, js.Any]] = js.undefined
     
-    var body: js.UndefOr[js.Any] = js.native
+    var body: js.UndefOr[js.Any] = js.undefined
     
-    var credentials: js.UndefOr[Boolean] = js.native
+    var credentials: js.UndefOr[Boolean] = js.undefined
     
-    var emulateHTTP: js.UndefOr[Boolean] = js.native
+    var emulateHTTP: js.UndefOr[Boolean] = js.undefined
     
-    var emulateJSON: js.UndefOr[Boolean] = js.native
+    var emulateJSON: js.UndefOr[Boolean] = js.undefined
     
-    var headers: js.UndefOr[js.Any] = js.native
+    var headers: js.UndefOr[js.Any] = js.undefined
     
-    var method: js.UndefOr[String] = js.native
+    var method: js.UndefOr[String] = js.undefined
     
-    var params: js.UndefOr[js.Any] = js.native
+    var params: js.UndefOr[js.Any] = js.undefined
     
-    var progress: js.UndefOr[js.Function1[/* event */ js.Any, js.Any]] = js.native
+    var progress: js.UndefOr[js.Function1[/* event */ js.Any, js.Any]] = js.undefined
     
-    var root: String = js.native
+    var root: String
     
-    var url: js.UndefOr[String] = js.native
+    var url: js.UndefOr[String] = js.undefined
   }
   object HttpOptionsrootstring {
     
@@ -167,10 +166,9 @@ object anon {
     }
   }
   
-  @js.native
   trait Method extends StObject {
     
-    var method: String = js.native
+    var method: String
   }
   object Method {
     
@@ -189,30 +187,29 @@ object anon {
   }
   
   /* Inlined {  headers :vue-resource.vuejs.HttpHeaders | undefined, [key: string] : any} & vue-resource.vuejs.HttpOptions */
-  @js.native
   trait headersHttpHeadersundefin
     extends StObject
        with /* key */ StringDictionary[js.Any] {
     
-    var before: js.UndefOr[js.Function1[/* request */ js.Any, js.Any]] = js.native
+    var before: js.UndefOr[js.Function1[/* request */ js.Any, js.Any]] = js.undefined
     
-    var body: js.UndefOr[js.Any] = js.native
+    var body: js.UndefOr[js.Any] = js.undefined
     
-    var credentials: js.UndefOr[Boolean] = js.native
+    var credentials: js.UndefOr[Boolean] = js.undefined
     
-    var emulateHTTP: js.UndefOr[Boolean] = js.native
+    var emulateHTTP: js.UndefOr[Boolean] = js.undefined
     
-    var emulateJSON: js.UndefOr[Boolean] = js.native
+    var emulateJSON: js.UndefOr[Boolean] = js.undefined
     
-    var headers: js.UndefOr[HttpHeaders] & js.UndefOr[js.Any] = js.native
+    var headers: js.UndefOr[HttpHeaders] & js.UndefOr[js.Any]
     
-    var method: js.UndefOr[String] = js.native
+    var method: js.UndefOr[String] = js.undefined
     
-    var params: js.UndefOr[js.Any] = js.native
+    var params: js.UndefOr[js.Any] = js.undefined
     
-    var progress: js.UndefOr[js.Function1[/* event */ js.Any, js.Any]] = js.native
+    var progress: js.UndefOr[js.Function1[/* event */ js.Any, js.Any]] = js.undefined
     
-    var url: js.UndefOr[String] = js.native
+    var url: js.UndefOr[String] = js.undefined
   }
   object headersHttpHeadersundefin {
     

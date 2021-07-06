@@ -5,12 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined std.Required<type-mappings.Person> */
-@js.native
 trait RequiredPerson extends StObject {
   
-  var age: scala.Double = js.native
+  var age: scala.Double
   
-  var name: String = js.native
+  var name: String
 }
 object RequiredPerson {
   

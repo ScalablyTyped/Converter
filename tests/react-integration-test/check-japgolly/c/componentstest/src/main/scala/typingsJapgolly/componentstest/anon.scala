@@ -6,16 +6,15 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object anon {
   
-  @js.native
   trait Equals extends StObject {
     
     @JSName("equals")
-    var equals_FEquals: js.UndefOr[Boolean] = js.native
+    var equals_FEquals: js.UndefOr[Boolean] = js.undefined
     
-    def finalize(other: js.Object): Boolean = js.native
+    def finalize(other: js.Object): Boolean
     
     @JSName("ne")
-    var ne_FEquals: js.UndefOr[js.Function1[/* other */ js.Object, Boolean]] = js.native
+    var ne_FEquals: js.UndefOr[js.Function1[/* other */ js.Object, Boolean]] = js.undefined
   }
   object Equals {
     

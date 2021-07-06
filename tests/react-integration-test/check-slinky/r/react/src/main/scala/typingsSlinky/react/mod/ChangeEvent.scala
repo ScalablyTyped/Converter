@@ -6,13 +6,12 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait ChangeEvent[T]
   extends StObject
      with BaseSyntheticEvent[Event, EventTarget & T, EventTarget] {
   
   @JSName("target")
-  var target_ChangeEvent: EventTarget & T = js.native
+  var target_ChangeEvent: EventTarget & T
 }
 object ChangeEvent {
   

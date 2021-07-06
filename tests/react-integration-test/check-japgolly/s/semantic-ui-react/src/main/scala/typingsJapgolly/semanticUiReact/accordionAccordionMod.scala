@@ -66,7 +66,6 @@ object accordionAccordionMod {
     var Title: ComponentClassP[AccordionTitleProps & js.Object] = js.native
   }
   
-  @js.native
   trait AccordionProps
     extends StObject
        with StrictAccordionProps
@@ -80,19 +79,18 @@ object accordionAccordionMod {
     }
   }
   
-  @js.native
   trait StrictAccordionProps
     extends StObject
        with StrictAccordionAccordionProps {
     
     /** Format to take up the width of its container. */
-    var fluid: js.UndefOr[Boolean] = js.native
+    var fluid: js.UndefOr[Boolean] = js.undefined
     
     /** Format for dark backgrounds. */
-    var inverted: js.UndefOr[Boolean] = js.native
+    var inverted: js.UndefOr[Boolean] = js.undefined
     
     /** Adds some basic styling to accordion panels. */
-    var styled: js.UndefOr[Boolean] = js.native
+    var styled: js.UndefOr[Boolean] = js.undefined
   }
   object StrictAccordionProps {
     

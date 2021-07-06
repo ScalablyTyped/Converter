@@ -7,10 +7,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object anon {
   
-  @js.native
   trait ChildFactory extends StObject {
     
-    var childFactory: js.UndefOr[js.Function1[/* child */ ReactElement, ReactElement]] = js.native
+    var childFactory: js.UndefOr[js.Function1[/* child */ ReactElement, ReactElement]] = js.undefined
   }
   object ChildFactory {
     

@@ -10,12 +10,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object anon {
   
-  @js.native
   trait Default extends StObject {
     
-    var default: js.UndefOr[js.Any] = js.native
+    var default: js.UndefOr[js.Any] = js.undefined
     
-    var from: js.UndefOr[InjectKey] = js.native
+    var from: js.UndefOr[InjectKey] = js.undefined
   }
   object Default {
     
@@ -42,12 +41,11 @@ object anon {
     }
   }
   
-  @js.native
   trait Event extends StObject {
     
-    var event: js.UndefOr[String] = js.native
+    var event: js.UndefOr[String] = js.undefined
     
-    var prop: js.UndefOr[String] = js.native
+    var prop: js.UndefOr[String] = js.undefined
   }
   object Event {
     
@@ -93,12 +91,11 @@ object anon {
     extends StObject
        with Instantiable1[/* args (repeated) */ js.Any, T & js.Object]
   
-  @js.native
   trait Render extends StObject {
     
-    var render: js.Function = js.native
+    var render: js.Function
     
-    var staticRenderFns: js.Array[js.Function] = js.native
+    var staticRenderFns: js.Array[js.Function]
   }
   object Render {
     
@@ -122,12 +119,11 @@ object anon {
     }
   }
   
-  @js.native
   trait StaticRenderFns extends StObject {
     
-    def render(createElement: CreateElement): VNode = js.native
+    def render(createElement: CreateElement): VNode
     
-    var staticRenderFns: js.Array[js.Function0[VNode]] = js.native
+    var staticRenderFns: js.Array[js.Function0[VNode]]
   }
   object StaticRenderFns {
     

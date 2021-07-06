@@ -7,18 +7,17 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object NodeJS {
   
-  @js.native
   trait ErrnoException
     extends StObject
        with Error {
     
-    var code: js.UndefOr[String] = js.native
+    var code: js.UndefOr[String] = js.undefined
     
-    var errno: js.UndefOr[Double] = js.native
+    var errno: js.UndefOr[Double] = js.undefined
     
-    var path: js.UndefOr[String] = js.native
+    var path: js.UndefOr[String] = js.undefined
     
-    var syscall: js.UndefOr[String] = js.native
+    var syscall: js.UndefOr[String] = js.undefined
   }
   object ErrnoException {
     

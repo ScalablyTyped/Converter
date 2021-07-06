@@ -28,7 +28,6 @@ object accordionPanelMod {
   
   type AccordionPanel = japgolly.scalajs.react.raw.React.Component[AccordionPanelProps & js.Object, js.Object]
   
-  @js.native
   trait AccordionPanelProps
     extends StObject
        with StrictAccordionPanelProps
@@ -42,17 +41,16 @@ object accordionPanelMod {
     }
   }
   
-  @js.native
   trait StrictAccordionPanelProps extends StObject {
     
     /** Whether or not the title is in the open state. */
-    var active: js.UndefOr[Boolean] = js.native
+    var active: js.UndefOr[Boolean] = js.undefined
     
     /** A shorthand for Accordion.Content. */
-    var content: js.UndefOr[SemanticShorthandItem[AccordionContentProps]] = js.native
+    var content: js.UndefOr[SemanticShorthandItem[AccordionContentProps]] = js.undefined
     
     /** A panel index. */
-    var index: js.UndefOr[Double | String] = js.native
+    var index: js.UndefOr[Double | String] = js.undefined
     
     /**
       * Called when a panel title is clicked.
@@ -66,10 +64,10 @@ object accordionPanelMod {
           /* data */ AccordionTitleProps, 
           Unit
         ]
-      ] = js.native
+      ] = js.undefined
     
     /** A shorthand for Accordion.Title. */
-    var title: js.UndefOr[SemanticShorthandItem[AccordionTitleProps]] = js.native
+    var title: js.UndefOr[SemanticShorthandItem[AccordionTitleProps]] = js.undefined
   }
   object StrictAccordionPanelProps {
     

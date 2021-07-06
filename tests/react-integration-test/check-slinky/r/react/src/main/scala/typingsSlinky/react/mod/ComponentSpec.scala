@@ -5,13 +5,12 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait ComponentSpec[P, S]
   extends StObject
      with Mixin[P, S]
      with /* propertyName */ StringDictionary[js.Any] {
   
-  def render(): slinky.core.facade.ReactElement = js.native
+  def render(): slinky.core.facade.ReactElement
 }
 object ComponentSpec {
   

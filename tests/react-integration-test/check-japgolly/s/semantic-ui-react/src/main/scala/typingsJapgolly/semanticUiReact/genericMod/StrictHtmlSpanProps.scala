@@ -10,10 +10,9 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait StrictHtmlSpanProps extends StObject {
   
-  var children: js.UndefOr[Node] = js.native
+  var children: js.UndefOr[Node] = js.undefined
 }
 object StrictHtmlSpanProps {
   

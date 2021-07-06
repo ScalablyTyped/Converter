@@ -22,20 +22,19 @@ object toggleButtonGroupMod {
   class ^ ()
     extends Component[ToggleButtonGroupProps, js.Object, js.Any]
   
-  @js.native
   trait BaseProps extends StObject {
     
     /**
       * You'll usually want to use string|number|string[]|number[] here,
       * but you can technically use any|any[].
       */
-    var defaultValue: js.UndefOr[js.Any] = js.native
+    var defaultValue: js.UndefOr[js.Any] = js.undefined
     
     /**
       * You'll usually want to use string|number|string[]|number[] here,
       * but you can technically use any|any[].
       */
-    var value: js.UndefOr[js.Any] = js.native
+    var value: js.UndefOr[js.Any] = js.undefined
   }
   object BaseProps {
     
@@ -62,14 +61,13 @@ object toggleButtonGroupMod {
     }
   }
   
-  @js.native
   trait CheckboxProps extends StObject {
     
-    var name: js.UndefOr[String] = js.native
+    var name: js.UndefOr[String] = js.undefined
     
-    var onChange: js.UndefOr[js.Function1[/* values */ js.Array[js.Any], Unit]] = js.native
+    var onChange: js.UndefOr[js.Function1[/* values */ js.Array[js.Any], Unit]] = js.undefined
     
-    var `type`: checkbox = js.native
+    var `type`: checkbox
   }
   object CheckboxProps {
     
@@ -100,15 +98,14 @@ object toggleButtonGroupMod {
     }
   }
   
-  @js.native
   trait RadioProps extends StObject {
     
     /** Required if `type` is set to "radio" */
-    var name: String = js.native
+    var name: String
     
-    var onChange: js.UndefOr[js.Function1[/* value */ js.Any, Unit]] = js.native
+    var onChange: js.UndefOr[js.Function1[/* value */ js.Any, Unit]] = js.undefined
     
-    var `type`: radio = js.native
+    var `type`: radio
   }
   object RadioProps {
     

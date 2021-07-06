@@ -6,7 +6,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object FirebaseFirestore {
   
-  @js.native
   trait Firestore extends StObject {
     
     /**
@@ -21,7 +20,7 @@ object FirebaseFirestore {
       * @param {object} settings The settings to use for all Firestore
       * operations.
       */
-    def settings(settings: Settings): Unit = js.native
+    def settings(settings: Settings): Unit
   }
   object Firestore {
     
@@ -39,10 +38,9 @@ object FirebaseFirestore {
     }
   }
   
-  @js.native
   trait Settings extends StObject {
     
-    var projectId: js.UndefOr[String] = js.native
+    var projectId: js.UndefOr[String] = js.undefined
   }
   object Settings {
     

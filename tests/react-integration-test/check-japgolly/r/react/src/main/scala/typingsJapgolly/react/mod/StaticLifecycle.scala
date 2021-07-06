@@ -6,12 +6,11 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // Unfortunately, we have no way of declaring that the component constructor must implement this
-@js.native
 trait StaticLifecycle[P, S] extends StObject {
   
-  var getDerivedStateFromError: js.UndefOr[GetDerivedStateFromError[P, S]] = js.native
+  var getDerivedStateFromError: js.UndefOr[GetDerivedStateFromError[P, S]] = js.undefined
   
-  var getDerivedStateFromProps: js.UndefOr[GetDerivedStateFromProps[P, S]] = js.native
+  var getDerivedStateFromProps: js.UndefOr[GetDerivedStateFromProps[P, S]] = js.undefined
 }
 object StaticLifecycle {
   
