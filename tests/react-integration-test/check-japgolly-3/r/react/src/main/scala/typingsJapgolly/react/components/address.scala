@@ -1,6 +1,6 @@
 package typingsJapgolly.react.components
 
-import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.HTMLElement
 import typingsJapgolly.react.mod.DetailedHTMLProps
 import typingsJapgolly.react.mod.HTMLAttributes
 import org.scalablytyped.runtime.StObject
@@ -11,7 +11,7 @@ object address {
   
   val component: String = "address"
   
-  implicit def make(companion: address.type): SharedBuilder_DetailedHTMLProps_127198210[HTMLElement] = new SharedBuilder_DetailedHTMLProps_127198210[HTMLElement](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: address.type): SharedBuilder_DetailedHTMLProps1253650682[HTMLElement] = new SharedBuilder_DetailedHTMLProps1253650682[HTMLElement](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): SharedBuilder_DetailedHTMLProps_127198210[HTMLElement] = new SharedBuilder_DetailedHTMLProps_127198210[HTMLElement](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): SharedBuilder_DetailedHTMLProps1253650682[HTMLElement] = new SharedBuilder_DetailedHTMLProps1253650682[HTMLElement](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

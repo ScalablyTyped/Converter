@@ -3,9 +3,9 @@ package typingsJapgolly.reactContextmenu.components
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.ReactTouchEventFrom
-import japgolly.scalajs.react.raw.React.Element
-import org.scalajs.dom.raw.HTMLDivElement
-import org.scalajs.dom.raw.HTMLElement
+import japgolly.scalajs.react.facade.React.Element
+import org.scalajs.dom.HTMLDivElement
+import org.scalajs.dom.HTMLElement
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.react.mod.ReactText
 import typingsJapgolly.reactContextmenu.mod.SubMenuProps

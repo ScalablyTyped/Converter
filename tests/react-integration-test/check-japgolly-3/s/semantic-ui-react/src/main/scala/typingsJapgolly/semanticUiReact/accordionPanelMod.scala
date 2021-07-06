@@ -2,13 +2,13 @@ package typingsJapgolly.semanticUiReact
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
-import japgolly.scalajs.react.raw.Empty
-import japgolly.scalajs.react.raw.JsNumber
-import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.facade.Empty
+import japgolly.scalajs.react.facade.JsNumber
+import japgolly.scalajs.react.facade.React.Element
+import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import org.scalablytyped.runtime.StringDictionary
-import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.HTMLDivElement
 import typingsJapgolly.react.mod.Component
 import typingsJapgolly.react.mod.ReactNodeArray
 import typingsJapgolly.react.mod.ReactType
@@ -26,7 +26,7 @@ object accordionPanelMod {
   open class default ()
     extends Component[AccordionPanelProps, js.Object, js.Any]
   
-  type AccordionPanel = japgolly.scalajs.react.raw.React.Component[AccordionPanelProps & js.Object, js.Object]
+  type AccordionPanel = japgolly.scalajs.react.facade.React.Component[AccordionPanelProps & js.Object, js.Object]
   
   trait AccordionPanelProps
     extends StObject

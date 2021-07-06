@@ -42,7 +42,7 @@ object transitionGroupMod {
     }
   }
   
-  type TransitionGroup = japgolly.scalajs.react.raw.React.Component[(TransitionGroupProps[abbr, js.Any]) & js.Object, js.Object]
+  type TransitionGroup = japgolly.scalajs.react.facade.React.Component[(TransitionGroupProps[abbr, js.Any]) & js.Object, js.Object]
   
   type TransitionGroupProps[T /* <: abbr | animate */, V /* <: ReactType[js.Any] */] = (IntrinsicTransitionGroupProps[T] & (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)) | (ComponentTransitionGroupProps[V] & ChildFactory)
 }

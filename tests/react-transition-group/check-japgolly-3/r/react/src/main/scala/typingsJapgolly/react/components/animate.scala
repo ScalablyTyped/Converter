@@ -1,6 +1,6 @@
 package typingsJapgolly.react.components
 
-import org.scalajs.dom.raw.SVGElement
+import org.scalajs.dom.SVGElement
 import typingsJapgolly.StBuildingComponent.Default
 import typingsJapgolly.react.mod.ClassAttributes
 import org.scalablytyped.runtime.StObject

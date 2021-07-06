@@ -14,8 +14,8 @@ import japgolly.scalajs.react.ReactTouchEventFrom
 import japgolly.scalajs.react.ReactTransitionEventFrom
 import japgolly.scalajs.react.ReactUIEventFrom
 import japgolly.scalajs.react.ReactWheelEventFrom
-import org.scalajs.dom.raw.Element
-import org.scalajs.dom.raw.HTMLAnchorElement
+import org.scalajs.dom.Element
+import org.scalajs.dom.HTMLAnchorElement
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.react.anon.Html
 import typingsJapgolly.react.mod.AnchorHTMLAttributes

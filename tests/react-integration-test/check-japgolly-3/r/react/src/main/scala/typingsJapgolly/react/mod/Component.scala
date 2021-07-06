@@ -1,6 +1,6 @@
 package typingsJapgolly.react.mod
 
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.facade.React.Node
 import org.scalablytyped.runtime.StringDictionary
 import typingsJapgolly.std.Pick
 import org.scalablytyped.runtime.StObject

@@ -1,11 +1,11 @@
 package typingsJapgolly.react.mod
 
-import org.scalajs.dom.raw.HTMLAnchorElement
-import org.scalajs.dom.raw.HTMLAreaElement
-import org.scalajs.dom.raw.HTMLAudioElement
-import org.scalajs.dom.raw.HTMLBaseElement
-import org.scalajs.dom.raw.HTMLElement
-import org.scalajs.dom.raw.SVGViewElement
+import org.scalajs.dom.HTMLAnchorElement
+import org.scalajs.dom.HTMLAreaElement
+import org.scalajs.dom.HTMLAudioElement
+import org.scalajs.dom.HTMLBaseElement
+import org.scalajs.dom.HTMLElement
+import org.scalajs.dom.SVGViewElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -15,7 +15,7 @@ object global {
   object JSX {
     
     // tslint:disable-next-line:no-empty-interface
-    type Element = japgolly.scalajs.react.raw.React.Element
+    type Element = japgolly.scalajs.react.facade.React.Element
     
     trait ElementAttributesProperty extends StObject
     

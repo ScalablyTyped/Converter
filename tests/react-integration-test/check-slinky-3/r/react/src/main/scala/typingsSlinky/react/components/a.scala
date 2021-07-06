@@ -67,7 +67,7 @@ object a {
   @scala.inline
   open class Builder (val args: js.Array[js.Any])
     extends AnyVal
-       with StBuildingComponent[tag.type, HTMLAnchorElement & js.Object] {
+       with StBuildingComponent[tag.type, HTMLAnchorElement] {
     
     inline def about(value: String): this.type = set("about", value.asInstanceOf[js.Any])
     

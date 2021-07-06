@@ -3,8 +3,8 @@ package mylib.internal.baz
 import mylib.internal.baz.StBuildingComponent.make
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.Ref.Simple
-import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.facade.React.Element
+import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.TagMod.Composite
 import japgolly.scalajs.react.vdom.VdomElement

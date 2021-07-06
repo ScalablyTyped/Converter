@@ -37,7 +37,7 @@ case class ConversionOptions(
         SlinkyFlavour(outputPackage, enableLongApplyMethod, versions, enableReactTreeShaking)
       case Flavour.SlinkyNative =>
         SlinkyNativeFlavour(outputPackage, enableLongApplyMethod, versions, enableReactTreeShaking)
-      case Flavour.Japgolly =>
+      case Flavour.ScalajsReact =>
         JapgollyFlavour(outputPackage, enableLongApplyMethod, versions, enableReactTreeShaking)
     }
 

@@ -3,12 +3,12 @@ package typingsJapgolly.reactDropzone
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactDragEventFrom
 import japgolly.scalajs.react.ReactEventFrom
-import japgolly.scalajs.react.raw.React.RefHandle
+import japgolly.scalajs.react.facade.React.RefHandle
 import org.scalablytyped.runtime.StringDictionary
-import org.scalajs.dom.raw.DragEvent
-import org.scalajs.dom.raw.Event
-import org.scalajs.dom.raw.HTMLElement
-import org.scalajs.dom.raw.HTMLInputElement
+import org.scalajs.dom.DragEvent
+import org.scalajs.dom.Event
+import org.scalajs.dom.HTMLElement
+import org.scalajs.dom.HTMLInputElement
 import typingsJapgolly.react.mod.DragEventHandler
 import typingsJapgolly.react.mod.HTMLAttributes
 import typingsJapgolly.react.mod.InputHTMLAttributes
@@ -176,15 +176,15 @@ object mod {
       
       inline def setNoKeyboardUndefined: Self = StObject.set(x, "noKeyboard", js.undefined)
       
-      inline def setOnDragEnter(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+      inline def setOnDragEnter(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.Element] => Callback): Self = StObject.set(x, "onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.Element]) => value(t0).runNow()))
       
       inline def setOnDragEnterUndefined: Self = StObject.set(x, "onDragEnter", js.undefined)
       
-      inline def setOnDragLeave(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+      inline def setOnDragLeave(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.Element] => Callback): Self = StObject.set(x, "onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.Element]) => value(t0).runNow()))
       
       inline def setOnDragLeaveUndefined: Self = StObject.set(x, "onDragLeave", js.undefined)
       
-      inline def setOnDragOver(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+      inline def setOnDragOver(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.Element] => Callback): Self = StObject.set(x, "onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.Element]) => value(t0).runNow()))
       
       inline def setOnDragOverUndefined: Self = StObject.set(x, "onDragOver", js.undefined)
       

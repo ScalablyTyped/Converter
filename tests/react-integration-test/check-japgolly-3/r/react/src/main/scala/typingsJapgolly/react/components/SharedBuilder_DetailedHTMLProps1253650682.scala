@@ -14,8 +14,8 @@ import japgolly.scalajs.react.ReactTouchEventFrom
 import japgolly.scalajs.react.ReactTransitionEventFrom
 import japgolly.scalajs.react.ReactUIEventFrom
 import japgolly.scalajs.react.ReactWheelEventFrom
-import org.scalajs.dom.raw.Element
-import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.Element
+import org.scalajs.dom.HTMLElement
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.react.anon.Html
 import typingsJapgolly.react.mod.CSSProperties
@@ -60,7 +60,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-open class SharedBuilder_DetailedHTMLProps_127198210[R <: js.Object] (val args: js.Array[js.Any])
+open class SharedBuilder_DetailedHTMLProps1253650682[R <: js.Object] (val args: js.Array[js.Any])
   extends AnyVal
      with StBuildingComponent[R] {
   

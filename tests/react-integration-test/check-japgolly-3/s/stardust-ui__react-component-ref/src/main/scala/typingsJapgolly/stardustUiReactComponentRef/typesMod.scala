@@ -1,7 +1,7 @@
 package typingsJapgolly.stardustUiReactComponentRef
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.raw.React.Element
+import japgolly.scalajs.react.facade.React.Element
 import japgolly.scalajs.react.vdom.VdomElement
 import typingsJapgolly.react.mod.Ref
 import org.scalablytyped.runtime.StObject

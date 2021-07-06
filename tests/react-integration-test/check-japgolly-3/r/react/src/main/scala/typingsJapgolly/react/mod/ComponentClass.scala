@@ -13,12 +13,12 @@ trait ComponentClass[P, S]
      with StaticLifecycle[P, S]
      with Instantiable1[
       /* props */ P, 
-      japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object]
+      japgolly.scalajs.react.facade.React.Component[P & js.Object, js.Object]
     ]
      with Instantiable2[
       /* props */ P, 
       /* context */ js.Any, 
-      japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object]
+      japgolly.scalajs.react.facade.React.Component[P & js.Object, js.Object]
     ] {
   
   var childContextTypes: js.UndefOr[ValidationMap[js.Any]] = js.native

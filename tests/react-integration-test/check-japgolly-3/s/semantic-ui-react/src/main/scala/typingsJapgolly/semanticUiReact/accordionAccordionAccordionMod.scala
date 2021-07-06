@@ -2,16 +2,16 @@ package typingsJapgolly.semanticUiReact
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
-import japgolly.scalajs.react.raw.Empty
-import japgolly.scalajs.react.raw.JsNumber
-import japgolly.scalajs.react.raw.React.ComponentClassP
-import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.facade.Empty
+import japgolly.scalajs.react.facade.JsNumber
+import japgolly.scalajs.react.facade.React.ComponentClassP
+import japgolly.scalajs.react.facade.React.Element
+import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
-import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.HTMLDivElement
 import typingsJapgolly.react.mod.Component
 import typingsJapgolly.semanticUiReact.accordionPanelMod.AccordionPanelProps
 import typingsJapgolly.semanticUiReact.accordionTitleMod.AccordionTitleProps

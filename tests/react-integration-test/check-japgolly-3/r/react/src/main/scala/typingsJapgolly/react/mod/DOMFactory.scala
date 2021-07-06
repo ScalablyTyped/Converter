@@ -1,8 +1,8 @@
 package typingsJapgolly.react.mod
 
-import japgolly.scalajs.react.raw.React.DomElement
-import japgolly.scalajs.react.raw.React.Node
-import org.scalajs.dom.raw.Element
+import japgolly.scalajs.react.facade.React.DomElement
+import japgolly.scalajs.react.facade.React.Node
+import org.scalajs.dom.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

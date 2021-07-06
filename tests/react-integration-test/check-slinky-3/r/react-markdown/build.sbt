@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "react-markdown"
-version := "0.0-unknown-8615e1"
+version := "0.0-unknown-e84bcc"
 scalaVersion := "3.1.0"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2",
-  "org.scalablytyped" %%% "react" % "16.9.2-9b76f4",
+  "org.scalablytyped" %%% "react" % "16.9.2-3178c2",
   "org.scalablytyped" %%% "std" % "0.0-unknown-7f8a22",
   ("me.shadaj" %%% "slinky-web" % "0.6.8+1-b1dd3f4c").cross(CrossVersion.for3Use2_13))
 publishArtifact in packageDoc := false

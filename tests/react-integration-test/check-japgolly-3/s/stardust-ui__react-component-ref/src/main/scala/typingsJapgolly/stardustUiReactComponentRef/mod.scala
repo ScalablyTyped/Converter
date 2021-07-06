@@ -1,6 +1,6 @@
 package typingsJapgolly.stardustUiReactComponentRef
 
-import japgolly.scalajs.react.raw.React.RefHandle
+import japgolly.scalajs.react.facade.React.RefHandle
 import typingsJapgolly.react.mod.FunctionComponent
 import typingsJapgolly.stardustUiReactComponentRef.anon.Children
 import typingsJapgolly.stardustUiReactComponentRef.anon.InnerRef
