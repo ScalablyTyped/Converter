@@ -2,11 +2,12 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait TextareaHTMLAttributes[T] extends HTMLAttributes[T] {
+trait TextareaHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var autoComplete: js.UndefOr[String] = js.native
   
@@ -48,7 +49,7 @@ object TextareaHTMLAttributes {
   }
   
   @scala.inline
-  implicit class TextareaHTMLAttributesMutableBuilder[Self <: TextareaHTMLAttributes[_], T] (val x: Self with TextareaHTMLAttributes[T]) extends AnyVal {
+  implicit class TextareaHTMLAttributesMutableBuilder[Self <: TextareaHTMLAttributes[?], T] (val x: Self & TextareaHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAutoComplete(value: String): Self = StObject.set(x, "autoComplete", value.asInstanceOf[js.Any])

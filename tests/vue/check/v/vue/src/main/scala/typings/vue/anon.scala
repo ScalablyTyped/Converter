@@ -6,7 +6,6 @@ import typings.vue.vnodeMod.VNode
 import typings.vue.vueMod.CreateElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
@@ -91,7 +90,8 @@ object anon {
   
   @js.native
   trait Instantiable[T]
-    extends Instantiable1[/* args (repeated) */ js.Any, T with js.Object]
+    extends StObject
+       with Instantiable1[/* args (repeated) */ js.Any, T & js.Object]
   
   @js.native
   trait Render extends StObject {

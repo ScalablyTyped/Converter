@@ -20,14 +20,13 @@ import typings.vue.vueMod.Vue
 import typings.vue.vueMod.VueConstructor
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object optionsMod {
   
   type Accessors[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ K in keyof T ]: (): T[K] | vue.vue/types/options.ComputedOptions<T[K]>}
-    */ typings.vue.vueStrings.Accessors with TopLevel[js.Any]
+    */ typings.vue.vueStrings.Accessors & TopLevel[js.Any]
   
   type ArrayPropsDefinition[T] = js.Array[/* keyof T */ String]
   
@@ -56,7 +55,11 @@ object optionsMod {
     
     var comments: js.UndefOr[Boolean] = js.native
     
-    var components: js.UndefOr[StringDictionary[(Component[_, _, _, _]) | (AsyncComponent[_, _, _, _])]] = js.native
+    var components: js.UndefOr[
+        StringDictionary[
+          (Component[js.Any, js.Any, js.Any, js.Any]) | (AsyncComponent[js.Any, js.Any, js.Any, js.Any])
+        ]
+      ] = js.native
     
     var computed: js.UndefOr[Accessors[Computed]] = js.native
     
@@ -133,7 +136,7 @@ object optionsMod {
     
     var updated: js.UndefOr[js.Function0[Unit]] = js.native
     
-    var watch: js.UndefOr[Record[String, WatchOptionsWithHandler[_] | WatchHandler[_] | String]] = js.native
+    var watch: js.UndefOr[Record[String, WatchOptionsWithHandler[js.Any] | WatchHandler[js.Any] | String]] = js.native
   }
   object ComponentOptions {
     
@@ -144,7 +147,7 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class ComponentOptionsMutableBuilder[Self <: ComponentOptions[_, _, _, _, _], V /* <: Vue */, Data, Methods, Computed, PropsDef] (val x: Self with (ComponentOptions[V, Data, Methods, Computed, PropsDef])) extends AnyVal {
+    implicit class ComponentOptionsMutableBuilder[Self <: ComponentOptions[?, ?, ?, ?, ?], V /* <: Vue */, Data, Methods, Computed, PropsDef] (val x: Self & (ComponentOptions[V, Data, Methods, Computed, PropsDef])) extends AnyVal {
       
       @scala.inline
       def setActivated(value: () => Unit): Self = StObject.set(x, "activated", js.Any.fromFunction0(value))
@@ -183,7 +186,11 @@ object optionsMod {
       def setCommentsUndefined: Self = StObject.set(x, "comments", js.undefined)
       
       @scala.inline
-      def setComponents(value: StringDictionary[(Component[_, _, _, _]) | (AsyncComponent[_, _, _, _])]): Self = StObject.set(x, "components", value.asInstanceOf[js.Any])
+      def setComponents(
+        value: StringDictionary[
+              (Component[js.Any, js.Any, js.Any, js.Any]) | (AsyncComponent[js.Any, js.Any, js.Any, js.Any])
+            ]
+      ): Self = StObject.set(x, "components", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setComponentsUndefined: Self = StObject.set(x, "components", js.undefined)
@@ -395,7 +402,7 @@ object optionsMod {
       def setUpdatedUndefined: Self = StObject.set(x, "updated", js.undefined)
       
       @scala.inline
-      def setWatch(value: Record[String, WatchOptionsWithHandler[_] | WatchHandler[_] | String]): Self = StObject.set(x, "watch", value.asInstanceOf[js.Any])
+      def setWatch(value: Record[String, WatchOptionsWithHandler[js.Any] | WatchHandler[js.Any] | String]): Self = StObject.set(x, "watch", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setWatchUndefined: Self = StObject.set(x, "watch", js.undefined)
@@ -420,7 +427,7 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class ComputedOptionsMutableBuilder[Self <: ComputedOptions[_], T] (val x: Self with ComputedOptions[T]) extends AnyVal {
+    implicit class ComputedOptionsMutableBuilder[Self <: ComputedOptions[?], T] (val x: Self & ComputedOptions[T]) extends AnyVal {
       
       @scala.inline
       def setCache(value: Boolean): Self = StObject.set(x, "cache", value.asInstanceOf[js.Any])
@@ -444,7 +451,8 @@ object optionsMod {
   
   @js.native
   trait Constructor
-    extends Instantiable1[/* args (repeated) */ js.Any, js.Any]
+    extends StObject
+       with Instantiable1[/* args (repeated) */ js.Any, js.Any]
   
   type DefaultComputed = StringDictionary[js.Any]
   
@@ -571,7 +579,7 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class FunctionalComponentOptionsMutableBuilder[Self <: FunctionalComponentOptions[_, _], Props, PropDefs] (val x: Self with (FunctionalComponentOptions[Props, PropDefs])) extends AnyVal {
+    implicit class FunctionalComponentOptionsMutableBuilder[Self <: FunctionalComponentOptions[?, ?], Props, PropDefs] (val x: Self & (FunctionalComponentOptions[Props, PropDefs])) extends AnyVal {
       
       @scala.inline
       def setFunctional(value: Boolean): Self = StObject.set(x, "functional", value.asInstanceOf[js.Any])
@@ -628,7 +636,7 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class PropOptionsMutableBuilder[Self <: PropOptions[_], T] (val x: Self with PropOptions[T]) extends AnyVal {
+    implicit class PropOptionsMutableBuilder[Self <: PropOptions[?], T] (val x: Self & PropOptions[T]) extends AnyVal {
       
       @scala.inline
       def setDefault(value: T | js.Function0[js.Object]): Self = StObject.set(x, "default", value.asInstanceOf[js.Any])
@@ -674,7 +682,7 @@ object optionsMod {
   
   type RecordPropsDefinition[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ K in keyof T ]: vue.vue/types/options.PropValidator<T[K]>}
-    */ typings.vue.vueStrings.RecordPropsDefinition with TopLevel[T]
+    */ typings.vue.vueStrings.RecordPropsDefinition & TopLevel[T]
   
   @js.native
   trait RenderContext[Props] extends StObject {
@@ -707,7 +715,7 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class RenderContextMutableBuilder[Self <: RenderContext[_], Props] (val x: Self with RenderContext[Props]) extends AnyVal {
+    implicit class RenderContextMutableBuilder[Self <: RenderContext[?], Props] (val x: Self & RenderContext[Props]) extends AnyVal {
       
       @scala.inline
       def setChildren(value: js.Array[VNode]): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
@@ -735,9 +743,10 @@ object optionsMod {
   /* import warning: RemoveDifficultInheritance.summarizeChanges 
   - Dropped object */ @js.native
   trait ThisTypedComponentOptionsWithArrayProps[V /* <: Vue */, Data, Methods, Computed, PropNames /* <: String */]
-    extends ComponentOptions[
+    extends StObject
+       with ComponentOptions[
           V, 
-          Data | (js.ThisFunction0[/* this */ (Record[PropNames, _]) with V, Data]), 
+          Data | (js.ThisFunction0[/* this */ (Record[PropNames, js.Any]) & V, Data]), 
           Methods, 
           Computed, 
           js.Array[PropNames]
@@ -755,9 +764,10 @@ object optionsMod {
   /* import warning: RemoveDifficultInheritance.summarizeChanges 
   - Dropped object */ @js.native
   trait ThisTypedComponentOptionsWithRecordProps[V /* <: Vue */, Data, Methods, Computed, Props]
-    extends ComponentOptions[
+    extends StObject
+       with ComponentOptions[
           V, 
-          Data | (js.ThisFunction0[/* this */ Props with V, Data]), 
+          Data | (js.ThisFunction0[/* this */ Props & V, Data]), 
           Methods, 
           Computed, 
           RecordPropsDefinition[Props]
@@ -807,7 +817,9 @@ object optionsMod {
   }
   
   @js.native
-  trait WatchOptionsWithHandler[T] extends WatchOptions {
+  trait WatchOptionsWithHandler[T]
+    extends StObject
+       with WatchOptions {
     
     def handler(`val`: T, oldVal: T): Unit = js.native
     @JSName("handler")
@@ -822,7 +834,7 @@ object optionsMod {
     }
     
     @scala.inline
-    implicit class WatchOptionsWithHandlerMutableBuilder[Self <: WatchOptionsWithHandler[_], T] (val x: Self with WatchOptionsWithHandler[T]) extends AnyVal {
+    implicit class WatchOptionsWithHandlerMutableBuilder[Self <: WatchOptionsWithHandler[?], T] (val x: Self & WatchOptionsWithHandler[T]) extends AnyVal {
       
       @scala.inline
       def setHandler(value: (T, T) => Unit): Self = StObject.set(x, "handler", js.Any.fromFunction2(value))

@@ -60,7 +60,6 @@ import typingsSlinky.react.reactStrings.tree
 import typingsSlinky.react.reactStrings.vertical
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object audio {
@@ -332,7 +331,7 @@ object audio {
     def onAuxClick(value: SyntheticMouseEvent[HTMLAudioElement] => Unit): this.type = set("onAuxClick", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onBeforeInput(value: SyntheticEvent[EventTarget with HTMLAudioElement, Event] => Unit): this.type = set("onBeforeInput", js.Any.fromFunction1(value))
+    def onBeforeInput(value: SyntheticEvent[EventTarget & HTMLAudioElement, Event] => Unit): this.type = set("onBeforeInput", js.Any.fromFunction1(value))
     
     @scala.inline
     def onBlur(value: SyntheticFocusEvent[HTMLAudioElement] => Unit): this.type = set("onBlur", js.Any.fromFunction1(value))
@@ -344,7 +343,7 @@ object audio {
     def onCanPlayThrough(value: SyntheticEvent[Event, HTMLAudioElement] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onChange(value: SyntheticEvent[EventTarget with HTMLAudioElement, Event] => Unit): this.type = set("onChange", js.Any.fromFunction1(value))
+    def onChange(value: SyntheticEvent[EventTarget & HTMLAudioElement, Event] => Unit): this.type = set("onChange", js.Any.fromFunction1(value))
     
     @scala.inline
     def onClick(value: SyntheticMouseEvent[HTMLAudioElement] => Unit): this.type = set("onClick", js.Any.fromFunction1(value))
@@ -413,10 +412,10 @@ object audio {
     def onFocus(value: SyntheticFocusEvent[HTMLAudioElement] => Unit): this.type = set("onFocus", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onInput(value: SyntheticEvent[EventTarget with HTMLAudioElement, Event] => Unit): this.type = set("onInput", js.Any.fromFunction1(value))
+    def onInput(value: SyntheticEvent[EventTarget & HTMLAudioElement, Event] => Unit): this.type = set("onInput", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onInvalid(value: SyntheticEvent[EventTarget with HTMLAudioElement, Event] => Unit): this.type = set("onInvalid", js.Any.fromFunction1(value))
+    def onInvalid(value: SyntheticEvent[EventTarget & HTMLAudioElement, Event] => Unit): this.type = set("onInvalid", js.Any.fromFunction1(value))
     
     @scala.inline
     def onKeyDown(value: SyntheticKeyboardEvent[HTMLAudioElement] => Unit): this.type = set("onKeyDown", js.Any.fromFunction1(value))
@@ -503,7 +502,7 @@ object audio {
     def onRateChange(value: SyntheticEvent[Event, HTMLAudioElement] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onReset(value: SyntheticEvent[EventTarget with HTMLAudioElement, Event] => Unit): this.type = set("onReset", js.Any.fromFunction1(value))
+    def onReset(value: SyntheticEvent[EventTarget & HTMLAudioElement, Event] => Unit): this.type = set("onReset", js.Any.fromFunction1(value))
     
     @scala.inline
     def onScroll(value: SyntheticUIEvent[HTMLAudioElement] => Unit): this.type = set("onScroll", js.Any.fromFunction1(value))
@@ -521,7 +520,7 @@ object audio {
     def onStalled(value: SyntheticEvent[Event, HTMLAudioElement] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onSubmit(value: SyntheticEvent[EventTarget with HTMLAudioElement, Event] => Unit): this.type = set("onSubmit", js.Any.fromFunction1(value))
+    def onSubmit(value: SyntheticEvent[EventTarget & HTMLAudioElement, Event] => Unit): this.type = set("onSubmit", js.Any.fromFunction1(value))
     
     @scala.inline
     def onSuspend(value: SyntheticEvent[Event, HTMLAudioElement] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))

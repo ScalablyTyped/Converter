@@ -19,7 +19,6 @@ import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandCollection
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandItem
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object accordionAccordionAccordionMod extends Shortcut {
@@ -34,12 +33,13 @@ object accordionAccordionAccordionMod extends Shortcut {
   }
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionAccordion", JSImport.Default)
   @js.native
-  val default: ComponentClassP[AccordionAccordionProps with js.Object] = js.native
+  val default: ComponentClassP[AccordionAccordionProps & js.Object] = js.native
   
   @js.native
   trait AccordionAccordionProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictAccordionAccordionProps
+       with /* key */ StringDictionary[js.Any]
   object AccordionAccordionProps {
     
     @scala.inline
@@ -168,8 +168,8 @@ object accordionAccordionAccordionMod extends Shortcut {
     }
   }
   
-  type _To = ComponentClassP[AccordionAccordionProps with js.Object]
+  type _To = ComponentClassP[AccordionAccordionProps & js.Object]
   
   /* This means you don't have to write `default`, but can instead just say `accordionAccordionAccordionMod.foo` */
-  override def _to: ComponentClassP[AccordionAccordionProps with js.Object] = default
+  override def _to: ComponentClassP[AccordionAccordionProps & js.Object] = default
 }

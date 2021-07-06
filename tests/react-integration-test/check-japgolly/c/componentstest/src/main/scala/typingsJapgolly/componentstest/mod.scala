@@ -13,7 +13,6 @@ import typingsJapgolly.react.mod.FunctionComponent
 import typingsJapgolly.react.mod.MouseEventHandler
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -35,7 +34,9 @@ object mod {
   val ObjectNames: FC[Equals] = js.native
   
   @js.native
-  trait A extends Props {
+  trait A
+    extends StObject
+       with Props {
     
     def aCallback(): Double = js.native
     
@@ -61,7 +62,9 @@ object mod {
   }
   
   @js.native
-  trait B extends Props {
+  trait B
+    extends StObject
+       with Props {
     
     var bCallback: js.UndefOr[js.Function0[String]] = js.native
     
@@ -138,7 +141,9 @@ object mod {
   }
   
   @js.native
-  trait CardInterface extends FunctionComponent[CardProps] {
+  trait CardInterface
+    extends StObject
+       with FunctionComponent[CardProps] {
     
     var Grid2: FC[CardGridProps] = js.native
   }
@@ -163,7 +168,7 @@ object mod {
     implicit class CardPropsMutableBuilder[Self <: CardProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def setOnClick(value: ReactMouseEventFrom[HTMLDivElement with Element] => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement with Element]) => value(t0).runNow()))
+      def setOnClick(value: ReactMouseEventFrom[HTMLDivElement & Element] => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement & Element]) => value(t0).runNow()))
       
       @scala.inline
       def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)

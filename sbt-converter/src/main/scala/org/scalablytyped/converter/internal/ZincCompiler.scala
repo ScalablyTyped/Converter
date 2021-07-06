@@ -109,8 +109,8 @@ object ZincCompiler {
 
     val scalaCompiler   = resolve(v.scala.compiler)
     val scalaLibrary    = resolve(v.scala.library)
-    val runtime         = resolve(v.scalaJs.library.concrete(v))
-    val scalaJsCompiler = resolve(v.scalaJs.compiler.concrete(v))
+    val runtime         = resolve(v.scalaJsLibrary)
+    val scalaJsCompiler = v.scalaJsCompiler.map(resolve).toList.flatten
     val allJars         = scalaCompiler ++ runtime ++ scalaLibrary ++ scalaJsCompiler
 
     val st      = state.value
@@ -121,23 +121,34 @@ object ZincCompiler {
       version          = v.scala.scalaVersion,
       allJars          = allJars,
       libraryJars      = scalaLibrary.collect { case path if path.toString.contains("scala-library") => path },
-      compilerJar      = scalaCompiler.collectFirst { case f if f.getName.contains("scala-compiler") => f }.head,
+      compilerJar      = scalaCompiler.collectFirst { case f if f.getName.contains("-compiler") => f }.head,
       classLoaderCache = st.classLoaderCache,
     )
 
     val scalac: AnalyzingCompiler =
-      ZincLmUtil.scalaCompiler(
-        scalaInstance        = instance,
-        classpathOptions     = classpathOptions.value,
-        globalLock           = appConfiguration.value.provider.scalaProvider.launcher.globalLock,
-        componentProvider    = appConfiguration.value.provider.components,
-        secondaryCacheDir    = Option(zincDir),
-        dependencyResolution = resolver,
-        compilerBridgeSource = scalaCompilerBridgeSource.value,
-        scalaJarsTarget      = zincDir,
-        classLoaderCache     = None,
-        log                  = sbtLogger,
-      )
+      v.scala.compilerBridge match {
+        case Some(bridgeDep) =>
+          new AnalyzingCompiler(
+            instance,
+            ZincCompilerUtil.constantBridgeProvider(instance, resolve(bridgeDep).head),
+            classpathOptions.value,
+            _ => (),
+            None,
+          )
+        case None =>
+          ZincLmUtil.scalaCompiler(
+            scalaInstance        = instance,
+            classpathOptions     = classpathOptions.value,
+            globalLock           = appConfiguration.value.provider.scalaProvider.launcher.globalLock,
+            componentProvider    = appConfiguration.value.provider.components,
+            secondaryCacheDir    = Option(zincDir),
+            dependencyResolution = resolver,
+            compilerBridgeSource = scalaCompilerBridgeSource.value,
+            scalaJarsTarget      = zincDir,
+            classLoaderCache     = None,
+            log                  = sbtLogger,
+          )
+      }
 
     val compilers: Compilers =
       ZincUtil.compilers(
@@ -160,15 +171,19 @@ object ZincCompiler {
         cachedPerEntryDefinesClassLookup(converter.toPath(classpathEntry).toFile)
     }
 
-    val scalaJsCompilerJar: File =
-      scalaJsCompiler.collectFirst { case f if f.getName.contains("scalajs-compiler") => f }.head
+    val scalaJsOption: String = {
+      if (v.scala.is3)
+        "-scalajs"
+      else
+        scalaJsCompiler.collectFirst { case f if f.getName.contains("scalajs-compiler") => "-Xplugin:" + f }.get
+    }
 
     val inputs = Inputs.of(
       compilers,
       CompileOptions
         .of()
         .withClasspath(allJars.map(f => PlainVirtualFile(f.asPath)))
-        .withScalacOptions(Array("-Xplugin:" + scalaJsCompilerJar) ++ v.scalacOptions)
+        .withScalacOptions(Array(scalaJsOption) ++ v.scalacOptions)
         .withOrder(CompileOrder.ScalaThenJava),
       Setup.of(
         lookup,

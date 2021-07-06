@@ -5,7 +5,6 @@ import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod extends Shortcut {
@@ -13,12 +12,14 @@ object mod extends Shortcut {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("stylis/stylis", JSImport.Namespace)
   @js.native
-  class ^ () extends Stylis {
+  class ^ ()
+    extends StObject
+       with Stylis {
     def this(options: Options) = this()
   }
   @JSImport("stylis/stylis", JSImport.Namespace)
   @js.native
-  val ^ : Stylis = js.native
+  val ^ : js.Object & Stylis = js.native
   
   @js.native
   sealed trait Context extends StObject
@@ -27,22 +28,34 @@ object mod extends Shortcut {
   object Context extends StObject {
     
     @js.native
-    sealed trait ATRUL extends Context
+    sealed trait ATRUL
+      extends StObject
+         with Context
     
     @js.native
-    sealed trait BLCKS extends Context
+    sealed trait BLCKS
+      extends StObject
+         with Context
     
     @js.native
-    sealed trait POSTS extends Context
+    sealed trait POSTS
+      extends StObject
+         with Context
     
     @js.native
-    sealed trait PREPS extends Context
+    sealed trait PREPS
+      extends StObject
+         with Context
     
     @js.native
-    sealed trait PROPS extends Context
+    sealed trait PROPS
+      extends StObject
+         with Context
     
     @js.native
-    sealed trait UNKWN extends Context
+    sealed trait UNKWN
+      extends StObject
+         with Context
   }
   
   object global {
@@ -50,7 +63,9 @@ object mod extends Shortcut {
     /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
     @JSGlobal("stylis")
     @js.native
-    class stylis () extends Stylis {
+    class stylis ()
+      extends StObject
+         with Stylis {
       def this(options: Options) = this()
     }
     @JSGlobal("stylis")
@@ -162,7 +177,8 @@ object mod extends Shortcut {
   
   @js.native
   trait Stylis
-    extends Instantiable0[Stylis]
+    extends StObject
+       with Instantiable0[Stylis]
        with Instantiable1[/* options */ Options, Stylis] {
     
     def apply(namescope: String, input: String): String | js.Any = js.native
@@ -187,8 +203,8 @@ object mod extends Shortcut {
     def apply(plugin: Plugin): Use = js.native
   }
   
-  type _To = Stylis
+  type _To = js.Object & Stylis
   
   /* This means you don't have to write `^`, but can instead just say `mod.foo` */
-  override def _to: Stylis = ^
+  override def _to: js.Object & Stylis = ^
 }

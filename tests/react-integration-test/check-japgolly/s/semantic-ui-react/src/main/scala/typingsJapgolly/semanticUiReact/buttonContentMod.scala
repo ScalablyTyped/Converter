@@ -12,7 +12,6 @@ import typingsJapgolly.react.mod.StatelessComponent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object buttonContentMod extends Shortcut {
@@ -23,8 +22,9 @@ object buttonContentMod extends Shortcut {
   
   @js.native
   trait ButtonContentProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictButtonContentProps
+       with /* key */ StringDictionary[js.Any]
   object ButtonContentProps {
     
     @scala.inline

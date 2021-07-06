@@ -136,7 +136,7 @@ object CreatorMethod {
               ObjectUpdater.Mutator { ref =>
                 If(
                   pred    = Unary("!", Call(Ref(QualifiedName.isUndefined), IArray(IArray(Ref(prop.name))))),
-                  ifTrue  = updateObj(prop, asExpr(Ref(prop.name).select("get"))).value(ref),
+                  ifTrue  = updateObj(prop, asExpr(Ref(prop.name))).value(ref),
                   ifFalse = None,
                 )
               },

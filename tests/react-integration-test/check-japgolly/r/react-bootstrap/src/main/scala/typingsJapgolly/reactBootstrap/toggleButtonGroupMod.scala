@@ -13,7 +13,6 @@ import typingsJapgolly.reactBootstrap.reactBootstrapStrings.radio
 import typingsJapgolly.reactBootstrap.reactBootstrapStrings.value
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object toggleButtonGroupMod {
@@ -68,7 +67,7 @@ object toggleButtonGroupMod {
     
     var name: js.UndefOr[String] = js.native
     
-    var onChange: js.UndefOr[js.Function1[/* values */ js.Array[_], Unit]] = js.native
+    var onChange: js.UndefOr[js.Function1[/* values */ js.Array[js.Any], Unit]] = js.native
     
     var `type`: checkbox = js.native
   }
@@ -141,5 +140,5 @@ object toggleButtonGroupMod {
   trait ToggleButtonGroup
     extends Component[ToggleButtonGroupProps, js.Object, js.Any]
   
-  type ToggleButtonGroupProps = BaseProps with (RadioProps | CheckboxProps) with (Omit[ButtonGroupProps, onChange]) with (Omit[HTMLProps[ToggleButtonGroup], defaultValue | `type` | value | onChange])
+  type ToggleButtonGroupProps = BaseProps & (RadioProps | CheckboxProps) & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[ToggleButtonGroup], defaultValue | `type` | value | onChange])
 }

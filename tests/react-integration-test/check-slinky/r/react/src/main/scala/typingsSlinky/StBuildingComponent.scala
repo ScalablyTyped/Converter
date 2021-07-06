@@ -8,18 +8,17 @@ import slinky.core.facade.ReactRef
 import typingsSlinky.StBuildingComponent.make
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 trait StBuildingComponent[E, R <: js.Object] extends Any {
   
   @scala.inline
   def apply(mods: TagMod[E]*): this.type = {
-    mods.foreach((mod: TagMod[E]) => if (mod.isInstanceOf[AttrPair[_]]) {
-    val a = mod.asInstanceOf[AttrPair[_]]
+    mods.foreach((mod: TagMod[E]) => if (mod.isInstanceOf[AttrPair[?]]) {
+    val a = mod.asInstanceOf[AttrPair[?]]
     set(a.name, a.value)
-  } else if (mod.isInstanceOf[OptionalAttrPair[_]]) {
-    val o = mod.asInstanceOf[OptionalAttrPair[_]]
+  } else if (mod.isInstanceOf[OptionalAttrPair[?]]) {
+    val o = mod.asInstanceOf[OptionalAttrPair[?]]
     if (o.value.isDefined) set(o.name, o.value.get)
   } else args.push(mod))
     this
@@ -62,8 +61,7 @@ object StBuildingComponent {
   
   @JSImport("react", JSImport.Namespace, "React")
   @js.native
-  object ReactRaw
-    extends js.Object {
+  object ReactRaw extends StObject {
     
     val createElement: js.Dynamic = js.native
   }
@@ -73,7 +71,7 @@ object StBuildingComponent {
        with StBuildingComponent[E, R]
   
   @scala.inline
-  implicit def make[E, R <: js.Object](comp: StBuildingComponent[_, _]): ReactElement = {
+  implicit def make[E, R <: js.Object](comp: StBuildingComponent[E, R]): ReactElement = {
     if (!scalajs.runtime.linkingInfo.productionMode) {
     if (comp.args(0) == null) throw new IllegalStateException("This component has already been built into a ReactElement, and cannot be reused")
   }

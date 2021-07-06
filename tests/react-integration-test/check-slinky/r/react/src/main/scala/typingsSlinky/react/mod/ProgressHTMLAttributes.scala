@@ -2,11 +2,12 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ProgressHTMLAttributes[T] extends HTMLAttributes[T] {
+trait ProgressHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var max: js.UndefOr[Double | String] = js.native
   
@@ -21,7 +22,7 @@ object ProgressHTMLAttributes {
   }
   
   @scala.inline
-  implicit class ProgressHTMLAttributesMutableBuilder[Self <: ProgressHTMLAttributes[_], T] (val x: Self with ProgressHTMLAttributes[T]) extends AnyVal {
+  implicit class ProgressHTMLAttributesMutableBuilder[Self <: ProgressHTMLAttributes[?], T] (val x: Self & ProgressHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setMax(value: Double | String): Self = StObject.set(x, "max", value.asInstanceOf[js.Any])

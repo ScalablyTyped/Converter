@@ -87,7 +87,6 @@ import typingsSlinky.semanticUiReact.semanticUiReactStrings.vk
 import typingsSlinky.semanticUiReact.semanticUiReactStrings.youtube
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object Button {
@@ -386,15 +385,15 @@ object Button {
     @scala.inline
     def icon(
       value: Boolean | (SemanticShorthandItem[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
         ])
     ): this.type = set("icon", value.asInstanceOf[js.Any])
     
     @scala.inline
     def iconFunction3(
       value: (/* component */ ReactType[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
-        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
+        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
     ): this.type = set("icon", js.Any.fromFunction3(value))
     
     @scala.inline
@@ -433,15 +432,15 @@ object Button {
     @scala.inline
     def label(
       value: SemanticShorthandItem[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
         ]
     ): this.type = set("label", value.asInstanceOf[js.Any])
     
     @scala.inline
     def labelFunction3(
       value: (/* component */ ReactType[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
-        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
+        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
     ): this.type = set("label", js.Any.fromFunction3(value))
     
     @scala.inline
@@ -478,7 +477,7 @@ object Button {
     def onAuxClick(value: SyntheticMouseEvent[HTMLButtonElement] => Unit): this.type = set("onAuxClick", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onBeforeInput(value: SyntheticEvent[EventTarget with HTMLButtonElement, Event] => Unit): this.type = set("onBeforeInput", js.Any.fromFunction1(value))
+    def onBeforeInput(value: SyntheticEvent[EventTarget & HTMLButtonElement, Event] => Unit): this.type = set("onBeforeInput", js.Any.fromFunction1(value))
     
     @scala.inline
     def onBlur(value: SyntheticFocusEvent[HTMLButtonElement] => Unit): this.type = set("onBlur", js.Any.fromFunction1(value))
@@ -490,7 +489,7 @@ object Button {
     def onCanPlayThrough(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onChange(value: SyntheticEvent[EventTarget with HTMLButtonElement, Event] => Unit): this.type = set("onChange", js.Any.fromFunction1(value))
+    def onChange(value: SyntheticEvent[EventTarget & HTMLButtonElement, Event] => Unit): this.type = set("onChange", js.Any.fromFunction1(value))
     
     @scala.inline
     def onClick(value: (/* event */ SyntheticMouseEvent[HTMLButtonElement], /* data */ ButtonProps) => Unit): this.type = set("onClick", js.Any.fromFunction2(value))
@@ -559,10 +558,10 @@ object Button {
     def onFocus(value: SyntheticFocusEvent[HTMLButtonElement] => Unit): this.type = set("onFocus", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onInput(value: SyntheticEvent[EventTarget with HTMLButtonElement, Event] => Unit): this.type = set("onInput", js.Any.fromFunction1(value))
+    def onInput(value: SyntheticEvent[EventTarget & HTMLButtonElement, Event] => Unit): this.type = set("onInput", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onInvalid(value: SyntheticEvent[EventTarget with HTMLButtonElement, Event] => Unit): this.type = set("onInvalid", js.Any.fromFunction1(value))
+    def onInvalid(value: SyntheticEvent[EventTarget & HTMLButtonElement, Event] => Unit): this.type = set("onInvalid", js.Any.fromFunction1(value))
     
     @scala.inline
     def onKeyDown(value: SyntheticKeyboardEvent[HTMLButtonElement] => Unit): this.type = set("onKeyDown", js.Any.fromFunction1(value))
@@ -649,7 +648,7 @@ object Button {
     def onRateChange(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onReset(value: SyntheticEvent[EventTarget with HTMLButtonElement, Event] => Unit): this.type = set("onReset", js.Any.fromFunction1(value))
+    def onReset(value: SyntheticEvent[EventTarget & HTMLButtonElement, Event] => Unit): this.type = set("onReset", js.Any.fromFunction1(value))
     
     @scala.inline
     def onScroll(value: SyntheticUIEvent[HTMLButtonElement] => Unit): this.type = set("onScroll", js.Any.fromFunction1(value))
@@ -667,7 +666,7 @@ object Button {
     def onStalled(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
     
     @scala.inline
-    def onSubmit(value: SyntheticEvent[EventTarget with HTMLButtonElement, Event] => Unit): this.type = set("onSubmit", js.Any.fromFunction1(value))
+    def onSubmit(value: SyntheticEvent[EventTarget & HTMLButtonElement, Event] => Unit): this.type = set("onSubmit", js.Any.fromFunction1(value))
     
     @scala.inline
     def onSuspend(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))

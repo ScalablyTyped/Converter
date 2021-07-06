@@ -8,11 +8,12 @@ import typingsJapgolly.react.reactStrings.pen
 import typingsJapgolly.react.reactStrings.touch
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait PointerEvent[T] extends MouseEvent[T, NativePointerEvent] {
+trait PointerEvent[T]
+  extends StObject
+     with MouseEvent[T, NativePointerEvent] {
   
   var height: Double = js.native
   
@@ -42,7 +43,7 @@ object PointerEvent {
     clientX: Double,
     clientY: Double,
     ctrlKey: Boolean,
-    currentTarget: EventTarget with T,
+    currentTarget: EventTarget & T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     getModifierState: String => Boolean,
@@ -80,7 +81,7 @@ object PointerEvent {
   }
   
   @scala.inline
-  implicit class PointerEventMutableBuilder[Self <: PointerEvent[_], T] (val x: Self with PointerEvent[T]) extends AnyVal {
+  implicit class PointerEventMutableBuilder[Self <: PointerEvent[?], T] (val x: Self & PointerEvent[T]) extends AnyVal {
     
     @scala.inline
     def setHeight(value: Double): Self = StObject.set(x, "height", value.asInstanceOf[js.Any])

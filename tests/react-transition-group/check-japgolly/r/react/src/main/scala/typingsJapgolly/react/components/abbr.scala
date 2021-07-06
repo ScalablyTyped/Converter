@@ -7,7 +7,6 @@ import typingsJapgolly.react.mod.DetailedHTMLProps
 import typingsJapgolly.react.mod.HTMLAttributes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object abbr {
@@ -16,7 +15,7 @@ object abbr {
   def apply(dangerouslySetInnerHTML: Html = null, defaultChecked: js.UndefOr[Boolean] = js.undefined): Default[HTMLElement] = {
     val __props = js.Dynamic.literal()
     if (dangerouslySetInnerHTML != null) __props.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
-    if (!js.isUndefined(defaultChecked)) __props.updateDynamic("defaultChecked")(defaultChecked.get.asInstanceOf[js.Any])
+    if (!js.isUndefined(defaultChecked)) __props.updateDynamic("defaultChecked")(defaultChecked.asInstanceOf[js.Any])
     new Default[HTMLElement](js.Array(this.component, __props.asInstanceOf[DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]]))
   }
   

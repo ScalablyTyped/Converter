@@ -2,11 +2,12 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait FormHTMLAttributes[T] extends HTMLAttributes[T] {
+trait FormHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var acceptCharset: js.UndefOr[String] = js.native
   
@@ -33,7 +34,7 @@ object FormHTMLAttributes {
   }
   
   @scala.inline
-  implicit class FormHTMLAttributesMutableBuilder[Self <: FormHTMLAttributes[_], T] (val x: Self with FormHTMLAttributes[T]) extends AnyVal {
+  implicit class FormHTMLAttributesMutableBuilder[Self <: FormHTMLAttributes[?], T] (val x: Self & FormHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAcceptCharset(value: String): Self = StObject.set(x, "acceptCharset", value.asInstanceOf[js.Any])

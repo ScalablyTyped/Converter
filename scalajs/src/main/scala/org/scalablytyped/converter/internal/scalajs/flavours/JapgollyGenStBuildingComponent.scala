@@ -456,9 +456,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 //      japgolly.scalajs.react.vdom.VdomElement(ret)
 //    }
     val make: MethodTree = {
-      // drop specific type parameters to help type inference in case they are inferred as `Nothing`
-      val wildcardRef        = builderRef.copy(targs = builderRef.targs.map(_ => TypeRef.Wildcard))
-      val compParam          = ParamTree(Name("comp"), false, false, wildcardRef, NotImplemented, NoComments)
+      val compParam          = ParamTree(Name("comp"), false, false, builderRef, NotImplemented, NoComments)
       val name               = Name("make")
       val compArgs           = Select(Ref(compParam.name), Name("args"))
       val args0              = Call(compArgs, IArray(IArray(NumberLit("0"))))
@@ -504,7 +502,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         IArray(Annotation.Inline),
         ProtectionLevel.Default,
         name,
-        Empty,
+        builderTparams,
         IArray(IArray(compParam)),
         impl,
         TypeRef(JapgollyNames.vdom.ReactElement),

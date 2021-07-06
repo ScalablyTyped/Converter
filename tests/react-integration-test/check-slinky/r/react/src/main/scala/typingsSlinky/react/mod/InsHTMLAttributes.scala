@@ -2,11 +2,12 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait InsHTMLAttributes[T] extends HTMLAttributes[T] {
+trait InsHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var cite: js.UndefOr[String] = js.native
   
@@ -21,7 +22,7 @@ object InsHTMLAttributes {
   }
   
   @scala.inline
-  implicit class InsHTMLAttributesMutableBuilder[Self <: InsHTMLAttributes[_], T] (val x: Self with InsHTMLAttributes[T]) extends AnyVal {
+  implicit class InsHTMLAttributesMutableBuilder[Self <: InsHTMLAttributes[?], T] (val x: Self & InsHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setCite(value: String): Self = StObject.set(x, "cite", value.asInstanceOf[js.Any])

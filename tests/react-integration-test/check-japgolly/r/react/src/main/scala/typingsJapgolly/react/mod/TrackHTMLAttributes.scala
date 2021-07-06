@@ -2,11 +2,12 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait TrackHTMLAttributes[T] extends HTMLAttributes[T] {
+trait TrackHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var default: js.UndefOr[Boolean] = js.native
   
@@ -27,7 +28,7 @@ object TrackHTMLAttributes {
   }
   
   @scala.inline
-  implicit class TrackHTMLAttributesMutableBuilder[Self <: TrackHTMLAttributes[_], T] (val x: Self with TrackHTMLAttributes[T]) extends AnyVal {
+  implicit class TrackHTMLAttributesMutableBuilder[Self <: TrackHTMLAttributes[?], T] (val x: Self & TrackHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setDefault(value: Boolean): Self = StObject.set(x, "default", value.asInstanceOf[js.Any])

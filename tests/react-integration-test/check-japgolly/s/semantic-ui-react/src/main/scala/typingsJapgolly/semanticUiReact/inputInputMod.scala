@@ -26,7 +26,6 @@ import typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.small
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object inputInputMod {
@@ -45,7 +44,9 @@ object inputInputMod {
   }
   
   @js.native
-  trait InputOnChangeData extends StrictInputProps {
+  trait InputOnChangeData
+    extends StObject
+       with StrictInputProps {
     
     @JSName("value")
     var value_InputOnChangeData: String = js.native
@@ -69,7 +70,9 @@ object inputInputMod {
   type InputProps = StrictInputProps
   
   @js.native
-  trait StrictInputProps extends InputHTMLAttributes[HTMLInputElement] {
+  trait StrictInputProps
+    extends StObject
+       with InputHTMLAttributes[HTMLInputElement] {
     
     /** An Input can be formatted to alert the user to an action they may perform. */
     var action: js.UndefOr[js.Any | Boolean] = js.native
@@ -104,7 +107,7 @@ object inputInputMod {
     /** Optional Label to display along side the Input. */
     var label: js.UndefOr[
         SemanticShorthandItem[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
         ]
       ] = js.native
     
@@ -238,15 +241,15 @@ object inputInputMod {
       @scala.inline
       def setLabel(
         value: SemanticShorthandItem[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
             ]
       ): Self = StObject.set(x, "label", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setLabelFunction3(
         value: (/* component */ ReactType[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
-            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
+            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
       ): Self = StObject.set(x, "label", js.Any.fromFunction3(value))
       
       @scala.inline

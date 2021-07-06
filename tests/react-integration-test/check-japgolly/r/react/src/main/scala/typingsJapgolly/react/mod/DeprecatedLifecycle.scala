@@ -3,7 +3,6 @@ package typingsJapgolly.react.mod
 import japgolly.scalajs.react.Callback
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -114,7 +113,7 @@ object DeprecatedLifecycle {
   }
   
   @scala.inline
-  implicit class DeprecatedLifecycleMutableBuilder[Self <: DeprecatedLifecycle[_, _], P, S] (val x: Self with (DeprecatedLifecycle[P, S])) extends AnyVal {
+  implicit class DeprecatedLifecycleMutableBuilder[Self <: DeprecatedLifecycle[?, ?], P, S] (val x: Self & (DeprecatedLifecycle[P, S])) extends AnyVal {
     
     @scala.inline
     def setComponentWillMount(value: Callback): Self = StObject.set(x, "componentWillMount", value.toJsFn)

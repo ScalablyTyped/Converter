@@ -17,7 +17,6 @@ import typingsJapgolly.semanticUiReact.accordionTitleMod.AccordionTitleProps
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandItem
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object accordionPanelMod {
@@ -27,12 +26,13 @@ object accordionPanelMod {
   class default ()
     extends Component[AccordionPanelProps, js.Object, js.Any]
   
-  type AccordionPanel = japgolly.scalajs.react.raw.React.Component[AccordionPanelProps with js.Object, js.Object]
+  type AccordionPanel = japgolly.scalajs.react.raw.React.Component[AccordionPanelProps & js.Object, js.Object]
   
   @js.native
   trait AccordionPanelProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictAccordionPanelProps
+       with /* key */ StringDictionary[js.Any]
   object AccordionPanelProps {
     
     @scala.inline

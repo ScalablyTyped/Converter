@@ -4,7 +4,6 @@ import typingsSlinky.materialUi.MaterialUI.BottomNavigation.BottomNavigationItem
 import typingsSlinky.react.mod.Component
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object bottomNavigationItemMod {
@@ -16,5 +15,6 @@ object bottomNavigationItemMod {
   @JSImport("material-ui/BottomNavigation/BottomNavigationItem", "BottomNavigationItem")
   @js.native
   class BottomNavigationItem ()
-    extends Component[BottomNavigationItemProps, js.Object]
+    extends StObject
+       with Component[BottomNavigationItemProps, js.Object]
 }

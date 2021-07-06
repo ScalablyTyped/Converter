@@ -2,11 +2,12 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait LinkHTMLAttributes[T] extends HTMLAttributes[T] {
+trait LinkHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var as: js.UndefOr[String] = js.native
   
@@ -35,7 +36,7 @@ object LinkHTMLAttributes {
   }
   
   @scala.inline
-  implicit class LinkHTMLAttributesMutableBuilder[Self <: LinkHTMLAttributes[_], T] (val x: Self with LinkHTMLAttributes[T]) extends AnyVal {
+  implicit class LinkHTMLAttributesMutableBuilder[Self <: LinkHTMLAttributes[?], T] (val x: Self & LinkHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAs(value: String): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])

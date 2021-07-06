@@ -8,11 +8,12 @@ import typingsSlinky.react.reactStrings.auto
 import typingsSlinky.react.reactStrings.sync
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ImgHTMLAttributes[T] extends HTMLAttributes[T] {
+trait ImgHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var alt: js.UndefOr[String] = js.native
   
@@ -41,7 +42,7 @@ object ImgHTMLAttributes {
   }
   
   @scala.inline
-  implicit class ImgHTMLAttributesMutableBuilder[Self <: ImgHTMLAttributes[_], T] (val x: Self with ImgHTMLAttributes[T]) extends AnyVal {
+  implicit class ImgHTMLAttributesMutableBuilder[Self <: ImgHTMLAttributes[?], T] (val x: Self & ImgHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAlt(value: String): Self = StObject.set(x, "alt", value.asInstanceOf[js.Any])

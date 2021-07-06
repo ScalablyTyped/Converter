@@ -1,11 +1,9 @@
-package typingsSlinky
+package typingsSlinky.std
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-package object std {
   
   type AnimationEvent = org.scalajs.dom.raw.Event
   
@@ -22,4 +20,3 @@ package object std {
   type SVGCircleElement = org.scalajs.dom.raw.SVGElement
   
   type SVGElement = org.scalajs.dom.raw.Element
-}

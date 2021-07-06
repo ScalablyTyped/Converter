@@ -3,7 +3,6 @@ package typingsSlinky.materialUi
 import typingsSlinky.react.mod.Component
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object accessibilityMod {
@@ -15,5 +14,6 @@ object accessibilityMod {
   @JSImport("material-ui/svg-icons/action/accessibility", "ActionAccessibility")
   @js.native
   class ActionAccessibility ()
-    extends Component[js.Object, js.Object]
+    extends StObject
+       with Component[js.Object, js.Object]
 }

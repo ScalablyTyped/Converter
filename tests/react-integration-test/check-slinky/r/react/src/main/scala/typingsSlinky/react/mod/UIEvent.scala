@@ -3,11 +3,12 @@ package typingsSlinky.react.mod
 import org.scalajs.dom.raw.EventTarget
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait UIEvent[T] extends BaseSyntheticEvent[NativeUIEvent, EventTarget with T, EventTarget] {
+trait UIEvent[T]
+  extends StObject
+     with BaseSyntheticEvent[NativeUIEvent, EventTarget & T, EventTarget] {
   
   var detail: Double = js.native
   
@@ -19,7 +20,7 @@ object UIEvent {
   def apply[T](
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: EventTarget with T,
+    currentTarget: EventTarget & T,
     defaultPrevented: Boolean,
     detail: Double,
     eventPhase: Double,
@@ -41,7 +42,7 @@ object UIEvent {
   }
   
   @scala.inline
-  implicit class UIEventMutableBuilder[Self <: UIEvent[_], T] (val x: Self with UIEvent[T]) extends AnyVal {
+  implicit class UIEventMutableBuilder[Self <: UIEvent[?], T] (val x: Self & UIEvent[T]) extends AnyVal {
     
     @scala.inline
     def setDetail(value: Double): Self = StObject.set(x, "detail", value.asInstanceOf[js.Any])

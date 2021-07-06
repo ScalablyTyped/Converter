@@ -5,7 +5,6 @@ import typings.react.mod.Component
 import typings.react.mod.ReactSVGElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -13,12 +12,15 @@ object mod {
   @JSImport("react-icon-base", JSImport.Default)
   @js.native
   class default ()
-    extends Component[IconBaseProps, js.Object]
+    extends StObject
+       with Component[IconBaseProps, js.Object]
   
   type IconBaseClass = Component[IconBaseProps, js.Object]
   
   @js.native
-  trait IconBaseProps extends ClassAttributes[ReactSVGElement] {
+  trait IconBaseProps
+    extends StObject
+       with ClassAttributes[ReactSVGElement] {
     
     var size: js.UndefOr[String | Double] = js.native
   }

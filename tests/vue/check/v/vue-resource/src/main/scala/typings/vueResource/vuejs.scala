@@ -8,7 +8,6 @@ import typings.vueResource.anon.Method
 import typings.vueResource.anon.headersHttpHeadersundefin
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object vuejs {
@@ -39,7 +38,8 @@ object vuejs {
   
   @js.native
   trait HttpHeaders
-    extends /* key */ StringDictionary[js.Any] {
+    extends StObject
+       with /* key */ StringDictionary[js.Any] {
     
     var common: js.UndefOr[StringDictionary[String]] = js.native
     
@@ -137,7 +137,7 @@ object vuejs {
   @js.native
   trait HttpOptions extends StObject {
     
-    var before: js.UndefOr[js.Function1[/* request */ js.Any, _]] = js.native
+    var before: js.UndefOr[js.Function1[/* request */ js.Any, js.Any]] = js.native
     
     var body: js.UndefOr[js.Any] = js.native
     
@@ -153,7 +153,7 @@ object vuejs {
     
     var params: js.UndefOr[js.Any] = js.native
     
-    var progress: js.UndefOr[js.Function1[/* event */ js.Any, _]] = js.native
+    var progress: js.UndefOr[js.Function1[/* event */ js.Any, js.Any]] = js.native
     
     var url: js.UndefOr[String] = js.native
   }
@@ -169,7 +169,7 @@ object vuejs {
     implicit class HttpOptionsMutableBuilder[Self <: HttpOptions] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def setBefore(value: /* request */ js.Any => _): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
+      def setBefore(value: /* request */ js.Any => js.Any): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
       
       @scala.inline
       def setBeforeUndefined: Self = StObject.set(x, "before", js.undefined)
@@ -217,7 +217,7 @@ object vuejs {
       def setParamsUndefined: Self = StObject.set(x, "params", js.undefined)
       
       @scala.inline
-      def setProgress(value: /* event */ js.Any => _): Self = StObject.set(x, "progress", js.Any.fromFunction1(value))
+      def setProgress(value: /* event */ js.Any => js.Any): Self = StObject.set(x, "progress", js.Any.fromFunction1(value))
       
       @scala.inline
       def setProgressUndefined: Self = StObject.set(x, "progress", js.undefined)
@@ -299,17 +299,17 @@ object vuejs {
   trait Http_ extends StObject {
     
     def delete(url: String): js.Thenable[HttpResponse] = js.native
-    def delete(url: String, data: js.UndefOr[scala.Nothing], options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def delete(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
     def delete(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def delete(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def delete(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     @JSName("delete")
     var delete_Original: http = js.native
     
     def get(url: String): js.Thenable[HttpResponse] = js.native
-    def get(url: String, data: js.UndefOr[scala.Nothing], options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def get(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
     def get(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def get(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def get(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     @JSName("get")
     var get_Original: http = js.native
@@ -319,9 +319,9 @@ object vuejs {
     var interceptors: js.Array[HttpInterceptor | js.Function0[HttpInterceptor]] = js.native
     
     def jsonp(url: String): js.Thenable[HttpResponse] = js.native
-    def jsonp(url: String, data: js.UndefOr[scala.Nothing], options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def jsonp(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
     def jsonp(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def jsonp(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def jsonp(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     @JSName("jsonp")
     var jsonp_Original: http = js.native
@@ -329,25 +329,25 @@ object vuejs {
     var options: HttpOptionsrootstring = js.native
     
     def patch(url: String): js.Thenable[HttpResponse] = js.native
-    def patch(url: String, data: js.UndefOr[scala.Nothing], options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def patch(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
     def patch(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def patch(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def patch(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     @JSName("patch")
     var patch_Original: http = js.native
     
     def post(url: String): js.Thenable[HttpResponse] = js.native
-    def post(url: String, data: js.UndefOr[scala.Nothing], options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def post(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
     def post(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def post(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def post(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     @JSName("post")
     var post_Original: http = js.native
     
     def put(url: String): js.Thenable[HttpResponse] = js.native
-    def put(url: String, data: js.UndefOr[scala.Nothing], options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def put(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
     def put(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def put(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def put(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     @JSName("put")
     var put_Original: http = js.native
@@ -456,23 +456,18 @@ object vuejs {
     
     def apply(): js.Thenable[HttpResponse] = js.native
     def apply(params: js.Any): js.Thenable[HttpResponse] = js.native
-    def apply(
-      params: js.Any,
-      data: js.UndefOr[scala.Nothing],
-      success: js.UndefOr[scala.Nothing],
-      error: js.Function
-    ): js.Thenable[HttpResponse] = js.native
-    def apply(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
     def apply(params: js.Any, data: js.Any): js.Thenable[HttpResponse] = js.native
-    def apply(params: js.Any, data: js.Any, success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def apply(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def apply(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
     def apply(params: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def apply(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def apply(success: js.Function): js.Thenable[HttpResponse] = js.native
     def apply(success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
   }
   
   @js.native
@@ -480,133 +475,103 @@ object vuejs {
     
     def delete(): js.Thenable[HttpResponse] = js.native
     def delete(params: js.Any): js.Thenable[HttpResponse] = js.native
-    def delete(
-      params: js.Any,
-      data: js.UndefOr[scala.Nothing],
-      success: js.UndefOr[scala.Nothing],
-      error: js.Function
-    ): js.Thenable[HttpResponse] = js.native
-    def delete(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function): js.Thenable[HttpResponse] = js.native
-    def delete(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
     def delete(params: js.Any, data: js.Any): js.Thenable[HttpResponse] = js.native
-    def delete(params: js.Any, data: js.Any, success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def delete(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def delete(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def delete(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def delete(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse] = js.native
+    def delete(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def delete(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
     def delete(params: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def delete(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def delete(success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def delete(success: js.Function): js.Thenable[HttpResponse] = js.native
     def delete(success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def delete(success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
     @JSName("delete")
     var delete_Original: ResourceMethod = js.native
     
     def get(): js.Thenable[HttpResponse] = js.native
     def get(params: js.Any): js.Thenable[HttpResponse] = js.native
-    def get(
-      params: js.Any,
-      data: js.UndefOr[scala.Nothing],
-      success: js.UndefOr[scala.Nothing],
-      error: js.Function
-    ): js.Thenable[HttpResponse] = js.native
-    def get(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function): js.Thenable[HttpResponse] = js.native
-    def get(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
     def get(params: js.Any, data: js.Any): js.Thenable[HttpResponse] = js.native
-    def get(params: js.Any, data: js.Any, success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def get(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def get(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def get(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def get(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse] = js.native
+    def get(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def get(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
     def get(params: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def get(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def get(success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def get(success: js.Function): js.Thenable[HttpResponse] = js.native
     def get(success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def get(success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
     @JSName("get")
     var get_Original: ResourceMethod = js.native
     
     def query(): js.Thenable[HttpResponse] = js.native
     def query(params: js.Any): js.Thenable[HttpResponse] = js.native
-    def query(
-      params: js.Any,
-      data: js.UndefOr[scala.Nothing],
-      success: js.UndefOr[scala.Nothing],
-      error: js.Function
-    ): js.Thenable[HttpResponse] = js.native
-    def query(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function): js.Thenable[HttpResponse] = js.native
-    def query(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
     def query(params: js.Any, data: js.Any): js.Thenable[HttpResponse] = js.native
-    def query(params: js.Any, data: js.Any, success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def query(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def query(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def query(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def query(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse] = js.native
+    def query(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def query(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
     def query(params: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def query(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def query(success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def query(success: js.Function): js.Thenable[HttpResponse] = js.native
     def query(success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def query(success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
     @JSName("query")
     var query_Original: ResourceMethod = js.native
     
     def remove(): js.Thenable[HttpResponse] = js.native
     def remove(params: js.Any): js.Thenable[HttpResponse] = js.native
-    def remove(
-      params: js.Any,
-      data: js.UndefOr[scala.Nothing],
-      success: js.UndefOr[scala.Nothing],
-      error: js.Function
-    ): js.Thenable[HttpResponse] = js.native
-    def remove(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function): js.Thenable[HttpResponse] = js.native
-    def remove(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
     def remove(params: js.Any, data: js.Any): js.Thenable[HttpResponse] = js.native
-    def remove(params: js.Any, data: js.Any, success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def remove(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def remove(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def remove(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def remove(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse] = js.native
+    def remove(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def remove(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
     def remove(params: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def remove(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def remove(success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def remove(success: js.Function): js.Thenable[HttpResponse] = js.native
     def remove(success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def remove(success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
     @JSName("remove")
     var remove_Original: ResourceMethod = js.native
     
     def save(): js.Thenable[HttpResponse] = js.native
     def save(params: js.Any): js.Thenable[HttpResponse] = js.native
-    def save(
-      params: js.Any,
-      data: js.UndefOr[scala.Nothing],
-      success: js.UndefOr[scala.Nothing],
-      error: js.Function
-    ): js.Thenable[HttpResponse] = js.native
-    def save(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function): js.Thenable[HttpResponse] = js.native
-    def save(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
     def save(params: js.Any, data: js.Any): js.Thenable[HttpResponse] = js.native
-    def save(params: js.Any, data: js.Any, success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def save(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def save(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def save(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def save(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse] = js.native
+    def save(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def save(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
     def save(params: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def save(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def save(success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def save(success: js.Function): js.Thenable[HttpResponse] = js.native
     def save(success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def save(success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
     @JSName("save")
     var save_Original: ResourceMethod = js.native
     
     def update(): js.Thenable[HttpResponse] = js.native
     def update(params: js.Any): js.Thenable[HttpResponse] = js.native
-    def update(
-      params: js.Any,
-      data: js.UndefOr[scala.Nothing],
-      success: js.UndefOr[scala.Nothing],
-      error: js.Function
-    ): js.Thenable[HttpResponse] = js.native
-    def update(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function): js.Thenable[HttpResponse] = js.native
-    def update(params: js.Any, data: js.UndefOr[scala.Nothing], success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
     def update(params: js.Any, data: js.Any): js.Thenable[HttpResponse] = js.native
-    def update(params: js.Any, data: js.Any, success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def update(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def update(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def update(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def update(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse] = js.native
+    def update(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def update(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
     def update(params: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
     def update(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def update(success: js.UndefOr[scala.Nothing], error: js.Function): js.Thenable[HttpResponse] = js.native
     def update(success: js.Function): js.Thenable[HttpResponse] = js.native
     def update(success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def update(success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
     @JSName("update")
     var update_Original: ResourceMethod = js.native
   }
@@ -665,24 +630,19 @@ object vuejs {
     @JSName("$resource")
     def $resource(url: String): ResourceMethods = js.native
     @JSName("$resource")
-    def $resource(
-      url: String,
-      params: js.UndefOr[scala.Nothing],
-      actions: js.UndefOr[scala.Nothing],
-      options: HttpOptions
-    ): ResourceMethods = js.native
-    @JSName("$resource")
-    def $resource(url: String, params: js.UndefOr[scala.Nothing], actions: js.Any): ResourceMethods = js.native
-    @JSName("$resource")
-    def $resource(url: String, params: js.UndefOr[scala.Nothing], actions: js.Any, options: HttpOptions): ResourceMethods = js.native
-    @JSName("$resource")
     def $resource(url: String, params: js.Object): ResourceMethods = js.native
-    @JSName("$resource")
-    def $resource(url: String, params: js.Object, actions: js.UndefOr[scala.Nothing], options: HttpOptions): ResourceMethods = js.native
     @JSName("$resource")
     def $resource(url: String, params: js.Object, actions: js.Any): ResourceMethods = js.native
     @JSName("$resource")
     def $resource(url: String, params: js.Object, actions: js.Any, options: HttpOptions): ResourceMethods = js.native
+    @JSName("$resource")
+    def $resource(url: String, params: js.Object, actions: Unit, options: HttpOptions): ResourceMethods = js.native
+    @JSName("$resource")
+    def $resource(url: String, params: Unit, actions: js.Any): ResourceMethods = js.native
+    @JSName("$resource")
+    def $resource(url: String, params: Unit, actions: js.Any, options: HttpOptions): ResourceMethods = js.native
+    @JSName("$resource")
+    def $resource(url: String, params: Unit, actions: Unit, options: HttpOptions): ResourceMethods = js.native
     @JSName("$resource")
     var $resource_Original: resource = js.native
   }
@@ -740,9 +700,9 @@ object vuejs {
   trait http extends StObject {
     
     def apply(url: String): js.Thenable[HttpResponse] = js.native
-    def apply(url: String, data: js.UndefOr[scala.Nothing], options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def apply(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
     def apply(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def apply(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def apply(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
   }
   

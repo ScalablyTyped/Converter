@@ -19,7 +19,6 @@ import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandItem
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object accordionTitleMod extends Shortcut {
@@ -34,12 +33,13 @@ object accordionTitleMod extends Shortcut {
   }
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionTitle", JSImport.Default)
   @js.native
-  val default: ComponentClassP[AccordionTitleProps with js.Object] = js.native
+  val default: ComponentClassP[AccordionTitleProps & js.Object] = js.native
   
   @js.native
   trait AccordionTitleProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictAccordionTitleProps
+       with /* key */ StringDictionary[js.Any]
   object AccordionTitleProps {
     
     @scala.inline
@@ -70,7 +70,7 @@ object accordionTitleMod extends Shortcut {
     /** Shorthand for Icon. */
     var icon: js.UndefOr[
         SemanticShorthandItem[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
         ]
       ] = js.native
     
@@ -153,15 +153,15 @@ object accordionTitleMod extends Shortcut {
       @scala.inline
       def setIcon(
         value: SemanticShorthandItem[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
             ]
       ): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setIconFunction3(
         value: (/* component */ ReactType[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
-            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
+            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
       ): Self = StObject.set(x, "icon", js.Any.fromFunction3(value))
       
       @scala.inline
@@ -192,8 +192,8 @@ object accordionTitleMod extends Shortcut {
     }
   }
   
-  type _To = ComponentClassP[AccordionTitleProps with js.Object]
+  type _To = ComponentClassP[AccordionTitleProps & js.Object]
   
   /* This means you don't have to write `default`, but can instead just say `accordionTitleMod.foo` */
-  override def _to: ComponentClassP[AccordionTitleProps with js.Object] = default
+  override def _to: ComponentClassP[AccordionTitleProps & js.Object] = default
 }

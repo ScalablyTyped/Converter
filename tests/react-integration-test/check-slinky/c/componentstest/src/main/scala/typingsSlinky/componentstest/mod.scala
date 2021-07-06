@@ -9,7 +9,6 @@ import typingsSlinky.react.mod.FunctionComponent
 import typingsSlinky.react.mod.MouseEventHandler
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -31,7 +30,9 @@ object mod {
   val ObjectNames: ReactComponentClass[Equals] = js.native
   
   @js.native
-  trait A extends Props {
+  trait A
+    extends StObject
+       with Props {
     
     def aCallback(): Double = js.native
     
@@ -57,7 +58,9 @@ object mod {
   }
   
   @js.native
-  trait B extends Props {
+  trait B
+    extends StObject
+       with Props {
     
     var bCallback: js.UndefOr[js.Function0[String]] = js.native
     
@@ -134,7 +137,9 @@ object mod {
   }
   
   @js.native
-  trait CardInterface extends FunctionComponent[CardProps] {
+  trait CardInterface
+    extends StObject
+       with FunctionComponent[CardProps] {
     
     var Grid2: ReactComponentClass[CardGridProps] = js.native
   }

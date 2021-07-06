@@ -5,7 +5,6 @@ import typingsJapgolly.react.mod.Component
 import typingsJapgolly.react.mod.Props
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -16,7 +15,8 @@ object mod {
   
   @js.native
   trait Option[TValue]
-    extends /**
+    extends StObject
+       with /**
     * In the event that a custom menuRenderer is provided, Option should be able
     * to accept arbitrary key-value pairs. See react-virtualized-select.
     */
@@ -34,7 +34,7 @@ object mod {
     }
     
     @scala.inline
-    implicit class OptionMutableBuilder[Self <: Option[_], TValue] (val x: Self with Option[TValue]) extends AnyVal {
+    implicit class OptionMutableBuilder[Self <: Option[?], TValue] (val x: Self & Option[TValue]) extends AnyVal {
       
       @scala.inline
       def setValue(value: TValue): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
@@ -56,7 +56,9 @@ object mod {
   }
   
   @js.native
-  trait ReactSelectProps[TValue] extends Props[ReactSelectClass[TValue]] {
+  trait ReactSelectProps[TValue]
+    extends StObject
+       with Props[ReactSelectClass[TValue]] {
     
     /**
       * text to display when `allowCreate` is true.
@@ -73,7 +75,7 @@ object mod {
     }
     
     @scala.inline
-    implicit class ReactSelectPropsMutableBuilder[Self <: ReactSelectProps[_], TValue] (val x: Self with ReactSelectProps[TValue]) extends AnyVal {
+    implicit class ReactSelectPropsMutableBuilder[Self <: ReactSelectProps[?], TValue] (val x: Self & ReactSelectProps[TValue]) extends AnyVal {
       
       @scala.inline
       def setAddLabelText(value: String): Self = StObject.set(x, "addLabelText", value.asInstanceOf[js.Any])

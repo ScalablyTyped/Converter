@@ -3,7 +3,6 @@ package typingsSlinky.react.mod
 import slinky.core.ReactComponentClass
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -24,7 +23,7 @@ object Context {
   }
   
   @scala.inline
-  implicit class ContextMutableBuilder[Self <: Context[_], T] (val x: Self with Context[T]) extends AnyVal {
+  implicit class ContextMutableBuilder[Self <: Context[?], T] (val x: Self & Context[T]) extends AnyVal {
     
     @scala.inline
     def setConsumer(value: ReactComponentClass[ConsumerProps[T]]): Self = StObject.set(x, "Consumer", value.asInstanceOf[js.Any])

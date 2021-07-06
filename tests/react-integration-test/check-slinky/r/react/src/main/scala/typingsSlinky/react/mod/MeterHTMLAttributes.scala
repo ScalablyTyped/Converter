@@ -2,11 +2,12 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait MeterHTMLAttributes[T] extends HTMLAttributes[T] {
+trait MeterHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var form: js.UndefOr[String] = js.native
   
@@ -31,7 +32,7 @@ object MeterHTMLAttributes {
   }
   
   @scala.inline
-  implicit class MeterHTMLAttributesMutableBuilder[Self <: MeterHTMLAttributes[_], T] (val x: Self with MeterHTMLAttributes[T]) extends AnyVal {
+  implicit class MeterHTMLAttributesMutableBuilder[Self <: MeterHTMLAttributes[?], T] (val x: Self & MeterHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setForm(value: String): Self = StObject.set(x, "form", value.asInstanceOf[js.Any])

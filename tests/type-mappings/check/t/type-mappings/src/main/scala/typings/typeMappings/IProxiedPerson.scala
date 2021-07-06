@@ -4,7 +4,6 @@ import typings.typeMappings.anon.Get
 import typings.typeMappings.anon.Set
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined parent type-mappings.Proxify<type-mappings.Person> */

@@ -9,10 +9,10 @@ import org.scalatest.funsuite.AnyFunSuite
 
 class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExecution {
   val update   = !constants.isCi
-  val Slinky   = SlinkyFlavour(Name("typingsSlinky"), enableLongApplyMethod = false, version.scala, Selection.None)
-  val Japgolly = JapgollyFlavour(Name("typingsJapgolly"), enableLongApplyMethod = false, version.scala, Selection.All)
+  val Slinky   = SlinkyFlavour(Name("typingsSlinky"), enableLongApplyMethod = false, version, Selection.None)
+  val Japgolly = JapgollyFlavour(Name("typingsJapgolly"), enableLongApplyMethod = false, version, Selection.All)
   val JapgollyLong =
-    JapgollyFlavour(Name("typingsJapgolly"), enableLongApplyMethod = true, version.scala, Selection.All)
+    JapgollyFlavour(Name("typingsJapgolly"), enableLongApplyMethod = true, version, Selection.All)
 
   test("augment-module")(assertImportsOk("augment-module", pedantic                 = false, update = update))
   test("typings-json")(assertImportsOk("typings-json", pedantic                     = true, update  = update))
@@ -56,6 +56,7 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   test("antd")(assertImportsOk("antd", pedantic                                     = true, update  = update))
   test("echarts")(assertImportsOk("echarts", pedantic                               = true, update  = update))
   test("elasticsearch-js")(assertImportsOk("elasticsearch-js", pedantic             = true, update  = update))
+  test("vfile")(assertImportsOk("vfile", pedantic             = true, update  = update))
 
   test("material-ui-slinky")(
     assertImportsOk("material-ui", pedantic = true, update = update, flavour = Slinky),

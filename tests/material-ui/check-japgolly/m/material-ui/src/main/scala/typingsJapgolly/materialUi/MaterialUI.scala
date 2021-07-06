@@ -3,14 +3,13 @@ package typingsJapgolly.materialUi
 import japgolly.scalajs.react.raw.React.Component
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object MaterialUI {
   
   object BottomNavigation {
     
-    type BottomNavigationItem = Component[BottomNavigationItemProps with js.Object, js.Object]
+    type BottomNavigationItem = Component[BottomNavigationItemProps & js.Object, js.Object]
     
     @js.native
     trait BottomNavigationItemProps extends StObject {

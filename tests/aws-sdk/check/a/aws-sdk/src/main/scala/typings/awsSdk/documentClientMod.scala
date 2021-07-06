@@ -6,7 +6,6 @@ import typings.awsSdk.dynamodbMod.ClientConfiguration
 import typings.awsSdk.dynamodbMod.^
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object documentClientMod {
@@ -17,7 +16,7 @@ object documentClientMod {
     * Creates a DynamoDB document client with a set of configuration options.
     */
   class DocumentClient () extends StObject {
-    def this(options: DocumentClientOptions with ClientConfiguration) = this()
+    def this(options: DocumentClientOptions & ClientConfiguration) = this()
   }
   object DocumentClient {
     
@@ -71,7 +70,9 @@ object documentClientMod {
     }
     
     @js.native
-    trait DocumentClientOptions extends ConverterOptions {
+    trait DocumentClientOptions
+      extends StObject
+         with ConverterOptions {
       
       /**
         * An optional map of parameters to bind to every request sent by this service object.

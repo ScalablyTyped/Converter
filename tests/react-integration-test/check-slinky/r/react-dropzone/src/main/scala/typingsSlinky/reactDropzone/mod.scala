@@ -14,7 +14,6 @@ import typingsSlinky.react.mod.RefAttributes
 import typingsSlinky.react.mod.global.JSX.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -24,7 +23,7 @@ object mod {
   val ^ : js.Any = js.native
   
   @scala.inline
-  def default(props: DropzoneProps with RefAttributes[DropzoneRef]): Element = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(props.asInstanceOf[js.Any]).asInstanceOf[Element]
+  def default(props: DropzoneProps & RefAttributes[DropzoneRef]): Element = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(props.asInstanceOf[js.Any]).asInstanceOf[Element]
   
   @scala.inline
   def useDropzone(): DropzoneState = ^.asInstanceOf[js.Dynamic].applyDynamic("useDropzone")().asInstanceOf[DropzoneState]
@@ -34,7 +33,9 @@ object mod {
   type DropEvent = DragEvent[HTMLElement] | ChangeEvent[HTMLInputElement] | org.scalajs.dom.raw.DragEvent | Event
   
   @js.native
-  trait DropzoneInputProps extends InputHTMLAttributes[HTMLInputElement] {
+  trait DropzoneInputProps
+    extends StObject
+       with InputHTMLAttributes[HTMLInputElement] {
     
     var refKey: js.UndefOr[String] = js.native
   }
@@ -68,7 +69,7 @@ object mod {
     var getFilesFromEvent: js.UndefOr[
         js.Function1[
           /* event */ DropEvent, 
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ js.Any
         ]
       ] = js.native
     
@@ -95,10 +96,10 @@ object mod {
     var onDrop: js.UndefOr[
         js.Function3[
           /* acceptedFiles */ js.Array[
-            /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+            /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
           ], 
           /* rejectedFiles */ js.Array[
-            /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+            /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
           ], 
           /* event */ DropEvent, 
           Unit
@@ -108,7 +109,7 @@ object mod {
     var onDropAccepted: js.UndefOr[
         js.Function2[
           /* files */ js.Array[
-            /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+            /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
           ], 
           /* event */ DropEvent, 
           Unit
@@ -118,7 +119,7 @@ object mod {
     var onDropRejected: js.UndefOr[
         js.Function2[
           /* files */ js.Array[
-            /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+            /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
           ], 
           /* event */ DropEvent, 
           Unit
@@ -157,7 +158,7 @@ object mod {
       
       @scala.inline
       def setGetFilesFromEvent(
-        value: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
+        value: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ js.Any
       ): Self = StObject.set(x, "getFilesFromEvent", js.Any.fromFunction1(value))
       
       @scala.inline
@@ -226,16 +227,16 @@ object mod {
       @scala.inline
       def setOnDrop(
         value: (/* acceptedFiles */ js.Array[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
             ], /* rejectedFiles */ js.Array[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
             ], /* event */ DropEvent) => Unit
       ): Self = StObject.set(x, "onDrop", js.Any.fromFunction3(value))
       
       @scala.inline
       def setOnDropAccepted(
         value: (/* files */ js.Array[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
             ], /* event */ DropEvent) => Unit
       ): Self = StObject.set(x, "onDropAccepted", js.Any.fromFunction2(value))
       
@@ -245,7 +246,7 @@ object mod {
       @scala.inline
       def setOnDropRejected(
         value: (/* files */ js.Array[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
             ], /* event */ DropEvent) => Unit
       ): Self = StObject.set(x, "onDropRejected", js.Any.fromFunction2(value))
       
@@ -270,7 +271,9 @@ object mod {
   }
   
   @js.native
-  trait DropzoneProps extends DropzoneOptions {
+  trait DropzoneProps
+    extends StObject
+       with DropzoneOptions {
     
     var children: js.UndefOr[js.Function1[/* state */ DropzoneState, Element]] = js.native
   }
@@ -316,8 +319,9 @@ object mod {
   
   @js.native
   trait DropzoneRootProps
-    extends /* key */ StringDictionary[js.Any]
-       with HTMLAttributes[HTMLElement] {
+    extends StObject
+       with HTMLAttributes[HTMLElement]
+       with /* key */ StringDictionary[js.Any] {
     
     var refKey: js.UndefOr[String] = js.native
   }
@@ -341,14 +345,16 @@ object mod {
   }
   
   @js.native
-  trait DropzoneState extends DropzoneRef {
+  trait DropzoneState
+    extends StObject
+       with DropzoneRef {
     
     var acceptedFiles: js.Array[
-        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
       ] = js.native
     
     var draggedFiles: js.Array[
-        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
       ] = js.native
     
     def getInputProps(): DropzoneInputProps = js.native
@@ -370,7 +376,7 @@ object mod {
     var isFocused: Boolean = js.native
     
     var rejectedFiles: js.Array[
-        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
+        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
       ] = js.native
     
     var rootRef: ReactRef[HTMLElement] = js.native

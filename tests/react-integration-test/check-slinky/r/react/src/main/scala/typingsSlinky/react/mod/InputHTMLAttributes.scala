@@ -2,11 +2,12 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait InputHTMLAttributes[T] extends HTMLAttributes[T] {
+trait InputHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var accept: js.UndefOr[String] = js.native
   
@@ -83,7 +84,7 @@ object InputHTMLAttributes {
   }
   
   @scala.inline
-  implicit class InputHTMLAttributesMutableBuilder[Self <: InputHTMLAttributes[_], T] (val x: Self with InputHTMLAttributes[T]) extends AnyVal {
+  implicit class InputHTMLAttributesMutableBuilder[Self <: InputHTMLAttributes[?], T] (val x: Self & InputHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAccept(value: String): Self = StObject.set(x, "accept", value.asInstanceOf[js.Any])

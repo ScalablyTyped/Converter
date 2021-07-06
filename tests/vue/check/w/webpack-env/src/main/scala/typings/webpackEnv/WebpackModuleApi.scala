@@ -5,7 +5,6 @@ import typings.std.Error
 import typings.std.RegExp
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object WebpackModuleApi {
@@ -183,7 +182,7 @@ object WebpackModuleApi {
   @js.native
   trait Module extends StObject {
     
-    var children: js.Array[_] = js.native
+    var children: js.Array[js.Any] = js.native
     
     var exports: js.Any = js.native
     
@@ -263,9 +262,9 @@ object WebpackModuleApi {
     var cache: StringDictionary[js.Any] = js.native
     
     def context(path: String): RequireContext = js.native
-    def context(path: String, deep: js.UndefOr[scala.Nothing], filter: RegExp): RequireContext = js.native
     def context(path: String, deep: Boolean): RequireContext = js.native
     def context(path: String, deep: Boolean, filter: RegExp): RequireContext = js.native
+    def context(path: String, deep: Unit, filter: RegExp): RequireContext = js.native
     
     /**
       * Download additional dependencies on demand. The paths array lists modules that should be available. When they are, callback is called. If the callback is a function expression, dependencies in that source part are extracted and also loaded on demand. A single request is fired to the server, except if all modules are already available.

@@ -36,7 +36,6 @@ import typingsJapgolly.semanticUiReact.semanticUiReactStrings.vk
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.youtube
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object buttonMod {
@@ -72,7 +71,9 @@ object buttonMod {
   type ButtonProps = StrictButtonProps
   
   @js.native
-  trait StrictButtonProps extends ButtonHTMLAttributes[HTMLButtonElement] {
+  trait StrictButtonProps
+    extends StObject
+       with ButtonHTMLAttributes[HTMLButtonElement] {
     
     /** A button can show it is currently the active user selection. */
     var active: js.UndefOr[Boolean] = js.native
@@ -113,7 +114,7 @@ object buttonMod {
     /** Add an Icon by name, props object, or pass an <Icon />. */
     var icon: js.UndefOr[
         Boolean | (SemanticShorthandItem[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
         ])
       ] = js.native
     
@@ -123,7 +124,7 @@ object buttonMod {
     /** Add a Label by text, props object, or pass a <Label />. */
     var label: js.UndefOr[
         SemanticShorthandItem[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
         ]
       ] = js.native
     
@@ -254,15 +255,15 @@ object buttonMod {
       @scala.inline
       def setIcon(
         value: Boolean | (SemanticShorthandItem[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
             ])
       ): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setIconFunction3(
         value: (/* component */ ReactType[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
-            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
+            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
       ): Self = StObject.set(x, "icon", js.Any.fromFunction3(value))
       
       @scala.inline
@@ -286,15 +287,15 @@ object buttonMod {
       @scala.inline
       def setLabel(
         value: SemanticShorthandItem[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
             ]
       ): Self = StObject.set(x, "label", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setLabelFunction3(
         value: (/* component */ ReactType[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
-            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
+            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
       ): Self = StObject.set(x, "label", js.Any.fromFunction3(value))
       
       @scala.inline

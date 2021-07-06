@@ -5,11 +5,12 @@ import typingsSlinky.react.reactStrings.reset
 import typingsSlinky.react.reactStrings.submit
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ButtonHTMLAttributes[T] extends HTMLAttributes[T] {
+trait ButtonHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var autoFocus: js.UndefOr[Boolean] = js.native
   
@@ -42,7 +43,7 @@ object ButtonHTMLAttributes {
   }
   
   @scala.inline
-  implicit class ButtonHTMLAttributesMutableBuilder[Self <: ButtonHTMLAttributes[_], T] (val x: Self with ButtonHTMLAttributes[T]) extends AnyVal {
+  implicit class ButtonHTMLAttributesMutableBuilder[Self <: ButtonHTMLAttributes[?], T] (val x: Self & ButtonHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAutoFocus(value: Boolean): Self = StObject.set(x, "autoFocus", value.asInstanceOf[js.Any])

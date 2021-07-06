@@ -8,7 +8,6 @@ import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandContent
 import typingsSlinky.semanticUiReact.genericMod.SemanticTEXTALIGNMENTS
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object containerContainerMod extends Shortcut {
@@ -19,8 +18,9 @@ object containerContainerMod extends Shortcut {
   
   @js.native
   trait ContainerProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictContainerProps
+       with /* key */ StringDictionary[js.Any]
   object ContainerProps {
     
     @scala.inline

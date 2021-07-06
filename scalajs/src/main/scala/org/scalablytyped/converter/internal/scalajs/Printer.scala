@@ -5,12 +5,13 @@ import java.io._
 
 import org.scalablytyped.converter.internal.scalajs.transforms.ShortenNames
 import org.scalablytyped.converter.internal.stringUtils.quote
+
 import scala.collection.mutable
 
-object Printer {
-  implicit def defaulted(comp: Printer.type): debug.type = debug
+object debugPrinter extends Printer.Impl(Name(""), Versions.Scala3)
 
-  val debug = new Impl(Name(""))
+object Printer {
+  implicit def defaulted(comp: Printer.type): debugPrinter.type = debugPrinter
 
   private[Printer] class Registry() {
 
@@ -37,10 +38,11 @@ object Printer {
       parentsResolver: ParentsResolver,
       tree:            ContainerTree,
       outputPackage:   Name,
+      scalaVersion:    Versions.Scala,
   ): Map[os.RelPath, Array[Byte]] = {
     val reg = new Registry()
 
-    new Impl(outputPackage).apply(
+    new Impl(outputPackage, scalaVersion).apply(
       _scope          = scope,
       parentsResolver = parentsResolver,
       reg             = reg,
@@ -51,12 +53,6 @@ object Printer {
 
     reg.result
   }
-
-  val Imports: String =
-    """|import org.scalablytyped.runtime.StObject
-       |import scala.scalajs.js
-       |import scala.scalajs.js.`|`
-       |import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}""".stripMargin
 
   private final case class Indenter(a: Appendable) {
     private var hasIndented: Boolean = false
@@ -85,7 +81,19 @@ object Printer {
     }
   }
 
-  final class Impl private[Printer] (outputPackage: Name) {
+  sealed class Impl(outputPackage: Name, scalaVersion: Versions.Scala) {
+    val Imports: String = {
+      if (scalaVersion.is3)
+        """|import org.scalablytyped.runtime.StObject
+           |import scala.scalajs.js
+           |import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}""".stripMargin
+      else
+        """|import org.scalablytyped.runtime.StObject
+           |import scala.scalajs.js
+           |import scala.scalajs.js.`|`
+           |import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}""".stripMargin
+
+    }
     def apply(
         _scope:          TreeScope,
         parentsResolver: ParentsResolver,
@@ -145,6 +153,24 @@ object Printer {
             case _ => sys.error("i was too lazy to prove this with types")
           }
 
+        case (ScalaOutput.PackageObject, members) if scalaVersion.is3 =>
+          reg.write(targetFolder / packageScalaFileName) { writer =>
+            writer.println(s"package ${formatQN(QualifiedName(packages))}")
+            writer.println("")
+            writer.println(Imports)
+            writer.println("")
+            printTrees(
+              scope,
+              parentsResolver,
+              reg,
+              Indenter(writer),
+              packages,
+              targetFolder,
+              2,
+              members,
+            )
+          }
+
         case (ScalaOutput.PackageObject, members) =>
           reg.write(targetFolder / packageScalaFileName) { writer =>
             packages.dropRight(1) match {
@@ -169,6 +195,7 @@ object Printer {
             )
             writer.println("}")
           }
+
       }
     }
 
@@ -275,7 +302,7 @@ object Printer {
             print(formatParams(indent + 2)(defaultCtor.params))
           }
 
-          print(extendsClause(parents, c.isNative, indent))
+          print(extendsClause(comments, parents, c.isNative, indent))
 
           if (members.nonEmpty || restCtors.nonEmpty) {
             println(" {")
@@ -297,7 +324,7 @@ object Printer {
             if (isOverride) "override " else "",
             "object ",
             formatName(name),
-            extendsClause(parents, isNative, indent),
+            extendsClause(comments, parents, isNative, indent),
           )
 
           if (members.nonEmpty) {
@@ -377,14 +404,29 @@ object Printer {
       paramString
     }
 
-    def extendsClause(parents: IArray[TypeRef], isNative: Boolean, indent: Int): String =
-      parents.toList.map(parent => formatTypeRef(indent + 6)(parent)) match {
-        case Nil if isNative                    => " extends StObject"
+    // This is unfortunate, the the `Printer` still changes the AST somewhat before printing: Namely it adds
+    // `StObject` to the list of parents for native types.
+    // The reason why it's still done here is that it significantly degrades the quality of the output if we do it
+    //  earlier because of a number of type computations which would need exceptions.
+    def extendsClause(cs: Comments, parents: IArray[TypeRef], isNative: Boolean, indent: Int): String = {
+      val hasClass = cs.has[Marker.HasClassParent.type]
+      val formattedParents = parents.toList.map {
+        case TypeRef.JsObject => "StObject"
+        case parent           => formatTypeRef(indent + 6)(parent)
+      }
+
+      val patchedParents =
+        if (isNative && (parents.isEmpty || !hasClass))
+          ("StObject" :: formattedParents).distinct
+        else formattedParents
+
+      patchedParents match {
         case Nil                                => ""
         case head :: Nil if !head.contains(".") => " extends " + head
         case head :: Nil                        => "\n  extends " + head
         case head :: tail                       => "\n  extends " + head + tail.mkString("\n     with ", "\n     with ", "")
       }
+    }
 
     def formatTypeParams(indent: Int)(tparams: IArray[TypeParamTree]): String =
       if (tparams.isEmpty) ""
@@ -443,9 +485,13 @@ object Printer {
             }
             s"$params => ${formatTypeRef(indent)(retType)}"
 
-          case TypeRef.ThisType(_)           => "this.type"
-          case TypeRef.Wildcard              => "_"
-          case TypeRef.Singleton(underlying) => formatTypeRef(indent)(underlying) |+| ".type"
+          case TypeRef.ThisType(_)                  => "this.type"
+          case TypeRef.Wildcard if scalaVersion.is3 => "?"
+          case TypeRef.Wildcard                     => "_"
+          case TypeRef.Singleton(underlying)        => formatTypeRef(indent)(underlying) |+| ".type"
+
+          case TypeRef.Intersection(types, _) if scalaVersion.is3 =>
+            types.map(formatTypeRef(indent)).map(paramsIfNeeded).mkString(" & ")
 
           case TypeRef.Intersection(types, _) =>
             types.map(formatTypeRef(indent)).map(paramsIfNeeded).mkString(" with ")
@@ -454,7 +500,7 @@ object Printer {
             formatTypeRef(indent)(TypeRef(QualifiedName.JsUndefOr, IArray(tpe), NoComments))
 
           case TypeRef.undefined => // keep this line after TypeRef.UndefOr. This line covers if it appears outside a union type
-            formatTypeRef(indent)(TypeRef(QualifiedName.JsUndefOr, IArray(TypeRef.Nothing), NoComments))
+            formatTypeRef(indent)(TypeRef.Unit)
 
           case TypeRef.Union(types, _) =>
             types.map(formatTypeRef(indent)).map(paramsIfNeeded).mkString(" | ")
@@ -543,6 +589,8 @@ object Printer {
           s"if (${formatExpr(indent)(pred)}) ${formatExpr(indent)(ifTrue)}"
         case ExprTree.Block(es) =>
           es.map(e => "  " + formatExpr(indent)(e)).mkString("{\n", "\n", "\n}")
+        case ExprTree.undefined =>
+          "js.undefined"
         case ExprTree.Null =>
           "null"
         case ExprTree.`:_*`(e) =>

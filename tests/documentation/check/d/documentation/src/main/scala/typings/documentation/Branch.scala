@@ -2,11 +2,12 @@ package typings.documentation
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait Branch[T] extends Tree[T] {
+trait Branch[T]
+  extends StObject
+     with Tree[T] {
   
   var left: T = js.native
   
@@ -24,7 +25,7 @@ object Branch {
   }
   
   @scala.inline
-  implicit class BranchMutableBuilder[Self <: Branch[_], T] (val x: Self with Branch[T]) extends AnyVal {
+  implicit class BranchMutableBuilder[Self <: Branch[?], T] (val x: Self & Branch[T]) extends AnyVal {
     
     @scala.inline
     def setLeft(value: T): Self = StObject.set(x, "left", value.asInstanceOf[js.Any])

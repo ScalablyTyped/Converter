@@ -61,7 +61,7 @@ class Phase3Compile(
           outputPkg     = flavour.outputPkg,
         )
 
-        val scalaFiles    = Printer(scope, new ParentsResolver, lib.packageTree, flavour.outputPkg)
+        val scalaFiles    = Printer(scope, new ParentsResolver, lib.packageTree, flavour.outputPkg, versions.scala)
         val sourcesDir    = os.RelPath("src") / 'main / 'scala
         val resourcesDir  = os.RelPath("src") / 'main / 'resources
         val metadataOpt   = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten

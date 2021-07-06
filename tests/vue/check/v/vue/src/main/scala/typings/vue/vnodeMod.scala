@@ -8,7 +8,6 @@ import typings.vue.vueMod.Vue
 import typings.vue.vueMod.VueConstructor
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object vnodeMod {
@@ -151,7 +150,9 @@ object vnodeMod {
   type VNodeChildren = VNodeChildrenArrayContents | js.Array[ScopedSlot] | String
   
   @js.native
-  trait VNodeChildrenArrayContents extends /* x */ NumberDictionary[VNode | String | VNodeChildren]
+  trait VNodeChildrenArrayContents
+    extends StObject
+       with /* x */ NumberDictionary[VNode | String | VNodeChildren]
   object VNodeChildrenArrayContents {
     
     @scala.inline

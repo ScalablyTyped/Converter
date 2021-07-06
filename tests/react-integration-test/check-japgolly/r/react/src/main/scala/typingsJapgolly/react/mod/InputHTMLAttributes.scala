@@ -5,11 +5,12 @@ import japgolly.scalajs.react.ReactEventFrom
 import org.scalajs.dom.raw.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait InputHTMLAttributes[T] extends HTMLAttributes[T] {
+trait InputHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var accept: js.UndefOr[String] = js.native
   
@@ -86,7 +87,7 @@ object InputHTMLAttributes {
   }
   
   @scala.inline
-  implicit class InputHTMLAttributesMutableBuilder[Self <: InputHTMLAttributes[_], T] (val x: Self with InputHTMLAttributes[T]) extends AnyVal {
+  implicit class InputHTMLAttributesMutableBuilder[Self <: InputHTMLAttributes[?], T] (val x: Self & InputHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAccept(value: String): Self = StObject.set(x, "accept", value.asInstanceOf[js.Any])
@@ -221,7 +222,7 @@ object InputHTMLAttributes {
     def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
     
     @scala.inline
-    def setOnChange(value: ReactEventFrom[T with Element] => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    def setOnChange(value: ReactEventFrom[T & Element] => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: ReactEventFrom[T & Element]) => value(t0).runNow()))
     
     @scala.inline
     def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)

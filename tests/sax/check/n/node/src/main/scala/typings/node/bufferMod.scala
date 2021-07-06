@@ -4,7 +4,6 @@ import typings.std.ArrayBuffer
 import typings.std.Uint8Array
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /************************************************
@@ -21,7 +20,9 @@ object bufferMod {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("buffer", "Buffer")
   @js.native
-  class Buffer protected () extends NodeBuffer {
+  class Buffer protected ()
+    extends StObject
+       with NodeBuffer {
     /**
       * Produces a Buffer backed by the same allocated memory as
       * the given {ArrayBuffer}.
@@ -35,7 +36,7 @@ object bufferMod {
       *
       * @param array The octets to store.
       */
-    def this(array: js.Array[_]) = this()
+    def this(array: js.Array[js.Any]) = this()
     /**
       * Allocates a new buffer containing the given {array} of octets.
       *
@@ -79,7 +80,7 @@ object bufferMod {
       * Allocates a new Buffer using an {array} of octets.
       */
     @scala.inline
-    def from(array: js.Array[_]): typings.node.Buffer = ^.asInstanceOf[js.Dynamic].applyDynamic("from")(array.asInstanceOf[js.Any]).asInstanceOf[typings.node.Buffer]
+    def from(array: js.Array[js.Any]): typings.node.Buffer = ^.asInstanceOf[js.Dynamic].applyDynamic("from")(array.asInstanceOf[js.Any]).asInstanceOf[typings.node.Buffer]
   }
   
   @JSImport("buffer", "INSPECT_MAX_BYTES")
@@ -91,8 +92,10 @@ object bufferMod {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("buffer", "SlowBuffer")
   @js.native
-  class SlowBuffer protected () extends NodeBuffer {
-    def this(array: js.Array[_]) = this()
+  class SlowBuffer protected ()
+    extends StObject
+       with NodeBuffer {
+    def this(array: js.Array[js.Any]) = this()
     def this(size: Double) = this()
     def this(size: Uint8Array) = this()
     def this(str: String) = this()

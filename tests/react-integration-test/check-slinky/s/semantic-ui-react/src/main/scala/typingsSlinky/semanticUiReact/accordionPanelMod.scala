@@ -13,7 +13,6 @@ import typingsSlinky.semanticUiReact.accordionTitleMod.AccordionTitleProps
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object accordionPanelMod {
@@ -27,8 +26,9 @@ object accordionPanelMod {
   
   @js.native
   trait AccordionPanelProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictAccordionPanelProps
+       with /* key */ StringDictionary[js.Any]
   object AccordionPanelProps {
     
     @scala.inline

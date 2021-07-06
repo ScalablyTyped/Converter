@@ -2,12 +2,13 @@ package typings.expandTypeParameters
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* import warning: transforms.RemoveMultipleInheritance#findNewParents newComments Dropped parents 
 - typings.expandTypeParameters.TA because Already inherited */ @js.native
-trait A extends B {
+trait A
+  extends StObject
+     with B {
   
   var a: Double = js.native
 }

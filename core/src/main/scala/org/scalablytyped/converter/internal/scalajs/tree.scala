@@ -375,11 +375,7 @@ object TypeRef {
 
     def apply(types: IArray[TypeRef], comments: Comments): TypeRef = {
       val base: IArray[TypeRef] =
-        flattened(types).distinct.partitionCollect { case TypeRef.Wildcard => TypeRef.Wildcard } match {
-          // keep wildcard only if there is nothing else
-          case (wildcards, Empty) => wildcards
-          case (_, rest)          => rest
-        }
+        flattened(types).distinct
 
       val ret = base match {
         case IArray.Empty           => TypeRef.Nothing
@@ -548,10 +544,8 @@ object ExprTree {
   implicit val encodes: Encoder[ExprTree] = io.circe013.generic.semiauto.deriveEncoder
   implicit val decodes: Decoder[ExprTree] = io.circe013.generic.semiauto.deriveDecoder
 
-  val undefined = Ref(QualifiedName.scala_js + Name("undefined"))
-  val native    = Ref(QualifiedName.scala_js + Name("native"))
+  val native = Ref(QualifiedName.scala_js + Name("native"))
 
-  case object Null extends ExprTree
   case class BinaryOp(one:          ExprTree, op: String, two: ExprTree) extends ExprTree
   case class Block(expressions:     IArray[ExprTree]) extends ExprTree
   case class Call(function:         ExprTree, params: IArray[IArray[Arg]]) extends ExprTree
@@ -588,6 +582,8 @@ object ExprTree {
   case class BooleanLit(value: Boolean) extends Lit
   case class NumberLit(value:  String) extends Lit
   case class StringLit(value:  String) extends Lit
+  case object undefined extends Lit
+  case object Null extends Lit
 
   sealed trait Arg extends ExprTree
   object Arg {

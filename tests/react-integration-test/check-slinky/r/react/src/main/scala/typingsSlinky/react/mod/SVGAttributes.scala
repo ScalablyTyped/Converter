@@ -33,7 +33,6 @@ import typingsSlinky.react.reactStrings.terminal
 import typingsSlinky.react.reactStrings.yes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // this list is "complete" in that it contains every SVG attribute
@@ -46,7 +45,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 //   - union of string literals
 @js.native
 trait SVGAttributes[T]
-  extends AriaAttributes
+  extends StObject
+     with AriaAttributes
      with DOMAttributes[T] {
   
   // SVG Specific attributes
@@ -576,7 +576,7 @@ object SVGAttributes {
   }
   
   @scala.inline
-  implicit class SVGAttributesMutableBuilder[Self <: SVGAttributes[_], T] (val x: Self with SVGAttributes[T]) extends AnyVal {
+  implicit class SVGAttributesMutableBuilder[Self <: SVGAttributes[?], T] (val x: Self & SVGAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAccentHeight(value: Double | String): Self = StObject.set(x, "accentHeight", value.asInstanceOf[js.Any])

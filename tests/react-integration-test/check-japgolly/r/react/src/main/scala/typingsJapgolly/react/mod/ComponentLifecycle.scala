@@ -3,7 +3,6 @@ package typingsJapgolly.react.mod
 import japgolly.scalajs.react.Callback
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 //
@@ -14,7 +13,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 // methods are present.
 @js.native
 trait ComponentLifecycle[P, S, SS]
-  extends NewLifecycle[P, S, SS]
+  extends StObject
+     with NewLifecycle[P, S, SS]
      with DeprecatedLifecycle[P, S] {
   
   /**
@@ -63,7 +63,7 @@ object ComponentLifecycle {
   }
   
   @scala.inline
-  implicit class ComponentLifecycleMutableBuilder[Self <: ComponentLifecycle[_, _, _], P, S, SS] (val x: Self with (ComponentLifecycle[P, S, SS])) extends AnyVal {
+  implicit class ComponentLifecycleMutableBuilder[Self <: ComponentLifecycle[?, ?, ?], P, S, SS] (val x: Self & (ComponentLifecycle[P, S, SS])) extends AnyVal {
     
     @scala.inline
     def setComponentDidCatch(

@@ -5,14 +5,15 @@ import typings.vue.pluginMod.PluginFunction
 import typings.vueScrollto.vueScrolltoBooleans.`false`
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
   
   @JSImport("vue-scrollto", JSImport.Namespace)
   @js.native
-  class ^ () extends VueScrollTo
+  class ^ ()
+    extends StObject
+       with VueScrollTo
   @JSImport("vue-scrollto", JSImport.Namespace)
   @js.native
   val ^ : js.Any = js.native

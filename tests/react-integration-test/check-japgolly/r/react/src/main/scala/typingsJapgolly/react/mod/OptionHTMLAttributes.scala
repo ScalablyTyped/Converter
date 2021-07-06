@@ -2,11 +2,12 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait OptionHTMLAttributes[T] extends HTMLAttributes[T] {
+trait OptionHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var disabled: js.UndefOr[Boolean] = js.native
   
@@ -25,7 +26,7 @@ object OptionHTMLAttributes {
   }
   
   @scala.inline
-  implicit class OptionHTMLAttributesMutableBuilder[Self <: OptionHTMLAttributes[_], T] (val x: Self with OptionHTMLAttributes[T]) extends AnyVal {
+  implicit class OptionHTMLAttributesMutableBuilder[Self <: OptionHTMLAttributes[?], T] (val x: Self & OptionHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])

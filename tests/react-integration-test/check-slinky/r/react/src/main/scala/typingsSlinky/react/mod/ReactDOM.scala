@@ -60,12 +60,12 @@ import typingsSlinky.std.HTMLTemplateElement
 import typingsSlinky.std.HTMLWebViewElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait ReactDOM
-  extends ReactHTML
+  extends StObject
+     with ReactHTML
      with ReactSVG
 object ReactDOM {
   

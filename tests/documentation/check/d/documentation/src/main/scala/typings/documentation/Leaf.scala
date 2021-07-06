@@ -2,11 +2,12 @@ package typings.documentation
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait Leaf[T] extends Tree[T] {
+trait Leaf[T]
+  extends StObject
+     with Tree[T] {
   
   var `type`: typings.documentation.documentationStrings.Leaf = js.native
   
@@ -22,7 +23,7 @@ object Leaf {
   }
   
   @scala.inline
-  implicit class LeafMutableBuilder[Self <: Leaf[_], T] (val x: Self with Leaf[T]) extends AnyVal {
+  implicit class LeafMutableBuilder[Self <: Leaf[?], T] (val x: Self & Leaf[T]) extends AnyVal {
     
     @scala.inline
     def setType(value: typings.documentation.documentationStrings.Leaf): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])

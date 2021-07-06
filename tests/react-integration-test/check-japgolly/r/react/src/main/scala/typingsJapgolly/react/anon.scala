@@ -9,7 +9,6 @@ import japgolly.scalajs.react.vdom.VdomNode
 import typingsJapgolly.std.Exclude
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
@@ -40,7 +39,7 @@ object anon {
   @js.native
   trait `1` extends StObject {
     
-    var ref: js.UndefOr[Exclude[_, String]] = js.native
+    var ref: js.UndefOr[Exclude[js.Any, String]] = js.native
   }
   object `1` {
     
@@ -54,7 +53,7 @@ object anon {
     implicit class `1MutableBuilder`[Self <: `1`] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def setRef(value: Exclude[_, String]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
+      def setRef(value: Exclude[js.Any, String]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)

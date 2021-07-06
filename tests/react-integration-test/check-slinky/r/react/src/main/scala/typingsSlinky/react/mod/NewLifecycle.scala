@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // This should be "infer SS" but can't use it yet
@@ -37,7 +36,7 @@ object NewLifecycle {
   }
   
   @scala.inline
-  implicit class NewLifecycleMutableBuilder[Self <: NewLifecycle[_, _, _], P, S, SS] (val x: Self with (NewLifecycle[P, S, SS])) extends AnyVal {
+  implicit class NewLifecycleMutableBuilder[Self <: NewLifecycle[?, ?, ?], P, S, SS] (val x: Self & (NewLifecycle[P, S, SS])) extends AnyVal {
     
     @scala.inline
     def setComponentDidUpdate(value: (/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS]) => Unit): Self = StObject.set(x, "componentDidUpdate", js.Any.fromFunction3(value))

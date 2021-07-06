@@ -7,7 +7,6 @@ import typings.react.mod.RefObject
 import typings.std.Pick
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -17,14 +16,14 @@ object mod {
   val ^ : js.Any = js.native
   
   @scala.inline
-  def default(): js.Function1[/* component */ ComponentType[js.Any with WithTheme], ComponentClass[_]] = ^.asInstanceOf[js.Dynamic].applyDynamic("default")().asInstanceOf[js.Function1[/* component */ ComponentType[js.Any with WithTheme], ComponentClass[_]]]
+  def default(): js.Function1[/* component */ ComponentType[js.Any & WithTheme], ComponentClass[js.Any]] = ^.asInstanceOf[js.Dynamic].applyDynamic("default")().asInstanceOf[js.Function1[/* component */ ComponentType[js.Any & WithTheme], ComponentClass[js.Any]]]
   
   type ConsistentWith[T, U] = Pick[U, /* keyof T */ String]
   
   @js.native
   trait WithTheme extends StObject {
     
-    var innerRef: js.UndefOr[Ref[_] | RefObject[_]] = js.native
+    var innerRef: js.UndefOr[Ref[js.Any] | RefObject[js.Any]] = js.native
     
     var theme: String = js.native
   }
@@ -40,7 +39,7 @@ object mod {
     implicit class WithThemeMutableBuilder[Self <: WithTheme] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def setInnerRef(value: Ref[_] | RefObject[_]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
+      def setInnerRef(value: Ref[js.Any] | RefObject[js.Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setInnerRefUndefined: Self = StObject.set(x, "innerRef", js.undefined)

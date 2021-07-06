@@ -2,11 +2,12 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait StyleHTMLAttributes[T] extends HTMLAttributes[T] {
+trait StyleHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var media: js.UndefOr[String] = js.native
   
@@ -25,7 +26,7 @@ object StyleHTMLAttributes {
   }
   
   @scala.inline
-  implicit class StyleHTMLAttributesMutableBuilder[Self <: StyleHTMLAttributes[_], T] (val x: Self with StyleHTMLAttributes[T]) extends AnyVal {
+  implicit class StyleHTMLAttributesMutableBuilder[Self <: StyleHTMLAttributes[?], T] (val x: Self & StyleHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setMedia(value: String): Self = StObject.set(x, "media", value.asInstanceOf[js.Any])

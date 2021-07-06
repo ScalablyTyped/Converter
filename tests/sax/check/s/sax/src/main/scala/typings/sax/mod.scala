@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import typings.node.streamMod.Duplex
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -68,7 +67,9 @@ object mod {
   }
   
   @js.native
-  trait QualifiedAttribute extends QualifiedName {
+  trait QualifiedAttribute
+    extends StObject
+       with QualifiedName {
     
     var value: String = js.native
   }
@@ -126,7 +127,9 @@ object mod {
   
   /* import warning: transforms.RemoveMultipleInheritance#findNewParents newComments Dropped parents 
   - typings.sax.mod.BaseTag because var conflicts: name. Inlined isSelfClosing */ @js.native
-  trait QualifiedTag extends QualifiedName {
+  trait QualifiedTag
+    extends StObject
+       with QualifiedName {
     
     var attributes: StringDictionary[QualifiedAttribute] = js.native
     
@@ -229,7 +232,9 @@ object mod {
   }
   
   @js.native
-  trait Tag extends BaseTag {
+  trait Tag
+    extends StObject
+       with BaseTag {
     
     var attributes: StringDictionary[String] = js.native
   }

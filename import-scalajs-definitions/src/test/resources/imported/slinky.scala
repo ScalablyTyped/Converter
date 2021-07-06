@@ -552,6 +552,19 @@ object slinky {
     }
     
     @js.native
+    trait ScaledSize
+      extends js.Object {
+      
+      var fontScale: Double = js.native
+      
+      var height: Double = js.native
+      
+      var scale: Double = js.native
+      
+      var width: Double = js.native
+    }
+    
+    @js.native
     trait ScrollViewInstance
       extends js.Object {
       
@@ -588,6 +601,13 @@ object slinky {
       def clear(): Unit = js.native
       
       def isFocused(): Boolean = js.native
+    }
+    
+    @js.native
+    object useWindowDimensions
+      extends js.Object {
+      
+      def apply(): ScaledSize = js.native
     }
   }
   

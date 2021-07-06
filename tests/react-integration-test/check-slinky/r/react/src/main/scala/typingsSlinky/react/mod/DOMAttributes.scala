@@ -16,7 +16,6 @@ import slinky.web.SyntheticWheelEvent
 import typingsSlinky.react.anon.Html
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -209,7 +208,7 @@ object DOMAttributes {
   }
   
   @scala.inline
-  implicit class DOMAttributesMutableBuilder[Self <: DOMAttributes[_], T] (val x: Self with DOMAttributes[T]) extends AnyVal {
+  implicit class DOMAttributesMutableBuilder[Self <: DOMAttributes[?], T] (val x: Self & DOMAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
@@ -254,7 +253,7 @@ object DOMAttributes {
     def setOnAuxClickUndefined: Self = StObject.set(x, "onAuxClick", js.undefined)
     
     @scala.inline
-    def setOnBeforeInput(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self = StObject.set(x, "onBeforeInput", js.Any.fromFunction1(value))
+    def setOnBeforeInput(value: slinky.core.SyntheticEvent[EventTarget & T, Event] => Unit): Self = StObject.set(x, "onBeforeInput", js.Any.fromFunction1(value))
     
     @scala.inline
     def setOnBeforeInputUndefined: Self = StObject.set(x, "onBeforeInput", js.undefined)
@@ -278,7 +277,7 @@ object DOMAttributes {
     def setOnCanPlayUndefined: Self = StObject.set(x, "onCanPlay", js.undefined)
     
     @scala.inline
-    def setOnChange(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self = StObject.set(x, "onChange", js.Any.fromFunction1(value))
+    def setOnChange(value: slinky.core.SyntheticEvent[EventTarget & T, Event] => Unit): Self = StObject.set(x, "onChange", js.Any.fromFunction1(value))
     
     @scala.inline
     def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
@@ -416,13 +415,13 @@ object DOMAttributes {
     def setOnFocusUndefined: Self = StObject.set(x, "onFocus", js.undefined)
     
     @scala.inline
-    def setOnInput(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self = StObject.set(x, "onInput", js.Any.fromFunction1(value))
+    def setOnInput(value: slinky.core.SyntheticEvent[EventTarget & T, Event] => Unit): Self = StObject.set(x, "onInput", js.Any.fromFunction1(value))
     
     @scala.inline
     def setOnInputUndefined: Self = StObject.set(x, "onInput", js.undefined)
     
     @scala.inline
-    def setOnInvalid(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self = StObject.set(x, "onInvalid", js.Any.fromFunction1(value))
+    def setOnInvalid(value: slinky.core.SyntheticEvent[EventTarget & T, Event] => Unit): Self = StObject.set(x, "onInvalid", js.Any.fromFunction1(value))
     
     @scala.inline
     def setOnInvalidUndefined: Self = StObject.set(x, "onInvalid", js.undefined)
@@ -596,7 +595,7 @@ object DOMAttributes {
     def setOnRateChangeUndefined: Self = StObject.set(x, "onRateChange", js.undefined)
     
     @scala.inline
-    def setOnReset(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self = StObject.set(x, "onReset", js.Any.fromFunction1(value))
+    def setOnReset(value: slinky.core.SyntheticEvent[EventTarget & T, Event] => Unit): Self = StObject.set(x, "onReset", js.Any.fromFunction1(value))
     
     @scala.inline
     def setOnResetUndefined: Self = StObject.set(x, "onReset", js.undefined)
@@ -632,7 +631,7 @@ object DOMAttributes {
     def setOnStalledUndefined: Self = StObject.set(x, "onStalled", js.undefined)
     
     @scala.inline
-    def setOnSubmit(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self = StObject.set(x, "onSubmit", js.Any.fromFunction1(value))
+    def setOnSubmit(value: slinky.core.SyntheticEvent[EventTarget & T, Event] => Unit): Self = StObject.set(x, "onSubmit", js.Any.fromFunction1(value))
     
     @scala.inline
     def setOnSubmitUndefined: Self = StObject.set(x, "onSubmit", js.undefined)

@@ -10,7 +10,15 @@ import org.scalablytyped.converter.internal.scalajs.CastConversion.TypeRewriterC
 import org.scalablytyped.converter.internal.scalajs.QualifiedName.StdNames
 import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
-import org.scalablytyped.converter.internal.scalajs.{Name, PackageTree, ParentsResolver, TreeScope, transforms => S}
+import org.scalablytyped.converter.internal.scalajs.{
+  Erasure,
+  Name,
+  PackageTree,
+  ParentsResolver,
+  TreeScope,
+  Versions,
+  transforms => S,
+}
 import org.scalablytyped.converter.internal.ts.{TsIdentLibrary, TsTreeTraverse}
 
 import scala.collection.immutable.SortedSet
@@ -21,6 +29,7 @@ import scala.collection.immutable.SortedSet
   */
 class Phase2ToScalaJs(
     pedantic:             Boolean,
+    scalaVersion:         Versions.Scala,
     enableScalaJsDefined: Selection[TsIdentLibrary],
     outputPkg:            Name,
     flavour:              FlavourImpl,
@@ -56,22 +65,28 @@ class Phase2ToScalaJs(
 
             val cleanIllegalNames = new CleanIllegalNames(outputPkg)
 
+            // this has a cache inside
+            def erasure()        = new Erasure(scalaVersion)
+            def parentResolver() = new ParentsResolver
+
             val ScalaTransforms = List[PackageTree => PackageTree](
               S.ModulesCombine.visitPackageTree(scope),
               new TypeRewriterCast(flavour.rewrites).visitPackageTree(scope),
-              (new S.RemoveDuplicateInheritance(new ParentsResolver) >>
+              (new S.RemoveDuplicateInheritance(parentResolver()) >>
                 S.CleanupTypeAliases >>
                 cleanIllegalNames >>
                 S.Deduplicator).visitPackageTree(scope),
               Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s, cleanIllegalNames)(tree)),
               Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals
               S.LimitUnionLength.visitPackageTree(scope), // after UnionToInheritance
-              new S.RemoveMultipleInheritance(new ParentsResolver).visitPackageTree(scope),
-              S.CombineOverloads.visitPackageTree(scope), //must have stable types, so FakeLiterals run before
-              new S.FilterMemberOverrides(new ParentsResolver).visitPackageTree(scope), //
-              new S.InferMemberOverrides(new ParentsResolver)
+              new S.RemoveMultipleInheritance(parentResolver()).visitPackageTree(scope),
+              new S.CombineOverloads(erasure())
+                .visitPackageTree(scope), //must have stable types, so FakeLiterals run before
+              new S.FilterMemberOverrides(erasure(), parentResolver()).visitPackageTree(scope), //
+              new S.InferMemberOverrides(erasure(), parentResolver())
                 .visitPackageTree(scope), //runs in phase after FilterMemberOverrides
-              new S.CompleteClass(new ParentsResolver).visitPackageTree(scope), //after FilterMemberOverrides
+              new S.CompleteClass(erasure(), parentResolver(), scalaVersion)
+                .visitPackageTree(scope), //after FilterMemberOverrides
             )
 
             val importName = AdaptiveNamingImport(

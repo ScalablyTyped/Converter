@@ -2,7 +2,6 @@ package typingsSlinky.stardustUiReactComponentEventListener
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
@@ -60,12 +59,37 @@ object anon {
   @js.native
   trait Listener extends StObject {
     
-    var capture: js.UndefOr[scala.Nothing] = js.native
+    var capture: Unit = js.native
     
-    var listener: js.UndefOr[scala.Nothing] = js.native
+    var listener: Unit = js.native
     
-    var targetRef: js.UndefOr[scala.Nothing] = js.native
+    var targetRef: Unit = js.native
     
-    var `type`: js.UndefOr[scala.Nothing] = js.native
+    var `type`: Unit = js.native
+  }
+  object Listener {
+    
+    @scala.inline
+    def apply(capture: Unit, listener: Unit, targetRef: Unit, `type`: Unit): Listener = {
+      val __obj = js.Dynamic.literal(capture = capture.asInstanceOf[js.Any], listener = listener.asInstanceOf[js.Any], targetRef = targetRef.asInstanceOf[js.Any])
+      __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+      __obj.asInstanceOf[Listener]
+    }
+    
+    @scala.inline
+    implicit class ListenerMutableBuilder[Self <: Listener] (val x: Self) extends AnyVal {
+      
+      @scala.inline
+      def setCapture(value: Unit): Self = StObject.set(x, "capture", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setListener(value: Unit): Self = StObject.set(x, "listener", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setTargetRef(value: Unit): Self = StObject.set(x, "targetRef", value.asInstanceOf[js.Any])
+      
+      @scala.inline
+      def setType(value: Unit): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+    }
   }
 }

@@ -5,11 +5,12 @@ import japgolly.scalajs.react.CallbackTo
 import org.scalajs.dom.raw.EventTarget
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait WheelEvent[T] extends MouseEvent[T, NativeWheelEvent] {
+trait WheelEvent[T]
+  extends StObject
+     with MouseEvent[T, NativeWheelEvent] {
   
   var deltaMode: Double = js.native
   
@@ -31,7 +32,7 @@ object WheelEvent {
     clientX: Double,
     clientY: Double,
     ctrlKey: Boolean,
-    currentTarget: EventTarget with T,
+    currentTarget: EventTarget & T,
     defaultPrevented: Boolean,
     deltaMode: Double,
     deltaX: Double,
@@ -65,7 +66,7 @@ object WheelEvent {
   }
   
   @scala.inline
-  implicit class WheelEventMutableBuilder[Self <: WheelEvent[_], T] (val x: Self with WheelEvent[T]) extends AnyVal {
+  implicit class WheelEventMutableBuilder[Self <: WheelEvent[?], T] (val x: Self & WheelEvent[T]) extends AnyVal {
     
     @scala.inline
     def setDeltaMode(value: Double): Self = StObject.set(x, "deltaMode", value.asInstanceOf[js.Any])

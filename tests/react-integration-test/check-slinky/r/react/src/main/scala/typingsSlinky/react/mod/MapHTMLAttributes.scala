@@ -2,11 +2,12 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait MapHTMLAttributes[T] extends HTMLAttributes[T] {
+trait MapHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var name: js.UndefOr[String] = js.native
 }
@@ -19,7 +20,7 @@ object MapHTMLAttributes {
   }
   
   @scala.inline
-  implicit class MapHTMLAttributesMutableBuilder[Self <: MapHTMLAttributes[_], T] (val x: Self with MapHTMLAttributes[T]) extends AnyVal {
+  implicit class MapHTMLAttributesMutableBuilder[Self <: MapHTMLAttributes[?], T] (val x: Self & MapHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])

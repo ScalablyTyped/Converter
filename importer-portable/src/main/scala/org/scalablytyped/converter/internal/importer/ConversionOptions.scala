@@ -31,13 +31,13 @@ case class ConversionOptions(
   val flavourImpl: FlavourImpl =
     flavour match {
       case Flavour.Normal =>
-        NormalFlavour(useScalaJsDomTypes, enableLongApplyMethod, outputPackage)
+        NormalFlavour(useScalaJsDomTypes, enableLongApplyMethod, outputPackage, versions)
       case Flavour.Slinky =>
-        SlinkyFlavour(outputPackage, enableLongApplyMethod, versions.scala, enableReactTreeShaking)
+        SlinkyFlavour(outputPackage, enableLongApplyMethod, versions, enableReactTreeShaking)
       case Flavour.SlinkyNative =>
-        SlinkyNativeFlavour(outputPackage, enableLongApplyMethod, versions.scala, enableReactTreeShaking)
+        SlinkyNativeFlavour(outputPackage, enableLongApplyMethod, versions, enableReactTreeShaking)
       case Flavour.Japgolly =>
-        JapgollyFlavour(outputPackage, enableLongApplyMethod, versions.scala, enableReactTreeShaking)
+        JapgollyFlavour(outputPackage, enableLongApplyMethod, versions, enableReactTreeShaking)
     }
 
 }

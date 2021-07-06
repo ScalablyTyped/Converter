@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package importer
 
-import org.scalablytyped.converter.internal.scalajs.{ExprTree, Wildcards}
+import org.scalablytyped.converter.internal.scalajs.ExprTree
 import org.scalablytyped.converter.internal.scalajs.transforms.FakeLiterals
 import org.scalablytyped.converter.internal.ts._
 
@@ -22,7 +22,7 @@ class ImportExpr(importType: ImportType, importName: AdaptiveNamingImport) {
           case TsLiteral.Bool(value) => ExprTree.BooleanLit(value)
         }
       case TsExpr.Cast(expr, tpe) =>
-        ExprTree.Cast(apply(expr, scope), importType(Wildcards.No, scope, importName)(tpe))
+        ExprTree.Cast(apply(expr, scope), importType(scope, importName)(tpe))
       case TsExpr.Call(function, params) =>
         ExprTree.Call(apply(function, scope), IArray(params.map(p => apply(p, scope))))
       case TsExpr.Unary(op, expr) =>

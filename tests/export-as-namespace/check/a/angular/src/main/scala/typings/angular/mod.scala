@@ -9,7 +9,6 @@ import typings.std.Document
 import typings.std.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod extends Shortcut {
@@ -130,7 +129,7 @@ object mod extends Shortcut {
       
       def annotate(fn: Function): js.Array[String] = js.native
       def annotate(fn: Function, strictDi: Boolean): js.Array[String] = js.native
-      def annotate(inlineAnnotatedFunction: js.Array[_]): js.Array[String] = js.native
+      def annotate(inlineAnnotatedFunction: js.Array[js.Any]): js.Array[String] = js.native
       
       def get[T](name: String): T = js.native
       def get[T](name: String, caller: String): T = js.native
@@ -140,14 +139,18 @@ object mod extends Shortcut {
       def instantiate[T](typeConstructor: Instantiable[T]): T = js.native
       def instantiate[T](typeConstructor: Instantiable[T], locals: js.Any): T = js.native
       
-      def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ _, T])]): T = js.native
+      def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ js.Any, T])]): T = js.native
+      def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ js.Any, T])], context: js.Any): T = js.native
       def invoke[T](
-        func: Injectable[Function | (js.Function1[/* repeated */ _, T])],
-        context: js.UndefOr[scala.Nothing],
+        func: Injectable[Function | (js.Function1[/* repeated */ js.Any, T])],
+        context: js.Any,
         locals: js.Any
       ): T = js.native
-      def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ _, T])], context: js.Any): T = js.native
-      def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ _, T])], context: js.Any, locals: js.Any): T = js.native
+      def invoke[T](
+        func: Injectable[Function | (js.Function1[/* repeated */ js.Any, T])],
+        context: Unit,
+        locals: js.Any
+      ): T = js.native
       
       var strictDi: Boolean = js.native
     }

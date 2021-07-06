@@ -4,14 +4,15 @@ import typings.insight.mod.insight.IConfigstore
 import typings.insight.mod.insight.IOptions
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
   
   @JSImport("insight", JSImport.Namespace)
   @js.native
-  class ^ protected () extends Insight_ {
+  class ^ protected ()
+    extends StObject
+       with Insight_ {
     def this(options: IOptions) = this()
   }
   

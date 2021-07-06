@@ -57,7 +57,6 @@ import typingsJapgolly.react.reactStrings.tree
 import typingsJapgolly.react.reactStrings.vertical
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
@@ -291,241 +290,241 @@ class SharedBuilder_DetailedHTMLProps_127198210[R <: js.Object] (val args: js.Ar
   def lang(value: String): this.type = set("lang", value.asInstanceOf[js.Any])
   
   @scala.inline
-  def onAbort(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onAbort", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onAbort(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onAbort", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onAnimationEnd(value: ReactAnimationEventFrom[HTMLElement with Element] => Callback): this.type = set("onAnimationEnd", js.Any.fromFunction1((t0: ReactAnimationEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onAnimationEnd(value: ReactAnimationEventFrom[HTMLElement & Element] => Callback): this.type = set("onAnimationEnd", js.Any.fromFunction1((t0: ReactAnimationEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onAnimationIteration(value: ReactAnimationEventFrom[HTMLElement with Element] => Callback): this.type = set("onAnimationIteration", js.Any.fromFunction1((t0: ReactAnimationEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onAnimationIteration(value: ReactAnimationEventFrom[HTMLElement & Element] => Callback): this.type = set("onAnimationIteration", js.Any.fromFunction1((t0: ReactAnimationEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onAnimationStart(value: ReactAnimationEventFrom[HTMLElement with Element] => Callback): this.type = set("onAnimationStart", js.Any.fromFunction1((t0: ReactAnimationEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onAnimationStart(value: ReactAnimationEventFrom[HTMLElement & Element] => Callback): this.type = set("onAnimationStart", js.Any.fromFunction1((t0: ReactAnimationEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onAuxClick(value: ReactMouseEventFrom[HTMLElement with Element] => Callback): this.type = set("onAuxClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onAuxClick(value: ReactMouseEventFrom[HTMLElement & Element] => Callback): this.type = set("onAuxClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onBeforeInput(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onBeforeInput", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onBeforeInput(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onBeforeInput", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onBlur(value: ReactFocusEventFrom[HTMLElement with Element] => Callback): this.type = set("onBlur", js.Any.fromFunction1((t0: ReactFocusEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onBlur(value: ReactFocusEventFrom[HTMLElement & Element] => Callback): this.type = set("onBlur", js.Any.fromFunction1((t0: ReactFocusEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onCanPlay(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onCanPlay", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onCanPlay(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onCanPlay", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onCanPlayThrough(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onCanPlayThrough", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onCanPlayThrough(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onCanPlayThrough", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onChange(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onChange", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onChange(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onChange", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onClick(value: ReactMouseEventFrom[HTMLElement with Element] => Callback): this.type = set("onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onClick(value: ReactMouseEventFrom[HTMLElement & Element] => Callback): this.type = set("onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onCompositionEnd(value: ReactCompositionEventFrom[HTMLElement with Element] => Callback): this.type = set("onCompositionEnd", js.Any.fromFunction1((t0: ReactCompositionEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onCompositionEnd(value: ReactCompositionEventFrom[HTMLElement & Element] => Callback): this.type = set("onCompositionEnd", js.Any.fromFunction1((t0: ReactCompositionEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onCompositionStart(value: ReactCompositionEventFrom[HTMLElement with Element] => Callback): this.type = set("onCompositionStart", js.Any.fromFunction1((t0: ReactCompositionEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onCompositionStart(value: ReactCompositionEventFrom[HTMLElement & Element] => Callback): this.type = set("onCompositionStart", js.Any.fromFunction1((t0: ReactCompositionEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onCompositionUpdate(value: ReactCompositionEventFrom[HTMLElement with Element] => Callback): this.type = set("onCompositionUpdate", js.Any.fromFunction1((t0: ReactCompositionEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onCompositionUpdate(value: ReactCompositionEventFrom[HTMLElement & Element] => Callback): this.type = set("onCompositionUpdate", js.Any.fromFunction1((t0: ReactCompositionEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onContextMenu(value: ReactMouseEventFrom[HTMLElement with Element] => Callback): this.type = set("onContextMenu", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onContextMenu(value: ReactMouseEventFrom[HTMLElement & Element] => Callback): this.type = set("onContextMenu", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onCopy(value: ReactClipboardEventFrom[HTMLElement with Element] => Callback): this.type = set("onCopy", js.Any.fromFunction1((t0: ReactClipboardEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onCopy(value: ReactClipboardEventFrom[HTMLElement & Element] => Callback): this.type = set("onCopy", js.Any.fromFunction1((t0: ReactClipboardEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onCut(value: ReactClipboardEventFrom[HTMLElement with Element] => Callback): this.type = set("onCut", js.Any.fromFunction1((t0: ReactClipboardEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onCut(value: ReactClipboardEventFrom[HTMLElement & Element] => Callback): this.type = set("onCut", js.Any.fromFunction1((t0: ReactClipboardEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onDoubleClick(value: ReactMouseEventFrom[HTMLElement with Element] => Callback): this.type = set("onDoubleClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onDoubleClick(value: ReactMouseEventFrom[HTMLElement & Element] => Callback): this.type = set("onDoubleClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onDrag(value: ReactDragEventFrom[HTMLElement with Element] => Callback): this.type = set("onDrag", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onDrag(value: ReactDragEventFrom[HTMLElement & Element] => Callback): this.type = set("onDrag", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onDragEnd(value: ReactDragEventFrom[HTMLElement with Element] => Callback): this.type = set("onDragEnd", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onDragEnd(value: ReactDragEventFrom[HTMLElement & Element] => Callback): this.type = set("onDragEnd", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onDragEnter(value: ReactDragEventFrom[HTMLElement with Element] => Callback): this.type = set("onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onDragEnter(value: ReactDragEventFrom[HTMLElement & Element] => Callback): this.type = set("onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onDragExit(value: ReactDragEventFrom[HTMLElement with Element] => Callback): this.type = set("onDragExit", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onDragExit(value: ReactDragEventFrom[HTMLElement & Element] => Callback): this.type = set("onDragExit", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onDragLeave(value: ReactDragEventFrom[HTMLElement with Element] => Callback): this.type = set("onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onDragLeave(value: ReactDragEventFrom[HTMLElement & Element] => Callback): this.type = set("onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onDragOver(value: ReactDragEventFrom[HTMLElement with Element] => Callback): this.type = set("onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onDragOver(value: ReactDragEventFrom[HTMLElement & Element] => Callback): this.type = set("onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onDragStart(value: ReactDragEventFrom[HTMLElement with Element] => Callback): this.type = set("onDragStart", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onDragStart(value: ReactDragEventFrom[HTMLElement & Element] => Callback): this.type = set("onDragStart", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onDrop(value: ReactDragEventFrom[HTMLElement with Element] => Callback): this.type = set("onDrop", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onDrop(value: ReactDragEventFrom[HTMLElement & Element] => Callback): this.type = set("onDrop", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onDurationChange(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onDurationChange", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onDurationChange(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onDurationChange", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onEmptied(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onEmptied", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onEmptied(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onEmptied", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onEncrypted(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onEncrypted", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onEncrypted(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onEncrypted", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onEnded(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onEnded", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onEnded(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onEnded", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onError(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onError", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onError(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onError", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onFocus(value: ReactFocusEventFrom[HTMLElement with Element] => Callback): this.type = set("onFocus", js.Any.fromFunction1((t0: ReactFocusEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onFocus(value: ReactFocusEventFrom[HTMLElement & Element] => Callback): this.type = set("onFocus", js.Any.fromFunction1((t0: ReactFocusEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onInput(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onInput", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onInput(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onInput", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onInvalid(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onInvalid", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onInvalid(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onInvalid", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onKeyDown(value: ReactKeyboardEventFrom[HTMLElement with Element] => Callback): this.type = set("onKeyDown", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onKeyDown(value: ReactKeyboardEventFrom[HTMLElement & Element] => Callback): this.type = set("onKeyDown", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onKeyPress(value: ReactKeyboardEventFrom[HTMLElement with Element] => Callback): this.type = set("onKeyPress", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onKeyPress(value: ReactKeyboardEventFrom[HTMLElement & Element] => Callback): this.type = set("onKeyPress", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onKeyUp(value: ReactKeyboardEventFrom[HTMLElement with Element] => Callback): this.type = set("onKeyUp", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onKeyUp(value: ReactKeyboardEventFrom[HTMLElement & Element] => Callback): this.type = set("onKeyUp", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onLoad(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onLoad", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onLoad(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onLoad", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onLoadStart(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onLoadStart", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onLoadStart(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onLoadStart", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onLoadedData(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onLoadedData", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onLoadedData(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onLoadedData", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onLoadedMetadata(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onLoadedMetadata", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onLoadedMetadata(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onLoadedMetadata", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onMouseDown(value: ReactMouseEventFrom[HTMLElement with Element] => Callback): this.type = set("onMouseDown", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onMouseDown(value: ReactMouseEventFrom[HTMLElement & Element] => Callback): this.type = set("onMouseDown", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onMouseEnter(value: ReactMouseEventFrom[HTMLElement with Element] => Callback): this.type = set("onMouseEnter", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onMouseEnter(value: ReactMouseEventFrom[HTMLElement & Element] => Callback): this.type = set("onMouseEnter", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onMouseLeave(value: ReactMouseEventFrom[HTMLElement with Element] => Callback): this.type = set("onMouseLeave", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onMouseLeave(value: ReactMouseEventFrom[HTMLElement & Element] => Callback): this.type = set("onMouseLeave", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onMouseMove(value: ReactMouseEventFrom[HTMLElement with Element] => Callback): this.type = set("onMouseMove", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onMouseMove(value: ReactMouseEventFrom[HTMLElement & Element] => Callback): this.type = set("onMouseMove", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onMouseOut(value: ReactMouseEventFrom[HTMLElement with Element] => Callback): this.type = set("onMouseOut", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onMouseOut(value: ReactMouseEventFrom[HTMLElement & Element] => Callback): this.type = set("onMouseOut", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onMouseOver(value: ReactMouseEventFrom[HTMLElement with Element] => Callback): this.type = set("onMouseOver", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onMouseOver(value: ReactMouseEventFrom[HTMLElement & Element] => Callback): this.type = set("onMouseOver", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onMouseUp(value: ReactMouseEventFrom[HTMLElement with Element] => Callback): this.type = set("onMouseUp", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onMouseUp(value: ReactMouseEventFrom[HTMLElement & Element] => Callback): this.type = set("onMouseUp", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onPaste(value: ReactClipboardEventFrom[HTMLElement with Element] => Callback): this.type = set("onPaste", js.Any.fromFunction1((t0: ReactClipboardEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onPaste(value: ReactClipboardEventFrom[HTMLElement & Element] => Callback): this.type = set("onPaste", js.Any.fromFunction1((t0: ReactClipboardEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onPause(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onPause", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onPause(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onPause", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onPlay(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onPlay", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onPlay(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onPlay", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onPlaying(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onPlaying", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onPlaying(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onPlaying", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onPointerCancel(value: ReactPointerEventFrom[HTMLElement with Element] => Callback): this.type = set("onPointerCancel", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onPointerCancel(value: ReactPointerEventFrom[HTMLElement & Element] => Callback): this.type = set("onPointerCancel", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onPointerDown(value: ReactPointerEventFrom[HTMLElement with Element] => Callback): this.type = set("onPointerDown", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onPointerDown(value: ReactPointerEventFrom[HTMLElement & Element] => Callback): this.type = set("onPointerDown", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onPointerEnter(value: ReactPointerEventFrom[HTMLElement with Element] => Callback): this.type = set("onPointerEnter", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onPointerEnter(value: ReactPointerEventFrom[HTMLElement & Element] => Callback): this.type = set("onPointerEnter", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onPointerLeave(value: ReactPointerEventFrom[HTMLElement with Element] => Callback): this.type = set("onPointerLeave", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onPointerLeave(value: ReactPointerEventFrom[HTMLElement & Element] => Callback): this.type = set("onPointerLeave", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onPointerMove(value: ReactPointerEventFrom[HTMLElement with Element] => Callback): this.type = set("onPointerMove", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onPointerMove(value: ReactPointerEventFrom[HTMLElement & Element] => Callback): this.type = set("onPointerMove", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onPointerOut(value: ReactPointerEventFrom[HTMLElement with Element] => Callback): this.type = set("onPointerOut", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onPointerOut(value: ReactPointerEventFrom[HTMLElement & Element] => Callback): this.type = set("onPointerOut", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onPointerOver(value: ReactPointerEventFrom[HTMLElement with Element] => Callback): this.type = set("onPointerOver", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onPointerOver(value: ReactPointerEventFrom[HTMLElement & Element] => Callback): this.type = set("onPointerOver", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onPointerUp(value: ReactPointerEventFrom[HTMLElement with Element] => Callback): this.type = set("onPointerUp", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onPointerUp(value: ReactPointerEventFrom[HTMLElement & Element] => Callback): this.type = set("onPointerUp", js.Any.fromFunction1((t0: ReactPointerEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onProgress(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onProgress", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onProgress(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onProgress", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onRateChange(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onRateChange", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onRateChange(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onRateChange", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onReset(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onReset", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onReset(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onReset", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onScroll(value: ReactUIEventFrom[HTMLElement with Element] => Callback): this.type = set("onScroll", js.Any.fromFunction1((t0: ReactUIEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onScroll(value: ReactUIEventFrom[HTMLElement & Element] => Callback): this.type = set("onScroll", js.Any.fromFunction1((t0: ReactUIEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onSeeked(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onSeeked", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onSeeked(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onSeeked", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onSeeking(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onSeeking", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onSeeking(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onSeeking", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onSelect(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onSelect", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onSelect(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onSelect", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onStalled(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onStalled", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onStalled(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onStalled", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onSubmit(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onSubmit", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onSubmit(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onSubmit", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onSuspend(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onSuspend", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onSuspend(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onSuspend", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onTimeUpdate(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onTimeUpdate", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onTimeUpdate(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onTimeUpdate", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onTouchCancel(value: ReactTouchEventFrom[HTMLElement with Element] => Callback): this.type = set("onTouchCancel", js.Any.fromFunction1((t0: ReactTouchEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onTouchCancel(value: ReactTouchEventFrom[HTMLElement & Element] => Callback): this.type = set("onTouchCancel", js.Any.fromFunction1((t0: ReactTouchEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onTouchEnd(value: ReactTouchEventFrom[HTMLElement with Element] => Callback): this.type = set("onTouchEnd", js.Any.fromFunction1((t0: ReactTouchEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onTouchEnd(value: ReactTouchEventFrom[HTMLElement & Element] => Callback): this.type = set("onTouchEnd", js.Any.fromFunction1((t0: ReactTouchEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onTouchMove(value: ReactTouchEventFrom[HTMLElement with Element] => Callback): this.type = set("onTouchMove", js.Any.fromFunction1((t0: ReactTouchEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onTouchMove(value: ReactTouchEventFrom[HTMLElement & Element] => Callback): this.type = set("onTouchMove", js.Any.fromFunction1((t0: ReactTouchEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onTouchStart(value: ReactTouchEventFrom[HTMLElement with Element] => Callback): this.type = set("onTouchStart", js.Any.fromFunction1((t0: ReactTouchEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onTouchStart(value: ReactTouchEventFrom[HTMLElement & Element] => Callback): this.type = set("onTouchStart", js.Any.fromFunction1((t0: ReactTouchEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onTransitionEnd(value: ReactTransitionEventFrom[HTMLElement with Element] => Callback): this.type = set("onTransitionEnd", js.Any.fromFunction1((t0: ReactTransitionEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onTransitionEnd(value: ReactTransitionEventFrom[HTMLElement & Element] => Callback): this.type = set("onTransitionEnd", js.Any.fromFunction1((t0: ReactTransitionEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onVolumeChange(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onVolumeChange", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onVolumeChange(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onVolumeChange", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onWaiting(value: ReactEventFrom[HTMLElement with Element] => Callback): this.type = set("onWaiting", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onWaiting(value: ReactEventFrom[HTMLElement & Element] => Callback): this.type = set("onWaiting", js.Any.fromFunction1((t0: ReactEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
-  def onWheel(value: ReactWheelEventFrom[HTMLElement with Element] => Callback): this.type = set("onWheel", js.Any.fromFunction1((t0: ReactWheelEventFrom[HTMLElement with Element]) => value(t0).runNow()))
+  def onWheel(value: ReactWheelEventFrom[HTMLElement & Element] => Callback): this.type = set("onWheel", js.Any.fromFunction1((t0: ReactWheelEventFrom[HTMLElement & Element]) => value(t0).runNow()))
   
   @scala.inline
   def placeholder(value: String): this.type = set("placeholder", value.asInstanceOf[js.Any])

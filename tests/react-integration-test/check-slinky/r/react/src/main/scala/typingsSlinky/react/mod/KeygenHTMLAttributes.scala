@@ -2,11 +2,12 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait KeygenHTMLAttributes[T] extends HTMLAttributes[T] {
+trait KeygenHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var autoFocus: js.UndefOr[Boolean] = js.native
   
@@ -31,7 +32,7 @@ object KeygenHTMLAttributes {
   }
   
   @scala.inline
-  implicit class KeygenHTMLAttributesMutableBuilder[Self <: KeygenHTMLAttributes[_], T] (val x: Self with KeygenHTMLAttributes[T]) extends AnyVal {
+  implicit class KeygenHTMLAttributesMutableBuilder[Self <: KeygenHTMLAttributes[?], T] (val x: Self & KeygenHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAutoFocus(value: Boolean): Self = StObject.set(x, "autoFocus", value.asInstanceOf[js.Any])

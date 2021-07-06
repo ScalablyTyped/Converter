@@ -18,6 +18,8 @@ object Marker {
   case object ExpandedCallables extends Marker
   case object ExpandedClass extends Marker
   case object EnumObject extends Marker
+  case object HasClassParent extends Marker
+
   case class NameHint(value:        String) extends Marker
   case class ModuleAliases(aliases: IArray[TsIdentModule]) extends Marker
   case class WasLiteral(lit:        ExprTree.Lit) extends Marker

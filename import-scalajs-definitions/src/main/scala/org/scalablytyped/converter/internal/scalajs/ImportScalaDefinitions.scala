@@ -32,12 +32,12 @@ object ImportScalaDefinitions extends App {
   val All: Array[AbsolutePath] = Await
     .result(
       BloopCompiler.resolve(
-        Versions.scalajsReact.concrete(defaultVersions),
-        Versions.scalaJsDom.concrete(defaultVersions),
-        Versions.slinkyWeb.concrete(defaultVersions),
-        Versions.slinkyNative.concrete(defaultVersions),
-        defaultVersions.scalaJs.library.concrete(defaultVersions),
-        Versions.runtime.concrete(defaultVersions),
+        defaultVersions.scalajsReact.concrete(defaultVersions),
+        defaultVersions.scalaJsDom.concrete(defaultVersions),
+        defaultVersions.slinkyWeb.concrete(defaultVersions),
+        defaultVersions.slinkyNative.concrete(defaultVersions),
+        defaultVersions.scalaJsLibrary.concrete(defaultVersions),
+        defaultVersions.runtime.concrete(defaultVersions),
       ),
       Duration.Inf,
     )
@@ -216,8 +216,10 @@ object ImportScalaDefinitions extends App {
       PackageTree(Empty, asPackageName, inContainers, NoComments, QualifiedName(Empty)),
     )
 
-    val asPackageComplete = Sorter.visitPackageTree(scope)(combined)
-    val printed           = Printer(scope, new ParentsResolver, asPackageComplete, Name.typings)
+    val asPackageComplete =
+      Sorter.visitPackageTree(scope)(combined)
+    val printed =
+      Printer(scope, new ParentsResolver, asPackageComplete, Name.typings, Versions.Scala213)
     files.sync(printed, dumpSourceTo, deleteUnknowns = true, soft = true)
   }
 

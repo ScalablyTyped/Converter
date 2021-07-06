@@ -3,11 +3,12 @@ package typingsSlinky.react.mod
 import slinky.core.facade.ReactRef
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ClassAttributes[T] extends Attributes {
+trait ClassAttributes[T]
+  extends StObject
+     with Attributes {
   
   var ref: js.UndefOr[LegacyRef[T]] = js.native
 }
@@ -20,7 +21,7 @@ object ClassAttributes {
   }
   
   @scala.inline
-  implicit class ClassAttributesMutableBuilder[Self <: ClassAttributes[_], T] (val x: Self with ClassAttributes[T]) extends AnyVal {
+  implicit class ClassAttributesMutableBuilder[Self <: ClassAttributes[?], T] (val x: Self & ClassAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setRef(value: LegacyRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])

@@ -12,7 +12,6 @@ import typingsSlinky.react.mod.ReactText
 import typingsSlinky.react.mod.ReactType
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -70,25 +69,25 @@ object mod {
   val SubMenu: ReactComponentClass[SubMenuProps] = js.native
   
   @scala.inline
-  def connectMenu(menuId: String): js.Function1[/* menu */ js.Any, _] = ^.asInstanceOf[js.Dynamic].applyDynamic("connectMenu")(menuId.asInstanceOf[js.Any]).asInstanceOf[js.Function1[/* menu */ js.Any, _]]
+  def connectMenu(menuId: String): js.Function1[/* menu */ js.Any, js.Any] = ^.asInstanceOf[js.Dynamic].applyDynamic("connectMenu")(menuId.asInstanceOf[js.Any]).asInstanceOf[js.Function1[/* menu */ js.Any, js.Any]]
   
   @scala.inline
   def hideMenu(): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")().asInstanceOf[Unit]
   @scala.inline
-  def hideMenu(opts: js.UndefOr[scala.Nothing], target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
-  @scala.inline
   def hideMenu(opts: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any]).asInstanceOf[Unit]
   @scala.inline
   def hideMenu(opts: js.Any, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  @scala.inline
+  def hideMenu(opts: Unit, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
   
   @scala.inline
   def showMenu(): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")().asInstanceOf[Unit]
   @scala.inline
-  def showMenu(opts: js.UndefOr[scala.Nothing], target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
-  @scala.inline
   def showMenu(opts: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any]).asInstanceOf[Unit]
   @scala.inline
   def showMenu(opts: js.Any, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  @scala.inline
+  def showMenu(opts: Unit, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
   
   @js.native
   trait ContextMenuProps extends StObject {
@@ -189,9 +188,9 @@ object mod {
   @js.native
   trait ContextMenuTriggerProps extends StObject {
     
-    var attributes: js.UndefOr[HTMLAttributes[_]] = js.native
+    var attributes: js.UndefOr[HTMLAttributes[js.Any]] = js.native
     
-    var collect: js.UndefOr[js.Function1[/* data */ js.Any, _]] = js.native
+    var collect: js.UndefOr[js.Function1[/* data */ js.Any, js.Any]] = js.native
     
     var disable: js.UndefOr[Boolean] = js.native
     
@@ -199,7 +198,7 @@ object mod {
     
     var id: String = js.native
     
-    var renderTag: js.UndefOr[ReactType[_]] = js.native
+    var renderTag: js.UndefOr[ReactType[js.Any]] = js.native
   }
   object ContextMenuTriggerProps {
     
@@ -213,13 +212,13 @@ object mod {
     implicit class ContextMenuTriggerPropsMutableBuilder[Self <: ContextMenuTriggerProps] (val x: Self) extends AnyVal {
       
       @scala.inline
-      def setAttributes(value: HTMLAttributes[_]): Self = StObject.set(x, "attributes", value.asInstanceOf[js.Any])
+      def setAttributes(value: HTMLAttributes[js.Any]): Self = StObject.set(x, "attributes", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setAttributesUndefined: Self = StObject.set(x, "attributes", js.undefined)
       
       @scala.inline
-      def setCollect(value: /* data */ js.Any => _): Self = StObject.set(x, "collect", js.Any.fromFunction1(value))
+      def setCollect(value: /* data */ js.Any => js.Any): Self = StObject.set(x, "collect", js.Any.fromFunction1(value))
       
       @scala.inline
       def setCollectUndefined: Self = StObject.set(x, "collect", js.undefined)
@@ -240,7 +239,7 @@ object mod {
       def setId(value: String): Self = StObject.set(x, "id", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setRenderTag(value: ReactType[_]): Self = StObject.set(x, "renderTag", value.asInstanceOf[js.Any])
+      def setRenderTag(value: ReactType[js.Any]): Self = StObject.set(x, "renderTag", value.asInstanceOf[js.Any])
       
       @scala.inline
       def setRenderTagUndefined: Self = StObject.set(x, "renderTag", js.undefined)

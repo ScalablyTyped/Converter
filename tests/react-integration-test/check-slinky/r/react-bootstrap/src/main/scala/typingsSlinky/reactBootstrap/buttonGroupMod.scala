@@ -5,7 +5,6 @@ import typingsSlinky.react.mod.HTMLProps
 import typingsSlinky.reactBootstrap.mod.Sizes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object buttonGroupMod {
@@ -20,7 +19,9 @@ object buttonGroupMod {
     extends Component[ButtonGroupProps, js.Object, js.Any]
   
   @js.native
-  trait ButtonGroupProps extends HTMLProps[ButtonGroup] {
+  trait ButtonGroupProps
+    extends StObject
+       with HTMLProps[ButtonGroup] {
     
     var block: js.UndefOr[Boolean] = js.native
     

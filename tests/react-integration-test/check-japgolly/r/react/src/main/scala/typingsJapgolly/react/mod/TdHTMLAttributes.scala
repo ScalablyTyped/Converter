@@ -11,11 +11,12 @@ import typingsJapgolly.react.reactStrings.right
 import typingsJapgolly.react.reactStrings.top
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait TdHTMLAttributes[T] extends HTMLAttributes[T] {
+trait TdHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var align: js.UndefOr[left | center | right | justify | char] = js.native
   
@@ -38,7 +39,7 @@ object TdHTMLAttributes {
   }
   
   @scala.inline
-  implicit class TdHTMLAttributesMutableBuilder[Self <: TdHTMLAttributes[_], T] (val x: Self with TdHTMLAttributes[T]) extends AnyVal {
+  implicit class TdHTMLAttributesMutableBuilder[Self <: TdHTMLAttributes[?], T] (val x: Self & TdHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAlign(value: left | center | right | justify | char): Self = StObject.set(x, "align", value.asInstanceOf[js.Any])

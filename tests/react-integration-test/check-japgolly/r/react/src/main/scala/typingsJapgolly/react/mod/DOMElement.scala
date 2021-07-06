@@ -4,12 +4,13 @@ import japgolly.scalajs.react.Callback
 import org.scalajs.dom.raw.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // string fallback for custom web-components
 @js.native
-trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] extends ReactElement {
+trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */]
+  extends StObject
+     with ReactElement {
   
   var ref: LegacyRef[T] = js.native
 }
@@ -23,7 +24,7 @@ object DOMElement {
   }
   
   @scala.inline
-  implicit class DOMElementMutableBuilder[Self <: DOMElement[_, _], P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] (val x: Self with (DOMElement[P, T])) extends AnyVal {
+  implicit class DOMElementMutableBuilder[Self <: DOMElement[?, ?], P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] (val x: Self & (DOMElement[P, T])) extends AnyVal {
     
     @scala.inline
     def setRef(value: LegacyRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])

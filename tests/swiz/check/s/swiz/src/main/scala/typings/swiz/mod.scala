@@ -4,7 +4,6 @@ import typings.swiz.mod.struct.IField
 import typings.swiz.mod.struct.IObj
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -16,22 +15,34 @@ object mod {
   object SERIALIZATION extends StObject {
     
     @js.native
-    sealed trait SERIALIZATION_JSON extends SERIALIZATION
+    sealed trait SERIALIZATION_JSON
+      extends StObject
+         with SERIALIZATION
     
     @js.native
-    sealed trait SERIALIZATION_XML extends SERIALIZATION
+    sealed trait SERIALIZATION_XML
+      extends StObject
+         with SERIALIZATION
     
     @js.native
-    sealed trait _underscore extends SERIALIZATION
+    sealed trait _underscore
+      extends StObject
+         with SERIALIZATION
     
     @js.native
-    sealed trait java extends SERIALIZATION
+    sealed trait java
+      extends StObject
+         with SERIALIZATION
     
     @js.native
-    sealed trait js extends SERIALIZATION
+    sealed trait js
+      extends StObject
+         with SERIALIZATION
     
     @js.native
-    sealed trait notify extends SERIALIZATION
+    sealed trait notify
+      extends StObject
+         with SERIALIZATION
   }
   
   @JSImport("swiz", "Swiz")
@@ -58,7 +69,7 @@ object mod {
     
     def serializeForPagination(
       mode: SERIALIZATION,
-      array: js.Array[_],
+      array: js.Array[js.Any],
       metadata: js.Any,
       callback: js.Function2[/* err */ js.Any, /* result */ String, Unit]
     ): Unit = js.native

@@ -2,7 +2,6 @@ package typings.echarts
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object echarts {
@@ -17,7 +16,9 @@ object echarts {
     object DataZoom {
       
       @js.native
-      trait Inside extends DataZoom {
+      trait Inside
+        extends StObject
+           with DataZoom {
         
         var disabled: js.UndefOr[Boolean] = js.native
         
@@ -57,7 +58,9 @@ object echarts {
       }
       
       @js.native
-      trait Slider extends DataZoom {
+      trait Slider
+        extends StObject
+           with DataZoom {
         
         var id: js.UndefOr[String] = js.native
         

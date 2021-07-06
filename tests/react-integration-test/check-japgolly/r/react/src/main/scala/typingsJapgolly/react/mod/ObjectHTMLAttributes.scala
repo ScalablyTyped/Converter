@@ -2,11 +2,12 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ObjectHTMLAttributes[T] extends HTMLAttributes[T] {
+trait ObjectHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var classID: js.UndefOr[String] = js.native
   
@@ -35,7 +36,7 @@ object ObjectHTMLAttributes {
   }
   
   @scala.inline
-  implicit class ObjectHTMLAttributesMutableBuilder[Self <: ObjectHTMLAttributes[_], T] (val x: Self with ObjectHTMLAttributes[T]) extends AnyVal {
+  implicit class ObjectHTMLAttributesMutableBuilder[Self <: ObjectHTMLAttributes[?], T] (val x: Self & ObjectHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setClassID(value: String): Self = StObject.set(x, "classID", value.asInstanceOf[js.Any])

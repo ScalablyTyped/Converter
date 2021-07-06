@@ -10194,7 +10194,7 @@ object org {
         trait SVGTests
           extends js.Object {
           
-          def hasExtension(extension: String): Boolean = js.native
+          def hasExtension(`extension`: String): Boolean = js.native
           
           var requiredExtensions: SVGStringList = js.native
           

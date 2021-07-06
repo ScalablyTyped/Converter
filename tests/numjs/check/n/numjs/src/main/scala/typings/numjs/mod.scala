@@ -5,13 +5,14 @@ import typings.ndarray.mod.DataType
 import typings.ndarray.mod.ndarray
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
   
   @js.native
-  trait NdArray[T] extends ndarray[T] {
+  trait NdArray[T]
+    extends StObject
+       with ndarray[T] {
     
     @JSName("T")
     var T_NdArray: NdArray[T] = js.native
@@ -29,7 +30,7 @@ object mod {
     }
     
     @scala.inline
-    implicit class NdArrayMutableBuilder[Self <: NdArray[_], T] (val x: Self with NdArray[T]) extends AnyVal {
+    implicit class NdArrayMutableBuilder[Self <: NdArray[?], T] (val x: Self & NdArray[T]) extends AnyVal {
       
       @scala.inline
       def setNdim(value: Double): Self = StObject.set(x, "ndim", value.asInstanceOf[js.Any])

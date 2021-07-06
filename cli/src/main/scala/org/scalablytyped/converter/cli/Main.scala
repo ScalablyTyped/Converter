@@ -39,7 +39,7 @@ object Main {
     ignored                = SortedSet("typescript"),
     stdLibs                = SortedSet("es6"),
     expandTypeMappings     = EnabledTypeMappingExpansion.DefaultSelection,
-    versions               = Versions(Versions.Scala213, Versions.ScalaJs1),
+    versions               = Versions(Versions.Scala3, Versions.ScalaJs1),
     organization           = "org.scalablytyped",
     enableReactTreeShaking = Selection.None,
     enableLongApplyMethod  = false,
@@ -260,6 +260,7 @@ object Main {
             .next(
               new Phase2ToScalaJs(
                 pedantic             = false,
+                scalaVersion         = conversion.versions.scala,
                 enableScalaJsDefined = conversion.enableScalaJsDefined,
                 outputPkg            = conversion.outputPackage,
                 flavour              = conversion.flavourImpl,

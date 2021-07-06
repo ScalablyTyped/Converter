@@ -3,11 +3,12 @@ package typingsSlinky.react.mod
 import org.scalajs.dom.raw.EventTarget
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait TouchEvent[T] extends BaseSyntheticEvent[NativeTouchEvent, EventTarget with T, EventTarget] {
+trait TouchEvent[T]
+  extends StObject
+     with BaseSyntheticEvent[NativeTouchEvent, EventTarget & T, EventTarget] {
   
   var altKey: Boolean = js.native
   
@@ -37,7 +38,7 @@ object TouchEvent {
     cancelable: Boolean,
     changedTouches: TouchList,
     ctrlKey: Boolean,
-    currentTarget: EventTarget with T,
+    currentTarget: EventTarget & T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     getModifierState: String => Boolean,
@@ -62,7 +63,7 @@ object TouchEvent {
   }
   
   @scala.inline
-  implicit class TouchEventMutableBuilder[Self <: TouchEvent[_], T] (val x: Self with TouchEvent[T]) extends AnyVal {
+  implicit class TouchEventMutableBuilder[Self <: TouchEvent[?], T] (val x: Self & TouchEvent[T]) extends AnyVal {
     
     @scala.inline
     def setAltKey(value: Boolean): Self = StObject.set(x, "altKey", value.asInstanceOf[js.Any])

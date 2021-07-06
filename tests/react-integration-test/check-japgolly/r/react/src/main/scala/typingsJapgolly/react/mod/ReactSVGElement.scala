@@ -3,12 +3,13 @@ package typingsJapgolly.react.mod
 import org.scalajs.dom.raw.SVGElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // ReactSVG for ReactSVGElement
 @js.native
-trait ReactSVGElement extends DOMElement[SVGAttributes[SVGElement], SVGElement]
+trait ReactSVGElement
+  extends StObject
+     with DOMElement[SVGAttributes[SVGElement], SVGElement]
 object ReactSVGElement {
   
   @scala.inline

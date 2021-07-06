@@ -2,11 +2,12 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait VideoHTMLAttributes[T] extends MediaHTMLAttributes[T] {
+trait VideoHTMLAttributes[T]
+  extends StObject
+     with MediaHTMLAttributes[T] {
   
   var disablePictureInPicture: js.UndefOr[Boolean] = js.native
   
@@ -27,7 +28,7 @@ object VideoHTMLAttributes {
   }
   
   @scala.inline
-  implicit class VideoHTMLAttributesMutableBuilder[Self <: VideoHTMLAttributes[_], T] (val x: Self with VideoHTMLAttributes[T]) extends AnyVal {
+  implicit class VideoHTMLAttributesMutableBuilder[Self <: VideoHTMLAttributes[?], T] (val x: Self & VideoHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setDisablePictureInPicture(value: Boolean): Self = StObject.set(x, "disablePictureInPicture", value.asInstanceOf[js.Any])

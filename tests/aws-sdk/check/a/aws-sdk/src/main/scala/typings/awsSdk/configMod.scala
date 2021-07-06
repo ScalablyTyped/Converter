@@ -5,7 +5,6 @@ import typings.awsSdk.configServicePlaceholdersMod.ConfigurationServiceApiVersio
 import typings.awsSdk.configServicePlaceholdersMod.ConfigurationServicePlaceholders
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object configMod {
@@ -17,7 +16,7 @@ object configMod {
     * This is the object that passes option data along to service requests, including credentials, security, region information, and some service specific settings.
     */
   class Config () extends StObject {
-    def this(options: ConfigurationServicePlaceholders with APIVersions) = this()
+    def this(options: ConfigurationServicePlaceholders & APIVersions) = this()
     
     /**
       * Loads configuration data from a JSON file into this config object.
@@ -26,7 +25,7 @@ object configMod {
       *
       * @param {string} path - the path relative to your process's current working directory to load configuration from.
       */
-    def loadFromPath(path: String): Config with ConfigurationServicePlaceholders with APIVersions = js.native
+    def loadFromPath(path: String): Config & ConfigurationServicePlaceholders & APIVersions = js.native
   }
   
   @js.native

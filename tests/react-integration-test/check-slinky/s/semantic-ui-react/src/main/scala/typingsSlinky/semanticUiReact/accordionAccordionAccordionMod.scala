@@ -13,7 +13,6 @@ import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandCollection
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object accordionAccordionAccordionMod extends Shortcut {
@@ -32,8 +31,9 @@ object accordionAccordionAccordionMod extends Shortcut {
   
   @js.native
   trait AccordionAccordionProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictAccordionAccordionProps
+       with /* key */ StringDictionary[js.Any]
   object AccordionAccordionProps {
     
     @scala.inline

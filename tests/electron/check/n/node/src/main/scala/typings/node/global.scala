@@ -3,7 +3,6 @@ package typings.node
 import typings.node.NodeJS.Process
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object global {
@@ -13,7 +12,8 @@ object global {
     @JSGlobal("NodeJS.EventEmitter")
     @js.native
     class EventEmitter ()
-      extends typings.node.NodeJS.EventEmitter
+      extends StObject
+         with typings.node.NodeJS.EventEmitter
   }
   
   @JSGlobal("Symbol")

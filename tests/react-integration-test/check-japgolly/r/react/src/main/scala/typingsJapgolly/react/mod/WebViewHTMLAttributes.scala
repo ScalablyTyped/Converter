@@ -2,11 +2,12 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait WebViewHTMLAttributes[T] extends HTMLAttributes[T] {
+trait WebViewHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var allowFullScreen: js.UndefOr[Boolean] = js.native
   
@@ -51,7 +52,7 @@ object WebViewHTMLAttributes {
   }
   
   @scala.inline
-  implicit class WebViewHTMLAttributesMutableBuilder[Self <: WebViewHTMLAttributes[_], T] (val x: Self with WebViewHTMLAttributes[T]) extends AnyVal {
+  implicit class WebViewHTMLAttributesMutableBuilder[Self <: WebViewHTMLAttributes[?], T] (val x: Self & WebViewHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAllowFullScreen(value: Boolean): Self = StObject.set(x, "allowFullScreen", value.asInstanceOf[js.Any])

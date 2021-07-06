@@ -1,11 +1,9 @@
-package typings
+package typings.unionToInheritance
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-package object unionToInheritance {
   
   /* Rewritten from type alias, can be one of: 
     - typings.unionToInheritance.unionToInheritanceStrings.a1
@@ -67,4 +65,3 @@ package object unionToInheritance {
     - typings.unionToInheritance.Legal1[O2]
   */
   type Test2[O1, O2] = (typings.unionToInheritance._Test2[O1, O2]) | (typings.unionToInheritance.Test[O1, O1, O2])
-}

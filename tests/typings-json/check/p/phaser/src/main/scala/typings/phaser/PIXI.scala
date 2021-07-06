@@ -2,7 +2,6 @@ package typings.phaser
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object PIXI {
@@ -14,10 +13,14 @@ object PIXI {
   object blendModes extends StObject {
     
     @js.native
-    sealed trait ADD extends blendModes
+    sealed trait ADD
+      extends StObject
+         with blendModes
     
     @js.native
-    sealed trait NORMAL extends blendModes
+    sealed trait NORMAL
+      extends StObject
+         with blendModes
   }
   
   @js.native
@@ -27,12 +30,18 @@ object PIXI {
   object scaleModes extends StObject {
     
     @js.native
-    sealed trait DEFAULT extends scaleModes
+    sealed trait DEFAULT
+      extends StObject
+         with scaleModes
     
     @js.native
-    sealed trait LINEAR extends scaleModes
+    sealed trait LINEAR
+      extends StObject
+         with scaleModes
     
     @js.native
-    sealed trait NEAREST extends scaleModes
+    sealed trait NEAREST
+      extends StObject
+         with scaleModes
   }
 }

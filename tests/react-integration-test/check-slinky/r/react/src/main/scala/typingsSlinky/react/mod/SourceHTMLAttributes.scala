@@ -2,11 +2,12 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait SourceHTMLAttributes[T] extends HTMLAttributes[T] {
+trait SourceHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var media: js.UndefOr[String] = js.native
   
@@ -27,7 +28,7 @@ object SourceHTMLAttributes {
   }
   
   @scala.inline
-  implicit class SourceHTMLAttributesMutableBuilder[Self <: SourceHTMLAttributes[_], T] (val x: Self with SourceHTMLAttributes[T]) extends AnyVal {
+  implicit class SourceHTMLAttributesMutableBuilder[Self <: SourceHTMLAttributes[?], T] (val x: Self & SourceHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setMedia(value: String): Self = StObject.set(x, "media", value.asInstanceOf[js.Any])

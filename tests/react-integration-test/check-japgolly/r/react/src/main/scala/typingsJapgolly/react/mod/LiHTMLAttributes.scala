@@ -2,11 +2,12 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait LiHTMLAttributes[T] extends HTMLAttributes[T] {
+trait LiHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var value: js.UndefOr[String | js.Array[String] | Double] = js.native
 }
@@ -19,7 +20,7 @@ object LiHTMLAttributes {
   }
   
   @scala.inline
-  implicit class LiHTMLAttributesMutableBuilder[Self <: LiHTMLAttributes[_], T] (val x: Self with LiHTMLAttributes[T]) extends AnyVal {
+  implicit class LiHTMLAttributesMutableBuilder[Self <: LiHTMLAttributes[?], T] (val x: Self & LiHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setValue(value: String | js.Array[String] | Double): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])

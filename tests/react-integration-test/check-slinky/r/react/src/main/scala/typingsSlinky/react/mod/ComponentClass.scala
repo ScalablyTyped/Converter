@@ -6,20 +6,20 @@ import slinky.core.ReactComponentClass
 import typingsSlinky.std.Partial
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait ComponentClass[P, S]
-  extends Instantiable1[/* props */ P, ReactComponentClass[P]]
+  extends StObject
      with StaticLifecycle[P, S]
+     with Instantiable1[/* props */ P, ReactComponentClass[P]]
      with Instantiable2[/* props */ P, /* context */ js.Any, ReactComponentClass[P]] {
   
-  var childContextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  var childContextTypes: js.UndefOr[ValidationMap[js.Any]] = js.native
   
-  var contextType: js.UndefOr[Context[_]] = js.native
+  var contextType: js.UndefOr[Context[js.Any]] = js.native
   
-  var contextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  var contextTypes: js.UndefOr[ValidationMap[js.Any]] = js.native
   
   var defaultProps: js.UndefOr[Partial[P]] = js.native
   

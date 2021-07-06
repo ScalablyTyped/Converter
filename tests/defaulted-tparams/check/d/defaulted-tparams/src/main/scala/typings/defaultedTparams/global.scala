@@ -3,7 +3,6 @@ package typings.defaultedTparams
 import typings.std.Iterable
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object global {
@@ -11,7 +10,8 @@ object global {
   @JSGlobal("Queue")
   @js.native
   class Queue[S, T] ()
-    extends typings.defaultedTparams.Queue[S, T]
+    extends StObject
+       with typings.defaultedTparams.Queue[S, T]
   object Queue {
     
     @JSGlobal("Queue")

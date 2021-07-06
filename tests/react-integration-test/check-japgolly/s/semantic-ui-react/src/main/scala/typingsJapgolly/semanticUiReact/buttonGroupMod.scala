@@ -23,7 +23,6 @@ import typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.top
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object buttonGroupMod extends Shortcut {
@@ -34,8 +33,9 @@ object buttonGroupMod extends Shortcut {
   
   @js.native
   trait ButtonGroupProps
-    extends /* key */ StringDictionary[js.Any]
+    extends StObject
        with StrictButtonGroupProps
+       with /* key */ StringDictionary[js.Any]
   object ButtonGroupProps {
     
     @scala.inline

@@ -59,7 +59,6 @@ import typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroupProps
 import typingsSlinky.reactBootstrap.mod.Sizes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object ButtonGroup {
@@ -534,7 +533,7 @@ object ButtonGroup {
     
     @scala.inline
     def onBeforeInput(
-      value: SyntheticEvent[EventTarget with typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
+      value: SyntheticEvent[EventTarget & typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
     ): this.type = set("onBeforeInput", js.Any.fromFunction1(value))
     
     @scala.inline
@@ -548,7 +547,7 @@ object ButtonGroup {
     
     @scala.inline
     def onChange(
-      value: SyntheticEvent[EventTarget with typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
+      value: SyntheticEvent[EventTarget & typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
     ): this.type = set("onChange", js.Any.fromFunction1(value))
     
     @scala.inline
@@ -619,12 +618,12 @@ object ButtonGroup {
     
     @scala.inline
     def onInput(
-      value: SyntheticEvent[EventTarget with typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
+      value: SyntheticEvent[EventTarget & typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
     ): this.type = set("onInput", js.Any.fromFunction1(value))
     
     @scala.inline
     def onInvalid(
-      value: SyntheticEvent[EventTarget with typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
+      value: SyntheticEvent[EventTarget & typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
     ): this.type = set("onInvalid", js.Any.fromFunction1(value))
     
     @scala.inline
@@ -713,7 +712,7 @@ object ButtonGroup {
     
     @scala.inline
     def onReset(
-      value: SyntheticEvent[EventTarget with typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
+      value: SyntheticEvent[EventTarget & typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
     ): this.type = set("onReset", js.Any.fromFunction1(value))
     
     @scala.inline
@@ -733,7 +732,7 @@ object ButtonGroup {
     
     @scala.inline
     def onSubmit(
-      value: SyntheticEvent[EventTarget with typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
+      value: SyntheticEvent[EventTarget & typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
     ): this.type = set("onSubmit", js.Any.fromFunction1(value))
     
     @scala.inline

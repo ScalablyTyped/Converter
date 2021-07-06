@@ -8,11 +8,12 @@ import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ReactPortal extends ReactElement {
+trait ReactPortal
+  extends StObject
+     with ReactElement {
   
   var children: Node = js.native
 }

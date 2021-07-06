@@ -5,13 +5,14 @@ import typings.fpTs.eitherMod.URI
 import typings.fpTs.hktMod.HKT
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object eitherTMod {
   
   @js.native
-  trait EitherT[F] extends Foo[F, URI] {
+  trait EitherT[F]
+    extends StObject
+       with Foo[F, URI] {
     
     def chain[L, A, B](f: js.Function1[/* a */ A, HKT[F, Either[L, B]]], fa: HKT[F, Either[L, A]]): HKT[F, Either[L, B]] = js.native
   }
@@ -26,7 +27,7 @@ object eitherTMod {
     }
     
     @scala.inline
-    implicit class EitherTMutableBuilder[Self <: EitherT[_], F] (val x: Self with EitherT[F]) extends AnyVal {
+    implicit class EitherTMutableBuilder[Self <: EitherT[?], F] (val x: Self & EitherT[F]) extends AnyVal {
       
       @scala.inline
       def setChain(

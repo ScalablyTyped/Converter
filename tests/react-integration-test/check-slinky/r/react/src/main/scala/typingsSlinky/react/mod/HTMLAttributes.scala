@@ -4,12 +4,12 @@ import typingsSlinky.react.reactStrings.off
 import typingsSlinky.react.reactStrings.on
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
 trait HTMLAttributes[T]
-  extends AriaAttributes
+  extends StObject
+     with AriaAttributes
      with DOMAttributes[T] {
   
   // RDFa Attributes
@@ -114,7 +114,7 @@ object HTMLAttributes {
   }
   
   @scala.inline
-  implicit class HTMLAttributesMutableBuilder[Self <: HTMLAttributes[_], T] (val x: Self with HTMLAttributes[T]) extends AnyVal {
+  implicit class HTMLAttributesMutableBuilder[Self <: HTMLAttributes[?], T] (val x: Self & HTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAbout(value: String): Self = StObject.set(x, "about", value.asInstanceOf[js.Any])

@@ -94,6 +94,7 @@ object ImportTypings {
       .next(
         new Phase2ToScalaJs(
           pedantic             = false,
+          scalaVersion         = input.conversion.versions.scala,
           enableScalaJsDefined = input.conversion.enableScalaJsDefined,
           outputPkg            = input.conversion.outputPackage,
           flavour              = input.conversion.flavourImpl,

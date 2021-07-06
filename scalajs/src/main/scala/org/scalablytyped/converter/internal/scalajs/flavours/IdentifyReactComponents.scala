@@ -77,7 +77,6 @@ class IdentifyReactComponents(
   def all(scope: TreeScope, tree: ContainerTree): IArray[Component] =
     recurse(scope, tree)
       .filterNot(c => reactNames.ComponentQNames(c.scalaRef.typeName))
-      .map(_.rewritten(scope, Wildcards.Remove))
 
   /* just one of each component (determined by name), which one is chosen by the `Ordering` implicit above */
   def oneOfEach(scope: TreeScope, tree: ContainerTree): IArray[Component] =

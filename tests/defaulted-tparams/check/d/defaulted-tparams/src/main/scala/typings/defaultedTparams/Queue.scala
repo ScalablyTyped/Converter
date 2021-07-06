@@ -2,7 +2,6 @@ package typings.defaultedTparams
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
@@ -42,7 +41,7 @@ object Queue {
   }
   
   @scala.inline
-  implicit class QueueMutableBuilder[Self <: Queue[_, _], S, T] (val x: Self with (Queue[S, T])) extends AnyVal {
+  implicit class QueueMutableBuilder[Self <: Queue[?, ?], S, T] (val x: Self & (Queue[S, T])) extends AnyVal {
     
     @scala.inline
     def setEmpty(value: Boolean): Self = StObject.set(x, "empty", value.asInstanceOf[js.Any])

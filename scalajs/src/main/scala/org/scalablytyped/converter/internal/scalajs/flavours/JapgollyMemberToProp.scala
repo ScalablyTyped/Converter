@@ -9,7 +9,7 @@ class JapgollyMemberToProp(reactNames: ReactNamesProxy, rewrites: IArray[CastCon
 
   override def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
     default(scope, x, isInherited).map {
-      case prop: Prop.Normal => prop.rewrite(toScalaJsReact(scope))
+      case prop: Prop.Normal => prop.rewrite(toScalaJsReact)
       case other => other
     }
 
@@ -25,20 +25,12 @@ class JapgollyMemberToProp(reactNames: ReactNamesProxy, rewrites: IArray[CastCon
       case other        => TypeRef(JapgollyNames.CallbackTo, IArray(other), NoComments)
     }
 
-  def toScalaJsReact(scope: TreeScope)(variant: Prop.Variant): Prop.Variant = {
-    object StripWildcards {
-      def unapply(tr: TypeRef): Some[TypeRef] =
-        Some(Wildcards.Remove.visitTypeRef(scope)(tr))
-
-      def unapply(trs: IArray[TypeRef]): Some[IArray[TypeRef]] =
-        Some(trs.map(Wildcards.Remove.visitTypeRef(scope)))
-    }
-
+  def toScalaJsReact(variant: Prop.Variant): Prop.Variant =
     variant.tpe match {
-      case TypeRef.ScalaFunction(Empty, StripWildcards(retType)) =>
+      case TypeRef.ScalaFunction(Empty, retType) =>
         Prop.Variant(CallbackTo(retType), ref => Select(ref, Name("toJsFn")), isRewritten = true, extendsAnyVal = true)
 
-      case TypeRef.ScalaFunction(StripWildcards(paramTypes), StripWildcards(TypeRef.Unit)) =>
+      case TypeRef.ScalaFunction(paramTypes, TypeRef.Unit) =>
         def fn(ref: ExprTree): ExprTree = {
           val params = paramTypes.zipWithIndex.map {
             case (tpe, i) =>
@@ -74,5 +66,4 @@ class JapgollyMemberToProp(reactNames: ReactNamesProxy, rewrites: IArray[CastCon
         )
       case _ => variant
     }
-  }
 }

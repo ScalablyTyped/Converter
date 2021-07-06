@@ -2,11 +2,12 @@ package typingsJapgolly.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ScriptHTMLAttributes[T] extends HTMLAttributes[T] {
+trait ScriptHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var async: js.UndefOr[Boolean] = js.native
   
@@ -35,7 +36,7 @@ object ScriptHTMLAttributes {
   }
   
   @scala.inline
-  implicit class ScriptHTMLAttributesMutableBuilder[Self <: ScriptHTMLAttributes[_], T] (val x: Self with ScriptHTMLAttributes[T]) extends AnyVal {
+  implicit class ScriptHTMLAttributesMutableBuilder[Self <: ScriptHTMLAttributes[?], T] (val x: Self & ScriptHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAsync(value: Boolean): Self = StObject.set(x, "async", value.asInstanceOf[js.Any])

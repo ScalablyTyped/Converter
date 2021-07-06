@@ -12,7 +12,6 @@ import typingsJapgolly.reactDropzone.mod.DropzoneRef
 import typingsJapgolly.reactDropzone.mod.DropzoneState
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object ReactDropzone {
@@ -40,7 +39,7 @@ object ReactDropzone {
     
     @scala.inline
     def getFilesFromEvent(
-      value: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
+      value: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ js.Any
     ): this.type = set("getFilesFromEvent", js.Any.fromFunction1(value))
     
     @scala.inline
@@ -65,24 +64,44 @@ object ReactDropzone {
     def noKeyboard(value: Boolean): this.type = set("noKeyboard", value.asInstanceOf[js.Any])
     
     @scala.inline
-    def onDragEnter(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    def onDragEnter(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
     @scala.inline
-    def onDragLeave(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    def onDragLeave(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
     @scala.inline
-    def onDragOver(value: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement with org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    def onDragOver(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): this.type = set("onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
     @scala.inline
     def onDrop(
-      value: (/* acceptedFiles */ js.Array[js.Any], /* rejectedFiles */ js.Array[js.Any], /* event */ DropEvent) => Callback
-    ): this.type = set("onDrop", js.Any.fromFunction3((t0: /* acceptedFiles */ js.Array[js.Any], t1: /* rejectedFiles */ js.Array[js.Any], t2: /* event */ DropEvent) => (value(t0, t1, t2)).runNow()))
+      value: (/* acceptedFiles */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], /* rejectedFiles */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], /* event */ DropEvent) => Callback
+    ): this.type = set("onDrop", js.Any.fromFunction3((t0: /* acceptedFiles */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], t1: /* rejectedFiles */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], t2: /* event */ DropEvent) => (value(t0, t1, t2)).runNow()))
     
     @scala.inline
-    def onDropAccepted(value: (/* files */ js.Array[js.Any], /* event */ DropEvent) => Callback): this.type = set("onDropAccepted", js.Any.fromFunction2((t0: /* files */ js.Array[js.Any], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
+    def onDropAccepted(
+      value: (/* files */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], /* event */ DropEvent) => Callback
+    ): this.type = set("onDropAccepted", js.Any.fromFunction2((t0: /* files */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
     
     @scala.inline
-    def onDropRejected(value: (/* files */ js.Array[js.Any], /* event */ DropEvent) => Callback): this.type = set("onDropRejected", js.Any.fromFunction2((t0: /* files */ js.Array[js.Any], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
+    def onDropRejected(
+      value: (/* files */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], /* event */ DropEvent) => Callback
+    ): this.type = set("onDropRejected", js.Any.fromFunction2((t0: /* files */ js.Array[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+        ], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
     
     @scala.inline
     def onFileDialogCancel(value: Callback): this.type = set("onFileDialogCancel", value.toJsFn)
@@ -93,5 +112,5 @@ object ReactDropzone {
   
   implicit def make(companion: ReactDropzone.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: DropzoneProps with RefAttributes[DropzoneRef]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: DropzoneProps & RefAttributes[DropzoneRef]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

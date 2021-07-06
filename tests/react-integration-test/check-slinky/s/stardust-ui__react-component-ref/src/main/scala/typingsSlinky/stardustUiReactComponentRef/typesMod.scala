@@ -5,7 +5,6 @@ import slinky.core.facade.ReactRef
 import typingsSlinky.react.mod.Ref
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object typesMod {
@@ -24,7 +23,7 @@ object typesMod {
       *
       * @param {HTMLElement} node - Referred node.
       */
-    var innerRef: Ref[_] = js.native
+    var innerRef: Ref[js.Any] = js.native
   }
   object RefProps {
     
@@ -41,16 +40,16 @@ object typesMod {
       def setChildren(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInnerRef(value: Ref[_]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
+      def setInnerRef(value: Ref[js.Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setInnerRefFunction1(value: /* instance */ _ | Null => Unit): Self = StObject.set(x, "innerRef", js.Any.fromFunction1(value))
+      def setInnerRefFunction1(value: /* instance */ js.Any | Null => Unit): Self = StObject.set(x, "innerRef", js.Any.fromFunction1(value))
       
       @scala.inline
       def setInnerRefNull: Self = StObject.set(x, "innerRef", null)
       
       @scala.inline
-      def setInnerRefReactRef(value: ReactRef[_]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
+      def setInnerRefReactRef(value: ReactRef[js.Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
     }
   }
 }

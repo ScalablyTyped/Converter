@@ -4,14 +4,15 @@ import typings.rxjs.typesMod.OperatorFunction
 import typings.rxjs.typesMod.Subscribable
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object observableMod {
   
   @JSImport("rxjs/internal/Observable", "Observable")
   @js.native
-  class Observable[T] () extends Subscribable[T] {
+  class Observable[T] ()
+    extends StObject
+       with Subscribable[T] {
     
     /** Internal implementation detail, do not use directly. */
     var _isScalar: Boolean = js.native
@@ -23,6 +24,6 @@ object observableMod {
     def pipe(): Observable[T] = js.native
     
     /** @deprecated This is an internal implementation detail, do not use. */
-    var source: Observable[_] = js.native
+    var source: Observable[js.Any] = js.native
   }
 }

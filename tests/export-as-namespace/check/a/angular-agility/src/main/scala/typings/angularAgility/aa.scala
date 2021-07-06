@@ -3,13 +3,14 @@ package typings.angularAgility
 import typings.angular.mod.IServiceProvider
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object aa {
   
   @js.native
-  trait INotifyConfigProvider extends IServiceProvider {
+  trait INotifyConfigProvider
+    extends StObject
+       with IServiceProvider {
     
     var defaultNotifyConfig: String = js.native
     

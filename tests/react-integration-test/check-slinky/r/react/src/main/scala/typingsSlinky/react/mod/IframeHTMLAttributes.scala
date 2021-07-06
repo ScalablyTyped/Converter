@@ -2,11 +2,12 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait IframeHTMLAttributes[T] extends HTMLAttributes[T] {
+trait IframeHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var allow: js.UndefOr[String] = js.native
   
@@ -47,7 +48,7 @@ object IframeHTMLAttributes {
   }
   
   @scala.inline
-  implicit class IframeHTMLAttributesMutableBuilder[Self <: IframeHTMLAttributes[_], T] (val x: Self with IframeHTMLAttributes[T]) extends AnyVal {
+  implicit class IframeHTMLAttributesMutableBuilder[Self <: IframeHTMLAttributes[?], T] (val x: Self & IframeHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAllow(value: String): Self = StObject.set(x, "allow", value.asInstanceOf[js.Any])

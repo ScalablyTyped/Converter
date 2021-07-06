@@ -2,7 +2,6 @@ package typings.phaser
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // Type definitions for Phaser 2.6.2 - 26th August 2016
@@ -11,7 +10,9 @@ object mod {
   
   @JSImport("phaser", JSImport.Namespace)
   @js.native
-  class ^ () extends Phaser
+  class ^ ()
+    extends StObject
+       with Phaser
   @JSImport("phaser", JSImport.Namespace)
   @js.native
   val ^ : js.Any = js.native
@@ -24,7 +25,8 @@ object mod {
   @JSImport("phaser", "Animation")
   @js.native
   class Animation ()
-    extends typings.phaser.Phaser.Animation
+    extends StObject
+       with typings.phaser.Phaser.Animation
   
   /* static member */
   @JSImport("phaser", "VERSION")

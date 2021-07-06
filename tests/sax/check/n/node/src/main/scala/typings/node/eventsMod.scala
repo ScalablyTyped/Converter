@@ -2,7 +2,6 @@ package typings.node
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object eventsMod {
@@ -10,12 +9,14 @@ object eventsMod {
   @JSImport("events", JSImport.Namespace)
   @js.native
   class ^ ()
-    extends typings.node.NodeJS.EventEmitter
+    extends StObject
+       with typings.node.NodeJS.EventEmitter
   
   @JSImport("events", "EventEmitter")
   @js.native
   class EventEmitter ()
-    extends typings.node.NodeJS.EventEmitter
+    extends StObject
+       with typings.node.NodeJS.EventEmitter
   /* static members */
   object EventEmitter {
     

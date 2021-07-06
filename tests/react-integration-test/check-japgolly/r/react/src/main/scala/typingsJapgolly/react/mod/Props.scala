@@ -9,7 +9,6 @@ import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 //
@@ -47,7 +46,7 @@ object Props {
   }
   
   @scala.inline
-  implicit class PropsMutableBuilder[Self <: Props[_], T] (val x: Self with Props[T]) extends AnyVal {
+  implicit class PropsMutableBuilder[Self <: Props[?], T] (val x: Self & Props[T]) extends AnyVal {
     
     @scala.inline
     def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])

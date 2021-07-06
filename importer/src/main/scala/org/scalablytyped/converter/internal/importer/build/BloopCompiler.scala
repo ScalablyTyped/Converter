@@ -56,9 +56,9 @@ object BloopCompiler {
       v:                     Versions,
       failureCacheFolderOpt: Option[Path],
   )(implicit ec:             ExecutionContext): Future[BloopCompiler] = {
-    val scalaCompilerF       = resolve(v.scala.compiler)
-    val globalClasspathBaseF = resolve(v.scalaJs.library.concrete(v), Versions.runtime.concrete(v))
-    val scalaJsCompilerBaseF = resolve(v.scalaJs.compiler.concrete(v))
+    val scalaCompilerF       = resolve(v.scala.compiler.concrete(v))
+    val globalClasspathBaseF = resolve(v.scalaJsLibrary.concrete(v), v.runtime.concrete(v))
+    val scalaJsCompilerBaseF = resolve(v.scalaJsCompiler.toList.map(_.concrete(v)): _*)
 
     for {
       scalaCompiler <- scalaCompilerF
@@ -71,10 +71,10 @@ object BloopCompiler {
         scalaCompiler.collect { case path if path.toString.contains("scala-library") => path } ++ globalClasspathBase
 
       val scalaJsCompiler =
-        scalaJsCompilerBase.collectFirst { case f if f.syntax.contains("scalajs-compiler") => f }.head
+        scalaJsCompilerBase.collectFirst { case f if f.syntax.contains("scalajs-compiler") => f }
 
       logger.warn(globalClasspath)
-      logger.warn(scalaJsCompiler)
+      logger.warn(scalaJsCompiler.toString)
 
       new BloopCompiler(logger, failureCacheFolderOpt, v, globalClasspath, scalaCompiler, scalaJsCompiler)
     }
@@ -87,7 +87,7 @@ class BloopCompiler private (
     versions:              Versions,
     globalClassPath:       Array[AbsolutePath],
     scalaJars:             Array[AbsolutePath],
-    scalaJsCompiler:       AbsolutePath,
+    scalaJsCompiler:       Option[AbsolutePath],
 ) extends Compiler {
   override def compile(
       name:          String,
@@ -117,8 +117,12 @@ class BloopCompiler private (
     val classesDir = compilerPaths.classesDir
     val outDir     = compilerPaths.baseDir / "target"
 
+    val scalaJsOption: String =
+      if (versions.scala.is3) "-scalajs"
+      else scalaJsCompiler.map(scalaJsCompiler => "-Xplugin:" + scalaJsCompiler.syntax).get
+
     val projectFile = BloopConfig.File(
-      "1.4.3",
+      "1.4.8",
       BloopConfig.Project(
         name         = name,
         directory    = compilerPaths.baseDir.toNIO,
@@ -133,7 +137,7 @@ class BloopCompiler private (
             organization = versions.scala.scalaOrganization,
             name         = "scala-compiler",
             version      = versions.scala.scalaVersion,
-            options      = List("-Xplugin:" + scalaJsCompiler.syntax) ++ versions.scalacOptions,
+            options      = scalaJsOption :: versions.scalacOptions,
             jars         = scalaJars.toList.map(_.underlying),
             analysis     = None,
             setup        = None,

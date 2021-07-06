@@ -2,11 +2,12 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait MediaHTMLAttributes[T] extends HTMLAttributes[T] {
+trait MediaHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var autoPlay: js.UndefOr[Boolean] = js.native
   
@@ -37,7 +38,7 @@ object MediaHTMLAttributes {
   }
   
   @scala.inline
-  implicit class MediaHTMLAttributesMutableBuilder[Self <: MediaHTMLAttributes[_], T] (val x: Self with MediaHTMLAttributes[T]) extends AnyVal {
+  implicit class MediaHTMLAttributesMutableBuilder[Self <: MediaHTMLAttributes[?], T] (val x: Self & MediaHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAutoPlay(value: Boolean): Self = StObject.set(x, "autoPlay", value.asInstanceOf[js.Any])

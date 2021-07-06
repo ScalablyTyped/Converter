@@ -2,11 +2,12 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ColHTMLAttributes[T] extends HTMLAttributes[T] {
+trait ColHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var span: js.UndefOr[Double] = js.native
   
@@ -21,7 +22,7 @@ object ColHTMLAttributes {
   }
   
   @scala.inline
-  implicit class ColHTMLAttributesMutableBuilder[Self <: ColHTMLAttributes[_], T] (val x: Self with ColHTMLAttributes[T]) extends AnyVal {
+  implicit class ColHTMLAttributesMutableBuilder[Self <: ColHTMLAttributes[?], T] (val x: Self & ColHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setSpan(value: Double): Self = StObject.set(x, "span", value.asInstanceOf[js.Any])

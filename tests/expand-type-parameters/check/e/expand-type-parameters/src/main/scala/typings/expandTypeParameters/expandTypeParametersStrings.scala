@@ -2,7 +2,6 @@ package typings.expandTypeParameters
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object expandTypeParametersStrings {
@@ -18,7 +17,9 @@ object expandTypeParametersStrings {
   def b: b = "b".asInstanceOf[b]
   
   @js.native
-  sealed trait c extends TA
+  sealed trait c
+    extends StObject
+       with TA
   @scala.inline
   def c: c = "c".asInstanceOf[c]
 }

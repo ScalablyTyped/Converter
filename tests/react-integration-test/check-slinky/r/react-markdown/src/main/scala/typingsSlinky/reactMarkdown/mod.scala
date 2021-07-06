@@ -5,7 +5,6 @@ import org.scalablytyped.runtime.TopLevel
 import slinky.core.facade.ReactElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
@@ -47,13 +46,13 @@ object mod {
   
   type LinkTargetResolver = js.Function3[/* uri */ String, /* text */ String, /* title */ js.UndefOr[String], String]
   
-  type MutuallyExclusive[T, U] = (T with Not[U]) | (U with Not[T])
+  type MutuallyExclusive[T, U] = (T & Not[U]) | (U & Not[T])
   
   type Not[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ key in keyof T ]:? never}
-    */ typingsSlinky.reactMarkdown.reactMarkdownStrings.Not with TopLevel[js.Any]
+    */ typingsSlinky.reactMarkdown.reactMarkdownStrings.Not & TopLevel[js.Any]
   
-  type ReactMarkdownProps = ReactMarkdownPropsBase with (MutuallyExclusive[ChildrenProp, SourceProp])
+  type ReactMarkdownProps = ReactMarkdownPropsBase & (MutuallyExclusive[ChildrenProp, SourceProp])
   
   @js.native
   trait ReactMarkdownPropsBase extends StObject {

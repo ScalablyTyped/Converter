@@ -12,13 +12,14 @@ import typings.std.Partial
 import typings.std.SVGElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object mod {
   
   @js.native
-  trait AllHTMLAttributes[T] extends HTMLAttributes[T] {
+  trait AllHTMLAttributes[T]
+    extends StObject
+       with HTMLAttributes[T] {
     
     var accept: js.UndefOr[String] = js.native
     
@@ -33,7 +34,7 @@ object mod {
     }
     
     @scala.inline
-    implicit class AllHTMLAttributesMutableBuilder[Self <: AllHTMLAttributes[_], T] (val x: Self with AllHTMLAttributes[T]) extends AnyVal {
+    implicit class AllHTMLAttributesMutableBuilder[Self <: AllHTMLAttributes[?], T] (val x: Self & AllHTMLAttributes[T]) extends AnyVal {
       
       @scala.inline
       def setAccept(value: String): Self = StObject.set(x, "accept", value.asInstanceOf[js.Any])
@@ -74,7 +75,9 @@ object mod {
   }
   
   @js.native
-  trait ClassAttributes[T] extends Attributes {
+  trait ClassAttributes[T]
+    extends StObject
+       with Attributes {
     
     var ref: js.UndefOr[Ref[T]] = js.native
   }
@@ -87,7 +90,7 @@ object mod {
     }
     
     @scala.inline
-    implicit class ClassAttributesMutableBuilder[Self <: ClassAttributes[_], T] (val x: Self with ClassAttributes[T]) extends AnyVal {
+    implicit class ClassAttributesMutableBuilder[Self <: ClassAttributes[?], T] (val x: Self & ClassAttributes[T]) extends AnyVal {
       
       @scala.inline
       def setRef(value: Ref[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
@@ -105,7 +108,8 @@ object mod {
   
   @js.native
   trait ComponentClass[P]
-    extends Instantiable1[/* props */ P, Component[P, ComponentState]]
+    extends StObject
+       with Instantiable1[/* props */ P, Component[P, ComponentState]]
        with Instantiable2[/* props */ P, /* context */ js.Any, Component[P, ComponentState]]
        with ComponentType[P] {
     
@@ -138,7 +142,7 @@ object mod {
     }
     
     @scala.inline
-    implicit class DOMAttributesMutableBuilder[Self <: DOMAttributes[_], T] (val x: Self with DOMAttributes[T]) extends AnyVal {
+    implicit class DOMAttributesMutableBuilder[Self <: DOMAttributes[?], T] (val x: Self & DOMAttributes[T]) extends AnyVal {
       
       @scala.inline
       def setChildren(value: ReactNode): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
@@ -156,7 +160,9 @@ object mod {
   
   // string fallback for custom web-components
   @js.native
-  trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] extends ReactElement {
+  trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */]
+    extends StObject
+       with ReactElement {
     
     var ref: Ref[T] = js.native
     
@@ -173,7 +179,7 @@ object mod {
     }
     
     @scala.inline
-    implicit class DOMElementMutableBuilder[Self <: DOMElement[_, _], P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] (val x: Self with (DOMElement[P, T])) extends AnyVal {
+    implicit class DOMElementMutableBuilder[Self <: DOMElement[?, ?], P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] (val x: Self & (DOMElement[P, T])) extends AnyVal {
       
       @scala.inline
       def setRef(value: Ref[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
@@ -189,13 +195,15 @@ object mod {
   @js.native
   trait DOMFactory[P /* <: DOMAttributes[T] */, T /* <: Element */] extends StObject {
     
-    def apply(props: ClassAttributes[T] with P, children: ReactNode*): DOMElement[P, T] = js.native
-    def apply(props: js.UndefOr[scala.Nothing], children: ReactNode*): DOMElement[P, T] = js.native
+    def apply(props: ClassAttributes[T] & P, children: ReactNode*): DOMElement[P, T] = js.native
     def apply(props: Null, children: ReactNode*): DOMElement[P, T] = js.native
+    def apply(props: Unit, children: ReactNode*): DOMElement[P, T] = js.native
   }
   
   @js.native
-  trait HTMLAttributes[T] extends DOMAttributes[T] {
+  trait HTMLAttributes[T]
+    extends StObject
+       with DOMAttributes[T] {
     
     var defaultChecked: js.UndefOr[Boolean] = js.native
   }
@@ -208,7 +216,7 @@ object mod {
     }
     
     @scala.inline
-    implicit class HTMLAttributesMutableBuilder[Self <: HTMLAttributes[_], T] (val x: Self with HTMLAttributes[T]) extends AnyVal {
+    implicit class HTMLAttributesMutableBuilder[Self <: HTMLAttributes[?], T] (val x: Self & HTMLAttributes[T]) extends AnyVal {
       
       @scala.inline
       def setDefaultChecked(value: Boolean): Self = StObject.set(x, "defaultChecked", value.asInstanceOf[js.Any])
@@ -227,12 +235,12 @@ object mod {
     
     var props: js.Any = js.native
     
-    var `type`: String | ComponentClass[_] = js.native
+    var `type`: String | ComponentClass[js.Any] = js.native
   }
   object ReactElement {
     
     @scala.inline
-    def apply(props: js.Any, `type`: String | ComponentClass[_]): ReactElement = {
+    def apply(props: js.Any, `type`: String | ComponentClass[js.Any]): ReactElement = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
       __obj.asInstanceOf[ReactElement]
@@ -251,7 +259,7 @@ object mod {
       def setProps(value: js.Any): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
       @scala.inline
-      def setType(value: String | ComponentClass[_]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      def setType(value: String | ComponentClass[js.Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
@@ -290,7 +298,9 @@ object mod {
   
   // ReactSVG for ReactSVGElement
   @js.native
-  trait ReactSVGElement extends DOMElement[SVGAttributes[SVGElement], SVGElement] {
+  trait ReactSVGElement
+    extends StObject
+       with DOMElement[SVGAttributes[SVGElement], SVGElement] {
     
     @JSName("type")
     var type_ReactSVGElement: animate | circle | clipPath = js.native
@@ -317,7 +327,9 @@ object mod {
   type SFC[P] = StatelessComponent[P]
   
   @js.native
-  trait SVGAttributes[T] extends DOMAttributes[T] {
+  trait SVGAttributes[T]
+    extends StObject
+       with DOMAttributes[T] {
     
     // Attributes which also defined in HTMLAttributes
     // See comment in SVGDOMPropertyConfig.js
@@ -336,7 +348,7 @@ object mod {
     }
     
     @scala.inline
-    implicit class SVGAttributesMutableBuilder[Self <: SVGAttributes[_], T] (val x: Self with SVGAttributes[T]) extends AnyVal {
+    implicit class SVGAttributesMutableBuilder[Self <: SVGAttributes[?], T] (val x: Self & SVGAttributes[T]) extends AnyVal {
       
       @scala.inline
       def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
@@ -359,15 +371,19 @@ object mod {
   }
   
   @js.native
-  trait SVGFactory extends DOMFactory[SVGAttributes[SVGElement], SVGElement]
+  trait SVGFactory
+    extends StObject
+       with DOMFactory[SVGAttributes[SVGElement], SVGElement]
   
   type SVGProps[T] = ClassAttributes[T]
   
   @js.native
-  trait StatelessComponent[P] extends ComponentType[P] {
+  trait StatelessComponent[P]
+    extends StObject
+       with ComponentType[P] {
     
-    def apply(props: P with Children): ReactElement | Null = js.native
-    def apply(props: P with Children, context: js.Any): ReactElement | Null = js.native
+    def apply(props: P & Children): ReactElement | Null = js.native
+    def apply(props: P & Children, context: js.Any): ReactElement | Null = js.native
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
     

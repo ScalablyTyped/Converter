@@ -64,6 +64,8 @@ class TreeTransformation { self =>
 
     val updatedChildren =
       s match {
+        case ExprTree.undefined =>
+          ExprTree.undefined
         case ExprTree.Null =>
           ExprTree.Null
         case ExprTree.`:_*`(e) =>

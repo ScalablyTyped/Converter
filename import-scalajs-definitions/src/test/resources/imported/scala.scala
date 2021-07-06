@@ -1094,6 +1094,8 @@ object scala {
         trait ExecResult
           extends js.Array[js.UndefOr[String]] {
           
+          var groups: js.UndefOr[js.Dictionary[js.UndefOr[String]]] = js.native
+          
           var index: Int = js.native
           
           var input: String = js.native
@@ -2438,6 +2440,10 @@ object scala {
              with js.Iterable[T] {
           
           def apply(index: Int): T = js.native
+          
+          def fill(value: T): Unit = js.native
+          def fill(value: T, start: Int): Unit = js.native
+          def fill(value: T, start: Int, end: Int): Unit = js.native
           
           def get(index: Int): T = js.native
           

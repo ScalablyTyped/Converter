@@ -3,25 +3,26 @@ package typingsJapgolly.react.mod
 import japgolly.scalajs.react.Callback
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait ComponentElement[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] extends ReactElement {
+trait ComponentElement[P, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */]
+  extends StObject
+     with ReactElement {
   
   var ref: js.UndefOr[LegacyRef[T]] = js.native
 }
 object ComponentElement {
   
   @scala.inline
-  def apply[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */](props: js.Any, `type`: js.Any): ComponentElement[P, T] = {
+  def apply[P, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */](props: js.Any, `type`: js.Any): ComponentElement[P, T] = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[ComponentElement[P, T]]
   }
   
   @scala.inline
-  implicit class ComponentElementMutableBuilder[Self <: ComponentElement[_, _], P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] (val x: Self with (ComponentElement[P, T])) extends AnyVal {
+  implicit class ComponentElementMutableBuilder[Self <: ComponentElement[?, ?], P, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */] (val x: Self & (ComponentElement[P, T])) extends AnyVal {
     
     @scala.inline
     def setRef(value: LegacyRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])

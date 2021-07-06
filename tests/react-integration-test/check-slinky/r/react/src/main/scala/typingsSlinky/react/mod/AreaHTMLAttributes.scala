@@ -2,11 +2,12 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait AreaHTMLAttributes[T] extends HTMLAttributes[T] {
+trait AreaHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var alt: js.UndefOr[String] = js.native
   
@@ -35,7 +36,7 @@ object AreaHTMLAttributes {
   }
   
   @scala.inline
-  implicit class AreaHTMLAttributesMutableBuilder[Self <: AreaHTMLAttributes[_], T] (val x: Self with AreaHTMLAttributes[T]) extends AnyVal {
+  implicit class AreaHTMLAttributesMutableBuilder[Self <: AreaHTMLAttributes[?], T] (val x: Self & AreaHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAlt(value: String): Self = StObject.set(x, "alt", value.asInstanceOf[js.Any])

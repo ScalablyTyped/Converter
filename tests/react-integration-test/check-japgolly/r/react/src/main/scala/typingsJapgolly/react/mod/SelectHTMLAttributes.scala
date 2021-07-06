@@ -5,11 +5,12 @@ import japgolly.scalajs.react.ReactEventFrom
 import org.scalajs.dom.raw.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @js.native
-trait SelectHTMLAttributes[T] extends HTMLAttributes[T] {
+trait SelectHTMLAttributes[T]
+  extends StObject
+     with HTMLAttributes[T] {
   
   var autoComplete: js.UndefOr[String] = js.native
   
@@ -41,7 +42,7 @@ object SelectHTMLAttributes {
   }
   
   @scala.inline
-  implicit class SelectHTMLAttributesMutableBuilder[Self <: SelectHTMLAttributes[_], T] (val x: Self with SelectHTMLAttributes[T]) extends AnyVal {
+  implicit class SelectHTMLAttributesMutableBuilder[Self <: SelectHTMLAttributes[?], T] (val x: Self & SelectHTMLAttributes[T]) extends AnyVal {
     
     @scala.inline
     def setAutoComplete(value: String): Self = StObject.set(x, "autoComplete", value.asInstanceOf[js.Any])
@@ -80,7 +81,7 @@ object SelectHTMLAttributes {
     def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
     
     @scala.inline
-    def setOnChange(value: ReactEventFrom[T with Element] => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
+    def setOnChange(value: ReactEventFrom[T & Element] => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: ReactEventFrom[T & Element]) => value(t0).runNow()))
     
     @scala.inline
     def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)

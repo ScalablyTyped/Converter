@@ -3,7 +3,6 @@ package typingsSlinky.react.mod
 import slinky.core.facade.ReactRef
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
-import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 //
@@ -41,7 +40,7 @@ object Props {
   }
   
   @scala.inline
-  implicit class PropsMutableBuilder[Self <: Props[_], T] (val x: Self with Props[T]) extends AnyVal {
+  implicit class PropsMutableBuilder[Self <: Props[?], T] (val x: Self & Props[T]) extends AnyVal {
     
     @scala.inline
     def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
