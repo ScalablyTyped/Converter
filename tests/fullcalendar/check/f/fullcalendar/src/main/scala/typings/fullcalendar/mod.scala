@@ -14,12 +14,15 @@ object mod {
   @js.native
   class Default_ ()
     extends typings.fullcalendar.mixinMod.default
-       with EmitterInterface
+       with EmitterInterface {
+    
+    /* CompleteClass */
+    override def on(types: js.Any, handler: js.Any): js.Any = js.native
+  }
   
-  @js.native
   trait EmitterInterface extends StObject {
     
-    def on(types: js.Any, handler: js.Any): js.Any = js.native
+    def on(types: js.Any, handler: js.Any): js.Any
   }
   object EmitterInterface {
     

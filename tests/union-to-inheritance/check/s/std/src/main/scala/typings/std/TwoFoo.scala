@@ -5,10 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* let's pretend */
-@js.native
 trait TwoFoo[Foo1, Foo2] extends StObject {
   
-  var value: Foo1 = js.native
+  var value: Foo1
 }
 object TwoFoo {
   

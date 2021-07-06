@@ -10,12 +10,11 @@ object mod {
   
   type NextFunction = js.Function1[/* err */ js.UndefOr[js.Any], Unit]
   
-  @js.native
   trait Request
     extends StObject
        with typings.expressServeStaticCore.mod.global.Express.Request {
     
-    var url: String = js.native
+    var url: String
   }
   object Request {
     
@@ -35,12 +34,11 @@ object mod {
   
   type RequestHandler = js.Function3[/* req */ Request, /* res */ Response, /* next */ NextFunction, js.Any]
   
-  @js.native
   trait Response
     extends StObject
        with typings.expressServeStaticCore.mod.global.Express.Response {
     
-    def location(url: String): Response = js.native
+    def location(url: String): Response
   }
   object Response {
     
@@ -62,15 +60,12 @@ object mod {
     
     object Express {
       
-      @js.native
       trait Application extends StObject
       
       // These open interfaces may be extended in an application-specific manner via declaration merging.
       // See for example method-override.d.ts (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/method-override/index.d.ts)
-      @js.native
       trait Request extends StObject
       
-      @js.native
       trait Response extends StObject
     }
   }

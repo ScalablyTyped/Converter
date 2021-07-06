@@ -20,14 +20,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @js.native
   trait AllHTMLAttributes[T]
     extends StObject
        with HTMLAttributes[T] {
     
-    var accept: js.UndefOr[String] = js.native
+    var accept: js.UndefOr[String] = js.undefined
     
-    var acceptCharset: js.UndefOr[String] = js.native
+    var acceptCharset: js.UndefOr[String] = js.undefined
   }
   object AllHTMLAttributes {
     
@@ -54,7 +53,6 @@ object mod {
     }
   }
   
-  @js.native
   trait Component[P, S] extends StObject
   
   @js.native
@@ -79,14 +77,13 @@ object mod {
   
   type ComponentType[P] = (ComponentClassP[P & js.Object]) | StatelessComponent[P]
   
-  @js.native
   trait DOMAttributes[T] extends StObject {
     
-    var children: js.UndefOr[Node] = js.native
+    var children: js.UndefOr[Node] = js.undefined
     
-    var dangerouslySetInnerHTML: js.UndefOr[Html] = js.native
+    var dangerouslySetInnerHTML: js.UndefOr[Html] = js.undefined
     
-    var onClick: js.UndefOr[Double | (js.Function1[/* x */ String, Unit])] = js.native
+    var onClick: js.UndefOr[Double | (js.Function1[/* x */ String, Unit])] = js.undefined
   }
   object DOMAttributes {
     
@@ -131,12 +128,11 @@ object mod {
     }
   }
   
-  @js.native
   trait HTMLAttributes[T]
     extends StObject
        with DOMAttributes[T] {
     
-    var defaultChecked: js.UndefOr[Boolean] = js.native
+    var defaultChecked: js.UndefOr[Boolean] = js.undefined
   }
   object HTMLAttributes {
     
@@ -157,18 +153,17 @@ object mod {
     }
   }
   
-  @js.native
   trait HTMLProps[T]
     extends StObject
        with AllHTMLAttributes[T] {
     
-    var defaultValue: foo = js.native
+    var defaultValue: foo
     
-    var onChange: foo = js.native
+    var onChange: foo
     
-    var `type`: foo = js.native
+    var `type`: foo
     
-    var value: foo = js.native
+    var value: foo
   }
   object HTMLProps {
     
@@ -198,14 +193,13 @@ object mod {
   
   type Key = String | Double
   
-  @js.native
   trait ReactElement extends StObject {
     
-    var key: Key | Null = js.native
+    var key: Key | Null
     
-    var props: js.Any = js.native
+    var props: js.Any
     
-    var `type`: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any] = js.native
+    var `type`: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any]
   }
   object ReactElement {
     

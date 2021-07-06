@@ -14,18 +14,29 @@ object mod {
     extends StObject
        with Insight_ {
     def this(options: IOptions) = this()
-  }
-  
-  @js.native
-  trait Insight_ extends StObject {
     
+    /* CompleteClass */
     var clientId: String = js.native
     
+    /* CompleteClass */
     var config: IConfigstore = js.native
     
+    /* CompleteClass */
     var optOut: Boolean = js.native
     
-    def track(args: String*): Unit = js.native
+    /* CompleteClass */
+    override def track(args: String*): Unit = js.native
+  }
+  
+  trait Insight_ extends StObject {
+    
+    var clientId: String
+    
+    var config: IConfigstore
+    
+    var optOut: Boolean
+    
+    def track(args: String*): Unit
   }
   object Insight_ {
     
@@ -54,18 +65,17 @@ object mod {
   
   object insight {
     
-    @js.native
     trait IConfigstore extends StObject {
       
-      var all: js.Any = js.native
+      var all: js.Any
       
-      def del(key: String): Unit = js.native
+      def del(key: String): Unit
       
-      def get(key: String): js.Any = js.native
+      def get(key: String): js.Any
       
-      var path: String = js.native
+      var path: String
       
-      def set(key: String, `val`: js.Any): Unit = js.native
+      def set(key: String, `val`: js.Any): Unit
     }
     object IConfigstore {
       
@@ -101,10 +111,9 @@ object mod {
       }
     }
     
-    @js.native
     trait IOptions extends StObject {
       
-      var trackingCode: String = js.native
+      var trackingCode: String
     }
     object IOptions {
       

@@ -6,12 +6,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object std {
   
-  @js.native
   trait Queue_[T] extends StObject {
     
-    var container_ : js.Any = js.native
+    var container_ : js.Any
     
-    def empty(): Boolean = js.native
+    def empty(): Boolean
   }
   object Queue_ {
     

@@ -8,26 +8,25 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait PointerEvent[T]
   extends StObject
      with MouseEvent[T, NativePointerEvent] {
   
-  var height: Double = js.native
+  var height: Double
   
-  var isPrimary: Boolean = js.native
+  var isPrimary: Boolean
   
-  var pointerId: Double = js.native
+  var pointerId: Double
   
-  var pointerType: mouse | pen | touch = js.native
+  var pointerType: mouse | pen | touch
   
-  var pressure: Double = js.native
+  var pressure: Double
   
-  var tiltX: Double = js.native
+  var tiltX: Double
   
-  var tiltY: Double = js.native
+  var tiltY: Double
   
-  var width: Double = js.native
+  var width: Double
 }
 object PointerEvent {
   

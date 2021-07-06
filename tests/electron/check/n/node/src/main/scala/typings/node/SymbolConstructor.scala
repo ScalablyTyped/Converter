@@ -4,12 +4,11 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait SymbolConstructor extends StObject {
   
-  val asyncIterator: js.Symbol = js.native
+  val asyncIterator: js.Symbol
   
-  val iterator: js.Symbol = js.native
+  val iterator: js.Symbol
 }
 object SymbolConstructor {
   

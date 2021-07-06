@@ -60,7 +60,9 @@ object ScalablyTypedPluginBase extends AutoPlugin {
   override lazy val projectSettings =
     Seq(
       stInternalExpandTypeMappings := EnabledTypeMappingExpansion.DefaultSelection.map(_.value),
-      stEnableScalaJsDefined := converter.Selection.None,
+      stEnableScalaJsDefined := {
+        if ((Compile / Keys.scalaVersion).value.startsWith("3")) converter.Selection.All else converter.Selection.None
+      },
       stFlavour := converter.Flavour.Normal,
       stIgnore := List("typescript"),
       stOutputPackage := Name.typings.unescaped,

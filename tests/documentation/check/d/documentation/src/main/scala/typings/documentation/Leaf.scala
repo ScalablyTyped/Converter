@@ -4,14 +4,13 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait Leaf[T]
   extends StObject
      with Tree[T] {
   
-  var `type`: typings.documentation.documentationStrings.Leaf = js.native
+  var `type`: typings.documentation.documentationStrings.Leaf
   
-  var value: T = js.native
+  var value: T
 }
 object Leaf {
   

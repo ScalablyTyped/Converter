@@ -4,10 +4,9 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait VFileOptions extends StObject {
   
-  var contents: js.UndefOr[VFileContents] = js.native
+  var contents: js.UndefOr[VFileContents] = js.undefined
 }
 object VFileOptions {
   

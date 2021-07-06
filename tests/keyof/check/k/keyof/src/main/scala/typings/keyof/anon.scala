@@ -7,12 +7,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object anon {
   
   /* Inlined std.Pick<keyof.A, 'c' | 'b'> */
-  @js.native
   trait PickAcb extends StObject {
     
-    var b: Double = js.native
+    var b: Double
     
-    var c: Double = js.native
+    var c: Double
   }
   object PickAcb {
     

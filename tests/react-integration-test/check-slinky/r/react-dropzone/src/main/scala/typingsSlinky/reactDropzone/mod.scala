@@ -32,12 +32,11 @@ object mod {
   
   type DropEvent = DragEvent[HTMLElement] | ChangeEvent[HTMLInputElement] | org.scalajs.dom.raw.DragEvent | Event
   
-  @js.native
   trait DropzoneInputProps
     extends StObject
        with InputHTMLAttributes[HTMLInputElement] {
     
-    var refKey: js.UndefOr[String] = js.native
+    var refKey: js.UndefOr[String] = js.undefined
   }
   object DropzoneInputProps {
     
@@ -59,39 +58,38 @@ object mod {
   }
   
   /* Inlined std.Pick<react.react.HTMLProps<std.HTMLElement>, react-dropzone.react-dropzone.PropTypes> & {  accept :string | std.Array<string> | undefined,   minSize :number | undefined,   maxSize :number | undefined,   preventDropOnDocument :boolean | undefined,   noClick :boolean | undefined,   noKeyboard :boolean | undefined,   noDrag :boolean | undefined,   noDragEventsBubbling :boolean | undefined,   disabled :boolean | undefined,   onDrop :<T extends / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File * / any>(acceptedFiles : std.Array<T>, rejectedFiles : std.Array<T>, event : react-dropzone.react-dropzone.DropEvent): void | undefined,   onDropAccepted :<T extends / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File * / any>(files : std.Array<T>, event : react-dropzone.react-dropzone.DropEvent): void | undefined,   onDropRejected :<T extends / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File * / any>(files : std.Array<T>, event : react-dropzone.react-dropzone.DropEvent): void | undefined,   getFilesFromEvent :(event : react-dropzone.react-dropzone.DropEvent): / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> * / any | undefined,   onFileDialogCancel :(): void | undefined} */
-  @js.native
   trait DropzoneOptions extends StObject {
     
-    var accept: js.UndefOr[String | js.Array[String]] = js.native
+    var accept: js.UndefOr[String | js.Array[String]] = js.undefined
     
-    var disabled: js.UndefOr[Boolean] = js.native
+    var disabled: js.UndefOr[Boolean] = js.undefined
     
     var getFilesFromEvent: js.UndefOr[
         js.Function1[
           /* event */ DropEvent, 
           /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ js.Any
         ]
-      ] = js.native
+      ] = js.undefined
     
-    var maxSize: js.UndefOr[Double] = js.native
+    var maxSize: js.UndefOr[Double] = js.undefined
     
-    var minSize: js.UndefOr[Double] = js.native
+    var minSize: js.UndefOr[Double] = js.undefined
     
-    var multiple: js.UndefOr[Boolean] = js.native
+    var multiple: js.UndefOr[Boolean] = js.undefined
     
-    var noClick: js.UndefOr[Boolean] = js.native
+    var noClick: js.UndefOr[Boolean] = js.undefined
     
-    var noDrag: js.UndefOr[Boolean] = js.native
+    var noDrag: js.UndefOr[Boolean] = js.undefined
     
-    var noDragEventsBubbling: js.UndefOr[Boolean] = js.native
+    var noDragEventsBubbling: js.UndefOr[Boolean] = js.undefined
     
-    var noKeyboard: js.UndefOr[Boolean] = js.native
+    var noKeyboard: js.UndefOr[Boolean] = js.undefined
     
-    var onDragEnter: js.UndefOr[DragEventHandler[HTMLElement]] = js.native
+    var onDragEnter: js.UndefOr[DragEventHandler[HTMLElement]] = js.undefined
     
-    var onDragLeave: js.UndefOr[DragEventHandler[HTMLElement]] = js.native
+    var onDragLeave: js.UndefOr[DragEventHandler[HTMLElement]] = js.undefined
     
-    var onDragOver: js.UndefOr[DragEventHandler[HTMLElement]] = js.native
+    var onDragOver: js.UndefOr[DragEventHandler[HTMLElement]] = js.undefined
     
     var onDrop: js.UndefOr[
         js.Function3[
@@ -104,7 +102,7 @@ object mod {
           /* event */ DropEvent, 
           Unit
         ]
-      ] = js.native
+      ] = js.undefined
     
     var onDropAccepted: js.UndefOr[
         js.Function2[
@@ -114,7 +112,7 @@ object mod {
           /* event */ DropEvent, 
           Unit
         ]
-      ] = js.native
+      ] = js.undefined
     
     var onDropRejected: js.UndefOr[
         js.Function2[
@@ -124,11 +122,11 @@ object mod {
           /* event */ DropEvent, 
           Unit
         ]
-      ] = js.native
+      ] = js.undefined
     
-    var onFileDialogCancel: js.UndefOr[js.Function0[Unit]] = js.native
+    var onFileDialogCancel: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    var preventDropOnDocument: js.UndefOr[Boolean] = js.native
+    var preventDropOnDocument: js.UndefOr[Boolean] = js.undefined
   }
   object DropzoneOptions {
     
@@ -270,12 +268,11 @@ object mod {
     }
   }
   
-  @js.native
   trait DropzoneProps
     extends StObject
        with DropzoneOptions {
     
-    var children: js.UndefOr[js.Function1[/* state */ DropzoneState, Element]] = js.native
+    var children: js.UndefOr[js.Function1[/* state */ DropzoneState, Element]] = js.undefined
   }
   object DropzoneProps {
     
@@ -296,10 +293,9 @@ object mod {
     }
   }
   
-  @js.native
   trait DropzoneRef extends StObject {
     
-    def open(): Unit = js.native
+    def open(): Unit
   }
   object DropzoneRef {
     
@@ -317,13 +313,12 @@ object mod {
     }
   }
   
-  @js.native
   trait DropzoneRootProps
     extends StObject
        with HTMLAttributes[HTMLElement]
        with /* key */ StringDictionary[js.Any] {
     
-    var refKey: js.UndefOr[String] = js.native
+    var refKey: js.UndefOr[String] = js.undefined
   }
   object DropzoneRootProps {
     

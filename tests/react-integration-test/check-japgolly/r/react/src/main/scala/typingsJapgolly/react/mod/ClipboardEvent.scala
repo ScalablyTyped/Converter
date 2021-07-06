@@ -8,12 +8,11 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait ClipboardEvent[T]
   extends StObject
      with BaseSyntheticEvent[NativeClipboardEvent, EventTarget & T, EventTarget] {
   
-  var clipboardData: DataTransfer = js.native
+  var clipboardData: DataTransfer
 }
 object ClipboardEvent {
   

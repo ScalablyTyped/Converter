@@ -88,19 +88,15 @@ object mod extends Shortcut {
   object global {
     
     // tslint:disable-next-line:no-empty-interface
-    @js.native
     trait Map[K, V] extends StObject
     
     // tslint:disable-next-line:no-empty-interface
-    @js.native
     trait Set[T] extends StObject
     
     // tslint:disable-next-line:no-empty-interface
-    @js.native
     trait WeakMap[K /* <: js.Object */, V] extends StObject
     
     // tslint:disable-next-line:no-empty-interface
-    @js.native
     trait WeakSet[T] extends StObject
   }
 }

@@ -29,7 +29,6 @@ object accordionAccordionAccordionMod extends Shortcut {
   @js.native
   val default: ReactComponentClass[AccordionAccordionProps] = js.native
   
-  @js.native
   trait AccordionAccordionProps
     extends StObject
        with StrictAccordionAccordionProps
@@ -43,26 +42,25 @@ object accordionAccordionAccordionMod extends Shortcut {
     }
   }
   
-  @js.native
   trait StrictAccordionAccordionProps extends StObject {
     
     /** Index of the currently active panel. */
-    var activeIndex: js.UndefOr[Double | js.Array[Double]] = js.native
+    var activeIndex: js.UndefOr[Double | js.Array[Double]] = js.undefined
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.native
+    var as: js.UndefOr[js.Any] = js.undefined
     
     /** Primary content. */
-    var children: js.UndefOr[ReactElement] = js.native
+    var children: js.UndefOr[ReactElement] = js.undefined
     
     /** Additional classes. */
-    var className: js.UndefOr[String] = js.native
+    var className: js.UndefOr[String] = js.undefined
     
     /** Initial activeIndex value. */
-    var defaultActiveIndex: js.UndefOr[Double | js.Array[Double]] = js.native
+    var defaultActiveIndex: js.UndefOr[Double | js.Array[Double]] = js.undefined
     
     /** Only allow one panel open at a time. */
-    var exclusive: js.UndefOr[Boolean] = js.native
+    var exclusive: js.UndefOr[Boolean] = js.undefined
     
     /**
       * Called when a panel title is clicked.
@@ -76,10 +74,10 @@ object accordionAccordionAccordionMod extends Shortcut {
           /* data */ AccordionTitleProps, 
           Unit
         ]
-      ] = js.native
+      ] = js.undefined
     
     /** Shorthand array of props for Accordion. */
-    var panels: js.UndefOr[SemanticShorthandCollection[AccordionPanelProps]] = js.native
+    var panels: js.UndefOr[SemanticShorthandCollection[AccordionPanelProps]] = js.undefined
   }
   object StrictAccordionAccordionProps {
     

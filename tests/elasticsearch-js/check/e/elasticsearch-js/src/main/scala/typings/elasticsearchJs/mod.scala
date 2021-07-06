@@ -6,11 +6,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @js.native
   trait TransportRequestPromise[T]
     extends js.Promise[T] {
     
-    def abort(): Unit = js.native
+    def abort(): Unit
   }
   object TransportRequestPromise {
     

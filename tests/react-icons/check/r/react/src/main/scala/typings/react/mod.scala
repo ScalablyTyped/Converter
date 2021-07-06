@@ -16,14 +16,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @js.native
   trait AllHTMLAttributes[T]
     extends StObject
        with HTMLAttributes[T] {
     
-    var accept: js.UndefOr[String] = js.native
+    var accept: js.UndefOr[String] = js.undefined
     
-    var acceptCharset: js.UndefOr[String] = js.native
+    var acceptCharset: js.UndefOr[String] = js.undefined
   }
   object AllHTMLAttributes {
     
@@ -50,10 +49,9 @@ object mod {
     }
   }
   
-  @js.native
   trait Attributes extends StObject {
     
-    var key: js.UndefOr[Key] = js.native
+    var key: js.UndefOr[Key] = js.undefined
   }
   object Attributes {
     
@@ -74,12 +72,11 @@ object mod {
     }
   }
   
-  @js.native
   trait ClassAttributes[T]
     extends StObject
        with Attributes {
     
-    var ref: js.UndefOr[Ref[T]] = js.native
+    var ref: js.UndefOr[Ref[T]] = js.undefined
   }
   object ClassAttributes {
     
@@ -103,7 +100,6 @@ object mod {
     }
   }
   
-  @js.native
   trait Component[P, S] extends StObject
   
   @js.native
@@ -126,12 +122,11 @@ object mod {
   */
   trait ComponentType[P] extends StObject
   
-  @js.native
   trait DOMAttributes[T] extends StObject {
     
-    var children: js.UndefOr[ReactNode] = js.native
+    var children: js.UndefOr[ReactNode] = js.undefined
     
-    var dangerouslySetInnerHTML: js.UndefOr[Html] = js.native
+    var dangerouslySetInnerHTML: js.UndefOr[Html] = js.undefined
   }
   object DOMAttributes {
     
@@ -159,15 +154,14 @@ object mod {
   }
   
   // string fallback for custom web-components
-  @js.native
   trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */]
     extends StObject
        with ReactElement {
     
-    var ref: Ref[T] = js.native
+    var ref: Ref[T]
     
     @JSName("type")
-    var type_DOMElement: String = js.native
+    var type_DOMElement: String
   }
   object DOMElement {
     
@@ -200,12 +194,11 @@ object mod {
     def apply(props: Unit, children: ReactNode*): DOMElement[P, T] = js.native
   }
   
-  @js.native
   trait HTMLAttributes[T]
     extends StObject
        with DOMAttributes[T] {
     
-    var defaultChecked: js.UndefOr[Boolean] = js.native
+    var defaultChecked: js.UndefOr[Boolean] = js.undefined
   }
   object HTMLAttributes {
     
@@ -228,14 +221,13 @@ object mod {
   
   type Key = String | Double
   
-  @js.native
   trait ReactElement extends StObject {
     
-    var key: Key | Null = js.native
+    var key: Key | Null
     
-    var props: js.Any = js.native
+    var props: js.Any
     
-    var `type`: String | ComponentClass[js.Any] = js.native
+    var `type`: String | ComponentClass[js.Any]
   }
   object ReactElement {
     
@@ -265,14 +257,13 @@ object mod {
   
   type ReactNode = js.UndefOr[String | Double | Boolean]
   
-  @js.native
   trait ReactSVG extends StObject {
     
-    var animate: SVGFactory = js.native
+    var animate: SVGFactory
     
-    var circle: SVGFactory = js.native
+    var circle: SVGFactory
     
-    var clipPath: SVGFactory = js.native
+    var clipPath: SVGFactory
   }
   object ReactSVG {
     
@@ -297,13 +288,12 @@ object mod {
   }
   
   // ReactSVG for ReactSVGElement
-  @js.native
   trait ReactSVGElement
     extends StObject
        with DOMElement[SVGAttributes[SVGElement], SVGElement] {
     
     @JSName("type")
-    var type_ReactSVGElement: animate | circle | clipPath = js.native
+    var type_ReactSVGElement: animate | circle | clipPath
   }
   object ReactSVGElement {
     
@@ -326,18 +316,17 @@ object mod {
   
   type SFC[P] = StatelessComponent[P]
   
-  @js.native
   trait SVGAttributes[T]
     extends StObject
        with DOMAttributes[T] {
     
     // Attributes which also defined in HTMLAttributes
     // See comment in SVGDOMPropertyConfig.js
-    var className: js.UndefOr[String] = js.native
+    var className: js.UndefOr[String] = js.undefined
     
-    var color: js.UndefOr[String] = js.native
+    var color: js.UndefOr[String] = js.undefined
     
-    var height: js.UndefOr[Double | String] = js.native
+    var height: js.UndefOr[Double | String] = js.undefined
   }
   object SVGAttributes {
     

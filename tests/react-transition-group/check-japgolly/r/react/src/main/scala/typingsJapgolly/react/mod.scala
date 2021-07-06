@@ -19,14 +19,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @js.native
   trait AllHTMLAttributes[T]
     extends StObject
        with HTMLAttributes[T] {
     
-    var accept: js.UndefOr[String] = js.native
+    var accept: js.UndefOr[String] = js.undefined
     
-    var acceptCharset: js.UndefOr[String] = js.native
+    var acceptCharset: js.UndefOr[String] = js.undefined
   }
   object AllHTMLAttributes {
     
@@ -54,10 +53,9 @@ object mod {
   // interface AnimationEvent<T> extends SyntheticEvent<T> {
   //     nativeEvent: NativeAnimationEvent;
   // }
-  @js.native
   trait Attributes extends StObject {
     
-    var key: js.UndefOr[Key] = js.native
+    var key: js.UndefOr[Key] = js.undefined
   }
   object Attributes {
     
@@ -69,12 +67,11 @@ object mod {
     }
   }
   
-  @js.native
   trait ClassAttributes[T]
     extends StObject
        with Attributes {
     
-    var ref: js.UndefOr[Ref[T]] = js.native
+    var ref: js.UndefOr[Ref[T]] = js.undefined
   }
   object ClassAttributes {
     
@@ -87,7 +84,6 @@ object mod {
     }
   }
   
-  @js.native
   trait Component[P, S] extends StObject
   
   @js.native
@@ -112,12 +108,11 @@ object mod {
   
   type ComponentType[P] = (ComponentClassP[P & js.Object]) | StatelessComponent[P]
   
-  @js.native
   trait DOMAttributes[T] extends StObject {
     
-    var children: js.UndefOr[Node] = js.native
+    var children: js.UndefOr[Node] = js.undefined
     
-    var dangerouslySetInnerHTML: js.UndefOr[Html] = js.native
+    var dangerouslySetInnerHTML: js.UndefOr[Html] = js.undefined
   }
   object DOMAttributes {
     
@@ -132,12 +127,11 @@ object mod {
   
   type DetailedHTMLProps[E /* <: HTMLAttributes[T] */, T] = ClassAttributes[T] & E
   
-  @js.native
   trait HTMLAttributes[T]
     extends StObject
        with DOMAttributes[T] {
     
-    var defaultChecked: js.UndefOr[Boolean] = js.native
+    var defaultChecked: js.UndefOr[Boolean] = js.undefined
   }
   object HTMLAttributes {
     
@@ -155,7 +149,6 @@ object mod {
     }
   }
   
-  @js.native
   trait HTMLProps[T]
     extends StObject
        with AllHTMLAttributes[T]
@@ -188,14 +181,13 @@ object mod {
   
   type NativeAnimationEvent = AnimationEvent
   
-  @js.native
   trait ReactElement extends StObject {
     
-    var key: Key | Null = js.native
+    var key: Key | Null
     
-    var props: js.Any = js.native
+    var props: js.Any
     
-    var `type`: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any] = js.native
+    var `type`: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any]
   }
   object ReactElement {
     
@@ -242,18 +234,15 @@ object mod {
       // tslint:disable-next-line:no-empty-interface
       type Element = japgolly.scalajs.react.raw.React.Element
       
-      @js.native
       trait ElementAttributesProperty extends StObject
       
-      @js.native
       trait ElementChildrenAttribute extends StObject
       
-      @js.native
       trait ElementClass
         extends StObject
            with Component[js.Any, js.Object] {
         
-        def render(): Node = js.native
+        def render(): Node
       }
       object ElementClass {
         
@@ -270,13 +259,12 @@ object mod {
       // tslint:disable-next-line:no-empty-interface
       type IntrinsicClassAttributes[T] = ClassAttributes[T]
       
-      @js.native
       trait IntrinsicElements extends StObject {
         
         // HTML
-        var abbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement] = js.native
+        var abbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
         
-        var animate: SVGProps[SVGElement] = js.native
+        var animate: SVGProps[SVGElement]
       }
       object IntrinsicElements {
         

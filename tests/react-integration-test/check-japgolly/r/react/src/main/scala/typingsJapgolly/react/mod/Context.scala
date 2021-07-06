@@ -4,14 +4,13 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait Context[T] extends StObject {
   
-  var Consumer: typingsJapgolly.react.mod.Consumer[T] = js.native
+  var Consumer: typingsJapgolly.react.mod.Consumer[T]
   
-  var Provider: typingsJapgolly.react.mod.Provider[T] = js.native
+  var Provider: typingsJapgolly.react.mod.Provider[T]
   
-  var displayName: js.UndefOr[String] = js.native
+  var displayName: js.UndefOr[String] = js.undefined
 }
 object Context {
   

@@ -5,12 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined std.Partial<type-mappings.Person> */
-@js.native
 trait PartialPerson extends StObject {
   
-  var age: js.UndefOr[scala.Double | Null] = js.native
+  var age: js.UndefOr[scala.Double | Null] = js.undefined
   
-  var name: js.UndefOr[String] = js.native
+  var name: js.UndefOr[String] = js.undefined
 }
 object PartialPerson {
   

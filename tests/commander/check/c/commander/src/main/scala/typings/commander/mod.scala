@@ -44,16 +44,33 @@ object mod extends Shortcut {
       */
     def this(flags: String) = this()
     def this(flags: String, description: String) = this()
+    
+    /* CompleteClass */
+    var bool: Boolean = js.native
+    
+    /* CompleteClass */
+    var description: String = js.native
+    
+    /* CompleteClass */
+    var flags: String = js.native
+    
+    /* CompleteClass */
+    var long: String = js.native
+    
+    /* CompleteClass */
+    var optional: Boolean = js.native
+    
+    /* CompleteClass */
+    var required: Boolean = js.native
   }
   
   type Command = typings.commander.mod.local.Command
   
-  @js.native
   trait CommandOptions extends StObject {
     
-    var isDefault: js.UndefOr[Boolean] = js.native
+    var isDefault: js.UndefOr[Boolean] = js.undefined
     
-    var noHelp: js.UndefOr[Boolean] = js.native
+    var noHelp: js.UndefOr[Boolean] = js.undefined
   }
   object CommandOptions {
     
@@ -100,12 +117,11 @@ object mod extends Shortcut {
   
   type Option = typings.commander.mod.local.Option
   
-  @js.native
   trait ParseOptionsResult extends StObject {
     
-    var args: js.Array[String] = js.native
+    var args: js.Array[String]
     
-    var unknown: js.Array[String] = js.native
+    var unknown: js.Array[String]
   }
   object ParseOptionsResult {
     
@@ -418,22 +434,21 @@ object mod extends Shortcut {
       def version(str: String, flags: String): typings.commander.mod.local.Command = js.native
     }
     
-    @js.native
     trait Option extends StObject {
       
-      var bool: Boolean = js.native
+      var bool: Boolean
       
-      var description: String = js.native
+      var description: String
       
-      var flags: String = js.native
+      var flags: String
       
-      var long: String = js.native
+      var long: String
       
-      var optional: Boolean = js.native
+      var optional: Boolean
       
-      var required: Boolean = js.native
+      var required: Boolean
       
-      var short: js.UndefOr[String] = js.native
+      var short: js.UndefOr[String] = js.undefined
     }
     object Option {
       

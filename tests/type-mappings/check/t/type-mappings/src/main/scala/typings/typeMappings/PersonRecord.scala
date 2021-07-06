@@ -5,12 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined std.Record<'name' | 'age', string> */
-@js.native
 trait PersonRecord extends StObject {
   
-  var age: String = js.native
+  var age: String
   
-  var name: String = js.native
+  var name: String
 }
 object PersonRecord {
   

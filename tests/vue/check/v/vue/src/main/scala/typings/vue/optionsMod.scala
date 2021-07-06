@@ -40,44 +40,43 @@ object optionsMod {
   
   type Component[Data, Methods, Computed, Props] = VueConstructor[Vue] | (FunctionalComponentOptions[Props, PropsDefinition[Props]]) | (ComponentOptions[Vue, Data, Methods, Computed, Props])
   
-  @js.native
   trait ComponentOptions[V /* <: Vue */, Data, Methods, Computed, PropsDef] extends StObject {
     
-    var activated: js.UndefOr[js.Function0[Unit]] = js.native
+    var activated: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    var beforeCreate: js.UndefOr[js.ThisFunction0[/* this */ V, Unit]] = js.native
+    var beforeCreate: js.UndefOr[js.ThisFunction0[/* this */ V, Unit]] = js.undefined
     
-    var beforeDestroy: js.UndefOr[js.Function0[Unit]] = js.native
+    var beforeDestroy: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    var beforeMount: js.UndefOr[js.Function0[Unit]] = js.native
+    var beforeMount: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    var beforeUpdate: js.UndefOr[js.Function0[Unit]] = js.native
+    var beforeUpdate: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    var comments: js.UndefOr[Boolean] = js.native
+    var comments: js.UndefOr[Boolean] = js.undefined
     
     var components: js.UndefOr[
         StringDictionary[
           (Component[js.Any, js.Any, js.Any, js.Any]) | (AsyncComponent[js.Any, js.Any, js.Any, js.Any])
         ]
-      ] = js.native
+      ] = js.undefined
     
-    var computed: js.UndefOr[Accessors[Computed]] = js.native
+    var computed: js.UndefOr[Accessors[Computed]] = js.undefined
     
-    var created: js.UndefOr[js.Function0[Unit]] = js.native
+    var created: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    var data: js.UndefOr[Data] = js.native
+    var data: js.UndefOr[Data] = js.undefined
     
-    var deactivated: js.UndefOr[js.Function0[Unit]] = js.native
+    var deactivated: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    var delimiters: js.UndefOr[js.Tuple2[String, String]] = js.native
+    var delimiters: js.UndefOr[js.Tuple2[String, String]] = js.undefined
     
-    var destroyed: js.UndefOr[js.Function0[Unit]] = js.native
+    var destroyed: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    var directives: js.UndefOr[StringDictionary[DirectiveFunction | DirectiveOptions]] = js.native
+    var directives: js.UndefOr[StringDictionary[DirectiveFunction | DirectiveOptions]] = js.undefined
     
-    var el: js.UndefOr[Element | String] = js.native
+    var el: js.UndefOr[Element | String] = js.undefined
     
-    var errorCaptured: js.UndefOr[js.Function0[Boolean | Unit]] = js.native
+    var errorCaptured: js.UndefOr[js.Function0[Boolean | Unit]] = js.undefined
     
     // TODO: support properly inferred 'extends'
     var `extends`: js.UndefOr[
@@ -88,15 +87,15 @@ object optionsMod {
           DefaultComputed, 
           PropsDefinition[DefaultProps]
         ]) | VueConstructor[Vue]
-      ] = js.native
+      ] = js.undefined
     
-    var filters: js.UndefOr[StringDictionary[js.Function]] = js.native
+    var filters: js.UndefOr[StringDictionary[js.Function]] = js.undefined
     
-    var inheritAttrs: js.UndefOr[Boolean] = js.native
+    var inheritAttrs: js.UndefOr[Boolean] = js.undefined
     
-    var inject: js.UndefOr[InjectOptions] = js.native
+    var inject: js.UndefOr[InjectOptions] = js.undefined
     
-    var methods: js.UndefOr[Methods] = js.native
+    var methods: js.UndefOr[Methods] = js.undefined
     
     var mixins: js.UndefOr[
         js.Array[
@@ -108,35 +107,35 @@ object optionsMod {
             PropsDefinition[DefaultProps]
           ]) | VueConstructor[Vue]
         ]
-      ] = js.native
+      ] = js.undefined
     
-    var model: js.UndefOr[Event] = js.native
+    var model: js.UndefOr[Event] = js.undefined
     
-    var mounted: js.UndefOr[js.Function0[Unit]] = js.native
+    var mounted: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    var name: js.UndefOr[String] = js.native
+    var name: js.UndefOr[String] = js.undefined
     
-    var parent: js.UndefOr[Vue] = js.native
+    var parent: js.UndefOr[Vue] = js.undefined
     
-    var props: js.UndefOr[PropsDef] = js.native
+    var props: js.UndefOr[PropsDef] = js.undefined
     
-    var propsData: js.UndefOr[js.Object] = js.native
+    var propsData: js.UndefOr[js.Object] = js.undefined
     
-    var provide: js.UndefOr[js.Object | js.Function0[js.Object]] = js.native
+    var provide: js.UndefOr[js.Object | js.Function0[js.Object]] = js.undefined
     
-    var render: js.UndefOr[js.Function1[/* createElement */ CreateElement, VNode]] = js.native
+    var render: js.UndefOr[js.Function1[/* createElement */ CreateElement, VNode]] = js.undefined
     
-    var renderError: js.UndefOr[js.Function2[/* h */ js.Function0[VNode], /* err */ Error, VNode]] = js.native
+    var renderError: js.UndefOr[js.Function2[/* h */ js.Function0[VNode], /* err */ Error, VNode]] = js.undefined
     
-    var staticRenderFns: js.UndefOr[js.Array[js.Function1[/* createElement */ CreateElement, VNode]]] = js.native
+    var staticRenderFns: js.UndefOr[js.Array[js.Function1[/* createElement */ CreateElement, VNode]]] = js.undefined
     
-    var template: js.UndefOr[String] = js.native
+    var template: js.UndefOr[String] = js.undefined
     
-    var transitions: js.UndefOr[StringDictionary[js.Object]] = js.native
+    var transitions: js.UndefOr[StringDictionary[js.Object]] = js.undefined
     
-    var updated: js.UndefOr[js.Function0[Unit]] = js.native
+    var updated: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    var watch: js.UndefOr[Record[String, WatchOptionsWithHandler[js.Any] | WatchHandler[js.Any] | String]] = js.native
+    var watch: js.UndefOr[Record[String, WatchOptionsWithHandler[js.Any] | WatchHandler[js.Any] | String]] = js.undefined
   }
   object ComponentOptions {
     
@@ -409,14 +408,13 @@ object optionsMod {
     }
   }
   
-  @js.native
   trait ComputedOptions[T] extends StObject {
     
-    var cache: js.UndefOr[Boolean] = js.native
+    var cache: js.UndefOr[Boolean] = js.undefined
     
-    var get: js.UndefOr[js.Function0[T]] = js.native
+    var get: js.UndefOr[js.Function0[T]] = js.undefined
     
-    var set: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.native
+    var set: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.undefined
   }
   object ComputedOptions {
     
@@ -470,18 +468,17 @@ object optionsMod {
     Unit
   ]
   
-  @js.native
   trait DirectiveOptions extends StObject {
     
-    var bind: js.UndefOr[DirectiveFunction] = js.native
+    var bind: js.UndefOr[DirectiveFunction] = js.undefined
     
-    var componentUpdated: js.UndefOr[DirectiveFunction] = js.native
+    var componentUpdated: js.UndefOr[DirectiveFunction] = js.undefined
     
-    var inserted: js.UndefOr[DirectiveFunction] = js.native
+    var inserted: js.UndefOr[DirectiveFunction] = js.undefined
     
-    var unbind: js.UndefOr[DirectiveFunction] = js.native
+    var unbind: js.UndefOr[DirectiveFunction] = js.undefined
     
-    var update: js.UndefOr[DirectiveFunction] = js.native
+    var update: js.UndefOr[DirectiveFunction] = js.undefined
   }
   object DirectiveOptions {
     
@@ -536,10 +533,9 @@ object optionsMod {
     }
   }
   
-  @js.native
   trait EsModuleComponent extends StObject {
     
-    var default: Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps] = js.native
+    var default: Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]
   }
   object EsModuleComponent {
     
@@ -557,18 +553,17 @@ object optionsMod {
     }
   }
   
-  @js.native
   trait FunctionalComponentOptions[Props, PropDefs] extends StObject {
     
-    var functional: Boolean = js.native
+    var functional: Boolean
     
-    var inject: js.UndefOr[InjectOptions] = js.native
+    var inject: js.UndefOr[InjectOptions] = js.undefined
     
-    var name: js.UndefOr[String] = js.native
+    var name: js.UndefOr[String] = js.undefined
     
-    var props: js.UndefOr[PropDefs] = js.native
+    var props: js.UndefOr[PropDefs] = js.undefined
     
-    def render(createElement: CreateElement, context: RenderContext[Props]): VNode = js.native
+    def render(createElement: CreateElement, context: RenderContext[Props]): VNode
   }
   object FunctionalComponentOptions {
     
@@ -616,16 +611,15 @@ object optionsMod {
   
   type Prop[T] = js.Function0[T] | Instantiable[T]
   
-  @js.native
   trait PropOptions[T] extends StObject {
     
-    var default: js.UndefOr[T | Null | js.Function0[js.Object]] = js.native
+    var default: js.UndefOr[T | Null | js.Function0[js.Object]] = js.undefined
     
-    var required: js.UndefOr[Boolean] = js.native
+    var required: js.UndefOr[Boolean] = js.undefined
     
-    var `type`: js.UndefOr[Prop[T] | js.Array[Prop[T]]] = js.native
+    var `type`: js.UndefOr[Prop[T] | js.Array[Prop[T]]] = js.undefined
     
-    var validator: js.UndefOr[js.Function1[/* value */ T, Boolean]] = js.native
+    var validator: js.UndefOr[js.Function1[/* value */ T, Boolean]] = js.undefined
   }
   object PropOptions {
     
@@ -684,20 +678,19 @@ object optionsMod {
   {[ K in keyof T ]: vue.vue/types/options.PropValidator<T[K]>}
     */ typings.vue.vueStrings.RecordPropsDefinition & TopLevel[T]
   
-  @js.native
   trait RenderContext[Props] extends StObject {
     
-    var children: js.Array[VNode] = js.native
+    var children: js.Array[VNode]
     
-    var data: VNodeData = js.native
+    var data: VNodeData
     
-    var injections: js.Any = js.native
+    var injections: js.Any
     
-    var parent: Vue = js.native
+    var parent: Vue
     
-    var props: Props = js.native
+    var props: Props
     
-    def slots(): js.Any = js.native
+    def slots(): js.Any
   }
   object RenderContext {
     
@@ -741,8 +734,7 @@ object optionsMod {
   }
   
   /* import warning: RemoveDifficultInheritance.summarizeChanges 
-  - Dropped object */ @js.native
-  trait ThisTypedComponentOptionsWithArrayProps[V /* <: Vue */, Data, Methods, Computed, PropNames /* <: String */]
+  - Dropped object */ trait ThisTypedComponentOptionsWithArrayProps[V /* <: Vue */, Data, Methods, Computed, PropNames /* <: String */]
     extends StObject
        with ComponentOptions[
           V, 
@@ -762,8 +754,7 @@ object optionsMod {
   }
   
   /* import warning: RemoveDifficultInheritance.summarizeChanges 
-  - Dropped object */ @js.native
-  trait ThisTypedComponentOptionsWithRecordProps[V /* <: Vue */, Data, Methods, Computed, Props]
+  - Dropped object */ trait ThisTypedComponentOptionsWithRecordProps[V /* <: Vue */, Data, Methods, Computed, Props]
     extends StObject
        with ComponentOptions[
           V, 
@@ -784,12 +775,11 @@ object optionsMod {
   
   type WatchHandler[T] = js.Function2[/* val */ T, /* oldVal */ T, Unit]
   
-  @js.native
   trait WatchOptions extends StObject {
     
-    var deep: js.UndefOr[Boolean] = js.native
+    var deep: js.UndefOr[Boolean] = js.undefined
     
-    var immediate: js.UndefOr[Boolean] = js.native
+    var immediate: js.UndefOr[Boolean] = js.undefined
   }
   object WatchOptions {
     
@@ -816,14 +806,13 @@ object optionsMod {
     }
   }
   
-  @js.native
   trait WatchOptionsWithHandler[T]
     extends StObject
        with WatchOptions {
     
-    def handler(`val`: T, oldVal: T): Unit = js.native
+    def handler(`val`: T, oldVal: T): Unit
     @JSName("handler")
-    var handler_Original: WatchHandler[T] = js.native
+    var handler_Original: WatchHandler[T]
   }
   object WatchOptionsWithHandler {
     

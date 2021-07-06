@@ -72,7 +72,7 @@ trait ImporterHarness extends AnyFunSuite {
           new Phase2ToScalaJs(
             pedantic,
             scalaVersion         = version.scala,
-            enableScalaJsDefined = Selection.None,
+            enableScalaJsDefined = Selection.All,
             outputPkg            = flavour.outputPkg,
             flavour              = flavour,
           ),

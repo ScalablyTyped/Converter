@@ -17,12 +17,11 @@ object mod {
   
   type IconBaseClass = Component[IconBaseProps, js.Object]
   
-  @js.native
   trait IconBaseProps
     extends StObject
        with ClassAttributes[ReactSVGElement] {
     
-    var size: js.UndefOr[String | Double] = js.native
+    var size: js.UndefOr[String | Double] = js.undefined
   }
   object IconBaseProps {
     

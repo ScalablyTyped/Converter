@@ -5,14 +5,13 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait Context[T] extends StObject {
   
-  var Consumer: ReactComponentClass[ConsumerProps[T]] = js.native
+  var Consumer: ReactComponentClass[ConsumerProps[T]]
   
-  var Provider: ReactComponentClass[ProviderProps[T]] = js.native
+  var Provider: ReactComponentClass[ProviderProps[T]]
   
-  var displayName: js.UndefOr[String] = js.native
+  var displayName: js.UndefOr[String] = js.undefined
 }
 object Context {
   

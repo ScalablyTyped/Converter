@@ -6,7 +6,6 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // ReactSVG for ReactSVGElement
-@js.native
 trait ReactSVGElement
   extends StObject
      with DOMElement[SVGAttributes[SVGElement], SVGElement]

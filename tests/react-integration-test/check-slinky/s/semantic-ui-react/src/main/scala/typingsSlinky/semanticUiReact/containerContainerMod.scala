@@ -16,7 +16,6 @@ object containerContainerMod extends Shortcut {
   @js.native
   val default: ReactComponentClass[ContainerProps] = js.native
   
-  @js.native
   trait ContainerProps
     extends StObject
        with StrictContainerProps
@@ -30,29 +29,28 @@ object containerContainerMod extends Shortcut {
     }
   }
   
-  @js.native
   trait StrictContainerProps extends StObject {
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.native
+    var as: js.UndefOr[js.Any] = js.undefined
     
     /** Primary content. */
-    var children: js.UndefOr[ReactElement] = js.native
+    var children: js.UndefOr[ReactElement] = js.undefined
     
     /** Additional classes. */
-    var className: js.UndefOr[String] = js.native
+    var className: js.UndefOr[String] = js.undefined
     
     /** Shorthand for primary content. */
-    var content: js.UndefOr[SemanticShorthandContent] = js.native
+    var content: js.UndefOr[SemanticShorthandContent] = js.undefined
     
     /** Container has no maximum width. */
-    var fluid: js.UndefOr[Boolean] = js.native
+    var fluid: js.UndefOr[Boolean] = js.undefined
     
     /** Reduce maximum width to more naturally accommodate text. */
-    var text: js.UndefOr[Boolean] = js.native
+    var text: js.UndefOr[Boolean] = js.undefined
     
     /** Describes how the text inside this component should be aligned. */
-    var textAlign: js.UndefOr[SemanticTEXTALIGNMENTS] = js.native
+    var textAlign: js.UndefOr[SemanticTEXTALIGNMENTS] = js.undefined
   }
   object StrictContainerProps {
     

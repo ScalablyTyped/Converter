@@ -6,12 +6,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object anon {
   
-  @js.native
   trait Changed extends StObject {
     
-    var changed: js.Array[ViewToken] = js.native
+    var changed: js.Array[ViewToken]
     
-    var viewableItems: js.Array[ViewToken] = js.native
+    var viewableItems: js.Array[ViewToken]
   }
   object Changed {
     

@@ -4,10 +4,9 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait Foo extends StObject {
   
-  var f: js.UndefOr[js.Function1[/* n */ Double, String]] = js.native
+  var f: js.UndefOr[js.Function1[/* n */ Double, String]] = js.undefined
 }
 object Foo {
   

@@ -4,14 +4,13 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait A extends StObject {
   
-  var a: Double = js.native
+  var a: Double
   
-  var b: Double = js.native
+  var b: Double
   
-  var c: Double = js.native
+  var c: Double
 }
 object A {
   

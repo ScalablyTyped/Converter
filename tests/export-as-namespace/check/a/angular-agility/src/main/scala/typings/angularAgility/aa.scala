@@ -7,16 +7,15 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object aa {
   
-  @js.native
   trait INotifyConfigProvider
     extends StObject
        with IServiceProvider {
     
-    var defaultNotifyConfig: String = js.native
+    var defaultNotifyConfig: String
     
-    var defaultTargetContainerName: String = js.native
+    var defaultTargetContainerName: String
     
-    var notifyConfigs: js.Any = js.native
+    var notifyConfigs: js.Any
   }
   object INotifyConfigProvider {
     

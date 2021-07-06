@@ -4,12 +4,11 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait FunctionComponentElement[P]
   extends StObject
      with ReactElement {
   
-  var ref: js.UndefOr[js.Any] = js.native
+  var ref: js.UndefOr[js.Any] = js.undefined
 }
 object FunctionComponentElement {
   
