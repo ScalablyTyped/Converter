@@ -53,7 +53,11 @@ class Erasure(scalaVersion: Versions.Scala) {
           val erasedParentLattices: IArray[IArray[QualifiedName]] =
             tpe.targs.map(t => go(scope, t))
 
-          erasedParentLattices.reduce(_.intersect(_)).lastOption.getOrElse(QualifiedName.Any)
+          erasedParentLattices
+            .reduce(_.intersect(_))
+            .filterNot(name => name === QualifiedName.AnyRef || name === QualifiedName.AnyVal) // are these scala fiction?
+            .lastOption
+            .getOrElse(QualifiedName.Any)
         }
 
       case QualifiedName.UNION => QualifiedName.`|`
@@ -111,7 +115,8 @@ class Erasure(scalaVersion: Versions.Scala) {
         }
 
       // if this is a type parameter
-      case QualifiedName(IArray.exactlyOne(head)) if scope.tparams.contains(head) => QualifiedName.Any
+      case QualifiedName(IArray.exactlyOne(head)) if scope.tparams.contains(head) =>
+        QualifiedName.Any
 
       // if run after FakeSingletons
       case name @ QualifiedName(parts) if parts.length > 2 && (tpe.comments.has[Marker.WasLiteral]) => name
