@@ -27,6 +27,8 @@ class Erasure(scalaVersion: Versions.Scala) {
 
   def simplify(scope: TreeScope, tpe: TypeRef): QualifiedName =
     tpe.typeName match {
+      case QualifiedName.AnyVal                        => QualifiedName.Any
+      case QualifiedName.AnyRef                        => QualifiedName.Any
       case QualifiedName.UNDEFINED if scalaVersion.is3 => QualifiedName.Unit
       case QualifiedName.UNDEFINED                     => QualifiedName.`|`
       case QualifiedName.WILDCARD                      => QualifiedName.Any
@@ -55,7 +57,6 @@ class Erasure(scalaVersion: Versions.Scala) {
 
           erasedParentLattices
             .reduce(_.intersect(_))
-            .filterNot(name => name === QualifiedName.AnyRef || name === QualifiedName.AnyVal) // are these scala fiction?
             .lastOption
             .getOrElse(QualifiedName.Any)
         }
