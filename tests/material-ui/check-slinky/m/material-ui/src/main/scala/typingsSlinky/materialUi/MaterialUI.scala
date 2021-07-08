@@ -11,12 +11,11 @@ object MaterialUI {
     
     type BottomNavigationItem = ReactComponentClass[BottomNavigationItemProps]
     
-    @js.native
     trait BottomNavigationItemProps extends StObject {
       
-      var children: Double = js.native
+      var children: Double
       
-      var className: js.UndefOr[String] = js.native
+      var className: js.UndefOr[String] = js.undefined
     }
     object BottomNavigationItemProps {
       
@@ -43,10 +42,9 @@ object MaterialUI {
   
   object Styles {
     
-    @js.native
     trait MuiTheme extends StObject {
       
-      var spacing: js.UndefOr[js.Any] = js.native
+      var spacing: js.UndefOr[js.Any] = js.undefined
     }
     object MuiTheme {
       

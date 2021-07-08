@@ -40,12 +40,11 @@ object mod {
   @scala.inline
   def parser(strict: Boolean, opt: SAXOptions): SAXParser = (^.asInstanceOf[js.Dynamic].applyDynamic("parser")(strict.asInstanceOf[js.Any], opt.asInstanceOf[js.Any])).asInstanceOf[SAXParser]
   
-  @js.native
   trait BaseTag extends StObject {
     
-    var isSelfClosing: Boolean = js.native
+    var isSelfClosing: Boolean
     
-    var name: String = js.native
+    var name: String
   }
   object BaseTag {
     
@@ -66,12 +65,11 @@ object mod {
     }
   }
   
-  @js.native
   trait QualifiedAttribute
     extends StObject
        with QualifiedName {
     
-    var value: String = js.native
+    var value: String
   }
   object QualifiedAttribute {
     
@@ -89,16 +87,15 @@ object mod {
     }
   }
   
-  @js.native
   trait QualifiedName extends StObject {
     
-    var local: String = js.native
+    var local: String
     
-    var name: String = js.native
+    var name: String
     
-    var prefix: String = js.native
+    var prefix: String
     
-    var uri: String = js.native
+    var uri: String
   }
   object QualifiedName {
     
@@ -126,16 +123,15 @@ object mod {
   }
   
   /* import warning: transforms.RemoveMultipleInheritance#findNewParents newComments Dropped parents 
-  - typings.sax.mod.BaseTag because var conflicts: name. Inlined isSelfClosing */ @js.native
-  trait QualifiedTag
+  - typings.sax.mod.BaseTag because var conflicts: name. Inlined isSelfClosing */ trait QualifiedTag
     extends StObject
        with QualifiedName {
     
-    var attributes: StringDictionary[QualifiedAttribute] = js.native
+    var attributes: StringDictionary[QualifiedAttribute]
     
-    var isSelfClosing: Boolean = js.native
+    var isSelfClosing: Boolean
     
-    var ns: StringDictionary[String] = js.native
+    var ns: StringDictionary[String]
   }
   object QualifiedTag {
     
@@ -167,20 +163,19 @@ object mod {
     }
   }
   
-  @js.native
   trait SAXOptions extends StObject {
     
-    var lowercase: js.UndefOr[Boolean] = js.native
+    var lowercase: js.UndefOr[Boolean] = js.undefined
     
-    var normalize: js.UndefOr[Boolean] = js.native
+    var normalize: js.UndefOr[Boolean] = js.undefined
     
-    var noscript: js.UndefOr[Boolean] = js.native
+    var noscript: js.UndefOr[Boolean] = js.undefined
     
-    var position: js.UndefOr[Boolean] = js.native
+    var position: js.UndefOr[Boolean] = js.undefined
     
-    var trim: js.UndefOr[Boolean] = js.native
+    var trim: js.UndefOr[Boolean] = js.undefined
     
-    var xmlns: js.UndefOr[Boolean] = js.native
+    var xmlns: js.UndefOr[Boolean] = js.undefined
   }
   object SAXOptions {
     
@@ -231,12 +226,11 @@ object mod {
     }
   }
   
-  @js.native
   trait Tag
     extends StObject
        with BaseTag {
     
-    var attributes: StringDictionary[String] = js.native
+    var attributes: StringDictionary[String]
   }
   object Tag {
     

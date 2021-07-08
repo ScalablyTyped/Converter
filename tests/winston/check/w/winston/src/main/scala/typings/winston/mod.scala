@@ -12,10 +12,9 @@ object mod {
   @js.native
   val config: Config = js.native
   
-  @js.native
   trait LoggerOptions extends StObject {
     
-    var levels: js.UndefOr[AbstractConfigSetLevels] = js.native
+    var levels: js.UndefOr[AbstractConfigSetLevels] = js.undefined
   }
   object LoggerOptions {
     

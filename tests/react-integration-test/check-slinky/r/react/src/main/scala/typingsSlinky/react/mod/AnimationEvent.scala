@@ -5,16 +5,15 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait AnimationEvent[T]
   extends StObject
      with BaseSyntheticEvent[NativeAnimationEvent, EventTarget & T, EventTarget] {
   
-  var animationName: String = js.native
+  var animationName: String
   
-  var elapsedTime: Double = js.native
+  var elapsedTime: Double
   
-  var pseudoElement: String = js.native
+  var pseudoElement: String
 }
 object AnimationEvent {
   

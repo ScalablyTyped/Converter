@@ -4,16 +4,15 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait Foo2[U, V]
   extends StObject
      with Legal2[V, U]
      with Legal3[U, js.Any, V]
      with _Test[U, js.Any, V] {
   
-  var u: U = js.native
+  var u: U
   
-  var v: V = js.native
+  var v: V
 }
 object Foo2 {
   

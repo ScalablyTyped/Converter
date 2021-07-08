@@ -6,7 +6,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object monaco {
   
-  @js.native
   trait Promise[T, TProgress] extends StObject
   
   type Thenable[T] = js.Thenable[T]

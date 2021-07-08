@@ -4,14 +4,13 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait SVGElementTagNameMap extends StObject {
   
-  var circle: org.scalajs.dom.raw.SVGCircleElement = js.native
+  var circle: org.scalajs.dom.raw.SVGCircleElement
   
-  var clipPath: org.scalajs.dom.raw.SVGClipPathElement = js.native
+  var clipPath: org.scalajs.dom.raw.SVGClipPathElement
   
-  var defs: org.scalajs.dom.raw.SVGDefsElement = js.native
+  var defs: org.scalajs.dom.raw.SVGDefsElement
 }
 object SVGElementTagNameMap {
   

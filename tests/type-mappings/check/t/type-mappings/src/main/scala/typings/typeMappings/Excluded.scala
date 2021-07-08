@@ -5,20 +5,19 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined type-mappings.Omit<type-mappings.CSSProperties, 'color'> */
-@js.native
 trait Excluded extends StObject {
   
-  var fontFamily: String = js.native
+  var fontFamily: String
   
-  var fontSize: String = js.native
+  var fontSize: String
   
-  var fontWeight: String = js.native
+  var fontWeight: String
   
-  var letterSpacing: String = js.native
+  var letterSpacing: String
   
-  var lineHeight: String = js.native
+  var lineHeight: String
   
-  var textTransform: String = js.native
+  var textTransform: String
 }
 object Excluded {
   

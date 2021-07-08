@@ -11,10 +11,9 @@ object mod extends Shortcut {
   @js.native
   val ^ : CldrFactory = js.native
   
-  @js.native
   trait Attributes extends StObject {
     
-    var language: js.Any = js.native
+    var language: js.Any
   }
   object Attributes {
     
@@ -32,16 +31,15 @@ object mod extends Shortcut {
     }
   }
   
-  @js.native
   trait CldrFactory extends StObject {
     
-    def load(json: js.Any, otherJson: js.Any*): Unit = js.native
+    def load(json: js.Any, otherJson: js.Any*): Unit
     
-    def off(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit = js.native
+    def off(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
     
-    def on(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit = js.native
+    def on(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
     
-    def once(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit = js.native
+    def once(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
   }
   object CldrFactory {
     
@@ -81,21 +79,20 @@ object mod extends Shortcut {
     * @description
     * The cldr class definition.
     */
-  @js.native
   trait CldrStatic extends StObject {
     
-    def get(path: String): js.Any = js.native
+    def get(path: String): js.Any
     
-    def off(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit = js.native
+    def off(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
     
-    def on(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit = js.native
+    def on(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
     
-    def once(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit = js.native
+    def once(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
     
-    def supplemental(path: String): js.Any = js.native
-    def supplemental(paths: js.Array[String]): js.Any = js.native
+    def supplemental(path: String): js.Any
+    def supplemental(paths: js.Array[String]): js.Any
     @JSName("supplemental")
-    var supplemental_Original: SupplementalStatic = js.native
+    var supplemental_Original: SupplementalStatic
   }
   object CldrStatic {
     
@@ -142,12 +139,11 @@ object mod extends Shortcut {
     var weekData: WeekDataStatic = js.native
   }
   
-  @js.native
   trait TimeDataStatic extends StObject {
     
-    def allowed(): String = js.native
+    def allowed(): String
     
-    def preferred(): String = js.native
+    def preferred(): String
   }
   object TimeDataStatic {
     
@@ -168,12 +164,11 @@ object mod extends Shortcut {
     }
   }
   
-  @js.native
   trait WeekDataStatic extends StObject {
     
-    def firstDay(): String = js.native
+    def firstDay(): String
     
-    def minDays(): Double = js.native
+    def minDays(): Double
   }
   object WeekDataStatic {
     

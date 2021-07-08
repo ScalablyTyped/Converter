@@ -4,10 +4,9 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait RefObject[T] extends StObject {
   
-  val current: T | Null = js.native
+  val current: T | Null
 }
 object RefObject {
   

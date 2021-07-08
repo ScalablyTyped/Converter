@@ -12,22 +12,21 @@ object typesMod {
     Unit
   ]
   
-  @js.native
   trait EventListenerOptions[T /* <: EventTypes */] extends StObject {
     
     /** Indicating that events of this type will be dispatched to the registered listener before being dispatched to any EventTarget beneath it in the DOM tree. */
-    var capture: js.UndefOr[Boolean] = js.native
+    var capture: js.UndefOr[Boolean] = js.undefined
     
     /** A function which receives a notification when an event of the specified type occurs. */
-    var listener: EventHandler[T] = js.native
+    var listener: EventHandler[T]
     
     /** A ref object with a target node. */
     var targetRef: ReactRef[
         /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
-      ] = js.native
+      ]
     
     /** A case-sensitive string representing the event type to listen for. */
-    var `type`: T = js.native
+    var `type`: T
   }
   object EventListenerOptions {
     

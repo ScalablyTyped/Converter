@@ -17,10 +17,9 @@ object transitionGroupMod {
     extends StObject
        with Component[TransitionGroupProps[abbr, js.Any], js.Object]
   
-  @js.native
   trait ComponentTransitionGroupProps[T /* <: ReactType[js.Any] */] extends StObject {
     
-    var component: T = js.native
+    var component: T
   }
   object ComponentTransitionGroupProps {
     
@@ -31,10 +30,9 @@ object transitionGroupMod {
     }
   }
   
-  @js.native
   trait IntrinsicTransitionGroupProps[T /* <: abbr | animate */] extends StObject {
     
-    var component: js.UndefOr[T] = js.native
+    var component: js.UndefOr[T] = js.undefined
   }
   object IntrinsicTransitionGroupProps {
     

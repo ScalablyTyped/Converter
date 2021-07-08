@@ -6,10 +6,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object anon {
   
-  @js.native
   trait Age extends StObject {
     
-    var age: scala.Double = js.native
+    var age: scala.Double
   }
   object Age {
     
@@ -36,10 +35,9 @@ object anon {
     def set(v: scala.Double): Unit = js.native
   }
   
-  @js.native
   trait Name extends StObject {
     
-    var name: String = js.native
+    var name: String
   }
   object Name {
     
@@ -57,12 +55,11 @@ object anon {
     }
   }
   
-  @js.native
   trait Set extends StObject {
     
-    def get(): String = js.native
+    def get(): String
     
-    def set(v: String): Unit = js.native
+    def set(v: String): Unit
   }
   object Set {
     

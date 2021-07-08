@@ -6,6 +6,5 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object NodeJS {
   
-  @js.native
   trait Process extends StObject
 }

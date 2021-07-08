@@ -14,6 +14,12 @@ object global {
       extends StObject
          with typings.tstl.std.Queue_[T] {
       def this(container: typings.tstl.std.Queue_[T]) = this()
+      
+      /* CompleteClass */
+      var container_ : js.Any = js.native
+      
+      /* CompleteClass */
+      override def empty(): Boolean = js.native
     }
     
     /* was `typeof Queue` */
@@ -23,6 +29,12 @@ object global {
       extends StObject
          with typings.tstl.std.Queue_[T] {
       def this(container: typings.tstl.std.Queue_[T]) = this()
+      
+      /* CompleteClass */
+      var container_ : js.Any = js.native
+      
+      /* CompleteClass */
+      override def empty(): Boolean = js.native
     }
   }
 }

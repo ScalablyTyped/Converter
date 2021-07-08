@@ -19,12 +19,11 @@ object NodeJS {
     def on(event: js.Symbol, listener: js.Function1[/* repeated */ js.Any, Unit]): this.type = js.native
   }
   
-  @js.native
   trait Global extends StObject {
     
-    var Array: ArrayConstrucor = js.native
+    var Array: ArrayConstrucor
     
-    var global: Global = js.native
+    var global: Global
   }
   object Global {
     

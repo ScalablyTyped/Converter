@@ -11,15 +11,14 @@ object pluginMod {
   
   type PluginFunction[T] = js.Function2[/* Vue */ VueConstructor[Vue], /* options */ js.UndefOr[T], Unit]
   
-  @js.native
   trait PluginObject[T]
     extends StObject
        with /* key */ StringDictionary[js.Any] {
     
-    def install(Vue: VueConstructor[Vue]): Unit = js.native
-    def install(Vue: VueConstructor[Vue], options: T): Unit = js.native
+    def install(Vue: VueConstructor[Vue]): Unit
+    def install(Vue: VueConstructor[Vue], options: T): Unit
     @JSName("install")
-    var install_Original: PluginFunction[T] = js.native
+    var install_Original: PluginFunction[T]
   }
   object PluginObject {
     

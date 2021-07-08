@@ -7,12 +7,11 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined type-mappings.Proxify<type-mappings.Person> */
-@js.native
 trait ProxiedPerson extends StObject {
   
-  var age: js.UndefOr[Get] = js.native
+  var age: js.UndefOr[Get] = js.undefined
   
-  var name: Set = js.native
+  var name: Set
 }
 object ProxiedPerson {
   

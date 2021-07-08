@@ -9,7 +9,6 @@ object Electron {
   
   type AllElectron = MainInterface
   
-  @js.native
   trait App
     extends StObject
        with EventEmitter {
@@ -22,7 +21,7 @@ object Electron {
       * details.
       */
     @JSName("on")
-    def on_accessibilitysupportchanged(event: `accessibility-support-changed`, listener: js.Any): String = js.native
+    def on_accessibilitysupportchanged(event: `accessibility-support-changed`, listener: js.Any): String
   }
   object App {
     
@@ -40,25 +39,23 @@ object Electron {
     }
   }
   
-  @js.native
   trait CommonInterface extends StObject
   
-  @js.native
   trait Event
     extends StObject
        with typings.std.Event {
     
-    var altKey: js.UndefOr[Boolean] = js.native
+    var altKey: js.UndefOr[Boolean] = js.undefined
     
-    var ctrlKey: js.UndefOr[Boolean] = js.native
+    var ctrlKey: js.UndefOr[Boolean] = js.undefined
     
-    var metaKey: js.UndefOr[Boolean] = js.native
+    var metaKey: js.UndefOr[Boolean] = js.undefined
     
-    def preventDefault(): Unit = js.native
+    def preventDefault(): Unit
     
-    var returnValue: js.Any = js.native
+    var returnValue: js.Any
     
-    var shiftKey: js.UndefOr[Boolean] = js.native
+    var shiftKey: js.UndefOr[Boolean] = js.undefined
   }
   object Event {
     
@@ -103,10 +100,9 @@ object Electron {
     }
   }
   
-  @js.native
   trait EventEmitter extends StObject {
     
-    def addListener(event: String, listener: js.Function): this.type = js.native
+    def addListener(event: String, listener: js.Function): this.type
   }
   object EventEmitter {
     
@@ -124,12 +120,11 @@ object Electron {
     }
   }
   
-  @js.native
   trait MainInterface
     extends StObject
        with CommonInterface {
     
-    var app: App = js.native
+    var app: App
   }
   object MainInterface {
     

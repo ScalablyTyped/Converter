@@ -15,10 +15,9 @@ object configServicePlaceholdersMod {
     var dynamodb: js.UndefOr[ClientConfiguration] = js.native
   }
   
-  @js.native
   trait ConfigurationServiceApiVersions extends StObject {
     
-    var dynamodb: js.UndefOr[apiVersion] = js.native
+    var dynamodb: js.UndefOr[apiVersion] = js.undefined
   }
   object ConfigurationServiceApiVersions {
     

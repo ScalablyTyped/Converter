@@ -7,14 +7,13 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait UIEvent[T]
   extends StObject
      with BaseSyntheticEvent[NativeUIEvent, EventTarget & T, EventTarget] {
   
-  var detail: Double = js.native
+  var detail: Double
   
-  var view: AbstractView = js.native
+  var view: AbstractView
 }
 object UIEvent {
   

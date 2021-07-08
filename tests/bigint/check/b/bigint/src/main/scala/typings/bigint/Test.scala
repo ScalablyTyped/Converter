@@ -4,14 +4,13 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait Test extends StObject {
   
-  var a: js.BigInt = js.native
+  var a: js.BigInt
   
-  var b: js.BigInt = js.native
+  var b: js.BigInt
   
-  var c: typings.bigint.BigInt.BigInt = js.native
+  var c: typings.bigint.BigInt.BigInt
 }
 object Test {
   

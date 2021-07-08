@@ -5,12 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined std.Pick<{  name :string,   age :number}, 'name' | 'age'> */
-@js.native
 trait U extends StObject {
   
-  var age: scala.Double = js.native
+  var age: scala.Double
   
-  var name: String = js.native
+  var name: String
 }
 object U {
   

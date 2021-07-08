@@ -5,11 +5,10 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* import warning: RemoveDifficultInheritance.summarizeChanges 
-- Dropped / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify CSS.Properties<string | number> * / any */ @js.native
-trait CSSProperties extends StObject {
+- Dropped / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify CSS.Properties<string | number> * / any */ trait CSSProperties extends StObject {
   
   /* fake member to keep old syntax */
-  val hack: js.UndefOr[js.Any] = js.native
+  val hack: js.UndefOr[js.Any] = js.undefined
 }
 object CSSProperties {
   

@@ -13,7 +13,11 @@ object global {
     @js.native
     class EventEmitter ()
       extends StObject
-         with typings.electron.Electron.EventEmitter
+         with typings.electron.Electron.EventEmitter {
+      
+      /* CompleteClass */
+      override def addListener(event: String, listener: js.Function): this.type = js.native
+    }
     
     @JSGlobal("Electron.app")
     @js.native

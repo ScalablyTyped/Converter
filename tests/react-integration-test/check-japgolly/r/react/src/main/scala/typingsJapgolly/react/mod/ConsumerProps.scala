@@ -5,12 +5,11 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait ConsumerProps[T] extends StObject {
   
-  def children(value: T): Node = js.native
+  def children(value: T): Node
   
-  var unstable_observedBits: js.UndefOr[Double] = js.native
+  var unstable_observedBits: js.UndefOr[Double] = js.undefined
 }
 object ConsumerProps {
   

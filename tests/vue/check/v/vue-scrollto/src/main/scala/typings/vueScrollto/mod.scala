@@ -13,7 +13,30 @@ object mod {
   @js.native
   class ^ ()
     extends StObject
-       with VueScrollTo
+       with VueScrollTo {
+    
+    /* CompleteClass */
+    override def scrollTo(element: String): Unit = js.native
+    /* CompleteClass */
+    override def scrollTo(element: String, duration: Double): Unit = js.native
+    /* CompleteClass */
+    override def scrollTo(element: String, duration: Double, options: Options): Unit = js.native
+    /* CompleteClass */
+    override def scrollTo(element: String, options: Options): Unit = js.native
+    /* CompleteClass */
+    override def scrollTo(element: Element): Unit = js.native
+    /* CompleteClass */
+    override def scrollTo(element: Element, duration: Double): Unit = js.native
+    /* CompleteClass */
+    override def scrollTo(element: Element, duration: Double, options: Options): Unit = js.native
+    /* CompleteClass */
+    override def scrollTo(element: Element, options: Options): Unit = js.native
+    /* CompleteClass */
+    override def scrollTo(options: Options): Unit = js.native
+    /* CompleteClass */
+    @JSName("scrollTo")
+    var scrollTo_Original: VueStatic = js.native
+  }
   @JSImport("vue-scrollto", JSImport.Namespace)
   @js.native
   val ^ : js.Any = js.native
@@ -25,41 +48,40 @@ object mod {
   @scala.inline
   def install_=(x: PluginFunction[scala.Nothing]): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("install")(x.asInstanceOf[js.Any])
   
-  @js.native
   trait Options extends StObject {
     
     // Indicates if user can cancel the scroll or not. Default: true
-    var cancelable: js.UndefOr[Boolean] = js.native
+    var cancelable: js.UndefOr[Boolean] = js.undefined
     
     // The container that has to be scrolled. Default: body
-    var container: js.UndefOr[String | Element] = js.native
+    var container: js.UndefOr[String | Element] = js.undefined
     
     // The duration (in milliseconds) of the scrolling animation. Default: 500
-    var duration: js.UndefOr[Double] = js.native
+    var duration: js.UndefOr[Double] = js.undefined
     
     // The easing to be used when animating. Default: ease
-    var easing: js.UndefOr[String] = js.native
+    var easing: js.UndefOr[String] = js.undefined
     
     // The element you want to scroll to.
-    var el: js.UndefOr[String | Element] = js.native
+    var el: js.UndefOr[String | Element] = js.undefined
     
-    var element: js.UndefOr[String | Element] = js.native
+    var element: js.UndefOr[String | Element] = js.undefined
     
     // The offset that should be applied when scrolling. Default: 0
-    var offset: js.UndefOr[Double] = js.native
+    var offset: js.UndefOr[Double] = js.undefined
     
     // A callback function that should be called when scrolling has been aborted by the user (user scrolled, clicked
     // etc.). Default: noop
-    var onCancel: js.UndefOr[js.Function0[Unit] | `false`] = js.native
+    var onCancel: js.UndefOr[js.Function0[Unit] | `false`] = js.undefined
     
     // A callback function that should be called when scrolling has ended. Default: noop
-    var onDone: js.UndefOr[js.Function0[Unit] | `false`] = js.native
+    var onDone: js.UndefOr[js.Function0[Unit] | `false`] = js.undefined
     
     // Whether or not we want scrolling on the x axis. Default: true
-    var x: js.UndefOr[Boolean] = js.native
+    var x: js.UndefOr[Boolean] = js.undefined
     
     // Whether or not we want scrolling on the y axis. Default: true
-    var y: js.UndefOr[Boolean] = js.native
+    var y: js.UndefOr[Boolean] = js.undefined
   }
   object Options {
     
@@ -146,20 +168,19 @@ object mod {
     }
   }
   
-  @js.native
   trait VueScrollTo extends StObject {
     
-    def scrollTo(element: String): Unit = js.native
-    def scrollTo(element: String, duration: Double): Unit = js.native
-    def scrollTo(element: String, duration: Double, options: Options): Unit = js.native
-    def scrollTo(element: String, options: Options): Unit = js.native
-    def scrollTo(element: Element): Unit = js.native
-    def scrollTo(element: Element, duration: Double): Unit = js.native
-    def scrollTo(element: Element, duration: Double, options: Options): Unit = js.native
-    def scrollTo(element: Element, options: Options): Unit = js.native
-    def scrollTo(options: Options): Unit = js.native
+    def scrollTo(element: String): Unit
+    def scrollTo(element: String, duration: Double): Unit
+    def scrollTo(element: String, duration: Double, options: Options): Unit
+    def scrollTo(element: String, options: Options): Unit
+    def scrollTo(element: Element): Unit
+    def scrollTo(element: Element, duration: Double): Unit
+    def scrollTo(element: Element, duration: Double, options: Options): Unit
+    def scrollTo(element: Element, options: Options): Unit
+    def scrollTo(options: Options): Unit
     @JSName("scrollTo")
-    var scrollTo_Original: VueStatic = js.native
+    var scrollTo_Original: VueStatic
   }
   object VueScrollTo {
     
@@ -193,29 +214,28 @@ object mod {
   
   object vueTypesVueAugmentingMod {
     
-    @js.native
     trait Vue extends StObject {
       
       @JSName("$scrollTo")
-      def $scrollTo(element: String): Unit = js.native
+      def $scrollTo(element: String): Unit
       @JSName("$scrollTo")
-      def $scrollTo(element: String, duration: Double): Unit = js.native
+      def $scrollTo(element: String, duration: Double): Unit
       @JSName("$scrollTo")
-      def $scrollTo(element: String, duration: Double, options: Options): Unit = js.native
+      def $scrollTo(element: String, duration: Double, options: Options): Unit
       @JSName("$scrollTo")
-      def $scrollTo(element: String, options: Options): Unit = js.native
+      def $scrollTo(element: String, options: Options): Unit
       @JSName("$scrollTo")
-      def $scrollTo(element: Element): Unit = js.native
+      def $scrollTo(element: Element): Unit
       @JSName("$scrollTo")
-      def $scrollTo(element: Element, duration: Double): Unit = js.native
+      def $scrollTo(element: Element, duration: Double): Unit
       @JSName("$scrollTo")
-      def $scrollTo(element: Element, duration: Double, options: Options): Unit = js.native
+      def $scrollTo(element: Element, duration: Double, options: Options): Unit
       @JSName("$scrollTo")
-      def $scrollTo(element: Element, options: Options): Unit = js.native
+      def $scrollTo(element: Element, options: Options): Unit
       @JSName("$scrollTo")
-      def $scrollTo(options: Options): Unit = js.native
+      def $scrollTo(options: Options): Unit
       @JSName("$scrollTo")
-      var $scrollTo_Original: VueStatic = js.native
+      var $scrollTo_Original: VueStatic
     }
     object Vue {
       

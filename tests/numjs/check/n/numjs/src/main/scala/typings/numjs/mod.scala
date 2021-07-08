@@ -9,17 +9,16 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @js.native
   trait NdArray[T]
     extends StObject
        with ndarray[T] {
     
     @JSName("T")
-    var T_NdArray: NdArray[T] = js.native
+    var T_NdArray: NdArray[T]
     
-    var ndim: Double = js.native
+    var ndim: Double
     
-    def slice(args: Double*): NdArray[T] = js.native
+    def slice(args: Double*): NdArray[T]
   }
   object NdArray {
     

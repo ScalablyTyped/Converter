@@ -4,16 +4,15 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait Nullability extends StObject {
   
-  var a: Double = js.native
+  var a: Double
   
-  var b: js.UndefOr[Double] = js.native
+  var b: js.UndefOr[Double] = js.undefined
   
-  var c: Double | Null = js.native
+  var c: Double | Null
   
-  var d: js.UndefOr[Double | Null] = js.native
+  var d: js.UndefOr[Double | Null] = js.undefined
 }
 object Nullability {
   

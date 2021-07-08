@@ -4,33 +4,32 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait Queue[S, T] extends StObject {
   
   /**
     * Whether the queue is empty
     */
-  val empty: Boolean = js.native
+  val empty: Boolean
   
   /**
     * Whether the queue is full
     */
-  val full: Boolean = js.native
+  val full: Boolean
   
   /**
     * The length of the queue
     */
-  val length: Double = js.native
+  val length: Double
   
   /**
     * Removes and returns an element from the beginning
     */
-  def pop(): js.UndefOr[T] = js.native
+  def pop(): js.UndefOr[T]
   
   /**
     * Inserts a new element at the end
     */
-  def push(x: S): this.type = js.native
+  def push(x: S): this.type
 }
 object Queue {
   

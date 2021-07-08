@@ -97,17 +97,12 @@ object Ci {
                 "org.scalablytyped",
               )
 
-          val enableScalaJsDefined: Selection[TsIdentLibrary] =
-            if (flags contains "-enableScalaJsDefined")
-              Selection.AllExcept(Libraries.Slow.to[Seq]: _*)
-            else Selection.None
-
           Some(
             Config(
               conversion = ConversionOptions(
                 useScalaJsDomTypes   = shouldUseScalaJsDomTypes,
                 outputPackage        = outputPackage,
-                enableScalaJsDefined = enableScalaJsDefined,
+                enableScalaJsDefined = Selection.All,
                 flavour              = flavour,
                 ignored              = Libraries.ignored.map(_.value),
                 stdLibs              = SortedSet("esnext.full"),

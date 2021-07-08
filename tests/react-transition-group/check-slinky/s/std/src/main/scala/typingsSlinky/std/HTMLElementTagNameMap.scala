@@ -4,22 +4,21 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait HTMLElementTagNameMap extends StObject {
   
-  var a: org.scalajs.dom.raw.HTMLAnchorElement = js.native
+  var a: org.scalajs.dom.raw.HTMLAnchorElement
   
-  var abbr: org.scalajs.dom.raw.HTMLElement = js.native
+  var abbr: org.scalajs.dom.raw.HTMLElement
   
-  var address: org.scalajs.dom.raw.HTMLElement = js.native
+  var address: org.scalajs.dom.raw.HTMLElement
   
-  var area: org.scalajs.dom.raw.HTMLAreaElement = js.native
+  var area: org.scalajs.dom.raw.HTMLAreaElement
   
-  var article: org.scalajs.dom.raw.HTMLElement = js.native
+  var article: org.scalajs.dom.raw.HTMLElement
   
-  var aside: org.scalajs.dom.raw.HTMLElement = js.native
+  var aside: org.scalajs.dom.raw.HTMLElement
   
-  var audio: org.scalajs.dom.raw.HTMLAudioElement = js.native
+  var audio: org.scalajs.dom.raw.HTMLAudioElement
 }
 object HTMLElementTagNameMap {
   

@@ -23,10 +23,9 @@ object mod {
   @scala.inline
   def uriTransformer(uri: String): String = ^.asInstanceOf[js.Dynamic].applyDynamic("uriTransformer")(uri.asInstanceOf[js.Any]).asInstanceOf[String]
   
-  @js.native
   trait ChildrenProp extends StObject {
     
-    val children: String = js.native
+    val children: String
   }
   object ChildrenProp {
     
@@ -54,14 +53,13 @@ object mod {
   
   type ReactMarkdownProps = ReactMarkdownPropsBase & (MutuallyExclusive[ChildrenProp, SourceProp])
   
-  @js.native
   trait ReactMarkdownPropsBase extends StObject {
     
-    val allowNode: js.UndefOr[js.Function1[/* index */ Double, Boolean]] = js.native
+    val allowNode: js.UndefOr[js.Function1[/* index */ Double, Boolean]] = js.undefined
     
-    val className: js.UndefOr[String] = js.native
+    val className: js.UndefOr[String] = js.undefined
     
-    val linkTarget: js.UndefOr[String | LinkTargetResolver] = js.native
+    val linkTarget: js.UndefOr[String | LinkTargetResolver] = js.undefined
     
     val transformLinkUri: js.UndefOr[
         (js.Function3[
@@ -70,7 +68,7 @@ object mod {
           /* title */ js.UndefOr[String], 
           String
         ]) | Null
-      ] = js.native
+      ] = js.undefined
   }
   object ReactMarkdownPropsBase {
     
@@ -121,11 +119,10 @@ object mod {
   
   type Renderers_ = StringDictionary[String | Renderer[js.Any]]
   
-  @js.native
   trait SourceProp extends StObject {
     
     /** @deprecated use children */
-    val source: String = js.native
+    val source: String
   }
   object SourceProp {
     

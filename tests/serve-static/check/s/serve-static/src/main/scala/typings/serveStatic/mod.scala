@@ -45,10 +45,9 @@ object mod {
   @scala.inline
   def serveStatic(root: String, options: ServeStaticOptions): Handler = (^.asInstanceOf[js.Dynamic].applyDynamic("serveStatic")(root.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[Handler]
   
-  @js.native
   trait ServeStaticOptions extends StObject {
     
-    var setHeaders: js.UndefOr[js.Function3[/* res */ Response, /* path */ String, /* stat */ js.Any, js.Any]] = js.native
+    var setHeaders: js.UndefOr[js.Function3[/* res */ Response, /* path */ String, /* stat */ js.Any, js.Any]] = js.undefined
   }
   object ServeStaticOptions {
     

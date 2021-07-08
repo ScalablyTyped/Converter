@@ -14,17 +14,16 @@ object typesMod {
   @js.native
   val refPropType: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ js.Any = js.native
   
-  @js.native
   trait RefProps extends StObject {
     
-    var children: Element = js.native
+    var children: Element
     
     /**
       * Called when a child component will be mounted or updated.
       *
       * @param {HTMLElement} node - Referred node.
       */
-    var innerRef: Ref[js.Any] = js.native
+    var innerRef: Ref[js.Any]
   }
   object RefProps {
     

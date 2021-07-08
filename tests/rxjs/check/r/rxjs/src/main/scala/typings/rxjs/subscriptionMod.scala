@@ -20,6 +20,12 @@ object subscriptionMod {
     
     /** @internal */
     var _subscriptions: js.Any = js.native
+    
+    /* CompleteClass */
+    override val closed: Boolean = js.native
+    
+    /* CompleteClass */
+    override def unsubscribe(): Unit = js.native
   }
   /* static members */
   object Subscription {

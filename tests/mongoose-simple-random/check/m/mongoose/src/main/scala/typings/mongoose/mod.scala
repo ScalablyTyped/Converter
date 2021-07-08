@@ -6,12 +6,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @js.native
   trait Document extends StObject
   
-  @js.native
   trait ModelProperties extends StObject
   
-  @js.native
   trait Schema extends StObject
 }

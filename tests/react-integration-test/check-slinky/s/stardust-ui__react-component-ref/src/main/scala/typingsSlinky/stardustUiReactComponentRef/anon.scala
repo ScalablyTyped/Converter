@@ -6,12 +6,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object anon {
   
-  @js.native
   trait Children extends StObject {
     
-    var children: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<PropTypes.ReactElementLike> */ js.Any = js.native
+    var children: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<PropTypes.ReactElementLike> */ js.Any
     
-    var innerRef: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<React.Ref<any>> */ js.Any = js.native
+    var innerRef: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<React.Ref<any>> */ js.Any
   }
   object Children {
     
@@ -39,12 +38,11 @@ object anon {
     }
   }
   
-  @js.native
   trait InnerRef extends StObject {
     
-    var children: Unit = js.native
+    var children: Unit
     
-    var innerRef: Unit = js.native
+    var innerRef: Unit
   }
   object InnerRef {
     

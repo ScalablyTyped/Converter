@@ -6,12 +6,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object anon {
   
-  @js.native
   trait LowerBound extends StObject {
     
-    var lowerBound: js.UndefOr[js.Array[Double]] = js.native
+    var lowerBound: js.UndefOr[js.Array[Double]] = js.undefined
     
-    var upperBound: js.UndefOr[js.Array[Double]] = js.native
+    var upperBound: js.UndefOr[js.Array[Double]] = js.undefined
   }
   object LowerBound {
     

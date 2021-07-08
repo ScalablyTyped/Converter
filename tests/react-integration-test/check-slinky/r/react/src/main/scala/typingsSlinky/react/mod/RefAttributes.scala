@@ -5,12 +5,11 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait RefAttributes[T]
   extends StObject
      with Attributes {
   
-  var ref: js.UndefOr[Ref[T]] = js.native
+  var ref: js.UndefOr[Ref[T]] = js.undefined
 }
 object RefAttributes {
   

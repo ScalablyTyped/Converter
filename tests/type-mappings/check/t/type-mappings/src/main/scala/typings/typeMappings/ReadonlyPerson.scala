@@ -5,12 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined std.Readonly<type-mappings.Person> */
-@js.native
 trait ReadonlyPerson extends StObject {
   
-  val age: js.UndefOr[scala.Double | Null] = js.native
+  val age: js.UndefOr[scala.Double | Null] = js.undefined
   
-  val name: String = js.native
+  val name: String
 }
 object ReadonlyPerson {
   

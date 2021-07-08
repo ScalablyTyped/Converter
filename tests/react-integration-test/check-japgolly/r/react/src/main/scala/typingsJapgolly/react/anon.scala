@@ -13,10 +13,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object anon {
   
-  @js.native
   trait `0` extends StObject {
     
-    var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any = js.native
+    var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
   }
   object `0` {
     
@@ -36,10 +35,9 @@ object anon {
     }
   }
   
-  @js.native
   trait `1` extends StObject {
     
-    var ref: js.UndefOr[Exclude[js.Any, String]] = js.native
+    var ref: js.UndefOr[Exclude[js.Any, String]] = js.undefined
   }
   object `1` {
     
@@ -60,10 +58,9 @@ object anon {
     }
   }
   
-  @js.native
   trait Children extends StObject {
     
-    var children: js.UndefOr[Node] = js.native
+    var children: js.UndefOr[Node] = js.undefined
   }
   object Children {
     
@@ -93,12 +90,11 @@ object anon {
     }
   }
   
-  @js.native
   trait DefaultProps extends StObject {
     
-    var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any = js.native
+    var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
     
-    var propTypes: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any = js.native
+    var propTypes: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any
   }
   object DefaultProps {
     
@@ -122,10 +118,9 @@ object anon {
     }
   }
   
-  @js.native
   trait Html extends StObject {
     
-    var __html: String = js.native
+    var __html: String
   }
   object Html {
     
@@ -143,10 +138,9 @@ object anon {
     }
   }
   
-  @js.native
   trait PropTypes extends StObject {
     
-    var propTypes: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any = js.native
+    var propTypes: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any
   }
   object PropTypes {
     
@@ -164,12 +158,11 @@ object anon {
     }
   }
   
-  @js.native
   trait Ref extends StObject {
     
     var ref: js.UndefOr[
         /* import warning: importer.ImportType#apply Failed type conversion: infer R */ js.Any
-      ] = js.native
+      ] = js.undefined
   }
   object Ref {
     

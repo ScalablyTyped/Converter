@@ -31,12 +31,11 @@ object mod {
   
   type DataType = String
   
-  @js.native
   trait ndarray[T] extends StObject {
     
-    var T: typings.ndarray.mod.ndarray[T] = js.native
+    var T: typings.ndarray.mod.ndarray[T]
     
-    var data: Data[T] = js.native
+    var data: Data[T]
   }
   object ndarray {
     

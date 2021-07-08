@@ -7,12 +7,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object mod {
   
   /* Inlined parent std.Omit<rc-field-form.rc-field-form/es/Form.FormProps, 'form'> */
-  @js.native
   trait FormProps extends StObject {
     
-    var name: js.UndefOr[String] = js.native
+    var name: js.UndefOr[String] = js.undefined
     
-    var prefixCls: js.UndefOr[String] = js.native
+    var prefixCls: js.UndefOr[String] = js.undefined
   }
   object FormProps {
     
