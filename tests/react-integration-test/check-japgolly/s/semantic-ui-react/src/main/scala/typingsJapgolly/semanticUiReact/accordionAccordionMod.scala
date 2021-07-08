@@ -1,6 +1,6 @@
 package typingsJapgolly.semanticUiReact
 
-import japgolly.scalajs.react.raw.React.ComponentClassP
+import japgolly.scalajs.react.facade.React.ComponentClassP
 import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import typingsJapgolly.react.mod.Component

@@ -82,7 +82,7 @@ object Ci {
               )
             else if (flags.contains("-flavourJapgolly"))
               (
-                Flavour.Japgolly,
+                Flavour.ScalajsReact,
                 Name("typingsJapgolly"),
                 ProjectName("ScalajsReactTyped"),
                 new URI("https://github.com/ScalablyTyped/ScalajsReactTyped.git"),

@@ -40,7 +40,7 @@ jobs:
 
       - when:
           condition:
-            equal: [ dotty-support, <<pipeline.git.branch>> ]
+            equal: [ scalajs-react-2, <<pipeline.git.branch>> ]
           steps:
             - run: cat /dev/null | sbt ci-release
 

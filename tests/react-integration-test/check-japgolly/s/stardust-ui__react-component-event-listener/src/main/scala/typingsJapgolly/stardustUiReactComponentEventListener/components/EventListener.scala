@@ -1,7 +1,7 @@
 package typingsJapgolly.stardustUiReactComponentEventListener.components
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.raw.React.RefHandle
+import japgolly.scalajs.react.facade.React.RefHandle
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventListenerOptions
 import typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventTypes

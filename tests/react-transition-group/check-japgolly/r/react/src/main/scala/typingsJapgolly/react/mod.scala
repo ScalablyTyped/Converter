@@ -1,9 +1,9 @@
 package typingsJapgolly.react
 
 import japgolly.scalajs.react.CallbackTo
-import japgolly.scalajs.react.raw.React.ComponentClassP
-import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.facade.React.ComponentClassP
+import japgolly.scalajs.react.facade.React.Element
+import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
@@ -95,12 +95,12 @@ object mod {
     extends StObject
        with Instantiable1[
           /* props */ P, 
-          japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object]
+          japgolly.scalajs.react.facade.React.Component[P & js.Object, js.Object]
         ]
        with Instantiable2[
           /* props */ P, 
           /* context */ js.Any, 
-          japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object]
+          japgolly.scalajs.react.facade.React.Component[P & js.Object, js.Object]
         ] {
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
@@ -240,7 +240,7 @@ object mod {
     object JSX {
       
       // tslint:disable-next-line:no-empty-interface
-      type Element = japgolly.scalajs.react.raw.React.Element
+      type Element = japgolly.scalajs.react.facade.React.Element
       
       @js.native
       trait ElementAttributesProperty extends StObject

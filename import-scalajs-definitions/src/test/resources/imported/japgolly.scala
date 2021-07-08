@@ -2,23 +2,31 @@ package imported
 
 import japgolly.scalajs.react.component.Scala.MountedImpure
 import japgolly.scalajs.react.component.Scala.MountedPure
+import japgolly.scalajs.react.facade.Hooks.HookDeps
+import japgolly.scalajs.react.facade.Hooks.UseEffectArg
+import japgolly.scalajs.react.facade.Hooks.UseReducer
+import japgolly.scalajs.react.facade.Hooks.UseReducerDispatch
+import japgolly.scalajs.react.facade.Hooks.UseState
+import japgolly.scalajs.react.facade.Hooks.UseStateSetter
+import japgolly.scalajs.react.facade.React.Children.MapFn
+import japgolly.scalajs.react.facade.React.Component
+import japgolly.scalajs.react.facade.React.Component.Props
+import japgolly.scalajs.react.facade.React.Component.State
+import japgolly.scalajs.react.facade.React.ComponentElement
+import japgolly.scalajs.react.facade.React.ComponentUntyped
+import japgolly.scalajs.react.facade.React.Context
+import japgolly.scalajs.react.facade.React.DomElement
+import japgolly.scalajs.react.facade.React.Element
+import japgolly.scalajs.react.facade.React.ForwardRefComponent
+import japgolly.scalajs.react.facade.React.Key
+import japgolly.scalajs.react.facade.React.Lazy
+import japgolly.scalajs.react.facade.React.LazyResult
+import japgolly.scalajs.react.facade.React.Node
+import japgolly.scalajs.react.facade.React.RefFn
+import japgolly.scalajs.react.facade.React.RefHandle
+import japgolly.scalajs.react.facade.ReactDOM.Container
+import japgolly.scalajs.react.facade.ReactDOM.DomNode
 import japgolly.scalajs.react.internal.Box
-import japgolly.scalajs.react.internal.JsSet
-import japgolly.scalajs.react.raw.React.Children.MapFn
-import japgolly.scalajs.react.raw.React.Component
-import japgolly.scalajs.react.raw.React.ComponentElement
-import japgolly.scalajs.react.raw.React.ComponentUntyped
-import japgolly.scalajs.react.raw.React.Context
-import japgolly.scalajs.react.raw.React.DomElement
-import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.ForwardRefComponent
-import japgolly.scalajs.react.raw.React.Key
-import japgolly.scalajs.react.raw.React.Lazy
-import japgolly.scalajs.react.raw.React.LazyResult
-import japgolly.scalajs.react.raw.React.Node
-import japgolly.scalajs.react.raw.React.RefHandle
-import japgolly.scalajs.react.raw.ReactDOM.Container
-import japgolly.scalajs.react.raw.ReactDOM.DomNode
 import org.scalajs.dom.CompositionEvent
 import org.scalajs.dom.DataTransfer
 import org.scalajs.dom.DragEvent
@@ -45,6 +53,13 @@ object japgolly {
     
     object react {
       
+      object ScalaComponent {
+        
+        type RawMounted[P, S, B] = japgolly.scalajs.react.component.Scala.RawMounted[P, S, B]
+        
+        type Vars[P, S, B] = japgolly.scalajs.react.component.Scala.Vars[P, S, B]
+      }
+      
       object component {
         
         object Js {
@@ -69,8 +84,7 @@ object japgolly {
           type RawMounted[P, S, B] = (japgolly.scalajs.react.component.Js.RawMounted[Box[P], Box[S]]) with (Vars[P, S, B])
           
           @js.native
-          trait Vars[P, S, B]
-            extends js.Object {
+          trait Vars[P, S, B] extends StObject {
             
             var backend: B = js.native
             
@@ -101,7 +115,7 @@ object japgolly {
             
             @js.native
             trait Method
-              extends js.Object
+              extends StObject
                  with js.PropertyDescriptor {
               
               val key: String = js.native
@@ -112,53 +126,62 @@ object japgolly {
         }
       }
       
-      object internal {
-        
-        @js.native
-        trait Box[A]
-          extends js.Object {
-          
-          val unbox: A = js.native
-        }
-        
-        @js.native
-        class JsSet[A] ()
-          extends js.Object
-             with js.Iterable[A] {
-          def this(array: js.Iterable[A]) = this()
-          
-          def clear(): Unit = js.native
-          
-          override def jsIterator(): js.Iterator[A] = js.native
-          
-          def size(): Int = js.native
-        }
-        
-        object Timer {
-          
-          object RealTimer {
-            
-            type Handle = js.timers.SetTimeoutHandle
-          }
-        }
-      }
-      
-      object raw {
+      object facade {
         
         type ChildrenArray[A] = A | js.Array[A]
         
         type Empty = Void | Null | Boolean
         
         @js.native
-        trait HasDisplayName
-          extends js.Object {
+        trait HasDisplayName extends StObject {
           
           val displayName: js.UndefOr[String] = js.native
         }
         
         @js.native
-        trait Interaction
-          extends js.Object {
+        trait Hooks extends StObject {
+          
+          type HookDeps = js.UndefOr[js.Array[Any]] | Null
+          
+          type UseEffectArg = js.Function0[js.UndefOr[js.Function0[Any]]]
+          
+          type UseReducer[S, A] = js.Tuple2[S, UseReducerDispatch[A]]
+          
+          type UseReducerDispatch[A] = js.Function1[A, Unit]
+          
+          type UseState[S] = js.Tuple2[S, UseStateSetter[S]]
+          
+          type UseStateSetter[S] = js.Function1[S | (js.Function1[S, S]), Unit]
+          
+          def useCallback[F](callback: F, deps: js.UndefOr[HookDeps]): F = js.native
+          
+          def useContext[A](ctx: Context[A]): A = js.native
+          
+          def useDebugValue(desc: Any): Unit = js.native
+          def useDebugValue[A](value: A, desc: A => Any): Unit = js.native
+          
+          def useEffect(effect: UseEffectArg, deps: js.UndefOr[HookDeps]): Unit = js.native
+          
+          def useImperativeHandle[A](
+            ref: (RefHandle[A | Null]) | (A | Null => Any) | Null | Unit,
+            create: js.Function0[A],
+            deps: js.UndefOr[HookDeps]
+          ): Unit = js.native
+          
+          def useLayoutEffect(effect: js.Function0[js.UndefOr[js.Function0[Any]]], deps: js.UndefOr[HookDeps]): Unit = js.native
+          
+          def useMemo[A](f: js.Function0[A], deps: js.UndefOr[HookDeps]): A = js.native
+          
+          def useReducer[S, A](reducer: js.Function2[S, A, S], initialState: S): UseReducer[S, A] = js.native
+          def useReducer[I, S, A](reducer: js.Function2[S, A, S], initialArg: I, init: js.Function1[I, S]): UseReducer[S, A] = js.native
+          
+          def useRef[A](f: A): RefHandle[A] = js.native
+          
+          def useState[S](initial: S | js.Function0[S]): UseState[S] = js.native
+        }
+        
+        @js.native
+        trait Interaction extends StObject {
           
           val __count: Int = js.native
           
@@ -173,29 +196,29 @@ object japgolly {
         
         object Profiler {
           
-          type OnRender = js.Function7[String, String, Double, Double, Double, Double, JsSet[Interaction], Unit]
+          type OnRender = js.Function7[String, String, Double, Double, Double, Double, js.Set[Interaction], Unit]
         }
         
         type PropsChildren = Node
         
         @js.native
-        trait PropsWithChildren
-          extends js.Object {
+        trait PropsWithChildren extends StObject {
           
           val children: PropsChildren = js.native
         }
         
         @js.native
         trait React
-          extends js.Object {
+          extends StObject
+             with Hooks {
           
-          val Children: japgolly.scalajs.react.raw.React.Children = js.native
+          val Children: japgolly.scalajs.react.facade.React.Children = js.native
           
           val Fragment: js.Symbol = js.native
           
           val Profiler: js.Symbol = js.native
           
-          val SecretInternals: japgolly.scalajs.react.raw.SecretInternals = js.native
+          val SecretInternals: japgolly.scalajs.react.facade.SecretInternals = js.native
           
           val StrictMode: js.Symbol = js.native
           
@@ -230,18 +253,16 @@ object japgolly {
           val version: String = js.native
         }
         @js.native
-        object React
-          extends js.Object {
+        object React extends StObject {
           
           @js.native
-          trait Children
-            extends js.Object {
+          trait Children extends StObject {
             
             type MapFn[A] = (js.Function1[Node, A]) | (js.Function2[Node, Int, A])
             
             def count(c: PropsChildren): Int = js.native
             
-            def forEach(c: js.UndefOr[PropsChildren | Null], fn: MapFn[_]): Unit = js.native
+            def forEach(c: js.UndefOr[PropsChildren | Null], fn: MapFn[Any]): Unit = js.native
             
             def map[A](c: js.UndefOr[PropsChildren | Null], fn: MapFn[A]): js.UndefOr[Null | js.Array[A]] = js.native
             
@@ -251,8 +272,7 @@ object japgolly {
           }
           
           @js.native
-          abstract class Component[P, S] protected ()
-            extends js.Object {
+          abstract class Component[P, S] protected () extends StObject {
             def this(ctorProps: P) = this()
             
             type Props = P with PropsWithChildren
@@ -263,15 +283,15 @@ object japgolly {
             
             def componentDidMount(): Unit = js.native
             
-            def componentDidUpdate(prevProps: P with PropsWithChildren, prevState: S): Unit = js.native
+            def componentDidUpdate(prevProps: Props, prevState: State): Unit = js.native
             
             def componentWillMount(): Unit = js.native
             
-            def componentWillReceiveProps(nextProps: P with PropsWithChildren): Unit = js.native
+            def componentWillReceiveProps(nextProps: Props): Unit = js.native
             
             def componentWillUnmount(): Unit = js.native
             
-            def componentWillUpdate(nextProps: P with PropsWithChildren, nextState: S): Unit = js.native
+            def componentWillUpdate(nextProps: Props, nextState: State): Unit = js.native
             
             val constructor: Constructor[P] = js.native
             
@@ -279,28 +299,28 @@ object japgolly {
             
             def forceUpdate(callback: js.Function0[Unit]): Unit = js.native
             
-            def modState(updateFn: js.Function2[S, P with PropsWithChildren, S | Null], callback: js.Function0[Unit]): Unit = js.native
+            def modState(updateFn: js.Function2[State, Props, State | Null], callback: js.Function0[Unit]): Unit = js.native
             
-            def props(): P with PropsWithChildren = js.native
+            def props(): Props = js.native
             
             def render(): Node = js.native
             
-            def setState(partialState: S | Null, callback: js.Function0[Unit]): Unit = js.native
+            def setState(partialState: State | Null, callback: js.Function0[Unit]): Unit = js.native
             
-            def shouldComponentUpdate(nextProps: P with PropsWithChildren, nextState: S): Boolean = js.native
+            def shouldComponentUpdate(nextProps: Props, nextState: State): Boolean = js.native
             
-            var state: S = js.native
+            var state: State = js.native
           }
           
           type ComponentClass[P, S] = (js.Function1[P, Component[P, S]]) with HasDisplayName
           
-          type ComponentClassP[P] = ComponentClass[P, _]
+          type ComponentClassP[P] = (js.Function1[P, Component[P, _]]) with HasDisplayName
           
-          type ComponentClassUntyped = ComponentClass[_, _]
+          type ComponentClassUntyped = (js.Function1[_, Component[_, _]]) with HasDisplayName
           
           @js.native
           trait ComponentElement[P]
-            extends js.Object
+            extends StObject
                with Element {
             
             def props(): P with PropsWithChildren = js.native
@@ -308,24 +328,25 @@ object japgolly {
             def `type`(): Constructor[P] = js.native
           }
           
-          type ComponentType[Props] = (ComponentClass[Props, _]) | (ForwardRefComponent[Props, _]) | StatelessFunctionalComponent[Props]
+          type ComponentType[Props] = ((js.Function1[Props, Component[Props, _]]) with HasDisplayName) | (ForwardRefComponent[Props, _]) | StatelessFunctionalComponent[Props]
           
           type ComponentUntyped = Component[_, _]
           
           type Constructor[P] = (js.Function1[P, js.Any]) with HasDisplayName
           
           @js.native
-          trait Context[A]
-            extends js.Object {
+          trait Context[A] extends StObject {
             
             val Consumer: ComponentClass[Null, Null] = js.native
             
             val Provider: ComponentClass[ValueProps[A], Null] = js.native
+            
+            var displayName: js.UndefOr[String] = js.native
           }
           
           @js.native
           trait DomElement
-            extends js.Object
+            extends StObject
                with Element {
             
             def props(): PropsWithChildren = js.native
@@ -334,8 +355,7 @@ object japgolly {
           }
           
           @js.native
-          trait Element
-            extends js.Object {
+          trait Element extends StObject {
             
             def key(): Key | Null = js.native
             
@@ -344,18 +364,17 @@ object japgolly {
           
           @js.native
           trait ElementRef
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
-          trait ErrorInfo
-            extends js.Object {
+          trait ErrorInfo extends StObject {
             
             val componentStack: String = js.native
           }
           
           @js.native
-          trait ForwardRefComponent[P, R]
-            extends js.Object {
+          trait ForwardRefComponent[P, R] extends StObject {
             
             var displayName: js.UndefOr[String] = js.native
             
@@ -364,15 +383,13 @@ object japgolly {
             val render: js.Function2[P, ForwardedRef[R], Node] = js.native
           }
           
-          type ForwardedRef[A] = RefHandle[A] | Null
+          type ForwardedRef[A] = (RefHandle[A | Null]) | Null
           
           @js.native
-          trait Lazy[P]
-            extends js.Object
+          trait Lazy[P] extends StObject
           
           @js.native
-          trait LazyResult[P]
-            extends js.Object {
+          trait LazyResult[P] extends StObject {
             
             val default: LazyResultValue[P] = js.native
           }
@@ -386,25 +403,22 @@ object japgolly {
           type RefFn[A] = js.Function1[A | Null, Unit]
           
           @js.native
-          trait RefHandle[A]
-            extends js.Object {
+          trait RefHandle[A] extends StObject {
             
-            var current: A | Null = js.native
+            var current: A = js.native
           }
           
           type StatelessFunctionalComponent[Props] = js.Function1[Props, Node]
           
           @js.native
-          trait ValueProps[A]
-            extends js.Object {
+          trait ValueProps[A] extends StObject {
             
             val value: A = js.native
           }
         }
         
         @js.native
-        trait ReactDOM
-          extends js.Object {
+        trait ReactDOM extends StObject {
           
           type Container = org.scalajs.dom.Element | Document
           
@@ -413,6 +427,9 @@ object japgolly {
           def createPortal(child: Node, container: Container): Node = js.native
           
           def findDOMNode(componentOrElement: org.scalajs.dom.Element | ComponentUntyped): DomNode | Null = js.native
+          
+          def flushSync[R](f: js.Function0[R]): R = js.native
+          def flushSync[A, R](f: js.Function1[A, R], a: A): R = js.native
           
           def hydrate(element: Node, container: Container, callback: js.Function0[Unit]): ComponentUntyped = js.native
           
@@ -424,8 +441,7 @@ object japgolly {
         }
         
         @js.native
-        trait ReactDOMServer
-          extends js.Object {
+        trait ReactDOMServer extends StObject {
           
           def renderToStaticMarkup(e: Node): String = js.native
           
@@ -436,33 +452,30 @@ object japgolly {
         
         object RecursiveTypeAliases {
           
-          type ChildrenArray[A] = js.Array[japgolly.scalajs.react.raw.ChildrenArray[A]]
+          type ChildrenArray[A] = js.Array[japgolly.scalajs.react.facade.ChildrenArray[A]]
         }
         
         @js.native
-        trait SchedulerTracing
-          extends js.Object {
+        trait SchedulerTracing extends StObject {
           
           def unstable_trace[A](name: String, timestamp: Double, callback: js.Function0[A]): A = js.native
         }
         
         @js.native
-        trait SecretInternals
-          extends js.Object {
+        trait SecretInternals extends StObject {
           
-          val SchedulerTracing: japgolly.scalajs.react.raw.SchedulerTracing = js.native
+          val SchedulerTracing: japgolly.scalajs.react.facade.SchedulerTracing = js.native
         }
         
         @js.native
-        trait SuspenseProps
-          extends js.Object {
+        trait SuspenseProps extends StObject {
           
           var fallback: Node = js.native
         }
         
         @js.native
         trait SyntheticAnimationEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticEvent[DOMEventTarget] {
           
           val animationName: String = js.native
@@ -474,7 +487,7 @@ object japgolly {
         
         @js.native
         trait SyntheticClipboardEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticEvent[DOMEventTarget] {
           
           def clipboardData(): DataTransfer = js.native
@@ -482,7 +495,7 @@ object japgolly {
         
         @js.native
         trait SyntheticCompositionEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticEvent[DOMEventTarget] {
           
           val data: String = js.native
@@ -492,7 +505,7 @@ object japgolly {
         
         @js.native
         trait SyntheticDragEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticMouseEvent[DOMEventTarget] {
           
           val dataTransfer: DataTransfer = js.native
@@ -501,8 +514,7 @@ object japgolly {
         }
         
         @js.native
-        trait SyntheticEvent[DOMEventTarget]
-          extends js.Object {
+        trait SyntheticEvent[DOMEventTarget] extends StObject {
           
           val bubbles: Boolean = js.native
           
@@ -539,7 +551,7 @@ object japgolly {
         
         @js.native
         trait SyntheticFocusEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticUIEvent[DOMEventTarget] {
           
           override val nativeEvent: FocusEvent = js.native
@@ -549,12 +561,12 @@ object japgolly {
         
         @js.native
         trait SyntheticFormEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticUIEvent[DOMEventTarget]
         
         @js.native
         trait SyntheticKeyboardEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticUIEvent[DOMEventTarget] {
           
           val altKey: Boolean = js.native
@@ -588,7 +600,7 @@ object japgolly {
         
         @js.native
         trait SyntheticMouseEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticUIEvent[DOMEventTarget] {
           
           val altKey: Boolean = js.native
@@ -628,7 +640,7 @@ object japgolly {
         
         @js.native
         trait SyntheticPointerEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticMouseEvent[DOMEventTarget] {
           
           val height: Double = js.native
@@ -656,7 +668,7 @@ object japgolly {
         
         @js.native
         trait SyntheticTouchEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticUIEvent[DOMEventTarget] {
           
           val altKey: Boolean = js.native
@@ -680,7 +692,7 @@ object japgolly {
         
         @js.native
         trait SyntheticTransitionEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticEvent[DOMEventTarget] {
           
           val elapsedTime: Double = js.native
@@ -692,7 +704,7 @@ object japgolly {
         
         @js.native
         trait SyntheticUIEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticEvent[DOMEventTarget] {
           
           def detail(): Double = js.native
@@ -704,7 +716,7 @@ object japgolly {
         
         @js.native
         trait SyntheticWheelEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticMouseEvent[DOMEventTarget] {
           
           val deltaMode: Double = js.native
@@ -721,25 +733,43 @@ object japgolly {
         type Void = Unit
         
         @js.native
-        object performance
-          extends js.Object {
+        object performance extends StObject {
           
           def now(): Double = js.native
         }
       }
       
-      object vdom {
+      object internal {
         
-        object Builder {
+        @js.native
+        trait Box[A] extends StObject {
           
-          type RawChild = Node
+          val unbox: A = js.native
         }
+        
+        object Timer {
+          
+          object RealTimer {
+            
+            type Handle = js.timers.SetTimeoutHandle
+          }
+        }
+      }
+      
+      object vdom {
         
         type HtmlTopNode = org.scalajs.dom.html.Element
         
         type SvgTopNode = org.scalajs.dom.svg.Element
         
         type TopNode = org.scalajs.dom.Node
+        
+        object VdomBuilder {
+          
+          type RawChild = Node
+          
+          type RawRefFn[A] = RefFn[A]
+        }
       }
     }
   }
