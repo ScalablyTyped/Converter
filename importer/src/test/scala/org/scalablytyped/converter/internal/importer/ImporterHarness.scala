@@ -32,7 +32,7 @@ trait ImporterHarness extends AnyFunSuite {
   os.makeDir.all(failureCacheDir)
 
   val testLogger = logging.stdout.filter(LogLevel.warn)
-  val version    = Versions(Versions.Scala3, Versions.ScalaJs1)
+  def version    = Versions(Versions.Scala3, Versions.ScalaJs1)
 
   private val bloop = Await.result(
     BloopCompiler(testLogger, version, Some(failureCacheDir.toNIO))(ExecutionContext.Implicits.global),
@@ -128,13 +128,15 @@ trait ImporterHarness extends AnyFunSuite {
     val source       = InFolder(testFolder.path / 'in)
     val targetFolder = os.Path(Files.createTempDirectory("scalablytyped-test-"))
 
-    val checkFolder = testFolder.path / (flavour match {
-      case _: NormalFlavour       => "check"
-      case _: SlinkyFlavour       => "check-slinky"
+    val flavourFolderPart = flavour match {
+      case _: NormalFlavour => "check"
+      case _: SlinkyFlavour => "check-slinky"
       case _: SlinkyNativeFlavour => "check-slinky-native"
-      case _: JapgollyFlavour     => "check-japgolly"
+      case _: JapgollyFlavour => "check-japgolly"
       case other => sys.error(s"Unexpected $other")
-    })
+    }
+
+    val checkFolder = testFolder.path / (s"$flavourFolderPart-${version.scala.binVersion}")
 
     val logRegistry =
       new LogRegistry[Source, TsIdentLibrary, StringWriter](

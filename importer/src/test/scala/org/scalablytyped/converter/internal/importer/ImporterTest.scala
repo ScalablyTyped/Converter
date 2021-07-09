@@ -2,10 +2,14 @@ package org.scalablytyped.converter
 package internal
 package importer
 
-import org.scalablytyped.converter.internal.scalajs.Name
+import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.scalajs.flavours.{JapgollyFlavour, SlinkyFlavour}
 import org.scalatest.ParallelTestExecution
 import org.scalatest.funsuite.AnyFunSuite
+
+class ImporterTest213 extends ImporterTest {
+  override def version: Versions = Versions(Versions.Scala213, Versions.ScalaJs1)
+}
 
 class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExecution {
   val update   = !constants.isCi
@@ -56,7 +60,7 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   test("antd")(assertImportsOk("antd", pedantic                                     = true, update  = update))
   test("echarts")(assertImportsOk("echarts", pedantic                               = true, update  = update))
   test("elasticsearch-js")(assertImportsOk("elasticsearch-js", pedantic             = true, update  = update))
-  test("vfile")(assertImportsOk("vfile", pedantic             = true, update  = update))
+  test("vfile")(assertImportsOk("vfile", pedantic                                   = true, update  = update))
 
   test("material-ui-slinky")(
     assertImportsOk("material-ui", pedantic = true, update = update, flavour = Slinky),

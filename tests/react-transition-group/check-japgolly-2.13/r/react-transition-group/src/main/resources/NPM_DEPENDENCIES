@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "react-transition-group" : "2.0"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "react-transition-group" : "2.0"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}

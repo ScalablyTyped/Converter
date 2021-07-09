@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "lodash" : "4.14"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "lodash" : "4.14"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "react-bootstrap" : "0.32"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "react-bootstrap" : "0.32"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}

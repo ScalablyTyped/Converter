@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "phaser" : "2.6.2"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "phaser" : "2.6.2"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "webpack-env" : "1.13"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "webpack-env" : "1.13"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}

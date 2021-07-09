@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "bigint" : "v5.5.3"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "bigint" : "v5.5.3"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}
