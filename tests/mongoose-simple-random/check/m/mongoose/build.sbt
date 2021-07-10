@@ -1,7 +1,7 @@
 organization := "org.scalablytyped"
 name := "mongoose"
-version := "0.0-unknown-f7a64b"
-scalaVersion := "3.0.1-RC2"
+version := "0.0-unknown-8de7ef"
+scalaVersion := "3.0.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2")
