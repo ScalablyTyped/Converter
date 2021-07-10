@@ -65,7 +65,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stIgnore := List("typescript"),
       stOutputPackage := Name.typings.unescaped,
       stStdlib := List("es6", "dom"),
-      stTypescriptVersion := "4",
+      stTypescriptVersion := "4.3",
       stUseScalaJsDom := true,
       stExperimentalEnableImplicitOps := true,
       stReactEnableTreeShaking := Selection.None,
