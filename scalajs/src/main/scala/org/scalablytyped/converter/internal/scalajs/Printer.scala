@@ -166,7 +166,7 @@ object Printer {
               Indenter(writer),
               packages,
               targetFolder,
-              2,
+              if (scalaVersion.is3) 0 else 2,
               members,
             )
           }

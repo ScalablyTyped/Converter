@@ -4,7 +4,7 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-  
-  type Array[T] = js.Any
-  
-  type PromiseLike[T] = js.Any
+
+type Array[T] = js.Any
+
+type PromiseLike[T] = js.Any
