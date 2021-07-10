@@ -1,9 +1,10 @@
 package org.scalablytyped.converter
 package plugin
 
+import com.olvind.logging.LogLevel
 import org.scalablytyped.converter.internal._
-import org.scalablytyped.converter.internal.orphanCodecs.{FileDecoder, FileEncoder}
 import org.scalablytyped.converter.internal.maps._
+import org.scalablytyped.converter.internal.orphanCodecs.{FileDecoder, FileEncoder}
 import org.scalablytyped.converter.internal.scalajs.{Name, QualifiedName}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import sbt.Keys._
@@ -64,11 +65,11 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
       ScalaJsBundlerHack.adaptNpmInstallJSResources,
       stImport := {
-        val logger     = WrapSbtLogger.task.value
+        val stLogger     = WrapSbtLogger.task.value
         val conversion = stConversionOptions.value
 
         if (conversion.outputPackage == Name.typings) {
-          logger.fatal("You must set `stOutputPackage` to a custom package")
+          stLogger.fatal("You must set `stOutputPackage` to a custom package")
         }
 
         val minimizeKeep = IArray
@@ -106,12 +107,12 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
 
         (Try(Json.force[ImportTypingsGenSources.Input](cachedInputs)).toOption, Json.opt[Seq[File]](cachedOutputs)) match {
           case (Some(`input`), Some(output)) =>
-            logger.info("Nothing to do")
+            stLogger.info("Nothing to do")
             output
           case _ =>
             ImportTypingsGenSources(
               input,
-              logger,
+              stLogger.filter(LogLevel.warn),
               parseCacheDirOpt = Some(globalCacheDir.toPath.resolve("parse")),
               os.Path(globalCacheDir),
             ) match {
