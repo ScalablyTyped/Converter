@@ -542,7 +542,7 @@ class SlinkyGenComponents(
       Some(
         MethodTree(
           annotations = IArray(Annotation.Inline),
-          level       = ProtectionLevel.Default,
+          level       = ProtectionLevel.Public,
           name        = name,
           tparams     = tparams,
           params      = IArray(cm.params),
@@ -597,7 +597,7 @@ class SlinkyGenComponents(
 
         MethodTree(
           annotations = Empty,
-          level       = ProtectionLevel.Default,
+          level       = ProtectionLevel.Public,
           name        = conversionName,
           tparams     = tparams,
           params      = IArray(IArray(param)),
@@ -644,7 +644,7 @@ class SlinkyGenComponents(
     }
     MethodTree(
       annotations = Empty,
-      level       = ProtectionLevel.Default,
+      level       = ProtectionLevel.Public,
       name        = name,
       tparams     = tparams,
       params      = IArray(IArray(param)),
@@ -708,7 +708,7 @@ class SlinkyGenComponents(
           IArray(
             MethodTree(
               annotations = IArray(Annotation.Inline),
-              level       = ProtectionLevel.Default,
+              level       = ProtectionLevel.Public,
               name        = name,
               tparams     = Empty,
               params      = IArray(IArray(param)),
@@ -741,7 +741,7 @@ class SlinkyGenComponents(
               )
               MethodTree(
                 annotations = IArray(Annotation.Inline),
-                level       = ProtectionLevel.Default,
+                level       = ProtectionLevel.Public,
                 name        = methodName,
                 tparams     = Empty,
                 params      = IArray(IArray(param)),
@@ -765,7 +765,7 @@ class SlinkyGenComponents(
               Some(
                 MethodTree(
                   annotations = IArray(Annotation.Inline),
-                  level       = ProtectionLevel.Default,
+                  level       = ProtectionLevel.Public,
                   name        = name,
                   tparams     = Empty,
                   params      = Empty,
@@ -786,7 +786,7 @@ class SlinkyGenComponents(
       }
 
     def ctor = CtorTree(
-      ProtectionLevel.Default,
+      ProtectionLevel.Public,
       IArray(
         ParamTree(
           Name("args"),

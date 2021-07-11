@@ -535,13 +535,13 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val tsMemberNamed: Parser[TsMember] = {
 
-    val intro: Parser[(ProtectionLevel, TsIdentSimple, Boolean, Boolean, MethodType)] =
+    val intro: Parser[(TsProtectionLevel, TsIdentSimple, Boolean, Boolean, MethodType)] =
       tsIdentLiberal.+ ^^ {
         case mods :+ name =>
-          val level: ProtectionLevel =
-            if (mods.contains(TsIdent("protected"))) ProtectionLevel.Protected
-            else if (mods.contains(TsIdent("private")) || name.value.startsWith("#")) ProtectionLevel.Private
-            else ProtectionLevel.Default
+          val level: TsProtectionLevel =
+            if (mods.contains(TsIdent("protected"))) TsProtectionLevel.Protected
+            else if (mods.contains(TsIdent("private")) || name.value.startsWith("#")) TsProtectionLevel.Private
+            else TsProtectionLevel.Default
 
           val static   = mods.contains(TsIdent("static"))
           val readonly = mods.contains(TsIdent("readonly"))
@@ -624,11 +624,11 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     tsMemberTypeMapped | tsMemberCall | tsMemberCtor | tsMemberIndex | tsMemberNamed
   }
 
-  lazy val protectionLevel: Parser[ProtectionLevel] =
+  lazy val protectionLevel: Parser[TsProtectionLevel] =
     ("private" | "protected" | "public").? ^^ {
-      case Some("private")   => ProtectionLevel.Private
-      case Some("protected") => ProtectionLevel.Protected
-      case _                 => ProtectionLevel.Default
+      case Some("private")   => TsProtectionLevel.Private
+      case Some("protected") => TsProtectionLevel.Protected
+      case _                 => TsProtectionLevel.Default
     }
 
   lazy val tsIdent: Parser[TsIdentSimple] =

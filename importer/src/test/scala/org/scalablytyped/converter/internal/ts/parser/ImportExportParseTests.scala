@@ -311,7 +311,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
                     IArray(
                       TsMemberProperty(
                         NoComments,
-                        ProtectionLevel.Default,
+                        TsProtectionLevel.Default,
                         TsIdent("statusCode"),
                         Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("number"))), IArray())),
                         None,

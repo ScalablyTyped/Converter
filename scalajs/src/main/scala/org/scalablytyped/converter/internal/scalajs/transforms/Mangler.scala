@@ -177,7 +177,7 @@ object Mangler extends TreeTransformation {
           )
           MethodTree(
             annotations = IArray(Annotation.Inline),
-            level       = ProtectionLevel.Default,
+            level       = ProtectionLevel.Public,
             name        = f.name,
             tparams     = Empty,
             params      = Empty,
@@ -202,7 +202,7 @@ object Mangler extends TreeTransformation {
 
             val m = MethodTree(
               annotations = IArray(Annotation.Inline),
-              level       = ProtectionLevel.Default,
+              level       = ProtectionLevel.Public,
               name        = Name(f.name.unescaped + "_="),
               tparams     = Empty,
               params      = IArray(IArray(xParam)),
@@ -323,7 +323,7 @@ object Mangler extends TreeTransformation {
 
             MethodTree(
               annotations = IArray(Annotation.Inline),
-              level       = ProtectionLevel.Default,
+              level       = ProtectionLevel.Public,
               name        = Name(f.name.unescaped + "_="),
               tparams     = Empty,
               params      = IArray(IArray(xParam)),
@@ -339,7 +339,7 @@ object Mangler extends TreeTransformation {
           val getter =
             MethodTree(
               annotations = f.annotations.filterNot(_.isInstanceOf[Annotation.JsName]),
-              level       = ProtectionLevel.Default,
+              level       = ProtectionLevel.Public,
               name        = f.name,
               tparams     = Empty,
               params      = Empty,
@@ -402,7 +402,7 @@ object Mangler extends TreeTransformation {
           val name = Name("_to")
           MethodTree(
             Empty,
-            ProtectionLevel.Default,
+            ProtectionLevel.Public,
             name,
             Empty,
             Empty,

@@ -150,7 +150,7 @@ final class CommentTests extends AnyFunSuite with Matchers {
         IArray(
           TsMemberProperty(
             NoComments,
-            ProtectionLevel.Default,
+            TsProtectionLevel.Default,
             TsIdent("id"),
             Some(TsTypeRef.string),
             None,
@@ -159,7 +159,7 @@ final class CommentTests extends AnyFunSuite with Matchers {
           ),
           TsMemberProperty(
             NoComments,
-            ProtectionLevel.Default,
+            TsProtectionLevel.Default,
             TsIdent("size"),
             Some(TsTypeRef(NoComments, TsQIdent.number, Empty)),
             None,

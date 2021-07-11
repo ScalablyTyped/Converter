@@ -189,7 +189,7 @@ object CtorTree {
   implicit val encodes: Encoder[CtorTree] = io.circe013.generic.semiauto.deriveEncoder
   implicit val decodes: Decoder[CtorTree] = io.circe013.generic.semiauto.deriveDecoder
 
-  val defaultPublic    = CtorTree(ProtectionLevel.Default, IArray(), NoComments)
+  val defaultPublic    = CtorTree(ProtectionLevel.Public, IArray(), NoComments)
   val defaultProtected = CtorTree(ProtectionLevel.Protected, IArray(), NoComments)
 }
 

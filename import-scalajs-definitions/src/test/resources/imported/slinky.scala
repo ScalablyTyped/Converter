@@ -93,7 +93,7 @@ object slinky {
     
     @js.native
     class AttrPair[A] protected ()
-      extends js.Object
+      extends StObject
          with TagMod[A] {
       def this(name: String, value: js.Any) = this()
       
@@ -104,7 +104,8 @@ object slinky {
     
     @js.native
     abstract class Component ()
-      extends slinky.core.facade.React.Component {
+      extends StObject
+         with slinky.core.facade.React.Component {
       
       def componentDidCatch(error: js.Error, info: ErrorBoundaryInfo): Unit = js.native
       
@@ -143,7 +144,8 @@ object slinky {
     
     @js.native
     abstract class DefinitionBase[Props, State, Snapshot] protected ()
-      extends slinky.core.facade.React.Component {
+      extends StObject
+         with slinky.core.facade.React.Component {
       def this(jsProps: js.Object) = this()
       
       def componentDidCatch(error: js.Error, info: ErrorBoundaryInfo): Unit = js.native
@@ -169,7 +171,7 @@ object slinky {
       
       def props(): Props = js.native
       
-      /* private */ def propsReader(): Reader[Props] = js.native
+      private def propsReader(): Reader[Props] = js.native
       
       def readPropsValue(value: js.Object): Props = js.native
       
@@ -188,18 +190,17 @@ object slinky {
       
       def state(): State = js.native
       
-      /* private */ def stateReader(): Reader[State] = js.native
+      private def stateReader(): Reader[State] = js.native
       
       def stateWriter(): Writer[State] = js.native
     }
     
     @js.native
-    trait ExternalPropsWriterProvider
-      extends js.Object
+    trait ExternalPropsWriterProvider extends StObject
     
     @js.native
     class OptionalAttrPair[A] protected ()
-      extends js.Object
+      extends StObject
          with TagMod[A] {
       def this(name: String, value: Option[js.Any]) = this()
       
@@ -209,28 +210,26 @@ object slinky {
     }
     
     @js.native
-    trait ReactComponentClass[P]
-      extends js.Object
+    trait ReactComponentClass[P] extends StObject
     
     @js.native
     trait ReactElementMod
-      extends js.Object
+      extends StObject
          with TagMod[Any]
     
     @js.native
-    trait RefAttr[T]
-      extends js.Object
+    trait RefAttr[T] extends StObject
     
     @js.native
-    trait StateReaderProvider
-      extends js.Object
+    trait StateReaderProvider extends StObject
     
     @js.native
-    trait StateWriterProvider
-      extends js.Object
+    trait StateWriterProvider extends StObject
     
     @js.native
-    abstract class StatelessComponent () extends Component {
+    abstract class StatelessComponent ()
+      extends StObject
+         with Component {
       
       type State = Unit
       
@@ -238,7 +237,9 @@ object slinky {
     }
     
     @js.native
-    abstract class StatelessDefinition[Props, Snapshot] protected () extends DefinitionBase[Props, Unit, Snapshot] {
+    abstract class StatelessDefinition[Props, Snapshot] protected ()
+      extends StObject
+         with DefinitionBase[Props, Unit, Snapshot] {
       def this(jsProps: js.Object) = this()
       
       override def initialState(): Unit = js.native
@@ -247,8 +248,7 @@ object slinky {
     }
     
     @js.native
-    trait SyntheticEvent[TargetType, EventType]
-      extends js.Object {
+    trait SyntheticEvent[TargetType, EventType] extends StObject {
       
       val bubbles: Boolean = js.native
       
@@ -280,25 +280,21 @@ object slinky {
     }
     
     @js.native
-    trait TagMod[A]
-      extends js.Object
+    trait TagMod[A] extends StObject
     
     object facade {
       
       @js.native
-      trait EffectCallbackReturn
-        extends js.Object
+      trait EffectCallbackReturn extends StObject
       
       @js.native
-      trait ErrorBoundaryInfo
-        extends js.Object {
+      trait ErrorBoundaryInfo extends StObject {
         
         val componentStack: String = js.native
       }
       
       @js.native
-      object HooksRaw
-        extends js.Object {
+      object HooksRaw extends StObject {
         
         def useContext[T](context: ReactContext[T]): T = js.native
         
@@ -323,8 +319,7 @@ object slinky {
       }
       
       @js.native
-      trait PrivateComponentClass
-        extends js.Object {
+      trait PrivateComponentClass extends StObject {
         
         val contextR: js.Dynamic = js.native
         
@@ -343,8 +338,7 @@ object slinky {
       object React {
         
         @js.native
-        object Children
-          extends js.Object {
+        object Children extends StObject {
           
           def count(children: ReactChildren): Int = js.native
           
@@ -360,8 +354,7 @@ object slinky {
         }
         
         @js.native
-        class Component protected ()
-          extends js.Object {
+        class Component protected () extends StObject {
           def this(jsProps: js.Object) = this()
           
           def forceUpdate(): Unit = js.native
@@ -373,16 +366,14 @@ object slinky {
       
       @js.native
       trait ReactChildren
-        extends js.Object
+        extends StObject
            with ReactElement
       
       @js.native
-      trait ReactContext[T]
-        extends js.Object
+      trait ReactContext[T] extends StObject
       
       @js.native
-      trait ReactContextRaw
-        extends js.Object {
+      trait ReactContextRaw extends StObject {
         
         val Consumer: js.Object = js.native
         
@@ -391,20 +382,17 @@ object slinky {
       
       @js.native
       trait ReactElement
-        extends js.Object
+        extends StObject
            with ReactElementMod
       
       @js.native
-      trait ReactInstance
-        extends js.Object
+      trait ReactInstance extends StObject
       
       @js.native
-      object ReactRaw
-        extends js.Object {
+      object ReactRaw extends StObject {
         
         @js.native
-        object Children
-          extends js.Object {
+        object Children extends StObject {
           
           def count(children: ReactChildren): Int = js.native
           
@@ -440,8 +428,7 @@ object slinky {
       }
       
       @js.native
-      trait ReactRef[T]
-        extends js.Object {
+      trait ReactRef[T] extends StObject {
         
         var current: T = js.native
       }
@@ -451,8 +438,7 @@ object slinky {
   object native {
     
     @js.native
-    object Alert
-      extends js.Object {
+    object Alert extends StObject {
       
       def alert(
         title: String,
@@ -464,15 +450,13 @@ object slinky {
     }
     
     @js.native
-    object AppRegistry
-      extends js.Object {
+    object AppRegistry extends StObject {
       
       def registerComponent(appKey: String, componentProvider: js.Function0[ReactComponentClass[_]]): Unit = js.native
     }
     
     @js.native
-    trait FlatListInstance[T]
-      extends js.Object {
+    trait FlatListInstance[T] extends StObject {
       
       def flashScrollIndicators(): Unit = js.native
       
@@ -491,8 +475,7 @@ object slinky {
     object Image {
       
       @js.native
-      object Component
-        extends js.Object {
+      object Component extends StObject {
         
         def abortPrefetch(requestId: Int): Unit = js.native
         
@@ -509,12 +492,10 @@ object slinky {
     }
     
     @js.native
-    trait ImageInterface
-      extends js.Object
+    trait ImageInterface extends StObject
     
     @js.native
-    object Keyboard
-      extends js.Object {
+    object Keyboard extends StObject {
       
       def addListener(eventName: String, callBack: js.Function0[Unit]): Unit = js.native
       
@@ -528,23 +509,20 @@ object slinky {
     object Picker {
       
       @js.native
-      object Component
-        extends js.Object {
+      object Component extends StObject {
         
         val Item: js.Object = js.native
       }
     }
     
     @js.native
-    object Platform
-      extends js.Object {
+    object Platform extends StObject {
       
       val OS: String = js.native
     }
     
     @js.native
-    object RawClipboard
-      extends js.Object {
+    object RawClipboard extends StObject {
       
       def getString(): js.Promise[String] = js.native
       
@@ -552,8 +530,7 @@ object slinky {
     }
     
     @js.native
-    trait ScaledSize
-      extends js.Object {
+    trait ScaledSize extends StObject {
       
       var fontScale: Double = js.native
       
@@ -565,8 +542,7 @@ object slinky {
     }
     
     @js.native
-    trait ScrollViewInstance
-      extends js.Object {
+    trait ScrollViewInstance extends StObject {
       
       def flashScrollIndicators(): Unit = js.native
       
@@ -577,8 +553,7 @@ object slinky {
     }
     
     @js.native
-    trait SectionListInstance[T]
-      extends js.Object {
+    trait SectionListInstance[T] extends StObject {
       
       def flashScrollIndicators(): Unit = js.native
       
@@ -595,8 +570,7 @@ object slinky {
     }
     
     @js.native
-    trait TextInputInstance
-      extends js.Object {
+    trait TextInputInstance extends StObject {
       
       def clear(): Unit = js.native
       
@@ -604,8 +578,7 @@ object slinky {
     }
     
     @js.native
-    object useWindowDimensions
-      extends js.Object {
+    object useWindowDimensions extends StObject {
       
       def apply(): ScaledSize = js.native
     }
@@ -614,15 +587,13 @@ object slinky {
   object readwrite {
     
     @js.native
-    trait ObjectOrWritten[T]
-      extends js.Object
+    trait ObjectOrWritten[T] extends StObject
   }
   
   object web {
     
     @js.native
-    object ReactDOM
-      extends js.Object {
+    object ReactDOM extends StObject {
       
       def createPortal(child: ReactElement, container: Element): ReactElement = js.native
       
@@ -636,8 +607,7 @@ object slinky {
     }
     
     @js.native
-    object ReactDOMServer
-      extends js.Object {
+    object ReactDOMServer extends StObject {
       
       def renderToNodeStream(element: ReactElement): js.Object = js.native
       
@@ -650,7 +620,7 @@ object slinky {
     
     @js.native
     trait SyntheticAnimationEvent[TargetType]
-      extends js.Object
+      extends StObject
          with SyntheticEvent[TargetType, AnimationEvent] {
       
       val animationName: String = js.native
@@ -662,7 +632,7 @@ object slinky {
     
     @js.native
     trait SyntheticClipboardEvent[TargetType]
-      extends js.Object
+      extends StObject
          with SyntheticEvent[TargetType, ClipboardEvent] {
       
       val clipboardData: DataTransfer = js.native
@@ -670,7 +640,7 @@ object slinky {
     
     @js.native
     trait SyntheticCompositionEvent[TargetType]
-      extends js.Object
+      extends StObject
          with SyntheticEvent[TargetType, CompositionEvent] {
       
       val data: String = js.native
@@ -678,7 +648,7 @@ object slinky {
     
     @js.native
     trait SyntheticFocusEvent[TargetType]
-      extends js.Object
+      extends StObject
          with SyntheticEvent[TargetType, FocusEvent] {
       
       val relatedTarget: EventTarget = js.native
@@ -686,7 +656,7 @@ object slinky {
     
     @js.native
     trait SyntheticKeyboardEvent[TargetType]
-      extends js.Object
+      extends StObject
          with SyntheticEvent[TargetType, KeyboardEvent] {
       
       val altKey: Boolean = js.native
@@ -716,7 +686,7 @@ object slinky {
     
     @js.native
     trait SyntheticMouseEvent[TargetType]
-      extends js.Object
+      extends StObject
          with SyntheticEvent[TargetType, MouseEvent] {
       
       val altKey: Boolean = js.native
@@ -750,7 +720,7 @@ object slinky {
     
     @js.native
     trait SyntheticPointerEvent[TargetType]
-      extends js.Object
+      extends StObject
          with SyntheticEvent[TargetType, PointerEvent] {
       
       val height: Double = js.native
@@ -776,7 +746,7 @@ object slinky {
     
     @js.native
     trait SyntheticTouchEvent[TargetType]
-      extends js.Object
+      extends StObject
          with SyntheticEvent[TargetType, TouchEvent] {
       
       val altKey: Boolean = js.native
@@ -798,7 +768,7 @@ object slinky {
     
     @js.native
     trait SyntheticTransitionEvent[TargetType]
-      extends js.Object
+      extends StObject
          with SyntheticEvent[TargetType, TransitionEvent] {
       
       val elapsedTime: Float = js.native
@@ -810,7 +780,7 @@ object slinky {
     
     @js.native
     trait SyntheticUIEvent[TargetType]
-      extends js.Object
+      extends StObject
          with SyntheticEvent[TargetType, UIEvent] {
       
       val detail: Double = js.native
@@ -820,7 +790,7 @@ object slinky {
     
     @js.native
     trait SyntheticWheelEvent[TargetType]
-      extends js.Object
+      extends StObject
          with SyntheticEvent[TargetType, WheelEvent] {
       
       val deltaMode: Int = js.native

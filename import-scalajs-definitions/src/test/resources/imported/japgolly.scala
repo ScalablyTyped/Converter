@@ -69,8 +69,7 @@ object japgolly {
           type RawMounted[P, S, B] = (japgolly.scalajs.react.component.Js.RawMounted[Box[P], Box[S]]) with (Vars[P, S, B])
           
           @js.native
-          trait Vars[P, S, B]
-            extends js.Object {
+          trait Vars[P, S, B] extends StObject {
             
             var backend: B = js.native
             
@@ -101,7 +100,7 @@ object japgolly {
             
             @js.native
             trait Method
-              extends js.Object
+              extends StObject
                  with js.PropertyDescriptor {
               
               val key: String = js.native
@@ -115,15 +114,14 @@ object japgolly {
       object internal {
         
         @js.native
-        trait Box[A]
-          extends js.Object {
+        trait Box[A] extends StObject {
           
           val unbox: A = js.native
         }
         
         @js.native
         class JsSet[A] ()
-          extends js.Object
+          extends StObject
              with js.Iterable[A] {
           def this(array: js.Iterable[A]) = this()
           
@@ -150,15 +148,13 @@ object japgolly {
         type Empty = Void | Null | Boolean
         
         @js.native
-        trait HasDisplayName
-          extends js.Object {
+        trait HasDisplayName extends StObject {
           
           val displayName: js.UndefOr[String] = js.native
         }
         
         @js.native
-        trait Interaction
-          extends js.Object {
+        trait Interaction extends StObject {
           
           val __count: Int = js.native
           
@@ -179,15 +175,13 @@ object japgolly {
         type PropsChildren = Node
         
         @js.native
-        trait PropsWithChildren
-          extends js.Object {
+        trait PropsWithChildren extends StObject {
           
           val children: PropsChildren = js.native
         }
         
         @js.native
-        trait React
-          extends js.Object {
+        trait React extends StObject {
           
           val Children: japgolly.scalajs.react.raw.React.Children = js.native
           
@@ -230,12 +224,10 @@ object japgolly {
           val version: String = js.native
         }
         @js.native
-        object React
-          extends js.Object {
+        object React extends StObject {
           
           @js.native
-          trait Children
-            extends js.Object {
+          trait Children extends StObject {
             
             type MapFn[A] = (js.Function1[Node, A]) | (js.Function2[Node, Int, A])
             
@@ -251,8 +243,7 @@ object japgolly {
           }
           
           @js.native
-          abstract class Component[P, S] protected ()
-            extends js.Object {
+          abstract class Component[P, S] protected () extends StObject {
             def this(ctorProps: P) = this()
             
             type Props = P with PropsWithChildren
@@ -300,7 +291,7 @@ object japgolly {
           
           @js.native
           trait ComponentElement[P]
-            extends js.Object
+            extends StObject
                with Element {
             
             def props(): P with PropsWithChildren = js.native
@@ -315,8 +306,7 @@ object japgolly {
           type Constructor[P] = (js.Function1[P, js.Any]) with HasDisplayName
           
           @js.native
-          trait Context[A]
-            extends js.Object {
+          trait Context[A] extends StObject {
             
             val Consumer: ComponentClass[Null, Null] = js.native
             
@@ -325,7 +315,7 @@ object japgolly {
           
           @js.native
           trait DomElement
-            extends js.Object
+            extends StObject
                with Element {
             
             def props(): PropsWithChildren = js.native
@@ -334,8 +324,7 @@ object japgolly {
           }
           
           @js.native
-          trait Element
-            extends js.Object {
+          trait Element extends StObject {
             
             def key(): Key | Null = js.native
             
@@ -344,18 +333,17 @@ object japgolly {
           
           @js.native
           trait ElementRef
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
-          trait ErrorInfo
-            extends js.Object {
+          trait ErrorInfo extends StObject {
             
             val componentStack: String = js.native
           }
           
           @js.native
-          trait ForwardRefComponent[P, R]
-            extends js.Object {
+          trait ForwardRefComponent[P, R] extends StObject {
             
             var displayName: js.UndefOr[String] = js.native
             
@@ -367,12 +355,10 @@ object japgolly {
           type ForwardedRef[A] = RefHandle[A] | Null
           
           @js.native
-          trait Lazy[P]
-            extends js.Object
+          trait Lazy[P] extends StObject
           
           @js.native
-          trait LazyResult[P]
-            extends js.Object {
+          trait LazyResult[P] extends StObject {
             
             val default: LazyResultValue[P] = js.native
           }
@@ -386,8 +372,7 @@ object japgolly {
           type RefFn[A] = js.Function1[A | Null, Unit]
           
           @js.native
-          trait RefHandle[A]
-            extends js.Object {
+          trait RefHandle[A] extends StObject {
             
             var current: A | Null = js.native
           }
@@ -395,16 +380,14 @@ object japgolly {
           type StatelessFunctionalComponent[Props] = js.Function1[Props, Node]
           
           @js.native
-          trait ValueProps[A]
-            extends js.Object {
+          trait ValueProps[A] extends StObject {
             
             val value: A = js.native
           }
         }
         
         @js.native
-        trait ReactDOM
-          extends js.Object {
+        trait ReactDOM extends StObject {
           
           type Container = org.scalajs.dom.Element | Document
           
@@ -424,8 +407,7 @@ object japgolly {
         }
         
         @js.native
-        trait ReactDOMServer
-          extends js.Object {
+        trait ReactDOMServer extends StObject {
           
           def renderToStaticMarkup(e: Node): String = js.native
           
@@ -440,29 +422,26 @@ object japgolly {
         }
         
         @js.native
-        trait SchedulerTracing
-          extends js.Object {
+        trait SchedulerTracing extends StObject {
           
           def unstable_trace[A](name: String, timestamp: Double, callback: js.Function0[A]): A = js.native
         }
         
         @js.native
-        trait SecretInternals
-          extends js.Object {
+        trait SecretInternals extends StObject {
           
           val SchedulerTracing: japgolly.scalajs.react.raw.SchedulerTracing = js.native
         }
         
         @js.native
-        trait SuspenseProps
-          extends js.Object {
+        trait SuspenseProps extends StObject {
           
           var fallback: Node = js.native
         }
         
         @js.native
         trait SyntheticAnimationEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticEvent[DOMEventTarget] {
           
           val animationName: String = js.native
@@ -474,7 +453,7 @@ object japgolly {
         
         @js.native
         trait SyntheticClipboardEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticEvent[DOMEventTarget] {
           
           def clipboardData(): DataTransfer = js.native
@@ -482,7 +461,7 @@ object japgolly {
         
         @js.native
         trait SyntheticCompositionEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticEvent[DOMEventTarget] {
           
           val data: String = js.native
@@ -492,7 +471,7 @@ object japgolly {
         
         @js.native
         trait SyntheticDragEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticMouseEvent[DOMEventTarget] {
           
           val dataTransfer: DataTransfer = js.native
@@ -501,8 +480,7 @@ object japgolly {
         }
         
         @js.native
-        trait SyntheticEvent[DOMEventTarget]
-          extends js.Object {
+        trait SyntheticEvent[DOMEventTarget] extends StObject {
           
           val bubbles: Boolean = js.native
           
@@ -539,7 +517,7 @@ object japgolly {
         
         @js.native
         trait SyntheticFocusEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticUIEvent[DOMEventTarget] {
           
           override val nativeEvent: FocusEvent = js.native
@@ -549,12 +527,12 @@ object japgolly {
         
         @js.native
         trait SyntheticFormEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticUIEvent[DOMEventTarget]
         
         @js.native
         trait SyntheticKeyboardEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticUIEvent[DOMEventTarget] {
           
           val altKey: Boolean = js.native
@@ -588,7 +566,7 @@ object japgolly {
         
         @js.native
         trait SyntheticMouseEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticUIEvent[DOMEventTarget] {
           
           val altKey: Boolean = js.native
@@ -628,7 +606,7 @@ object japgolly {
         
         @js.native
         trait SyntheticPointerEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticMouseEvent[DOMEventTarget] {
           
           val height: Double = js.native
@@ -656,7 +634,7 @@ object japgolly {
         
         @js.native
         trait SyntheticTouchEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticUIEvent[DOMEventTarget] {
           
           val altKey: Boolean = js.native
@@ -680,7 +658,7 @@ object japgolly {
         
         @js.native
         trait SyntheticTransitionEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticEvent[DOMEventTarget] {
           
           val elapsedTime: Double = js.native
@@ -692,7 +670,7 @@ object japgolly {
         
         @js.native
         trait SyntheticUIEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticEvent[DOMEventTarget] {
           
           def detail(): Double = js.native
@@ -704,7 +682,7 @@ object japgolly {
         
         @js.native
         trait SyntheticWheelEvent[DOMEventTarget]
-          extends js.Object
+          extends StObject
              with SyntheticMouseEvent[DOMEventTarget] {
           
           val deltaMode: Double = js.native
@@ -721,8 +699,7 @@ object japgolly {
         type Void = Unit
         
         @js.native
-        object performance
-          extends js.Object {
+        object performance extends StObject {
           
           def now(): Double = js.native
         }

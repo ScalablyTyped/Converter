@@ -54,7 +54,7 @@ object ImportEnum {
                 val memberNameFixed = if (illegalNames.Illegal(memberName)) memberName.withSuffix("") else memberName
                 MethodTree(
                   IArray(Annotation.Inline),
-                  ProtectionLevel.Default,
+                  ProtectionLevel.Public,
                   memberNameFixed,
                   Empty,
                   Empty,
@@ -129,7 +129,7 @@ object ImportEnum {
               Some(
                 MethodTree(
                   annotations = IArray(Annotation.JsBracketAccess),
-                  level       = ProtectionLevel.Default,
+                  level       = ProtectionLevel.Public,
                   name        = Name.APPLY,
                   tparams     = Empty,
                   params      = IArray(IArray(applyParam)),

@@ -629,16 +629,16 @@ final case class TsTypeInfer(tparam: TsTypeParam) extends TsTypePredicate
 //members
 
 sealed abstract class TsMember extends TsTree {
-  def level: ProtectionLevel
+  def level: TsProtectionLevel
 }
 
-final case class TsMemberCall(comments: Comments, level: ProtectionLevel, signature: TsFunSig) extends TsMember
+final case class TsMemberCall(comments: Comments, level: TsProtectionLevel, signature: TsFunSig) extends TsMember
 
-final case class TsMemberCtor(comments: Comments, level: ProtectionLevel, signature: TsFunSig) extends TsMember
+final case class TsMemberCtor(comments: Comments, level: TsProtectionLevel, signature: TsFunSig) extends TsMember
 
 final case class TsMemberFunction(
     comments:   Comments,
-    level:      ProtectionLevel,
+    level:      TsProtectionLevel,
     name:       TsIdentSimple,
     methodType: MethodType,
     signature:  TsFunSig,
@@ -655,14 +655,14 @@ object Indexing {
 final case class TsMemberIndex(
     comments:   Comments,
     isReadOnly: Boolean,
-    level:      ProtectionLevel,
+    level:      TsProtectionLevel,
     indexing:   Indexing,
     valueType:  Option[TsType],
 ) extends TsMember
 
 final case class TsMemberTypeMapped(
     comments:    Comments,
-    level:       ProtectionLevel,
+    level:       TsProtectionLevel,
     readonly:    ReadonlyModifier,
     key:         TsIdent,
     from:        TsType,
@@ -672,7 +672,7 @@ final case class TsMemberTypeMapped(
 
 final case class TsMemberProperty(
     comments:   Comments,
-    level:      ProtectionLevel,
+    level:      TsProtectionLevel,
     name:       TsIdentSimple,
     tpe:        Option[TsType],
     expr:       Option[TsExpr],

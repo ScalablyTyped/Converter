@@ -135,7 +135,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
       /* Encoding varargs as a type alias is rather pointless since we'll lose the varargs */
       case TsDeclTypeAlias(cs, dec, name, tparams, TsTypeFunction(sig @ TsFunSig(_, _, params, _)), cp)
           if params.exists(_.tpe.exists(_.isInstanceOf[TsTypeRepeated])) =>
-        val call = TsMemberCall(NoComments, ProtectionLevel.Default, sig)
+        val call = TsMemberCall(NoComments, TsProtectionLevel.Default, sig)
         TsDeclInterface(cs, dec, name, tparams, inheritance = Empty, members = IArray(call), codePath = cp)
 
       case other =>

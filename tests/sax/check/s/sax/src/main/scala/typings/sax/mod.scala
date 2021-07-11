@@ -31,7 +31,7 @@ object mod {
   class SAXStream protected () extends Duplex {
     def this(strict: Boolean, opt: SAXOptions) = this()
     
-    var _parser: SAXParser = js.native
+    /* private */ var _parser: SAXParser = js.native
   }
   
   @scala.inline

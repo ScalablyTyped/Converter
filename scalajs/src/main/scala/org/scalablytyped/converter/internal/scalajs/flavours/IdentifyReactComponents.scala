@@ -342,7 +342,7 @@ class IdentifyReactComponents(
           maybeMethodComponent(
             MethodTree(
               annotations = field.annotations,
-              level       = ProtectionLevel.Default,
+              level       = ProtectionLevel.Public,
               name        = field.name,
               tparams     = Empty,
               params      = IArray(params),

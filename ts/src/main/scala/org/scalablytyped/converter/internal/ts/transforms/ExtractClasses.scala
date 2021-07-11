@@ -57,7 +57,7 @@ object ExtractClasses extends TransformLeaveMembers {
                     ctors.map(ctor =>
                       TsMemberFunction(
                         ctor.comments,
-                        ProtectionLevel.Default,
+                        TsProtectionLevel.Default,
                         TsIdent.constructor,
                         MethodType.Normal,
                         TsFunSig(NoComments, Empty, ctor.params, None),

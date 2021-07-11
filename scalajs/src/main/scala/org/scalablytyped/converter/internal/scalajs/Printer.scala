@@ -298,7 +298,7 @@ object Printer {
 
           if (classType =/= ClassType.Trait) {
             print(" ")
-            print(formatProtectionLevel(defaultCtor.level, isCtor = true))
+            print(formatProtectionLevel(defaultCtor.level))
             print(formatParams(indent + 2)(defaultCtor.params))
           }
 
@@ -362,7 +362,7 @@ object Printer {
           print(Comments.format(comments))
           print(formatAnns(anns))
 
-          print(formatProtectionLevel(level, isCtor = false))
+          print(formatProtectionLevel(level))
           print(if (isImplicit) "implicit " else "")
           print(s"${if (isOverride) "override " else ""}def ")
 
@@ -385,7 +385,7 @@ object Printer {
           print(Comments.format(comments))
           println(
             "",
-            formatProtectionLevel(level, isCtor = true),
+            formatProtectionLevel(level),
             "def this",
             formatParams(indent + 2)(params),
             " = this()",
@@ -532,13 +532,11 @@ object Printer {
       if (s.exists(_.isWhitespace)) s"($s)"
       else s
 
-    def formatProtectionLevel(p: ProtectionLevel, isCtor: Boolean): String =
+    def formatProtectionLevel(p: ProtectionLevel): String =
       p match {
-        case ProtectionLevel.Default             => ""
-        case ProtectionLevel.Private if isCtor   => "protected "
-        case ProtectionLevel.Private             => "/* private */ "
-        case ProtectionLevel.Protected if isCtor => "protected "
-        case ProtectionLevel.Protected           => "/* protected */ "
+        case ProtectionLevel.Public    => ""
+        case ProtectionLevel.Private   => "private "
+        case ProtectionLevel.Protected => "protected "
       }
 
     def formatAnn(a: Annotation): String =

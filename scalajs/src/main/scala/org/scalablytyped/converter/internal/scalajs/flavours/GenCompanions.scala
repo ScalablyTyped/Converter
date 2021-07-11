@@ -153,7 +153,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
 
     MethodTree(
       annotations = IArray(Annotation.Inline),
-      level       = ProtectionLevel.Default,
+      level       = ProtectionLevel.Public,
       name        = name,
       tparams     = typeTparams,
       params      = IArray(creatorMethod.params),

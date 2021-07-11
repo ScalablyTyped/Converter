@@ -64,7 +64,7 @@ object GenBuilderClass {
               val valueParam = ParamTree(value, isImplicit = false, isVal = false, tpe, NotImplemented, NoComments)
               MethodTree(
                 annotations = IArray(Annotation.Inline),
-                level       = ProtectionLevel.Default,
+                level       = ProtectionLevel.Public,
                 name        = methodName,
                 tparams     = Empty,
                 params      = IArray(IArray(valueParam)),
@@ -87,7 +87,7 @@ object GenBuilderClass {
               Some(
                 MethodTree(
                   annotations = IArray(Annotation.Inline),
-                  level       = ProtectionLevel.Default,
+                  level       = ProtectionLevel.Public,
                   name        = name,
                   tparams     = Empty,
                   params      = Empty,
@@ -113,7 +113,7 @@ object GenBuilderClass {
               Some(
                 MethodTree(
                   annotations = IArray(Annotation.Inline),
-                  level       = ProtectionLevel.Default,
+                  level       = ProtectionLevel.Public,
                   name        = name,
                   tparams     = Empty,
                   params      = Empty,
@@ -142,7 +142,7 @@ object GenBuilderClass {
       }
 
       CtorTree(
-        ProtectionLevel.Default,
+        ProtectionLevel.Public,
         IArray(
           ParamTree(
             x,

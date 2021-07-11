@@ -69,7 +69,7 @@ object FakeLiterals {
               def `def` =
                 MethodTree(
                   IArray(Annotation.Inline),
-                  ProtectionLevel.Default,
+                  ProtectionLevel.Public,
                   name,
                   Empty,
                   Empty,

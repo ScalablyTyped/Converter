@@ -264,7 +264,7 @@ class ImportTree(
         IArray(
           tsMethod(
             scope          = scope,
-            level          = ProtectionLevel.Default,
+            level          = ProtectionLevel.Public,
             name           = name,
             annotations    = ImportJsLocation(jsLocation),
             cs             = cs,
@@ -324,10 +324,10 @@ class ImportTree(
           MemberRet(
             tsMethod(
               scope          = scope,
-              level          = level,
+              level          = ProtectionLevel.Public,
               name           = Name.APPLY,
               annotations    = Empty,
-              cs             = cs,
+              cs             = cs +? protectionLevelComment(level),
               methodType     = MethodType.Normal,
               sig            = signature,
               scalaJsDefined = scalaJsDefined,
@@ -344,7 +344,11 @@ class ImportTree(
         }
         IArray(
           MemberRet.Ctor(
-            CtorTree(level, tsFunParams(scope / sig, importName, params = sig.params), cs ++ sig.comments),
+            CtorTree(
+              level    = ProtectionLevel.Public,
+              params   = tsFunParams(scope / sig, importName, params = sig.params),
+              comments = cs ++ sig.comments +? protectionLevelComment(level),
+            ),
           ),
         )
 
@@ -357,10 +361,10 @@ class ImportTree(
           MemberRet(
             tsMethod(
               scope          = scope,
-              level          = level,
+              level          = ProtectionLevel.Public,
               name           = newName,
               annotations    = IArray.fromOption(annOpt),
-              cs             = cs,
+              cs             = cs +? protectionLevelComment(level),
               methodType     = methodType,
               sig            = signature,
               scalaJsDefined = scalaJsDefined,
@@ -434,6 +438,12 @@ class ImportTree(
         Empty
     }
   }
+  def protectionLevelComment(pl: TsProtectionLevel): Option[Comment] =
+    pl match {
+      case TsProtectionLevel.Default   => None
+      case TsProtectionLevel.Private   => Some(Comment("/* private */"))
+      case TsProtectionLevel.Protected => Some(Comment("/* protected */"))
+    }
 
   def tsMemberProperty(
       scope:          TsTreeScope,
@@ -454,10 +464,10 @@ class ImportTree(
             MemberRet(
               tsMethod(
                 scope          = scope / call,
-                level          = call.level,
+                level          = ProtectionLevel.Public,
                 name           = name,
                 annotations    = IArray.fromOption(annOpt),
-                cs             = call.comments,
+                cs             = call.comments +? protectionLevelComment(call.level),
                 methodType     = MethodType.Normal,
                 sig            = call.signature,
                 scalaJsDefined = scalaJsDefined,
@@ -485,7 +495,7 @@ class ImportTree(
                 impl        = impl,
                 isReadOnly  = m.isReadOnly,
                 isOverride  = false,
-                comments    = m.comments,
+                comments    = m.comments +? protectionLevelComment(m.level),
                 codePath    = ownerCP + name,
               ),
             ),

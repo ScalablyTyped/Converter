@@ -20,7 +20,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
     val name: Name = Name("args")
     MethodTree(
       IArray(Annotation.Inline),
-      ProtectionLevel.Default,
+      ProtectionLevel.Public,
       name,
       Empty,
       Empty,
@@ -54,7 +54,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
     MethodTree(
       IArray(Annotation.Inline),
-      ProtectionLevel.Default,
+      ProtectionLevel.Public,
       name,
       Empty,
       IArray(IArray(keyParam, valueParam)),
@@ -98,7 +98,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
     MethodTree(
       IArray(Annotation.Inline),
-      ProtectionLevel.Default,
+      ProtectionLevel.Public,
       name,
       Empty,
       IArray(IArray(fParam)),
@@ -127,7 +127,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
       MethodTree(
         IArray(Annotation.Inline),
-        ProtectionLevel.Default,
+        ProtectionLevel.Public,
         name,
         Empty,
         IArray(IArray(param)),
@@ -145,7 +145,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
       MethodTree(
         IArray(Annotation.Inline),
-        ProtectionLevel.Default,
+        ProtectionLevel.Public,
         name,
         Empty,
         Empty,
@@ -243,7 +243,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
       MethodTree(
         IArray(Annotation.Inline),
-        ProtectionLevel.Default,
+        ProtectionLevel.Public,
         name,
         Empty,
         IArray(IArray(tParam)),
@@ -278,7 +278,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
+        level       = ProtectionLevel.Public,
         name        = Name.APPLY,
         tparams     = Empty,
         params      = IArray(IArray(modsParam)),
@@ -304,7 +304,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       val name = Name("withKey")
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
+        level       = ProtectionLevel.Public,
         name        = name,
         tparams     = Empty,
         params      = IArray(IArray(param)),
@@ -326,7 +326,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       val name  = Name("withRef")
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
+        level       = ProtectionLevel.Public,
         name        = name,
         tparams     = Empty,
         params      = IArray(IArray(param)),
@@ -346,7 +346,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       val name  = Name("withRef")
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
+        level       = ProtectionLevel.Public,
         name        = name,
         tparams     = Empty,
         params      = IArray(IArray(param)),
@@ -379,7 +379,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
   lazy val Default: ClassTree = {
     val ctor = CtorTree(
-      ProtectionLevel.Default,
+      ProtectionLevel.Public,
       IArray(
         ParamTree(
           Name("args"),
@@ -500,7 +500,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
       MethodTree(
         IArray(Annotation.Inline),
-        ProtectionLevel.Default,
+        ProtectionLevel.Public,
         name,
         builderTparams,
         IArray(IArray(compParam)),

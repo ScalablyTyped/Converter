@@ -174,6 +174,8 @@ object ImportScalaDefinitions extends App {
     all.mapNotNone(isJs)
   }
 
+  Json.persist[IArray[Tree]](dumpJsonTo)(flatten(allJs))
+
   {
     val inContainers: IArray[Tree] =
       allJs.map { one =>
@@ -222,8 +224,6 @@ object ImportScalaDefinitions extends App {
       Printer(scope, new ParentsResolver, asPackageComplete, Name.typings, Versions.Scala213)
     files.sync(printed, dumpSourceTo, deleteUnknowns = true, soft = true)
   }
-
-  Json.persist[IArray[Tree]](dumpJsonTo)(flatten(allJs))
 
   %("git", "add", dumpSourceTo, dumpJsonTo)(projectRoot)
 
@@ -423,7 +423,7 @@ object ImportScalaDefinitions extends App {
           val level =
             if (m.isPrivate) ProtectionLevel.Private
             else if (m.isProtected) ProtectionLevel.Protected
-            else ProtectionLevel.Default
+            else ProtectionLevel.Public
 
           if (name.unescaped === "this")
             CtorTree(level, params, NoComments)
