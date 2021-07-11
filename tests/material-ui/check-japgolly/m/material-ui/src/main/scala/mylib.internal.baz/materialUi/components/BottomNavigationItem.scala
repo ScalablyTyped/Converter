@@ -1,12 +1,12 @@
-package typingsJapgolly.materialUi.components
+package mylib.internal.baz.materialUi.components
 
-import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
+import mylib.internal.baz.StBuildingComponent
+import mylib.internal.baz.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object BottomNavigationItem {
+private[internal] object BottomNavigationItem {
   
   @scala.inline
   def apply(children: Double): Builder = {
@@ -21,7 +21,7 @@ object BottomNavigationItem {
   @scala.inline
   class Builder (val args: js.Array[js.Any])
     extends AnyVal
-       with StBuildingComponent[typingsJapgolly.materialUi.bottomNavigationItemMod.BottomNavigationItem] {
+       with StBuildingComponent[mylib.internal.baz.materialUi.bottomNavigationItemMod.BottomNavigationItem] {
     
     @scala.inline
     def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])

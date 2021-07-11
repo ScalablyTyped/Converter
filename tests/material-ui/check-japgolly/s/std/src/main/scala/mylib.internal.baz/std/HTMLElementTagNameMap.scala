@@ -1,10 +1,10 @@
-package typingsJapgolly.std
+package mylib.internal.baz.std
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-trait HTMLElementTagNameMap extends StObject {
+private[internal] trait HTMLElementTagNameMap extends StObject {
   
   var a: org.scalajs.dom.raw.HTMLAnchorElement
   
@@ -20,7 +20,7 @@ trait HTMLElementTagNameMap extends StObject {
   
   var audio: org.scalajs.dom.raw.HTMLAudioElement
 }
-object HTMLElementTagNameMap {
+private[internal] object HTMLElementTagNameMap {
   
   @scala.inline
   def apply(

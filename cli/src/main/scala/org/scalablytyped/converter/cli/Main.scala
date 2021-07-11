@@ -43,6 +43,7 @@ object Main {
     organization           = "org.scalablytyped",
     enableReactTreeShaking = Selection.None,
     enableLongApplyMethod  = false,
+    privateWithin          = None,
   )
 
   case class Config(
@@ -152,6 +153,9 @@ object Main {
         .text(s"Organization used (locally) publish artifacts"),
       opt[Seq[String]]("ignoredLibs")
         .action((x, c) => c.mapConversion(_.copy(ignored = x.toSet.sorted)))
+        .text(s"Libraries you want to ignore"),
+      opt[String]("privateWithin")
+        .action((x, c) => c.mapConversion(_.copy(privateWithin = Some(Name(x)))))
         .text(s"Libraries you want to ignore"),
       opt[Boolean]("experimentalEnableImplicitOps")
         .action { (x, c) =>
@@ -267,7 +271,10 @@ object Main {
               ),
               "scala.js",
             )
-            .next(new PhaseFlavour(conversion.flavourImpl), conversion.flavourImpl.toString)
+            .next(
+              new PhaseFlavour(conversion.flavourImpl, maybePrivateWithin = conversion.privateWithin),
+              conversion.flavourImpl.toString,
+            )
             .next(
               new Phase3Compile(
                 versions                   = conversion.versions,

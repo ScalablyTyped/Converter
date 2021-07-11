@@ -1,14 +1,14 @@
-package typingsJapgolly.std
+package mylib.internal.baz.std
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-trait SVGElementTagNameMap extends StObject {
+private[internal] trait SVGElementTagNameMap extends StObject {
   
   var circle: org.scalajs.dom.raw.SVGCircleElement
 }
-object SVGElementTagNameMap {
+private[internal] object SVGElementTagNameMap {
   
   @scala.inline
   def apply(circle: org.scalajs.dom.raw.SVGCircleElement): SVGElementTagNameMap = {

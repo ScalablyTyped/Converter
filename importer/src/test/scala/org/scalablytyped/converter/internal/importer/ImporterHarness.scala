@@ -46,6 +46,7 @@ trait ImporterHarness extends AnyFunSuite {
       logRegistry:        LogRegistry[Source, TsIdentLibrary, StringWriter],
       publishLocalFolder: os.Path,
       flavour:            FlavourImpl,
+      maybePrivateWithin: Option[Name],
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
     val stdLibSource: StdLibSource =
       StdLibSource(InFolder(source.path), IArray(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
@@ -78,7 +79,7 @@ trait ImporterHarness extends AnyFunSuite {
           ),
           "scala.js",
         )
-        .next(new PhaseFlavour(flavour), flavour.toString)
+        .next(new PhaseFlavour(flavour, maybePrivateWithin), flavour.toString)
         .next(
           new Phase3Compile(
             versions                   = version,
@@ -123,6 +124,7 @@ trait ImporterHarness extends AnyFunSuite {
         outputPkg                = Name.typings,
         versions                 = version,
       ),
+      maybePrivateWithin: Option[Name] = None
   ): Assertion = {
     val testFolder   = findTestFolder(testName)
     val source       = InFolder(testFolder.path / 'in)
@@ -145,7 +147,7 @@ trait ImporterHarness extends AnyFunSuite {
 
     val publishFolder = baseDir / "artifacts" / testName
 
-    runImport(source, targetFolder, pedantic, logRegistry, publishFolder, flavour) match {
+    runImport(source, targetFolder, pedantic, logRegistry, publishFolder, flavour, maybePrivateWithin) match {
       case PhaseRes.Ok(_) =>
         implicit val wd = os.pwd
 

@@ -6,7 +6,7 @@ import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
 import org.scalablytyped.converter.internal.scalajs.TypeParamTree.asTypeArgs
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
-import org.scalablytyped.converter.internal.scalajs.transforms.{ModulesCombine, UnionToInheritance}
+import org.scalablytyped.converter.internal.scalajs.transforms.ModulesCombine
 
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax

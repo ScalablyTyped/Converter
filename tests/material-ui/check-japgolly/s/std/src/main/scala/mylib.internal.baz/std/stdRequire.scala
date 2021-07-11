@@ -1,4 +1,4 @@
-package typingsJapgolly.std
+package mylib.internal.baz.std
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
@@ -8,4 +8,4 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   If it is a global library this will make scalajs-bundler include it */
 @JSImport("std", JSImport.Namespace)
 @js.native
-object stdRequire extends StObject
+private[internal] object stdRequire extends StObject

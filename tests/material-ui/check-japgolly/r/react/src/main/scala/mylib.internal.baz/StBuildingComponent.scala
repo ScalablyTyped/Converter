@@ -1,5 +1,6 @@
-package typingsJapgolly
+package mylib.internal.baz
 
+import mylib.internal.baz.StBuildingComponent.make
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.Ref.Simple
 import japgolly.scalajs.react.raw.React.Element
@@ -8,12 +9,11 @@ import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.TagMod.Composite
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
-import typingsJapgolly.StBuildingComponent.make
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-trait StBuildingComponent[R <: js.Object] extends Any {
+private[internal] trait StBuildingComponent[R <: js.Object] extends Any {
   
   @scala.inline
   def apply(mods: TagMod*): this.type = {
@@ -70,7 +70,7 @@ trait StBuildingComponent[R <: js.Object] extends Any {
   @scala.inline
   def withRef(ref: R => Unit): this.type = set("ref", ref)
 }
-object StBuildingComponent {
+private[internal] object StBuildingComponent {
   
   @JSImport("react", JSImport.Namespace, "React")
   @js.native

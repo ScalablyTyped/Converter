@@ -1,5 +1,9 @@
-package typingsJapgolly.react
+package mylib.internal.baz.react
 
+import mylib.internal.baz.react.anon.Children
+import mylib.internal.baz.react.anon.Html
+import mylib.internal.baz.react.reactStrings.foo
+import mylib.internal.baz.std.Partial
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.raw.Empty
 import japgolly.scalajs.react.raw.JsNumber
@@ -10,15 +14,11 @@ import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
-import typingsJapgolly.react.anon.Children
-import typingsJapgolly.react.anon.Html
-import typingsJapgolly.react.reactStrings.foo
-import typingsJapgolly.std.Partial
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object mod {
+private[internal] object mod {
   
   trait AllHTMLAttributes[T]
     extends StObject

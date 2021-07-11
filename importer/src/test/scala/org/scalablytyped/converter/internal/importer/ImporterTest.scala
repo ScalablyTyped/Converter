@@ -65,7 +65,13 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   )
 
   test("material-ui-japgolly")(
-    assertImportsOk("material-ui", pedantic = true, update = update, flavour = Japgolly),
+    assertImportsOk(
+      "material-ui",
+      pedantic           = true,
+      update             = update,
+      flavour            = Japgolly.copy(outputPkg = Name("mylib.internal.baz")),
+      maybePrivateWithin = Some(Name("internal")),
+    ),
   )
 
   test("react-transition-group-slinky")(

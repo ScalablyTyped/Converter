@@ -1,11 +1,11 @@
-package typingsJapgolly.materialUi.components
+package mylib.internal.baz.materialUi.components
 
-import typingsJapgolly.materialUi.accessibilityMod.default
+import mylib.internal.baz.materialUi.accessibilityMod.default
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object Accessibility {
+private[internal] object Accessibility {
   
   @JSImport("material-ui/svg-icons/action/accessibility", JSImport.Default)
   @js.native

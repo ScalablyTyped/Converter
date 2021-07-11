@@ -1,4 +1,4 @@
-package typingsJapgolly.react
+package mylib.internal.baz.react
 
 import japgolly.scalajs.react.raw.Empty
 import japgolly.scalajs.react.raw.JsNumber
@@ -10,7 +10,7 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object anon {
+private[internal] object anon {
   
   trait Children extends StObject {
     

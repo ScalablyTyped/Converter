@@ -1,11 +1,11 @@
-package typingsJapgolly.materialUi
+package mylib.internal.baz.materialUi
 
-import typingsJapgolly.materialUi.MaterialUI.Styles.MuiTheme
+import mylib.internal.baz.materialUi.MaterialUI.Styles.MuiTheme
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object mod {
+private[internal] object mod {
   
   @JSImport("material-ui/styles", JSImport.Namespace)
   @js.native

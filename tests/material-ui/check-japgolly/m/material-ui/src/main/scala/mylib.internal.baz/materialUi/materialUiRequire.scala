@@ -1,4 +1,4 @@
-package typingsJapgolly.react
+package mylib.internal.baz.materialUi
 
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
@@ -6,6 +6,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 /* This can be used to `require` the library as a side effect.
   If it is a global library this will make scalajs-bundler include it */
-@JSImport("react", JSImport.Namespace)
+@JSImport("material-ui", JSImport.Namespace)
 @js.native
-object reactRequire extends StObject
+private[internal] object materialUiRequire extends StObject

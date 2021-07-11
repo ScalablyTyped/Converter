@@ -426,7 +426,7 @@ object ImportScalaDefinitions extends App {
 
         val tree = if (m.isMethod && !(m.isAccessor && params.isEmpty)) {
           val level =
-            if (m.isPrivate) ProtectionLevel.Private
+            if (m.isPrivate) ProtectionLevel.Private(None)
             else if (m.isProtected) ProtectionLevel.Protected
             else ProtectionLevel.Public
 

@@ -119,6 +119,28 @@ Typical difference in generated code:
 
 The difference in bundle size can be remarkable, for instance the Slinky `material-ui` demo ended up one fifth of the original size.
 
+### `stPrivateWithin`
+
+Set this to enable generation of typings which are all private to the package you specify.
+Note that you need to specify just one of the packages in the fully qualified name.
+Try to choose something which doesn't name clash with generated code.
+
+For instance:
+```scala
+project.settings(
+  stOutputPackage := "mylib.internal.facades",
+  stPrivateWithin := Some("internal")
+)
+```
+
+Typical difference in generated code:
+```diff
+-  @JSImport("react-bootstrap", "ButtonGroup")
++  @JSImport("react-bootstrap/lib/ButtonGroup", JSImport.Namespace)
+```
+
+The difference in bundle size can be remarkable, for instance the Slinky `material-ui` demo ended up one fifth of the original size.
+
 
 ## Customize the build
 

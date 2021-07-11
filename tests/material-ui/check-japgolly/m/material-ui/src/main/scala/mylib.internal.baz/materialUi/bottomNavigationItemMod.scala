@@ -1,12 +1,12 @@
-package typingsJapgolly.materialUi
+package mylib.internal.baz.materialUi
 
-import typingsJapgolly.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
-import typingsJapgolly.react.mod.Component
+import mylib.internal.baz.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
+import mylib.internal.baz.react.mod.Component
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object bottomNavigationItemMod {
+private[internal] object bottomNavigationItemMod {
   
   @JSImport("material-ui/BottomNavigation/BottomNavigationItem", JSImport.Default)
   @js.native

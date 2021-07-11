@@ -539,9 +539,10 @@ object Printer {
 
     def formatProtectionLevel(p: ProtectionLevel): String =
       p match {
-        case ProtectionLevel.Public    => ""
-        case ProtectionLevel.Private   => "private "
-        case ProtectionLevel.Protected => "protected "
+        case ProtectionLevel.Public                => ""
+        case ProtectionLevel.Private(Some(within)) => s"private[${within.unescaped}] "
+        case ProtectionLevel.Private(None)         => "private "
+        case ProtectionLevel.Protected             => "protected "
       }
 
     def formatAnn(a: Annotation): String =

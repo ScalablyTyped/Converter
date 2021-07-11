@@ -85,7 +85,10 @@ object ImportTypingsGenSources {
         ),
         "scala.js",
       )
-      .next(new PhaseFlavour(input.conversion.flavourImpl), input.conversion.flavour.toString)
+      .next(
+        new PhaseFlavour(input.conversion.flavourImpl, maybePrivateWithin = input.conversion.privateWithin),
+        input.conversion.flavour.toString,
+      )
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, LibScalaJs]] =
       initial
@@ -164,6 +167,7 @@ object ImportTypingsGenSources {
       organization           = "org.scalablytyped",
       enableReactTreeShaking = Selection.None,
       enableLongApplyMethod  = false,
+      privateWithin          = None,
     )
 
     println(
