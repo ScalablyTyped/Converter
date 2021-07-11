@@ -65,7 +65,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
       ScalaJsBundlerHack.adaptNpmInstallJSResources,
       stImport := {
-        val stLogger     = WrapSbtLogger.task.value
+        val stLogger   = WrapSbtLogger.task.value
         val conversion = stConversionOptions.value
 
         if (conversion.outputPackage == Name.typings) {
