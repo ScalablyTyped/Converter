@@ -84,6 +84,7 @@ object PackageTree {
 final case class ClassTree(
     isImplicit:  Boolean,
     annotations: IArray[Annotation],
+    level:       ProtectionLevel,
     name:        Name,
     tparams:     IArray[TypeParamTree],
     parents:     IArray[TypeRef],
@@ -97,6 +98,7 @@ final case class ClassTree(
 
 final case class ModuleTree(
     annotations: IArray[Annotation],
+    level:       ProtectionLevel,
     name:        Name,
     parents:     IArray[TypeRef],
     members:     IArray[Tree],
@@ -108,6 +110,7 @@ final case class ModuleTree(
 
 final case class TypeAliasTree(
     name:     Name,
+    level:    ProtectionLevel,
     tparams:  IArray[TypeParamTree],
     alias:    TypeRef,
     comments: Comments,
@@ -132,6 +135,7 @@ sealed trait MemberTree extends Tree with HasCodePath with HasAnnotations {
 
 final case class FieldTree(
     annotations: IArray[Annotation],
+    level:       ProtectionLevel,
     name:        Name,
     tpe:         TypeRef,
     impl:        ImplTree,

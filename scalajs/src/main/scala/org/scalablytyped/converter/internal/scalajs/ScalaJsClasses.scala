@@ -11,6 +11,7 @@ object ScalaJsClasses {
     ClassTree(
       isImplicit = false,
       Empty,
+      ProtectionLevel.Public,
       Name.Object,
       Empty,
       Empty,
@@ -38,7 +39,7 @@ object ScalaJsClasses {
 
   val hardcoded: IArray[ClassTree] = {
     def cls(cp: QualifiedName, parents: IArray[TypeRef], classType: ClassType, isSealed: Boolean) =
-      ClassTree(false, Empty, cp.parts.last, Empty, parents, Empty, Empty, classType, isSealed, NoComments, cp)
+      ClassTree(false, Empty, ProtectionLevel.Public, cp.parts.last, Empty, parents, Empty, Empty, classType, isSealed, NoComments, cp)
 
     IArray(
         Any,

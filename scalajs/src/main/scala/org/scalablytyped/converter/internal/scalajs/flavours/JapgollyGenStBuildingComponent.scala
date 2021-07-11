@@ -365,6 +365,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
     ClassTree(
       isImplicit  = false,
       annotations = Empty,
+      level       = ProtectionLevel.Public,
       name        = StBuildingComponent,
       tparams     = builderTparams,
       parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.Any)),
@@ -397,6 +398,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
     ClassTree(
       isImplicit  = false,
       annotations = Empty,
+      level       = ProtectionLevel.Public,
       name        = name,
       tparams     = builderTparams,
       parents     = IArray.fromOption(enableAnyVal) ++ IArray(builderRef),
@@ -421,6 +423,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       val createElement = Name("createElement")
       val createElementField = FieldTree(
         annotations = Empty,
+        level       = ProtectionLevel.Public,
         name        = createElement,
         tpe         = TypeRef.JsDynamic,
         impl        = ExprTree.native,
@@ -434,6 +437,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
           Annotation.JsImport("react", Imported.Namespace, Some(Annotation.JsGlobal(QualifiedName("React")))),
           Annotation.JsNative,
         ), // todo global
+        ProtectionLevel.Public,
         name,
         IArray(TypeRef.JsObject),
         IArray(createElementField),
@@ -515,6 +519,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
     val tree = ModuleTree(
       Empty,
+      ProtectionLevel.Public,
       StBuildingComponent,
       Empty,
       IArray(ReactRaw, make, Default),

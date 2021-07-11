@@ -37,6 +37,7 @@ class ImportTree(
       val name    = Name(libName.unescaped + "Require")
       ModuleTree(
         IArray(Annotation.JsImport(lib.name.value, Imported.Namespace, None), Annotation.JsNative),
+        ProtectionLevel.Public,
         name,
         Empty,
         Empty,
@@ -140,6 +141,7 @@ class ImportTree(
           IArray(
             ModuleTree(
               annotations = anns,
+              level       = ProtectionLevel.Public,
               name        = name,
               parents     = IArray(tpe),
               members     = Empty,
@@ -152,6 +154,7 @@ class ImportTree(
           IArray(
             FieldTree(
               annotations = anns,
+              level       = ProtectionLevel.Public,
               name        = name,
               tpe         = tpe,
               impl        = ExprTree.native,
@@ -188,6 +191,7 @@ class ImportTree(
         val cls = ClassTree(
           isImplicit  = false,
           annotations = anns,
+          level       = ProtectionLevel.Public,
           name        = newCodePath.parts.last,
           tparams     = tparams.map(typeParam(scope, importName)),
           parents     = parents ++ extraInheritance.sorted,
@@ -204,6 +208,7 @@ class ImportTree(
             Some(
               ModuleTree(
                 anns,
+                ProtectionLevel.Public,
                 newCodePath.parts.last,
                 Empty,
                 importedStatics,
@@ -234,6 +239,7 @@ class ImportTree(
           ClassTree(
             isImplicit  = false,
             annotations = anns,
+            level       = ProtectionLevel.Public,
             name        = newCodePath.parts.last,
             tparams     = tparams.map(typeParam(scope, importName)),
             parents     = parents ++ extraInheritance.sorted,
@@ -251,6 +257,7 @@ class ImportTree(
         IArray(
           TypeAliasTree(
             name     = importedCp.parts.last,
+            level    = ProtectionLevel.Public,
             tparams  = tparams.map(typeParam(scope, importName)),
             alias    = importType(scope, importName)(alias),
             comments = cs,
@@ -417,6 +424,7 @@ class ImportTree(
                   MemberRet(
                     FieldTree(
                       annotations = IArray(a),
+                      level       = ProtectionLevel.Public,
                       name        = symName,
                       tpe         = importType.orAny(scope, importName)(m.valueType),
                       impl        = fieldType,
@@ -490,6 +498,7 @@ class ImportTree(
             hack(
               FieldTree(
                 annotations = IArray.fromOption(annOpt),
+                level       = ProtectionLevel.Public,
                 name        = name,
                 tpe         = importedType,
                 impl        = impl,
@@ -622,6 +631,7 @@ class ImportTree(
           importedCp,
           ModuleTree(
             annotations = ImportJsLocation(jsLocation),
+            level       = ProtectionLevel.Public,
             name        = importedCp.parts.last,
             parents     = inheritance,
             members     = memberTrees ++ patchedRestTrees,

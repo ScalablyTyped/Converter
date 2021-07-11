@@ -32,13 +32,16 @@ object ImportEnum {
       case TsDeclEnum(cs, _, true, _, _, _, Some(exportedFrom), _, codePath) =>
         val tpe        = importType(scope, importName)(exportedFrom)
         val importedCp = importName(codePath)
-        IArray(TypeAliasTree(importedCp.parts.last, Empty, tpe, cs + Marker.IsTrivial, importedCp))
+        IArray(
+          TypeAliasTree(importedCp.parts.last, ProtectionLevel.Public, Empty, tpe, cs + Marker.IsTrivial, importedCp),
+        )
 
       /* normal const enum? type alias. And output a scala object with values if possible, otherwise a comment */
       case TsDeclEnum(cs, _, true, _, members, _, None, _, codePath) =>
         val importedCodePath = importName(codePath)
         val ta = TypeAliasTree(
           name     = importedCodePath.parts.last,
+          level    = ProtectionLevel.Public,
           tparams  = Empty,
           alias    = importType(scope, importName)(TsTypeUnion(e.members.map(m => TsExpr.typeOfOpt(m.expr)))),
           comments = cs,
@@ -72,6 +75,7 @@ object ImportEnum {
           val related = Comments(Marker.MinimizationRelated(newMembers.map(m => TypeRef(m.codePath))))
           ModuleTree(
             Empty,
+            ProtectionLevel.Public,
             importedCodePath.parts.last,
             Empty,
             newMembers,
@@ -98,8 +102,9 @@ object ImportEnum {
         val typeTree: Tree =
           exportedFrom match {
             case Some(ef) =>
-              scalajs.TypeAliasTree(
+              TypeAliasTree(
                 name     = enumName,
+                level    = ProtectionLevel.Public,
                 tparams  = Empty,
                 alias    = importType(scope, importName)(TsTypeRef(NoComments, ef.name, Empty)),
                 comments = Comments(Marker.IsTrivial),
@@ -109,6 +114,7 @@ object ImportEnum {
               ClassTree(
                 isImplicit  = false,
                 annotations = IArray(Annotation.JsNative),
+                level       = ProtectionLevel.Public,
                 name        = enumName,
                 tparams     = Empty,
                 parents     = Empty,
@@ -153,6 +159,7 @@ object ImportEnum {
                       ClassTree(
                         isImplicit  = false,
                         annotations = IArray(Annotation.JsNative),
+                        level       = ProtectionLevel.Public,
                         name        = memberName,
                         tparams     = Empty,
                         parents     = IArray(baseInterface),
@@ -180,6 +187,7 @@ object ImportEnum {
                     Some(
                       FieldTree(
                         annotations = anns,
+                        level       = ProtectionLevel.Public,
                         name        = name,
                         tpe         = TypeRef.Intersection(IArray(memberTypeRef, underlying), NoComments),
                         impl        = ExprTree.native,
@@ -195,13 +203,14 @@ object ImportEnum {
             }
 
           ModuleTree(
-            anns,
-            enumName,
-            parents    = Empty,
-            members    = membersSyms ++ IArray.fromOption(applyMethod),
-            comments   = cs + Marker.EnumObject,
-            codePath   = importedCodePath,
-            isOverride = false,
+            annotations = anns,
+            level       = ProtectionLevel.Public,
+            name        = enumName,
+            parents     = Empty,
+            members     = membersSyms ++ IArray.fromOption(applyMethod),
+            comments    = cs + Marker.EnumObject,
+            codePath    = importedCodePath,
+            isOverride  = false,
           )
         }
 

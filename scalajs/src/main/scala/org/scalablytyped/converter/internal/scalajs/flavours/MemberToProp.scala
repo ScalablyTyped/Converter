@@ -16,7 +16,7 @@ object MemberToProp {
 
     override def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
       x match {
-        case f @ FieldTree(_, _, origTpe, _, _, _, _, _) =>
+        case f @ FieldTree(_, _, _, origTpe, _, _, _, _, _) =>
           Optionality(FollowAliases(scope)(origTpe)) match {
 
             case (optionality, TypeRef.JsFunction(paramTypes, retType)) =>

@@ -94,7 +94,16 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
           case some =>
             val related      = Marker.MinimizationRelated(some.collect { case m: HasCodePath => TypeRef(m.codePath) })
             val dontMinimize = Comments(related)
-            val mod          = ModuleTree(Empty, cls.name, Empty, some, dontMinimize, cls.codePath, isOverride = false)
+            val mod = ModuleTree(
+              Empty,
+              ProtectionLevel.Public,
+              cls.name,
+              Empty,
+              some,
+              dontMinimize,
+              cls.codePath,
+              isOverride = false,
+            )
             Some(mod)
         }
 

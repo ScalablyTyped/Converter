@@ -59,7 +59,7 @@ class IdentifyReactComponents(
           case (t: ClassTree, _) =>
             t.members.collect {
               // a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
-              case FieldTree(_, name, props @ TypeRef(_, tparams, _), _, _, _, _, _) =>
+              case FieldTree(_, _, name, props @ TypeRef(_, tparams, _), _, _, _, _, _) =>
                 Component(
                   location      = Left(ExprTree.StringLit(name.unescaped)),
                   scalaRef      = tparams.last,
@@ -149,8 +149,17 @@ class IdentifyReactComponents(
         val _2: IArray[Component] =
           fields.flatMap { x =>
             /* translate to module first (it will be translated back later) to find nested components */
-            val anns     = IArray(locationFrom(scope / x))
-            val asModule = ModuleTree(anns, x.name, IArray(x.tpe), Empty, x.comments, x.codePath, isOverride = false)
+            val anns = IArray(locationFrom(scope / x))
+            val asModule = ModuleTree(
+              anns,
+              ProtectionLevel.Public,
+              x.name,
+              IArray(x.tpe),
+              Empty,
+              x.comments,
+              x.codePath,
+              isOverride = false,
+            )
             maybeContainerComponent(asModule, scope / asModule) match {
               case Left(_)  => Empty
               case Right(c) => IArray(c)
@@ -278,6 +287,7 @@ class IdentifyReactComponents(
         case some =>
           val asField = FieldTree(
             annotations = c.annotations,
+            level       = ProtectionLevel.Public,
             name        = c.name,
             tpe         = TypeRef.Intersection(some, NoComments),
             impl        = ExprTree.native,

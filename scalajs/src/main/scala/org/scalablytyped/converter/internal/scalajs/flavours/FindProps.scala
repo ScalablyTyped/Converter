@@ -196,8 +196,8 @@ final class FindProps(
               .collect { case x: MemberTree => x }
               /* worthless and for instance `(???: js.UndefOr[Nothing]).get` doesn't compile */
               .filter {
-                case FieldTree(_, _, Optionality(_, TypeRef.Nothing), _, _, _, _, _) => false
-                case _                                                               => true
+                case FieldTree(_, _, _, Optionality(_, TypeRef.Nothing), _, _, _, _, _) => false
+                case _                                                                  => true
               }
               .groupBy(x => realNameFrom(x.annotations, x.name))
               .collect {
@@ -238,7 +238,7 @@ final class FindProps(
                 compressedParents.map { parent =>
                   val isRequired = parent.classTree.members.exists {
                     case _: MethodTree => true
-                    case FieldTree(_, _, Optional(_), _, _, _, _, _) => false
+                    case FieldTree(_, _, _, Optional(_), _, _, _, _, _) => false
                     case _: FieldTree => true
                     case _ => false
                   }

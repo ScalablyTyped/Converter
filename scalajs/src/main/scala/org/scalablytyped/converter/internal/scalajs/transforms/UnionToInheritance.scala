@@ -111,6 +111,7 @@ object UnionToInheritance {
             val cls = ClassTree(
               isImplicit = false,
               IArray(Annotation.ScalaJSDefined),
+              ta.level,
               ta.name,
               ta.tparams,
               Empty,
@@ -128,6 +129,7 @@ object UnionToInheritance {
             val cls = ClassTree(
               isImplicit = false,
               IArray(Annotation.ScalaJSDefined),
+              ta.level,
               patchedTa.name,
               ta.tparams,
               newParentsByCodePath.getOrElse(ta.codePath, Empty).map(_.instantiate(ta.tparams)),

@@ -159,7 +159,18 @@ object Mangler extends TreeTransformation {
               codePath    = m.codePath + Name.APPLY,
             )
 
-          IArray(ModuleTree(Empty, m.name, Empty, IArray(asApply), NoComments, m.codePath, m.isOverride))
+          IArray(
+            ModuleTree(
+              Empty,
+              ProtectionLevel.Public,
+              m.name,
+              Empty,
+              IArray(asApply),
+              NoComments,
+              m.codePath,
+              m.isOverride,
+            ),
+          )
 
         } else
           IArray(
@@ -231,6 +242,7 @@ object Mangler extends TreeTransformation {
         Some(
           ModuleTree(
             annotations = pkg.annotations,
+            level       = ProtectionLevel.Public,
             name        = Name.namespaced,
             parents     = parents,
             members     = Empty,
@@ -297,7 +309,18 @@ object Mangler extends TreeTransformation {
                 codePath    = m.codePath + Name.APPLY,
               )
 
-            IArray(ModuleTree(Empty, m.name, Empty, IArray(asApply), NoComments, m.codePath, m.isOverride))
+            IArray(
+              ModuleTree(
+                Empty,
+                ProtectionLevel.Public,
+                m.name,
+                Empty,
+                IArray(asApply),
+                NoComments,
+                m.codePath,
+                m.isOverride,
+              ),
+            )
 
           } else
             IArray(
@@ -368,6 +391,7 @@ object Mangler extends TreeTransformation {
         Some(
           FieldTree(
             annotations = mod.annotations,
+            level       = ProtectionLevel.Public,
             name        = Name.namespaced,
             tpe         = tpe,
             impl        = ExprTree.native,
@@ -421,7 +445,7 @@ object Mangler extends TreeTransformation {
 
         val To = {
           val name = Name("_To")
-          TypeAliasTree(name, Empty, field.tpe, NoComments, mod.codePath + name)
+          TypeAliasTree(name, ProtectionLevel.Public, Empty, field.tpe, NoComments, mod.codePath + name)
         }
 
         val comments = {

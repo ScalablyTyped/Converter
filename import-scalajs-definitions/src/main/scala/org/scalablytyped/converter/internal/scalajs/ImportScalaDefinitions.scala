@@ -185,6 +185,7 @@ object ImportScalaDefinitions extends App {
           else
             ModuleTree(
               Empty,
+              ProtectionLevel.Public,
               codePath(idx),
               Empty,
               IArray(pack(idx + 1)),
@@ -258,7 +259,9 @@ object ImportScalaDefinitions extends App {
           }).filter(_.typeName =/= codePath).filterNot(Anies)
 
         val members = IArray.fromTraversable(obj.children).mapNotNone(toTree)
-        Some(ModuleTree(Empty, name, parents, members, NoComments, codePath, isOverride = false))
+        Some(
+          ModuleTree(Empty, ProtectionLevel.Public, name, parents, members, NoComments, codePath, isOverride = false),
+        )
 
       case x: AliasSymbol =>
         val name     = Name(processName(x.name))
@@ -268,7 +271,7 @@ object ImportScalaDefinitions extends App {
             (toTypeParameterTrees(symbols), toTypeRefForce(typeRef))
           case other => (Empty, toTypeRefForce(other))
         }
-        val ref = TypeAliasTree(name, tparams, alias, NoComments, codePath)
+        val ref = TypeAliasTree(name, ProtectionLevel.Public, tparams, alias, NoComments, codePath)
         Some(ref)
 
       case c: ClassSymbol if c.name != "<refinement>" =>
@@ -313,6 +316,7 @@ object ImportScalaDefinitions extends App {
               if (c.isModule)
                 ModuleTree(
                   annotations = Empty,
+                  level       = ProtectionLevel.Public,
                   name        = name,
                   parents     = parents,
                   members     = membersWithoutAccessors,
@@ -324,6 +328,7 @@ object ImportScalaDefinitions extends App {
                 ClassTree(
                   isImplicit  = c.isImplicit,
                   annotations = Empty,
+                  level       = ProtectionLevel.Public,
                   name        = name,
                   tparams     = tparams,
                   parents     = parents,
@@ -347,7 +352,7 @@ object ImportScalaDefinitions extends App {
         val JapgollyComponent = QualifiedName("japgolly.scalajs.react.raw.React.Component")
 
         val patched = cls match {
-          case cls @ ClassTree(_, _, _, _, _, _, _, _, _, _, JapgollyComponent) =>
+          case cls @ ClassTree(_, _, _, _, _, _, _, _, _, _, _, JapgollyComponent) =>
             // resolving type aliases within classes is a bucket of complexity we don't need in the converter :)
             object x extends TreeTransformation {
               override def leaveTypeRef(scope: TreeScope)(ref: TypeRef): TypeRef =
@@ -444,6 +449,7 @@ object ImportScalaDefinitions extends App {
         } else
           FieldTree(
             annotations = Empty,
+            level       = ProtectionLevel.Public,
             name        = name,
             tpe         = ret,
             impl        = ExprTree.native,

@@ -55,6 +55,7 @@ object FakeLiterals {
                 ClassTree(
                   isImplicit = false,
                   IArray(Annotation.JsNative),
+                  ProtectionLevel.Public,
                   name,
                   Empty,
                   Empty,
@@ -89,6 +90,7 @@ object FakeLiterals {
         Some(
           ModuleTree(
             Empty,
+            ProtectionLevel.Public,
             moduleName,
             Empty,
             IArray.fromTraversable(members),

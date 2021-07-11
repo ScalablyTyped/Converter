@@ -313,6 +313,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
     ClassTree(
       isImplicit  = false,
       annotations = Empty,
+      level       = ProtectionLevel.Public,
       name        = StBuildingComponent,
       tparams     = builderTparams,
       parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.Any)),
@@ -346,6 +347,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
     ClassTree(
       isImplicit  = false,
       annotations = Empty,
+      level       = ProtectionLevel.Public,
       name        = name,
       tparams     = builderTparams,
       parents     = IArray.fromOption(enableAnyVal) ++ IArray(builderRef),
@@ -370,6 +372,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       val createElement = Name("createElement")
       val createElementField = FieldTree(
         annotations = Empty,
+        level       = ProtectionLevel.Public,
         name        = createElement,
         tpe         = TypeRef.JsDynamic,
         impl        = ExprTree.native,
@@ -383,6 +386,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
           Annotation.JsImport("react", Imported.Namespace, Some(Annotation.JsGlobal(QualifiedName("React")))),
           Annotation.JsNative,
         ), // todo global
+        ProtectionLevel.Public,
         name,
         IArray(TypeRef.JsObject),
         IArray(createElementField),
@@ -465,6 +469,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 
     val tree = ModuleTree(
       Empty,
+      ProtectionLevel.Public,
       StBuildingComponent,
       Empty,
       IArray(ReactRaw, make, Default),

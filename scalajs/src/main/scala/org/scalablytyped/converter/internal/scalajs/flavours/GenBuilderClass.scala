@@ -164,6 +164,7 @@ object GenBuilderClass {
         ClassTree(
           isImplicit  = true,
           annotations = IArray(Annotation.Inline),
+          level       = ProtectionLevel.Public,
           name        = clsName,
           tparams     = tparams,
           parents     = IArray(TypeRef.AnyVal),
