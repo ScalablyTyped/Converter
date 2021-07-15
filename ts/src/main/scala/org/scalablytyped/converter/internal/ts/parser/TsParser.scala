@@ -604,9 +604,15 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       typeAnnotation | (functionSignature ^^ TsTypeFunction.apply)
 
     val tsMemberIndex: Parser[TsMemberIndex] =
-      comments ~ "readonly".isDefined ~ (protectionLevel <~ "readonly".isDefined) ~ indexing ~ "?".isDefined ~ indexedType.? ^^ {
-        case cs ~ readOnly ~ level ~ indexing ~ isOptional ~ valueType =>
-          TsMemberIndex(cs, readOnly, level, indexing, valueType.map(OptionalType.maybe(_, isOptional)))
+      comments ~ "readonly".isDefined ~ (protectionLevel <~ "readonly".isDefined) ~ indexing ~ "?".isDefined ~ indexedType.? ~ ("=" ~> expr).? ^^ {
+        case cs ~ readOnly ~ level ~ indexing ~ isOptional ~ valueType ~ exprOpt =>
+          TsMemberIndex(
+            cs,
+            readOnly,
+            level,
+            indexing,
+            valueType.map(OptionalType.maybe(_, isOptional)).orElse(exprOpt.map(TsExpr.typeOf)),
+          )
       }
 
     tsMemberTypeMapped | tsMemberCall | tsMemberCtor | tsMemberIndex | tsMemberNamed

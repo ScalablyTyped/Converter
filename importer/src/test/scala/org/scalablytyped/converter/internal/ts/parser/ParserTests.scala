@@ -2961,4 +2961,19 @@ export {};
       ),
     )
   }
+
+  test("member with literal value") {
+    val content =
+      """readonly [entrypoint] = true""".stripMargin
+
+    shouldParseAs(content, TsParser.tsMember)(
+      TsMemberIndex(
+        NoComments,
+        true,
+        ProtectionLevel.Default,
+        Indexing.Single(TsQIdent(IArray(TsIdentSimple("entrypoint")))),
+        Some(TsTypeLiteral(TsLiteral.Bool(true))),
+      ),
+    )
+  }
 }
