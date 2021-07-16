@@ -166,7 +166,7 @@ object Main {
         .text("Libraries you want to convert from node_modules")
         .unbounded()
         .optional()
-        .action((x, c) => c.copy(wantedLibs = x.toSet.sorted)),
+        .action((x, c) => c.copy(wantedLibs = c.wantedLibs ++ x)),
     )
   }
 
