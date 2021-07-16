@@ -15,7 +15,11 @@ object global {
   @js.native
   class newPerson ()
     extends StObject
-       with Person
+       with Person {
+    
+    /* CompleteClass */
+    var name: String = js.native
+  }
   @JSGlobal("newPerson")
   @js.native
   val newPerson: Instantiable0[Person] = js.native

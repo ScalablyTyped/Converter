@@ -9,16 +9,15 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait OlHTMLAttributes[T]
   extends StObject
      with HTMLAttributes[T] {
   
-  var reversed: js.UndefOr[Boolean] = js.native
+  var reversed: js.UndefOr[Boolean] = js.undefined
   
-  var start: js.UndefOr[Double] = js.native
+  var start: js.UndefOr[Double] = js.undefined
   
-  var `type`: js.UndefOr[`1` | a_ | A | i_ | I] = js.native
+  var `type`: js.UndefOr[`1` | a_ | A | i_ | I] = js.undefined
 }
 object OlHTMLAttributes {
   

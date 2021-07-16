@@ -8,18 +8,17 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object typesMod {
   
-  @js.native
   trait CompletionObserver[T]
     extends StObject
        with PartialObserver[T] {
     
-    var closed: js.UndefOr[Boolean] = js.native
+    var closed: js.UndefOr[Boolean] = js.undefined
     
-    def complete(): Unit = js.native
+    def complete(): Unit
     
-    var error: js.UndefOr[js.Function1[/* err */ js.Any, Unit]] = js.native
+    var error: js.UndefOr[js.Function1[/* err */ js.Any, Unit]] = js.undefined
     
-    var next: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.native
+    var next: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.undefined
   }
   object CompletionObserver {
     
@@ -55,18 +54,17 @@ object typesMod {
     }
   }
   
-  @js.native
   trait ErrorObserver[T]
     extends StObject
        with PartialObserver[T] {
     
-    var closed: js.UndefOr[Boolean] = js.native
+    var closed: js.UndefOr[Boolean] = js.undefined
     
-    var complete: js.UndefOr[js.Function0[Unit]] = js.native
+    var complete: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    def error(err: js.Any): Unit = js.native
+    def error(err: js.Any): Unit
     
-    var next: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.native
+    var next: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.undefined
   }
   object ErrorObserver {
     
@@ -102,18 +100,17 @@ object typesMod {
     }
   }
   
-  @js.native
   trait NextObserver[T]
     extends StObject
        with PartialObserver[T] {
     
-    var closed: js.UndefOr[Boolean] = js.native
+    var closed: js.UndefOr[Boolean] = js.undefined
     
-    var complete: js.UndefOr[js.Function0[Unit]] = js.native
+    var complete: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    var error: js.UndefOr[js.Function1[/* err */ js.Any, Unit]] = js.native
+    var error: js.UndefOr[js.Function1[/* err */ js.Any, Unit]] = js.undefined
     
-    def next(value: T): Unit = js.native
+    def next(value: T): Unit
   }
   object NextObserver {
     
@@ -149,16 +146,15 @@ object typesMod {
     }
   }
   
-  @js.native
   trait Observer[T] extends StObject {
     
-    var closed: js.UndefOr[Boolean] = js.native
+    var closed: js.UndefOr[Boolean] = js.undefined
     
-    def complete(): Unit = js.native
+    def complete(): Unit
     
-    def error(err: js.Any): Unit = js.native
+    def error(err: js.Any): Unit
     
-    def next(value: T): Unit = js.native
+    def next(value: T): Unit
   }
   object Observer {
     
@@ -273,12 +269,11 @@ object typesMod {
     def subscribe(observerOrNext: PartialObserver[T], error: Unit, complete: js.Function0[Unit]): Unsubscribable = js.native
   }
   
-  @js.native
   trait SubscriptionLike
     extends StObject
        with Unsubscribable {
     
-    val closed: Boolean = js.native
+    val closed: Boolean
   }
   object SubscriptionLike {
     
@@ -298,10 +293,9 @@ object typesMod {
   
   type UnaryFunction[T, R] = js.Function1[/* source */ T, R]
   
-  @js.native
   trait Unsubscribable extends StObject {
     
-    def unsubscribe(): Unit = js.native
+    def unsubscribe(): Unit
   }
   object Unsubscribable {
     

@@ -56,7 +56,7 @@ project.settings(
 )
 ```
 
-By default this is off, that is `Selection.None()`
+By default this is *on* for Scala 3, and *off* for Scala 2.
 
 ### `stStdLib`
 This mirrors the `--lib` option to typescript, see 

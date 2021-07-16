@@ -20,12 +20,11 @@ object mod {
   
   type ConsistentWith[T, U] = Pick[U, /* keyof T */ String]
   
-  @js.native
   trait WithTheme extends StObject {
     
-    var innerRef: js.UndefOr[Ref[js.Any] | RefObject[js.Any]] = js.native
+    var innerRef: js.UndefOr[Ref[js.Any] | RefObject[js.Any]] = js.undefined
     
-    var theme: String = js.native
+    var theme: String
   }
   object WithTheme {
     

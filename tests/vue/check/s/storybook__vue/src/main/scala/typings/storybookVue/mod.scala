@@ -37,14 +37,13 @@ object mod {
   
   type Addon = StringDictionary[js.Function2[/* storyName */ String, /* storyFn */ StoryFunction, Unit]]
   
-  @js.native
   trait Story extends StObject {
     
-    def add(storyName: String, getStory: StoryFunction): this.type = js.native
+    def add(storyName: String, getStory: StoryFunction): this.type
     
-    def addDecorator(decorator: StoryDecorator): this.type = js.native
+    def addDecorator(decorator: StoryDecorator): this.type
     
-    val kind: String = js.native
+    val kind: String
   }
   object Story {
     
@@ -98,10 +97,9 @@ object mod {
     ]) | String
   ]
   
-  @js.native
   trait StoryObject extends StObject {
     
-    var name: String = js.native
+    var name: String
     
     def render(): (ComponentOptions[
         Vue, 
@@ -109,9 +107,9 @@ object mod {
         DefaultMethods[Vue], 
         DefaultComputed, 
         PropsDefinition[DefaultProps]
-      ]) | String = js.native
+      ]) | String
     @JSName("render")
-    var render_Original: StoryFunction = js.native
+    var render_Original: StoryFunction
   }
   object StoryObject {
     
@@ -149,14 +147,13 @@ object mod {
     }
   }
   
-  @js.native
   trait StoryStore extends StObject {
     
-    var fileName: js.UndefOr[String] = js.native
+    var fileName: js.UndefOr[String] = js.undefined
     
-    var kind: String = js.native
+    var kind: String
     
-    var stories: js.Array[StoryObject] = js.native
+    var stories: js.Array[StoryObject]
   }
   object StoryStore {
     

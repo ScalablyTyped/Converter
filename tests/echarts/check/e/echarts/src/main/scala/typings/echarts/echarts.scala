@@ -15,16 +15,15 @@ object echarts {
     trait DataZoom extends StObject
     object DataZoom {
       
-      @js.native
       trait Inside
         extends StObject
            with DataZoom {
         
-        var disabled: js.UndefOr[Boolean] = js.native
+        var disabled: js.UndefOr[Boolean] = js.undefined
         
-        var id: js.UndefOr[String] = js.native
+        var id: js.UndefOr[String] = js.undefined
         
-        var `type`: js.UndefOr[String] = js.native
+        var `type`: js.UndefOr[String] = js.undefined
       }
       object Inside {
         
@@ -57,14 +56,13 @@ object echarts {
         }
       }
       
-      @js.native
       trait Slider
         extends StObject
            with DataZoom {
         
-        var id: js.UndefOr[String] = js.native
+        var id: js.UndefOr[String] = js.undefined
         
-        var `type`: js.UndefOr[String] = js.native
+        var `type`: js.UndefOr[String] = js.undefined
       }
       object Slider {
         

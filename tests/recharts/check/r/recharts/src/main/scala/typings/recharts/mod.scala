@@ -14,12 +14,11 @@ object mod {
   @scala.inline
   def rectWithPoints(hasX1Y1: Coordinate, hasX2Y2: Coordinate): Height = (^.asInstanceOf[js.Dynamic].applyDynamic("rectWithPoints")(hasX1Y1.asInstanceOf[js.Any], hasX2Y2.asInstanceOf[js.Any])).asInstanceOf[Height]
   
-  @js.native
   trait Coordinate extends StObject {
     
-    var x: Double = js.native
+    var x: Double
     
-    var y: Double = js.native
+    var y: Double
   }
   object Coordinate {
     

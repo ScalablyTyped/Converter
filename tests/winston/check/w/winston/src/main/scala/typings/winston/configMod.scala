@@ -15,10 +15,9 @@ object configMod extends Shortcut {
   
   type AbstractConfigSetLevels = StringDictionary[Double]
   
-  @js.native
   trait Config extends StObject {
     
-    var foo: bar = js.native
+    var foo: bar
   }
   object Config {
     

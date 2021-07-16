@@ -96,6 +96,9 @@ object global {
       extends StObject
          with typings.phaser.p2.AABB {
       def this(options: LowerBound) = this()
+      
+      /* CompleteClass */
+      override def copy(aabb: typings.phaser.p2.AABB): Unit = js.native
     }
   }
 }

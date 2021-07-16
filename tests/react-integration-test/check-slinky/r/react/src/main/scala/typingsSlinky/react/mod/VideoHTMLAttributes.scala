@@ -4,20 +4,19 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait VideoHTMLAttributes[T]
   extends StObject
      with MediaHTMLAttributes[T] {
   
-  var disablePictureInPicture: js.UndefOr[Boolean] = js.native
+  var disablePictureInPicture: js.UndefOr[Boolean] = js.undefined
   
-  var height: js.UndefOr[Double | String] = js.native
+  var height: js.UndefOr[Double | String] = js.undefined
   
-  var playsInline: js.UndefOr[Boolean] = js.native
+  var playsInline: js.UndefOr[Boolean] = js.undefined
   
-  var poster: js.UndefOr[String] = js.native
+  var poster: js.UndefOr[String] = js.undefined
   
-  var width: js.UndefOr[Double | String] = js.native
+  var width: js.UndefOr[Double | String] = js.undefined
 }
 object VideoHTMLAttributes {
   

@@ -5,7 +5,6 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait DeprecatedLifecycle[P, S] extends StObject {
   
   /**
@@ -21,7 +20,7 @@ trait DeprecatedLifecycle[P, S] extends StObject {
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
     */
-  var UNSAFE_componentWillMount: js.UndefOr[js.Function0[Unit]] = js.native
+  var UNSAFE_componentWillMount: js.UndefOr[js.Function0[Unit]] = js.undefined
   
   /**
     * Called when the component may be receiving new props.
@@ -39,7 +38,7 @@ trait DeprecatedLifecycle[P, S] extends StObject {
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
     */
-  var UNSAFE_componentWillReceiveProps: js.UndefOr[js.Function2[/* nextProps */ P, /* nextContext */ js.Any, Unit]] = js.native
+  var UNSAFE_componentWillReceiveProps: js.UndefOr[js.Function2[/* nextProps */ P, /* nextContext */ js.Any, Unit]] = js.undefined
   
   /**
     * Called immediately before rendering when new props or state is received. Not called for the initial render.
@@ -57,7 +56,7 @@ trait DeprecatedLifecycle[P, S] extends StObject {
     */
   var UNSAFE_componentWillUpdate: js.UndefOr[
     js.Function3[/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any, Unit]
-  ] = js.native
+  ] = js.undefined
   
   /**
     * Called immediately before mounting occurs, and before `Component#render`.
@@ -70,7 +69,7 @@ trait DeprecatedLifecycle[P, S] extends StObject {
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
     */
-  var componentWillMount: js.UndefOr[js.Function0[Unit]] = js.native
+  var componentWillMount: js.UndefOr[js.Function0[Unit]] = js.undefined
   
   /**
     * Called when the component may be receiving new props.
@@ -86,7 +85,7 @@ trait DeprecatedLifecycle[P, S] extends StObject {
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
     */
-  var componentWillReceiveProps: js.UndefOr[js.Function2[/* nextProps */ P, /* nextContext */ js.Any, Unit]] = js.native
+  var componentWillReceiveProps: js.UndefOr[js.Function2[/* nextProps */ P, /* nextContext */ js.Any, Unit]] = js.undefined
   
   /**
     * Called immediately before rendering when new props or state is received. Not called for the initial render.
@@ -102,7 +101,7 @@ trait DeprecatedLifecycle[P, S] extends StObject {
     */
   var componentWillUpdate: js.UndefOr[
     js.Function3[/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any, Unit]
-  ] = js.native
+  ] = js.undefined
 }
 object DeprecatedLifecycle {
   

@@ -9,18 +9,17 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object WebpackModuleApi {
   
-  @js.native
   trait AcceptOptions extends StObject {
     
     /**
       * Indicates that apply() is automatically called by check function
       */
-    var autoApply: js.UndefOr[Boolean] = js.native
+    var autoApply: js.UndefOr[Boolean] = js.undefined
     
     /**
       * If true the update process continues even if some modules are not accepted (and would bubble to the entry point).
       */
-    var ignoreUnaccepted: js.UndefOr[Boolean] = js.native
+    var ignoreUnaccepted: js.UndefOr[Boolean] = js.undefined
   }
   object AcceptOptions {
     
@@ -206,10 +205,9 @@ object WebpackModuleApi {
   /**
     * Inside env you can pass any variable
     */
-  @js.native
   trait NodeProcess extends StObject {
     
-    var env: js.UndefOr[js.Any] = js.native
+    var env: js.UndefOr[js.Any] = js.undefined
   }
   object NodeProcess {
     

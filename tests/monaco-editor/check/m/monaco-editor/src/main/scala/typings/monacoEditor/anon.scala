@@ -7,12 +7,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object anon {
   
-  @js.native
   trait Key[T] extends StObject {
     
-    var key: String = js.native
+    var key: String
     
-    var value: Promise[T, js.Any] = js.native
+    var value: Promise[T, js.Any]
   }
   object Key {
     

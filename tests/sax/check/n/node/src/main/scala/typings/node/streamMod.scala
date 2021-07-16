@@ -71,13 +71,12 @@ object streamMod {
     def on_close(event: close, listener: js.Function0[Unit]): this.type = js.native
   }
   
-  @js.native
   trait DuplexOptions
     extends StObject
        with ReadableOptions
        with WritableOptions {
     
-    var allowHalfOpen: js.UndefOr[Boolean] = js.native
+    var allowHalfOpen: js.UndefOr[Boolean] = js.undefined
   }
   object DuplexOptions {
     
@@ -98,18 +97,17 @@ object streamMod {
     }
   }
   
-  @js.native
   trait ReadableOptions extends StObject {
     
-    var destroy: js.UndefOr[js.Function1[/* error */ js.UndefOr[Error], js.Any]] = js.native
+    var destroy: js.UndefOr[js.Function1[/* error */ js.UndefOr[Error], js.Any]] = js.undefined
     
-    var encoding: js.UndefOr[String] = js.native
+    var encoding: js.UndefOr[String] = js.undefined
     
-    var highWaterMark: js.UndefOr[Double] = js.native
+    var highWaterMark: js.UndefOr[Double] = js.undefined
     
-    var objectMode: js.UndefOr[Boolean] = js.native
+    var objectMode: js.UndefOr[Boolean] = js.undefined
     
-    var read: js.UndefOr[js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], js.Any]] = js.native
+    var read: js.UndefOr[js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], js.Any]] = js.undefined
   }
   object ReadableOptions {
     
@@ -154,12 +152,11 @@ object streamMod {
     }
   }
   
-  @js.native
   trait WritableOptions extends StObject {
     
     var `final`: js.UndefOr[
         js.Function1[/* callback */ js.Function1[/* error */ js.UndefOr[Error], Unit], Unit]
-      ] = js.native
+      ] = js.undefined
   }
   object WritableOptions {
     

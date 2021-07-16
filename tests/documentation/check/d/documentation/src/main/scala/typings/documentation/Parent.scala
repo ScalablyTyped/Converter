@@ -4,10 +4,9 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait Parent[T] extends StObject {
   
-  var t: T = js.native
+  var t: T
 }
 object Parent {
   

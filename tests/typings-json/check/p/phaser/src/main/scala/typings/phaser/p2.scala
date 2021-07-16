@@ -6,10 +6,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object p2 {
   
-  @js.native
   trait AABB extends StObject {
     
-    def copy(aabb: AABB): Unit = js.native
+    def copy(aabb: AABB): Unit
   }
   object AABB {
     

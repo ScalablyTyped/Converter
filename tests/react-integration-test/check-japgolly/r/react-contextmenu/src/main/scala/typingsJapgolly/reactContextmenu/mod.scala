@@ -91,18 +91,17 @@ object mod {
   @scala.inline
   def showMenu(opts: Unit, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
   
-  @js.native
   trait ContextMenuProps extends StObject {
     
-    var className: js.UndefOr[String] = js.native
+    var className: js.UndefOr[String] = js.undefined
     
-    var data: js.UndefOr[js.Any] = js.native
+    var data: js.UndefOr[js.Any] = js.undefined
     
-    var hideOnLeave: js.UndefOr[Boolean] = js.native
+    var hideOnLeave: js.UndefOr[Boolean] = js.undefined
     
-    var id: String = js.native
+    var id: String
     
-    var onHide: js.UndefOr[js.Function1[/* event */ js.Any, Unit]] = js.native
+    var onHide: js.UndefOr[js.Function1[/* event */ js.Any, Unit]] = js.undefined
     
     var onMouseLeave: js.UndefOr[
         (js.Function3[
@@ -111,11 +110,11 @@ object mod {
           /* target */ HTMLElement, 
           Unit
         ]) | js.Function
-      ] = js.native
+      ] = js.undefined
     
-    var onShow: js.UndefOr[js.Function1[/* event */ js.Any, Unit]] = js.native
+    var onShow: js.UndefOr[js.Function1[/* event */ js.Any, Unit]] = js.undefined
     
-    var rtl: js.UndefOr[Boolean] = js.native
+    var rtl: js.UndefOr[Boolean] = js.undefined
   }
   object ContextMenuProps {
     
@@ -187,20 +186,19 @@ object mod {
     }
   }
   
-  @js.native
   trait ContextMenuTriggerProps extends StObject {
     
-    var attributes: js.UndefOr[HTMLAttributes[js.Any]] = js.native
+    var attributes: js.UndefOr[HTMLAttributes[js.Any]] = js.undefined
     
-    var collect: js.UndefOr[js.Function1[/* data */ js.Any, js.Any]] = js.native
+    var collect: js.UndefOr[js.Function1[/* data */ js.Any, js.Any]] = js.undefined
     
-    var disable: js.UndefOr[Boolean] = js.native
+    var disable: js.UndefOr[Boolean] = js.undefined
     
-    var holdToDisplay: js.UndefOr[Double] = js.native
+    var holdToDisplay: js.UndefOr[Double] = js.undefined
     
-    var id: String = js.native
+    var id: String
     
-    var renderTag: js.UndefOr[ReactType[js.Any]] = js.native
+    var renderTag: js.UndefOr[ReactType[js.Any]] = js.undefined
   }
   object ContextMenuTriggerProps {
     
@@ -248,20 +246,19 @@ object mod {
     }
   }
   
-  @js.native
   trait MenuItemProps extends StObject {
     
-    var attributes: js.UndefOr[HTMLAttributes[HTMLDivElement]] = js.native
+    var attributes: js.UndefOr[HTMLAttributes[HTMLDivElement]] = js.undefined
     
-    var className: js.UndefOr[String] = js.native
+    var className: js.UndefOr[String] = js.undefined
     
     var data: js.UndefOr[
         /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ js.Any
-      ] = js.native
+      ] = js.undefined
     
-    var disabled: js.UndefOr[Boolean] = js.native
+    var disabled: js.UndefOr[Boolean] = js.undefined
     
-    var divider: js.UndefOr[Boolean] = js.native
+    var divider: js.UndefOr[Boolean] = js.undefined
     
     var onClick: js.UndefOr[
         (js.Function3[
@@ -270,9 +267,9 @@ object mod {
           /* target */ HTMLElement, 
           Unit
         ]) | js.Function
-      ] = js.native
+      ] = js.undefined
     
-    var preventClose: js.UndefOr[Boolean] = js.native
+    var preventClose: js.UndefOr[Boolean] = js.undefined
   }
   object MenuItemProps {
     
@@ -343,14 +340,13 @@ object mod {
     }
   }
   
-  @js.native
   trait SubMenuProps extends StObject {
     
-    var className: js.UndefOr[String] = js.native
+    var className: js.UndefOr[String] = js.undefined
     
-    var disabled: js.UndefOr[Boolean] = js.native
+    var disabled: js.UndefOr[Boolean] = js.undefined
     
-    var hoverDelay: js.UndefOr[Double] = js.native
+    var hoverDelay: js.UndefOr[Double] = js.undefined
     
     var onClick: js.UndefOr[
         (js.Function3[
@@ -359,13 +355,13 @@ object mod {
           /* target */ HTMLElement, 
           Unit
         ]) | js.Function
-      ] = js.native
+      ] = js.undefined
     
-    var preventCloseOnClick: js.UndefOr[Boolean] = js.native
+    var preventCloseOnClick: js.UndefOr[Boolean] = js.undefined
     
-    var rtl: js.UndefOr[Boolean] = js.native
+    var rtl: js.UndefOr[Boolean] = js.undefined
     
-    var title: Element | ReactText = js.native
+    var title: Element | ReactText
   }
   object SubMenuProps {
     

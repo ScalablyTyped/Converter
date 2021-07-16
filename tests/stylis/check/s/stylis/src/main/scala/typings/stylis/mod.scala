@@ -73,24 +73,23 @@ object mod extends Shortcut {
     val stylis: Stylis = js.native
   }
   
-  @js.native
   trait Options extends StObject {
     
-    var cascade: js.UndefOr[Boolean] = js.native
+    var cascade: js.UndefOr[Boolean] = js.undefined
     
-    var compress: js.UndefOr[Boolean] = js.native
+    var compress: js.UndefOr[Boolean] = js.undefined
     
-    var global: js.UndefOr[Boolean] = js.native
+    var global: js.UndefOr[Boolean] = js.undefined
     
-    var keyframe: js.UndefOr[Boolean] = js.native
+    var keyframe: js.UndefOr[Boolean] = js.undefined
     
     var prefix: js.UndefOr[
         Boolean | (js.Function3[/* key */ String, /* value */ String, /* context */ Double, Boolean])
-      ] = js.native
+      ] = js.undefined
     
-    var preserve: js.UndefOr[Boolean] = js.native
+    var preserve: js.UndefOr[Boolean] = js.undefined
     
-    var semicolon: js.UndefOr[Boolean] = js.native
+    var semicolon: js.UndefOr[Boolean] = js.undefined
   }
   object Options {
     

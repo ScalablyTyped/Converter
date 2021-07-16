@@ -5,12 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // Context via RenderProps
-@js.native
 trait ProviderProps[T] extends StObject {
   
-  var children: js.UndefOr[slinky.core.facade.ReactElement] = js.native
+  var children: js.UndefOr[slinky.core.facade.ReactElement] = js.undefined
   
-  var value: T = js.native
+  var value: T
 }
 object ProviderProps {
   

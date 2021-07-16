@@ -16,53 +16,52 @@ object testContainerTestContainerMod extends Shortcut {
   @js.native
   val default: ReactComponentClass[TestContainerProps] = js.native
   
-  @js.native
   trait StrictTestContainerProps extends StObject {
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.native
+    var as: js.UndefOr[js.Any] = js.undefined
     
     /** Primary content. */
-    var children: js.UndefOr[ReactElement] = js.native
+    var children: js.UndefOr[ReactElement] = js.undefined
     
     /** Additional classes. */
-    var className: js.UndefOr[String] = js.native
+    var className: js.UndefOr[String] = js.undefined
     
     /** Shorthand for primary content. */
-    var content: js.UndefOr[SemanticShorthandContent] = js.native
+    var content: js.UndefOr[SemanticShorthandContent] = js.undefined
     
     /** TestContainer has no maximum width. */
-    var fluid: js.UndefOr[Boolean] = js.native
+    var fluid: js.UndefOr[Boolean] = js.undefined
     
     /**Should be CallbackTo[Number]*/
-    var optFn0Number: js.UndefOr[js.Function0[Double]] = js.native
+    var optFn0Number: js.UndefOr[js.Function0[Double]] = js.undefined
     
     /**Should be Callback*/
-    var optFn0Void: js.UndefOr[js.Function0[Unit]] = js.native
+    var optFn0Void: js.UndefOr[js.Function0[Unit]] = js.undefined
     
     /**Should be (x:Number) => CallbackTo[Number]*/
-    var optFn1Number: js.UndefOr[js.Function1[/* x */ Double, Double]] = js.native
+    var optFn1Number: js.UndefOr[js.Function1[/* x */ Double, Double]] = js.undefined
     
     /**Should be (x:Number) => Callback*/
-    var optFn1Void: js.UndefOr[js.Function1[/* x */ Double, Unit]] = js.native
+    var optFn1Void: js.UndefOr[js.Function1[/* x */ Double, Unit]] = js.undefined
     
     /**Should be CallbackTo[Number]*/
-    def requiredFn0Number(): Double = js.native
+    def requiredFn0Number(): Double
     
     /**Should be Callback*/
-    def requiredFn0Void(): Unit = js.native
+    def requiredFn0Void(): Unit
     
     /**Should be (x:Number) => CallbackTo[Number]*/
-    def requiredFn1Number(x: Double): Double = js.native
+    def requiredFn1Number(x: Double): Double
     
     /**Should be (x:Number) => Callback*/
-    def requiredFn1Void(x: Double): Unit = js.native
+    def requiredFn1Void(x: Double): Unit
     
     /** Reduce maximum width to more naturally accommodate text. */
-    var text: js.UndefOr[Boolean] = js.native
+    var text: js.UndefOr[Boolean] = js.undefined
     
     /** Describes how the text inside this component should be aligned. */
-    var textAlign: js.UndefOr[SemanticTEXTALIGNMENTS] = js.native
+    var textAlign: js.UndefOr[SemanticTEXTALIGNMENTS] = js.undefined
   }
   object StrictTestContainerProps {
     
@@ -160,7 +159,6 @@ object testContainerTestContainerMod extends Shortcut {
     }
   }
   
-  @js.native
   trait TestContainerProps
     extends StObject
        with StrictTestContainerProps

@@ -17,7 +17,8 @@ import org.scalablytyped.converter.internal.ts._
   */
 object IsUserImplementable {
   def apply(interface: WithParents[TsDeclInterface]): Boolean =
-    pred(interface.value) && interface.parents.forall(pred)
+    if (interface.unresolved.nonEmpty) false
+    else pred(interface.value) && interface.parents.forall(pred)
 
   def legalName(name: TsIdent): Boolean =
     name =/= TsIdent.Apply && name =/= TsIdent.namespaced

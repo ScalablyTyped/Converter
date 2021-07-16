@@ -7,45 +7,44 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait MouseEvent[T, E]
   extends StObject
      with BaseSyntheticEvent[E, EventTarget & T, EventTarget] {
   
-  var altKey: Boolean = js.native
+  var altKey: Boolean
   
-  var button: Double = js.native
+  var button: Double
   
-  var buttons: Double = js.native
+  var buttons: Double
   
-  var clientX: Double = js.native
+  var clientX: Double
   
-  var clientY: Double = js.native
+  var clientY: Double
   
-  var ctrlKey: Boolean = js.native
+  var ctrlKey: Boolean
   
   /**
     * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
     */
-  def getModifierState(key: String): Boolean = js.native
+  def getModifierState(key: String): Boolean
   
-  var metaKey: Boolean = js.native
+  var metaKey: Boolean
   
-  var movementX: Double = js.native
+  var movementX: Double
   
-  var movementY: Double = js.native
+  var movementY: Double
   
-  var pageX: Double = js.native
+  var pageX: Double
   
-  var pageY: Double = js.native
+  var pageY: Double
   
-  var relatedTarget: EventTarget = js.native
+  var relatedTarget: EventTarget
   
-  var screenX: Double = js.native
+  var screenX: Double
   
-  var screenY: Double = js.native
+  var screenY: Double
   
-  var shiftKey: Boolean = js.native
+  var shiftKey: Boolean
 }
 object MouseEvent {
   

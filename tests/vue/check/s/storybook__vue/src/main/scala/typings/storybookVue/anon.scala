@@ -6,12 +6,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object anon {
   
-  @js.native
   trait Kind extends StObject {
     
-    var kind: String = js.native
+    var kind: String
     
-    var story: String = js.native
+    var story: String
   }
   object Kind {
     

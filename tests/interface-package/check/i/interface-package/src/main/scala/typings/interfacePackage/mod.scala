@@ -8,6 +8,5 @@ object mod {
   
   type DummyInt = Double
   
-  @js.native
   trait Package extends StObject
 }

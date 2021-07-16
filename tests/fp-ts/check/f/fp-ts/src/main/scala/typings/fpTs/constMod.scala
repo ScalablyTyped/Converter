@@ -36,10 +36,9 @@ object constMod {
   /* augmented module */
   object fpTsLibHKTAugmentingMod {
     
-    @js.native
     trait URI2HKT2[L, A] extends StObject {
       
-      var Const: typings.fpTs.constMod.Const[L, A] = js.native
+      var Const: typings.fpTs.constMod.Const[L, A]
     }
     object URI2HKT2 {
       

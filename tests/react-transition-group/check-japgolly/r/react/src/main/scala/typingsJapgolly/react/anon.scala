@@ -8,10 +8,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object anon {
   
-  @js.native
   trait Children extends StObject {
     
-    var children: js.UndefOr[Node] = js.native
+    var children: js.UndefOr[Node] = js.undefined
   }
   object Children {
     
@@ -23,10 +22,9 @@ object anon {
     }
   }
   
-  @js.native
   trait Html extends StObject {
     
-    var __html: String = js.native
+    var __html: String
   }
   object Html {
     

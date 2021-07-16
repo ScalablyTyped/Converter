@@ -4,216 +4,215 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait HTMLElementTagNameMap extends StObject {
   
-  var a: org.scalajs.dom.raw.HTMLAnchorElement = js.native
+  var a: org.scalajs.dom.raw.HTMLAnchorElement
   
-  var abbr: org.scalajs.dom.raw.HTMLElement = js.native
+  var abbr: org.scalajs.dom.raw.HTMLElement
   
-  var address: org.scalajs.dom.raw.HTMLElement = js.native
+  var address: org.scalajs.dom.raw.HTMLElement
   
-  var area: org.scalajs.dom.raw.HTMLAreaElement = js.native
+  var area: org.scalajs.dom.raw.HTMLAreaElement
   
-  var article: org.scalajs.dom.raw.HTMLElement = js.native
+  var article: org.scalajs.dom.raw.HTMLElement
   
-  var aside: org.scalajs.dom.raw.HTMLElement = js.native
+  var aside: org.scalajs.dom.raw.HTMLElement
   
-  var audio: org.scalajs.dom.raw.HTMLAudioElement = js.native
+  var audio: org.scalajs.dom.raw.HTMLAudioElement
   
-  var b: org.scalajs.dom.raw.HTMLElement = js.native
+  var b: org.scalajs.dom.raw.HTMLElement
   
-  var base: org.scalajs.dom.raw.HTMLBaseElement = js.native
+  var base: org.scalajs.dom.raw.HTMLBaseElement
   
-  var bdi: org.scalajs.dom.raw.HTMLElement = js.native
+  var bdi: org.scalajs.dom.raw.HTMLElement
   
-  var bdo: org.scalajs.dom.raw.HTMLElement = js.native
+  var bdo: org.scalajs.dom.raw.HTMLElement
   
-  var blockquote: org.scalajs.dom.raw.HTMLQuoteElement = js.native
+  var blockquote: org.scalajs.dom.raw.HTMLQuoteElement
   
-  var body: org.scalajs.dom.raw.HTMLBodyElement = js.native
+  var body: org.scalajs.dom.raw.HTMLBodyElement
   
-  var br: org.scalajs.dom.raw.HTMLBRElement = js.native
+  var br: org.scalajs.dom.raw.HTMLBRElement
   
-  var button: org.scalajs.dom.raw.HTMLButtonElement = js.native
+  var button: org.scalajs.dom.raw.HTMLButtonElement
   
-  var canvas: org.scalajs.dom.raw.HTMLCanvasElement = js.native
+  var canvas: org.scalajs.dom.raw.HTMLCanvasElement
   
-  var cite: org.scalajs.dom.raw.HTMLElement = js.native
+  var cite: org.scalajs.dom.raw.HTMLElement
   
-  var code: org.scalajs.dom.raw.HTMLElement = js.native
+  var code: org.scalajs.dom.raw.HTMLElement
   
-  var col: org.scalajs.dom.raw.HTMLTableColElement = js.native
+  var col: org.scalajs.dom.raw.HTMLTableColElement
   
-  var colgroup: org.scalajs.dom.raw.HTMLTableColElement = js.native
+  var colgroup: org.scalajs.dom.raw.HTMLTableColElement
   
-  var data: org.scalajs.dom.raw.Element = js.native
+  var data: org.scalajs.dom.raw.Element
   
-  var datalist: org.scalajs.dom.raw.HTMLDataListElement = js.native
+  var datalist: org.scalajs.dom.raw.HTMLDataListElement
   
-  var dd: org.scalajs.dom.raw.HTMLElement = js.native
+  var dd: org.scalajs.dom.raw.HTMLElement
   
-  var del: org.scalajs.dom.raw.HTMLModElement = js.native
+  var del: org.scalajs.dom.raw.HTMLModElement
   
-  var dfn: org.scalajs.dom.raw.HTMLElement = js.native
+  var dfn: org.scalajs.dom.raw.HTMLElement
   
-  var dialog: org.scalajs.dom.raw.Element = js.native
+  var dialog: org.scalajs.dom.raw.Element
   
-  var div: org.scalajs.dom.raw.HTMLDivElement = js.native
+  var div: org.scalajs.dom.raw.HTMLDivElement
   
-  var dl: org.scalajs.dom.raw.HTMLDListElement = js.native
+  var dl: org.scalajs.dom.raw.HTMLDListElement
   
-  var dt: org.scalajs.dom.raw.HTMLElement = js.native
+  var dt: org.scalajs.dom.raw.HTMLElement
   
-  var em: org.scalajs.dom.raw.HTMLElement = js.native
+  var em: org.scalajs.dom.raw.HTMLElement
   
-  var embed: org.scalajs.dom.raw.HTMLEmbedElement = js.native
+  var embed: org.scalajs.dom.raw.HTMLEmbedElement
   
-  var fieldset: org.scalajs.dom.raw.HTMLFieldSetElement = js.native
+  var fieldset: org.scalajs.dom.raw.HTMLFieldSetElement
   
-  var figcaption: org.scalajs.dom.raw.HTMLElement = js.native
+  var figcaption: org.scalajs.dom.raw.HTMLElement
   
-  var figure: org.scalajs.dom.raw.HTMLElement = js.native
+  var figure: org.scalajs.dom.raw.HTMLElement
   
-  var footer: org.scalajs.dom.raw.HTMLElement = js.native
+  var footer: org.scalajs.dom.raw.HTMLElement
   
-  var form: org.scalajs.dom.raw.HTMLFormElement = js.native
+  var form: org.scalajs.dom.raw.HTMLFormElement
   
-  var h1: org.scalajs.dom.raw.HTMLHeadingElement = js.native
+  var h1: org.scalajs.dom.raw.HTMLHeadingElement
   
-  var h2: org.scalajs.dom.raw.HTMLHeadingElement = js.native
+  var h2: org.scalajs.dom.raw.HTMLHeadingElement
   
-  var h3: org.scalajs.dom.raw.HTMLHeadingElement = js.native
+  var h3: org.scalajs.dom.raw.HTMLHeadingElement
   
-  var h4: org.scalajs.dom.raw.HTMLHeadingElement = js.native
+  var h4: org.scalajs.dom.raw.HTMLHeadingElement
   
-  var h5: org.scalajs.dom.raw.HTMLHeadingElement = js.native
+  var h5: org.scalajs.dom.raw.HTMLHeadingElement
   
-  var h6: org.scalajs.dom.raw.HTMLHeadingElement = js.native
+  var h6: org.scalajs.dom.raw.HTMLHeadingElement
   
-  var head: org.scalajs.dom.raw.HTMLHeadElement = js.native
+  var head: org.scalajs.dom.raw.HTMLHeadElement
   
-  var header: org.scalajs.dom.raw.HTMLElement = js.native
+  var header: org.scalajs.dom.raw.HTMLElement
   
-  var hgroup: org.scalajs.dom.raw.HTMLElement = js.native
+  var hgroup: org.scalajs.dom.raw.HTMLElement
   
-  var hr: org.scalajs.dom.raw.HTMLHRElement = js.native
+  var hr: org.scalajs.dom.raw.HTMLHRElement
   
-  var html: org.scalajs.dom.raw.HTMLHtmlElement = js.native
+  var html: org.scalajs.dom.raw.HTMLHtmlElement
   
-  var i: org.scalajs.dom.raw.HTMLElement = js.native
+  var i: org.scalajs.dom.raw.HTMLElement
   
-  var iframe: org.scalajs.dom.raw.HTMLIFrameElement = js.native
+  var iframe: org.scalajs.dom.raw.HTMLIFrameElement
   
-  var img: org.scalajs.dom.raw.HTMLImageElement = js.native
+  var img: org.scalajs.dom.raw.HTMLImageElement
   
-  var input: org.scalajs.dom.raw.HTMLInputElement = js.native
+  var input: org.scalajs.dom.raw.HTMLInputElement
   
-  var ins: org.scalajs.dom.raw.HTMLModElement = js.native
+  var ins: org.scalajs.dom.raw.HTMLModElement
   
-  var kbd: org.scalajs.dom.raw.HTMLElement = js.native
+  var kbd: org.scalajs.dom.raw.HTMLElement
   
-  var label: org.scalajs.dom.raw.HTMLLabelElement = js.native
+  var label: org.scalajs.dom.raw.HTMLLabelElement
   
-  var legend: org.scalajs.dom.raw.HTMLLegendElement = js.native
+  var legend: org.scalajs.dom.raw.HTMLLegendElement
   
-  var li: org.scalajs.dom.raw.HTMLLIElement = js.native
+  var li: org.scalajs.dom.raw.HTMLLIElement
   
-  var link: org.scalajs.dom.raw.HTMLLinkElement = js.native
+  var link: org.scalajs.dom.raw.HTMLLinkElement
   
-  var main: org.scalajs.dom.raw.HTMLElement = js.native
+  var main: org.scalajs.dom.raw.HTMLElement
   
-  var map: org.scalajs.dom.raw.HTMLMapElement = js.native
+  var map: org.scalajs.dom.raw.HTMLMapElement
   
-  var mark: org.scalajs.dom.raw.HTMLElement = js.native
+  var mark: org.scalajs.dom.raw.HTMLElement
   
-  var meta: org.scalajs.dom.raw.HTMLMetaElement = js.native
+  var meta: org.scalajs.dom.raw.HTMLMetaElement
   
-  var nav: org.scalajs.dom.raw.HTMLElement = js.native
+  var nav: org.scalajs.dom.raw.HTMLElement
   
-  var noscript: org.scalajs.dom.raw.HTMLElement = js.native
+  var noscript: org.scalajs.dom.raw.HTMLElement
   
-  var `object`: org.scalajs.dom.raw.HTMLObjectElement = js.native
+  var `object`: org.scalajs.dom.raw.HTMLObjectElement
   
-  var ol: org.scalajs.dom.raw.HTMLOListElement = js.native
+  var ol: org.scalajs.dom.raw.HTMLOListElement
   
-  var optgroup: org.scalajs.dom.raw.HTMLOptGroupElement = js.native
+  var optgroup: org.scalajs.dom.raw.HTMLOptGroupElement
   
-  var option: org.scalajs.dom.raw.HTMLOptionElement = js.native
+  var option: org.scalajs.dom.raw.HTMLOptionElement
   
-  var p: org.scalajs.dom.raw.HTMLParagraphElement = js.native
+  var p: org.scalajs.dom.raw.HTMLParagraphElement
   
-  var param: org.scalajs.dom.raw.HTMLParamElement = js.native
+  var param: org.scalajs.dom.raw.HTMLParamElement
   
-  var pre: org.scalajs.dom.raw.HTMLPreElement = js.native
+  var pre: org.scalajs.dom.raw.HTMLPreElement
   
-  var progress: org.scalajs.dom.raw.HTMLProgressElement = js.native
+  var progress: org.scalajs.dom.raw.HTMLProgressElement
   
-  var q: org.scalajs.dom.raw.HTMLQuoteElement = js.native
+  var q: org.scalajs.dom.raw.HTMLQuoteElement
   
-  var rp: org.scalajs.dom.raw.HTMLElement = js.native
+  var rp: org.scalajs.dom.raw.HTMLElement
   
-  var rt: org.scalajs.dom.raw.HTMLElement = js.native
+  var rt: org.scalajs.dom.raw.HTMLElement
   
-  var ruby: org.scalajs.dom.raw.HTMLElement = js.native
+  var ruby: org.scalajs.dom.raw.HTMLElement
   
-  var s: org.scalajs.dom.raw.HTMLElement = js.native
+  var s: org.scalajs.dom.raw.HTMLElement
   
-  var samp: org.scalajs.dom.raw.HTMLElement = js.native
+  var samp: org.scalajs.dom.raw.HTMLElement
   
-  var script: org.scalajs.dom.raw.HTMLScriptElement = js.native
+  var script: org.scalajs.dom.raw.HTMLScriptElement
   
-  var section: org.scalajs.dom.raw.HTMLElement = js.native
+  var section: org.scalajs.dom.raw.HTMLElement
   
-  var select: org.scalajs.dom.raw.HTMLSelectElement = js.native
+  var select: org.scalajs.dom.raw.HTMLSelectElement
   
-  var small: org.scalajs.dom.raw.HTMLElement = js.native
+  var small: org.scalajs.dom.raw.HTMLElement
   
-  var source: org.scalajs.dom.raw.HTMLSourceElement = js.native
+  var source: org.scalajs.dom.raw.HTMLSourceElement
   
-  var span: org.scalajs.dom.raw.HTMLSpanElement = js.native
+  var span: org.scalajs.dom.raw.HTMLSpanElement
   
-  var strong: org.scalajs.dom.raw.HTMLElement = js.native
+  var strong: org.scalajs.dom.raw.HTMLElement
   
-  var style: org.scalajs.dom.raw.HTMLStyleElement = js.native
+  var style: org.scalajs.dom.raw.HTMLStyleElement
   
-  var sub: org.scalajs.dom.raw.HTMLElement = js.native
+  var sub: org.scalajs.dom.raw.HTMLElement
   
-  var summary: org.scalajs.dom.raw.HTMLElement = js.native
+  var summary: org.scalajs.dom.raw.HTMLElement
   
-  var sup: org.scalajs.dom.raw.HTMLElement = js.native
+  var sup: org.scalajs.dom.raw.HTMLElement
   
-  var table: org.scalajs.dom.raw.HTMLTableElement = js.native
+  var table: org.scalajs.dom.raw.HTMLTableElement
   
-  var tbody: org.scalajs.dom.raw.HTMLTableSectionElement = js.native
+  var tbody: org.scalajs.dom.raw.HTMLTableSectionElement
   
-  var td: org.scalajs.dom.raw.Element = js.native
+  var td: org.scalajs.dom.raw.Element
   
-  var template: org.scalajs.dom.raw.Element = js.native
+  var template: org.scalajs.dom.raw.Element
   
-  var textarea: org.scalajs.dom.raw.HTMLTextAreaElement = js.native
+  var textarea: org.scalajs.dom.raw.HTMLTextAreaElement
   
-  var tfoot: org.scalajs.dom.raw.HTMLTableSectionElement = js.native
+  var tfoot: org.scalajs.dom.raw.HTMLTableSectionElement
   
-  var th: org.scalajs.dom.raw.Element = js.native
+  var th: org.scalajs.dom.raw.Element
   
-  var thead: org.scalajs.dom.raw.HTMLTableSectionElement = js.native
+  var thead: org.scalajs.dom.raw.HTMLTableSectionElement
   
-  var title: org.scalajs.dom.raw.HTMLTitleElement = js.native
+  var title: org.scalajs.dom.raw.HTMLTitleElement
   
-  var tr: org.scalajs.dom.raw.HTMLTableRowElement = js.native
+  var tr: org.scalajs.dom.raw.HTMLTableRowElement
   
-  var track: org.scalajs.dom.raw.HTMLTrackElement = js.native
+  var track: org.scalajs.dom.raw.HTMLTrackElement
   
-  var u: org.scalajs.dom.raw.HTMLElement = js.native
+  var u: org.scalajs.dom.raw.HTMLElement
   
-  var ul: org.scalajs.dom.raw.HTMLUListElement = js.native
+  var ul: org.scalajs.dom.raw.HTMLUListElement
   
-  var `var`: org.scalajs.dom.raw.HTMLElement = js.native
+  var `var`: org.scalajs.dom.raw.HTMLElement
   
-  var video: org.scalajs.dom.raw.HTMLVideoElement = js.native
+  var video: org.scalajs.dom.raw.HTMLVideoElement
   
-  var wbr: org.scalajs.dom.raw.HTMLElement = js.native
+  var wbr: org.scalajs.dom.raw.HTMLElement
 }
 object HTMLElementTagNameMap {
   

@@ -3,8 +3,6 @@ package ts
 
 import org.scalablytyped.converter.internal.ts.CodePath.NoPath
 
-import scala.collection.mutable
-
 /**
   * @deprecated this presumes that parents can always be `IArray[InterfaceOrClass]`.
   *
@@ -14,7 +12,7 @@ import scala.collection.mutable
 object ParentsResolver {
   type InterfaceOrClass = TsTree with HasClassMembers
 
-  case class WithParents[X <: InterfaceOrClass](value: X, parents: IArray[InterfaceOrClass])
+  case class WithParents[X <: InterfaceOrClass](value: X, parents: IArray[InterfaceOrClass], unresolved: IArray[TsType])
 
   def apply[X <: InterfaceOrClass](_scope: TsTreeScope, tree: X): WithParents[X] = {
 
@@ -24,8 +22,14 @@ object ParentsResolver {
     val allParents: IArray.Builder[InterfaceOrClass] =
       IArray.Builder.empty
 
-    def innerRecurse(scope: TsTreeScope, qualifiedName: TsQIdent, currentTParams: IArray[TsType]): Unit =
-      scope.lookupTypeIncludeScope(qualifiedName).foreach {
+    val unresolved: IArray.Builder[TsType] =
+      IArray.Builder.empty
+
+    def innerRecurse(scope: TsTreeScope, qualifiedName: TsQIdent, currentTParams: IArray[TsType]): Unit = {
+      val found = scope.lookupTypeIncludeScope(qualifiedName)
+      if (found.isEmpty) unresolved += TsTypeRef(qualifiedName)
+
+      found.foreach {
         case (cls: TsDeclClass, foundInScope) =>
           if (seen.forall(_ ne cls)) {
             seen += cls
@@ -46,7 +50,6 @@ object ParentsResolver {
           if (seen.forall(_ ne ta)) {
             seen += ta
             FillInTParams(ta, currentTParams).alias match {
-              case _: TsTypeFunction => innerRecurse(foundInScope, TsQIdent.Function, Empty)
               case x: TsTypeRef => innerRecurse(foundInScope, x.name, x.tparams)
               case x: TsTypeObject =>
                 allParents += TsDeclInterface(
@@ -68,14 +71,14 @@ object ParentsResolver {
                   case TsTypeRef(_, tpe, targs) => innerRecurse(scope, tpe, targs)
                   case _                        => ()
                 }
-              case _: TsTypeConstructor => ()
-              case _: TsTypeTuple       => ()
-              case other => scope.logger.fatal(s"Unexpected: $other")
+              case other =>
+                unresolved += other
             }
           }
 
-        case _ => ()
+        case _ => unresolved += TsTypeRef(qualifiedName)
       }
+    }
 
     def outerRecurse(scope: TsTreeScope, tree: TsTree): Unit = {
       val parentRefs: IArray[TsTypeRef] =
@@ -92,6 +95,6 @@ object ParentsResolver {
 
     outerRecurse(_scope, tree)
 
-    WithParents(tree, allParents.result())
+    WithParents(tree, allParents.result(), unresolved.result())
   }
 }

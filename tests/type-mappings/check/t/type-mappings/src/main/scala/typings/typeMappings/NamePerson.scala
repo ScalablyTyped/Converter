@@ -5,10 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 /* Inlined std.Pick<type-mappings.Person, 'name'> */
-@js.native
 trait NamePerson extends StObject {
   
-  var name: String = js.native
+  var name: String
 }
 object NamePerson {
   

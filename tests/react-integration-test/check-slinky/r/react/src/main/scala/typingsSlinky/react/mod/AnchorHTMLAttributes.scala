@@ -4,28 +4,27 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait AnchorHTMLAttributes[T]
   extends StObject
      with HTMLAttributes[T] {
   
-  var download: js.UndefOr[js.Any] = js.native
+  var download: js.UndefOr[js.Any] = js.undefined
   
-  var href: js.UndefOr[String] = js.native
+  var href: js.UndefOr[String] = js.undefined
   
-  var hrefLang: js.UndefOr[String] = js.native
+  var hrefLang: js.UndefOr[String] = js.undefined
   
-  var media: js.UndefOr[String] = js.native
+  var media: js.UndefOr[String] = js.undefined
   
-  var ping: js.UndefOr[String] = js.native
+  var ping: js.UndefOr[String] = js.undefined
   
-  var referrerPolicy: js.UndefOr[String] = js.native
+  var referrerPolicy: js.UndefOr[String] = js.undefined
   
-  var rel: js.UndefOr[String] = js.native
+  var rel: js.UndefOr[String] = js.undefined
   
-  var target: js.UndefOr[String] = js.native
+  var target: js.UndefOr[String] = js.undefined
   
-  var `type`: js.UndefOr[String] = js.native
+  var `type`: js.UndefOr[String] = js.undefined
 }
 object AnchorHTMLAttributes {
   

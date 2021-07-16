@@ -5,12 +5,11 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait CompositionEvent[T]
   extends StObject
      with BaseSyntheticEvent[NativeCompositionEvent, EventTarget & T, EventTarget] {
   
-  var data: String = js.native
+  var data: String
 }
 object CompositionEvent {
   

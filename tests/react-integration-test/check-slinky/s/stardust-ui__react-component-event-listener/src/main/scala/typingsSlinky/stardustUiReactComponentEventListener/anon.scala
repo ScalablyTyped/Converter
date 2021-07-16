@@ -6,16 +6,15 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object anon {
   
-  @js.native
   trait Capture extends StObject {
     
-    var capture: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<boolean> */ js.Any = js.native
+    var capture: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<boolean> */ js.Any
     
-    var listener: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<(args : ...any): any> */ js.Any = js.native
+    var listener: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<(args : ...any): any> */ js.Any
     
-    var targetRef: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<imported_react.RefObject<Node | Window>> */ js.Any = js.native
+    var targetRef: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<imported_react.RefObject<Node | Window>> */ js.Any
     
-    var `type`: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<'waiting' | 'error' | 'abort' | 'cancel' | 'progress' | 'ended' | 'change' | 'input' | 'select' | 'fullscreenchange' | 'fullscreenerror' | 'readystatechange' | 'visibilitychange' | 'animationcancel' | 'animationend' | 'animationiteration' | 'animationstart' | 'auxclick' | 'blur' | 'canplay' | 'canplaythrough' | 'click' | 'close' | 'contextmenu' | 'cuechange' | 'dblclick' | 'drag' | 'dragend' | 'dragenter' | 'dragexit' | 'dragleave' | 'dragover' | 'dragstart' | 'drop' | 'durationchange' | 'emptied' | 'focus' | 'gotpointercapture' | 'invalid' | 'keydown' | 'keypress' | 'keyup' | 'load' | 'loadeddata' | 'loadedmetadata' | 'loadend' | 'loadstart' | 'lostpointercapture' | 'mousedown' | 'mouseenter' | 'mouseleave' | 'mousemove' | 'mouseout' | 'mouseover' | 'mouseup' | 'pause' | 'play' | 'playing' | 'pointercancel' | 'pointerdown' | 'pointerenter' | 'pointerleave' | 'pointermove' | 'pointerout' | 'pointerover' | 'pointerup' | 'ratechange' | 'reset' | 'resize' | 'scroll' | 'securitypolicyviolation' | 'seeked' | 'seeking' | 'stalled' | 'submit' | 'suspend' | 'timeupdate' | 'toggle' | 'touchcancel' | 'touchend' | 'touchmove' | 'touchstart' | 'transitioncancel' | 'transitionend' | 'transitionrun' | 'transitionstart' | 'volumechange' | 'wheel' | 'copy' | 'cut' | 'paste'> */ js.Any = js.native
+    var `type`: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<'waiting' | 'error' | 'abort' | 'cancel' | 'progress' | 'ended' | 'change' | 'input' | 'select' | 'fullscreenchange' | 'fullscreenerror' | 'readystatechange' | 'visibilitychange' | 'animationcancel' | 'animationend' | 'animationiteration' | 'animationstart' | 'auxclick' | 'blur' | 'canplay' | 'canplaythrough' | 'click' | 'close' | 'contextmenu' | 'cuechange' | 'dblclick' | 'drag' | 'dragend' | 'dragenter' | 'dragexit' | 'dragleave' | 'dragover' | 'dragstart' | 'drop' | 'durationchange' | 'emptied' | 'focus' | 'gotpointercapture' | 'invalid' | 'keydown' | 'keypress' | 'keyup' | 'load' | 'loadeddata' | 'loadedmetadata' | 'loadend' | 'loadstart' | 'lostpointercapture' | 'mousedown' | 'mouseenter' | 'mouseleave' | 'mousemove' | 'mouseout' | 'mouseover' | 'mouseup' | 'pause' | 'play' | 'playing' | 'pointercancel' | 'pointerdown' | 'pointerenter' | 'pointerleave' | 'pointermove' | 'pointerout' | 'pointerover' | 'pointerup' | 'ratechange' | 'reset' | 'resize' | 'scroll' | 'securitypolicyviolation' | 'seeked' | 'seeking' | 'stalled' | 'submit' | 'suspend' | 'timeupdate' | 'toggle' | 'touchcancel' | 'touchend' | 'touchmove' | 'touchstart' | 'transitioncancel' | 'transitionend' | 'transitionrun' | 'transitionstart' | 'volumechange' | 'wheel' | 'copy' | 'cut' | 'paste'> */ js.Any
   }
   object Capture {
     
@@ -56,16 +55,15 @@ object anon {
     }
   }
   
-  @js.native
   trait Listener extends StObject {
     
-    var capture: Unit = js.native
+    var capture: Unit
     
-    var listener: Unit = js.native
+    var listener: Unit
     
-    var targetRef: Unit = js.native
+    var targetRef: Unit
     
-    var `type`: Unit = js.native
+    var `type`: Unit
   }
   object Listener {
     

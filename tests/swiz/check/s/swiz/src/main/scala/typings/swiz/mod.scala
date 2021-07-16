@@ -75,10 +75,9 @@ object mod {
     ): Unit = js.native
   }
   
-  @js.native
   trait ISerializable extends StObject {
     
-    def getSerializerType(): String = js.native
+    def getSerializerType(): String
   }
   object ISerializable {
     
@@ -96,14 +95,13 @@ object mod {
     }
   }
   
-  @js.native
   trait ISwizOptions extends StObject {
     
-    var `for`: js.UndefOr[String] = js.native
+    var `for`: js.UndefOr[String] = js.undefined
     
-    var stripNulls: js.UndefOr[Boolean] = js.native
+    var stripNulls: js.UndefOr[Boolean] = js.undefined
     
-    var stripSerializerType: js.UndefOr[Boolean] = js.native
+    var stripSerializerType: js.UndefOr[Boolean] = js.undefined
   }
   object ISwizOptions {
     
@@ -138,10 +136,8 @@ object mod {
   
   object struct {
     
-    @js.native
     trait IField extends StObject
     
-    @js.native
     trait IObj extends StObject
   }
 }

@@ -28,21 +28,20 @@ object documentClientMod {
     */
     type AttributeAction = _AttributeAction | String
     
-    @js.native
     trait ConverterOptions extends StObject {
       
       /**
         * An optional flag indicating that the document client should cast
         * empty strings, buffers, and sets to NULL shapes
         */
-      var convertEmptyValues: js.UndefOr[Boolean] = js.native
+      var convertEmptyValues: js.UndefOr[Boolean] = js.undefined
       
       /**
         * Whether to return numbers as a NumberValue object instead of
         * converting them to native JavaScript numbers. This allows for the
         * safe round-trip transport of numbers of arbitrary size.
         */
-      var wrapNumbers: js.UndefOr[Boolean] = js.native
+      var wrapNumbers: js.UndefOr[Boolean] = js.undefined
     }
     object ConverterOptions {
       
@@ -69,7 +68,6 @@ object documentClientMod {
       }
     }
     
-    @js.native
     trait DocumentClientOptions
       extends StObject
          with ConverterOptions {
@@ -77,12 +75,12 @@ object documentClientMod {
       /**
         * An optional map of parameters to bind to every request sent by this service object.
         */
-      var params: js.UndefOr[StringDictionary[js.Any]] = js.native
+      var params: js.UndefOr[StringDictionary[js.Any]] = js.undefined
       
       /**
         * An optional pre-configured instance of the AWS.DynamoDB service object to use for requests. The object may bound parameters used by the document client.
         */
-      var service: js.UndefOr[^] = js.native
+      var service: js.UndefOr[^] = js.undefined
     }
     object DocumentClientOptions {
       

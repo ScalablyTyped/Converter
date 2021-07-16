@@ -14,13 +14,12 @@ object fpMod extends Shortcut {
   @js.native
   val ^ : LoDashFp = js.native
   
-  @js.native
   trait LoDashFp extends StObject {
     
-    def curry[T1, R](func: js.Function1[/* t1 */ T1, R]): CurriedFunction1[T1, R] = js.native
-    def curry[T1, T2, R](func: js.Function2[/* t1 */ T1, /* t2 */ T2, R]): CurriedFunction2[T1, T2, R] = js.native
+    def curry[T1, R](func: js.Function1[/* t1 */ T1, R]): CurriedFunction1[T1, R]
+    def curry[T1, T2, R](func: js.Function2[/* t1 */ T1, /* t2 */ T2, R]): CurriedFunction2[T1, T2, R]
     @JSName("curry")
-    var curry_Original: Curry = js.native
+    var curry_Original: Curry
   }
   object LoDashFp {
     
@@ -47,19 +46,15 @@ object fpMod extends Shortcut {
   object global {
     
     // tslint:disable-next-line:no-empty-interface
-    @js.native
     trait Map[K, V] extends StObject
     
     // tslint:disable-next-line:no-empty-interface
-    @js.native
     trait Set[T] extends StObject
     
     // tslint:disable-next-line:no-empty-interface
-    @js.native
     trait WeakMap[K /* <: js.Object */, V] extends StObject
     
     // tslint:disable-next-line:no-empty-interface
-    @js.native
     trait WeakSet[T] extends StObject
   }
 }

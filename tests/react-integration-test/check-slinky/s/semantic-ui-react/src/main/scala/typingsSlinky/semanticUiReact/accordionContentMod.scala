@@ -15,7 +15,6 @@ object accordionContentMod extends Shortcut {
   @js.native
   val default: ReactComponentClass[AccordionContentProps] = js.native
   
-  @js.native
   trait AccordionContentProps
     extends StObject
        with StrictAccordionContentProps
@@ -29,23 +28,22 @@ object accordionContentMod extends Shortcut {
     }
   }
   
-  @js.native
   trait StrictAccordionContentProps extends StObject {
     
     /** Whether or not the content is visible. */
-    var active: js.UndefOr[Boolean] = js.native
+    var active: js.UndefOr[Boolean] = js.undefined
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.native
+    var as: js.UndefOr[js.Any] = js.undefined
     
     /** Primary content. */
-    var children: js.UndefOr[ReactElement] = js.native
+    var children: js.UndefOr[ReactElement] = js.undefined
     
     /** Additional classes. */
-    var className: js.UndefOr[String] = js.native
+    var className: js.UndefOr[String] = js.undefined
     
     /** Shorthand for primary content. */
-    var content: js.UndefOr[SemanticShorthandContent] = js.native
+    var content: js.UndefOr[SemanticShorthandContent] = js.undefined
   }
   object StrictAccordionContentProps {
     

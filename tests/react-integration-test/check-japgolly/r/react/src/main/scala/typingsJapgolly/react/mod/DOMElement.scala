@@ -7,12 +7,11 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 // string fallback for custom web-components
-@js.native
 trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */]
   extends StObject
      with ReactElement {
   
-  var ref: LegacyRef[T] = js.native
+  var ref: LegacyRef[T]
 }
 object DOMElement {
   

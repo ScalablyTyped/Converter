@@ -4,12 +4,11 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait Person extends StObject {
   
-  var age: js.UndefOr[scala.Double | Null] = js.native
+  var age: js.UndefOr[scala.Double | Null] = js.undefined
   
-  var name: String = js.native
+  var name: String
 }
 object Person {
   

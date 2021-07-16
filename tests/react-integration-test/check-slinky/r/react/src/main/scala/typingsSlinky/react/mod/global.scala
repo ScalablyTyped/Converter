@@ -17,10 +17,8 @@ object global {
     // tslint:disable-next-line:no-empty-interface
     type Element = slinky.core.facade.ReactElement
     
-    @js.native
     trait ElementAttributesProperty extends StObject
     
-    @js.native
     trait ElementChildrenAttribute extends StObject
     
     @js.native
@@ -33,35 +31,34 @@ object global {
     // tslint:disable-next-line:no-empty-interface
     type IntrinsicClassAttributes[T] = ClassAttributes[T]
     
-    @js.native
     trait IntrinsicElements extends StObject {
       
       // HTML
-      var a: DetailedHTMLProps[AnchorHTMLAttributes[HTMLAnchorElement], HTMLAnchorElement] = js.native
+      var a: DetailedHTMLProps[AnchorHTMLAttributes[HTMLAnchorElement], HTMLAnchorElement]
       
-      var abbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement] = js.native
+      var abbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
       
-      var address: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement] = js.native
+      var address: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
       
-      var area: DetailedHTMLProps[AreaHTMLAttributes[HTMLAreaElement], HTMLAreaElement] = js.native
+      var area: DetailedHTMLProps[AreaHTMLAttributes[HTMLAreaElement], HTMLAreaElement]
       
-      var article: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement] = js.native
+      var article: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
       
-      var aside: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement] = js.native
+      var aside: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
       
-      var audio: DetailedHTMLProps[AudioHTMLAttributes[HTMLAudioElement], HTMLAudioElement] = js.native
+      var audio: DetailedHTMLProps[AudioHTMLAttributes[HTMLAudioElement], HTMLAudioElement]
       
-      var b: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement] = js.native
+      var b: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
       
-      var base: DetailedHTMLProps[BaseHTMLAttributes[HTMLBaseElement], HTMLBaseElement] = js.native
+      var base: DetailedHTMLProps[BaseHTMLAttributes[HTMLBaseElement], HTMLBaseElement]
       
-      var bdi: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement] = js.native
+      var bdi: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
       
-      var bdo: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement] = js.native
+      var bdo: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
       
-      var big: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement] = js.native
+      var big: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
       
-      var view: SVGProps[SVGViewElement] = js.native
+      var view: SVGProps[SVGViewElement]
     }
     object IntrinsicElements {
       

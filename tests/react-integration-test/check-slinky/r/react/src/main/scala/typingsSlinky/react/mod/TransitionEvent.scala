@@ -5,16 +5,15 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait TransitionEvent[T]
   extends StObject
      with BaseSyntheticEvent[NativeTransitionEvent, EventTarget & T, EventTarget] {
   
-  var elapsedTime: Double = js.native
+  var elapsedTime: Double
   
-  var propertyName: String = js.native
+  var propertyName: String
   
-  var pseudoElement: String = js.native
+  var pseudoElement: String
 }
 object TransitionEvent {
   

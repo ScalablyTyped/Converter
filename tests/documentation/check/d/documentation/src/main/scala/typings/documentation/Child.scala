@@ -4,12 +4,11 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-@js.native
 trait Child[T1, T2]
   extends StObject
      with Parent[T1] {
   
-  var t2: js.UndefOr[T2] = js.native
+  var t2: js.UndefOr[T2] = js.undefined
 }
 object Child {
   

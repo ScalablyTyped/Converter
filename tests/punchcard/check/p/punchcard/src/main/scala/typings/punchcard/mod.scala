@@ -18,12 +18,9 @@ object mod {
   ]
   
   /* Inlined std.Readonly<{[member: string] : punchcard.punchcard.Shape}> */
-  @js.native
   trait Fields extends StObject
   
-  @js.native
   trait Shape extends StObject
   
-  @js.native
   trait TypeShape[A, B] extends StObject
 }

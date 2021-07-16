@@ -34,7 +34,7 @@ object Main {
   val DefaultOptions = ConversionOptions(
     useScalaJsDomTypes     = true,
     outputPackage          = Name.typings,
-    enableScalaJsDefined   = Selection.None,
+    enableScalaJsDefined   = Selection.All,
     flavour                = Flavour.Normal,
     ignored                = SortedSet("typescript"),
     stdLibs                = SortedSet("es6"),
