@@ -96,9 +96,17 @@ class ImportType(stdNames: QualifiedName.StdNames) {
        * It is crucial that this "logic" live here in the importer, since it needs to be exported
        *  in it's original form to dependencies
        */
-      case tpe @ TsTypeObject(_, IArray.exactlyOne(TsMemberTypeMapped(_, _, _, _, _, _, to))) =>
+      case tpe @ TsTypeObject(_, IArray.exactlyOne(TsMemberTypeMapped(_, _, _, key, _, _, to))) =>
+        // this forms the bases of a speculative, somewhat nicer output. it might be wrong, but does positive things for react
         val lookups: IArray[TsTypeRef] =
-          TsTreeTraverse.collect(to) { case TsTypeLookup(from: TsTypeRef, _) => from }
+          TsTreeTraverse.collect(to) {
+            case TsTypeLookup(from: TsTypeRef, _)
+                // avoid referring to the key of the type mapping
+                if TsTreeTraverse
+                  .collect(from) { case TsTypeRef(_, TsQIdent(IArray.exactlyOne(`key`)), _) => null }
+                  .isEmpty =>
+              from
+          }
 
         val base = lookups match {
           case IArray.exactlyOne(one) => apply(scope, importName)(one)
