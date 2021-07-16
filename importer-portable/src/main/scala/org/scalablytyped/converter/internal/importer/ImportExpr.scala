@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package importer
 
-import org.scalablytyped.converter.internal.scalajs.ExprTree
+import org.scalablytyped.converter.internal.scalajs.{ExprTree, QualifiedName}
 import org.scalablytyped.converter.internal.scalajs.transforms.FakeLiterals
 import org.scalablytyped.converter.internal.ts._
 
@@ -23,6 +23,8 @@ class ImportExpr(importType: ImportType, importName: AdaptiveNamingImport) {
         }
       case TsExpr.Cast(expr, tpe) =>
         ExprTree.Cast(apply(expr, scope), importType(scope, importName)(tpe))
+      case TsExpr.ArrayOf(expr) =>
+        ExprTree.Call(ExprTree.Ref(QualifiedName.JsArray), IArray(IArray(apply(expr, scope))))
       case TsExpr.Call(function, params) =>
         ExprTree.Call(apply(function, scope), IArray(params.map(p => apply(p, scope))))
       case TsExpr.Unary(op, expr) =>

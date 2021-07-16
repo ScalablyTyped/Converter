@@ -2976,4 +2976,23 @@ export {};
       ),
     )
   }
+
+  test("constant array expressions") {
+    val content = "class DMChannel extends TextBasedChannel(Channel, ['bulkDelete']) {}"
+
+    shouldParseAs(content, TsParser.tsDeclClass)(
+      TsDeclClass(
+        NoComments,
+        declared   = false,
+        isAbstract = false,
+        TsIdentSimple("DMChannel"),
+        IArray(),
+        Some(TsTypeRef.any),
+        IArray(),
+        IArray(),
+        Zero,
+        CodePath.NoPath,
+      ),
+    )
+  }
 }
