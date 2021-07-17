@@ -245,129 +245,80 @@ object org {
     object runtime {
       
       @js.native
-      trait Instantiable0[R]
-        extends js.Object
-           with StObject
+      trait Instantiable0[R] extends StObject
       
       @js.native
-      trait Instantiable1[T1, R]
-        extends js.Object
-           with StObject
+      trait Instantiable1[T1, R] extends StObject
       
       @js.native
-      trait Instantiable10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, R]
-        extends js.Object
-           with StObject
+      trait Instantiable10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, R] extends StObject
       
       @js.native
-      trait Instantiable11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R]
-        extends js.Object
-           with StObject
+      trait Instantiable11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R] extends StObject
       
       @js.native
-      trait Instantiable12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R]
-        extends js.Object
-           with StObject
+      trait Instantiable12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R] extends StObject
       
       @js.native
-      trait Instantiable13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, R]
-        extends js.Object
-           with StObject
+      trait Instantiable13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, R] extends StObject
       
       @js.native
-      trait Instantiable14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, R]
-        extends js.Object
-           with StObject
+      trait Instantiable14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, R] extends StObject
       
       @js.native
-      trait Instantiable15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, R]
-        extends js.Object
-           with StObject
+      trait Instantiable15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, R] extends StObject
       
       @js.native
-      trait Instantiable16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, R]
-        extends js.Object
-           with StObject
+      trait Instantiable16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, R] extends StObject
       
       @js.native
-      trait Instantiable17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, R]
-        extends js.Object
-           with StObject
+      trait Instantiable17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, R] extends StObject
       
       @js.native
-      trait Instantiable18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, R]
-        extends js.Object
-           with StObject
+      trait Instantiable18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, R] extends StObject
       
       @js.native
-      trait Instantiable19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, R]
-        extends js.Object
-           with StObject
+      trait Instantiable19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, R] extends StObject
       
       @js.native
-      trait Instantiable2[T1, T2, R]
-        extends js.Object
-           with StObject
+      trait Instantiable2[T1, T2, R] extends StObject
       
       @js.native
-      trait Instantiable20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, R]
-        extends js.Object
-           with StObject
+      trait Instantiable20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, R] extends StObject
       
       @js.native
-      trait Instantiable21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, R]
-        extends js.Object
-           with StObject
+      trait Instantiable21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, R] extends StObject
       
       @js.native
-      trait Instantiable22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, R]
-        extends js.Object
-           with StObject
+      trait Instantiable22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, R] extends StObject
       
       @js.native
-      trait Instantiable3[T1, T2, T3, R]
-        extends js.Object
-           with StObject
+      trait Instantiable3[T1, T2, T3, R] extends StObject
       
       @js.native
-      trait Instantiable4[T1, T2, T3, T4, R]
-        extends js.Object
-           with StObject
+      trait Instantiable4[T1, T2, T3, T4, R] extends StObject
       
       @js.native
-      trait Instantiable5[T1, T2, T3, T4, T5, R]
-        extends js.Object
-           with StObject
+      trait Instantiable5[T1, T2, T3, T4, T5, R] extends StObject
       
       @js.native
-      trait Instantiable6[T1, T2, T3, T4, T5, T6, R]
-        extends js.Object
-           with StObject
+      trait Instantiable6[T1, T2, T3, T4, T5, T6, R] extends StObject
       
       @js.native
-      trait Instantiable7[T1, T2, T3, T4, T5, T6, T7, R]
-        extends js.Object
-           with StObject
+      trait Instantiable7[T1, T2, T3, T4, T5, T6, T7, R] extends StObject
       
       @js.native
-      trait Instantiable8[T1, T2, T3, T4, T5, T6, T7, T8, R]
-        extends js.Object
-           with StObject
+      trait Instantiable8[T1, T2, T3, T4, T5, T6, T7, T8, R] extends StObject
       
       @js.native
-      trait Instantiable9[T1, T2, T3, T4, T5, T6, T7, T8, T9, R]
-        extends js.Object
-           with StObject
+      trait Instantiable9[T1, T2, T3, T4, T5, T6, T7, T8, T9, R] extends StObject
       
       @js.native
-      trait NumberDictionary[V]
-        extends js.Object
-           with StObject
+      trait NumberDictionary[V] extends StObject
       object NumberDictionary {
         
         @js.native
-        trait NumberDictionaryRaw[V]
-          extends js.Object {
+        trait NumberDictionaryRaw[V] extends StObject {
           
           def apply[VV](index: Int): js.UndefOr[VV] = js.native
           
@@ -376,17 +327,15 @@ object org {
       }
       
       @js.native
-      trait StObject
-        extends js.Object
+      trait StObject extends StObject
       
       @js.native
-      trait StringDictionary[V]
-        extends js.Object
-           with StObject
+      trait StringDictionary[V] extends StObject
       
       @js.native
       trait TopLevel[T]
-        extends js.Any
+        extends StObject
+           with js.Any
     }
   }
   
@@ -720,7 +669,7 @@ object org {
         
         @js.native
         trait AesCbcParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var iv: BufferSource = js.native
@@ -728,7 +677,7 @@ object org {
         
         @js.native
         trait AesCfbParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var iv: BufferSource = js.native
@@ -736,7 +685,7 @@ object org {
         
         @js.native
         trait AesCmacParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var length: Int = js.native
@@ -744,7 +693,7 @@ object org {
         
         @js.native
         trait AesCtrParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var counter: BufferSource = js.native
@@ -754,7 +703,7 @@ object org {
         
         @js.native
         trait AesDerivedKeyParams
-          extends js.Object
+          extends StObject
              with KeyAlgorithm {
           
           var length: Int = js.native
@@ -762,7 +711,7 @@ object org {
         
         @js.native
         trait AesGcmParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var additionalData: BufferSource = js.native
@@ -774,7 +723,7 @@ object org {
         
         @js.native
         trait AesKeyAlgorithm
-          extends js.Object
+          extends StObject
              with KeyAlgorithm {
           
           var length: Int = js.native
@@ -782,15 +731,14 @@ object org {
         
         @js.native
         trait AesKeyGenParams
-          extends js.Object
+          extends StObject
              with KeyAlgorithm {
           
           var length: Int = js.native
         }
         
         @js.native
-        trait Algorithm
-          extends js.Object {
+        trait Algorithm extends StObject {
           
           var name: String = js.native
         }
@@ -799,11 +747,12 @@ object org {
         
         @js.native
         sealed trait BufferSource
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
         trait ConcatParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var algorithmId: BufferSource = js.native
@@ -820,8 +769,7 @@ object org {
         }
         
         @js.native
-        trait Crypto
-          extends js.Object {
+        trait Crypto extends StObject {
           
           def getRandomValues(array: js.typedarray.ArrayBufferView): js.typedarray.ArrayBufferView = js.native
           
@@ -829,8 +777,7 @@ object org {
         }
         
         @js.native
-        trait CryptoKey
-          extends js.Object {
+        trait CryptoKey extends StObject {
           
           val algorithm: KeyAlgorithm = js.native
           
@@ -842,8 +789,7 @@ object org {
         }
         
         @js.native
-        trait CryptoKeyPair
-          extends js.Object {
+        trait CryptoKeyPair extends StObject {
           
           val privateKey: CryptoKey = js.native
           
@@ -852,7 +798,7 @@ object org {
         
         @js.native
         trait DhImportKeyParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var generator: BigInteger = js.native
@@ -862,7 +808,7 @@ object org {
         
         @js.native
         trait DhKeyAlgorithm
-          extends js.Object
+          extends StObject
              with KeyAlgorithm {
           
           var generator: BigInteger = js.native
@@ -872,7 +818,7 @@ object org {
         
         @js.native
         trait DhKeyDeriveParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var public: CryptoKey = js.native
@@ -880,7 +826,7 @@ object org {
         
         @js.native
         trait DhKeyGenParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var generator: BigInteger = js.native
@@ -890,7 +836,7 @@ object org {
         
         @js.native
         trait EcKeyAlgorithm
-          extends js.Object
+          extends StObject
              with KeyAlgorithm {
           
           var namedCurve: String = js.native
@@ -898,7 +844,7 @@ object org {
         
         @js.native
         trait EcKeyGenParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var namedCurve: String = js.native
@@ -906,7 +852,7 @@ object org {
         
         @js.native
         trait EcKeyImportParams
-          extends js.Object
+          extends StObject
              with KeyAlgorithm {
           
           var namedCurve: String = js.native
@@ -914,7 +860,7 @@ object org {
         
         @js.native
         trait EcdhKeyDeriveParams
-          extends js.Object
+          extends StObject
              with KeyAlgorithm {
           
           var public: CryptoKey = js.native
@@ -922,27 +868,26 @@ object org {
         
         @js.native
         trait EcdsaParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var hash: HashAlgorithmIdentifier = js.native
         }
         
         @js.native
-        object GlobalCrypto
-          extends js.Object {
+        object GlobalCrypto extends StObject {
           
           val crypto: Crypto = js.native
         }
         
         @js.native
         trait HashAlgorithm
-          extends js.Object
+          extends StObject
              with Algorithm
         
         @js.native
         trait HkdfCtrParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var context: BufferSource = js.native
@@ -954,7 +899,7 @@ object org {
         
         @js.native
         trait HmacImportParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var hash: HashAlgorithmIdentifier = js.native
@@ -964,7 +909,7 @@ object org {
         
         @js.native
         trait HmacKeyAlgorithm
-          extends js.Object
+          extends StObject
              with KeyAlgorithm {
           
           var hash: HashAlgorithmIdentifier = js.native
@@ -974,7 +919,7 @@ object org {
         
         @js.native
         trait HmacKeyGenParams
-          extends js.Object
+          extends StObject
              with KeyAlgorithm {
           
           var hash: HashAlgorithmIdentifier = js.native
@@ -983,8 +928,7 @@ object org {
         }
         
         @js.native
-        trait JsonWebKey
-          extends js.Object {
+        trait JsonWebKey extends StObject {
           
           var alg: js.Array[String] = js.native
           
@@ -1025,24 +969,27 @@ object org {
         
         @js.native
         trait KeyAlgorithm
-          extends js.Object
+          extends StObject
              with Algorithm
         
         @js.native
         trait KeyFormat
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
         trait KeyType
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
         trait KeyUsage
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
         trait Pbkdf2Params
-          extends js.Object
+          extends StObject
              with HashAlgorithm {
           
           var hash: HashAlgorithmIdentifier = js.native
@@ -1053,8 +1000,7 @@ object org {
         }
         
         @js.native
-        trait RSAPublicKey
-          extends js.Object {
+        trait RSAPublicKey extends StObject {
           
           def e(): String = js.native
           
@@ -1063,7 +1009,7 @@ object org {
         
         @js.native
         trait RsaHashedImportParams
-          extends js.Object
+          extends StObject
              with KeyAlgorithm {
           
           var hash: HashAlgorithmIdentifier = js.native
@@ -1071,7 +1017,7 @@ object org {
         
         @js.native
         trait RsaHashedKeyAlgorithm
-          extends js.Object
+          extends StObject
              with RsaKeyAlgorithm {
           
           var hash: HashAlgorithmIdentifier = js.native
@@ -1079,7 +1025,7 @@ object org {
         
         @js.native
         trait RsaHashedKeyGenParams
-          extends js.Object
+          extends StObject
              with RsaKeyGenParams {
           
           var hash: HashAlgorithmIdentifier = js.native
@@ -1087,7 +1033,7 @@ object org {
         
         @js.native
         trait RsaKeyAlgorithm
-          extends js.Object
+          extends StObject
              with KeyAlgorithm {
           
           var modulusLength: Double = js.native
@@ -1097,7 +1043,7 @@ object org {
         
         @js.native
         trait RsaKeyGenParams
-          extends js.Object
+          extends StObject
              with KeyAlgorithm {
           
           var modulusLength: Double = js.native
@@ -1107,15 +1053,14 @@ object org {
         
         @js.native
         trait RsaOaepParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var label: BufferSource = js.native
         }
         
         @js.native
-        trait RsaOtherPrimesInfo
-          extends js.Object {
+        trait RsaOtherPrimesInfo extends StObject {
           
           var d: String = js.native
           
@@ -1126,15 +1071,14 @@ object org {
         
         @js.native
         trait RsaPssParams
-          extends js.Object
+          extends StObject
              with Algorithm {
           
           var saltLength: Double = js.native
         }
         
         @js.native
-        trait SubtleCrypto
-          extends js.Object {
+        trait SubtleCrypto extends StObject {
           
           def decrypt(algorithm: AlgorithmIdentifier, key: CryptoKey, data: BufferSource): js.Promise[js.Any] = js.native
           
@@ -1217,8 +1161,7 @@ object org {
       object experimental {
         
         @js.native
-        class AbortController ()
-          extends js.Object {
+        class AbortController () extends StObject {
           
           def abort(): Unit = js.native
           
@@ -1227,7 +1170,8 @@ object org {
         
         @js.native
         trait AbortSignal
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           def aborted(): Boolean = js.native
           
@@ -1235,8 +1179,7 @@ object org {
         }
         
         @js.native
-        trait Body
-          extends js.Object {
+        trait Body extends StObject {
           
           def arrayBuffer(): js.Promise[js.typedarray.ArrayBuffer] = js.native
           
@@ -1252,8 +1195,7 @@ object org {
         }
         
         @js.native
-        trait Chunk[T]
-          extends js.Object {
+        trait Chunk[T] extends StObject {
           
           def done(): Boolean = js.native
           
@@ -1261,8 +1203,7 @@ object org {
         }
         
         @js.native
-        object Fetch
-          extends js.Object {
+        object Fetch extends StObject {
           
           def fetch(info: RequestInfo, init: RequestInit): js.Promise[Response] = js.native
         }
@@ -1270,8 +1211,7 @@ object org {
         object Fullscreen {
           
           @js.native
-          trait FullscreenDocument
-            extends js.Object {
+          trait FullscreenDocument extends StObject {
             
             def exitFullscreen(): js.UndefOr[js.Promise[Unit]] = js.native
             
@@ -1285,8 +1225,7 @@ object org {
           }
           
           @js.native
-          trait FullscreenElement
-            extends js.Object {
+          trait FullscreenElement extends StObject {
             
             def requestFullscreen(): js.UndefOr[js.Promise[Unit]] = js.native
           }
@@ -1294,7 +1233,7 @@ object org {
         
         @js.native
         class Headers protected ()
-          extends js.Object
+          extends StObject
              with js.Iterable[js.Array[ByteString]] {
           def this(map: HeadersInit) = this()
           
@@ -1319,11 +1258,13 @@ object org {
         
         @js.native
         trait HttpMethod
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
         class Notification protected ()
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           def this(title: String, options: NotificationOptions) = this()
           
           val body: String = js.native
@@ -1361,8 +1302,7 @@ object org {
           val vibrate: js.Array[Double] = js.native
         }
         @js.native
-        object Notification
-          extends js.Object {
+        object Notification extends StObject {
           
           val permission: String = js.native
           
@@ -1370,8 +1310,7 @@ object org {
         }
         
         @js.native
-        trait NotificationOptions
-          extends js.Object {
+        trait NotificationOptions extends StObject {
           
           val body: String = js.native
           
@@ -1405,8 +1344,7 @@ object org {
         object PointerLock {
           
           @js.native
-          trait PointerLockDocument
-            extends js.Object {
+          trait PointerLockDocument extends StObject {
             
             def exitPointerLock(): Unit = js.native
             
@@ -1418,15 +1356,13 @@ object org {
           }
           
           @js.native
-          trait PointerLockElement
-            extends js.Object {
+          trait PointerLockElement extends StObject {
             
             def requestPointerLock(): Unit = js.native
           }
           
           @js.native
-          trait PointerLockMouseEvent
-            extends js.Object {
+          trait PointerLockMouseEvent extends StObject {
             
             def movementX(): Double = js.native
             
@@ -1435,8 +1371,7 @@ object org {
         }
         
         @js.native
-        trait ReadableStream[T]
-          extends js.Object {
+        trait ReadableStream[T] extends StObject {
           
           def cancel(reason: String): js.Promise[Any] = js.native
           
@@ -1452,8 +1387,7 @@ object org {
         }
         
         @js.native
-        class ReadableStreamController[T] protected ()
-          extends js.Object {
+        class ReadableStreamController[T] protected () extends StObject {
           def this(stream: ReadableStream[T]) = this()
           
           def close(): Unit = js.native
@@ -1468,8 +1402,7 @@ object org {
         }
         
         @js.native
-        class ReadableStreamReader[T] protected ()
-          extends js.Object {
+        class ReadableStreamReader[T] protected () extends StObject {
           def this(stream: ReadableStream[T]) = this()
           
           def cancel(reason: Any): js.Promise[Any] = js.native
@@ -1485,11 +1418,11 @@ object org {
         
         @js.native
         sealed trait ReferrerPolicy
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
-        class Request protected ()
-          extends js.Object {
+        class Request protected () extends StObject {
           def this(input: RequestInfo, init: RequestInit) = this()
           
           def cache(): RequestCache = js.native
@@ -1527,19 +1460,21 @@ object org {
         
         @js.native
         sealed trait RequestCache
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
         sealed trait RequestCredentials
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
         sealed trait RequestDestination
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
-        trait RequestInit
-          extends js.Object {
+        trait RequestInit extends StObject {
           
           var body: js.UndefOr[BodyInit] = js.native
           
@@ -1570,19 +1505,22 @@ object org {
         
         @js.native
         sealed trait RequestMode
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
         sealed trait RequestRedirect
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
         sealed trait RequestType
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
         class Response protected ()
-          extends js.Object
+          extends StObject
              with Body {
           def this(content: BodyInit, init: ResponseInit) = this()
           
@@ -1607,8 +1545,7 @@ object org {
           def url(): String = js.native
         }
         @js.native
-        object Response
-          extends js.Object {
+        object Response extends StObject {
           
           def error(): Response = js.native
           
@@ -1616,8 +1553,7 @@ object org {
         }
         
         @js.native
-        trait ResponseInit
-          extends js.Object {
+        trait ResponseInit extends StObject {
           
           var headers: HeadersInit = js.native
           
@@ -1628,13 +1564,13 @@ object org {
         
         @js.native
         sealed trait ResponseType
-          extends js.Any
+          extends StObject
+             with js.Any
         
         type Sequence[T] = js.Array[T]
         
         @js.native
-        class URL protected ()
-          extends js.Object {
+        class URL protected () extends StObject {
           def this(url: String, base: String) = this()
           
           val base: String = js.native
@@ -1668,7 +1604,7 @@ object org {
         
         @js.native
         class URLSearchParams ()
-          extends js.Object
+          extends StObject
              with js.Iterable[js.Tuple2[String, String]] {
           def this(init: String) = this()
           def this(init: js.Dictionary[String]) = this()
@@ -1703,7 +1639,8 @@ object org {
           
           @js.native
           trait VibrationNavigator
-            extends js.Any {
+            extends StObject
+               with js.Any {
             
             def vibrate(duration: Double): Boolean = js.native
             def vibrate(pattern: js.Array[Double]): Boolean = js.native
@@ -1712,11 +1649,11 @@ object org {
         
         @js.native
         sealed trait WriteableState
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
-        trait WriteableStream[T]
-          extends js.Object {
+        trait WriteableStream[T] extends StObject {
           
           def abort(reason: Any): Unit = js.native
           
@@ -1734,15 +1671,13 @@ object org {
         object beacon {
           
           @js.native
-          trait BeaconNavigator
-            extends js.Object {
+          trait BeaconNavigator extends StObject {
             
             def sendBeacon(url: String, data: BodyInit): Boolean = js.native
           }
           
           @js.native
-          trait BeaconWorkerNavigator
-            extends js.Object {
+          trait BeaconWorkerNavigator extends StObject {
             
             def sendBeacon(url: String, data: BodyInit): Boolean = js.native
           }
@@ -1752,7 +1687,8 @@ object org {
           
           @js.native
           trait DeviceAcceleration
-            extends js.Any {
+            extends StObject
+               with js.Any {
             
             val x: Double = js.native
             
@@ -1762,7 +1698,9 @@ object org {
           }
           
           @js.native
-          class DeviceMotionEvent protected () extends Event {
+          class DeviceMotionEvent protected ()
+            extends StObject
+               with Event {
             def this(typeArg: String, init: js.UndefOr[DeviceMotionEventInit]) = this()
             
             val acceleration: DeviceAcceleration = js.native
@@ -1780,7 +1718,7 @@ object org {
           
           @js.native
           trait DeviceMotionEventInit
-            extends js.Object
+            extends StObject
                with EventInit {
             
             val acceleration: js.UndefOr[DeviceAcceleration] = js.native
@@ -1793,7 +1731,9 @@ object org {
           }
           
           @js.native
-          class DeviceOrientationEvent protected () extends Event {
+          class DeviceOrientationEvent protected ()
+            extends StObject
+               with Event {
             def this(typeArg: String, init: js.UndefOr[DeviceOrientationEventInit]) = this()
             
             val absolute: Boolean = js.native
@@ -1811,7 +1751,7 @@ object org {
           
           @js.native
           trait DeviceOrientationEventInit
-            extends js.Object
+            extends StObject
                with EventInit {
             
             var absolute: js.UndefOr[Boolean] = js.native
@@ -1825,7 +1765,8 @@ object org {
           
           @js.native
           trait DeviceRotationRate
-            extends js.Any {
+            extends StObject
+               with js.Any {
             
             val alpha: Double = js.native
             
@@ -1838,22 +1779,23 @@ object org {
         object domparser {
           
           @js.native
-          class DOMParser ()
-            extends js.Object {
+          class DOMParser () extends StObject {
             
             def parseFromString(string: String, supportedType: SupportedType): org.scalajs.dom.raw.Document = js.native
           }
           
           @js.native
           sealed trait SupportedType
-            extends js.Any
+            extends StObject
+               with js.Any
         }
         
         object gamepad {
           
           @js.native
           trait Gamepad
-            extends js.Any {
+            extends StObject
+               with js.Any {
             
             val axes: js.Array[Double] = js.native
             
@@ -1872,7 +1814,8 @@ object org {
           
           @js.native
           trait GamepadButton
-            extends js.Any {
+            extends StObject
+               with js.Any {
             
             val pressed: Boolean = js.native
             
@@ -1880,7 +1823,9 @@ object org {
           }
           
           @js.native
-          class GamepadEvent protected () extends Event {
+          class GamepadEvent protected ()
+            extends StObject
+               with Event {
             def this(typeArg: String, init: js.UndefOr[GamepadEventInit]) = this()
             
             val gamepad: Gamepad = js.native
@@ -1892,7 +1837,7 @@ object org {
           
           @js.native
           trait GamepadEventInit
-            extends js.Object
+            extends StObject
                with EventInit {
             
             var gamepad: js.UndefOr[Gamepad] = js.native
@@ -1900,11 +1845,13 @@ object org {
           
           @js.native
           trait GamepadMappingType
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
           trait GamepadNavigator
-            extends js.Any {
+            extends StObject
+               with js.Any {
             
             def getGamepads(): js.Array[Gamepad] = js.native
           }
@@ -1913,8 +1860,7 @@ object org {
         object intl {
           
           @js.native
-          class Collator protected ()
-            extends js.Object {
+          class Collator protected () extends StObject {
             def this(locales: js.UndefOr[String | js.Array[String]], options: js.UndefOr[CollatorOptions]) = this()
             
             def compare(string1: String, string2: String): Double = js.native
@@ -1929,8 +1875,7 @@ object org {
           }
           
           @js.native
-          trait CollatorOptions
-            extends js.Object {
+          trait CollatorOptions extends StObject {
             
             val caseFirst: js.UndefOr[String] = js.native
             
@@ -1946,8 +1891,7 @@ object org {
           }
           
           @js.native
-          class DateTimeFormat protected ()
-            extends js.Object {
+          class DateTimeFormat protected () extends StObject {
             def this(locales: js.UndefOr[String | js.Array[String]], options: js.UndefOr[DateTimeFormatOptions]) = this()
             
             def format(date: js.Date): String = js.native
@@ -1962,8 +1906,7 @@ object org {
           }
           
           @js.native
-          trait DateTimeFormatOptions
-            extends js.Object {
+          trait DateTimeFormatOptions extends StObject {
             
             val day: js.UndefOr[String] = js.native
             
@@ -1993,8 +1936,7 @@ object org {
           }
           
           @js.native
-          class NumberFormat protected ()
-            extends js.Object {
+          class NumberFormat protected () extends StObject {
             def this(locales: js.UndefOr[String | js.Array[String]], options: js.UndefOr[NumberFormatOptions]) = this()
             
             def format(number: Double): String = js.native
@@ -2009,8 +1951,7 @@ object org {
           }
           
           @js.native
-          trait NumberFormatOptions
-            extends js.Object {
+          trait NumberFormatOptions extends StObject {
             
             val currency: js.UndefOr[String] = js.native
             
@@ -2037,8 +1978,7 @@ object org {
         object mediastream {
           
           @js.native
-          trait MediaDeviceInfo
-            extends js.Object {
+          trait MediaDeviceInfo extends StObject {
             
             val deviceId: String = js.native
             
@@ -2051,11 +1991,13 @@ object org {
           
           @js.native
           trait MediaDeviceKind
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
           trait MediaDevices
-            extends org.scalajs.dom.raw.EventTarget {
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
             
             def enumerateDevices(): js.Promise[js.Array[MediaDeviceInfo]] = js.native
             
@@ -2068,7 +2010,8 @@ object org {
           
           @js.native
           class MediaStream ()
-            extends org.scalajs.dom.raw.EventTarget {
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
             
             val active: Boolean = js.native
             
@@ -2094,8 +2037,7 @@ object org {
           }
           
           @js.native
-          trait MediaStreamConstraints
-            extends js.Object {
+          trait MediaStreamConstraints extends StObject {
             
             var audio: Boolean | MediaTrackConstraints = js.native
             
@@ -2106,7 +2048,8 @@ object org {
           
           @js.native
           trait MediaStreamTrack
-            extends org.scalajs.dom.raw.EventTarget {
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
             
             def applyConstraints(constraints: MediaTrackConstraints): js.Promise[Unit] = js.native
             
@@ -2149,7 +2092,8 @@ object org {
           
           @js.native
           class MediaStreamTrackEvent protected ()
-            extends org.scalajs.dom.raw.Event {
+            extends StObject
+               with org.scalajs.dom.raw.Event {
             def this(typeArg: String, init: js.UndefOr[MediaStreamTrackEventInit]) = this()
             
             val init: js.UndefOr[MediaStreamTrackEventInit] = js.native
@@ -2161,7 +2105,7 @@ object org {
           
           @js.native
           trait MediaStreamTrackEventInit
-            extends js.Object
+            extends StObject
                with EventInit {
             
             var track: js.UndefOr[MediaStreamTrack] = js.native
@@ -2169,11 +2113,11 @@ object org {
           
           @js.native
           trait MediaStreamTrackState
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
-          trait MediaTrackConstraintSet
-            extends js.Object {
+          trait MediaTrackConstraintSet extends StObject {
             
             var aspectRatio: Double = js.native
             
@@ -2200,15 +2144,14 @@ object org {
           
           @js.native
           trait MediaTrackConstraints
-            extends js.Object
+            extends StObject
                with MediaTrackConstraintSet {
             
             var advanced: js.Array[MediaTrackConstraintSet] = js.native
           }
           
           @js.native
-          trait MediaTrackSettings
-            extends js.Object {
+          trait MediaTrackSettings extends StObject {
             
             var aspectRatio: js.UndefOr[Double] = js.native
             
@@ -2238,8 +2181,7 @@ object org {
           }
           
           @js.native
-          trait MediaTrackSupportedConstraints
-            extends js.Object {
+          trait MediaTrackSupportedConstraints extends StObject {
             
             var aspectRatio: js.UndefOr[Boolean] = js.native
             
@@ -2272,23 +2214,25 @@ object org {
         object permissions {
           
           @js.native
-          trait PermissionDescriptor
-            extends js.Object {
+          trait PermissionDescriptor extends StObject {
             
             val name: PermissionName = js.native
           }
           
           @js.native
           sealed trait PermissionName
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
           sealed trait PermissionState
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
           trait PermissionStatus
-            extends org.scalajs.dom.raw.EventTarget {
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
             
             var onchange: js.Function1[Event, _] = js.native
             
@@ -2296,22 +2240,20 @@ object org {
           }
           
           @js.native
-          trait Permissions
-            extends js.Object {
+          trait Permissions extends StObject {
             
             def query(permissionDescriptor: PermissionDescriptor): js.Promise[PermissionStatus] = js.native
           }
           
           @js.native
-          trait PermissionsNavigator
-            extends js.Object {
+          trait PermissionsNavigator extends StObject {
             
             val permissions: Permissions = js.native
           }
           
           @js.native
           trait PushPermissionDescriptor
-            extends js.Object
+            extends StObject
                with PermissionDescriptor {
             
             val userVisibleOnly: Boolean = js.native
@@ -2322,17 +2264,19 @@ object org {
           
           @js.native
           sealed trait PushEncryptionKeyName
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
-          trait PushEvent extends ExtendableEvent {
+          trait PushEvent
+            extends StObject
+               with ExtendableEvent {
             
             val data: PushMessageData = js.native
           }
           
           @js.native
-          trait PushManager
-            extends js.Object {
+          trait PushManager extends StObject {
             
             def getSubscription(): js.Promise[PushSubscription] = js.native
             
@@ -2342,8 +2286,7 @@ object org {
           }
           
           @js.native
-          trait PushMessageData
-            extends js.Object {
+          trait PushMessageData extends StObject {
             
             def arrayBuffer(): js.typedarray.ArrayBuffer = js.native
             
@@ -2356,11 +2299,13 @@ object org {
           
           @js.native
           sealed trait PushPermissionState
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
           trait PushServiceWorkerGlobalScope
-            extends js.Any {
+            extends StObject
+               with js.Any {
             
             var onpush: js.Function1[PushEvent, _] = js.native
             
@@ -2369,14 +2314,14 @@ object org {
           
           @js.native
           trait PushServiceWorkerRegistration
-            extends js.Any {
+            extends StObject
+               with js.Any {
             
             val pushManager: PushManager = js.native
           }
           
           @js.native
-          trait PushSubscription
-            extends js.Object {
+          trait PushSubscription extends StObject {
             
             val endpoint: String = js.native
             
@@ -2392,8 +2337,7 @@ object org {
           }
           
           @js.native
-          trait PushSubscriptionJSON
-            extends js.Object {
+          trait PushSubscriptionJSON extends StObject {
             
             val endpoint: String = js.native
             
@@ -2403,8 +2347,7 @@ object org {
           }
           
           @js.native
-          trait PushSubscriptionOptions
-            extends js.Object {
+          trait PushSubscriptionOptions extends StObject {
             
             var applicationServerKey: js.UndefOr[js.typedarray.Uint8Array] = js.native
             
@@ -2415,8 +2358,7 @@ object org {
         object serviceworkers {
           
           @js.native
-          abstract class Cache ()
-            extends js.Object {
+          abstract class Cache () extends StObject {
             
             def add(request: RequestInfo): js.Promise[Unit] = js.native
             
@@ -2434,8 +2376,7 @@ object org {
           }
           
           @js.native
-          trait CacheQueryOptions
-            extends js.Object {
+          trait CacheQueryOptions extends StObject {
             
             var cacheName: String = js.native
             
@@ -2447,8 +2388,7 @@ object org {
           }
           
           @js.native
-          trait CacheStorage
-            extends js.Object {
+          trait CacheStorage extends StObject {
             
             def delete(cacheName: String): js.Promise[Boolean] = js.native
             
@@ -2463,14 +2403,14 @@ object org {
           
           @js.native
           trait CanvasProxy
-            extends js.Any {
+            extends StObject
+               with js.Any {
             
             def setContext(context: RenderingContext): Unit = js.native
           }
           
           @js.native
-          trait Client
-            extends js.Object {
+          trait Client extends StObject {
             
             def frameType(): FrameType = js.native
             
@@ -2482,8 +2422,7 @@ object org {
           }
           
           @js.native
-          trait ClientQueryOptions
-            extends js.Object {
+          trait ClientQueryOptions extends StObject {
             
             var includeUncontrolled: Boolean = js.native
             
@@ -2492,11 +2431,11 @@ object org {
           
           @js.native
           sealed trait ClientType
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
-          trait Clients
-            extends js.Object {
+          trait Clients extends StObject {
             
             def claim(): js.Promise[Unit] = js.native
             
@@ -2508,7 +2447,9 @@ object org {
           }
           
           @js.native
-          class ExtendableEvent protected () extends Event {
+          class ExtendableEvent protected ()
+            extends StObject
+               with Event {
             def this(typeArg: String, init: js.UndefOr[ExtendableEventInit]) = this()
             
             val init: js.UndefOr[ExtendableEventInit] = js.native
@@ -2520,11 +2461,13 @@ object org {
           
           @js.native
           trait ExtendableEventInit
-            extends js.Object
+            extends StObject
                with EventInit
           
           @js.native
-          class ExtendableMessageEvent protected () extends ExtendableEvent {
+          class ExtendableMessageEvent protected ()
+            extends StObject
+               with ExtendableEvent {
             def this(typeArg: String, init: js.UndefOr[ExtendableMessageEventInit]) = this()
             
             val data: Any = js.native
@@ -2544,7 +2487,7 @@ object org {
           
           @js.native
           trait ExtendableMessageEventInit
-            extends js.Object
+            extends StObject
                with ExtendableEventInit {
             
             var data: js.UndefOr[Any] = js.native
@@ -2559,7 +2502,9 @@ object org {
           }
           
           @js.native
-          class FetchEvent protected () extends Event {
+          class FetchEvent protected ()
+            extends StObject
+               with Event {
             def this(typeArg: String, init: js.UndefOr[FetchEventInit]) = this()
             
             def clientId(): String = js.native
@@ -2583,7 +2528,7 @@ object org {
           
           @js.native
           trait FetchEventInit
-            extends js.Object
+            extends StObject
                with EventInit {
             
             var clientId: js.UndefOr[String] = js.native
@@ -2595,17 +2540,19 @@ object org {
           
           @js.native
           sealed trait FrameType
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
-          trait GetNotificationOptions
-            extends js.Object {
+          trait GetNotificationOptions extends StObject {
             
             var tag: js.UndefOr[String] = js.native
           }
           
           @js.native
-          trait ServiceWorker extends EventTarget {
+          trait ServiceWorker
+            extends StObject
+               with EventTarget {
             
             var onstatechange: js.Function1[Event, _] = js.native
             
@@ -2617,7 +2564,9 @@ object org {
           }
           
           @js.native
-          trait ServiceWorkerContainer extends EventTarget {
+          trait ServiceWorkerContainer
+            extends StObject
+               with EventTarget {
             
             def controller(): ServiceWorker = js.native
             
@@ -2638,7 +2587,8 @@ object org {
           
           @js.native
           trait ServiceWorkerGlobalScope
-            extends org.scalajs.dom.raw.EventTarget
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget
                with WorkerGlobalScope {
             
             override def caches(): CacheStorage = js.native
@@ -2658,15 +2608,14 @@ object org {
             def skipWaiting(): js.Promise[Unit] = js.native
           }
           @js.native
-          object ServiceWorkerGlobalScope
-            extends js.Object {
+          object ServiceWorkerGlobalScope extends StObject {
             
             def self(): ServiceWorkerGlobalScope = js.native
           }
           
           @js.native
           trait ServiceWorkerMessageEventInit
-            extends js.Object
+            extends StObject
                with EventInit {
             
             var data: js.UndefOr[Any] = js.native
@@ -2682,13 +2631,16 @@ object org {
           
           @js.native
           trait ServiceWorkerNavigator
-            extends js.Any {
+            extends StObject
+               with js.Any {
             
             val serviceWorker: ServiceWorkerContainer = js.native
           }
           
           @js.native
-          trait ServiceWorkerRegistration extends EventTarget {
+          trait ServiceWorkerRegistration
+            extends StObject
+               with EventTarget {
             
             var active: ServiceWorker = js.native
             
@@ -2711,13 +2663,14 @@ object org {
           
           @js.native
           sealed trait ServiceWorkerState
-            extends js.Any
+            extends StObject
+               with js.Any
           
           type Transferable = org.scalajs.dom.raw.Transferable | CanvasProxy
           
           @js.native
           trait WindowClient
-            extends js.Object
+            extends StObject
                with Client {
             
             def focus(): js.Promise[WindowClient] = js.native
@@ -2734,7 +2687,8 @@ object org {
           
           @js.native
           class SharedWorker protected ()
-            extends org.scalajs.dom.raw.EventTarget
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget
                with AbstractWorker {
             def this(stringUrl: String, name: js.UndefOr[String]) = this()
             
@@ -2747,7 +2701,8 @@ object org {
           
           @js.native
           trait SharedWorkerGlobalScope
-            extends org.scalajs.dom.raw.EventTarget
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget
                with WorkerGlobalScope {
             
             def applicationCache(): org.scalajs.dom.raw.ApplicationCache = js.native
@@ -2757,8 +2712,7 @@ object org {
             var onconnect: ExtendableMessageEvent => _ = js.native
           }
           @js.native
-          object SharedWorkerGlobalScope
-            extends js.Object {
+          object SharedWorkerGlobalScope extends StObject {
             
             def self(): SharedWorkerGlobalScope = js.native
           }
@@ -2767,15 +2721,15 @@ object org {
         object storage {
           
           @js.native
-          trait NavigatorStorage
-            extends js.Object {
+          trait NavigatorStorage extends StObject {
             
             val storage: StorageManager = js.native
           }
           
           @js.native
           trait StorageEstimate
-            extends js.Any {
+            extends StObject
+               with js.Any {
             
             val quota: Double = js.native
             
@@ -2784,7 +2738,8 @@ object org {
           
           @js.native
           trait StorageManager
-            extends js.Any {
+            extends StObject
+               with js.Any {
             
             def estimate(): js.Promise[StorageEstimate] = js.native
             
@@ -2799,8 +2754,7 @@ object org {
           object extensions {
             
             @js.native
-            trait ANGLEInstancedArrays
-              extends js.Object {
+            trait ANGLEInstancedArrays extends StObject {
               
               val VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE: Int = js.native
               
@@ -2812,8 +2766,7 @@ object org {
             }
             
             @js.native
-            trait EXTBlendMinmax
-              extends js.Object {
+            trait EXTBlendMinmax extends StObject {
               
               val MAX_EXT: Int = js.native
               
@@ -2821,8 +2774,7 @@ object org {
             }
             
             @js.native
-            trait EXTColorBufferHalfFloat
-              extends js.Object {
+            trait EXTColorBufferHalfFloat extends StObject {
               
               val FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT: Int = js.native
               
@@ -2834,8 +2786,7 @@ object org {
             }
             
             @js.native
-            trait EXTDisjointTimerQuery
-              extends js.Object {
+            trait EXTDisjointTimerQuery extends StObject {
               
               val CURRENT_QUERY_EXT: Int = js.native
               
@@ -2869,16 +2820,13 @@ object org {
             }
             
             @js.native
-            trait EXTFragDepth
-              extends js.Object
+            trait EXTFragDepth extends StObject
             
             @js.native
-            trait EXTShaderTextureLOD
-              extends js.Object
+            trait EXTShaderTextureLOD extends StObject
             
             @js.native
-            trait EXTTextureFilterAnisotropic
-              extends js.Object {
+            trait EXTTextureFilterAnisotropic extends StObject {
               
               val MAX_TEXTURE_MAX_ANISOTROPY_EXT: Int = js.native
               
@@ -2886,8 +2834,7 @@ object org {
             }
             
             @js.native
-            trait EXTsRGB
-              extends js.Object {
+            trait EXTsRGB extends StObject {
               
               val FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT: Int = js.native
               
@@ -2899,38 +2846,31 @@ object org {
             }
             
             @js.native
-            trait OESElementIndexUint
-              extends js.Object
+            trait OESElementIndexUint extends StObject
             
             @js.native
-            trait OESStandardDerivatives
-              extends js.Object {
+            trait OESStandardDerivatives extends StObject {
               
               val FRAGMENT_SHADER_DERIVATIVE_HINT_OES: Int = js.native
             }
             
             @js.native
-            trait OESTextureFloat
-              extends js.Object
+            trait OESTextureFloat extends StObject
             
             @js.native
-            trait OESTextureFloatLinear
-              extends js.Object
+            trait OESTextureFloatLinear extends StObject
             
             @js.native
-            trait OESTextureHalfFloat
-              extends js.Object {
+            trait OESTextureHalfFloat extends StObject {
               
               val HALF_FLOAT_OES: Int = js.native
             }
             
             @js.native
-            trait OESTextureHalfFloatLinear
-              extends js.Object
+            trait OESTextureHalfFloatLinear extends StObject
             
             @js.native
-            trait OESVertexArrayObject
-              extends js.Object {
+            trait OESVertexArrayObject extends StObject {
               
               val VERTEX_ARRAY_BINDING_OES: Int = js.native
               
@@ -2944,8 +2884,7 @@ object org {
             }
             
             @js.native
-            trait WEBGLColorBufferFloat
-              extends js.Object {
+            trait WEBGLColorBufferFloat extends StObject {
               
               val FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT: Int = js.native
               
@@ -2955,15 +2894,13 @@ object org {
             }
             
             @js.native
-            trait WEBGLCompressedTextureETC1
-              extends js.Object {
+            trait WEBGLCompressedTextureETC1 extends StObject {
               
               val COMPRESSED_RGB_ETC1_WEBGL: Int = js.native
             }
             
             @js.native
-            trait WEBGLDrawBuffers
-              extends js.Object {
+            trait WEBGLDrawBuffers extends StObject {
               
               val COLOR_ATTACHMENT0_WEBGL: Int = js.native
               
@@ -3037,8 +2974,7 @@ object org {
             }
             
             @js.native
-            trait WebGLCompressedTextureATC
-              extends js.Object {
+            trait WebGLCompressedTextureATC extends StObject {
               
               val COMPRESSED_RGBA_ATC_EXPLICIT_ALPHA_WEBGL: Int = js.native
               
@@ -3048,8 +2984,7 @@ object org {
             }
             
             @js.native
-            trait WebGLCompressedTexturePVRTC
-              extends js.Object {
+            trait WebGLCompressedTexturePVRTC extends StObject {
               
               val COMPRESSED_RGBA_PVRTC_2BPPV1_IMG: Int = js.native
               
@@ -3061,8 +2996,7 @@ object org {
             }
             
             @js.native
-            trait WebGLCompressedTextureS3TC
-              extends js.Object {
+            trait WebGLCompressedTextureS3TC extends StObject {
               
               val COMPRESSED_RGBA_S3TC_DXT1_EXT: Int = js.native
               
@@ -3074,8 +3008,7 @@ object org {
             }
             
             @js.native
-            trait WebGLDebugRendererInfo
-              extends js.Object {
+            trait WebGLDebugRendererInfo extends StObject {
               
               val UNMASKED_RENDERER_WEBGL: Int = js.native
               
@@ -3083,22 +3016,19 @@ object org {
             }
             
             @js.native
-            trait WebGLDebugShaders
-              extends js.Object {
+            trait WebGLDebugShaders extends StObject {
               
               def getTranslatedShaderSource(shader: WebGLShader): String = js.native
             }
             
             @js.native
-            trait WebGLDepthTexture
-              extends js.Object {
+            trait WebGLDepthTexture extends StObject {
               
               val UNSIGNED_INT_24_8_WEBGL: Int = js.native
             }
             
             @js.native
-            trait WebGLLoseContext
-              extends js.Object {
+            trait WebGLLoseContext extends StObject {
               
               def loseContext(): Unit = js.native
               
@@ -3106,12 +3036,10 @@ object org {
             }
             
             @js.native
-            trait WebGLTimerQueryEXT
-              extends js.Object
+            trait WebGLTimerQueryEXT extends StObject
             
             @js.native
-            trait WebGLVertexArrayObjectOES
-              extends js.Object
+            trait WebGLVertexArrayObjectOES extends StObject
           }
         }
         
@@ -3119,26 +3047,25 @@ object org {
           
           @js.native
           trait MediaStreamEventInit
-            extends js.Object
+            extends StObject
                with EventInit {
             
             var stream: js.UndefOr[MediaStream] = js.native
           }
           
           @js.native
-          trait NavigatorMediaStream
-            extends js.Object {
+          trait NavigatorMediaStream extends StObject {
             
             def mediaDevices(): MediaDevices = js.native
           }
           
           @js.native
           trait RTCBundlePolicy
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
-          trait RTCConfiguration
-            extends js.Object {
+          trait RTCConfiguration extends StObject {
             
             var bundlePolicy: RTCBundlePolicy = js.native
             
@@ -3150,8 +3077,7 @@ object org {
           }
           
           @js.native
-          trait RTCDTMFSender
-            extends js.Object {
+          trait RTCDTMFSender extends StObject {
             
             val canInsertDTMF: Boolean = js.native
             
@@ -3170,7 +3096,8 @@ object org {
           
           @js.native
           trait RTCDataChannel
-            extends org.scalajs.dom.raw.EventTarget {
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
             
             var binaryType: String = js.native
             
@@ -3207,7 +3134,8 @@ object org {
           
           @js.native
           class RTCDataChannelEvent protected ()
-            extends org.scalajs.dom.raw.Event {
+            extends StObject
+               with org.scalajs.dom.raw.Event {
             def this(init: RTCDataChannelEventInit) = this()
             def this(typeArg: String, init: js.UndefOr[RTCDataChannelEventInit]) = this()
             
@@ -3220,15 +3148,14 @@ object org {
           
           @js.native
           trait RTCDataChannelEventInit
-            extends js.Object
+            extends StObject
                with EventInit {
             
             var channel: js.UndefOr[RTCDataChannel] = js.native
           }
           
           @js.native
-          trait RTCDataChannelInit
-            extends js.Object {
+          trait RTCDataChannelInit extends StObject {
             
             var id: Double = js.native
             
@@ -3245,11 +3172,11 @@ object org {
           
           @js.native
           trait RTCDataChannelState
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
-          class RTCIceCandidate protected ()
-            extends js.Object {
+          class RTCIceCandidate protected () extends StObject {
             def this(candidateInitDict: RTCIceCandidateInit) = this()
             
             var candidate: String = js.native
@@ -3262,8 +3189,7 @@ object org {
           }
           
           @js.native
-          trait RTCIceCandidateInit
-            extends js.Object {
+          trait RTCIceCandidateInit extends StObject {
             
             var candidate: String = js.native
             
@@ -3274,15 +3200,16 @@ object org {
           
           @js.native
           trait RTCIceConnectionState
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
           trait RTCIceGatheringState
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
-          trait RTCIceServer
-            extends js.Object {
+          trait RTCIceServer extends StObject {
             
             var credential: String = js.native
             
@@ -3293,11 +3220,11 @@ object org {
           
           @js.native
           trait RTCIceTransportPolicy
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
-          trait RTCIdentityAssertion
-            extends js.Object {
+          trait RTCIdentityAssertion extends StObject {
             
             val idp: String = js.native
             
@@ -3305,8 +3232,7 @@ object org {
           }
           
           @js.native
-          trait RTCOfferOptions
-            extends js.Object {
+          trait RTCOfferOptions extends StObject {
             
             var iceRestart: Boolean = js.native
             
@@ -3319,7 +3245,8 @@ object org {
           
           @js.native
           class RTCPeerConnection protected ()
-            extends org.scalajs.dom.raw.EventTarget {
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
             def this(configuration: js.UndefOr[RTCConfiguration]) = this()
             
             def addIceCandidate(candidate: RTCIceCandidate): js.Promise[Unit] = js.native
@@ -3403,7 +3330,8 @@ object org {
           
           @js.native
           class RTCPeerConnectionIceEvent protected ()
-            extends org.scalajs.dom.raw.Event {
+            extends StObject
+               with org.scalajs.dom.raw.Event {
             def this(typeArg: String, init: js.UndefOr[RTCPeerConnectionIceEventInit]) = this()
             
             var candidate: RTCIceCandidate = js.native
@@ -3415,7 +3343,7 @@ object org {
           
           @js.native
           trait RTCPeerConnectionIceEventInit
-            extends js.Object
+            extends StObject
                with EventInit {
             
             var candidate: js.UndefOr[RTCIceCandidate] = js.native
@@ -3423,11 +3351,11 @@ object org {
           
           @js.native
           trait RTCSdpType
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
-          class RTCSessionDescription protected ()
-            extends js.Object {
+          class RTCSessionDescription protected () extends StObject {
             def this(descriptionInitDict: js.UndefOr[RTCSessionDescriptionInit]) = this()
             
             val descriptionInitDict: js.UndefOr[RTCSessionDescriptionInit] = js.native
@@ -3438,8 +3366,7 @@ object org {
           }
           
           @js.native
-          trait RTCSessionDescriptionInit
-            extends js.Object {
+          trait RTCSessionDescriptionInit extends StObject {
             
             var sdp: String = js.native
             
@@ -3448,11 +3375,11 @@ object org {
           
           @js.native
           trait RTCSignalingState
-            extends js.Any
+            extends StObject
+               with js.Any
           
           @js.native
-          trait RTCStats
-            extends js.Object {
+          trait RTCStats extends StObject {
             
             var id: String = js.native
             
@@ -3462,15 +3389,15 @@ object org {
           }
           
           @js.native
-          trait RTCStatsReport
-            extends js.Object {
+          trait RTCStatsReport extends StObject {
             
             def apply(id: String): RTCStats = js.native
           }
           
           @js.native
           trait RTCStatsType
-            extends js.Any
+            extends StObject
+               with js.Any
         }
       }
       
@@ -3480,12 +3407,12 @@ object org {
           
           @js.native
           sealed trait InputData
-            extends js.Any
+            extends StObject
+               with js.Any
         }
         
         @js.native
-        trait TouchEvents
-          extends js.Object {
+        trait TouchEvents extends StObject {
           
           var ontouchcancel: js.Function1[org.scalajs.dom.raw.TouchEvent, _] = js.native
           
@@ -3651,14 +3578,16 @@ object org {
         
         @js.native
         trait AbstractWorker
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           var onerror: js.Function1[org.scalajs.dom.raw.ErrorEvent, _] = js.native
         }
         
         @js.native
         trait AnalyserNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           var fftSize: Int = js.native
@@ -3682,7 +3611,8 @@ object org {
         
         @js.native
         trait AnimationEvent
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           
           def animationName(): String = js.native
           
@@ -3691,7 +3621,8 @@ object org {
         
         @js.native
         trait ApplicationCache
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           def abort(): Unit = js.native
           
@@ -3718,8 +3649,7 @@ object org {
           def update(): Unit = js.native
         }
         @js.native
-        object ApplicationCache
-          extends js.Object {
+        object ApplicationCache extends StObject {
           
           val CHECKING: Int = js.native
           
@@ -3736,7 +3666,8 @@ object org {
         
         @js.native
         class Attr ()
-          extends org.scalajs.dom.raw.Node {
+          extends StObject
+             with org.scalajs.dom.raw.Node {
           
           def name(): String = js.native
           
@@ -3750,8 +3681,7 @@ object org {
         }
         
         @js.native
-        trait AudioBuffer
-          extends js.Object {
+        trait AudioBuffer extends StObject {
           
           def copyFromChannel(destination: js.typedarray.Float32Array, channelNumber: Int, startInChannel: Int): Unit = js.native
           
@@ -3770,7 +3700,8 @@ object org {
         
         @js.native
         trait AudioBufferSourceNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           var buffer: org.scalajs.dom.raw.AudioBuffer = js.native
@@ -3792,7 +3723,8 @@ object org {
         
         @js.native
         class AudioContext ()
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           def close(): js.Promise[Unit] = js.native
           
@@ -3855,7 +3787,8 @@ object org {
         
         @js.native
         trait AudioDestinationNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           var maxChannelCount: Int = js.native
@@ -3863,7 +3796,8 @@ object org {
         
         @js.native
         trait AudioListener
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           var dopplerFactor: Double = js.native
@@ -3877,7 +3811,8 @@ object org {
         
         @js.native
         trait AudioNode
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           var channelCount: Int = js.native
           
@@ -3899,7 +3834,8 @@ object org {
         
         @js.native
         trait AudioParam
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           def cancelScheduledValues(startTime: Double): Unit = js.native
@@ -3920,8 +3856,7 @@ object org {
         }
         
         @js.native
-        trait AudioTrack
-          extends js.Object {
+        trait AudioTrack extends StObject {
           
           var enabled: Boolean = js.native
           
@@ -3936,7 +3871,8 @@ object org {
         
         @js.native
         trait AudioTrackList
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.DOMList[org.scalajs.dom.raw.AudioTrack] {
           
           def getTrackById(id: String): org.scalajs.dom.raw.AudioTrack = js.native
@@ -3948,14 +3884,16 @@ object org {
         
         @js.native
         class BeforeUnloadEvent ()
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           
           var returnValue: String = js.native
         }
         
         @js.native
         trait BiquadFilterNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           val Q: org.scalajs.dom.raw.AudioParam = js.native
@@ -3976,8 +3914,7 @@ object org {
         }
         
         @js.native
-        class Blob protected ()
-          extends js.Object {
+        class Blob protected () extends StObject {
           def this(blobParts: js.Array[js.Any], options: org.scalajs.dom.raw.BlobPropertyBag) = this()
           
           val blobParts: js.Array[js.Any] = js.native
@@ -3994,8 +3931,7 @@ object org {
         }
         
         @js.native
-        trait BlobPropertyBag
-          extends js.Object {
+        trait BlobPropertyBag extends StObject {
           
           def endings(): String = js.native
           
@@ -4004,16 +3940,21 @@ object org {
         
         @js.native
         abstract class CDATASection ()
-          extends org.scalajs.dom.raw.Text
+          extends StObject
+             with org.scalajs.dom.raw.Text
         
         @js.native
-        class CSSFontFaceRule () extends CSSRule {
+        class CSSFontFaceRule ()
+          extends StObject
+             with CSSRule {
           
           var style: CSSStyleDeclaration = js.native
         }
         
         @js.native
-        class CSSImportRule () extends CSSRule {
+        class CSSImportRule ()
+          extends StObject
+             with CSSRule {
           
           var href: String = js.native
           
@@ -4023,7 +3964,9 @@ object org {
         }
         
         @js.native
-        class CSSKeyframeRule () extends CSSRule {
+        class CSSKeyframeRule ()
+          extends StObject
+             with CSSRule {
           
           var keyText: String = js.native
           
@@ -4031,7 +3974,9 @@ object org {
         }
         
         @js.native
-        class CSSKeyframesRule () extends CSSRule {
+        class CSSKeyframesRule ()
+          extends StObject
+             with CSSRule {
           
           def appendRule(rule: String): Unit = js.native
           
@@ -4045,7 +3990,9 @@ object org {
         }
         
         @js.native
-        class CSSMediaRule () extends CSSRule {
+        class CSSMediaRule ()
+          extends StObject
+             with CSSRule {
           
           var cssRules: CSSRuleList = js.native
           
@@ -4057,7 +4004,9 @@ object org {
         }
         
         @js.native
-        class CSSNamespaceRule () extends CSSRule {
+        class CSSNamespaceRule ()
+          extends StObject
+             with CSSRule {
           
           var namespaceURI: String = js.native
           
@@ -4065,7 +4014,9 @@ object org {
         }
         
         @js.native
-        class CSSPageRule () extends CSSRule {
+        class CSSPageRule ()
+          extends StObject
+             with CSSRule {
           
           var pseudoClass: String = js.native
           
@@ -4077,8 +4028,7 @@ object org {
         }
         
         @js.native
-        class CSSRule ()
-          extends js.Object {
+        class CSSRule () extends StObject {
           
           var CHARSET_RULE: Int = js.native
           
@@ -4111,8 +4061,7 @@ object org {
           var `type`: Int = js.native
         }
         @js.native
-        object CSSRule
-          extends js.Object {
+        object CSSRule extends StObject {
           
           var CHARSET_RULE: Int = js.native
           
@@ -4133,12 +4082,11 @@ object org {
         
         @js.native
         class CSSRuleList ()
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.DOMList[CSSRule]
         
         @js.native
-        class CSSStyleDeclaration ()
-          extends js.Object {
+        class CSSStyleDeclaration () extends StObject {
           
           var alignmentBaseline: String = js.native
           
@@ -4536,7 +4484,9 @@ object org {
         }
         
         @js.native
-        class CSSStyleRule () extends CSSRule {
+        class CSSStyleRule ()
+          extends StObject
+             with CSSRule {
           
           var readOnly: Boolean = js.native
           
@@ -4547,7 +4497,8 @@ object org {
         
         @js.native
         class CSSStyleSheet ()
-          extends org.scalajs.dom.raw.StyleSheet {
+          extends StObject
+             with org.scalajs.dom.raw.StyleSheet {
           
           def addImport(bstrURL: String, lIndex: Int): Int = js.native
           
@@ -4583,19 +4534,16 @@ object org {
         }
         
         @js.native
-        class CanvasGradient ()
-          extends js.Object {
+        class CanvasGradient () extends StObject {
           
           def addColorStop(offset: Double, color: String): Unit = js.native
         }
         
         @js.native
-        class CanvasPattern ()
-          extends js.Object
+        class CanvasPattern () extends StObject
         
         @js.native
-        class CanvasRenderingContext2D ()
-          extends js.Object {
+        class CanvasRenderingContext2D () extends StObject {
           
           def arc(x: Double, y: Double, radius: Double, startAngle: Double, endAngle: Double): Unit = js.native
           def arc(x: Double, y: Double, radius: Double, startAngle: Double, endAngle: Double, anticlockwise: Boolean): Unit = js.native
@@ -4737,17 +4685,20 @@ object org {
         
         @js.native
         trait ChannelMergerNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode
         
         @js.native
         trait ChannelSplitterNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode
         
         @js.native
         abstract class CharacterData ()
-          extends org.scalajs.dom.raw.Node
+          extends StObject
+             with org.scalajs.dom.raw.Node
              with NonDocumentTypeChildNode {
           
           def appendData(arg: String): Unit = js.native
@@ -4766,8 +4717,7 @@ object org {
         }
         
         @js.native
-        class ClientRect ()
-          extends js.Object {
+        class ClientRect () extends StObject {
           
           var bottom: Double = js.native
           
@@ -4784,12 +4734,13 @@ object org {
         
         @js.native
         class ClientRectList ()
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.DOMList[org.scalajs.dom.raw.ClientRect]
         
         @js.native
         trait Clipboard
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           def read(): js.Promise[org.scalajs.dom.raw.DataTransfer] = js.native
           
@@ -4802,7 +4753,8 @@ object org {
         
         @js.native
         class ClipboardEvent protected ()
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           def this(typeArg: String, init: js.UndefOr[org.scalajs.dom.raw.ClipboardEventInit]) = this()
           
           def clipboardData(): org.scalajs.dom.raw.DataTransfer = js.native
@@ -4814,7 +4766,7 @@ object org {
         
         @js.native
         trait ClipboardEventInit
-          extends js.Object
+          extends StObject
              with EventInit {
           
           var data: js.UndefOr[String] = js.native
@@ -4824,7 +4776,8 @@ object org {
         
         @js.native
         trait CloseEvent
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           
           def code(): Int = js.native
           
@@ -4835,14 +4788,16 @@ object org {
         
         @js.native
         class Comment ()
-          extends org.scalajs.dom.raw.CharacterData {
+          extends StObject
+             with org.scalajs.dom.raw.CharacterData {
           
           var text: String = js.native
         }
         
         @js.native
         class CompositionEvent protected ()
-          extends org.scalajs.dom.raw.UIEvent {
+          extends StObject
+             with org.scalajs.dom.raw.UIEvent {
           def this(typeArg: String, init: js.UndefOr[CompositionEventInit]) = this()
           
           def data(): String = js.native
@@ -4856,7 +4811,7 @@ object org {
         
         @js.native
         trait CompositionEventInit
-          extends js.Object
+          extends StObject
              with UIEventInit {
           
           var data: js.UndefOr[String] = js.native
@@ -4865,8 +4820,7 @@ object org {
         }
         
         @js.native
-        trait Console
-          extends js.Object {
+        trait Console extends StObject {
           
           def assert(test: Boolean, message: String, optionalParams: Any): Unit = js.native
           
@@ -4911,7 +4865,8 @@ object org {
         
         @js.native
         trait ConvolverNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           var buffer: org.scalajs.dom.raw.AudioBuffer = js.native
@@ -4920,8 +4875,7 @@ object org {
         }
         
         @js.native
-        trait Coordinates
-          extends js.Object {
+        trait Coordinates extends StObject {
           
           def accuracy(): Double = js.native
           
@@ -4940,7 +4894,8 @@ object org {
         
         @js.native
         class CustomEvent protected ()
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           def this(typeArg: String, init: js.UndefOr[CustomEventInit]) = this()
           
           def detail(): Any = js.native
@@ -4952,23 +4907,21 @@ object org {
         
         @js.native
         trait CustomEventInit
-          extends js.Object
+          extends StObject
              with EventInit {
           
           var detail: js.UndefOr[Any] = js.native
         }
         
         @js.native
-        class DOMException ()
-          extends js.Object {
+        class DOMException () extends StObject {
           
           def message(): String = js.native
           
           def name(): String = js.native
         }
         @js.native
-        object DOMException
-          extends js.Object {
+        object DOMException extends StObject {
           
           val ABORT_ERR: Int = js.native
           
@@ -5022,8 +4975,7 @@ object org {
         }
         
         @js.native
-        class DOMImplementation ()
-          extends js.Object {
+        class DOMImplementation () extends StObject {
           
           def createDocument(namespaceURI: String, qualifiedName: String, doctype: org.scalajs.dom.raw.DocumentType): org.scalajs.dom.raw.Document = js.native
           
@@ -5036,8 +4988,7 @@ object org {
         }
         
         @js.native
-        trait DOMList[T]
-          extends js.Object {
+        trait DOMList[T] extends StObject {
           
           def apply(index: Int): T = js.native
           
@@ -5049,15 +5000,14 @@ object org {
         }
         
         @js.native
-        class DOMParser ()
-          extends js.Object {
+        class DOMParser () extends StObject {
           
           def parseFromString(source: String, mimeType: String): org.scalajs.dom.raw.Document = js.native
         }
         
         @js.native
         trait DOMSettableTokenList
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.DOMTokenList {
           
           def value(): String = js.native
@@ -5065,7 +5015,7 @@ object org {
         
         @js.native
         trait DOMStringList
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.DOMList[String] {
           
           def contains(str: String): Boolean = js.native
@@ -5073,7 +5023,7 @@ object org {
         
         @js.native
         trait DOMTokenList
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.DOMList[String] {
           
           def add(token: String): Unit = js.native
@@ -5087,8 +5037,7 @@ object org {
         }
         
         @js.native
-        trait DataTransfer
-          extends js.Object {
+        trait DataTransfer extends StObject {
           
           def clearData(format: String): Unit = js.native
           
@@ -5109,7 +5058,8 @@ object org {
         
         @js.native
         trait DedicatedWorkerGlobalScope
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with WorkerGlobalScope {
           
           var onmessage: js.Function1[org.scalajs.dom.raw.MessageEvent, _] = js.native
@@ -5117,15 +5067,15 @@ object org {
           def postMessage(aMessage: js.Any, transferList: js.UndefOr[js.Array[org.scalajs.dom.raw.Transferable]]): Unit = js.native
         }
         @js.native
-        object DedicatedWorkerGlobalScope
-          extends js.Object {
+        object DedicatedWorkerGlobalScope extends StObject {
           
           def self(): DedicatedWorkerGlobalScope = js.native
         }
         
         @js.native
         trait DelayNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           val delayTime: org.scalajs.dom.raw.AudioParam = js.native
@@ -5133,7 +5083,8 @@ object org {
         
         @js.native
         abstract class Document ()
-          extends org.scalajs.dom.raw.Node
+          extends StObject
+             with org.scalajs.dom.raw.Node
              with org.scalajs.dom.raw.NodeSelector
              with org.scalajs.dom.raw.DocumentEvent
              with org.scalajs.dom.raw.ParentNode
@@ -5234,20 +5185,21 @@ object org {
         }
         
         @js.native
-        trait DocumentEvent
-          extends js.Object {
+        trait DocumentEvent extends StObject {
           
           def createEvent(eventInterface: String): org.scalajs.dom.raw.Event = js.native
         }
         
         @js.native
         abstract class DocumentFragment ()
-          extends org.scalajs.dom.raw.Node
+          extends StObject
+             with org.scalajs.dom.raw.Node
              with org.scalajs.dom.raw.NodeSelector
         
         @js.native
         abstract class DocumentType ()
-          extends org.scalajs.dom.raw.Node {
+          extends StObject
+             with org.scalajs.dom.raw.Node {
           
           def name(): String = js.native
           
@@ -5258,14 +5210,16 @@ object org {
         
         @js.native
         trait DragEvent
-          extends org.scalajs.dom.raw.MouseEvent {
+          extends StObject
+             with org.scalajs.dom.raw.MouseEvent {
           
           def dataTransfer(): org.scalajs.dom.raw.DataTransfer = js.native
         }
         
         @js.native
         trait DynamicsCompressorNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           val attack: org.scalajs.dom.raw.AudioParam = js.native
@@ -5283,7 +5237,8 @@ object org {
         
         @js.native
         abstract class Element ()
-          extends org.scalajs.dom.raw.Node
+          extends StObject
+             with org.scalajs.dom.raw.Node
              with org.scalajs.dom.raw.NodeSelector
              with org.scalajs.dom.raw.ParentNode
              with NonDocumentTypeChildNode {
@@ -5375,7 +5330,8 @@ object org {
         
         @js.native
         trait ErrorEvent
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           
           def colno(): Int = js.native
           
@@ -5387,8 +5343,7 @@ object org {
         }
         
         @js.native
-        class Event protected ()
-          extends js.Object {
+        class Event protected () extends StObject {
           def this(typeArg: String, init: js.UndefOr[EventInit]) = this()
           
           def bubbles(): Boolean = js.native
@@ -5422,8 +5377,7 @@ object org {
           val typeArg: String = js.native
         }
         @js.native
-        object Event
-          extends js.Object {
+        object Event extends StObject {
           
           def AT_TARGET(): Int = js.native
           
@@ -5433,8 +5387,7 @@ object org {
         }
         
         @js.native
-        trait EventException
-          extends js.Object {
+        trait EventException extends StObject {
           
           def code(): Int = js.native
           
@@ -5443,8 +5396,7 @@ object org {
           def name(): String = js.native
         }
         @js.native
-        object EventException
-          extends js.Object {
+        object EventException extends StObject {
           
           val DISPATCH_REQUEST_ERR: Int = js.native
           
@@ -5452,8 +5404,7 @@ object org {
         }
         
         @js.native
-        trait EventInit
-          extends js.Object {
+        trait EventInit extends StObject {
           
           var bubbles: js.UndefOr[Boolean] = js.native
           
@@ -5465,8 +5416,7 @@ object org {
         }
         
         @js.native
-        trait EventListenerOptions
-          extends js.Object {
+        trait EventListenerOptions extends StObject {
           
           var capture: js.UndefOr[Boolean] = js.native
           
@@ -5477,7 +5427,8 @@ object org {
         
         @js.native
         class EventSource protected ()
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           def this(URL: String, settings: js.Dynamic) = this()
           
           val URL: String = js.native
@@ -5499,8 +5450,7 @@ object org {
           def withCredentials(): Boolean = js.native
         }
         @js.native
-        object EventSource
-          extends js.Object {
+        object EventSource extends StObject {
           
           val CLOSED: Int = js.native
           
@@ -5510,8 +5460,7 @@ object org {
         }
         
         @js.native
-        class EventTarget ()
-          extends js.Object {
+        class EventTarget () extends StObject {
           
           def addEventListener[T](`type`: String, listener: js.Function1[T, _], options: EventListenerOptions): Unit = js.native
           def addEventListener[T](`type`: String, listener: js.Function1[T, _], useCapture: Boolean): Unit = js.native
@@ -5523,24 +5472,25 @@ object org {
         }
         
         @js.native
-        trait External
-          extends js.Object
+        trait External extends StObject
         
         @js.native
         abstract class File ()
-          extends org.scalajs.dom.raw.Blob {
+          extends StObject
+             with org.scalajs.dom.raw.Blob {
           
           def name(): String = js.native
         }
         
         @js.native
         trait FileList
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.DOMList[org.scalajs.dom.raw.File]
         
         @js.native
         class FileReader ()
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           def abort(): Unit = js.native
           
@@ -5569,8 +5519,7 @@ object org {
           def result(): js.Any = js.native
         }
         @js.native
-        object FileReader
-          extends js.Object {
+        object FileReader extends StObject {
           
           val DONE: Short = js.native
           
@@ -5581,7 +5530,8 @@ object org {
         
         @js.native
         class FocusEvent protected ()
-          extends org.scalajs.dom.raw.UIEvent {
+          extends StObject
+             with org.scalajs.dom.raw.UIEvent {
           def this(typeArg: String, init: js.UndefOr[FocusEventInit]) = this()
           
           val init: js.UndefOr[FocusEventInit] = js.native
@@ -5593,15 +5543,14 @@ object org {
         
         @js.native
         trait FocusEventInit
-          extends js.Object
+          extends StObject
              with UIEventInit {
           
           val relatedTarget: js.UndefOr[org.scalajs.dom.raw.EventTarget] = js.native
         }
         
         @js.native
-        class FormData protected ()
-          extends js.Object {
+        class FormData protected () extends StObject {
           def this(form: HTMLFormElement) = this()
           
           def append(name: js.Any, value: js.Any, blobName: String): Unit = js.native
@@ -5610,23 +5559,22 @@ object org {
         }
         
         @js.native
-        trait FullscreenOptions
-          extends js.Object {
+        trait FullscreenOptions extends StObject {
           
           var navigationUI: js.UndefOr[String] = js.native
         }
         
         @js.native
         trait GainNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           val gain: org.scalajs.dom.raw.AudioParam = js.native
         }
         
         @js.native
-        trait Geolocation
-          extends js.Object {
+        trait Geolocation extends StObject {
           
           def clearWatch(watchId: Int): Unit = js.native
           
@@ -5645,14 +5593,15 @@ object org {
         }
         
         @js.native
-        trait GetSVGDocument
-          extends js.Object {
+        trait GetSVGDocument extends StObject {
           
           def getSVGDocument(): org.scalajs.dom.raw.Document = js.native
         }
         
         @js.native
-        abstract class HTMLAnchorElement () extends HTMLElement {
+        abstract class HTMLAnchorElement ()
+          extends StObject
+             with HTMLElement {
           
           var charset: String = js.native
           
@@ -5686,7 +5635,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLAreaElement () extends HTMLElement {
+        abstract class HTMLAreaElement ()
+          extends StObject
+             with HTMLElement {
           
           var alt: String = js.native
           
@@ -5714,13 +5665,19 @@ object org {
         }
         
         @js.native
-        abstract class HTMLAudioElement () extends HTMLMediaElement
+        abstract class HTMLAudioElement ()
+          extends StObject
+             with HTMLMediaElement
         
         @js.native
-        abstract class HTMLBRElement () extends HTMLElement
+        abstract class HTMLBRElement ()
+          extends StObject
+             with HTMLElement
         
         @js.native
-        abstract class HTMLBaseElement () extends HTMLElement {
+        abstract class HTMLBaseElement ()
+          extends StObject
+             with HTMLElement {
           
           var href: String = js.native
           
@@ -5728,7 +5685,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLBodyElement () extends HTMLElement {
+        abstract class HTMLBodyElement ()
+          extends StObject
+             with HTMLElement {
           
           var onafterprint: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
           
@@ -5760,7 +5719,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLButtonElement () extends HTMLElement {
+        abstract class HTMLButtonElement ()
+          extends StObject
+             with HTMLElement {
           
           var autofocus: Boolean = js.native
           
@@ -5798,7 +5759,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLCanvasElement () extends HTMLElement {
+        abstract class HTMLCanvasElement ()
+          extends StObject
+             with HTMLElement {
           
           def getContext(contextId: String, args: js.Any): js.Dynamic = js.native
           
@@ -5811,27 +5774,34 @@ object org {
         
         @js.native
         abstract class HTMLCollection ()
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.DOMList[org.scalajs.dom.raw.Element] {
           
           def namedItem(name: String): org.scalajs.dom.raw.Element = js.native
         }
         
         @js.native
-        abstract class HTMLDListElement () extends HTMLElement
+        abstract class HTMLDListElement ()
+          extends StObject
+             with HTMLElement
         
         @js.native
-        abstract class HTMLDataListElement () extends HTMLElement {
+        abstract class HTMLDataListElement ()
+          extends StObject
+             with HTMLElement {
           
           def options(): HTMLCollection = js.native
         }
         
         @js.native
-        abstract class HTMLDivElement () extends HTMLElement
+        abstract class HTMLDivElement ()
+          extends StObject
+             with HTMLElement
         
         @js.native
         abstract class HTMLDocument ()
-          extends org.scalajs.dom.raw.Document {
+          extends StObject
+             with org.scalajs.dom.raw.Document {
           
           def URL(): String = js.native
           
@@ -6056,7 +6026,8 @@ object org {
         
         @js.native
         abstract class HTMLElement ()
-          extends org.scalajs.dom.raw.Element {
+          extends StObject
+             with org.scalajs.dom.raw.Element {
           
           def blur(): Unit = js.native
           
@@ -6259,7 +6230,8 @@ object org {
         
         @js.native
         abstract class HTMLEmbedElement ()
-          extends HTMLElement
+          extends StObject
+             with HTMLElement
              with GetSVGDocument {
           
           var height: String = js.native
@@ -6270,7 +6242,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLFieldSetElement () extends HTMLElement {
+        abstract class HTMLFieldSetElement ()
+          extends StObject
+             with HTMLElement {
           
           def checkValidity(): Boolean = js.native
           
@@ -6288,7 +6262,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLFormElement () extends HTMLElement {
+        abstract class HTMLFormElement ()
+          extends StObject
+             with HTMLElement {
           
           var acceptCharset: String = js.native
           
@@ -6328,20 +6304,29 @@ object org {
         }
         
         @js.native
-        abstract class HTMLHRElement () extends HTMLElement
+        abstract class HTMLHRElement ()
+          extends StObject
+             with HTMLElement
         
         @js.native
-        abstract class HTMLHeadElement () extends HTMLElement
+        abstract class HTMLHeadElement ()
+          extends StObject
+             with HTMLElement
         
         @js.native
-        abstract class HTMLHeadingElement () extends HTMLElement
+        abstract class HTMLHeadingElement ()
+          extends StObject
+             with HTMLElement
         
         @js.native
-        abstract class HTMLHtmlElement () extends HTMLElement
+        abstract class HTMLHtmlElement ()
+          extends StObject
+             with HTMLElement
         
         @js.native
         abstract class HTMLIFrameElement ()
-          extends HTMLElement
+          extends StObject
+             with HTMLElement
              with GetSVGDocument {
           
           var border: String = js.native
@@ -6366,7 +6351,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLImageElement () extends HTMLElement {
+        abstract class HTMLImageElement ()
+          extends StObject
+             with HTMLElement {
           
           var alt: String = js.native
           
@@ -6392,7 +6379,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLInputElement () extends HTMLElement {
+        abstract class HTMLInputElement ()
+          extends StObject
+             with HTMLElement {
           
           var accept: String = js.native
           
@@ -6488,13 +6477,17 @@ object org {
         }
         
         @js.native
-        abstract class HTMLLIElement () extends HTMLElement {
+        abstract class HTMLLIElement ()
+          extends StObject
+             with HTMLElement {
           
           var value: Int = js.native
         }
         
         @js.native
-        abstract class HTMLLabelElement () extends HTMLElement {
+        abstract class HTMLLabelElement ()
+          extends StObject
+             with HTMLElement {
           
           def form(): HTMLFormElement = js.native
           
@@ -6502,7 +6495,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLLegendElement () extends HTMLElement {
+        abstract class HTMLLegendElement ()
+          extends StObject
+             with HTMLElement {
           
           var align: String = js.native
           
@@ -6511,7 +6506,8 @@ object org {
         
         @js.native
         abstract class HTMLLinkElement ()
-          extends HTMLElement
+          extends StObject
+             with HTMLElement
              with org.scalajs.dom.raw.LinkStyle {
           
           var href: String = js.native
@@ -6530,13 +6526,17 @@ object org {
         }
         
         @js.native
-        abstract class HTMLMapElement () extends HTMLElement {
+        abstract class HTMLMapElement ()
+          extends StObject
+             with HTMLElement {
           
           var name: String = js.native
         }
         
         @js.native
-        abstract class HTMLMediaElement () extends HTMLElement {
+        abstract class HTMLMediaElement ()
+          extends StObject
+             with HTMLElement {
           
           def audioTracks(): org.scalajs.dom.raw.AudioTrackList = js.native
           
@@ -6593,8 +6593,7 @@ object org {
           var volume: Double = js.native
         }
         @js.native
-        object HTMLMediaElement
-          extends js.Object {
+        object HTMLMediaElement extends StObject {
           
           val HAVE_CURRENT_DATA: Int = js.native
           
@@ -6616,13 +6615,17 @@ object org {
         }
         
         @js.native
-        abstract class HTMLMenuElement () extends HTMLElement {
+        abstract class HTMLMenuElement ()
+          extends StObject
+             with HTMLElement {
           
           var `type`: String = js.native
         }
         
         @js.native
-        abstract class HTMLMetaElement () extends HTMLElement {
+        abstract class HTMLMetaElement ()
+          extends StObject
+             with HTMLElement {
           
           var charset: String = js.native
           
@@ -6636,7 +6639,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLModElement () extends HTMLElement {
+        abstract class HTMLModElement ()
+          extends StObject
+             with HTMLElement {
           
           var cite: String = js.native
           
@@ -6644,14 +6649,17 @@ object org {
         }
         
         @js.native
-        abstract class HTMLOListElement () extends HTMLElement {
+        abstract class HTMLOListElement ()
+          extends StObject
+             with HTMLElement {
           
           var start: Int = js.native
         }
         
         @js.native
         abstract class HTMLObjectElement ()
-          extends HTMLElement
+          extends StObject
+             with HTMLElement
              with GetSVGDocument {
           
           var BaseHref: String = js.native
@@ -6692,7 +6700,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLOptGroupElement () extends HTMLElement {
+        abstract class HTMLOptGroupElement ()
+          extends StObject
+             with HTMLElement {
           
           var disabled: Boolean = js.native
           
@@ -6700,7 +6710,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLOptionElement () extends HTMLElement {
+        abstract class HTMLOptionElement ()
+          extends StObject
+             with HTMLElement {
           
           def create(): HTMLOptionElement = js.native
           
@@ -6722,10 +6734,14 @@ object org {
         }
         
         @js.native
-        abstract class HTMLParagraphElement () extends HTMLElement
+        abstract class HTMLParagraphElement ()
+          extends StObject
+             with HTMLElement
         
         @js.native
-        abstract class HTMLParamElement () extends HTMLElement {
+        abstract class HTMLParamElement ()
+          extends StObject
+             with HTMLElement {
           
           var name: String = js.native
           
@@ -6733,10 +6749,14 @@ object org {
         }
         
         @js.native
-        abstract class HTMLPreElement () extends HTMLElement
+        abstract class HTMLPreElement ()
+          extends StObject
+             with HTMLElement
         
         @js.native
-        abstract class HTMLProgressElement () extends HTMLElement {
+        abstract class HTMLProgressElement ()
+          extends StObject
+             with HTMLElement {
           
           var form: HTMLFormElement = js.native
           
@@ -6748,7 +6768,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLQuoteElement () extends HTMLElement {
+        abstract class HTMLQuoteElement ()
+          extends StObject
+             with HTMLElement {
           
           var cite: String = js.native
           
@@ -6756,7 +6778,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLScriptElement () extends HTMLElement {
+        abstract class HTMLScriptElement ()
+          extends StObject
+             with HTMLElement {
           
           var async: Boolean = js.native
           
@@ -6776,7 +6800,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLSelectElement () extends HTMLElement {
+        abstract class HTMLSelectElement ()
+          extends StObject
+             with HTMLElement {
           
           def add(element: HTMLElement, before: js.Any): Unit = js.native
           
@@ -6826,7 +6852,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLSourceElement () extends HTMLElement {
+        abstract class HTMLSourceElement ()
+          extends StObject
+             with HTMLElement {
           
           var media: String = js.native
           
@@ -6836,11 +6864,14 @@ object org {
         }
         
         @js.native
-        abstract class HTMLSpanElement () extends HTMLElement
+        abstract class HTMLSpanElement ()
+          extends StObject
+             with HTMLElement
         
         @js.native
         abstract class HTMLStyleElement ()
-          extends HTMLElement
+          extends StObject
+             with HTMLElement
              with org.scalajs.dom.raw.LinkStyle {
           
           var media: String = js.native
@@ -6849,15 +6880,17 @@ object org {
         }
         
         @js.native
-        trait HTMLTableAlignment
-          extends js.Object
+        trait HTMLTableAlignment extends StObject
         
         @js.native
-        abstract class HTMLTableCaptionElement () extends HTMLElement
+        abstract class HTMLTableCaptionElement ()
+          extends StObject
+             with HTMLElement
         
         @js.native
         abstract class HTMLTableCellElement ()
-          extends HTMLElement
+          extends StObject
+             with HTMLElement
              with HTMLTableAlignment {
           
           def cellIndex(): Int = js.native
@@ -6871,14 +6904,17 @@ object org {
         
         @js.native
         abstract class HTMLTableColElement ()
-          extends HTMLElement
+          extends StObject
+             with HTMLElement
              with HTMLTableAlignment {
           
           var span: Int = js.native
         }
         
         @js.native
-        abstract class HTMLTableElement () extends HTMLElement {
+        abstract class HTMLTableElement ()
+          extends StObject
+             with HTMLElement {
           
           var caption: HTMLTableCaptionElement = js.native
           
@@ -6913,7 +6949,8 @@ object org {
         
         @js.native
         abstract class HTMLTableRowElement ()
-          extends HTMLElement
+          extends StObject
+             with HTMLElement
              with HTMLTableAlignment {
           
           var borderColor: js.Any = js.native
@@ -6937,7 +6974,8 @@ object org {
         
         @js.native
         abstract class HTMLTableSectionElement ()
-          extends HTMLElement
+          extends StObject
+             with HTMLElement
              with HTMLTableAlignment {
           
           def deleteRow(index: Int): Unit = js.native
@@ -6950,7 +6988,9 @@ object org {
         }
         
         @js.native
-        abstract class HTMLTextAreaElement () extends HTMLElement {
+        abstract class HTMLTextAreaElement ()
+          extends StObject
+             with HTMLElement {
           
           var autofocus: Boolean = js.native
           
@@ -7002,13 +7042,17 @@ object org {
         }
         
         @js.native
-        abstract class HTMLTitleElement () extends HTMLElement {
+        abstract class HTMLTitleElement ()
+          extends StObject
+             with HTMLElement {
           
           var text: String = js.native
         }
         
         @js.native
-        abstract class HTMLTrackElement () extends HTMLElement {
+        abstract class HTMLTrackElement ()
+          extends StObject
+             with HTMLElement {
           
           var kind: String = js.native
           
@@ -7022,13 +7066,19 @@ object org {
         }
         
         @js.native
-        abstract class HTMLUListElement () extends HTMLElement
+        abstract class HTMLUListElement ()
+          extends StObject
+             with HTMLElement
         
         @js.native
-        abstract class HTMLUnknownElement () extends HTMLElement
+        abstract class HTMLUnknownElement ()
+          extends StObject
+             with HTMLElement
         
         @js.native
-        abstract class HTMLVideoElement () extends HTMLMediaElement {
+        abstract class HTMLVideoElement ()
+          extends StObject
+             with HTMLMediaElement {
           
           var height: Int = js.native
           
@@ -7043,7 +7093,8 @@ object org {
         
         @js.native
         trait HashChangeEvent
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           
           def newURL(): String = js.native
           
@@ -7051,8 +7102,7 @@ object org {
         }
         
         @js.native
-        class History ()
-          extends js.Object {
+        class History () extends StObject {
           
           def back(): Unit = js.native
           
@@ -7073,8 +7123,7 @@ object org {
         }
         
         @js.native
-        class IDBCursor ()
-          extends js.Object {
+        class IDBCursor () extends StObject {
           
           def advance(count: Int): Unit = js.native
           
@@ -7093,8 +7142,7 @@ object org {
           def update(value: js.Any): IDBRequest = js.native
         }
         @js.native
-        object IDBCursor
-          extends js.Object {
+        object IDBCursor extends StObject {
           
           val NEXT: String = js.native
           
@@ -7106,14 +7154,17 @@ object org {
         }
         
         @js.native
-        class IDBCursorWithValue () extends IDBCursor {
+        class IDBCursorWithValue ()
+          extends StObject
+             with IDBCursor {
           
           def value(): js.Any = js.native
         }
         
         @js.native
         class IDBDatabase ()
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           def close(): Unit = js.native
           
@@ -7135,15 +7186,13 @@ object org {
         }
         
         @js.native
-        trait IDBEnvironment
-          extends js.Object {
+        trait IDBEnvironment extends StObject {
           
           def indexedDB(): IDBFactory = js.native
         }
         
         @js.native
-        class IDBFactory ()
-          extends js.Object {
+        class IDBFactory () extends StObject {
           
           def cmp(first: js.Any, second: js.Any): Int = js.native
           
@@ -7154,8 +7203,7 @@ object org {
         }
         
         @js.native
-        class IDBIndex ()
-          extends js.Object {
+        class IDBIndex () extends StObject {
           
           def count(): IDBRequest = js.native
           def count(key: js.Any): IDBRequest = js.native
@@ -7178,8 +7226,7 @@ object org {
         }
         
         @js.native
-        class IDBKeyRange ()
-          extends js.Object {
+        class IDBKeyRange () extends StObject {
           
           def lower(): js.Any = js.native
           
@@ -7190,8 +7237,7 @@ object org {
           def upperOpen(): Boolean = js.native
         }
         @js.native
-        object IDBKeyRange
-          extends js.Object {
+        object IDBKeyRange extends StObject {
           
           def bound(lower: js.Any, upper: js.Any, lowerOpen: Boolean, upperOpen: Boolean): IDBKeyRange = js.native
           
@@ -7203,8 +7249,7 @@ object org {
         }
         
         @js.native
-        class IDBObjectStore ()
-          extends js.Object {
+        class IDBObjectStore () extends StObject {
           
           def add(value: js.Any, key: js.Any): IDBRequest = js.native
           
@@ -7236,7 +7281,9 @@ object org {
         }
         
         @js.native
-        class IDBOpenDBRequest () extends IDBRequest {
+        class IDBOpenDBRequest ()
+          extends StObject
+             with IDBRequest {
           
           var onblocked: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
           
@@ -7245,7 +7292,8 @@ object org {
         
         @js.native
         class IDBRequest ()
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           def error(): org.scalajs.dom.raw.DOMException = js.native
           
@@ -7264,7 +7312,8 @@ object org {
         
         @js.native
         class IDBTransaction ()
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           def abort(): Unit = js.native
           
@@ -7283,8 +7332,7 @@ object org {
           var onerror: js.Function1[org.scalajs.dom.raw.ErrorEvent, _] = js.native
         }
         @js.native
-        object IDBTransaction
-          extends js.Object {
+        object IDBTransaction extends StObject {
           
           val READ_ONLY: String = js.native
           
@@ -7295,7 +7343,8 @@ object org {
         
         @js.native
         class IDBVersionChangeEvent protected ()
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           def this(typeArg: String, init: js.UndefOr[IDBVersionChangeEventInit]) = this()
           
           val init: js.UndefOr[IDBVersionChangeEventInit] = js.native
@@ -7309,7 +7358,7 @@ object org {
         
         @js.native
         trait IDBVersionChangeEventInit
-          extends js.Object
+          extends StObject
              with EventInit {
           
           var newVersion: js.UndefOr[Int] = js.native
@@ -7318,8 +7367,7 @@ object org {
         }
         
         @js.native
-        class ImageData ()
-          extends js.Object {
+        class ImageData () extends StObject {
           
           def data(): js.Array[Int] = js.native
           
@@ -7330,7 +7378,8 @@ object org {
         
         @js.native
         class KeyboardEvent protected ()
-          extends org.scalajs.dom.raw.UIEvent
+          extends StObject
+             with org.scalajs.dom.raw.UIEvent
              with org.scalajs.dom.raw.ModifierKeyEvent {
           def this(typeArg: String) = this()
           def this(typeArg: String, init: js.UndefOr[org.scalajs.dom.raw.KeyboardEventInit]) = this()
@@ -7352,8 +7401,7 @@ object org {
           val typeArg: String = js.native
         }
         @js.native
-        object KeyboardEvent
-          extends js.Object {
+        object KeyboardEvent extends StObject {
           
           def DOM_KEY_LOCATION_LEFT(): Int = js.native
           
@@ -7366,7 +7414,7 @@ object org {
         
         @js.native
         trait KeyboardEventInit
-          extends js.Object
+          extends StObject
              with UIEventInit
              with ModifierKeyEventInit {
           
@@ -7384,15 +7432,13 @@ object org {
         }
         
         @js.native
-        trait LinkStyle
-          extends js.Object {
+        trait LinkStyle extends StObject {
           
           def sheet(): org.scalajs.dom.raw.StyleSheet = js.native
         }
         
         @js.native
-        trait Location
-          extends js.Object {
+        trait Location extends StObject {
           
           def assign(url: String): Unit = js.native
           
@@ -7421,18 +7467,17 @@ object org {
         
         @js.native
         trait MediaElementAudioSourceNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode
         
         @js.native
-        class MediaError ()
-          extends js.Object {
+        class MediaError () extends StObject {
           
           def code(): Int = js.native
         }
         @js.native
-        object MediaError
-          extends js.Object {
+        object MediaError extends StObject {
           
           val MEDIA_ERR_ABORTED: Int = js.native
           
@@ -7444,8 +7489,7 @@ object org {
         }
         
         @js.native
-        class MediaList ()
-          extends js.Object {
+        class MediaList () extends StObject {
           
           def appendMedium(newMedium: String): Unit = js.native
           
@@ -7463,8 +7507,7 @@ object org {
         }
         
         @js.native
-        trait MediaQueryList
-          extends js.Object {
+        trait MediaQueryList extends StObject {
           
           def addListener(listener: org.scalajs.dom.raw.MediaQueryListListener): Unit = js.native
           
@@ -7476,15 +7519,15 @@ object org {
         }
         
         @js.native
-        trait MediaQueryListListener
-          extends js.Object {
+        trait MediaQueryListListener extends StObject {
           
           def apply(mql: org.scalajs.dom.raw.MediaQueryList): Unit = js.native
         }
         
         @js.native
         trait MediaStreamAudioDestinationNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           var stream: MediaStream = js.native
@@ -7492,12 +7535,12 @@ object org {
         
         @js.native
         trait MediaStreamAudioSourceNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode
         
         @js.native
-        class MessageChannel ()
-          extends js.Object {
+        class MessageChannel () extends StObject {
           
           def port1(): org.scalajs.dom.raw.MessagePort = js.native
           
@@ -7506,7 +7549,8 @@ object org {
         
         @js.native
         class MessageEvent protected ()
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           def this(typeArg: String, init: js.UndefOr[MessageEventInit]) = this()
           
           def data(): Any = js.native
@@ -7524,7 +7568,7 @@ object org {
         
         @js.native
         trait MessageEventInit
-          extends js.Object
+          extends StObject
              with EventInit {
           
           var data: js.UndefOr[Any] = js.native
@@ -7536,7 +7580,8 @@ object org {
         
         @js.native
         trait MessagePort
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           def close(): Unit = js.native
           
@@ -7548,8 +7593,7 @@ object org {
         }
         
         @js.native
-        trait ModifierKeyEvent
-          extends js.Object {
+        trait ModifierKeyEvent extends StObject {
           
           def altKey(): Boolean = js.native
           
@@ -7561,8 +7605,7 @@ object org {
         }
         
         @js.native
-        trait ModifierKeyEventInit
-          extends js.Object {
+        trait ModifierKeyEventInit extends StObject {
           
           var altKey: js.UndefOr[Boolean] = js.native
           
@@ -7575,7 +7618,8 @@ object org {
         
         @js.native
         class MouseEvent protected ()
-          extends org.scalajs.dom.raw.UIEvent
+          extends StObject
+             with org.scalajs.dom.raw.UIEvent
              with org.scalajs.dom.raw.ModifierKeyEvent {
           def this(typeArg: String, init: js.UndefOr[MouseEventInit]) = this()
           
@@ -7606,7 +7650,7 @@ object org {
         
         @js.native
         trait MouseEventInit
-          extends js.Object
+          extends StObject
              with UIEventInit
              with ModifierKeyEventInit {
           
@@ -7630,8 +7674,7 @@ object org {
         }
         
         @js.native
-        class MutationObserver protected ()
-          extends js.Object {
+        class MutationObserver protected () extends StObject {
           def this(callback: js.Function2[
                         js.Array[org.scalajs.dom.raw.MutationRecord], 
                         org.scalajs.dom.raw.MutationObserver, 
@@ -7652,8 +7695,7 @@ object org {
         }
         
         @js.native
-        trait MutationObserverInit
-          extends js.Object {
+        trait MutationObserverInit extends StObject {
           
           var attributeFilter: js.UndefOr[js.Array[String]] = js.native
           
@@ -7671,8 +7713,7 @@ object org {
         }
         
         @js.native
-        trait MutationRecord
-          extends js.Object {
+        trait MutationRecord extends StObject {
           
           def addedNodes(): org.scalajs.dom.raw.NodeList = js.native
           
@@ -7694,8 +7735,7 @@ object org {
         }
         
         @js.native
-        class NamedNodeMap ()
-          extends js.Object {
+        class NamedNodeMap () extends StObject {
           
           def apply(index: Int): org.scalajs.dom.raw.Attr = js.native
           
@@ -7720,7 +7760,7 @@ object org {
         
         @js.native
         class Navigator ()
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.NavigatorID
              with org.scalajs.dom.raw.NavigatorOnLine
              with org.scalajs.dom.raw.NavigatorContentUtils
@@ -7732,19 +7772,16 @@ object org {
         }
         
         @js.native
-        trait NavigatorContentUtils
-          extends js.Object
+        trait NavigatorContentUtils extends StObject
         
         @js.native
-        trait NavigatorGeolocation
-          extends js.Object {
+        trait NavigatorGeolocation extends StObject {
           
           def geolocation(): org.scalajs.dom.raw.Geolocation = js.native
         }
         
         @js.native
-        trait NavigatorID
-          extends js.Object {
+        trait NavigatorID extends StObject {
           
           def appName(): String = js.native
           
@@ -7756,26 +7793,24 @@ object org {
         }
         
         @js.native
-        trait NavigatorLanguage
-          extends js.Object {
+        trait NavigatorLanguage extends StObject {
           
           def language(): String = js.native
         }
         
         @js.native
-        trait NavigatorOnLine
-          extends js.Object {
+        trait NavigatorOnLine extends StObject {
           
           def onLine(): Boolean = js.native
         }
         
         @js.native
-        trait NavigatorStorageUtils
-          extends js.Object
+        trait NavigatorStorageUtils extends StObject
         
         @js.native
         abstract class Node ()
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           def appendChild(newChild: org.scalajs.dom.raw.Node): org.scalajs.dom.raw.Node = js.native
           
@@ -7840,8 +7875,7 @@ object org {
           var textContent: String = js.native
         }
         @js.native
-        object Node
-          extends js.Object {
+        object Node extends StObject {
           
           def ATTRIBUTE_NODE(): Int = js.native
           
@@ -7881,14 +7915,12 @@ object org {
         }
         
         @js.native
-        class NodeFilter ()
-          extends js.Object {
+        class NodeFilter () extends StObject {
           
           def acceptNode(n: org.scalajs.dom.raw.Node): Int = js.native
         }
         @js.native
-        object NodeFilter
-          extends js.Object {
+        object NodeFilter extends StObject {
           
           val FILTER_ACCEPT: Int = js.native
           
@@ -7924,8 +7956,7 @@ object org {
         }
         
         @js.native
-        class NodeIterator ()
-          extends js.Object {
+        class NodeIterator () extends StObject {
           
           def detach(): Unit = js.native
           
@@ -7942,17 +7973,16 @@ object org {
         
         @js.native
         class NodeList ()
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.DOMList[org.scalajs.dom.raw.Node]
         
         @js.native
         trait NodeListOf[TNode]
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.DOMList[TNode]
         
         @js.native
-        trait NodeSelector
-          extends js.Object {
+        trait NodeSelector extends StObject {
           
           def querySelector(selectors: String): org.scalajs.dom.raw.Element = js.native
           
@@ -7960,8 +7990,7 @@ object org {
         }
         
         @js.native
-        trait NonDocumentTypeChildNode
-          extends js.Object {
+        trait NonDocumentTypeChildNode extends StObject {
           
           def nextElementSibling(): org.scalajs.dom.raw.Element = js.native
           
@@ -7970,14 +7999,16 @@ object org {
         
         @js.native
         trait OfflineAudioCompletionEvent
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           
           val renderedBuffer: org.scalajs.dom.raw.AudioBuffer = js.native
         }
         
         @js.native
         class OfflineAudioContext protected ()
-          extends org.scalajs.dom.raw.AudioContext {
+          extends StObject
+             with org.scalajs.dom.raw.AudioContext {
           def this(numOfChannels: Int, length: Int, sampleRate: Int) = this()
           
           val length: Int = js.native
@@ -7991,7 +8022,8 @@ object org {
         
         @js.native
         trait OscillatorNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           var detune: org.scalajs.dom.raw.AudioParam = js.native
@@ -8011,14 +8043,14 @@ object org {
         
         @js.native
         trait PageTransitionEvent
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           
           def persisted(): Boolean = js.native
         }
         
         @js.native
-        trait PageVisibility
-          extends js.Object {
+        trait PageVisibility extends StObject {
           
           def hidden(): Boolean = js.native
           
@@ -8029,7 +8061,8 @@ object org {
         
         @js.native
         trait PannerNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           var coneInnerAngle: Double = js.native
@@ -8056,8 +8089,7 @@ object org {
         }
         
         @js.native
-        trait ParentNode
-          extends js.Object {
+        trait ParentNode extends StObject {
           
           def childElementCount(): Int = js.native
           
@@ -8069,8 +8101,7 @@ object org {
         }
         
         @js.native
-        class Performance ()
-          extends js.Object {
+        class Performance () extends StObject {
           
           def clearMarks(markName: String): Unit = js.native
           
@@ -8104,8 +8135,7 @@ object org {
         }
         
         @js.native
-        class PerformanceEntry ()
-          extends js.Object {
+        class PerformanceEntry () extends StObject {
           
           def duration(): Int = js.native
           
@@ -8118,15 +8148,16 @@ object org {
         
         @js.native
         class PerformanceMark ()
-          extends org.scalajs.dom.raw.PerformanceEntry
+          extends StObject
+             with org.scalajs.dom.raw.PerformanceEntry
         
         @js.native
         class PerformanceMeasure ()
-          extends org.scalajs.dom.raw.PerformanceEntry
+          extends StObject
+             with org.scalajs.dom.raw.PerformanceEntry
         
         @js.native
-        class PerformanceNavigation ()
-          extends js.Object {
+        class PerformanceNavigation () extends StObject {
           
           def redirectCount(): Int = js.native
           
@@ -8135,8 +8166,7 @@ object org {
           def `type`(): Int = js.native
         }
         @js.native
-        object PerformanceNavigation
-          extends js.Object {
+        object PerformanceNavigation extends StObject {
           
           val TYPE_BACK_FORWARD: Int = js.native
           
@@ -8149,7 +8179,8 @@ object org {
         
         @js.native
         class PerformanceResourceTiming ()
-          extends org.scalajs.dom.raw.PerformanceEntry {
+          extends StObject
+             with org.scalajs.dom.raw.PerformanceEntry {
           
           def connectEnd(): Int = js.native
           
@@ -8175,8 +8206,7 @@ object org {
         }
         
         @js.native
-        class PerformanceTiming ()
-          extends js.Object {
+        class PerformanceTiming () extends StObject {
           
           def connectEnd(): Double = js.native
           
@@ -8222,12 +8252,12 @@ object org {
         }
         
         @js.native
-        trait PeriodicWave
-          extends js.Object
+        trait PeriodicWave extends StObject
         
         @js.native
         class PointerEvent protected ()
-          extends org.scalajs.dom.raw.MouseEvent {
+          extends StObject
+             with org.scalajs.dom.raw.MouseEvent {
           def this(typeArg: String) = this()
           def this(typeArg: String, pointerEventInit: js.UndefOr[org.scalajs.dom.raw.PointerEventInit]) = this()
           
@@ -8258,7 +8288,7 @@ object org {
         
         @js.native
         trait PointerEventInit
-          extends js.Object
+          extends StObject
              with MouseEventInit {
           
           var height: js.UndefOr[Double] = js.native
@@ -8284,14 +8314,14 @@ object org {
         
         @js.native
         trait PopStateEvent
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           
           def state(): js.Any = js.native
         }
         
         @js.native
-        trait Position
-          extends js.Object {
+        trait Position extends StObject {
           
           def coords(): org.scalajs.dom.raw.Coordinates = js.native
           
@@ -8299,16 +8329,14 @@ object org {
         }
         
         @js.native
-        trait PositionError
-          extends js.Object {
+        trait PositionError extends StObject {
           
           def code(): Int = js.native
           
           def message(): String = js.native
         }
         @js.native
-        object PositionError
-          extends js.Object {
+        object PositionError extends StObject {
           
           val PERMISSION_DENIED: Int = js.native
           
@@ -8318,8 +8346,7 @@ object org {
         }
         
         @js.native
-        class PositionOptions ()
-          extends js.Object {
+        class PositionOptions () extends StObject {
           
           var enableHighAccuracy: Boolean = js.native
           
@@ -8330,7 +8357,8 @@ object org {
         
         @js.native
         abstract class ProcessingInstruction ()
-          extends org.scalajs.dom.raw.Node {
+          extends StObject
+             with org.scalajs.dom.raw.Node {
           
           def data(): String = js.native
           
@@ -8339,7 +8367,8 @@ object org {
         
         @js.native
         trait ProgressEvent
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           
           def lengthComputable(): Boolean = js.native
           
@@ -8349,8 +8378,7 @@ object org {
         }
         
         @js.native
-        class Range ()
-          extends js.Object {
+        class Range () extends StObject {
           
           def cloneContents(): org.scalajs.dom.raw.DocumentFragment = js.native
           
@@ -8405,8 +8433,7 @@ object org {
           def surroundContents(newParent: org.scalajs.dom.raw.Node): Unit = js.native
         }
         @js.native
-        object Range
-          extends js.Object {
+        object Range extends StObject {
           
           val END_TO_END: Int = js.native
           
@@ -8419,7 +8446,8 @@ object org {
         
         @js.native
         abstract class SVGAElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGTransformable
              with SVGLangSpace
@@ -8431,8 +8459,7 @@ object org {
         }
         
         @js.native
-        class SVGAngle ()
-          extends js.Object {
+        class SVGAngle () extends StObject {
           
           def convertToSpecifiedUnits(unitType: Int): Unit = js.native
           
@@ -8447,8 +8474,7 @@ object org {
           var valueInSpecifiedUnits: Double = js.native
         }
         @js.native
-        object SVGAngle
-          extends js.Object {
+        object SVGAngle extends StObject {
           
           val SVG_ANGLETYPE_DEG: Int = js.native
           
@@ -8462,8 +8488,7 @@ object org {
         }
         
         @js.native
-        class SVGAnimatedAngle ()
-          extends js.Object {
+        class SVGAnimatedAngle () extends StObject {
           
           def animVal(): SVGAngle = js.native
           
@@ -8471,8 +8496,7 @@ object org {
         }
         
         @js.native
-        class SVGAnimatedBoolean ()
-          extends js.Object {
+        class SVGAnimatedBoolean () extends StObject {
           
           def animVal(): Boolean = js.native
           
@@ -8480,8 +8504,7 @@ object org {
         }
         
         @js.native
-        class SVGAnimatedEnumeration ()
-          extends js.Object {
+        class SVGAnimatedEnumeration () extends StObject {
           
           def animVal(): Int = js.native
           
@@ -8489,8 +8512,7 @@ object org {
         }
         
         @js.native
-        class SVGAnimatedInteger ()
-          extends js.Object {
+        class SVGAnimatedInteger () extends StObject {
           
           def animVal(): Int = js.native
           
@@ -8498,8 +8520,7 @@ object org {
         }
         
         @js.native
-        class SVGAnimatedLength ()
-          extends js.Object {
+        class SVGAnimatedLength () extends StObject {
           
           def animVal(): SVGLength = js.native
           
@@ -8507,8 +8528,7 @@ object org {
         }
         
         @js.native
-        class SVGAnimatedLengthList ()
-          extends js.Object {
+        class SVGAnimatedLengthList () extends StObject {
           
           def animVal(): SVGLengthList = js.native
           
@@ -8516,8 +8536,7 @@ object org {
         }
         
         @js.native
-        class SVGAnimatedNumber ()
-          extends js.Object {
+        class SVGAnimatedNumber () extends StObject {
           
           def animVal(): Double = js.native
           
@@ -8525,8 +8544,7 @@ object org {
         }
         
         @js.native
-        class SVGAnimatedNumberList ()
-          extends js.Object {
+        class SVGAnimatedNumberList () extends StObject {
           
           def animVal(): SVGNumberList = js.native
           
@@ -8534,15 +8552,13 @@ object org {
         }
         
         @js.native
-        trait SVGAnimatedPathData
-          extends js.Object {
+        trait SVGAnimatedPathData extends StObject {
           
           var pathSegList: SVGPathSegList = js.native
         }
         
         @js.native
-        trait SVGAnimatedPoints
-          extends js.Object {
+        trait SVGAnimatedPoints extends StObject {
           
           def animatedPoints(): SVGPointList = js.native
           
@@ -8550,8 +8566,7 @@ object org {
         }
         
         @js.native
-        class SVGAnimatedPreserveAspectRatio ()
-          extends js.Object {
+        class SVGAnimatedPreserveAspectRatio () extends StObject {
           
           def animVal(): SVGPreserveAspectRatio = js.native
           
@@ -8559,8 +8574,7 @@ object org {
         }
         
         @js.native
-        class SVGAnimatedRect ()
-          extends js.Object {
+        class SVGAnimatedRect () extends StObject {
           
           def animVal(): SVGRect = js.native
           
@@ -8568,8 +8582,7 @@ object org {
         }
         
         @js.native
-        class SVGAnimatedString ()
-          extends js.Object {
+        class SVGAnimatedString () extends StObject {
           
           def animVal(): String = js.native
           
@@ -8577,8 +8590,7 @@ object org {
         }
         
         @js.native
-        class SVGAnimatedTransformList ()
-          extends js.Object {
+        class SVGAnimatedTransformList () extends StObject {
           
           def animVal(): SVGTransformList = js.native
           
@@ -8587,7 +8599,8 @@ object org {
         
         @js.native
         abstract class SVGCircleElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGTransformable
              with SVGLangSpace
@@ -8603,7 +8616,8 @@ object org {
         
         @js.native
         abstract class SVGClipPathElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGUnitTypes
              with SVGStylable
              with SVGTransformable
@@ -8615,7 +8629,9 @@ object org {
         }
         
         @js.native
-        abstract class SVGComponentTransferFunctionElement () extends SVGElement {
+        abstract class SVGComponentTransferFunctionElement ()
+          extends StObject
+             with SVGElement {
           
           def amplitude(): SVGAnimatedNumber = js.native
           
@@ -8632,8 +8648,7 @@ object org {
           def `type`(): SVGAnimatedEnumeration = js.native
         }
         @js.native
-        object SVGComponentTransferFunctionElement
-          extends js.Object {
+        object SVGComponentTransferFunctionElement extends StObject {
           
           val SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE: Int = js.native
           
@@ -8650,7 +8665,8 @@ object org {
         
         @js.native
         abstract class SVGDefsElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGTransformable
              with SVGLangSpace
@@ -8659,13 +8675,15 @@ object org {
         
         @js.native
         abstract class SVGDescElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGLangSpace
         
         @js.native
         abstract class SVGElement ()
-          extends org.scalajs.dom.raw.Element {
+          extends StObject
+             with org.scalajs.dom.raw.Element {
           
           var onclick: js.Function1[org.scalajs.dom.raw.MouseEvent, _] = js.native
           
@@ -8696,7 +8714,8 @@ object org {
         
         @js.native
         class SVGElementInstance ()
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           def childNodes(): SVGElementInstanceList = js.native
           
@@ -8716,8 +8735,7 @@ object org {
         }
         
         @js.native
-        class SVGElementInstanceList ()
-          extends js.Object {
+        class SVGElementInstanceList () extends StObject {
           
           def item(index: Int): SVGElementInstance = js.native
           
@@ -8726,7 +8744,8 @@ object org {
         
         @js.native
         abstract class SVGEllipseElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGTransformable
              with SVGLangSpace
@@ -8743,8 +8762,7 @@ object org {
         }
         
         @js.native
-        trait SVGException
-          extends js.Object {
+        trait SVGException extends StObject {
           
           def code(): Int = js.native
           
@@ -8753,8 +8771,7 @@ object org {
           def name(): String = js.native
         }
         @js.native
-        object SVGException
-          extends js.Object {
+        object SVGException extends StObject {
           
           val SVG_INVALID_VALUE_ERR: Int = js.native
           
@@ -8764,15 +8781,15 @@ object org {
         }
         
         @js.native
-        trait SVGExternalResourcesRequired
-          extends js.Object {
+        trait SVGExternalResourcesRequired extends StObject {
           
           var externalResourcesRequired: SVGAnimatedBoolean = js.native
         }
         
         @js.native
         abstract class SVGFEBlendElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes {
           
           def in1(): SVGAnimatedString = js.native
@@ -8782,8 +8799,7 @@ object org {
           def mode(): SVGAnimatedEnumeration = js.native
         }
         @js.native
-        object SVGFEBlendElement
-          extends js.Object {
+        object SVGFEBlendElement extends StObject {
           
           val SVG_FEBLEND_MODE_DARKEN: Int = js.native
           
@@ -8800,7 +8816,8 @@ object org {
         
         @js.native
         abstract class SVGFEColorMatrixElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes {
           
           def in1(): SVGAnimatedString = js.native
@@ -8810,8 +8827,7 @@ object org {
           def values(): SVGAnimatedNumberList = js.native
         }
         @js.native
-        object SVGFEColorMatrixElement
-          extends js.Object {
+        object SVGFEColorMatrixElement extends StObject {
           
           val SVG_FECOLORMATRIX_TYPE_HUEROTATE: Int = js.native
           
@@ -8826,7 +8842,8 @@ object org {
         
         @js.native
         abstract class SVGFEComponentTransferElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes {
           
           def in1(): SVGAnimatedString = js.native
@@ -8834,7 +8851,8 @@ object org {
         
         @js.native
         abstract class SVGFECompositeElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes {
           
           def in1(): SVGAnimatedString = js.native
@@ -8852,8 +8870,7 @@ object org {
           def operator(): SVGAnimatedEnumeration = js.native
         }
         @js.native
-        object SVGFECompositeElement
-          extends js.Object {
+        object SVGFECompositeElement extends StObject {
           
           val SVG_FECOMPOSITE_OPERATOR_ARITHMETIC: Int = js.native
           
@@ -8872,7 +8889,8 @@ object org {
         
         @js.native
         abstract class SVGFEConvolveMatrixElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes {
           
           def bias(): SVGAnimatedNumber = js.native
@@ -8900,8 +8918,7 @@ object org {
           def targetY(): SVGAnimatedInteger = js.native
         }
         @js.native
-        object SVGFEConvolveMatrixElement
-          extends js.Object {
+        object SVGFEConvolveMatrixElement extends StObject {
           
           val SVG_EDGEMODE_DUPLICATE: Int = js.native
           
@@ -8914,7 +8931,8 @@ object org {
         
         @js.native
         abstract class SVGFEDiffuseLightingElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes {
           
           def diffuseConstant(): SVGAnimatedNumber = js.native
@@ -8930,7 +8948,8 @@ object org {
         
         @js.native
         abstract class SVGFEDisplacementMapElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes {
           
           def in1(): SVGAnimatedString = js.native
@@ -8944,8 +8963,7 @@ object org {
           def yChannelSelector(): SVGAnimatedEnumeration = js.native
         }
         @js.native
-        object SVGFEDisplacementMapElement
-          extends js.Object {
+        object SVGFEDisplacementMapElement extends StObject {
           
           val SVG_CHANNEL_A: Int = js.native
           
@@ -8959,7 +8977,9 @@ object org {
         }
         
         @js.native
-        abstract class SVGFEDistantLightElement () extends SVGElement {
+        abstract class SVGFEDistantLightElement ()
+          extends StObject
+             with SVGElement {
           
           def azimuth(): SVGAnimatedNumber = js.native
           
@@ -8968,24 +8988,34 @@ object org {
         
         @js.native
         abstract class SVGFEFloodElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes
         
         @js.native
-        abstract class SVGFEFuncAElement () extends SVGComponentTransferFunctionElement
+        abstract class SVGFEFuncAElement ()
+          extends StObject
+             with SVGComponentTransferFunctionElement
         
         @js.native
-        abstract class SVGFEFuncBElement () extends SVGComponentTransferFunctionElement
+        abstract class SVGFEFuncBElement ()
+          extends StObject
+             with SVGComponentTransferFunctionElement
         
         @js.native
-        abstract class SVGFEFuncGElement () extends SVGComponentTransferFunctionElement
+        abstract class SVGFEFuncGElement ()
+          extends StObject
+             with SVGComponentTransferFunctionElement
         
         @js.native
-        abstract class SVGFEFuncRElement () extends SVGComponentTransferFunctionElement
+        abstract class SVGFEFuncRElement ()
+          extends StObject
+             with SVGComponentTransferFunctionElement
         
         @js.native
         abstract class SVGFEGaussianBlurElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes {
           
           def in1(): SVGAnimatedString = js.native
@@ -8999,7 +9029,8 @@ object org {
         
         @js.native
         abstract class SVGFEImageElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGLangSpace
              with SVGFilterPrimitiveStandardAttributes
              with SVGURIReference
@@ -9010,18 +9041,22 @@ object org {
         
         @js.native
         abstract class SVGFEMergeElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes
         
         @js.native
-        abstract class SVGFEMergeNodeElement () extends SVGElement {
+        abstract class SVGFEMergeNodeElement ()
+          extends StObject
+             with SVGElement {
           
           def in1(): SVGAnimatedString = js.native
         }
         
         @js.native
         abstract class SVGFEMorphologyElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes {
           
           def in1(): SVGAnimatedString = js.native
@@ -9033,8 +9068,7 @@ object org {
           def radiusY(): SVGAnimatedNumber = js.native
         }
         @js.native
-        object SVGFEMorphologyElement
-          extends js.Object {
+        object SVGFEMorphologyElement extends StObject {
           
           val SVG_MORPHOLOGY_OPERATOR_DILATE: Int = js.native
           
@@ -9045,7 +9079,8 @@ object org {
         
         @js.native
         abstract class SVGFEOffsetElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes {
           
           def dx(): SVGAnimatedNumber = js.native
@@ -9056,7 +9091,9 @@ object org {
         }
         
         @js.native
-        abstract class SVGFEPointLightElement () extends SVGElement {
+        abstract class SVGFEPointLightElement ()
+          extends StObject
+             with SVGElement {
           
           def x(): SVGAnimatedNumber = js.native
           
@@ -9067,7 +9104,8 @@ object org {
         
         @js.native
         abstract class SVGFESpecularLightingElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes {
           
           def in1(): SVGAnimatedString = js.native
@@ -9084,7 +9122,9 @@ object org {
         }
         
         @js.native
-        abstract class SVGFESpotLightElement () extends SVGElement {
+        abstract class SVGFESpotLightElement ()
+          extends StObject
+             with SVGElement {
           
           def limitingConeAngle(): SVGAnimatedNumber = js.native
           
@@ -9105,7 +9145,8 @@ object org {
         
         @js.native
         abstract class SVGFETileElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes {
           
           def in1(): SVGAnimatedString = js.native
@@ -9113,7 +9154,8 @@ object org {
         
         @js.native
         abstract class SVGFETurbulenceElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGFilterPrimitiveStandardAttributes {
           
           def baseFrequencyX(): SVGAnimatedNumber = js.native
@@ -9129,8 +9171,7 @@ object org {
           def `type`(): SVGAnimatedEnumeration = js.native
         }
         @js.native
-        object SVGFETurbulenceElement
-          extends js.Object {
+        object SVGFETurbulenceElement extends StObject {
           
           val SVG_STITCHTYPE_NOSTITCH: Int = js.native
           
@@ -9147,7 +9188,8 @@ object org {
         
         @js.native
         abstract class SVGFilterElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGUnitTypes
              with SVGStylable
              with SVGLangSpace
@@ -9175,7 +9217,7 @@ object org {
         
         @js.native
         trait SVGFilterPrimitiveStandardAttributes
-          extends js.Object
+          extends StObject
              with SVGStylable {
           
           def height(): SVGAnimatedLength = js.native
@@ -9190,8 +9232,7 @@ object org {
         }
         
         @js.native
-        trait SVGFitToViewBox
-          extends js.Object {
+        trait SVGFitToViewBox extends StObject {
           
           var preserveAspectRatio: SVGAnimatedPreserveAspectRatio = js.native
           
@@ -9200,7 +9241,8 @@ object org {
         
         @js.native
         abstract class SVGGElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGTransformable
              with SVGLangSpace
@@ -9209,7 +9251,8 @@ object org {
         
         @js.native
         abstract class SVGGradientElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGUnitTypes
              with SVGStylable
              with SVGExternalResourcesRequired
@@ -9222,8 +9265,7 @@ object org {
           def spreadMethod(): SVGAnimatedEnumeration = js.native
         }
         @js.native
-        object SVGGradientElement
-          extends js.Object {
+        object SVGGradientElement extends StObject {
           
           val SVG_SPREADMETHOD_PAD: Int = js.native
           
@@ -9236,7 +9278,8 @@ object org {
         
         @js.native
         abstract class SVGImageElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGTransformable
              with SVGLangSpace
@@ -9256,8 +9299,7 @@ object org {
         }
         
         @js.native
-        trait SVGLangSpace
-          extends js.Object {
+        trait SVGLangSpace extends StObject {
           
           var xmllang: String = js.native
           
@@ -9265,8 +9307,7 @@ object org {
         }
         
         @js.native
-        class SVGLength ()
-          extends js.Object {
+        class SVGLength () extends StObject {
           
           def convertToSpecifiedUnits(unitType: Int): Unit = js.native
           
@@ -9281,8 +9322,7 @@ object org {
           var valueInSpecifiedUnits: Double = js.native
         }
         @js.native
-        object SVGLength
-          extends js.Object {
+        object SVGLength extends StObject {
           
           val SVG_LENGTHTYPE_CM: Int = js.native
           
@@ -9308,8 +9348,7 @@ object org {
         }
         
         @js.native
-        class SVGLengthList ()
-          extends js.Object {
+        class SVGLengthList () extends StObject {
           
           def appendItem(newItem: SVGLength): SVGLength = js.native
           
@@ -9330,7 +9369,8 @@ object org {
         
         @js.native
         abstract class SVGLineElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGTransformable
              with SVGLangSpace
@@ -9347,7 +9387,9 @@ object org {
         }
         
         @js.native
-        class SVGLinearGradientElement () extends SVGGradientElement {
+        class SVGLinearGradientElement ()
+          extends StObject
+             with SVGGradientElement {
           
           def x1(): SVGAnimatedLength = js.native
           
@@ -9359,8 +9401,7 @@ object org {
         }
         
         @js.native
-        trait SVGLocatable
-          extends js.Object {
+        trait SVGLocatable extends StObject {
           
           var farthestViewportElement: SVGElement = js.native
           
@@ -9377,7 +9418,8 @@ object org {
         
         @js.native
         abstract class SVGMarkerElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGLangSpace
              with SVGFitToViewBox
@@ -9402,8 +9444,7 @@ object org {
           def setOrientToAuto(): Unit = js.native
         }
         @js.native
-        object SVGMarkerElement
-          extends js.Object {
+        object SVGMarkerElement extends StObject {
           
           val SVG_MARKERUNITS_STROKEWIDTH: Int = js.native
           
@@ -9420,7 +9461,8 @@ object org {
         
         @js.native
         abstract class SVGMaskElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGUnitTypes
              with SVGStylable
              with SVGLangSpace
@@ -9441,8 +9483,7 @@ object org {
         }
         
         @js.native
-        class SVGMatrix ()
-          extends js.Object {
+        class SVGMatrix () extends StObject {
           
           var a: Double = js.native
           
@@ -9480,18 +9521,18 @@ object org {
         }
         
         @js.native
-        abstract class SVGMetadataElement () extends SVGElement
+        abstract class SVGMetadataElement ()
+          extends StObject
+             with SVGElement
         
         @js.native
-        class SVGNumber ()
-          extends js.Object {
+        class SVGNumber () extends StObject {
           
           var value: Double = js.native
         }
         
         @js.native
-        class SVGNumberList ()
-          extends js.Object {
+        class SVGNumberList () extends StObject {
           
           def appendItem(newItem: SVGNumber): SVGNumber = js.native
           
@@ -9512,7 +9553,8 @@ object org {
         
         @js.native
         abstract class SVGPathElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGAnimatedPathData
              with SVGTransformable
@@ -9582,16 +9624,14 @@ object org {
         }
         
         @js.native
-        class SVGPathSeg ()
-          extends js.Object {
+        class SVGPathSeg () extends StObject {
           
           def pathSegType(): Int = js.native
           
           def pathSegTypeAsLetter(): String = js.native
         }
         @js.native
-        object SVGPathSeg
-          extends js.Object {
+        object SVGPathSeg extends StObject {
           
           val PATHSEG_ARC_ABS: Int = js.native
           
@@ -9635,7 +9675,9 @@ object org {
         }
         
         @js.native
-        class SVGPathSegArcAbs () extends SVGPathSeg {
+        class SVGPathSegArcAbs ()
+          extends StObject
+             with SVGPathSeg {
           
           var angle: Double = js.native
           
@@ -9653,7 +9695,9 @@ object org {
         }
         
         @js.native
-        class SVGPathSegArcRel () extends SVGPathSeg {
+        class SVGPathSegArcRel ()
+          extends StObject
+             with SVGPathSeg {
           
           var angle: Double = js.native
           
@@ -9671,10 +9715,14 @@ object org {
         }
         
         @js.native
-        class SVGPathSegClosePath () extends SVGPathSeg
+        class SVGPathSegClosePath ()
+          extends StObject
+             with SVGPathSeg
         
         @js.native
-        class SVGPathSegCurvetoCubicAbs () extends SVGPathSeg {
+        class SVGPathSegCurvetoCubicAbs ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
           
@@ -9690,7 +9738,9 @@ object org {
         }
         
         @js.native
-        class SVGPathSegCurvetoCubicRel () extends SVGPathSeg {
+        class SVGPathSegCurvetoCubicRel ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
           
@@ -9706,7 +9756,9 @@ object org {
         }
         
         @js.native
-        class SVGPathSegCurvetoCubicSmoothAbs () extends SVGPathSeg {
+        class SVGPathSegCurvetoCubicSmoothAbs ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
           
@@ -9718,7 +9770,9 @@ object org {
         }
         
         @js.native
-        class SVGPathSegCurvetoCubicSmoothRel () extends SVGPathSeg {
+        class SVGPathSegCurvetoCubicSmoothRel ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
           
@@ -9730,7 +9784,9 @@ object org {
         }
         
         @js.native
-        class SVGPathSegCurvetoQuadraticAbs () extends SVGPathSeg {
+        class SVGPathSegCurvetoQuadraticAbs ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
           
@@ -9742,7 +9798,9 @@ object org {
         }
         
         @js.native
-        class SVGPathSegCurvetoQuadraticRel () extends SVGPathSeg {
+        class SVGPathSegCurvetoQuadraticRel ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
           
@@ -9754,7 +9812,9 @@ object org {
         }
         
         @js.native
-        class SVGPathSegCurvetoQuadraticSmoothAbs () extends SVGPathSeg {
+        class SVGPathSegCurvetoQuadraticSmoothAbs ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
           
@@ -9762,7 +9822,9 @@ object org {
         }
         
         @js.native
-        class SVGPathSegCurvetoQuadraticSmoothRel () extends SVGPathSeg {
+        class SVGPathSegCurvetoQuadraticSmoothRel ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
           
@@ -9770,7 +9832,9 @@ object org {
         }
         
         @js.native
-        class SVGPathSegLinetoAbs () extends SVGPathSeg {
+        class SVGPathSegLinetoAbs ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
           
@@ -9778,19 +9842,25 @@ object org {
         }
         
         @js.native
-        class SVGPathSegLinetoHorizontalAbs () extends SVGPathSeg {
+        class SVGPathSegLinetoHorizontalAbs ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
         }
         
         @js.native
-        class SVGPathSegLinetoHorizontalRel () extends SVGPathSeg {
+        class SVGPathSegLinetoHorizontalRel ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
         }
         
         @js.native
-        class SVGPathSegLinetoRel () extends SVGPathSeg {
+        class SVGPathSegLinetoRel ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
           
@@ -9798,20 +9868,23 @@ object org {
         }
         
         @js.native
-        class SVGPathSegLinetoVerticalAbs () extends SVGPathSeg {
+        class SVGPathSegLinetoVerticalAbs ()
+          extends StObject
+             with SVGPathSeg {
           
           var y: Double = js.native
         }
         
         @js.native
-        class SVGPathSegLinetoVerticalRel () extends SVGPathSeg {
+        class SVGPathSegLinetoVerticalRel ()
+          extends StObject
+             with SVGPathSeg {
           
           var y: Double = js.native
         }
         
         @js.native
-        class SVGPathSegList ()
-          extends js.Object {
+        class SVGPathSegList () extends StObject {
           
           def appendItem(newItem: SVGPathSeg): SVGPathSeg = js.native
           
@@ -9831,7 +9904,9 @@ object org {
         }
         
         @js.native
-        class SVGPathSegMovetoAbs () extends SVGPathSeg {
+        class SVGPathSegMovetoAbs ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
           
@@ -9839,7 +9914,9 @@ object org {
         }
         
         @js.native
-        class SVGPathSegMovetoRel () extends SVGPathSeg {
+        class SVGPathSegMovetoRel ()
+          extends StObject
+             with SVGPathSeg {
           
           var x: Double = js.native
           
@@ -9848,7 +9925,8 @@ object org {
         
         @js.native
         abstract class SVGPatternElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGUnitTypes
              with SVGStylable
              with SVGLangSpace
@@ -9873,8 +9951,7 @@ object org {
         }
         
         @js.native
-        class SVGPoint ()
-          extends js.Object {
+        class SVGPoint () extends StObject {
           
           def matrixTransform(matrix: SVGMatrix): SVGPoint = js.native
           
@@ -9884,8 +9961,7 @@ object org {
         }
         
         @js.native
-        class SVGPointList ()
-          extends js.Object {
+        class SVGPointList () extends StObject {
           
           def appendItem(newItem: SVGPoint): SVGPoint = js.native
           
@@ -9906,7 +9982,8 @@ object org {
         
         @js.native
         abstract class SVGPolygonElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGTransformable
              with SVGLangSpace
@@ -9916,7 +9993,8 @@ object org {
         
         @js.native
         abstract class SVGPolylineElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGTransformable
              with SVGLangSpace
@@ -9925,16 +10003,14 @@ object org {
              with SVGExternalResourcesRequired
         
         @js.native
-        class SVGPreserveAspectRatio ()
-          extends js.Object {
+        class SVGPreserveAspectRatio () extends StObject {
           
           var align: Int = js.native
           
           var meetOrSlice: Int = js.native
         }
         @js.native
-        object SVGPreserveAspectRatio
-          extends js.Object {
+        object SVGPreserveAspectRatio extends StObject {
           
           val SVG_MEETORSLICE_MEET: Int = js.native
           
@@ -9966,7 +10042,9 @@ object org {
         }
         
         @js.native
-        class SVGRadialGradientElement () extends SVGGradientElement {
+        class SVGRadialGradientElement ()
+          extends StObject
+             with SVGGradientElement {
           
           def cx(): SVGAnimatedLength = js.native
           
@@ -9980,8 +10058,7 @@ object org {
         }
         
         @js.native
-        class SVGRect ()
-          extends js.Object {
+        class SVGRect () extends StObject {
           
           var height: Double = js.native
           
@@ -9994,7 +10071,8 @@ object org {
         
         @js.native
         abstract class SVGRectElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGTransformable
              with SVGLangSpace
@@ -10016,7 +10094,8 @@ object org {
         
         @js.native
         abstract class SVGSVGElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGZoomAndPan
              with org.scalajs.dom.raw.DocumentEvent
@@ -10113,7 +10192,8 @@ object org {
         
         @js.native
         abstract class SVGScriptElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGExternalResourcesRequired
              with SVGURIReference {
           
@@ -10122,15 +10202,15 @@ object org {
         
         @js.native
         abstract class SVGStopElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable {
           
           var offset: SVGAnimatedNumber = js.native
         }
         
         @js.native
-        class SVGStringList ()
-          extends js.Object {
+        class SVGStringList () extends StObject {
           
           def appendItem(newItem: String): String = js.native
           
@@ -10150,8 +10230,7 @@ object org {
         }
         
         @js.native
-        trait SVGStylable
-          extends js.Object {
+        trait SVGStylable extends StObject {
           
           var className: SVGAnimatedString = js.native
           
@@ -10160,7 +10239,8 @@ object org {
         
         @js.native
         abstract class SVGStyleElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGLangSpace {
           
           var media: String = js.native
@@ -10172,7 +10252,8 @@ object org {
         
         @js.native
         abstract class SVGSwitchElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGTransformable
              with SVGLangSpace
@@ -10181,18 +10262,20 @@ object org {
         
         @js.native
         abstract class SVGSymbolElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGLangSpace
              with SVGFitToViewBox
              with SVGExternalResourcesRequired
         
         @js.native
-        abstract class SVGTSpanElement () extends SVGTextPositioningElement
+        abstract class SVGTSpanElement ()
+          extends StObject
+             with SVGTextPositioningElement
         
         @js.native
-        trait SVGTests
-          extends js.Object {
+        trait SVGTests extends StObject {
           
           def hasExtension(`extension`: String): Boolean = js.native
           
@@ -10205,7 +10288,8 @@ object org {
         
         @js.native
         abstract class SVGTextContentElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGLangSpace
              with SVGTests
@@ -10234,8 +10318,7 @@ object org {
           def textLength(): SVGAnimatedLength = js.native
         }
         @js.native
-        object SVGTextContentElement
-          extends js.Object {
+        object SVGTextContentElement extends StObject {
           
           val LENGTHADJUST_SPACING: Int = js.native
           
@@ -10246,12 +10329,14 @@ object org {
         
         @js.native
         abstract class SVGTextElement ()
-          extends SVGTextPositioningElement
+          extends StObject
+             with SVGTextPositioningElement
              with SVGTransformable
         
         @js.native
         abstract class SVGTextPathElement ()
-          extends SVGTextContentElement
+          extends StObject
+             with SVGTextContentElement
              with SVGURIReference {
           
           def method(): SVGAnimatedEnumeration = js.native
@@ -10261,8 +10346,7 @@ object org {
           def startOffset(): SVGAnimatedLength = js.native
         }
         @js.native
-        object SVGTextPathElement
-          extends js.Object {
+        object SVGTextPathElement extends StObject {
           
           val TEXTPATH_METHODTYPE_ALIGN: Int = js.native
           
@@ -10278,7 +10362,9 @@ object org {
         }
         
         @js.native
-        abstract class SVGTextPositioningElement () extends SVGTextContentElement {
+        abstract class SVGTextPositioningElement ()
+          extends StObject
+             with SVGTextContentElement {
           
           def dx(): SVGAnimatedLengthList = js.native
           
@@ -10293,13 +10379,13 @@ object org {
         
         @js.native
         abstract class SVGTitleElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGLangSpace
         
         @js.native
-        class SVGTransform ()
-          extends js.Object {
+        class SVGTransform () extends StObject {
           
           def angle(): Double = js.native
           
@@ -10320,8 +10406,7 @@ object org {
           def `type`(): Int = js.native
         }
         @js.native
-        object SVGTransform
-          extends js.Object {
+        object SVGTransform extends StObject {
           
           val SVG_TRANSFORM_MATRIX: Int = js.native
           
@@ -10339,8 +10424,7 @@ object org {
         }
         
         @js.native
-        class SVGTransformList ()
-          extends js.Object {
+        class SVGTransformList () extends StObject {
           
           def appendItem(newItem: SVGTransform): SVGTransform = js.native
           
@@ -10365,22 +10449,20 @@ object org {
         
         @js.native
         trait SVGTransformable
-          extends js.Object
+          extends StObject
              with SVGLocatable {
           
           var transform: SVGAnimatedTransformList = js.native
         }
         
         @js.native
-        trait SVGURIReference
-          extends js.Object {
+        trait SVGURIReference extends StObject {
           
           var href: SVGAnimatedString = js.native
         }
         
         @js.native
-        trait SVGUnitTypes
-          extends js.Object {
+        trait SVGUnitTypes extends StObject {
           
           val SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: Int = js.native
           
@@ -10389,8 +10471,7 @@ object org {
           val SVG_UNIT_TYPE_USERSPACEONUSE: Int = js.native
         }
         @js.native
-        object SVGUnitTypes
-          extends js.Object {
+        object SVGUnitTypes extends StObject {
           
           val SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: Int = js.native
           
@@ -10401,7 +10482,8 @@ object org {
         
         @js.native
         abstract class SVGUseElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGStylable
              with SVGTransformable
              with SVGLangSpace
@@ -10424,7 +10506,8 @@ object org {
         
         @js.native
         abstract class SVGViewElement ()
-          extends SVGElement
+          extends StObject
+             with SVGElement
              with SVGZoomAndPan
              with SVGFitToViewBox
              with SVGExternalResourcesRequired {
@@ -10433,14 +10516,12 @@ object org {
         }
         
         @js.native
-        trait SVGZoomAndPan
-          extends js.Object {
+        trait SVGZoomAndPan extends StObject {
           
           var zoomAndPan: Int = js.native
         }
         @js.native
-        object SVGZoomAndPan
-          extends js.Object {
+        object SVGZoomAndPan extends StObject {
           
           val SVG_ZOOMANDPAN_DISABLE: Int = js.native
           
@@ -10451,7 +10532,7 @@ object org {
         
         @js.native
         trait SVGZoomEventInit
-          extends js.Object
+          extends StObject
              with UIEventInit {
           
           var newScale: js.UndefOr[Double] = js.native
@@ -10466,8 +10547,7 @@ object org {
         }
         
         @js.native
-        class Screen ()
-          extends js.Object {
+        class Screen () extends StObject {
           
           def availHeight(): Double = js.native
           
@@ -10483,8 +10563,7 @@ object org {
         }
         
         @js.native
-        class Selection ()
-          extends js.Object {
+        class Selection () extends StObject {
           
           def addRange(range: org.scalajs.dom.raw.Range): Unit = js.native
           
@@ -10523,15 +10602,15 @@ object org {
         
         @js.native
         trait StereoPannerNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           val pan: org.scalajs.dom.raw.AudioParam = js.native
         }
         
         @js.native
-        class Storage ()
-          extends js.Object {
+        class Storage () extends StObject {
           
           def clear(): Unit = js.native
           
@@ -10548,7 +10627,8 @@ object org {
         
         @js.native
         class StorageEvent protected ()
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           def this(typeArg: String, init: js.UndefOr[StorageEventInit]) = this()
           
           val init: js.UndefOr[StorageEventInit] = js.native
@@ -10568,7 +10648,7 @@ object org {
         
         @js.native
         trait StorageEventInit
-          extends js.Object
+          extends StObject
              with EventInit {
           
           var key: js.UndefOr[String] = js.native
@@ -10583,8 +10663,7 @@ object org {
         }
         
         @js.native
-        trait StyleMedia
-          extends js.Object {
+        trait StyleMedia extends StObject {
           
           def matchMedium(mediaquery: String): Boolean = js.native
           
@@ -10592,8 +10671,7 @@ object org {
         }
         
         @js.native
-        class StyleSheet ()
-          extends js.Object {
+        class StyleSheet () extends StObject {
           
           def disabled(): Boolean = js.native
           
@@ -10611,8 +10689,7 @@ object org {
         }
         
         @js.native
-        class StyleSheetList ()
-          extends js.Object {
+        class StyleSheetList () extends StObject {
           
           def apply(index: Int): org.scalajs.dom.raw.StyleSheet = js.native
           
@@ -10625,7 +10702,8 @@ object org {
         
         @js.native
         class Text ()
-          extends org.scalajs.dom.raw.CharacterData {
+          extends StObject
+             with org.scalajs.dom.raw.CharacterData {
           
           def splitText(offset: Int): org.scalajs.dom.raw.Text = js.native
           
@@ -10634,7 +10712,8 @@ object org {
         
         @js.native
         class TextEvent protected ()
-          extends org.scalajs.dom.raw.UIEvent {
+          extends StObject
+             with org.scalajs.dom.raw.UIEvent {
           def this(typeArg: String, init: js.UndefOr[TextEventInit]) = this()
           
           def data(): String = js.native
@@ -10658,8 +10737,7 @@ object org {
           val typeArg: String = js.native
         }
         @js.native
-        object TextEvent
-          extends js.Object {
+        object TextEvent extends StObject {
           
           val DOM_INPUT_METHOD_DROP: Int = js.native
           
@@ -10684,7 +10762,7 @@ object org {
         
         @js.native
         trait TextEventInit
-          extends js.Object
+          extends StObject
              with UIEventInit {
           
           var data: js.UndefOr[String] = js.native
@@ -10695,15 +10773,15 @@ object org {
         }
         
         @js.native
-        class TextMetrics ()
-          extends js.Object {
+        class TextMetrics () extends StObject {
           
           var width: Double = js.native
         }
         
         @js.native
         trait TextTrack
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           var DISABLED: Int = js.native
           
@@ -10740,8 +10818,7 @@ object org {
           var readyState: Int = js.native
         }
         @js.native
-        object TextTrack
-          extends js.Object {
+        object TextTrack extends StObject {
           
           var DISABLED: Int = js.native
           
@@ -10760,7 +10837,8 @@ object org {
         
         @js.native
         trait TextTrackCue
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           var endTime: Double = js.native
           
@@ -10783,7 +10861,7 @@ object org {
         
         @js.native
         trait TextTrackCueList
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.DOMList[org.scalajs.dom.raw.TextTrackCue] {
           
           def getCueById(id: String): org.scalajs.dom.raw.TextTrackCue = js.native
@@ -10791,12 +10869,11 @@ object org {
         
         @js.native
         trait TextTrackList
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.DOMList[org.scalajs.dom.raw.TextTrack]
         
         @js.native
-        class TimeRanges ()
-          extends js.Object {
+        class TimeRanges () extends StObject {
           
           def end(index: Int): Double = js.native
           
@@ -10806,8 +10883,7 @@ object org {
         }
         
         @js.native
-        class Touch ()
-          extends js.Object {
+        class Touch () extends StObject {
           
           def clientX(): Double = js.native
           
@@ -10836,7 +10912,8 @@ object org {
         
         @js.native
         class TouchEvent protected ()
-          extends org.scalajs.dom.raw.UIEvent
+          extends StObject
+             with org.scalajs.dom.raw.UIEvent
              with org.scalajs.dom.raw.ModifierKeyEvent {
           def this(typeArg: String, init: js.UndefOr[TouchEventInit]) = this()
           
@@ -10855,7 +10932,7 @@ object org {
         
         @js.native
         trait TouchEventInit
-          extends js.Object
+          extends StObject
              with UIEventInit
              with ModifierKeyEventInit {
           
@@ -10868,12 +10945,13 @@ object org {
         
         @js.native
         class TouchList ()
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.DOMList[org.scalajs.dom.raw.Touch]
         
         @js.native
         trait TrackEvent
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           
           var track: js.Any = js.native
         }
@@ -10882,7 +10960,8 @@ object org {
         
         @js.native
         trait TransitionEvent
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           
           def elapsedTime(): Double = js.native
           
@@ -10890,8 +10969,7 @@ object org {
         }
         
         @js.native
-        class TreeWalker ()
-          extends js.Object {
+        class TreeWalker () extends StObject {
           
           var currentNode: org.scalajs.dom.raw.Node = js.native
           
@@ -10918,7 +10996,8 @@ object org {
         
         @js.native
         class UIEvent protected ()
-          extends org.scalajs.dom.raw.Event {
+          extends StObject
+             with org.scalajs.dom.raw.Event {
           def this(typeArg: String, init: js.UndefOr[UIEventInit]) = this()
           
           def detail(): Int = js.native
@@ -10932,7 +11011,7 @@ object org {
         
         @js.native
         trait UIEventInit
-          extends js.Object
+          extends StObject
              with EventInit {
           
           val detail: js.UndefOr[Int] = js.native
@@ -10941,8 +11020,7 @@ object org {
         }
         
         @js.native
-        object URL
-          extends js.Object {
+        object URL extends StObject {
           
           def createObjectURL(blob: org.scalajs.dom.raw.Blob): String = js.native
           
@@ -10950,8 +11028,7 @@ object org {
         }
         
         @js.native
-        trait ValidityState
-          extends js.Object {
+        trait ValidityState extends StObject {
           
           def customError(): Boolean = js.native
           
@@ -10974,11 +11051,13 @@ object org {
         
         @js.native
         sealed trait VisibilityState
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
         trait WaveShaperNode
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AudioNode {
           
           var curve: js.typedarray.Float32Array = js.native
@@ -10987,8 +11066,7 @@ object org {
         }
         
         @js.native
-        class WebGLActiveInfo protected ()
-          extends js.Object {
+        class WebGLActiveInfo private () extends StObject {
           
           val name: String = js.native
           
@@ -10998,12 +11076,10 @@ object org {
         }
         
         @js.native
-        class WebGLBuffer protected ()
-          extends js.Object
+        class WebGLBuffer private () extends StObject
         
         @js.native
-        class WebGLContextAttributes ()
-          extends js.Object {
+        class WebGLContextAttributes () extends StObject {
           
           var alpha: Boolean = js.native
           
@@ -11019,20 +11095,16 @@ object org {
         }
         
         @js.native
-        class WebGLFramebuffer protected ()
-          extends js.Object
+        class WebGLFramebuffer private () extends StObject
         
         @js.native
-        class WebGLProgram protected ()
-          extends js.Object
+        class WebGLProgram private () extends StObject
         
         @js.native
-        class WebGLRenderbuffer protected ()
-          extends js.Object
+        class WebGLRenderbuffer private () extends StObject
         
         @js.native
-        class WebGLRenderingContext ()
-          extends js.Object {
+        class WebGLRenderingContext () extends StObject {
           
           def activeTexture(texture: Int): Unit = js.native
           
@@ -11424,12 +11496,10 @@ object org {
         }
         
         @js.native
-        class WebGLShader protected ()
-          extends js.Object
+        class WebGLShader private () extends StObject
         
         @js.native
-        class WebGLShaderPrecisionFormat protected ()
-          extends js.Object {
+        class WebGLShaderPrecisionFormat private () extends StObject {
           
           val precision: Int = js.native
           
@@ -11439,16 +11509,15 @@ object org {
         }
         
         @js.native
-        class WebGLTexture protected ()
-          extends js.Object
+        class WebGLTexture private () extends StObject
         
         @js.native
-        class WebGLUniformLocation protected ()
-          extends js.Object
+        class WebGLUniformLocation private () extends StObject
         
         @js.native
         class WebSocket protected ()
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           def this(url: String, protocol: String) = this()
           def this(url: String, protocol: js.Array[String]) = this()
           
@@ -11479,8 +11548,7 @@ object org {
           var url: String = js.native
         }
         @js.native
-        object WebSocket
-          extends js.Object {
+        object WebSocket extends StObject {
           
           val CLOSED: Int = js.native
           
@@ -11493,7 +11561,8 @@ object org {
         
         @js.native
         class WheelEvent protected ()
-          extends org.scalajs.dom.raw.MouseEvent {
+          extends StObject
+             with org.scalajs.dom.raw.MouseEvent {
           def this(typeArg: String, init: js.UndefOr[WheelEventInit]) = this()
           
           def deltaMode(): Int = js.native
@@ -11509,8 +11578,7 @@ object org {
           val typeArg: String = js.native
         }
         @js.native
-        object WheelEvent
-          extends js.Object {
+        object WheelEvent extends StObject {
           
           val DOM_DELTA_LINE: Int = js.native
           
@@ -11521,7 +11589,7 @@ object org {
         
         @js.native
         trait WheelEventInit
-          extends js.Object
+          extends StObject
              with MouseEventInit {
           
           var deltaMode: js.UndefOr[Int] = js.native
@@ -11535,7 +11603,8 @@ object org {
         
         @js.native
         class Window ()
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.WindowLocalStorage
              with org.scalajs.dom.raw.WindowSessionStorage
              with org.scalajs.dom.raw.WindowTimers
@@ -11783,8 +11852,7 @@ object org {
         }
         
         @js.native
-        trait WindowBase64
-          extends js.Object {
+        trait WindowBase64 extends StObject {
           
           def atob(encodedString: String): String = js.native
           
@@ -11792,29 +11860,25 @@ object org {
         }
         
         @js.native
-        trait WindowConsole
-          extends js.Object {
+        trait WindowConsole extends StObject {
           
           var console: org.scalajs.dom.raw.Console = js.native
         }
         
         @js.native
-        trait WindowLocalStorage
-          extends js.Object {
+        trait WindowLocalStorage extends StObject {
           
           def localStorage(): org.scalajs.dom.raw.Storage = js.native
         }
         
         @js.native
-        trait WindowSessionStorage
-          extends js.Object {
+        trait WindowSessionStorage extends StObject {
           
           def sessionStorage(): org.scalajs.dom.raw.Storage = js.native
         }
         
         @js.native
-        trait WindowTimers
-          extends js.Object {
+        trait WindowTimers extends StObject {
           
           def clearInterval(handle: Int): Unit = js.native
           
@@ -11827,7 +11891,8 @@ object org {
         
         @js.native
         class Worker protected ()
-          extends org.scalajs.dom.raw.EventTarget
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.AbstractWorker {
           def this(stringUrl: String) = this()
           
@@ -11842,7 +11907,8 @@ object org {
         
         @js.native
         trait WorkerGlobalScope
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           def caches(): js.Any = js.native
           
@@ -11866,8 +11932,7 @@ object org {
         }
         
         @js.native
-        trait WorkerLocation
-          extends js.Object {
+        trait WorkerLocation extends StObject {
           
           def hash(): String = js.native
           
@@ -11890,14 +11955,15 @@ object org {
         
         @js.native
         trait WorkerNavigator
-          extends js.Object
+          extends StObject
              with org.scalajs.dom.raw.NavigatorID
              with org.scalajs.dom.raw.NavigatorOnLine
              with org.scalajs.dom.raw.NavigatorLanguage
         
         @js.native
         class XMLHttpRequest ()
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           def abort(): Unit = js.native
           
@@ -11952,8 +12018,7 @@ object org {
           var withCredentials: Boolean = js.native
         }
         @js.native
-        object XMLHttpRequest
-          extends js.Object {
+        object XMLHttpRequest extends StObject {
           
           var DONE: Int = js.native
           
@@ -11968,7 +12033,8 @@ object org {
         
         @js.native
         trait XMLHttpRequestEventTarget
-          extends org.scalajs.dom.raw.EventTarget {
+          extends StObject
+             with org.scalajs.dom.raw.EventTarget {
           
           var onabort: js.Function1[js.Any, _] = js.native
           
@@ -11986,22 +12052,19 @@ object org {
         }
         
         @js.native
-        class XMLSerializer ()
-          extends js.Object {
+        class XMLSerializer () extends StObject {
           
           def serializeToString(target: org.scalajs.dom.raw.Node): String = js.native
         }
         
         @js.native
-        class XPathNSResolver ()
-          extends js.Object {
+        class XPathNSResolver () extends StObject {
           
           def lookupNamespaceURI(prefix: String): String = js.native
         }
         
         @js.native
-        class XPathResult ()
-          extends js.Object {
+        class XPathResult () extends StObject {
           
           def booleanValue(): Boolean = js.native
           
@@ -12022,8 +12085,7 @@ object org {
           def stringValue(): String = js.native
         }
         @js.native
-        object XPathResult
-          extends js.Object {
+        object XPathResult extends StObject {
           
           val ANY_TYPE: Int = js.native
           
@@ -12328,8 +12390,7 @@ object org {
         type AbstractWorker = org.scalajs.dom.raw.AbstractWorker
         
         @js.native
-        object DedicatedWorkerGlobalScope
-          extends js.Object {
+        object DedicatedWorkerGlobalScope extends StObject {
           
           def self(): DedicatedWorkerGlobalScope = js.native
         }

@@ -35,11 +35,11 @@ class TsTypeFormatter(val keepComments: Boolean) {
   def tparams[T <: AnyRef](ts: IArray[T])(f: T => String): Option[String] =
     if (ts.isEmpty) None else Some("<" + ts.map(f).mkString(", ") + ">")
 
-  def level(l: ProtectionLevel): Option[String] =
+  def level(l: TsProtectionLevel): Option[String] =
     l match {
-      case ProtectionLevel.Default   => None
-      case ProtectionLevel.Private   => Some("private")
-      case ProtectionLevel.Protected => Some("protected")
+      case TsProtectionLevel.Default   => None
+      case TsProtectionLevel.Private   => Some("private")
+      case TsProtectionLevel.Protected => Some("protected")
     }
 
   def member(m: TsMember): String = m match {

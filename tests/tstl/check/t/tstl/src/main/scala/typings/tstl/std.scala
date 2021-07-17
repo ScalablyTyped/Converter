@@ -8,7 +8,7 @@ object std {
   
   trait Queue_[T] extends StObject {
     
-    var container_ : js.Any
+    /* private */ var container_ : js.Any
     
     def empty(): Boolean
   }

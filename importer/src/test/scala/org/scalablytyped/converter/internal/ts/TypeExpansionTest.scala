@@ -1,6 +1,6 @@
 package org.scalablytyped.converter.internal.ts
 
-import org.scalablytyped.converter.internal.{IArray, NoComments, ProtectionLevel}
+import org.scalablytyped.converter.internal.{IArray, NoComments}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
@@ -73,7 +73,7 @@ export declare type PickerMode = Exclude<PanelMode, 'datetime' | 'decade'>;
     val expected =
       TsMemberProperty(
         NoComments,
-        ProtectionLevel.Default,
+        TsProtectionLevel.Default,
         TsIdentSimple("children"),
         Some(
           OptionalType(
@@ -116,7 +116,7 @@ type VictoryStyleObject = { [K in keyof CSSProperties]: StringOrNumberOrCallback
 
     val expected = TsMemberProperty(
       NoComments,
-      ProtectionLevel.Default,
+      TsProtectionLevel.Default,
       TsIdentSimple("alignContent"),
       Some(
         OptionalType(
@@ -155,7 +155,7 @@ type Test = Required<Pick<CSSProperties, 'fontFamily' | 'fontSize' | 'fontWeight
 
     val expected = TsMemberProperty(
       NoComments,
-      ProtectionLevel.Default,
+      TsProtectionLevel.Default,
       TsIdentSimple("color"),
       Some(TsTypeRef.string),
       None,

@@ -176,7 +176,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
                   cls,
                   TsTypeObject(
                     nameHint,
-                    some :+ TsMemberCtor(NoComments, ProtectionLevel.Default, ctor.signature.signature),
+                    some :+ TsMemberCtor(NoComments, TsProtectionLevel.Default, ctor.signature.signature),
                   ),
                 ),
               )
@@ -241,7 +241,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
                     val overloads =
                       TsTypeObject(
                         NoComments,
-                        fns.map(fn => TsMemberCall(NoComments, ProtectionLevel.Default, fn.signature)),
+                        fns.map(fn => TsMemberCall(NoComments, TsProtectionLevel.Default, fn.signature)),
                       )
                     overloads +: rest
                 }
@@ -256,7 +256,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
       case ns: TsDeclNamespace =>
         TsMemberProperty(
           ns.comments,
-          ProtectionLevel.Default,
+          TsProtectionLevel.Default,
           ns.name,
           nonEmptyTypeObject(ns),
           None,
@@ -266,7 +266,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
       case TsDeclFunction(cs, _, name, sig, _, _) =>
         TsMemberFunction(
           cs,
-          ProtectionLevel.Default,
+          TsProtectionLevel.Default,
           name,
           MethodType.Normal,
           sig,
@@ -276,7 +276,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
       case TsDeclVar(cs, _, isReadOnly, name, tpe, lit, _, _) =>
         TsMemberProperty(
           cs,
-          ProtectionLevel.Default,
+          TsProtectionLevel.Default,
           name,
           tpe,
           lit,
@@ -286,7 +286,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
       case RewrittenClass((cls, tpe)) =>
         TsMemberProperty(
           cls.comments,
-          ProtectionLevel.Default,
+          TsProtectionLevel.Default,
           cls.name,
           Some(tpe),
           None,

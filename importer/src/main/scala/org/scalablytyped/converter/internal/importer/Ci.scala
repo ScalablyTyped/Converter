@@ -116,6 +116,7 @@ object Ci {
                 organization           = organization,
                 enableReactTreeShaking = Selection.None,
                 enableLongApplyMethod  = false,
+                privateWithin          = None,
               ),
               wantedLibs       = wantedLibNames,
               offline          = flags contains "-offline",
@@ -275,7 +276,10 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
           ),
           "scala.js",
         )
-        .next(new PhaseFlavour(config.conversion.flavourImpl), config.conversion.flavourImpl.toString)
+        .next(
+          new PhaseFlavour(config.conversion.flavourImpl, maybePrivateWithin = config.conversion.privateWithin),
+          config.conversion.flavourImpl.toString,
+        )
         .next(
           new Phase3Compile(
             versions                   = config.conversion.versions,

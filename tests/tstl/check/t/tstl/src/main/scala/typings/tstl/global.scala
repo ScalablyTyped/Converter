@@ -15,7 +15,7 @@ object global {
          with typings.tstl.std.Queue_[T] {
       def this(container: typings.tstl.std.Queue_[T]) = this()
       
-      /* CompleteClass */
+      /* private */ /* CompleteClass */
       var container_ : js.Any = js.native
       
       /* CompleteClass */
@@ -30,7 +30,7 @@ object global {
          with typings.tstl.std.Queue_[T] {
       def this(container: typings.tstl.std.Queue_[T]) = this()
       
-      /* CompleteClass */
+      /* private */ /* CompleteClass */
       var container_ : js.Any = js.native
       
       /* CompleteClass */

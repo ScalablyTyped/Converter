@@ -265,6 +265,7 @@ object Printer {
         case c @ ClassTree(
               isImplicit,
               anns,
+              level,
               name,
               tparams,
               parents,
@@ -286,6 +287,7 @@ object Printer {
 
           print(Comments.format(defaultCtor.comments))
           print(
+            formatProtectionLevel(level),
             if (isImplicit) "implicit " else "",
             if (isSealed) "sealed " else "",
             classType.asString,
@@ -298,7 +300,7 @@ object Printer {
 
           if (classType =/= ClassType.Trait) {
             print(" ")
-            print(formatProtectionLevel(defaultCtor.level, isCtor = true))
+            print(formatProtectionLevel(defaultCtor.level))
             print(formatParams(indent + 2)(defaultCtor.params))
           }
 
@@ -315,13 +317,14 @@ object Printer {
           } else
             println()
 
-        case m @ ModuleTree(anns, name, parents, members, comments, _, isOverride) =>
+        case m @ ModuleTree(anns, level, name, parents, members, comments, _, isOverride) =>
           print(Comments.format(comments))
           print(formatAnns(anns))
 
           val isNative = m.isNative // shadows isNative
           print(
             if (isOverride) "override " else "",
+            formatProtectionLevel(level),
             "object ",
             formatName(name),
             extendsClause(comments, parents, isNative, indent),
@@ -335,21 +338,23 @@ object Printer {
           } else
             println()
 
-        case TypeAliasTree(name, tparams, alias, comments, _) =>
+        case TypeAliasTree(name, level, tparams, alias, comments, _) =>
           print(Comments.format(comments))
-          print("type ", formatName(name))
+
+          print(formatProtectionLevel(level), "type ", formatName(name))
           if (tparams.nonEmpty) {
             print("[", tparams.map(formatTypeParamTree(indent)).mkString(", "), "]")
           }
 
           println(s" = ", formatTypeRef(indent)(alias))
 
-        case FieldTree(anns, name, tpe, impl, isReadOnly, isOverride, comments, _) =>
+        case FieldTree(anns, level, name, tpe, impl, isReadOnly, isOverride, comments, _) =>
           print(Comments.format(comments))
           print(formatAnns(anns))
 
           print(
             "",
+            formatProtectionLevel(level),
             if (isOverride) "override " else "",
             if (isReadOnly) "val" else "var",
             " ",
@@ -362,7 +367,7 @@ object Printer {
           print(Comments.format(comments))
           print(formatAnns(anns))
 
-          print(formatProtectionLevel(level, isCtor = false))
+          print(formatProtectionLevel(level))
           print(if (isImplicit) "implicit " else "")
           print(s"${if (isOverride) "override " else ""}def ")
 
@@ -385,7 +390,7 @@ object Printer {
           print(Comments.format(comments))
           println(
             "",
-            formatProtectionLevel(level, isCtor = true),
+            formatProtectionLevel(level),
             "def this",
             formatParams(indent + 2)(params),
             " = this()",
@@ -532,13 +537,12 @@ object Printer {
       if (s.exists(_.isWhitespace)) s"($s)"
       else s
 
-    def formatProtectionLevel(p: ProtectionLevel, isCtor: Boolean): String =
+    def formatProtectionLevel(p: ProtectionLevel): String =
       p match {
-        case ProtectionLevel.Default             => ""
-        case ProtectionLevel.Private if isCtor   => "protected "
-        case ProtectionLevel.Private             => "/* private */ "
-        case ProtectionLevel.Protected if isCtor => "protected "
-        case ProtectionLevel.Protected           => "/* protected */ "
+        case ProtectionLevel.Public                => ""
+        case ProtectionLevel.Private(Some(within)) => s"private[${within.unescaped}] "
+        case ProtectionLevel.Private(None)         => "private "
+        case ProtectionLevel.Protected             => "protected "
       }
 
     def formatAnn(a: Annotation): String =

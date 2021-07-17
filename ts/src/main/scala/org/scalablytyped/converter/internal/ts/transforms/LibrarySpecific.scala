@@ -33,7 +33,7 @@ object LibrarySpecific {
 
         /* resolve circular set of type aliases */
         case TsDeclTypeAlias(cs, d, name @ TsIdent("InterpolationFunction"), tps, TsTypeFunction(sig), cp) =>
-          val call = IArray(TsMemberCall(NoComments, ProtectionLevel.Default, sig))
+          val call = IArray(TsMemberCall(NoComments, TsProtectionLevel.Default, sig))
           TsDeclInterface(cs, d, name, tps, Empty, call, cp)
         case other => other
       }
@@ -46,7 +46,7 @@ object LibrarySpecific {
       x match {
         /* resolve circular set of type aliases */
         case TsDeclTypeAlias(cs, d, name @ TsIdent("FunctionInterpolation"), tps, TsTypeFunction(sig), cp) =>
-          val call = IArray(TsMemberCall(NoComments, ProtectionLevel.Default, sig))
+          val call = IArray(TsMemberCall(NoComments, TsProtectionLevel.Default, sig))
           TsDeclInterface(cs, d, name, tps, Empty, call, cp)
         case other => other
       }
@@ -70,7 +70,7 @@ object LibrarySpecific {
     override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl = x match {
       /* break circular dependency */
       case TsDeclTypeAlias(cs, d, name @ TsIdent("ITokenFunction"), tps, TsTypeFunction(sig), cp) =>
-        val call = IArray(TsMemberCall(NoComments, ProtectionLevel.Default, sig))
+        val call = IArray(TsMemberCall(NoComments, TsProtectionLevel.Default, sig))
         TsDeclInterface(cs, d, name, tps, Empty, call, cp)
       case other => other
     }
@@ -163,7 +163,7 @@ object LibrarySpecific {
           /* restore compatibility with old CSSProperties syntax, that it it's own syntax and you don't have to provide type parameters */
           val hack = TsMemberProperty(
             Comments(Comment("/* fake member to keep old syntax */\n")),
-            ProtectionLevel.Default,
+            TsProtectionLevel.Default,
             TsIdentSimple("hack"),
             Some(TsTypeUnion(IArray(TsTypeRef.any, TsTypeRef.undefined))),
             None,

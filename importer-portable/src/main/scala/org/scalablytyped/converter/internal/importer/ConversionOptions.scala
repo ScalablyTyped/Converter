@@ -21,6 +21,7 @@ case class ConversionOptions(
     organization:           String,
     enableReactTreeShaking: Selection[Name],
     enableLongApplyMethod:  Boolean,
+    privateWithin:          Option[Name],
 ) {
   val ignoredLibs: Set[TsIdentLibrary] =
     ignored.map(TsIdentLibrary.apply)

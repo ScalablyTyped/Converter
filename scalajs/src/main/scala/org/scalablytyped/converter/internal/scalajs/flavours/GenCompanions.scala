@@ -6,7 +6,7 @@ import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
 import org.scalablytyped.converter.internal.scalajs.TypeParamTree.asTypeArgs
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
-import org.scalablytyped.converter.internal.scalajs.transforms.{ModulesCombine, UnionToInheritance}
+import org.scalablytyped.converter.internal.scalajs.transforms.ModulesCombine
 
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
@@ -94,7 +94,16 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
           case some =>
             val related      = Marker.MinimizationRelated(some.collect { case m: HasCodePath => TypeRef(m.codePath) })
             val dontMinimize = Comments(related)
-            val mod          = ModuleTree(Empty, cls.name, Empty, some, dontMinimize, cls.codePath, isOverride = false)
+            val mod = ModuleTree(
+              Empty,
+              ProtectionLevel.Public,
+              cls.name,
+              Empty,
+              some,
+              dontMinimize,
+              cls.codePath,
+              isOverride = false,
+            )
             Some(mod)
         }
 
@@ -153,7 +162,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
 
     MethodTree(
       annotations = IArray(Annotation.Inline),
-      level       = ProtectionLevel.Default,
+      level       = ProtectionLevel.Public,
       name        = name,
       tparams     = typeTparams,
       params      = IArray(creatorMethod.params),

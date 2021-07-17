@@ -3,12 +3,13 @@ package org.scalablytyped.converter.internal.importer
 import com.olvind.logging.Logger
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
-import org.scalablytyped.converter.internal.scalajs.TreeScope
-import org.scalablytyped.converter.internal.scalajs.transforms.{Mangler, Sorter}
+import org.scalablytyped.converter.internal.scalajs.{Name, TreeScope}
+import org.scalablytyped.converter.internal.scalajs.transforms.{Mangler, SetPrivateWithin, Sorter}
 
 import scala.collection.immutable.SortedSet
 
-class PhaseFlavour(flavour: FlavourImpl) extends Phase[Source, LibScalaJs, LibScalaJs] {
+class PhaseFlavour(flavour: FlavourImpl, maybePrivateWithin: Option[Name])
+    extends Phase[Source, LibScalaJs, LibScalaJs] {
 
   override def apply(
       source:     Source,
@@ -32,13 +33,16 @@ class PhaseFlavour(flavour: FlavourImpl) extends Phase[Source, LibScalaJs, LibSc
         val tree0 = lib.packageTree
         val tree1 = flavour.rewrittenTree(originalScope, tree0)
         val tree2 = Mangler.visitPackageTree(originalScope)(tree1)
-        val tree3 = Sorter.visitPackageTree(originalScope)(tree2)
+        val tree3 = maybePrivateWithin.foldLeft(tree2) {
+          case (tree, privateWithin) => new SetPrivateWithin(privateWithin).visitPackageTree(originalScope)(tree)
+        }
+        val tree4 = Sorter.visitPackageTree(originalScope)(tree3)
 
         LibScalaJs(lib.source)(
           libName      = lib.libName,
           scalaName    = lib.scalaName,
           libVersion   = lib.libVersion,
-          packageTree  = tree3,
+          packageTree  = tree4,
           dependencies = deps,
           isStdLib     = lib.isStdLib,
           names        = lib.names,

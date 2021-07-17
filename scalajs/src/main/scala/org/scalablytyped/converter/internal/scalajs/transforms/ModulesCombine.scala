@@ -31,6 +31,7 @@ object ModulesCombine extends TreeTransformation {
                 case (acc, mod) =>
                   ModuleTree(
                     annotations = acc.annotations,
+                    level       = ProtectionLevel.stricter(acc.level, mod.level),
                     name        = acc.name,
                     parents     = (acc.parents ++ mod.parents).distinct,
                     members     = (acc.members ++ mod.members).distinct,
@@ -41,18 +42,12 @@ object ModulesCombine extends TreeTransformation {
               }
 
             mergedCompanion +: rest
-
-          case (
-              IArray.exactlyOne(
-                ModuleTree(annotations @ Legal(), name, Empty, AllCalls(applies), comments, codePath, isOverride),
-              ),
-              Empty,
-              Empty,
-              rest,
-              ) =>
+          // format: off
+          case (IArray.exactlyOne(ModuleTree(annotations @ Legal(), level, name, Empty, AllCalls(applies), comments, codePath, isOverride)), Empty, Empty, rest) =>
             rest ++ applies.map(a =>
               a.copy(
                 annotations = annotations,
+                level       = level,
                 name        = name,
                 codePath    = codePath,
                 isOverride  = isOverride,
@@ -60,26 +55,21 @@ object ModulesCombine extends TreeTransformation {
               ),
             )
 
-          case (
-              IArray.exactlyOne(
-                ModuleTree(annotations @ Legal(), name, parents, Empty, comments, codePath, isOverride),
-              ),
-              Empty,
-              Empty,
-              rest,
-              ) if parents.nonEmpty =>
-            val asField = FieldTree(
-              annotations,
-              name,
-              tpe        = TypeRef.Intersection(parents, NoComments),
-              impl       = ExprTree.native,
-              isReadOnly = true,
-              isOverride = isOverride,
-              comments   = comments,
-              codePath   = codePath,
-            )
+          case (IArray.exactlyOne(ModuleTree(annotations @ Legal(), level, name, parents, Empty, comments, codePath, isOverride)), Empty, Empty, rest) if parents.nonEmpty =>
+            // format: on
+          val asField = FieldTree(
+            annotations,
+            level,
+            name,
+            tpe        = TypeRef.Intersection(parents, NoComments),
+            impl       = ExprTree.native,
+            isReadOnly = true,
+            isOverride = isOverride,
+            comments   = comments,
+            codePath   = codePath,
+          )
 
-            rest :+ asField
+          rest :+ asField
 
           case (Empty, Empty, methods, rest) if methods.nonEmpty && rest.exists(_.isInstanceOf[ClassTree]) =>
             val asApplies: IArray[MethodTree] =
@@ -87,6 +77,7 @@ object ModulesCombine extends TreeTransformation {
 
             val asMod = ModuleTree(
               annotations = Empty,
+              level       = ProtectionLevel.Public,
               name        = name,
               parents     = Empty,
               members     = asApplies,

@@ -23,7 +23,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
     val name: Name = Name("args")
     MethodTree(
       IArray(Annotation.Inline),
-      ProtectionLevel.Default,
+      ProtectionLevel.Public,
       name,
       Empty,
       Empty,
@@ -57,7 +57,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 
     MethodTree(
       IArray(Annotation.Inline),
-      ProtectionLevel.Default,
+      ProtectionLevel.Public,
       name,
       Empty,
       IArray(IArray(keyParam, valueParam)),
@@ -101,7 +101,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 
     MethodTree(
       IArray(Annotation.Inline),
-      ProtectionLevel.Default,
+      ProtectionLevel.Public,
       name,
       Empty,
       IArray(IArray(fParam)),
@@ -120,7 +120,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 
       MethodTree(
         IArray(Annotation.Inline),
-        ProtectionLevel.Default,
+        ProtectionLevel.Public,
         name,
         Empty,
         Empty,
@@ -152,7 +152,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 
       MethodTree(
         IArray(Annotation.Inline),
-        ProtectionLevel.Default,
+        ProtectionLevel.Public,
         name,
         Empty,
         IArray(IArray(param)),
@@ -236,7 +236,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
+        level       = ProtectionLevel.Public,
         name        = Name.APPLY,
         tparams     = Empty,
         params      = IArray(IArray(modsParam)),
@@ -256,7 +256,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       val name  = Name("withKey")
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
+        level       = ProtectionLevel.Public,
         name        = name,
         tparams     = Empty,
         params      = IArray(IArray(param)),
@@ -277,7 +277,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       val name  = Name("withRef")
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
+        level       = ProtectionLevel.Public,
         name        = name,
         tparams     = Empty,
         params      = IArray(IArray(param)),
@@ -297,7 +297,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       val name  = Name("withRef")
       MethodTree(
         annotations = IArray(Annotation.Inline),
-        level       = ProtectionLevel.Default,
+        level       = ProtectionLevel.Public,
         name        = name,
         tparams     = Empty,
         params      = IArray(IArray(param)),
@@ -313,6 +313,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
     ClassTree(
       isImplicit  = false,
       annotations = Empty,
+      level       = ProtectionLevel.Public,
       name        = StBuildingComponent,
       tparams     = builderTparams,
       parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.Any)),
@@ -327,7 +328,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 
   lazy val Default: ClassTree = {
     val ctor = CtorTree(
-      ProtectionLevel.Default,
+      ProtectionLevel.Public,
       IArray(
         ParamTree(
           Name("args"),
@@ -346,6 +347,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
     ClassTree(
       isImplicit  = false,
       annotations = Empty,
+      level       = ProtectionLevel.Public,
       name        = name,
       tparams     = builderTparams,
       parents     = IArray.fromOption(enableAnyVal) ++ IArray(builderRef),
@@ -370,6 +372,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
       val createElement = Name("createElement")
       val createElementField = FieldTree(
         annotations = Empty,
+        level       = ProtectionLevel.Public,
         name        = createElement,
         tpe         = TypeRef.JsDynamic,
         impl        = ExprTree.native,
@@ -383,6 +386,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
           Annotation.JsImport("react", Imported.Namespace, Some(Annotation.JsGlobal(QualifiedName("React")))),
           Annotation.JsNative,
         ), // todo global
+        ProtectionLevel.Public,
         name,
         IArray(TypeRef.JsObject),
         IArray(createElementField),
@@ -450,7 +454,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 
       MethodTree(
         IArray(Annotation.Inline),
-        ProtectionLevel.Default,
+        ProtectionLevel.Public,
         name,
         builderTparams,
         IArray(IArray(compParam)),
@@ -465,6 +469,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 
     val tree = ModuleTree(
       Empty,
+      ProtectionLevel.Public,
       StBuildingComponent,
       Empty,
       IArray(ReactRaw, make, Default),

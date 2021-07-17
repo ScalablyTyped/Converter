@@ -46,7 +46,9 @@ object JapgollyGenComponents {
 
     val (refTypes: IArray[TypeRef], _, filteredProps: IArray[Prop]) = allProps.partitionCollect2(
       //refTypes
-      { case Prop.Normal(Prop.Variant(Ref(ref), _, _, _), _, _, _, FieldTree(_, names.ref, _, _, _, _, _, _)) => ref },
+      {
+        case Prop.Normal(Prop.Variant(Ref(ref), _, _, _), _, _, _, FieldTree(_, _, names.ref, _, _, _, _, _, _)) => ref
+      },
       // ignored
       {
         case n: Prop.Normal if shouldIgnoreProp(n.name, n.main.tpe)    => null
@@ -344,6 +346,7 @@ class JapgollyGenComponents(
 
         ModuleTree(
           annotations = Empty,
+          level       = ProtectionLevel.Public,
           name        = c.fullName,
           parents     = Empty,
           members     = members,
@@ -382,6 +385,7 @@ class JapgollyGenComponents(
 
     ModuleTree(
       annotations = Empty,
+      level       = ProtectionLevel.Public,
       name        = c.fullName,
       parents     = Empty,
       members     = IArray(genImportModule(c, componentCp)) ++ members,
@@ -414,6 +418,7 @@ class JapgollyGenComponents(
 
     ModuleTree(
       annotations = Empty,
+      level       = ProtectionLevel.Public,
       name        = name,
       parents     = Empty,
       members     = members ++ nested,
@@ -466,7 +471,7 @@ class JapgollyGenComponents(
       Some(
         MethodTree(
           annotations = IArray(Annotation.Inline),
-          level       = ProtectionLevel.Default,
+          level       = ProtectionLevel.Public,
           name        = name,
           tparams     = tparams,
           params      = IArray(cm.params),
@@ -521,7 +526,7 @@ class JapgollyGenComponents(
 
         MethodTree(
           annotations = Empty,
-          level       = ProtectionLevel.Default,
+          level       = ProtectionLevel.Public,
           name        = conversionName,
           tparams     = tparams,
           params      = IArray(IArray(param)),
@@ -568,7 +573,7 @@ class JapgollyGenComponents(
     }
     MethodTree(
       annotations = Empty,
-      level       = ProtectionLevel.Default,
+      level       = ProtectionLevel.Public,
       name        = name,
       tparams     = tparams,
       params      = IArray(IArray(param)),
@@ -586,6 +591,7 @@ class JapgollyGenComponents(
       case Left(intrinsic) =>
         FieldTree(
           annotations = Empty,
+          level       = ProtectionLevel.Public,
           name        = names.component,
           tpe         = TypeRef.String,
           impl        = intrinsic,
@@ -597,6 +603,7 @@ class JapgollyGenComponents(
       case Right(location) =>
         FieldTree(
           annotations = IArray(Annotation.JsNative, location),
+          level       = ProtectionLevel.Public,
           name        = names.component,
           tpe         = TypeRef.JsObject,
           impl        = ExprTree.native,
@@ -632,7 +639,7 @@ class JapgollyGenComponents(
           IArray(
             MethodTree(
               annotations = IArray(Annotation.Inline),
-              level       = ProtectionLevel.Default,
+              level       = ProtectionLevel.Public,
               name        = name,
               tparams     = Empty,
               params      = IArray(IArray(param)),
@@ -665,7 +672,7 @@ class JapgollyGenComponents(
               )
               MethodTree(
                 annotations = IArray(Annotation.Inline),
-                level       = ProtectionLevel.Default,
+                level       = ProtectionLevel.Public,
                 name        = methodName,
                 tparams     = Empty,
                 params      = IArray(IArray(param)),
@@ -689,7 +696,7 @@ class JapgollyGenComponents(
               Some(
                 MethodTree(
                   annotations = IArray(Annotation.Inline),
-                  level       = ProtectionLevel.Default,
+                  level       = ProtectionLevel.Public,
                   name        = name,
                   tparams     = Empty,
                   params      = Empty,
@@ -710,7 +717,7 @@ class JapgollyGenComponents(
       }
 
     def ctor = CtorTree(
-      ProtectionLevel.Default,
+      ProtectionLevel.Public,
       IArray(
         ParamTree(
           Name("args"),
@@ -730,6 +737,7 @@ class JapgollyGenComponents(
         ClassTree(
           isImplicit  = false,
           annotations = IArray(Annotation.Inline),
+          level       = ProtectionLevel.Public,
           name        = name,
           tparams     = tparams,
           parents     = IArray.fromOption(genStBuilder.enableAnyVal) ++ IArray(buildingComponentRef),

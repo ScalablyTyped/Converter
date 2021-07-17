@@ -13,7 +13,7 @@ object scala {
       
       @js.native
       class Array[A] ()
-        extends js.Object
+        extends StObject
            with js.Iterable[A] {
         def this(arrayLength: Int) = this()
         
@@ -49,8 +49,7 @@ object scala {
       object Array {
         
         @js.native
-        object NativeArray
-          extends js.Object {
+        object NativeArray extends StObject {
           
           def from[A](iterable: js.Iterable[A]): js.Array[A] = js.native
           
@@ -59,8 +58,7 @@ object scala {
       }
       
       @js.native
-      class BigInt protected ()
-        extends js.Object {
+      class BigInt private () extends StObject {
         
         def ^(other: js.BigInt): js.BigInt = js.native
         
@@ -97,12 +95,10 @@ object scala {
         def `|`(other: js.BigInt): js.BigInt = js.native
       }
       @js.native
-      object BigInt
-        extends js.Object {
+      object BigInt extends StObject {
         
         @js.native
-        trait ToLocaleStringOptions
-          extends js.Object {
+        trait ToLocaleStringOptions extends StObject {
           
           var currency: js.UndefOr[String] = js.native
           
@@ -135,8 +131,7 @@ object scala {
       }
       
       @js.native
-      class Date ()
-        extends js.Object {
+      class Date () extends StObject {
         def this(value: String) = this()
         def this(value: Double) = this()
         def this(year: Int, month: Int, date: Int, hours: Int, minutes: Int, seconds: Int, ms: Int) = this()
@@ -225,8 +220,7 @@ object scala {
         override def valueOf(): Double = js.native
       }
       @js.native
-      object Date
-        extends js.Object {
+      object Date extends StObject {
         
         def UTC(year: Int, month: Int, date: Int, hours: Int, minutes: Int, seconds: Int, ms: Int): Double = js.native
         
@@ -239,11 +233,13 @@ object scala {
       
       @js.native
       sealed trait Dictionary[A]
-        extends js.Any
+        extends StObject
+           with js.Any
       
       @js.native
       sealed trait Dynamic
-        extends js.Any
+        extends StObject
+           with js.Any
            with scala.Dynamic {
         
         def ^(that: js.Dynamic): js.Dynamic = js.native
@@ -300,7 +296,8 @@ object scala {
         
         @js.native
         object global
-          extends js.Any
+          extends StObject
+             with js.Any
              with scala.Dynamic {
           
           def apply(args: js.Any): js.Dynamic = js.native
@@ -314,8 +311,7 @@ object scala {
       }
       
       @js.native
-      class Error protected ()
-        extends js.Object {
+      class Error protected () extends StObject {
         def this(message0: String) = this()
         
         val message: String = js.native
@@ -325,29 +321,27 @@ object scala {
         val name: String = js.native
       }
       @js.native
-      object Error
-        extends js.Object {
+      object Error extends StObject {
         
         def apply(message: String): js.Error = js.native
       }
       
       @js.native
       class EvalError protected ()
-        extends js.Error {
+        extends StObject
+           with js.Error {
         def this(message: String) = this()
         
         val message: String = js.native
       }
       @js.native
-      object EvalError
-        extends js.Object {
+      object EvalError extends StObject {
         
         def apply(message: String): js.EvalError = js.native
       }
       
       @js.native
-      class Function protected ()
-        extends js.Object {
+      class Function protected () extends StObject {
         def this(args: String) = this()
         
         val args: String = js.native
@@ -359,29 +353,31 @@ object scala {
         val length: Int = js.native
       }
       @js.native
-      object Function
-        extends js.Object {
+      object Function extends StObject {
         
         def apply(args: String): js.Function = js.native
       }
       
       @js.native
       trait Function0[R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(): R = js.native
       }
       
       @js.native
       trait Function1[T1, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(arg1: T1): R = js.native
       }
       
       @js.native
       trait Function10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(
           arg1: T1,
@@ -399,7 +395,8 @@ object scala {
       
       @js.native
       trait Function11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(
           arg1: T1,
@@ -418,7 +415,8 @@ object scala {
       
       @js.native
       trait Function12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(
           arg1: T1,
@@ -438,7 +436,8 @@ object scala {
       
       @js.native
       trait Function13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(
           arg1: T1,
@@ -459,7 +458,8 @@ object scala {
       
       @js.native
       trait Function14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(
           arg1: T1,
@@ -481,7 +481,8 @@ object scala {
       
       @js.native
       trait Function15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(
           arg1: T1,
@@ -504,7 +505,8 @@ object scala {
       
       @js.native
       trait Function16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(
           arg1: T1,
@@ -528,7 +530,8 @@ object scala {
       
       @js.native
       trait Function17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(
           arg1: T1,
@@ -553,7 +556,8 @@ object scala {
       
       @js.native
       trait Function18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(
           arg1: T1,
@@ -579,7 +583,8 @@ object scala {
       
       @js.native
       trait Function19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(
           arg1: T1,
@@ -606,14 +611,16 @@ object scala {
       
       @js.native
       trait Function2[T1, T2, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(arg1: T1, arg2: T2): R = js.native
       }
       
       @js.native
       trait Function20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(
           arg1: T1,
@@ -641,7 +648,8 @@ object scala {
       
       @js.native
       trait Function21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(
           arg1: T1,
@@ -670,7 +678,8 @@ object scala {
       
       @js.native
       trait Function22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(
           arg1: T1,
@@ -700,71 +709,75 @@ object scala {
       
       @js.native
       trait Function3[T1, T2, T3, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(arg1: T1, arg2: T2, arg3: T3): R = js.native
       }
       
       @js.native
       trait Function4[T1, T2, T3, T4, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(arg1: T1, arg2: T2, arg3: T3, arg4: T4): R = js.native
       }
       
       @js.native
       trait Function5[T1, T2, T3, T4, T5, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): R = js.native
       }
       
       @js.native
       trait Function6[T1, T2, T3, T4, T5, T6, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6): R = js.native
       }
       
       @js.native
       trait Function7[T1, T2, T3, T4, T5, T6, T7, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7): R = js.native
       }
       
       @js.native
       trait Function8[T1, T2, T3, T4, T5, T6, T7, T8, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7, arg8: T8): R = js.native
       }
       
       @js.native
       trait Function9[T1, T2, T3, T4, T5, T6, T7, T8, T9, R]
-        extends js.Function {
+        extends StObject
+           with js.Function {
         
         def apply(arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7, arg8: T8, arg9: T9): R = js.native
       }
       
       @js.native
-      trait Iterable[A]
-        extends js.Object {
+      trait Iterable[A] extends StObject {
         
         def jsIterator(): js.Iterator[A] = js.native
       }
       
       @js.native
-      trait Iterator[A]
-        extends js.Object {
+      trait Iterator[A] extends StObject {
         
         def next(): js.Iterator.Entry[A] = js.native
       }
       object Iterator {
         
         @js.native
-        trait Entry[A]
-          extends js.Object {
+        trait Entry[A] extends StObject {
           
           def done(): Boolean = js.native
           
@@ -776,7 +789,7 @@ object scala {
         
         @js.native
         class IterableAdapter[T] protected ()
-          extends js.Object
+          extends StObject
              with js.Iterable[T] {
           def this(col: scala.collection.Iterable[T]) = this()
           
@@ -787,7 +800,7 @@ object scala {
         
         @js.native
         class IteratorAdapter[T] protected ()
-          extends js.Object
+          extends StObject
              with js.Iterator[T] {
           def this(it: scala.collection.Iterator[T]) = this()
           
@@ -799,7 +812,8 @@ object scala {
       
       @js.native
       trait JSNumberOps
-        extends js.Any {
+        extends StObject
+           with js.Any {
         
         def toExponential(): String = js.native
         def toExponential(fractionDigits: Int): String = js.native
@@ -814,8 +828,7 @@ object scala {
       }
       
       @js.native
-      object JSON
-        extends js.Object {
+      object JSON extends StObject {
         
         def parse(text: String, reviver: js.Function2[js.Any, js.Any, js.Any]): js.Dynamic = js.native
         
@@ -826,7 +839,8 @@ object scala {
       
       @js.native
       trait JSStringOps
-        extends js.Any {
+        extends StObject
+           with js.Any {
         
         def jsIndexOf(searchString: String): Int = js.native
         def jsIndexOf(searchString: String, position: Int): Int = js.native
@@ -868,7 +882,7 @@ object scala {
       
       @js.native
       class Map[K, V] ()
-        extends js.Object
+        extends StObject
            with js.Iterable[js.Tuple2[K, V]] {
         def this(array: js.Iterable[js.Tuple2[K, V]]) = this()
         
@@ -883,8 +897,7 @@ object scala {
       object Map {
         
         @js.native
-        trait Raw[K, V]
-          extends js.Object {
+        trait Raw[K, V] extends StObject {
           
           def get(key: K): V = js.native
           
@@ -897,8 +910,7 @@ object scala {
       }
       
       @js.native
-      object Math
-        extends js.Object {
+      object Math extends StObject {
         
         val E: Double = js.native
         
@@ -974,7 +986,8 @@ object scala {
       
       @js.native
       class Object ()
-        extends js.Any {
+        extends StObject
+           with js.Any {
         def this(value: Any) = this()
         
         def hasOwnProperty(v: String): Boolean = js.native
@@ -990,7 +1003,7 @@ object scala {
       
       @js.native
       class Promise[A] protected ()
-        extends js.Object
+        extends StObject
            with js.Thenable[A] {
         def this(executor: js.Function2[js.Function1[A | js.Thenable[A], _], js.Function1[Any, _], _]) = this()
         
@@ -1005,8 +1018,7 @@ object scala {
         def `then`[B](onFulfilled: Unit, onRejected: js.UndefOr[js.Function1[Any, B | js.Thenable[B]]]): js.Promise[B] = js.native
       }
       @js.native
-      object Promise
-        extends js.Object {
+      object Promise extends StObject {
         
         def all[A](promises: js.Iterable[js.Promise[A]]): js.Promise[js.Array[A]] = js.native
         
@@ -1018,8 +1030,7 @@ object scala {
       }
       
       @js.native
-      trait PropertyDescriptor
-        extends js.Object {
+      trait PropertyDescriptor extends StObject {
         
         var configurable: js.UndefOr[Boolean] = js.native
         
@@ -1036,35 +1047,34 @@ object scala {
       
       @js.native
       class RangeError protected ()
-        extends js.Error {
+        extends StObject
+           with js.Error {
         def this(message: String) = this()
         
         val message: String = js.native
       }
       @js.native
-      object RangeError
-        extends js.Object {
+      object RangeError extends StObject {
         
         def apply(message: String): js.RangeError = js.native
       }
       
       @js.native
       class ReferenceError protected ()
-        extends js.Error {
+        extends StObject
+           with js.Error {
         def this(message: String) = this()
         
         val message: String = js.native
       }
       @js.native
-      object ReferenceError
-        extends js.Object {
+      object ReferenceError extends StObject {
         
         def apply(message: String): js.ReferenceError = js.native
       }
       
       @js.native
-      class RegExp protected ()
-        extends js.Object {
+      class RegExp protected () extends StObject {
         def this(pattern: js.RegExp) = this()
         def this(pattern: String, flags: String) = this()
         
@@ -1087,12 +1097,12 @@ object scala {
         def test(string: String): Boolean = js.native
       }
       @js.native
-      object RegExp
-        extends js.Object {
+      object RegExp extends StObject {
         
         @js.native
         trait ExecResult
-          extends js.Array[js.UndefOr[String]] {
+          extends StObject
+             with js.Array[js.UndefOr[String]] {
           
           var groups: js.UndefOr[js.Dictionary[js.UndefOr[String]]] = js.native
           
@@ -1106,7 +1116,7 @@ object scala {
       
       @js.native
       class Set[T] ()
-        extends js.Object
+        extends StObject
            with js.Iterable[T] {
         def this(array: js.Iterable[T]) = this()
         
@@ -1119,8 +1129,7 @@ object scala {
       object Set {
         
         @js.native
-        trait Raw[T]
-          extends js.Object {
+        trait Raw[T] extends StObject {
           
           def add(value: T): this.type = js.native
           
@@ -1132,10 +1141,10 @@ object scala {
       
       @js.native
       sealed trait Symbol
-        extends js.Any
+        extends StObject
+           with js.Any
       @js.native
-      object Symbol
-        extends js.Object {
+      object Symbol extends StObject {
         
         def apply(): js.Symbol = js.native
         def apply(description: String): js.Symbol = js.native
@@ -1169,21 +1178,20 @@ object scala {
       
       @js.native
       class SyntaxError protected ()
-        extends js.Error {
+        extends StObject
+           with js.Error {
         def this(message: String) = this()
         
         val message: String = js.native
       }
       @js.native
-      object SyntaxError
-        extends js.Object {
+      object SyntaxError extends StObject {
         
         def apply(message: String): js.SyntaxError = js.native
       }
       
       @js.native
-      trait Thenable[A]
-        extends js.Object {
+      trait Thenable[A] extends StObject {
         
         def `then`[B](
           onFulfilled: js.Function1[A, B | js.Thenable[B]],
@@ -1194,11 +1202,13 @@ object scala {
       
       @js.native
       trait ThisFunction
-        extends js.Function
+        extends StObject
+           with js.Function
       
       @js.native
       trait ThisFunction0[T0, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(thisArg: T0): R = js.native
@@ -1206,7 +1216,8 @@ object scala {
       
       @js.native
       trait ThisFunction1[T0, T1, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(thisArg: T0, arg1: T1): R = js.native
@@ -1214,7 +1225,8 @@ object scala {
       
       @js.native
       trait ThisFunction10[T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(
@@ -1234,7 +1246,8 @@ object scala {
       
       @js.native
       trait ThisFunction11[T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(
@@ -1255,7 +1268,8 @@ object scala {
       
       @js.native
       trait ThisFunction12[T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(
@@ -1277,7 +1291,8 @@ object scala {
       
       @js.native
       trait ThisFunction13[T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(
@@ -1300,7 +1315,8 @@ object scala {
       
       @js.native
       trait ThisFunction14[T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(
@@ -1324,7 +1340,8 @@ object scala {
       
       @js.native
       trait ThisFunction15[T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(
@@ -1349,7 +1366,8 @@ object scala {
       
       @js.native
       trait ThisFunction16[T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(
@@ -1375,7 +1393,8 @@ object scala {
       
       @js.native
       trait ThisFunction17[T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(
@@ -1402,7 +1421,8 @@ object scala {
       
       @js.native
       trait ThisFunction18[T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(
@@ -1430,7 +1450,8 @@ object scala {
       
       @js.native
       trait ThisFunction19[T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(
@@ -1459,7 +1480,8 @@ object scala {
       
       @js.native
       trait ThisFunction2[T0, T1, T2, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(thisArg: T0, arg1: T1, arg2: T2): R = js.native
@@ -1467,7 +1489,8 @@ object scala {
       
       @js.native
       trait ThisFunction20[T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(
@@ -1497,7 +1520,8 @@ object scala {
       
       @js.native
       trait ThisFunction21[T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(
@@ -1528,7 +1552,8 @@ object scala {
       
       @js.native
       trait ThisFunction3[T0, T1, T2, T3, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(thisArg: T0, arg1: T1, arg2: T2, arg3: T3): R = js.native
@@ -1536,7 +1561,8 @@ object scala {
       
       @js.native
       trait ThisFunction4[T0, T1, T2, T3, T4, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(thisArg: T0, arg1: T1, arg2: T2, arg3: T3, arg4: T4): R = js.native
@@ -1544,7 +1570,8 @@ object scala {
       
       @js.native
       trait ThisFunction5[T0, T1, T2, T3, T4, T5, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(thisArg: T0, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): R = js.native
@@ -1552,7 +1579,8 @@ object scala {
       
       @js.native
       trait ThisFunction6[T0, T1, T2, T3, T4, T5, T6, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(thisArg: T0, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6): R = js.native
@@ -1560,7 +1588,8 @@ object scala {
       
       @js.native
       trait ThisFunction7[T0, T1, T2, T3, T4, T5, T6, T7, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(thisArg: T0, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7): R = js.native
@@ -1568,7 +1597,8 @@ object scala {
       
       @js.native
       trait ThisFunction8[T0, T1, T2, T3, T4, T5, T6, T7, T8, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(thisArg: T0, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7, arg8: T8): R = js.native
@@ -1576,7 +1606,8 @@ object scala {
       
       @js.native
       trait ThisFunction9[T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, R]
-        extends js.Function
+        extends StObject
+           with js.Function
            with js.ThisFunction {
         
         def apply(
@@ -1594,8 +1625,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]
-        extends js.Object {
+      sealed trait Tuple10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10] extends StObject {
         
         val _1: T1 = js.native
         
@@ -1619,8 +1649,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]
-        extends js.Object {
+      sealed trait Tuple11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11] extends StObject {
         
         val _1: T1 = js.native
         
@@ -1646,8 +1675,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]
-        extends js.Object {
+      sealed trait Tuple12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12] extends StObject {
         
         val _1: T1 = js.native
         
@@ -1675,8 +1703,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]
-        extends js.Object {
+      sealed trait Tuple13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13] extends StObject {
         
         val _1: T1 = js.native
         
@@ -1706,8 +1733,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]
-        extends js.Object {
+      sealed trait Tuple14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14] extends StObject {
         
         val _1: T1 = js.native
         
@@ -1739,8 +1765,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]
-        extends js.Object {
+      sealed trait Tuple15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15] extends StObject {
         
         val _1: T1 = js.native
         
@@ -1774,8 +1799,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]
-        extends js.Object {
+      sealed trait Tuple16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16] extends StObject {
         
         val _1: T1 = js.native
         
@@ -1811,8 +1835,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]
-        extends js.Object {
+      sealed trait Tuple17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17] extends StObject {
         
         val _1: T1 = js.native
         
@@ -1850,8 +1873,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
-        extends js.Object {
+      sealed trait Tuple18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18] extends StObject {
         
         val _1: T1 = js.native
         
@@ -1891,8 +1913,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
-        extends js.Object {
+      sealed trait Tuple19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19] extends StObject {
         
         val _1: T1 = js.native
         
@@ -1934,8 +1955,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple2[T1, T2]
-        extends js.Object {
+      sealed trait Tuple2[T1, T2] extends StObject {
         
         val _1: T1 = js.native
         
@@ -1943,8 +1963,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]
-        extends js.Object {
+      sealed trait Tuple20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20] extends StObject {
         
         val _1: T1 = js.native
         
@@ -1988,8 +2007,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]
-        extends js.Object {
+      sealed trait Tuple21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21] extends StObject {
         
         val _1: T1 = js.native
         
@@ -2035,8 +2053,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]
-        extends js.Object {
+      sealed trait Tuple22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22] extends StObject {
         
         val _1: T1 = js.native
         
@@ -2084,8 +2101,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple3[T1, T2, T3]
-        extends js.Object {
+      sealed trait Tuple3[T1, T2, T3] extends StObject {
         
         val _1: T1 = js.native
         
@@ -2095,8 +2111,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple4[T1, T2, T3, T4]
-        extends js.Object {
+      sealed trait Tuple4[T1, T2, T3, T4] extends StObject {
         
         val _1: T1 = js.native
         
@@ -2108,8 +2123,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple5[T1, T2, T3, T4, T5]
-        extends js.Object {
+      sealed trait Tuple5[T1, T2, T3, T4, T5] extends StObject {
         
         val _1: T1 = js.native
         
@@ -2123,8 +2137,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple6[T1, T2, T3, T4, T5, T6]
-        extends js.Object {
+      sealed trait Tuple6[T1, T2, T3, T4, T5, T6] extends StObject {
         
         val _1: T1 = js.native
         
@@ -2140,8 +2153,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple7[T1, T2, T3, T4, T5, T6, T7]
-        extends js.Object {
+      sealed trait Tuple7[T1, T2, T3, T4, T5, T6, T7] extends StObject {
         
         val _1: T1 = js.native
         
@@ -2159,8 +2171,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple8[T1, T2, T3, T4, T5, T6, T7, T8]
-        extends js.Object {
+      sealed trait Tuple8[T1, T2, T3, T4, T5, T6, T7, T8] extends StObject {
         
         val _1: T1 = js.native
         
@@ -2180,8 +2191,7 @@ object scala {
       }
       
       @js.native
-      sealed trait Tuple9[T1, T2, T3, T4, T5, T6, T7, T8, T9]
-        extends js.Object {
+      sealed trait Tuple9[T1, T2, T3, T4, T5, T6, T7, T8, T9] extends StObject {
         
         val _1: T1 = js.native
         
@@ -2204,35 +2214,34 @@ object scala {
       
       @js.native
       class TypeError protected ()
-        extends js.Error {
+        extends StObject
+           with js.Error {
         def this(message: String) = this()
         
         val message: String = js.native
       }
       @js.native
-      object TypeError
-        extends js.Object {
+      object TypeError extends StObject {
         
         def apply(message: String): js.TypeError = js.native
       }
       
       @js.native
       class URIError protected ()
-        extends js.Error {
+        extends StObject
+           with js.Error {
         def this(message: String) = this()
         
         val message: String = js.native
       }
       @js.native
-      object URIError
-        extends js.Object {
+      object URIError extends StObject {
         
         def apply(message: String): js.URIError = js.native
       }
       
       @js.native
-      object URIUtils
-        extends js.Object {
+      object URIUtils extends StObject {
         
         def decodeURI(encodedURI: String): String = js.native
         
@@ -2245,13 +2254,13 @@ object scala {
       
       @js.native
       sealed trait UnicodeNormalizationForm
-        extends js.Any
+        extends StObject
+           with js.Any
       
       object WrappedDictionary {
         
         @js.native
-        trait DictionaryRawApply[A]
-          extends js.Object {
+        trait DictionaryRawApply[A] extends StObject {
           
           def rawApply(key: String): A = js.native
           
@@ -2262,8 +2271,7 @@ object scala {
       object special {
         
         @js.native
-        trait FullyDynamicProps
-          extends js.Object {
+        trait FullyDynamicProps extends StObject {
           
           def update(prop: Any, value: Any): Unit = js.native
         }
@@ -2272,8 +2280,7 @@ object scala {
       object timers {
         
         @js.native
-        object RawTimers
-          extends js.Object {
+        object RawTimers extends StObject {
           
           def clearInterval(handle: js.timers.SetIntervalHandle): Unit = js.native
           
@@ -2286,18 +2293,19 @@ object scala {
         
         @js.native
         sealed trait SetIntervalHandle
-          extends js.Any
+          extends StObject
+             with js.Any
         
         @js.native
         sealed trait SetTimeoutHandle
-          extends js.Any
+          extends StObject
+             with js.Any
       }
       
       object typedarray {
         
         @js.native
-        class ArrayBuffer protected ()
-          extends js.Object {
+        class ArrayBuffer protected () extends StObject {
           def this(length: Int) = this()
           
           val byteLength: Int = js.native
@@ -2308,8 +2316,7 @@ object scala {
         }
         
         @js.native
-        trait ArrayBufferView
-          extends js.Object {
+        trait ArrayBufferView extends StObject {
           
           val buffer: js.typedarray.ArrayBuffer = js.native
           
@@ -2319,8 +2326,8 @@ object scala {
         }
         
         @js.native
-        class BigInt64Array protected ()
-          extends js.Object
+        class BigInt64Array private ()
+          extends StObject
              with js.typedarray.TypedArray[js.BigInt, js.typedarray.BigInt64Array] {
           def this(array: js.Iterable[js.BigInt]) = this()
           def this(length: Int) = this()
@@ -2329,8 +2336,8 @@ object scala {
         }
         
         @js.native
-        class BigUint64Array protected ()
-          extends js.Object
+        class BigUint64Array private ()
+          extends StObject
              with js.typedarray.TypedArray[js.BigInt, js.typedarray.BigUint64Array] {
           def this(array: js.Iterable[js.BigInt]) = this()
           def this(length: Int) = this()
@@ -2340,7 +2347,7 @@ object scala {
         
         @js.native
         class DataView protected ()
-          extends js.Object
+          extends StObject
              with js.typedarray.ArrayBufferView {
           def this(buffer: js.typedarray.ArrayBuffer, byteOffset: Int, byteLength: Int) = this()
           
@@ -2384,8 +2391,8 @@ object scala {
         }
         
         @js.native
-        class Float32Array protected ()
-          extends js.Object
+        class Float32Array private ()
+          extends StObject
              with js.typedarray.TypedArray[Float, js.typedarray.Float32Array] {
           def this(array: js.Iterable[Float]) = this()
           def this(length: Int) = this()
@@ -2394,8 +2401,8 @@ object scala {
         }
         
         @js.native
-        class Float64Array protected ()
-          extends js.Object
+        class Float64Array private ()
+          extends StObject
              with js.typedarray.TypedArray[Double, js.typedarray.Float64Array] {
           def this(array: js.Iterable[Double]) = this()
           def this(length: Int) = this()
@@ -2404,8 +2411,8 @@ object scala {
         }
         
         @js.native
-        class Int16Array protected ()
-          extends js.Object
+        class Int16Array private ()
+          extends StObject
              with js.typedarray.TypedArray[Short, js.typedarray.Int16Array] {
           def this(array: js.Iterable[Short]) = this()
           def this(length: Int) = this()
@@ -2414,8 +2421,8 @@ object scala {
         }
         
         @js.native
-        class Int32Array protected ()
-          extends js.Object
+        class Int32Array private ()
+          extends StObject
              with js.typedarray.TypedArray[Int, js.typedarray.Int32Array] {
           def this(array: js.Iterable[Int]) = this()
           def this(length: Int) = this()
@@ -2424,8 +2431,8 @@ object scala {
         }
         
         @js.native
-        class Int8Array protected ()
-          extends js.Object
+        class Int8Array private ()
+          extends StObject
              with js.typedarray.TypedArray[Byte, js.typedarray.Int8Array] {
           def this(array: js.Iterable[Byte]) = this()
           def this(length: Int) = this()
@@ -2435,7 +2442,7 @@ object scala {
         
         @js.native
         trait TypedArray[T, Repr]
-          extends js.Object
+          extends StObject
              with js.typedarray.ArrayBufferView
              with js.Iterable[T] {
           
@@ -2463,8 +2470,7 @@ object scala {
         }
         
         @js.native
-        trait TypedArrayStatic[T, Repr]
-          extends js.Object {
+        trait TypedArrayStatic[T, Repr] extends StObject {
           
           val BYTES_PER_ELEMENT: Int = js.native
           
@@ -2476,8 +2482,8 @@ object scala {
         }
         
         @js.native
-        class Uint16Array protected ()
-          extends js.Object
+        class Uint16Array private ()
+          extends StObject
              with js.typedarray.TypedArray[Int, js.typedarray.Uint16Array] {
           def this(array: js.Iterable[Int]) = this()
           def this(length: Int) = this()
@@ -2486,8 +2492,8 @@ object scala {
         }
         
         @js.native
-        class Uint32Array protected ()
-          extends js.Object
+        class Uint32Array private ()
+          extends StObject
              with js.typedarray.TypedArray[Double, js.typedarray.Uint32Array] {
           def this(array: js.Iterable[Double]) = this()
           def this(length: Int) = this()
@@ -2496,8 +2502,8 @@ object scala {
         }
         
         @js.native
-        class Uint8Array protected ()
-          extends js.Object
+        class Uint8Array private ()
+          extends StObject
              with js.typedarray.TypedArray[Short, js.typedarray.Uint8Array] {
           def this(array: js.Iterable[Short]) = this()
           def this(length: Int) = this()
@@ -2506,8 +2512,8 @@ object scala {
         }
         
         @js.native
-        class Uint8ClampedArray protected ()
-          extends js.Object
+        class Uint8ClampedArray private ()
+          extends StObject
              with js.typedarray.TypedArray[Int, js.typedarray.Uint8ClampedArray] {
           def this(array: js.Iterable[Int]) = this()
           def this(length: Int) = this()
@@ -2520,8 +2526,7 @@ object scala {
     object runtime {
       
       @js.native
-      sealed trait LinkingInfo
-        extends js.Object {
+      sealed trait LinkingInfo extends StObject {
         
         val assumingES6: Boolean = js.native
         

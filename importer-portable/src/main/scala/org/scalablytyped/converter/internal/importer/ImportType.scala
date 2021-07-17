@@ -71,7 +71,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
         apply(scope, importName)(withComments)
 
-      case tr @ TsTypeRef(cs, base: TsQIdent, targs: IArray[TsType]) =>
+      case TsTypeRef(cs, base: TsQIdent, targs: IArray[TsType]) =>
         base match {
           case TsQIdent.any | TsQIdent.unknown =>
             TypeRef.JsAny.withComments(cs)

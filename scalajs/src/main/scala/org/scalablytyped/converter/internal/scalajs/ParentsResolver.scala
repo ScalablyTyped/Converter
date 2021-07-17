@@ -53,7 +53,7 @@ object ParentsResolver {
     def pruneClasses: Parents = {
       def go(it: Parent): Option[Parent] =
         it.classTree match {
-          case ClassTree(_, _, _, _, _, _, _, ClassType.Class | ClassType.AbstractClass, _, _, _) =>
+          case ClassTree(_, _, _, _, _, _, _, _, ClassType.Class | ClassType.AbstractClass, _, _, _) =>
             None
           case _ =>
             Some(Parent(it.refs)(it.classTree, it.foundIn, it.parents.mapNotNone(go), it.unresolved))

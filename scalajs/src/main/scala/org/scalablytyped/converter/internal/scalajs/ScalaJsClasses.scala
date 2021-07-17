@@ -11,22 +11,23 @@ object ScalaJsClasses {
     ClassTree(
       isImplicit = false,
       Empty,
+      ProtectionLevel.Public,
       Name.Object,
       Empty,
       Empty,
       Empty,
       IArray(
-        MethodTree(Empty, ProtectionLevel.Default, Name("getClass"), Empty, IArray(IArray()), ExprTree.native, TypeRef(QualifiedName(IArray(Name.java, Name.lang, Name("Class"))), IArray(TypeRef.Wildcard), NoComments), isOverride = false, NoComments, QualifiedName.Any + Name("getClass"), false),
-        MethodTree(Empty, ProtectionLevel.Default, Name("hashCode"), Empty, IArray(IArray()), ExprTree.native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.Any + Name("hashCode"), false),
-        MethodTree(Empty, ProtectionLevel.Default, Name("eq"), Empty, IArray(IArray(ParamTree(Name("obj"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments))), ExprTree.native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.Any + Name("eq"), false),
-        MethodTree(Empty, ProtectionLevel.Default, Name("equals"), Empty, IArray(IArray(ParamTree(Name("obj"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments))), ExprTree.native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.Any + Name("equals"), false),
-        MethodTree(Empty, ProtectionLevel.Default, Name("toString"), Empty, IArray(IArray()), ExprTree.native, TypeRef.String, isOverride = false, NoComments, QualifiedName.Any + Name("toString"), false),
-        MethodTree(Empty, ProtectionLevel.Default, Name("ne"), Empty, IArray(IArray(ParamTree(Name("obj"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments))), ExprTree.native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.Any + Name("ne"), false),
-        MethodTree(Empty, ProtectionLevel.Default, Name("notify"), Empty, IArray(IArray()), ExprTree.native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.Any + Name("notify"), false),
-        MethodTree(Empty, ProtectionLevel.Default, Name("notifyAll"), Empty, IArray(IArray()), ExprTree.native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.Any + Name("notifyAll"), false),
-        MethodTree(Empty, ProtectionLevel.Default, Name("wait"), Empty, IArray(IArray()), ExprTree.native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.Any + Name("wait"), false),
-        MethodTree(Empty, ProtectionLevel.Default, Name("wait"), Empty, IArray(IArray(ParamTree(Name("timeout"), isImplicit = false, isVal = false, TypeRef.Long, NotImplemented, NoComments))), ExprTree.native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.Any + Name("wait"), false),
-        MethodTree(Empty, ProtectionLevel.Default, Name("wait"), Empty, IArray(IArray(ParamTree(Name("timeout"), isImplicit = false, isVal = false, TypeRef.Long, NotImplemented, NoComments), ParamTree(Name("nanos"), isImplicit = false, isVal = false, TypeRef.Int, NotImplemented, NoComments))), ExprTree.native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.Any + Name("wait"), false),
+        MethodTree(Empty, ProtectionLevel.Public, Name("getClass"), Empty, IArray(IArray()), ExprTree.native, TypeRef(QualifiedName(IArray(Name.java, Name.lang, Name("Class"))), IArray(TypeRef.Wildcard), NoComments), isOverride = false, NoComments, QualifiedName.Any + Name("getClass"), false),
+        MethodTree(Empty, ProtectionLevel.Public, Name("hashCode"), Empty, IArray(IArray()), ExprTree.native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.Any + Name("hashCode"), false),
+        MethodTree(Empty, ProtectionLevel.Public, Name("eq"), Empty, IArray(IArray(ParamTree(Name("obj"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments))), ExprTree.native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.Any + Name("eq"), false),
+        MethodTree(Empty, ProtectionLevel.Public, Name("equals"), Empty, IArray(IArray(ParamTree(Name("obj"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments))), ExprTree.native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.Any + Name("equals"), false),
+        MethodTree(Empty, ProtectionLevel.Public, Name("toString"), Empty, IArray(IArray()), ExprTree.native, TypeRef.String, isOverride = false, NoComments, QualifiedName.Any + Name("toString"), false),
+        MethodTree(Empty, ProtectionLevel.Public, Name("ne"), Empty, IArray(IArray(ParamTree(Name("obj"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments))), ExprTree.native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.Any + Name("ne"), false),
+        MethodTree(Empty, ProtectionLevel.Public, Name("notify"), Empty, IArray(IArray()), ExprTree.native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.Any + Name("notify"), false),
+        MethodTree(Empty, ProtectionLevel.Public, Name("notifyAll"), Empty, IArray(IArray()), ExprTree.native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.Any + Name("notifyAll"), false),
+        MethodTree(Empty, ProtectionLevel.Public, Name("wait"), Empty, IArray(IArray()), ExprTree.native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.Any + Name("wait"), false),
+        MethodTree(Empty, ProtectionLevel.Public, Name("wait"), Empty, IArray(IArray(ParamTree(Name("timeout"), isImplicit = false, isVal = false, TypeRef.Long, NotImplemented, NoComments))), ExprTree.native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.Any + Name("wait"), false),
+        MethodTree(Empty, ProtectionLevel.Public, Name("wait"), Empty, IArray(IArray(ParamTree(Name("timeout"), isImplicit = false, isVal = false, TypeRef.Long, NotImplemented, NoComments), ParamTree(Name("nanos"), isImplicit = false, isVal = false, TypeRef.Int, NotImplemented, NoComments))), ExprTree.native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.Any + Name("wait"), false),
         MethodTree(Empty, ProtectionLevel.Protected, Name("clone"), Empty, IArray(IArray()), ExprTree.native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Any + Name("clone"), false),
         MethodTree(Empty, ProtectionLevel.Protected, Name("finalize"), Empty, IArray(IArray()), ExprTree.native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.Any + Name("finalize"), false),
       ),
@@ -38,7 +39,7 @@ object ScalaJsClasses {
 
   val hardcoded: IArray[ClassTree] = {
     def cls(cp: QualifiedName, parents: IArray[TypeRef], classType: ClassType, isSealed: Boolean) =
-      ClassTree(false, Empty, cp.parts.last, Empty, parents, Empty, Empty, classType, isSealed, NoComments, cp)
+      ClassTree(false, Empty, ProtectionLevel.Public, cp.parts.last, Empty, parents, Empty, Empty, classType, isSealed, NoComments, cp)
 
     IArray(
         Any,

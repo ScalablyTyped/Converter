@@ -101,7 +101,10 @@ object ImportTypings {
         ),
         "scala.js",
       )
-      .next(new PhaseFlavour(input.conversion.flavourImpl), input.conversion.flavourImpl.toString)
+      .next(
+        new PhaseFlavour(input.conversion.flavourImpl, maybePrivateWithin = input.conversion.privateWithin),
+        input.conversion.flavourImpl.toString,
+      )
       .next(
         new Phase3Compile(
           versions                   = input.conversion.versions,

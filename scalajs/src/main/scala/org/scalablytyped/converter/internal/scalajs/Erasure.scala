@@ -80,7 +80,7 @@ class Erasure(scalaVersion: Versions.Scala) {
         def fromClass: Option[QualifiedName] =
           tpe.targs.firstDefined { t =>
             scope.lookup(simplify(scope, t)).collectFirst {
-              case (ClassTree(_, _, _, _, _, _, _, ClassType.Class, _, _, codePath), _) => codePath
+              case (ClassTree(_, _, _, _, _, _, _, _, ClassType.Class, _, _, codePath), _) => codePath
             }
           }
 

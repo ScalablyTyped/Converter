@@ -45,9 +45,9 @@ object SlinkyTagsLoader {
           parentsResolver(newScope, x).transitiveParents.flatMapToIArray { case (_, v) => v.members }
 
         val attrs = (parentMembers ++ x.members).collect {
-          case FieldTree(_, name, Optional(tpe), _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
+          case FieldTree(_, _, name, Optional(tpe), _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
             name -> FollowAliases(newScope)(tpe)
-          case FieldTree(_, name, tpe, _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
+          case FieldTree(_, _, name, tpe, _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
             name -> FollowAliases(newScope)(tpe)
         }
 
@@ -67,7 +67,7 @@ object SlinkyTagsLoader {
       .lookup(qname)
       .collectFirst {
         case (x: ClassTree, _) =>
-          x.members.collect { case FieldTree(_, TagName(tag), ref, _, _, _, _, _) => (tag: TagName) -> ref }.toMap
+          x.members.collect { case FieldTree(_, _, TagName(tag), ref, _, _, _, _, _) => (tag: TagName) -> ref }.toMap
       }
       .getOrElse {
         scope.logger.warn(s"Couldn't extract slinky tags from ${qname}, probably because of minimized react build")
@@ -107,9 +107,9 @@ object SlinkyTagsLoader {
 
             val members: IArray[(Name, TypeRef)] =
               (parentMembers ++ tagInterface.members).collect {
-                case FieldTree(_, name, Optional(tpe), _, _, _, _, _) if attrs(name.unescaped) =>
+                case FieldTree(_, _, name, Optional(tpe), _, _, _, _, _) if attrs(name.unescaped) =>
                   name -> FollowAliases(newnewScope)(tpe)
-                case FieldTree(_, name, tpe, _, _, _, _, _) if attrs(name.unescaped) =>
+                case FieldTree(_, _, name, tpe, _, _, _, _, _) if attrs(name.unescaped) =>
                   name -> FollowAliases(newnewScope)(tpe)
               }
 
@@ -131,7 +131,7 @@ object SlinkyTagsLoader {
       .collectFirst {
         case (tagMap: ClassTree, newScope: TreeScope) =>
           tagMap.members.mapNotNone {
-            case FieldTree(_, TagName(tagName), tagInterfaceRef, _, _, _, _, _)
+            case FieldTree(_, _, TagName(tagName), tagInterfaceRef, _, _, _, _, _)
                 if AttrsByTag.All.contains(tagName) && stdRefByTag.contains(tagName) =>
               go(newScope, tagName, tagInterfaceRef)
             case _ => None
