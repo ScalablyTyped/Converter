@@ -8,6 +8,5 @@ object stdStrings {
   
   @js.native
   sealed trait Pick extends StObject
-  @scala.inline
-  def Pick: Pick = "Pick".asInstanceOf[Pick]
+  inline def Pick: Pick = "Pick".asInstanceOf[Pick]
 }

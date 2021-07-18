@@ -10,16 +10,13 @@ trait Parent[T] extends StObject {
 }
 object Parent {
   
-  @scala.inline
-  def apply[T](t: T): Parent[T] = {
+  inline def apply[T](t: T): Parent[T] = {
     val __obj = js.Dynamic.literal(t = t.asInstanceOf[js.Any])
     __obj.asInstanceOf[Parent[T]]
   }
   
-  @scala.inline
-  implicit class ParentMutableBuilder[Self <: Parent[?], T] (val x: Self & Parent[T]) extends AnyVal {
+  extension [Self <: Parent[?], T](x: Self & Parent[T]) {
     
-    @scala.inline
-    def setT(value: T): Self = StObject.set(x, "t", value.asInstanceOf[js.Any])
+    inline def setT(value: T): Self = StObject.set(x, "t", value.asInstanceOf[js.Any])
   }
 }

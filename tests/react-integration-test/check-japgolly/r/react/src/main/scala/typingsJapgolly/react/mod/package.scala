@@ -5,97 +5,80 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 
-@scala.inline
-def Children: typingsJapgolly.react.mod.ReactChildren = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].selectDynamic("Children").asInstanceOf[typingsJapgolly.react.mod.ReactChildren]
+inline def Children: typingsJapgolly.react.mod.ReactChildren = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].selectDynamic("Children").asInstanceOf[typingsJapgolly.react.mod.ReactChildren]
 
-@scala.inline
-def Fragment: typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.anon.Children] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].selectDynamic("Fragment").asInstanceOf[typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.anon.Children]]
+inline def Fragment: typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.anon.Children] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].selectDynamic("Fragment").asInstanceOf[typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.anon.Children]]
 
-@scala.inline
-def Profiler: typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.mod.ProfilerProps] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].selectDynamic("Profiler").asInstanceOf[typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.mod.ProfilerProps]]
+inline def Profiler: typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.mod.ProfilerProps] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].selectDynamic("Profiler").asInstanceOf[typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.mod.ProfilerProps]]
 
-@scala.inline
-def StrictMode: typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.anon.Children] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].selectDynamic("StrictMode").asInstanceOf[typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.anon.Children]]
+inline def StrictMode: typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.anon.Children] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].selectDynamic("StrictMode").asInstanceOf[typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.anon.Children]]
 
 /**
   * This feature is not yet available for server-side rendering.
   * Suspense support will be added in a later release.
   */
-@scala.inline
-def Suspense: typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.mod.SuspenseProps] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].selectDynamic("Suspense").asInstanceOf[typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.mod.SuspenseProps]]
+inline def Suspense: typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.mod.SuspenseProps] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].selectDynamic("Suspense").asInstanceOf[typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.mod.SuspenseProps]]
 
-@scala.inline
-def cloneElement[P](
+inline def cloneElement[P](
   element: japgolly.scalajs.react.raw.React.Element,
   props: typingsJapgolly.std.Partial[P] & typingsJapgolly.react.mod.Attributes,
   children: japgolly.scalajs.react.raw.React.Node*
 ): japgolly.scalajs.react.raw.React.Element = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.Element]
-@scala.inline
-def cloneElement[P](
+inline def cloneElement[P](
   element: japgolly.scalajs.react.raw.React.Element,
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
 ): japgolly.scalajs.react.raw.React.Element = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.Element]
 // Custom components
-@scala.inline
-def cloneElement[P](
+inline def cloneElement[P](
   element: typingsJapgolly.react.mod.FunctionComponentElement[P],
   props: typingsJapgolly.std.Partial[P] & typingsJapgolly.react.mod.Attributes,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.FunctionComponentElement[P] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.FunctionComponentElement[P]]
-@scala.inline
-def cloneElement[P](
+inline def cloneElement[P](
   element: typingsJapgolly.react.mod.FunctionComponentElement[P],
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.FunctionComponentElement[P] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.FunctionComponentElement[P]]
 // DOM Element (has to be the last, because type checking stops at first overload that fits)
-@scala.inline
-def cloneElement[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](
+inline def cloneElement[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](
   element: japgolly.scalajs.react.raw.React.DomElement,
   props: typingsJapgolly.react.mod.DOMAttributes[T] & P,
   children: japgolly.scalajs.react.raw.React.Node*
 ): japgolly.scalajs.react.raw.React.DomElement = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.DomElement]
-@scala.inline
-def cloneElement[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](
+inline def cloneElement[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](
   element: japgolly.scalajs.react.raw.React.DomElement,
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
 ): japgolly.scalajs.react.raw.React.DomElement = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.DomElement]
-@scala.inline
-def cloneElement[P, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */](
+inline def cloneElement[P, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */](
   element: typingsJapgolly.react.mod.CElement[P, T],
   props: typingsJapgolly.std.Partial[P] & typingsJapgolly.react.mod.ClassAttributes[T],
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.CElement[P, T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.CElement[P, T]]
-@scala.inline
-def cloneElement[P, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */](
+inline def cloneElement[P, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */](
   element: typingsJapgolly.react.mod.CElement[P, T],
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.CElement[P, T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.CElement[P, T]]
 // ReactHTMLElement, less specific
-@scala.inline
-def cloneElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
+inline def cloneElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
   element: typingsJapgolly.react.mod.ReactHTMLElement[T],
   props: P,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.ReactHTMLElement[T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.ReactHTMLElement[T]]
-@scala.inline
-def cloneElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
+inline def cloneElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
   element: typingsJapgolly.react.mod.ReactHTMLElement[T],
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.ReactHTMLElement[T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.ReactHTMLElement[T]]
 // SVGElement
-@scala.inline
-def cloneElement[P /* <: typingsJapgolly.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.raw.SVGElement */](
+inline def cloneElement[P /* <: typingsJapgolly.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.raw.SVGElement */](
   element: typingsJapgolly.react.mod.ReactSVGElement,
   props: P,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.ReactSVGElement = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.ReactSVGElement]
-@scala.inline
-def cloneElement[P /* <: typingsJapgolly.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.raw.SVGElement */](
+inline def cloneElement[P /* <: typingsJapgolly.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.raw.SVGElement */](
   element: typingsJapgolly.react.mod.ReactSVGElement,
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
@@ -103,54 +86,43 @@ def cloneElement[P /* <: typingsJapgolly.react.mod.SVGAttributes[T] */, T /* <: 
 
 // DOM Elements
 // ReactHTMLElement
-@scala.inline
-def cloneElement_P_HTMLAttributesTT_HTMLElement_DetailedReactHTMLElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
+inline def cloneElement_P_HTMLAttributesTT_HTMLElement_DetailedReactHTMLElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
   element: typingsJapgolly.react.mod.DetailedReactHTMLElement[P, T],
   props: P,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.DetailedReactHTMLElement[P, T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.DetailedReactHTMLElement[P, T]]
-@scala.inline
-def cloneElement_P_HTMLAttributesTT_HTMLElement_DetailedReactHTMLElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
+inline def cloneElement_P_HTMLAttributesTT_HTMLElement_DetailedReactHTMLElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
   element: typingsJapgolly.react.mod.DetailedReactHTMLElement[P, T],
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.DetailedReactHTMLElement[P, T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.DetailedReactHTMLElement[P, T]]
 
-@scala.inline
-def createContext[T](defaultValue: T): typingsJapgolly.react.mod.Context[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createContext")(defaultValue.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.Context[T]]
-@scala.inline
-def createContext[T](defaultValue: T, calculateChangedBits: js.Function2[/* prev */ T, /* next */ T, scala.Double]): typingsJapgolly.react.mod.Context[T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createContext")(defaultValue.asInstanceOf[js.Any], calculateChangedBits.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.Context[T]]
+inline def createContext[T](defaultValue: T): typingsJapgolly.react.mod.Context[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createContext")(defaultValue.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.Context[T]]
+inline def createContext[T](defaultValue: T, calculateChangedBits: js.Function2[/* prev */ T, /* next */ T, scala.Double]): typingsJapgolly.react.mod.Context[T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createContext")(defaultValue.asInstanceOf[js.Any], calculateChangedBits.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.Context[T]]
 
-@scala.inline
-def createElement[P /* <: js.Object */](
+inline def createElement[P /* <: js.Object */](
   `type`: japgolly.scalajs.react.raw.React.ComponentClassP[P & js.Object],
   props: typingsJapgolly.react.mod.Attributes & P,
   children: japgolly.scalajs.react.raw.React.Node*
 ): japgolly.scalajs.react.raw.React.Element = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.Element]
-@scala.inline
-def createElement[P /* <: js.Object */](
+inline def createElement[P /* <: js.Object */](
   `type`: japgolly.scalajs.react.raw.React.ComponentClassP[P & js.Object],
   props: scala.Null,
   children: japgolly.scalajs.react.raw.React.Node*
 ): japgolly.scalajs.react.raw.React.Element = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.Element]
-@scala.inline
-def createElement[P /* <: js.Object */](
+inline def createElement[P /* <: js.Object */](
   `type`: japgolly.scalajs.react.raw.React.ComponentClassP[P & js.Object],
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
 ): japgolly.scalajs.react.raw.React.Element = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.Element]
-@scala.inline
-def createElement[P /* <: js.Object */](
+inline def createElement[P /* <: js.Object */](
   `type`: java.lang.String,
   props: typingsJapgolly.react.mod.Attributes & P,
   children: japgolly.scalajs.react.raw.React.Node*
 ): japgolly.scalajs.react.raw.React.Element = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.Element]
-@scala.inline
-def createElement[P /* <: js.Object */](`type`: java.lang.String, props: scala.Null, children: japgolly.scalajs.react.raw.React.Node*): japgolly.scalajs.react.raw.React.Element = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.Element]
-@scala.inline
-def createElement[P /* <: js.Object */](`type`: java.lang.String, props: scala.Unit, children: japgolly.scalajs.react.raw.React.Node*): japgolly.scalajs.react.raw.React.Element = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.Element]
-@scala.inline
-def createElement[P /* <: js.Object */](
+inline def createElement[P /* <: js.Object */](`type`: java.lang.String, props: scala.Null, children: japgolly.scalajs.react.raw.React.Node*): japgolly.scalajs.react.raw.React.Element = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.Element]
+inline def createElement[P /* <: js.Object */](`type`: java.lang.String, props: scala.Unit, children: japgolly.scalajs.react.raw.React.Node*): japgolly.scalajs.react.raw.React.Element = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.Element]
+inline def createElement[P /* <: js.Object */](
   `type`: typingsJapgolly.react.mod.ClassType[
   P, 
   typingsJapgolly.react.mod.ClassicComponent[P, js.Object], 
@@ -159,8 +131,7 @@ def createElement[P /* <: js.Object */](
   props: (typingsJapgolly.react.mod.ClassAttributes[typingsJapgolly.react.mod.ClassicComponent[P, js.Object]]) & P,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.CElement[P, typingsJapgolly.react.mod.ClassicComponent[P, js.Object]] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.CElement[P, typingsJapgolly.react.mod.ClassicComponent[P, js.Object]]]
-@scala.inline
-def createElement[P /* <: js.Object */](
+inline def createElement[P /* <: js.Object */](
   `type`: typingsJapgolly.react.mod.ClassType[
   P, 
   typingsJapgolly.react.mod.ClassicComponent[P, js.Object], 
@@ -169,8 +140,7 @@ def createElement[P /* <: js.Object */](
   props: scala.Null,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.CElement[P, typingsJapgolly.react.mod.ClassicComponent[P, js.Object]] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.CElement[P, typingsJapgolly.react.mod.ClassicComponent[P, js.Object]]]
-@scala.inline
-def createElement[P /* <: js.Object */](
+inline def createElement[P /* <: js.Object */](
   `type`: typingsJapgolly.react.mod.ClassType[
   P, 
   typingsJapgolly.react.mod.ClassicComponent[P, js.Object], 
@@ -179,106 +149,88 @@ def createElement[P /* <: js.Object */](
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.CElement[P, typingsJapgolly.react.mod.ClassicComponent[P, js.Object]] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.CElement[P, typingsJapgolly.react.mod.ClassicComponent[P, js.Object]]]
-@scala.inline
-def createElement[P /* <: js.Object */](
+inline def createElement[P /* <: js.Object */](
   `type`: typingsJapgolly.react.mod.FunctionComponent[P],
   props: typingsJapgolly.react.mod.Attributes & P,
   children: japgolly.scalajs.react.raw.React.Node*
 ): japgolly.scalajs.react.raw.React.Element = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.Element]
-@scala.inline
-def createElement[P /* <: js.Object */](
+inline def createElement[P /* <: js.Object */](
   `type`: typingsJapgolly.react.mod.FunctionComponent[P],
   props: scala.Null,
   children: japgolly.scalajs.react.raw.React.Node*
 ): japgolly.scalajs.react.raw.React.Element = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.Element]
-@scala.inline
-def createElement[P /* <: js.Object */](
+inline def createElement[P /* <: js.Object */](
   `type`: typingsJapgolly.react.mod.FunctionComponent[P],
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
 ): japgolly.scalajs.react.raw.React.Element = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.Element]
-@scala.inline
-def createElement[P /* <: typingsJapgolly.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.raw.SVGElement */](
+inline def createElement[P /* <: typingsJapgolly.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.raw.SVGElement */](
   `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ js.Any,
   props: typingsJapgolly.react.mod.ClassAttributes[T] & P,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.ReactSVGElement = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.ReactSVGElement]
-@scala.inline
-def createElement[P /* <: typingsJapgolly.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.raw.SVGElement */](
+inline def createElement[P /* <: typingsJapgolly.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.raw.SVGElement */](
   `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ js.Any,
   props: scala.Null,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.ReactSVGElement = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.ReactSVGElement]
-@scala.inline
-def createElement[P /* <: typingsJapgolly.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.raw.SVGElement */](
+inline def createElement[P /* <: typingsJapgolly.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.raw.SVGElement */](
   `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ js.Any,
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.ReactSVGElement = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.ReactSVGElement]
-@scala.inline
-def createElement[P /* <: js.Object */, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */, C /* <: japgolly.scalajs.react.raw.React.ComponentClassP[P & js.Object] */](
+inline def createElement[P /* <: js.Object */, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */, C /* <: japgolly.scalajs.react.raw.React.ComponentClassP[P & js.Object] */](
   `type`: typingsJapgolly.react.mod.ClassType[P, T, C],
   props: typingsJapgolly.react.mod.ClassAttributes[T] & P,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.CElement[P, T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.CElement[P, T]]
-@scala.inline
-def createElement[P /* <: js.Object */, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */, C /* <: japgolly.scalajs.react.raw.React.ComponentClassP[P & js.Object] */](
+inline def createElement[P /* <: js.Object */, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */, C /* <: japgolly.scalajs.react.raw.React.ComponentClassP[P & js.Object] */](
   `type`: typingsJapgolly.react.mod.ClassType[P, T, C],
   props: scala.Null,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.CElement[P, T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.CElement[P, T]]
-@scala.inline
-def createElement[P /* <: js.Object */, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */, C /* <: japgolly.scalajs.react.raw.React.ComponentClassP[P & js.Object] */](
+inline def createElement[P /* <: js.Object */, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */, C /* <: japgolly.scalajs.react.raw.React.ComponentClassP[P & js.Object] */](
   `type`: typingsJapgolly.react.mod.ClassType[P, T, C],
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.CElement[P, T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.CElement[P, T]]
 
-@scala.inline
-def createElement_P_DOMAttributesTT_Element_DomElement[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](
+inline def createElement_P_DOMAttributesTT_Element_DomElement[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](
   `type`: java.lang.String,
   props: typingsJapgolly.react.mod.ClassAttributes[T] & P,
   children: japgolly.scalajs.react.raw.React.Node*
 ): japgolly.scalajs.react.raw.React.DomElement = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.DomElement]
-@scala.inline
-def createElement_P_DOMAttributesTT_Element_DomElement[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](`type`: java.lang.String, props: scala.Null, children: japgolly.scalajs.react.raw.React.Node*): japgolly.scalajs.react.raw.React.DomElement = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.DomElement]
-@scala.inline
-def createElement_P_DOMAttributesTT_Element_DomElement[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](`type`: java.lang.String, props: scala.Unit, children: japgolly.scalajs.react.raw.React.Node*): japgolly.scalajs.react.raw.React.DomElement = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.DomElement]
+inline def createElement_P_DOMAttributesTT_Element_DomElement[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](`type`: java.lang.String, props: scala.Null, children: japgolly.scalajs.react.raw.React.Node*): japgolly.scalajs.react.raw.React.DomElement = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.DomElement]
+inline def createElement_P_DOMAttributesTT_Element_DomElement[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](`type`: java.lang.String, props: scala.Unit, children: japgolly.scalajs.react.raw.React.Node*): japgolly.scalajs.react.raw.React.DomElement = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[japgolly.scalajs.react.raw.React.DomElement]
 
-@scala.inline
-def createElement_P_HTMLAttributesTT_HTMLElement_DetailedReactHTMLElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
+inline def createElement_P_HTMLAttributesTT_HTMLElement_DetailedReactHTMLElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
   `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ js.Any,
   props: typingsJapgolly.react.mod.ClassAttributes[T] & P,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.DetailedReactHTMLElement[P, T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.DetailedReactHTMLElement[P, T]]
-@scala.inline
-def createElement_P_HTMLAttributesTT_HTMLElement_DetailedReactHTMLElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
+inline def createElement_P_HTMLAttributesTT_HTMLElement_DetailedReactHTMLElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
   `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ js.Any,
   props: scala.Null,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.DetailedReactHTMLElement[P, T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.DetailedReactHTMLElement[P, T]]
-@scala.inline
-def createElement_P_HTMLAttributesTT_HTMLElement_DetailedReactHTMLElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
+inline def createElement_P_HTMLAttributesTT_HTMLElement_DetailedReactHTMLElement[P /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.raw.HTMLElement */](
   `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ js.Any,
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.DetailedReactHTMLElement[P, T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.DetailedReactHTMLElement[P, T]]
 
 // Custom components
-@scala.inline
-def createElement_P_Object_FunctionComponentElement[P /* <: js.Object */](
+inline def createElement_P_Object_FunctionComponentElement[P /* <: js.Object */](
   `type`: typingsJapgolly.react.mod.FunctionComponent[P],
   props: typingsJapgolly.react.mod.Attributes & P,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.FunctionComponentElement[P] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.FunctionComponentElement[P]]
-@scala.inline
-def createElement_P_Object_FunctionComponentElement[P /* <: js.Object */](
+inline def createElement_P_Object_FunctionComponentElement[P /* <: js.Object */](
   `type`: typingsJapgolly.react.mod.FunctionComponent[P],
   props: scala.Null,
   children: japgolly.scalajs.react.raw.React.Node*
 ): typingsJapgolly.react.mod.FunctionComponentElement[P] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.FunctionComponentElement[P]]
-@scala.inline
-def createElement_P_Object_FunctionComponentElement[P /* <: js.Object */](
+inline def createElement_P_Object_FunctionComponentElement[P /* <: js.Object */](
   `type`: typingsJapgolly.react.mod.FunctionComponent[P],
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
@@ -286,8 +238,7 @@ def createElement_P_Object_FunctionComponentElement[P /* <: js.Object */](
 
 // DOM Elements
 // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
-@scala.inline
-def createElement_input(
+inline def createElement_input(
   `type`: typingsJapgolly.react.reactStrings.input,
   props: typingsJapgolly.react.mod.InputHTMLAttributes[org.scalajs.dom.raw.HTMLInputElement] & typingsJapgolly.react.mod.ClassAttributes[org.scalajs.dom.raw.HTMLInputElement],
   children: japgolly.scalajs.react.raw.React.Node*
@@ -296,8 +247,7 @@ typingsJapgolly.react.mod.InputHTMLAttributes[org.scalajs.dom.raw.HTMLInputEleme
 org.scalajs.dom.raw.HTMLInputElement] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.DetailedReactHTMLElement[
 typingsJapgolly.react.mod.InputHTMLAttributes[org.scalajs.dom.raw.HTMLInputElement], 
 org.scalajs.dom.raw.HTMLInputElement]]
-@scala.inline
-def createElement_input(
+inline def createElement_input(
   `type`: typingsJapgolly.react.reactStrings.input,
   props: scala.Null,
   children: japgolly.scalajs.react.raw.React.Node*
@@ -306,8 +256,7 @@ typingsJapgolly.react.mod.InputHTMLAttributes[org.scalajs.dom.raw.HTMLInputEleme
 org.scalajs.dom.raw.HTMLInputElement] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.DetailedReactHTMLElement[
 typingsJapgolly.react.mod.InputHTMLAttributes[org.scalajs.dom.raw.HTMLInputElement], 
 org.scalajs.dom.raw.HTMLInputElement]]
-@scala.inline
-def createElement_input(
+inline def createElement_input(
   `type`: typingsJapgolly.react.reactStrings.input,
   props: scala.Unit,
   children: japgolly.scalajs.react.raw.React.Node*
@@ -317,12 +266,9 @@ org.scalajs.dom.raw.HTMLInputElement] = (typingsJapgolly.react.mod.^.asInstanceO
 typingsJapgolly.react.mod.InputHTMLAttributes[org.scalajs.dom.raw.HTMLInputElement], 
 org.scalajs.dom.raw.HTMLInputElement]]
 
-@scala.inline
-def createFactory(`type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ js.Any): typingsJapgolly.react.mod.SVGFactory = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.SVGFactory]
-@scala.inline
-def createFactory[P](`type`: japgolly.scalajs.react.raw.React.ComponentClassP[P & js.Object]): typingsJapgolly.react.mod.Factory[P] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.Factory[P]]
-@scala.inline
-def createFactory[P](
+inline def createFactory(`type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ js.Any): typingsJapgolly.react.mod.SVGFactory = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.SVGFactory]
+inline def createFactory[P](`type`: japgolly.scalajs.react.raw.React.ComponentClassP[P & js.Object]): typingsJapgolly.react.mod.Factory[P] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.Factory[P]]
+inline def createFactory[P](
   `type`: typingsJapgolly.react.mod.ClassType[
   P, 
   typingsJapgolly.react.mod.ClassicComponent[P, js.Object], 
@@ -330,44 +276,33 @@ def createFactory[P](
 ]
 ): typingsJapgolly.react.mod.CFactory[P, typingsJapgolly.react.mod.ClassicComponent[P, js.Object]] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.CFactory[P, typingsJapgolly.react.mod.ClassicComponent[P, js.Object]]]
 // Custom components
-@scala.inline
-def createFactory[P](`type`: typingsJapgolly.react.mod.FunctionComponent[P]): typingsJapgolly.react.mod.FunctionComponentFactory[P] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.FunctionComponentFactory[P]]
-@scala.inline
-def createFactory[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](`type`: java.lang.String): typingsJapgolly.react.mod.DOMFactory[P, T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.DOMFactory[P, T]]
-@scala.inline
-def createFactory[P, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */, C /* <: japgolly.scalajs.react.raw.React.ComponentClassP[P & js.Object] */](`type`: typingsJapgolly.react.mod.ClassType[P, T, C]): typingsJapgolly.react.mod.CFactory[P, T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.CFactory[P, T]]
+inline def createFactory[P](`type`: typingsJapgolly.react.mod.FunctionComponent[P]): typingsJapgolly.react.mod.FunctionComponentFactory[P] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.FunctionComponentFactory[P]]
+inline def createFactory[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](`type`: java.lang.String): typingsJapgolly.react.mod.DOMFactory[P, T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.DOMFactory[P, T]]
+inline def createFactory[P, T /* <: japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object] */, C /* <: japgolly.scalajs.react.raw.React.ComponentClassP[P & js.Object] */](`type`: typingsJapgolly.react.mod.ClassType[P, T, C]): typingsJapgolly.react.mod.CFactory[P, T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.CFactory[P, T]]
 
 //
 // Top Level API
 // ----------------------------------------------------------------------
 // DOM Elements
-@scala.inline
-def createFactory_T_HTMLElement_HTMLFactory[T /* <: org.scalajs.dom.raw.HTMLElement */](`type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ js.Any): typingsJapgolly.react.mod.HTMLFactory[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.HTMLFactory[T]]
+inline def createFactory_T_HTMLElement_HTMLFactory[T /* <: org.scalajs.dom.raw.HTMLElement */](`type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ js.Any): typingsJapgolly.react.mod.HTMLFactory[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.HTMLFactory[T]]
 
-@scala.inline
-def createRef[T](): japgolly.scalajs.react.raw.React.RefHandle[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createRef")().asInstanceOf[japgolly.scalajs.react.raw.React.RefHandle[T]]
+inline def createRef[T](): japgolly.scalajs.react.raw.React.RefHandle[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createRef")().asInstanceOf[japgolly.scalajs.react.raw.React.RefHandle[T]]
 
-@scala.inline
-def forwardRef[T, P](Component: typingsJapgolly.react.mod.RefForwardingComponent[T, P]): typingsJapgolly.react.mod.ForwardRefExoticComponent[
+inline def forwardRef[T, P](Component: typingsJapgolly.react.mod.RefForwardingComponent[T, P]): typingsJapgolly.react.mod.ForwardRefExoticComponent[
 typingsJapgolly.react.mod.PropsWithoutRef[P] & typingsJapgolly.react.mod.RefAttributes[T]] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("forwardRef")(Component.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.ForwardRefExoticComponent[
 typingsJapgolly.react.mod.PropsWithoutRef[P] & typingsJapgolly.react.mod.RefAttributes[T]]]
 
-@scala.inline
-def isValidElement[P](): /* is react.react.ReactElement */ scala.Boolean = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("isValidElement")().asInstanceOf[/* is react.react.ReactElement */ scala.Boolean]
-@scala.inline
-def isValidElement[P](`object`: js.Object): /* is react.react.ReactElement */ scala.Boolean = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("isValidElement")(`object`.asInstanceOf[js.Any]).asInstanceOf[/* is react.react.ReactElement */ scala.Boolean]
+inline def isValidElement[P](): /* is react.react.ReactElement */ scala.Boolean = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("isValidElement")().asInstanceOf[/* is react.react.ReactElement */ scala.Boolean]
+inline def isValidElement[P](`object`: js.Object): /* is react.react.ReactElement */ scala.Boolean = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("isValidElement")(`object`.asInstanceOf[js.Any]).asInstanceOf[/* is react.react.ReactElement */ scala.Boolean]
 
-@scala.inline
-def `lazy`[T /* <: typingsJapgolly.react.mod.ComponentType[js.Any] */](
+inline def `lazy`[T /* <: typingsJapgolly.react.mod.ComponentType[js.Any] */](
   factory: js.Function0[
   /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<{  default :T}> */ js.Any
 ]
 ): typingsJapgolly.react.mod.LazyExoticComponent[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("lazy")(factory.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.LazyExoticComponent[T]]
 
-@scala.inline
-def memo[T /* <: typingsJapgolly.react.mod.ComponentType[js.Any] */](Component: T): typingsJapgolly.react.mod.MemoExoticComponent[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.MemoExoticComponent[T]]
-@scala.inline
-def memo[T /* <: typingsJapgolly.react.mod.ComponentType[js.Any] */](
+inline def memo[T /* <: typingsJapgolly.react.mod.ComponentType[js.Any] */](Component: T): typingsJapgolly.react.mod.MemoExoticComponent[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.MemoExoticComponent[T]]
+inline def memo[T /* <: typingsJapgolly.react.mod.ComponentType[js.Any] */](
   Component: T,
   propsAreEqual: js.Function2[
   /* prevProps */ typingsJapgolly.react.mod.ComponentProps[T], 
@@ -375,10 +310,8 @@ def memo[T /* <: typingsJapgolly.react.mod.ComponentType[js.Any] */](
   scala.Boolean
 ]
 ): typingsJapgolly.react.mod.MemoExoticComponent[T] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any], propsAreEqual.asInstanceOf[js.Any])).asInstanceOf[typingsJapgolly.react.mod.MemoExoticComponent[T]]
-@scala.inline
-def memo[P /* <: js.Object */](Component: typingsJapgolly.react.mod.SFC[P]): typingsJapgolly.react.mod.NamedExoticComponent[P] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.NamedExoticComponent[P]]
-@scala.inline
-def memo[P /* <: js.Object */](
+inline def memo[P /* <: js.Object */](Component: typingsJapgolly.react.mod.SFC[P]): typingsJapgolly.react.mod.NamedExoticComponent[P] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.NamedExoticComponent[P]]
+inline def memo[P /* <: js.Object */](
   Component: typingsJapgolly.react.mod.SFC[P],
   propsAreEqual: js.Function2[
   /* prevProps */ typingsJapgolly.react.mod.PropsWithChildren[P], 
@@ -397,8 +330,7 @@ def memo[P /* <: js.Object */](
   * @see https://reactjs.org/docs/hooks-reference.html#usecallback
   */
 // TODO (TypeScript 3.0): <T extends (...args: never[]) => unknown>
-@scala.inline
-def useCallback[T /* <: js.Function1[/* repeated */ js.Any, js.Any] */](callback: T, deps: typingsJapgolly.react.mod.DependencyList): T = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useCallback")(callback.asInstanceOf[js.Any], deps.asInstanceOf[js.Any])).asInstanceOf[T]
+inline def useCallback[T /* <: js.Function1[/* repeated */ js.Any, js.Any] */](callback: T, deps: typingsJapgolly.react.mod.DependencyList): T = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useCallback")(callback.asInstanceOf[js.Any], deps.asInstanceOf[js.Any])).asInstanceOf[T]
 
 // This will technically work if you give a Consumer<T> or Provider<T> but it's deprecated and warns
 /**
@@ -408,8 +340,7 @@ def useCallback[T /* <: js.Function1[/* repeated */ js.Any, js.Any] */](callback
   * @version 16.8.0
   * @see https://reactjs.org/docs/hooks-reference.html#usecontext
   */
-@scala.inline
-def useContext[T](context: typingsJapgolly.react.mod.Context[T]): T = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useContext")(context.asInstanceOf[js.Any]).asInstanceOf[T]
+inline def useContext[T](context: typingsJapgolly.react.mod.Context[T]): T = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useContext")(context.asInstanceOf[js.Any]).asInstanceOf[T]
 
 /**
   * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
@@ -422,10 +353,8 @@ def useContext[T](context: typingsJapgolly.react.mod.Context[T]): T = typingsJap
   */
 // the name of the custom hook is itself derived from the function name at runtime:
 // it's just the function name without the "use" prefix.
-@scala.inline
-def useDebugValue[T](value: T): scala.Unit = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useDebugValue")(value.asInstanceOf[js.Any]).asInstanceOf[scala.Unit]
-@scala.inline
-def useDebugValue[T](value: T, format: js.Function1[/* value */ T, js.Any]): scala.Unit = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useDebugValue")(value.asInstanceOf[js.Any], format.asInstanceOf[js.Any])).asInstanceOf[scala.Unit]
+inline def useDebugValue[T](value: T): scala.Unit = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useDebugValue")(value.asInstanceOf[js.Any]).asInstanceOf[scala.Unit]
+inline def useDebugValue[T](value: T, format: js.Function1[/* value */ T, js.Any]): scala.Unit = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useDebugValue")(value.asInstanceOf[js.Any], format.asInstanceOf[js.Any])).asInstanceOf[scala.Unit]
 
 /**
   * Accepts a function that contains imperative, possibly effectful code.
@@ -436,15 +365,11 @@ def useDebugValue[T](value: T, format: js.Function1[/* value */ T, js.Any]): sca
   * @version 16.8.0
   * @see https://reactjs.org/docs/hooks-reference.html#useeffect
   */
-@scala.inline
-def useEffect(effect: typingsJapgolly.react.mod.EffectCallback): scala.Unit = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useEffect")(effect.asInstanceOf[js.Any]).asInstanceOf[scala.Unit]
-@scala.inline
-def useEffect(effect: typingsJapgolly.react.mod.EffectCallback, deps: typingsJapgolly.react.mod.DependencyList): scala.Unit = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useEffect")(effect.asInstanceOf[js.Any], deps.asInstanceOf[js.Any])).asInstanceOf[scala.Unit]
+inline def useEffect(effect: typingsJapgolly.react.mod.EffectCallback): scala.Unit = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useEffect")(effect.asInstanceOf[js.Any]).asInstanceOf[scala.Unit]
+inline def useEffect(effect: typingsJapgolly.react.mod.EffectCallback, deps: typingsJapgolly.react.mod.DependencyList): scala.Unit = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useEffect")(effect.asInstanceOf[js.Any], deps.asInstanceOf[js.Any])).asInstanceOf[scala.Unit]
 
-@scala.inline
-def useImperativeHandle[T, R /* <: T */](ref: scala.Unit, init: js.Function0[R]): scala.Unit = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useImperativeHandle")(ref.asInstanceOf[js.Any], init.asInstanceOf[js.Any])).asInstanceOf[scala.Unit]
-@scala.inline
-def useImperativeHandle[T, R /* <: T */](ref: scala.Unit, init: js.Function0[R], deps: typingsJapgolly.react.mod.DependencyList): scala.Unit = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useImperativeHandle")(ref.asInstanceOf[js.Any], init.asInstanceOf[js.Any], deps.asInstanceOf[js.Any])).asInstanceOf[scala.Unit]
+inline def useImperativeHandle[T, R /* <: T */](ref: scala.Unit, init: js.Function0[R]): scala.Unit = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useImperativeHandle")(ref.asInstanceOf[js.Any], init.asInstanceOf[js.Any])).asInstanceOf[scala.Unit]
+inline def useImperativeHandle[T, R /* <: T */](ref: scala.Unit, init: js.Function0[R], deps: typingsJapgolly.react.mod.DependencyList): scala.Unit = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useImperativeHandle")(ref.asInstanceOf[js.Any], init.asInstanceOf[js.Any], deps.asInstanceOf[js.Any])).asInstanceOf[scala.Unit]
 // NOTE: this does not accept strings, but this will have to be fixed by removing strings from type Ref<T>
 /**
   * `useImperativeHandle` customizes the instance value that is exposed to parent components when using
@@ -455,10 +380,8 @@ def useImperativeHandle[T, R /* <: T */](ref: scala.Unit, init: js.Function0[R],
   * @version 16.8.0
   * @see https://reactjs.org/docs/hooks-reference.html#useimperativehandle
   */
-@scala.inline
-def useImperativeHandle[T, R /* <: T */](ref: typingsJapgolly.react.mod.Ref[T], init: js.Function0[R]): scala.Unit = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useImperativeHandle")(ref.asInstanceOf[js.Any], init.asInstanceOf[js.Any])).asInstanceOf[scala.Unit]
-@scala.inline
-def useImperativeHandle[T, R /* <: T */](
+inline def useImperativeHandle[T, R /* <: T */](ref: typingsJapgolly.react.mod.Ref[T], init: js.Function0[R]): scala.Unit = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useImperativeHandle")(ref.asInstanceOf[js.Any], init.asInstanceOf[js.Any])).asInstanceOf[scala.Unit]
+inline def useImperativeHandle[T, R /* <: T */](
   ref: typingsJapgolly.react.mod.Ref[T],
   init: js.Function0[R],
   deps: typingsJapgolly.react.mod.DependencyList
@@ -477,10 +400,8 @@ def useImperativeHandle[T, R /* <: T */](
   * @version 16.8.0
   * @see https://reactjs.org/docs/hooks-reference.html#uselayouteffect
   */
-@scala.inline
-def useLayoutEffect(effect: typingsJapgolly.react.mod.EffectCallback): scala.Unit = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useLayoutEffect")(effect.asInstanceOf[js.Any]).asInstanceOf[scala.Unit]
-@scala.inline
-def useLayoutEffect(effect: typingsJapgolly.react.mod.EffectCallback, deps: typingsJapgolly.react.mod.DependencyList): scala.Unit = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useLayoutEffect")(effect.asInstanceOf[js.Any], deps.asInstanceOf[js.Any])).asInstanceOf[scala.Unit]
+inline def useLayoutEffect(effect: typingsJapgolly.react.mod.EffectCallback): scala.Unit = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useLayoutEffect")(effect.asInstanceOf[js.Any]).asInstanceOf[scala.Unit]
+inline def useLayoutEffect(effect: typingsJapgolly.react.mod.EffectCallback, deps: typingsJapgolly.react.mod.DependencyList): scala.Unit = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useLayoutEffect")(effect.asInstanceOf[js.Any], deps.asInstanceOf[js.Any])).asInstanceOf[scala.Unit]
 
 /**
   * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
@@ -501,10 +422,8 @@ def useLayoutEffect(effect: typingsJapgolly.react.mod.EffectCallback, deps: typi
   * @see https://reactjs.org/docs/hooks-reference.html#usememo
   */
 // allow undefined, but don't make it optional as that is very likely a mistake
-@scala.inline
-def useMemo[T](factory: js.Function0[T]): T = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useMemo")(factory.asInstanceOf[js.Any]).asInstanceOf[T]
-@scala.inline
-def useMemo[T](factory: js.Function0[T], deps: typingsJapgolly.react.mod.DependencyList): T = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useMemo")(factory.asInstanceOf[js.Any], deps.asInstanceOf[js.Any])).asInstanceOf[T]
+inline def useMemo[T](factory: js.Function0[T]): T = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useMemo")(factory.asInstanceOf[js.Any]).asInstanceOf[T]
+inline def useMemo[T](factory: js.Function0[T], deps: typingsJapgolly.react.mod.DependencyList): T = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useMemo")(factory.asInstanceOf[js.Any], deps.asInstanceOf[js.Any])).asInstanceOf[T]
 
 /**
   * An alternative to `useState`.
@@ -523,8 +442,7 @@ def useMemo[T](factory: js.Function0[T], deps: typingsJapgolly.react.mod.Depende
 // which would prevent autocompletion from ever working.
 // TODO: double-check if this weird overload logic is necessary. It is possible it's either a bug
 // in older versions, or a regression in newer versions of the typescript completion service.
-@scala.inline
-def useReducer[R /* <: typingsJapgolly.react.mod.Reducer[js.Any, js.Any] */](reducer: R, initialState: typingsJapgolly.react.mod.ReducerState[R], initializer: scala.Unit): js.Tuple2[
+inline def useReducer[R /* <: typingsJapgolly.react.mod.Reducer[js.Any, js.Any] */](reducer: R, initialState: typingsJapgolly.react.mod.ReducerState[R], initializer: scala.Unit): js.Tuple2[
 typingsJapgolly.react.mod.ReducerState[R], 
 typingsJapgolly.react.mod.Dispatch[typingsJapgolly.react.mod.ReducerAction[R]]] = (typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useReducer")(reducer.asInstanceOf[js.Any], initialState.asInstanceOf[js.Any], initializer.asInstanceOf[js.Any])).asInstanceOf[js.Tuple2[
 typingsJapgolly.react.mod.ReducerState[R], 
@@ -543,8 +461,7 @@ typingsJapgolly.react.mod.Dispatch[typingsJapgolly.react.mod.ReducerAction[R]]]]
 // If "I" matches ReducerState<R> exactly then the last overload will allow initializer to be ommitted.
 // the last overload effectively behaves as if the identity function (x => x) is the initializer.
 // overload for free "I"; all goes as long as initializer converts it into "ReducerState<R>".
-@scala.inline
-def useReducer[R /* <: typingsJapgolly.react.mod.Reducer[js.Any, js.Any] */, I](
+inline def useReducer[R /* <: typingsJapgolly.react.mod.Reducer[js.Any, js.Any] */, I](
   reducer: R,
   initializerArg: (I & typingsJapgolly.react.mod.ReducerState[R]) | I,
   initializer: js.Function1[
@@ -572,10 +489,8 @@ typingsJapgolly.react.mod.Dispatch[typingsJapgolly.react.mod.ReducerAction[R]]]]
   * @see https://reactjs.org/docs/hooks-reference.html#useref
   */
 // TODO (TypeScript 3.0): <T extends unknown>
-@scala.inline
-def useRef[T](): japgolly.scalajs.react.raw.React.RefHandle[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useRef")().asInstanceOf[japgolly.scalajs.react.raw.React.RefHandle[T]]
-@scala.inline
-def useRef[T](initialValue: T): japgolly.scalajs.react.raw.React.RefHandle[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useRef")(initialValue.asInstanceOf[js.Any]).asInstanceOf[japgolly.scalajs.react.raw.React.RefHandle[T]]
+inline def useRef[T](): japgolly.scalajs.react.raw.React.RefHandle[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useRef")().asInstanceOf[japgolly.scalajs.react.raw.React.RefHandle[T]]
+inline def useRef[T](initialValue: T): japgolly.scalajs.react.raw.React.RefHandle[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useRef")(initialValue.asInstanceOf[js.Any]).asInstanceOf[japgolly.scalajs.react.raw.React.RefHandle[T]]
 
 // convenience overload for potentially undefined initialValue / call with 0 arguments
 // has a default to stop it from defaulting to {} instead
@@ -590,8 +505,7 @@ def useRef[T](initialValue: T): japgolly.scalajs.react.raw.React.RefHandle[T] = 
   * @see https://reactjs.org/docs/hooks-reference.html#useref
   */
 // TODO (TypeScript 3.0): <T extends unknown>
-@scala.inline
-def useRef_T_MutableRefObject[T](): typingsJapgolly.react.mod.MutableRefObject[js.UndefOr[T]] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useRef")().asInstanceOf[typingsJapgolly.react.mod.MutableRefObject[js.UndefOr[T]]]
+inline def useRef_T_MutableRefObject[T](): typingsJapgolly.react.mod.MutableRefObject[js.UndefOr[T]] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useRef")().asInstanceOf[typingsJapgolly.react.mod.MutableRefObject[js.UndefOr[T]]]
 /**
   * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
   * (`initialValue`). The returned object will persist for the full lifetime of the component.
@@ -603,8 +517,7 @@ def useRef_T_MutableRefObject[T](): typingsJapgolly.react.mod.MutableRefObject[j
   * @see https://reactjs.org/docs/hooks-reference.html#useref
   */
 // TODO (TypeScript 3.0): <T extends unknown>
-@scala.inline
-def useRef_T_MutableRefObject[T](initialValue: T): typingsJapgolly.react.mod.MutableRefObject[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useRef")(initialValue.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.MutableRefObject[T]]
+inline def useRef_T_MutableRefObject[T](initialValue: T): typingsJapgolly.react.mod.MutableRefObject[T] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useRef")(initialValue.asInstanceOf[js.Any]).asInstanceOf[typingsJapgolly.react.mod.MutableRefObject[T]]
 
 // convenience overload when first argument is ommitted
 /**
@@ -613,8 +526,7 @@ def useRef_T_MutableRefObject[T](initialValue: T): typingsJapgolly.react.mod.Mut
   * @version 16.8.0
   * @see https://reactjs.org/docs/hooks-reference.html#usestate
   */
-@scala.inline
-def useState[S](): js.Tuple2[
+inline def useState[S](): js.Tuple2[
 js.UndefOr[S], 
 typingsJapgolly.react.mod.Dispatch[typingsJapgolly.react.mod.SetStateAction[js.UndefOr[S]]]] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useState")().asInstanceOf[js.Tuple2[
 js.UndefOr[S], 
@@ -625,13 +537,10 @@ typingsJapgolly.react.mod.Dispatch[typingsJapgolly.react.mod.SetStateAction[js.U
   * @version 16.8.0
   * @see https://reactjs.org/docs/hooks-reference.html#usestate
   */
-@scala.inline
-def useState[S](initialState: S): js.Tuple2[S, typingsJapgolly.react.mod.Dispatch[typingsJapgolly.react.mod.SetStateAction[S]]] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useState")(initialState.asInstanceOf[js.Any]).asInstanceOf[js.Tuple2[S, typingsJapgolly.react.mod.Dispatch[typingsJapgolly.react.mod.SetStateAction[S]]]]
-@scala.inline
-def useState[S](initialState: js.Function0[S]): js.Tuple2[S, typingsJapgolly.react.mod.Dispatch[typingsJapgolly.react.mod.SetStateAction[S]]] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useState")(initialState.asInstanceOf[js.Any]).asInstanceOf[js.Tuple2[S, typingsJapgolly.react.mod.Dispatch[typingsJapgolly.react.mod.SetStateAction[S]]]]
+inline def useState[S](initialState: S): js.Tuple2[S, typingsJapgolly.react.mod.Dispatch[typingsJapgolly.react.mod.SetStateAction[S]]] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useState")(initialState.asInstanceOf[js.Any]).asInstanceOf[js.Tuple2[S, typingsJapgolly.react.mod.Dispatch[typingsJapgolly.react.mod.SetStateAction[S]]]]
+inline def useState[S](initialState: js.Function0[S]): js.Tuple2[S, typingsJapgolly.react.mod.Dispatch[typingsJapgolly.react.mod.SetStateAction[S]]] = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("useState")(initialState.asInstanceOf[js.Any]).asInstanceOf[js.Tuple2[S, typingsJapgolly.react.mod.Dispatch[typingsJapgolly.react.mod.SetStateAction[S]]]]
 
-@scala.inline
-def version: java.lang.String = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].selectDynamic("version").asInstanceOf[java.lang.String]
+inline def version: java.lang.String = typingsJapgolly.react.mod.^.asInstanceOf[js.Dynamic].selectDynamic("version").asInstanceOf[java.lang.String]
 
 type AnimationEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactAnimationEventFrom[T & org.scalajs.dom.raw.Element]]
 

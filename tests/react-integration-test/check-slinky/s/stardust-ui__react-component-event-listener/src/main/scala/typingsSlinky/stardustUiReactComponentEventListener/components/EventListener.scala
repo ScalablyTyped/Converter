@@ -11,8 +11,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object EventListener {
   
-  @scala.inline
-  def apply[T /* <: EventTypes */](
+  inline def apply[T /* <: EventTypes */](
     listener: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Unit,
     targetRef: ReactRef[
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
@@ -33,8 +32,7 @@ object EventListener {
     extends AnyVal
        with StBuildingComponent[tag.type, js.Object] {
     
-    @scala.inline
-    def capture(value: Boolean): this.type = set("capture", value.asInstanceOf[js.Any])
+    inline def capture(value: Boolean): this.type = set("capture", value.asInstanceOf[js.Any])
   }
   
   def withProps[T /* <: EventTypes */](p: EventListenerOptions[T]): Builder[T] = new Builder[T](js.Array(this.component, p.asInstanceOf[js.Any]))

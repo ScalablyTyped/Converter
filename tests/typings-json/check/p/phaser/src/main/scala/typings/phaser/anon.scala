@@ -14,32 +14,24 @@ object anon {
   }
   object LowerBound {
     
-    @scala.inline
-    def apply(): LowerBound = {
+    inline def apply(): LowerBound = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[LowerBound]
     }
     
-    @scala.inline
-    implicit class LowerBoundMutableBuilder[Self <: LowerBound] (val x: Self) extends AnyVal {
+    extension [Self <: LowerBound](x: Self) {
       
-      @scala.inline
-      def setLowerBound(value: js.Array[Double]): Self = StObject.set(x, "lowerBound", value.asInstanceOf[js.Any])
+      inline def setLowerBound(value: js.Array[Double]): Self = StObject.set(x, "lowerBound", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setLowerBoundUndefined: Self = StObject.set(x, "lowerBound", js.undefined)
+      inline def setLowerBoundUndefined: Self = StObject.set(x, "lowerBound", js.undefined)
       
-      @scala.inline
-      def setLowerBoundVarargs(value: Double*): Self = StObject.set(x, "lowerBound", js.Array(value :_*))
+      inline def setLowerBoundVarargs(value: Double*): Self = StObject.set(x, "lowerBound", js.Array(value :_*))
       
-      @scala.inline
-      def setUpperBound(value: js.Array[Double]): Self = StObject.set(x, "upperBound", value.asInstanceOf[js.Any])
+      inline def setUpperBound(value: js.Array[Double]): Self = StObject.set(x, "upperBound", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setUpperBoundUndefined: Self = StObject.set(x, "upperBound", js.undefined)
+      inline def setUpperBoundUndefined: Self = StObject.set(x, "upperBound", js.undefined)
       
-      @scala.inline
-      def setUpperBoundVarargs(value: Double*): Self = StObject.set(x, "upperBound", js.Array(value :_*))
+      inline def setUpperBoundVarargs(value: Double*): Self = StObject.set(x, "upperBound", js.Array(value :_*))
     }
   }
 }

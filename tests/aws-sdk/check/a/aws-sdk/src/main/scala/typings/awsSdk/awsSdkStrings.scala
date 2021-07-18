@@ -11,25 +11,21 @@ object awsSdkStrings {
   sealed trait ADD
     extends StObject
        with _AttributeAction
-  @scala.inline
-  def ADD: ADD = "ADD".asInstanceOf[ADD]
+  inline def ADD: ADD = "ADD".asInstanceOf[ADD]
   
   @js.native
   sealed trait DELETE
     extends StObject
        with _AttributeAction
-  @scala.inline
-  def DELETE: DELETE = "DELETE".asInstanceOf[DELETE]
+  inline def DELETE: DELETE = "DELETE".asInstanceOf[DELETE]
   
   @js.native
   sealed trait PUT
     extends StObject
        with _AttributeAction
-  @scala.inline
-  def PUT: PUT = "PUT".asInstanceOf[PUT]
+  inline def PUT: PUT = "PUT".asInstanceOf[PUT]
   
   @js.native
   sealed trait latest extends StObject
-  @scala.inline
-  def latest: latest = "latest".asInstanceOf[latest]
+  inline def latest: latest = "latest".asInstanceOf[latest]
 }

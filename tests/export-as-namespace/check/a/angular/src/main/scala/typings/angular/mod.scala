@@ -54,8 +54,7 @@ object mod extends Shortcut {
   }
   object IAngularStatic {
     
-    @scala.inline
-    def apply(
+    inline def apply(
       element: /* element */ String | Element | Document | JQuery | ArrayLike[Element] | js.Function0[Unit] => JQLite,
       equals_ : (js.Any, js.Any) => Boolean,
       extend: (js.Any, /* repeated */ js.Any) => js.Any
@@ -65,25 +64,19 @@ object mod extends Shortcut {
       __obj.asInstanceOf[IAngularStatic]
     }
     
-    @scala.inline
-    implicit class IAngularStaticMutableBuilder[Self <: IAngularStatic] (val x: Self) extends AnyVal {
+    extension [Self <: IAngularStatic](x: Self) {
       
-      @scala.inline
-      def setElement(
+      inline def setElement(
         value: /* element */ String | Element | Document | JQuery | ArrayLike[Element] | js.Function0[Unit] => JQLite
       ): Self = StObject.set(x, "element", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setEquals_(value: (js.Any, js.Any) => Boolean): Self = StObject.set(x, "equals", js.Any.fromFunction2(value))
+      inline def setEquals_(value: (js.Any, js.Any) => Boolean): Self = StObject.set(x, "equals", js.Any.fromFunction2(value))
       
-      @scala.inline
-      def setExtend(value: (js.Any, /* repeated */ js.Any) => js.Any): Self = StObject.set(x, "extend", js.Any.fromFunction2(value))
+      inline def setExtend(value: (js.Any, /* repeated */ js.Any) => js.Any): Self = StObject.set(x, "extend", js.Any.fromFunction2(value))
       
-      @scala.inline
-      def setResumeBootstrap(value: /* extraModules */ js.UndefOr[js.Array[String]] => IInjectorService): Self = StObject.set(x, "resumeBootstrap", js.Any.fromFunction1(value))
+      inline def setResumeBootstrap(value: /* extraModules */ js.UndefOr[js.Array[String]] => IInjectorService): Self = StObject.set(x, "resumeBootstrap", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setResumeBootstrapUndefined: Self = StObject.set(x, "resumeBootstrap", js.undefined)
+      inline def setResumeBootstrapUndefined: Self = StObject.set(x, "resumeBootstrap", js.undefined)
     }
   }
   
@@ -95,17 +88,14 @@ object mod extends Shortcut {
   }
   object IServiceProvider {
     
-    @scala.inline
-    def apply($get: js.Any): IServiceProvider = {
+    inline def apply($get: js.Any): IServiceProvider = {
       val __obj = js.Dynamic.literal($get = $get.asInstanceOf[js.Any])
       __obj.asInstanceOf[IServiceProvider]
     }
     
-    @scala.inline
-    implicit class IServiceProviderMutableBuilder[Self <: IServiceProvider] (val x: Self) extends AnyVal {
+    extension [Self <: IServiceProvider](x: Self) {
       
-      @scala.inline
-      def set$get(value: js.Any): Self = StObject.set(x, "$get", value.asInstanceOf[js.Any])
+      inline def set$get(value: js.Any): Self = StObject.set(x, "$get", value.asInstanceOf[js.Any])
     }
   }
   

@@ -15,22 +15,17 @@ trait ProxiedPerson extends StObject {
 }
 object ProxiedPerson {
   
-  @scala.inline
-  def apply(name: Set): ProxiedPerson = {
+  inline def apply(name: Set): ProxiedPerson = {
     val __obj = js.Dynamic.literal(name = name.asInstanceOf[js.Any])
     __obj.asInstanceOf[ProxiedPerson]
   }
   
-  @scala.inline
-  implicit class ProxiedPersonMutableBuilder[Self <: ProxiedPerson] (val x: Self) extends AnyVal {
+  extension [Self <: ProxiedPerson](x: Self) {
     
-    @scala.inline
-    def setAge(value: Get): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
+    inline def setAge(value: Get): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setAgeUndefined: Self = StObject.set(x, "age", js.undefined)
+    inline def setAgeUndefined: Self = StObject.set(x, "age", js.undefined)
     
-    @scala.inline
-    def setName(value: Set): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
+    inline def setName(value: Set): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
   }
 }

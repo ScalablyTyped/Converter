@@ -17,8 +17,7 @@ object mod {
   
   object EventListener {
     
-    @scala.inline
-    def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = ^.asInstanceOf[js.Dynamic].apply(props.asInstanceOf[js.Any]).asInstanceOf[js.Any]
+    inline def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = ^.asInstanceOf[js.Dynamic].apply(props.asInstanceOf[js.Any]).asInstanceOf[js.Any]
     
     @JSImport("@stardust-ui/react-component-event-listener", "EventListener")
     @js.native
@@ -33,21 +32,18 @@ object mod {
       @JSImport("@stardust-ui/react-component-event-listener", "EventListener.defaultProps.capture")
       @js.native
       def capture: Boolean = js.native
-      @scala.inline
-      def capture_=(x: Boolean): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("capture")(x.asInstanceOf[js.Any])
+      inline def capture_=(x: Boolean): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("capture")(x.asInstanceOf[js.Any])
     }
     
     @JSImport("@stardust-ui/react-component-event-listener", "EventListener.displayName")
     @js.native
     def displayName: String = js.native
-    @scala.inline
-    def displayName_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("displayName")(x.asInstanceOf[js.Any])
+    inline def displayName_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("displayName")(x.asInstanceOf[js.Any])
     
     @JSImport("@stardust-ui/react-component-event-listener", "EventListener.propTypes")
     @js.native
     def propTypes: Capture | Listener = js.native
-    @scala.inline
-    def propTypes_=(x: Capture | Listener): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("propTypes")(x.asInstanceOf[js.Any])
+    inline def propTypes_=(x: Capture | Listener): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("propTypes")(x.asInstanceOf[js.Any])
   }
   
   @JSImport("@stardust-ui/react-component-event-listener", "documentRef")
@@ -56,8 +52,7 @@ object mod {
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
   ] = js.native
   
-  @scala.inline
-  def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91 */ js.Any */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("useEventListener")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  inline def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91 */ js.Any */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("useEventListener")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
   
   @JSImport("@stardust-ui/react-component-event-listener", "windowRef")
   @js.native

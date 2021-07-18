@@ -14,16 +14,13 @@ trait Either[L, R]
 }
 object Either {
   
-  @scala.inline
-  def apply[L, R](value: R): Either[L, R] = {
+  inline def apply[L, R](value: R): Either[L, R] = {
     val __obj = js.Dynamic.literal(value = value.asInstanceOf[js.Any])
     __obj.asInstanceOf[Either[L, R]]
   }
   
-  @scala.inline
-  implicit class EitherMutableBuilder[Self <: Either[?, ?], L, R] (val x: Self & (Either[L, R])) extends AnyVal {
+  extension [Self <: Either[?, ?], L, R](x: Self & (Either[L, R])) {
     
-    @scala.inline
-    def setValue(value: R): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
+    inline def setValue(value: R): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
   }
 }

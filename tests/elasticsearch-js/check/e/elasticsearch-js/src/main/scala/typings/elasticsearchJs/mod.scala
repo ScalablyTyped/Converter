@@ -13,8 +13,7 @@ object mod {
   }
   object TransportRequestPromise {
     
-    @scala.inline
-    def apply[T](
+    inline def apply[T](
       abort: () => Unit,
       `catch`: js.UndefOr[js.Function1[Any, js.Any | js.Thenable[js.Any]]] => js.Promise[js.Any],
       executor: (js.Function1[T | js.Thenable[T], ?], js.Function1[Any, ?]) => ?,
@@ -26,11 +25,9 @@ object mod {
       __obj.asInstanceOf[TransportRequestPromise[T]]
     }
     
-    @scala.inline
-    implicit class TransportRequestPromiseMutableBuilder[Self <: TransportRequestPromise[?], T] (val x: Self & TransportRequestPromise[T]) extends AnyVal {
+    extension [Self <: TransportRequestPromise[?], T](x: Self & TransportRequestPromise[T]) {
       
-      @scala.inline
-      def setAbort(value: () => Unit): Self = StObject.set(x, "abort", js.Any.fromFunction0(value))
+      inline def setAbort(value: () => Unit): Self = StObject.set(x, "abort", js.Any.fromFunction0(value))
     }
   }
 }

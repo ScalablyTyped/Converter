@@ -41,8 +41,7 @@ object accordionTitleMod extends Shortcut {
        with /* key */ StringDictionary[js.Any]
   object AccordionTitleProps {
     
-    @scala.inline
-    def apply(): AccordionTitleProps = {
+    inline def apply(): AccordionTitleProps = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[AccordionTitleProps]
     }
@@ -91,102 +90,74 @@ object accordionTitleMod extends Shortcut {
   }
   object StrictAccordionTitleProps {
     
-    @scala.inline
-    def apply(): StrictAccordionTitleProps = {
+    inline def apply(): StrictAccordionTitleProps = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[StrictAccordionTitleProps]
     }
     
-    @scala.inline
-    implicit class StrictAccordionTitlePropsMutableBuilder[Self <: StrictAccordionTitleProps] (val x: Self) extends AnyVal {
+    extension [Self <: StrictAccordionTitleProps](x: Self) {
       
-      @scala.inline
-      def setActive(value: Boolean): Self = StObject.set(x, "active", value.asInstanceOf[js.Any])
+      inline def setActive(value: Boolean): Self = StObject.set(x, "active", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setActiveUndefined: Self = StObject.set(x, "active", js.undefined)
+      inline def setActiveUndefined: Self = StObject.set(x, "active", js.undefined)
       
-      @scala.inline
-      def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
+      inline def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
+      inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
-      @scala.inline
-      def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
+      inline def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setChildrenNull: Self = StObject.set(x, "children", null)
+      inline def setChildrenNull: Self = StObject.set(x, "children", null)
       
-      @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      inline def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
-      @scala.inline
-      def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
+      inline def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
       
-      @scala.inline
-      def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
+      inline def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
+      inline def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+      inline def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
-      @scala.inline
-      def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
+      inline def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setContentNull: Self = StObject.set(x, "content", null)
+      inline def setContentNull: Self = StObject.set(x, "content", null)
       
-      @scala.inline
-      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
+      inline def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
       
-      @scala.inline
-      def setContentVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "content", js.Array(value :_*))
+      inline def setContentVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "content", js.Array(value :_*))
       
-      @scala.inline
-      def setContentVdomElement(value: VdomElement): Self = StObject.set(x, "content", value.rawElement.asInstanceOf[js.Any])
+      inline def setContentVdomElement(value: VdomElement): Self = StObject.set(x, "content", value.rawElement.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setIcon(
+      inline def setIcon(
         value: SemanticShorthandItem[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
             ]
       ): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setIconFunction3(
+      inline def setIconFunction3(
         value: (/* component */ ReactType[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
             ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
       ): Self = StObject.set(x, "icon", js.Any.fromFunction3(value))
       
-      @scala.inline
-      def setIconNull: Self = StObject.set(x, "icon", null)
+      inline def setIconNull: Self = StObject.set(x, "icon", null)
       
-      @scala.inline
-      def setIconUndefined: Self = StObject.set(x, "icon", js.undefined)
+      inline def setIconUndefined: Self = StObject.set(x, "icon", js.undefined)
       
-      @scala.inline
-      def setIconVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "icon", js.Array(value :_*))
+      inline def setIconVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "icon", js.Array(value :_*))
       
-      @scala.inline
-      def setIconVdomElement(value: VdomElement): Self = StObject.set(x, "icon", value.rawElement.asInstanceOf[js.Any])
+      inline def setIconVdomElement(value: VdomElement): Self = StObject.set(x, "icon", value.rawElement.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setIndex(value: Double | String): Self = StObject.set(x, "index", value.asInstanceOf[js.Any])
+      inline def setIndex(value: Double | String): Self = StObject.set(x, "index", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setIndexUndefined: Self = StObject.set(x, "index", js.undefined)
+      inline def setIndexUndefined: Self = StObject.set(x, "index", js.undefined)
       
-      @scala.inline
-      def setOnClick(
+      inline def setOnClick(
         value: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
       ): Self = StObject.set(x, "onClick", js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => (value(t0, t1)).runNow()))
       
-      @scala.inline
-      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
+      inline def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
     }
   }
   

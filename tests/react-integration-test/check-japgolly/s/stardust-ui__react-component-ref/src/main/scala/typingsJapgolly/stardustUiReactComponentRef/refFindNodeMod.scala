@@ -23,14 +23,12 @@ object refFindNodeMod {
     @JSImport("@stardust-ui/react-component-ref/dist/es/RefFindNode", "default.displayName")
     @js.native
     def displayName: String = js.native
-    @scala.inline
-    def displayName_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("displayName")(x.asInstanceOf[js.Any])
+    inline def displayName_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("displayName")(x.asInstanceOf[js.Any])
     
     @JSImport("@stardust-ui/react-component-ref/dist/es/RefFindNode", "default.propTypes")
     @js.native
     def propTypes: Children | InnerRef = js.native
-    @scala.inline
-    def propTypes_=(x: Children | InnerRef): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("propTypes")(x.asInstanceOf[js.Any])
+    inline def propTypes_=(x: Children | InnerRef): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("propTypes")(x.asInstanceOf[js.Any])
   }
   
   @js.native

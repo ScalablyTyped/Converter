@@ -20,7 +20,6 @@ object global {
     @js.native
     val ^ : js.Any = js.native
     
-    @scala.inline
-    def bar(p: /* keyof keyof.anon.PickAcb */ c | b): String = ^.asInstanceOf[js.Dynamic].applyDynamic("bar")(p.asInstanceOf[js.Any]).asInstanceOf[String]
+    inline def bar(p: /* keyof keyof.anon.PickAcb */ c | b): String = ^.asInstanceOf[js.Dynamic].applyDynamic("bar")(p.asInstanceOf[js.Any]).asInstanceOf[String]
   }
 }

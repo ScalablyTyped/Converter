@@ -8,6 +8,5 @@ object punchcardStrings {
   
   @js.native
   sealed trait Collect extends StObject
-  @scala.inline
-  def Collect: Collect = "Collect".asInstanceOf[Collect]
+  inline def Collect: Collect = "Collect".asInstanceOf[Collect]
 }

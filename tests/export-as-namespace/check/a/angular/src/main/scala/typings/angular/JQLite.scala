@@ -13,8 +13,7 @@ trait JQLite
      with /* index */ NumberDictionary[HTMLElement]
 object JQLite {
   
-  @scala.inline
-  def apply(addClass: String => JQLite, injector: () => IInjectorService): JQLite = {
+  inline def apply(addClass: String => JQLite, injector: () => IInjectorService): JQLite = {
     val __obj = js.Dynamic.literal(addClass = js.Any.fromFunction1(addClass), injector = js.Any.fromFunction0(injector))
     __obj.asInstanceOf[JQLite]
   }

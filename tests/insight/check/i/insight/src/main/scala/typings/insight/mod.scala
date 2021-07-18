@@ -40,26 +40,20 @@ object mod {
   }
   object Insight_ {
     
-    @scala.inline
-    def apply(clientId: String, config: IConfigstore, optOut: Boolean, track: /* repeated */ String => Unit): Insight_ = {
+    inline def apply(clientId: String, config: IConfigstore, optOut: Boolean, track: /* repeated */ String => Unit): Insight_ = {
       val __obj = js.Dynamic.literal(clientId = clientId.asInstanceOf[js.Any], config = config.asInstanceOf[js.Any], optOut = optOut.asInstanceOf[js.Any], track = js.Any.fromFunction1(track))
       __obj.asInstanceOf[Insight_]
     }
     
-    @scala.inline
-    implicit class Insight_MutableBuilder[Self <: Insight_] (val x: Self) extends AnyVal {
+    extension [Self <: Insight_](x: Self) {
       
-      @scala.inline
-      def setClientId(value: String): Self = StObject.set(x, "clientId", value.asInstanceOf[js.Any])
+      inline def setClientId(value: String): Self = StObject.set(x, "clientId", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setConfig(value: IConfigstore): Self = StObject.set(x, "config", value.asInstanceOf[js.Any])
+      inline def setConfig(value: IConfigstore): Self = StObject.set(x, "config", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setOptOut(value: Boolean): Self = StObject.set(x, "optOut", value.asInstanceOf[js.Any])
+      inline def setOptOut(value: Boolean): Self = StObject.set(x, "optOut", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setTrack(value: /* repeated */ String => Unit): Self = StObject.set(x, "track", js.Any.fromFunction1(value))
+      inline def setTrack(value: /* repeated */ String => Unit): Self = StObject.set(x, "track", js.Any.fromFunction1(value))
     }
   }
   
@@ -79,8 +73,7 @@ object mod {
     }
     object IConfigstore {
       
-      @scala.inline
-      def apply(
+      inline def apply(
         all: js.Any,
         del: String => Unit,
         get: String => js.Any,
@@ -91,23 +84,17 @@ object mod {
         __obj.asInstanceOf[IConfigstore]
       }
       
-      @scala.inline
-      implicit class IConfigstoreMutableBuilder[Self <: IConfigstore] (val x: Self) extends AnyVal {
+      extension [Self <: IConfigstore](x: Self) {
         
-        @scala.inline
-        def setAll(value: js.Any): Self = StObject.set(x, "all", value.asInstanceOf[js.Any])
+        inline def setAll(value: js.Any): Self = StObject.set(x, "all", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setDel(value: String => Unit): Self = StObject.set(x, "del", js.Any.fromFunction1(value))
+        inline def setDel(value: String => Unit): Self = StObject.set(x, "del", js.Any.fromFunction1(value))
         
-        @scala.inline
-        def setGet(value: String => js.Any): Self = StObject.set(x, "get", js.Any.fromFunction1(value))
+        inline def setGet(value: String => js.Any): Self = StObject.set(x, "get", js.Any.fromFunction1(value))
         
-        @scala.inline
-        def setPath(value: String): Self = StObject.set(x, "path", value.asInstanceOf[js.Any])
+        inline def setPath(value: String): Self = StObject.set(x, "path", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setSet(value: (String, js.Any) => Unit): Self = StObject.set(x, "set", js.Any.fromFunction2(value))
+        inline def setSet(value: (String, js.Any) => Unit): Self = StObject.set(x, "set", js.Any.fromFunction2(value))
       }
     }
     
@@ -117,17 +104,14 @@ object mod {
     }
     object IOptions {
       
-      @scala.inline
-      def apply(trackingCode: String): IOptions = {
+      inline def apply(trackingCode: String): IOptions = {
         val __obj = js.Dynamic.literal(trackingCode = trackingCode.asInstanceOf[js.Any])
         __obj.asInstanceOf[IOptions]
       }
       
-      @scala.inline
-      implicit class IOptionsMutableBuilder[Self <: IOptions] (val x: Self) extends AnyVal {
+      extension [Self <: IOptions](x: Self) {
         
-        @scala.inline
-        def setTrackingCode(value: String): Self = StObject.set(x, "trackingCode", value.asInstanceOf[js.Any])
+        inline def setTrackingCode(value: String): Self = StObject.set(x, "trackingCode", value.asInstanceOf[js.Any])
       }
     }
   }

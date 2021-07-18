@@ -10,16 +10,13 @@ trait SVGElementTagNameMap extends StObject {
 }
 object SVGElementTagNameMap {
   
-  @scala.inline
-  def apply(circle: org.scalajs.dom.raw.SVGCircleElement): SVGElementTagNameMap = {
+  inline def apply(circle: org.scalajs.dom.raw.SVGCircleElement): SVGElementTagNameMap = {
     val __obj = js.Dynamic.literal(circle = circle.asInstanceOf[js.Any])
     __obj.asInstanceOf[SVGElementTagNameMap]
   }
   
-  @scala.inline
-  implicit class SVGElementTagNameMapMutableBuilder[Self <: SVGElementTagNameMap] (val x: Self) extends AnyVal {
+  extension [Self <: SVGElementTagNameMap](x: Self) {
     
-    @scala.inline
-    def setCircle(value: org.scalajs.dom.raw.SVGCircleElement): Self = StObject.set(x, "circle", value.asInstanceOf[js.Any])
+    inline def setCircle(value: org.scalajs.dom.raw.SVGCircleElement): Self = StObject.set(x, "circle", value.asInstanceOf[js.Any])
   }
 }

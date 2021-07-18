@@ -18,30 +18,23 @@ object anon {
   }
   object Equals {
     
-    @scala.inline
-    def apply(finalize_ : js.Object => Boolean): Equals = {
+    inline def apply(finalize_ : js.Object => Boolean): Equals = {
       val __obj = js.Dynamic.literal()
       __obj.updateDynamic("finalize")(js.Any.fromFunction1(finalize_))
       __obj.asInstanceOf[Equals]
     }
     
-    @scala.inline
-    implicit class EqualsMutableBuilder[Self <: Equals] (val x: Self) extends AnyVal {
+    extension [Self <: Equals](x: Self) {
       
-      @scala.inline
-      def setEquals_(value: Boolean): Self = StObject.set(x, "equals", value.asInstanceOf[js.Any])
+      inline def setEquals_(value: Boolean): Self = StObject.set(x, "equals", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setEquals_Undefined: Self = StObject.set(x, "equals", js.undefined)
+      inline def setEquals_Undefined: Self = StObject.set(x, "equals", js.undefined)
       
-      @scala.inline
-      def setFinalize_(value: js.Object => Boolean): Self = StObject.set(x, "finalize", js.Any.fromFunction1(value))
+      inline def setFinalize_(value: js.Object => Boolean): Self = StObject.set(x, "finalize", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setNe_(value: /* other */ js.Object => Boolean): Self = StObject.set(x, "ne", js.Any.fromFunction1(value))
+      inline def setNe_(value: /* other */ js.Object => Boolean): Self = StObject.set(x, "ne", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setNe_Undefined: Self = StObject.set(x, "ne", js.undefined)
+      inline def setNe_Undefined: Self = StObject.set(x, "ne", js.undefined)
     }
   }
 }

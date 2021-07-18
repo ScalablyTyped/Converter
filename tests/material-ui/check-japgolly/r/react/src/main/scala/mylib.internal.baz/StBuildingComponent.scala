@@ -15,16 +15,14 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 private[internal] trait StBuildingComponent[R <: js.Object] extends Any {
   
-  @scala.inline
-  def apply(mods: TagMod*): this.type = {
-    mods.foreach(applyTagMod)
+  inline def apply(mods: TagMod*): this.type = {
+    mods.foreach((m: TagMod) => applyTagMod(m))
     this
   }
   
-  @scala.inline
   def applyTagMod(t: TagMod): Unit = if (t.isInstanceOf[Composite]) {
     val tt = t.asInstanceOf[Composite]
-    tt.mods.foreach(applyTagMod)
+    tt.mods.foreach((m: TagMod) => applyTagMod(m))
   } else if (t.isInstanceOf[VdomNode]) {
     val tt = t.asInstanceOf[VdomNode]
     args.push(tt.rawNode.asInstanceOf[js.Any])
@@ -34,41 +32,33 @@ private[internal] trait StBuildingComponent[R <: js.Object] extends Any {
     tt.addKeyToProps()
     tt.addStyleToProps()
     tt.nonEmptyChildren.foreach((children: js.Array[Node]) => args.push(children))
-    tt.nonEmptyProps.foreach(unsafeSpread)
+    tt.nonEmptyProps.foreach((m: js.Any) => unsafeSpread(m))
   }
   
-  @scala.inline
-  def args: js.Array[js.Any]
+  val args: js.Array[js.Any]
   
   /* You typically shouldnt call this yourself, but it can be useful if you're for instance mapping a sequence and you need types to infer properly */
-  @scala.inline
-  def build: VdomElement = make(this)
+  inline def build: VdomElement = make(this)
   
-  @scala.inline
-  def set(key: String, value: js.Any): this.type = {
+  inline def set(key: String, value: js.Any): this.type = {
     args(1).asInstanceOf[js.Dynamic].updateDynamic(key)(value)
     this
   }
   
-  @scala.inline
-  def unsafeSpread(obj: js.Any): this.type = {
+  inline def unsafeSpread(obj: js.Any): this.type = {
     js.Object.assign(args(1).asInstanceOf[js.Object], obj.asInstanceOf[js.Object])
     this
   }
   
-  @scala.inline
-  def withComponent(f: js.Any => js.Any): this.type = {
+  inline def withComponent(f: js.Any => js.Any): this.type = {
     args.update(0, f(args(0)))
     this
   }
   
-  @scala.inline
-  def withKey(key: Key): this.type = set("key", key.asInstanceOf[js.Any])
+  inline def withKey(key: Key): this.type = set("key", key.asInstanceOf[js.Any])
   
-  @scala.inline
-  def withRef(ref: Simple[R]): this.type = set("ref", ref.rawSetFn)
-  @scala.inline
-  def withRef(ref: R => Unit): this.type = set("ref", ref)
+  inline def withRef(ref: Simple[R]): this.type = set("ref", ref.rawSetFn)
+  inline def withRef(ref: R => Unit): this.type = set("ref", ref)
 }
 private[internal] object StBuildingComponent {
   
@@ -83,8 +73,7 @@ private[internal] object StBuildingComponent {
     extends AnyVal
        with StBuildingComponent[R]
   
-  @scala.inline
-  implicit def make[R <: js.Object](comp: StBuildingComponent[R]): VdomElement = {
+  inline implicit def make[R <: js.Object](comp: StBuildingComponent[R]): VdomElement = {
     if (!scalajs.runtime.linkingInfo.productionMode) {
     if (comp.args(0) == null) throw new IllegalStateException("This component has already been built into a ReactElement, and cannot be reused")
   }

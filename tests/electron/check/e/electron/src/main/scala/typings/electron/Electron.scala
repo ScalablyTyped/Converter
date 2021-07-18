@@ -25,17 +25,14 @@ object Electron {
   }
   object App {
     
-    @scala.inline
-    def apply(addListener: (String, js.Function) => App, on: (`accessibility-support-changed`, js.Any) => String): App = {
+    inline def apply(addListener: (String, js.Function) => App, on: (`accessibility-support-changed`, js.Any) => String): App = {
       val __obj = js.Dynamic.literal(addListener = js.Any.fromFunction2(addListener), on = js.Any.fromFunction2(on))
       __obj.asInstanceOf[App]
     }
     
-    @scala.inline
-    implicit class AppMutableBuilder[Self <: App] (val x: Self) extends AnyVal {
+    extension [Self <: App](x: Self) {
       
-      @scala.inline
-      def setOn(value: (`accessibility-support-changed`, js.Any) => String): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
+      inline def setOn(value: (`accessibility-support-changed`, js.Any) => String): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
     }
   }
   
@@ -59,44 +56,32 @@ object Electron {
   }
   object Event {
     
-    @scala.inline
-    def apply(preventDefault: () => Unit, returnValue: js.Any): Event = {
+    inline def apply(preventDefault: () => Unit, returnValue: js.Any): Event = {
       val __obj = js.Dynamic.literal(preventDefault = js.Any.fromFunction0(preventDefault), returnValue = returnValue.asInstanceOf[js.Any])
       __obj.asInstanceOf[Event]
     }
     
-    @scala.inline
-    implicit class EventMutableBuilder[Self <: Event] (val x: Self) extends AnyVal {
+    extension [Self <: Event](x: Self) {
       
-      @scala.inline
-      def setAltKey(value: Boolean): Self = StObject.set(x, "altKey", value.asInstanceOf[js.Any])
+      inline def setAltKey(value: Boolean): Self = StObject.set(x, "altKey", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setAltKeyUndefined: Self = StObject.set(x, "altKey", js.undefined)
+      inline def setAltKeyUndefined: Self = StObject.set(x, "altKey", js.undefined)
       
-      @scala.inline
-      def setCtrlKey(value: Boolean): Self = StObject.set(x, "ctrlKey", value.asInstanceOf[js.Any])
+      inline def setCtrlKey(value: Boolean): Self = StObject.set(x, "ctrlKey", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setCtrlKeyUndefined: Self = StObject.set(x, "ctrlKey", js.undefined)
+      inline def setCtrlKeyUndefined: Self = StObject.set(x, "ctrlKey", js.undefined)
       
-      @scala.inline
-      def setMetaKey(value: Boolean): Self = StObject.set(x, "metaKey", value.asInstanceOf[js.Any])
+      inline def setMetaKey(value: Boolean): Self = StObject.set(x, "metaKey", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setMetaKeyUndefined: Self = StObject.set(x, "metaKey", js.undefined)
+      inline def setMetaKeyUndefined: Self = StObject.set(x, "metaKey", js.undefined)
       
-      @scala.inline
-      def setPreventDefault(value: () => Unit): Self = StObject.set(x, "preventDefault", js.Any.fromFunction0(value))
+      inline def setPreventDefault(value: () => Unit): Self = StObject.set(x, "preventDefault", js.Any.fromFunction0(value))
       
-      @scala.inline
-      def setReturnValue(value: js.Any): Self = StObject.set(x, "returnValue", value.asInstanceOf[js.Any])
+      inline def setReturnValue(value: js.Any): Self = StObject.set(x, "returnValue", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setShiftKey(value: Boolean): Self = StObject.set(x, "shiftKey", value.asInstanceOf[js.Any])
+      inline def setShiftKey(value: Boolean): Self = StObject.set(x, "shiftKey", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setShiftKeyUndefined: Self = StObject.set(x, "shiftKey", js.undefined)
+      inline def setShiftKeyUndefined: Self = StObject.set(x, "shiftKey", js.undefined)
     }
   }
   
@@ -106,17 +91,14 @@ object Electron {
   }
   object EventEmitter {
     
-    @scala.inline
-    def apply(addListener: (String, js.Function) => EventEmitter): EventEmitter = {
+    inline def apply(addListener: (String, js.Function) => EventEmitter): EventEmitter = {
       val __obj = js.Dynamic.literal(addListener = js.Any.fromFunction2(addListener))
       __obj.asInstanceOf[EventEmitter]
     }
     
-    @scala.inline
-    implicit class EventEmitterMutableBuilder[Self <: EventEmitter] (val x: Self) extends AnyVal {
+    extension [Self <: EventEmitter](x: Self) {
       
-      @scala.inline
-      def setAddListener(value: (String, js.Function) => EventEmitter): Self = StObject.set(x, "addListener", js.Any.fromFunction2(value))
+      inline def setAddListener(value: (String, js.Function) => EventEmitter): Self = StObject.set(x, "addListener", js.Any.fromFunction2(value))
     }
   }
   
@@ -128,17 +110,14 @@ object Electron {
   }
   object MainInterface {
     
-    @scala.inline
-    def apply(app: App): MainInterface = {
+    inline def apply(app: App): MainInterface = {
       val __obj = js.Dynamic.literal(app = app.asInstanceOf[js.Any])
       __obj.asInstanceOf[MainInterface]
     }
     
-    @scala.inline
-    implicit class MainInterfaceMutableBuilder[Self <: MainInterface] (val x: Self) extends AnyVal {
+    extension [Self <: MainInterface](x: Self) {
       
-      @scala.inline
-      def setApp(value: App): Self = StObject.set(x, "app", value.asInstanceOf[js.Any])
+      inline def setApp(value: App): Self = StObject.set(x, "app", value.asInstanceOf[js.Any])
     }
   }
 }

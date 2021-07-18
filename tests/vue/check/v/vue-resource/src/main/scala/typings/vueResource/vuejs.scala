@@ -18,20 +18,16 @@ object vuejs {
   }
   object ComponentOption {
     
-    @scala.inline
-    def apply(): ComponentOption = {
+    inline def apply(): ComponentOption = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[ComponentOption]
     }
     
-    @scala.inline
-    implicit class ComponentOptionMutableBuilder[Self <: ComponentOption] (val x: Self) extends AnyVal {
+    extension [Self <: ComponentOption](x: Self) {
       
-      @scala.inline
-      def setHttp(value: headersHttpHeadersundefin): Self = StObject.set(x, "http", value.asInstanceOf[js.Any])
+      inline def setHttp(value: headersHttpHeadersundefin): Self = StObject.set(x, "http", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setHttpUndefined: Self = StObject.set(x, "http", js.undefined)
+      inline def setHttpUndefined: Self = StObject.set(x, "http", js.undefined)
     }
   }
   
@@ -53,50 +49,36 @@ object vuejs {
   }
   object HttpHeaders {
     
-    @scala.inline
-    def apply(): HttpHeaders = {
+    inline def apply(): HttpHeaders = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[HttpHeaders]
     }
     
-    @scala.inline
-    implicit class HttpHeadersMutableBuilder[Self <: HttpHeaders] (val x: Self) extends AnyVal {
+    extension [Self <: HttpHeaders](x: Self) {
       
-      @scala.inline
-      def setCommon(value: StringDictionary[String]): Self = StObject.set(x, "common", value.asInstanceOf[js.Any])
+      inline def setCommon(value: StringDictionary[String]): Self = StObject.set(x, "common", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setCommonUndefined: Self = StObject.set(x, "common", js.undefined)
+      inline def setCommonUndefined: Self = StObject.set(x, "common", js.undefined)
       
-      @scala.inline
-      def setCustom(value: StringDictionary[String]): Self = StObject.set(x, "custom", value.asInstanceOf[js.Any])
+      inline def setCustom(value: StringDictionary[String]): Self = StObject.set(x, "custom", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setCustomUndefined: Self = StObject.set(x, "custom", js.undefined)
+      inline def setCustomUndefined: Self = StObject.set(x, "custom", js.undefined)
       
-      @scala.inline
-      def setDelete(value: StringDictionary[String]): Self = StObject.set(x, "delete", value.asInstanceOf[js.Any])
+      inline def setDelete(value: StringDictionary[String]): Self = StObject.set(x, "delete", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setDeleteUndefined: Self = StObject.set(x, "delete", js.undefined)
+      inline def setDeleteUndefined: Self = StObject.set(x, "delete", js.undefined)
       
-      @scala.inline
-      def setPatch(value: StringDictionary[String]): Self = StObject.set(x, "patch", value.asInstanceOf[js.Any])
+      inline def setPatch(value: StringDictionary[String]): Self = StObject.set(x, "patch", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setPatchUndefined: Self = StObject.set(x, "patch", js.undefined)
+      inline def setPatchUndefined: Self = StObject.set(x, "patch", js.undefined)
       
-      @scala.inline
-      def setPost(value: StringDictionary[String]): Self = StObject.set(x, "post", value.asInstanceOf[js.Any])
+      inline def setPost(value: StringDictionary[String]): Self = StObject.set(x, "post", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setPostUndefined: Self = StObject.set(x, "post", js.undefined)
+      inline def setPostUndefined: Self = StObject.set(x, "post", js.undefined)
       
-      @scala.inline
-      def setPut(value: StringDictionary[String]): Self = StObject.set(x, "put", value.asInstanceOf[js.Any])
+      inline def setPut(value: StringDictionary[String]): Self = StObject.set(x, "put", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setPutUndefined: Self = StObject.set(x, "put", js.undefined)
+      inline def setPutUndefined: Self = StObject.set(x, "put", js.undefined)
     }
   }
   
@@ -108,26 +90,20 @@ object vuejs {
   }
   object HttpInterceptor {
     
-    @scala.inline
-    def apply(): HttpInterceptor = {
+    inline def apply(): HttpInterceptor = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[HttpInterceptor]
     }
     
-    @scala.inline
-    implicit class HttpInterceptorMutableBuilder[Self <: HttpInterceptor] (val x: Self) extends AnyVal {
+    extension [Self <: HttpInterceptor](x: Self) {
       
-      @scala.inline
-      def setRequest(value: /* request */ HttpOptions => HttpOptions): Self = StObject.set(x, "request", js.Any.fromFunction1(value))
+      inline def setRequest(value: /* request */ HttpOptions => HttpOptions): Self = StObject.set(x, "request", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setRequestUndefined: Self = StObject.set(x, "request", js.undefined)
+      inline def setRequestUndefined: Self = StObject.set(x, "request", js.undefined)
       
-      @scala.inline
-      def setResponse(value: /* response */ HttpResponse => HttpResponse): Self = StObject.set(x, "response", js.Any.fromFunction1(value))
+      inline def setResponse(value: /* response */ HttpResponse => HttpResponse): Self = StObject.set(x, "response", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setResponseUndefined: Self = StObject.set(x, "response", js.undefined)
+      inline def setResponseUndefined: Self = StObject.set(x, "response", js.undefined)
     }
   }
   
@@ -155,74 +131,52 @@ object vuejs {
   }
   object HttpOptions {
     
-    @scala.inline
-    def apply(): HttpOptions = {
+    inline def apply(): HttpOptions = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[HttpOptions]
     }
     
-    @scala.inline
-    implicit class HttpOptionsMutableBuilder[Self <: HttpOptions] (val x: Self) extends AnyVal {
+    extension [Self <: HttpOptions](x: Self) {
       
-      @scala.inline
-      def setBefore(value: /* request */ js.Any => js.Any): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
+      inline def setBefore(value: /* request */ js.Any => js.Any): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setBeforeUndefined: Self = StObject.set(x, "before", js.undefined)
+      inline def setBeforeUndefined: Self = StObject.set(x, "before", js.undefined)
       
-      @scala.inline
-      def setBody(value: js.Any): Self = StObject.set(x, "body", value.asInstanceOf[js.Any])
+      inline def setBody(value: js.Any): Self = StObject.set(x, "body", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setBodyUndefined: Self = StObject.set(x, "body", js.undefined)
+      inline def setBodyUndefined: Self = StObject.set(x, "body", js.undefined)
       
-      @scala.inline
-      def setCredentials(value: Boolean): Self = StObject.set(x, "credentials", value.asInstanceOf[js.Any])
+      inline def setCredentials(value: Boolean): Self = StObject.set(x, "credentials", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setCredentialsUndefined: Self = StObject.set(x, "credentials", js.undefined)
+      inline def setCredentialsUndefined: Self = StObject.set(x, "credentials", js.undefined)
       
-      @scala.inline
-      def setEmulateHTTP(value: Boolean): Self = StObject.set(x, "emulateHTTP", value.asInstanceOf[js.Any])
+      inline def setEmulateHTTP(value: Boolean): Self = StObject.set(x, "emulateHTTP", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setEmulateHTTPUndefined: Self = StObject.set(x, "emulateHTTP", js.undefined)
+      inline def setEmulateHTTPUndefined: Self = StObject.set(x, "emulateHTTP", js.undefined)
       
-      @scala.inline
-      def setEmulateJSON(value: Boolean): Self = StObject.set(x, "emulateJSON", value.asInstanceOf[js.Any])
+      inline def setEmulateJSON(value: Boolean): Self = StObject.set(x, "emulateJSON", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setEmulateJSONUndefined: Self = StObject.set(x, "emulateJSON", js.undefined)
+      inline def setEmulateJSONUndefined: Self = StObject.set(x, "emulateJSON", js.undefined)
       
-      @scala.inline
-      def setHeaders(value: js.Any): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
+      inline def setHeaders(value: js.Any): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setHeadersUndefined: Self = StObject.set(x, "headers", js.undefined)
+      inline def setHeadersUndefined: Self = StObject.set(x, "headers", js.undefined)
       
-      @scala.inline
-      def setMethod(value: String): Self = StObject.set(x, "method", value.asInstanceOf[js.Any])
+      inline def setMethod(value: String): Self = StObject.set(x, "method", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setMethodUndefined: Self = StObject.set(x, "method", js.undefined)
+      inline def setMethodUndefined: Self = StObject.set(x, "method", js.undefined)
       
-      @scala.inline
-      def setParams(value: js.Any): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
+      inline def setParams(value: js.Any): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setParamsUndefined: Self = StObject.set(x, "params", js.undefined)
+      inline def setParamsUndefined: Self = StObject.set(x, "params", js.undefined)
       
-      @scala.inline
-      def setProgress(value: /* event */ js.Any => js.Any): Self = StObject.set(x, "progress", js.Any.fromFunction1(value))
+      inline def setProgress(value: /* event */ js.Any => js.Any): Self = StObject.set(x, "progress", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setProgressUndefined: Self = StObject.set(x, "progress", js.undefined)
+      inline def setProgressUndefined: Self = StObject.set(x, "progress", js.undefined)
       
-      @scala.inline
-      def setUrl(value: String): Self = StObject.set(x, "url", value.asInstanceOf[js.Any])
+      inline def setUrl(value: String): Self = StObject.set(x, "url", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setUrlUndefined: Self = StObject.set(x, "url", js.undefined)
+      inline def setUrlUndefined: Self = StObject.set(x, "url", js.undefined)
     }
   }
   
@@ -246,8 +200,7 @@ object vuejs {
   }
   object HttpResponse {
     
-    @scala.inline
-    def apply(
+    inline def apply(
       blob: () => Blob,
       data: js.Object,
       headers: js.Function,
@@ -261,32 +214,23 @@ object vuejs {
       __obj.asInstanceOf[HttpResponse]
     }
     
-    @scala.inline
-    implicit class HttpResponseMutableBuilder[Self <: HttpResponse] (val x: Self) extends AnyVal {
+    extension [Self <: HttpResponse](x: Self) {
       
-      @scala.inline
-      def setBlob(value: () => Blob): Self = StObject.set(x, "blob", js.Any.fromFunction0(value))
+      inline def setBlob(value: () => Blob): Self = StObject.set(x, "blob", js.Any.fromFunction0(value))
       
-      @scala.inline
-      def setData(value: js.Object): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
+      inline def setData(value: js.Object): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setHeaders(value: js.Function): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
+      inline def setHeaders(value: js.Function): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setJson(value: () => js.Any): Self = StObject.set(x, "json", js.Any.fromFunction0(value))
+      inline def setJson(value: () => js.Any): Self = StObject.set(x, "json", js.Any.fromFunction0(value))
       
-      @scala.inline
-      def setOk(value: Boolean): Self = StObject.set(x, "ok", value.asInstanceOf[js.Any])
+      inline def setOk(value: Boolean): Self = StObject.set(x, "ok", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setStatus(value: Double): Self = StObject.set(x, "status", value.asInstanceOf[js.Any])
+      inline def setStatus(value: Double): Self = StObject.set(x, "status", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setStatusText(value: String): Self = StObject.set(x, "statusText", value.asInstanceOf[js.Any])
+      inline def setStatusText(value: String): Self = StObject.set(x, "statusText", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setText(value: () => String): Self = StObject.set(x, "text", js.Any.fromFunction0(value))
+      inline def setText(value: () => String): Self = StObject.set(x, "text", js.Any.fromFunction0(value))
     }
   }
   
@@ -348,8 +292,7 @@ object vuejs {
   }
   object Http_ {
     
-    @scala.inline
-    def apply(
+    inline def apply(
       delete: http,
       get: http,
       headers: HttpHeaders,
@@ -364,38 +307,27 @@ object vuejs {
       __obj.asInstanceOf[Http_]
     }
     
-    @scala.inline
-    implicit class Http_MutableBuilder[Self <: Http_] (val x: Self) extends AnyVal {
+    extension [Self <: Http_](x: Self) {
       
-      @scala.inline
-      def setDelete(value: http): Self = StObject.set(x, "delete", value.asInstanceOf[js.Any])
+      inline def setDelete(value: http): Self = StObject.set(x, "delete", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setGet(value: http): Self = StObject.set(x, "get", value.asInstanceOf[js.Any])
+      inline def setGet(value: http): Self = StObject.set(x, "get", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setHeaders(value: HttpHeaders): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
+      inline def setHeaders(value: HttpHeaders): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setInterceptors(value: js.Array[HttpInterceptor | js.Function0[HttpInterceptor]]): Self = StObject.set(x, "interceptors", value.asInstanceOf[js.Any])
+      inline def setInterceptors(value: js.Array[HttpInterceptor | js.Function0[HttpInterceptor]]): Self = StObject.set(x, "interceptors", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setInterceptorsVarargs(value: (HttpInterceptor | js.Function0[HttpInterceptor])*): Self = StObject.set(x, "interceptors", js.Array(value :_*))
+      inline def setInterceptorsVarargs(value: (HttpInterceptor | js.Function0[HttpInterceptor])*): Self = StObject.set(x, "interceptors", js.Array(value :_*))
       
-      @scala.inline
-      def setJsonp(value: http): Self = StObject.set(x, "jsonp", value.asInstanceOf[js.Any])
+      inline def setJsonp(value: http): Self = StObject.set(x, "jsonp", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setOptions(value: HttpOptionsrootstring): Self = StObject.set(x, "options", value.asInstanceOf[js.Any])
+      inline def setOptions(value: HttpOptionsrootstring): Self = StObject.set(x, "options", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setPatch(value: http): Self = StObject.set(x, "patch", value.asInstanceOf[js.Any])
+      inline def setPatch(value: http): Self = StObject.set(x, "patch", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setPost(value: http): Self = StObject.set(x, "post", value.asInstanceOf[js.Any])
+      inline def setPost(value: http): Self = StObject.set(x, "post", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setPut(value: http): Self = StObject.set(x, "put", value.asInstanceOf[js.Any])
+      inline def setPut(value: http): Self = StObject.set(x, "put", value.asInstanceOf[js.Any])
     }
   }
   
@@ -415,32 +347,24 @@ object vuejs {
   }
   object ResourceActions {
     
-    @scala.inline
-    def apply(delete: Method, get: Method, query: Method, remove: Method, save: Method, update: Method): ResourceActions = {
+    inline def apply(delete: Method, get: Method, query: Method, remove: Method, save: Method, update: Method): ResourceActions = {
       val __obj = js.Dynamic.literal(delete = delete.asInstanceOf[js.Any], get = get.asInstanceOf[js.Any], query = query.asInstanceOf[js.Any], remove = remove.asInstanceOf[js.Any], save = save.asInstanceOf[js.Any], update = update.asInstanceOf[js.Any])
       __obj.asInstanceOf[ResourceActions]
     }
     
-    @scala.inline
-    implicit class ResourceActionsMutableBuilder[Self <: ResourceActions] (val x: Self) extends AnyVal {
+    extension [Self <: ResourceActions](x: Self) {
       
-      @scala.inline
-      def setDelete(value: Method): Self = StObject.set(x, "delete", value.asInstanceOf[js.Any])
+      inline def setDelete(value: Method): Self = StObject.set(x, "delete", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setGet(value: Method): Self = StObject.set(x, "get", value.asInstanceOf[js.Any])
+      inline def setGet(value: Method): Self = StObject.set(x, "get", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setQuery(value: Method): Self = StObject.set(x, "query", value.asInstanceOf[js.Any])
+      inline def setQuery(value: Method): Self = StObject.set(x, "query", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setRemove(value: Method): Self = StObject.set(x, "remove", value.asInstanceOf[js.Any])
+      inline def setRemove(value: Method): Self = StObject.set(x, "remove", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setSave(value: Method): Self = StObject.set(x, "save", value.asInstanceOf[js.Any])
+      inline def setSave(value: Method): Self = StObject.set(x, "save", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setUpdate(value: Method): Self = StObject.set(x, "update", value.asInstanceOf[js.Any])
+      inline def setUpdate(value: Method): Self = StObject.set(x, "update", value.asInstanceOf[js.Any])
     }
   }
   
@@ -569,8 +493,7 @@ object vuejs {
   }
   object ResourceMethods {
     
-    @scala.inline
-    def apply(
+    inline def apply(
       delete: ResourceMethod,
       get: ResourceMethod,
       query: ResourceMethod,
@@ -582,26 +505,19 @@ object vuejs {
       __obj.asInstanceOf[ResourceMethods]
     }
     
-    @scala.inline
-    implicit class ResourceMethodsMutableBuilder[Self <: ResourceMethods] (val x: Self) extends AnyVal {
+    extension [Self <: ResourceMethods](x: Self) {
       
-      @scala.inline
-      def setDelete(value: ResourceMethod): Self = StObject.set(x, "delete", value.asInstanceOf[js.Any])
+      inline def setDelete(value: ResourceMethod): Self = StObject.set(x, "delete", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setGet(value: ResourceMethod): Self = StObject.set(x, "get", value.asInstanceOf[js.Any])
+      inline def setGet(value: ResourceMethod): Self = StObject.set(x, "get", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setQuery(value: ResourceMethod): Self = StObject.set(x, "query", value.asInstanceOf[js.Any])
+      inline def setQuery(value: ResourceMethod): Self = StObject.set(x, "query", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setRemove(value: ResourceMethod): Self = StObject.set(x, "remove", value.asInstanceOf[js.Any])
+      inline def setRemove(value: ResourceMethod): Self = StObject.set(x, "remove", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setSave(value: ResourceMethod): Self = StObject.set(x, "save", value.asInstanceOf[js.Any])
+      inline def setSave(value: ResourceMethod): Self = StObject.set(x, "save", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setUpdate(value: ResourceMethod): Self = StObject.set(x, "update", value.asInstanceOf[js.Any])
+      inline def setUpdate(value: ResourceMethod): Self = StObject.set(x, "update", value.asInstanceOf[js.Any])
     }
   }
   
@@ -639,8 +555,7 @@ object vuejs {
   }
   object Vue {
     
-    @scala.inline
-    def apply(
+    inline def apply(
       $http: Call,
       $resource: (/* url */ String, /* params */ js.UndefOr[js.Object], /* actions */ js.UndefOr[js.Any], /* options */ js.UndefOr[HttpOptions]) => ResourceMethods
     ): Vue = {
@@ -648,14 +563,11 @@ object vuejs {
       __obj.asInstanceOf[Vue]
     }
     
-    @scala.inline
-    implicit class VueMutableBuilder[Self <: Vue] (val x: Self) extends AnyVal {
+    extension [Self <: Vue](x: Self) {
       
-      @scala.inline
-      def set$http(value: Call): Self = StObject.set(x, "$http", value.asInstanceOf[js.Any])
+      inline def set$http(value: Call): Self = StObject.set(x, "$http", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def set$resource(
+      inline def set$resource(
         value: (/* url */ String, /* params */ js.UndefOr[js.Object], /* actions */ js.UndefOr[js.Any], /* options */ js.UndefOr[HttpOptions]) => ResourceMethods
       ): Self = StObject.set(x, "$resource", js.Any.fromFunction4(value))
     }
@@ -669,20 +581,16 @@ object vuejs {
   }
   object VueStatic {
     
-    @scala.inline
-    def apply(http: Http_, resource: Resource_): VueStatic = {
+    inline def apply(http: Http_, resource: Resource_): VueStatic = {
       val __obj = js.Dynamic.literal(http = http.asInstanceOf[js.Any], resource = resource.asInstanceOf[js.Any])
       __obj.asInstanceOf[VueStatic]
     }
     
-    @scala.inline
-    implicit class VueStaticMutableBuilder[Self <: VueStatic] (val x: Self) extends AnyVal {
+    extension [Self <: VueStatic](x: Self) {
       
-      @scala.inline
-      def setHttp(value: Http_): Self = StObject.set(x, "http", value.asInstanceOf[js.Any])
+      inline def setHttp(value: Http_): Self = StObject.set(x, "http", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setResource(value: Resource_): Self = StObject.set(x, "resource", value.asInstanceOf[js.Any])
+      inline def setResource(value: Resource_): Self = StObject.set(x, "resource", value.asInstanceOf[js.Any])
     }
   }
   

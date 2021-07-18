@@ -18,17 +18,14 @@ object mod {
   }
   object Request {
     
-    @scala.inline
-    def apply(url: String): Request = {
+    inline def apply(url: String): Request = {
       val __obj = js.Dynamic.literal(url = url.asInstanceOf[js.Any])
       __obj.asInstanceOf[Request]
     }
     
-    @scala.inline
-    implicit class RequestMutableBuilder[Self <: Request] (val x: Self) extends AnyVal {
+    extension [Self <: Request](x: Self) {
       
-      @scala.inline
-      def setUrl(value: String): Self = StObject.set(x, "url", value.asInstanceOf[js.Any])
+      inline def setUrl(value: String): Self = StObject.set(x, "url", value.asInstanceOf[js.Any])
     }
   }
   
@@ -42,17 +39,14 @@ object mod {
   }
   object Response {
     
-    @scala.inline
-    def apply(location: String => Response): Response = {
+    inline def apply(location: String => Response): Response = {
       val __obj = js.Dynamic.literal(location = js.Any.fromFunction1(location))
       __obj.asInstanceOf[Response]
     }
     
-    @scala.inline
-    implicit class ResponseMutableBuilder[Self <: Response] (val x: Self) extends AnyVal {
+    extension [Self <: Response](x: Self) {
       
-      @scala.inline
-      def setLocation(value: String => Response): Self = StObject.set(x, "location", js.Any.fromFunction1(value))
+      inline def setLocation(value: String => Response): Self = StObject.set(x, "location", js.Any.fromFunction1(value))
     }
   }
   

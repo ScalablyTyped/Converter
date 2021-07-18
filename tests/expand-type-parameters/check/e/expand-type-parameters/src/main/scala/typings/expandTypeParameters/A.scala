@@ -13,16 +13,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 }
 object A {
   
-  @scala.inline
-  def apply(a: Double, b: String): A = {
+  inline def apply(a: Double, b: String): A = {
     val __obj = js.Dynamic.literal(a = a.asInstanceOf[js.Any], b = b.asInstanceOf[js.Any])
     __obj.asInstanceOf[A]
   }
   
-  @scala.inline
-  implicit class AMutableBuilder[Self <: A] (val x: Self) extends AnyVal {
+  extension [Self <: A](x: Self) {
     
-    @scala.inline
-    def setA(value: Double): Self = StObject.set(x, "a", value.asInstanceOf[js.Any])
+    inline def setA(value: Double): Self = StObject.set(x, "a", value.asInstanceOf[js.Any])
   }
 }

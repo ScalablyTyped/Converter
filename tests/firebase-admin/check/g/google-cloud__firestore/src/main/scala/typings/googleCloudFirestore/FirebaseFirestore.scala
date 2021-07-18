@@ -24,17 +24,14 @@ object FirebaseFirestore {
   }
   object Firestore {
     
-    @scala.inline
-    def apply(settings: Settings => Unit): Firestore = {
+    inline def apply(settings: Settings => Unit): Firestore = {
       val __obj = js.Dynamic.literal(settings = js.Any.fromFunction1(settings))
       __obj.asInstanceOf[Firestore]
     }
     
-    @scala.inline
-    implicit class FirestoreMutableBuilder[Self <: Firestore] (val x: Self) extends AnyVal {
+    extension [Self <: Firestore](x: Self) {
       
-      @scala.inline
-      def setSettings(value: Settings => Unit): Self = StObject.set(x, "settings", js.Any.fromFunction1(value))
+      inline def setSettings(value: Settings => Unit): Self = StObject.set(x, "settings", js.Any.fromFunction1(value))
     }
   }
   
@@ -44,20 +41,16 @@ object FirebaseFirestore {
   }
   object Settings {
     
-    @scala.inline
-    def apply(): Settings = {
+    inline def apply(): Settings = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[Settings]
     }
     
-    @scala.inline
-    implicit class SettingsMutableBuilder[Self <: Settings] (val x: Self) extends AnyVal {
+    extension [Self <: Settings](x: Self) {
       
-      @scala.inline
-      def setProjectId(value: String): Self = StObject.set(x, "projectId", value.asInstanceOf[js.Any])
+      inline def setProjectId(value: String): Self = StObject.set(x, "projectId", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setProjectIdUndefined: Self = StObject.set(x, "projectId", js.undefined)
+      inline def setProjectIdUndefined: Self = StObject.set(x, "projectId", js.undefined)
     }
   }
 }

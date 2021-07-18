@@ -8,6 +8,5 @@ object nodeStrings {
   
   @js.native
   sealed trait foo extends StObject
-  @scala.inline
-  def foo: foo = "foo".asInstanceOf[foo]
+  inline def foo: foo = "foo".asInstanceOf[foo]
 }

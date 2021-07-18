@@ -27,8 +27,7 @@ object containerContainerMod extends Shortcut {
        with /* key */ StringDictionary[js.Any]
   object ContainerProps {
     
-    @scala.inline
-    def apply(): ContainerProps = {
+    inline def apply(): ContainerProps = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[ContainerProps]
     }
@@ -59,74 +58,52 @@ object containerContainerMod extends Shortcut {
   }
   object StrictContainerProps {
     
-    @scala.inline
-    def apply(): StrictContainerProps = {
+    inline def apply(): StrictContainerProps = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[StrictContainerProps]
     }
     
-    @scala.inline
-    implicit class StrictContainerPropsMutableBuilder[Self <: StrictContainerProps] (val x: Self) extends AnyVal {
+    extension [Self <: StrictContainerProps](x: Self) {
       
-      @scala.inline
-      def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
+      inline def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
+      inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
-      @scala.inline
-      def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
+      inline def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setChildrenNull: Self = StObject.set(x, "children", null)
+      inline def setChildrenNull: Self = StObject.set(x, "children", null)
       
-      @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      inline def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
-      @scala.inline
-      def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
+      inline def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
       
-      @scala.inline
-      def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
+      inline def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
+      inline def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+      inline def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
-      @scala.inline
-      def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
+      inline def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setContentNull: Self = StObject.set(x, "content", null)
+      inline def setContentNull: Self = StObject.set(x, "content", null)
       
-      @scala.inline
-      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
+      inline def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
       
-      @scala.inline
-      def setContentVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "content", js.Array(value :_*))
+      inline def setContentVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "content", js.Array(value :_*))
       
-      @scala.inline
-      def setContentVdomElement(value: VdomElement): Self = StObject.set(x, "content", value.rawElement.asInstanceOf[js.Any])
+      inline def setContentVdomElement(value: VdomElement): Self = StObject.set(x, "content", value.rawElement.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setFluid(value: Boolean): Self = StObject.set(x, "fluid", value.asInstanceOf[js.Any])
+      inline def setFluid(value: Boolean): Self = StObject.set(x, "fluid", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setFluidUndefined: Self = StObject.set(x, "fluid", js.undefined)
+      inline def setFluidUndefined: Self = StObject.set(x, "fluid", js.undefined)
       
-      @scala.inline
-      def setText(value: Boolean): Self = StObject.set(x, "text", value.asInstanceOf[js.Any])
+      inline def setText(value: Boolean): Self = StObject.set(x, "text", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setTextAlign(value: SemanticTEXTALIGNMENTS): Self = StObject.set(x, "textAlign", value.asInstanceOf[js.Any])
+      inline def setTextAlign(value: SemanticTEXTALIGNMENTS): Self = StObject.set(x, "textAlign", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setTextAlignUndefined: Self = StObject.set(x, "textAlign", js.undefined)
+      inline def setTextAlignUndefined: Self = StObject.set(x, "textAlign", js.undefined)
       
-      @scala.inline
-      def setTextUndefined: Self = StObject.set(x, "text", js.undefined)
+      inline def setTextUndefined: Self = StObject.set(x, "text", js.undefined)
     }
   }
   

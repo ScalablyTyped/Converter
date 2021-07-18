@@ -13,28 +13,21 @@ trait PartialPerson extends StObject {
 }
 object PartialPerson {
   
-  @scala.inline
-  def apply(): PartialPerson = {
+  inline def apply(): PartialPerson = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[PartialPerson]
   }
   
-  @scala.inline
-  implicit class PartialPersonMutableBuilder[Self <: PartialPerson] (val x: Self) extends AnyVal {
+  extension [Self <: PartialPerson](x: Self) {
     
-    @scala.inline
-    def setAge(value: scala.Double): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
+    inline def setAge(value: scala.Double): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setAgeNull: Self = StObject.set(x, "age", null)
+    inline def setAgeNull: Self = StObject.set(x, "age", null)
     
-    @scala.inline
-    def setAgeUndefined: Self = StObject.set(x, "age", js.undefined)
+    inline def setAgeUndefined: Self = StObject.set(x, "age", js.undefined)
     
-    @scala.inline
-    def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
+    inline def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
+    inline def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
   }
 }

@@ -17,17 +17,14 @@ object mod extends Shortcut {
   }
   object Attributes {
     
-    @scala.inline
-    def apply(language: js.Any): Attributes = {
+    inline def apply(language: js.Any): Attributes = {
       val __obj = js.Dynamic.literal(language = language.asInstanceOf[js.Any])
       __obj.asInstanceOf[Attributes]
     }
     
-    @scala.inline
-    implicit class AttributesMutableBuilder[Self <: Attributes] (val x: Self) extends AnyVal {
+    extension [Self <: Attributes](x: Self) {
       
-      @scala.inline
-      def setLanguage(value: js.Any): Self = StObject.set(x, "language", value.asInstanceOf[js.Any])
+      inline def setLanguage(value: js.Any): Self = StObject.set(x, "language", value.asInstanceOf[js.Any])
     }
   }
   
@@ -43,8 +40,7 @@ object mod extends Shortcut {
   }
   object CldrFactory {
     
-    @scala.inline
-    def apply(
+    inline def apply(
       load: (js.Any, /* repeated */ js.Any) => Unit,
       off: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit,
       on: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit,
@@ -54,20 +50,15 @@ object mod extends Shortcut {
       __obj.asInstanceOf[CldrFactory]
     }
     
-    @scala.inline
-    implicit class CldrFactoryMutableBuilder[Self <: CldrFactory] (val x: Self) extends AnyVal {
+    extension [Self <: CldrFactory](x: Self) {
       
-      @scala.inline
-      def setLoad(value: (js.Any, /* repeated */ js.Any) => Unit): Self = StObject.set(x, "load", js.Any.fromFunction2(value))
+      inline def setLoad(value: (js.Any, /* repeated */ js.Any) => Unit): Self = StObject.set(x, "load", js.Any.fromFunction2(value))
       
-      @scala.inline
-      def setOff(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "off", js.Any.fromFunction2(value))
+      inline def setOff(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "off", js.Any.fromFunction2(value))
       
-      @scala.inline
-      def setOn(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
+      inline def setOn(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
       
-      @scala.inline
-      def setOnce(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "once", js.Any.fromFunction2(value))
+      inline def setOnce(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "once", js.Any.fromFunction2(value))
     }
   }
   
@@ -96,8 +87,7 @@ object mod extends Shortcut {
   }
   object CldrStatic {
     
-    @scala.inline
-    def apply(
+    inline def apply(
       get: String => js.Any,
       off: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit,
       on: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit,
@@ -108,23 +98,17 @@ object mod extends Shortcut {
       __obj.asInstanceOf[CldrStatic]
     }
     
-    @scala.inline
-    implicit class CldrStaticMutableBuilder[Self <: CldrStatic] (val x: Self) extends AnyVal {
+    extension [Self <: CldrStatic](x: Self) {
       
-      @scala.inline
-      def setGet(value: String => js.Any): Self = StObject.set(x, "get", js.Any.fromFunction1(value))
+      inline def setGet(value: String => js.Any): Self = StObject.set(x, "get", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setOff(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "off", js.Any.fromFunction2(value))
+      inline def setOff(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "off", js.Any.fromFunction2(value))
       
-      @scala.inline
-      def setOn(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
+      inline def setOn(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
       
-      @scala.inline
-      def setOnce(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "once", js.Any.fromFunction2(value))
+      inline def setOnce(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "once", js.Any.fromFunction2(value))
       
-      @scala.inline
-      def setSupplemental(value: SupplementalStatic): Self = StObject.set(x, "supplemental", value.asInstanceOf[js.Any])
+      inline def setSupplemental(value: SupplementalStatic): Self = StObject.set(x, "supplemental", value.asInstanceOf[js.Any])
     }
   }
   
@@ -147,20 +131,16 @@ object mod extends Shortcut {
   }
   object TimeDataStatic {
     
-    @scala.inline
-    def apply(allowed: () => String, preferred: () => String): TimeDataStatic = {
+    inline def apply(allowed: () => String, preferred: () => String): TimeDataStatic = {
       val __obj = js.Dynamic.literal(allowed = js.Any.fromFunction0(allowed), preferred = js.Any.fromFunction0(preferred))
       __obj.asInstanceOf[TimeDataStatic]
     }
     
-    @scala.inline
-    implicit class TimeDataStaticMutableBuilder[Self <: TimeDataStatic] (val x: Self) extends AnyVal {
+    extension [Self <: TimeDataStatic](x: Self) {
       
-      @scala.inline
-      def setAllowed(value: () => String): Self = StObject.set(x, "allowed", js.Any.fromFunction0(value))
+      inline def setAllowed(value: () => String): Self = StObject.set(x, "allowed", js.Any.fromFunction0(value))
       
-      @scala.inline
-      def setPreferred(value: () => String): Self = StObject.set(x, "preferred", js.Any.fromFunction0(value))
+      inline def setPreferred(value: () => String): Self = StObject.set(x, "preferred", js.Any.fromFunction0(value))
     }
   }
   
@@ -172,20 +152,16 @@ object mod extends Shortcut {
   }
   object WeekDataStatic {
     
-    @scala.inline
-    def apply(firstDay: () => String, minDays: () => Double): WeekDataStatic = {
+    inline def apply(firstDay: () => String, minDays: () => Double): WeekDataStatic = {
       val __obj = js.Dynamic.literal(firstDay = js.Any.fromFunction0(firstDay), minDays = js.Any.fromFunction0(minDays))
       __obj.asInstanceOf[WeekDataStatic]
     }
     
-    @scala.inline
-    implicit class WeekDataStaticMutableBuilder[Self <: WeekDataStatic] (val x: Self) extends AnyVal {
+    extension [Self <: WeekDataStatic](x: Self) {
       
-      @scala.inline
-      def setFirstDay(value: () => String): Self = StObject.set(x, "firstDay", js.Any.fromFunction0(value))
+      inline def setFirstDay(value: () => String): Self = StObject.set(x, "firstDay", js.Any.fromFunction0(value))
       
-      @scala.inline
-      def setMinDays(value: () => Double): Self = StObject.set(x, "minDays", js.Any.fromFunction0(value))
+      inline def setMinDays(value: () => Double): Self = StObject.set(x, "minDays", js.Any.fromFunction0(value))
     }
   }
   

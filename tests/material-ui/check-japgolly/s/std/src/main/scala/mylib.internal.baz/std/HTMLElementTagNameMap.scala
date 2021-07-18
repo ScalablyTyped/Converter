@@ -22,8 +22,7 @@ private[internal] trait HTMLElementTagNameMap extends StObject {
 }
 private[internal] object HTMLElementTagNameMap {
   
-  @scala.inline
-  def apply(
+  inline def apply(
     a: org.scalajs.dom.raw.HTMLAnchorElement,
     abbr: org.scalajs.dom.raw.HTMLElement,
     address: org.scalajs.dom.raw.HTMLElement,
@@ -36,28 +35,20 @@ private[internal] object HTMLElementTagNameMap {
     __obj.asInstanceOf[HTMLElementTagNameMap]
   }
   
-  @scala.inline
-  implicit class HTMLElementTagNameMapMutableBuilder[Self <: HTMLElementTagNameMap] (val x: Self) extends AnyVal {
+  extension [Self <: HTMLElementTagNameMap](x: Self) {
     
-    @scala.inline
-    def setA(value: org.scalajs.dom.raw.HTMLAnchorElement): Self = StObject.set(x, "a", value.asInstanceOf[js.Any])
+    inline def setA(value: org.scalajs.dom.raw.HTMLAnchorElement): Self = StObject.set(x, "a", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setAbbr(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "abbr", value.asInstanceOf[js.Any])
+    inline def setAbbr(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "abbr", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setAddress(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "address", value.asInstanceOf[js.Any])
+    inline def setAddress(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "address", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setArea(value: org.scalajs.dom.raw.HTMLAreaElement): Self = StObject.set(x, "area", value.asInstanceOf[js.Any])
+    inline def setArea(value: org.scalajs.dom.raw.HTMLAreaElement): Self = StObject.set(x, "area", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setArticle(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "article", value.asInstanceOf[js.Any])
+    inline def setArticle(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "article", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setAside(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "aside", value.asInstanceOf[js.Any])
+    inline def setAside(value: org.scalajs.dom.raw.HTMLElement): Self = StObject.set(x, "aside", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setAudio(value: org.scalajs.dom.raw.HTMLAudioElement): Self = StObject.set(x, "audio", value.asInstanceOf[js.Any])
+    inline def setAudio(value: org.scalajs.dom.raw.HTMLAudioElement): Self = StObject.set(x, "audio", value.asInstanceOf[js.Any])
   }
 }

@@ -38,46 +38,33 @@ trait Props[T] extends StObject {
 }
 object Props {
   
-  @scala.inline
-  def apply[T](): Props[T] = {
+  inline def apply[T](): Props[T] = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[Props[T]]
   }
   
-  @scala.inline
-  implicit class PropsMutableBuilder[Self <: Props[?], T] (val x: Self & Props[T]) extends AnyVal {
+  extension [Self <: Props[?], T](x: Self & Props[T]) {
     
-    @scala.inline
-    def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
+    inline def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setChildrenNull: Self = StObject.set(x, "children", null)
+    inline def setChildrenNull: Self = StObject.set(x, "children", null)
     
-    @scala.inline
-    def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+    inline def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
     
-    @scala.inline
-    def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
+    inline def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
     
-    @scala.inline
-    def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
+    inline def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
+    inline def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setKeyUndefined: Self = StObject.set(x, "key", js.undefined)
+    inline def setKeyUndefined: Self = StObject.set(x, "key", js.undefined)
     
-    @scala.inline
-    def setRef(value: LegacyRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
+    inline def setRef(value: LegacyRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setRefFunction1(value: /* instance */ T | Null => Callback): Self = StObject.set(x, "ref", js.Any.fromFunction1((t0: /* instance */ T | Null) => value(t0).runNow()))
+    inline def setRefFunction1(value: /* instance */ T | Null => Callback): Self = StObject.set(x, "ref", js.Any.fromFunction1((t0: /* instance */ T | Null) => value(t0).runNow()))
     
-    @scala.inline
-    def setRefNull: Self = StObject.set(x, "ref", null)
+    inline def setRefNull: Self = StObject.set(x, "ref", null)
     
-    @scala.inline
-    def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
+    inline def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
   }
 }

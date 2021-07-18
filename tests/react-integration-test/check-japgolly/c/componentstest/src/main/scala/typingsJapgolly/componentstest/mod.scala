@@ -43,20 +43,16 @@ object mod {
   }
   object A {
     
-    @scala.inline
-    def apply(aCallback: CallbackTo[Double], aMember: Double): A = {
+    inline def apply(aCallback: CallbackTo[Double], aMember: Double): A = {
       val __obj = js.Dynamic.literal(aCallback = aCallback.toJsFn, aMember = aMember.asInstanceOf[js.Any])
       __obj.asInstanceOf[A]
     }
     
-    @scala.inline
-    implicit class AMutableBuilder[Self <: A] (val x: Self) extends AnyVal {
+    extension [Self <: A](x: Self) {
       
-      @scala.inline
-      def setACallback(value: CallbackTo[Double]): Self = StObject.set(x, "aCallback", value.toJsFn)
+      inline def setACallback(value: CallbackTo[Double]): Self = StObject.set(x, "aCallback", value.toJsFn)
       
-      @scala.inline
-      def setAMember(value: Double): Self = StObject.set(x, "aMember", value.asInstanceOf[js.Any])
+      inline def setAMember(value: Double): Self = StObject.set(x, "aMember", value.asInstanceOf[js.Any])
     }
   }
   
@@ -70,23 +66,18 @@ object mod {
   }
   object B {
     
-    @scala.inline
-    def apply(bMember: String): B = {
+    inline def apply(bMember: String): B = {
       val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
       __obj.asInstanceOf[B]
     }
     
-    @scala.inline
-    implicit class BMutableBuilder[Self <: B] (val x: Self) extends AnyVal {
+    extension [Self <: B](x: Self) {
       
-      @scala.inline
-      def setBCallback(value: CallbackTo[String]): Self = StObject.set(x, "bCallback", value.toJsFn)
+      inline def setBCallback(value: CallbackTo[String]): Self = StObject.set(x, "bCallback", value.toJsFn)
       
-      @scala.inline
-      def setBCallbackUndefined: Self = StObject.set(x, "bCallback", js.undefined)
+      inline def setBCallbackUndefined: Self = StObject.set(x, "bCallback", js.undefined)
       
-      @scala.inline
-      def setBMember(value: String): Self = StObject.set(x, "bMember", value.asInstanceOf[js.Any])
+      inline def setBMember(value: String): Self = StObject.set(x, "bMember", value.asInstanceOf[js.Any])
     }
   }
   
@@ -102,38 +93,28 @@ object mod {
   }
   object CardGridProps {
     
-    @scala.inline
-    def apply(): CardGridProps = {
+    inline def apply(): CardGridProps = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[CardGridProps]
     }
     
-    @scala.inline
-    implicit class CardGridPropsMutableBuilder[Self <: CardGridProps] (val x: Self) extends AnyVal {
+    extension [Self <: CardGridProps](x: Self) {
       
-      @scala.inline
-      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
+      inline def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+      inline def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
-      @scala.inline
-      def setHoverable(value: Boolean): Self = StObject.set(x, "hoverable", value.asInstanceOf[js.Any])
+      inline def setHoverable(value: Boolean): Self = StObject.set(x, "hoverable", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setHoverableUndefined: Self = StObject.set(x, "hoverable", js.undefined)
+      inline def setHoverableUndefined: Self = StObject.set(x, "hoverable", js.undefined)
       
-      @scala.inline
-      def setPrefixCls(value: String): Self = StObject.set(x, "prefixCls", value.asInstanceOf[js.Any])
+      inline def setPrefixCls(value: String): Self = StObject.set(x, "prefixCls", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", js.undefined)
+      inline def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", js.undefined)
       
-      @scala.inline
-      def setStyle(value: CSSProperties): Self = StObject.set(x, "style", value.asInstanceOf[js.Any])
+      inline def setStyle(value: CSSProperties): Self = StObject.set(x, "style", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setStyleUndefined: Self = StObject.set(x, "style", js.undefined)
+      inline def setStyleUndefined: Self = StObject.set(x, "style", js.undefined)
     }
   }
   
@@ -154,26 +135,20 @@ object mod {
   }
   object CardProps {
     
-    @scala.inline
-    def apply(): CardProps = {
+    inline def apply(): CardProps = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[CardProps]
     }
     
-    @scala.inline
-    implicit class CardPropsMutableBuilder[Self <: CardProps] (val x: Self) extends AnyVal {
+    extension [Self <: CardProps](x: Self) {
       
-      @scala.inline
-      def setOnClick(value: ReactMouseEventFrom[HTMLDivElement & Element] => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement & Element]) => value(t0).runNow()))
+      inline def setOnClick(value: ReactMouseEventFrom[HTMLDivElement & Element] => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement & Element]) => value(t0).runNow()))
       
-      @scala.inline
-      def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
+      inline def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
       
-      @scala.inline
-      def setPrefixCls(value: String): Self = StObject.set(x, "prefixCls", value.asInstanceOf[js.Any])
+      inline def setPrefixCls(value: String): Self = StObject.set(x, "prefixCls", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", js.undefined)
+      inline def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", js.undefined)
     }
   }
   
@@ -184,14 +159,12 @@ object mod {
   trait Props extends StObject
   object Props {
     
-    @scala.inline
-    def A(aCallback: CallbackTo[Double], aMember: Double): typingsJapgolly.componentstest.mod.A = {
+    inline def A(aCallback: CallbackTo[Double], aMember: Double): typingsJapgolly.componentstest.mod.A = {
       val __obj = js.Dynamic.literal(aCallback = aCallback.toJsFn, aMember = aMember.asInstanceOf[js.Any])
       __obj.asInstanceOf[typingsJapgolly.componentstest.mod.A]
     }
     
-    @scala.inline
-    def B(bMember: String): typingsJapgolly.componentstest.mod.B = {
+    inline def B(bMember: String): typingsJapgolly.componentstest.mod.B = {
       val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
       __obj.asInstanceOf[typingsJapgolly.componentstest.mod.B]
     }

@@ -8,16 +8,13 @@ object electronStrings {
   
   @js.native
   sealed trait Bar extends StObject
-  @scala.inline
-  def Bar: Bar = "Bar".asInstanceOf[Bar]
+  inline def Bar: Bar = "Bar".asInstanceOf[Bar]
   
   @js.native
   sealed trait `accessibility-support-changed` extends StObject
-  @scala.inline
-  def `accessibility-support-changed`: `accessibility-support-changed` = "accessibility-support-changed".asInstanceOf[`accessibility-support-changed`]
+  inline def `accessibility-support-changed`: `accessibility-support-changed` = "accessibility-support-changed".asInstanceOf[`accessibility-support-changed`]
   
   @js.native
   sealed trait bar_ extends StObject
-  @scala.inline
-  def bar_ : bar_ = "bar".asInstanceOf[bar_]
+  inline def bar_ : bar_ = "bar".asInstanceOf[bar_]
 }

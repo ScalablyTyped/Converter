@@ -22,8 +22,7 @@ trait HTMLElementTagNameMap extends StObject {
 }
 object HTMLElementTagNameMap {
   
-  @scala.inline
-  def apply(
+  inline def apply(
     a: org.scalajs.dom.raw.HTMLAnchorElement,
     abbr: org.scalajs.dom.raw.HTMLElement,
     address: org.scalajs.dom.raw.HTMLElement,

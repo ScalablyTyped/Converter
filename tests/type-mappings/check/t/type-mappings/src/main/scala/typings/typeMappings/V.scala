@@ -11,16 +11,13 @@ trait V extends StObject {
 }
 object V {
   
-  @scala.inline
-  def apply(age: scala.Double): V = {
+  inline def apply(age: scala.Double): V = {
     val __obj = js.Dynamic.literal(age = age.asInstanceOf[js.Any])
     __obj.asInstanceOf[V]
   }
   
-  @scala.inline
-  implicit class VMutableBuilder[Self <: V] (val x: Self) extends AnyVal {
+  extension [Self <: V](x: Self) {
     
-    @scala.inline
-    def setAge(value: scala.Double): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
+    inline def setAge(value: scala.Double): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
   }
 }

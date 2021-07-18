@@ -27,32 +27,24 @@ object echarts {
       }
       object Inside {
         
-        @scala.inline
-        def apply(): Inside = {
+        inline def apply(): Inside = {
           val __obj = js.Dynamic.literal()
           __obj.asInstanceOf[Inside]
         }
         
-        @scala.inline
-        implicit class InsideMutableBuilder[Self <: Inside] (val x: Self) extends AnyVal {
+        extension [Self <: Inside](x: Self) {
           
-          @scala.inline
-          def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
+          inline def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
           
-          @scala.inline
-          def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
+          inline def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
           
-          @scala.inline
-          def setId(value: String): Self = StObject.set(x, "id", value.asInstanceOf[js.Any])
+          inline def setId(value: String): Self = StObject.set(x, "id", value.asInstanceOf[js.Any])
           
-          @scala.inline
-          def setIdUndefined: Self = StObject.set(x, "id", js.undefined)
+          inline def setIdUndefined: Self = StObject.set(x, "id", js.undefined)
           
-          @scala.inline
-          def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+          inline def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
           
-          @scala.inline
-          def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
+          inline def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
         }
       }
       
@@ -66,26 +58,20 @@ object echarts {
       }
       object Slider {
         
-        @scala.inline
-        def apply(): Slider = {
+        inline def apply(): Slider = {
           val __obj = js.Dynamic.literal()
           __obj.asInstanceOf[Slider]
         }
         
-        @scala.inline
-        implicit class SliderMutableBuilder[Self <: Slider] (val x: Self) extends AnyVal {
+        extension [Self <: Slider](x: Self) {
           
-          @scala.inline
-          def setId(value: String): Self = StObject.set(x, "id", value.asInstanceOf[js.Any])
+          inline def setId(value: String): Self = StObject.set(x, "id", value.asInstanceOf[js.Any])
           
-          @scala.inline
-          def setIdUndefined: Self = StObject.set(x, "id", js.undefined)
+          inline def setIdUndefined: Self = StObject.set(x, "id", js.undefined)
           
-          @scala.inline
-          def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+          inline def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
           
-          @scala.inline
-          def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
+          inline def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
         }
       }
     }

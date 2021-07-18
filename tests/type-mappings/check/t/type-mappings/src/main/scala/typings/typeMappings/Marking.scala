@@ -13,19 +13,15 @@ trait Marking extends StObject {
 }
 object Marking {
   
-  @scala.inline
-  def apply(text: String, trail: String): Marking = {
+  inline def apply(text: String, trail: String): Marking = {
     val __obj = js.Dynamic.literal(text = text.asInstanceOf[js.Any], trail = trail.asInstanceOf[js.Any])
     __obj.asInstanceOf[Marking]
   }
   
-  @scala.inline
-  implicit class MarkingMutableBuilder[Self <: Marking] (val x: Self) extends AnyVal {
+  extension [Self <: Marking](x: Self) {
     
-    @scala.inline
-    def setText(value: String): Self = StObject.set(x, "text", value.asInstanceOf[js.Any])
+    inline def setText(value: String): Self = StObject.set(x, "text", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setTrail(value: String): Self = StObject.set(x, "trail", value.asInstanceOf[js.Any])
+    inline def setTrail(value: String): Self = StObject.set(x, "trail", value.asInstanceOf[js.Any])
   }
 }

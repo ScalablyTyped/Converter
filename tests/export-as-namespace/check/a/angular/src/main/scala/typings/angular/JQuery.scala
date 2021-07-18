@@ -19,19 +19,15 @@ trait JQuery extends StObject {
 }
 object JQuery {
   
-  @scala.inline
-  def apply(addClass: String => JQuery, injector: () => IInjectorService): JQuery = {
+  inline def apply(addClass: String => JQuery, injector: () => IInjectorService): JQuery = {
     val __obj = js.Dynamic.literal(addClass = js.Any.fromFunction1(addClass), injector = js.Any.fromFunction0(injector))
     __obj.asInstanceOf[JQuery]
   }
   
-  @scala.inline
-  implicit class JQueryMutableBuilder[Self <: JQuery] (val x: Self) extends AnyVal {
+  extension [Self <: JQuery](x: Self) {
     
-    @scala.inline
-    def setAddClass(value: String => JQuery): Self = StObject.set(x, "addClass", js.Any.fromFunction1(value))
+    inline def setAddClass(value: String => JQuery): Self = StObject.set(x, "addClass", js.Any.fromFunction1(value))
     
-    @scala.inline
-    def setInjector(value: () => IInjectorService): Self = StObject.set(x, "injector", js.Any.fromFunction0(value))
+    inline def setInjector(value: () => IInjectorService): Self = StObject.set(x, "injector", js.Any.fromFunction0(value))
   }
 }

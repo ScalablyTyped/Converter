@@ -50,9 +50,7 @@ object global {
     val ^ : js.Any = js.native
     
     /* static member */
-    @scala.inline
-    def from[T](iterable: Iterable[T]): typings.defaultedTparams.Queue[T, T] = ^.asInstanceOf[js.Dynamic].applyDynamic("from")(iterable.asInstanceOf[js.Any]).asInstanceOf[typings.defaultedTparams.Queue[T, T]]
-    @scala.inline
-    def from[T](iterable: Iterable[T], length: Double): typings.defaultedTparams.Queue[T, T] = (^.asInstanceOf[js.Dynamic].applyDynamic("from")(iterable.asInstanceOf[js.Any], length.asInstanceOf[js.Any])).asInstanceOf[typings.defaultedTparams.Queue[T, T]]
+    inline def from[T](iterable: Iterable[T]): typings.defaultedTparams.Queue[T, T] = ^.asInstanceOf[js.Dynamic].applyDynamic("from")(iterable.asInstanceOf[js.Any]).asInstanceOf[typings.defaultedTparams.Queue[T, T]]
+    inline def from[T](iterable: Iterable[T], length: Double): typings.defaultedTparams.Queue[T, T] = (^.asInstanceOf[js.Dynamic].applyDynamic("from")(iterable.asInstanceOf[js.Any], length.asInstanceOf[js.Any])).asInstanceOf[typings.defaultedTparams.Queue[T, T]]
   }
 }

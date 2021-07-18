@@ -9,8 +9,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @scala.inline
-  def apply(props: ReactMarkdownProps): ReactElement = ^.asInstanceOf[js.Dynamic].apply(props.asInstanceOf[js.Any]).asInstanceOf[ReactElement]
+  inline def apply(props: ReactMarkdownProps): ReactElement = ^.asInstanceOf[js.Dynamic].apply(props.asInstanceOf[js.Any]).asInstanceOf[ReactElement]
   
   @JSImport("react-markdown", JSImport.Namespace)
   @js.native
@@ -20,8 +19,7 @@ object mod {
   @js.native
   val renderers: Renderers_ = js.native
   
-  @scala.inline
-  def uriTransformer(uri: String): String = ^.asInstanceOf[js.Dynamic].applyDynamic("uriTransformer")(uri.asInstanceOf[js.Any]).asInstanceOf[String]
+  inline def uriTransformer(uri: String): String = ^.asInstanceOf[js.Dynamic].applyDynamic("uriTransformer")(uri.asInstanceOf[js.Any]).asInstanceOf[String]
   
   trait ChildrenProp extends StObject {
     
@@ -29,17 +27,14 @@ object mod {
   }
   object ChildrenProp {
     
-    @scala.inline
-    def apply(children: String): ChildrenProp = {
+    inline def apply(children: String): ChildrenProp = {
       val __obj = js.Dynamic.literal(children = children.asInstanceOf[js.Any])
       __obj.asInstanceOf[ChildrenProp]
     }
     
-    @scala.inline
-    implicit class ChildrenPropMutableBuilder[Self <: ChildrenProp] (val x: Self) extends AnyVal {
+    extension [Self <: ChildrenProp](x: Self) {
       
-      @scala.inline
-      def setChildren(value: String): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
+      inline def setChildren(value: String): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
     }
   }
   
@@ -72,46 +67,34 @@ object mod {
   }
   object ReactMarkdownPropsBase {
     
-    @scala.inline
-    def apply(): ReactMarkdownPropsBase = {
+    inline def apply(): ReactMarkdownPropsBase = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[ReactMarkdownPropsBase]
     }
     
-    @scala.inline
-    implicit class ReactMarkdownPropsBaseMutableBuilder[Self <: ReactMarkdownPropsBase] (val x: Self) extends AnyVal {
+    extension [Self <: ReactMarkdownPropsBase](x: Self) {
       
-      @scala.inline
-      def setAllowNode(value: /* index */ Double => Boolean): Self = StObject.set(x, "allowNode", js.Any.fromFunction1(value))
+      inline def setAllowNode(value: /* index */ Double => Boolean): Self = StObject.set(x, "allowNode", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setAllowNodeUndefined: Self = StObject.set(x, "allowNode", js.undefined)
+      inline def setAllowNodeUndefined: Self = StObject.set(x, "allowNode", js.undefined)
       
-      @scala.inline
-      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
+      inline def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+      inline def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
-      @scala.inline
-      def setLinkTarget(value: String | LinkTargetResolver): Self = StObject.set(x, "linkTarget", value.asInstanceOf[js.Any])
+      inline def setLinkTarget(value: String | LinkTargetResolver): Self = StObject.set(x, "linkTarget", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setLinkTargetFunction3(value: (/* uri */ String, /* text */ String, /* title */ js.UndefOr[String]) => String): Self = StObject.set(x, "linkTarget", js.Any.fromFunction3(value))
+      inline def setLinkTargetFunction3(value: (/* uri */ String, /* text */ String, /* title */ js.UndefOr[String]) => String): Self = StObject.set(x, "linkTarget", js.Any.fromFunction3(value))
       
-      @scala.inline
-      def setLinkTargetUndefined: Self = StObject.set(x, "linkTarget", js.undefined)
+      inline def setLinkTargetUndefined: Self = StObject.set(x, "linkTarget", js.undefined)
       
-      @scala.inline
-      def setTransformLinkUri(
+      inline def setTransformLinkUri(
         value: (/* uri */ String, /* children */ js.UndefOr[ReactElement], /* title */ js.UndefOr[String]) => String
       ): Self = StObject.set(x, "transformLinkUri", js.Any.fromFunction3(value))
       
-      @scala.inline
-      def setTransformLinkUriNull: Self = StObject.set(x, "transformLinkUri", null)
+      inline def setTransformLinkUriNull: Self = StObject.set(x, "transformLinkUri", null)
       
-      @scala.inline
-      def setTransformLinkUriUndefined: Self = StObject.set(x, "transformLinkUri", js.undefined)
+      inline def setTransformLinkUriUndefined: Self = StObject.set(x, "transformLinkUri", js.undefined)
     }
   }
   
@@ -126,17 +109,14 @@ object mod {
   }
   object SourceProp {
     
-    @scala.inline
-    def apply(source: String): SourceProp = {
+    inline def apply(source: String): SourceProp = {
       val __obj = js.Dynamic.literal(source = source.asInstanceOf[js.Any])
       __obj.asInstanceOf[SourceProp]
     }
     
-    @scala.inline
-    implicit class SourcePropMutableBuilder[Self <: SourceProp] (val x: Self) extends AnyVal {
+    extension [Self <: SourceProp](x: Self) {
       
-      @scala.inline
-      def setSource(value: String): Self = StObject.set(x, "source", value.asInstanceOf[js.Any])
+      inline def setSource(value: String): Self = StObject.set(x, "source", value.asInstanceOf[js.Any])
     }
   }
 }

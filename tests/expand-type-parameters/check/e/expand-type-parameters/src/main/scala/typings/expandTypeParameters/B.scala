@@ -12,16 +12,13 @@ trait B
 }
 object B {
   
-  @scala.inline
-  def apply(b: String): B = {
+  inline def apply(b: String): B = {
     val __obj = js.Dynamic.literal(b = b.asInstanceOf[js.Any])
     __obj.asInstanceOf[B]
   }
   
-  @scala.inline
-  implicit class BMutableBuilder[Self <: B] (val x: Self) extends AnyVal {
+  extension [Self <: B](x: Self) {
     
-    @scala.inline
-    def setB(value: String): Self = StObject.set(x, "b", value.asInstanceOf[js.Any])
+    inline def setB(value: String): Self = StObject.set(x, "b", value.asInstanceOf[js.Any])
   }
 }

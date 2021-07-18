@@ -21,20 +21,16 @@ object configServicePlaceholdersMod {
   }
   object ConfigurationServiceApiVersions {
     
-    @scala.inline
-    def apply(): ConfigurationServiceApiVersions = {
+    inline def apply(): ConfigurationServiceApiVersions = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[ConfigurationServiceApiVersions]
     }
     
-    @scala.inline
-    implicit class ConfigurationServiceApiVersionsMutableBuilder[Self <: ConfigurationServiceApiVersions] (val x: Self) extends AnyVal {
+    extension [Self <: ConfigurationServiceApiVersions](x: Self) {
       
-      @scala.inline
-      def setDynamodb(value: apiVersion): Self = StObject.set(x, "dynamodb", value.asInstanceOf[js.Any])
+      inline def setDynamodb(value: apiVersion): Self = StObject.set(x, "dynamodb", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setDynamodbUndefined: Self = StObject.set(x, "dynamodb", js.undefined)
+      inline def setDynamodbUndefined: Self = StObject.set(x, "dynamodb", js.undefined)
     }
   }
 }

@@ -10,19 +10,15 @@ trait Error extends StObject {
 }
 object Error {
   
-  @scala.inline
-  def apply(): Error = {
+  inline def apply(): Error = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[Error]
   }
   
-  @scala.inline
-  implicit class ErrorMutableBuilder[Self <: Error] (val x: Self) extends AnyVal {
+  extension [Self <: Error](x: Self) {
     
-    @scala.inline
-    def setStack(value: String): Self = StObject.set(x, "stack", value.asInstanceOf[js.Any])
+    inline def setStack(value: String): Self = StObject.set(x, "stack", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setStackUndefined: Self = StObject.set(x, "stack", js.undefined)
+    inline def setStackUndefined: Self = StObject.set(x, "stack", js.undefined)
   }
 }

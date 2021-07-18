@@ -12,17 +12,14 @@ trait ReactPortal
 }
 object ReactPortal {
   
-  @scala.inline
-  def apply(children: slinky.core.facade.ReactElement, props: js.Any, `type`: js.Any): ReactPortal = {
+  inline def apply(children: slinky.core.facade.ReactElement, props: js.Any, `type`: js.Any): ReactPortal = {
     val __obj = js.Dynamic.literal(children = children.asInstanceOf[js.Any], props = props.asInstanceOf[js.Any], key = null)
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[ReactPortal]
   }
   
-  @scala.inline
-  implicit class ReactPortalMutableBuilder[Self <: ReactPortal] (val x: Self) extends AnyVal {
+  extension [Self <: ReactPortal](x: Self) {
     
-    @scala.inline
-    def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
+    inline def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
   }
 }

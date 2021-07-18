@@ -13,19 +13,15 @@ trait U extends StObject {
 }
 object U {
   
-  @scala.inline
-  def apply(age: scala.Double, name: String): U = {
+  inline def apply(age: scala.Double, name: String): U = {
     val __obj = js.Dynamic.literal(age = age.asInstanceOf[js.Any], name = name.asInstanceOf[js.Any])
     __obj.asInstanceOf[U]
   }
   
-  @scala.inline
-  implicit class UMutableBuilder[Self <: U] (val x: Self) extends AnyVal {
+  extension [Self <: U](x: Self) {
     
-    @scala.inline
-    def setAge(value: scala.Double): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
+    inline def setAge(value: scala.Double): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
+    inline def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
   }
 }

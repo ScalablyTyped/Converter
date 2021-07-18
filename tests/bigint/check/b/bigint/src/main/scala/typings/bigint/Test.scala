@@ -14,25 +14,19 @@ trait Test extends StObject {
 }
 object Test {
   
-  @scala.inline
-  def apply(a: js.BigInt, b: js.BigInt, c: typings.bigint.BigInt.BigInt): Test = {
+  inline def apply(a: js.BigInt, b: js.BigInt, c: typings.bigint.BigInt.BigInt): Test = {
     val __obj = js.Dynamic.literal(a = a.asInstanceOf[js.Any], b = b.asInstanceOf[js.Any], c = c.asInstanceOf[js.Any])
     __obj.asInstanceOf[Test]
   }
   
-  @scala.inline
-  implicit class TestMutableBuilder[Self <: Test] (val x: Self) extends AnyVal {
+  extension [Self <: Test](x: Self) {
     
-    @scala.inline
-    def setA(value: js.BigInt): Self = StObject.set(x, "a", value.asInstanceOf[js.Any])
+    inline def setA(value: js.BigInt): Self = StObject.set(x, "a", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setB(value: js.BigInt): Self = StObject.set(x, "b", value.asInstanceOf[js.Any])
+    inline def setB(value: js.BigInt): Self = StObject.set(x, "b", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setC(value: typings.bigint.BigInt.BigInt): Self = StObject.set(x, "c", value.asInstanceOf[js.Any])
+    inline def setC(value: typings.bigint.BigInt.BigInt): Self = StObject.set(x, "c", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setCVarargs(value: Double*): Self = StObject.set(x, "c", js.Array(value :_*))
+    inline def setCVarargs(value: Double*): Self = StObject.set(x, "c", js.Array(value :_*))
   }
 }

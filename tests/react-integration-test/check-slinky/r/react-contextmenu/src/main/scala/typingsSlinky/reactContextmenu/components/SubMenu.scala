@@ -15,8 +15,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object SubMenu {
   
-  @scala.inline
-  def apply(title: ReactElement | ReactText): Builder = {
+  inline def apply(title: ReactElement | ReactText): Builder = {
     val __props = js.Dynamic.literal(title = title.asInstanceOf[js.Any])
     new Builder(js.Array(this.component, __props.asInstanceOf[SubMenuProps]))
   }
@@ -30,17 +29,13 @@ object SubMenu {
     extends AnyVal
        with StBuildingComponent[tag.type, typingsSlinky.reactContextmenu.mod.SubMenu] {
     
-    @scala.inline
-    def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
+    inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def disabled(value: Boolean): this.type = set("disabled", value.asInstanceOf[js.Any])
+    inline def disabled(value: Boolean): this.type = set("disabled", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def hoverDelay(value: Double): this.type = set("hoverDelay", value.asInstanceOf[js.Any])
+    inline def hoverDelay(value: Double): this.type = set("hoverDelay", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def onClick(
+    inline def onClick(
       value: (js.Function3[
           /* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], 
           /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
@@ -49,16 +44,13 @@ object SubMenu {
         ]) | js.Function
     ): this.type = set("onClick", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def onClickFunction3(
+    inline def onClickFunction3(
       value: (/* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Unit
     ): this.type = set("onClick", js.Any.fromFunction3(value))
     
-    @scala.inline
-    def preventCloseOnClick(value: Boolean): this.type = set("preventCloseOnClick", value.asInstanceOf[js.Any])
+    inline def preventCloseOnClick(value: Boolean): this.type = set("preventCloseOnClick", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def rtl(value: Boolean): this.type = set("rtl", value.asInstanceOf[js.Any])
+    inline def rtl(value: Boolean): this.type = set("rtl", value.asInstanceOf[js.Any])
   }
   
   def withProps(p: SubMenuProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))

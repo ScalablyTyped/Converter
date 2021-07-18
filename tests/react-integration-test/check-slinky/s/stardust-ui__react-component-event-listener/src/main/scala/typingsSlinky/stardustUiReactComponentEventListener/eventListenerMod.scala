@@ -12,8 +12,7 @@ object eventListenerMod {
   
   object default {
     
-    @scala.inline
-    def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = ^.asInstanceOf[js.Dynamic].apply(props.asInstanceOf[js.Any]).asInstanceOf[js.Any]
+    inline def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = ^.asInstanceOf[js.Dynamic].apply(props.asInstanceOf[js.Any]).asInstanceOf[js.Any]
     
     @JSImport("@stardust-ui/react-component-event-listener/dist/es/EventListener", JSImport.Default)
     @js.native
@@ -28,20 +27,17 @@ object eventListenerMod {
       @JSImport("@stardust-ui/react-component-event-listener/dist/es/EventListener", "default.defaultProps.capture")
       @js.native
       def capture: Boolean = js.native
-      @scala.inline
-      def capture_=(x: Boolean): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("capture")(x.asInstanceOf[js.Any])
+      inline def capture_=(x: Boolean): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("capture")(x.asInstanceOf[js.Any])
     }
     
     @JSImport("@stardust-ui/react-component-event-listener/dist/es/EventListener", "default.displayName")
     @js.native
     def displayName: String = js.native
-    @scala.inline
-    def displayName_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("displayName")(x.asInstanceOf[js.Any])
+    inline def displayName_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("displayName")(x.asInstanceOf[js.Any])
     
     @JSImport("@stardust-ui/react-component-event-listener/dist/es/EventListener", "default.propTypes")
     @js.native
     def propTypes: Capture | Listener = js.native
-    @scala.inline
-    def propTypes_=(x: Capture | Listener): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("propTypes")(x.asInstanceOf[js.Any])
+    inline def propTypes_=(x: Capture | Listener): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("propTypes")(x.asInstanceOf[js.Any])
   }
 }

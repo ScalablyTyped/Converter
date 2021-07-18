@@ -32,11 +32,9 @@ object Card {
     extends AnyVal
        with StBuildingComponent[tag.type, js.Object] {
     
-    @scala.inline
-    def onClick(value: SyntheticMouseEvent[HTMLDivElement] => Unit): this.type = set("onClick", js.Any.fromFunction1(value))
+    inline def onClick(value: SyntheticMouseEvent[HTMLDivElement] => Unit): this.type = set("onClick", js.Any.fromFunction1(value))
     
-    @scala.inline
-    def prefixCls(value: String): this.type = set("prefixCls", value.asInstanceOf[js.Any])
+    inline def prefixCls(value: String): this.type = set("prefixCls", value.asInstanceOf[js.Any])
   }
   
   implicit def make(companion: Card.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()

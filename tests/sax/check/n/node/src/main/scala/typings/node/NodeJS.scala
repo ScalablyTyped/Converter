@@ -27,20 +27,16 @@ object NodeJS {
   }
   object Global {
     
-    @scala.inline
-    def apply(Array: ArrayConstrucor, global: Global): Global = {
+    inline def apply(Array: ArrayConstrucor, global: Global): Global = {
       val __obj = js.Dynamic.literal(Array = Array.asInstanceOf[js.Any], global = global.asInstanceOf[js.Any])
       __obj.asInstanceOf[Global]
     }
     
-    @scala.inline
-    implicit class GlobalMutableBuilder[Self <: Global] (val x: Self) extends AnyVal {
+    extension [Self <: Global](x: Self) {
       
-      @scala.inline
-      def setArray(value: ArrayConstrucor): Self = StObject.set(x, "Array", value.asInstanceOf[js.Any])
+      inline def setArray(value: ArrayConstrucor): Self = StObject.set(x, "Array", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setGlobal(value: Global): Self = StObject.set(x, "global", value.asInstanceOf[js.Any])
+      inline def setGlobal(value: Global): Self = StObject.set(x, "global", value.asInstanceOf[js.Any])
     }
   }
   

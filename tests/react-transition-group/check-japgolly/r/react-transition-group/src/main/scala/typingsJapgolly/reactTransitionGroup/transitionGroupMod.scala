@@ -23,8 +23,7 @@ object transitionGroupMod {
   }
   object ComponentTransitionGroupProps {
     
-    @scala.inline
-    def apply[T /* <: ReactType[js.Any] */](component: T): ComponentTransitionGroupProps[T] = {
+    inline def apply[T /* <: ReactType[js.Any] */](component: T): ComponentTransitionGroupProps[T] = {
       val __obj = js.Dynamic.literal(component = component.asInstanceOf[js.Any])
       __obj.asInstanceOf[ComponentTransitionGroupProps[T]]
     }
@@ -36,8 +35,7 @@ object transitionGroupMod {
   }
   object IntrinsicTransitionGroupProps {
     
-    @scala.inline
-    def apply[T /* <: abbr | animate */](component: T = null): IntrinsicTransitionGroupProps[T] = {
+    inline def apply[T /* <: abbr | animate */](component: T = null): IntrinsicTransitionGroupProps[T] = {
       val __obj = js.Dynamic.literal()
       if (component != null) __obj.updateDynamic("component")(component.asInstanceOf[js.Any])
       __obj.asInstanceOf[IntrinsicTransitionGroupProps[T]]

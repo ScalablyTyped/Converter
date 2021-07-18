@@ -14,8 +14,7 @@ object anon {
   }
   object Children {
     
-    @scala.inline
-    def apply(
+    inline def apply(
       children: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<PropTypes.ReactElementLike> */ js.Any,
       innerRef: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<React.Ref<any>> */ js.Any
     ): Children = {
@@ -23,16 +22,13 @@ object anon {
       __obj.asInstanceOf[Children]
     }
     
-    @scala.inline
-    implicit class ChildrenMutableBuilder[Self <: Children] (val x: Self) extends AnyVal {
+    extension [Self <: Children](x: Self) {
       
-      @scala.inline
-      def setChildren(
+      inline def setChildren(
         value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<PropTypes.ReactElementLike> */ js.Any
       ): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setInnerRef(
+      inline def setInnerRef(
         value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<React.Ref<any>> */ js.Any
       ): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
     }
@@ -46,20 +42,16 @@ object anon {
   }
   object InnerRef {
     
-    @scala.inline
-    def apply(children: Unit, innerRef: Unit): InnerRef = {
+    inline def apply(children: Unit, innerRef: Unit): InnerRef = {
       val __obj = js.Dynamic.literal(children = children.asInstanceOf[js.Any], innerRef = innerRef.asInstanceOf[js.Any])
       __obj.asInstanceOf[InnerRef]
     }
     
-    @scala.inline
-    implicit class InnerRefMutableBuilder[Self <: InnerRef] (val x: Self) extends AnyVal {
+    extension [Self <: InnerRef](x: Self) {
       
-      @scala.inline
-      def setChildren(value: Unit): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
+      inline def setChildren(value: Unit): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setInnerRef(value: Unit): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
+      inline def setInnerRef(value: Unit): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
     }
   }
 }

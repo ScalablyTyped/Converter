@@ -12,17 +12,14 @@ object p2 {
   }
   object AABB {
     
-    @scala.inline
-    def apply(copy: AABB => Unit): AABB = {
+    inline def apply(copy: AABB => Unit): AABB = {
       val __obj = js.Dynamic.literal(copy = js.Any.fromFunction1(copy))
       __obj.asInstanceOf[AABB]
     }
     
-    @scala.inline
-    implicit class AABBMutableBuilder[Self <: AABB] (val x: Self) extends AnyVal {
+    extension [Self <: AABB](x: Self) {
       
-      @scala.inline
-      def setCopy(value: AABB => Unit): Self = StObject.set(x, "copy", js.Any.fromFunction1(value))
+      inline def setCopy(value: AABB => Unit): Self = StObject.set(x, "copy", js.Any.fromFunction1(value))
     }
   }
 }

@@ -81,17 +81,14 @@ object mod {
   }
   object ISerializable {
     
-    @scala.inline
-    def apply(getSerializerType: () => String): ISerializable = {
+    inline def apply(getSerializerType: () => String): ISerializable = {
       val __obj = js.Dynamic.literal(getSerializerType = js.Any.fromFunction0(getSerializerType))
       __obj.asInstanceOf[ISerializable]
     }
     
-    @scala.inline
-    implicit class ISerializableMutableBuilder[Self <: ISerializable] (val x: Self) extends AnyVal {
+    extension [Self <: ISerializable](x: Self) {
       
-      @scala.inline
-      def setGetSerializerType(value: () => String): Self = StObject.set(x, "getSerializerType", js.Any.fromFunction0(value))
+      inline def setGetSerializerType(value: () => String): Self = StObject.set(x, "getSerializerType", js.Any.fromFunction0(value))
     }
   }
   
@@ -105,32 +102,24 @@ object mod {
   }
   object ISwizOptions {
     
-    @scala.inline
-    def apply(): ISwizOptions = {
+    inline def apply(): ISwizOptions = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[ISwizOptions]
     }
     
-    @scala.inline
-    implicit class ISwizOptionsMutableBuilder[Self <: ISwizOptions] (val x: Self) extends AnyVal {
+    extension [Self <: ISwizOptions](x: Self) {
       
-      @scala.inline
-      def setFor(value: String): Self = StObject.set(x, "for", value.asInstanceOf[js.Any])
+      inline def setFor(value: String): Self = StObject.set(x, "for", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setForUndefined: Self = StObject.set(x, "for", js.undefined)
+      inline def setForUndefined: Self = StObject.set(x, "for", js.undefined)
       
-      @scala.inline
-      def setStripNulls(value: Boolean): Self = StObject.set(x, "stripNulls", value.asInstanceOf[js.Any])
+      inline def setStripNulls(value: Boolean): Self = StObject.set(x, "stripNulls", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setStripNullsUndefined: Self = StObject.set(x, "stripNulls", js.undefined)
+      inline def setStripNullsUndefined: Self = StObject.set(x, "stripNulls", js.undefined)
       
-      @scala.inline
-      def setStripSerializerType(value: Boolean): Self = StObject.set(x, "stripSerializerType", value.asInstanceOf[js.Any])
+      inline def setStripSerializerType(value: Boolean): Self = StObject.set(x, "stripSerializerType", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setStripSerializerTypeUndefined: Self = StObject.set(x, "stripSerializerType", js.undefined)
+      inline def setStripSerializerTypeUndefined: Self = StObject.set(x, "stripSerializerType", js.undefined)
     }
   }
   

@@ -29,8 +29,7 @@ object mod {
   }
   object AllHTMLAttributes {
     
-    @scala.inline
-    def apply[T](
+    inline def apply[T](
       accept: String = null,
       acceptCharset: String = null,
       children: js.UndefOr[Null | VdomNode] = js.undefined,
@@ -59,8 +58,7 @@ object mod {
   }
   object Attributes {
     
-    @scala.inline
-    def apply(key: Key = null): Attributes = {
+    inline def apply(key: Key = null): Attributes = {
       val __obj = js.Dynamic.literal()
       if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
       __obj.asInstanceOf[Attributes]
@@ -75,8 +73,7 @@ object mod {
   }
   object ClassAttributes {
     
-    @scala.inline
-    def apply[T](key: Key = null, ref: Ref[T] = null): ClassAttributes[T] = {
+    inline def apply[T](key: Key = null, ref: Ref[T] = null): ClassAttributes[T] = {
       val __obj = js.Dynamic.literal()
       if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
       if (ref != null) __obj.updateDynamic("ref")(ref.asInstanceOf[js.Any])
@@ -116,8 +113,7 @@ object mod {
   }
   object DOMAttributes {
     
-    @scala.inline
-    def apply[T](children: js.UndefOr[Null | VdomNode] = js.undefined, dangerouslySetInnerHTML: Html = null): DOMAttributes[T] = {
+    inline def apply[T](children: js.UndefOr[Null | VdomNode] = js.undefined, dangerouslySetInnerHTML: Html = null): DOMAttributes[T] = {
       val __obj = js.Dynamic.literal()
       if (!js.isUndefined(children)) __obj.updateDynamic("children")(if (children != null) children.asInstanceOf[VdomNode].rawNode.asInstanceOf[js.Any] else null)
       if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
@@ -135,8 +131,7 @@ object mod {
   }
   object HTMLAttributes {
     
-    @scala.inline
-    def apply[T](
+    inline def apply[T](
       children: js.UndefOr[Null | VdomNode] = js.undefined,
       dangerouslySetInnerHTML: Html = null,
       defaultChecked: js.UndefOr[Boolean] = js.undefined
@@ -155,8 +150,7 @@ object mod {
        with ClassAttributes[T]
   object HTMLProps {
     
-    @scala.inline
-    def apply[T](
+    inline def apply[T](
       accept: String = null,
       acceptCharset: String = null,
       children: js.UndefOr[Null | VdomNode] = js.undefined,
@@ -191,8 +185,7 @@ object mod {
   }
   object ReactElement {
     
-    @scala.inline
-    def apply(
+    inline def apply(
       props: js.Any,
       `type`: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any],
       key: Key = null
@@ -246,8 +239,7 @@ object mod {
       }
       object ElementClass {
         
-        @scala.inline
-        def apply(render: CallbackTo[Node]): ElementClass = {
+        inline def apply(render: CallbackTo[Node]): ElementClass = {
           val __obj = js.Dynamic.literal(render = render.toJsFn)
           __obj.asInstanceOf[ElementClass]
         }
@@ -268,8 +260,7 @@ object mod {
       }
       object IntrinsicElements {
         
-        @scala.inline
-        def apply(abbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement], animate: SVGProps[SVGElement]): IntrinsicElements = {
+        inline def apply(abbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement], animate: SVGProps[SVGElement]): IntrinsicElements = {
           val __obj = js.Dynamic.literal(abbr = abbr.asInstanceOf[js.Any], animate = animate.asInstanceOf[js.Any])
           __obj.asInstanceOf[IntrinsicElements]
         }

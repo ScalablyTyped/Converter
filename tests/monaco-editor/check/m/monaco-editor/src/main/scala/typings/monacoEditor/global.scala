@@ -37,8 +37,7 @@ object global {
       @js.native
       val ^ : js.Any = js.native
       
-      @scala.inline
-      def any[T](promises: js.Array[T | js.Thenable[T]]): typings.monacoEditor.monaco.Promise[Key[T], js.Any] = ^.asInstanceOf[js.Dynamic].applyDynamic("any")(promises.asInstanceOf[js.Any]).asInstanceOf[typings.monacoEditor.monaco.Promise[Key[T], js.Any]]
+      inline def any[T](promises: js.Array[T | js.Thenable[T]]): typings.monacoEditor.monaco.Promise[Key[T], js.Any] = ^.asInstanceOf[js.Dynamic].applyDynamic("any")(promises.asInstanceOf[js.Any]).asInstanceOf[typings.monacoEditor.monaco.Promise[Key[T], js.Any]]
     }
   }
 }

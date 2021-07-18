@@ -11,27 +11,23 @@ object reactDropzoneStrings {
   sealed trait multiple
     extends StObject
        with PropTypes
-  @scala.inline
-  def multiple: multiple = "multiple".asInstanceOf[multiple]
+  inline def multiple: multiple = "multiple".asInstanceOf[multiple]
   
   @js.native
   sealed trait onDragEnter
     extends StObject
        with PropTypes
-  @scala.inline
-  def onDragEnter: onDragEnter = "onDragEnter".asInstanceOf[onDragEnter]
+  inline def onDragEnter: onDragEnter = "onDragEnter".asInstanceOf[onDragEnter]
   
   @js.native
   sealed trait onDragLeave
     extends StObject
        with PropTypes
-  @scala.inline
-  def onDragLeave: onDragLeave = "onDragLeave".asInstanceOf[onDragLeave]
+  inline def onDragLeave: onDragLeave = "onDragLeave".asInstanceOf[onDragLeave]
   
   @js.native
   sealed trait onDragOver
     extends StObject
        with PropTypes
-  @scala.inline
-  def onDragOver: onDragOver = "onDragOver".asInstanceOf[onDragOver]
+  inline def onDragOver: onDragOver = "onDragOver".asInstanceOf[onDragOver]
 }

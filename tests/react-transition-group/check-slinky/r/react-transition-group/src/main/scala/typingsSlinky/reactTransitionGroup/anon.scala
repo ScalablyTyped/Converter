@@ -13,20 +13,16 @@ object anon {
   }
   object ChildFactory {
     
-    @scala.inline
-    def apply(): ChildFactory = {
+    inline def apply(): ChildFactory = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[ChildFactory]
     }
     
-    @scala.inline
-    implicit class ChildFactoryMutableBuilder[Self <: ChildFactory] (val x: Self) extends AnyVal {
+    extension [Self <: ChildFactory](x: Self) {
       
-      @scala.inline
-      def setChildFactory(value: /* child */ ReactElement => ReactElement): Self = StObject.set(x, "childFactory", js.Any.fromFunction1(value))
+      inline def setChildFactory(value: /* child */ ReactElement => ReactElement): Self = StObject.set(x, "childFactory", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setChildFactoryUndefined: Self = StObject.set(x, "childFactory", js.undefined)
+      inline def setChildFactoryUndefined: Self = StObject.set(x, "childFactory", js.undefined)
     }
   }
 }

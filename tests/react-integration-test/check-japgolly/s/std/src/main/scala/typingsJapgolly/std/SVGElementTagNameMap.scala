@@ -14,8 +14,7 @@ trait SVGElementTagNameMap extends StObject {
 }
 object SVGElementTagNameMap {
   
-  @scala.inline
-  def apply(
+  inline def apply(
     circle: org.scalajs.dom.raw.SVGCircleElement,
     clipPath: org.scalajs.dom.raw.SVGClipPathElement,
     defs: org.scalajs.dom.raw.SVGDefsElement
@@ -24,16 +23,12 @@ object SVGElementTagNameMap {
     __obj.asInstanceOf[SVGElementTagNameMap]
   }
   
-  @scala.inline
-  implicit class SVGElementTagNameMapMutableBuilder[Self <: SVGElementTagNameMap] (val x: Self) extends AnyVal {
+  extension [Self <: SVGElementTagNameMap](x: Self) {
     
-    @scala.inline
-    def setCircle(value: org.scalajs.dom.raw.SVGCircleElement): Self = StObject.set(x, "circle", value.asInstanceOf[js.Any])
+    inline def setCircle(value: org.scalajs.dom.raw.SVGCircleElement): Self = StObject.set(x, "circle", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setClipPath(value: org.scalajs.dom.raw.SVGClipPathElement): Self = StObject.set(x, "clipPath", value.asInstanceOf[js.Any])
+    inline def setClipPath(value: org.scalajs.dom.raw.SVGClipPathElement): Self = StObject.set(x, "clipPath", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setDefs(value: org.scalajs.dom.raw.SVGDefsElement): Self = StObject.set(x, "defs", value.asInstanceOf[js.Any])
+    inline def setDefs(value: org.scalajs.dom.raw.SVGDefsElement): Self = StObject.set(x, "defs", value.asInstanceOf[js.Any])
   }
 }

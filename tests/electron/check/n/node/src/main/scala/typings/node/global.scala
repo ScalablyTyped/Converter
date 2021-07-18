@@ -23,6 +23,5 @@ object global {
   @JSGlobal("process")
   @js.native
   def process: Process = js.native
-  @scala.inline
-  def process_=(x: Process): Unit = js.Dynamic.global.updateDynamic("process")(x.asInstanceOf[js.Any])
+  inline def process_=(x: Process): Unit = js.Dynamic.global.updateDynamic("process")(x.asInstanceOf[js.Any])
 }

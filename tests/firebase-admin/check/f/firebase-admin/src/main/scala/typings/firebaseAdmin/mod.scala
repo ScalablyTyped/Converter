@@ -9,10 +9,8 @@ object mod {
   
   object firestore {
     
-    @scala.inline
-    def apply(): Firestore = ^.asInstanceOf[js.Dynamic].apply().asInstanceOf[Firestore]
-    @scala.inline
-    def apply(str: String): Firestore = ^.asInstanceOf[js.Dynamic].apply(str.asInstanceOf[js.Any]).asInstanceOf[Firestore]
+    inline def apply(): Firestore = ^.asInstanceOf[js.Dynamic].apply().asInstanceOf[Firestore]
+    inline def apply(str: String): Firestore = ^.asInstanceOf[js.Dynamic].apply(str.asInstanceOf[js.Any]).asInstanceOf[Firestore]
     
     @JSImport("firebase-admin", "firestore")
     @js.native

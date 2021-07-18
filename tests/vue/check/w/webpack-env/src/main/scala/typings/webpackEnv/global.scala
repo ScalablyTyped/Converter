@@ -14,14 +14,12 @@ object global {
   @JSGlobal("DEBUG")
   @js.native
   def DEBUG: Boolean = js.native
-  @scala.inline
-  def DEBUG_=(x: Boolean): Unit = js.Dynamic.global.updateDynamic("DEBUG")(x.asInstanceOf[js.Any])
+  inline def DEBUG_=(x: Boolean): Unit = js.Dynamic.global.updateDynamic("DEBUG")(x.asInstanceOf[js.Any])
   
   @JSGlobal("module")
   @js.native
   def module: NodeModule = js.native
-  @scala.inline
-  def module_=(x: NodeModule): Unit = js.Dynamic.global.updateDynamic("module")(x.asInstanceOf[js.Any])
+  inline def module_=(x: NodeModule): Unit = js.Dynamic.global.updateDynamic("module")(x.asInstanceOf[js.Any])
   
   /**
     * Generates a require function that is not parsed by webpack. Can be used to do cool stuff with a global require function if available.
@@ -30,20 +28,17 @@ object global {
   @js.native
   def nonWebpackRequire: js.Any = js.native
   
-  @scala.inline
-  def nonWebpackRequire_=(x: js.Any): Unit = js.Dynamic.global.updateDynamic("__non_webpack_require__")(x.asInstanceOf[js.Any])
+  inline def nonWebpackRequire_=(x: js.Any): Unit = js.Dynamic.global.updateDynamic("__non_webpack_require__")(x.asInstanceOf[js.Any])
   
   @JSGlobal("process")
   @js.native
   def process: Process = js.native
-  @scala.inline
-  def process_=(x: Process): Unit = js.Dynamic.global.updateDynamic("process")(x.asInstanceOf[js.Any])
+  inline def process_=(x: Process): Unit = js.Dynamic.global.updateDynamic("process")(x.asInstanceOf[js.Any])
   
   @JSGlobal("require")
   @js.native
   def require: NodeRequire = js.native
-  @scala.inline
-  def require_=(x: NodeRequire): Unit = js.Dynamic.global.updateDynamic("require")(x.asInstanceOf[js.Any])
+  inline def require_=(x: NodeRequire): Unit = js.Dynamic.global.updateDynamic("require")(x.asInstanceOf[js.Any])
   
   /**
     * The resource query of the current module.
@@ -54,8 +49,7 @@ object global {
   @js.native
   def resourceQuery: String = js.native
   
-  @scala.inline
-  def resourceQuery_=(x: String): Unit = js.Dynamic.global.updateDynamic("__resourceQuery")(x.asInstanceOf[js.Any])
+  inline def resourceQuery_=(x: String): Unit = js.Dynamic.global.updateDynamic("__resourceQuery")(x.asInstanceOf[js.Any])
   
   /**
     * The internal chunk loading function
@@ -71,8 +65,7 @@ object global {
     Unit
   ] = js.native
   
-  @scala.inline
-  def webpackChunkLoad_=(
+  inline def webpackChunkLoad_=(
     x: js.Function2[
       /* chunkId */ js.Any, 
       /* callback */ js.Function1[/* require */ RequireLambda, Unit], 
@@ -89,8 +82,7 @@ object global {
   @js.native
   def webpackHash: js.Any = js.native
   
-  @scala.inline
-  def webpackHash_=(x: js.Any): Unit = js.Dynamic.global.updateDynamic("__webpack_hash__")(x.asInstanceOf[js.Any])
+  inline def webpackHash_=(x: js.Any): Unit = js.Dynamic.global.updateDynamic("__webpack_hash__")(x.asInstanceOf[js.Any])
   
   /**
     * Access to the internal object of all modules.
@@ -99,8 +91,7 @@ object global {
   @js.native
   def webpackModules: js.Array[js.Any] = js.native
   
-  @scala.inline
-  def webpackModules_=(x: js.Array[js.Any]): Unit = js.Dynamic.global.updateDynamic("__webpack_modules__")(x.asInstanceOf[js.Any])
+  inline def webpackModules_=(x: js.Array[js.Any]): Unit = js.Dynamic.global.updateDynamic("__webpack_modules__")(x.asInstanceOf[js.Any])
   
   /**
     * Equals the config options output.publicPath.
@@ -109,8 +100,7 @@ object global {
   @js.native
   def webpackPublicPath: String = js.native
   
-  @scala.inline
-  def webpackPublicPath_=(x: String): Unit = js.Dynamic.global.updateDynamic("__webpack_public_path__")(x.asInstanceOf[js.Any])
+  inline def webpackPublicPath_=(x: String): Unit = js.Dynamic.global.updateDynamic("__webpack_public_path__")(x.asInstanceOf[js.Any])
   
   /**
     * The raw require function. This expression isn’t parsed by the Parser for dependencies.
@@ -119,8 +109,7 @@ object global {
   @js.native
   def webpackRequire: js.Any = js.native
   
-  @scala.inline
-  def webpackRequire_=(x: js.Any): Unit = js.Dynamic.global.updateDynamic("__webpack_require__")(x.asInstanceOf[js.Any])
+  inline def webpackRequire_=(x: js.Any): Unit = js.Dynamic.global.updateDynamic("__webpack_require__")(x.asInstanceOf[js.Any])
   
   /**
   * Declare process variable

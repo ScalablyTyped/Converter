@@ -12,19 +12,15 @@ trait Child[T1, T2]
 }
 object Child {
   
-  @scala.inline
-  def apply[T1, T2](t: T1): Child[T1, T2] = {
+  inline def apply[T1, T2](t: T1): Child[T1, T2] = {
     val __obj = js.Dynamic.literal(t = t.asInstanceOf[js.Any])
     __obj.asInstanceOf[Child[T1, T2]]
   }
   
-  @scala.inline
-  implicit class ChildMutableBuilder[Self <: Child[?, ?], T1, T2] (val x: Self & (Child[T1, T2])) extends AnyVal {
+  extension [Self <: Child[?, ?], T1, T2](x: Self & (Child[T1, T2])) {
     
-    @scala.inline
-    def setT2(value: T2): Self = StObject.set(x, "t2", value.asInstanceOf[js.Any])
+    inline def setT2(value: T2): Self = StObject.set(x, "t2", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setT2Undefined: Self = StObject.set(x, "t2", js.undefined)
+    inline def setT2Undefined: Self = StObject.set(x, "t2", js.undefined)
   }
 }

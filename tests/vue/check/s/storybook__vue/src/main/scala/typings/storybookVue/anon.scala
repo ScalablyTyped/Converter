@@ -14,20 +14,16 @@ object anon {
   }
   object Kind {
     
-    @scala.inline
-    def apply(kind: String, story: String): Kind = {
+    inline def apply(kind: String, story: String): Kind = {
       val __obj = js.Dynamic.literal(kind = kind.asInstanceOf[js.Any], story = story.asInstanceOf[js.Any])
       __obj.asInstanceOf[Kind]
     }
     
-    @scala.inline
-    implicit class KindMutableBuilder[Self <: Kind] (val x: Self) extends AnyVal {
+    extension [Self <: Kind](x: Self) {
       
-      @scala.inline
-      def setKind(value: String): Self = StObject.set(x, "kind", value.asInstanceOf[js.Any])
+      inline def setKind(value: String): Self = StObject.set(x, "kind", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setStory(value: String): Self = StObject.set(x, "story", value.asInstanceOf[js.Any])
+      inline def setStory(value: String): Self = StObject.set(x, "story", value.asInstanceOf[js.Any])
     }
   }
 }

@@ -11,16 +11,13 @@ trait ChildContextProvider[CC] extends StObject {
 }
 object ChildContextProvider {
   
-  @scala.inline
-  def apply[CC](getChildContext: CallbackTo[CC]): ChildContextProvider[CC] = {
+  inline def apply[CC](getChildContext: CallbackTo[CC]): ChildContextProvider[CC] = {
     val __obj = js.Dynamic.literal(getChildContext = getChildContext.toJsFn)
     __obj.asInstanceOf[ChildContextProvider[CC]]
   }
   
-  @scala.inline
-  implicit class ChildContextProviderMutableBuilder[Self <: ChildContextProvider[?], CC] (val x: Self & ChildContextProvider[CC]) extends AnyVal {
+  extension [Self <: ChildContextProvider[?], CC](x: Self & ChildContextProvider[CC]) {
     
-    @scala.inline
-    def setGetChildContext(value: CallbackTo[CC]): Self = StObject.set(x, "getChildContext", value.toJsFn)
+    inline def setGetChildContext(value: CallbackTo[CC]): Self = StObject.set(x, "getChildContext", value.toJsFn)
   }
 }

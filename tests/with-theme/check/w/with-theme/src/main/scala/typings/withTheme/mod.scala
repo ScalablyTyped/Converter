@@ -15,8 +15,7 @@ object mod {
   @js.native
   val ^ : js.Any = js.native
   
-  @scala.inline
-  def default(): js.Function1[/* component */ ComponentType[js.Any & WithTheme], ComponentClass[js.Any]] = ^.asInstanceOf[js.Dynamic].applyDynamic("default")().asInstanceOf[js.Function1[/* component */ ComponentType[js.Any & WithTheme], ComponentClass[js.Any]]]
+  inline def default(): js.Function1[/* component */ ComponentType[js.Any & WithTheme], ComponentClass[js.Any]] = ^.asInstanceOf[js.Dynamic].applyDynamic("default")().asInstanceOf[js.Function1[/* component */ ComponentType[js.Any & WithTheme], ComponentClass[js.Any]]]
   
   type ConsistentWith[T, U] = Pick[U, /* keyof T */ String]
   
@@ -28,23 +27,18 @@ object mod {
   }
   object WithTheme {
     
-    @scala.inline
-    def apply(theme: String): WithTheme = {
+    inline def apply(theme: String): WithTheme = {
       val __obj = js.Dynamic.literal(theme = theme.asInstanceOf[js.Any])
       __obj.asInstanceOf[WithTheme]
     }
     
-    @scala.inline
-    implicit class WithThemeMutableBuilder[Self <: WithTheme] (val x: Self) extends AnyVal {
+    extension [Self <: WithTheme](x: Self) {
       
-      @scala.inline
-      def setInnerRef(value: Ref[js.Any] | RefObject[js.Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
+      inline def setInnerRef(value: Ref[js.Any] | RefObject[js.Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setInnerRefUndefined: Self = StObject.set(x, "innerRef", js.undefined)
+      inline def setInnerRefUndefined: Self = StObject.set(x, "innerRef", js.undefined)
       
-      @scala.inline
-      def setTheme(value: String): Self = StObject.set(x, "theme", value.asInstanceOf[js.Any])
+      inline def setTheme(value: String): Self = StObject.set(x, "theme", value.asInstanceOf[js.Any])
     }
   }
 }

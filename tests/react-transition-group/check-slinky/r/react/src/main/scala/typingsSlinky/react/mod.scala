@@ -25,26 +25,20 @@ object mod {
   }
   object AllHTMLAttributes {
     
-    @scala.inline
-    def apply[T](): AllHTMLAttributes[T] = {
+    inline def apply[T](): AllHTMLAttributes[T] = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[AllHTMLAttributes[T]]
     }
     
-    @scala.inline
-    implicit class AllHTMLAttributesMutableBuilder[Self <: AllHTMLAttributes[?], T] (val x: Self & AllHTMLAttributes[T]) extends AnyVal {
+    extension [Self <: AllHTMLAttributes[?], T](x: Self & AllHTMLAttributes[T]) {
       
-      @scala.inline
-      def setAccept(value: String): Self = StObject.set(x, "accept", value.asInstanceOf[js.Any])
+      inline def setAccept(value: String): Self = StObject.set(x, "accept", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setAcceptCharset(value: String): Self = StObject.set(x, "acceptCharset", value.asInstanceOf[js.Any])
+      inline def setAcceptCharset(value: String): Self = StObject.set(x, "acceptCharset", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setAcceptCharsetUndefined: Self = StObject.set(x, "acceptCharset", js.undefined)
+      inline def setAcceptCharsetUndefined: Self = StObject.set(x, "acceptCharset", js.undefined)
       
-      @scala.inline
-      def setAcceptUndefined: Self = StObject.set(x, "accept", js.undefined)
+      inline def setAcceptUndefined: Self = StObject.set(x, "accept", js.undefined)
     }
   }
   
@@ -60,20 +54,16 @@ object mod {
   }
   object Attributes {
     
-    @scala.inline
-    def apply(): Attributes = {
+    inline def apply(): Attributes = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[Attributes]
     }
     
-    @scala.inline
-    implicit class AttributesMutableBuilder[Self <: Attributes] (val x: Self) extends AnyVal {
+    extension [Self <: Attributes](x: Self) {
       
-      @scala.inline
-      def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
+      inline def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setKeyUndefined: Self = StObject.set(x, "key", js.undefined)
+      inline def setKeyUndefined: Self = StObject.set(x, "key", js.undefined)
     }
   }
   
@@ -85,23 +75,18 @@ object mod {
   }
   object ClassAttributes {
     
-    @scala.inline
-    def apply[T](): ClassAttributes[T] = {
+    inline def apply[T](): ClassAttributes[T] = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[ClassAttributes[T]]
     }
     
-    @scala.inline
-    implicit class ClassAttributesMutableBuilder[Self <: ClassAttributes[?], T] (val x: Self & ClassAttributes[T]) extends AnyVal {
+    extension [Self <: ClassAttributes[?], T](x: Self & ClassAttributes[T]) {
       
-      @scala.inline
-      def setRef(value: Ref[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
+      inline def setRef(value: Ref[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setRefFunction1(value: /* instance */ T | Null => js.Any): Self = StObject.set(x, "ref", js.Any.fromFunction1(value))
+      inline def setRefFunction1(value: /* instance */ T | Null => js.Any): Self = StObject.set(x, "ref", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
+      inline def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
     }
   }
   
@@ -130,26 +115,20 @@ object mod {
   }
   object DOMAttributes {
     
-    @scala.inline
-    def apply[T](): DOMAttributes[T] = {
+    inline def apply[T](): DOMAttributes[T] = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[DOMAttributes[T]]
     }
     
-    @scala.inline
-    implicit class DOMAttributesMutableBuilder[Self <: DOMAttributes[?], T] (val x: Self & DOMAttributes[T]) extends AnyVal {
+    extension [Self <: DOMAttributes[?], T](x: Self & DOMAttributes[T]) {
       
-      @scala.inline
-      def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
+      inline def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      inline def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
-      @scala.inline
-      def setDangerouslySetInnerHTML(value: Html): Self = StObject.set(x, "dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
+      inline def setDangerouslySetInnerHTML(value: Html): Self = StObject.set(x, "dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setDangerouslySetInnerHTMLUndefined: Self = StObject.set(x, "dangerouslySetInnerHTML", js.undefined)
+      inline def setDangerouslySetInnerHTMLUndefined: Self = StObject.set(x, "dangerouslySetInnerHTML", js.undefined)
     }
   }
   
@@ -163,20 +142,16 @@ object mod {
   }
   object HTMLAttributes {
     
-    @scala.inline
-    def apply[T](): HTMLAttributes[T] = {
+    inline def apply[T](): HTMLAttributes[T] = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[HTMLAttributes[T]]
     }
     
-    @scala.inline
-    implicit class HTMLAttributesMutableBuilder[Self <: HTMLAttributes[?], T] (val x: Self & HTMLAttributes[T]) extends AnyVal {
+    extension [Self <: HTMLAttributes[?], T](x: Self & HTMLAttributes[T]) {
       
-      @scala.inline
-      def setDefaultChecked(value: Boolean): Self = StObject.set(x, "defaultChecked", value.asInstanceOf[js.Any])
+      inline def setDefaultChecked(value: Boolean): Self = StObject.set(x, "defaultChecked", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setDefaultCheckedUndefined: Self = StObject.set(x, "defaultChecked", js.undefined)
+      inline def setDefaultCheckedUndefined: Self = StObject.set(x, "defaultChecked", js.undefined)
     }
   }
   
@@ -186,8 +161,7 @@ object mod {
        with ClassAttributes[T]
   object HTMLProps {
     
-    @scala.inline
-    def apply[T](): HTMLProps[T] = {
+    inline def apply[T](): HTMLProps[T] = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[HTMLProps[T]]
     }
@@ -207,30 +181,23 @@ object mod {
   }
   object ReactElement {
     
-    @scala.inline
-    def apply(props: js.Any, `type`: String | ReactComponentClass[js.Any]): ReactElement = {
+    inline def apply(props: js.Any, `type`: String | ReactComponentClass[js.Any]): ReactElement = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
       __obj.asInstanceOf[ReactElement]
     }
     
-    @scala.inline
-    implicit class ReactElementMutableBuilder[Self <: ReactElement] (val x: Self) extends AnyVal {
+    extension [Self <: ReactElement](x: Self) {
       
-      @scala.inline
-      def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
+      inline def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setKeyNull: Self = StObject.set(x, "key", null)
+      inline def setKeyNull: Self = StObject.set(x, "key", null)
       
-      @scala.inline
-      def setProps(value: js.Any): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
+      inline def setProps(value: js.Any): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setType(value: String | ReactComponentClass[js.Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setType(value: String | ReactComponentClass[js.Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setTypeReactComponentClass(value: ReactComponentClass[js.Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setTypeReactComponentClass(value: ReactComponentClass[js.Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
@@ -276,17 +243,14 @@ object mod {
       }
       object ElementClass {
         
-        @scala.inline
-        def apply(render: () => slinky.core.facade.ReactElement): ElementClass = {
+        inline def apply(render: () => slinky.core.facade.ReactElement): ElementClass = {
           val __obj = js.Dynamic.literal(render = js.Any.fromFunction0(render))
           __obj.asInstanceOf[ElementClass]
         }
         
-        @scala.inline
-        implicit class ElementClassMutableBuilder[Self <: ElementClass] (val x: Self) extends AnyVal {
+        extension [Self <: ElementClass](x: Self) {
           
-          @scala.inline
-          def setRender(value: () => slinky.core.facade.ReactElement): Self = StObject.set(x, "render", js.Any.fromFunction0(value))
+          inline def setRender(value: () => slinky.core.facade.ReactElement): Self = StObject.set(x, "render", js.Any.fromFunction0(value))
         }
       }
       
@@ -305,20 +269,16 @@ object mod {
       }
       object IntrinsicElements {
         
-        @scala.inline
-        def apply(abbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement], animate: SVGProps[SVGElement]): IntrinsicElements = {
+        inline def apply(abbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement], animate: SVGProps[SVGElement]): IntrinsicElements = {
           val __obj = js.Dynamic.literal(abbr = abbr.asInstanceOf[js.Any], animate = animate.asInstanceOf[js.Any])
           __obj.asInstanceOf[IntrinsicElements]
         }
         
-        @scala.inline
-        implicit class IntrinsicElementsMutableBuilder[Self <: IntrinsicElements] (val x: Self) extends AnyVal {
+        extension [Self <: IntrinsicElements](x: Self) {
           
-          @scala.inline
-          def setAbbr(value: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): Self = StObject.set(x, "abbr", value.asInstanceOf[js.Any])
+          inline def setAbbr(value: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): Self = StObject.set(x, "abbr", value.asInstanceOf[js.Any])
           
-          @scala.inline
-          def setAnimate(value: SVGProps[SVGElement]): Self = StObject.set(x, "animate", value.asInstanceOf[js.Any])
+          inline def setAnimate(value: SVGProps[SVGElement]): Self = StObject.set(x, "animate", value.asInstanceOf[js.Any])
         }
       }
     }

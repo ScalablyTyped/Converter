@@ -207,508 +207,341 @@ trait DOMAttributes[T] extends StObject {
 }
 object DOMAttributes {
   
-  @scala.inline
-  def apply[T](): DOMAttributes[T] = {
+  inline def apply[T](): DOMAttributes[T] = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[DOMAttributes[T]]
   }
   
-  @scala.inline
-  implicit class DOMAttributesMutableBuilder[Self <: DOMAttributes[?], T] (val x: Self & DOMAttributes[T]) extends AnyVal {
+  extension [Self <: DOMAttributes[?], T](x: Self & DOMAttributes[T]) {
     
-    @scala.inline
-    def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
+    inline def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setChildrenNull: Self = StObject.set(x, "children", null)
+    inline def setChildrenNull: Self = StObject.set(x, "children", null)
     
-    @scala.inline
-    def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+    inline def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
     
-    @scala.inline
-    def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
+    inline def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
     
-    @scala.inline
-    def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
+    inline def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setDangerouslySetInnerHTML(value: Html): Self = StObject.set(x, "dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
+    inline def setDangerouslySetInnerHTML(value: Html): Self = StObject.set(x, "dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setDangerouslySetInnerHTMLUndefined: Self = StObject.set(x, "dangerouslySetInnerHTML", js.undefined)
+    inline def setDangerouslySetInnerHTMLUndefined: Self = StObject.set(x, "dangerouslySetInnerHTML", js.undefined)
     
-    @scala.inline
-    def setOnAbort(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onAbort", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnAbort(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onAbort", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnAbortUndefined: Self = StObject.set(x, "onAbort", js.undefined)
+    inline def setOnAbortUndefined: Self = StObject.set(x, "onAbort", js.undefined)
     
-    @scala.inline
-    def setOnAnimationEnd(value: ReactAnimationEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onAnimationEnd", js.Any.fromFunction1((t0: ReactAnimationEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnAnimationEnd(value: ReactAnimationEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onAnimationEnd", js.Any.fromFunction1((t0: ReactAnimationEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnAnimationEndUndefined: Self = StObject.set(x, "onAnimationEnd", js.undefined)
+    inline def setOnAnimationEndUndefined: Self = StObject.set(x, "onAnimationEnd", js.undefined)
     
-    @scala.inline
-    def setOnAnimationIteration(value: ReactAnimationEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onAnimationIteration", js.Any.fromFunction1((t0: ReactAnimationEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnAnimationIteration(value: ReactAnimationEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onAnimationIteration", js.Any.fromFunction1((t0: ReactAnimationEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnAnimationIterationUndefined: Self = StObject.set(x, "onAnimationIteration", js.undefined)
+    inline def setOnAnimationIterationUndefined: Self = StObject.set(x, "onAnimationIteration", js.undefined)
     
-    @scala.inline
-    def setOnAnimationStart(value: ReactAnimationEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onAnimationStart", js.Any.fromFunction1((t0: ReactAnimationEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnAnimationStart(value: ReactAnimationEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onAnimationStart", js.Any.fromFunction1((t0: ReactAnimationEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnAnimationStartUndefined: Self = StObject.set(x, "onAnimationStart", js.undefined)
+    inline def setOnAnimationStartUndefined: Self = StObject.set(x, "onAnimationStart", js.undefined)
     
-    @scala.inline
-    def setOnAuxClick(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onAuxClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnAuxClick(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onAuxClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnAuxClickUndefined: Self = StObject.set(x, "onAuxClick", js.undefined)
+    inline def setOnAuxClickUndefined: Self = StObject.set(x, "onAuxClick", js.undefined)
     
-    @scala.inline
-    def setOnBeforeInput(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onBeforeInput", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnBeforeInput(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onBeforeInput", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnBeforeInputUndefined: Self = StObject.set(x, "onBeforeInput", js.undefined)
+    inline def setOnBeforeInputUndefined: Self = StObject.set(x, "onBeforeInput", js.undefined)
     
-    @scala.inline
-    def setOnBlur(value: ReactFocusEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onBlur", js.Any.fromFunction1((t0: ReactFocusEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnBlur(value: ReactFocusEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onBlur", js.Any.fromFunction1((t0: ReactFocusEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnBlurUndefined: Self = StObject.set(x, "onBlur", js.undefined)
+    inline def setOnBlurUndefined: Self = StObject.set(x, "onBlur", js.undefined)
     
-    @scala.inline
-    def setOnCanPlay(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCanPlay", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnCanPlay(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCanPlay", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnCanPlayThrough(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCanPlayThrough", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnCanPlayThrough(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCanPlayThrough", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnCanPlayThroughUndefined: Self = StObject.set(x, "onCanPlayThrough", js.undefined)
+    inline def setOnCanPlayThroughUndefined: Self = StObject.set(x, "onCanPlayThrough", js.undefined)
     
-    @scala.inline
-    def setOnCanPlayUndefined: Self = StObject.set(x, "onCanPlay", js.undefined)
+    inline def setOnCanPlayUndefined: Self = StObject.set(x, "onCanPlay", js.undefined)
     
-    @scala.inline
-    def setOnChange(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnChange(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
+    inline def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
     
-    @scala.inline
-    def setOnClick(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnClick(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
+    inline def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
     
-    @scala.inline
-    def setOnCompositionEnd(value: ReactCompositionEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCompositionEnd", js.Any.fromFunction1((t0: ReactCompositionEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnCompositionEnd(value: ReactCompositionEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCompositionEnd", js.Any.fromFunction1((t0: ReactCompositionEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnCompositionEndUndefined: Self = StObject.set(x, "onCompositionEnd", js.undefined)
+    inline def setOnCompositionEndUndefined: Self = StObject.set(x, "onCompositionEnd", js.undefined)
     
-    @scala.inline
-    def setOnCompositionStart(value: ReactCompositionEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCompositionStart", js.Any.fromFunction1((t0: ReactCompositionEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnCompositionStart(value: ReactCompositionEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCompositionStart", js.Any.fromFunction1((t0: ReactCompositionEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnCompositionStartUndefined: Self = StObject.set(x, "onCompositionStart", js.undefined)
+    inline def setOnCompositionStartUndefined: Self = StObject.set(x, "onCompositionStart", js.undefined)
     
-    @scala.inline
-    def setOnCompositionUpdate(value: ReactCompositionEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCompositionUpdate", js.Any.fromFunction1((t0: ReactCompositionEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnCompositionUpdate(value: ReactCompositionEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCompositionUpdate", js.Any.fromFunction1((t0: ReactCompositionEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnCompositionUpdateUndefined: Self = StObject.set(x, "onCompositionUpdate", js.undefined)
+    inline def setOnCompositionUpdateUndefined: Self = StObject.set(x, "onCompositionUpdate", js.undefined)
     
-    @scala.inline
-    def setOnContextMenu(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onContextMenu", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnContextMenu(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onContextMenu", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnContextMenuUndefined: Self = StObject.set(x, "onContextMenu", js.undefined)
+    inline def setOnContextMenuUndefined: Self = StObject.set(x, "onContextMenu", js.undefined)
     
-    @scala.inline
-    def setOnCopy(value: ReactClipboardEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCopy", js.Any.fromFunction1((t0: ReactClipboardEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnCopy(value: ReactClipboardEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCopy", js.Any.fromFunction1((t0: ReactClipboardEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnCopyUndefined: Self = StObject.set(x, "onCopy", js.undefined)
+    inline def setOnCopyUndefined: Self = StObject.set(x, "onCopy", js.undefined)
     
-    @scala.inline
-    def setOnCut(value: ReactClipboardEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCut", js.Any.fromFunction1((t0: ReactClipboardEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnCut(value: ReactClipboardEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onCut", js.Any.fromFunction1((t0: ReactClipboardEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnCutUndefined: Self = StObject.set(x, "onCut", js.undefined)
+    inline def setOnCutUndefined: Self = StObject.set(x, "onCut", js.undefined)
     
-    @scala.inline
-    def setOnDoubleClick(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDoubleClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnDoubleClick(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDoubleClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnDoubleClickUndefined: Self = StObject.set(x, "onDoubleClick", js.undefined)
+    inline def setOnDoubleClickUndefined: Self = StObject.set(x, "onDoubleClick", js.undefined)
     
-    @scala.inline
-    def setOnDrag(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDrag", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnDrag(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDrag", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnDragEnd(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragEnd", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnDragEnd(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragEnd", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnDragEndUndefined: Self = StObject.set(x, "onDragEnd", js.undefined)
+    inline def setOnDragEndUndefined: Self = StObject.set(x, "onDragEnd", js.undefined)
     
-    @scala.inline
-    def setOnDragEnter(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnDragEnter(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnDragEnterUndefined: Self = StObject.set(x, "onDragEnter", js.undefined)
+    inline def setOnDragEnterUndefined: Self = StObject.set(x, "onDragEnter", js.undefined)
     
-    @scala.inline
-    def setOnDragExit(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragExit", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnDragExit(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragExit", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnDragExitUndefined: Self = StObject.set(x, "onDragExit", js.undefined)
+    inline def setOnDragExitUndefined: Self = StObject.set(x, "onDragExit", js.undefined)
     
-    @scala.inline
-    def setOnDragLeave(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnDragLeave(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnDragLeaveUndefined: Self = StObject.set(x, "onDragLeave", js.undefined)
+    inline def setOnDragLeaveUndefined: Self = StObject.set(x, "onDragLeave", js.undefined)
     
-    @scala.inline
-    def setOnDragOver(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnDragOver(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnDragOverUndefined: Self = StObject.set(x, "onDragOver", js.undefined)
+    inline def setOnDragOverUndefined: Self = StObject.set(x, "onDragOver", js.undefined)
     
-    @scala.inline
-    def setOnDragStart(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragStart", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnDragStart(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragStart", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnDragStartUndefined: Self = StObject.set(x, "onDragStart", js.undefined)
+    inline def setOnDragStartUndefined: Self = StObject.set(x, "onDragStart", js.undefined)
     
-    @scala.inline
-    def setOnDragUndefined: Self = StObject.set(x, "onDrag", js.undefined)
+    inline def setOnDragUndefined: Self = StObject.set(x, "onDrag", js.undefined)
     
-    @scala.inline
-    def setOnDrop(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDrop", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnDrop(value: ReactDragEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDrop", js.Any.fromFunction1((t0: ReactDragEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnDropUndefined: Self = StObject.set(x, "onDrop", js.undefined)
+    inline def setOnDropUndefined: Self = StObject.set(x, "onDrop", js.undefined)
     
-    @scala.inline
-    def setOnDurationChange(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDurationChange", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnDurationChange(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDurationChange", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnDurationChangeUndefined: Self = StObject.set(x, "onDurationChange", js.undefined)
+    inline def setOnDurationChangeUndefined: Self = StObject.set(x, "onDurationChange", js.undefined)
     
-    @scala.inline
-    def setOnEmptied(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onEmptied", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnEmptied(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onEmptied", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnEmptiedUndefined: Self = StObject.set(x, "onEmptied", js.undefined)
+    inline def setOnEmptiedUndefined: Self = StObject.set(x, "onEmptied", js.undefined)
     
-    @scala.inline
-    def setOnEncrypted(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onEncrypted", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnEncrypted(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onEncrypted", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnEncryptedUndefined: Self = StObject.set(x, "onEncrypted", js.undefined)
+    inline def setOnEncryptedUndefined: Self = StObject.set(x, "onEncrypted", js.undefined)
     
-    @scala.inline
-    def setOnEnded(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onEnded", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnEnded(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onEnded", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnEndedUndefined: Self = StObject.set(x, "onEnded", js.undefined)
+    inline def setOnEndedUndefined: Self = StObject.set(x, "onEnded", js.undefined)
     
-    @scala.inline
-    def setOnError(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onError", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnError(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onError", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnErrorUndefined: Self = StObject.set(x, "onError", js.undefined)
+    inline def setOnErrorUndefined: Self = StObject.set(x, "onError", js.undefined)
     
-    @scala.inline
-    def setOnFocus(value: ReactFocusEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onFocus", js.Any.fromFunction1((t0: ReactFocusEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnFocus(value: ReactFocusEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onFocus", js.Any.fromFunction1((t0: ReactFocusEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnFocusUndefined: Self = StObject.set(x, "onFocus", js.undefined)
+    inline def setOnFocusUndefined: Self = StObject.set(x, "onFocus", js.undefined)
     
-    @scala.inline
-    def setOnInput(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onInput", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnInput(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onInput", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnInputUndefined: Self = StObject.set(x, "onInput", js.undefined)
+    inline def setOnInputUndefined: Self = StObject.set(x, "onInput", js.undefined)
     
-    @scala.inline
-    def setOnInvalid(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onInvalid", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnInvalid(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onInvalid", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnInvalidUndefined: Self = StObject.set(x, "onInvalid", js.undefined)
+    inline def setOnInvalidUndefined: Self = StObject.set(x, "onInvalid", js.undefined)
     
-    @scala.inline
-    def setOnKeyDown(value: ReactKeyboardEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onKeyDown", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnKeyDown(value: ReactKeyboardEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onKeyDown", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnKeyDownUndefined: Self = StObject.set(x, "onKeyDown", js.undefined)
+    inline def setOnKeyDownUndefined: Self = StObject.set(x, "onKeyDown", js.undefined)
     
-    @scala.inline
-    def setOnKeyPress(value: ReactKeyboardEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onKeyPress", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnKeyPress(value: ReactKeyboardEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onKeyPress", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnKeyPressUndefined: Self = StObject.set(x, "onKeyPress", js.undefined)
+    inline def setOnKeyPressUndefined: Self = StObject.set(x, "onKeyPress", js.undefined)
     
-    @scala.inline
-    def setOnKeyUp(value: ReactKeyboardEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onKeyUp", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnKeyUp(value: ReactKeyboardEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onKeyUp", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnKeyUpUndefined: Self = StObject.set(x, "onKeyUp", js.undefined)
+    inline def setOnKeyUpUndefined: Self = StObject.set(x, "onKeyUp", js.undefined)
     
-    @scala.inline
-    def setOnLoad(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onLoad", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnLoad(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onLoad", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnLoadStart(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onLoadStart", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnLoadStart(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onLoadStart", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnLoadStartUndefined: Self = StObject.set(x, "onLoadStart", js.undefined)
+    inline def setOnLoadStartUndefined: Self = StObject.set(x, "onLoadStart", js.undefined)
     
-    @scala.inline
-    def setOnLoadUndefined: Self = StObject.set(x, "onLoad", js.undefined)
+    inline def setOnLoadUndefined: Self = StObject.set(x, "onLoad", js.undefined)
     
-    @scala.inline
-    def setOnLoadedData(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onLoadedData", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnLoadedData(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onLoadedData", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnLoadedDataUndefined: Self = StObject.set(x, "onLoadedData", js.undefined)
+    inline def setOnLoadedDataUndefined: Self = StObject.set(x, "onLoadedData", js.undefined)
     
-    @scala.inline
-    def setOnLoadedMetadata(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onLoadedMetadata", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnLoadedMetadata(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onLoadedMetadata", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnLoadedMetadataUndefined: Self = StObject.set(x, "onLoadedMetadata", js.undefined)
+    inline def setOnLoadedMetadataUndefined: Self = StObject.set(x, "onLoadedMetadata", js.undefined)
     
-    @scala.inline
-    def setOnMouseDown(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseDown", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnMouseDown(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseDown", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnMouseDownUndefined: Self = StObject.set(x, "onMouseDown", js.undefined)
+    inline def setOnMouseDownUndefined: Self = StObject.set(x, "onMouseDown", js.undefined)
     
-    @scala.inline
-    def setOnMouseEnter(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseEnter", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnMouseEnter(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseEnter", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnMouseEnterUndefined: Self = StObject.set(x, "onMouseEnter", js.undefined)
+    inline def setOnMouseEnterUndefined: Self = StObject.set(x, "onMouseEnter", js.undefined)
     
-    @scala.inline
-    def setOnMouseLeave(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseLeave", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnMouseLeave(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseLeave", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnMouseLeaveUndefined: Self = StObject.set(x, "onMouseLeave", js.undefined)
+    inline def setOnMouseLeaveUndefined: Self = StObject.set(x, "onMouseLeave", js.undefined)
     
-    @scala.inline
-    def setOnMouseMove(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseMove", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnMouseMove(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseMove", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnMouseMoveUndefined: Self = StObject.set(x, "onMouseMove", js.undefined)
+    inline def setOnMouseMoveUndefined: Self = StObject.set(x, "onMouseMove", js.undefined)
     
-    @scala.inline
-    def setOnMouseOut(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseOut", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnMouseOut(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseOut", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnMouseOutUndefined: Self = StObject.set(x, "onMouseOut", js.undefined)
+    inline def setOnMouseOutUndefined: Self = StObject.set(x, "onMouseOut", js.undefined)
     
-    @scala.inline
-    def setOnMouseOver(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseOver", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnMouseOver(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseOver", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnMouseOverUndefined: Self = StObject.set(x, "onMouseOver", js.undefined)
+    inline def setOnMouseOverUndefined: Self = StObject.set(x, "onMouseOver", js.undefined)
     
-    @scala.inline
-    def setOnMouseUp(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseUp", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnMouseUp(value: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onMouseUp", js.Any.fromFunction1((t0: ReactMouseEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnMouseUpUndefined: Self = StObject.set(x, "onMouseUp", js.undefined)
+    inline def setOnMouseUpUndefined: Self = StObject.set(x, "onMouseUp", js.undefined)
     
-    @scala.inline
-    def setOnPaste(value: ReactClipboardEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPaste", js.Any.fromFunction1((t0: ReactClipboardEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnPaste(value: ReactClipboardEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPaste", js.Any.fromFunction1((t0: ReactClipboardEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnPasteUndefined: Self = StObject.set(x, "onPaste", js.undefined)
+    inline def setOnPasteUndefined: Self = StObject.set(x, "onPaste", js.undefined)
     
-    @scala.inline
-    def setOnPause(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPause", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnPause(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPause", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnPauseUndefined: Self = StObject.set(x, "onPause", js.undefined)
+    inline def setOnPauseUndefined: Self = StObject.set(x, "onPause", js.undefined)
     
-    @scala.inline
-    def setOnPlay(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPlay", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnPlay(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPlay", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnPlayUndefined: Self = StObject.set(x, "onPlay", js.undefined)
+    inline def setOnPlayUndefined: Self = StObject.set(x, "onPlay", js.undefined)
     
-    @scala.inline
-    def setOnPlaying(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPlaying", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnPlaying(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPlaying", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnPlayingUndefined: Self = StObject.set(x, "onPlaying", js.undefined)
+    inline def setOnPlayingUndefined: Self = StObject.set(x, "onPlaying", js.undefined)
     
-    @scala.inline
-    def setOnPointerCancel(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerCancel", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnPointerCancel(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerCancel", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnPointerCancelUndefined: Self = StObject.set(x, "onPointerCancel", js.undefined)
+    inline def setOnPointerCancelUndefined: Self = StObject.set(x, "onPointerCancel", js.undefined)
     
-    @scala.inline
-    def setOnPointerDown(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerDown", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnPointerDown(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerDown", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnPointerDownUndefined: Self = StObject.set(x, "onPointerDown", js.undefined)
+    inline def setOnPointerDownUndefined: Self = StObject.set(x, "onPointerDown", js.undefined)
     
-    @scala.inline
-    def setOnPointerEnter(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerEnter", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnPointerEnter(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerEnter", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnPointerEnterUndefined: Self = StObject.set(x, "onPointerEnter", js.undefined)
+    inline def setOnPointerEnterUndefined: Self = StObject.set(x, "onPointerEnter", js.undefined)
     
-    @scala.inline
-    def setOnPointerLeave(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerLeave", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnPointerLeave(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerLeave", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnPointerLeaveUndefined: Self = StObject.set(x, "onPointerLeave", js.undefined)
+    inline def setOnPointerLeaveUndefined: Self = StObject.set(x, "onPointerLeave", js.undefined)
     
-    @scala.inline
-    def setOnPointerMove(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerMove", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnPointerMove(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerMove", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnPointerMoveUndefined: Self = StObject.set(x, "onPointerMove", js.undefined)
+    inline def setOnPointerMoveUndefined: Self = StObject.set(x, "onPointerMove", js.undefined)
     
-    @scala.inline
-    def setOnPointerOut(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerOut", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnPointerOut(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerOut", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnPointerOutUndefined: Self = StObject.set(x, "onPointerOut", js.undefined)
+    inline def setOnPointerOutUndefined: Self = StObject.set(x, "onPointerOut", js.undefined)
     
-    @scala.inline
-    def setOnPointerOver(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerOver", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnPointerOver(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerOver", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnPointerOverUndefined: Self = StObject.set(x, "onPointerOver", js.undefined)
+    inline def setOnPointerOverUndefined: Self = StObject.set(x, "onPointerOver", js.undefined)
     
-    @scala.inline
-    def setOnPointerUp(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerUp", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnPointerUp(value: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onPointerUp", js.Any.fromFunction1((t0: ReactPointerEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnPointerUpUndefined: Self = StObject.set(x, "onPointerUp", js.undefined)
+    inline def setOnPointerUpUndefined: Self = StObject.set(x, "onPointerUp", js.undefined)
     
-    @scala.inline
-    def setOnProgress(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onProgress", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnProgress(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onProgress", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnProgressUndefined: Self = StObject.set(x, "onProgress", js.undefined)
+    inline def setOnProgressUndefined: Self = StObject.set(x, "onProgress", js.undefined)
     
-    @scala.inline
-    def setOnRateChange(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onRateChange", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnRateChange(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onRateChange", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnRateChangeUndefined: Self = StObject.set(x, "onRateChange", js.undefined)
+    inline def setOnRateChangeUndefined: Self = StObject.set(x, "onRateChange", js.undefined)
     
-    @scala.inline
-    def setOnReset(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onReset", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnReset(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onReset", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnResetUndefined: Self = StObject.set(x, "onReset", js.undefined)
+    inline def setOnResetUndefined: Self = StObject.set(x, "onReset", js.undefined)
     
-    @scala.inline
-    def setOnScroll(value: ReactUIEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onScroll", js.Any.fromFunction1((t0: ReactUIEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnScroll(value: ReactUIEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onScroll", js.Any.fromFunction1((t0: ReactUIEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnScrollUndefined: Self = StObject.set(x, "onScroll", js.undefined)
+    inline def setOnScrollUndefined: Self = StObject.set(x, "onScroll", js.undefined)
     
-    @scala.inline
-    def setOnSeeked(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onSeeked", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnSeeked(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onSeeked", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnSeekedUndefined: Self = StObject.set(x, "onSeeked", js.undefined)
+    inline def setOnSeekedUndefined: Self = StObject.set(x, "onSeeked", js.undefined)
     
-    @scala.inline
-    def setOnSeeking(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onSeeking", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnSeeking(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onSeeking", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnSeekingUndefined: Self = StObject.set(x, "onSeeking", js.undefined)
+    inline def setOnSeekingUndefined: Self = StObject.set(x, "onSeeking", js.undefined)
     
-    @scala.inline
-    def setOnSelect(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onSelect", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnSelect(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onSelect", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnSelectUndefined: Self = StObject.set(x, "onSelect", js.undefined)
+    inline def setOnSelectUndefined: Self = StObject.set(x, "onSelect", js.undefined)
     
-    @scala.inline
-    def setOnStalled(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onStalled", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnStalled(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onStalled", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnStalledUndefined: Self = StObject.set(x, "onStalled", js.undefined)
+    inline def setOnStalledUndefined: Self = StObject.set(x, "onStalled", js.undefined)
     
-    @scala.inline
-    def setOnSubmit(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onSubmit", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnSubmit(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onSubmit", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnSubmitUndefined: Self = StObject.set(x, "onSubmit", js.undefined)
+    inline def setOnSubmitUndefined: Self = StObject.set(x, "onSubmit", js.undefined)
     
-    @scala.inline
-    def setOnSuspend(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onSuspend", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnSuspend(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onSuspend", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnSuspendUndefined: Self = StObject.set(x, "onSuspend", js.undefined)
+    inline def setOnSuspendUndefined: Self = StObject.set(x, "onSuspend", js.undefined)
     
-    @scala.inline
-    def setOnTimeUpdate(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onTimeUpdate", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnTimeUpdate(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onTimeUpdate", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnTimeUpdateUndefined: Self = StObject.set(x, "onTimeUpdate", js.undefined)
+    inline def setOnTimeUpdateUndefined: Self = StObject.set(x, "onTimeUpdate", js.undefined)
     
-    @scala.inline
-    def setOnTouchCancel(value: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onTouchCancel", js.Any.fromFunction1((t0: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnTouchCancel(value: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onTouchCancel", js.Any.fromFunction1((t0: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnTouchCancelUndefined: Self = StObject.set(x, "onTouchCancel", js.undefined)
+    inline def setOnTouchCancelUndefined: Self = StObject.set(x, "onTouchCancel", js.undefined)
     
-    @scala.inline
-    def setOnTouchEnd(value: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onTouchEnd", js.Any.fromFunction1((t0: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnTouchEnd(value: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onTouchEnd", js.Any.fromFunction1((t0: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnTouchEndUndefined: Self = StObject.set(x, "onTouchEnd", js.undefined)
+    inline def setOnTouchEndUndefined: Self = StObject.set(x, "onTouchEnd", js.undefined)
     
-    @scala.inline
-    def setOnTouchMove(value: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onTouchMove", js.Any.fromFunction1((t0: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnTouchMove(value: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onTouchMove", js.Any.fromFunction1((t0: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnTouchMoveUndefined: Self = StObject.set(x, "onTouchMove", js.undefined)
+    inline def setOnTouchMoveUndefined: Self = StObject.set(x, "onTouchMove", js.undefined)
     
-    @scala.inline
-    def setOnTouchStart(value: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onTouchStart", js.Any.fromFunction1((t0: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnTouchStart(value: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onTouchStart", js.Any.fromFunction1((t0: ReactTouchEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnTouchStartUndefined: Self = StObject.set(x, "onTouchStart", js.undefined)
+    inline def setOnTouchStartUndefined: Self = StObject.set(x, "onTouchStart", js.undefined)
     
-    @scala.inline
-    def setOnTransitionEnd(value: ReactTransitionEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onTransitionEnd", js.Any.fromFunction1((t0: ReactTransitionEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnTransitionEnd(value: ReactTransitionEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onTransitionEnd", js.Any.fromFunction1((t0: ReactTransitionEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnTransitionEndUndefined: Self = StObject.set(x, "onTransitionEnd", js.undefined)
+    inline def setOnTransitionEndUndefined: Self = StObject.set(x, "onTransitionEnd", js.undefined)
     
-    @scala.inline
-    def setOnVolumeChange(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onVolumeChange", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnVolumeChange(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onVolumeChange", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnVolumeChangeUndefined: Self = StObject.set(x, "onVolumeChange", js.undefined)
+    inline def setOnVolumeChangeUndefined: Self = StObject.set(x, "onVolumeChange", js.undefined)
     
-    @scala.inline
-    def setOnWaiting(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onWaiting", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnWaiting(value: ReactEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onWaiting", js.Any.fromFunction1((t0: ReactEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnWaitingUndefined: Self = StObject.set(x, "onWaiting", js.undefined)
+    inline def setOnWaitingUndefined: Self = StObject.set(x, "onWaiting", js.undefined)
     
-    @scala.inline
-    def setOnWheel(value: ReactWheelEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onWheel", js.Any.fromFunction1((t0: ReactWheelEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+    inline def setOnWheel(value: ReactWheelEventFrom[T & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onWheel", js.Any.fromFunction1((t0: ReactWheelEventFrom[T & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
     
-    @scala.inline
-    def setOnWheelUndefined: Self = StObject.set(x, "onWheel", js.undefined)
+    inline def setOnWheelUndefined: Self = StObject.set(x, "onWheel", js.undefined)
   }
 }

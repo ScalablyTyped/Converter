@@ -19,8 +19,7 @@ object aa {
   }
   object INotifyConfigProvider {
     
-    @scala.inline
-    def apply(
+    inline def apply(
       $get: js.Any,
       defaultNotifyConfig: String,
       defaultTargetContainerName: String,
@@ -30,17 +29,13 @@ object aa {
       __obj.asInstanceOf[INotifyConfigProvider]
     }
     
-    @scala.inline
-    implicit class INotifyConfigProviderMutableBuilder[Self <: INotifyConfigProvider] (val x: Self) extends AnyVal {
+    extension [Self <: INotifyConfigProvider](x: Self) {
       
-      @scala.inline
-      def setDefaultNotifyConfig(value: String): Self = StObject.set(x, "defaultNotifyConfig", value.asInstanceOf[js.Any])
+      inline def setDefaultNotifyConfig(value: String): Self = StObject.set(x, "defaultNotifyConfig", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setDefaultTargetContainerName(value: String): Self = StObject.set(x, "defaultTargetContainerName", value.asInstanceOf[js.Any])
+      inline def setDefaultTargetContainerName(value: String): Self = StObject.set(x, "defaultTargetContainerName", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setNotifyConfigs(value: js.Any): Self = StObject.set(x, "notifyConfigs", value.asInstanceOf[js.Any])
+      inline def setNotifyConfigs(value: js.Any): Self = StObject.set(x, "notifyConfigs", value.asInstanceOf[js.Any])
     }
   }
 }
