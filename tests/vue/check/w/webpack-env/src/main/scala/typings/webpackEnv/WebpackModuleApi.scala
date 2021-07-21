@@ -23,26 +23,20 @@ object WebpackModuleApi {
   }
   object AcceptOptions {
     
-    @scala.inline
-    def apply(): AcceptOptions = {
+    inline def apply(): AcceptOptions = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[AcceptOptions]
     }
     
-    @scala.inline
-    implicit class AcceptOptionsMutableBuilder[Self <: AcceptOptions] (val x: Self) extends AnyVal {
+    extension [Self <: AcceptOptions](x: Self) {
       
-      @scala.inline
-      def setAutoApply(value: Boolean): Self = StObject.set(x, "autoApply", value.asInstanceOf[js.Any])
+      inline def setAutoApply(value: Boolean): Self = StObject.set(x, "autoApply", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setAutoApplyUndefined: Self = StObject.set(x, "autoApply", js.undefined)
+      inline def setAutoApplyUndefined: Self = StObject.set(x, "autoApply", js.undefined)
       
-      @scala.inline
-      def setIgnoreUnaccepted(value: Boolean): Self = StObject.set(x, "ignoreUnaccepted", value.asInstanceOf[js.Any])
+      inline def setIgnoreUnaccepted(value: Boolean): Self = StObject.set(x, "ignoreUnaccepted", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setIgnoreUnacceptedUndefined: Self = StObject.set(x, "ignoreUnaccepted", js.undefined)
+      inline def setIgnoreUnacceptedUndefined: Self = StObject.set(x, "ignoreUnaccepted", js.undefined)
     }
   }
   
@@ -211,20 +205,16 @@ object WebpackModuleApi {
   }
   object NodeProcess {
     
-    @scala.inline
-    def apply(): NodeProcess = {
+    inline def apply(): NodeProcess = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[NodeProcess]
     }
     
-    @scala.inline
-    implicit class NodeProcessMutableBuilder[Self <: NodeProcess] (val x: Self) extends AnyVal {
+    extension [Self <: NodeProcess](x: Self) {
       
-      @scala.inline
-      def setEnv(value: js.Any): Self = StObject.set(x, "env", value.asInstanceOf[js.Any])
+      inline def setEnv(value: js.Any): Self = StObject.set(x, "env", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setEnvUndefined: Self = StObject.set(x, "env", js.undefined)
+      inline def setEnvUndefined: Self = StObject.set(x, "env", js.undefined)
     }
   }
   

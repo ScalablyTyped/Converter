@@ -16,16 +16,13 @@ trait ComponentSpec[P, S]
 }
 object ComponentSpec {
   
-  @scala.inline
-  def apply[P, S](render: CallbackTo[Node]): ComponentSpec[P, S] = {
+  inline def apply[P, S](render: CallbackTo[Node]): ComponentSpec[P, S] = {
     val __obj = js.Dynamic.literal(render = render.toJsFn)
     __obj.asInstanceOf[ComponentSpec[P, S]]
   }
   
-  @scala.inline
-  implicit class ComponentSpecMutableBuilder[Self <: ComponentSpec[?, ?], P, S] (val x: Self & (ComponentSpec[P, S])) extends AnyVal {
+  extension [Self <: ComponentSpec[?, ?], P, S](x: Self & (ComponentSpec[P, S])) {
     
-    @scala.inline
-    def setRender(value: CallbackTo[Node]): Self = StObject.set(x, "render", value.toJsFn)
+    inline def setRender(value: CallbackTo[Node]): Self = StObject.set(x, "render", value.toJsFn)
   }
 }

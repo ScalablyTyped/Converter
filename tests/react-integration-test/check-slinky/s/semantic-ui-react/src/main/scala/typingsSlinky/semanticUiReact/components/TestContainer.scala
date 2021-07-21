@@ -11,8 +11,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object TestContainer {
   
-  @scala.inline
-  def apply(
+  inline def apply(
     requiredFn0Number: () => Double,
     requiredFn0Void: () => Unit,
     requiredFn1Number: Double => Double,
@@ -31,35 +30,25 @@ object TestContainer {
     extends AnyVal
        with StBuildingComponent[tag.type, js.Object] {
     
-    @scala.inline
-    def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
+    inline def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
+    inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
+    inline def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def fluid(value: Boolean): this.type = set("fluid", value.asInstanceOf[js.Any])
+    inline def fluid(value: Boolean): this.type = set("fluid", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def optFn0Number(value: () => Double): this.type = set("optFn0Number", js.Any.fromFunction0(value))
+    inline def optFn0Number(value: () => Double): this.type = set("optFn0Number", js.Any.fromFunction0(value))
     
-    @scala.inline
-    def optFn0Void(value: () => Unit): this.type = set("optFn0Void", js.Any.fromFunction0(value))
+    inline def optFn0Void(value: () => Unit): this.type = set("optFn0Void", js.Any.fromFunction0(value))
     
-    @scala.inline
-    def optFn1Number(value: /* x */ Double => Double): this.type = set("optFn1Number", js.Any.fromFunction1(value))
+    inline def optFn1Number(value: /* x */ Double => Double): this.type = set("optFn1Number", js.Any.fromFunction1(value))
     
-    @scala.inline
-    def optFn1Void(value: /* x */ Double => Unit): this.type = set("optFn1Void", js.Any.fromFunction1(value))
+    inline def optFn1Void(value: /* x */ Double => Unit): this.type = set("optFn1Void", js.Any.fromFunction1(value))
     
-    @scala.inline
-    def text(value: Boolean): this.type = set("text", value.asInstanceOf[js.Any])
+    inline def text(value: Boolean): this.type = set("text", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def textAlign(value: SemanticTEXTALIGNMENTS): this.type = set("textAlign", value.asInstanceOf[js.Any])
+    inline def textAlign(value: SemanticTEXTALIGNMENTS): this.type = set("textAlign", value.asInstanceOf[js.Any])
   }
   
   def withProps(p: TestContainerProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))

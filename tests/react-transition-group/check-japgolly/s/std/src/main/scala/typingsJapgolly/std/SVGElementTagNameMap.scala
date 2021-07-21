@@ -10,8 +10,7 @@ trait SVGElementTagNameMap extends StObject {
 }
 object SVGElementTagNameMap {
   
-  @scala.inline
-  def apply(circle: org.scalajs.dom.raw.SVGCircleElement): SVGElementTagNameMap = {
+  inline def apply(circle: org.scalajs.dom.raw.SVGCircleElement): SVGElementTagNameMap = {
     val __obj = js.Dynamic.literal(circle = circle.asInstanceOf[js.Any])
     __obj.asInstanceOf[SVGElementTagNameMap]
   }

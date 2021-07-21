@@ -17,19 +17,16 @@ object eitherTMod {
   }
   object EitherT {
     
-    @scala.inline
-    def apply[F](
+    inline def apply[F](
       chain: (js.Function1[js.Any, HKT[F, Either[js.Any, js.Any]]], HKT[F, Either[js.Any, js.Any]]) => HKT[F, Either[js.Any, js.Any]]
     ): EitherT[F] = {
       val __obj = js.Dynamic.literal(chain = js.Any.fromFunction2(chain))
       __obj.asInstanceOf[EitherT[F]]
     }
     
-    @scala.inline
-    implicit class EitherTMutableBuilder[Self <: EitherT[?], F] (val x: Self & EitherT[F]) extends AnyVal {
+    extension [Self <: EitherT[?], F](x: Self & EitherT[F]) {
       
-      @scala.inline
-      def setChain(
+      inline def setChain(
         value: (js.Function1[js.Any, HKT[F, Either[js.Any, js.Any]]], HKT[F, Either[js.Any, js.Any]]) => HKT[F, Either[js.Any, js.Any]]
       ): Self = StObject.set(x, "chain", js.Any.fromFunction2(value))
     }

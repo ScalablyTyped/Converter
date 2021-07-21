@@ -21,8 +21,7 @@ trait Excluded extends StObject {
 }
 object Excluded {
   
-  @scala.inline
-  def apply(
+  inline def apply(
     fontFamily: String,
     fontSize: String,
     fontWeight: String,
@@ -34,25 +33,18 @@ object Excluded {
     __obj.asInstanceOf[Excluded]
   }
   
-  @scala.inline
-  implicit class ExcludedMutableBuilder[Self <: Excluded] (val x: Self) extends AnyVal {
+  extension [Self <: Excluded](x: Self) {
     
-    @scala.inline
-    def setFontFamily(value: String): Self = StObject.set(x, "fontFamily", value.asInstanceOf[js.Any])
+    inline def setFontFamily(value: String): Self = StObject.set(x, "fontFamily", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setFontSize(value: String): Self = StObject.set(x, "fontSize", value.asInstanceOf[js.Any])
+    inline def setFontSize(value: String): Self = StObject.set(x, "fontSize", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setFontWeight(value: String): Self = StObject.set(x, "fontWeight", value.asInstanceOf[js.Any])
+    inline def setFontWeight(value: String): Self = StObject.set(x, "fontWeight", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setLetterSpacing(value: String): Self = StObject.set(x, "letterSpacing", value.asInstanceOf[js.Any])
+    inline def setLetterSpacing(value: String): Self = StObject.set(x, "letterSpacing", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setLineHeight(value: String): Self = StObject.set(x, "lineHeight", value.asInstanceOf[js.Any])
+    inline def setLineHeight(value: String): Self = StObject.set(x, "lineHeight", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setTextTransform(value: String): Self = StObject.set(x, "textTransform", value.asInstanceOf[js.Any])
+    inline def setTextTransform(value: String): Self = StObject.set(x, "textTransform", value.asInstanceOf[js.Any])
   }
 }

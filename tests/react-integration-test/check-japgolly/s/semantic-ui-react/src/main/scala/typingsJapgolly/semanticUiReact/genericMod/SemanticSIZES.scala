@@ -17,27 +17,19 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait SemanticSIZES extends StObject
 object SemanticSIZES {
   
-  @scala.inline
-  def big: typingsJapgolly.semanticUiReact.semanticUiReactStrings.big = "big".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.big]
+  inline def big: typingsJapgolly.semanticUiReact.semanticUiReactStrings.big = "big".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.big]
   
-  @scala.inline
-  def huge: typingsJapgolly.semanticUiReact.semanticUiReactStrings.huge = "huge".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.huge]
+  inline def huge: typingsJapgolly.semanticUiReact.semanticUiReactStrings.huge = "huge".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.huge]
   
-  @scala.inline
-  def large: typingsJapgolly.semanticUiReact.semanticUiReactStrings.large = "large".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.large]
+  inline def large: typingsJapgolly.semanticUiReact.semanticUiReactStrings.large = "large".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.large]
   
-  @scala.inline
-  def massive: typingsJapgolly.semanticUiReact.semanticUiReactStrings.massive = "massive".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.massive]
+  inline def massive: typingsJapgolly.semanticUiReact.semanticUiReactStrings.massive = "massive".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.massive]
   
-  @scala.inline
-  def medium: typingsJapgolly.semanticUiReact.semanticUiReactStrings.medium = "medium".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.medium]
+  inline def medium: typingsJapgolly.semanticUiReact.semanticUiReactStrings.medium = "medium".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.medium]
   
-  @scala.inline
-  def mini: typingsJapgolly.semanticUiReact.semanticUiReactStrings.mini = "mini".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.mini]
+  inline def mini: typingsJapgolly.semanticUiReact.semanticUiReactStrings.mini = "mini".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.mini]
   
-  @scala.inline
-  def small: typingsJapgolly.semanticUiReact.semanticUiReactStrings.small = "small".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.small]
+  inline def small: typingsJapgolly.semanticUiReact.semanticUiReactStrings.small = "small".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.small]
   
-  @scala.inline
-  def tiny: typingsJapgolly.semanticUiReact.semanticUiReactStrings.tiny = "tiny".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.tiny]
+  inline def tiny: typingsJapgolly.semanticUiReact.semanticUiReactStrings.tiny = "tiny".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.tiny]
 }

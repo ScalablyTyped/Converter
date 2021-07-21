@@ -18,20 +18,16 @@ object mod {
   }
   object LoggerOptions {
     
-    @scala.inline
-    def apply(): LoggerOptions = {
+    inline def apply(): LoggerOptions = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[LoggerOptions]
     }
     
-    @scala.inline
-    implicit class LoggerOptionsMutableBuilder[Self <: LoggerOptions] (val x: Self) extends AnyVal {
+    extension [Self <: LoggerOptions](x: Self) {
       
-      @scala.inline
-      def setLevels(value: AbstractConfigSetLevels): Self = StObject.set(x, "levels", value.asInstanceOf[js.Any])
+      inline def setLevels(value: AbstractConfigSetLevels): Self = StObject.set(x, "levels", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setLevelsUndefined: Self = StObject.set(x, "levels", js.undefined)
+      inline def setLevelsUndefined: Self = StObject.set(x, "levels", js.undefined)
     }
   }
 }

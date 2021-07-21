@@ -32,6 +32,5 @@ object mod {
   @JSImport("phaser", "VERSION")
   @js.native
   def VERSION: String = js.native
-  @scala.inline
-  def VERSION_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("VERSION")(x.asInstanceOf[js.Any])
+  inline def VERSION_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("VERSION")(x.asInstanceOf[js.Any])
 }

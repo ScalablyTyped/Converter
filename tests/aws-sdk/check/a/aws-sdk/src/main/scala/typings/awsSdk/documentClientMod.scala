@@ -45,26 +45,20 @@ object documentClientMod {
     }
     object ConverterOptions {
       
-      @scala.inline
-      def apply(): ConverterOptions = {
+      inline def apply(): ConverterOptions = {
         val __obj = js.Dynamic.literal()
         __obj.asInstanceOf[ConverterOptions]
       }
       
-      @scala.inline
-      implicit class ConverterOptionsMutableBuilder[Self <: ConverterOptions] (val x: Self) extends AnyVal {
+      extension [Self <: ConverterOptions](x: Self) {
         
-        @scala.inline
-        def setConvertEmptyValues(value: Boolean): Self = StObject.set(x, "convertEmptyValues", value.asInstanceOf[js.Any])
+        inline def setConvertEmptyValues(value: Boolean): Self = StObject.set(x, "convertEmptyValues", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setConvertEmptyValuesUndefined: Self = StObject.set(x, "convertEmptyValues", js.undefined)
+        inline def setConvertEmptyValuesUndefined: Self = StObject.set(x, "convertEmptyValues", js.undefined)
         
-        @scala.inline
-        def setWrapNumbers(value: Boolean): Self = StObject.set(x, "wrapNumbers", value.asInstanceOf[js.Any])
+        inline def setWrapNumbers(value: Boolean): Self = StObject.set(x, "wrapNumbers", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setWrapNumbersUndefined: Self = StObject.set(x, "wrapNumbers", js.undefined)
+        inline def setWrapNumbersUndefined: Self = StObject.set(x, "wrapNumbers", js.undefined)
       }
     }
     
@@ -84,26 +78,20 @@ object documentClientMod {
     }
     object DocumentClientOptions {
       
-      @scala.inline
-      def apply(): DocumentClientOptions = {
+      inline def apply(): DocumentClientOptions = {
         val __obj = js.Dynamic.literal()
         __obj.asInstanceOf[DocumentClientOptions]
       }
       
-      @scala.inline
-      implicit class DocumentClientOptionsMutableBuilder[Self <: DocumentClientOptions] (val x: Self) extends AnyVal {
+      extension [Self <: DocumentClientOptions](x: Self) {
         
-        @scala.inline
-        def setParams(value: StringDictionary[js.Any]): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
+        inline def setParams(value: StringDictionary[js.Any]): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setParamsUndefined: Self = StObject.set(x, "params", js.undefined)
+        inline def setParamsUndefined: Self = StObject.set(x, "params", js.undefined)
         
-        @scala.inline
-        def setService(value: ^): Self = StObject.set(x, "service", value.asInstanceOf[js.Any])
+        inline def setService(value: ^): Self = StObject.set(x, "service", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setServiceUndefined: Self = StObject.set(x, "service", js.undefined)
+        inline def setServiceUndefined: Self = StObject.set(x, "service", js.undefined)
       }
     }
     

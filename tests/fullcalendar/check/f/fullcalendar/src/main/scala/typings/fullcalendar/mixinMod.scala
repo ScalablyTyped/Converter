@@ -16,11 +16,9 @@ object mixinMod {
     @js.native
     val ^ : js.Any = js.native
     
-    @scala.inline
-    def mixInto(destClass: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("mixInto")(destClass.asInstanceOf[js.Any]).asInstanceOf[Unit]
+    inline def mixInto(destClass: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("mixInto")(destClass.asInstanceOf[js.Any]).asInstanceOf[Unit]
     
-    @scala.inline
-    def mixOver(destClass: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("mixOver")(destClass.asInstanceOf[js.Any]).asInstanceOf[Unit]
+    inline def mixOver(destClass: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("mixOver")(destClass.asInstanceOf[js.Any]).asInstanceOf[Unit]
   }
   
   @JSImport("fullcalendar/Mixin", "Default")
@@ -33,10 +31,8 @@ object mixinMod {
     @js.native
     val ^ : js.Any = js.native
     
-    @scala.inline
-    def mixInto(destClass: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("mixInto")(destClass.asInstanceOf[js.Any]).asInstanceOf[Unit]
+    inline def mixInto(destClass: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("mixInto")(destClass.asInstanceOf[js.Any]).asInstanceOf[Unit]
     
-    @scala.inline
-    def mixOver(destClass: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("mixOver")(destClass.asInstanceOf[js.Any]).asInstanceOf[Unit]
+    inline def mixOver(destClass: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("mixOver")(destClass.asInstanceOf[js.Any]).asInstanceOf[Unit]
   }
 }

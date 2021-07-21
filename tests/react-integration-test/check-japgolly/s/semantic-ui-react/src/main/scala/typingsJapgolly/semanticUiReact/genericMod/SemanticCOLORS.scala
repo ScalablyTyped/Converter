@@ -22,42 +22,29 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait SemanticCOLORS extends StObject
 object SemanticCOLORS {
   
-  @scala.inline
-  def black: typingsJapgolly.semanticUiReact.semanticUiReactStrings.black = "black".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.black]
+  inline def black: typingsJapgolly.semanticUiReact.semanticUiReactStrings.black = "black".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.black]
   
-  @scala.inline
-  def blue: typingsJapgolly.semanticUiReact.semanticUiReactStrings.blue = "blue".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.blue]
+  inline def blue: typingsJapgolly.semanticUiReact.semanticUiReactStrings.blue = "blue".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.blue]
   
-  @scala.inline
-  def brown: typingsJapgolly.semanticUiReact.semanticUiReactStrings.brown = "brown".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.brown]
+  inline def brown: typingsJapgolly.semanticUiReact.semanticUiReactStrings.brown = "brown".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.brown]
   
-  @scala.inline
-  def green: typingsJapgolly.semanticUiReact.semanticUiReactStrings.green = "green".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.green]
+  inline def green: typingsJapgolly.semanticUiReact.semanticUiReactStrings.green = "green".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.green]
   
-  @scala.inline
-  def grey: typingsJapgolly.semanticUiReact.semanticUiReactStrings.grey = "grey".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.grey]
+  inline def grey: typingsJapgolly.semanticUiReact.semanticUiReactStrings.grey = "grey".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.grey]
   
-  @scala.inline
-  def olive: typingsJapgolly.semanticUiReact.semanticUiReactStrings.olive = "olive".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.olive]
+  inline def olive: typingsJapgolly.semanticUiReact.semanticUiReactStrings.olive = "olive".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.olive]
   
-  @scala.inline
-  def orange: typingsJapgolly.semanticUiReact.semanticUiReactStrings.orange = "orange".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.orange]
+  inline def orange: typingsJapgolly.semanticUiReact.semanticUiReactStrings.orange = "orange".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.orange]
   
-  @scala.inline
-  def pink: typingsJapgolly.semanticUiReact.semanticUiReactStrings.pink = "pink".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.pink]
+  inline def pink: typingsJapgolly.semanticUiReact.semanticUiReactStrings.pink = "pink".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.pink]
   
-  @scala.inline
-  def purple: typingsJapgolly.semanticUiReact.semanticUiReactStrings.purple = "purple".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.purple]
+  inline def purple: typingsJapgolly.semanticUiReact.semanticUiReactStrings.purple = "purple".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.purple]
   
-  @scala.inline
-  def red: typingsJapgolly.semanticUiReact.semanticUiReactStrings.red = "red".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.red]
+  inline def red: typingsJapgolly.semanticUiReact.semanticUiReactStrings.red = "red".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.red]
   
-  @scala.inline
-  def teal: typingsJapgolly.semanticUiReact.semanticUiReactStrings.teal = "teal".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.teal]
+  inline def teal: typingsJapgolly.semanticUiReact.semanticUiReactStrings.teal = "teal".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.teal]
   
-  @scala.inline
-  def violet: typingsJapgolly.semanticUiReact.semanticUiReactStrings.violet = "violet".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.violet]
+  inline def violet: typingsJapgolly.semanticUiReact.semanticUiReactStrings.violet = "violet".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.violet]
   
-  @scala.inline
-  def yellow: typingsJapgolly.semanticUiReact.semanticUiReactStrings.yellow = "yellow".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.yellow]
+  inline def yellow: typingsJapgolly.semanticUiReact.semanticUiReactStrings.yellow = "yellow".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.yellow]
 }

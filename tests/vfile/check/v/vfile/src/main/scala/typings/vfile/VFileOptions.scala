@@ -10,19 +10,15 @@ trait VFileOptions extends StObject {
 }
 object VFileOptions {
   
-  @scala.inline
-  def apply(): VFileOptions = {
+  inline def apply(): VFileOptions = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[VFileOptions]
   }
   
-  @scala.inline
-  implicit class VFileOptionsMutableBuilder[Self <: VFileOptions] (val x: Self) extends AnyVal {
+  extension [Self <: VFileOptions](x: Self) {
     
-    @scala.inline
-    def setContents(value: VFileContents): Self = StObject.set(x, "contents", value.asInstanceOf[js.Any])
+    inline def setContents(value: VFileContents): Self = StObject.set(x, "contents", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setContentsUndefined: Self = StObject.set(x, "contents", js.undefined)
+    inline def setContentsUndefined: Self = StObject.set(x, "contents", js.undefined)
   }
 }

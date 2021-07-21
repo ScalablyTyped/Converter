@@ -23,43 +23,31 @@ trait TypographyStyle extends StObject {
 }
 object TypographyStyle {
   
-  @scala.inline
-  def apply(color: String, fontFamily: String, fontSize: String, fontWeight: String): TypographyStyle = {
+  inline def apply(color: String, fontFamily: String, fontSize: String, fontWeight: String): TypographyStyle = {
     val __obj = js.Dynamic.literal(color = color.asInstanceOf[js.Any], fontFamily = fontFamily.asInstanceOf[js.Any], fontSize = fontSize.asInstanceOf[js.Any], fontWeight = fontWeight.asInstanceOf[js.Any])
     __obj.asInstanceOf[TypographyStyle]
   }
   
-  @scala.inline
-  implicit class TypographyStyleMutableBuilder[Self <: TypographyStyle] (val x: Self) extends AnyVal {
+  extension [Self <: TypographyStyle](x: Self) {
     
-    @scala.inline
-    def setColor(value: String): Self = StObject.set(x, "color", value.asInstanceOf[js.Any])
+    inline def setColor(value: String): Self = StObject.set(x, "color", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setFontFamily(value: String): Self = StObject.set(x, "fontFamily", value.asInstanceOf[js.Any])
+    inline def setFontFamily(value: String): Self = StObject.set(x, "fontFamily", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setFontSize(value: String): Self = StObject.set(x, "fontSize", value.asInstanceOf[js.Any])
+    inline def setFontSize(value: String): Self = StObject.set(x, "fontSize", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setFontWeight(value: String): Self = StObject.set(x, "fontWeight", value.asInstanceOf[js.Any])
+    inline def setFontWeight(value: String): Self = StObject.set(x, "fontWeight", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setLetterSpacing(value: String): Self = StObject.set(x, "letterSpacing", value.asInstanceOf[js.Any])
+    inline def setLetterSpacing(value: String): Self = StObject.set(x, "letterSpacing", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setLetterSpacingUndefined: Self = StObject.set(x, "letterSpacing", js.undefined)
+    inline def setLetterSpacingUndefined: Self = StObject.set(x, "letterSpacing", js.undefined)
     
-    @scala.inline
-    def setLineHeight(value: String): Self = StObject.set(x, "lineHeight", value.asInstanceOf[js.Any])
+    inline def setLineHeight(value: String): Self = StObject.set(x, "lineHeight", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setLineHeightUndefined: Self = StObject.set(x, "lineHeight", js.undefined)
+    inline def setLineHeightUndefined: Self = StObject.set(x, "lineHeight", js.undefined)
     
-    @scala.inline
-    def setTextTransform(value: String): Self = StObject.set(x, "textTransform", value.asInstanceOf[js.Any])
+    inline def setTextTransform(value: String): Self = StObject.set(x, "textTransform", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setTextTransformUndefined: Self = StObject.set(x, "textTransform", js.undefined)
+    inline def setTextTransformUndefined: Self = StObject.set(x, "textTransform", js.undefined)
   }
 }

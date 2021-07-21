@@ -17,8 +17,7 @@ trait UIEvent[T]
 }
 object UIEvent {
   
-  @scala.inline
-  def apply[T](
+  inline def apply[T](
     bubbles: Boolean,
     cancelable: Boolean,
     currentTarget: EventTarget & T,
@@ -42,13 +41,10 @@ object UIEvent {
     __obj.asInstanceOf[UIEvent[T]]
   }
   
-  @scala.inline
-  implicit class UIEventMutableBuilder[Self <: UIEvent[?], T] (val x: Self & UIEvent[T]) extends AnyVal {
+  extension [Self <: UIEvent[?], T](x: Self & UIEvent[T]) {
     
-    @scala.inline
-    def setDetail(value: Double): Self = StObject.set(x, "detail", value.asInstanceOf[js.Any])
+    inline def setDetail(value: Double): Self = StObject.set(x, "detail", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setView(value: AbstractView): Self = StObject.set(x, "view", value.asInstanceOf[js.Any])
+    inline def setView(value: AbstractView): Self = StObject.set(x, "view", value.asInstanceOf[js.Any])
   }
 }

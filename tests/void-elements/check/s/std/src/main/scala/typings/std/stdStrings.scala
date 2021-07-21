@@ -8,6 +8,5 @@ object stdStrings {
   
   @js.native
   sealed trait Partial extends StObject
-  @scala.inline
-  def Partial: Partial = "Partial".asInstanceOf[Partial]
+  inline def Partial: Partial = "Partial".asInstanceOf[Partial]
 }

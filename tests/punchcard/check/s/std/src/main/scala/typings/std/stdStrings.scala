@@ -8,6 +8,5 @@ object stdStrings {
   
   @js.native
   sealed trait Readonly extends StObject
-  @scala.inline
-  def Readonly: Readonly = "Readonly".asInstanceOf[Readonly]
+  inline def Readonly: Readonly = "Readonly".asInstanceOf[Readonly]
 }

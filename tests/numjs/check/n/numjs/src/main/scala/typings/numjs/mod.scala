@@ -22,23 +22,18 @@ object mod {
   }
   object NdArray {
     
-    @scala.inline
-    def apply[T](T: NdArray[T], data: Data[T], ndim: Double, slice: /* repeated */ Double => NdArray[T]): NdArray[T] = {
+    inline def apply[T](T: NdArray[T], data: Data[T], ndim: Double, slice: /* repeated */ Double => NdArray[T]): NdArray[T] = {
       val __obj = js.Dynamic.literal(T = T.asInstanceOf[js.Any], data = data.asInstanceOf[js.Any], ndim = ndim.asInstanceOf[js.Any], slice = js.Any.fromFunction1(slice))
       __obj.asInstanceOf[NdArray[T]]
     }
     
-    @scala.inline
-    implicit class NdArrayMutableBuilder[Self <: NdArray[?], T] (val x: Self & NdArray[T]) extends AnyVal {
+    extension [Self <: NdArray[?], T](x: Self & NdArray[T]) {
       
-      @scala.inline
-      def setNdim(value: Double): Self = StObject.set(x, "ndim", value.asInstanceOf[js.Any])
+      inline def setNdim(value: Double): Self = StObject.set(x, "ndim", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setSlice(value: /* repeated */ Double => NdArray[T]): Self = StObject.set(x, "slice", js.Any.fromFunction1(value))
+      inline def setSlice(value: /* repeated */ Double => NdArray[T]): Self = StObject.set(x, "slice", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setT(value: NdArray[T]): Self = StObject.set(x, "T", value.asInstanceOf[js.Any])
+      inline def setT(value: NdArray[T]): Self = StObject.set(x, "T", value.asInstanceOf[js.Any])
     }
   }
   

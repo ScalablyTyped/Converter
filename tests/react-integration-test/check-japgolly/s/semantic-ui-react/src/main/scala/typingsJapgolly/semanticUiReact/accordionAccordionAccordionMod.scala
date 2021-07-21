@@ -41,8 +41,7 @@ object accordionAccordionAccordionMod extends Shortcut {
        with /* key */ StringDictionary[js.Any]
   object AccordionAccordionProps {
     
-    @scala.inline
-    def apply(): AccordionAccordionProps = {
+    inline def apply(): AccordionAccordionProps = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[AccordionAccordionProps]
     }
@@ -87,82 +86,58 @@ object accordionAccordionAccordionMod extends Shortcut {
   }
   object StrictAccordionAccordionProps {
     
-    @scala.inline
-    def apply(): StrictAccordionAccordionProps = {
+    inline def apply(): StrictAccordionAccordionProps = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[StrictAccordionAccordionProps]
     }
     
-    @scala.inline
-    implicit class StrictAccordionAccordionPropsMutableBuilder[Self <: StrictAccordionAccordionProps] (val x: Self) extends AnyVal {
+    extension [Self <: StrictAccordionAccordionProps](x: Self) {
       
-      @scala.inline
-      def setActiveIndex(value: Double | js.Array[Double]): Self = StObject.set(x, "activeIndex", value.asInstanceOf[js.Any])
+      inline def setActiveIndex(value: Double | js.Array[Double]): Self = StObject.set(x, "activeIndex", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setActiveIndexUndefined: Self = StObject.set(x, "activeIndex", js.undefined)
+      inline def setActiveIndexUndefined: Self = StObject.set(x, "activeIndex", js.undefined)
       
-      @scala.inline
-      def setActiveIndexVarargs(value: Double*): Self = StObject.set(x, "activeIndex", js.Array(value :_*))
+      inline def setActiveIndexVarargs(value: Double*): Self = StObject.set(x, "activeIndex", js.Array(value :_*))
       
-      @scala.inline
-      def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
+      inline def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
+      inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
-      @scala.inline
-      def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
+      inline def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setChildrenNull: Self = StObject.set(x, "children", null)
+      inline def setChildrenNull: Self = StObject.set(x, "children", null)
       
-      @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      inline def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
-      @scala.inline
-      def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
+      inline def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
       
-      @scala.inline
-      def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
+      inline def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
+      inline def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+      inline def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
-      @scala.inline
-      def setDefaultActiveIndex(value: Double | js.Array[Double]): Self = StObject.set(x, "defaultActiveIndex", value.asInstanceOf[js.Any])
+      inline def setDefaultActiveIndex(value: Double | js.Array[Double]): Self = StObject.set(x, "defaultActiveIndex", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setDefaultActiveIndexUndefined: Self = StObject.set(x, "defaultActiveIndex", js.undefined)
+      inline def setDefaultActiveIndexUndefined: Self = StObject.set(x, "defaultActiveIndex", js.undefined)
       
-      @scala.inline
-      def setDefaultActiveIndexVarargs(value: Double*): Self = StObject.set(x, "defaultActiveIndex", js.Array(value :_*))
+      inline def setDefaultActiveIndexVarargs(value: Double*): Self = StObject.set(x, "defaultActiveIndex", js.Array(value :_*))
       
-      @scala.inline
-      def setExclusive(value: Boolean): Self = StObject.set(x, "exclusive", value.asInstanceOf[js.Any])
+      inline def setExclusive(value: Boolean): Self = StObject.set(x, "exclusive", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setExclusiveUndefined: Self = StObject.set(x, "exclusive", js.undefined)
+      inline def setExclusiveUndefined: Self = StObject.set(x, "exclusive", js.undefined)
       
-      @scala.inline
-      def setOnTitleClick(
+      inline def setOnTitleClick(
         value: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
       ): Self = StObject.set(x, "onTitleClick", js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => (value(t0, t1)).runNow()))
       
-      @scala.inline
-      def setOnTitleClickUndefined: Self = StObject.set(x, "onTitleClick", js.undefined)
+      inline def setOnTitleClickUndefined: Self = StObject.set(x, "onTitleClick", js.undefined)
       
-      @scala.inline
-      def setPanels(value: SemanticShorthandCollection[AccordionPanelProps]): Self = StObject.set(x, "panels", value.asInstanceOf[js.Any])
+      inline def setPanels(value: SemanticShorthandCollection[AccordionPanelProps]): Self = StObject.set(x, "panels", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setPanelsUndefined: Self = StObject.set(x, "panels", js.undefined)
+      inline def setPanelsUndefined: Self = StObject.set(x, "panels", js.undefined)
       
-      @scala.inline
-      def setPanelsVarargs(value: SemanticShorthandItem[AccordionPanelProps]*): Self = StObject.set(x, "panels", js.Array(value :_*))
+      inline def setPanelsVarargs(value: SemanticShorthandItem[AccordionPanelProps]*): Self = StObject.set(x, "panels", js.Array(value :_*))
     }
   }
   

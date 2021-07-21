@@ -11,6 +11,5 @@ object constEnumStrings {
   sealed trait C
     extends StObject
        with Foo_
-  @scala.inline
-  def C: C = "C".asInstanceOf[C]
+  inline def C: C = "C".asInstanceOf[C]
 }

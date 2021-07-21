@@ -74,26 +74,20 @@ object mod extends Shortcut {
   }
   object CommandOptions {
     
-    @scala.inline
-    def apply(): CommandOptions = {
+    inline def apply(): CommandOptions = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[CommandOptions]
     }
     
-    @scala.inline
-    implicit class CommandOptionsMutableBuilder[Self <: CommandOptions] (val x: Self) extends AnyVal {
+    extension [Self <: CommandOptions](x: Self) {
       
-      @scala.inline
-      def setIsDefault(value: Boolean): Self = StObject.set(x, "isDefault", value.asInstanceOf[js.Any])
+      inline def setIsDefault(value: Boolean): Self = StObject.set(x, "isDefault", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setIsDefaultUndefined: Self = StObject.set(x, "isDefault", js.undefined)
+      inline def setIsDefaultUndefined: Self = StObject.set(x, "isDefault", js.undefined)
       
-      @scala.inline
-      def setNoHelp(value: Boolean): Self = StObject.set(x, "noHelp", value.asInstanceOf[js.Any])
+      inline def setNoHelp(value: Boolean): Self = StObject.set(x, "noHelp", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setNoHelpUndefined: Self = StObject.set(x, "noHelp", js.undefined)
+      inline def setNoHelpUndefined: Self = StObject.set(x, "noHelp", js.undefined)
     }
   }
   
@@ -125,26 +119,20 @@ object mod extends Shortcut {
   }
   object ParseOptionsResult {
     
-    @scala.inline
-    def apply(args: js.Array[String], unknown: js.Array[String]): ParseOptionsResult = {
+    inline def apply(args: js.Array[String], unknown: js.Array[String]): ParseOptionsResult = {
       val __obj = js.Dynamic.literal(args = args.asInstanceOf[js.Any], unknown = unknown.asInstanceOf[js.Any])
       __obj.asInstanceOf[ParseOptionsResult]
     }
     
-    @scala.inline
-    implicit class ParseOptionsResultMutableBuilder[Self <: ParseOptionsResult] (val x: Self) extends AnyVal {
+    extension [Self <: ParseOptionsResult](x: Self) {
       
-      @scala.inline
-      def setArgs(value: js.Array[String]): Self = StObject.set(x, "args", value.asInstanceOf[js.Any])
+      inline def setArgs(value: js.Array[String]): Self = StObject.set(x, "args", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setArgsVarargs(value: String*): Self = StObject.set(x, "args", js.Array(value :_*))
+      inline def setArgsVarargs(value: String*): Self = StObject.set(x, "args", js.Array(value :_*))
       
-      @scala.inline
-      def setUnknown(value: js.Array[String]): Self = StObject.set(x, "unknown", value.asInstanceOf[js.Any])
+      inline def setUnknown(value: js.Array[String]): Self = StObject.set(x, "unknown", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setUnknownVarargs(value: String*): Self = StObject.set(x, "unknown", js.Array(value :_*))
+      inline def setUnknownVarargs(value: String*): Self = StObject.set(x, "unknown", js.Array(value :_*))
     }
   }
   
@@ -452,8 +440,7 @@ object mod extends Shortcut {
     }
     object Option {
       
-      @scala.inline
-      def apply(
+      inline def apply(
         bool: Boolean,
         description: String,
         flags: String,
@@ -465,32 +452,23 @@ object mod extends Shortcut {
         __obj.asInstanceOf[typings.commander.mod.local.Option]
       }
       
-      @scala.inline
-      implicit class OptionMutableBuilder[Self <: typings.commander.mod.local.Option] (val x: Self) extends AnyVal {
+      extension [Self <: typings.commander.mod.local.Option](x: Self) {
         
-        @scala.inline
-        def setBool(value: Boolean): Self = StObject.set(x, "bool", value.asInstanceOf[js.Any])
+        inline def setBool(value: Boolean): Self = StObject.set(x, "bool", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setDescription(value: String): Self = StObject.set(x, "description", value.asInstanceOf[js.Any])
+        inline def setDescription(value: String): Self = StObject.set(x, "description", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setFlags(value: String): Self = StObject.set(x, "flags", value.asInstanceOf[js.Any])
+        inline def setFlags(value: String): Self = StObject.set(x, "flags", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setLong(value: String): Self = StObject.set(x, "long", value.asInstanceOf[js.Any])
+        inline def setLong(value: String): Self = StObject.set(x, "long", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setOptional(value: Boolean): Self = StObject.set(x, "optional", value.asInstanceOf[js.Any])
+        inline def setOptional(value: Boolean): Self = StObject.set(x, "optional", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setRequired(value: Boolean): Self = StObject.set(x, "required", value.asInstanceOf[js.Any])
+        inline def setRequired(value: Boolean): Self = StObject.set(x, "required", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setShort(value: String): Self = StObject.set(x, "short", value.asInstanceOf[js.Any])
+        inline def setShort(value: String): Self = StObject.set(x, "short", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setShortUndefined: Self = StObject.set(x, "short", js.undefined)
+        inline def setShortUndefined: Self = StObject.set(x, "short", js.undefined)
       }
     }
   }

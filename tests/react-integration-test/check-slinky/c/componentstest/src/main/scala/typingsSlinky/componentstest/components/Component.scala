@@ -11,8 +11,7 @@ object Component {
   
   object A {
     
-    @scala.inline
-    def apply(aCallback: () => Double, aMember: Double): Default[tag.type, js.Object] = {
+    inline def apply(aCallback: () => Double, aMember: Double): Default[tag.type, js.Object] = {
       val __props = js.Dynamic.literal(aCallback = js.Any.fromFunction0(aCallback), aMember = aMember.asInstanceOf[js.Any])
       new Default[tag.type, js.Object](js.Array(this.component, __props.asInstanceOf[typingsSlinky.componentstest.mod.A]))
     }
@@ -26,8 +25,7 @@ object Component {
   
   object B {
     
-    @scala.inline
-    def apply(bMember: String): Builder = {
+    inline def apply(bMember: String): Builder = {
       val __props = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
       new Builder(js.Array(this.component, __props.asInstanceOf[typingsSlinky.componentstest.mod.B]))
     }
@@ -41,8 +39,7 @@ object Component {
       extends AnyVal
          with StBuildingComponent[tag.type, js.Object] {
       
-      @scala.inline
-      def bCallback(value: () => String): this.type = set("bCallback", js.Any.fromFunction0(value))
+      inline def bCallback(value: () => String): this.type = set("bCallback", js.Any.fromFunction0(value))
     }
     
     def withProps(p: typingsSlinky.componentstest.mod.B): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))

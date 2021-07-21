@@ -15,20 +15,16 @@ object anon {
   }
   object PickAcb {
     
-    @scala.inline
-    def apply(b: Double, c: Double): PickAcb = {
+    inline def apply(b: Double, c: Double): PickAcb = {
       val __obj = js.Dynamic.literal(b = b.asInstanceOf[js.Any], c = c.asInstanceOf[js.Any])
       __obj.asInstanceOf[PickAcb]
     }
     
-    @scala.inline
-    implicit class PickAcbMutableBuilder[Self <: PickAcb] (val x: Self) extends AnyVal {
+    extension [Self <: PickAcb](x: Self) {
       
-      @scala.inline
-      def setB(value: Double): Self = StObject.set(x, "b", value.asInstanceOf[js.Any])
+      inline def setB(value: Double): Self = StObject.set(x, "b", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setC(value: Double): Self = StObject.set(x, "c", value.asInstanceOf[js.Any])
+      inline def setC(value: Double): Self = StObject.set(x, "c", value.asInstanceOf[js.Any])
     }
   }
 }

@@ -21,17 +21,14 @@ object configMod extends Shortcut {
   }
   object Config {
     
-    @scala.inline
-    def apply(): Config = {
+    inline def apply(): Config = {
       val __obj = js.Dynamic.literal(foo = "bar")
       __obj.asInstanceOf[Config]
     }
     
-    @scala.inline
-    implicit class ConfigMutableBuilder[Self <: Config] (val x: Self) extends AnyVal {
+    extension [Self <: Config](x: Self) {
       
-      @scala.inline
-      def setFoo(value: bar): Self = StObject.set(x, "foo", value.asInstanceOf[js.Any])
+      inline def setFoo(value: bar): Self = StObject.set(x, "foo", value.asInstanceOf[js.Any])
     }
   }
   

@@ -10,8 +10,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object mod {
   
-  @scala.inline
-  def apply(schema: Schema): Unit = ^.asInstanceOf[js.Dynamic].apply(schema.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  inline def apply(schema: Schema): Unit = ^.asInstanceOf[js.Dynamic].apply(schema.asInstanceOf[js.Any]).asInstanceOf[Unit]
   
   @JSImport("mongoose-simple-random", JSImport.Namespace)
   @js.native

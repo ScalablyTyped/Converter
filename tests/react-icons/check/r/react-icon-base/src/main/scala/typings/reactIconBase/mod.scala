@@ -25,20 +25,16 @@ object mod {
   }
   object IconBaseProps {
     
-    @scala.inline
-    def apply(): IconBaseProps = {
+    inline def apply(): IconBaseProps = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[IconBaseProps]
     }
     
-    @scala.inline
-    implicit class IconBasePropsMutableBuilder[Self <: IconBaseProps] (val x: Self) extends AnyVal {
+    extension [Self <: IconBaseProps](x: Self) {
       
-      @scala.inline
-      def setSize(value: String | Double): Self = StObject.set(x, "size", value.asInstanceOf[js.Any])
+      inline def setSize(value: String | Double): Self = StObject.set(x, "size", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setSizeUndefined: Self = StObject.set(x, "size", js.undefined)
+      inline def setSizeUndefined: Self = StObject.set(x, "size", js.undefined)
     }
   }
 }

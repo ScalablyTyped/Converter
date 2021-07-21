@@ -18,17 +18,13 @@ object mod {
   @js.native
   val ^ : js.Any = js.native
   
-  @scala.inline
-  def bar(x: Foo_): `22` = ^.asInstanceOf[js.Dynamic].applyDynamic("bar")(x.asInstanceOf[js.Any]).asInstanceOf[`22`]
+  inline def bar(x: Foo_): `22` = ^.asInstanceOf[js.Dynamic].applyDynamic("bar")(x.asInstanceOf[js.Any]).asInstanceOf[`22`]
   
-  @scala.inline
-  def foo2(x: Foo2_): Double = ^.asInstanceOf[js.Dynamic].applyDynamic("foo2")(x.asInstanceOf[js.Any]).asInstanceOf[Double]
+  inline def foo2(x: Foo2_): Double = ^.asInstanceOf[js.Dynamic].applyDynamic("foo2")(x.asInstanceOf[js.Any]).asInstanceOf[Double]
   
-  @scala.inline
-  def foo_1(x: `1`): Double = ^.asInstanceOf[js.Dynamic].applyDynamic("foo")(x.asInstanceOf[js.Any]).asInstanceOf[Double]
+  inline def foo_1(x: `1`): Double = ^.asInstanceOf[js.Dynamic].applyDynamic("foo")(x.asInstanceOf[js.Any]).asInstanceOf[Double]
   
-  @scala.inline
-  def foo_C(x: C): Double = ^.asInstanceOf[js.Dynamic].applyDynamic("foo")(x.asInstanceOf[js.Any]).asInstanceOf[Double]
+  inline def foo_C(x: C): Double = ^.asInstanceOf[js.Dynamic].applyDynamic("foo")(x.asInstanceOf[js.Any]).asInstanceOf[Double]
   
   /* Rewritten from type alias, can be one of: 
     - typings.constEnum.constEnumNumbers.`0`
@@ -38,14 +34,11 @@ object mod {
   trait Foo2_ extends StObject
   object Foo2_ {
     
-    @scala.inline
-    def A: `0` = 0.asInstanceOf[`0`]
+    inline def A: `0` = 0.asInstanceOf[`0`]
     
-    @scala.inline
-    def B: `22` = 22.asInstanceOf[`22`]
+    inline def B: `22` = 22.asInstanceOf[`22`]
     
-    @scala.inline
-    def C: `1` = (0 + 1).asInstanceOf[`1`]
+    inline def C: `1` = (0 + 1).asInstanceOf[`1`]
   }
   
   /* Rewritten from type alias, can be one of: 
@@ -56,14 +49,11 @@ object mod {
   trait Foo_ extends StObject
   object Foo_ {
     
-    @scala.inline
-    def A: `1` = 1.asInstanceOf[`1`]
+    inline def A: `1` = 1.asInstanceOf[`1`]
     
-    @scala.inline
-    def B: `22` = 22.asInstanceOf[`22`]
+    inline def B: `22` = 22.asInstanceOf[`22`]
     
-    @scala.inline
-    def C: typings.constEnum.constEnumStrings.C = "C".asInstanceOf[typings.constEnum.constEnumStrings.C]
+    inline def C: typings.constEnum.constEnumStrings.C = "C".asInstanceOf[typings.constEnum.constEnumStrings.C]
   }
   
   /* Rewritten from type alias, can be one of: 
@@ -77,19 +67,15 @@ object mod {
     
     /** The index of the next pre-order hook to be called in the hooks array, on the first 16
       bits */
-    @scala.inline
-    def IndexOfTheNextPreOrderHookMaskMask: `65535` = 65535.asInstanceOf[`65535`]
+    inline def IndexOfTheNextPreOrderHookMaskMask: `65535` = 65535.asInstanceOf[`65535`]
     
     /**
       * The number of init hooks that have already been called, on the last 16 bits
       */
-    @scala.inline
-    def NumberOfInitHooksCalledIncrementer: `65536` = 65536.asInstanceOf[`65536`]
+    inline def NumberOfInitHooksCalledIncrementer: `65536` = 65536.asInstanceOf[`65536`]
     
-    @scala.inline
-    def NumberOfInitHooksCalledMask: _4294901760 = 4294901760.0.asInstanceOf[_4294901760]
+    inline def NumberOfInitHooksCalledMask: _4294901760 = 4294901760.0.asInstanceOf[_4294901760]
     
-    @scala.inline
-    def NumberOfInitHooksCalledShift: `16` = 16.asInstanceOf[`16`]
+    inline def NumberOfInitHooksCalledShift: `16` = 16.asInstanceOf[`16`]
   }
 }

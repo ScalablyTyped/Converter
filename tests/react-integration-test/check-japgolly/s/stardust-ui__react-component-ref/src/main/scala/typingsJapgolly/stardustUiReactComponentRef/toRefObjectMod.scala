@@ -12,6 +12,5 @@ object toRefObjectMod {
   val ^ : js.Any = js.native
   
   /** Creates a React ref object from existing DOM node. */
-  @scala.inline
-  def default[T /* <: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): RefHandle[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(node.asInstanceOf[js.Any]).asInstanceOf[RefHandle[T]]
+  inline def default[T /* <: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): RefHandle[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(node.asInstanceOf[js.Any]).asInstanceOf[RefHandle[T]]
 }

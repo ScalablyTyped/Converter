@@ -11,9 +11,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait SemanticFLOATS extends StObject
 object SemanticFLOATS {
   
-  @scala.inline
-  def left: typingsSlinky.semanticUiReact.semanticUiReactStrings.left = "left".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.left]
+  inline def left: typingsSlinky.semanticUiReact.semanticUiReactStrings.left = "left".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.left]
   
-  @scala.inline
-  def right: typingsSlinky.semanticUiReact.semanticUiReactStrings.right = "right".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.right]
+  inline def right: typingsSlinky.semanticUiReact.semanticUiReactStrings.right = "right".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.right]
 }

@@ -26,8 +26,7 @@ object buttonContentMod extends Shortcut {
        with /* key */ StringDictionary[js.Any]
   object ButtonContentProps {
     
-    @scala.inline
-    def apply(): ButtonContentProps = {
+    inline def apply(): ButtonContentProps = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[ButtonContentProps]
     }
@@ -55,68 +54,48 @@ object buttonContentMod extends Shortcut {
   }
   object StrictButtonContentProps {
     
-    @scala.inline
-    def apply(): StrictButtonContentProps = {
+    inline def apply(): StrictButtonContentProps = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[StrictButtonContentProps]
     }
     
-    @scala.inline
-    implicit class StrictButtonContentPropsMutableBuilder[Self <: StrictButtonContentProps] (val x: Self) extends AnyVal {
+    extension [Self <: StrictButtonContentProps](x: Self) {
       
-      @scala.inline
-      def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
+      inline def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
+      inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
-      @scala.inline
-      def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
+      inline def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setChildrenNull: Self = StObject.set(x, "children", null)
+      inline def setChildrenNull: Self = StObject.set(x, "children", null)
       
-      @scala.inline
-      def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+      inline def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
-      @scala.inline
-      def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
+      inline def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
       
-      @scala.inline
-      def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
+      inline def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
+      inline def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+      inline def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
-      @scala.inline
-      def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
+      inline def setContent(value: SemanticShorthandContent): Self = StObject.set(x, "content", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setContentNull: Self = StObject.set(x, "content", null)
+      inline def setContentNull: Self = StObject.set(x, "content", null)
       
-      @scala.inline
-      def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
+      inline def setContentUndefined: Self = StObject.set(x, "content", js.undefined)
       
-      @scala.inline
-      def setContentVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "content", js.Array(value :_*))
+      inline def setContentVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "content", js.Array(value :_*))
       
-      @scala.inline
-      def setContentVdomElement(value: VdomElement): Self = StObject.set(x, "content", value.rawElement.asInstanceOf[js.Any])
+      inline def setContentVdomElement(value: VdomElement): Self = StObject.set(x, "content", value.rawElement.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setHidden(value: Boolean): Self = StObject.set(x, "hidden", value.asInstanceOf[js.Any])
+      inline def setHidden(value: Boolean): Self = StObject.set(x, "hidden", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setHiddenUndefined: Self = StObject.set(x, "hidden", js.undefined)
+      inline def setHiddenUndefined: Self = StObject.set(x, "hidden", js.undefined)
       
-      @scala.inline
-      def setVisible(value: Boolean): Self = StObject.set(x, "visible", value.asInstanceOf[js.Any])
+      inline def setVisible(value: Boolean): Self = StObject.set(x, "visible", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setVisibleUndefined: Self = StObject.set(x, "visible", js.undefined)
+      inline def setVisibleUndefined: Self = StObject.set(x, "visible", js.undefined)
     }
   }
   

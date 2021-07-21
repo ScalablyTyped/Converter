@@ -11,15 +11,13 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait Mark extends StObject
 object Mark {
   
-  @scala.inline
-  def TextMark(): typings.typeMappings.TextMark = {
+  inline def TextMark(): typings.typeMappings.TextMark = {
     val __obj = js.Dynamic.literal()
     __obj.updateDynamic("type")("text")
     __obj.asInstanceOf[typings.typeMappings.TextMark]
   }
   
-  @scala.inline
-  def TrailMark(): typings.typeMappings.TrailMark = {
+  inline def TrailMark(): typings.typeMappings.TrailMark = {
     val __obj = js.Dynamic.literal()
     __obj.updateDynamic("type")("trail")
     __obj.asInstanceOf[typings.typeMappings.TrailMark]

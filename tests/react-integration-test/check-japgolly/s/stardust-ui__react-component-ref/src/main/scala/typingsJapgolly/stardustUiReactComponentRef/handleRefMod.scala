@@ -17,6 +17,5 @@ object handleRefMod {
     * @param ref An ref object or function
     * @param node A node that should be passed by ref
     */
-  @scala.inline
-  def default[N](ref: Ref[N], node: N): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("default")(ref.asInstanceOf[js.Any], node.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  inline def default[N](ref: Ref[N], node: N): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("default")(ref.asInstanceOf[js.Any], node.asInstanceOf[js.Any])).asInstanceOf[Unit]
 }

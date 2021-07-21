@@ -10,8 +10,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object BottomNavigationItem {
   
-  @scala.inline
-  def apply(children: Double): Builder = {
+  inline def apply(children: Double): Builder = {
     val __props = js.Dynamic.literal(children = children.asInstanceOf[js.Any])
     new Builder(js.Array(this.component, __props.asInstanceOf[BottomNavigationItemProps]))
   }
@@ -25,8 +24,7 @@ object BottomNavigationItem {
     extends AnyVal
        with StBuildingComponent[tag.type, default] {
     
-    @scala.inline
-    def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
+    inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
   }
   
   def withProps(p: BottomNavigationItemProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))

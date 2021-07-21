@@ -16,20 +16,17 @@ object global {
     @JSGlobal("PIXI.CANVAS_RENDERER")
     @js.native
     def CANVAS_RENDERER: Double = js.native
-    @scala.inline
-    def CANVAS_RENDERER_=(x: Double): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("CANVAS_RENDERER")(x.asInstanceOf[js.Any])
+    inline def CANVAS_RENDERER_=(x: Double): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("CANVAS_RENDERER")(x.asInstanceOf[js.Any])
     
     @JSGlobal("PIXI.VERSION")
     @js.native
     def VERSION: String = js.native
-    @scala.inline
-    def VERSION_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("VERSION")(x.asInstanceOf[js.Any])
+    inline def VERSION_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("VERSION")(x.asInstanceOf[js.Any])
     
     @JSGlobal("PIXI.WEBGL_RENDERER")
     @js.native
     def WEBGL_RENDERER: Double = js.native
-    @scala.inline
-    def WEBGL_RENDERER_=(x: Double): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("WEBGL_RENDERER")(x.asInstanceOf[js.Any])
+    inline def WEBGL_RENDERER_=(x: Double): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("WEBGL_RENDERER")(x.asInstanceOf[js.Any])
     
     @JSGlobal("PIXI.blendModes")
     @js.native
@@ -84,8 +81,7 @@ object global {
     @JSGlobal("Phaser.VERSION")
     @js.native
     def VERSION: String = js.native
-    @scala.inline
-    def VERSION_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("VERSION")(x.asInstanceOf[js.Any])
+    inline def VERSION_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("VERSION")(x.asInstanceOf[js.Any])
   }
   
   object p2 {

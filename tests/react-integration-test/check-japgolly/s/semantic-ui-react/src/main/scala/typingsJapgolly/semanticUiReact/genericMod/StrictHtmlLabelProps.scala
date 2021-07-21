@@ -16,28 +16,21 @@ trait StrictHtmlLabelProps extends StObject {
 }
 object StrictHtmlLabelProps {
   
-  @scala.inline
-  def apply(): StrictHtmlLabelProps = {
+  inline def apply(): StrictHtmlLabelProps = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[StrictHtmlLabelProps]
   }
   
-  @scala.inline
-  implicit class StrictHtmlLabelPropsMutableBuilder[Self <: StrictHtmlLabelProps] (val x: Self) extends AnyVal {
+  extension [Self <: StrictHtmlLabelProps](x: Self) {
     
-    @scala.inline
-    def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
+    inline def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setChildrenNull: Self = StObject.set(x, "children", null)
+    inline def setChildrenNull: Self = StObject.set(x, "children", null)
     
-    @scala.inline
-    def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+    inline def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
     
-    @scala.inline
-    def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
+    inline def setChildrenVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "children", js.Array(value :_*))
     
-    @scala.inline
-    def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
+    inline def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
   }
 }

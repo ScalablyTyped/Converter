@@ -13,19 +13,15 @@ trait PersonRecord extends StObject {
 }
 object PersonRecord {
   
-  @scala.inline
-  def apply(age: String, name: String): PersonRecord = {
+  inline def apply(age: String, name: String): PersonRecord = {
     val __obj = js.Dynamic.literal(age = age.asInstanceOf[js.Any], name = name.asInstanceOf[js.Any])
     __obj.asInstanceOf[PersonRecord]
   }
   
-  @scala.inline
-  implicit class PersonRecordMutableBuilder[Self <: PersonRecord] (val x: Self) extends AnyVal {
+  extension [Self <: PersonRecord](x: Self) {
     
-    @scala.inline
-    def setAge(value: String): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
+    inline def setAge(value: String): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
+    inline def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
   }
 }

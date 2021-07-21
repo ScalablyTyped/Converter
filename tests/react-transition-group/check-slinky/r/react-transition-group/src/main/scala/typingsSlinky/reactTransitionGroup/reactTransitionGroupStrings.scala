@@ -8,11 +8,9 @@ object reactTransitionGroupStrings {
   
   @js.native
   sealed trait abbr extends StObject
-  @scala.inline
-  def abbr: abbr = "abbr".asInstanceOf[abbr]
+  inline def abbr: abbr = "abbr".asInstanceOf[abbr]
   
   @js.native
   sealed trait animate extends StObject
-  @scala.inline
-  def animate: animate = "animate".asInstanceOf[animate]
+  inline def animate: animate = "animate".asInstanceOf[animate]
 }

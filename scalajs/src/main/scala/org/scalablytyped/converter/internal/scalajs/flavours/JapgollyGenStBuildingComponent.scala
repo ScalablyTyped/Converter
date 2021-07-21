@@ -14,22 +14,22 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
   val R                   = TypeParamTree(Name("R"), Empty, Some(TypeRef.JsObject), NoComments, ignoreBound = false)
   val builderTparams      = IArray(R)
   val builderRef          = TypeRef(builderCp, TypeParamTree.asTypeArgs(builderTparams), NoComments)
+  val modParam            = ParamTree(Name("m"), false, false, TypeRef(JapgollyNames.vdom.TagMod), NotImplemented, NoComments)
+  val jsAnyParam          = ParamTree(Name("m"), false, false, TypeRef.JsAny, NotImplemented, NoComments)
 
-  //  def args: js.Array[js.Any]
-  val args: MethodTree = {
+  //  val args: js.Array[js.Any]
+  val args: FieldTree = {
     val name: Name = Name("args")
-    MethodTree(
-      IArray(Annotation.Inline),
+    FieldTree(
+      Empty,
       ProtectionLevel.Public,
       name,
-      Empty,
-      Empty,
-      NotImplemented,
       TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments),
+      NotImplemented,
+      isReadOnly = true,
       isOverride = false,
-      NoComments,
-      builderCp + name,
-      isImplicit = false,
+      comments   = NoComments,
+      codePath   = builderCp + name,
     )
   }
 
@@ -166,7 +166,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 //    def applyTagMod(t: TagMod): Unit =
 //      if (t.isInstanceOf[TagMod.Composite]) {
 //        val tt = t.asInstanceOf[TagMod.Composite]
-//        tt.mods.foreach(applyTagMod)
+//        tt.mods.foreach((m: TagMod) => applyTagMod(m))
 //      } else if (t.isInstanceOf[VdomNode]) {
 //        val tt = t.asInstanceOf[VdomNode]
 //        b.args.push(tt.rawNode.asInstanceOf[js.Any])
@@ -175,8 +175,8 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 //        tt.addClassNameToProps()
 //        tt.addKeyToProps()
 //        tt.addStyleToProps()
-//        tt.nonEmptyChildren.foreach(children => b.args.push(children))
-//        tt.nonEmptyProps.foreach(props => js.Object.assign(b.args(1).asInstanceOf[js.Object], props))
+//        tt.nonEmptyChildren.foreach((children: js.Array[Node]) => b.args.push(children))
+//        tt.nonEmptyProps.foreach((m: js.Any) => unsafeSpread(m))
 //      }
     val applyTagMod = {
       val TagMod          = TypeRef(JapgollyNames.vdom.TagMod)
@@ -214,7 +214,9 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
             ),
             Call(
               Ref(QualifiedName(IArray(ttName, Name("nonEmptyProps"), Name("foreach")))),
-              IArray(IArray(Ref(unsafeSpread.name))),
+              IArray(
+                IArray(Lambda(IArray(jsAnyParam), Call(Ref(unsafeSpread.name), IArray(IArray(Ref(modParam.name)))))),
+              ),
             ),
           )
         }
@@ -223,7 +225,10 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
           InstanceOf(Ref(tParam.name), TagModComposite),
           Block(
             Val(ttName, Cast(Ref(tParam.name), TagModComposite)),
-            Call(Ref(QualifiedName(IArray(ttName, Name("mods"), Name("foreach")))), IArray(IArray(Ref(name)))),
+            Call(
+              Ref(QualifiedName(IArray(ttName, Name("mods"), Name("foreach")))),
+              IArray(IArray(Lambda(IArray(modParam), Call(Ref(name), IArray(IArray(Ref(modParam.name))))))),
+            ),
           ),
           Some(
             If(
@@ -242,7 +247,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       }
 
       MethodTree(
-        IArray(Annotation.Inline),
+        Empty,
         ProtectionLevel.Public,
         name,
         Empty,
@@ -258,7 +263,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
 //    @scala.inline
 //    def apply(mods: TagMod*): this.type = {
-//      mods.foreach(applyTagMod)
+//      mods.foreach((m: TagMod) => applyTagMod(m))
 //      this
 //    }
     val `apply` = {
@@ -272,7 +277,10 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       )
       val impl =
         Block(
-          Call(Select(Ref(modsParam.name), Name("foreach")), IArray(IArray(Ref(applyTagMod.name)))),
+          Call(
+            Select(Ref(modsParam.name), Name("foreach")),
+            IArray(IArray(Lambda(IArray(modParam), Call(Ref(applyTagMod.name), IArray(IArray(Ref(modParam.name))))))),
+          ),
           Ref(Name.THIS),
         )
 

@@ -10,8 +10,7 @@ object bootstrapUtilsMod {
   @js.native
   val ^ : js.Any = js.native
   
-  @scala.inline
-  def getBsProps(props: js.Any): BSProps = ^.asInstanceOf[js.Dynamic].applyDynamic("getBsProps")(props.asInstanceOf[js.Any]).asInstanceOf[BSProps]
+  inline def getBsProps(props: js.Any): BSProps = ^.asInstanceOf[js.Dynamic].applyDynamic("getBsProps")(props.asInstanceOf[js.Any]).asInstanceOf[BSProps]
   
   trait BSProps extends StObject {
     
@@ -19,17 +18,14 @@ object bootstrapUtilsMod {
   }
   object BSProps {
     
-    @scala.inline
-    def apply(bsClass: js.Any): BSProps = {
+    inline def apply(bsClass: js.Any): BSProps = {
       val __obj = js.Dynamic.literal(bsClass = bsClass.asInstanceOf[js.Any])
       __obj.asInstanceOf[BSProps]
     }
     
-    @scala.inline
-    implicit class BSPropsMutableBuilder[Self <: BSProps] (val x: Self) extends AnyVal {
+    extension [Self <: BSProps](x: Self) {
       
-      @scala.inline
-      def setBsClass(value: js.Any): Self = StObject.set(x, "bsClass", value.asInstanceOf[js.Any])
+      inline def setBsClass(value: js.Any): Self = StObject.set(x, "bsClass", value.asInstanceOf[js.Any])
     }
   }
 }

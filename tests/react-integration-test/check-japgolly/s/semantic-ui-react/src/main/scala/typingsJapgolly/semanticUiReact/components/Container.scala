@@ -23,32 +23,23 @@ object Container {
     extends AnyVal
        with StBuildingComponent[js.Object] {
     
-    @scala.inline
-    def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
+    inline def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
+    inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
+    inline def content(value: SemanticShorthandContent): this.type = set("content", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def contentNull: this.type = set("content", null)
+    inline def contentNull: this.type = set("content", null)
     
-    @scala.inline
-    def contentVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("content", js.Array(value :_*))
+    inline def contentVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("content", js.Array(value :_*))
     
-    @scala.inline
-    def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
+    inline def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
     
-    @scala.inline
-    def fluid(value: Boolean): this.type = set("fluid", value.asInstanceOf[js.Any])
+    inline def fluid(value: Boolean): this.type = set("fluid", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def text(value: Boolean): this.type = set("text", value.asInstanceOf[js.Any])
+    inline def text(value: Boolean): this.type = set("text", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def textAlign(value: SemanticTEXTALIGNMENTS): this.type = set("textAlign", value.asInstanceOf[js.Any])
+    inline def textAlign(value: SemanticTEXTALIGNMENTS): this.type = set("textAlign", value.asInstanceOf[js.Any])
   }
   
   implicit def make(companion: Container.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()

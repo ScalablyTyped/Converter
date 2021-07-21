@@ -12,7 +12,6 @@ object global {
     @js.native
     val ^ : js.Any = js.native
     
-    @scala.inline
-    def h(): js.Any = ^.asInstanceOf[js.Dynamic].applyDynamic("h")().asInstanceOf[js.Any]
+    inline def h(): js.Any = ^.asInstanceOf[js.Dynamic].applyDynamic("h")().asInstanceOf[js.Any]
   }
 }

@@ -94,8 +94,7 @@ object mod extends Shortcut {
     @JSImport("chart.js", "defaults.global")
     @js.native
     def global: ChartOptions & ChartFontOptions = js.native
-    @scala.inline
-    def global_=(x: ChartOptions & ChartFontOptions): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("global")(x.asInstanceOf[js.Any])
+    inline def global_=(x: ChartOptions & ChartFontOptions): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("global")(x.asInstanceOf[js.Any])
   }
   
   trait ChartData extends StObject {
@@ -104,23 +103,18 @@ object mod extends Shortcut {
   }
   object ChartData {
     
-    @scala.inline
-    def apply(): ChartData = {
+    inline def apply(): ChartData = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[ChartData]
     }
     
-    @scala.inline
-    implicit class ChartDataMutableBuilder[Self <: ChartData] (val x: Self) extends AnyVal {
+    extension [Self <: ChartData](x: Self) {
       
-      @scala.inline
-      def setLabels(value: js.Array[String | js.Array[String]]): Self = StObject.set(x, "labels", value.asInstanceOf[js.Any])
+      inline def setLabels(value: js.Array[String | js.Array[String]]): Self = StObject.set(x, "labels", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setLabelsUndefined: Self = StObject.set(x, "labels", js.undefined)
+      inline def setLabelsUndefined: Self = StObject.set(x, "labels", js.undefined)
       
-      @scala.inline
-      def setLabelsVarargs(value: (String | js.Array[String])*): Self = StObject.set(x, "labels", js.Array(value :_*))
+      inline def setLabelsVarargs(value: (String | js.Array[String])*): Self = StObject.set(x, "labels", js.Array(value :_*))
     }
   }
   
@@ -130,17 +124,14 @@ object mod extends Shortcut {
   }
   object ChartFontOptions {
     
-    @scala.inline
-    def apply(foo: Boolean): ChartFontOptions = {
+    inline def apply(foo: Boolean): ChartFontOptions = {
       val __obj = js.Dynamic.literal(foo = foo.asInstanceOf[js.Any])
       __obj.asInstanceOf[ChartFontOptions]
     }
     
-    @scala.inline
-    implicit class ChartFontOptionsMutableBuilder[Self <: ChartFontOptions] (val x: Self) extends AnyVal {
+    extension [Self <: ChartFontOptions](x: Self) {
       
-      @scala.inline
-      def setFoo(value: Boolean): Self = StObject.set(x, "foo", value.asInstanceOf[js.Any])
+      inline def setFoo(value: Boolean): Self = StObject.set(x, "foo", value.asInstanceOf[js.Any])
     }
   }
   
@@ -153,26 +144,20 @@ object mod extends Shortcut {
   }
   object ChartOptions {
     
-    @scala.inline
-    def apply(): ChartOptions = {
+    inline def apply(): ChartOptions = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[ChartOptions]
     }
     
-    @scala.inline
-    implicit class ChartOptionsMutableBuilder[Self <: ChartOptions] (val x: Self) extends AnyVal {
+    extension [Self <: ChartOptions](x: Self) {
       
-      @scala.inline
-      def setPlugins(value: StringDictionary[js.Any]): Self = StObject.set(x, "plugins", value.asInstanceOf[js.Any])
+      inline def setPlugins(value: StringDictionary[js.Any]): Self = StObject.set(x, "plugins", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setPluginsUndefined: Self = StObject.set(x, "plugins", js.undefined)
+      inline def setPluginsUndefined: Self = StObject.set(x, "plugins", js.undefined)
       
-      @scala.inline
-      def setResponsive(value: Boolean): Self = StObject.set(x, "responsive", value.asInstanceOf[js.Any])
+      inline def setResponsive(value: Boolean): Self = StObject.set(x, "responsive", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setResponsiveUndefined: Self = StObject.set(x, "responsive", js.undefined)
+      inline def setResponsiveUndefined: Self = StObject.set(x, "responsive", js.undefined)
     }
   }
   

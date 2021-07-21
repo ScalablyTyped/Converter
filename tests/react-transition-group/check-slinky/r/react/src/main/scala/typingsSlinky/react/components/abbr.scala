@@ -17,11 +17,9 @@ object abbr {
     extends AnyVal
        with StBuildingComponent[tag.type, HTMLElement] {
     
-    @scala.inline
-    def dangerouslySetInnerHTML(value: Html): this.type = set("dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
+    inline def dangerouslySetInnerHTML(value: Html): this.type = set("dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def defaultChecked(value: Boolean): this.type = set("defaultChecked", value.asInstanceOf[js.Any])
+    inline def defaultChecked(value: Boolean): this.type = set("defaultChecked", value.asInstanceOf[js.Any])
   }
   
   val component: String = "abbr"

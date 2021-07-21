@@ -394,8 +394,7 @@ object vueMod {
   }
   object VueConfiguration {
     
-    @scala.inline
-    def apply(
+    inline def apply(
       devtools: Boolean,
       errorHandler: (Error, typings.vue.vueMod.Vue, String) => Unit,
       ignoredElements: js.Array[String | RegExp],
@@ -410,38 +409,27 @@ object vueMod {
       __obj.asInstanceOf[VueConfiguration]
     }
     
-    @scala.inline
-    implicit class VueConfigurationMutableBuilder[Self <: VueConfiguration] (val x: Self) extends AnyVal {
+    extension [Self <: VueConfiguration](x: Self) {
       
-      @scala.inline
-      def setDevtools(value: Boolean): Self = StObject.set(x, "devtools", value.asInstanceOf[js.Any])
+      inline def setDevtools(value: Boolean): Self = StObject.set(x, "devtools", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setErrorHandler(value: (Error, typings.vue.vueMod.Vue, String) => Unit): Self = StObject.set(x, "errorHandler", js.Any.fromFunction3(value))
+      inline def setErrorHandler(value: (Error, typings.vue.vueMod.Vue, String) => Unit): Self = StObject.set(x, "errorHandler", js.Any.fromFunction3(value))
       
-      @scala.inline
-      def setIgnoredElements(value: js.Array[String | RegExp]): Self = StObject.set(x, "ignoredElements", value.asInstanceOf[js.Any])
+      inline def setIgnoredElements(value: js.Array[String | RegExp]): Self = StObject.set(x, "ignoredElements", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setIgnoredElementsVarargs(value: (String | RegExp)*): Self = StObject.set(x, "ignoredElements", js.Array(value :_*))
+      inline def setIgnoredElementsVarargs(value: (String | RegExp)*): Self = StObject.set(x, "ignoredElements", js.Array(value :_*))
       
-      @scala.inline
-      def setKeyCodes(value: StringDictionary[Double | js.Array[Double]]): Self = StObject.set(x, "keyCodes", value.asInstanceOf[js.Any])
+      inline def setKeyCodes(value: StringDictionary[Double | js.Array[Double]]): Self = StObject.set(x, "keyCodes", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setOptionMergeStrategies(value: js.Any): Self = StObject.set(x, "optionMergeStrategies", value.asInstanceOf[js.Any])
+      inline def setOptionMergeStrategies(value: js.Any): Self = StObject.set(x, "optionMergeStrategies", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setPerformance(value: Boolean): Self = StObject.set(x, "performance", value.asInstanceOf[js.Any])
+      inline def setPerformance(value: Boolean): Self = StObject.set(x, "performance", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setProductionTip(value: Boolean): Self = StObject.set(x, "productionTip", value.asInstanceOf[js.Any])
+      inline def setProductionTip(value: Boolean): Self = StObject.set(x, "productionTip", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setSilent(value: Boolean): Self = StObject.set(x, "silent", value.asInstanceOf[js.Any])
+      inline def setSilent(value: Boolean): Self = StObject.set(x, "silent", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setWarnHandler(value: (String, typings.vue.vueMod.Vue, String) => Unit): Self = StObject.set(x, "warnHandler", js.Any.fromFunction3(value))
+      inline def setWarnHandler(value: (String, typings.vue.vueMod.Vue, String) => Unit): Self = StObject.set(x, "warnHandler", js.Any.fromFunction3(value))
     }
   }
   

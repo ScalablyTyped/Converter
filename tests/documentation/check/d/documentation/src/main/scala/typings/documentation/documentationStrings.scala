@@ -8,11 +8,9 @@ object documentationStrings {
   
   @js.native
   sealed trait Branch extends StObject
-  @scala.inline
-  def Branch: Branch = "Branch".asInstanceOf[Branch]
+  inline def Branch: Branch = "Branch".asInstanceOf[Branch]
   
   @js.native
   sealed trait Leaf extends StObject
-  @scala.inline
-  def Leaf: Leaf = "Leaf".asInstanceOf[Leaf]
+  inline def Leaf: Leaf = "Leaf".asInstanceOf[Leaf]
 }

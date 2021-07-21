@@ -12,12 +12,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait SemanticVERTICALALIGNMENTS extends StObject
 object SemanticVERTICALALIGNMENTS {
   
-  @scala.inline
-  def bottom: typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom = "bottom".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom]
+  inline def bottom: typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom = "bottom".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom]
   
-  @scala.inline
-  def middle: typingsJapgolly.semanticUiReact.semanticUiReactStrings.middle = "middle".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.middle]
+  inline def middle: typingsJapgolly.semanticUiReact.semanticUiReactStrings.middle = "middle".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.middle]
   
-  @scala.inline
-  def top: typingsJapgolly.semanticUiReact.semanticUiReactStrings.top = "top".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.top]
+  inline def top: typingsJapgolly.semanticUiReact.semanticUiReactStrings.top = "top".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.top]
 }

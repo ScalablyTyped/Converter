@@ -16,37 +16,27 @@ trait Nullability extends StObject {
 }
 object Nullability {
   
-  @scala.inline
-  def apply(a: Double): Nullability = {
+  inline def apply(a: Double): Nullability = {
     val __obj = js.Dynamic.literal(a = a.asInstanceOf[js.Any], c = null)
     __obj.asInstanceOf[Nullability]
   }
   
-  @scala.inline
-  implicit class NullabilityMutableBuilder[Self <: Nullability] (val x: Self) extends AnyVal {
+  extension [Self <: Nullability](x: Self) {
     
-    @scala.inline
-    def setA(value: Double): Self = StObject.set(x, "a", value.asInstanceOf[js.Any])
+    inline def setA(value: Double): Self = StObject.set(x, "a", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setB(value: Double): Self = StObject.set(x, "b", value.asInstanceOf[js.Any])
+    inline def setB(value: Double): Self = StObject.set(x, "b", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setBUndefined: Self = StObject.set(x, "b", js.undefined)
+    inline def setBUndefined: Self = StObject.set(x, "b", js.undefined)
     
-    @scala.inline
-    def setC(value: Double): Self = StObject.set(x, "c", value.asInstanceOf[js.Any])
+    inline def setC(value: Double): Self = StObject.set(x, "c", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setCNull: Self = StObject.set(x, "c", null)
+    inline def setCNull: Self = StObject.set(x, "c", null)
     
-    @scala.inline
-    def setD(value: Double): Self = StObject.set(x, "d", value.asInstanceOf[js.Any])
+    inline def setD(value: Double): Self = StObject.set(x, "d", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setDNull: Self = StObject.set(x, "d", null)
+    inline def setDNull: Self = StObject.set(x, "d", null)
     
-    @scala.inline
-    def setDUndefined: Self = StObject.set(x, "d", js.undefined)
+    inline def setDUndefined: Self = StObject.set(x, "d", js.undefined)
   }
 }

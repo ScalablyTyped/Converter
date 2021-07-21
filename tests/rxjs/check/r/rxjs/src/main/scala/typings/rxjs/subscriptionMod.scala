@@ -38,7 +38,6 @@ object subscriptionMod {
     @JSImport("rxjs/internal/Subscription", "Subscription.EMPTY")
     @js.native
     def EMPTY: Subscription = js.native
-    @scala.inline
-    def EMPTY_=(x: Subscription): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("EMPTY")(x.asInstanceOf[js.Any])
+    inline def EMPTY_=(x: Subscription): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("EMPTY")(x.asInstanceOf[js.Any])
   }
 }

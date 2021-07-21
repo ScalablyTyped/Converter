@@ -24,17 +24,14 @@ object transitionGroupMod {
   }
   object ComponentTransitionGroupProps {
     
-    @scala.inline
-    def apply[T /* <: ReactType[js.Any] */](component: T): ComponentTransitionGroupProps[T] = {
+    inline def apply[T /* <: ReactType[js.Any] */](component: T): ComponentTransitionGroupProps[T] = {
       val __obj = js.Dynamic.literal(component = component.asInstanceOf[js.Any])
       __obj.asInstanceOf[ComponentTransitionGroupProps[T]]
     }
     
-    @scala.inline
-    implicit class ComponentTransitionGroupPropsMutableBuilder[Self <: ComponentTransitionGroupProps[?], T /* <: ReactType[js.Any] */] (val x: Self & ComponentTransitionGroupProps[T]) extends AnyVal {
+    extension [Self <: ComponentTransitionGroupProps[?], T /* <: ReactType[js.Any] */](x: Self & ComponentTransitionGroupProps[T]) {
       
-      @scala.inline
-      def setComponent(value: T): Self = StObject.set(x, "component", value.asInstanceOf[js.Any])
+      inline def setComponent(value: T): Self = StObject.set(x, "component", value.asInstanceOf[js.Any])
     }
   }
   
@@ -44,20 +41,16 @@ object transitionGroupMod {
   }
   object IntrinsicTransitionGroupProps {
     
-    @scala.inline
-    def apply[T /* <: abbr | animate */](): IntrinsicTransitionGroupProps[T] = {
+    inline def apply[T /* <: abbr | animate */](): IntrinsicTransitionGroupProps[T] = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[IntrinsicTransitionGroupProps[T]]
     }
     
-    @scala.inline
-    implicit class IntrinsicTransitionGroupPropsMutableBuilder[Self <: IntrinsicTransitionGroupProps[?], T /* <: abbr | animate */] (val x: Self & IntrinsicTransitionGroupProps[T]) extends AnyVal {
+    extension [Self <: IntrinsicTransitionGroupProps[?], T /* <: abbr | animate */](x: Self & IntrinsicTransitionGroupProps[T]) {
       
-      @scala.inline
-      def setComponent(value: T): Self = StObject.set(x, "component", value.asInstanceOf[js.Any])
+      inline def setComponent(value: T): Self = StObject.set(x, "component", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setComponentUndefined: Self = StObject.set(x, "component", js.undefined)
+      inline def setComponentUndefined: Self = StObject.set(x, "component", js.undefined)
     }
   }
   

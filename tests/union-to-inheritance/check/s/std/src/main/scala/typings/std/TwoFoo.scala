@@ -11,16 +11,13 @@ trait TwoFoo[Foo1, Foo2] extends StObject {
 }
 object TwoFoo {
   
-  @scala.inline
-  def apply[Foo1, Foo2](value: Foo1): TwoFoo[Foo1, Foo2] = {
+  inline def apply[Foo1, Foo2](value: Foo1): TwoFoo[Foo1, Foo2] = {
     val __obj = js.Dynamic.literal(value = value.asInstanceOf[js.Any])
     __obj.asInstanceOf[TwoFoo[Foo1, Foo2]]
   }
   
-  @scala.inline
-  implicit class TwoFooMutableBuilder[Self <: TwoFoo[?, ?], Foo1, Foo2] (val x: Self & (TwoFoo[Foo1, Foo2])) extends AnyVal {
+  extension [Self <: TwoFoo[?, ?], Foo1, Foo2](x: Self & (TwoFoo[Foo1, Foo2])) {
     
-    @scala.inline
-    def setValue(value: Foo1): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
+    inline def setValue(value: Foo1): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
   }
 }

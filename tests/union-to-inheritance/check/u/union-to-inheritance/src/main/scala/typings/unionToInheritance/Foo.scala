@@ -14,16 +14,13 @@ trait Foo[U]
 }
 object Foo {
   
-  @scala.inline
-  def apply[U](value: U): Foo[U] = {
+  inline def apply[U](value: U): Foo[U] = {
     val __obj = js.Dynamic.literal(value = value.asInstanceOf[js.Any])
     __obj.asInstanceOf[Foo[U]]
   }
   
-  @scala.inline
-  implicit class FooMutableBuilder[Self <: Foo[?], U] (val x: Self & Foo[U]) extends AnyVal {
+  extension [Self <: Foo[?], U](x: Self & Foo[U]) {
     
-    @scala.inline
-    def setValue(value: U): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
+    inline def setValue(value: U): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
   }
 }

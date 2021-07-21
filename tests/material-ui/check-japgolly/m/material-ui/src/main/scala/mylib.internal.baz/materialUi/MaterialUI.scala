@@ -19,23 +19,18 @@ private[internal] object MaterialUI {
     }
     object BottomNavigationItemProps {
       
-      @scala.inline
-      def apply(children: Double): BottomNavigationItemProps = {
+      inline def apply(children: Double): BottomNavigationItemProps = {
         val __obj = js.Dynamic.literal(children = children.asInstanceOf[js.Any])
         __obj.asInstanceOf[BottomNavigationItemProps]
       }
       
-      @scala.inline
-      implicit class BottomNavigationItemPropsMutableBuilder[Self <: BottomNavigationItemProps] (val x: Self) extends AnyVal {
+      extension [Self <: BottomNavigationItemProps](x: Self) {
         
-        @scala.inline
-        def setChildren(value: Double): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
+        inline def setChildren(value: Double): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
+        inline def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+        inline def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       }
     }
   }
@@ -48,20 +43,16 @@ private[internal] object MaterialUI {
     }
     object MuiTheme {
       
-      @scala.inline
-      def apply(): MuiTheme = {
+      inline def apply(): MuiTheme = {
         val __obj = js.Dynamic.literal()
         __obj.asInstanceOf[MuiTheme]
       }
       
-      @scala.inline
-      implicit class MuiThemeMutableBuilder[Self <: MuiTheme] (val x: Self) extends AnyVal {
+      extension [Self <: MuiTheme](x: Self) {
         
-        @scala.inline
-        def setSpacing(value: js.Any): Self = StObject.set(x, "spacing", value.asInstanceOf[js.Any])
+        inline def setSpacing(value: js.Any): Self = StObject.set(x, "spacing", value.asInstanceOf[js.Any])
         
-        @scala.inline
-        def setSpacingUndefined: Self = StObject.set(x, "spacing", js.undefined)
+        inline def setSpacingUndefined: Self = StObject.set(x, "spacing", js.undefined)
       }
     }
   }

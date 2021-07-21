@@ -13,8 +13,7 @@ object anon {
   }
   object ChildFactory {
     
-    @scala.inline
-    def apply(childFactory: /* child */ Element => Element = null): ChildFactory = {
+    inline def apply(childFactory: /* child */ Element => Element = null): ChildFactory = {
       val __obj = js.Dynamic.literal()
       if (childFactory != null) __obj.updateDynamic("childFactory")(js.Any.fromFunction1(childFactory))
       __obj.asInstanceOf[ChildFactory]

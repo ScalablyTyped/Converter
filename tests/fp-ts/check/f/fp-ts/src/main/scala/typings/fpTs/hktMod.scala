@@ -15,20 +15,16 @@ object hktMod {
   }
   object HKT {
     
-    @scala.inline
-    def apply[URI, A](_A: A, _URI: URI): HKT[URI, A] = {
+    inline def apply[URI, A](_A: A, _URI: URI): HKT[URI, A] = {
       val __obj = js.Dynamic.literal(_A = _A.asInstanceOf[js.Any], _URI = _URI.asInstanceOf[js.Any])
       __obj.asInstanceOf[HKT[URI, A]]
     }
     
-    @scala.inline
-    implicit class HKTMutableBuilder[Self <: HKT[?, ?], URI, A] (val x: Self & (HKT[URI, A])) extends AnyVal {
+    extension [Self <: HKT[?, ?], URI, A](x: Self & (HKT[URI, A])) {
       
-      @scala.inline
-      def set_A(value: A): Self = StObject.set(x, "_A", value.asInstanceOf[js.Any])
+      inline def set_A(value: A): Self = StObject.set(x, "_A", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def set_URI(value: URI): Self = StObject.set(x, "_URI", value.asInstanceOf[js.Any])
+      inline def set_URI(value: URI): Self = StObject.set(x, "_URI", value.asInstanceOf[js.Any])
     }
   }
   
@@ -42,17 +38,14 @@ object hktMod {
   }
   object URI2HKT2 {
     
-    @scala.inline
-    def apply[L, A](Const: Const[L, A]): URI2HKT2[L, A] = {
+    inline def apply[L, A](Const: Const[L, A]): URI2HKT2[L, A] = {
       val __obj = js.Dynamic.literal(Const = Const.asInstanceOf[js.Any])
       __obj.asInstanceOf[URI2HKT2[L, A]]
     }
     
-    @scala.inline
-    implicit class URI2HKT2MutableBuilder[Self <: URI2HKT2[?, ?], L, A] (val x: Self & (URI2HKT2[L, A])) extends AnyVal {
+    extension [Self <: URI2HKT2[?, ?], L, A](x: Self & (URI2HKT2[L, A])) {
       
-      @scala.inline
-      def setConst(value: Const[L, A]): Self = StObject.set(x, "Const", value.asInstanceOf[js.Any])
+      inline def setConst(value: Const[L, A]): Self = StObject.set(x, "Const", value.asInstanceOf[js.Any])
     }
   }
   

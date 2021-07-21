@@ -30,8 +30,7 @@ object typesMod {
   }
   object EventListenerOptions {
     
-    @scala.inline
-    def apply[T /* <: EventTypes */](
+    inline def apply[T /* <: EventTypes */](
       listener: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Unit,
       targetRef: ReactRef[
           /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
@@ -43,29 +42,23 @@ object typesMod {
       __obj.asInstanceOf[EventListenerOptions[T]]
     }
     
-    @scala.inline
-    implicit class EventListenerOptionsMutableBuilder[Self <: EventListenerOptions[?], T /* <: EventTypes */] (val x: Self & EventListenerOptions[T]) extends AnyVal {
+    extension [Self <: EventListenerOptions[?], T /* <: EventTypes */](x: Self & EventListenerOptions[T]) {
       
-      @scala.inline
-      def setCapture(value: Boolean): Self = StObject.set(x, "capture", value.asInstanceOf[js.Any])
+      inline def setCapture(value: Boolean): Self = StObject.set(x, "capture", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setCaptureUndefined: Self = StObject.set(x, "capture", js.undefined)
+      inline def setCaptureUndefined: Self = StObject.set(x, "capture", js.undefined)
       
-      @scala.inline
-      def setListener(
+      inline def setListener(
         value: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Unit
       ): Self = StObject.set(x, "listener", js.Any.fromFunction1(value))
       
-      @scala.inline
-      def setTargetRef(
+      inline def setTargetRef(
         value: ReactRef[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
             ]
       ): Self = StObject.set(x, "targetRef", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setType(value: T): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setType(value: T): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   

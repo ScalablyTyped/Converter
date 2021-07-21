@@ -8,16 +8,13 @@ object keyofStrings {
   
   @js.native
   sealed trait a extends StObject
-  @scala.inline
-  def a: a = "a".asInstanceOf[a]
+  inline def a: a = "a".asInstanceOf[a]
   
   @js.native
   sealed trait b extends StObject
-  @scala.inline
-  def b: b = "b".asInstanceOf[b]
+  inline def b: b = "b".asInstanceOf[b]
   
   @js.native
   sealed trait c extends StObject
-  @scala.inline
-  def c: c = "c".asInstanceOf[c]
+  inline def c: c = "c".asInstanceOf[c]
 }

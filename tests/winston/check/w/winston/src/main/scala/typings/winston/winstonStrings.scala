@@ -8,6 +8,5 @@ object winstonStrings {
   
   @js.native
   sealed trait bar extends StObject
-  @scala.inline
-  def bar: bar = "bar".asInstanceOf[bar]
+  inline def bar: bar = "bar".asInstanceOf[bar]
 }

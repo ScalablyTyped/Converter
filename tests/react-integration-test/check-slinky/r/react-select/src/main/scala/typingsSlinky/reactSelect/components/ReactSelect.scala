@@ -10,8 +10,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object ReactSelect {
   
-  @scala.inline
-  def apply[TValue](): Builder[TValue] = {
+  inline def apply[TValue](): Builder[TValue] = {
     val __props = js.Dynamic.literal()
     new Builder[TValue](js.Array(this.component, __props.asInstanceOf[ReactSelectProps[TValue]]))
   }
@@ -25,8 +24,7 @@ object ReactSelect {
     extends AnyVal
        with StBuildingComponent[tag.type, default[TValue]] {
     
-    @scala.inline
-    def addLabelText(value: String): this.type = set("addLabelText", value.asInstanceOf[js.Any])
+    inline def addLabelText(value: String): this.type = set("addLabelText", value.asInstanceOf[js.Any])
   }
   
   implicit def make[TValue](companion: ReactSelect.type): Builder[TValue] = new Builder[TValue](js.Array(this.component, js.Dictionary.empty))()

@@ -30,12 +30,10 @@ object mod {
       @js.native
       val ^ : js.Any = js.native
       
-      @scala.inline
-      def getBsProps(props: js.Any): BSProps = ^.asInstanceOf[js.Dynamic].applyDynamic("getBsProps")(props.asInstanceOf[js.Any]).asInstanceOf[BSProps]
+      inline def getBsProps(props: js.Any): BSProps = ^.asInstanceOf[js.Dynamic].applyDynamic("getBsProps")(props.asInstanceOf[js.Any]).asInstanceOf[BSProps]
     }
     
-    @scala.inline
-    def createChainedFunction(funcs: js.Function*): js.Function = ^.asInstanceOf[js.Dynamic].applyDynamic("createChainedFunction")(funcs.asInstanceOf[js.Any]).asInstanceOf[js.Function]
+    inline def createChainedFunction(funcs: js.Function*): js.Function = ^.asInstanceOf[js.Dynamic].applyDynamic("createChainedFunction")(funcs.asInstanceOf[js.Any]).asInstanceOf[js.Function]
   }
   
   type Omit[T, K /* <: /* keyof T */ String */] = Pick[
@@ -55,25 +53,18 @@ object mod {
   trait Sizes extends StObject
   object Sizes {
     
-    @scala.inline
-    def large: typingsSlinky.reactBootstrap.reactBootstrapStrings.large = "large".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.large]
+    inline def large: typingsSlinky.reactBootstrap.reactBootstrapStrings.large = "large".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.large]
     
-    @scala.inline
-    def lg: typingsSlinky.reactBootstrap.reactBootstrapStrings.lg = "lg".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.lg]
+    inline def lg: typingsSlinky.reactBootstrap.reactBootstrapStrings.lg = "lg".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.lg]
     
-    @scala.inline
-    def medium: typingsSlinky.reactBootstrap.reactBootstrapStrings.medium = "medium".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.medium]
+    inline def medium: typingsSlinky.reactBootstrap.reactBootstrapStrings.medium = "medium".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.medium]
     
-    @scala.inline
-    def sm: typingsSlinky.reactBootstrap.reactBootstrapStrings.sm = "sm".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.sm]
+    inline def sm: typingsSlinky.reactBootstrap.reactBootstrapStrings.sm = "sm".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.sm]
     
-    @scala.inline
-    def small: typingsSlinky.reactBootstrap.reactBootstrapStrings.small = "small".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.small]
+    inline def small: typingsSlinky.reactBootstrap.reactBootstrapStrings.small = "small".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.small]
     
-    @scala.inline
-    def xs: typingsSlinky.reactBootstrap.reactBootstrapStrings.xs = "xs".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.xs]
+    inline def xs: typingsSlinky.reactBootstrap.reactBootstrapStrings.xs = "xs".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.xs]
     
-    @scala.inline
-    def xsmall: typingsSlinky.reactBootstrap.reactBootstrapStrings.xsmall = "xsmall".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.xsmall]
+    inline def xsmall: typingsSlinky.reactBootstrap.reactBootstrapStrings.xsmall = "xsmall".asInstanceOf[typingsSlinky.reactBootstrap.reactBootstrapStrings.xsmall]
   }
 }

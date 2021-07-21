@@ -11,8 +11,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object ContextMenu {
   
-  @scala.inline
-  def apply(id: String): Builder = {
+  inline def apply(id: String): Builder = {
     val __props = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
     new Builder(js.Array(this.component, __props.asInstanceOf[ContextMenuProps]))
   }
@@ -26,20 +25,15 @@ object ContextMenu {
     extends AnyVal
        with StBuildingComponent[tag.type, typingsSlinky.reactContextmenu.mod.ContextMenu] {
     
-    @scala.inline
-    def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
+    inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def data(value: js.Any): this.type = set("data", value.asInstanceOf[js.Any])
+    inline def data(value: js.Any): this.type = set("data", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def hideOnLeave(value: Boolean): this.type = set("hideOnLeave", value.asInstanceOf[js.Any])
+    inline def hideOnLeave(value: Boolean): this.type = set("hideOnLeave", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def onHide(value: /* event */ js.Any => Unit): this.type = set("onHide", js.Any.fromFunction1(value))
+    inline def onHide(value: /* event */ js.Any => Unit): this.type = set("onHide", js.Any.fromFunction1(value))
     
-    @scala.inline
-    def onMouseLeave(
+    inline def onMouseLeave(
       value: (js.Function3[
           /* event */ SyntheticMouseEvent[HTMLElement], 
           /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
@@ -48,16 +42,13 @@ object ContextMenu {
         ]) | js.Function
     ): this.type = set("onMouseLeave", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def onMouseLeaveFunction3(
+    inline def onMouseLeaveFunction3(
       value: (/* event */ SyntheticMouseEvent[HTMLElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Unit
     ): this.type = set("onMouseLeave", js.Any.fromFunction3(value))
     
-    @scala.inline
-    def onShow(value: /* event */ js.Any => Unit): this.type = set("onShow", js.Any.fromFunction1(value))
+    inline def onShow(value: /* event */ js.Any => Unit): this.type = set("onShow", js.Any.fromFunction1(value))
     
-    @scala.inline
-    def rtl(value: Boolean): this.type = set("rtl", value.asInstanceOf[js.Any])
+    inline def rtl(value: Boolean): this.type = set("rtl", value.asInstanceOf[js.Any])
   }
   
   def withProps(p: ContextMenuProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))

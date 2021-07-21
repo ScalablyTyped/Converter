@@ -26,17 +26,14 @@ object mod {
   }
   object EmitterInterface {
     
-    @scala.inline
-    def apply(on: (js.Any, js.Any) => js.Any): EmitterInterface = {
+    inline def apply(on: (js.Any, js.Any) => js.Any): EmitterInterface = {
       val __obj = js.Dynamic.literal(on = js.Any.fromFunction2(on))
       __obj.asInstanceOf[EmitterInterface]
     }
     
-    @scala.inline
-    implicit class EmitterInterfaceMutableBuilder[Self <: EmitterInterface] (val x: Self) extends AnyVal {
+    extension [Self <: EmitterInterface](x: Self) {
       
-      @scala.inline
-      def setOn(value: (js.Any, js.Any) => js.Any): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
+      inline def setOn(value: (js.Any, js.Any) => js.Any): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
     }
   }
 }

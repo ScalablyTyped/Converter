@@ -8,6 +8,5 @@ object reactMarkdownStrings {
   
   @js.native
   sealed trait Not extends StObject
-  @scala.inline
-  def Not: Not = "Not".asInstanceOf[Not]
+  inline def Not: Not = "Not".asInstanceOf[Not]
 }

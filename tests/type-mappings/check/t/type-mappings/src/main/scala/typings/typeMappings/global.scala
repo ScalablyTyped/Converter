@@ -7,8 +7,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object global {
   
-  @scala.inline
-  def foo(): Person = js.Dynamic.global.applyDynamic("foo")().asInstanceOf[Person]
+  inline def foo(): Person = js.Dynamic.global.applyDynamic("foo")().asInstanceOf[Person]
   
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSGlobal("newPerson")

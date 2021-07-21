@@ -13,27 +13,21 @@ trait SuspenseProps extends StObject {
 }
 object SuspenseProps {
   
-  @scala.inline
-  def apply(): SuspenseProps = {
+  inline def apply(): SuspenseProps = {
     val __obj = js.Dynamic.literal(fallback = null)
     __obj.asInstanceOf[SuspenseProps]
   }
   
-  @scala.inline
-  implicit class SuspensePropsMutableBuilder[Self <: SuspenseProps] (val x: Self) extends AnyVal {
+  extension [Self <: SuspenseProps](x: Self) {
     
-    @scala.inline
-    def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
+    inline def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
+    inline def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
     
-    @scala.inline
-    def setFallback(
+    inline def setFallback(
       value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any
     ): Self = StObject.set(x, "fallback", value.asInstanceOf[js.Any])
     
-    @scala.inline
-    def setFallbackNull: Self = StObject.set(x, "fallback", null)
+    inline def setFallbackNull: Self = StObject.set(x, "fallback", null)
   }
 }

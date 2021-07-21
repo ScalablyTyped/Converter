@@ -26,20 +26,16 @@ object mod {
   }
   object Option {
     
-    @scala.inline
-    def apply[TValue](): Option[TValue] = {
+    inline def apply[TValue](): Option[TValue] = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[Option[TValue]]
     }
     
-    @scala.inline
-    implicit class OptionMutableBuilder[Self <: Option[?], TValue] (val x: Self & Option[TValue]) extends AnyVal {
+    extension [Self <: Option[?], TValue](x: Self & Option[TValue]) {
       
-      @scala.inline
-      def setValue(value: TValue): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
+      inline def setValue(value: TValue): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
+      inline def setValueUndefined: Self = StObject.set(x, "value", js.undefined)
     }
   }
   
@@ -66,20 +62,16 @@ object mod {
   }
   object ReactSelectProps {
     
-    @scala.inline
-    def apply[TValue](): ReactSelectProps[TValue] = {
+    inline def apply[TValue](): ReactSelectProps[TValue] = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[ReactSelectProps[TValue]]
     }
     
-    @scala.inline
-    implicit class ReactSelectPropsMutableBuilder[Self <: ReactSelectProps[?], TValue] (val x: Self & ReactSelectProps[TValue]) extends AnyVal {
+    extension [Self <: ReactSelectProps[?], TValue](x: Self & ReactSelectProps[TValue]) {
       
-      @scala.inline
-      def setAddLabelText(value: String): Self = StObject.set(x, "addLabelText", value.asInstanceOf[js.Any])
+      inline def setAddLabelText(value: String): Self = StObject.set(x, "addLabelText", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setAddLabelTextUndefined: Self = StObject.set(x, "addLabelText", js.undefined)
+      inline def setAddLabelTextUndefined: Self = StObject.set(x, "addLabelText", js.undefined)
     }
   }
 }

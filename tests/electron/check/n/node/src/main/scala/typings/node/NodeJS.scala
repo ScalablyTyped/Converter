@@ -21,38 +21,28 @@ object NodeJS {
   }
   object ErrnoException {
     
-    @scala.inline
-    def apply(): ErrnoException = {
+    inline def apply(): ErrnoException = {
       val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[ErrnoException]
     }
     
-    @scala.inline
-    implicit class ErrnoExceptionMutableBuilder[Self <: ErrnoException] (val x: Self) extends AnyVal {
+    extension [Self <: ErrnoException](x: Self) {
       
-      @scala.inline
-      def setCode(value: String): Self = StObject.set(x, "code", value.asInstanceOf[js.Any])
+      inline def setCode(value: String): Self = StObject.set(x, "code", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setCodeUndefined: Self = StObject.set(x, "code", js.undefined)
+      inline def setCodeUndefined: Self = StObject.set(x, "code", js.undefined)
       
-      @scala.inline
-      def setErrno(value: Double): Self = StObject.set(x, "errno", value.asInstanceOf[js.Any])
+      inline def setErrno(value: Double): Self = StObject.set(x, "errno", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setErrnoUndefined: Self = StObject.set(x, "errno", js.undefined)
+      inline def setErrnoUndefined: Self = StObject.set(x, "errno", js.undefined)
       
-      @scala.inline
-      def setPath(value: String): Self = StObject.set(x, "path", value.asInstanceOf[js.Any])
+      inline def setPath(value: String): Self = StObject.set(x, "path", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setPathUndefined: Self = StObject.set(x, "path", js.undefined)
+      inline def setPathUndefined: Self = StObject.set(x, "path", js.undefined)
       
-      @scala.inline
-      def setSyscall(value: String): Self = StObject.set(x, "syscall", value.asInstanceOf[js.Any])
+      inline def setSyscall(value: String): Self = StObject.set(x, "syscall", value.asInstanceOf[js.Any])
       
-      @scala.inline
-      def setSyscallUndefined: Self = StObject.set(x, "syscall", js.undefined)
+      inline def setSyscallUndefined: Self = StObject.set(x, "syscall", js.undefined)
     }
   }
   

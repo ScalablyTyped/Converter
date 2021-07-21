@@ -8,16 +8,13 @@ object reactStrings {
   
   @js.native
   sealed trait animate extends StObject
-  @scala.inline
-  def animate: animate = "animate".asInstanceOf[animate]
+  inline def animate: animate = "animate".asInstanceOf[animate]
   
   @js.native
   sealed trait circle extends StObject
-  @scala.inline
-  def circle: circle = "circle".asInstanceOf[circle]
+  inline def circle: circle = "circle".asInstanceOf[circle]
   
   @js.native
   sealed trait clipPath extends StObject
-  @scala.inline
-  def clipPath: clipPath = "clipPath".asInstanceOf[clipPath]
+  inline def clipPath: clipPath = "clipPath".asInstanceOf[clipPath]
 }

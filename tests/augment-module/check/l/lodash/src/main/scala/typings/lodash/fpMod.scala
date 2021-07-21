@@ -23,17 +23,14 @@ object fpMod extends Shortcut {
   }
   object LoDashFp {
     
-    @scala.inline
-    def apply(curry: Curry): LoDashFp = {
+    inline def apply(curry: Curry): LoDashFp = {
       val __obj = js.Dynamic.literal(curry = curry.asInstanceOf[js.Any])
       __obj.asInstanceOf[LoDashFp]
     }
     
-    @scala.inline
-    implicit class LoDashFpMutableBuilder[Self <: LoDashFp] (val x: Self) extends AnyVal {
+    extension [Self <: LoDashFp](x: Self) {
       
-      @scala.inline
-      def setCurry(value: Curry): Self = StObject.set(x, "curry", value.asInstanceOf[js.Any])
+      inline def setCurry(value: Curry): Self = StObject.set(x, "curry", value.asInstanceOf[js.Any])
     }
   }
   
