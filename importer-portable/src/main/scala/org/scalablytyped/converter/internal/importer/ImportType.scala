@@ -240,7 +240,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
                 )
               case other =>
                 val c = Comment.warning(s"repeated non-array type: ${TsTypeFormatter(other)}")
-                TypeRef(importName(TsQIdent.Array), Empty, Comments(c) ++ labelComment(elem))
+                apply(scope, importName)(TsTypeRef(Comments(c) ++ labelComment(elem), TsQIdent.Array, IArray(other)))
             }
           case nonRepeating =>
             TypeRef.JsTuple(nonRepeating.map { elem =>
