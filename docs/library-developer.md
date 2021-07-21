@@ -179,12 +179,11 @@ other usage of ScalablyTyped.
 A this point you can start adding your own code if wanted, and publish libraries completely 
 free-standing libraries.
 
-If you are only packaging a facade generated from scalablytyped, without any custom code, you are likely better by excluding the javadocs on the library package, which can be done with:
+If you are only packaging a facade generated from scalablytyped, without any custom code, you are likely better by excluding the javadocs on the library package, which can be done with (sonatype requires the docs artifact to be uploaded even if it is empty):
 
 ```scala
     sources in (Compile, doc) := Nil,
-    publishArtifact in (Compile, packageDoc) := false
- ```
+```
 
 ## Troubleshooting
 
