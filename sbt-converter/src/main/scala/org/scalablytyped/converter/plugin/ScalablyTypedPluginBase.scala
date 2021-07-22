@@ -73,6 +73,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stExperimentalEnableImplicitOps := true,
       stReactEnableTreeShaking := Selection.None,
       stEnableLongApplyMethod := false,
+      stPrivateWithin := None,
       stConversionOptions := {
         val versions = Versions(
           Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),
