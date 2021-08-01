@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "componentstest"
-version := "0.0-unknown-108c9e"
+version := "0.0-unknown-8e7dbe"
 scalaVersion := "3.0.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2",
-  "org.scalablytyped" %%% "react" % "16.9.2-18bee6",
+  "org.scalablytyped" %%% "react" % "16.9.2-1d379e",
   "org.scalablytyped" %%% "std" % "0.0-unknown-b5ca63",
   ("me.shadaj" %%% "slinky-web" % "0.6.7").cross(CrossVersion.for3Use2_13))
 publishArtifact in packageDoc := false

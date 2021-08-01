@@ -29,8 +29,12 @@ package modules
   */
 object MoveGlobals {
   def apply(file: TsParsedFile): TsParsedFile = {
-    val (modules, named, rest) =
-      file.members.partitionCollect2({ case x: TsDeclModuleLike => x }, { case x: TsNamedValueDecl => x })
+    val (globals, modules, named, rest) =
+      file.members.partitionCollect3(
+        { case x: TsDeclNamespace if x.name === TsIdent.Global => x },
+        { case x: TsDeclModuleLike                             => x },
+        { case x: TsNamedValueDecl                             => x },
+      )
 
     val globalCp = file.codePath.forceHasPath + TsIdent.Global
 
@@ -41,7 +45,12 @@ object MoveGlobals {
     if (globalMembers.isEmpty) file
     else {
       val global =
-        TsDeclNamespace(NoComments, declared = false, TsIdent.Global, globalMembers, globalCp, JsLocation.Zero)
+        globals.foldLeft(
+          TsDeclNamespace(NoComments, declared = false, TsIdent.Global, globalMembers, globalCp, JsLocation.Zero),
+        ) {
+          case (one, two) => FlattenTrees.mergeNamespaces(one, two)
+        }
+
       file.copy(members = modules ++ rest ++ keepToplevel :+ global)
     }
   }

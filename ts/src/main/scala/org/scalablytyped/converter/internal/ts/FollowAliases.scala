@@ -8,7 +8,8 @@ object FollowAliases {
         scope
           .lookupType(typeRef.name, skipValidation)
           .collectFirst {
-            case ta: TsDeclTypeAlias => apply(scope, skipValidation)(FillInTParams(ta, typeRef.tparams).alias)
+            case ta: TsDeclTypeAlias =>
+              apply(scope, skipValidation)(FillInTParams(ta, typeRef.tparams).alias)
             /* see through thin interfaces which might be translated into type aliases */
             case i @ TsDeclInterface(_, _, _, _, IArray.exactlyOne(_), Empty, _) =>
               apply(scope, skipValidation)(FillInTParams(i, typeRef.tparams).inheritance.head)

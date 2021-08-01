@@ -5,6 +5,7 @@ package flavours
 class ReactNames(val outputPkg: Name) {
   val libName              = Name("react")
   val mod                  = QualifiedName(IArray(outputPkg, libName, Name.mod))
+  val static               = QualifiedName(IArray(outputPkg, libName, Name.global, Name("React")))
   val Ref                  = mod + Name("Ref")
   val RefCallback          = mod + Name("RefCallback")
   val LegacyRef            = mod + Name("LegacyRef")
@@ -34,7 +35,7 @@ class ReactNames(val outputPkg: Name) {
   )
 
   val WrappedComponentsQNames: Set[QualifiedName] =
-    WrappedComponents.map(mod + Name(_))
+    WrappedComponents.flatMap(name => List(mod + Name(name), static + Name(name)))
 
   val ComponentNames: Set[String] =
     Set(
@@ -55,7 +56,7 @@ class ReactNames(val outputPkg: Name) {
     )
 
   val ComponentQNames: Set[QualifiedName] =
-    ComponentNames.map(mod + Name(_))
+    ComponentNames.flatMap(name => List(mod + Name(name), static + Name(name)))
 
   val ComponentLike: Set[QualifiedName] =
     ComponentQNames ++ WrappedComponentsQNames

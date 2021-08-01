@@ -105,12 +105,18 @@ object DeriveCopy {
   }
 
   def updatedContainer(ownerCp: CodePath, x: TsContainer with TsNamedDecl): TsNamedDecl = {
-    /* For this to be correct we convert nested members with old codePath, then recursively update it afterwards */
-    val newMembers: IArray[TsContainerOrDecl] =
-      x.members.flatMap {
+    def go(tree: TsContainerOrDecl): IArray[TsContainerOrDecl] =
+      tree match {
         case m: TsNamedDecl => apply(m, x.codePath, None)
+        case g: TsGlobal =>
+          val newMembers = g.members.flatMap(go)
+          IArray(g.copy(members = newMembers))
         case other => IArray(other)
       }
+
+    /* For this to be correct we convert nested members with old codePath, then recursively update it afterwards */
+    val newMembers: IArray[TsContainerOrDecl] =
+      x.members.flatMap(go)
 
     (ownerCp, x.withMembers(newMembers)) match {
       case (p: CodePath.HasPath, xx: TsNamedDecl) =>
