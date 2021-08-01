@@ -1,7 +1,7 @@
-package org.scalablytyped.converter.internal.ts.modules
+package org.scalablytyped.converter.internal
+package ts
+package modules
 
-import org.scalablytyped.converter.internal.IArray
-import org.scalablytyped.converter.internal.ts._
 import org.scalablytyped.converter.internal.ts.transforms.SetCodePath
 
 import scala.collection.mutable
