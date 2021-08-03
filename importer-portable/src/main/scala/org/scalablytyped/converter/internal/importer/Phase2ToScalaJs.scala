@@ -70,10 +70,12 @@ class Phase2ToScalaJs(
             def parentResolver() = new ParentsResolver
 
             val ScalaTransforms = List[PackageTree => PackageTree](
-              S.ModulesCombine.visitPackageTree(scope),
+              (
+                S.CleanupTrivial >> // before ModulesCombine
+                  S.ModulesCombine
+              ).visitPackageTree(scope),
               new TypeRewriterCast(flavour.rewrites).visitPackageTree(scope),
               (new S.RemoveDuplicateInheritance(parentResolver()) >>
-                S.CleanupTypeAliases >>
                 cleanIllegalNames >>
                 S.Deduplicator).visitPackageTree(scope),
               Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s, cleanIllegalNames)(tree)),

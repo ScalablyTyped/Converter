@@ -173,7 +173,4 @@ object mod extends Shortcut {
     /* options */ js.Any, 
     typings.chartJs.mod.Chart
   ]) = ^
-  
-  /* static member */
-  object controllers
 }
