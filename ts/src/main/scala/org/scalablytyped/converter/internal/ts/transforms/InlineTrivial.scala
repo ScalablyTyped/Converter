@@ -10,7 +10,7 @@ package transforms
   *  We need to do the removal in scala.js (`CleanupTypeAliases`) to ensure that
   *  all dependencies can also resolve all their uses of the intermediate type aliases.
   */
-object InlineTrivialTypeAlias extends TreeTransformationScopedChanges {
+object InlineTrivial extends TreeTransformationScopedChanges {
   override def enterTsTypeRef(scope: TsTreeScope)(x: TsTypeRef): TsTypeRef =
     rewritten(scope, x).getOrElse(x)
 

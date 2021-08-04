@@ -2,7 +2,6 @@ package org.scalablytyped.converter.internal
 package ts
 package modules
 
-import org.scalablytyped.converter.internal.ts.CodePath.{HasPath, NoPath}
 import org.scalablytyped.converter.internal.ts.transforms.SetCodePath
 
 object DeriveCopy {
@@ -13,12 +12,12 @@ object DeriveCopy {
     def origin = x.codePath.forceHasPath.codePath
 
     def codePathFor(name: TsIdent) = ownerCp match {
-      case NoPath => x.codePath
-      case hasPath: HasPath => hasPath + name
+      case CodePath.NoPath => x.codePath
+      case hasPath: CodePath.HasPath => hasPath + name
     }
 
     (x, x.name, x.codePath, ownerCp) match {
-      case (x, _, xCp: HasPath, ownerCp: HasPath)
+      case (x, _, xCp: CodePath.HasPath, ownerCp: CodePath.HasPath)
           if xCp.codePath.parts.length === ownerCp.codePath.parts.length + 1 &&
             xCp.codePath.parts.startsWith(ownerCp.codePath.parts) &&
             rename.isEmpty =>
@@ -106,17 +105,24 @@ object DeriveCopy {
   }
 
   def updatedContainer(ownerCp: CodePath, x: TsContainer with TsNamedDecl): TsNamedDecl = {
-    /* For this to be correct we convert nested members with old codePath, then recursively update it afterwards */
-    val newMembers: IArray[TsContainerOrDecl] =
-      x.members.flatMap {
-        case m: TsNamedDecl =>
-          apply(m, x.codePath, None)
+    def go(tree: TsContainerOrDecl): IArray[TsContainerOrDecl] =
+      tree match {
+        case m: TsNamedDecl => apply(m, x.codePath, None)
+        case g: TsGlobal =>
+          val newMembers = g.members.flatMap(go)
+          IArray(g.copy(members = newMembers))
         case other => IArray(other)
       }
 
+    /* For this to be correct we convert nested members with old codePath, then recursively update it afterwards */
+    val newMembers: IArray[TsContainerOrDecl] =
+      x.members.flatMap(go)
+
     (ownerCp, x.withMembers(newMembers)) match {
-      case (p:                   HasPath, xx: TsNamedDecl) => SetCodePath.visitTsNamedDecl(p)(xx)
-      case (CodePath.NoPath, xx: TsNamedDecl) => xx
+      case (p: CodePath.HasPath, xx: TsNamedDecl) =>
+        SetCodePath.visitTsNamedDecl(p)(xx)
+      case (CodePath.NoPath, xx: TsNamedDecl) =>
+        xx
       case wrong => sys.error(s"Unexpected $wrong")
     }
   }

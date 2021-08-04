@@ -379,6 +379,12 @@ final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]
 }
 
 object TsIdentModule {
+  def fromLibrary(lib: TsIdentLibrary): TsIdentModule =
+    lib match {
+      case TsIdentLibrarySimple(name)        => TsIdentModule(None, name.split("\\.").toList)
+      case TsIdentLibraryScoped(scope, name) => TsIdentModule(Some(scope), name.split("\\.").toList)
+    }
+
   def simple(s: String): TsIdentModule =
     TsIdentModule(None, s :: Nil)
 
@@ -709,4 +715,4 @@ object TsExportee {
 
 final case class TsExport(comments: Comments, typeOnly: Boolean, tpe: ExportType, exported: TsExportee) extends TsDecl
 
-final case class TsExportAsNamespace(ident: TsIdent) extends TsDecl
+final case class TsExportAsNamespace(ident: TsIdentSimple) extends TsDecl

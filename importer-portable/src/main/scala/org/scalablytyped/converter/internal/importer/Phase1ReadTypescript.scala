@@ -10,6 +10,7 @@ import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, 
 import org.scalablytyped.converter.internal.seqs.TraversableOps
 import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
+import org.scalablytyped.converter.internal.ts.modules.ModuleAsGlobalNamespace
 import org.scalablytyped.converter.internal.ts.{transforms => T, _}
 
 import scala.collection.immutable.SortedMap
@@ -248,6 +249,7 @@ object Phase1ReadTypescript {
       modules.AugmentModules(scope.caching),
       T.ResolveTypeQueries.visitTsParsedFile(scope.enableUnqualifiedLookup.caching), // before ReplaceExports
       new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.enableUnqualifiedLookup.caching),
+      file => ModuleAsGlobalNamespace(scope.root.libName, file),
       modules.MoveGlobals.apply,
       FlattenTrees.apply,
       (
@@ -268,7 +270,7 @@ object Phase1ReadTypescript {
           T.InferReturnTypes >>
           T.RewriteTypeThis >>
           T.InlineConstEnum >>
-          T.InlineTrivialTypeAlias
+          T.InlineTrivial
       ).visitTsParsedFile(scope.caching),
       T.ResolveTypeLookups
         .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams
