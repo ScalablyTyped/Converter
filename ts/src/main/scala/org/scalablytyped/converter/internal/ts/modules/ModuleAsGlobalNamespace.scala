@@ -22,8 +22,24 @@ object ModuleAsGlobalNamespace {
           */
         val globals: IArray[TsNamedDecl] =
           (topLevelModule.members ++ file.members).flatMap {
-            case TsExportAsNamespace(asGlobal) => asNamespace(globalCp, topLevelModule, asGlobal)
-            case _                             => Empty
+            case TsExportAsNamespace(asGlobal) =>
+              topLevelModule.membersByName.get(TsIdent.default) match {
+                case Some(defaultTrees: IArray[TsNamedDecl]) =>
+                  defaultTrees.flatMap(tree => copy(globalCp, tree.withName(asGlobal)))
+                case None =>
+                  val asNamespace =
+                    TsDeclNamespace(
+                      topLevelModule.comments,
+                      topLevelModule.declared,
+                      asGlobal,
+                      topLevelModule.members,
+                      globalCp,
+                      JsLocation.Zero,
+                    )
+                  copy(globalCp, asNamespace)
+              }
+
+            case _ => Empty
           }
 
         globals match {
@@ -47,9 +63,6 @@ object ModuleAsGlobalNamespace {
       case _ => None
     }
 
-  def asNamespace(codePath: CodePath, mod: TsDeclModule, asGlobal: TsIdentSimple): IArray[TsNamedDecl] = {
-    val jsLocation  = JsLocation.Zero
-    val asNamespace = TsDeclNamespace(mod.comments, mod.declared, asGlobal, mod.members, codePath, jsLocation)
-    DeriveCopy(asNamespace, codePath, None).map(SetJsLocation.visitTsNamedDecl(jsLocation))
-  }
+  def copy(codePath: CodePath, decl: TsNamedDecl): IArray[TsNamedDecl] =
+    DeriveCopy(decl, codePath, None).map(SetJsLocation.visitTsNamedDecl(JsLocation.Zero))
 }
