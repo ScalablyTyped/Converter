@@ -105,12 +105,12 @@ class FilterMemberOverrides(erasure: Erasure, parentsResolver: ParentsResolver) 
     }
 
     val newMethods: IArray[MethodTree] = methods.sorted(Sorter.TreeOrdering).flatMap {
-      // remove setters if there is a corresponding concrete var in a parent class
+      // remove setters if there is a corresponding var in a parent class
       case m
           if m.name.unescaped.endsWith("_=") &&
             inheritedFieldsByName
               .get(Name(m.name.unescaped.dropRight(2)))
-              .exists(_.exists(f => !f.isReadOnly && f.impl =/= NotImplemented)) =>
+              .exists(_.exists(f => !f.isReadOnly)) =>
         Empty
       case m if inheritedFieldsByName.contains(m.name) =>
         if (alreadySuffixed) Empty else IArray(m.withSuffix("M" + owner.name.value))

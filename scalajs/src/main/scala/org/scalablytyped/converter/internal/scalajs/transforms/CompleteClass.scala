@@ -35,9 +35,11 @@ class CompleteClass(erasure: Erasure, parentsResolver: ParentsResolver, scalaVer
       parents: ParentsResolver.Parents,
   ): IArray[MemberTree] = {
 
-    val ret = parents.pruneClasses.transitiveParents
-      .flatMapToIArray { case (_, v) => v.members }
-      .collect {
+    val allInherited: IArray[Tree] =
+      parents.pruneClasses.transitiveParents.flatMapToIArray { case (_, v) => v.members }
+
+    val completedFields: IArray[FieldTree] =
+      allInherited.collect {
         case x: FieldTree if x.impl === NotImplemented && !c.index.contains(x.name) =>
           // workaround https://github.com/lampepfl/dotty/issues/13019
           val isOverride = if (scalaVersion.is3 && !x.isReadOnly) false else true
@@ -47,20 +49,49 @@ class CompleteClass(erasure: Erasure, parentsResolver: ParentsResolver, scalaVer
             impl       = ExprTree.native,
             comments   = x.comments + Comment("/* CompleteClass */\n"),
           )
+      }
+
+    val completedMethods: IArray[MemberTree] =
+      allInherited.mapNotNone {
         case x: MethodTree
             if x.impl === NotImplemented && !isAlreadyImplemented(erasure, scope, x, c.index.get(x.name)) =>
-          x.copy(isOverride = true, impl = ExprTree.native, comments = x.comments + Comment("/* CompleteClass */\n"))
+          val implementedByField: Boolean =
+            x match {
+              case SetterFor(name) => completedFields.exists(f => f.name === name && !f.isReadOnly)
+              case _               => false
+            }
+
+          if (implementedByField) None
+          else
+            Some(
+              x.copy(
+                isOverride = true,
+                impl       = ExprTree.native,
+                comments   = x.comments + Comment("/* CompleteClass */\n"),
+              ),
+            )
+
+        case _ => None
       }
-      .carefulDistinct
+    val ret = (completedFields ++ completedMethods).carefulDistinct
 
     if (ret.nonEmpty)
-      scope.logger.info(s"Completed implementations ${ret.map(_.name.value)}")
+      scope.logger.info(s"Completed implementations ${completedMethods.map(_.name.value)}")
 
     ret
   }
 }
 
 object CompleteClass {
+  object SetterFor {
+    def unapply(m: MethodTree): Option[Name] =
+      if (m.name.unescaped.endsWith("_=") &&
+          m.params.foldLeft(0)(_ + _.length) === 1 &&
+          m.resultType === TypeRef.Unit) {
+        Some(Name(m.name.unescaped.dropRight(2)))
+      } else None
+  }
+
   def isAlreadyImplemented(
       erasure:   Erasure,
       scope:     TreeScope,
