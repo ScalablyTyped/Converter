@@ -36,8 +36,11 @@ class Erasure(scalaVersion: Versions.Scala) {
         simplify(scope, TypeRef.Union(tpe.targs :+ TypeRef.Unit, NoComments, sort = false))
       case QualifiedName.JsUndefOr                 => QualifiedName.`|`
       case QualifiedName.UNION if scalaVersion.is3 =>
+        // `Null` seems to be disregarded when in a union type
+        val targs = if (tpe.targs.length > 1) tpe.targs.filterNot(_ === TypeRef.Null) else tpe.targs
+
         // we don't really use scala arrays, so let's just go with a too broad erasure for that
-        if (tpe.targs.exists(_.typeName === QualifiedName.Array)) QualifiedName.Any
+        if (targs.exists(_.typeName === QualifiedName.Array)) QualifiedName.Any
         else {
           // The erased type for A | B is the erased least upper bound of the erased types of A and B. Quoting from the documentation of TypeErasure#erasedLub
           def go(scope: TreeScope, current: TypeRef): IArray[QualifiedName] =
@@ -53,7 +56,7 @@ class Erasure(scalaVersion: Versions.Scala) {
               .getOrElse(Empty)
 
           val erasedParentLattices: IArray[IArray[QualifiedName]] =
-            tpe.targs.map(t => go(scope, t))
+            targs.map(t => go(scope, t))
 
           erasedParentLattices
             .reduce(_.intersect(_))
