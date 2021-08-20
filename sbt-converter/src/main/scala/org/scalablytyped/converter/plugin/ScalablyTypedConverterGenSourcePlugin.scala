@@ -91,7 +91,8 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
         val cachedOutputs  = os.Path(streams.value.cacheDirectory / "output.json")
 
         val wantedLibs: SortedMap[TsIdentLibrary, String] = {
-          val allDeps = (Compile / npmDependencies).value ++ (Test / npmDependencies).value
+          val allDeps = (Compile / npmDependencies).value ++ (Compile / npmDevDependencies).value ++
+            (Test / npmDependencies).value ++ (Test / npmDevDependencies).value
           allDeps.map { case (name, version) => TsIdentLibrary(name) -> version }.toMap.toSorted
         }
 
