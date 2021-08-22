@@ -541,6 +541,8 @@ object Libraries {
       "koa-compose",
       // not installable on linux
       "fsevents",
+      "raspi-gpio",
+      "raspi-i2c",
       // doesnt exists
       "xumm-api",
     ).map(TsIdentLibrary.apply)

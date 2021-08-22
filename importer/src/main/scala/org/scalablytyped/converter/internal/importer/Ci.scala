@@ -219,7 +219,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
         interfaceLogger,
         interfaceCmd,
         files.existing(paths.cacheFolder / 'npm),
-        external.packages.map(_.typingsPackageName).toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
+        external.packages.map(_._2.libraryName).toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
         config.conversion.ignoredLibs,
         config.conserveSpace,
         config.offline,

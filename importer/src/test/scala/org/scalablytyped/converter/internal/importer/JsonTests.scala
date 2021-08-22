@@ -59,25 +59,22 @@ class JsonTests extends AnyFunSuite {
 
   test("notNeededPackages.json") {
     val content = """{
-    "packages": [
-        {
-            "libraryName": "ajv",
-            "typingsPackageName": "ajv",
-            "sourceRepoURL": "https://github.com/epoberezkin/ajv",
-            "asOfVersion": "1.0.0"
+    "packages": {
+        "3d-bin-packing": {
+            "libraryName": "3d-bin-packing",
+            "asOfVersion": "1.1.3"
         },
-        {
-            "libraryName": "antd",
-            "typingsPackageName": "antd",
-            "sourceRepoURL": "git@github.com:KyleAMathews/deepmerge.git",
-            "asOfVersion": "1.0.0"
-        }]}
-"""
+        "a11y-dialog": {
+            "libraryName": "a11y-dialog",
+            "asOfVersion": "5.3.2"
+        }
+    }
+}"""
     val expected =
       NotNeededPackages(
-        IArray(
-          NotNeededPackage("ajv", TsIdentLibrary("ajv"), Some("https://github.com/epoberezkin/ajv"), "1.0.0"),
-          NotNeededPackage("antd", TsIdentLibrary("antd"), Some("git@github.com:KyleAMathews/deepmerge.git"), "1.0.0"),
+        Map(
+          "3d-bin-packing" -> NotNeededPackage(TsIdentLibrary("3d-bin-packing"), "1.1.3"),
+          "a11y-dialog" -> NotNeededPackage(TsIdentLibrary("a11y-dialog"), "5.3.2"),
         ),
       )
 

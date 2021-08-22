@@ -56,12 +56,7 @@ object PackageJsonDeps {
   implicit val decodes: Decoder[PackageJsonDeps] = io.circe013.generic.semiauto.deriveDecoder
 }
 
-case class NotNeededPackage(
-    libraryName:        String,
-    typingsPackageName: TsIdentLibrary,
-    sourceRepoURL:      Option[String],
-    asOfVersion:        String,
-)
+case class NotNeededPackage(libraryName: TsIdentLibrary, asOfVersion: String)
 
 object NotNeededPackage {
   implicit val encodes: Encoder[NotNeededPackage] = io.circe013.generic.semiauto.deriveEncoder
@@ -80,7 +75,7 @@ object TypingsJson {
   implicit val decodes: Decoder[TypingsJson] = io.circe013.generic.semiauto.deriveDecoder
 }
 
-case class NotNeededPackages(packages: IArray[NotNeededPackage])
+case class NotNeededPackages(packages: Map[String, NotNeededPackage])
 
 object NotNeededPackages {
   implicit val encodes: Encoder[NotNeededPackages] = io.circe013.generic.semiauto.deriveEncoder
