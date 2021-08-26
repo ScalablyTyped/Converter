@@ -17,19 +17,21 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
   val modParam            = ParamTree(Name("m"), false, false, TypeRef(JapgollyNames.vdom.TagMod), NotImplemented, NoComments)
   val jsAnyParam          = ParamTree(Name("m"), false, false, TypeRef.JsAny, NotImplemented, NoComments)
 
-  //  val args: js.Array[js.Any]
-  val args: FieldTree = {
+  //  def args: js.Array[js.Any]
+  val args: MethodTree = {
     val name: Name = Name("args")
-    FieldTree(
+    MethodTree(
       Empty,
       ProtectionLevel.Public,
       name,
-      TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments),
+      Empty,
+      Empty,
       NotImplemented,
-      isReadOnly = true,
+      TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments),
       isOverride = false,
       comments   = NoComments,
       codePath   = builderCp + name,
+      isImplicit = false,
     )
   }
 

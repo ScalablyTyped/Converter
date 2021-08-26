@@ -18,19 +18,21 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
   val builderTparams      = IArray(E, R)
   val builderRef          = TypeRef(builderCp, TypeParamTree.asTypeArgs(builderTparams), NoComments)
 
-  //  val args: js.Array[js.Any]
-  val args: FieldTree = {
+  //  def args: js.Array[js.Any]
+  val args: MethodTree = {
     val name: Name = Name("args")
-    FieldTree(
-      IArray(Annotation.Inline),
+    MethodTree(
+      Empty,
       ProtectionLevel.Public,
       name,
-      TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments),
+      Empty,
+      Empty,
       NotImplemented,
-      isReadOnly = true,
+      TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments),
       isOverride = false,
       comments   = NoComments,
       codePath   = builderCp + name,
+      isImplicit = false,
     )
   }
 

@@ -23,8 +23,7 @@ trait StBuildingComponent[E, R <: js.Object] extends Any {
     this
   }
   
-  @scala.inline
-  val args: js.Array[js.Any]
+  def args: js.Array[js.Any]
   
   /* You typically shouldnt call this yourself, but it can be useful if you're for instance mapping a sequence and you need types to infer properly */
   inline def build: ReactElement = make(this)

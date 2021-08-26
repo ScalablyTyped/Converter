@@ -35,7 +35,7 @@ trait StBuildingComponent[R <: js.Object] extends Any {
     tt.nonEmptyProps.foreach((m: js.Any) => unsafeSpread(m))
   }
   
-  val args: js.Array[js.Any]
+  def args: js.Array[js.Any]
   
   /* You typically shouldnt call this yourself, but it can be useful if you're for instance mapping a sequence and you need types to infer properly */
   inline def build: VdomElement = make(this)
