@@ -38,7 +38,11 @@ object SplitMethods extends TransformMembers with TransformClassMembers {
       val parameterPossibilitiesPerIndex: IArray[IArray[TsFunParam]] =
         paramsNoRep.foldLeft(Empty: IArray[IArray[TsFunParam]]) {
           case (params, fp @ TsFunParam(_, _, Some(TsTypeUnion(types)))) if types.length < MaxNum =>
-            params :+ types.map(tpe => fp.copy(tpe = Some(tpe)))
+            val (literalTypes, restTypes) = types.partitionCollect { case x: TsTypeLiteral => x }
+            val literalsParam =
+              if (literalTypes.isEmpty) Empty else IArray(fp.copy(tpe = Some(TsTypeUnion(literalTypes))))
+
+            params :+ restTypes.map(tpe => fp.copy(tpe = Some(tpe))) ++ literalsParam
           case (params, normalParam) => params :+ IArray(normalParam)
         }
 
