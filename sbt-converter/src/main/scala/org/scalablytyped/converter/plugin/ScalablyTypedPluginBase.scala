@@ -46,11 +46,9 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     val stReactEnableTreeShaking = settingKey[Selection[String]](
       "If a given library is enabled, the react flavour will pick *longest* module names instead of shortest.",
     )
-    @deprecated("This setting is now does nothing, because it became the default encoding")
-    val stExperimentalEnableImplicitOps = settingKey[Boolean]("implicit ops for most traits")
-    val stEnableLongApplyMethod         = settingKey[Boolean]("long apply methods instead of implicit ops builders")
-    val stPrivateWithin                 = settingKey[Option[String]]("generate all top-level things private to the given package")
-    val stIncludeDev                    = settingKey[Boolean]("generate facades for dev dependencies as well")
+    val stEnableLongApplyMethod = settingKey[Boolean]("long apply methods instead of implicit ops builders")
+    val stPrivateWithin         = settingKey[Option[String]]("generate all top-level things private to the given package")
+    val stIncludeDev            = settingKey[Boolean]("generate facades for dev dependencies as well")
   }
 
   override def requires = JvmPlugin && PlatformDepsPlugin
@@ -69,7 +67,6 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stStdlib := List("es6", "dom"),
       stTypescriptVersion := "4.3",
       stUseScalaJsDom := true,
-      stExperimentalEnableImplicitOps := true,
       stReactEnableTreeShaking := Selection.None,
       stEnableLongApplyMethod := false,
       stPrivateWithin := None,
