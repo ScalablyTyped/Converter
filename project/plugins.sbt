@@ -5,4 +5,4 @@ addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.3")
 addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.10.0")
 addSbtPlugin("ch.epfl.scala" % "sbt-bloop" % "1.4.8")
 addSbtPlugin("com.geirsson" % "sbt-ci-release" % "1.5.7")
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.9") // remove on next release of sbt-ci-release
+addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.10") // remove on next release of sbt-ci-release
