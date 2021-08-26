@@ -29,9 +29,7 @@ object mod {
   @js.native
   val ObjectNames: ReactComponentClass[Equals] = js.native
   
-  trait A
-    extends StObject
-       with Props {
+  trait A extends StObject {
     
     def aCallback(): Double
     
@@ -52,9 +50,7 @@ object mod {
     }
   }
   
-  trait B
-    extends StObject
-       with Props {
+  trait B extends StObject {
     
     var bCallback: js.UndefOr[js.Function0[String]] = js.undefined
     
@@ -148,21 +144,5 @@ object mod {
     }
   }
   
-  /* Rewritten from type alias, can be one of: 
-    - typingsSlinky.componentstest.mod.A
-    - typingsSlinky.componentstest.mod.B
-  */
-  trait Props extends StObject
-  object Props {
-    
-    inline def A(aCallback: () => Double, aMember: Double): typingsSlinky.componentstest.mod.A = {
-      val __obj = js.Dynamic.literal(aCallback = js.Any.fromFunction0(aCallback), aMember = aMember.asInstanceOf[js.Any])
-      __obj.asInstanceOf[typingsSlinky.componentstest.mod.A]
-    }
-    
-    inline def B(bMember: String): typingsSlinky.componentstest.mod.B = {
-      val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
-      __obj.asInstanceOf[typingsSlinky.componentstest.mod.B]
-    }
-  }
+  type Props = A | B
 }

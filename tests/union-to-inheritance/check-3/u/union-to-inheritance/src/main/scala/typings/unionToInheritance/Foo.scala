@@ -4,11 +4,7 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-trait Foo[U]
-  extends StObject
-     with Legal1[U]
-     with Legal2[U, js.Any]
-     with Legal3[js.Any, js.Any, U] {
+trait Foo[U] extends StObject {
   
   var value: U
 }

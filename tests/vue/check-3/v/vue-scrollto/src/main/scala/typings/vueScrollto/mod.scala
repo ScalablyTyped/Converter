@@ -2,7 +2,6 @@ package typings.vueScrollto
 
 import typings.std.Element
 import typings.vue.pluginMod.PluginFunction
-import typings.vueScrollto.vueScrolltoBooleans.`false`
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -71,10 +70,10 @@ object mod {
     
     // A callback function that should be called when scrolling has been aborted by the user (user scrolled, clicked
     // etc.). Default: noop
-    var onCancel: js.UndefOr[js.Function0[Unit] | `false`] = js.undefined
+    var onCancel: js.UndefOr[js.Function0[Unit] | false] = js.undefined
     
     // A callback function that should be called when scrolling has ended. Default: noop
-    var onDone: js.UndefOr[js.Function0[Unit] | `false`] = js.undefined
+    var onDone: js.UndefOr[js.Function0[Unit] | false] = js.undefined
     
     // Whether or not we want scrolling on the x axis. Default: true
     var x: js.UndefOr[Boolean] = js.undefined
@@ -119,13 +118,13 @@ object mod {
       
       inline def setOffsetUndefined: Self = StObject.set(x, "offset", js.undefined)
       
-      inline def setOnCancel(value: js.Function0[Unit] | `false`): Self = StObject.set(x, "onCancel", value.asInstanceOf[js.Any])
+      inline def setOnCancel(value: js.Function0[Unit] | false): Self = StObject.set(x, "onCancel", value.asInstanceOf[js.Any])
       
       inline def setOnCancelFunction0(value: () => Unit): Self = StObject.set(x, "onCancel", js.Any.fromFunction0(value))
       
       inline def setOnCancelUndefined: Self = StObject.set(x, "onCancel", js.undefined)
       
-      inline def setOnDone(value: js.Function0[Unit] | `false`): Self = StObject.set(x, "onDone", value.asInstanceOf[js.Any])
+      inline def setOnDone(value: js.Function0[Unit] | false): Self = StObject.set(x, "onDone", value.asInstanceOf[js.Any])
       
       inline def setOnDoneFunction0(value: () => Unit): Self = StObject.set(x, "onDone", js.Any.fromFunction0(value))
       

@@ -26,7 +26,7 @@ object optionsMod {
   
   type Accessors[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ K in keyof T ]: (): T[K] | vue.vue/types/options.ComputedOptions<T[K]>}
-    */ typings.vue.vueStrings.Accessors & TopLevel[js.Any]
+    */ "Accessors" & TopLevel[js.Any]
   
   type ArrayPropsDefinition[T] = js.Array[/* keyof T */ String]
   
@@ -550,7 +550,7 @@ object optionsMod {
   
   type RecordPropsDefinition[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ K in keyof T ]: vue.vue/types/options.PropValidator<T[K]>}
-    */ typings.vue.vueStrings.RecordPropsDefinition & TopLevel[T]
+    */ "RecordPropsDefinition" & TopLevel[T]
   
   trait RenderContext[Props] extends StObject {
     

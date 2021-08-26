@@ -1,15 +1,12 @@
 package typings.typeMappings
 
-import typings.typeMappings.typeMappingsStrings.text
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-trait TextMark
-  extends StObject
-     with Mark {
+trait TextMark extends StObject {
   
-  var `type`: text
+  var `type`: /* scala3 limitation: Should be type 'text' */ java.lang.String
 }
 object TextMark {
   
@@ -21,6 +18,6 @@ object TextMark {
   
   extension [Self <: TextMark](x: Self) {
     
-    inline def setType(value: text): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+    inline def setType(value: "text"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
   }
 }

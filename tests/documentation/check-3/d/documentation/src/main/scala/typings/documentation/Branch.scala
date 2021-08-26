@@ -4,15 +4,13 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-trait Branch[T]
-  extends StObject
-     with Tree[T] {
+trait Branch[T] extends StObject {
   
   var left: T
   
   var right: T
   
-  var `type`: typings.documentation.documentationStrings.Branch
+  var `type`: /* scala3 limitation: Should be type 'Branch' */ java.lang.String
 }
 object Branch {
   
@@ -28,6 +26,6 @@ object Branch {
     
     inline def setRight(value: T): Self = StObject.set(x, "right", value.asInstanceOf[js.Any])
     
-    inline def setType(value: typings.documentation.documentationStrings.Branch): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+    inline def setType(value: "Branch"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
   }
 }

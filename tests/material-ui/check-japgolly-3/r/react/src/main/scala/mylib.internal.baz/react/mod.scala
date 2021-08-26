@@ -2,7 +2,6 @@ package mylib.internal.baz.react
 
 import mylib.internal.baz.react.anon.Children
 import mylib.internal.baz.react.anon.Html
-import mylib.internal.baz.react.reactStrings.foo
 import mylib.internal.baz.std.Partial
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.raw.Empty
@@ -135,13 +134,13 @@ private[internal] object mod {
     extends StObject
        with AllHTMLAttributes[T] {
     
-    var defaultValue: foo
+    var defaultValue: /* scala3 limitation: Should be type 'foo' */ java.lang.String
     
-    var onChange: foo
+    var onChange: /* scala3 limitation: Should be type 'foo' */ java.lang.String
     
-    var `type`: foo
+    var `type`: /* scala3 limitation: Should be type 'foo' */ java.lang.String
     
-    var value: foo
+    var value: /* scala3 limitation: Should be type 'foo' */ java.lang.String
   }
   object HTMLProps {
     
@@ -153,13 +152,13 @@ private[internal] object mod {
     
     extension [Self <: HTMLProps[?], T](x: Self & HTMLProps[T]) {
       
-      inline def setDefaultValue(value: foo): Self = StObject.set(x, "defaultValue", value.asInstanceOf[js.Any])
+      inline def setDefaultValue(value: "foo"): Self = StObject.set(x, "defaultValue", value.asInstanceOf[js.Any])
       
-      inline def setOnChange(value: foo): Self = StObject.set(x, "onChange", value.asInstanceOf[js.Any])
+      inline def setOnChange(value: "foo"): Self = StObject.set(x, "onChange", value.asInstanceOf[js.Any])
       
-      inline def setType(value: foo): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setType(value: "foo"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
       
-      inline def setValue(value: foo): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
+      inline def setValue(value: "foo"): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     }
   }
   

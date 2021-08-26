@@ -12,10 +12,6 @@ import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandCollection
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandContent
 import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem
 import typingsSlinky.semanticUiReact.genericMod.SemanticWIDTHS
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.bottom
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.left
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.right
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.top
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -44,7 +40,7 @@ object buttonGroupMod extends Shortcut {
     var as: js.UndefOr[js.Any] = js.undefined
     
     /** Groups can be attached to other content. */
-    var attached: js.UndefOr[Boolean | left | right | top | bottom] = js.undefined
+    var attached: js.UndefOr[Boolean | "left" | "right" | "top" | "bottom"] = js.undefined
     
     /** Groups can be less pronounced. */
     var basic: js.UndefOr[Boolean] = js.undefined
@@ -119,7 +115,7 @@ object buttonGroupMod extends Shortcut {
       
       inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
-      inline def setAttached(value: Boolean | left | right | top | bottom): Self = StObject.set(x, "attached", value.asInstanceOf[js.Any])
+      inline def setAttached(value: Boolean | "left" | "right" | "top" | "bottom"): Self = StObject.set(x, "attached", value.asInstanceOf[js.Any])
       
       inline def setAttachedUndefined: Self = StObject.set(x, "attached", js.undefined)
       

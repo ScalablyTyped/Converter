@@ -7,7 +7,7 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-/* The props of this component has an unsupported shape. You can use `set` manually to use it, but with no compiler support :/ . Support for combinations of intersection and union types not implemented */
+/* The props of this component has an unsupported shape. You can use `set` manually to use it, but with no compiler support :/ . Couldn't find props for typingsSlinky.reactBootstrap.toggleButtonGroupMod.ToggleButtonGroupProps because: IArray(Could't extract props from "Pick" because couldn't resolve ClassTree.) */
 object ToggleButtonGroup {
   
   def apply(p: ToggleButtonGroupProps): Default[tag.type, typingsSlinky.reactBootstrap.mod.ToggleButtonGroup] = new Default[tag.type, typingsSlinky.reactBootstrap.mod.ToggleButtonGroup](js.Array(this.component, p.asInstanceOf[js.Any]))

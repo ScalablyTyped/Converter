@@ -1,15 +1,12 @@
 package typings.typeMappings
 
-import typings.typeMappings.typeMappingsStrings.trail
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-trait TrailMark
-  extends StObject
-     with Mark {
+trait TrailMark extends StObject {
   
-  var `type`: trail
+  var `type`: /* scala3 limitation: Should be type 'trail' */ java.lang.String
 }
 object TrailMark {
   
@@ -21,6 +18,6 @@ object TrailMark {
   
   extension [Self <: TrailMark](x: Self) {
     
-    inline def setType(value: trail): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+    inline def setType(value: "trail"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
   }
 }

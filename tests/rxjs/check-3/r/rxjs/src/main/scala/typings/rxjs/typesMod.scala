@@ -8,9 +8,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object typesMod {
   
-  trait CompletionObserver[T]
-    extends StObject
-       with PartialObserver[T] {
+  trait CompletionObserver[T] extends StObject {
     
     var closed: js.UndefOr[Boolean] = js.undefined
     
@@ -45,9 +43,7 @@ object typesMod {
     }
   }
   
-  trait ErrorObserver[T]
-    extends StObject
-       with PartialObserver[T] {
+  trait ErrorObserver[T] extends StObject {
     
     var closed: js.UndefOr[Boolean] = js.undefined
     
@@ -82,9 +78,7 @@ object typesMod {
     }
   }
   
-  trait NextObserver[T]
-    extends StObject
-       with PartialObserver[T] {
+  trait NextObserver[T] extends StObject {
     
     var closed: js.UndefOr[Boolean] = js.undefined
     
@@ -152,29 +146,7 @@ object typesMod {
   
   type OperatorFunction[T, R] = UnaryFunction[Observable[T], Observable[R]]
   
-  /* Rewritten from type alias, can be one of: 
-    - typings.rxjs.typesMod.NextObserver[T]
-    - typings.rxjs.typesMod.ErrorObserver[T]
-    - typings.rxjs.typesMod.CompletionObserver[T]
-  */
-  trait PartialObserver[T] extends StObject
-  object PartialObserver {
-    
-    inline def CompletionObserver[T](complete: () => Unit): typings.rxjs.typesMod.CompletionObserver[T] = {
-      val __obj = js.Dynamic.literal(complete = js.Any.fromFunction0(complete))
-      __obj.asInstanceOf[typings.rxjs.typesMod.CompletionObserver[T]]
-    }
-    
-    inline def ErrorObserver[T](error: js.Any => Unit): typings.rxjs.typesMod.ErrorObserver[T] = {
-      val __obj = js.Dynamic.literal(error = js.Any.fromFunction1(error))
-      __obj.asInstanceOf[typings.rxjs.typesMod.ErrorObserver[T]]
-    }
-    
-    inline def NextObserver[T](next: T => Unit): typings.rxjs.typesMod.NextObserver[T] = {
-      val __obj = js.Dynamic.literal(next = js.Any.fromFunction1(next))
-      __obj.asInstanceOf[typings.rxjs.typesMod.NextObserver[T]]
-    }
-  }
+  type PartialObserver[T] = NextObserver[T] | ErrorObserver[T] | CompletionObserver[T]
   
   @js.native
   trait SchedulerAction[T] extends Subscription {

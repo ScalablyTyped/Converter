@@ -7,4 +7,4 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 type Pick[T, K /* <: /* keyof T */ java.lang.String */] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
 {[ P in K ]: T[P]}
-  */ typings.std.stdStrings.Pick & org.scalablytyped.runtime.TopLevel[T]
+  */ "Pick" & org.scalablytyped.runtime.TopLevel[T]

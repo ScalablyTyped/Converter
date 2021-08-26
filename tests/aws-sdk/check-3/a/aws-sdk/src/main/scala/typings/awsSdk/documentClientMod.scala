@@ -20,13 +20,7 @@ object documentClientMod {
   }
   object DocumentClient {
     
-    /* Rewritten from type alias, can be one of: 
-      - typings.awsSdk.awsSdkStrings.ADD
-      - typings.awsSdk.awsSdkStrings.PUT
-      - typings.awsSdk.awsSdkStrings.DELETE
-      - java.lang.String
-    */
-    type AttributeAction = _AttributeAction | String
+    type AttributeAction = "ADD" | "PUT" | "DELETE" | String
     
     trait ConverterOptions extends StObject {
       
@@ -94,7 +88,5 @@ object documentClientMod {
         inline def setServiceUndefined: Self = StObject.set(x, "service", js.undefined)
       }
     }
-    
-    trait _AttributeAction extends StObject
   }
 }

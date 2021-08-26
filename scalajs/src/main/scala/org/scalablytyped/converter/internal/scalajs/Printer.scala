@@ -366,7 +366,7 @@ object Printer {
 
           println(s" = ", formatTypeRef(indent)(alias))
 
-        case FieldTree(anns, level, name, tpe, impl, isReadOnly, isOverride, comments, _) =>
+        case x @ FieldTree(anns, level, name, tpe, impl, isReadOnly, isOverride, comments, _) =>
           print(Comments.format(comments))
           print(formatAnns(anns))
 
@@ -376,12 +376,24 @@ object Printer {
             if (isOverride) "override " else "",
             if (isReadOnly) "val" else "var",
             " ",
-            typeAnnotation(formatName(name), indent, tpe),
+            typeAnnotation(formatName(name), indent, widenLiteral(scalaVersion, tpe, x.isNative)),
           )
 
           println(formatImpl(indent)(impl))
 
-        case MethodTree(anns, level, name, tparams, params, impl, resultType, isOverride, comments, _, isImplicit) =>
+        case x @ MethodTree(
+              anns,
+              level,
+              name,
+              tparams,
+              params,
+              impl,
+              resultType,
+              isOverride,
+              comments,
+              _,
+              isImplicit,
+            ) =>
           print(Comments.format(comments))
           if (scalaVersion.is3) {
             val (inline, rest) = anns.partitionCollect { case Annotation.Inline => Annotation.Inline }
@@ -405,7 +417,11 @@ object Printer {
           }
 
           print(
-            typeAnnotation(formatName(name) + tparamString + paramString.mkString, indent, resultType),
+            typeAnnotation(
+              formatName(name) + tparamString + paramString.mkString,
+              indent,
+              widenLiteral(scalaVersion, resultType, x.isNative),
+            ),
           )
           println(formatImpl(indent)(impl))
 
@@ -661,4 +677,17 @@ object Printer {
         case e: ExprTree => " = " + formatExpr(indent)(e)
       }
   }
+
+  def widenLiteral(scalaVersion: Versions.Scala, tpe: TypeRef, isNative: Boolean): TypeRef =
+    if (!scalaVersion.is3 || !isNative) tpe
+    else
+      tpe match {
+        case TypeRef.StringLiteral(x) =>
+          TypeRef.String.withComments(Comments(s"/* scala3 limitation: Should be type '$x' */"))
+        case TypeRef.NumberLiteral(x) =>
+          TypeRef.Double.withComments(Comments(s"/* scala3 limitation: Should be type $x */"))
+        case TypeRef.BooleanLiteral(x) =>
+          TypeRef.Boolean.withComments(Comments(s"/* scala3 limitation: Should be type $x */"))
+        case other => other
+      }
 }

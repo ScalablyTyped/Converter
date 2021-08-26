@@ -1,6 +1,5 @@
 package typings.awsSdk
 
-import typings.awsSdk.awsSdkStrings.latest
 import typings.awsSdk.converterMod.Converter.ConverterOptions
 import typings.awsSdk.documentClientMod.DocumentClient.DocumentClientOptions
 import typings.awsSdk.servicesDynamodbMod.DynamoDBCustomizations
@@ -47,5 +46,5 @@ object dynamodbMod {
   
   type DynamoDB = DynamoDBCustomizations
   
-  type apiVersion = latest
+  type apiVersion = "latest"
 }

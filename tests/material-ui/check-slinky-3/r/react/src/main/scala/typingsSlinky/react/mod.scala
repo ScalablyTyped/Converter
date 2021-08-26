@@ -5,7 +5,6 @@ import org.scalablytyped.runtime.Instantiable2
 import slinky.core.ReactComponentClass
 import typingsSlinky.react.anon.Children
 import typingsSlinky.react.anon.Html
-import typingsSlinky.react.reactStrings.foo
 import typingsSlinky.std.Partial
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
@@ -115,13 +114,13 @@ object mod {
     extends StObject
        with AllHTMLAttributes[T] {
     
-    var defaultValue: foo
+    var defaultValue: /* scala3 limitation: Should be type 'foo' */ java.lang.String
     
-    var onChange: foo
+    var onChange: /* scala3 limitation: Should be type 'foo' */ java.lang.String
     
-    var `type`: foo
+    var `type`: /* scala3 limitation: Should be type 'foo' */ java.lang.String
     
-    var value: foo
+    var value: /* scala3 limitation: Should be type 'foo' */ java.lang.String
   }
   object HTMLProps {
     
@@ -133,13 +132,13 @@ object mod {
     
     extension [Self <: HTMLProps[?], T](x: Self & HTMLProps[T]) {
       
-      inline def setDefaultValue(value: foo): Self = StObject.set(x, "defaultValue", value.asInstanceOf[js.Any])
+      inline def setDefaultValue(value: "foo"): Self = StObject.set(x, "defaultValue", value.asInstanceOf[js.Any])
       
-      inline def setOnChange(value: foo): Self = StObject.set(x, "onChange", value.asInstanceOf[js.Any])
+      inline def setOnChange(value: "foo"): Self = StObject.set(x, "onChange", value.asInstanceOf[js.Any])
       
-      inline def setType(value: foo): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setType(value: "foo"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
       
-      inline def setValue(value: foo): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
+      inline def setValue(value: "foo"): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     }
   }
   

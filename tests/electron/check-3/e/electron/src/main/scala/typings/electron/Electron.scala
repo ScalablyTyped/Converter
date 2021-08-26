@@ -1,6 +1,5 @@
 package typings.electron
 
-import typings.electron.electronStrings.`accessibility-support-changed`
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -21,18 +20,18 @@ object Electron {
       * details.
       */
     @JSName("on")
-    def on_accessibilitysupportchanged(event: `accessibility-support-changed`, listener: js.Any): String
+    def `on_accessibility-support-changed`(event: "accessibility-support-changed", listener: js.Any): String
   }
   object App {
     
-    inline def apply(addListener: (String, js.Function) => App, on: (`accessibility-support-changed`, js.Any) => String): App = {
+    inline def apply(addListener: (String, js.Function) => App, on: ("accessibility-support-changed", js.Any) => String): App = {
       val __obj = js.Dynamic.literal(addListener = js.Any.fromFunction2(addListener), on = js.Any.fromFunction2(on))
       __obj.asInstanceOf[App]
     }
     
     extension [Self <: App](x: Self) {
       
-      inline def setOn(value: (`accessibility-support-changed`, js.Any) => String): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
+      inline def setOn(value: ("accessibility-support-changed", js.Any) => String): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
     }
   }
   

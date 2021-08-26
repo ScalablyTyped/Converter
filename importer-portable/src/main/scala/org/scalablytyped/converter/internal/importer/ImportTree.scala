@@ -591,7 +591,6 @@ class ImportTree(
       codePath    = ownerCP + correctedName,
       isImplicit  = false,
     )
-
     if (name === Name.APPLY || name === Name.namespaced) ret
     else {
       val containedLiterals: IArray[String] =
@@ -599,9 +598,9 @@ class ImportTree(
           case x: TsLiteral => x.literal
         }
 
-      containedLiterals.distinct.toList.map(_.filter(_.isLetterOrDigit)).filter(_.nonEmpty) match {
-        case suffix :: Nil => ret.withSuffix(suffix)
-        case _             => ret
+      containedLiterals.filter(_.nonEmpty) match {
+        case IArray.first(suffix) => ret.withSuffix(suffix)
+        case _                    => ret
       }
     }
   }

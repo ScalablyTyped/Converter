@@ -3,7 +3,6 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
-import org.scalablytyped.converter.internal.scalajs.transforms.FakeLiterals
 
 case class CreatorMethod(
     params:       IArray[ParamTree],
@@ -69,11 +68,8 @@ object CreatorMethod {
         )
 
       // required literals
-      case prop @ Prop.Normal(Prop.Variant(tpe, _, _, _), _, Optionality.No, _, _)
-          if tpe.comments.has[Marker.WasLiteral] =>
-        val literal = tpe.comments.extract { case Marker.WasLiteral(lit) => lit }.get._1
-
-        Const(requiredProp(prop, literal))
+      case prop @ Prop.Normal(Prop.Variant(LiteralType(lit), _, _, _), _, Optionality.No, _, _) =>
+        Const(requiredProp(prop, lit))
 
       // required props
       case prop @ Prop.Normal(Prop.Variant(tpe, asExpr, _, _), _, Optionality.No, _, _) =>
@@ -89,6 +85,18 @@ object CreatorMethod {
       case _ => NotNeeded
     }
 
+  object LiteralType {
+    def unapply(tpe: TypeRef): Option[ExprTree.Lit] =
+      tpe match {
+        case TypeRef.BooleanLiteral(x) => Some(ExprTree.BooleanLit(x.toBoolean))
+        case TypeRef.StringLiteral(x)  => Some(ExprTree.StringLit(x))
+        case TypeRef.NumberLiteral(x)  => Some(ExprTree.NumberLit(x))
+        case tpe if tpe.comments.has[Marker.WasLiteral] =>
+          Some(tpe.comments.extract { case Marker.WasLiteral(lit) => lit }.get._1)
+        case _ => None
+      }
+  }
+
   // use this to
   def full(prop: Prop): CreatorMethodFragment =
     prop match {
@@ -102,10 +110,7 @@ object CreatorMethod {
           ParamTree(name, isImplicit = false, isVal = false, tpe, default, NoComments),
         )
 
-      case prop @ Prop.Normal(Prop.Variant(tpe, _, _, _), _, Optionality.No, _, _)
-          if tpe.comments.has[Marker.WasLiteral] =>
-        val lit = tpe.comments.extract { case Marker.WasLiteral(lit) => lit }.get._1
-
+      case prop @ Prop.Normal(Prop.Variant(LiteralType(lit), _, _, _), _, Optionality.No, _, _) =>
         Const(requiredProp(prop, lit))
 
       case prop @ Prop.Normal(Prop.Variant(tpe, asExpr, _, _), _, optionality, _, _) =>

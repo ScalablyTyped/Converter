@@ -147,14 +147,14 @@ type Omit[T, K /* <: /* keyof any */ java.lang.String */] = typingsSlinky.std.Pi
   */
 type Partial[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
 {[ P in keyof T ]:? T[P]}
-  */ typingsSlinky.std.stdStrings.Partial & org.scalablytyped.runtime.TopLevel[T]
+  */ "Partial" & org.scalablytyped.runtime.TopLevel[T]
 
 /**
   * From T pick a set of properties K
   */
 type Pick[T, K /* <: /* keyof T */ java.lang.String */] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
 {[ P in K ]: T[P]}
-  */ typingsSlinky.std.stdStrings.Pick & org.scalablytyped.runtime.TopLevel[T]
+  */ "Pick" & org.scalablytyped.runtime.TopLevel[T]
 
 type PointerEvent = org.scalajs.dom.raw.Event
 
@@ -163,7 +163,7 @@ type PointerEvent = org.scalajs.dom.raw.Event
   */
 type Readonly[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
 {readonly [ P in keyof T ]: T[P]}
-  */ typingsSlinky.std.stdStrings.Readonly & org.scalablytyped.runtime.TopLevel[T]
+  */ "Readonly" & org.scalablytyped.runtime.TopLevel[T]
 
 /**
   * Construct a type with a set of properties K of type T

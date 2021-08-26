@@ -7,6 +7,8 @@ import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 import org.scalablytyped.converter.internal.ts._
 import org.scalablytyped.converter.internal.ts.transforms.ExtractInterfaces
 
+import scala.util.{Success, Try}
+
 class ImportType(stdNames: QualifiedName.StdNames) {
 
   def orAny(scope: TsTreeScope, importName: AdaptiveNamingImport)(ott: Option[TsType]): TypeRef =
@@ -264,10 +266,17 @@ class ImportType(stdNames: QualifiedName.StdNames) {
         TypeRef.Boolean.withComments(Comments(s"/* asserts ${ident.value} ${isOpt.fold("")("is " + _)}*/"))
 
       case TsTypeLiteral(lit) =>
+        def isTooBigForInt(strNum: String): Option[Long] =
+          Try(java.lang.Long.decode(strNum)) match {
+            case Success(value) if value > Int.MaxValue || value < Int.MinValue => Some(value)
+            case _                                                              => None
+          }
+
         lit match {
-          case TsLiteral.Num(value)  => TypeRef.NumberLiteral(value)
-          case TsLiteral.Str(value)  => TypeRef.StringLiteral(value)
-          case TsLiteral.Bool(value) => TypeRef.BooleanLiteral(value.toString)
+          case TsLiteral.Num(value) if isTooBigForInt(value).isDefined => TypeRef.Int
+          case TsLiteral.Num(value)                                    => TypeRef.NumberLiteral(value)
+          case TsLiteral.Str(value)                                    => TypeRef.StringLiteral(value)
+          case TsLiteral.Bool(value)                                   => TypeRef.BooleanLiteral(value.toString)
         }
 
       case TsTypeThis() =>

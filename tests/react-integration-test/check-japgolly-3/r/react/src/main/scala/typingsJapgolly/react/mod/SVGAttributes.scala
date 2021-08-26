@@ -1,36 +1,5 @@
 package typingsJapgolly.react.mod
 
-import typingsJapgolly.react.reactStrings.`after-edge`
-import typingsJapgolly.react.reactStrings.`before-edge`
-import typingsJapgolly.react.reactStrings.`text-after-edge`
-import typingsJapgolly.react.reactStrings.`text-before-edge`
-import typingsJapgolly.react.reactStrings.alphabetic
-import typingsJapgolly.react.reactStrings.auto
-import typingsJapgolly.react.reactStrings.baseline
-import typingsJapgolly.react.reactStrings.bevel
-import typingsJapgolly.react.reactStrings.butt
-import typingsJapgolly.react.reactStrings.central
-import typingsJapgolly.react.reactStrings.evenodd
-import typingsJapgolly.react.reactStrings.hanging
-import typingsJapgolly.react.reactStrings.ideographic
-import typingsJapgolly.react.reactStrings.inherit
-import typingsJapgolly.react.reactStrings.initial
-import typingsJapgolly.react.reactStrings.isolated
-import typingsJapgolly.react.reactStrings.linearRGB
-import typingsJapgolly.react.reactStrings.mathematical
-import typingsJapgolly.react.reactStrings.medial
-import typingsJapgolly.react.reactStrings.middle
-import typingsJapgolly.react.reactStrings.miter
-import typingsJapgolly.react.reactStrings.no
-import typingsJapgolly.react.reactStrings.none
-import typingsJapgolly.react.reactStrings.nonzero
-import typingsJapgolly.react.reactStrings.replace
-import typingsJapgolly.react.reactStrings.round
-import typingsJapgolly.react.reactStrings.sRGB
-import typingsJapgolly.react.reactStrings.square
-import typingsJapgolly.react.reactStrings.sum
-import typingsJapgolly.react.reactStrings.terminal
-import typingsJapgolly.react.reactStrings.yes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -51,21 +20,21 @@ trait SVGAttributes[T]
   // SVG Specific attributes
   var accentHeight: js.UndefOr[Double | String] = js.undefined
   
-  var accumulate: js.UndefOr[none | sum] = js.undefined
+  var accumulate: js.UndefOr["none" | "sum"] = js.undefined
   
-  var additive: js.UndefOr[replace | sum] = js.undefined
+  var additive: js.UndefOr["replace" | "sum"] = js.undefined
   
   var alignmentBaseline: js.UndefOr[
-    auto | baseline | `before-edge` | `text-before-edge` | middle | central | `after-edge` | `text-after-edge` | ideographic | alphabetic | hanging | mathematical | inherit
+    "auto" | "baseline" | "before-edge" | "text-before-edge" | "middle" | "central" | "after-edge" | "text-after-edge" | "ideographic" | "alphabetic" | "hanging" | "mathematical" | "inherit"
   ] = js.undefined
   
-  var allowReorder: js.UndefOr[no | yes] = js.undefined
+  var allowReorder: js.UndefOr["no" | "yes"] = js.undefined
   
   var alphabetic: js.UndefOr[Double | String] = js.undefined
   
   var amplitude: js.UndefOr[Double | String] = js.undefined
   
-  var arabicForm: js.UndefOr[initial | medial | terminal | isolated] = js.undefined
+  var arabicForm: js.UndefOr["initial" | "medial" | "terminal" | "isolated"] = js.undefined
   
   var ascent: js.UndefOr[Double | String] = js.undefined
   
@@ -111,7 +80,7 @@ trait SVGAttributes[T]
   
   var colorInterpolation: js.UndefOr[Double | String] = js.undefined
   
-  var colorInterpolationFilters: js.UndefOr[auto | sRGB | linearRGB | inherit] = js.undefined
+  var colorInterpolationFilters: js.UndefOr["auto" | "sRGB" | "linearRGB" | "inherit"] = js.undefined
   
   var colorProfile: js.UndefOr[Double | String] = js.undefined
   
@@ -165,7 +134,7 @@ trait SVGAttributes[T]
   
   var fillOpacity: js.UndefOr[Double | String] = js.undefined
   
-  var fillRule: js.UndefOr[nonzero | evenodd | inherit] = js.undefined
+  var fillRule: js.UndefOr["nonzero" | "evenodd" | "inherit"] = js.undefined
   
   var filter: js.UndefOr[String] = js.undefined
   
@@ -430,9 +399,9 @@ trait SVGAttributes[T]
   
   var strokeDashoffset: js.UndefOr[String | Double] = js.undefined
   
-  var strokeLinecap: js.UndefOr[butt | round | square | inherit] = js.undefined
+  var strokeLinecap: js.UndefOr["butt" | "round" | "square" | "inherit"] = js.undefined
   
-  var strokeLinejoin: js.UndefOr[miter | round | bevel | inherit] = js.undefined
+  var strokeLinejoin: js.UndefOr["miter" | "round" | "bevel" | "inherit"] = js.undefined
   
   var strokeMiterlimit: js.UndefOr[Double | String] = js.undefined
   
@@ -579,21 +548,21 @@ object SVGAttributes {
     
     inline def setAccentHeightUndefined: Self = StObject.set(x, "accentHeight", js.undefined)
     
-    inline def setAccumulate(value: none | sum): Self = StObject.set(x, "accumulate", value.asInstanceOf[js.Any])
+    inline def setAccumulate(value: "none" | "sum"): Self = StObject.set(x, "accumulate", value.asInstanceOf[js.Any])
     
     inline def setAccumulateUndefined: Self = StObject.set(x, "accumulate", js.undefined)
     
-    inline def setAdditive(value: replace | sum): Self = StObject.set(x, "additive", value.asInstanceOf[js.Any])
+    inline def setAdditive(value: "replace" | "sum"): Self = StObject.set(x, "additive", value.asInstanceOf[js.Any])
     
     inline def setAdditiveUndefined: Self = StObject.set(x, "additive", js.undefined)
     
     inline def setAlignmentBaseline(
-      value: auto | baseline | `before-edge` | `text-before-edge` | middle | central | `after-edge` | `text-after-edge` | ideographic | alphabetic | hanging | mathematical | inherit
+      value: "auto" | "baseline" | "before-edge" | "text-before-edge" | "middle" | "central" | "after-edge" | "text-after-edge" | "ideographic" | "alphabetic" | "hanging" | "mathematical" | "inherit"
     ): Self = StObject.set(x, "alignmentBaseline", value.asInstanceOf[js.Any])
     
     inline def setAlignmentBaselineUndefined: Self = StObject.set(x, "alignmentBaseline", js.undefined)
     
-    inline def setAllowReorder(value: no | yes): Self = StObject.set(x, "allowReorder", value.asInstanceOf[js.Any])
+    inline def setAllowReorder(value: "no" | "yes"): Self = StObject.set(x, "allowReorder", value.asInstanceOf[js.Any])
     
     inline def setAllowReorderUndefined: Self = StObject.set(x, "allowReorder", js.undefined)
     
@@ -605,7 +574,7 @@ object SVGAttributes {
     
     inline def setAmplitudeUndefined: Self = StObject.set(x, "amplitude", js.undefined)
     
-    inline def setArabicForm(value: initial | medial | terminal | isolated): Self = StObject.set(x, "arabicForm", value.asInstanceOf[js.Any])
+    inline def setArabicForm(value: "initial" | "medial" | "terminal" | "isolated"): Self = StObject.set(x, "arabicForm", value.asInstanceOf[js.Any])
     
     inline def setArabicFormUndefined: Self = StObject.set(x, "arabicForm", js.undefined)
     
@@ -689,7 +658,7 @@ object SVGAttributes {
     
     inline def setColorInterpolation(value: Double | String): Self = StObject.set(x, "colorInterpolation", value.asInstanceOf[js.Any])
     
-    inline def setColorInterpolationFilters(value: auto | sRGB | linearRGB | inherit): Self = StObject.set(x, "colorInterpolationFilters", value.asInstanceOf[js.Any])
+    inline def setColorInterpolationFilters(value: "auto" | "sRGB" | "linearRGB" | "inherit"): Self = StObject.set(x, "colorInterpolationFilters", value.asInstanceOf[js.Any])
     
     inline def setColorInterpolationFiltersUndefined: Self = StObject.set(x, "colorInterpolationFilters", js.undefined)
     
@@ -799,7 +768,7 @@ object SVGAttributes {
     
     inline def setFillOpacityUndefined: Self = StObject.set(x, "fillOpacity", js.undefined)
     
-    inline def setFillRule(value: nonzero | evenodd | inherit): Self = StObject.set(x, "fillRule", value.asInstanceOf[js.Any])
+    inline def setFillRule(value: "nonzero" | "evenodd" | "inherit"): Self = StObject.set(x, "fillRule", value.asInstanceOf[js.Any])
     
     inline def setFillRuleUndefined: Self = StObject.set(x, "fillRule", js.undefined)
     
@@ -1327,11 +1296,11 @@ object SVGAttributes {
     
     inline def setStrokeDashoffsetUndefined: Self = StObject.set(x, "strokeDashoffset", js.undefined)
     
-    inline def setStrokeLinecap(value: butt | round | square | inherit): Self = StObject.set(x, "strokeLinecap", value.asInstanceOf[js.Any])
+    inline def setStrokeLinecap(value: "butt" | "round" | "square" | "inherit"): Self = StObject.set(x, "strokeLinecap", value.asInstanceOf[js.Any])
     
     inline def setStrokeLinecapUndefined: Self = StObject.set(x, "strokeLinecap", js.undefined)
     
-    inline def setStrokeLinejoin(value: miter | round | bevel | inherit): Self = StObject.set(x, "strokeLinejoin", value.asInstanceOf[js.Any])
+    inline def setStrokeLinejoin(value: "miter" | "round" | "bevel" | "inherit"): Self = StObject.set(x, "strokeLinejoin", value.asInstanceOf[js.Any])
     
     inline def setStrokeLinejoinUndefined: Self = StObject.set(x, "strokeLinejoin", js.undefined)
     

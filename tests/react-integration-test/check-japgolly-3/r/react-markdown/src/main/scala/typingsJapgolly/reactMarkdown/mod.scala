@@ -46,7 +46,7 @@ object mod {
   
   type Not[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ key in keyof T ]:? never}
-    */ typingsJapgolly.reactMarkdown.reactMarkdownStrings.Not & TopLevel[js.Any]
+    */ "Not" & TopLevel[js.Any]
   
   type ReactMarkdownProps = ReactMarkdownPropsBase & (MutuallyExclusive[ChildrenProp, SourceProp])
   

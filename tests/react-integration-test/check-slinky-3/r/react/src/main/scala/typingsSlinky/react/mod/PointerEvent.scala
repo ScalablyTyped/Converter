@@ -1,9 +1,6 @@
 package typingsSlinky.react.mod
 
 import org.scalajs.dom.raw.EventTarget
-import typingsSlinky.react.reactStrings.mouse
-import typingsSlinky.react.reactStrings.pen
-import typingsSlinky.react.reactStrings.touch
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -18,7 +15,7 @@ trait PointerEvent[T]
   
   var pointerId: Double
   
-  var pointerType: mouse | pen | touch
+  var pointerType: "mouse" | "pen" | "touch"
   
   var pressure: Double
   
@@ -56,7 +53,7 @@ object PointerEvent {
     pageY: Double,
     persist: () => Unit,
     pointerId: Double,
-    pointerType: mouse | pen | touch,
+    pointerType: "mouse" | "pen" | "touch",
     pressure: Double,
     preventDefault: () => Unit,
     relatedTarget: EventTarget,
@@ -84,7 +81,7 @@ object PointerEvent {
     
     inline def setPointerId(value: Double): Self = StObject.set(x, "pointerId", value.asInstanceOf[js.Any])
     
-    inline def setPointerType(value: mouse | pen | touch): Self = StObject.set(x, "pointerType", value.asInstanceOf[js.Any])
+    inline def setPointerType(value: "mouse" | "pen" | "touch"): Self = StObject.set(x, "pointerType", value.asInstanceOf[js.Any])
     
     inline def setPressure(value: Double): Self = StObject.set(x, "pressure", value.asInstanceOf[js.Any])
     

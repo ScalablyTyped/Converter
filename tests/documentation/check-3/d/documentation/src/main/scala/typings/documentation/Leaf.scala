@@ -4,11 +4,9 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-trait Leaf[T]
-  extends StObject
-     with Tree[T] {
+trait Leaf[T] extends StObject {
   
-  var `type`: typings.documentation.documentationStrings.Leaf
+  var `type`: /* scala3 limitation: Should be type 'Leaf' */ java.lang.String
   
   var value: T
 }
@@ -22,7 +20,7 @@ object Leaf {
   
   extension [Self <: Leaf[?], T](x: Self & Leaf[T]) {
     
-    inline def setType(value: typings.documentation.documentationStrings.Leaf): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+    inline def setType(value: "Leaf"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     
     inline def setValue(value: T): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
   }

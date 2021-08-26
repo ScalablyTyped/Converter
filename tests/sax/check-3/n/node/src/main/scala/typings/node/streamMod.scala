@@ -4,7 +4,6 @@ import typings.node.NodeJS.ReadableStream
 import typings.node.NodeJS.WritableStream
 import typings.node.anon.End
 import typings.node.eventsMod.EventEmitter
-import typings.node.nodeStrings.close
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -45,7 +44,7 @@ object streamMod {
        with ReadableStream {
     
     @JSName("on")
-    def on_close(event: close, listener: js.Function0[Unit]): this.type = js.native
+    def on_close(event: "close", listener: js.Function0[Unit]): this.type = js.native
   }
   
   @JSImport("stream", "Stream")
@@ -68,7 +67,7 @@ object streamMod {
     def end(chunk: js.Any, encoding: Unit, cb: js.Function): Unit = js.native
     
     @JSName("on")
-    def on_close(event: close, listener: js.Function0[Unit]): this.type = js.native
+    def on_close(event: "close", listener: js.Function0[Unit]): this.type = js.native
   }
   
   trait DuplexOptions

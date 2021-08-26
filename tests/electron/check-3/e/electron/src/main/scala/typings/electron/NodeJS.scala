@@ -1,7 +1,5 @@
 package typings.electron
 
-import typings.electron.electronStrings.Bar
-import typings.electron.electronStrings.bar_
 import typings.node.NodeJS.EventEmitter
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
@@ -14,6 +12,6 @@ object NodeJS {
     extends StObject
        with EventEmitter {
     
-    var foo: bar_ | Bar = js.native
+    var foo: "bar" | "Bar" = js.native
   }
 }

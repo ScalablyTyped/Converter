@@ -9,4 +9,4 @@ type Extract[T, U] = T
 
 type Readonly[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
 {readonly [ P in keyof T ]: T[P]}
-  */ typings.std.stdStrings.Readonly & org.scalablytyped.runtime.TopLevel[T]
+  */ "Readonly" & org.scalablytyped.runtime.TopLevel[T]

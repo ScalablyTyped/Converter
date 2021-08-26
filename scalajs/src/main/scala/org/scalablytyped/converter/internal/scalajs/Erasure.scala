@@ -39,91 +39,98 @@ class Erasure(scalaVersion: Versions.Scala) {
         // `Null` seems to be disregarded when in a union type
         val targs = if (tpe.targs.length > 1) tpe.targs.filterNot(_ === TypeRef.Null) else tpe.targs
 
-        // we don't really use scala arrays, so let's just go with a too broad erasure for that
-        if (targs.exists(_.typeName === QualifiedName.Array)) QualifiedName.Any
-        else {
-          // The erased type for A | B is the erased least upper bound of the erased types of A and B. Quoting from the documentation of TypeErasure#erasedLub
-          def go(scope: TreeScope, current: TypeRef): IArray[QualifiedName] =
-            scope
-              .lookup(simplify(scope, current))
-              .collectFirst {
-                // this is an ST specific hack. the printer still adds `StObject` parent for native parents :/
-                case (x: ClassTree, _) if x.parents.isEmpty && x.isNative =>
-                  go(scope, TypeRef(QualifiedName.StObject)) :+ x.codePath
-                case (x: ClassTree, newScope) =>
-                  x.parents.flatMap(p => go(newScope, p)) :+ x.codePath
+            // we don't really use scala arrays, so let's just go with a too broad erasure for that
+            if (targs.exists(_.typeName === QualifiedName.Array)) QualifiedName.Any
+            else {
+              // The erased type for A | B is the erased least upper bound of the erased types of A and B. Quoting from the documentation of TypeErasure#erasedLub
+              def go(scope: TreeScope, current: TypeRef): IArray[QualifiedName] = {
+                current.typeName match {
+                  case QualifiedName.STRING_LITERAL  => IArray(QualifiedName.String)
+                  case QualifiedName.NUMBER_LITERAL  => IArray(QualifiedName.Double)
+                  case QualifiedName.BOOLEAN_LITERAL => IArray(QualifiedName.Boolean)
+                  case _ =>
+                    scope
+                      .lookup(simplify(scope, current))
+                      .collectFirst {
+                        // this is an ST specific hack. the printer still adds `StObject` parent for native parents :/
+                        case (x: ClassTree, _) if x.parents.isEmpty && x.isNative =>
+                          go(scope, TypeRef(QualifiedName.StObject)) :+ x.codePath
+                        case (x: ClassTree, newScope) =>
+                          x.parents.flatMap(p => go(newScope, p)) :+ x.codePath
+                      }
+                      .getOrElse(Empty)
+                }
               }
-              .getOrElse(Empty)
 
-          val erasedParentLattices: IArray[IArray[QualifiedName]] =
-            targs.map(t => go(scope, t))
+              val erasedParentLattices: IArray[IArray[QualifiedName]] =
+                targs.map(t => go(scope, t))
 
-          erasedParentLattices
-            .reduce(_.intersect(_))
-            .lastOption
-            .getOrElse(QualifiedName.Any)
-        }
-
-      case QualifiedName.UNION => QualifiedName.`|`
-      case QualifiedName.THIS =>
-        scope.stack.collectFirst { case x: ClassTree => x.codePath }.getOrElse(QualifiedName.THIS)
-
-      case QualifiedName.REPEATED => QualifiedName.Array
-      // the way we fake literal means these are true enough
-      case QualifiedName.STRING_LITERAL  => tpe.targs.head.typeName
-      case QualifiedName.NUMBER_LITERAL  => tpe.targs.head.typeName
-      case QualifiedName.BOOLEAN_LITERAL => tpe.targs.head.typeName
-
-      case QualifiedName.INTERSECTION if scalaVersion.is3 =>
-        // this is not in the spec, but for instance `foo(String & Double)` clashes with `foo(Double)` regardless of order, etc
-        def fromPrimitive = tpe.targs.collectFirst {
-          case tr if TypeRef.Primitive(tr) => tr.typeName
-        }
-
-        def fromClass: Option[QualifiedName] =
-          tpe.targs.firstDefined { t =>
-            scope.lookup(simplify(scope, t)).collectFirst {
-              case (ClassTree(_, _, _, _, _, _, _, _, ClassType.Class, _, _, codePath), _) => codePath
+              erasedParentLattices
+                .reduce(_.intersect(_))
+                .lastOption
+                .getOrElse(QualifiedName.Any)
             }
-          }
 
-        def fromAlphabetic: QualifiedName =
-          tpe.targs.map(targ => simplify(scope, targ)).min(ByName)
+          case QualifiedName.UNION => QualifiedName.`|`
+          case QualifiedName.THIS =>
+            scope.stack.collectFirst { case x: ClassTree => x.codePath }.getOrElse(QualifiedName.THIS)
 
-        fromPrimitive.orElse(fromClass).getOrElse(fromAlphabetic)
+          case QualifiedName.REPEATED => QualifiedName.Array
+          // the way we fake literal means these are true enough
+          case QualifiedName.STRING_LITERAL  => tpe.targs.head.typeName
+          case QualifiedName.NUMBER_LITERAL  => tpe.targs.head.typeName
+          case QualifiedName.BOOLEAN_LITERAL => tpe.targs.head.typeName
 
-      /* approximate intersections. scalac seems to use the first type, unless that is a supertype of a later mentioned type */
-      case QualifiedName.INTERSECTION =>
-        val isPrimitive = tpe.targs.collectFirst {
-          case tr @ (TypeRef.String | TypeRef.Boolean | TypeRef.Double) => tr.typeName
-        }
+          case QualifiedName.INTERSECTION if scalaVersion.is3 =>
+            // this is not in the spec, but for instance `foo(String & Double)` clashes with `foo(Double)` regardless of order, etc
+            def fromPrimitive = tpe.targs.collectFirst {
+              case tr if TypeRef.Primitive(tr) => tr.typeName
+            }
 
-        val isAbstract = tpe.targs.collectFirst {
-          case tpe if scope.isAbstract(tpe) => QualifiedName.Any
-        }
-
-        isPrimitive.orElse(isAbstract).getOrElse {
-          simplify(scope, tpe.targs.head) match {
-            case QualifiedName.JsAny if tpe.targs.length > 1 =>
-              simplify(scope, tpe.targs(1)) match {
-                case QualifiedName.Any => QualifiedName.JsAny
-                case other             => other
+            def fromClass: Option[QualifiedName] =
+              tpe.targs.firstDefined { t =>
+                scope.lookup(simplify(scope, t)).collectFirst {
+                  case (ClassTree(_, _, _, _, _, _, _, _, ClassType.Class, _, _, codePath), _) => codePath
+                }
               }
-            case QualifiedName.JsObject if tpe.targs.length > 1 =>
-              simplify(scope, tpe.targs(1)) match {
-                case QualifiedName.Any => QualifiedName.JsObject
-                case other             => other
+
+            def fromAlphabetic: QualifiedName =
+              tpe.targs.map(targ => simplify(scope, targ)).min(ByName)
+
+            fromPrimitive.orElse(fromClass).getOrElse(fromAlphabetic)
+
+          /* approximate intersections. scalac seems to use the first type, unless that is a supertype of a later mentioned type */
+          case QualifiedName.INTERSECTION =>
+            val isPrimitive = tpe.targs.collectFirst {
+              case tr @ (TypeRef.String | TypeRef.Boolean | TypeRef.Double) => tr.typeName
+            }
+
+            val isAbstract = tpe.targs.collectFirst {
+              case tpe if scope.isAbstract(tpe) => QualifiedName.Any
+            }
+
+            isPrimitive.orElse(isAbstract).getOrElse {
+              simplify(scope, tpe.targs.head) match {
+                case QualifiedName.JsAny if tpe.targs.length > 1 =>
+                  simplify(scope, tpe.targs(1)) match {
+                    case QualifiedName.Any => QualifiedName.JsAny
+                    case other             => other
+                  }
+                case QualifiedName.JsObject if tpe.targs.length > 1 =>
+                  simplify(scope, tpe.targs(1)) match {
+                    case QualifiedName.Any => QualifiedName.JsObject
+                    case other             => other
+                  }
+                case other => other
               }
-            case other => other
-          }
-        }
+            }
 
-      // if this is a type parameter
-      case QualifiedName(IArray.exactlyOne(head)) if scope.tparams.contains(head) =>
-        QualifiedName.Any
+          // if this is a type parameter
+          case QualifiedName(IArray.exactlyOne(head)) if scope.tparams.contains(head) =>
+            QualifiedName.Any
 
-      // if run after FakeSingletons
-      case name @ QualifiedName(parts) if parts.length > 2 && (tpe.comments.has[Marker.WasLiteral]) => name
+          // if run after FakeSingletons
+          case name @ QualifiedName(parts) if parts.length > 2 && (tpe.comments.has[Marker.WasLiteral]) => name
 
       case other =>
         scope

@@ -4,12 +4,6 @@ import typingsSlinky.react.mod.Component
 import typingsSlinky.react.mod.HTMLProps
 import typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroupProps
 import typingsSlinky.reactBootstrap.mod.Omit
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.`type`
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.checkbox
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.defaultValue
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.onChange
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.radio
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.value
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -60,7 +54,7 @@ object toggleButtonGroupMod {
     
     var onChange: js.UndefOr[js.Function1[/* values */ js.Array[js.Any], Unit]] = js.undefined
     
-    var `type`: checkbox
+    var `type`: /* scala3 limitation: Should be type 'checkbox' */ java.lang.String
   }
   object CheckboxProps {
     
@@ -80,7 +74,7 @@ object toggleButtonGroupMod {
       
       inline def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       
-      inline def setType(value: checkbox): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setType(value: "checkbox"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
@@ -91,7 +85,7 @@ object toggleButtonGroupMod {
     
     var onChange: js.UndefOr[js.Function1[/* value */ js.Any, Unit]] = js.undefined
     
-    var `type`: radio
+    var `type`: /* scala3 limitation: Should be type 'radio' */ java.lang.String
   }
   object RadioProps {
     
@@ -109,7 +103,7 @@ object toggleButtonGroupMod {
       
       inline def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       
-      inline def setType(value: radio): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setType(value: "radio"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
@@ -117,5 +111,5 @@ object toggleButtonGroupMod {
   trait ToggleButtonGroup
     extends Component[ToggleButtonGroupProps, js.Object, js.Any]
   
-  type ToggleButtonGroupProps = BaseProps & (RadioProps | CheckboxProps) & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[ToggleButtonGroup], defaultValue | `type` | value | onChange])
+  type ToggleButtonGroupProps = BaseProps & (RadioProps | CheckboxProps) & (Omit[ButtonGroupProps, "onChange"]) & (Omit[HTMLProps[ToggleButtonGroup], "defaultValue" | "type" | "value" | "onChange"])
 }
