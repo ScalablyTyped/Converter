@@ -26,15 +26,30 @@ import scala.util.{Failure, Success, Try}
 
 private object GitLock
 
+sealed trait Mode
+object Mode {
+  val isCi        = sys.env.contains("CIRCLECI")
+  val isRelease   = sys.env.contains("CI_COMMIT_TAG")
+  val isLocalhost = !isCi
+  def releaseOnly = if (isLocalhost || isRelease) RunDontStore else Skip
+  def normal      = Normal(update = isLocalhost) // update files locally but not in CI
+
+  object Skip extends Mode
+  sealed abstract class Run(val update:  Boolean) extends Mode
+  case class Normal(override val update: Boolean) extends Run(update)
+  object RunDontStore extends Run(false)
+}
+
 trait ImporterHarness extends AnyFunSuite {
   val baseDir         = constants.defaultCacheFolder / 'tests
   val failureCacheDir = baseDir / 'compileFailures
   os.makeDir.all(failureCacheDir)
 
   val testLogger = logging.stdout.filter(LogLevel.warn)
-  val version    = Versions(Versions.Scala3, Versions.ScalaJs1)
+  def version: Versions
+  def mode:    Mode
 
-  private val bloop = Await.result(
+  private lazy val bloop = Await.result(
     BloopCompiler(testLogger, version, Some(failureCacheDir.toNIO))(ExecutionContext.Implicits.global),
     Duration.Inf,
   )
@@ -117,90 +132,95 @@ trait ImporterHarness extends AnyFunSuite {
   def assertImportsOk(
       testName: String,
       pedantic: Boolean,
-      update:   Boolean,
       flavour: FlavourImpl = NormalFlavour(
         shouldUseScalaJsDomTypes = false,
         enableLongApplyMethod    = false,
         outputPkg                = Name.typings,
         versions                 = version,
       ),
-      maybePrivateWithin: Option[Name] = None
-  ): Assertion = {
-    val testFolder   = findTestFolder(testName)
-    val source       = InFolder(testFolder.path / 'in)
-    val targetFolder = os.Path(Files.createTempDirectory("scalablytyped-test-"))
+      maybePrivateWithin: Option[Name] = None,
+  ): Assertion =
+    mode match {
+      case Mode.Skip => pending
+      case run: Mode.Run =>
+        val testFolder   = findTestFolder(testName)
+        val source       = InFolder(testFolder.path / 'in)
+        val targetFolder = os.Path(Files.createTempDirectory("scalablytyped-test-"))
 
-    val checkFolder = testFolder.path / (flavour match {
-      case _: NormalFlavour       => "check"
-      case _: SlinkyFlavour       => "check-slinky"
-      case _: SlinkyNativeFlavour => "check-slinky-native"
-      case _: JapgollyFlavour     => "check-japgolly"
-      case other => sys.error(s"Unexpected $other")
-    })
-
-    val logRegistry =
-      new LogRegistry[Source, TsIdentLibrary, StringWriter](
-        testLogger,
-        _.libName,
-        _ => logging.appendable(new StringWriter()),
-      )
-
-    val publishFolder = baseDir / "artifacts" / testName
-
-    runImport(source, targetFolder, pedantic, logRegistry, publishFolder, flavour, maybePrivateWithin) match {
-      case PhaseRes.Ok(_) =>
-        implicit val wd = os.pwd
-
-        /* we don't checkin these files, so also don't compare them */
-        os.walk(targetFolder).foreach {
-          case x if x.last == ".bloop" => files.deleteAll(x)
-          case _                       => ()
+        val flavourFolderPart = flavour match {
+          case _: NormalFlavour       => "check"
+          case _: SlinkyFlavour       => "check-slinky"
+          case _: SlinkyNativeFlavour => "check-slinky-native"
+          case _: JapgollyFlavour     => "check-japgolly"
+          case other => sys.error(s"Unexpected $other")
         }
 
-        if (update) {
-          if (!os.isDir(targetFolder) && os.list(targetFolder).isEmpty) {
-            fail("There is nothing to copy from target into check, something failed upstream")
-          }
-          files.deleteAll(checkFolder)
-          os.copy(targetFolder, checkFolder)
-          GitLock.synchronized(%("git", "add", checkFolder))
-        }
+        val checkFolder = testFolder.path / (s"$flavourFolderPart-${version.scala.binVersion}")
 
-        Try(%%("diff", "-Naur", checkFolder, targetFolder)) match {
-          case Success(_) => if (update) pending else succeed
-          case Failure(th: ShelloutException) =>
-            val diff = %%("diff", "-r", checkFolder, targetFolder).out.string
-            fail(s"Output for test $testFolder was not as expected : $diff", th)
-          case Failure(th) => throw th
-        }
+        val logRegistry =
+          new LogRegistry[Source, TsIdentLibrary, StringWriter](
+            testLogger,
+            _.libName,
+            _ => logging.appendable(new StringWriter()),
+          )
 
-      case PhaseRes.Failure(errors) =>
-        if (update) {
-          implicit val wd = os.pwd
-          if (os.isDir(targetFolder) && os.list(targetFolder).isEmpty) {
-            fail("There is nothing to copy from target into check, something failed upstream")
-          }
-          files.deleteAll(checkFolder)
-          os.copy(targetFolder, checkFolder)
-          synchronized(%("git", "add", checkFolder))
-        }
-        errors.foreach {
-          case (fromSource, detail) =>
-            logRegistry.logs.foreach {
-              case (name, logger) =>
-                println(("-" * 10) + name)
-                println(logger.underlying.toString)
+        val publishFolder = baseDir / "artifacts" / testName
+
+        runImport(source, targetFolder, pedantic, logRegistry, publishFolder, flavour, maybePrivateWithin) match {
+          case PhaseRes.Ok(_) if run == Mode.RunDontStore => succeed
+          case PhaseRes.Ok(_) =>
+            implicit val wd = os.pwd
+
+            /* we don't checkin these files, so also don't compare them */
+            os.walk(targetFolder).foreach {
+              case x if x.last == ".bloop" => files.deleteAll(x)
+              case _                       => ()
             }
 
-            detail match {
-              case Left(th)   => fail(s"Could not import $fromSource", th)
-              case Right(msg) => fail(s"Could not import $fromSource: $msg")
+            if (run.update) {
+              if (!os.isDir(targetFolder) && os.list(targetFolder).isEmpty) {
+                fail("There is nothing to copy from target into check, something failed upstream")
+              }
+              files.deleteAll(checkFolder)
+              os.copy(targetFolder, checkFolder)
+              GitLock.synchronized(%("git", "add", checkFolder))
             }
-        }
-        fail("should not happen")
 
-      case PhaseRes.Ignore() =>
-        pending
+            Try(%%("diff", "-Naur", checkFolder, targetFolder)) match {
+              case Success(_) => if (run.update) pending else succeed
+              case Failure(th: ShelloutException) =>
+                val diff = %%("diff", "-r", checkFolder, targetFolder).out.string
+                fail(s"Output for test $testFolder was not as expected : $diff", th)
+              case Failure(th) => throw th
+            }
+
+          case PhaseRes.Failure(errors) =>
+            if (run.update) {
+              implicit val wd = os.pwd
+              if (os.isDir(targetFolder) && os.list(targetFolder).isEmpty) {
+                fail("There is nothing to copy from target into check, something failed upstream")
+              }
+              files.deleteAll(checkFolder)
+              os.copy(targetFolder, checkFolder)
+              synchronized(%("git", "add", checkFolder))
+            }
+            errors.foreach {
+              case (fromSource, detail) =>
+                logRegistry.logs.foreach {
+                  case (name, logger) =>
+                    println(("-" * 10) + name)
+                    println(logger.underlying.toString)
+                }
+
+                detail match {
+                  case Left(th)   => fail(s"Could not import $fromSource", th)
+                  case Right(msg) => fail(s"Could not import $fromSource: $msg")
+                }
+            }
+            fail("should not happen")
+
+          case PhaseRes.Ignore() =>
+            pending
+        }
     }
-  }
 }

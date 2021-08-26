@@ -80,7 +80,7 @@ case class Repo(version: String)(implicit val wd: os.Path) {
   }
 
   def publishLocalScripted() =
-    %("sbt", "clean", "publishLocal", "scripted")
+    %("sbt", "clean", "publishLocal", "test", "scripted")
 
   def publish() = {
     %("sbt", "ci-release", "docs/mdoc")
