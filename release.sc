@@ -79,8 +79,8 @@ case class Repo(version: String)(implicit val wd: os.Path) {
     }
   }
 
-  def publishLocal() =
-    %("sbt", "clean", "publishLocal")
+  def publishLocalScripted() =
+    %("sbt", "clean", "publishLocal", "scripted")
 
   def publish() = {
     %("sbt", "ci-release", "docs/mdoc")
@@ -105,7 +105,7 @@ def doRelease(version: String): Int = {
   repo.assertClean()
   repo.refreshTag()
   repo.cleanLocal()
-  repo.publishLocal()
+  repo.publishLocalScripted()
   val demoRepos = DemoRepo.initialized(os.Path("/tmp/st-release-temp"))
   demoRepos.foreach(_.update())
   demoRepos.foreach(_.build(version))
