@@ -2,10 +2,10 @@ package org.scalablytyped.converter.internal
 package ts
 
 import io.circe013.{Decoder, Encoder}
-import org.scalablytyped.converter.internal.sets.SetOps
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.orphanCodecs._
 
-import scala.collection.immutable.SortedSet
+import scala.collection.immutable.SortedMap
 
 case class CompilerOptions(
     module:                           Option[String],
@@ -35,25 +35,25 @@ object TsConfig {
   implicit val decodes: Decoder[TsConfig] = io.circe013.generic.semiauto.deriveDecoder
 }
 
-case class PackageJsonDeps(
+case class PackageJson(
     version:          Option[String],
-    dependencies:     Option[Map[String, String]],
-    devDependencies:  Option[Map[String, String]],
-    peerDependencies: Option[Map[String, String]],
+    dependencies:     Option[Map[TsIdentLibrary, String]],
+    devDependencies:  Option[Map[TsIdentLibrary, String]],
+    peerDependencies: Option[Map[TsIdentLibrary, String]],
     typings:          Option[String],
     module:           Option[String],
     types:            Option[String],
     files:            Option[IArray[String]],
 ) {
-  def allLibs(dev: Boolean, peer: Boolean): SortedSet[String] =
-    Set(dependencies, devDependencies.filter(_ => dev), peerDependencies.filter(_ => peer)).flatten
-      .flatMap(_.keys)
-      .sorted
+  def allLibs(dev: Boolean, peer: Boolean): SortedMap[TsIdentLibrary, String] =
+    smash(IArray.fromOptions(dependencies, devDependencies.filter(_ => dev), peerDependencies.filter(_ => peer))).toSorted
 }
 
-object PackageJsonDeps {
-  implicit val encodes: Encoder[PackageJsonDeps] = io.circe013.generic.semiauto.deriveEncoder
-  implicit val decodes: Decoder[PackageJsonDeps] = io.circe013.generic.semiauto.deriveDecoder
+object PackageJson {
+  val Empty: PackageJson = PackageJson(None, None, None, None, None, None, None, None)
+
+  implicit val encodes: Encoder[PackageJson] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[PackageJson] = io.circe013.generic.semiauto.deriveDecoder
 }
 
 case class NotNeededPackage(libraryName: TsIdentLibrary, asOfVersion: String)

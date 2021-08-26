@@ -3,7 +3,6 @@ package plugin
 
 import com.olvind.logging.LogLevel
 import org.scalablytyped.converter.internal._
-import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.orphanCodecs.{FileDecoder, FileEncoder}
 import org.scalablytyped.converter.internal.scalajs.{Name, QualifiedName}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
@@ -11,7 +10,6 @@ import sbt.Keys._
 import sbt._
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
-import scala.collection.immutable.SortedMap
 import scala.util.Try
 
 object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
@@ -85,23 +83,17 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
             os.Path(toDir)
         }
 
-        val fromDir        = os.Path((Compile / npmUpdate / crossTarget).value / "node_modules")
+        val nodeModulesDir = os.Path((Compile / npmUpdate / crossTarget).value / "node_modules")
         val globalCacheDir = (Global / stDir).value
         val cachedInputs   = os.Path(streams.value.cacheDirectory / "input.json")
         val cachedOutputs  = os.Path(streams.value.cacheDirectory / "output.json")
 
-        val wantedLibs: SortedMap[TsIdentLibrary, String] = {
-          val allDeps = (Compile / npmDependencies).value ++ (Compile / npmDevDependencies).value ++
-            (Test / npmDependencies).value ++ (Test / npmDevDependencies).value
-          allDeps.map { case (name, version) => TsIdentLibrary(name) -> version }.toMap.toSorted
-        }
-
         val input = ImportTypingsGenSources.Input(
           converterVersion = BuildInfo.version,
           conversion       = conversion,
-          fromFolder       = InFolder(fromDir),
+          fromFolder       = InFolder(nodeModulesDir),
           targetFolder     = toDir,
-          wantedLibs       = wantedLibs,
+          wantedLibs       = WantedLibs.setting.value,
           minimize         = stMinimize.value.map(TsIdentLibrary.apply),
           minimizeKeep     = minimizeKeep,
         )

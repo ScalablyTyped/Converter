@@ -138,7 +138,7 @@ sealed trait TsTreeScope {
 object TsTreeScope {
   trait TsLib {
     def libName:        TsIdentLibrary
-    def packageJsonOpt: Option[PackageJsonDeps]
+    def packageJsonOpt: Option[PackageJson]
   }
 
   final case class ImportCacheKey(scope: TsTreeScope, picker: Picker[_], idents: IArray[TsIdent]) {

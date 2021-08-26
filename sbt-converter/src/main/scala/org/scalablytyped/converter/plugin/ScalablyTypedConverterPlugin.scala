@@ -2,11 +2,9 @@ package org.scalablytyped.converter
 package plugin
 
 import _root_.io.circe013.syntax._
-import com.olvind.logging.{Formatter, LogLevel}
+import com.olvind.logging.LogLevel
 import org.scalablytyped.converter.internal.RunCache.Present
 import org.scalablytyped.converter.internal._
-import org.scalablytyped.converter.internal.maps._
-import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import sbt.Keys._
 import sbt._
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
@@ -30,8 +28,6 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
   private[plugin] val stImportTask = Def.taskDyn[ImportTypings.InOut] {
     val cacheDir           = os.Path((Global / stDir).value)
     val stLogger           = WrapSbtLogger.task.value
-    val allDeps            = (Compile / npmDependencies).value ++ (Test / npmDependencies).value
-    val wantedLibs         = allDeps.map { case (name, version) => TsIdentLibrary(name) -> version }.toMap.toSorted
     val conversion         = stConversionOptions.value
     val publishLocalFolder = Utils.IvyLocal.value
     val fromFolder         = InFolder(os.Path((Compile / npmUpdate / crossTarget).value / "node_modules"))
@@ -40,7 +36,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
     val input = ImportTypings.Input(
       converterVersion = BuildInfo.version,
       conversion       = conversion,
-      wantedLibs       = wantedLibs,
+      wantedLibs       = WantedLibs.setting.value,
     )
 
     val runCacheKey = RunCache.Key(input)

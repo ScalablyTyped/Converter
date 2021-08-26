@@ -10,7 +10,7 @@ import org.scalablytyped.converter.internal.phases.{PhaseRes, PhaseRunner, RecPh
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts.CalculateLibraryVersion.PackageJsonOnly
-import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
+import org.scalablytyped.converter.internal.ts.{PackageJson, TsIdentLibrary}
 import org.scalablytyped.converter.internal.{constants, files, sets, BuildInfo, InFolder, Json}
 import org.scalablytyped.converter.{Flavour, Selection}
 import scopt.{OParser, OParserBuilder, Read}
@@ -197,7 +197,7 @@ object Main {
         val nodeModulesPath = c.paths.node_modules.getOrElse(sys.error(s"$inDir does not contain node_modules"))
         require(files.exists(nodeModulesPath / "typescript" / "lib"), "must install typescript")
 
-        val packageJson = Json.force[PackageJsonDeps](packageJsonPath)
+        val packageJson = Json.force[PackageJson](packageJsonPath)
 
         val projectSource: Option[Source.FromFolder] =
           if (includeProject) Some(Source.FromFolder(InFolder(inDir), TsIdentLibrary(inDir.last))) else None
@@ -205,7 +205,7 @@ object Main {
         val wantedLibs: SortedSet[TsIdentLibrary] =
           libsFromCmdLine match {
             case sets.EmptySet() =>
-              val fromPackageJson = packageJson.allLibs(includeDev, peer = false).map(TsIdentLibrary.apply)
+              val fromPackageJson = packageJson.allLibs(includeDev, peer = true).keySet
               require(fromPackageJson.nonEmpty, "No libraries found in package.json")
               val ret = fromPackageJson -- conversion.ignoredLibs
               require(ret.nonEmpty, s"All libraries in package.json ignored")

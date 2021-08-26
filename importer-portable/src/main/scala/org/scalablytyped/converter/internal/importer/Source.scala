@@ -34,9 +34,9 @@ object Source {
   }
 
   sealed trait TsLibSource extends TsSource with TsTreeScope.TsLib {
-    override lazy val packageJsonOpt: Option[PackageJsonDeps] =
-      Json.opt[PackageJsonDeps](folder.path / "package.json").orElse /* discover stdlib package.json as well */ (
-        Json.opt[PackageJsonDeps](folder.path / os.up / "package.json"),
+    override lazy val packageJsonOpt: Option[PackageJson] =
+      Json.opt[PackageJson](folder.path / "package.json").orElse /* discover stdlib package.json as well */ (
+        Json.opt[PackageJson](folder.path / os.up / "package.json"),
       )
 
     lazy val tsConfig: Option[TsConfig] =

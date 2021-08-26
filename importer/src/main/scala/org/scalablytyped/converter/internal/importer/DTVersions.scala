@@ -5,7 +5,7 @@ import java.net.URI
 import java.time.{Instant, ZonedDateTime}
 
 import ammonite.ops.%%
-import org.scalablytyped.converter.internal.ts.{CalculateLibraryVersion, PackageJsonDeps}
+import org.scalablytyped.converter.internal.ts.{CalculateLibraryVersion, PackageJson}
 
 import scala.util.matching.Regex
 import scala.util.{Success, Try}
@@ -22,7 +22,7 @@ class DTVersions(lastChangedIndex: DTLastChangedIndex, includeGitPart: Boolean) 
   override def apply(
       sourceFolder:   InFolder,
       isStdLib:       Boolean,
-      packageJsonOpt: Option[PackageJsonDeps],
+      packageJsonOpt: Option[PackageJson],
       comments:       Comments,
   ): LibraryVersion = {
 

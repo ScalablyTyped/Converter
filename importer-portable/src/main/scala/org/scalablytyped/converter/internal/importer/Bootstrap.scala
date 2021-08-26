@@ -2,7 +2,6 @@ package org.scalablytyped.converter.internal
 package importer
 
 import org.scalablytyped.converter.internal.importer.Source.{FromFolder, StdLibSource, TsLibSource}
-import org.scalablytyped.converter.internal.seqs.TraversableOps
 import org.scalablytyped.converter.internal.ts.{TsIdent, TsIdentLibrary}
 
 import scala.collection.immutable.SortedSet

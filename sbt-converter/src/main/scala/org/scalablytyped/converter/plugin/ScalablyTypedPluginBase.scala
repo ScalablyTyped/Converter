@@ -1,7 +1,5 @@
 package org.scalablytyped.converter.plugin
 
-import java.io.File
-
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
 import org.scalablytyped.converter.internal.constants
@@ -13,6 +11,7 @@ import sbt.Tags.Tag
 import sbt._
 import sbt.plugins.JvmPlugin
 
+import java.io.File
 import scala.collection.immutable.SortedSet
 
 object ScalablyTypedPluginBase extends AutoPlugin {
@@ -51,12 +50,12 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     val stExperimentalEnableImplicitOps = settingKey[Boolean]("implicit ops for most traits")
     val stEnableLongApplyMethod         = settingKey[Boolean]("long apply methods instead of implicit ops builders")
     val stPrivateWithin                 = settingKey[Option[String]]("generate all top-level things private to the given package")
+    val stIncludeDev                    = settingKey[Boolean]("generate facades for dev dependencies as well")
   }
 
   override def requires = JvmPlugin && PlatformDepsPlugin
 
   import autoImport._
-  import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion
 
   override lazy val projectSettings =
     Seq(
@@ -74,6 +73,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stReactEnableTreeShaking := Selection.None,
       stEnableLongApplyMethod := false,
       stPrivateWithin := None,
+      stIncludeDev := false,
       stConversionOptions := {
         val versions = Versions(
           Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),
@@ -108,15 +108,13 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     Seq(
       Global / Keys.onLoad := (state => {
         val old = (Global / Keys.onLoad).value
-        val ret = old(state)
         Keys.sbtVersion.value match {
-          case valid if valid.startsWith("1.4") || valid.startsWith("1.5") => ret
+          case valid if valid.startsWith("1.4") || valid.startsWith("1.5") => old(state)
           case invalid =>
             sys.error(
               s"This version of the ScalablyTyped plugin only supports sbt 1.4.x or 1.5.x. You're currently using $invalid",
             )
         }
-        ret
       }),
       stQuiet := false,
       stDir := constants.defaultCacheFolder.toIO,

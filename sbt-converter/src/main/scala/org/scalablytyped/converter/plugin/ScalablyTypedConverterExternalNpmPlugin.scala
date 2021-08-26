@@ -5,7 +5,7 @@ import com.olvind.logging.{Formatter, LogLevel}
 import org.scalablytyped.converter.internal.RunCache.Present
 import org.scalablytyped.converter.internal._
 import org.scalablytyped.converter.internal.maps._
-import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
+import org.scalablytyped.converter.internal.ts.{PackageJson, TsIdentLibrary}
 import org.scalajs.sbtplugin.ScalaJSPlugin
 import sbt.Keys._
 import sbt._
@@ -37,12 +37,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
     val stLogger           = WrapSbtLogger.task.value
 
     val wantedLibs: SortedMap[TsIdentLibrary, String] =
-      Json
-        .force[PackageJsonDeps](packageJsonFile)
-        .dependencies
-        .getOrElse(Map())
-        .map { case (name, version) => TsIdentLibrary(name) -> version }
-        .toSorted
+      Json.force[PackageJson](packageJsonFile).allLibs(dev = stIncludeDev.value, peer = false)
 
     val conversion = stConversionOptions.value
 

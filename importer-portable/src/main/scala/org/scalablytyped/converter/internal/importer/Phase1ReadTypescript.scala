@@ -3,9 +3,9 @@ package importer
 
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.Selection
-import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.importer.Phase1Res._
 import org.scalablytyped.converter.internal.importer.Source.TsSource
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import org.scalablytyped.converter.internal.seqs.TraversableOps
 import org.scalablytyped.converter.internal.sets.SetOps
@@ -145,15 +145,12 @@ class Phase1ReadTypescript(
             .warn(s"No typescript definitions files found for library ${source.libName.value}")
           PhaseRes.Ignore()
         } else {
-          val declaredDependencies: Set[Source] =
+          val declaredDependencies =
             if (stdlibSourceOpt.isEmpty) Set.empty
             else
-              source.packageJsonOpt.toSet
-                .flatMap((x: PackageJsonDeps) =>
-                  x.dependencies.map(_.keys).getOrElse(Nil) ++ x.peerDependencies.map(_.keys).getOrElse(Nil),
-                )
-                .flatMap(depName =>
-                  resolve.library(TsIdentLibrary(depName)) match {
+              source.packageJsonOpt.getOrElse(PackageJson.Empty).allLibs(dev = false, peer = true).flatMap {
+                case (depName, _) =>
+                  resolve.library(depName) match {
                     case LibraryResolver.Found(source) =>
                       Some(source)
                     case LibraryResolver.Ignored(_) =>
@@ -161,8 +158,8 @@ class Phase1ReadTypescript(
                     case LibraryResolver.NotAvailable(name) =>
                       logger.fatalMaybe(s"Could not find typescript definitions for dependency ${name.value}", pedantic)
                       None
-                  },
-                )
+                  }
+              }
 
           getDeps((fileSources ++ declaredDependencies ++ stdlibSourceOpt).sorted).map {
             case Unpack(

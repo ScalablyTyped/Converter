@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 
 import com.olvind.logging.Logger
-import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
+import org.scalablytyped.converter.internal.ts.{PackageJson, TsIdentLibrary}
 
 object UpToDateExternals {
   def apply(
@@ -17,13 +17,12 @@ object UpToDateExternals {
 
     val packageJsonPath = folder / "package.json"
     val nodeModulesPath = folder / "node_modules"
-    val packageJson     = Json.opt[PackageJsonDeps](packageJsonPath)
+    val packageJson     = Json.opt[PackageJson](packageJsonPath)
 
     val alreadyAddedExternals: Set[TsIdentLibrary] =
       packageJson match {
-        case Some(PackageJsonDeps(_, deps, _, peerDeps, _, _, _, _)) =>
-          (deps.getOrElse(Map.empty) ++ peerDeps.getOrElse(Map.empty))
-            .map { case (name, _) => TsIdentLibrary(name) }(collection.breakOut)
+        case Some(packageJson) =>
+          packageJson.allLibs(dev = false, peer = true).keySet
         case None =>
           files.softWrite(packageJsonPath)(_.println("{}"))
           Set.empty

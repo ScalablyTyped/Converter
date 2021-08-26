@@ -5,7 +5,7 @@ trait CalculateLibraryVersion {
   def apply(
       sourceFolder:   InFolder,
       isStdLib:       Boolean,
-      packageJsonOpt: Option[PackageJsonDeps],
+      packageJsonOpt: Option[PackageJson],
       comments:       Comments,
   ): LibraryVersion
 }
@@ -15,7 +15,7 @@ object CalculateLibraryVersion {
     override def apply(
         sourceFolder:   InFolder,
         isStdLib:       Boolean,
-        packageJsonOpt: Option[PackageJsonDeps],
+        packageJsonOpt: Option[PackageJson],
         comments:       Comments,
     ): LibraryVersion = LibraryVersion(isStdLib, packageJsonOpt.flatMap(_.version), None)
   }

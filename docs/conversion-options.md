@@ -40,6 +40,14 @@ project.settings(
 )
 ```
 
+### `stIncludeDev`
+
+By default the plugin only includes dependencies defined with `npmDependencies`. 
+If you set this to true `npmDevDependencies` will also be included.
+
+Note that dependencies from `Test` scope are included as well. 
+The resulting jars are all added to the `Compile` classpath.
+
 ### `stEnableScalaJsDefined` 
 
 As explained in the corresponding [Scala.js documentation page](https://www.scala-js.org/doc/interoperability/sjs-defined-js-classes.html),
