@@ -5,11 +5,20 @@ import org.scalajs.dom.crypto.HashAlgorithmIdentifier
 import org.scalajs.dom.crypto.KeyAlgorithmIdentifier
 import org.scalajs.dom.experimental.BodyInit
 import org.scalajs.dom.experimental.ByteString
+import org.scalajs.dom.experimental.ReadableStream
 import org.scalajs.dom.experimental.RequestInfo
+import org.scalajs.dom.experimental.RequestInit
+import org.scalajs.dom.experimental.Response
+import org.scalajs.dom.experimental.cachestorage.CacheStorage
+import org.scalajs.dom.experimental.mediastream.AppendMode
+import org.scalajs.dom.experimental.mediastream.EndOfStreamError
 import org.scalajs.dom.experimental.mediastream.MediaDevices
+import org.scalajs.dom.experimental.mediastream.MediaSource
 import org.scalajs.dom.experimental.mediastream.MediaStream
 import org.scalajs.dom.experimental.mediastream.MediaStreamTrack
 import org.scalajs.dom.experimental.mediastream.MediaStreamTrackEvent
+import org.scalajs.dom.experimental.mediastream.ReadyState
+import org.scalajs.dom.experimental.mediastream.TextTrackMode
 import org.scalajs.dom.experimental.serviceworkers.ExtendableEvent
 import org.scalajs.dom.experimental.serviceworkers.ExtendableMessageEvent
 import org.scalajs.dom.raw.CSSFontFaceRule
@@ -1106,14 +1115,14 @@ object org {
             algorithm: KeyAlgorithmIdentifier,
             extractable: Boolean,
             keyUsages: js.Array[KeyUsage]
-          ): js.Promise[js.Any] = js.native
+          ): js.Promise[CryptoKey] = js.native
           def importKey(
             format: KeyFormat,
             keyData: JsonWebKey,
             algorithm: KeyAlgorithmIdentifier,
             extractable: Boolean,
             keyUsages: js.Array[KeyUsage]
-          ): js.Promise[js.Any] = js.native
+          ): js.Promise[CryptoKey] = js.native
           
           def sign(algorithm: AlgorithmIdentifier, key: CryptoKey, data: BufferSource): js.Promise[js.Any] = js.native
           
@@ -1208,6 +1217,16 @@ object org {
           def fetch(info: RequestInfo, init: RequestInit): js.Promise[Response] = js.native
         }
         
+        @js.native
+        class FileReaderSync () extends StObject {
+          
+          def readAsArrayBuffer(blob: org.scalajs.dom.raw.Blob): js.typedarray.ArrayBuffer = js.native
+          
+          def readAsDataURL(blob: org.scalajs.dom.raw.Blob): URL = js.native
+          
+          def readAsText(blob: org.scalajs.dom.raw.Blob, encoding: String): String = js.native
+        }
+        
         object Fullscreen {
           
           @js.native
@@ -1241,7 +1260,7 @@ object org {
           
           def delete(name: ByteString): Unit = js.native
           
-          def get(name: ByteString): js.UndefOr[ByteString] = js.native
+          def get(name: ByteString): ByteString = js.native
           
           def getAll(name: ByteString): Sequence[ByteString] = js.native
           
@@ -1373,7 +1392,7 @@ object org {
         @js.native
         trait ReadableStream[T] extends StObject {
           
-          def cancel(reason: String): js.Promise[Any] = js.native
+          def cancel(reason: js.UndefOr[Any]): js.Promise[Unit] = js.native
           
           def getReader(): ReadableStreamReader[T] = js.native
           
@@ -1655,7 +1674,7 @@ object org {
         @js.native
         trait WriteableStream[T] extends StObject {
           
-          def abort(reason: Any): Unit = js.native
+          def abort(reason: js.UndefOr[Any]): js.Promise[Unit] = js.native
           
           def close(): js.Promise[WriteableStream[T]] = js.native
           
@@ -1680,6 +1699,53 @@ object org {
           trait BeaconWorkerNavigator extends StObject {
             
             def sendBeacon(url: String, data: BodyInit): Boolean = js.native
+          }
+        }
+        
+        object cachestorage {
+          
+          @js.native
+          abstract class Cache () extends StObject {
+            
+            def add(request: RequestInfo): js.Promise[Unit] = js.native
+            
+            def addAll(requests: js.Array[RequestInfo]): js.Promise[Unit] = js.native
+            
+            def delete(request: RequestInfo, options: js.UndefOr[CacheQueryOptions]): js.Promise[Boolean] = js.native
+            
+            def keys(request: js.UndefOr[RequestInfo], options: js.UndefOr[CacheQueryOptions]): js.Promise[js.Array[Request]] = js.native
+            
+            def `match`(request: RequestInfo, options: js.UndefOr[CacheQueryOptions]): js.Promise[js.UndefOr[Response]] = js.native
+            
+            def matchAll(request: RequestInfo, options: js.UndefOr[CacheQueryOptions]): js.Promise[js.Array[Response]] = js.native
+            
+            def put(request: RequestInfo, response: Response): js.Promise[Unit] = js.native
+          }
+          
+          @js.native
+          trait CacheQueryOptions extends StObject {
+            
+            var cacheName: String = js.native
+            
+            var ignoreMethod: Boolean = js.native
+            
+            var ignoreSearch: Boolean = js.native
+            
+            var ignoreVary: Boolean = js.native
+          }
+          
+          @js.native
+          trait CacheStorage extends StObject {
+            
+            def delete(cacheName: String): js.Promise[Boolean] = js.native
+            
+            def has(cacheName: String): js.Promise[Boolean] = js.native
+            
+            def keys(): js.Promise[js.Array[String]] = js.native
+            
+            def `match`(request: RequestInfo, options: CacheQueryOptions): js.Promise[js.Any] = js.native
+            
+            def open(cacheName: String): js.Promise[Cache] = js.native
           }
         }
         
@@ -1978,6 +2044,40 @@ object org {
         object mediastream {
           
           @js.native
+          trait AudioTrack extends StObject {
+            
+            var enabled: Boolean = js.native
+            
+            val id: String = js.native
+            
+            val kind: String = js.native
+            
+            val label: String = js.native
+            
+            val language: String = js.native
+          }
+          
+          @js.native
+          trait AudioTrackList
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
+            
+            def apply(index: Double): org.scalajs.dom.experimental.mediastream.AudioTrack = js.native
+            
+            def getTrackById(id: String): org.scalajs.dom.experimental.mediastream.AudioTrack = js.native
+            
+            def length(): Double = js.native
+            
+            var onaddtrack: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onchange: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onremovetrack: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+          }
+          
+          type BufferSource = js.typedarray.ArrayBufferView | js.typedarray.ArrayBuffer
+          
+          @js.native
           trait MediaDeviceInfo extends StObject {
             
             val deviceId: String = js.native
@@ -2006,6 +2106,41 @@ object org {
             def getUserMedia(constraints: MediaStreamConstraints): js.Promise[MediaStream] = js.native
             
             var ondevicechange: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+          }
+          
+          @js.native
+          class MediaSource ()
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
+            
+            def activeSourceBuffers(): SourceBufferList = js.native
+            
+            def addSourceBuffer(mimeType: String): SourceBuffer = js.native
+            
+            def clearLiveSeekableRange(): Unit = js.native
+            
+            var duration: Double = js.native
+            
+            def endOfStream(error: EndOfStreamError): Unit = js.native
+            
+            var onsourceclose: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onsourceended: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onsourceopen: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            def readyState(): ReadyState = js.native
+            
+            def removeSourceBuffer(sourceBuffer: SourceBuffer): Unit = js.native
+            
+            def setLiveSeekableRange(start: Double, end: Double): Unit = js.native
+            
+            def sourceBuffers(): SourceBufferList = js.native
+          }
+          @js.native
+          object MediaSource extends StObject {
+            
+            def isTypeSupported(mediaType: String): Boolean = js.native
           }
           
           @js.native
@@ -2209,6 +2344,170 @@ object org {
             
             var width: js.UndefOr[Boolean] = js.native
           }
+          
+          @js.native
+          trait SourceBuffer
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
+            
+            def abort(): Unit = js.native
+            
+            def appendBuffer(data: BufferSource): Unit = js.native
+            
+            var appendWindowEnd: Double = js.native
+            
+            var appendWindowStart: Double = js.native
+            
+            def audioTracks(): org.scalajs.dom.experimental.mediastream.AudioTrackList = js.native
+            
+            def buffered(): org.scalajs.dom.raw.TimeRanges = js.native
+            
+            var mode: AppendMode = js.native
+            
+            var onabort: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onerror: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onupdate: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onupdateend: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onupdatestart: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            def remove(start: Double, end: Double): Unit = js.native
+            
+            def textTracks(): org.scalajs.dom.experimental.mediastream.TextTrackList = js.native
+            
+            var timestampOffset: Double = js.native
+            
+            def updating(): Boolean = js.native
+            
+            def videoTracks(): VideoTrackList = js.native
+          }
+          
+          @js.native
+          trait SourceBufferList
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
+            
+            def apply(index: Double): SourceBuffer = js.native
+            
+            def length(): Double = js.native
+            
+            var onaddsourcebuffer: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onremovesourcebuffer: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+          }
+          
+          @js.native
+          trait TextTrack
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
+            
+            def activeCues(): org.scalajs.dom.experimental.mediastream.TextTrackCueList = js.native
+            
+            def addCue(cue: org.scalajs.dom.experimental.mediastream.TextTrackCue): Unit = js.native
+            
+            def cues(): org.scalajs.dom.experimental.mediastream.TextTrackCueList = js.native
+            
+            val id: String = js.native
+            
+            val inBandMetadataTrackDispatchType: String = js.native
+            
+            val kind: String = js.native
+            
+            val label: String = js.native
+            
+            val language: String = js.native
+            
+            var mode: TextTrackMode = js.native
+            
+            var oncuechange: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            def removeCue(cue: org.scalajs.dom.experimental.mediastream.TextTrackCue): Unit = js.native
+          }
+          
+          @js.native
+          trait TextTrackCue
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
+            
+            var endTime: Double = js.native
+            
+            var id: String = js.native
+            
+            var onenter: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onexit: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var pauseOnExit: Boolean = js.native
+            
+            var startTime: Double = js.native
+            
+            def track(): org.scalajs.dom.experimental.mediastream.TextTrack = js.native
+          }
+          
+          @js.native
+          trait TextTrackCueList extends StObject {
+            
+            def apply(index: Double): org.scalajs.dom.experimental.mediastream.TextTrackCue = js.native
+            
+            def getCueById(id: String): org.scalajs.dom.experimental.mediastream.TextTrackCue = js.native
+            
+            def length(): Double = js.native
+          }
+          
+          @js.native
+          trait TextTrackList
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
+            
+            def apply(index: Double): VideoTrack = js.native
+            
+            def getTrackById(id: String): org.scalajs.dom.experimental.mediastream.TextTrack = js.native
+            
+            def length(): Double = js.native
+            
+            var onaddtrack: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onchange: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onremovetrack: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+          }
+          
+          @js.native
+          trait VideoTrack extends StObject {
+            
+            val id: String = js.native
+            
+            val kind: String = js.native
+            
+            val label: String = js.native
+            
+            val language: String = js.native
+            
+            var selected: Boolean = js.native
+          }
+          
+          @js.native
+          trait VideoTrackList
+            extends StObject
+               with org.scalajs.dom.raw.EventTarget {
+            
+            def apply(index: Double): VideoTrack = js.native
+            
+            def getTrackById(id: String): VideoTrack = js.native
+            
+            def length(): Double = js.native
+            
+            var onaddtrack: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onchange: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            var onremovetrack: js.Function1[org.scalajs.dom.raw.Event, Any] = js.native
+            
+            def selectedIndex(): Double = js.native
+          }
         }
         
         object permissions {
@@ -2358,48 +2657,19 @@ object org {
         object serviceworkers {
           
           @js.native
-          abstract class Cache () extends StObject {
-            
-            def add(request: RequestInfo): js.Promise[Unit] = js.native
-            
-            def addAll(requests: js.Array[RequestInfo]): js.Promise[Unit] = js.native
-            
-            def delete(request: RequestInfo, options: js.UndefOr[CacheQueryOptions]): js.Promise[Boolean] = js.native
-            
-            def keys(request: js.UndefOr[RequestInfo], options: js.UndefOr[CacheQueryOptions]): js.Promise[js.Array[Request]] = js.native
-            
-            def `match`(request: RequestInfo, options: js.UndefOr[CacheQueryOptions]): js.Promise[js.UndefOr[Response]] = js.native
-            
-            def matchAll(request: RequestInfo, options: js.UndefOr[CacheQueryOptions]): js.Promise[js.Array[Response]] = js.native
-            
-            def put(request: RequestInfo, response: Response): js.Promise[Unit] = js.native
-          }
+          abstract class Cache ()
+            extends StObject
+               with org.scalajs.dom.experimental.cachestorage.Cache
           
           @js.native
-          trait CacheQueryOptions extends StObject {
-            
-            var cacheName: String = js.native
-            
-            var ignoreMethod: Boolean = js.native
-            
-            var ignoreSearch: Boolean = js.native
-            
-            var ignoreVary: Boolean = js.native
-          }
+          trait CacheQueryOptions
+            extends StObject
+               with org.scalajs.dom.experimental.cachestorage.CacheQueryOptions
           
           @js.native
-          trait CacheStorage extends StObject {
-            
-            def delete(cacheName: String): js.Promise[Boolean] = js.native
-            
-            def has(cacheName: String): js.Promise[Boolean] = js.native
-            
-            def keys(): js.Promise[js.Array[String]] = js.native
-            
-            def `match`(request: RequestInfo, options: CacheQueryOptions): js.Promise[js.Any] = js.native
-            
-            def open(cacheName: String): js.Promise[Cache] = js.native
-          }
+          trait CacheStorage
+            extends StObject
+               with org.scalajs.dom.experimental.cachestorage.CacheStorage
           
           @js.native
           trait CanvasProxy
@@ -2504,7 +2774,7 @@ object org {
           @js.native
           class FetchEvent protected ()
             extends StObject
-               with Event {
+               with ExtendableEvent {
             def this(typeArg: String, init: js.UndefOr[FetchEventInit]) = this()
             
             def clientId(): String = js.native
@@ -2513,7 +2783,7 @@ object org {
             
             def isReload(): Boolean = js.native
             
-            def preloadResponse(): js.Promise[Response] = js.native
+            def preloadResponse(): js.Promise[js.UndefOr[Response]] = js.native
             
             def replacesClientId(): String = js.native
             
@@ -2529,7 +2799,7 @@ object org {
           @js.native
           trait FetchEventInit
             extends StObject
-               with EventInit {
+               with ExtendableEventInit {
             
             var clientId: js.UndefOr[String] = js.native
             
@@ -2576,8 +2846,6 @@ object org {
             
             var oncontrollerchange: js.Function1[Event, _] = js.native
             
-            var onerror: js.Function1[org.scalajs.dom.raw.ErrorEvent, _] = js.native
-            
             var onmessage: js.Function1[MessageEvent, _] = js.native
             
             def ready(): js.Promise[ServiceWorkerRegistration] = js.native
@@ -2590,8 +2858,6 @@ object org {
             extends StObject
                with org.scalajs.dom.raw.EventTarget
                with WorkerGlobalScope {
-            
-            override def caches(): CacheStorage = js.native
             
             def clients(): Clients = js.native
             
@@ -2709,7 +2975,7 @@ object org {
             
             def name(): String = js.native
             
-            var onconnect: ExtendableMessageEvent => _ = js.native
+            var onconnect: js.Function1[ExtendableMessageEvent, _] = js.native
           }
           @js.native
           object SharedWorkerGlobalScope extends StObject {
@@ -3860,13 +4126,13 @@ object org {
           
           var enabled: Boolean = js.native
           
-          var id: String = js.native
+          val id: String = js.native
           
-          var kind: String = js.native
+          val kind: String = js.native
           
-          var label: String = js.native
+          val label: String = js.native
           
-          var language: String = js.native
+          val language: String = js.native
         }
         
         @js.native
@@ -3917,6 +4183,8 @@ object org {
         class Blob protected () extends StObject {
           def this(blobParts: js.Array[js.Any], options: org.scalajs.dom.raw.BlobPropertyBag) = this()
           
+          def arrayBuffer(): js.Promise[js.typedarray.ArrayBuffer] = js.native
+          
           val blobParts: js.Array[js.Any] = js.native
           
           def close(): Unit = js.native
@@ -3926,6 +4194,10 @@ object org {
           def size(): Double = js.native
           
           def slice(start: Double, end: Double, contentType: String): org.scalajs.dom.raw.Blob = js.native
+          
+          def stream(): ReadableStream[Byte] = js.native
+          
+          def text(): js.Promise[String] = js.native
           
           def `type`(): String = js.native
         }
@@ -3942,6 +4214,13 @@ object org {
         abstract class CDATASection ()
           extends StObject
              with org.scalajs.dom.raw.Text
+        
+        @js.native
+        object CSS extends StObject {
+          
+          def supports(propertyName: String, value: String): Boolean = js.native
+          def supports(supportCondition: String): Boolean = js.native
+        }
         
         @js.native
         class CSSFontFaceRule ()
@@ -4611,6 +4890,8 @@ object org {
           
           var globalCompositeOperation: String = js.native
           
+          var imageSmoothingEnabled: Boolean = js.native
+          
           def isPointInPath(x: Double, y: Double): Boolean = js.native
           def isPointInPath(x: Double, y: Double, fillRule: String): Boolean = js.native
           
@@ -4627,8 +4908,6 @@ object org {
           def measureText(text: String): org.scalajs.dom.raw.TextMetrics = js.native
           
           var miterLimit: Double = js.native
-          
-          def moveBy(deltaX: Double, deltaY: Double): Unit = js.native
           
           def moveTo(x: Double, y: Double): Unit = js.native
           
@@ -4864,6 +5143,14 @@ object org {
         }
         
         @js.native
+        trait ConvertToBlobOptions extends StObject {
+          
+          var quality: js.UndefOr[Double] = js.native
+          
+          var `type`: js.UndefOr[String] = js.native
+        }
+        
+        @js.native
         trait ConvolverNode
           extends StObject
              with org.scalajs.dom.raw.EventTarget
@@ -4890,6 +5177,22 @@ object org {
           def longitude(): Double = js.native
           
           def speed(): Double = js.native
+        }
+        
+        @js.native
+        trait CreateImageBitmapOptions extends StObject {
+          
+          var colorSpaceConversion: js.UndefOr[String] = js.native
+          
+          var imageOrientation: js.UndefOr[String] = js.native
+          
+          var premultiplyAlpha: js.UndefOr[String] = js.native
+          
+          var resizeHeight: js.UndefOr[Double] = js.native
+          
+          var resizeQuality: js.UndefOr[String] = js.native
+          
+          var resizeWidth: js.UndefOr[Double] = js.native
         }
         
         @js.native
@@ -5281,6 +5584,8 @@ object org {
           
           var innerHTML: String = js.native
           
+          def insertAdjacentElement(position: String, element: org.scalajs.dom.raw.Element): org.scalajs.dom.raw.Element = js.native
+          
           def insertAdjacentHTML(where: String, html: String): Unit = js.native
           
           def matches(selector: String): Boolean = js.native
@@ -5496,11 +5801,11 @@ object org {
           
           def error(): org.scalajs.dom.raw.DOMException = js.native
           
-          var onabort: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
+          var onabort: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
-          var onerror: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
+          var onerror: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
-          var onload: js.Function1[org.scalajs.dom.raw.UIEvent, _] = js.native
+          var onload: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
           var onloadend: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
@@ -5993,6 +6298,8 @@ object org {
           
           var onwaiting: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
           
+          var onwheel: js.Function1[org.scalajs.dom.raw.WheelEvent, _] = js.native
+          
           def open(url: String, name: String, features: String, replace: Boolean): js.Dynamic = js.native
           
           def plugins(): HTMLCollection = js.native
@@ -6208,6 +6515,8 @@ object org {
           var onvolumechange: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
           
           var onwaiting: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
+          
+          var onwheel: js.Function1[org.scalajs.dom.raw.WheelEvent, _] = js.native
           
           override def ownerDocument(): HTMLDocument = js.native
           
@@ -6574,7 +6883,7 @@ object org {
           
           def paused(): Boolean = js.native
           
-          def play(): Unit = js.native
+          def play(): js.UndefOr[js.Promise[Unit]] = js.native
           
           var playbackRate: Double = js.native
           
@@ -6587,6 +6896,8 @@ object org {
           def seeking(): Boolean = js.native
           
           var src: String = js.native
+          
+          var srcObject: js.UndefOr[MediaStream | MediaSource | org.scalajs.dom.raw.Blob] = js.native
           
           def textTracks(): org.scalajs.dom.raw.TextTrackList = js.native
           
@@ -7178,7 +7489,9 @@ object org {
           
           var onabort: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
           
-          var onerror: js.Function1[org.scalajs.dom.raw.ErrorEvent, _] = js.native
+          var onerror: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
+          
+          var onversionchange: js.Function1[IDBVersionChangeEvent, _] = js.native
           
           def transaction(storeNames: js.Any, mode: String): IDBTransaction = js.native
           
@@ -7285,7 +7598,7 @@ object org {
           extends StObject
              with IDBRequest {
           
-          var onblocked: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
+          var onblocked: js.Function1[IDBVersionChangeEvent, _] = js.native
           
           var onupgradeneeded: js.Function1[IDBVersionChangeEvent, _] = js.native
         }
@@ -7297,7 +7610,7 @@ object org {
           
           def error(): org.scalajs.dom.raw.DOMException = js.native
           
-          var onerror: js.Function1[org.scalajs.dom.raw.ErrorEvent, _] = js.native
+          var onerror: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
           
           var onsuccess: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
           
@@ -7329,7 +7642,7 @@ object org {
           
           var oncomplete: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
           
-          var onerror: js.Function1[org.scalajs.dom.raw.ErrorEvent, _] = js.native
+          var onerror: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
         }
         @js.native
         object IDBTransaction extends StObject {
@@ -7349,7 +7662,7 @@ object org {
           
           val init: js.UndefOr[IDBVersionChangeEventInit] = js.native
           
-          def newVersion(): Int = js.native
+          def newVersion(): Integer = js.native
           
           def oldVersion(): Int = js.native
           
@@ -7361,9 +7674,17 @@ object org {
           extends StObject
              with EventInit {
           
-          var newVersion: js.UndefOr[Int] = js.native
+          var newVersion: js.UndefOr[Integer] = js.native
           
           var oldVersion: js.UndefOr[Int] = js.native
+        }
+        
+        @js.native
+        trait ImageBitmap extends StObject {
+          
+          def height(): Double = js.native
+          
+          def width(): Double = js.native
         }
         
         @js.native
@@ -7796,6 +8117,8 @@ object org {
         trait NavigatorLanguage extends StObject {
           
           def language(): String = js.native
+          
+          def languages(): js.Array[String] = js.native
         }
         
         @js.native
@@ -8021,6 +8344,23 @@ object org {
         }
         
         @js.native
+        class OffscreenCanvas protected () extends StObject {
+          def this(width: Double, height: Double) = this()
+          
+          def convertToBlob(options: ConvertToBlobOptions): js.Promise[org.scalajs.dom.raw.Blob] = js.native
+          
+          def getContext(contextType: String): js.Dynamic = js.native
+          def getContext(contextType: String, contextAttributes: TwoDContextAttributes): js.Dynamic = js.native
+          def getContext(contextType: String, contextAttributes: WebGLContextAttributes): js.Dynamic = js.native
+          
+          var height: Double = js.native
+          
+          def transferToImageBitmap(): ImageBitmap = js.native
+          
+          var width: Double = js.native
+        }
+        
+        @js.native
         trait OscillatorNode
           extends StObject
              with org.scalajs.dom.raw.EventTarget
@@ -8098,6 +8438,8 @@ object org {
           def firstElementChild(): org.scalajs.dom.raw.Element = js.native
           
           def lastElementChild(): org.scalajs.dom.raw.Element = js.native
+          
+          def replaceChildren(nodes: org.scalajs.dom.raw.Node | String): Unit = js.native
         }
         
         @js.native
@@ -10995,6 +11337,16 @@ object org {
         }
         
         @js.native
+        trait TwoDContextAttributes extends StObject {
+          
+          var alpha: js.UndefOr[Boolean] = js.native
+          
+          var storage: js.UndefOr[String] = js.native
+          
+          var willReadFrequently: js.UndefOr[Boolean] = js.native
+        }
+        
+        @js.native
         class UIEvent protected ()
           extends StObject
              with org.scalajs.dom.raw.Event {
@@ -11607,9 +11959,7 @@ object org {
              with org.scalajs.dom.raw.EventTarget
              with org.scalajs.dom.raw.WindowLocalStorage
              with org.scalajs.dom.raw.WindowSessionStorage
-             with org.scalajs.dom.raw.WindowTimers
-             with org.scalajs.dom.raw.WindowBase64
-             with IDBEnvironment
+             with WindowOrWorkerGlobalScope
              with org.scalajs.dom.raw.WindowConsole {
           
           def alert(): Unit = js.native
@@ -11654,6 +12004,10 @@ object org {
           var lostpointercapture: js.Function1[org.scalajs.dom.raw.PointerEvent, _] = js.native
           
           def matchMedia(mediaQuery: String): org.scalajs.dom.raw.MediaQueryList = js.native
+          
+          def moveBy(deltaX: Int, deltaY: Int): Unit = js.native
+          
+          def moveTo(x: Int, y: Int): Unit = js.native
           
           var name: String = js.native
           
@@ -11803,6 +12157,8 @@ object org {
           
           var onwaiting: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
           
+          var onwheel: js.Function1[org.scalajs.dom.raw.WheelEvent, _] = js.native
+          
           def open(url: String, target: String, features: String, replace: Boolean): org.scalajs.dom.raw.Window = js.native
           
           var opener: org.scalajs.dom.raw.Window = js.native
@@ -11828,6 +12184,10 @@ object org {
           
           def requestAnimationFrame(callback: js.Function1[Double, _]): Int = js.native
           
+          def resizeBy(deltaX: Int, deltaY: Int): Unit = js.native
+          
+          def resizeTo(width: Int, height: Int): Unit = js.native
+          
           def screen(): org.scalajs.dom.raw.Screen = js.native
           
           var screenX: Int = js.native
@@ -11839,6 +12199,10 @@ object org {
           def scrollBy(x: Int, y: Int): Unit = js.native
           
           def scrollTo(x: Int, y: Int): Unit = js.native
+          
+          def scrollX(): Double = js.native
+          
+          def scrollY(): Double = js.native
           
           def self(): org.scalajs.dom.raw.Window = js.native
           
@@ -11869,6 +12233,43 @@ object org {
         trait WindowLocalStorage extends StObject {
           
           def localStorage(): org.scalajs.dom.raw.Storage = js.native
+        }
+        
+        @js.native
+        trait WindowOrWorkerGlobalScope
+          extends StObject
+             with org.scalajs.dom.raw.WindowBase64
+             with org.scalajs.dom.raw.WindowTimers {
+          
+          def caches(): js.UndefOr[CacheStorage] = js.native
+          
+          def createImageBitmap(image: CreateImageBitmapInput): js.Promise[ImageBitmap] = js.native
+          def createImageBitmap(image: CreateImageBitmapInput, options: CreateImageBitmapOptions): js.Promise[ImageBitmap] = js.native
+          def createImageBitmap(image: CreateImageBitmapInput, sx: Double, sy: Double, sw: Double, sh: Double): js.Promise[ImageBitmap] = js.native
+          def createImageBitmap(
+            image: CreateImageBitmapInput,
+            sx: Double,
+            sy: Double,
+            sw: Double,
+            sh: Double,
+            options: CreateImageBitmapOptions
+          ): js.Promise[ImageBitmap] = js.native
+          
+          def crossOriginIsolated(): Boolean = js.native
+          
+          def fetch(info: RequestInfo, init: RequestInit): js.Promise[Response] = js.native
+          
+          def indexedDB(): js.UndefOr[IDBFactory] = js.native
+          
+          def isSecureContext(): Boolean = js.native
+          
+          def origin(): String = js.native
+          
+          def queueMicrotask(function: js.Function0[Any]): Unit = js.native
+        }
+        object WindowOrWorkerGlobalScope {
+          
+          type CreateImageBitmapInput = HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | org.scalajs.dom.raw.Blob | org.scalajs.dom.raw.ImageData | ImageBitmap | OffscreenCanvas
         }
         
         @js.native
@@ -11908,9 +12309,8 @@ object org {
         @js.native
         trait WorkerGlobalScope
           extends StObject
-             with org.scalajs.dom.raw.EventTarget {
-          
-          def caches(): js.Any = js.native
+             with org.scalajs.dom.raw.EventTarget
+             with WindowOrWorkerGlobalScope {
           
           def close(): Unit = js.native
           
@@ -11973,23 +12373,25 @@ object org {
           
           def getResponseHeader(header: String): String = js.native
           
-          var onabort: js.Function1[js.Any, _] = js.native
+          var onabort: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
-          var onerror: js.Function1[org.scalajs.dom.raw.ErrorEvent, _] = js.native
+          var onerror: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
-          var onload: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
+          var onload: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
           var onloadend: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
-          var onloadstart: js.Function1[js.Any, _] = js.native
+          var onloadstart: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
           var onprogress: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
           var onreadystatechange: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
           
-          var ontimeout: js.Function1[org.scalajs.dom.raw.Event, _] = js.native
+          var ontimeout: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
           def open(method: String, url: String, async: Boolean, user: String, password: String): Unit = js.native
+          
+          def overrideMimeType(mimeType: String): Unit = js.native
           
           def readyState(): Int = js.native
           
@@ -12036,19 +12438,19 @@ object org {
           extends StObject
              with org.scalajs.dom.raw.EventTarget {
           
-          var onabort: js.Function1[js.Any, _] = js.native
+          var onabort: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
-          var onerror: js.Function1[org.scalajs.dom.raw.ErrorEvent, _] = js.native
+          var onerror: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
-          var onload: js.Function1[js.Any, _] = js.native
+          var onload: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
           var onloadend: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
-          var onloadstart: js.Function1[js.Any, _] = js.native
+          var onloadstart: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
           var onprogress: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
           
-          var ontimeout: js.Function1[js.Any, _] = js.native
+          var ontimeout: js.Function1[org.scalajs.dom.raw.ProgressEvent, _] = js.native
         }
         
         @js.native

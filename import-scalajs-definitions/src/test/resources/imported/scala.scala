@@ -341,6 +341,18 @@ object scala {
       }
       
       @js.native
+      class FinalizationRegistry[A, B, C] protected () extends StObject {
+        def this(finalizer: js.Function1[B, Any]) = this()
+        
+        val finalizer: js.Function1[B, Any] = js.native
+        
+        def register(theObject: A, heldValue: B): Unit = js.native
+        def register(theObject: A, heldValue: B, unregistrationToken: C): Unit = js.native
+        
+        def unregister(unregistrationToken: C): Boolean = js.native
+      }
+      
+      @js.native
       class Function protected () extends StObject {
         def this(args: String) = this()
         
@@ -2257,6 +2269,15 @@ object scala {
         extends StObject
            with js.Any
       
+      @js.native
+      class WeakRef[T] protected () extends StObject {
+        def this(targetObject: T) = this()
+        
+        def deref[S](): js.UndefOr[S] = js.native
+        
+        val targetObject: T = js.native
+      }
+      
       object WrappedDictionary {
         
         @js.native
@@ -2529,6 +2550,8 @@ object scala {
       sealed trait LinkingInfo extends StObject {
         
         val assumingES6: Boolean = js.native
+        
+        val esVersion: Int = js.native
         
         val fileLevelThis: Any = js.native
         
