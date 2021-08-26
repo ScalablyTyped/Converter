@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "express-serve-static-core"
-version := "0.0-unknown-6c2c49"
+version := "0.0-unknown-76f624"
 scalaVersion := "3.0.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

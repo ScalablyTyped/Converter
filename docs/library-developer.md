@@ -16,10 +16,10 @@ Have a look at [mobx-slinky](https://github.com/ScalablyTyped/mobx-slinky)
 
 ## Requirements
 
-**This plugin needs sbt 1.4.x or 1.5.x**.  
+**This plugin needs sbt 1.5.x**.  
 
 Since we generate source code, it should work with any combination of 
-Scala 2.12 / 2.13 and Scala.js 1.x. 
+Scala 2.12 / 2.13 / 3.0 and Scala.js 1.7+ 
 
 Starting from 1.0.0-beta30, it is in many cases not possible to compile the generated code 
 if you have the *macro paradise* plugin enabled, because of some old lingering bugs. 

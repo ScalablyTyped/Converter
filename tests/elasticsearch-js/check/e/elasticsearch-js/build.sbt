@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "elasticsearch-js"
-version := "0.0-unknown-7285e0"
+version := "0.0-unknown-5cac57"
 scalaVersion := "3.0.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-a8ce80")
+  "org.scalablytyped" %%% "std" % "0.0-unknown-4cd2c5")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-feature", "-language:implicitConversions", "-language:higherKinds", "-language:existentials", "-no-indent")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
