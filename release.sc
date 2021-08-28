@@ -84,6 +84,7 @@ case class Repo(version: String)(implicit val wd: os.Path) {
 
   def publish() = {
     %("sbt", "ci-release", "docs/mdoc")
+    %("yarn")(wd / "website")
     %("yarn", "publish-gh-pages")(wd / "website")
     %.git("push", "origin", "HEAD")
     %.git("push", "origin", tag)
