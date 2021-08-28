@@ -4,9 +4,8 @@ package transforms
 
 /**
   * This is the first part of a two step process to rid ourselves of the myriad of
-  *  type aliases resulting from the resolution of modules.
+  *  type aliases and interfaces resulting from the resolution of modules.
   *
-  *  Here, we inline all trivial type aliases.
   *  We need to do the removal in scala.js (`CleanupTypeAliases`) to ensure that
   *  all dependencies can also resolve all their uses of the intermediate type aliases.
   */
@@ -21,7 +20,9 @@ object InlineTrivial extends TreeTransformationScopedChanges {
           case (TsDeclEnum(_, _, _, _, _, _, Some(exportedFrom), _, _), _) if tparams.isEmpty =>
             Some(ref.copy(name = exportedFrom.name))
           case (next: TsDeclTypeAlias, newScope) =>
-            followTrivialAliases(newScope)(next).map(newName => ref.copy(name = newName))
+            followTrivial(newScope)(next).map(newName => ref.copy(name = newName))
+          case (next: TsDeclInterface, newScope) =>
+            followTrivial(newScope)(next).map(newName => ref.copy(name = newName))
           case _ => None
         }
       case _ => None
@@ -41,15 +42,25 @@ object InlineTrivial extends TreeTransformationScopedChanges {
       }
   }
 
-  def followTrivialAliases(scope: TsTreeScope)(cur: TsDeclTypeAlias): Option[TsQIdent] =
+  def followTrivial(scope: TsTreeScope)(cur: TsDecl): Option[TsQIdent] =
     cur match {
+      case TsDeclInterface(cs, _, _, _, IArray.first(EffectiveTypeRef(TsTypeRef(_, nextName, _))), _, codePath)
+          if cs.has[Marker.IsTrivial.type] =>
+        scope
+          .lookupTypeIncludeScope(nextName)
+          .firstDefined {
+            case (next: TsNamedDecl, newScope) if next.codePath =/= codePath => // avoid SOE on invalid code
+              followTrivial(newScope)(next)
+            case _ => None
+          }
+          .orElse(Some(nextName))
       case TsDeclTypeAlias(cs, _, _, _, EffectiveTypeRef(TsTypeRef(_, nextName, _)), codePath)
           if cs.has[Marker.IsTrivial.type] =>
         scope
           .lookupTypeIncludeScope(nextName)
           .firstDefined {
-            case (next: TsDeclTypeAlias, newScope) if next.codePath =/= codePath => // avoid SOE on invalid code
-              followTrivialAliases(newScope)(next)
+            case (next: TsNamedDecl, newScope) if next.codePath =/= codePath => // avoid SOE on invalid code
+              followTrivial(newScope)(next)
             case _ => None
           }
           .orElse(Some(nextName))
