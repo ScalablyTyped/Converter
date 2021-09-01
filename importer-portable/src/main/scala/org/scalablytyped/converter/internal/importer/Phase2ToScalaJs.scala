@@ -3,7 +3,7 @@ package internal
 package importer
 
 import com.olvind.logging.Logger
-import org.scalablytyped.converter.internal.importer.Phase1Res.{LibTs, LibraryPart}
+import org.scalablytyped.converter.internal.importer.Phase1Res.{LibTs, LibTsFile}
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import org.scalablytyped.converter.internal.scalajs.CastConversion.TypeRewriterCast
@@ -43,7 +43,7 @@ class Phase2ToScalaJs(
       logger:     Logger[Unit],
   ): PhaseRes[Source, LibScalaJs] =
     current match {
-      case _: LibraryPart =>
+      case _: LibTsFile =>
         PhaseRes.Ignore()
 
       case lib: LibTs =>
