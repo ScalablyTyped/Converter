@@ -1187,6 +1187,7 @@ final class ParserTests extends AnyFunSuite {
               readonly    = ReadonlyModifier.Noop,
               key         = TsIdent("P"),
               from        = TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent.of("T"), Empty)),
+              as          = None,
               optionalize = OptionalModifier.Optionalize,
               to          = TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Empty), TsTypeRef(TsIdent("P"))),
             ),
@@ -1224,6 +1225,7 @@ final class ParserTests extends AnyFunSuite {
               readonly    = ReadonlyModifier.Noop,
               key         = TsIdent("P"),
               from        = TsTypeRef(NoComments, TsQIdent.of("K"), Empty),
+              as          = None,
               optionalize = OptionalModifier.Noop,
               to          = TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Empty), TsTypeRef(TsIdent("P"))),
             ),
@@ -1253,6 +1255,7 @@ final class ParserTests extends AnyFunSuite {
               readonly    = ReadonlyModifier.Noop,
               key         = TsIdent("P"),
               from        = TsTypeKeyOf(T),
+              as          = None,
               optionalize = OptionalModifier.Noop,
               to = TsTypeObject(
                 NoComments,
@@ -1321,6 +1324,7 @@ type Readonly<T> = {
               readonly    = ReadonlyModifier.Yes,
               key         = TsIdentSimple("P"),
               from        = TsTypeKeyOf(T),
+              as          = None,
               optionalize = Noop,
               to          = TsTypeLookup(T, TsTypeRef(TsIdentSimple("P"))),
             ),
@@ -2107,6 +2111,7 @@ type Readonly<T> = {
               ReadonlyModifier.Noop,
               TsIdentSimple("P"),
               TsTypeKeyOf(T),
+              None,
               OptionalModifier.Deoptionalize,
               TsTypeLookup(T, TsTypeRef(TsIdentSimple("P"))),
             ),
@@ -2485,6 +2490,7 @@ export {};
         ReadonlyModifier.Noop,
         TsIdentSimple("key"),
         T,
+        None,
         OptionalModifier.Optionalize,
         TsTypeLookup(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("T"))), Empty), key),
       ),
@@ -2500,6 +2506,7 @@ export {};
           ReadonlyModifier.No,
           TsIdentSimple("P"),
           TsTypeKeyOf(T),
+          None,
           Noop,
           TsTypeRef.number,
         ),
@@ -2774,9 +2781,9 @@ export {};
         declared   = true,
         isAbstract = false,
         TsIdentSimple("Test"),
-        IArray(),
+        Empty,
         None,
-        IArray(),
+        Empty,
         IArray(
           TsMemberProperty(
             NoComments,
@@ -2792,7 +2799,7 @@ export {};
             TsProtectionLevel.Default,
             TsIdentSimple("prop"),
             MethodType.Getter,
-            TsFunSig(NoComments, IArray(), IArray(), Some(TsTypeRef.number)),
+            TsFunSig(NoComments, Empty, Empty, Some(TsTypeRef.number)),
             isStatic   = false,
             isReadOnly = false,
           ),
@@ -2803,7 +2810,7 @@ export {};
             MethodType.Setter,
             TsFunSig(
               NoComments,
-              IArray(),
+              Empty,
               IArray(
                 TsFunParam(
                   NoComments,
@@ -2834,9 +2841,9 @@ export {};
         declared   = true,
         isAbstract = false,
         TsIdentSimple("Test"),
-        IArray(),
+        Empty,
         None,
-        IArray(),
+        Empty,
         IArray(
           TsMemberProperty(
             NoComments,
@@ -2863,12 +2870,12 @@ export {};
         TsIdentSimple("isNotTestHost"),
         TsFunSig(
           NoComments,
-          IArray(),
+          Empty,
           IArray(
             TsFunParam(
               NoComments,
               TsIdentSimple("hasSectionItem"),
-              Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("ConfigurationSectionEntry"))), IArray())),
+              Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("ConfigurationSectionEntry"))), Empty)),
             ),
           ),
           Some(TsTypeRef.boolean),
@@ -2888,15 +2895,15 @@ export {};
         TsIdentSimple("foo"),
         TsFunSig(
           NoComments,
-          IArray(),
+          Empty,
           IArray(
             TsFunParam(
               NoComments,
               TsIdentSimple("hasCom.apple.developer.contacts.notesEntitlementsPlist"),
-              Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Plist"))), IArray())),
+              Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Plist"))), Empty)),
             ),
           ),
-          Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Plist"))), IArray())),
+          Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Plist"))), Empty)),
         ),
         Zero,
         CodePath.NoPath,
@@ -2923,7 +2930,7 @@ export {};
                 TsTypeFunction(
                   TsFunSig(
                     NoComments,
-                    IArray(),
+                    Empty,
                     IArray(TsFunParam(NoComments, TsIdentSimple("args"), Some(TsTypeRef.any))),
                     Some(TsTypeRef.any),
                   ),
@@ -2941,7 +2948,7 @@ export {};
               TsTypeFunction(
                 TsFunSig(
                   NoComments,
-                  IArray(),
+                  Empty,
                   IArray(
                     TsFunParam(
                       NoComments,
@@ -2954,7 +2961,7 @@ export {};
               ),
             ),
           ),
-          TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("P"))), IArray()),
+          TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("P"))), Empty),
           TsTypeRef.never,
         ),
         CodePath.NoPath,
@@ -2986,11 +2993,56 @@ export {};
         declared   = false,
         isAbstract = false,
         TsIdentSimple("DMChannel"),
-        IArray(),
+        Empty,
         Some(TsTypeRef.any),
-        IArray(),
-        IArray(),
+        Empty,
+        Empty,
         Zero,
+        CodePath.NoPath,
+      ),
+    )
+  }
+
+  test("renamed type mapping") {
+    val content = """declare type AddPrefixToKeys<Prefix extends string, T extends Record<string, unknown>> = {
+                    |    [K in keyof T & string as `${Prefix}.${K}`]+?: T[K];
+                    |}""".stripMargin
+
+    shouldParseAs(content, TsParser.tsDeclTypeAlias)(
+      TsDeclTypeAlias(
+        NoComments,
+        true,
+        TsIdentSimple("AddPrefixToKeys"),
+        IArray(
+          TsTypeParam(NoComments, TsIdentSimple("Prefix"), Some(TsTypeRef.string), None),
+          TsTypeParam(
+            NoComments,
+            TsIdentSimple("T"),
+            Some(
+              TsTypeRef(
+                NoComments,
+                TsQIdent(IArray(TsIdentSimple("Record"))),
+                IArray(TsTypeRef.string, TsTypeRef(NoComments, TsQIdent.unknown, Empty)),
+              ),
+            ),
+            None,
+          ),
+        ),
+        TsTypeObject(
+          NoComments,
+          IArray(
+            TsMemberTypeMapped(
+              NoComments,
+              TsProtectionLevel.Default,
+              ReadonlyModifier.Noop,
+              TsIdentSimple("K"),
+              TsTypeIntersect(IArray(TsTypeKeyOf(T), TsTypeRef.string)),
+              Some(TsLiteral.Str("${Prefix}.${K}")),
+              OptionalModifier.Optionalize,
+              TsTypeLookup(T, TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), Empty)),
+            ),
+          ),
+        ),
         CodePath.NoPath,
       ),
     )

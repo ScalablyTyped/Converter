@@ -321,8 +321,17 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsMemberTypeMapped(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsMemberTypeMapped(_1, _2, _3, _4, _5, _6, _7) =>
-        TsMemberTypeMapped(_1, _2, _3, _4, visitTsType(tt)(_5), _6, visitTsType(tt)(_7))
+      case TsMemberTypeMapped(_1, _2, _3, _4, _5, _6, _7, _8) =>
+        TsMemberTypeMapped(
+          _1,
+          _2,
+          _3,
+          _4,
+          visitTsType(tt)(_5),
+          _6.map(visitTsLiteralString(tt)),
+          _7,
+          visitTsType(tt)(_8),
+        )
     }
   }
   final def visitTsParsedFile(t: T)(x: TsParsedFile): TsParsedFile = {

@@ -83,7 +83,7 @@ class TsTypeFormatter(val keepComments: Boolean) {
         valueType.map(tpe => s": ${apply(tpe)}"),
       ).flatten.mkString(" ").replaceAllLiterally(" ?", "?")
 
-    case TsMemberTypeMapped(_, l, readonly, key, from, optionalize, to) =>
+    case TsMemberTypeMapped(_, l, readonly, key, from, as, optionalize, to) =>
       List[Option[String]](
         level(l),
         readonly match {
@@ -95,6 +95,7 @@ class TsTypeFormatter(val keepComments: Boolean) {
         Some(key.value),
         Some("in"),
         Some(apply(from)),
+        as.map(as => s"as ${lit(as)}"),
         Some("]:"),
         optionalize match {
           case OptionalModifier.Noop          => None
