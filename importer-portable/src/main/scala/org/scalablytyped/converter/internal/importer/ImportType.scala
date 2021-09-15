@@ -83,7 +83,12 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             Mappings.get(other) match {
               case Some(m: RefMapping)  => m.pick(isInheritance).withComments(cs)
               case Some(m: NameMapping) => TypeRef(m.pick(isInheritance), targs2, cs)
-              case None => TypeRef(importName(other), targs2, cs)
+              case None =>
+                try TypeRef(importName(other), targs2, cs)
+                catch {
+                  case x: NoSuchElementException =>
+                    TypeRef.JsAny.withComments(Comments(s"/* Couldn't translate: '${x.getMessage}' */"))
+                }
             }
         }
 
