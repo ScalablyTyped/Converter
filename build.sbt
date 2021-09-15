@@ -128,7 +128,7 @@ lazy val baseSettings: Project => Project =
         url("https://github.com/oyvindberg"),
       ),
     ),
-    scalaVersion := "2.12.14",
+    scalaVersion := "2.12.15",
     scalacOptions ~= (_.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-unused:params", "-Xfatal-warnings"))),
     /* disable scaladoc */
     Compile / doc / sources := Nil,
