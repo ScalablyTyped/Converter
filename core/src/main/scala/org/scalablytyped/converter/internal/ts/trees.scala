@@ -672,6 +672,7 @@ final case class TsMemberTypeMapped(
     readonly:    ReadonlyModifier,
     key:         TsIdent,
     from:        TsType,
+    as:          Option[TsLiteral.Str],
     optionalize: OptionalModifier,
     to:          TsType,
 ) extends TsMember
