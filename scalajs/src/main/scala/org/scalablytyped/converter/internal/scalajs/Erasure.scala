@@ -42,21 +42,8 @@ class Erasure(scalaVersion: Versions.Scala) {
         // we don't really use scala arrays, so let's just go with a too broad erasure for that
         if (targs.exists(_.typeName === QualifiedName.Array)) QualifiedName.Any
         else {
-          // The erased type for A | B is the erased least upper bound of the erased types of A and B. Quoting from the documentation of TypeErasure#erasedLub
-          def go(scope: TreeScope, current: TypeRef): IArray[QualifiedName] =
-            scope
-              .lookup(simplify(scope, current))
-              .collectFirst {
-                // this is an ST specific hack. the printer still adds `StObject` parent for native parents :/
-                case (x: ClassTree, _) if x.parents.isEmpty && x.isNative =>
-                  go(scope, TypeRef(QualifiedName.StObject)) :+ x.codePath
-                case (x: ClassTree, newScope) =>
-                  x.parents.flatMap(p => go(newScope, p)) :+ x.codePath
-              }
-              .getOrElse(Empty)
-
           val erasedParentLattices: IArray[IArray[QualifiedName]] =
-            targs.map(t => go(scope, t))
+            targs.map(t => typeLattice(scope, t))
 
           erasedParentLattices
             .reduce(_.intersect(_))
@@ -98,25 +85,23 @@ class Erasure(scalaVersion: Versions.Scala) {
           case tr @ (TypeRef.String | TypeRef.Boolean | TypeRef.Double) => tr.typeName
         }
 
-        val isAbstract = tpe.targs.collectFirst {
-          case tpe if scope.isAbstract(tpe) => QualifiedName.Any
-        }
+        isPrimitive
+          .getOrElse {
+            val erasedParentLattices: IArray[IArray[QualifiedName]] =
+              tpe.targs.map(t => typeLattice(scope, t))
 
-        isPrimitive.orElse(isAbstract).getOrElse {
-          simplify(scope, tpe.targs.head) match {
-            case QualifiedName.JsAny if tpe.targs.length > 1 =>
-              simplify(scope, tpe.targs(1)) match {
-                case QualifiedName.Any => QualifiedName.JsAny
-                case other             => other
+            erasedParentLattices
+              .foldLeft(Empty: IArray[QualifiedName]) {
+                case (nonEmpty, lattice) =>
+                  val latticeSet = lattice.toSet
+                  nonEmpty.filterNot(latticeSet) match {
+                    case Empty => lattice
+                    case other => other
+                  }
               }
-            case QualifiedName.JsObject if tpe.targs.length > 1 =>
-              simplify(scope, tpe.targs(1)) match {
-                case QualifiedName.Any => QualifiedName.JsObject
-                case other             => other
-              }
-            case other => other
+              .headOption
+              .getOrElse(QualifiedName.Any)
           }
-        }
 
       // if this is a type parameter
       case QualifiedName(IArray.exactlyOne(head)) if scope.tparams.contains(head) =>
@@ -136,6 +121,19 @@ class Erasure(scalaVersion: Versions.Scala) {
           }
           .getOrElse(other)
     }
+
+  // The erased type for A | B is the erased least upper bound of the erased types of A and B. Quoting from the documentation of TypeErasure#erasedLub
+  private def typeLattice(scope: TreeScope, current: TypeRef): IArray[QualifiedName] =
+    scope
+      .lookup(simplify(scope, current))
+      .collectFirst {
+        // this is an ST specific hack. the printer still adds `StObject` parent for native parents :/
+        case (x: ClassTree, _) if x.parents.isEmpty && x.isNative =>
+          typeLattice(scope, TypeRef(QualifiedName.StObject)) :+ x.codePath
+        case (x: ClassTree, newScope) =>
+          x.parents.flatMap(p => typeLattice(newScope, p)) :+ x.codePath
+      }
+      .getOrElse(Empty)
 }
 
 final case class MethodErasure(name: Name, params: IArray[QualifiedName], ret: QualifiedName)
