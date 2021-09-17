@@ -83,7 +83,12 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             Mappings.get(other) match {
               case Some(m: RefMapping)  => m.pick(isInheritance).withComments(cs)
               case Some(m: NameMapping) => TypeRef(m.pick(isInheritance), targs2, cs)
-              case None => TypeRef(importName(other), targs2, cs)
+              case None =>
+                try TypeRef(importName(other), targs2, cs)
+                catch {
+                  case x: NoSuchElementException =>
+                    TypeRef.JsAny.withComments(Comments(s"/* Couldn't translate: '${x.getMessage}' */"))
+                }
             }
         }
 
@@ -96,7 +101,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
        * It is crucial that this "logic" live here in the importer, since it needs to be exported
        *  in it's original form to dependencies
        */
-      case tpe @ TsTypeObject(_, IArray.exactlyOne(TsMemberTypeMapped(_, _, _, key, _, _, to))) =>
+      case tpe @ TsTypeObject(_, IArray.exactlyOne(TsMemberTypeMapped(_, _, _, key, _, _, _, to))) =>
         // this forms the bases of a speculative, somewhat nicer output. it might be wrong, but does positive things for react
         val lookups: IArray[TsTypeRef] =
           TsTreeTraverse.collect(to) {

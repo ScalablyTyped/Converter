@@ -304,10 +304,11 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
 
           if (x.types.exists(_.isInstanceOf[TsTypeObject])) base.withIsRewritten
           else base
-        case IsTypeMapping(TsMemberTypeMapped(_, _, _, _, from: TsTypeRef, _, _)) if scope.isAbstract(from.name) =>
+        case IsTypeMapping(TsMemberTypeMapped(_, _, _, _, from: TsTypeRef, _, _, _)) if scope.isAbstract(from.name) =>
           Problems(IArray(NotStatic(scope, from)))
 
-        case IsTypeMapping(TsMemberTypeMapped(_, level, readOnly, keyRef, from, optionalize, to)) =>
+        case IsTypeMapping(TsMemberTypeMapped(_, level, readOnly, keyRef, from, as, optionalize, to)) =>
+          // todo: implement `as`
           evaluateKeys(scope, ld)(from).map { keys =>
             val all = IArray.fromTraversable(keys).map { key =>
               val to_        = if (key.isOptional) OptionalType(to) else to
