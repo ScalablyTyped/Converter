@@ -23,9 +23,9 @@ object Phase1Res {
     def name: TsIdentLibrary = source.libName
   }
 
-  case class LibraryPart(file: FileAndInlinesRec, deps: SortedMap[Source, Phase1Res]) extends Phase1Res
+  case class LibTsFile(file: FileAndInlinesRec, deps: SortedMap[Source, Phase1Res]) extends Phase1Res
 
-  case class FileAndInlinesRec(file: TsParsedFile, toInline: SortedMap[Source, LibraryPart])
+  case class FileAndInlinesRec(file: TsParsedFile, toInline: SortedMap[Source, LibTsFile])
 
   case class FileAndInlinesFlat(file: TsParsedFile, toInline: SortedMap[Source, TsParsedFile])
 
@@ -55,7 +55,7 @@ object Phase1Res {
 
       def go(m: Map[Source, Phase1Res]): Unit =
         m.foreach {
-          case (s: TsHelperFile, libPart: LibraryPart) =>
+          case (s: TsHelperFile, libPart: LibTsFile) =>
             if (!libParts.contains(s)) {
               def flatten(os: Option[Source], _f: FileAndInlinesRec): SortedMap[Source, TsParsedFile] = {
                 val first: SortedMap[Source, TsParsedFile] =
@@ -65,7 +65,7 @@ object Phase1Res {
                   }
                 val rest: SortedMap[Source, TsParsedFile] =
                   _f.toInline.flatMap {
-                    case (s2, x: LibraryPart) =>
+                    case (s2, x: LibTsFile) =>
                       go(x.deps)
                       flatten(Some(s2), x.file)
                   }

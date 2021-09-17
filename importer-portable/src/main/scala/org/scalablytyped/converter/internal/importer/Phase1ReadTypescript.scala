@@ -63,9 +63,9 @@ class Phase1ReadTypescript(
       case s @ Source.TsHelperFile(file, inLib, _) =>
         val L = logger.withContext(file)
 
-        def assertPartsOnly(m: SortedMap[Source, Phase1Res]): SortedMap[Source, LibraryPart] =
+        def assertFilesOnly(m: SortedMap[Source, Phase1Res]): SortedMap[Source, LibTsFile] =
           m.map {
-            case (s, part: LibraryPart) => s -> part
+            case (s, part: LibTsFile) => s -> part
             case (s, other) => sys.error(s"$s: Unexpected $other")
           }
 
@@ -107,7 +107,7 @@ class Phase1ReadTypescript(
             /* Ensure we resolved all modules referenced by a path directive */
             pathRefs <- PhaseRes.sequenceSet(pathRefsR ++ libRefsR)
             /* Assert all path directive referenced modules are files (not libraries) */
-            toInline <- getDeps(pathRefs.sorted).map(assertPartsOnly)
+            toInline <- getDeps(pathRefs.sorted).map(assertFilesOnly)
 
             withoutDirectives = parsed.copy(directives = IArray.Empty)
 
@@ -129,7 +129,15 @@ class Phase1ReadTypescript(
 
             /* look up all resulting dependencies */
             deps <- getDeps((withExternals.resolvedDeps ++ typeReferencedDeps ++ inferredDeps).sorted)
-          } yield LibraryPart(FileAndInlinesRec(withExternals.rewritten, toInline), deps)
+            withOrigin = {
+              val file           = withExternals.rewritten
+              lazy val shortName = s.file.path.last.split("\\.").drop(1).dropRight(2).mkString(".")
+              if (source.libName === TsIdent.std && shortName.nonEmpty) {
+                T.AddComments(Comments(List(Comment(s"/* standard $shortName */\n")))).visitTsParsedFile(())(file)
+              } else file
+            }
+
+          } yield LibTsFile(FileAndInlinesRec(withOrigin, toInline), deps)
         }
 
       case source: Source.TsLibSource =>
