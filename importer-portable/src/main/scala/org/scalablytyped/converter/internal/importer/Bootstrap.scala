@@ -1,7 +1,8 @@
 package org.scalablytyped.converter.internal
 package importer
 
-import org.scalablytyped.converter.internal.importer.Source.{FromFolder, StdLibSource, TsLibSource}
+import org.scalablytyped.converter.internal.importer.LibTsSource.{FromFolder, StdLibSource}
+import org.scalablytyped.converter.internal.seqs._
 import org.scalablytyped.converter.internal.ts.{TsIdent, TsIdentLibrary}
 
 import scala.collection.immutable.SortedSet
@@ -9,7 +10,7 @@ import scala.collection.immutable.SortedSet
 object Bootstrap {
 
   /**
-    * At this point we have scanned node_modules (and DT, if in CI) and know the location ([[Source]])
+    * At this point we have scanned node_modules (and DT, if in CI) and know the location ([[LibTsSource]])
     *  of all libraries it's possible to import.
     *
     * @param initialLibs determines if all the libraries explicitly wanted by the user were available
@@ -17,7 +18,7 @@ object Bootstrap {
   case class Bootstrapped(
       inputFolders:    IArray[InFolder],
       libraryResolver: LibraryResolver,
-      initialLibs:     Either[Unresolved, Vector[TsLibSource]],
+      initialLibs:     Either[Unresolved, Vector[LibTsSource]],
   )
 
   def forCi(
@@ -44,10 +45,10 @@ object Bootstrap {
 
     val libraryResolver = new LibraryResolver(stdLibSource, allSources, conversion.ignoredLibs)
 
-    val initial: Either[Unresolved, Vector[TsLibSource]] =
+    val initial: Either[Unresolved, Vector[LibTsSource]] =
       wantedLibs match {
         case sets.EmptySet() => Right(allSources.toVector)
-        case wantedLibs      => libraryResolver.resolveAll(wantedLibs)
+        case wantedLibs      => resolveAll(libraryResolver, wantedLibs)
       }
 
     Bootstrapped(inputFolders, libraryResolver, initial)
@@ -80,19 +81,19 @@ object Bootstrap {
     val inputFolders: IArray[InFolder] =
       IArray.fromOptions(`@types`, Some(fromFolder))
 
-    val allSources: IArray[Source.FromFolder] =
+    val allSources: IArray[LibTsSource.FromFolder] =
       findSources(inputFolders)
 
     val libraryResolver = new LibraryResolver(stdLibSource, allSources, conversion.ignoredLibs)
 
-    val initialLibs: Either[Unresolved, Vector[TsLibSource]] =
-      libraryResolver.resolveAll(wantedLibs)
+    val initialLibs: Either[Unresolved, Vector[LibTsSource]] =
+      resolveAll(libraryResolver, wantedLibs)
 
     Bootstrapped(inputFolders, libraryResolver, initialLibs)
   }
 
-  def findSources(folders: IArray[InFolder]): IArray[Source.FromFolder] =
-    folders.foldLeft[IArray[Source.FromFolder]](IArray.Empty) {
+  def findSources(folders: IArray[InFolder]): IArray[LibTsSource.FromFolder] =
+    folders.foldLeft[IArray[LibTsSource.FromFolder]](IArray.Empty) {
       case (foundSources, next) =>
         val foundNames = foundSources.map(_.libName).toSet
         val newSources = forFolder(next).filterNot(s => foundNames(s.libName))
@@ -100,7 +101,7 @@ object Bootstrap {
         foundSources ++ newSources
     }
 
-  private def forFolder(folder: InFolder): IArray[Source.FromFolder] =
+  private def forFolder(folder: InFolder): IArray[LibTsSource.FromFolder] =
     IArray.fromTraversable(
       os.list(folder.path)
         .collect { case dir if os.isDir(dir) => dir }
@@ -112,8 +113,19 @@ object Bootstrap {
                 .map(nestedPath => FromFolder(InFolder(nestedPath), TsIdentLibrary(s"${path.last}/${nestedPath.last}")))
           case path => List(FromFolder(InFolder(path), TsIdentLibrary(path.last)))
         }
-        .filter(_.hasSources),
+        .filter(s => LibTsSource.hasTypescriptSources(s.folder)),
     )
+
+  def resolveAll(
+      libraryResolver: LibraryResolver,
+      libs:            SortedSet[TsIdentLibrary],
+  ): Either[Unresolved, Vector[LibTsSource]] =
+    libs.toVector
+      .map(libraryResolver.library)
+      .partitionCollect2({ case LibraryResolver.Found(x) => x }, { case LibraryResolver.NotAvailable(name) => name }) match {
+      case (allFound, Seq(), _) => Right(allFound)
+      case (_, notAvailable, _) => Left(Unresolved(notAvailable))
+    }
 
   case class Unresolved(notAvailable: Vector[TsIdentLibrary]) {
     def msg =

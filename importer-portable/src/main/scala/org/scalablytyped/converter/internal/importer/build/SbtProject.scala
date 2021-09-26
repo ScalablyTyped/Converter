@@ -11,7 +11,7 @@ import scala.collection.mutable
 
 case class SbtProject(name: String, reference: Dep.Concrete)(
     val baseDir:            os.Path,
-    val deps:               Map[Source, PublishedSbtProject],
+    val deps:               Map[LibTsSource, PublishedSbtProject],
     val metadata:           Option[Npmjs.Data],
 )
 
@@ -23,13 +23,13 @@ case class PublishedSbtProject(project: SbtProject)(
 
 object PublishedSbtProject {
   object Unpack {
-    def unapply(_m: SortedMap[Source, PublishedSbtProject]): Some[SortedMap[Source, PublishedSbtProject]] =
+    def unapply(_m: SortedMap[LibTsSource, PublishedSbtProject]): Some[SortedMap[LibTsSource, PublishedSbtProject]] =
       Some(apply(_m))
 
-    def apply(_m: SortedMap[Source, PublishedSbtProject]): SortedMap[Source, PublishedSbtProject] = {
-      val ret = mutable.HashMap.empty[Source, PublishedSbtProject]
+    def apply(_m: SortedMap[LibTsSource, PublishedSbtProject]): SortedMap[LibTsSource, PublishedSbtProject] = {
+      val ret = mutable.HashMap.empty[LibTsSource, PublishedSbtProject]
 
-      def go(libs: mutable.Map[Source, PublishedSbtProject], ds: Map[Source, PublishedSbtProject]): Unit =
+      def go(libs: mutable.Map[LibTsSource, PublishedSbtProject], ds: Map[LibTsSource, PublishedSbtProject]): Unit =
         ds.foreach {
           case (s, lib) =>
             if (!libs.contains(s)) {

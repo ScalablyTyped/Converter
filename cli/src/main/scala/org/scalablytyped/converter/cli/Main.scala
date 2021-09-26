@@ -199,8 +199,8 @@ object Main {
 
         val packageJson = Json.force[PackageJson](packageJsonPath)
 
-        val projectSource: Option[Source.FromFolder] =
-          if (includeProject) Some(Source.FromFolder(InFolder(inDir), TsIdentLibrary(inDir.last))) else None
+        val projectSource: Option[LibTsSource.FromFolder] =
+          if (includeProject) Some(LibTsSource.FromFolder(InFolder(inDir), TsIdentLibrary(inDir.last))) else None
 
         val wantedLibs: SortedSet[TsIdentLibrary] =
           libsFromCmdLine match {
@@ -215,7 +215,7 @@ object Main {
 
         val bootstrapped = Bootstrap.fromNodeModules(InFolder(nodeModulesPath), conversion, wantedLibs)
 
-        val sources: Vector[Source.TsLibSource] = {
+        val sources: Vector[LibTsSource] = {
           bootstrapped.initialLibs match {
             case Left(unresolved) => sys.error(unresolved.msg)
             case Right(initial)   => projectSource.foldLeft(initial)(_ :+ _)
@@ -247,8 +247,8 @@ object Main {
           Duration.Inf,
         )
 
-        val Pipeline: RecPhase[Source, PublishedSbtProject] =
-          RecPhase[Source]
+        val Pipeline: RecPhase[LibTsSource, PublishedSbtProject] =
+          RecPhase[LibTsSource]
             .next(
               new Phase1ReadTypescript(
                 calculateLibraryVersion = PackageJsonOnly,
@@ -291,15 +291,15 @@ object Main {
               "build",
             )
 
-        val results: Map[Source, PhaseRes[Source, PublishedSbtProject]] =
+        val results: Map[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]] =
           sources
-            .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, (_: Source) => logger.void, NoListener))
+            .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, (_: LibTsSource) => logger.void, NoListener))
             .toMap
 
         val td = System.currentTimeMillis - t0
         logger.warn(td)
 
-        val failures: Map[Source, Either[Throwable, String]] =
+        val failures: Map[LibTsSource, Either[Throwable, String]] =
           results.collect { case (_, PhaseRes.Failure(errors)) => errors }.reduceOption(_ ++ _).getOrElse(Map.empty)
 
         if (failures.nonEmpty) {
@@ -317,8 +317,8 @@ object Main {
 
           System.exit(1)
         } else {
-          val allSuccesses: Map[Source, PublishedSbtProject] = {
-            def go(source: Source, p: PublishedSbtProject): Map[Source, PublishedSbtProject] =
+          val allSuccesses: Map[LibTsSource, PublishedSbtProject] = {
+            def go(source: LibTsSource, p: PublishedSbtProject): Map[LibTsSource, PublishedSbtProject] =
               Map(source -> p) ++ p.project.deps.flatMap { case (k, v) => go(k, v) }
 
             results.collect { case (s, PhaseRes.Ok(res)) => go(s, res) }.reduceOption(_ ++ _).getOrElse(Map.empty)

@@ -437,28 +437,6 @@ object IArray {
       fromArrayAndSize[A](ret, o)
     }
   }
-
-  @inline implicit final class IArrayOptionOps[A <: AnyRef](val as: IArray[Option[A]]) extends AnyRef {
-    def sequenceOption: Option[IArray[A]] = {
-      if (as.isEmpty) {
-        return Some(IArray.Empty)
-      }
-
-      val newArray = Array.ofDim[AnyRef](as.length)
-      var i        = 0
-      while (i < as.length) {
-        as(i) match {
-          case Some(value) => newArray(i) = value
-          case None        => return None
-        }
-
-        i += 1
-      }
-
-      Some(fromArrayAndSize[A](newArray, as.length))
-    }
-
-  }
 }
 
 final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: Int) extends Serializable { self =>

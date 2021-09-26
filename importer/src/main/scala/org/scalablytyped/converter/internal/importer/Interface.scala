@@ -10,7 +10,7 @@ import scala.collection.mutable
 import scala.util.Try
 
 object Interface {
-  def apply[T](debugMode: Boolean)(f: PhaseListener[Source] => T) = {
+  def apply[T](debugMode: Boolean)(f: PhaseListener[LibTsSource] => T) = {
     val i = new Interface(debugMode)
     i.start()
     try {
@@ -20,18 +20,17 @@ object Interface {
     }
   }
 
-  private class Interface(debugMode: Boolean) extends Thread with PhaseListener[Source] {
+  private class Interface(debugMode: Boolean) extends Thread with PhaseListener[LibTsSource] {
 
     import PhaseListener._
     private val t0     = System.currentTimeMillis
-    private val files  = mutable.Set.empty[InFile]
-    private val status = mutable.Map.empty[TsIdentLibrary, Event[Source]]
-    private var failed = List.empty[(TsIdentLibrary, Failure[Source])]
+    private val status = mutable.Map.empty[TsIdentLibrary, Event[LibTsSource]]
+    private var failed = List.empty[(TsIdentLibrary, Failure[LibTsSource])]
 
-    private def ignored   = status.collect { case (lib, _: Ignored[Source]) => lib }
-    private def active    = status.collect { case (lib, x: Started[Source]) => (lib, x) }
-    private def blocked   = status.collect { case (lib, x: Blocked[Source]) => (lib, x) }
-    private def succeeded = status.collect { case (lib, x: Success[Source]) => lib -> x }
+    private def ignored   = status.collect { case (lib, _: Ignored[LibTsSource]) => lib }
+    private def active    = status.collect { case (lib, x: Started[LibTsSource]) => (lib, x) }
+    private def blocked   = status.collect { case (lib, x: Blocked[LibTsSource]) => (lib, x) }
+    private def succeeded = status.collect { case (lib, x: Success[LibTsSource]) => lib -> x }
     private val hasExited = AtomicBoolean(false)
 
     def finish(): Unit = {
@@ -40,7 +39,7 @@ object Interface {
       hasExited.set(true)
     }
 
-    override def on(phaseName: String, id: Source, event: PhaseListener.Event[Source]): Unit =
+    override def on(phaseName: String, id: LibTsSource, event: PhaseListener.Event[LibTsSource]): Unit =
       synchronized {
         event match {
           case fail @ Failure(_, _) =>
@@ -48,12 +47,7 @@ object Interface {
           case _ => ()
         }
 
-        id match {
-          case Source.TsHelperFile(file, _, _) =>
-            files += file
-          case x: Source =>
-            status(x.libName) = event
-        }
+        status(id.libName) = event
         ()
       }
 
@@ -72,7 +66,6 @@ object Interface {
       val numSucceded        = succeeded.size
       val numFailed          = failed.size
       val numIgnored         = ignored.size
-      val numFiles           = files.size
       val td                 = (System.currentTimeMillis() - t0) / 1000.0
       val numProcessed       = numFailed + numSucceded
       val processedPerSecond = td / numProcessed
@@ -87,7 +80,6 @@ object Interface {
       row("Successes", numSucceded)
       row("Failed", numFailed)
       row("Ignored", numIgnored)
-      row("Files", numFiles)
       row("Seconds elapsed", td)
       row("Seconds per library", processedPerSecond)
 
@@ -111,16 +103,10 @@ object Interface {
         case (lib, failure) =>
           val errorStrings = failure.errors
             .map {
-              case (lib: Source.TsLibSource, Left(th)) =>
+              case (lib: LibTsSource, Left(th)) =>
                 s"dependency ${lib.libName.value} failed ${th.getClass.getSimpleName}: ${th.getMessage}"
-              case (lib: Source.TsLibSource, Right(str)) =>
+              case (lib: LibTsSource, Right(str)) =>
                 s"dependency ${lib.libName.value} failed: $str"
-              case (file: Source.TsHelperFile, _) if file.inLib.libName =/= lib =>
-                s"dependency ${file.inLib.libName.value} failed"
-              case (file: Source.TsHelperFile, Left(th)) =>
-                s"file ${file.file.path} failed ${th.getClass.getSimpleName}: ${th.getMessage}"
-              case (file: Source.TsHelperFile, Right(str)) =>
-                s"file ${file.file.path} failed $str"
             }
 
           val errorMsg = errorStrings

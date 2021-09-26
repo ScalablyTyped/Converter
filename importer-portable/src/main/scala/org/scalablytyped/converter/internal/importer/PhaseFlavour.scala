@@ -9,18 +9,18 @@ import org.scalablytyped.converter.internal.scalajs.transforms.{Mangler, SetPriv
 import scala.collection.immutable.SortedSet
 
 class PhaseFlavour(flavour: FlavourImpl, maybePrivateWithin: Option[Name])
-    extends Phase[Source, LibScalaJs, LibScalaJs] {
+    extends Phase[LibTsSource, LibScalaJs, LibScalaJs] {
 
   override def apply(
-      source:     Source,
+      source:     LibTsSource,
       lib:        LibScalaJs,
-      getDeps:    GetDeps[Source, LibScalaJs],
+      getDeps:    GetDeps[LibTsSource, LibScalaJs],
       isCircular: IsCircular,
       _logger:    Logger[Unit],
-  ): PhaseRes[Source, LibScalaJs] = {
+  ): PhaseRes[LibTsSource, LibScalaJs] = {
     val logger = _logger.withContext("flavour", flavour.toString)
 
-    getDeps((lib.dependencies.keys: Iterable[Source]).to[SortedSet]).map {
+    getDeps((lib.dependencies.keys: Iterable[LibTsSource]).to[SortedSet]).map {
       case LibScalaJs.Unpack(deps) =>
         val originalScope = new TreeScope.Root(
           libName       = lib.scalaName,

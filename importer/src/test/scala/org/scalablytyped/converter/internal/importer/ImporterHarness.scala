@@ -3,12 +3,11 @@ package importer
 
 import java.io.StringWriter
 import java.nio.file.Files
-
 import ammonite.ops.{%, %%, ShelloutException}
 import com.olvind.logging
 import com.olvind.logging.{LogLevel, LogRegistry}
 import org.scalablytyped.converter.Selection
-import org.scalablytyped.converter.internal.importer.Source.StdLibSource
+import org.scalablytyped.converter.internal.importer
 import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, PublishedSbtProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.maps._
@@ -58,20 +57,20 @@ trait ImporterHarness extends AnyFunSuite {
       source:             InFolder,
       targetFolder:       os.Path,
       pedantic:           Boolean,
-      logRegistry:        LogRegistry[Source, TsIdentLibrary, StringWriter],
+      logRegistry:        LogRegistry[LibTsSource, TsIdentLibrary, StringWriter],
       publishLocalFolder: os.Path,
       flavour:            FlavourImpl,
       maybePrivateWithin: Option[Name],
-  ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
-    val stdLibSource: StdLibSource =
-      StdLibSource(InFolder(source.path), IArray(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
+  ): PhaseRes[LibTsSource, SortedMap[LibTsSource, PublishedSbtProject]] = {
+    val stdLibSource: LibTsSource.StdLibSource =
+      LibTsSource.StdLibSource(InFolder(source.path), IArray(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
 
     val allSources = Bootstrap.findSources(IArray(source))
     val ignored    = Set.empty[TsIdentLibrary]
     val resolver   = new LibraryResolver(stdLibSource, allSources, ignored)
 
-    val phase: RecPhase[Source, PublishedSbtProject] =
-      RecPhase[Source]
+    val phase: RecPhase[LibTsSource, PublishedSbtProject] =
+      RecPhase[LibTsSource]
         .next(
           new Phase1ReadTypescript(
             resolve                 = resolver,
@@ -111,9 +110,9 @@ trait ImporterHarness extends AnyFunSuite {
           "build",
         )
 
-    val results: SortedMap[Source, PhaseRes[Source, PublishedSbtProject]] =
+    val results: SortedMap[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]] =
       allSources
-        .map(s => (s: Source) -> PhaseRunner.apply(phase, logRegistry.get, PhaseListener.NoListener)(s))
+        .map(s => (s: LibTsSource) -> PhaseRunner.apply(phase, logRegistry.get, PhaseListener.NoListener)(s))
         .toMap
         .toSorted
 
@@ -158,7 +157,7 @@ trait ImporterHarness extends AnyFunSuite {
         val checkFolder = testFolder.path / (s"$flavourFolderPart-${version.scala.binVersion}")
 
         val logRegistry =
-          new LogRegistry[Source, TsIdentLibrary, StringWriter](
+          new LogRegistry[LibTsSource, TsIdentLibrary, StringWriter](
             testLogger,
             _.libName,
             _ => logging.appendable(new StringWriter()),

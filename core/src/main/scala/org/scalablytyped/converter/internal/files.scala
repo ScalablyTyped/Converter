@@ -22,10 +22,12 @@ object Synced {
 final case class InFile(path: os.Path) {
   def folder: InFolder =
     InFolder(path / os.up)
+  override val toString: String = path.toString()
 }
 
 object InFile {
   implicit object InFileKey extends IsKey[InFile]
+  implicit val ordering: Ordering[InFile] = Ordering.by(_.toString)
 }
 
 final case class InFolder(path: os.Path) {

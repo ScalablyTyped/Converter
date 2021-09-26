@@ -2,7 +2,6 @@ package org.scalablytyped.converter.internal
 package importer
 
 import com.olvind.logging.Logger
-import org.scalablytyped.converter.internal.importer.Phase1Res.{LibTs, UnpackLibs}
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs._
 import org.scalablytyped.converter.internal.scalajs.transforms.CleanIllegalNames
@@ -17,7 +16,7 @@ class ImportTree(
     enableScalaJsDefined: Boolean,
 ) {
   def apply(lib: LibTs, logger: Logger[Unit]): PackageTree = {
-    val deps = UnpackLibs(lib.dependencies).map {
+    val deps = lib.dependencies.map {
       case (source, depLib) => source -> depLib.parsed
     }
 

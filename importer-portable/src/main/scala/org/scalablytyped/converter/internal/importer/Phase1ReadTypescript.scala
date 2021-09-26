@@ -3,17 +3,14 @@ package importer
 
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.Selection
-import org.scalablytyped.converter.internal.importer.Phase1Res._
-import org.scalablytyped.converter.internal.importer.Source.TsSource
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
-import org.scalablytyped.converter.internal.seqs.TraversableOps
-import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 import org.scalablytyped.converter.internal.ts.modules.ModuleAsGlobalNamespace
 import org.scalablytyped.converter.internal.ts.{transforms => T, _}
 
-import scala.collection.immutable.SortedMap
+import scala.collection.immutable.{SortedMap, SortedSet}
+import scala.collection.mutable
 
 /**
   * This phase parses files, implements the module system, and "implements" a bunch of typescript features by rewriting the tree.
@@ -27,7 +24,7 @@ class Phase1ReadTypescript(
     pedantic:                Boolean,
     parser:                  InFile => Either[String, TsParsedFile],
     expandTypeMappings:      Selection[TsIdentLibrary],
-) extends Phase[Source, Source, Phase1Res] {
+) extends Phase[LibTsSource, LibTsSource, LibTs] {
 
   implicit val InFileFormatter: Formatter[InFile] =
     inFile =>
@@ -45,188 +42,215 @@ class Phase1ReadTypescript(
     (1 to modName.fragments.length).exists(n => ignoredModulePrefixes(modName.fragments.take(n)))
 
   override def apply(
-      source:     Source,
-      _1:         Source,
-      getDeps:    GetDeps[Source, Phase1Res],
+      source:     LibTsSource,
+      _1:         LibTsSource,
+      getDeps:    GetDeps[LibTsSource, LibTs],
       isCircular: IsCircular,
       logger:     Logger[Unit],
-  ): PhaseRes[Source, Phase1Res] = {
-
+  ): PhaseRes[LibTsSource, LibTs] = {
     source match {
-      case source: Source.TsLibSource if ignored(source.libName) => PhaseRes.Ignore()
-      case _ if isCircular => PhaseRes.Ignore()
-      case Source.TsHelperFile(file, _, _) if !file.path.last.endsWith(".d.ts") =>
-        PhaseRes.Ignore()
-      case h: Source.TsHelperFile if ignoreModule(h.moduleNames) =>
-        PhaseRes.Ignore()
-
-      case s @ Source.TsHelperFile(file, inLib, _) =>
-        val L = logger.withContext(file)
-
-        def assertFilesOnly(m: SortedMap[Source, Phase1Res]): SortedMap[Source, LibTsFile] =
-          m.map {
-            case (s, part: LibTsFile) => s -> part
-            case (s, other) => sys.error(s"$s: Unexpected $other")
+      case source if ignored(source.libName) || isCircular => PhaseRes.Ignore()
+      case source =>
+        val includedFiles: IArray[InFile] =
+          source match {
+            case LibTsSource.StdLibSource(_, files, _) =>
+              PathsFromTsLibSource.filesFrom(files.head.folder)
+            case f @ LibTsSource.FromFolder(_, TsIdentLibrarySimple("typescript")) =>
+              /* don't include std */
+              f.shortenedFiles
+            case f: LibTsSource.FromFolder =>
+              /* There are often whole trees parallel to what is specified in `typings` (or similar). This ignores them */
+              val bound = f.shortenedFiles.headOption.map(_.folder).getOrElse(f.folder)
+              PathsFromTsLibSource.filesFrom(bound)
           }
 
-        def orWarn(ot: Option[Source])(onEmpty: String): PhaseRes[Source, Source] =
-          ot match {
-            case Some(value) => PhaseRes.Ok(value)
-            case None =>
-              L.warn(onEmpty)
-              PhaseRes.Ignore()
-          }
+        val includedViaDirective = mutable.Set.empty[InFile]
 
-        PhaseRes.fromEither(source, parser(file)).flatMap { parsed: TsParsedFile =>
-          val (
-            pathRefsR: Set[PhaseRes[Source, Source]],
-            typeRefsR: Set[PhaseRes[Source, Source]],
-            libRefsR:  Set[PhaseRes[Source, Source]],
-            _:         Set[Directive],
-          ) =
-            parsed.directives.toSet
-              .partitionCollect3(
-                {
-                  case r @ Directive.PathRef(value) =>
-                    val maybeSource: Option[Source] =
-                      LibraryResolver.file(file.folder, value).map(Source.helperFile(inLib))
-                    orWarn(maybeSource)(s"Couldn't resolve $r")
-                }, {
-                  case Directive.TypesRef(value) =>
-                    val maybeSource: Option[Source] = resolve.module(s, value).map(_._1)
-                    orWarn(maybeSource)(s"Couldn't resolve $value")
-                }, {
-                  case r @ Directive.LibRef(value) if inLib.libName === TsIdent.std =>
-                    val maybeSource: Option[Source] =
-                      LibraryResolver.file(resolve.stdLib.folder, s"lib.$value.d.ts").map(Source.helperFile(inLib))
-                    orWarn(maybeSource)(s"Couldn't resolve $r")
-                },
-              )
+        lazy val preparingFiles: SortedMap[InFile, Lazy[Option[(TsParsedFile, Set[LibTsSource])]]] =
+          includedFiles.sorted
+            .map { file =>
+              file -> Lazy {
+                parser(file) match {
+                  case Left(msg) =>
+                    logger.withContext(file).warn(s"Couldn't parse: $msg")
+                    None
+                  case Right(parsed) =>
+                    val deps = Set.newBuilder[LibTsSource]
 
-          for {
-            /* Ensure we resolved all modules referenced by a path directive */
-            pathRefs <- PhaseRes.sequenceSet(pathRefsR ++ libRefsR)
-            /* Assert all path directive referenced modules are files (not libraries) */
-            toInline <- getDeps(pathRefs.sorted).map(assertFilesOnly)
+                    val fileLogger = logger.withContext(file)
+                    fileLogger.info(s"Preprocessing")
 
-            withoutDirectives = parsed.copy(directives = IArray.Empty)
+                    val toInline: IArray[Either[Directive.Ref, InFile]] =
+                      parsed.directives.collect {
+                        case dir @ Directive.PathRef(stringPath) =>
+                          LibraryResolver.file(file.folder, stringPath).toRight(dir)
+                        case dir @ Directive.LibRef(value) if source.libName === TsIdent.std =>
+                          LibraryResolver.file(resolve.stdLib.folder, s"lib.$value.d.ts").toRight(dir)
+                      }
 
-            /* Ensure we resolved all modules referenced by a type reference directive */
-            typeReferencedDeps <- PhaseRes.sequenceSet(typeRefsR)
+                    val moduleNames = LibraryResolver.moduleNameFor(source, file)
 
-            /* Resolve all references to other modules in `from` clauses, rename modules */
-            withExternals = ResolveExternalReferences(resolve, source.asInstanceOf[TsSource], withoutDirectives, L)
+                    val withInferredModule = modules.InferredDefaultModule(parsed, moduleNames.head, logger)
 
-            inferredDepNames = modules.InferredDependency(
-              inLib.libName,
-              withExternals.rewritten,
-              withExternals.unresolvedDeps,
-              L,
-            )
-            inferredDeps <- PhaseRes.sequenceSet(
-              inferredDepNames.map(n => orWarn(resolve.module(s, n.value).map(_._1))(s"Couldn't resolve ${n.value}")),
-            )
+                    withInferredModule.directives.foreach {
+                      case dir @ Directive.TypesRef(value) =>
+                        resolve.module(source, file.folder, value) match {
+                          case Some(ResolvedModule.NotLocal(depSource, _)) =>
+                            deps += depSource
+                          case Some(ResolvedModule.Local(depSource, _)) =>
+                            logger.fatal(s"unexpected typeref from local file $depSource")
+                          case _ =>
+                            logger.warn(s"directives: couldn't resolve $dir")
+                        }
+                      case _ => ()
+                    }
 
-            /* look up all resulting dependencies */
-            deps <- getDeps((withExternals.resolvedDeps ++ typeReferencedDeps ++ inferredDeps).sorted)
-            withOrigin = {
-              val file           = withExternals.rewritten
-              lazy val shortName = s.file.path.last.split("\\.").drop(1).dropRight(2).mkString(".")
-              if (source.libName === TsIdent.std && shortName.nonEmpty) {
-                T.AddComments(Comments(List(Comment(s"/* standard $shortName */\n")))).visitTsParsedFile(())(file)
-              } else file
-            }
+                    /* Resolve all references to other modules in `from` clauses, rename modules */
+                    val withExternals: ResolveExternalReferences.Result =
+                      ResolveExternalReferences(resolve, source, file.folder, withInferredModule, logger)
 
-          } yield LibTsFile(FileAndInlinesRec(withOrigin, toInline), deps)
-        }
+                    withExternals.resolvedModules.foreach {
+                      case ResolvedModule.NotLocal(source, _) => deps += source
+                      case _                                  => ()
+                    }
 
-      case source: Source.TsLibSource =>
-        val fileSources: Set[Source.TsHelperFile] =
-          PathsFromTsLibSource(source)
+                    val inferredDepNames: Set[TsIdentLibrary] =
+                      modules.InferredDependency(
+                        source.libName,
+                        withExternals.rewritten,
+                        withExternals.unresolvedModules,
+                        logger,
+                      )
 
-        val stdlibSourceOpt: Option[Source] =
-          if (fileSources.exists(_.path === resolve.stdLib.path)) None else Option(resolve.stdLib)
+                    inferredDepNames.foreach { libraryName =>
+                      resolve.module(source, file.folder, libraryName.value) match {
+                        case Some(ResolvedModule.NotLocal(dep, _)) =>
+                          deps += dep
+                        case _ =>
+                          logger.warn(s"Couldn't resolve inferred dependency ${libraryName.value}")
+                      }
+                    }
 
-        if (fileSources.isEmpty) {
-          logger
-            .withContext("path", source.folder)
-            .warn(s"No typescript definitions files found for library ${source.libName.value}")
-          PhaseRes.Ignore()
-        } else {
-          val declaredDependencies =
-            if (stdlibSourceOpt.isEmpty) Set.empty
-            else
-              source.packageJsonOpt.getOrElse(PackageJson.Empty).allLibs(dev = false, peer = true).flatMap {
-                case (depName, _) =>
-                  resolve.library(depName) match {
-                    case LibraryResolver.Found(source) =>
-                      Some(source)
-                    case LibraryResolver.Ignored(_) =>
-                      None
-                    case LibraryResolver.NotAvailable(name) =>
-                      logger.fatalMaybe(s"Could not find typescript definitions for dependency ${name.value}", pedantic)
-                      None
-                  }
-              }
+                    val withInlined: TsParsedFile =
+                      toInline.distinct.foldLeft(withExternals.rewritten) {
+                        case (parsed, Right(referencedFile)) =>
+                          val referencedFileLogger = fileLogger.withContext(referencedFile)
 
-          getDeps((fileSources ++ declaredDependencies ++ stdlibSourceOpt).sorted).map {
-            case Unpack(
-                libParts: SortedMap[Source.TsHelperFile, FileAndInlinesFlat],
-                deps:     SortedMap[Source.TsLibSource, LibTs],
-                ) =>
-              val scope: TsTreeScope.Root =
-                TsTreeScope(source.libName, pedantic, deps.map { case (source, lib) => source -> lib.parsed }, logger)
+                          preparingFiles.get(referencedFile).flatMap(_.get).flatten match {
+                            case Some((toInline, depsForInline)) if !toInline.isModule =>
+                              includedViaDirective += referencedFile
+                              deps ++= depsForInline
+                              FlattenTrees.mergeFile(parsed, toInline)
+                            case Some((modFile, _)) if modFile.isModule =>
+                              referencedFileLogger.warn("directives: referenced file was a module")
+                              parsed
+                            case _ =>
+                              referencedFileLogger.warn("directives: reference caused circular graph")
+                              parsed
+                          }
+                        case (parsed, Left(dir)) =>
+                          fileLogger.warn(s"directives: couldn't resolve $dir")
+                          parsed
+                      }
 
-              val preprocessed: IArray[TsParsedFile] =
-                libParts.mapToIArray {
-                  case (helperSource, file) =>
-                    logger.info(s"Preprocessing $helperSource")
-                    val _1 = modules.InferredDefaultModule(file.file, helperSource.moduleNames.head, logger)
-                    val _2 = FlattenTrees(_1 +: file.toInline.toIArrayValues(keep = !_.isModule))
-
-                    val _3 = helperSource.moduleNames match {
-                      case IArray.exactlyOne(_) => _2
+                    val _3 = moduleNames match {
+                      case IArray.exactlyOne(_) => withInlined
                       case more =>
-                        _2.copy(members = _2.members.map {
+                        withInlined.copy(members = withInlined.members.map {
                           case m: TsDeclModule if more.contains(m.name) =>
                             m.copy(comments = m.comments + Marker.ModuleAliases(more.filterNot(_ === m.name)))
                           case other => other
                         })
                     }
-                    T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_3)
+                    val _4 = T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_3)
+
+                    Some((_4, deps.result()))
                 }
-
-              val involvesReact = {
-                val react = TsIdentLibrarySimple("react")
-                source.libName === react || deps.exists { case (s, _) => s.libName === react }
               }
+            }
+            .toMap
+            .toSorted
 
-              logger.withContext("path", source.folder).warn(s"Processing ${source.libName.value}")
+        val preparedFiles: IArray[(TsParsedFile, Set[LibTsSource])] = {
+          // evaluate all, don't refactor and combine this with other steps
+          val base: SortedMap[InFile, (TsParsedFile, Set[LibTsSource])] =
+            source match {
+              case LibTsSource.StdLibSource(_, files, _) =>
+                val b = SortedMap.newBuilder[InFile, (TsParsedFile, Set[LibTsSource])]
+                files.foreach { file =>
+                  for {
+                    found <- preparingFiles.get(file)
+                    evaluated <- found.get
+                    evaluatedYes <- evaluated
+                  } b += ((file, evaluatedYes))
+                }
+                b.result()
+              case LibTsSource.FromFolder(_, _) =>
+                preparingFiles.mapNotNone { case (_, v) => v.get.flatten }
+            }
 
-              val flattened = FlattenTrees(preprocessed)
-
-              val filteredModules: TsParsedFile =
-                if (ignoredModulePrefixes.nonEmpty)
-                  flattened.copy(members = flattened.members.filterNot {
-                    case x: TsDeclModule      => ignoreModule(x.name)
-                    case x: TsAugmentedModule => ignoreModule(x.name)
-                    case _ => false
-                  })
-                else flattened
-
-              val finished = Phase1ReadTypescript
-                .Pipeline(scope, source.libName, expandTypeMappings, involvesReact)
-                .foldLeft(filteredModules) { case (acc, f) => f(acc) }
-
-              val version = calculateLibraryVersion(
-                source.folder,
-                source.isInstanceOf[Source.StdLibSource],
-                source.packageJsonOpt,
-                finished.comments,
-              )
-
-              LibTs(source)(version, finished, deps)
+          base.flatMapToIArray {
+            case (file, _) if includedViaDirective(file) => Empty
+            case (_, fileResult)                         => IArray(fileResult)
           }
+        }
+
+        if (preparedFiles.isEmpty) {
+          logger.warn(s"No typescript definitions files found for library ${source.libName.value}")
+          return PhaseRes.Ignore()
+        }
+
+        val flattened     = FlattenTrees(preparedFiles.map(_._1))
+        val depsFromFiles = preparedFiles.foldLeft(Set.empty[LibTsSource]) { case (acc, (_, deps)) => acc ++ deps }
+
+        val withFilteredModules: TsParsedFile =
+          if (ignoredModulePrefixes.nonEmpty)
+            flattened.copy(members = flattened.members.filterNot {
+              case x: TsDeclModule      => ignoreModule(x.name)
+              case x: TsAugmentedModule => ignoreModule(x.name)
+              case _ => false
+            })
+          else flattened
+
+        val stdlibSourceOpt: Option[LibTsSource] =
+          if (includedFiles.exists(_.path === resolve.stdLib.path)) None else Option(resolve.stdLib)
+
+        val depsDeclared: SortedSet[LibTsSource] =
+          if (stdlibSourceOpt.isEmpty) SortedSet.empty
+          else
+            source.packageJsonOpt.getOrElse(PackageJson.Empty).allLibs(dev = false, peer = true).keySet.flatMap {
+              depName =>
+                resolve.library(depName) match {
+                  case LibraryResolver.Found(source) =>
+                    Some(source)
+                  case LibraryResolver.Ignored(_) =>
+                    None
+                  case LibraryResolver.NotAvailable(name) =>
+                    logger.warn(s"Could not find typescript definitions for dependency ${name.value}")
+                    None
+                }
+            }
+
+        getDeps(depsDeclared ++ stdlibSourceOpt ++ depsFromFiles).map { deps =>
+          val scope: TsTreeScope.Root =
+            TsTreeScope(source.libName, pedantic, deps.map { case (source, lib) => source -> lib.parsed }, logger)
+
+          val involvesReact = {
+            val react = TsIdentLibrarySimple("react")
+            source.libName === react || deps.exists { case (s, _) => s.libName === react }
+          }
+          val finished = Phase1ReadTypescript
+            .Pipeline(scope, source.libName, expandTypeMappings, involvesReact)
+            .foldLeft(withFilteredModules) { case (acc, f) => f(acc) }
+
+          val version = calculateLibraryVersion(
+            source.folder,
+            source.isInstanceOf[LibTsSource.StdLibSource],
+            source.packageJsonOpt,
+            finished.comments,
+          )
+
+          LibTs(source)(version, finished, deps)
         }
     }
   }

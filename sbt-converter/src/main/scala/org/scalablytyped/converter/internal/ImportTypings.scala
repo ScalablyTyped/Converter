@@ -57,7 +57,7 @@ object ImportTypings {
       fromFolder:         InFolder,
       targetFolder:       os.Path,
       compiler:           Compiler,
-  ): Either[Map[Source, Either[Throwable, String]], Output] = {
+  ): Either[Map[LibTsSource, Either[Throwable, String]], Output] = {
 
     if (input.conversion.expandTypeMappings =/= EnabledTypeMappingExpansion.DefaultSelection) {
       logger.warn("Changing stInternalExpandTypeMappings not encouraged. It might blow up")
@@ -78,7 +78,7 @@ object ImportTypings {
 
     val cachedParser = PersistingParser(parseCacheDirOpt, bootstrapped.inputFolders, logger)
 
-    val Phases: RecPhase[Source, PublishedSbtProject] = RecPhase[Source]
+    val Phases: RecPhase[LibTsSource, PublishedSbtProject] = RecPhase[LibTsSource]
       .next(
         new Phase1ReadTypescript(
           resolve                 = bootstrapped.libraryResolver,
@@ -121,20 +121,20 @@ object ImportTypings {
         "build",
       )
 
-    val results: SortedMap[Source, PhaseRes[Source, PublishedSbtProject]] =
+    val results: SortedMap[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]] =
       initial
-        .map(s => (s: Source) -> PhaseRunner(Phases, (_: Source) => logger, PhaseListener.NoListener)(s))
+        .map(s => (s: LibTsSource) -> PhaseRunner(Phases, (_: LibTsSource) => logger, PhaseListener.NoListener)(s))
         .toMap
         .toSorted
 
-    val successes: Map[Source, Dep.Concrete] = {
-      def go(source: Source, lib: PublishedSbtProject): Map[Source, Dep.Concrete] =
+    val successes: Map[LibTsSource, Dep.Concrete] = {
+      def go(source: LibTsSource, lib: PublishedSbtProject): Map[LibTsSource, Dep.Concrete] =
         Map(source -> lib.project.reference) ++ lib.project.deps.flatMap { case (k, v) => go(k, v) }
 
       results.collect { case (s, PhaseRes.Ok(res)) => go(s, res) }.reduceOption(_ ++ _).getOrElse(Map.empty)
     }
 
-    val failures: Map[Source, Either[Throwable, String]] =
+    val failures: Map[LibTsSource, Either[Throwable, String]] =
       results.collect { case (_, PhaseRes.Failure(errors)) => errors }.reduceOption(_ ++ _).getOrElse(Map.empty)
 
     if (failures.nonEmpty) Left(failures)
