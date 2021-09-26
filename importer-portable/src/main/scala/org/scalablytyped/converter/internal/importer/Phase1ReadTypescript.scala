@@ -240,12 +240,17 @@ class Phase1ReadTypescript(
                 }
             }
 
-        if (source.libName.value == "react-redux") {
-          print(1)
-        }
         getDeps(depsDeclared ++ stdlibSourceOpt ++ depsFromFiles).map { deps =>
+          val transitiveDeps = deps.foldLeft(deps) {
+            case (acc, (_, lib)) => acc ++ lib.transitiveDependencies
+          }
           val scope: TsTreeScope.Root =
-            TsTreeScope(source.libName, pedantic, deps.map { case (source, lib) => source -> lib.parsed }, logger)
+            TsTreeScope(
+              source.libName,
+              pedantic,
+              transitiveDeps.map { case (source, lib) => source -> lib.parsed },
+              logger,
+            )
 
           val involvesReact = {
             val react = TsIdentLibrarySimple("react")
