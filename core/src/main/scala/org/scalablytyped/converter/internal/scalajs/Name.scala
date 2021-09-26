@@ -110,8 +110,6 @@ object Name {
 
   implicit val OrderedName: Ordering[Name] = Ordering[String].on[Name](_.unescaped)
 
-  implicit object NameKey extends IsKey[Name]
-
   def necessaryRewrite(name: Name): Name =
     necessaryRewrite(name.unescaped) match {
       case Some(rewritten) => Name(rewritten)

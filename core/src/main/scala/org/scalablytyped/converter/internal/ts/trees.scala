@@ -435,8 +435,6 @@ object TsIdent {
   implicit val decodes:  Decoder[TsIdent]  = io.circe013.generic.semiauto.deriveDecoder
   implicit val ordering: Ordering[TsIdent] = Ordering[String].on[TsIdent](_.value)
 
-  implicit object TsIdentKey extends IsKey[TsIdent]
-
   def apply(str: String): TsIdentSimple =
     TsIdentSimple(str)
 

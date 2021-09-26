@@ -182,6 +182,7 @@ object mod {
     def apply(options: Options): Unit = js.native
   }
   
+  /* augmented module */
   object vueTypesVueAugmentingMod {
     
     trait Vue extends StObject {

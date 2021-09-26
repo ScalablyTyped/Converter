@@ -4,12 +4,12 @@ package importer.documentation
 import com.olvind.logging.Logger
 import io.circe013.generic.semiauto.{deriveDecoder, deriveEncoder}
 import io.circe013.{Decoder, Encoder}
-import org.scalablytyped.converter.internal.importer.Source
+import org.scalablytyped.converter.internal.importer.LibTsSource
 
 import scala.concurrent.Future
 
 trait Npmjs {
-  def apply[L](source: Source, logger: Logger[L]): Future[Option[Npmjs.Data]]
+  def apply[L](source: LibTsSource, logger: Logger[L]): Future[Option[Npmjs.Data]]
 }
 
 object Npmjs {
@@ -75,7 +75,7 @@ object Npmjs {
   }
 
   object No extends Npmjs {
-    override def apply[L](source: Source, logger: Logger[L]): Future[Option[Data]] =
+    override def apply[L](source: LibTsSource, logger: Logger[L]): Future[Option[Data]] =
       Future.successful(None)
   }
 }

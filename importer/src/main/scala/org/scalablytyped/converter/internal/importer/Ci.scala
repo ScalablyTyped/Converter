@@ -150,7 +150,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
   private val interfaceLogger = if (config.debugMode) logger.void else logging.stdout
   private val interfaceCmd    = new Cmd(interfaceLogger, None)
 
-  val logRegistry = new LogRegistry[Source, TsIdentLibrary, Array[Stored]](
+  val logRegistry = new LogRegistry[LibTsSource, TsIdentLibrary, Array[Stored]](
     logger.filter(LogLevel.warn).syncAccess.void,
     _.libName,
     _ => logging.storing().filter(LogLevel.warn),
@@ -255,8 +255,8 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
 
     val t0 = System.currentTimeMillis
 
-    val Pipeline: RecPhase[Source, PublishedSbtProject] =
-      RecPhase[Source]
+    val Pipeline: RecPhase[LibTsSource, PublishedSbtProject] =
+      RecPhase[LibTsSource]
         .next(
           new Phase1ReadTypescript(
             calculateLibraryVersion = new DTVersions(lastChangedIndex, includeGitPart = true),
@@ -305,10 +305,10 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
       case Right(sources) => sources
     }
 
-    val results: Map[Source, PhaseRes[Source, PublishedSbtProject]] =
+    val results: Map[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]] =
       Interface(config.debugMode) { listener =>
         initial
-          .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
+          .map(source => source -> PhaseRunner(Pipeline, logRegistry.get, listener)(source))
           .toMap
       }
 
@@ -316,14 +316,14 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
       return Some(System.currentTimeMillis - t0)
     }
 
-    val successes: Map[Source, PublishedSbtProject] = {
-      def go(source: Source, p: PublishedSbtProject): Map[Source, PublishedSbtProject] =
+    val successes: Map[LibTsSource, PublishedSbtProject] = {
+      def go(source: LibTsSource, p: PublishedSbtProject): Map[LibTsSource, PublishedSbtProject] =
         Map(source -> p) ++ p.project.deps.flatMap { case (k, v) => go(k, v) }
 
       results.collect { case (s, PhaseRes.Ok(res)) => go(s, res) }.reduceOption(_ ++ _).getOrElse(Map.empty)
     }
 
-    val failures: Map[Source, Either[Throwable, String]] =
+    val failures: Map[LibTsSource, Either[Throwable, String]] =
       results.collect { case (_, PhaseRes.Failure(errors)) => errors }.reduceOption(_ ++ _).getOrElse(Map.empty)
 
     val summary               = Summary(successes.keys.to[Set].map(_.libName), failures.keys.to[Set].map(_.libName))

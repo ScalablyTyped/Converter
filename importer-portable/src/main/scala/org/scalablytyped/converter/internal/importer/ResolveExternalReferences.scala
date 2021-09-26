@@ -3,7 +3,6 @@ package importer
 
 import com.olvind.logging.Logger
 import org.scalablytyped.converter.internal.maps._
-import org.scalablytyped.converter.internal.importer.Source.TsSource
 import org.scalablytyped.converter.internal.ts._
 
 import scala.collection.mutable
@@ -11,12 +10,18 @@ import scala.collection.mutable
 object ResolveExternalReferences {
 
   case class Result(
-      rewritten:      TsParsedFile,
-      resolvedDeps:   Set[Source],
-      unresolvedDeps: Set[TsIdentModule],
+      rewritten:         TsParsedFile,
+      resolvedModules:   Set[ResolvedModule],
+      unresolvedModules: Set[TsIdentModule],
   )
 
-  def apply(resolve: LibraryResolver, source: TsSource, tsParsedFile: TsParsedFile, logger: Logger[Unit]): Result = {
+  def apply(
+      resolve:      LibraryResolver,
+      source:       LibTsSource,
+      folder:       InFolder,
+      tsParsedFile: TsParsedFile,
+      logger:       Logger[Unit],
+  ): Result = {
     val imported: Set[TsIdentModule] = {
       val fromImports = tsParsedFile.imports.collect {
         case TsImport(_, _, TsImportee.From(from))     => from
@@ -28,45 +33,46 @@ object ResolveExternalReferences {
       fromImports.toSet ++ fromExports.toSet
     }
 
+    val root    = TsTreeScope(source.libName, pedantic = true, Map.empty, logger)
+    val visitor = new V(resolve, source, folder, imported)
+    val after   = visitor.visitTsParsedFile(root)(tsParsedFile)
+
+    val newImports: IArray[TsImport] =
+      visitor.importTypes.mapToIArray {
+        case (TsIdentImport(from), name) =>
+          TsImport(typeOnly = false, IArray(TsImported.Star(Some(name))), TsImportee.From(from))
+      }
+
+    Result(after.withMembers(after.members ++ newImports), visitor.resolvedModules.to[Set], visitor.notFound.to[Set])
+  }
+
+  private class V(resolve: LibraryResolver, source: LibTsSource, folder: InFolder, imported: Set[TsIdentModule])
+      extends TreeTransformationScopedChanges {
+    val resolvedModules = mutable.Set.empty[ResolvedModule]
+    val notFound        = mutable.Set.empty[TsIdentModule]
+    val importTypes     = mutable.Map.empty[TsIdentImport, TsIdentSimple]
+
     /**
       * Todo: `InferredDependency` takes care of undeclared node dependency.
       * However, that is not solid enough when there actually exists a library
       * with the same name as the requested module.
       */
-    val doResolve: TsIdentModule => Option[(Source, TsIdentModule)] = {
+    def doResolve(mod: TsIdentModule): Option[ResolvedModule] = mod match {
       case TsIdentModule(None, "events" :: Nil) => None
       case jsName if jsName.value.endsWith(".js") =>
-        resolve.module(source, jsName.value.dropRight(".js".length))
+        resolve.module(source, folder, jsName.value.dropRight(".js".length))
       case name =>
-        resolve.module(source, name.value)
+        resolve.module(source, folder, name.value)
     }
-    val v = new V(doResolve, imported)
-
-    val root  = TsTreeScope(source.libName, pedantic = true, Map.empty, logger)
-    val after = v.visitTsParsedFile(root)(tsParsedFile)
-
-    val newImports: IArray[TsImport] =
-      v.importTypes.mapToIArray {
-        case (TsIdentImport(from), name) =>
-          TsImport(typeOnly = false, IArray(TsImported.Star(Some(name))), TsImportee.From(from))
-      }
-
-    Result(after.withMembers(after.members ++ newImports), v.foundSources.to[Set], v.notFound.to[Set])
-  }
-
-  private class V(doResolve: TsIdentModule => Option[(Source, TsIdentModule)], imported: Set[TsIdentModule])
-      extends TreeTransformationScopedChanges {
-    val foundSources = mutable.Set.empty[Source]
-    val notFound     = mutable.Set.empty[TsIdentModule]
-    val importTypes  = mutable.Map.empty[TsIdentImport, TsIdentSimple]
 
     private def resolveAndStore(name: TsIdentModule): TsIdentModule =
       doResolve(name) match {
-        case Some((found: Source, moduleName)) =>
-          foundSources += found
-          moduleName
+        case Some(found) =>
+          resolvedModules += found
+          found.moduleName
         case None =>
           notFound += name
+          doResolve(name)
           name
       }
 
@@ -74,8 +80,8 @@ object ResolveExternalReferences {
       x match {
         case m: TsDeclModule =>
           val newName: Option[TsIdentModule] = doResolve(m.name).flatMap {
-            case (_, newName) if newName =/= m.name => Some(newName)
-            case _                                  => None
+            case resolved if resolved.moduleName =/= m.name => Some(resolved.moduleName)
+            case _                                          => None
           }
 
           val isWithinModule = t.`..`.stack.exists {
