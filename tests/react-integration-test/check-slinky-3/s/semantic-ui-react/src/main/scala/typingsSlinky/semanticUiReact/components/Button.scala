@@ -129,7 +129,7 @@ object Button {
   val component: js.Object = js.native
   
   @scala.inline
-  class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[tag.type, default] {
     
@@ -273,7 +273,7 @@ object Button {
     
     inline def defaultValue(value: String | js.Array[String]): this.type = set("defaultValue", value.asInstanceOf[js.Any])
     
-    inline def defaultValueVarargs(value: String*): this.type = set("defaultValue", js.Array(value :_*))
+    inline def defaultValueVarargs(value: String*): this.type = set("defaultValue", js.Array(value*))
     
     inline def dir(value: String): this.type = set("dir", value.asInstanceOf[js.Any])
     
@@ -563,7 +563,7 @@ object Button {
     
     inline def value(value: String | js.Array[String] | Double): this.type = set("value", value.asInstanceOf[js.Any])
     
-    inline def valueVarargs(value: String*): this.type = set("value", js.Array(value :_*))
+    inline def valueVarargs(value: String*): this.type = set("value", js.Array(value*))
     
     inline def vocab(value: String): this.type = set("vocab", value.asInstanceOf[js.Any])
   }

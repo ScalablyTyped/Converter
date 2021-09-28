@@ -24,7 +24,7 @@ object mod extends Shortcut {
     *
     * @param {string} [name]
     */
-  class CommandCls ()
+  open class CommandCls ()
     extends StObject
        with typings.commander.mod.local.Command {
     def this(name: String) = this()
@@ -33,7 +33,7 @@ object mod extends Shortcut {
   /* This class was inferred from a value with a constructor, it was renamed because a distinct type already exists with the same name. */
   @JSImport("commander", "Option")
   @js.native
-  class OptionCls protected ()
+  open class OptionCls protected ()
     extends StObject
        with typings.commander.mod.local.Option {
     /**
@@ -128,11 +128,11 @@ object mod extends Shortcut {
       
       inline def setArgs(value: js.Array[String]): Self = StObject.set(x, "args", value.asInstanceOf[js.Any])
       
-      inline def setArgsVarargs(value: String*): Self = StObject.set(x, "args", js.Array(value :_*))
+      inline def setArgsVarargs(value: String*): Self = StObject.set(x, "args", js.Array(value*))
       
       inline def setUnknown(value: js.Array[String]): Self = StObject.set(x, "unknown", value.asInstanceOf[js.Any])
       
-      inline def setUnknownVarargs(value: String*): Self = StObject.set(x, "unknown", js.Array(value :_*))
+      inline def setUnknownVarargs(value: String*): Self = StObject.set(x, "unknown", js.Array(value*))
     }
   }
   

@@ -11,7 +11,7 @@ object global {
     
     @JSGlobal("monaco.Promise")
     @js.native
-    class Promise[T, TProgress] protected ()
+    open class Promise[T, TProgress] protected ()
       extends StObject
          with typings.monacoEditor.monaco.Promise[T, TProgress] {
       def this(executor: js.Function3[

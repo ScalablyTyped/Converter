@@ -31,7 +31,7 @@ object TestContainer {
   val component: js.Object = js.native
   
   @scala.inline
-  class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[js.Object] {
     
@@ -43,7 +43,7 @@ object TestContainer {
     
     inline def contentNull: this.type = set("content", null)
     
-    inline def contentVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("content", js.Array(value :_*))
+    inline def contentVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("content", js.Array(value*))
     
     inline def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
     

@@ -61,7 +61,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-class SharedBuilder_DetailedHTMLProps_1799989450[R <: js.Object] (val args: js.Array[js.Any])
+open class SharedBuilder_DetailedHTMLProps_1799989450[R <: js.Object] (val args: js.Array[js.Any])
   extends AnyVal
      with StBuildingComponent[tag.type, R] {
   
@@ -187,7 +187,7 @@ class SharedBuilder_DetailedHTMLProps_1799989450[R <: js.Object] (val args: js.A
   
   inline def defaultValue(value: String | js.Array[String]): this.type = set("defaultValue", value.asInstanceOf[js.Any])
   
-  inline def defaultValueVarargs(value: String*): this.type = set("defaultValue", js.Array(value :_*))
+  inline def defaultValueVarargs(value: String*): this.type = set("defaultValue", js.Array(value*))
   
   inline def dir(value: String): this.type = set("dir", value.asInstanceOf[js.Any])
   

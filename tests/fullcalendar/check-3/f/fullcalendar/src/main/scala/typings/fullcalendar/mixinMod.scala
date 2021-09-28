@@ -8,7 +8,7 @@ object mixinMod {
   
   @JSImport("fullcalendar/Mixin", JSImport.Default)
   @js.native
-  class default () extends Default_
+  open class default () extends Default_
   /* static members */
   object default {
     
@@ -23,7 +23,7 @@ object mixinMod {
   
   @JSImport("fullcalendar/Mixin", "Default")
   @js.native
-  class Default_ () extends StObject
+  open class Default_ () extends StObject
   /* static members */
   object Default_ {
     

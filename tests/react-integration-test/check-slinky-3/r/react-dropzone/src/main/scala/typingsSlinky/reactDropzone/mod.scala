@@ -134,7 +134,7 @@ object mod {
       
       inline def setAcceptUndefined: Self = StObject.set(x, "accept", js.undefined)
       
-      inline def setAcceptVarargs(value: String*): Self = StObject.set(x, "accept", js.Array(value :_*))
+      inline def setAcceptVarargs(value: String*): Self = StObject.set(x, "accept", js.Array(value*))
       
       inline def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
       

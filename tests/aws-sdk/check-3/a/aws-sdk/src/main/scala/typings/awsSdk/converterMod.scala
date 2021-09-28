@@ -9,7 +9,7 @@ object converterMod {
   
   @JSImport("aws-sdk/lib/dynamodb/converter", "Converter")
   @js.native
-  class Converter () extends StObject
+  open class Converter () extends StObject
   /* static members */
   object Converter {
     

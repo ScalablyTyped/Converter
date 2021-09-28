@@ -10,9 +10,9 @@ object fsMod {
   
   @JSImport("fs", "ReadStream")
   @js.native
-  class ReadStream () extends Readable
+  open class ReadStream () extends Readable
   
   @JSImport("fs", "WriteStream")
   @js.native
-  class WriteStream () extends Writable
+  open class WriteStream () extends Writable
 }

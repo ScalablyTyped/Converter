@@ -32,7 +32,7 @@ object inputInputMod {
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Input/Input", JSImport.Default)
   @js.native
-  class default () extends Input
+  open class default () extends Input
   
   @js.native
   trait Input
@@ -181,7 +181,7 @@ object inputInputMod {
       
       inline def setIconUndefined: Self = StObject.set(x, "icon", js.undefined)
       
-      inline def setIconVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "icon", js.Array(value :_*))
+      inline def setIconVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "icon", js.Array(value*))
       
       inline def setIconVdomElement(value: VdomElement): Self = StObject.set(x, "icon", value.rawElement.asInstanceOf[js.Any])
       
@@ -195,7 +195,7 @@ object inputInputMod {
       
       inline def setInputUndefined: Self = StObject.set(x, "input", js.undefined)
       
-      inline def setInputVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "input", js.Array(value :_*))
+      inline def setInputVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "input", js.Array(value*))
       
       inline def setInputVdomElement(value: VdomElement): Self = StObject.set(x, "input", value.rawElement.asInstanceOf[js.Any])
       
@@ -223,7 +223,7 @@ object inputInputMod {
       
       inline def setLabelUndefined: Self = StObject.set(x, "label", js.undefined)
       
-      inline def setLabelVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "label", js.Array(value :_*))
+      inline def setLabelVarargs(value: (Empty | String | JsNumber | Element)*): Self = StObject.set(x, "label", js.Array(value*))
       
       inline def setLabelVdomElement(value: VdomElement): Self = StObject.set(x, "label", value.rawElement.asInstanceOf[js.Any])
       

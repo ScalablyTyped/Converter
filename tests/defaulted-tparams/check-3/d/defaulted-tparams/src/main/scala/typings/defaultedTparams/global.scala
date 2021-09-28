@@ -9,7 +9,7 @@ object global {
   
   @JSGlobal("Queue")
   @js.native
-  class Queue[S, T] ()
+  open class Queue[S, T] ()
     extends StObject
        with typings.defaultedTparams.Queue[S, T] {
     

@@ -59,7 +59,7 @@ object vnodeMod {
       
       inline def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
-      inline def setChildrenVarargs(value: VNode*): Self = StObject.set(x, "children", js.Array(value :_*))
+      inline def setChildrenVarargs(value: VNode*): Self = StObject.set(x, "children", js.Array(value*))
       
       inline def setComponentInstance(value: Vue): Self = StObject.set(x, "componentInstance", value.asInstanceOf[js.Any])
       
@@ -153,7 +153,7 @@ object vnodeMod {
       
       inline def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
-      inline def setChildrenVarargs(value: ScopedSlot*): Self = StObject.set(x, "children", js.Array(value :_*))
+      inline def setChildrenVarargs(value: ScopedSlot*): Self = StObject.set(x, "children", js.Array(value*))
       
       inline def setCtor(value: VueConstructor[Vue]): Self = StObject.set(x, "Ctor", value.asInstanceOf[js.Any])
       
@@ -234,7 +234,7 @@ object vnodeMod {
       
       inline def setDirectivesUndefined: Self = StObject.set(x, "directives", js.undefined)
       
-      inline def setDirectivesVarargs(value: VNodeDirective*): Self = StObject.set(x, "directives", js.Array(value :_*))
+      inline def setDirectivesVarargs(value: VNodeDirective*): Self = StObject.set(x, "directives", js.Array(value*))
       
       inline def setDomProps(value: StringDictionary[js.Any]): Self = StObject.set(x, "domProps", value.asInstanceOf[js.Any])
       
@@ -296,7 +296,7 @@ object vnodeMod {
       
       inline def setStyleUndefined: Self = StObject.set(x, "style", js.undefined)
       
-      inline def setStyleVarargs(value: js.Object*): Self = StObject.set(x, "style", js.Array(value :_*))
+      inline def setStyleVarargs(value: js.Object*): Self = StObject.set(x, "style", js.Array(value*))
       
       inline def setTag(value: String): Self = StObject.set(x, "tag", value.asInstanceOf[js.Any])
       

@@ -21,13 +21,13 @@ object ReactDropzone {
   val component: js.Object = js.native
   
   @scala.inline
-  class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[tag.type, DropzoneRef] {
     
     inline def accept(value: String | js.Array[String]): this.type = set("accept", value.asInstanceOf[js.Any])
     
-    inline def acceptVarargs(value: String*): this.type = set("accept", js.Array(value :_*))
+    inline def acceptVarargs(value: String*): this.type = set("accept", js.Array(value*))
     
     inline def children(value: /* state */ DropzoneState => Element): this.type = set("children", js.Any.fromFunction1(value))
     

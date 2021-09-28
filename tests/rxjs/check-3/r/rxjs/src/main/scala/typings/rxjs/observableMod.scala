@@ -10,7 +10,7 @@ object observableMod {
   
   @JSImport("rxjs/internal/Observable", "Observable")
   @js.native
-  class Observable[T] ()
+  open class Observable[T] ()
     extends StObject
        with Subscribable[T] {
     

@@ -8,13 +8,13 @@ object eventPeriodMod {
   
   @JSImport("fullcalendar/EventPeriod", JSImport.Default)
   @js.native
-  class default protected () extends Default_ {
+  open class default protected () extends Default_ {
     def this(start: js.Any, end: js.Any, timezone: js.Any) = this()
   }
   
   @JSImport("fullcalendar/EventPeriod", "Default")
   @js.native
-  class Default_ protected () extends StObject {
+  open class Default_ protected () extends StObject {
     def this(start: js.Any, end: js.Any, timezone: js.Any) = this()
     
     var eventInstanceGroupsById: js.Any = js.native

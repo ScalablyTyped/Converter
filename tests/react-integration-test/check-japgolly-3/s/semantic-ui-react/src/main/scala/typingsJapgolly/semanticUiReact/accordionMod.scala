@@ -15,7 +15,7 @@ object accordionMod {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", JSImport.Default)
   @js.native
-  class default protected ()
+  open class default protected ()
     extends Component[AccordionProps, js.Object, js.Any] {
     def this(props: AccordionProps) = this()
     def this(props: AccordionProps, context: js.Any) = this()
@@ -29,7 +29,7 @@ object accordionMod {
     /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
     @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Accordion")
     @js.native
-    class Accordion protected ()
+    open class Accordion protected ()
       extends Component[AccordionAccordionProps, js.Object, js.Any] {
       def this(props: AccordionAccordionProps) = this()
       def this(props: AccordionAccordionProps, context: js.Any) = this()
@@ -38,7 +38,7 @@ object accordionMod {
     /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
     @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Title")
     @js.native
-    class Title protected ()
+    open class Title protected ()
       extends Component[AccordionTitleProps, js.Object, js.Any] {
       def this(props: AccordionTitleProps) = this()
       def this(props: AccordionTitleProps, context: js.Any) = this()

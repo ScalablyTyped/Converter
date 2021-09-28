@@ -10,12 +10,12 @@ object mod {
   
   @JSImport("react-bootstrap", "ButtonGroup")
   @js.native
-  class ButtonGroup ()
+  open class ButtonGroup ()
     extends typingsSlinky.reactBootstrap.libMod.ButtonGroup
   
   @JSImport("react-bootstrap", "ToggleButtonGroup")
   @js.native
-  class ToggleButtonGroup ()
+  open class ToggleButtonGroup ()
     extends typingsSlinky.reactBootstrap.libMod.ToggleButtonGroup
   
   object utils {

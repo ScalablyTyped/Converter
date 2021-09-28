@@ -11,7 +11,7 @@ object global {
   
   @JSGlobal("B")
   @js.native
-  class B ()
+  open class B ()
     extends StObject
        with typings.keyof.B {
     

@@ -8,5 +8,5 @@ object originalMod {
   
   @JSImport("original", "RuntimeAnimation")
   @js.native
-  class RuntimeAnimation () extends StObject
+  open class RuntimeAnimation () extends StObject
 }

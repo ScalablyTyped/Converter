@@ -68,7 +68,7 @@ object ButtonGroup {
   val component: js.Object = js.native
   
   @scala.inline
-  class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[tag.type, typingsSlinky.reactBootstrap.mod.ButtonGroup] {
     
@@ -256,7 +256,7 @@ object ButtonGroup {
     
     inline def defaultValue(value: String | js.Array[String]): this.type = set("defaultValue", value.asInstanceOf[js.Any])
     
-    inline def defaultValueVarargs(value: String*): this.type = set("defaultValue", js.Array(value :_*))
+    inline def defaultValueVarargs(value: String*): this.type = set("defaultValue", js.Array(value*))
     
     inline def defer(value: Boolean): this.type = set("defer", value.asInstanceOf[js.Any])
     
@@ -638,7 +638,7 @@ object ButtonGroup {
     
     inline def value(value: String | js.Array[String] | Double): this.type = set("value", value.asInstanceOf[js.Any])
     
-    inline def valueVarargs(value: String*): this.type = set("value", js.Array(value :_*))
+    inline def valueVarargs(value: String*): this.type = set("value", js.Array(value*))
     
     inline def vertical(value: Boolean): this.type = set("vertical", value.asInstanceOf[js.Any])
     

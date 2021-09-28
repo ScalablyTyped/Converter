@@ -13,7 +13,7 @@ object refForwardMod {
   
   @JSImport("@stardust-ui/react-component-ref/dist/es/RefForward", JSImport.Default)
   @js.native
-  class default () extends RefForward
+  open class default () extends RefForward
   /* static members */
   object default {
     

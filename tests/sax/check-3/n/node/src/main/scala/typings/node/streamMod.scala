@@ -13,7 +13,7 @@ object streamMod {
   
   @JSImport("stream", JSImport.Namespace)
   @js.native
-  class ^ () extends internal
+  open class ^ () extends internal
   
   /* import warning: transforms.RemoveMultipleInheritance#findNewParents newComments Dropped parents 
   - typings.node.NodeJS.EventEmitter because Already inherited
@@ -24,7 +24,7 @@ object streamMod {
   - typings.node.streamMod.Stream because Already inherited
   - typings.node.streamMod.Writable because Inheritance from two classes. Inlined writable, end, end, end, end, end, end, end, on, on_close */ @JSImport("stream", "Duplex")
   @js.native
-  class Duplex () extends Readable {
+  open class Duplex () extends Readable {
     def this(opts: DuplexOptions) = this()
     
     def end(): Unit = js.native
@@ -40,7 +40,7 @@ object streamMod {
   
   @JSImport("stream", "Readable")
   @js.native
-  class Readable ()
+  open class Readable ()
     extends Stream
        with ReadableStream {
     
@@ -50,11 +50,11 @@ object streamMod {
   
   @JSImport("stream", "Stream")
   @js.native
-  class Stream () extends internal
+  open class Stream () extends internal
   
   @JSImport("stream", "Writable")
   @js.native
-  class Writable ()
+  open class Writable ()
     extends Stream
        with WritableStream {
     def this(opts: WritableOptions) = this()

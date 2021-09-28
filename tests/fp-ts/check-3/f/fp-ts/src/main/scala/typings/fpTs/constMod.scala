@@ -8,7 +8,7 @@ object constMod {
   
   @JSImport("fp-ts/lib/Const", "Const")
   @js.native
-  class Const[L, A] protected () extends StObject {
+  open class Const[L, A] protected () extends StObject {
     def this(value: L) = this()
     
     val _A: A = js.native

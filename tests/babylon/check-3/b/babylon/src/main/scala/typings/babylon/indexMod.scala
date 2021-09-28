@@ -8,6 +8,6 @@ object indexMod {
   
   @JSImport("babylonjs/index", "RuntimeAnimation")
   @js.native
-  class RuntimeAnimation ()
+  open class RuntimeAnimation ()
     extends typings.babylon.originalMod.RuntimeAnimation
 }

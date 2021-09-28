@@ -9,5 +9,5 @@ object mod {
   
   @JSImport("react-transition-group", "TransitionGroup")
   @js.native
-  class TransitionGroup () extends ^
+  open class TransitionGroup () extends ^
 }

@@ -8,11 +8,11 @@ object originalFsMod {
   
   @JSImport("original-fs", "ReadStream")
   @js.native
-  class ReadStream ()
+  open class ReadStream ()
     extends typings.node.fsMod.ReadStream
   
   @JSImport("original-fs", "WriteStream")
   @js.native
-  class WriteStream ()
+  open class WriteStream ()
     extends typings.node.fsMod.WriteStream
 }

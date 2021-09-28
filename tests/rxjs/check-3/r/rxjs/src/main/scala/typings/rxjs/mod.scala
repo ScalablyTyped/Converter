@@ -8,6 +8,6 @@ object mod {
   
   @JSImport("rxjs", "Observable")
   @js.native
-  class Observable[T] ()
+  open class Observable[T] ()
     extends typings.rxjs.observableMod.Observable[T]
 }

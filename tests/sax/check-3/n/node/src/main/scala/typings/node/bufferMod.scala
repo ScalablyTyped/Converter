@@ -20,7 +20,7 @@ object bufferMod {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("buffer", "Buffer")
   @js.native
-  class Buffer protected ()
+  open class Buffer protected ()
     extends StObject
        with NodeBuffer {
     /**
@@ -90,7 +90,7 @@ object bufferMod {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("buffer", "SlowBuffer")
   @js.native
-  class SlowBuffer protected ()
+  open class SlowBuffer protected ()
     extends StObject
        with NodeBuffer {
     def this(array: js.Array[js.Any]) = this()

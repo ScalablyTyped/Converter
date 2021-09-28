@@ -131,7 +131,7 @@ object buttonGroupMod extends Shortcut {
       
       inline def setButtonsUndefined: Self = StObject.set(x, "buttons", js.undefined)
       
-      inline def setButtonsVarargs(value: SemanticShorthandItem[ButtonProps]*): Self = StObject.set(x, "buttons", js.Array(value :_*))
+      inline def setButtonsVarargs(value: SemanticShorthandItem[ButtonProps]*): Self = StObject.set(x, "buttons", js.Array(value*))
       
       inline def setChildren(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       

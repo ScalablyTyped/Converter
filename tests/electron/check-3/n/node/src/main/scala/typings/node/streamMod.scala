@@ -14,7 +14,7 @@ object streamMod {
   - typings.node.streamMod.Stream because Already inherited
   - typings.node.streamMod.Writable because Inheritance from two classes. Inlined writable, emit, emit, end, end, end, end */ @JSImport("stream", "Duplex")
   @js.native
-  class Duplex () extends Readable {
+  open class Duplex () extends Readable {
     
     def end(): Unit = js.native
     def end(cb: js.Function): Unit = js.native
@@ -33,7 +33,7 @@ object streamMod {
   
   @JSImport("stream", "Readable")
   @js.native
-  class Readable ()
+  open class Readable ()
     extends Stream
        with ReadableStream {
     
@@ -43,11 +43,11 @@ object streamMod {
   
   @JSImport("stream", "Stream")
   @js.native
-  class Stream () extends StObject
+  open class Stream () extends StObject
   
   @JSImport("stream", "Writable")
   @js.native
-  class Writable ()
+  open class Writable ()
     extends Stream
        with WritableStream {
     

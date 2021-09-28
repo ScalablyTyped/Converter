@@ -13,13 +13,13 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-class SharedBuilder_AccordionAccordionProps1188692388[R <: js.Object] (val args: js.Array[js.Any])
+open class SharedBuilder_AccordionAccordionProps1188692388[R <: js.Object] (val args: js.Array[js.Any])
   extends AnyVal
      with StBuildingComponent[R] {
   
   inline def activeIndex(value: Double | js.Array[Double]): this.type = set("activeIndex", value.asInstanceOf[js.Any])
   
-  inline def activeIndexVarargs(value: Double*): this.type = set("activeIndex", js.Array(value :_*))
+  inline def activeIndexVarargs(value: Double*): this.type = set("activeIndex", js.Array(value*))
   
   inline def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
   
@@ -27,7 +27,7 @@ class SharedBuilder_AccordionAccordionProps1188692388[R <: js.Object] (val args:
   
   inline def defaultActiveIndex(value: Double | js.Array[Double]): this.type = set("defaultActiveIndex", value.asInstanceOf[js.Any])
   
-  inline def defaultActiveIndexVarargs(value: Double*): this.type = set("defaultActiveIndex", js.Array(value :_*))
+  inline def defaultActiveIndexVarargs(value: Double*): this.type = set("defaultActiveIndex", js.Array(value*))
   
   inline def exclusive(value: Boolean): this.type = set("exclusive", value.asInstanceOf[js.Any])
   
@@ -37,5 +37,5 @@ class SharedBuilder_AccordionAccordionProps1188692388[R <: js.Object] (val args:
   
   inline def panels(value: SemanticShorthandCollection[AccordionPanelProps]): this.type = set("panels", value.asInstanceOf[js.Any])
   
-  inline def panelsVarargs(value: SemanticShorthandItem[AccordionPanelProps]*): this.type = set("panels", js.Array(value :_*))
+  inline def panelsVarargs(value: SemanticShorthandItem[AccordionPanelProps]*): this.type = set("panels", js.Array(value*))
 }

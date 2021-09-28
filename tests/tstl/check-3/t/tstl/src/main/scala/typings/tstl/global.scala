@@ -10,7 +10,7 @@ object global {
     
     @JSGlobal("std.Queue")
     @js.native
-    class Queue_[T] ()
+    open class Queue_[T] ()
       extends StObject
          with typings.tstl.std.Queue_[T] {
       def this(container: typings.tstl.std.Queue_[T]) = this()
@@ -25,7 +25,7 @@ object global {
     /* was `typeof Queue` */
     @JSGlobal("std.queue")
     @js.native
-    class queue[T] ()
+    open class queue[T] ()
       extends StObject
          with typings.tstl.std.Queue_[T] {
       def this(container: typings.tstl.std.Queue_[T]) = this()

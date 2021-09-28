@@ -19,7 +19,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-class SharedBuilder_ButtonGroupProps1227330619 (val args: js.Array[js.Any])
+open class SharedBuilder_ButtonGroupProps1227330619 (val args: js.Array[js.Any])
   extends AnyVal
      with StBuildingComponent[tag.type, scala.Nothing] {
   
@@ -31,7 +31,7 @@ class SharedBuilder_ButtonGroupProps1227330619 (val args: js.Array[js.Any])
   
   inline def buttons(value: SemanticShorthandCollection[ButtonProps]): this.type = set("buttons", value.asInstanceOf[js.Any])
   
-  inline def buttonsVarargs(value: SemanticShorthandItem[ButtonProps]*): this.type = set("buttons", js.Array(value :_*))
+  inline def buttonsVarargs(value: SemanticShorthandItem[ButtonProps]*): this.type = set("buttons", js.Array(value*))
   
   inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
   

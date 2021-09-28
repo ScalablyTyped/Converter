@@ -12,7 +12,7 @@ object refFindNodeMod {
   
   @JSImport("@stardust-ui/react-component-ref/dist/es/RefFindNode", JSImport.Default)
   @js.native
-  class default () extends RefFindNode
+  open class default () extends RefFindNode
   /* static members */
   object default {
     

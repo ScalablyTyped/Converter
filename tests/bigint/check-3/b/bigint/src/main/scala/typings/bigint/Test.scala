@@ -27,6 +27,6 @@ object Test {
     
     inline def setC(value: typings.bigint.BigInt.BigInt): Self = StObject.set(x, "c", value.asInstanceOf[js.Any])
     
-    inline def setCVarargs(value: Double*): Self = StObject.set(x, "c", js.Array(value :_*))
+    inline def setCVarargs(value: Double*): Self = StObject.set(x, "c", js.Array(value*))
   }
 }

@@ -28,7 +28,7 @@ object EventListener {
   val component: js.Object = js.native
   
   @scala.inline
-  class Builder[T /* <: EventTypes */] (val args: js.Array[js.Any])
+  open class Builder[T /* <: EventTypes */] (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[js.Object] {
     

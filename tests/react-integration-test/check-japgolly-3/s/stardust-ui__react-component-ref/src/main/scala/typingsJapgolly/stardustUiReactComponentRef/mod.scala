@@ -22,7 +22,7 @@ object mod {
   
   @JSImport("@stardust-ui/react-component-ref", "RefFindNode")
   @js.native
-  class RefFindNode () extends default
+  open class RefFindNode () extends default
   /* static members */
   object RefFindNode {
     
@@ -43,7 +43,7 @@ object mod {
   
   @JSImport("@stardust-ui/react-component-ref", "RefForward")
   @js.native
-  class RefForward ()
+  open class RefForward ()
     extends typingsJapgolly.stardustUiReactComponentRef.refForwardMod.default
   /* static members */
   object RefForward {

@@ -12,13 +12,13 @@ object dynamodbMod {
   
   @JSImport("aws-sdk/clients/dynamodb", JSImport.Namespace)
   @js.native
-  class ^ () extends DynamoDBCustomizations {
+  open class ^ () extends DynamoDBCustomizations {
     def this(options: ClientConfiguration) = this()
   }
   
   @JSImport("aws-sdk/clients/dynamodb", "Converter")
   @js.native
-  class Converter ()
+  open class Converter ()
     extends typings.awsSdk.converterMod.Converter
   /* static members */
   object Converter {
@@ -36,7 +36,7 @@ object dynamodbMod {
   /**
     * Creates a DynamoDB document client with a set of configuration options.
     */
-  class DocumentClient ()
+  open class DocumentClient ()
     extends typings.awsSdk.documentClientMod.DocumentClient {
     def this(options: DocumentClientOptions & ClientConfiguration) = this()
   }

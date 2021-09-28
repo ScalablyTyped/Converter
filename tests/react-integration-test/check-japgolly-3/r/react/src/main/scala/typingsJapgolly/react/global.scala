@@ -76,7 +76,7 @@ object global {
     // tslint:disable-next-line:no-empty-interface
     @JSGlobal("React.Component")
     @js.native
-    class Component[P, S, SS] protected ()
+    open class Component[P, S, SS] protected ()
       extends typingsJapgolly.react.mod.Component[P, S, SS] {
       def this(props: P) = this()
       def this(props: P, context: js.Any) = this()
@@ -125,7 +125,7 @@ object global {
     
     @JSGlobal("React.PureComponent")
     @js.native
-    class PureComponent[P, S, SS] protected ()
+    open class PureComponent[P, S, SS] protected ()
       extends typingsJapgolly.react.mod.PureComponent[P, S, SS] {
       def this(props: P) = this()
       def this(props: P, context: js.Any) = this()

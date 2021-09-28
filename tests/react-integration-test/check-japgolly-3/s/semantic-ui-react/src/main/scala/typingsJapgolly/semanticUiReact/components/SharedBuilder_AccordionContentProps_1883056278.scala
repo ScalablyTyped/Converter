@@ -11,7 +11,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-class SharedBuilder_AccordionContentProps_1883056278 (val args: js.Array[js.Any])
+open class SharedBuilder_AccordionContentProps_1883056278 (val args: js.Array[js.Any])
   extends AnyVal
      with StBuildingComponent[scala.Nothing] {
   
@@ -25,7 +25,7 @@ class SharedBuilder_AccordionContentProps_1883056278 (val args: js.Array[js.Any]
   
   inline def contentNull: this.type = set("content", null)
   
-  inline def contentVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("content", js.Array(value :_*))
+  inline def contentVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("content", js.Array(value*))
   
   inline def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
 }
