@@ -27,9 +27,9 @@ object accordionAccordionAccordionMod extends Shortcut {
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionAccordion", JSImport.Default)
   @js.native
   open class default protected ()
-    extends Component[AccordionAccordionProps, js.Object, js.Any] {
+    extends Component[AccordionAccordionProps, js.Object, Any] {
     def this(props: AccordionAccordionProps) = this()
-    def this(props: AccordionAccordionProps, context: js.Any) = this()
+    def this(props: AccordionAccordionProps, context: Any) = this()
   }
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionAccordion", JSImport.Default)
   @js.native
@@ -38,7 +38,7 @@ object accordionAccordionAccordionMod extends Shortcut {
   trait AccordionAccordionProps
     extends StObject
        with StrictAccordionAccordionProps
-       with /* key */ StringDictionary[js.Any]
+       with /* key */ StringDictionary[Any]
   object AccordionAccordionProps {
     
     inline def apply(): AccordionAccordionProps = {
@@ -53,7 +53,7 @@ object accordionAccordionAccordionMod extends Shortcut {
     var activeIndex: js.UndefOr[Double | js.Array[Double]] = js.undefined
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.undefined
+    var as: js.UndefOr[Any] = js.undefined
     
     /** Primary content. */
     var children: js.UndefOr[Node] = js.undefined
@@ -99,7 +99,7 @@ object accordionAccordionAccordionMod extends Shortcut {
       
       inline def setActiveIndexVarargs(value: Double*): Self = StObject.set(x, "activeIndex", js.Array(value*))
       
-      inline def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
+      inline def setAs(value: Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       

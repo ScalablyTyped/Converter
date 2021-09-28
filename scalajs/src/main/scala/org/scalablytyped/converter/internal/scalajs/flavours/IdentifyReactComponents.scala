@@ -177,7 +177,7 @@ class IdentifyReactComponents(
   def maybeMethodComponent(method: MethodTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
       if (reactNames.isElement(current.typeName)) Some(current)
-      else if (current === TypeRef.JsAny)
+      else if (current === TypeRef.Any)
         Some(current) // unfortunately this conforms on the TS side, let's see how it works out
       else if (scope.isAbstract(current)) None
       else

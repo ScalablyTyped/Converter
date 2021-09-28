@@ -32,57 +32,57 @@ object mod {
         conditions: js.Object,
         projection: js.Object,
         options: js.Object,
-        callback: js.Function2[/* err */ js.Any, /* res */ js.UndefOr[js.Array[T]], Unit]
+        callback: js.Function2[/* err */ Any, /* res */ js.UndefOr[js.Array[T]], Unit]
       ): Unit = js.native
       def findRandom(
         conditions: js.Object,
         projection: js.Object,
         options: Null,
-        callback: js.Function2[/* err */ js.Any, /* res */ js.UndefOr[js.Array[T]], Unit]
+        callback: js.Function2[/* err */ Any, /* res */ js.UndefOr[js.Array[T]], Unit]
       ): Unit = js.native
       def findRandom(
         conditions: js.Object,
         projection: js.Object,
         options: Unit,
-        callback: js.Function2[/* err */ js.Any, /* res */ js.UndefOr[js.Array[T]], Unit]
+        callback: js.Function2[/* err */ Any, /* res */ js.UndefOr[js.Array[T]], Unit]
       ): Unit = js.native
       def findRandom(conditions: js.Object, projection: Null, options: js.Object): Unit = js.native
       def findRandom(
         conditions: js.Object,
         projection: Null,
         options: js.Object,
-        callback: js.Function2[/* err */ js.Any, /* res */ js.UndefOr[js.Array[T]], Unit]
+        callback: js.Function2[/* err */ Any, /* res */ js.UndefOr[js.Array[T]], Unit]
       ): Unit = js.native
       def findRandom(
         conditions: js.Object,
         projection: Null,
         options: Null,
-        callback: js.Function2[/* err */ js.Any, /* res */ js.UndefOr[js.Array[T]], Unit]
+        callback: js.Function2[/* err */ Any, /* res */ js.UndefOr[js.Array[T]], Unit]
       ): Unit = js.native
       def findRandom(
         conditions: js.Object,
         projection: Null,
         options: Unit,
-        callback: js.Function2[/* err */ js.Any, /* res */ js.UndefOr[js.Array[T]], Unit]
+        callback: js.Function2[/* err */ Any, /* res */ js.UndefOr[js.Array[T]], Unit]
       ): Unit = js.native
       def findRandom(conditions: js.Object, projection: Unit, options: js.Object): Unit = js.native
       def findRandom(
         conditions: js.Object,
         projection: Unit,
         options: js.Object,
-        callback: js.Function2[/* err */ js.Any, /* res */ js.UndefOr[js.Array[T]], Unit]
+        callback: js.Function2[/* err */ Any, /* res */ js.UndefOr[js.Array[T]], Unit]
       ): Unit = js.native
       def findRandom(
         conditions: js.Object,
         projection: Unit,
         options: Null,
-        callback: js.Function2[/* err */ js.Any, /* res */ js.UndefOr[js.Array[T]], Unit]
+        callback: js.Function2[/* err */ Any, /* res */ js.UndefOr[js.Array[T]], Unit]
       ): Unit = js.native
       def findRandom(
         conditions: js.Object,
         projection: Unit,
         options: Unit,
-        callback: js.Function2[/* err */ js.Any, /* res */ js.UndefOr[js.Array[T]], Unit]
+        callback: js.Function2[/* err */ Any, /* res */ js.UndefOr[js.Array[T]], Unit]
       ): Unit = js.native
     }
   }

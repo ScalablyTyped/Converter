@@ -10,10 +10,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait Example extends StObject {
   
-  def expandAlias(bc: A): js.Any = js.native
-  def expandAlias(bc: B): js.Any = js.native
+  def expandAlias(bc: A): Any = js.native
+  def expandAlias(bc: B): Any = js.native
   @JSName("expandAlias")
-  def expandAlias_c(bc: c): js.Any = js.native
+  def expandAlias_c(bc: c): Any = js.native
   
   @JSName("expandBoth")
   def expandBoth_a(bc: B, key: a, foo: Double): B = js.native

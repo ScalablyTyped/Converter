@@ -126,7 +126,7 @@ class ImportTree(
         val tpe = {
           tpeOpt match {
             case Some(TsTypeRef.`null`) =>
-              TypeRef.JsAny.withComments(
+              TypeRef.Any.withComments(
                 Comments("/* is `Null`, but independent javascript fields cannot be in scala 3 */"),
               )
             case _ =>
@@ -574,7 +574,7 @@ class ImportTree(
           val tpe = sig.resultType
             .filter(_ =/= TsTypeRef.any)
             .map(importType(scope, importName))
-            .getOrElse(TypeRef.JsAny)
+            .getOrElse(TypeRef.Any)
           (name, tpe)
       }
 

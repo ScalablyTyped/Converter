@@ -8,7 +8,7 @@ object mod {
   
   type Handler = RequestHandler
   
-  type NextFunction = js.Function1[/* err */ js.UndefOr[js.Any], Unit]
+  type NextFunction = js.Function1[/* err */ js.UndefOr[Any], Unit]
   
   trait Request
     extends StObject
@@ -29,7 +29,7 @@ object mod {
     }
   }
   
-  type RequestHandler = js.Function3[/* req */ Request, /* res */ Response, /* next */ NextFunction, js.Any]
+  type RequestHandler = js.Function3[/* req */ Request, /* res */ Response, /* next */ NextFunction, Any]
   
   trait Response
     extends StObject

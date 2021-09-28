@@ -12,7 +12,7 @@ trait ReactPortal
 }
 object ReactPortal {
   
-  inline def apply(children: slinky.core.facade.ReactElement, props: js.Any, `type`: js.Any): ReactPortal = {
+  inline def apply(children: slinky.core.facade.ReactElement, props: Any, `type`: Any): ReactPortal = {
     val __obj = js.Dynamic.literal(children = children.asInstanceOf[js.Any], props = props.asInstanceOf[js.Any], key = null)
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[ReactPortal]

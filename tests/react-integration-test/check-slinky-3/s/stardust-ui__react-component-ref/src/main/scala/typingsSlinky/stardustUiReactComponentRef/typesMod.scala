@@ -11,7 +11,7 @@ object typesMod {
   
   @JSImport("@stardust-ui/react-component-ref/dist/es/types", "refPropType")
   @js.native
-  val refPropType: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ js.Any = js.native
+  val refPropType: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ Any = js.native
   
   trait RefProps extends StObject {
     
@@ -22,7 +22,7 @@ object typesMod {
       *
       * @param {HTMLElement} node - Referred node.
       */
-    var innerRef: Ref[js.Any]
+    var innerRef: Ref[Any]
   }
   object RefProps {
     
@@ -35,13 +35,13 @@ object typesMod {
       
       inline def setChildren(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
-      inline def setInnerRef(value: Ref[js.Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
+      inline def setInnerRef(value: Ref[Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
       
-      inline def setInnerRefFunction1(value: /* instance */ js.Any | Null => Unit): Self = StObject.set(x, "innerRef", js.Any.fromFunction1(value))
+      inline def setInnerRefFunction1(value: /* instance */ Any | Null => Unit): Self = StObject.set(x, "innerRef", js.Any.fromFunction1(value))
       
       inline def setInnerRefNull: Self = StObject.set(x, "innerRef", null)
       
-      inline def setInnerRefReactRef(value: ReactRef[js.Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
+      inline def setInnerRefReactRef(value: ReactRef[Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
     }
   }
 }

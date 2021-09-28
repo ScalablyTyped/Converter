@@ -11,5 +11,5 @@ object isRefObjectMod {
   val ^ : js.Any = js.native
   
   /** Checks that the passed object is a valid React ref object. */
-  inline def default(ref: js.Any): /* is react.react.RefObject<any> */ Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(ref.asInstanceOf[js.Any]).asInstanceOf[/* is react.react.RefObject<any> */ Boolean]
+  inline def default(ref: Any): /* is react.react.RefObject<any> */ Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(ref.asInstanceOf[js.Any]).asInstanceOf[/* is react.react.RefObject<any> */ Boolean]
 }

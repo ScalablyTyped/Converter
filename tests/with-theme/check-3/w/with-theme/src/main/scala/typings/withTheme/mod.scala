@@ -15,13 +15,13 @@ object mod {
   @js.native
   val ^ : js.Any = js.native
   
-  inline def default(): js.Function1[/* component */ ComponentType[js.Any & WithTheme], ComponentClass[js.Any]] = ^.asInstanceOf[js.Dynamic].applyDynamic("default")().asInstanceOf[js.Function1[/* component */ ComponentType[js.Any & WithTheme], ComponentClass[js.Any]]]
+  inline def default(): js.Function1[/* component */ ComponentType[Any & WithTheme], ComponentClass[Any]] = ^.asInstanceOf[js.Dynamic].applyDynamic("default")().asInstanceOf[js.Function1[/* component */ ComponentType[Any & WithTheme], ComponentClass[Any]]]
   
   type ConsistentWith[T, U] = Pick[U, /* keyof T */ String]
   
   trait WithTheme extends StObject {
     
-    var innerRef: js.UndefOr[Ref[js.Any] | RefObject[js.Any]] = js.undefined
+    var innerRef: js.UndefOr[Ref[Any] | RefObject[Any]] = js.undefined
     
     var theme: String
   }
@@ -34,7 +34,7 @@ object mod {
     
     extension [Self <: WithTheme](x: Self) {
       
-      inline def setInnerRef(value: Ref[js.Any] | RefObject[js.Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
+      inline def setInnerRef(value: Ref[Any] | RefObject[Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
       
       inline def setInnerRefUndefined: Self = StObject.set(x, "innerRef", js.undefined)
       

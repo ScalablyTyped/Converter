@@ -18,7 +18,7 @@ object accordionContentMod extends Shortcut {
   trait AccordionContentProps
     extends StObject
        with StrictAccordionContentProps
-       with /* key */ StringDictionary[js.Any]
+       with /* key */ StringDictionary[Any]
   object AccordionContentProps {
     
     inline def apply(): AccordionContentProps = {
@@ -33,7 +33,7 @@ object accordionContentMod extends Shortcut {
     var active: js.UndefOr[Boolean] = js.undefined
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.undefined
+    var as: js.UndefOr[Any] = js.undefined
     
     /** Primary content. */
     var children: js.UndefOr[ReactElement] = js.undefined
@@ -57,7 +57,7 @@ object accordionContentMod extends Shortcut {
       
       inline def setActiveUndefined: Self = StObject.set(x, "active", js.undefined)
       
-      inline def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
+      inline def setAs(value: Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       

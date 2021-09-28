@@ -11,4 +11,4 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 */
 trait Legal1[T]
   extends StObject
-     with _Test2[js.Any, T]
+     with _Test2[Any, T]

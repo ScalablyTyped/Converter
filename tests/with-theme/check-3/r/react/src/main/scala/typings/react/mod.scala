@@ -117,11 +117,11 @@ object mod {
     }
   }
   
-  type ReactNode = js.Any
+  type ReactNode = Any
   
   type Ref[T] = String
   
-  type RefObject[T] = js.Any
+  type RefObject[T] = Any
   
   type SVGAttributes[T] = DOMAttributes[T]
 }

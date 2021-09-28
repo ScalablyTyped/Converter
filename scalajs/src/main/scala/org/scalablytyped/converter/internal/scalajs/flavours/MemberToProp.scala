@@ -35,7 +35,7 @@ object MemberToProp {
             case (optionality, dealiased) =>
               /* Undo effect of FollowAliases above */
               val tpe = Optional.unapply(origTpe).getOrElse(origTpe) match {
-                case TypeRef.Wildcard => TypeRef.JsAny
+                case TypeRef.Wildcard => TypeRef.Any
                 case other            => other
               }
 
@@ -74,7 +74,7 @@ object MemberToProp {
           }
 
         case _m: MethodTree =>
-          val m               = FillInTParams(_m, scope, _m.tparams.map(_ => TypeRef.JsAny), Empty)
+          val m               = FillInTParams(_m, scope, _m.tparams.map(_ => TypeRef.Any), Empty)
           val flattenedParams = m.params.flatten
 
           if (flattenedParams.exists(_.tpe === TypeRef.Nothing)) None // edge case which doesnt work

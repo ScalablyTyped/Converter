@@ -18,11 +18,11 @@ object streamMod {
     
     def end(): Unit = js.native
     def end(cb: js.Function): Unit = js.native
-    def end(chunk: js.Any): Unit = js.native
-    def end(chunk: js.Any, cb: js.Function): Unit = js.native
-    def end(chunk: js.Any, encoding: String): Unit = js.native
-    def end(chunk: js.Any, encoding: String, cb: js.Function): Unit = js.native
-    def end(chunk: js.Any, encoding: Unit, cb: js.Function): Unit = js.native
+    def end(chunk: Any): Unit = js.native
+    def end(chunk: Any, cb: js.Function): Unit = js.native
+    def end(chunk: Any, encoding: String): Unit = js.native
+    def end(chunk: Any, encoding: String, cb: js.Function): Unit = js.native
+    def end(chunk: Any, encoding: Unit, cb: js.Function): Unit = js.native
     def end(str: String): Unit = js.native
     def end(str: String, encoding: String): Unit = js.native
     def end(str: String, encoding: String, cb: js.Function): Unit = js.native

@@ -17,15 +17,15 @@ trait ComponentClass[P, S]
     ]
      with Instantiable2[
       /* props */ P, 
-      /* context */ js.Any, 
+      /* context */ Any, 
       japgolly.scalajs.react.facade.React.Component[P & js.Object, js.Object]
     ] {
   
-  var childContextTypes: js.UndefOr[ValidationMap[js.Any]] = js.native
+  var childContextTypes: js.UndefOr[ValidationMap[Any]] = js.native
   
-  var contextType: js.UndefOr[Context[js.Any]] = js.native
+  var contextType: js.UndefOr[Context[Any]] = js.native
   
-  var contextTypes: js.UndefOr[ValidationMap[js.Any]] = js.native
+  var contextTypes: js.UndefOr[ValidationMap[Any]] = js.native
   
   var defaultProps: js.UndefOr[Partial[P]] = js.native
   

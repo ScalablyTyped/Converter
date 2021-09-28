@@ -248,7 +248,7 @@ object TypeRef {
   def apply(qn: QualifiedName): TypeRef =
     TypeRef(qn, Empty, NoComments)
 
-  def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.JsAny))
+  def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.Any))
 
   val Wildcard = TypeRef(QualifiedName.WILDCARD, Empty, NoComments)
 
@@ -364,9 +364,9 @@ object TypeRef {
 
   def JsTuple(typeParams: IArray[TypeRef]): TypeRef =
     typeParams match {
-      case IArray.Empty                   => TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments)
+      case IArray.Empty                   => TypeRef(QualifiedName.JsArray, IArray(TypeRef.Any), NoComments)
       case IArray.exactlyOne(one)         => TypeRef(QualifiedName.JsArray, IArray(one), NoComments)
-      case catch22 if catch22.length > 22 => TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments)
+      case catch22 if catch22.length > 22 => TypeRef(QualifiedName.JsArray, IArray(TypeRef.Any), NoComments)
       case _                              => TypeRef(QualifiedName.Tuple(typeParams.length), typeParams, NoComments)
     }
 

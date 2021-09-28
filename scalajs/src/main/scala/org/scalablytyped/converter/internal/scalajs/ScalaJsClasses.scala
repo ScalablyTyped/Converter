@@ -52,7 +52,7 @@ object ScalaJsClasses {
         cls(QualifiedName.Float, IArray(TypeRef.AnyVal), ClassType.Class, isSealed  = true),
         cls(QualifiedName.Int, IArray(TypeRef.AnyVal), ClassType.Class, isSealed     = true),
         cls(QualifiedName.Long, IArray(TypeRef.AnyVal), ClassType.Class, isSealed     = true),
-        cls(QualifiedName.Nothing, IArray(TypeRef.JsAny), ClassType.Class, isSealed  = true),
+        cls(QualifiedName.Nothing, IArray(TypeRef.Any), ClassType.Class, isSealed  = true),
         cls(QualifiedName.Null, IArray(TypeRef.AnyRef), ClassType.Trait, isSealed    = false),
         cls(QualifiedName.Short, IArray(TypeRef.AnyVal), ClassType.Class, isSealed  = true),
         cls(QualifiedName.String, IArray(TypeRef.AnyRef), ClassType.Class, isSealed  = true),

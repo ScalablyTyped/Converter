@@ -15,9 +15,9 @@ object mod {
     
     inline def apply[T](
       abort: () => Unit,
-      `catch`: js.UndefOr[js.Function1[Any, js.Any | js.Thenable[js.Any]]] => js.Promise[js.Any],
+      `catch`: js.UndefOr[js.Function1[Any, Any | js.Thenable[Any]]] => js.Promise[Any],
       executor: (js.Function1[T | js.Thenable[T], ?], js.Function1[Any, ?]) => ?,
-      `then`: ((js.Function1[T, js.Any | js.Thenable[js.Any]]) | Unit, js.UndefOr[js.Function1[Any, js.Any | js.Thenable[js.Any]]]) => js.Promise[js.Any]
+      `then`: ((js.Function1[T, Any | js.Thenable[Any]]) | Unit, js.UndefOr[js.Function1[Any, Any | js.Thenable[Any]]]) => js.Promise[Any]
     ): TransportRequestPromise[T] = {
       val __obj = js.Dynamic.literal(abort = js.Any.fromFunction0(abort), executor = js.Any.fromFunction2(executor))
       __obj.updateDynamic("catch")(js.Any.fromFunction1(`catch`))

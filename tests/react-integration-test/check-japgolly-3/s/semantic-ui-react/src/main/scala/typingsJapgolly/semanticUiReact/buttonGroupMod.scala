@@ -34,7 +34,7 @@ object buttonGroupMod extends Shortcut {
   trait ButtonGroupProps
     extends StObject
        with StrictButtonGroupProps
-       with /* key */ StringDictionary[js.Any]
+       with /* key */ StringDictionary[Any]
   object ButtonGroupProps {
     
     inline def apply(): ButtonGroupProps = {
@@ -46,7 +46,7 @@ object buttonGroupMod extends Shortcut {
   trait StrictButtonGroupProps extends StObject {
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.undefined
+    var as: js.UndefOr[Any] = js.undefined
     
     /** Groups can be attached to other content. */
     var attached: js.UndefOr[Boolean | left | right | top | bottom] = js.undefined
@@ -120,7 +120,7 @@ object buttonGroupMod extends Shortcut {
     
     extension [Self <: StrictButtonGroupProps](x: Self) {
       
-      inline def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
+      inline def setAs(value: Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       

@@ -33,7 +33,7 @@ object vuejs {
   
   trait HttpHeaders
     extends StObject
-       with /* key */ StringDictionary[js.Any] {
+       with /* key */ StringDictionary[Any] {
     
     var common: js.UndefOr[StringDictionary[String]] = js.undefined
     
@@ -109,9 +109,9 @@ object vuejs {
   
   trait HttpOptions extends StObject {
     
-    var before: js.UndefOr[js.Function1[/* request */ js.Any, js.Any]] = js.undefined
+    var before: js.UndefOr[js.Function1[/* request */ Any, Any]] = js.undefined
     
-    var body: js.UndefOr[js.Any] = js.undefined
+    var body: js.UndefOr[Any] = js.undefined
     
     var credentials: js.UndefOr[Boolean] = js.undefined
     
@@ -119,13 +119,13 @@ object vuejs {
     
     var emulateJSON: js.UndefOr[Boolean] = js.undefined
     
-    var headers: js.UndefOr[js.Any] = js.undefined
+    var headers: js.UndefOr[Any] = js.undefined
     
     var method: js.UndefOr[String] = js.undefined
     
-    var params: js.UndefOr[js.Any] = js.undefined
+    var params: js.UndefOr[Any] = js.undefined
     
-    var progress: js.UndefOr[js.Function1[/* event */ js.Any, js.Any]] = js.undefined
+    var progress: js.UndefOr[js.Function1[/* event */ Any, Any]] = js.undefined
     
     var url: js.UndefOr[String] = js.undefined
   }
@@ -138,11 +138,11 @@ object vuejs {
     
     extension [Self <: HttpOptions](x: Self) {
       
-      inline def setBefore(value: /* request */ js.Any => js.Any): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
+      inline def setBefore(value: /* request */ Any => Any): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
       
       inline def setBeforeUndefined: Self = StObject.set(x, "before", js.undefined)
       
-      inline def setBody(value: js.Any): Self = StObject.set(x, "body", value.asInstanceOf[js.Any])
+      inline def setBody(value: Any): Self = StObject.set(x, "body", value.asInstanceOf[js.Any])
       
       inline def setBodyUndefined: Self = StObject.set(x, "body", js.undefined)
       
@@ -158,7 +158,7 @@ object vuejs {
       
       inline def setEmulateJSONUndefined: Self = StObject.set(x, "emulateJSON", js.undefined)
       
-      inline def setHeaders(value: js.Any): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
+      inline def setHeaders(value: Any): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
       
       inline def setHeadersUndefined: Self = StObject.set(x, "headers", js.undefined)
       
@@ -166,11 +166,11 @@ object vuejs {
       
       inline def setMethodUndefined: Self = StObject.set(x, "method", js.undefined)
       
-      inline def setParams(value: js.Any): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
+      inline def setParams(value: Any): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
       
       inline def setParamsUndefined: Self = StObject.set(x, "params", js.undefined)
       
-      inline def setProgress(value: /* event */ js.Any => js.Any): Self = StObject.set(x, "progress", js.Any.fromFunction1(value))
+      inline def setProgress(value: /* event */ Any => Any): Self = StObject.set(x, "progress", js.Any.fromFunction1(value))
       
       inline def setProgressUndefined: Self = StObject.set(x, "progress", js.undefined)
       
@@ -188,7 +188,7 @@ object vuejs {
     
     var headers: js.Function
     
-    def json(): js.Any
+    def json(): Any
     
     var ok: Boolean
     
@@ -204,7 +204,7 @@ object vuejs {
       blob: () => Blob,
       data: js.Object,
       headers: js.Function,
-      json: () => js.Any,
+      json: () => Any,
       ok: Boolean,
       status: Double,
       statusText: String,
@@ -222,7 +222,7 @@ object vuejs {
       
       inline def setHeaders(value: js.Function): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
       
-      inline def setJson(value: () => js.Any): Self = StObject.set(x, "json", js.Any.fromFunction0(value))
+      inline def setJson(value: () => Any): Self = StObject.set(x, "json", js.Any.fromFunction0(value))
       
       inline def setOk(value: Boolean): Self = StObject.set(x, "ok", value.asInstanceOf[js.Any])
       
@@ -237,16 +237,16 @@ object vuejs {
   trait Http_ extends StObject {
     
     def delete(url: String): js.Thenable[HttpResponse]
-    def delete(url: String, data: js.Any): js.Thenable[HttpResponse]
-    def delete(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse]
+    def delete(url: String, data: Any): js.Thenable[HttpResponse]
+    def delete(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse]
     def delete(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse]
     def delete(url: String, options: HttpOptions): js.Thenable[HttpResponse]
     @JSName("delete")
     var delete_Original: http
     
     def get(url: String): js.Thenable[HttpResponse]
-    def get(url: String, data: js.Any): js.Thenable[HttpResponse]
-    def get(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse]
+    def get(url: String, data: Any): js.Thenable[HttpResponse]
+    def get(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse]
     def get(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse]
     def get(url: String, options: HttpOptions): js.Thenable[HttpResponse]
     @JSName("get")
@@ -257,8 +257,8 @@ object vuejs {
     var interceptors: js.Array[HttpInterceptor | js.Function0[HttpInterceptor]]
     
     def jsonp(url: String): js.Thenable[HttpResponse]
-    def jsonp(url: String, data: js.Any): js.Thenable[HttpResponse]
-    def jsonp(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse]
+    def jsonp(url: String, data: Any): js.Thenable[HttpResponse]
+    def jsonp(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse]
     def jsonp(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse]
     def jsonp(url: String, options: HttpOptions): js.Thenable[HttpResponse]
     @JSName("jsonp")
@@ -267,24 +267,24 @@ object vuejs {
     var options: HttpOptionsrootstring
     
     def patch(url: String): js.Thenable[HttpResponse]
-    def patch(url: String, data: js.Any): js.Thenable[HttpResponse]
-    def patch(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse]
+    def patch(url: String, data: Any): js.Thenable[HttpResponse]
+    def patch(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse]
     def patch(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse]
     def patch(url: String, options: HttpOptions): js.Thenable[HttpResponse]
     @JSName("patch")
     var patch_Original: http
     
     def post(url: String): js.Thenable[HttpResponse]
-    def post(url: String, data: js.Any): js.Thenable[HttpResponse]
-    def post(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse]
+    def post(url: String, data: Any): js.Thenable[HttpResponse]
+    def post(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse]
     def post(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse]
     def post(url: String, options: HttpOptions): js.Thenable[HttpResponse]
     @JSName("post")
     var post_Original: http
     
     def put(url: String): js.Thenable[HttpResponse]
-    def put(url: String, data: js.Any): js.Thenable[HttpResponse]
-    def put(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse]
+    def put(url: String, data: Any): js.Thenable[HttpResponse]
+    def put(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse]
     def put(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse]
     def put(url: String, options: HttpOptions): js.Thenable[HttpResponse]
     @JSName("put")
@@ -372,16 +372,16 @@ object vuejs {
   trait ResourceMethod extends StObject {
     
     def apply(): js.Thenable[HttpResponse] = js.native
-    def apply(params: js.Any): js.Thenable[HttpResponse] = js.native
-    def apply(params: js.Any, data: js.Any): js.Thenable[HttpResponse] = js.native
-    def apply(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: js.Any, success: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(params: Any): js.Thenable[HttpResponse] = js.native
+    def apply(params: Any, data: Any): js.Thenable[HttpResponse] = js.native
+    def apply(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(params: Any, success: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
     def apply(success: js.Function): js.Thenable[HttpResponse] = js.native
     def apply(success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
     def apply(success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
@@ -390,16 +390,16 @@ object vuejs {
   trait ResourceMethods extends StObject {
     
     def delete(): js.Thenable[HttpResponse]
-    def delete(params: js.Any): js.Thenable[HttpResponse]
-    def delete(params: js.Any, data: js.Any): js.Thenable[HttpResponse]
-    def delete(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse]
-    def delete(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def delete(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def delete(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
-    def delete(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def delete(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def delete(params: js.Any, success: js.Function): js.Thenable[HttpResponse]
-    def delete(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def delete(params: Any): js.Thenable[HttpResponse]
+    def delete(params: Any, data: Any): js.Thenable[HttpResponse]
+    def delete(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse]
+    def delete(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def delete(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def delete(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
+    def delete(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def delete(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def delete(params: Any, success: js.Function): js.Thenable[HttpResponse]
+    def delete(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
     def delete(success: js.Function): js.Thenable[HttpResponse]
     def delete(success: js.Function, error: js.Function): js.Thenable[HttpResponse]
     def delete(success: Unit, error: js.Function): js.Thenable[HttpResponse]
@@ -407,16 +407,16 @@ object vuejs {
     var delete_Original: ResourceMethod
     
     def get(): js.Thenable[HttpResponse]
-    def get(params: js.Any): js.Thenable[HttpResponse]
-    def get(params: js.Any, data: js.Any): js.Thenable[HttpResponse]
-    def get(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse]
-    def get(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def get(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def get(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
-    def get(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def get(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def get(params: js.Any, success: js.Function): js.Thenable[HttpResponse]
-    def get(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def get(params: Any): js.Thenable[HttpResponse]
+    def get(params: Any, data: Any): js.Thenable[HttpResponse]
+    def get(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse]
+    def get(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def get(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def get(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
+    def get(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def get(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def get(params: Any, success: js.Function): js.Thenable[HttpResponse]
+    def get(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
     def get(success: js.Function): js.Thenable[HttpResponse]
     def get(success: js.Function, error: js.Function): js.Thenable[HttpResponse]
     def get(success: Unit, error: js.Function): js.Thenable[HttpResponse]
@@ -424,16 +424,16 @@ object vuejs {
     var get_Original: ResourceMethod
     
     def query(): js.Thenable[HttpResponse]
-    def query(params: js.Any): js.Thenable[HttpResponse]
-    def query(params: js.Any, data: js.Any): js.Thenable[HttpResponse]
-    def query(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse]
-    def query(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def query(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def query(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
-    def query(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def query(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def query(params: js.Any, success: js.Function): js.Thenable[HttpResponse]
-    def query(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def query(params: Any): js.Thenable[HttpResponse]
+    def query(params: Any, data: Any): js.Thenable[HttpResponse]
+    def query(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse]
+    def query(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def query(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def query(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
+    def query(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def query(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def query(params: Any, success: js.Function): js.Thenable[HttpResponse]
+    def query(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
     def query(success: js.Function): js.Thenable[HttpResponse]
     def query(success: js.Function, error: js.Function): js.Thenable[HttpResponse]
     def query(success: Unit, error: js.Function): js.Thenable[HttpResponse]
@@ -441,16 +441,16 @@ object vuejs {
     var query_Original: ResourceMethod
     
     def remove(): js.Thenable[HttpResponse]
-    def remove(params: js.Any): js.Thenable[HttpResponse]
-    def remove(params: js.Any, data: js.Any): js.Thenable[HttpResponse]
-    def remove(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse]
-    def remove(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def remove(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def remove(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
-    def remove(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def remove(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def remove(params: js.Any, success: js.Function): js.Thenable[HttpResponse]
-    def remove(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def remove(params: Any): js.Thenable[HttpResponse]
+    def remove(params: Any, data: Any): js.Thenable[HttpResponse]
+    def remove(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse]
+    def remove(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def remove(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def remove(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
+    def remove(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def remove(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def remove(params: Any, success: js.Function): js.Thenable[HttpResponse]
+    def remove(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
     def remove(success: js.Function): js.Thenable[HttpResponse]
     def remove(success: js.Function, error: js.Function): js.Thenable[HttpResponse]
     def remove(success: Unit, error: js.Function): js.Thenable[HttpResponse]
@@ -458,16 +458,16 @@ object vuejs {
     var remove_Original: ResourceMethod
     
     def save(): js.Thenable[HttpResponse]
-    def save(params: js.Any): js.Thenable[HttpResponse]
-    def save(params: js.Any, data: js.Any): js.Thenable[HttpResponse]
-    def save(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse]
-    def save(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def save(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def save(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
-    def save(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def save(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def save(params: js.Any, success: js.Function): js.Thenable[HttpResponse]
-    def save(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def save(params: Any): js.Thenable[HttpResponse]
+    def save(params: Any, data: Any): js.Thenable[HttpResponse]
+    def save(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse]
+    def save(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def save(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def save(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
+    def save(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def save(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def save(params: Any, success: js.Function): js.Thenable[HttpResponse]
+    def save(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
     def save(success: js.Function): js.Thenable[HttpResponse]
     def save(success: js.Function, error: js.Function): js.Thenable[HttpResponse]
     def save(success: Unit, error: js.Function): js.Thenable[HttpResponse]
@@ -475,16 +475,16 @@ object vuejs {
     var save_Original: ResourceMethod
     
     def update(): js.Thenable[HttpResponse]
-    def update(params: js.Any): js.Thenable[HttpResponse]
-    def update(params: js.Any, data: js.Any): js.Thenable[HttpResponse]
-    def update(params: js.Any, data: js.Any, success: js.Function): js.Thenable[HttpResponse]
-    def update(params: js.Any, data: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def update(params: js.Any, data: js.Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def update(params: js.Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
-    def update(params: js.Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def update(params: js.Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def update(params: js.Any, success: js.Function): js.Thenable[HttpResponse]
-    def update(params: js.Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def update(params: Any): js.Thenable[HttpResponse]
+    def update(params: Any, data: Any): js.Thenable[HttpResponse]
+    def update(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse]
+    def update(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def update(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def update(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
+    def update(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
+    def update(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def update(params: Any, success: js.Function): js.Thenable[HttpResponse]
+    def update(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
     def update(success: js.Function): js.Thenable[HttpResponse]
     def update(success: js.Function, error: js.Function): js.Thenable[HttpResponse]
     def update(success: Unit, error: js.Function): js.Thenable[HttpResponse]
@@ -539,15 +539,15 @@ object vuejs {
     @JSName("$resource")
     def $resource(url: String, params: js.Object): ResourceMethods
     @JSName("$resource")
-    def $resource(url: String, params: js.Object, actions: js.Any): ResourceMethods
+    def $resource(url: String, params: js.Object, actions: Any): ResourceMethods
     @JSName("$resource")
-    def $resource(url: String, params: js.Object, actions: js.Any, options: HttpOptions): ResourceMethods
+    def $resource(url: String, params: js.Object, actions: Any, options: HttpOptions): ResourceMethods
     @JSName("$resource")
     def $resource(url: String, params: js.Object, actions: Unit, options: HttpOptions): ResourceMethods
     @JSName("$resource")
-    def $resource(url: String, params: Unit, actions: js.Any): ResourceMethods
+    def $resource(url: String, params: Unit, actions: Any): ResourceMethods
     @JSName("$resource")
-    def $resource(url: String, params: Unit, actions: js.Any, options: HttpOptions): ResourceMethods
+    def $resource(url: String, params: Unit, actions: Any, options: HttpOptions): ResourceMethods
     @JSName("$resource")
     def $resource(url: String, params: Unit, actions: Unit, options: HttpOptions): ResourceMethods
     @JSName("$resource")
@@ -557,7 +557,7 @@ object vuejs {
     
     inline def apply(
       $http: Call,
-      $resource: (/* url */ String, /* params */ js.UndefOr[js.Object], /* actions */ js.UndefOr[js.Any], /* options */ js.UndefOr[HttpOptions]) => ResourceMethods
+      $resource: (/* url */ String, /* params */ js.UndefOr[js.Object], /* actions */ js.UndefOr[Any], /* options */ js.UndefOr[HttpOptions]) => ResourceMethods
     ): Vue = {
       val __obj = js.Dynamic.literal($http = $http.asInstanceOf[js.Any], $resource = js.Any.fromFunction4($resource))
       __obj.asInstanceOf[Vue]
@@ -568,7 +568,7 @@ object vuejs {
       inline def set$http(value: Call): Self = StObject.set(x, "$http", value.asInstanceOf[js.Any])
       
       inline def set$resource(
-        value: (/* url */ String, /* params */ js.UndefOr[js.Object], /* actions */ js.UndefOr[js.Any], /* options */ js.UndefOr[HttpOptions]) => ResourceMethods
+        value: (/* url */ String, /* params */ js.UndefOr[js.Object], /* actions */ js.UndefOr[Any], /* options */ js.UndefOr[HttpOptions]) => ResourceMethods
       ): Self = StObject.set(x, "$resource", js.Any.fromFunction4(value))
     }
   }
@@ -598,8 +598,8 @@ object vuejs {
   trait http extends StObject {
     
     def apply(url: String): js.Thenable[HttpResponse] = js.native
-    def apply(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
-    def apply(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def apply(url: String, data: Any): js.Thenable[HttpResponse] = js.native
+    def apply(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def apply(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
     def apply(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
   }
@@ -607,7 +607,7 @@ object vuejs {
   type resource = js.Function4[
     /* url */ String, 
     /* params */ js.UndefOr[js.Object], 
-    /* actions */ js.UndefOr[js.Any], 
+    /* actions */ js.UndefOr[Any], 
     /* options */ js.UndefOr[HttpOptions], 
     ResourceMethods
   ]

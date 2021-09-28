@@ -129,7 +129,7 @@ object Button {
   val component: js.Object = js.native
   
   @scala.inline
-  open class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[Any])
     extends AnyVal
        with StBuildingComponent[tag.type, default] {
     
@@ -237,7 +237,7 @@ object Button {
     
     inline def `aria-valuetext`(value: String): this.type = set("aria-valuetext", value.asInstanceOf[js.Any])
     
-    inline def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
+    inline def as(value: Any): this.type = set("as", value.asInstanceOf[js.Any])
     
     inline def attached(value: Boolean | left | right | top | bottom): this.type = set("attached", value.asInstanceOf[js.Any])
     
@@ -301,21 +301,21 @@ object Button {
     
     inline def icon(
       value: Boolean | (SemanticShorthandItem[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ Any
         ])
     ): this.type = set("icon", value.asInstanceOf[js.Any])
     
     inline def iconFunction3(
       value: (/* component */ ReactType[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
-        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ Any
+        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ Any, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
     ): this.type = set("icon", js.Any.fromFunction3(value))
     
     inline def iconReactElement(value: ReactElement): this.type = set("icon", value.asInstanceOf[js.Any])
     
     inline def id(value: String): this.type = set("id", value.asInstanceOf[js.Any])
     
-    inline def inlist(value: js.Any): this.type = set("inlist", value.asInstanceOf[js.Any])
+    inline def inlist(value: Any): this.type = set("inlist", value.asInstanceOf[js.Any])
     
     inline def inputMode(value: String): this.type = set("inputMode", value.asInstanceOf[js.Any])
     
@@ -335,14 +335,14 @@ object Button {
     
     inline def label(
       value: SemanticShorthandItem[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any
         ]
     ): this.type = set("label", value.asInstanceOf[js.Any])
     
     inline def labelFunction3(
       value: (/* component */ ReactType[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
-        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any
+        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
     ): this.type = set("label", js.Any.fromFunction3(value))
     
     inline def labelPosition(value: right | left): this.type = set("labelPosition", value.asInstanceOf[js.Any])

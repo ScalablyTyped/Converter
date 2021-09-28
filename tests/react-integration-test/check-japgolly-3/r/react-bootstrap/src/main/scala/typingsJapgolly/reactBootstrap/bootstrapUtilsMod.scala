@@ -10,22 +10,22 @@ object bootstrapUtilsMod {
   @js.native
   val ^ : js.Any = js.native
   
-  inline def getBsProps(props: js.Any): BSProps = ^.asInstanceOf[js.Dynamic].applyDynamic("getBsProps")(props.asInstanceOf[js.Any]).asInstanceOf[BSProps]
+  inline def getBsProps(props: Any): BSProps = ^.asInstanceOf[js.Dynamic].applyDynamic("getBsProps")(props.asInstanceOf[js.Any]).asInstanceOf[BSProps]
   
   trait BSProps extends StObject {
     
-    var bsClass: js.Any
+    var bsClass: Any
   }
   object BSProps {
     
-    inline def apply(bsClass: js.Any): BSProps = {
+    inline def apply(bsClass: Any): BSProps = {
       val __obj = js.Dynamic.literal(bsClass = bsClass.asInstanceOf[js.Any])
       __obj.asInstanceOf[BSProps]
     }
     
     extension [Self <: BSProps](x: Self) {
       
-      inline def setBsClass(value: js.Any): Self = StObject.set(x, "bsClass", value.asInstanceOf[js.Any])
+      inline def setBsClass(value: Any): Self = StObject.set(x, "bsClass", value.asInstanceOf[js.Any])
     }
   }
 }

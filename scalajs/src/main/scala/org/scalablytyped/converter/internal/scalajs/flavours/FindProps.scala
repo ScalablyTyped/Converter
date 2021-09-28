@@ -99,7 +99,7 @@ final class FindProps(
       acceptNativeTraits: Boolean,
   ): Res[IArray[String], IArray[Prop]] =
     FollowAliases(scope)(typeRef) match {
-      case TypeRef.JsAny => // todo: now that we can resolve `js.Any` we need a not found type or something.
+      case TypeRef.Any => // todo: now that we can resolve `Any` we need a not found type or something.
         val msg = s"Could't extract props from ${Printer.formatTypeRef(0)(typeRef)} because couldn't resolve ClassTree."
         Res.Error(IArray(msg))
       case TypeRef.JsObject => Res.One(typeRef, Empty)

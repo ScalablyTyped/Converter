@@ -39,7 +39,7 @@ object mod {
   
   trait ServeStaticOptions extends StObject {
     
-    var setHeaders: js.UndefOr[js.Function3[/* res */ Response, /* path */ String, /* stat */ js.Any, js.Any]] = js.undefined
+    var setHeaders: js.UndefOr[js.Function3[/* res */ Response, /* path */ String, /* stat */ Any, Any]] = js.undefined
   }
   object ServeStaticOptions {
     
@@ -50,7 +50,7 @@ object mod {
     
     extension [Self <: ServeStaticOptions](x: Self) {
       
-      inline def setSetHeaders(value: (/* res */ Response, /* path */ String, /* stat */ js.Any) => js.Any): Self = StObject.set(x, "setHeaders", js.Any.fromFunction3(value))
+      inline def setSetHeaders(value: (/* res */ Response, /* path */ String, /* stat */ Any) => Any): Self = StObject.set(x, "setHeaders", js.Any.fromFunction3(value))
       
       inline def setSetHeadersUndefined: Self = StObject.set(x, "setHeaders", js.undefined)
     }

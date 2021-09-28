@@ -341,7 +341,7 @@ class SlinkyGenComponents(
   }
 
   def refFromProps[E](resProps: Res[E, SplitProps]): Option[TypeRef] =
-    resProps.asMap.flatMapToIArray { case (_, v) => v.refTypes }.filterNot(_ === TypeRef.JsAny).headOption
+    resProps.asMap.flatMapToIArray { case (_, v) => v.refTypes }.filterNot(_ === TypeRef.Any).headOption
 
   def effectiveRef(
       scope:             TreeScope,
@@ -799,7 +799,7 @@ class SlinkyGenComponents(
           Name("args"),
           isImplicit = false,
           isVal      = true,
-          TypeRef(QualifiedName.JsArray, IArray(TypeRef.JsAny), NoComments),
+          TypeRef(QualifiedName.JsArray, IArray(TypeRef.Any), NoComments),
           NotImplemented,
           NoComments,
         ),

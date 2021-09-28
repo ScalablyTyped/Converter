@@ -46,7 +46,7 @@ object mod {
   trait ComponentClass[P]
     extends StObject
        with Instantiable1[/* props */ P, ReactComponentClass[P]]
-       with Instantiable2[/* props */ P, /* context */ js.Any, ReactComponentClass[P]] {
+       with Instantiable2[/* props */ P, /* context */ Any, ReactComponentClass[P]] {
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
     
@@ -149,13 +149,13 @@ object mod {
     
     var key: Key | Null
     
-    var props: js.Any
+    var props: Any
     
-    var `type`: String | ReactComponentClass[js.Any]
+    var `type`: String | ReactComponentClass[Any]
   }
   object ReactElement {
     
-    inline def apply(props: js.Any, `type`: String | ReactComponentClass[js.Any]): ReactElement = {
+    inline def apply(props: Any, `type`: String | ReactComponentClass[Any]): ReactElement = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
       __obj.asInstanceOf[ReactElement]
@@ -167,11 +167,11 @@ object mod {
       
       inline def setKeyNull: Self = StObject.set(x, "key", null)
       
-      inline def setProps(value: js.Any): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
+      inline def setProps(value: Any): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
-      inline def setType(value: String | ReactComponentClass[js.Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setType(value: String | ReactComponentClass[Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
       
-      inline def setTypeReactComponentClass(value: ReactComponentClass[js.Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setTypeReactComponentClass(value: ReactComponentClass[Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
@@ -185,7 +185,7 @@ object mod {
   trait StatelessComponent[P] extends StObject {
     
     def apply(props: P & Children): slinky.core.facade.ReactElement | Null = js.native
-    def apply(props: P & Children, context: js.Any): slinky.core.facade.ReactElement | Null = js.native
+    def apply(props: P & Children, context: Any): slinky.core.facade.ReactElement | Null = js.native
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
     

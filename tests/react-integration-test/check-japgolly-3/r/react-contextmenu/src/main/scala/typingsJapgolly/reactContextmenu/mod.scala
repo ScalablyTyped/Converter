@@ -26,9 +26,9 @@ object mod {
   @JSImport("react-contextmenu", "ContextMenu")
   @js.native
   open class ContextMenu protected ()
-    extends Component[ContextMenuProps, js.Object, js.Any] {
+    extends Component[ContextMenuProps, js.Object, Any] {
     def this(props: ContextMenuProps) = this()
-    def this(props: ContextMenuProps, context: js.Any) = this()
+    def this(props: ContextMenuProps, context: Any) = this()
   }
   @JSImport("react-contextmenu", "ContextMenu")
   @js.native
@@ -38,9 +38,9 @@ object mod {
   @JSImport("react-contextmenu", "ContextMenuTrigger")
   @js.native
   open class ContextMenuTrigger protected ()
-    extends Component[ContextMenuTriggerProps, js.Object, js.Any] {
+    extends Component[ContextMenuTriggerProps, js.Object, Any] {
     def this(props: ContextMenuTriggerProps) = this()
-    def this(props: ContextMenuTriggerProps, context: js.Any) = this()
+    def this(props: ContextMenuTriggerProps, context: Any) = this()
   }
   @JSImport("react-contextmenu", "ContextMenuTrigger")
   @js.native
@@ -50,9 +50,9 @@ object mod {
   @JSImport("react-contextmenu", "MenuItem")
   @js.native
   open class MenuItem protected ()
-    extends Component[MenuItemProps, js.Object, js.Any] {
+    extends Component[MenuItemProps, js.Object, Any] {
     def this(props: MenuItemProps) = this()
-    def this(props: MenuItemProps, context: js.Any) = this()
+    def this(props: MenuItemProps, context: Any) = this()
   }
   @JSImport("react-contextmenu", "MenuItem")
   @js.native
@@ -62,48 +62,48 @@ object mod {
   @JSImport("react-contextmenu", "SubMenu")
   @js.native
   open class SubMenu protected ()
-    extends Component[SubMenuProps, js.Object, js.Any] {
+    extends Component[SubMenuProps, js.Object, Any] {
     def this(props: SubMenuProps) = this()
-    def this(props: SubMenuProps, context: js.Any) = this()
+    def this(props: SubMenuProps, context: Any) = this()
   }
   @JSImport("react-contextmenu", "SubMenu")
   @js.native
   val SubMenu: ComponentClassP[SubMenuProps & js.Object] = js.native
   
-  inline def connectMenu(menuId: String): js.Function1[/* menu */ js.Any, js.Any] = ^.asInstanceOf[js.Dynamic].applyDynamic("connectMenu")(menuId.asInstanceOf[js.Any]).asInstanceOf[js.Function1[/* menu */ js.Any, js.Any]]
+  inline def connectMenu(menuId: String): js.Function1[/* menu */ Any, Any] = ^.asInstanceOf[js.Dynamic].applyDynamic("connectMenu")(menuId.asInstanceOf[js.Any]).asInstanceOf[js.Function1[/* menu */ Any, Any]]
   
   inline def hideMenu(): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")().asInstanceOf[Unit]
-  inline def hideMenu(opts: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any]).asInstanceOf[Unit]
-  inline def hideMenu(opts: js.Any, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  inline def hideMenu(opts: Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  inline def hideMenu(opts: Any, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
   inline def hideMenu(opts: Unit, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("hideMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
   
   inline def showMenu(): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")().asInstanceOf[Unit]
-  inline def showMenu(opts: js.Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any]).asInstanceOf[Unit]
-  inline def showMenu(opts: js.Any, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  inline def showMenu(opts: Any): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  inline def showMenu(opts: Any, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
   inline def showMenu(opts: Unit, target: HTMLElement): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("showMenu")(opts.asInstanceOf[js.Any], target.asInstanceOf[js.Any])).asInstanceOf[Unit]
   
   trait ContextMenuProps extends StObject {
     
     var className: js.UndefOr[String] = js.undefined
     
-    var data: js.UndefOr[js.Any] = js.undefined
+    var data: js.UndefOr[Any] = js.undefined
     
     var hideOnLeave: js.UndefOr[Boolean] = js.undefined
     
     var id: String
     
-    var onHide: js.UndefOr[js.Function1[/* event */ js.Any, Unit]] = js.undefined
+    var onHide: js.UndefOr[js.Function1[/* event */ Any, Unit]] = js.undefined
     
     var onMouseLeave: js.UndefOr[
         (js.Function3[
           /* event */ ReactMouseEventFrom[HTMLElement], 
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ Any, 
           /* target */ HTMLElement, 
           Unit
         ]) | js.Function
       ] = js.undefined
     
-    var onShow: js.UndefOr[js.Function1[/* event */ js.Any, Unit]] = js.undefined
+    var onShow: js.UndefOr[js.Function1[/* event */ Any, Unit]] = js.undefined
     
     var rtl: js.UndefOr[Boolean] = js.undefined
   }
@@ -120,7 +120,7 @@ object mod {
       
       inline def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
-      inline def setData(value: js.Any): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
+      inline def setData(value: Any): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
       inline def setDataUndefined: Self = StObject.set(x, "data", js.undefined)
       
@@ -130,26 +130,26 @@ object mod {
       
       inline def setId(value: String): Self = StObject.set(x, "id", value.asInstanceOf[js.Any])
       
-      inline def setOnHide(value: /* event */ js.Any => Callback): Self = StObject.set(x, "onHide", js.Any.fromFunction1((t0: /* event */ js.Any) => value(t0).runNow()))
+      inline def setOnHide(value: /* event */ Any => Callback): Self = StObject.set(x, "onHide", js.Any.fromFunction1((t0: /* event */ Any) => value(t0).runNow()))
       
       inline def setOnHideUndefined: Self = StObject.set(x, "onHide", js.undefined)
       
       inline def setOnMouseLeave(
         value: (js.Function3[
               /* event */ ReactMouseEventFrom[HTMLElement], 
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ Any, 
               /* target */ HTMLElement, 
               Unit
             ]) | js.Function
       ): Self = StObject.set(x, "onMouseLeave", value.asInstanceOf[js.Any])
       
       inline def setOnMouseLeaveFunction3(
-        value: (/* event */ ReactMouseEventFrom[HTMLElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Callback
-      ): Self = StObject.set(x, "onMouseLeave", js.Any.fromFunction3((t0: /* event */ ReactMouseEventFrom[HTMLElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, t2: /* target */ HTMLElement) => (value(t0, t1, t2)).runNow()))
+        value: (/* event */ ReactMouseEventFrom[HTMLElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ Any, /* target */ HTMLElement) => Callback
+      ): Self = StObject.set(x, "onMouseLeave", js.Any.fromFunction3((t0: /* event */ ReactMouseEventFrom[HTMLElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ Any, t2: /* target */ HTMLElement) => (value(t0, t1, t2)).runNow()))
       
       inline def setOnMouseLeaveUndefined: Self = StObject.set(x, "onMouseLeave", js.undefined)
       
-      inline def setOnShow(value: /* event */ js.Any => Callback): Self = StObject.set(x, "onShow", js.Any.fromFunction1((t0: /* event */ js.Any) => value(t0).runNow()))
+      inline def setOnShow(value: /* event */ Any => Callback): Self = StObject.set(x, "onShow", js.Any.fromFunction1((t0: /* event */ Any) => value(t0).runNow()))
       
       inline def setOnShowUndefined: Self = StObject.set(x, "onShow", js.undefined)
       
@@ -161,9 +161,9 @@ object mod {
   
   trait ContextMenuTriggerProps extends StObject {
     
-    var attributes: js.UndefOr[HTMLAttributes[js.Any]] = js.undefined
+    var attributes: js.UndefOr[HTMLAttributes[Any]] = js.undefined
     
-    var collect: js.UndefOr[js.Function1[/* data */ js.Any, js.Any]] = js.undefined
+    var collect: js.UndefOr[js.Function1[/* data */ Any, Any]] = js.undefined
     
     var disable: js.UndefOr[Boolean] = js.undefined
     
@@ -171,7 +171,7 @@ object mod {
     
     var id: String
     
-    var renderTag: js.UndefOr[ReactType[js.Any]] = js.undefined
+    var renderTag: js.UndefOr[ReactType[Any]] = js.undefined
   }
   object ContextMenuTriggerProps {
     
@@ -182,11 +182,11 @@ object mod {
     
     extension [Self <: ContextMenuTriggerProps](x: Self) {
       
-      inline def setAttributes(value: HTMLAttributes[js.Any]): Self = StObject.set(x, "attributes", value.asInstanceOf[js.Any])
+      inline def setAttributes(value: HTMLAttributes[Any]): Self = StObject.set(x, "attributes", value.asInstanceOf[js.Any])
       
       inline def setAttributesUndefined: Self = StObject.set(x, "attributes", js.undefined)
       
-      inline def setCollect(value: /* data */ js.Any => js.Any): Self = StObject.set(x, "collect", js.Any.fromFunction1(value))
+      inline def setCollect(value: /* data */ Any => Any): Self = StObject.set(x, "collect", js.Any.fromFunction1(value))
       
       inline def setCollectUndefined: Self = StObject.set(x, "collect", js.undefined)
       
@@ -200,7 +200,7 @@ object mod {
       
       inline def setId(value: String): Self = StObject.set(x, "id", value.asInstanceOf[js.Any])
       
-      inline def setRenderTag(value: ReactType[js.Any]): Self = StObject.set(x, "renderTag", value.asInstanceOf[js.Any])
+      inline def setRenderTag(value: ReactType[Any]): Self = StObject.set(x, "renderTag", value.asInstanceOf[js.Any])
       
       inline def setRenderTagUndefined: Self = StObject.set(x, "renderTag", js.undefined)
     }
@@ -213,7 +213,7 @@ object mod {
     var className: js.UndefOr[String] = js.undefined
     
     var data: js.UndefOr[
-        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ js.Any
+        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ Any
       ] = js.undefined
     
     var disabled: js.UndefOr[Boolean] = js.undefined
@@ -223,7 +223,7 @@ object mod {
     var onClick: js.UndefOr[
         (js.Function3[
           /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], 
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ Any, 
           /* target */ HTMLElement, 
           Unit
         ]) | js.Function
@@ -249,7 +249,7 @@ object mod {
       inline def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
       
       inline def setData(
-        value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ js.Any
+        value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ Any
       ): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
       inline def setDataUndefined: Self = StObject.set(x, "data", js.undefined)
@@ -265,15 +265,15 @@ object mod {
       inline def setOnClick(
         value: (js.Function3[
               /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], 
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ Any, 
               /* target */ HTMLElement, 
               Unit
             ]) | js.Function
       ): Self = StObject.set(x, "onClick", value.asInstanceOf[js.Any])
       
       inline def setOnClickFunction3(
-        value: (/* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Callback
-      ): Self = StObject.set(x, "onClick", js.Any.fromFunction3((t0: /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, t2: /* target */ HTMLElement) => (value(t0, t1, t2)).runNow()))
+        value: (/* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ Any, /* target */ HTMLElement) => Callback
+      ): Self = StObject.set(x, "onClick", js.Any.fromFunction3((t0: /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ Any, t2: /* target */ HTMLElement) => (value(t0, t1, t2)).runNow()))
       
       inline def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
       
@@ -294,7 +294,7 @@ object mod {
     var onClick: js.UndefOr[
         (js.Function3[
           /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], 
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ Any, 
           /* target */ HTMLElement, 
           Unit
         ]) | js.Function
@@ -330,15 +330,15 @@ object mod {
       inline def setOnClick(
         value: (js.Function3[
               /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], 
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ Any, 
               /* target */ HTMLElement, 
               Unit
             ]) | js.Function
       ): Self = StObject.set(x, "onClick", value.asInstanceOf[js.Any])
       
       inline def setOnClickFunction3(
-        value: (/* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Callback
-      ): Self = StObject.set(x, "onClick", js.Any.fromFunction3((t0: /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, t2: /* target */ HTMLElement) => (value(t0, t1, t2)).runNow()))
+        value: (/* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ Any, /* target */ HTMLElement) => Callback
+      ): Self = StObject.set(x, "onClick", js.Any.fromFunction3((t0: /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ Any, t2: /* target */ HTMLElement) => (value(t0, t1, t2)).runNow()))
       
       inline def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
       

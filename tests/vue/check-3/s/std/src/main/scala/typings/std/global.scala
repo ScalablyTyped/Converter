@@ -16,7 +16,7 @@ object global {
   
   @JSGlobal("Promise")
   @js.native
-  val Promise: js.Promise[js.Any] = js.native
+  val Promise: js.Promise[Any] = js.native
   
   @JSGlobal("RegExp")
   @js.native

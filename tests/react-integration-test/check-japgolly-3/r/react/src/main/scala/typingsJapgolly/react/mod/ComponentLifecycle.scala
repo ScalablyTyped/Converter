@@ -22,7 +22,7 @@ trait ComponentLifecycle[P, S, SS]
     */
   var componentDidCatch: js.UndefOr[
     js.Function2[
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, 
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ Any, 
       /* errorInfo */ ErrorInfo, 
       Unit
     ]
@@ -50,7 +50,7 @@ trait ComponentLifecycle[P, S, SS]
     * and `componentDidUpdate` will not be called.
     */
   var shouldComponentUpdate: js.UndefOr[
-    js.Function3[/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any, Boolean]
+    js.Function3[/* nextProps */ P, /* nextState */ S, /* nextContext */ Any, Boolean]
   ] = js.undefined
 }
 object ComponentLifecycle {
@@ -63,8 +63,8 @@ object ComponentLifecycle {
   extension [Self <: ComponentLifecycle[?, ?, ?], P, S, SS](x: Self & (ComponentLifecycle[P, S, SS])) {
     
     inline def setComponentDidCatch(
-      value: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Callback
-    ): Self = StObject.set(x, "componentDidCatch", js.Any.fromFunction2((t0: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, t1: /* errorInfo */ ErrorInfo) => (value(t0, t1)).runNow()))
+      value: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ Any, /* errorInfo */ ErrorInfo) => Callback
+    ): Self = StObject.set(x, "componentDidCatch", js.Any.fromFunction2((t0: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ Any, t1: /* errorInfo */ ErrorInfo) => (value(t0, t1)).runNow()))
     
     inline def setComponentDidCatchUndefined: Self = StObject.set(x, "componentDidCatch", js.undefined)
     
@@ -76,7 +76,7 @@ object ComponentLifecycle {
     
     inline def setComponentWillUnmountUndefined: Self = StObject.set(x, "componentWillUnmount", js.undefined)
     
-    inline def setShouldComponentUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Boolean): Self = StObject.set(x, "shouldComponentUpdate", js.Any.fromFunction3(value))
+    inline def setShouldComponentUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ Any) => Boolean): Self = StObject.set(x, "shouldComponentUpdate", js.Any.fromFunction3(value))
     
     inline def setShouldComponentUpdateUndefined: Self = StObject.set(x, "shouldComponentUpdate", js.undefined)
   }

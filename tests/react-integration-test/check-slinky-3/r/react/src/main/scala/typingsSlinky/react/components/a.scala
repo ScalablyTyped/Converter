@@ -65,7 +65,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object a {
   
   @scala.inline
-  open class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[Any])
     extends AnyVal
        with StBuildingComponent[tag.type, HTMLAnchorElement] {
     
@@ -195,7 +195,7 @@ object a {
     
     inline def dir(value: String): this.type = set("dir", value.asInstanceOf[js.Any])
     
-    inline def download(value: js.Any): this.type = set("download", value.asInstanceOf[js.Any])
+    inline def download(value: Any): this.type = set("download", value.asInstanceOf[js.Any])
     
     inline def draggable(value: Boolean): this.type = set("draggable", value.asInstanceOf[js.Any])
     
@@ -207,7 +207,7 @@ object a {
     
     inline def id(value: String): this.type = set("id", value.asInstanceOf[js.Any])
     
-    inline def inlist(value: js.Any): this.type = set("inlist", value.asInstanceOf[js.Any])
+    inline def inlist(value: Any): this.type = set("inlist", value.asInstanceOf[js.Any])
     
     inline def inputMode(value: String): this.type = set("inputMode", value.asInstanceOf[js.Any])
     

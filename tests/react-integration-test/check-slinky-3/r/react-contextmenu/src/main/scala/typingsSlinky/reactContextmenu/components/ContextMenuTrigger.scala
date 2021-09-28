@@ -21,19 +21,19 @@ object ContextMenuTrigger {
   val component: js.Object = js.native
   
   @scala.inline
-  open class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[Any])
     extends AnyVal
        with StBuildingComponent[tag.type, typingsSlinky.reactContextmenu.mod.ContextMenuTrigger] {
     
-    inline def attributes(value: HTMLAttributes[js.Any]): this.type = set("attributes", value.asInstanceOf[js.Any])
+    inline def attributes(value: HTMLAttributes[Any]): this.type = set("attributes", value.asInstanceOf[js.Any])
     
-    inline def collect(value: /* data */ js.Any => js.Any): this.type = set("collect", js.Any.fromFunction1(value))
+    inline def collect(value: /* data */ Any => Any): this.type = set("collect", js.Any.fromFunction1(value))
     
     inline def disable(value: Boolean): this.type = set("disable", value.asInstanceOf[js.Any])
     
     inline def holdToDisplay(value: Double): this.type = set("holdToDisplay", value.asInstanceOf[js.Any])
     
-    inline def renderTag(value: ReactType[js.Any]): this.type = set("renderTag", value.asInstanceOf[js.Any])
+    inline def renderTag(value: ReactType[Any]): this.type = set("renderTag", value.asInstanceOf[js.Any])
   }
   
   def withProps(p: ContextMenuTriggerProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))

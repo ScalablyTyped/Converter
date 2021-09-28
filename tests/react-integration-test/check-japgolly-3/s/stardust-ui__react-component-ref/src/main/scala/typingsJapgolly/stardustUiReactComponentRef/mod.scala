@@ -72,12 +72,12 @@ object mod {
   inline def handleRef[N](ref: typingsJapgolly.react.mod.Ref[N], node: N): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("handleRef")(ref.asInstanceOf[js.Any], node.asInstanceOf[js.Any])).asInstanceOf[Unit]
   
   /** Checks that the passed object is a valid React ref object. */
-  inline def isRefObject(ref: js.Any): /* is react.react.RefObject<any> */ Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("isRefObject")(ref.asInstanceOf[js.Any]).asInstanceOf[/* is react.react.RefObject<any> */ Boolean]
+  inline def isRefObject(ref: Any): /* is react.react.RefObject<any> */ Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("isRefObject")(ref.asInstanceOf[js.Any]).asInstanceOf[/* is react.react.RefObject<any> */ Boolean]
   
   @JSImport("@stardust-ui/react-component-ref", "refPropType")
   @js.native
-  val refPropType: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ js.Any = js.native
+  val refPropType: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ Any = js.native
   
   /** Creates a React ref object from existing DOM node. */
-  inline def toRefObject[T /* <: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): RefHandle[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("toRefObject")(node.asInstanceOf[js.Any]).asInstanceOf[RefHandle[T]]
+  inline def toRefObject[T /* <: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ Any */](node: T): RefHandle[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("toRefObject")(node.asInstanceOf[js.Any]).asInstanceOf[RefHandle[T]]
 }

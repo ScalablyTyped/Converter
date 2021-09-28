@@ -82,7 +82,7 @@ class FilterMemberOverrides(erasure: Erasure, parentsResolver: ParentsResolver) 
               /* but to retain a field with a different type, we rename it */
               val withSuffix = f.withSuffix(owner.name)
 
-              if (f.tpe === TypeRef.JsAny || f.tpe === TypeRef.Nothing || (conflicting.exists(_.tpe === f.tpe)))
+              if (f.tpe === TypeRef.Any || f.tpe === TypeRef.Nothing || (conflicting.exists(_.tpe === f.tpe)))
                 /* there is no point in emitting duplicate fields */
                 Empty
               else if (allFields.contains(withSuffix.name)) Empty

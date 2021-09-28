@@ -92,7 +92,7 @@ object mod {
         ]
        with Instantiable2[
           /* props */ P, 
-          /* context */ js.Any, 
+          /* context */ Any, 
           japgolly.scalajs.react.facade.React.Component[P & js.Object, js.Object]
         ] {
     
@@ -179,17 +179,13 @@ object mod {
     
     var key: Key | Null
     
-    var props: js.Any
+    var props: Any
     
-    var `type`: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any]
+    var `type`: String | (ComponentClassP[Any & js.Object]) | SFC[Any]
   }
   object ReactElement {
     
-    inline def apply(
-      props: js.Any,
-      `type`: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any],
-      key: Key = null
-    ): ReactElement = {
+    inline def apply(props: Any, `type`: String | (ComponentClassP[Any & js.Object]) | SFC[Any], key: Key = null): ReactElement = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
       __obj.updateDynamic("key")(if (key != null) key.asInstanceOf[Key].asInstanceOf[js.Any] else null)
@@ -201,7 +197,7 @@ object mod {
   
   type ReactType[P] = String | ComponentType[P]
   
-  type Ref[T] = String | (js.Function1[/* instance */ T | Null, js.Any])
+  type Ref[T] = String | (js.Function1[/* instance */ T | Null, Any])
   
   type SFC[P] = StatelessComponent[P]
   
@@ -213,7 +209,7 @@ object mod {
   trait StatelessComponent[P] extends StObject {
     
     def apply(props: P & Children): Element | Null = js.native
-    def apply(props: P & Children, context: js.Any): Element | Null = js.native
+    def apply(props: P & Children, context: Any): Element | Null = js.native
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
     
@@ -233,7 +229,7 @@ object mod {
       
       trait ElementClass
         extends StObject
-           with Component[js.Any, js.Object] {
+           with Component[Any, js.Object] {
         
         def render(): Node
       }

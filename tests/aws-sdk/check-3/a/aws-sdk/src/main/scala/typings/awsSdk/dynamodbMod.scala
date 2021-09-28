@@ -27,8 +27,8 @@ object dynamodbMod {
     @js.native
     val ^ : js.Any = js.native
     
-    inline def input(data: js.Any): AttributeValue = ^.asInstanceOf[js.Dynamic].applyDynamic("input")(data.asInstanceOf[js.Any]).asInstanceOf[AttributeValue]
-    inline def input(data: js.Any, options: ConverterOptions): AttributeValue = (^.asInstanceOf[js.Dynamic].applyDynamic("input")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[AttributeValue]
+    inline def input(data: Any): AttributeValue = ^.asInstanceOf[js.Dynamic].applyDynamic("input")(data.asInstanceOf[js.Any]).asInstanceOf[AttributeValue]
+    inline def input(data: Any, options: ConverterOptions): AttributeValue = (^.asInstanceOf[js.Dynamic].applyDynamic("input")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[AttributeValue]
   }
   
   @JSImport("aws-sdk/clients/dynamodb", "DocumentClient")
@@ -41,9 +41,9 @@ object dynamodbMod {
     def this(options: DocumentClientOptions & ClientConfiguration) = this()
   }
   
-  type AttributeValue = js.Any
+  type AttributeValue = Any
   
-  type ClientConfiguration = js.Any
+  type ClientConfiguration = Any
   
   type DynamoDB = DynamoDBCustomizations
   

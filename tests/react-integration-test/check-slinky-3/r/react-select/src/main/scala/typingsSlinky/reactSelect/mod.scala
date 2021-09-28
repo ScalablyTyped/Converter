@@ -19,7 +19,7 @@ object mod {
     * In the event that a custom menuRenderer is provided, Option should be able
     * to accept arbitrary key-value pairs. See react-virtualized-select.
     */
-  /* property */ StringDictionary[js.Any] {
+  /* property */ StringDictionary[Any] {
     
     /** Value for searching */
     var value: js.UndefOr[TValue] = js.undefined
@@ -43,7 +43,7 @@ object mod {
   
   @js.native
   trait ReactSelectClass[TValue]
-    extends Component[ReactSelectProps[TValue], js.Object, js.Any] {
+    extends Component[ReactSelectProps[TValue], js.Object, Any] {
     
     def focus(): Unit = js.native
     

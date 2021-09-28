@@ -12,7 +12,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object vnodeMod {
   
-  type ScopedSlot = js.Function1[/* props */ js.Any, VNodeChildrenArrayContents | String]
+  type ScopedSlot = js.Function1[/* props */ Any, VNodeChildrenArrayContents | String]
   
   trait VNode extends StObject {
     
@@ -173,13 +173,13 @@ object vnodeMod {
   
   trait VNodeData extends StObject {
     
-    var attrs: js.UndefOr[StringDictionary[js.Any]] = js.undefined
+    var attrs: js.UndefOr[StringDictionary[Any]] = js.undefined
     
-    var `class`: js.UndefOr[js.Any] = js.undefined
+    var `class`: js.UndefOr[Any] = js.undefined
     
     var directives: js.UndefOr[js.Array[VNodeDirective]] = js.undefined
     
-    var domProps: js.UndefOr[StringDictionary[js.Any]] = js.undefined
+    var domProps: js.UndefOr[StringDictionary[Any]] = js.undefined
     
     var hook: js.UndefOr[StringDictionary[js.Function]] = js.undefined
     
@@ -193,7 +193,7 @@ object vnodeMod {
     
     var on: js.UndefOr[StringDictionary[js.Function | js.Array[js.Function]]] = js.undefined
     
-    var props: js.UndefOr[StringDictionary[js.Any]] = js.undefined
+    var props: js.UndefOr[StringDictionary[Any]] = js.undefined
     
     var ref: js.UndefOr[String] = js.undefined
     
@@ -205,7 +205,7 @@ object vnodeMod {
     
     var staticClass: js.UndefOr[String] = js.undefined
     
-    var staticStyle: js.UndefOr[StringDictionary[js.Any]] = js.undefined
+    var staticStyle: js.UndefOr[StringDictionary[Any]] = js.undefined
     
     var style: js.UndefOr[js.Array[js.Object] | js.Object] = js.undefined
     
@@ -222,11 +222,11 @@ object vnodeMod {
     
     extension [Self <: VNodeData](x: Self) {
       
-      inline def setAttrs(value: StringDictionary[js.Any]): Self = StObject.set(x, "attrs", value.asInstanceOf[js.Any])
+      inline def setAttrs(value: StringDictionary[Any]): Self = StObject.set(x, "attrs", value.asInstanceOf[js.Any])
       
       inline def setAttrsUndefined: Self = StObject.set(x, "attrs", js.undefined)
       
-      inline def setClass(value: js.Any): Self = StObject.set(x, "class", value.asInstanceOf[js.Any])
+      inline def setClass(value: Any): Self = StObject.set(x, "class", value.asInstanceOf[js.Any])
       
       inline def setClassUndefined: Self = StObject.set(x, "class", js.undefined)
       
@@ -236,7 +236,7 @@ object vnodeMod {
       
       inline def setDirectivesVarargs(value: VNodeDirective*): Self = StObject.set(x, "directives", js.Array(value*))
       
-      inline def setDomProps(value: StringDictionary[js.Any]): Self = StObject.set(x, "domProps", value.asInstanceOf[js.Any])
+      inline def setDomProps(value: StringDictionary[Any]): Self = StObject.set(x, "domProps", value.asInstanceOf[js.Any])
       
       inline def setDomPropsUndefined: Self = StObject.set(x, "domProps", js.undefined)
       
@@ -264,7 +264,7 @@ object vnodeMod {
       
       inline def setOnUndefined: Self = StObject.set(x, "on", js.undefined)
       
-      inline def setProps(value: StringDictionary[js.Any]): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
+      inline def setProps(value: StringDictionary[Any]): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
       inline def setPropsUndefined: Self = StObject.set(x, "props", js.undefined)
       
@@ -288,7 +288,7 @@ object vnodeMod {
       
       inline def setStaticClassUndefined: Self = StObject.set(x, "staticClass", js.undefined)
       
-      inline def setStaticStyle(value: StringDictionary[js.Any]): Self = StObject.set(x, "staticStyle", value.asInstanceOf[js.Any])
+      inline def setStaticStyle(value: StringDictionary[Any]): Self = StObject.set(x, "staticStyle", value.asInstanceOf[js.Any])
       
       inline def setStaticStyleUndefined: Self = StObject.set(x, "staticStyle", js.undefined)
       
@@ -312,25 +312,25 @@ object vnodeMod {
     
     val arg: String
     
-    val expression: js.Any
+    val expression: Any
     
     val modifiers: StringDictionary[Boolean]
     
     val name: String
     
-    val oldValue: js.Any
+    val oldValue: Any
     
-    val value: js.Any
+    val value: Any
   }
   object VNodeDirective {
     
     inline def apply(
       arg: String,
-      expression: js.Any,
+      expression: Any,
       modifiers: StringDictionary[Boolean],
       name: String,
-      oldValue: js.Any,
-      value: js.Any
+      oldValue: Any,
+      value: Any
     ): VNodeDirective = {
       val __obj = js.Dynamic.literal(arg = arg.asInstanceOf[js.Any], expression = expression.asInstanceOf[js.Any], modifiers = modifiers.asInstanceOf[js.Any], name = name.asInstanceOf[js.Any], oldValue = oldValue.asInstanceOf[js.Any], value = value.asInstanceOf[js.Any])
       __obj.asInstanceOf[VNodeDirective]
@@ -340,15 +340,15 @@ object vnodeMod {
       
       inline def setArg(value: String): Self = StObject.set(x, "arg", value.asInstanceOf[js.Any])
       
-      inline def setExpression(value: js.Any): Self = StObject.set(x, "expression", value.asInstanceOf[js.Any])
+      inline def setExpression(value: Any): Self = StObject.set(x, "expression", value.asInstanceOf[js.Any])
       
       inline def setModifiers(value: StringDictionary[Boolean]): Self = StObject.set(x, "modifiers", value.asInstanceOf[js.Any])
       
       inline def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
-      inline def setOldValue(value: js.Any): Self = StObject.set(x, "oldValue", value.asInstanceOf[js.Any])
+      inline def setOldValue(value: Any): Self = StObject.set(x, "oldValue", value.asInstanceOf[js.Any])
       
-      inline def setValue(value: js.Any): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
+      inline def setValue(value: Any): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     }
   }
 }

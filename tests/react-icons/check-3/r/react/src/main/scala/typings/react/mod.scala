@@ -79,7 +79,7 @@ object mod {
       
       inline def setRef(value: Ref[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
-      inline def setRefFunction1(value: /* instance */ T | Null => js.Any): Self = StObject.set(x, "ref", js.Any.fromFunction1(value))
+      inline def setRefFunction1(value: /* instance */ T | Null => Any): Self = StObject.set(x, "ref", js.Any.fromFunction1(value))
       
       inline def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
     }
@@ -91,7 +91,7 @@ object mod {
   trait ComponentClass[P]
     extends StObject
        with Instantiable1[/* props */ P, Component[P, ComponentState]]
-       with Instantiable2[/* props */ P, /* context */ js.Any, Component[P, ComponentState]]
+       with Instantiable2[/* props */ P, /* context */ Any, Component[P, ComponentState]]
        with ComponentType[P] {
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
@@ -144,7 +144,7 @@ object mod {
   }
   object DOMElement {
     
-    inline def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: js.Any, ref: Ref[T], `type`: String): DOMElement[P, T] = {
+    inline def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: Any, ref: Ref[T], `type`: String): DOMElement[P, T] = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], ref = ref.asInstanceOf[js.Any], key = null)
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
       __obj.asInstanceOf[DOMElement[P, T]]
@@ -154,7 +154,7 @@ object mod {
       
       inline def setRef(value: Ref[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
-      inline def setRefFunction1(value: /* instance */ T | Null => js.Any): Self = StObject.set(x, "ref", js.Any.fromFunction1(value))
+      inline def setRefFunction1(value: /* instance */ T | Null => Any): Self = StObject.set(x, "ref", js.Any.fromFunction1(value))
       
       inline def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
@@ -195,13 +195,13 @@ object mod {
     
     var key: Key | Null
     
-    var props: js.Any
+    var props: Any
     
-    var `type`: String | ComponentClass[js.Any]
+    var `type`: String | ComponentClass[Any]
   }
   object ReactElement {
     
-    inline def apply(props: js.Any, `type`: String | ComponentClass[js.Any]): ReactElement = {
+    inline def apply(props: Any, `type`: String | ComponentClass[Any]): ReactElement = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
       __obj.asInstanceOf[ReactElement]
@@ -213,9 +213,9 @@ object mod {
       
       inline def setKeyNull: Self = StObject.set(x, "key", null)
       
-      inline def setProps(value: js.Any): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
+      inline def setProps(value: Any): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
-      inline def setType(value: String | ComponentClass[js.Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setType(value: String | ComponentClass[Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
@@ -256,7 +256,7 @@ object mod {
   }
   object ReactSVGElement {
     
-    inline def apply(props: js.Any, ref: Ref[SVGElement], `type`: animate | circle | clipPath): ReactSVGElement = {
+    inline def apply(props: Any, ref: Ref[SVGElement], `type`: animate | circle | clipPath): ReactSVGElement = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], ref = ref.asInstanceOf[js.Any], key = null)
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
       __obj.asInstanceOf[ReactSVGElement]
@@ -268,7 +268,7 @@ object mod {
     }
   }
   
-  type Ref[T] = String | (js.Function1[/* instance */ T | Null, js.Any])
+  type Ref[T] = String | (js.Function1[/* instance */ T | Null, Any])
   
   type SFC[P] = StatelessComponent[P]
   
@@ -320,7 +320,7 @@ object mod {
        with ComponentType[P] {
     
     def apply(props: P & Children): ReactElement | Null = js.native
-    def apply(props: P & Children, context: js.Any): ReactElement | Null = js.native
+    def apply(props: P & Children, context: Any): ReactElement | Null = js.native
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
     

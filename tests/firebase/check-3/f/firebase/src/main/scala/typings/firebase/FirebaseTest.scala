@@ -7,7 +7,4 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 @js.native
 trait FirebaseTest[T]
   extends StObject
-     with Foo {
-  
-  def name(p: js.Any & T): Unit = js.native
-}
+     with Foo

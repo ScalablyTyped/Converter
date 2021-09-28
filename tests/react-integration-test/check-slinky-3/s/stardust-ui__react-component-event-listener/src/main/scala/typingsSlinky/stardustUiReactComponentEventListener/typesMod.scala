@@ -22,7 +22,7 @@ object typesMod {
     
     /** A ref object with a target node. */
     var targetRef: ReactRef[
-        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
+        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ Any
       ]
     
     /** A case-sensitive string representing the event type to listen for. */
@@ -33,7 +33,7 @@ object typesMod {
     inline def apply[T /* <: EventTypes */](
       listener: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Unit,
       targetRef: ReactRef[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ Any
         ],
       `type`: T
     ): EventListenerOptions[T] = {
@@ -54,7 +54,7 @@ object typesMod {
       
       inline def setTargetRef(
         value: ReactRef[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ Any
             ]
       ): Self = StObject.set(x, "targetRef", value.asInstanceOf[js.Any])
       
@@ -65,6 +65,6 @@ object typesMod {
   type EventTypes = /* keyof / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any */ String
   
   type TargetRef = ReactRef[
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ Any
   ]
 }

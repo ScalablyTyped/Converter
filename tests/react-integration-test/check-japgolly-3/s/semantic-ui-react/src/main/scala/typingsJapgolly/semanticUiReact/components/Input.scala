@@ -88,7 +88,7 @@ object Input {
   val component: js.Object = js.native
   
   @scala.inline
-  open class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[Any])
     extends AnyVal
        with StBuildingComponent[default] {
     
@@ -98,7 +98,7 @@ object Input {
     
     inline def accessKey(value: String): this.type = set("accessKey", value.asInstanceOf[js.Any])
     
-    inline def action(value: js.Any | Boolean): this.type = set("action", value.asInstanceOf[js.Any])
+    inline def action(value: Any | Boolean): this.type = set("action", value.asInstanceOf[js.Any])
     
     inline def actionPosition(value: left): this.type = set("actionPosition", value.asInstanceOf[js.Any])
     
@@ -200,7 +200,7 @@ object Input {
     
     inline def `aria-valuetext`(value: String): this.type = set("aria-valuetext", value.asInstanceOf[js.Any])
     
-    inline def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
+    inline def as(value: Any): this.type = set("as", value.asInstanceOf[js.Any])
     
     inline def autoCapitalize(value: String): this.type = set("autoCapitalize", value.asInstanceOf[js.Any])
     
@@ -264,7 +264,7 @@ object Input {
     
     inline def hidden(value: Boolean): this.type = set("hidden", value.asInstanceOf[js.Any])
     
-    inline def icon(value: js.Any | SemanticShorthandItem[InputProps]): this.type = set("icon", value.asInstanceOf[js.Any])
+    inline def icon(value: Any | SemanticShorthandItem[InputProps]): this.type = set("icon", value.asInstanceOf[js.Any])
     
     inline def iconFunction3(
       value: (/* component */ ReactType[InputProps], InputProps, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
@@ -280,7 +280,7 @@ object Input {
     
     inline def id(value: String): this.type = set("id", value.asInstanceOf[js.Any])
     
-    inline def inlist(value: js.Any): this.type = set("inlist", value.asInstanceOf[js.Any])
+    inline def inlist(value: Any): this.type = set("inlist", value.asInstanceOf[js.Any])
     
     inline def input(value: SemanticShorthandItem[HtmlInputrops]): this.type = set("input", value.asInstanceOf[js.Any])
     
@@ -312,14 +312,14 @@ object Input {
     
     inline def label(
       value: SemanticShorthandItem[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any
         ]
     ): this.type = set("label", value.asInstanceOf[js.Any])
     
     inline def labelFunction3(
       value: (/* component */ ReactType[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
-        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any
+        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
     ): this.type = set("label", js.Any.fromFunction3(value))
     
     inline def labelNull: this.type = set("label", null)

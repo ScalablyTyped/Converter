@@ -29,7 +29,7 @@ object Card {
   val component: js.Object = js.native
   
   @scala.inline
-  open class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[Any])
     extends AnyVal
        with StBuildingComponent[js.Object] {
     

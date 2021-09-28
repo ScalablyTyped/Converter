@@ -18,7 +18,7 @@ object buttonContentMod extends Shortcut {
   trait ButtonContentProps
     extends StObject
        with StrictButtonContentProps
-       with /* key */ StringDictionary[js.Any]
+       with /* key */ StringDictionary[Any]
   object ButtonContentProps {
     
     inline def apply(): ButtonContentProps = {
@@ -30,7 +30,7 @@ object buttonContentMod extends Shortcut {
   trait StrictButtonContentProps extends StObject {
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.undefined
+    var as: js.UndefOr[Any] = js.undefined
     
     /** Primary content. */
     var children: js.UndefOr[ReactElement] = js.undefined
@@ -56,7 +56,7 @@ object buttonContentMod extends Shortcut {
     
     extension [Self <: StrictButtonContentProps](x: Self) {
       
-      inline def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
+      inline def setAs(value: Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       

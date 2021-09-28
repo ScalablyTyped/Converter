@@ -34,7 +34,7 @@ object anon {
   
   trait `1` extends StObject {
     
-    var ref: js.UndefOr[Exclude[js.Any, String]] = js.undefined
+    var ref: js.UndefOr[Exclude[Any, String]] = js.undefined
   }
   object `1` {
     
@@ -45,7 +45,7 @@ object anon {
     
     extension [Self <: `1`](x: Self) {
       
-      inline def setRef(value: Exclude[js.Any, String]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
+      inline def setRef(value: Exclude[Any, String]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
       inline def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
     }

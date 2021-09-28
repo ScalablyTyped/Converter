@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "punchcard"
-version := "0.0-unknown-4540c5"
+version := "0.0-unknown-decb39"
 scalaVersion := "3.1.0"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

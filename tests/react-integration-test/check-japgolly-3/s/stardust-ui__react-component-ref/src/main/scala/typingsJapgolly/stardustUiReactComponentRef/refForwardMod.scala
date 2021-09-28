@@ -34,7 +34,7 @@ object refForwardMod {
   
   @js.native
   trait RefForward
-    extends Component[RefProps, js.Object, js.Any] {
+    extends Component[RefProps, js.Object, Any] {
     
     def handleRefOverride(node: HTMLElement): Unit = js.native
   }

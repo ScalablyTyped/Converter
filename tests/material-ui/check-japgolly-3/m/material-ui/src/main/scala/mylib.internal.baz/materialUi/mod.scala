@@ -15,21 +15,21 @@ private[internal] object mod {
   
   @JSImport("material-ui/styles", "spacing")
   @js.native
-  def spacing: js.Any = js.native
-  inline def spacing_=(x: js.Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("spacing")(x.asInstanceOf[js.Any])
+  def spacing: Any = js.native
+  inline def spacing_=(x: Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("spacing")(x.asInstanceOf[js.Any])
   
   @JSImport("material-ui/styles", "transitions")
   @js.native
-  def transitions: js.Any = js.native
-  inline def transitions_=(x: js.Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("transitions")(x.asInstanceOf[js.Any])
+  def transitions: Any = js.native
+  inline def transitions_=(x: Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("transitions")(x.asInstanceOf[js.Any])
   
   @JSImport("material-ui/styles", "typography")
   @js.native
-  def typography: js.Any = js.native
-  inline def typography_=(x: js.Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("typography")(x.asInstanceOf[js.Any])
+  def typography: Any = js.native
+  inline def typography_=(x: Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("typography")(x.asInstanceOf[js.Any])
   
   @JSImport("material-ui/styles", "zIndex")
   @js.native
-  def zIndex: js.Any = js.native
-  inline def zIndex_=(x: js.Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("zIndex")(x.asInstanceOf[js.Any])
+  def zIndex: Any = js.native
+  inline def zIndex_=(x: Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("zIndex")(x.asInstanceOf[js.Any])
 }

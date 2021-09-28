@@ -21,7 +21,7 @@ object ReactDropzone {
   val component: js.Object = js.native
   
   @scala.inline
-  open class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[Any])
     extends AnyVal
        with StBuildingComponent[tag.type, DropzoneRef] {
     
@@ -34,7 +34,7 @@ object ReactDropzone {
     inline def disabled(value: Boolean): this.type = set("disabled", value.asInstanceOf[js.Any])
     
     inline def getFilesFromEvent(
-      value: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ js.Any
+      value: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ Any
     ): this.type = set("getFilesFromEvent", js.Any.fromFunction1(value))
     
     inline def maxSize(value: Double): this.type = set("maxSize", value.asInstanceOf[js.Any])
@@ -59,21 +59,21 @@ object ReactDropzone {
     
     inline def onDrop(
       value: (/* acceptedFiles */ js.Array[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ Any
         ], /* rejectedFiles */ js.Array[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ Any
         ], /* event */ DropEvent) => Unit
     ): this.type = set("onDrop", js.Any.fromFunction3(value))
     
     inline def onDropAccepted(
       value: (/* files */ js.Array[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ Any
         ], /* event */ DropEvent) => Unit
     ): this.type = set("onDropAccepted", js.Any.fromFunction2(value))
     
     inline def onDropRejected(
       value: (/* files */ js.Array[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ Any
         ], /* event */ DropEvent) => Unit
     ): this.type = set("onDropRejected", js.Any.fromFunction2(value))
     

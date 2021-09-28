@@ -42,9 +42,9 @@ object mod extends Shortcut {
     @JSName("element")
     var element_Original: JQueryStatic
     
-    def equals(value1: js.Any, value2: js.Any): Boolean
+    def equals(value1: Any, value2: Any): Boolean
     
-    def extend(destination: js.Any, sources: js.Any*): js.Any
+    def extend(destination: Any, sources: Any*): Any
     
     /**
       * If window.name contains prefix NG_DEFER_BOOTSTRAP! when angular.bootstrap is called, the bootstrap process will be paused until angular.resumeBootstrap() is called.
@@ -56,8 +56,8 @@ object mod extends Shortcut {
     
     inline def apply(
       element: /* element */ String | Element | Document | JQuery | ArrayLike[Element] | js.Function0[Unit] => JQLite,
-      equals_ : (js.Any, js.Any) => Boolean,
-      extend: (js.Any, /* repeated */ js.Any) => js.Any
+      equals_ : (Any, Any) => Boolean,
+      extend: (Any, /* repeated */ Any) => Any
     ): IAngularStatic = {
       val __obj = js.Dynamic.literal(element = js.Any.fromFunction1(element), extend = js.Any.fromFunction2(extend))
       __obj.updateDynamic("equals")(js.Any.fromFunction2(equals_))
@@ -70,9 +70,9 @@ object mod extends Shortcut {
         value: /* element */ String | Element | Document | JQuery | ArrayLike[Element] | js.Function0[Unit] => JQLite
       ): Self = StObject.set(x, "element", js.Any.fromFunction1(value))
       
-      inline def setEquals_(value: (js.Any, js.Any) => Boolean): Self = StObject.set(x, "equals", js.Any.fromFunction2(value))
+      inline def setEquals_(value: (Any, Any) => Boolean): Self = StObject.set(x, "equals", js.Any.fromFunction2(value))
       
-      inline def setExtend(value: (js.Any, /* repeated */ js.Any) => js.Any): Self = StObject.set(x, "extend", js.Any.fromFunction2(value))
+      inline def setExtend(value: (Any, /* repeated */ Any) => Any): Self = StObject.set(x, "extend", js.Any.fromFunction2(value))
       
       inline def setResumeBootstrap(value: /* extraModules */ js.UndefOr[js.Array[String]] => IInjectorService): Self = StObject.set(x, "resumeBootstrap", js.Any.fromFunction1(value))
       
@@ -84,18 +84,18 @@ object mod extends Shortcut {
   trait IServiceProvider extends StObject {
     
     @JSName("$get")
-    var $get: js.Any
+    var $get: Any
   }
   object IServiceProvider {
     
-    inline def apply($get: js.Any): IServiceProvider = {
+    inline def apply($get: Any): IServiceProvider = {
       val __obj = js.Dynamic.literal($get = $get.asInstanceOf[js.Any])
       __obj.asInstanceOf[IServiceProvider]
     }
     
     extension [Self <: IServiceProvider](x: Self) {
       
-      inline def set$get(value: js.Any): Self = StObject.set(x, "$get", value.asInstanceOf[js.Any])
+      inline def set$get(value: Any): Self = StObject.set(x, "$get", value.asInstanceOf[js.Any])
     }
   }
   
@@ -117,7 +117,7 @@ object mod extends Shortcut {
       
       def annotate(fn: Function): js.Array[String] = js.native
       def annotate(fn: Function, strictDi: Boolean): js.Array[String] = js.native
-      def annotate(inlineAnnotatedFunction: js.Array[js.Any]): js.Array[String] = js.native
+      def annotate(inlineAnnotatedFunction: js.Array[Any]): js.Array[String] = js.native
       
       def get[T](name: String): T = js.native
       def get[T](name: String, caller: String): T = js.native
@@ -125,20 +125,12 @@ object mod extends Shortcut {
       def has(name: String): Boolean = js.native
       
       def instantiate[T](typeConstructor: Instantiable[T]): T = js.native
-      def instantiate[T](typeConstructor: Instantiable[T], locals: js.Any): T = js.native
+      def instantiate[T](typeConstructor: Instantiable[T], locals: Any): T = js.native
       
-      def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ js.Any, T])]): T = js.native
-      def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ js.Any, T])], context: js.Any): T = js.native
-      def invoke[T](
-        func: Injectable[Function | (js.Function1[/* repeated */ js.Any, T])],
-        context: js.Any,
-        locals: js.Any
-      ): T = js.native
-      def invoke[T](
-        func: Injectable[Function | (js.Function1[/* repeated */ js.Any, T])],
-        context: Unit,
-        locals: js.Any
-      ): T = js.native
+      def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ Any, T])]): T = js.native
+      def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ Any, T])], context: Any): T = js.native
+      def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ Any, T])], context: Any, locals: Any): T = js.native
+      def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ Any, T])], context: Unit, locals: Any): T = js.native
       
       var strictDi: Boolean = js.native
     }

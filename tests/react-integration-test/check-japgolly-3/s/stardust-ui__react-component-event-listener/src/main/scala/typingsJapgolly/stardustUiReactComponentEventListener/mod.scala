@@ -17,7 +17,7 @@ object mod {
   
   object EventListener {
     
-    inline def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = ^.asInstanceOf[js.Dynamic].apply(props.asInstanceOf[js.Any]).asInstanceOf[js.Any]
+    inline def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): Any = ^.asInstanceOf[js.Dynamic].apply(props.asInstanceOf[js.Any]).asInstanceOf[Any]
     
     @JSImport("@stardust-ui/react-component-event-listener", "EventListener")
     @js.native
@@ -49,14 +49,14 @@ object mod {
   @JSImport("@stardust-ui/react-component-event-listener", "documentRef")
   @js.native
   val documentRef: RefHandle[
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ Any
   ] = js.native
   
-  inline def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91 */ js.Any */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("useEventListener")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  inline def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91 */ Any */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("useEventListener")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
   
   @JSImport("@stardust-ui/react-component-event-listener", "windowRef")
   @js.native
   val windowRef: RefHandle[
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ Any
   ] = js.native
 }

@@ -74,7 +74,7 @@ object WebpackModuleApi {
       * The data will be available at module.hot.data on the new module.
       * @param callback
       */
-    def addDisposeHandler(callback: js.Function1[/* data */ js.Any, Unit]): Unit = js.native
+    def addDisposeHandler(callback: js.Function1[/* data */ Any, Unit]): Unit = js.native
     @JSName("addDisposeHandler")
     def addDisposeHandler_T[T](callback: js.Function1[/* data */ T, Unit]): Unit = js.native
     
@@ -123,7 +123,7 @@ object WebpackModuleApi {
       */
     def check(callback: js.Function2[/* err */ js.Error, /* outdatedModules */ js.Array[ModuleId], Unit]): Unit = js.native
     
-    var data: js.Any = js.native
+    var data: Any = js.native
     
     /**
       * Flag the current module as not update-able. If updated the update code would fail with code "decline".
@@ -145,14 +145,14 @@ object WebpackModuleApi {
       * The data will be available at module.hot.data on the new module.
       * @param callback
       */
-    def dispose(callback: js.Function1[/* data */ js.Any, Unit]): Unit = js.native
+    def dispose(callback: js.Function1[/* data */ Any, Unit]): Unit = js.native
     
     /**
       * Remove a handler.
       * This can useful to add a temporary dispose handler. You could i. e. replace code while in the middle of a multi-step async function.
       * @param callback
       */
-    def removeDisposeHandler(callback: js.Function1[/* data */ js.Any, Unit]): Unit = js.native
+    def removeDisposeHandler(callback: js.Function1[/* data */ Any, Unit]): Unit = js.native
     @JSName("removeDisposeHandler")
     def removeDisposeHandler_T[T](callback: js.Function1[/* data */ T, Unit]): Unit = js.native
     
@@ -173,9 +173,9 @@ object WebpackModuleApi {
   @js.native
   trait Module extends StObject {
     
-    var children: js.Array[js.Any] = js.native
+    var children: js.Array[Any] = js.native
     
-    var exports: js.Any = js.native
+    var exports: Any = js.native
     
     var filename: String = js.native
     
@@ -185,9 +185,9 @@ object WebpackModuleApi {
     
     var loaded: Boolean = js.native
     
-    var parent: js.Any = js.native
+    var parent: Any = js.native
     
-    def require(id: String): js.Any = js.native
+    def require(id: String): Any = js.native
     @JSName("require")
     def require_T_T[T](id: String): T = js.native
   }
@@ -199,7 +199,7 @@ object WebpackModuleApi {
     */
   trait NodeProcess extends StObject {
     
-    var env: js.UndefOr[js.Any] = js.undefined
+    var env: js.UndefOr[Any] = js.undefined
   }
   object NodeProcess {
     
@@ -210,20 +210,20 @@ object WebpackModuleApi {
     
     extension [Self <: NodeProcess](x: Self) {
       
-      inline def setEnv(value: js.Any): Self = StObject.set(x, "env", value.asInstanceOf[js.Any])
+      inline def setEnv(value: Any): Self = StObject.set(x, "env", value.asInstanceOf[js.Any])
       
       inline def setEnvUndefined: Self = StObject.set(x, "env", js.undefined)
     }
   }
   
-  type Require1 = js.Function1[/* id */ String, js.Any]
+  type Require1 = js.Function1[/* id */ String, Any]
   
-  type Require2 = js.Function1[/* id */ String, js.Any]
+  type Require2 = js.Function1[/* id */ String, Any]
   
   @js.native
   trait RequireContext extends StObject {
     
-    def apply(id: String): js.Any = js.native
+    def apply(id: String): Any = js.native
     
     def keys(): js.Array[String] = js.native
     
@@ -236,16 +236,16 @@ object WebpackModuleApi {
     /**
       * Returns the exports from a dependency. The call is sync. No request to the server is fired. The compiler ensures that the dependency is available.
       */
-    def apply(path: String): js.Any = js.native
+    def apply(path: String): Any = js.native
     /**
       * Behaves similar to require.ensure, but the callback is called with the exports of each dependency in the paths array. There is no option to provide a chunk name.
       */
-    def apply(paths: js.Array[String], callback: js.Function1[/* repeated */ js.Any, Unit]): Unit = js.native
+    def apply(paths: js.Array[String], callback: js.Function1[/* repeated */ Any, Unit]): Unit = js.native
     
     /**
       * Multiple requires to the same module result in only one module execution and only one export. Therefore a cache in the runtime exists. Removing values from this cache cause new module execution and a new export. This is only needed in rare cases (for compatibility!).
       */
-    var cache: StringDictionary[js.Any] = js.native
+    var cache: StringDictionary[Any] = js.native
     
     def context(path: String): RequireContext = js.native
     def context(path: String, deep: Boolean): RequireContext = js.native

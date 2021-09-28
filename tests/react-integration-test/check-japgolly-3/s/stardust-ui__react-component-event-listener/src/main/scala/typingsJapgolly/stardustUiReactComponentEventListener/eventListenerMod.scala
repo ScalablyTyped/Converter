@@ -12,7 +12,7 @@ object eventListenerMod {
   
   object default {
     
-    inline def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = ^.asInstanceOf[js.Dynamic].apply(props.asInstanceOf[js.Any]).asInstanceOf[js.Any]
+    inline def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): Any = ^.asInstanceOf[js.Dynamic].apply(props.asInstanceOf[js.Any]).asInstanceOf[Any]
     
     @JSImport("@stardust-ui/react-component-event-listener/dist/es/EventListener", JSImport.Default)
     @js.native

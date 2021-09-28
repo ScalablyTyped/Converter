@@ -63,7 +63,7 @@ object buttonMod {
   
   @js.native
   trait Button
-    extends Component[ButtonProps, js.Object, js.Any] {
+    extends Component[ButtonProps, js.Object, Any] {
     
     def focus(): Unit = js.native
   }
@@ -81,7 +81,7 @@ object buttonMod {
     var animated: js.UndefOr[Boolean | fade | vertical] = js.undefined
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.undefined
+    var as: js.UndefOr[Any] = js.undefined
     
     /** A button can be attached to other content. */
     var attached: js.UndefOr[Boolean | left | right | top | bottom] = js.undefined
@@ -113,7 +113,7 @@ object buttonMod {
     /** Add an Icon by name, props object, or pass an <Icon />. */
     var icon: js.UndefOr[
         Boolean | (SemanticShorthandItem[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ Any
         ])
       ] = js.undefined
     
@@ -123,7 +123,7 @@ object buttonMod {
     /** Add a Label by text, props object, or pass a <Label />. */
     var label: js.UndefOr[
         SemanticShorthandItem[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any
         ]
       ] = js.undefined
     
@@ -182,7 +182,7 @@ object buttonMod {
       
       inline def setAnimatedUndefined: Self = StObject.set(x, "animated", js.undefined)
       
-      inline def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
+      inline def setAs(value: Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
@@ -226,14 +226,14 @@ object buttonMod {
       
       inline def setIcon(
         value: Boolean | (SemanticShorthandItem[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ Any
             ])
       ): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
       inline def setIconFunction3(
         value: (/* component */ ReactType[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
-            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ Any
+            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
       ): Self = StObject.set(x, "icon", js.Any.fromFunction3(value))
       
       inline def setIconNull: Self = StObject.set(x, "icon", null)
@@ -250,14 +250,14 @@ object buttonMod {
       
       inline def setLabel(
         value: SemanticShorthandItem[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any
             ]
       ): Self = StObject.set(x, "label", value.asInstanceOf[js.Any])
       
       inline def setLabelFunction3(
         value: (/* component */ ReactType[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
-            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any
+            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
       ): Self = StObject.set(x, "label", js.Any.fromFunction3(value))
       
       inline def setLabelNull: Self = StObject.set(x, "label", null)

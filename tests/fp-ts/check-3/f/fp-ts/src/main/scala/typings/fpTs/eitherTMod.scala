@@ -18,7 +18,7 @@ object eitherTMod {
   object EitherT {
     
     inline def apply[F](
-      chain: (js.Function1[js.Any, HKT[F, Either[js.Any, js.Any]]], HKT[F, Either[js.Any, js.Any]]) => HKT[F, Either[js.Any, js.Any]]
+      chain: (js.Function1[Any, HKT[F, Either[Any, Any]]], HKT[F, Either[Any, Any]]) => HKT[F, Either[Any, Any]]
     ): EitherT[F] = {
       val __obj = js.Dynamic.literal(chain = js.Any.fromFunction2(chain))
       __obj.asInstanceOf[EitherT[F]]
@@ -27,7 +27,7 @@ object eitherTMod {
     extension [Self <: EitherT[?], F](x: Self & EitherT[F]) {
       
       inline def setChain(
-        value: (js.Function1[js.Any, HKT[F, Either[js.Any, js.Any]]], HKT[F, Either[js.Any, js.Any]]) => HKT[F, Either[js.Any, js.Any]]
+        value: (js.Function1[Any, HKT[F, Either[Any, Any]]], HKT[F, Either[Any, Any]]) => HKT[F, Either[Any, Any]]
       ): Self = StObject.set(x, "chain", js.Any.fromFunction2(value))
     }
   }

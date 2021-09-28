@@ -27,9 +27,9 @@ object accordionTitleMod extends Shortcut {
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionTitle", JSImport.Default)
   @js.native
   open class default protected ()
-    extends Component[AccordionTitleProps, js.Object, js.Any] {
+    extends Component[AccordionTitleProps, js.Object, Any] {
     def this(props: AccordionTitleProps) = this()
-    def this(props: AccordionTitleProps, context: js.Any) = this()
+    def this(props: AccordionTitleProps, context: Any) = this()
   }
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionTitle", JSImport.Default)
   @js.native
@@ -38,7 +38,7 @@ object accordionTitleMod extends Shortcut {
   trait AccordionTitleProps
     extends StObject
        with StrictAccordionTitleProps
-       with /* key */ StringDictionary[js.Any]
+       with /* key */ StringDictionary[Any]
   object AccordionTitleProps {
     
     inline def apply(): AccordionTitleProps = {
@@ -53,7 +53,7 @@ object accordionTitleMod extends Shortcut {
     var active: js.UndefOr[Boolean] = js.undefined
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.undefined
+    var as: js.UndefOr[Any] = js.undefined
     
     /** Primary content. */
     var children: js.UndefOr[Node] = js.undefined
@@ -67,7 +67,7 @@ object accordionTitleMod extends Shortcut {
     /** Shorthand for Icon. */
     var icon: js.UndefOr[
         SemanticShorthandItem[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ Any
         ]
       ] = js.undefined
     
@@ -101,7 +101,7 @@ object accordionTitleMod extends Shortcut {
       
       inline def setActiveUndefined: Self = StObject.set(x, "active", js.undefined)
       
-      inline def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
+      inline def setAs(value: Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
@@ -131,14 +131,14 @@ object accordionTitleMod extends Shortcut {
       
       inline def setIcon(
         value: SemanticShorthandItem[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ Any
             ]
       ): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
       inline def setIconFunction3(
         value: (/* component */ ReactType[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any
-            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ Any
+            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => Element | Null
       ): Self = StObject.set(x, "icon", js.Any.fromFunction3(value))
       
       inline def setIconNull: Self = StObject.set(x, "icon", null)

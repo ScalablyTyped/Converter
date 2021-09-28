@@ -13,7 +13,7 @@ object pluginMod {
   
   trait PluginObject[T]
     extends StObject
-       with /* key */ StringDictionary[js.Any] {
+       with /* key */ StringDictionary[Any] {
     
     def install(Vue: VueConstructor[Vue]): Unit
     def install(Vue: VueConstructor[Vue], options: T): Unit

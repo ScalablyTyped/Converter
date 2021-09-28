@@ -24,6 +24,6 @@ object observableMod {
     def pipe(): Observable[T] = js.native
     
     /** @deprecated This is an internal implementation detail, do not use. */
-    var source: Observable[js.Any] = js.native
+    var source: Observable[Any] = js.native
   }
 }

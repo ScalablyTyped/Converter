@@ -14,12 +14,12 @@ object Suspense {
   val component: js.Object = js.native
   
   @scala.inline
-  open class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[Any])
     extends AnyVal
        with StBuildingComponent[tag.type, js.Object] {
     
     inline def fallback(
-      value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any
+      value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ Any
     ): this.type = set("fallback", value.asInstanceOf[js.Any])
     
     inline def fallbackNull: this.type = set("fallback", null)

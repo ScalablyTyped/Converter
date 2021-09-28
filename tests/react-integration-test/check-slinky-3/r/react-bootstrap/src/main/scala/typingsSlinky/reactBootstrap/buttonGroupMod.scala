@@ -12,11 +12,11 @@ object buttonGroupMod {
   @JSImport("react-bootstrap/lib/ButtonGroup", JSImport.Namespace)
   @js.native
   open class ^ ()
-    extends Component[ButtonGroupProps, js.Object, js.Any]
+    extends Component[ButtonGroupProps, js.Object, Any]
   
   @js.native
   trait ButtonGroup
-    extends Component[ButtonGroupProps, js.Object, js.Any]
+    extends Component[ButtonGroupProps, js.Object, Any]
   
   trait ButtonGroupProps
     extends StObject
