@@ -1,9 +1,11 @@
 ---
 id: readme
-title: The Javascript ecosystem for Scala.js!
+title: Use Typescript libraries with Scala.js!
 ---
 
-
+## About
+ScalablyTyped enables you use any Javascript project with Typescript types
+and use it from Scala.js.
 
 ## Getting started
 The most flexible way of using ScalablyTyped is through the sbt plugin.
