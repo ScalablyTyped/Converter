@@ -293,7 +293,7 @@ object Main {
 
         val results: Map[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]] =
           sources
-            .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, (_: LibTsSource) => logger.void, NoListener))
+            .map(source => source -> PhaseRunner(Pipeline, (_: LibTsSource) => logger.void, NoListener)(source))
             .toMap
 
         val td = System.currentTimeMillis - t0

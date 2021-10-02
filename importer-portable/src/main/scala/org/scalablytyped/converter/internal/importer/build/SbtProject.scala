@@ -3,11 +3,9 @@ package importer
 package build
 
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
-import org.scalablytyped.converter.internal.maps.MapOps
 import org.scalablytyped.converter.internal.scalajs.Dep
 
 import scala.collection.immutable.SortedMap
-import scala.collection.mutable
 
 case class SbtProject(name: String, reference: Dep.Concrete)(
     val baseDir:            os.Path,
@@ -23,23 +21,20 @@ case class PublishedSbtProject(project: SbtProject)(
 
 object PublishedSbtProject {
   object Unpack {
-    def unapply(_m: SortedMap[LibTsSource, PublishedSbtProject]): Some[SortedMap[LibTsSource, PublishedSbtProject]] =
-      Some(apply(_m))
+    def unapply(m: SortedMap[LibTsSource, PublishedSbtProject]): Some[SortedMap[LibTsSource, PublishedSbtProject]] =
+      Some(apply(m))
 
-    def apply(_m: SortedMap[LibTsSource, PublishedSbtProject]): SortedMap[LibTsSource, PublishedSbtProject] = {
-      val ret = mutable.HashMap.empty[LibTsSource, PublishedSbtProject]
+    def apply(m: SortedMap[LibTsSource, PublishedSbtProject]): SortedMap[LibTsSource, PublishedSbtProject] = {
+      val b = SortedMap.newBuilder[LibTsSource, PublishedSbtProject]
 
-      def go(libs: mutable.Map[LibTsSource, PublishedSbtProject], ds: Map[LibTsSource, PublishedSbtProject]): Unit =
-        ds.foreach {
-          case (s, lib) =>
-            if (!libs.contains(s)) {
-              libs(s) = lib
-              go(libs, lib.project.deps)
-            }
-        }
+      def go(tuple: (LibTsSource, PublishedSbtProject)): Unit = {
+        b += tuple
+        tuple._2.project.deps.foreach(go)
+      }
 
-      go(ret, _m)
-      ret.toSorted
+      m.foreach(go)
+
+      b.result()
     }
   }
 }

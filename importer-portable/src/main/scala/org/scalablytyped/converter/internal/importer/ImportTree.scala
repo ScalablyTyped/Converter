@@ -16,7 +16,7 @@ class ImportTree(
     enableScalaJsDefined: Boolean,
 ) {
   def apply(lib: LibTs, logger: Logger[Unit]): PackageTree = {
-    val deps = lib.dependencies.map {
+    val deps = lib.transitiveDependencies.map {
       case (source, depLib) => source -> depLib.parsed
     }
 

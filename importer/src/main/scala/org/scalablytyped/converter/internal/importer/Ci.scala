@@ -305,7 +305,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
     val results: Map[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]] =
       Interface(config.debugMode) { listener =>
         initial
-          .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
+          .map(source => source -> PhaseRunner(Pipeline, logRegistry.get, listener)(source))
           .toMap
       }
 

@@ -11,4 +11,14 @@ case class LibTs(source: LibTsSource)(
     val dependencies:    SortedMap[LibTsSource, LibTs],
 ) {
   def name: TsIdentLibrary = source.libName
+
+  lazy val transitiveDependencies: SortedMap[LibTsSource, LibTs] = {
+    val b = SortedMap.newBuilder[LibTsSource, LibTs]
+    def go(tuple: (LibTsSource, LibTs)): Unit = {
+      b += tuple
+      tuple._2.dependencies.foreach(go)
+    }
+    dependencies.foreach(go)
+    b.result()
+  }
 }
