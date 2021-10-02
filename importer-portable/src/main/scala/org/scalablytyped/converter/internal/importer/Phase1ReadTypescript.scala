@@ -106,19 +106,33 @@ class Phase1ReadTypescript(
                     }
 
                     /* Resolve all references to other modules in `from` clauses, rename modules */
-                    val withExternals: ResolveExternalReferences.Result =
+                    val ResolveExternalReferences.Result(withExternals, resolvedModules, unresolvedModules) =
                       ResolveExternalReferences(resolve, source, file.folder, withInferredModule, logger)
 
-                    withExternals.resolvedModules.foreach {
+                    resolvedModules.foreach {
                       case ResolvedModule.NotLocal(source, _) => deps += source
                       case _                                  => ()
+                    }
+
+                    val withOrigin = {
+                      source match {
+                        case LibTsSource.StdLibSource(_, _, _) =>
+                          val shortName = file.path.last.split("\\.").drop(1).dropRight(2).mkString(".")
+                          if (shortName.nonEmpty) {
+                            val stdComment = Comments(List(Comment(s"/* standard $shortName */\n")))
+                            T.AddComments(stdComment).visitTsParsedFile(())(withExternals)
+                          } else withExternals
+
+                        case _ =>
+                          withExternals
+                      }
                     }
 
                     val inferredDepNames: Set[TsIdentLibrary] =
                       modules.InferredDependency(
                         source.libName,
-                        withExternals.rewritten,
-                        withExternals.unresolvedModules,
+                        withOrigin,
+                        unresolvedModules,
                         logger,
                       )
 
@@ -132,7 +146,7 @@ class Phase1ReadTypescript(
                     }
 
                     val withInlined: TsParsedFile =
-                      toInline.distinct.foldLeft(withExternals.rewritten) {
+                      toInline.distinct.foldLeft(withOrigin) {
                         case (parsed, Right(referencedFile)) =>
                           val referencedFileLogger = fileLogger.withContext(referencedFile)
 
