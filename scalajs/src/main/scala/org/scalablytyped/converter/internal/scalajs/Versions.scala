@@ -24,7 +24,7 @@ object Versions {
       else Dep.Java(scalaOrganization, "scala-library", scalaVersion)
 
     val dottyLibrary: Option[Dep.Java] =
-      if (is3) Some(Dep.Java(scalaOrganization, "dotty-library", scalaVersion))
+      if (is3) Some(Dep.Java(scalaOrganization, "scala3-library", scalaVersion))
       else None
 
     val binVersion: String = scalaVersion match {
@@ -46,7 +46,7 @@ object Versions {
 
   val Scala212 = Scala("2.12.14")
   val Scala213 = Scala("2.13.5")
-  val Scala3   = Scala("3.0.1")
+  val Scala3   = Scala("3.0.2")
 
   case class ScalaJs(scalaJsVersion: String) {
     val scalaJsBinVersion: String =
