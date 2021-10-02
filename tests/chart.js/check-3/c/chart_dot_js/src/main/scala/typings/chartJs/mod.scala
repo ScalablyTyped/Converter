@@ -14,7 +14,7 @@ object mod extends Shortcut {
   
   @JSImport("chart.js", JSImport.Namespace)
   @js.native
-  class ^ protected ()
+  open class ^ protected ()
     extends StObject
        with typings.chartJs.mod.Chart {
     def this(context: String, options: js.Any) = this()
@@ -75,7 +75,7 @@ object mod extends Shortcut {
   /* This class was inferred from a value with a constructor, it was renamed because a distinct type already exists with the same name. */
   @JSImport("chart.js", "Chart")
   @js.native
-  class ChartCls protected ()
+  open class ChartCls protected ()
     extends StObject
        with typings.chartJs.mod.Chart {
     def this(context: String, options: js.Any) = this()
@@ -114,7 +114,7 @@ object mod extends Shortcut {
       
       inline def setLabelsUndefined: Self = StObject.set(x, "labels", js.undefined)
       
-      inline def setLabelsVarargs(value: (String | js.Array[String])*): Self = StObject.set(x, "labels", js.Array(value :_*))
+      inline def setLabelsVarargs(value: (String | js.Array[String])*): Self = StObject.set(x, "labels", js.Array(value*))
     }
   }
   

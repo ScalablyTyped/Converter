@@ -18,7 +18,7 @@ object toggleButtonGroupMod {
   
   @JSImport("react-bootstrap/lib/ToggleButtonGroup", JSImport.Namespace)
   @js.native
-  class ^ ()
+  open class ^ ()
     extends Component[ToggleButtonGroupProps, js.Object, js.Any]
   
   trait BaseProps extends StObject {

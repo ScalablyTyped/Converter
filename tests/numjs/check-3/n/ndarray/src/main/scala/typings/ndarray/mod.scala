@@ -40,7 +40,7 @@ object mod {
       
       inline def setData(value: Data[T]): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
-      inline def setDataVarargs(value: T*): Self = StObject.set(x, "data", js.Array(value :_*))
+      inline def setDataVarargs(value: T*): Self = StObject.set(x, "data", js.Array(value*))
       
       inline def setT(value: typings.ndarray.mod.ndarray[T]): Self = StObject.set(x, "T", value.asInstanceOf[js.Any])
     }

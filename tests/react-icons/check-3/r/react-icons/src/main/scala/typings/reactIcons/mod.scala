@@ -9,15 +9,15 @@ object mod {
   
   @JSImport("react-icons/fa", "Fa500px")
   @js.native
-  class Fa500px () extends default
+  open class Fa500px () extends default
   
   @JSImport("react-icons/fa", "FaAdjust")
   @js.native
-  class FaAdjust ()
+  open class FaAdjust ()
     extends typings.reactIcons.adjustMod.default
   
   @JSImport("react-icons/fa", "FaAdn")
   @js.native
-  class FaAdn ()
+  open class FaAdn ()
     extends typings.reactIcons.adnMod.default
 }

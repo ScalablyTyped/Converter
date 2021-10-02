@@ -12,7 +12,7 @@ object mod {
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button", JSImport.Default)
   @js.native
-  class default ()
+  open class default ()
     extends typingsJapgolly.semanticUiReact.buttonMod.default
   object default {
     

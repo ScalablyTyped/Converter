@@ -161,7 +161,7 @@ object HTMLAttributes {
     
     inline def setDefaultValueUndefined: Self = StObject.set(x, "defaultValue", js.undefined)
     
-    inline def setDefaultValueVarargs(value: String*): Self = StObject.set(x, "defaultValue", js.Array(value :_*))
+    inline def setDefaultValueVarargs(value: String*): Self = StObject.set(x, "defaultValue", js.Array(value*))
     
     inline def setDir(value: String): Self = StObject.set(x, "dir", value.asInstanceOf[js.Any])
     

@@ -12,7 +12,7 @@ object global {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSGlobal("Buffer")
   @js.native
-  class Buffer protected ()
+  open class Buffer protected ()
     extends StObject
        with NodeBuffer {
     /**
@@ -82,7 +82,7 @@ object global {
     
     @JSGlobal("NodeJS.EventEmitter")
     @js.native
-    class EventEmitter ()
+    open class EventEmitter ()
       extends StObject
          with typings.node.NodeJS.EventEmitter
   }
@@ -90,7 +90,7 @@ object global {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSGlobal("SlowBuffer")
   @js.native
-  class SlowBuffer protected ()
+  open class SlowBuffer protected ()
     extends StObject
        with NodeBuffer {
     def this(array: js.Array[js.Any]) = this()

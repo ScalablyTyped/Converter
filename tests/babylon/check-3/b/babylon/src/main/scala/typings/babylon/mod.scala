@@ -8,6 +8,6 @@ object mod {
   
   @JSImport("babylonjs", "RuntimeAnimation")
   @js.native
-  class RuntimeAnimation ()
+  open class RuntimeAnimation ()
     extends typings.babylon.middleMod.RuntimeAnimation
 }

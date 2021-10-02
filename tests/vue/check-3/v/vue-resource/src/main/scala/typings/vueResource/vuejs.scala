@@ -317,7 +317,7 @@ object vuejs {
       
       inline def setInterceptors(value: js.Array[HttpInterceptor | js.Function0[HttpInterceptor]]): Self = StObject.set(x, "interceptors", value.asInstanceOf[js.Any])
       
-      inline def setInterceptorsVarargs(value: (HttpInterceptor | js.Function0[HttpInterceptor])*): Self = StObject.set(x, "interceptors", js.Array(value :_*))
+      inline def setInterceptorsVarargs(value: (HttpInterceptor | js.Function0[HttpInterceptor])*): Self = StObject.set(x, "interceptors", js.Array(value*))
       
       inline def setJsonp(value: http): Self = StObject.set(x, "jsonp", value.asInstanceOf[js.Any])
       

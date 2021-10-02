@@ -8,7 +8,7 @@ object mod {
   
   @JSImport("properties", "Test")
   @js.native
-  class Test () extends StObject {
+  open class Test () extends StObject {
     
     var _prop: Double = js.native
     

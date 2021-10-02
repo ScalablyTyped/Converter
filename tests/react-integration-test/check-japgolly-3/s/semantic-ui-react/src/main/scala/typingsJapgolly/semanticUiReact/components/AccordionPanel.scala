@@ -27,7 +27,7 @@ object AccordionPanel {
   val component: js.Object = js.native
   
   @scala.inline
-  class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[default] {
     
@@ -41,7 +41,7 @@ object AccordionPanel {
     
     inline def contentNull: this.type = set("content", null)
     
-    inline def contentVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("content", js.Array(value :_*))
+    inline def contentVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("content", js.Array(value*))
     
     inline def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
     
@@ -59,7 +59,7 @@ object AccordionPanel {
     
     inline def titleNull: this.type = set("title", null)
     
-    inline def titleVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("title", js.Array(value :_*))
+    inline def titleVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("title", js.Array(value*))
     
     inline def titleVdomElement(value: VdomElement): this.type = set("title", value.rawElement.asInstanceOf[js.Any])
   }

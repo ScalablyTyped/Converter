@@ -15,7 +15,7 @@ object documentClientMod {
   /**
     * Creates a DynamoDB document client with a set of configuration options.
     */
-  class DocumentClient () extends StObject {
+  open class DocumentClient () extends StObject {
     def this(options: DocumentClientOptions & ClientConfiguration) = this()
   }
   object DocumentClient {

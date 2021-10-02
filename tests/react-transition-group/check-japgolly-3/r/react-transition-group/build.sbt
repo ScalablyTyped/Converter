@@ -1,13 +1,13 @@
 organization := "org.scalablytyped"
 name := "react-transition-group"
-version := "2.0-0089f6"
-scalaVersion := "3.0.1"
+version := "2.0-fe3865"
+scalaVersion := "3.0.2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2",
-  "org.scalablytyped" %%% "react" % "0.0-unknown-f8d112",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-12bd17",
+  "org.scalablytyped" %%% "react" % "0.0-unknown-a6b2b9",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-e1fd3a",
   ("com.github.japgolly.scalajs-react" %%% "core" % "1.7.5").cross(CrossVersion.for3Use2_13))
 publishArtifact in packageDoc := false
-scalacOptions ++= List("-encoding", "utf-8", "-feature", "-language:implicitConversions", "-language:higherKinds", "-language:existentials", "-no-indent")
+scalacOptions ++= List("-encoding", "utf-8", "-feature", "-language:implicitConversions", "-language:higherKinds", "-language:existentials", "-no-indent", "-source:future")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

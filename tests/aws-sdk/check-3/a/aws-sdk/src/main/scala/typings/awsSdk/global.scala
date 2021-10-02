@@ -15,7 +15,7 @@ object global {
     
     @JSGlobal("AWS.DynamoDB")
     @js.native
-    class DynamoDB ()
+    open class DynamoDB ()
       extends typings.awsSdk.mod.DynamoDB {
       def this(options: ClientConfiguration) = this()
     }
@@ -23,7 +23,7 @@ object global {
       
       @JSGlobal("AWS.DynamoDB.Converter")
       @js.native
-      class Converter ()
+      open class Converter ()
         extends typings.awsSdk.mod.DynamoDB.Converter
       /* static members */
       object Converter {
@@ -41,7 +41,7 @@ object global {
       /**
         * Creates a DynamoDB document client with a set of configuration options.
         */
-      class DocumentClient ()
+      open class DocumentClient ()
         extends typings.awsSdk.mod.DynamoDB.DocumentClient {
         def this(options: DocumentClientOptions & ClientConfiguration) = this()
       }

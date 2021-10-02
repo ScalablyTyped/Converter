@@ -19,7 +19,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-class SharedBuilder_AccordionTitleProps_248880662[R <: js.Object] (val args: js.Array[js.Any])
+open class SharedBuilder_AccordionTitleProps_248880662[R <: js.Object] (val args: js.Array[js.Any])
   extends AnyVal
      with StBuildingComponent[R] {
   
@@ -33,7 +33,7 @@ class SharedBuilder_AccordionTitleProps_248880662[R <: js.Object] (val args: js.
   
   inline def contentNull: this.type = set("content", null)
   
-  inline def contentVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("content", js.Array(value :_*))
+  inline def contentVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("content", js.Array(value*))
   
   inline def contentVdomElement(value: VdomElement): this.type = set("content", value.rawElement.asInstanceOf[js.Any])
   
@@ -51,7 +51,7 @@ class SharedBuilder_AccordionTitleProps_248880662[R <: js.Object] (val args: js.
   
   inline def iconNull: this.type = set("icon", null)
   
-  inline def iconVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("icon", js.Array(value :_*))
+  inline def iconVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("icon", js.Array(value*))
   
   inline def iconVdomElement(value: VdomElement): this.type = set("icon", value.rawElement.asInstanceOf[js.Any])
   

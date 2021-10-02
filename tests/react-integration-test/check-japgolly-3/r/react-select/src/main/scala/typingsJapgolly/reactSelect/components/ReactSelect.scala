@@ -19,7 +19,7 @@ object ReactSelect {
   val component: js.Object = js.native
   
   @scala.inline
-  class Builder[TValue] (val args: js.Array[js.Any])
+  open class Builder[TValue] (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[default[TValue]] {
     

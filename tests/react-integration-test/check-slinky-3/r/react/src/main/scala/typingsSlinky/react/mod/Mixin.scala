@@ -58,7 +58,7 @@ object Mixin {
     
     inline def setMixinsUndefined: Self = StObject.set(x, "mixins", js.undefined)
     
-    inline def setMixinsVarargs(value: (Mixin[P, S])*): Self = StObject.set(x, "mixins", js.Array(value :_*))
+    inline def setMixinsVarargs(value: (Mixin[P, S])*): Self = StObject.set(x, "mixins", js.Array(value*))
     
     inline def setPropTypes(value: ValidationMap[js.Any]): Self = StObject.set(x, "propTypes", value.asInstanceOf[js.Any])
     

@@ -13,7 +13,7 @@ object mod {
     * @param settings Configuration object. See [Firestore Documentation]
     * {@link https://firebase.google.com/docs/firestore/}
     */
-  class Firestore ()
+  open class Firestore ()
     extends StObject
        with typings.googleCloudFirestore.FirebaseFirestore.Firestore {
     def this(settings: Settings) = this()

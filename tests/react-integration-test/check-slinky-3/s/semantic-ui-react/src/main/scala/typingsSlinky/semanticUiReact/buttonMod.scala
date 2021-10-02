@@ -37,7 +37,7 @@ object buttonMod {
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", JSImport.Default)
   @js.native
-  class default () extends Button
+  open class default () extends Button
   object default {
     
     /* was `typeof ButtonContent` */

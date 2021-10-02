@@ -23,7 +23,7 @@ object mod {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("react-contextmenu", "ContextMenu")
   @js.native
-  class ContextMenu protected ()
+  open class ContextMenu protected ()
     extends Component[ContextMenuProps, js.Object, js.Any] {
     def this(props: ContextMenuProps) = this()
     def this(props: ContextMenuProps, context: js.Any) = this()
@@ -35,7 +35,7 @@ object mod {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("react-contextmenu", "ContextMenuTrigger")
   @js.native
-  class ContextMenuTrigger protected ()
+  open class ContextMenuTrigger protected ()
     extends Component[ContextMenuTriggerProps, js.Object, js.Any] {
     def this(props: ContextMenuTriggerProps) = this()
     def this(props: ContextMenuTriggerProps, context: js.Any) = this()
@@ -47,7 +47,7 @@ object mod {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("react-contextmenu", "MenuItem")
   @js.native
-  class MenuItem protected ()
+  open class MenuItem protected ()
     extends Component[MenuItemProps, js.Object, js.Any] {
     def this(props: MenuItemProps) = this()
     def this(props: MenuItemProps, context: js.Any) = this()
@@ -59,7 +59,7 @@ object mod {
   /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
   @JSImport("react-contextmenu", "SubMenu")
   @js.native
-  class SubMenu protected ()
+  open class SubMenu protected ()
     extends Component[SubMenuProps, js.Object, js.Any] {
     def this(props: SubMenuProps) = this()
     def this(props: SubMenuProps, context: js.Any) = this()

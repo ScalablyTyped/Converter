@@ -6,7 +6,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-class SharedBuilder_ButtonOrProps_184214248 (val args: js.Array[js.Any])
+open class SharedBuilder_ButtonOrProps_184214248 (val args: js.Array[js.Any])
   extends AnyVal
      with StBuildingComponent[scala.Nothing] {
   

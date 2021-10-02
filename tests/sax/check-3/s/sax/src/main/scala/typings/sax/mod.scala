@@ -19,7 +19,7 @@ object mod {
   
   @JSImport("sax", "SAXParser")
   @js.native
-  class SAXParser protected () extends StObject {
+  open class SAXParser protected () extends StObject {
     def this(strict: Boolean, opt: SAXOptions) = this()
     
     def write(s: String): SAXParser = js.native
@@ -27,7 +27,7 @@ object mod {
   
   @JSImport("sax", "SAXStream")
   @js.native
-  class SAXStream protected () extends Duplex {
+  open class SAXStream protected () extends Duplex {
     def this(strict: Boolean, opt: SAXOptions) = this()
     
     /* private */ var _parser: SAXParser = js.native

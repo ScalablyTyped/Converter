@@ -56,13 +56,13 @@ object Accordion {
   val component: js.Object = js.native
   
   @scala.inline
-  class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[tag.type, default] {
     
     inline def activeIndex(value: Double | js.Array[Double]): this.type = set("activeIndex", value.asInstanceOf[js.Any])
     
-    inline def activeIndexVarargs(value: Double*): this.type = set("activeIndex", js.Array(value :_*))
+    inline def activeIndexVarargs(value: Double*): this.type = set("activeIndex", js.Array(value*))
     
     inline def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
     
@@ -70,7 +70,7 @@ object Accordion {
     
     inline def defaultActiveIndex(value: Double | js.Array[Double]): this.type = set("defaultActiveIndex", value.asInstanceOf[js.Any])
     
-    inline def defaultActiveIndexVarargs(value: Double*): this.type = set("defaultActiveIndex", js.Array(value :_*))
+    inline def defaultActiveIndexVarargs(value: Double*): this.type = set("defaultActiveIndex", js.Array(value*))
     
     inline def exclusive(value: Boolean): this.type = set("exclusive", value.asInstanceOf[js.Any])
     
@@ -82,7 +82,7 @@ object Accordion {
     
     inline def panels(value: SemanticShorthandCollection[AccordionPanelProps]): this.type = set("panels", value.asInstanceOf[js.Any])
     
-    inline def panelsVarargs(value: SemanticShorthandItem[AccordionPanelProps]*): this.type = set("panels", js.Array(value :_*))
+    inline def panelsVarargs(value: SemanticShorthandItem[AccordionPanelProps]*): this.type = set("panels", js.Array(value*))
     
     inline def styled(value: Boolean): this.type = set("styled", value.asInstanceOf[js.Any])
   }

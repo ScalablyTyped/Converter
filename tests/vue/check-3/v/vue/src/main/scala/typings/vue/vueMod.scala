@@ -417,7 +417,7 @@ object vueMod {
       
       inline def setIgnoredElements(value: js.Array[String | RegExp]): Self = StObject.set(x, "ignoredElements", value.asInstanceOf[js.Any])
       
-      inline def setIgnoredElementsVarargs(value: (String | RegExp)*): Self = StObject.set(x, "ignoredElements", js.Array(value :_*))
+      inline def setIgnoredElementsVarargs(value: (String | RegExp)*): Self = StObject.set(x, "ignoredElements", js.Array(value*))
       
       inline def setKeyCodes(value: StringDictionary[Double | js.Array[Double]]): Self = StObject.set(x, "keyCodes", value.asInstanceOf[js.Any])
       

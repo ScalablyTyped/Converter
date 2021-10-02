@@ -69,7 +69,7 @@ object StBuildingComponent {
     val createElement: js.Dynamic = js.native
   }
   
-  class Default[R <: js.Object] (val args: js.Array[js.Any])
+  open class Default[R <: js.Object] (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[R]
   

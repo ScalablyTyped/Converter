@@ -10,7 +10,7 @@ object mod {
   
   @JSImport("phaser", JSImport.Namespace)
   @js.native
-  class ^ ()
+  open class ^ ()
     extends StObject
        with Phaser
   @JSImport("phaser", JSImport.Namespace)
@@ -24,7 +24,7 @@ object mod {
     */
   @JSImport("phaser", "Animation")
   @js.native
-  class Animation ()
+  open class Animation ()
     extends StObject
        with typings.phaser.Phaser.Animation
   

@@ -12,7 +12,7 @@ object servicesDynamodbMod {
   
   @JSImport("aws-sdk/lib/services/dynamodb", "DynamoDBCustomizations")
   @js.native
-  class DynamoDBCustomizations () extends StObject
+  open class DynamoDBCustomizations () extends StObject
   /* static members */
   object DynamoDBCustomizations {
     

@@ -307,7 +307,9 @@ object Printer {
           print(
             formatProtectionLevel(level),
             if (isImplicit) "implicit " else "",
-            if (isSealed) "sealed " else "",
+            if (isSealed) "sealed "
+            else if (scalaVersion.is3 && classType === ClassType.Class) "open "
+            else "",
             classType.asString,
             " ",
             formatName(name),
@@ -620,6 +622,8 @@ object Printer {
           "js.undefined"
         case ExprTree.Null =>
           "null"
+        case ExprTree.`:_*`(e) if scalaVersion.is3 =>
+          s"${formatExpr(indent)(e)}*"
         case ExprTree.`:_*`(e) =>
           s"${formatExpr(indent)(e)} :_*"
         case ExprTree.Ref(value) =>

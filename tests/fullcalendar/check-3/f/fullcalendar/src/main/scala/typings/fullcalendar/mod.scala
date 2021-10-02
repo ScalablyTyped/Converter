@@ -8,11 +8,11 @@ object mod {
   
   @JSImport("fullcalendar/EmitterMixin", JSImport.Default)
   @js.native
-  class default () extends Default_
+  open class default () extends Default_
   
   @JSImport("fullcalendar/EmitterMixin", "Default")
   @js.native
-  class Default_ ()
+  open class Default_ ()
     extends typings.fullcalendar.mixinMod.default
        with EmitterInterface {
     

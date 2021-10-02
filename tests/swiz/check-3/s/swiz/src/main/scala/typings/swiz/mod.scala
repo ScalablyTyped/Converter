@@ -47,7 +47,7 @@ object mod {
   
   @JSImport("swiz", "Swiz")
   @js.native
-  class Swiz protected () extends StObject {
+  open class Swiz protected () extends StObject {
     def this(defs: js.Array[IObj]) = this()
     def this(defs: js.Array[IObj], options: ISwizOptions) = this()
     

@@ -11,7 +11,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 // tslint:disable-next-line:no-empty-interface
 @JSImport("react", "Component")
 @js.native
-class Component[P, S, SS] protected ()
+open class Component[P, S, SS] protected ()
   extends StObject
      with ComponentLifecycle[P, S, SS] {
   def this(props: P) = this()

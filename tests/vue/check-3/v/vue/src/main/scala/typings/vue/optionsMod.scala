@@ -238,7 +238,7 @@ object optionsMod {
       
       inline def setInjectUndefined: Self = StObject.set(x, "inject", js.undefined)
       
-      inline def setInjectVarargs(value: String*): Self = StObject.set(x, "inject", js.Array(value :_*))
+      inline def setInjectVarargs(value: String*): Self = StObject.set(x, "inject", js.Array(value*))
       
       inline def setMethods(value: Methods): Self = StObject.set(x, "methods", value.asInstanceOf[js.Any])
       
@@ -266,7 +266,7 @@ object optionsMod {
               DefaultComputed, 
               PropsDefinition[DefaultProps]
             ]) | VueConstructor[Vue])*
-      ): Self = StObject.set(x, "mixins", js.Array(value :_*))
+      ): Self = StObject.set(x, "mixins", js.Array(value*))
       
       inline def setModel(value: Event): Self = StObject.set(x, "model", value.asInstanceOf[js.Any])
       
@@ -310,7 +310,7 @@ object optionsMod {
       
       inline def setStaticRenderFnsUndefined: Self = StObject.set(x, "staticRenderFns", js.undefined)
       
-      inline def setStaticRenderFnsVarargs(value: (js.Function1[/* createElement */ CreateElement, VNode])*): Self = StObject.set(x, "staticRenderFns", js.Array(value :_*))
+      inline def setStaticRenderFnsVarargs(value: (js.Function1[/* createElement */ CreateElement, VNode])*): Self = StObject.set(x, "staticRenderFns", js.Array(value*))
       
       inline def setTemplate(value: String): Self = StObject.set(x, "template", value.asInstanceOf[js.Any])
       
@@ -479,7 +479,7 @@ object optionsMod {
       
       inline def setInjectUndefined: Self = StObject.set(x, "inject", js.undefined)
       
-      inline def setInjectVarargs(value: String*): Self = StObject.set(x, "inject", js.Array(value :_*))
+      inline def setInjectVarargs(value: String*): Self = StObject.set(x, "inject", js.Array(value*))
       
       inline def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
@@ -536,7 +536,7 @@ object optionsMod {
       
       inline def setTypeUndefined: Self = StObject.set(x, "type", js.undefined)
       
-      inline def setTypeVarargs(value: Prop[T]*): Self = StObject.set(x, "type", js.Array(value :_*))
+      inline def setTypeVarargs(value: Prop[T]*): Self = StObject.set(x, "type", js.Array(value*))
       
       inline def setValidator(value: /* value */ T => Boolean): Self = StObject.set(x, "validator", js.Any.fromFunction1(value))
       
@@ -584,7 +584,7 @@ object optionsMod {
       
       inline def setChildren(value: js.Array[VNode]): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
-      inline def setChildrenVarargs(value: VNode*): Self = StObject.set(x, "children", js.Array(value :_*))
+      inline def setChildrenVarargs(value: VNode*): Self = StObject.set(x, "children", js.Array(value*))
       
       inline def setData(value: VNodeData): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       

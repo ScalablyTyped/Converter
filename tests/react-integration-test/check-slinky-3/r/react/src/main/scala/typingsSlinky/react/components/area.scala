@@ -65,7 +65,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object area {
   
   @scala.inline
-  class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[tag.type, HTMLAreaElement] {
     
@@ -195,7 +195,7 @@ object area {
     
     inline def defaultValue(value: String | js.Array[String]): this.type = set("defaultValue", value.asInstanceOf[js.Any])
     
-    inline def defaultValueVarargs(value: String*): this.type = set("defaultValue", js.Array(value :_*))
+    inline def defaultValueVarargs(value: String*): this.type = set("defaultValue", js.Array(value*))
     
     inline def dir(value: String): this.type = set("dir", value.asInstanceOf[js.Any])
     

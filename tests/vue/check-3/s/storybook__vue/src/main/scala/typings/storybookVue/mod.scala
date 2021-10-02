@@ -158,7 +158,7 @@ object mod {
       
       inline def setStories(value: js.Array[StoryObject]): Self = StObject.set(x, "stories", value.asInstanceOf[js.Any])
       
-      inline def setStoriesVarargs(value: StoryObject*): Self = StObject.set(x, "stories", js.Array(value :_*))
+      inline def setStoriesVarargs(value: StoryObject*): Self = StObject.set(x, "stories", js.Array(value*))
     }
   }
 }

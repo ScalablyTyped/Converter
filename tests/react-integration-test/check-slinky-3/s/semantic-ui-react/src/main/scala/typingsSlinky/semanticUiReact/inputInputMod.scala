@@ -27,7 +27,7 @@ object inputInputMod {
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Input/Input", JSImport.Default)
   @js.native
-  class default () extends Input
+  open class default () extends Input
   
   @js.native
   trait Input

@@ -11,7 +11,7 @@ object mod {
   
   @JSImport("react-select", JSImport.Default)
   @js.native
-  class default[TValue] () extends ReactSelectClass[TValue]
+  open class default[TValue] () extends ReactSelectClass[TValue]
   
   trait Option[TValue]
     extends StObject

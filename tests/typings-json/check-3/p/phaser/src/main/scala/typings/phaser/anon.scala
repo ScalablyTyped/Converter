@@ -25,13 +25,13 @@ object anon {
       
       inline def setLowerBoundUndefined: Self = StObject.set(x, "lowerBound", js.undefined)
       
-      inline def setLowerBoundVarargs(value: Double*): Self = StObject.set(x, "lowerBound", js.Array(value :_*))
+      inline def setLowerBoundVarargs(value: Double*): Self = StObject.set(x, "lowerBound", js.Array(value*))
       
       inline def setUpperBound(value: js.Array[Double]): Self = StObject.set(x, "upperBound", value.asInstanceOf[js.Any])
       
       inline def setUpperBoundUndefined: Self = StObject.set(x, "upperBound", js.undefined)
       
-      inline def setUpperBoundVarargs(value: Double*): Self = StObject.set(x, "upperBound", js.Array(value :_*))
+      inline def setUpperBoundVarargs(value: Double*): Self = StObject.set(x, "upperBound", js.Array(value*))
     }
   }
 }

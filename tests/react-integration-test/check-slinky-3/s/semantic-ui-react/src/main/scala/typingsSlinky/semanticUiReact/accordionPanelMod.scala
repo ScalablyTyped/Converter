@@ -19,7 +19,7 @@ object accordionPanelMod {
   
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionPanel", JSImport.Default)
   @js.native
-  class default ()
+  open class default ()
     extends Component[AccordionPanelProps, js.Object, js.Any]
   
   type AccordionPanel = ReactComponentClass[AccordionPanelProps]

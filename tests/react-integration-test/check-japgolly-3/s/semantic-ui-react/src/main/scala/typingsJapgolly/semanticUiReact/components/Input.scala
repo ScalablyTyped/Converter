@@ -88,7 +88,7 @@ object Input {
   val component: js.Object = js.native
   
   @scala.inline
-  class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[js.Any])
     extends AnyVal
        with StBuildingComponent[default] {
     
@@ -234,7 +234,7 @@ object Input {
     
     inline def defaultValue(value: String | js.Array[String]): this.type = set("defaultValue", value.asInstanceOf[js.Any])
     
-    inline def defaultValueVarargs(value: String*): this.type = set("defaultValue", js.Array(value :_*))
+    inline def defaultValueVarargs(value: String*): this.type = set("defaultValue", js.Array(value*))
     
     inline def dir(value: String): this.type = set("dir", value.asInstanceOf[js.Any])
     
@@ -274,7 +274,7 @@ object Input {
     
     inline def iconPosition(value: left): this.type = set("iconPosition", value.asInstanceOf[js.Any])
     
-    inline def iconVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("icon", js.Array(value :_*))
+    inline def iconVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("icon", js.Array(value*))
     
     inline def iconVdomElement(value: VdomElement): this.type = set("icon", value.rawElement.asInstanceOf[js.Any])
     
@@ -292,7 +292,7 @@ object Input {
     
     inline def inputNull: this.type = set("input", null)
     
-    inline def inputVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("input", js.Array(value :_*))
+    inline def inputVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("input", js.Array(value*))
     
     inline def inputVdomElement(value: VdomElement): this.type = set("input", value.rawElement.asInstanceOf[js.Any])
     
@@ -326,7 +326,7 @@ object Input {
     
     inline def labelPosition(value: left | right | (`left corner`) | (`right corner`)): this.type = set("labelPosition", value.asInstanceOf[js.Any])
     
-    inline def labelVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("label", js.Array(value :_*))
+    inline def labelVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("label", js.Array(value*))
     
     inline def labelVdomElement(value: VdomElement): this.type = set("label", value.rawElement.asInstanceOf[js.Any])
     
@@ -558,7 +558,7 @@ object Input {
     
     inline def value(value: String | js.Array[String] | Double): this.type = set("value", value.asInstanceOf[js.Any])
     
-    inline def valueVarargs(value: String*): this.type = set("value", js.Array(value :_*))
+    inline def valueVarargs(value: String*): this.type = set("value", js.Array(value*))
     
     inline def vocab(value: String): this.type = set("vocab", value.asInstanceOf[js.Any])
     

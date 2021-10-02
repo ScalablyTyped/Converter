@@ -11,7 +11,7 @@ object mod {
   
   @JSImport("vue-scrollto", JSImport.Namespace)
   @js.native
-  class ^ ()
+  open class ^ ()
     extends StObject
        with VueScrollTo {
     
