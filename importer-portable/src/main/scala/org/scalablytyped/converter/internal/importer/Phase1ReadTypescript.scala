@@ -35,9 +35,6 @@ class Phase1ReadTypescript(
   implicit val InFolderFormatter: Formatter[InFolder] =
     _.path.toString
 
-  def ignoreModule(moduleNames: IArray[TsIdentModule]): Boolean =
-    moduleNames.exists(ignoreModule)
-
   def ignoreModule(modName: TsIdentModule): Boolean =
     (1 to modName.fragments.length).exists(n => ignoredModulePrefixes(modName.fragments.take(n)))
 
