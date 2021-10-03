@@ -26,7 +26,6 @@ final case class InFile(path: os.Path) {
 }
 
 object InFile {
-  implicit object InFileKey extends IsKey[InFile]
   implicit val ordering: Ordering[InFile] = Ordering.by(_.toString)
 }
 

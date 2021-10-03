@@ -74,13 +74,6 @@ final case class PackageTree(
     codePath:    QualifiedName,
 ) extends ContainerTree
 
-object PackageTree {
-  implicit object PackageTreeKey extends Key[PackageTree] {
-    override type Id = Name
-    override def apply(t: PackageTree): Id = t.name
-  }
-}
-
 final case class ClassTree(
     isImplicit:  Boolean,
     annotations: IArray[Annotation],

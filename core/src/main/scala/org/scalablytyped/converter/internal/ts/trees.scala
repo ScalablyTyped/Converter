@@ -434,8 +434,6 @@ object TsIdent {
   implicit val encodes: Encoder[TsIdent] = io.circe013.generic.semiauto.deriveEncoder
   implicit val decodes: Decoder[TsIdent] = io.circe013.generic.semiauto.deriveDecoder
 
-  implicit object TsIdentKey extends IsKey[TsIdent]
-
   def apply(str: String): TsIdentSimple =
     TsIdentSimple(str)
 

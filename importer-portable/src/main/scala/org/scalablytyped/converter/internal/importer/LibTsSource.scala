@@ -9,7 +9,7 @@ sealed trait LibTsSource extends TsTreeScope.TsLib {
   def folder:  InFolder
   def libName: TsIdentLibrary
 
-  private lazy val key: String = path.toString
+  private val pathString: String = path.toString
 
   override lazy val packageJsonOpt: Option[PackageJson] =
     Json.opt[PackageJson](folder.path / "package.json").orElse /* discover stdlib package.json as well */ (
@@ -30,9 +30,10 @@ object LibTsSource {
 
   final case class FromFolder(folder: InFolder, libName: TsIdentLibrary) extends LibTsSource
 
-  implicit val SourceKey:                        Key[LibTsSource]       = Key.of[LibTsSource, String](_.key)
-  implicit def SourceOrdering[S <: LibTsSource]: Ordering[S]            = Ordering.by[S, String](_.key)
-  implicit val SourceFormatter:                  Formatter[LibTsSource] = _.libName.value
+  implicit def SourceOrdering[S <: LibTsSource]: Ordering[S] =
+    Ordering.by[S, String](_.pathString)
+  implicit val SourceFormatter: Formatter[LibTsSource] =
+    _.libName.value
 
   /* for files referenced through here we must shorten the paths */
   def findShortenedFiles(src: LibTsSource): IArray[InFile] = {
