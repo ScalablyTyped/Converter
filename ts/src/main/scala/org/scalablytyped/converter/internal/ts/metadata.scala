@@ -40,8 +40,13 @@ case class PackageJson(
     dependencies:     Option[Map[TsIdentLibrary, String]],
     devDependencies:  Option[Map[TsIdentLibrary, String]],
     peerDependencies: Option[Map[TsIdentLibrary, String]],
-    typings:          Option[String],
+//    browser:          Option[String], this seems to be a bit more complicated
     module:           Option[String],
+    main:             Option[String],
+    es2015:           Option[String],
+    esm2015:          Option[String],
+    fesm2015:         Option[String],
+    typings:          Option[String],
     types:            Option[String],
     files:            Option[IArray[String]],
 ) {
@@ -50,7 +55,7 @@ case class PackageJson(
 }
 
 object PackageJson {
-  val Empty: PackageJson = PackageJson(None, None, None, None, None, None, None, None)
+  val Empty: PackageJson = PackageJson(None, None, None, None, None, None, None, None, None, None, None, None)
 
   implicit val encodes: Encoder[PackageJson] = io.circe013.generic.semiauto.deriveEncoder
   implicit val decodes: Decoder[PackageJson] = io.circe013.generic.semiauto.deriveDecoder
