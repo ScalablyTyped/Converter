@@ -1,6 +1,6 @@
 package typingsSlinky.stardustUiReactComponentRef
 
-import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.HTMLElement
 import typingsSlinky.react.mod.Component
 import typingsSlinky.stardustUiReactComponentRef.anon.Children
 import typingsSlinky.stardustUiReactComponentRef.anon.InnerRef

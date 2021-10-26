@@ -1,6 +1,6 @@
 package typingsSlinky.react.mod
 
-import org.scalajs.dom.raw.EventTarget
+import org.scalajs.dom.EventTarget
 import typingsSlinky.react.reactStrings.mouse
 import typingsSlinky.react.reactStrings.pen
 import typingsSlinky.react.reactStrings.touch

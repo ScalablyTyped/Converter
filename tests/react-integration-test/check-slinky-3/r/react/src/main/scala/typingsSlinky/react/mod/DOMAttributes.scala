@@ -1,7 +1,7 @@
 package typingsSlinky.react.mod
 
-import org.scalajs.dom.raw.Event
-import org.scalajs.dom.raw.EventTarget
+import org.scalajs.dom.Event
+import org.scalajs.dom.EventTarget
 import slinky.web.SyntheticAnimationEvent
 import slinky.web.SyntheticClipboardEvent
 import slinky.web.SyntheticCompositionEvent

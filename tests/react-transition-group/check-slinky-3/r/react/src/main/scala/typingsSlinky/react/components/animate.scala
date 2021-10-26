@@ -1,6 +1,6 @@
 package typingsSlinky.react.components
 
-import org.scalajs.dom.raw.SVGElement
+import org.scalajs.dom.SVGElement
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent.Default
 import typingsSlinky.react.mod.ClassAttributes
@@ -12,7 +12,7 @@ object animate {
   
   val component: String = "animate"
   
-  implicit def make(companion: animate.type): Default[tag.type, SVGElement] = new Default[tag.type, SVGElement](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: animate.type): Default[tag.type, SVGElement & js.Object] = new Default[tag.type, SVGElement & js.Object](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: ClassAttributes[SVGElement]): Default[tag.type, SVGElement] = new Default[tag.type, SVGElement](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: ClassAttributes[SVGElement]): Default[tag.type, SVGElement & js.Object] = new Default[tag.type, SVGElement & js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

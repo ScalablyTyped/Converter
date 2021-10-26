@@ -1,8 +1,8 @@
 package typingsSlinky.react.components
 
-import org.scalajs.dom.raw.Event
-import org.scalajs.dom.raw.EventTarget
-import org.scalajs.dom.raw.HTMLAreaElement
+import org.scalajs.dom.Event
+import org.scalajs.dom.EventTarget
+import org.scalajs.dom.HTMLAreaElement
 import slinky.core.SyntheticEvent
 import slinky.web.SyntheticAnimationEvent
 import slinky.web.SyntheticClipboardEvent
@@ -67,7 +67,7 @@ object area {
   @scala.inline
   open class Builder (val args: js.Array[js.Any])
     extends AnyVal
-       with StBuildingComponent[tag.type, HTMLAreaElement] {
+       with StBuildingComponent[tag.type, HTMLAreaElement & js.Object] {
     
     inline def about(value: String): this.type = set("about", value.asInstanceOf[js.Any])
     

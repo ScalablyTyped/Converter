@@ -1,9 +1,9 @@
 package typingsSlinky.reactDropzone
 
 import org.scalablytyped.runtime.StringDictionary
-import org.scalajs.dom.raw.Event
-import org.scalajs.dom.raw.HTMLElement
-import org.scalajs.dom.raw.HTMLInputElement
+import org.scalajs.dom.Event
+import org.scalajs.dom.HTMLElement
+import org.scalajs.dom.HTMLInputElement
 import slinky.core.facade.ReactRef
 import typingsSlinky.react.mod.ChangeEvent
 import typingsSlinky.react.mod.DragEvent
@@ -27,7 +27,7 @@ object mod {
   inline def useDropzone(): DropzoneState = ^.asInstanceOf[js.Dynamic].applyDynamic("useDropzone")().asInstanceOf[DropzoneState]
   inline def useDropzone(options: DropzoneOptions): DropzoneState = ^.asInstanceOf[js.Dynamic].applyDynamic("useDropzone")(options.asInstanceOf[js.Any]).asInstanceOf[DropzoneState]
   
-  type DropEvent = DragEvent[HTMLElement] | ChangeEvent[HTMLInputElement] | org.scalajs.dom.raw.DragEvent | Event
+  type DropEvent = DragEvent[HTMLElement] | ChangeEvent[HTMLInputElement] | org.scalajs.dom.DragEvent | Event
   
   trait DropzoneInputProps
     extends StObject
