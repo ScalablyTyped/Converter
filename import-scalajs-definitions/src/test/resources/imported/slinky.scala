@@ -1148,6 +1148,14 @@ object slinky {
         }
       }
       
+      object dd {
+        
+        object tag {
+          
+          type RefType = org.scalajs.dom.html.Element
+        }
+      }
+      
       object defaultChecked {
         
         object tag {
@@ -1249,6 +1257,14 @@ object slinky {
         object tag {
           
           type RefType = scala.Nothing
+        }
+      }
+      
+      object dt {
+        
+        object tag {
+          
+          type RefType = org.scalajs.dom.html.Element
         }
       }
       
