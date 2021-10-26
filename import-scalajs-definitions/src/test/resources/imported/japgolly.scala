@@ -33,7 +33,7 @@ import org.scalajs.dom.TouchEvent
 import org.scalajs.dom.TouchList
 import org.scalajs.dom.UIEvent
 import org.scalajs.dom.WheelEvent
-import org.scalajs.dom.raw.Document
+import org.scalajs.dom.Document
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
