@@ -1,8 +1,8 @@
 package typingsSlinky.semanticUiReact.components
 
-import org.scalajs.dom.raw.Event
-import org.scalajs.dom.raw.EventTarget
-import org.scalajs.dom.raw.HTMLButtonElement
+import org.scalajs.dom.Event
+import org.scalajs.dom.EventTarget
+import org.scalajs.dom.HTMLButtonElement
 import slinky.core.SyntheticEvent
 import slinky.core.facade.ReactElement
 import slinky.web.SyntheticAnimationEvent

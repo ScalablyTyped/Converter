@@ -1,6 +1,6 @@
 package typingsSlinky.react.components
 
-import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.HTMLElement
 import slinky.web.html.abbr.tag
 import typingsSlinky.StBuildingComponent
 import typingsSlinky.react.anon.Html
@@ -15,7 +15,7 @@ object abbr {
   @scala.inline
   open class Builder (val args: js.Array[js.Any])
     extends AnyVal
-       with StBuildingComponent[tag.type, HTMLElement] {
+       with StBuildingComponent[tag.type, HTMLElement & js.Object] {
     
     inline def dangerouslySetInnerHTML(value: Html): this.type = set("dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
     

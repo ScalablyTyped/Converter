@@ -1,6 +1,6 @@
 package typingsSlinky.componentstest
 
-import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.HTMLDivElement
 import slinky.core.ReactComponentClass
 import slinky.web.SyntheticMouseEvent
 import typingsSlinky.componentstest.anon.Equals

@@ -1,8 +1,8 @@
 package typingsSlinky.react.components
 
-import org.scalajs.dom.raw.Event
-import org.scalajs.dom.raw.EventTarget
-import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.Event
+import org.scalajs.dom.EventTarget
+import org.scalajs.dom.HTMLElement
 import slinky.core.SyntheticEvent
 import slinky.web.SyntheticAnimationEvent
 import slinky.web.SyntheticClipboardEvent
@@ -61,7 +61,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-open class SharedBuilder_DetailedHTMLProps_1799989450[R <: js.Object] (val args: js.Array[js.Any])
+open class SharedBuilder_DetailedHTMLProps_1670340210[R <: js.Object] (val args: js.Array[js.Any])
   extends AnyVal
      with StBuildingComponent[tag.type, R] {
   

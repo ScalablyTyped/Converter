@@ -6,18 +6,18 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 trait SVGElementTagNameMap extends StObject {
   
-  var circle: org.scalajs.dom.raw.SVGCircleElement
+  var circle: org.scalajs.dom.SVGCircleElement
   
-  var clipPath: org.scalajs.dom.raw.SVGClipPathElement
+  var clipPath: org.scalajs.dom.SVGClipPathElement
   
-  var defs: org.scalajs.dom.raw.SVGDefsElement
+  var defs: org.scalajs.dom.SVGDefsElement
 }
 object SVGElementTagNameMap {
   
   inline def apply(
-    circle: org.scalajs.dom.raw.SVGCircleElement,
-    clipPath: org.scalajs.dom.raw.SVGClipPathElement,
-    defs: org.scalajs.dom.raw.SVGDefsElement
+    circle: org.scalajs.dom.SVGCircleElement,
+    clipPath: org.scalajs.dom.SVGClipPathElement,
+    defs: org.scalajs.dom.SVGDefsElement
   ): SVGElementTagNameMap = {
     val __obj = js.Dynamic.literal(circle = circle.asInstanceOf[js.Any], clipPath = clipPath.asInstanceOf[js.Any], defs = defs.asInstanceOf[js.Any])
     __obj.asInstanceOf[SVGElementTagNameMap]
@@ -25,10 +25,10 @@ object SVGElementTagNameMap {
   
   extension [Self <: SVGElementTagNameMap](x: Self) {
     
-    inline def setCircle(value: org.scalajs.dom.raw.SVGCircleElement): Self = StObject.set(x, "circle", value.asInstanceOf[js.Any])
+    inline def setCircle(value: org.scalajs.dom.SVGCircleElement): Self = StObject.set(x, "circle", value.asInstanceOf[js.Any])
     
-    inline def setClipPath(value: org.scalajs.dom.raw.SVGClipPathElement): Self = StObject.set(x, "clipPath", value.asInstanceOf[js.Any])
+    inline def setClipPath(value: org.scalajs.dom.SVGClipPathElement): Self = StObject.set(x, "clipPath", value.asInstanceOf[js.Any])
     
-    inline def setDefs(value: org.scalajs.dom.raw.SVGDefsElement): Self = StObject.set(x, "defs", value.asInstanceOf[js.Any])
+    inline def setDefs(value: org.scalajs.dom.SVGDefsElement): Self = StObject.set(x, "defs", value.asInstanceOf[js.Any])
   }
 }

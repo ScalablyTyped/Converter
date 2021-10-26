@@ -1,6 +1,6 @@
 package typingsSlinky.semanticUiReact
 
-import org.scalajs.dom.raw.HTMLButtonElement
+import org.scalajs.dom.HTMLButtonElement
 import slinky.core.ReactComponentClass
 import slinky.core.facade.ReactElement
 import slinky.web.SyntheticMouseEvent

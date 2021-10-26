@@ -2,9 +2,9 @@ package typingsSlinky.react
 
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
-import org.scalajs.dom.raw.AnimationEvent
-import org.scalajs.dom.raw.HTMLElement
-import org.scalajs.dom.raw.SVGElement
+import org.scalajs.dom.AnimationEvent
+import org.scalajs.dom.HTMLElement
+import org.scalajs.dom.SVGElement
 import slinky.core.ReactComponentClass
 import typingsSlinky.react.anon.Children
 import typingsSlinky.react.anon.Html

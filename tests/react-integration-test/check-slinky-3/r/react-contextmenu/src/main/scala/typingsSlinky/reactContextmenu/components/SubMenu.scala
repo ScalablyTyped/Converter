@@ -1,7 +1,7 @@
 package typingsSlinky.reactContextmenu.components
 
-import org.scalajs.dom.raw.HTMLDivElement
-import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.HTMLDivElement
+import org.scalajs.dom.HTMLElement
 import slinky.core.facade.ReactElement
 import slinky.web.SyntheticMouseEvent
 import slinky.web.SyntheticTouchEvent

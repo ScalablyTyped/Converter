@@ -1,6 +1,6 @@
 package typingsSlinky.reactDropzone.components
 
-import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.HTMLElement
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
 import typingsSlinky.react.mod.DragEvent

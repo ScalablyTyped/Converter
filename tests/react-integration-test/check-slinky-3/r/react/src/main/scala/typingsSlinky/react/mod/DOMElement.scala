@@ -1,6 +1,6 @@
 package typingsSlinky.react.mod
 
-import org.scalajs.dom.raw.Element
+import org.scalajs.dom.Element
 import slinky.core.facade.ReactRef
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js

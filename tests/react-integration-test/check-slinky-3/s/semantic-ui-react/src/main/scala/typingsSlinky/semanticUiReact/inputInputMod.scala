@@ -1,6 +1,6 @@
 package typingsSlinky.semanticUiReact
 
-import org.scalajs.dom.raw.HTMLInputElement
+import org.scalajs.dom.HTMLInputElement
 import slinky.core.facade.ReactElement
 import typingsSlinky.react.mod.ChangeEvent
 import typingsSlinky.react.mod.Component
