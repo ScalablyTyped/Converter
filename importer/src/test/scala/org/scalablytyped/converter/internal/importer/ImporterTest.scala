@@ -9,12 +9,12 @@ import org.scalatest.funsuite.AnyFunSuite
 
 class ImporterTest213 extends ImporterTest {
   override def version: Versions = Versions(Versions.Scala213, Versions.ScalaJs1)
-  override def mode: Mode = Mode.releaseOnly
+  override def mode:    Mode     = Mode.releaseOnly
 }
 
 class ImporterTest3 extends ImporterTest {
   override def version: Versions = Versions(Versions.Scala3, Versions.ScalaJs1)
-  override def mode: Mode = Mode.normal
+  override def mode:    Mode     = Mode.normal
 }
 
 trait ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExecution {
