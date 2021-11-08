@@ -7,7 +7,7 @@ object Deps {
   val sourcecode        = "com.lihaoyi" %% "sourcecode" % "0.2.7"
   val scalatest         = "org.scalatest" %% "scalatest" % "3.2.9"
   val fansi             = "com.lihaoyi" %% "fansi" % "0.2.14"
-  val bloop             = "ch.epfl.scala" %% "bloop-frontend" % "1.4.8"
+  val bloop             = "ch.epfl.scala" %% "bloop-frontend" % "1.4.11"
   val scalaXml          = "org.scala-lang.modules" %% "scala-xml" % "1.3.0"
   val scopt             = "com.github.scopt" %% "scopt" % "4.0.1"
   val awssdkS3          = "software.amazon.awssdk" % "s3" % "2.15.28"
