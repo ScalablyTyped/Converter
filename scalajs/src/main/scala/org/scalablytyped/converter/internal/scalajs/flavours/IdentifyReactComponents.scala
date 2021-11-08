@@ -81,7 +81,7 @@ class IdentifyReactComponents(
   /* just one of each component (determined by name), which one is chosen by the `Ordering` implicit above */
   def oneOfEach(scope: TreeScope, tree: ContainerTree): IArray[Component] =
     all(scope, tree)
-      .groupBy(_.fullName)
+      .groupBy(_.fullName.unescaped.toLowerCase)
       .mapToIArray {
         case (_, sameName) =>
           /* in this sorting the normally preferred component is *last* */
