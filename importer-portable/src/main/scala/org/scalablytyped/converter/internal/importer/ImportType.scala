@@ -81,9 +81,9 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             lazy val targs2        = targs.map(apply(scope, importName))
 
             Mappings.get(other) match {
-              case Some(m: RefMapping)  => m.pick(isInheritance).withComments(cs)
-              case Some(m: NameMapping) => TypeRef(m.pick(isInheritance), targs2, cs)
-              case None =>
+              case Some(m: RefMapping) if !scope.isAbstract(base)  => m.pick(isInheritance).withComments(cs)
+              case Some(m: NameMapping) if !scope.isAbstract(base) => TypeRef(m.pick(isInheritance), targs2, cs)
+              case _ =>
                 try TypeRef(importName(other), targs2, cs)
                 catch {
                   case x: NoSuchElementException =>
