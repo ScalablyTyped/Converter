@@ -387,11 +387,10 @@ class ImportTree(
             val valueTpe = importType.orAny(scope, importName)(m.valueType)
 
             val rewritten: TypeRef =
-              if (indexTpe === TypeRef.String)
-                TypeRef.StringDictionary(valueTpe, m.comments + Comment(s"/* ${indexName.value} */"))
-              else if (indexTpe === TypeRef.Double)
+              if (indexTpe === TypeRef.Double)
                 TypeRef.NumberDictionary(valueTpe, m.comments + Comment(s"/* ${indexName.value} */"))
-              else scope.logger.fatal(s"Unsupported index type $indexTpe")
+              else
+                TypeRef.StringDictionary(valueTpe, m.comments + Comment(s"/* ${indexName.value} */"))
 
             IArray(MemberRet.Inheritance(rewritten))
           case Indexing.Single(name) =>
