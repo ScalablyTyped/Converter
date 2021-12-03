@@ -137,9 +137,15 @@ object ShortenNames {
             case c: ClassTree => c.ctors.exists(_.params.exists(_.name === shortName))
             case _ => false
           }
+          def tparamsClash = x match {
+            case cls: ClassTree => cls.tparams.exists(_.name === shortName)
+            case _ => false
+          }
+
           (x.name === shortName && x.codePath =/= longName) ||
           among(x.index, longName, methodsAreConflict) ||
           amongParents(scope, parentsResolver, x, longName, methodsAreConflict) ||
+          tparamsClash ||
           ctorClash
 
         case x: PackageTree =>
