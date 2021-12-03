@@ -387,7 +387,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val functionParam: Parser[TsFunParam] = {
 
-    /** Represent in tree? **/
+    /** Note: we don't care about the specifics of a destructured parameter. we just want a unique name and a type **/
     lazy val destructuredObj: Parser[TsIdentSimple] =
       "{" ~>! rep((tsIdentLiberal | ("..." ~> tsIdent)) ~ (":" ~> (tsIdent | destructured)).? <~ ",".?) <~ "}" ^^ {
         tupled =>
@@ -399,7 +399,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
       }
     lazy val destructuredArray: Parser[TsIdentSimple] =
-      "[" ~>! ",".? ~> repsep(tsIdent <~ (":" <~ (tsIdent | destructured)).?, ",") <~ "]" ^^ (
+      "[" ~>! ",".? ~> repsep("...".? ~> tsIdent <~ (":" <~ (tsIdent | destructured)).?, ",") <~ "]" ^^ (
           ids =>
             TsIdent("has" + ids.map(_.value.capitalize).mkString("")),
         )

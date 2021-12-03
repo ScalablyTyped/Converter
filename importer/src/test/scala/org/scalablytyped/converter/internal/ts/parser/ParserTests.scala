@@ -3047,4 +3047,16 @@ export {};
       ),
     )
   }
+
+  test("destructured repeated array parameter") {
+    val content = """[...arr]: T[]""".stripMargin
+
+    shouldParseAs(content, TsParser.functionParam)(
+      TsFunParam(
+        NoComments,
+        TsIdentSimple("hasArr"),
+        Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Array"))), IArray(T))),
+      ),
+    )
+  }
 }
