@@ -141,14 +141,6 @@ project.settings(
 )
 ```
 
-Typical difference in generated code:
-```diff
--  @JSImport("react-bootstrap", "ButtonGroup")
-+  @JSImport("react-bootstrap/lib/ButtonGroup", JSImport.Namespace)
-```
-
-The difference in bundle size can be remarkable, for instance the Slinky `material-ui` demo ended up one fifth of the original size.
-
 
 ## Customize the build
 
