@@ -32,7 +32,7 @@ class IdentifyReactComponents(
     val preferNested = c.nested.length
 
     /* because for instance mui ships with icons called `List` and `Tab` */
-    val preferPropsMatchesName = c.propsRef.ref.name.unescaped.startsWith(c.fullName.unescaped)
+    val preferPropsMatchesName = c.propsRef.ref.name.unescaped.toLowerCase.startsWith(c.fullName.unescaped.toLowerCase)
 
     /* because for instance mui declares both a default and a names export, where only the former exists */
     val preferDefault = c.scalaRef.name === Name.Default
