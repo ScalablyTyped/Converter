@@ -1,6 +1,6 @@
 package typingsJapgolly.react.components
 
-import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.HTMLElement
 import typingsJapgolly.StBuildingComponent.Default
 import typingsJapgolly.react.anon.Html
 import typingsJapgolly.react.mod.DetailedHTMLProps

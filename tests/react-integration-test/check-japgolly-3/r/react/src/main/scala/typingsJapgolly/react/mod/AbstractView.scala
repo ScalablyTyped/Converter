@@ -1,7 +1,7 @@
 package typingsJapgolly.react.mod
 
-import org.scalajs.dom.raw.Document
-import org.scalajs.dom.raw.StyleMedia
+import org.scalajs.dom.Document
+import org.scalajs.dom.StyleMedia
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

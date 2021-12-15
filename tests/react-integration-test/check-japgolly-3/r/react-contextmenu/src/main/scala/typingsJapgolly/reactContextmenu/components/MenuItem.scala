@@ -3,8 +3,8 @@ package typingsJapgolly.reactContextmenu.components
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.ReactTouchEventFrom
-import org.scalajs.dom.raw.HTMLDivElement
-import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.HTMLDivElement
+import org.scalajs.dom.HTMLElement
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.react.mod.HTMLAttributes
 import typingsJapgolly.reactContextmenu.mod.MenuItemProps

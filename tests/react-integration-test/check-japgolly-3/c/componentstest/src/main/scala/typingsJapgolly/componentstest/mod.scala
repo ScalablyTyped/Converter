@@ -3,8 +3,8 @@ package typingsJapgolly.componentstest
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactMouseEventFrom
-import org.scalajs.dom.raw.Element
-import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.Element
+import org.scalajs.dom.HTMLDivElement
 import typingsJapgolly.componentstest.anon.Equals
 import typingsJapgolly.react.mod.CSSProperties
 import typingsJapgolly.react.mod.ComponentType

@@ -2,8 +2,8 @@ package typingsJapgolly.componentstest.components
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
-import org.scalajs.dom.raw.Element
-import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.Element
+import org.scalajs.dom.HTMLDivElement
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.componentstest.mod.CardGridProps
 import typingsJapgolly.componentstest.mod.CardProps

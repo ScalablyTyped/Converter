@@ -2,7 +2,7 @@ package typingsJapgolly.semanticUiReact.components
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
-import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.HTMLDivElement
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.semanticUiReact.accordionAccordionAccordionMod.AccordionAccordionProps
 import typingsJapgolly.semanticUiReact.accordionAccordionMod.AccordionProps

@@ -2,12 +2,12 @@ package typingsJapgolly.semanticUiReact
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
-import japgolly.scalajs.react.raw.Empty
-import japgolly.scalajs.react.raw.JsNumber
-import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.facade.Empty
+import japgolly.scalajs.react.facade.JsNumber
+import japgolly.scalajs.react.facade.React.Element
+import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
-import org.scalajs.dom.raw.HTMLButtonElement
+import org.scalajs.dom.HTMLButtonElement
 import typingsJapgolly.react.mod.ButtonHTMLAttributes
 import typingsJapgolly.react.mod.Component
 import typingsJapgolly.react.mod.ReactNodeArray

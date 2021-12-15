@@ -6,17 +6,17 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 private[internal] trait SVGElementTagNameMap extends StObject {
   
-  var circle: org.scalajs.dom.raw.SVGCircleElement
+  var circle: org.scalajs.dom.SVGCircleElement
 }
 private[internal] object SVGElementTagNameMap {
   
-  inline def apply(circle: org.scalajs.dom.raw.SVGCircleElement): SVGElementTagNameMap = {
+  inline def apply(circle: org.scalajs.dom.SVGCircleElement): SVGElementTagNameMap = {
     val __obj = js.Dynamic.literal(circle = circle.asInstanceOf[js.Any])
     __obj.asInstanceOf[SVGElementTagNameMap]
   }
   
   extension [Self <: SVGElementTagNameMap](x: Self) {
     
-    inline def setCircle(value: org.scalajs.dom.raw.SVGCircleElement): Self = StObject.set(x, "circle", value.asInstanceOf[js.Any])
+    inline def setCircle(value: org.scalajs.dom.SVGCircleElement): Self = StObject.set(x, "circle", value.asInstanceOf[js.Any])
   }
 }

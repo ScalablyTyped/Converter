@@ -21,7 +21,7 @@ project.settings(
   // for Slinky native projects
   stFlavour := Flavour.SlinkyNative,
   // for scalajs-react projects
-  stFlavour := Flavour.Japgolly
+  stFlavour := Flavour.ScalajsReact
 )
 ``` 
 

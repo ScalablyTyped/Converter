@@ -1,6 +1,6 @@
 package typingsJapgolly.stardustUiReactComponentEventListener
 
-import japgolly.scalajs.react.raw.React.RefHandle
+import japgolly.scalajs.react.facade.React.RefHandle
 import typingsJapgolly.stardustUiReactComponentEventListener.anon.Capture
 import typingsJapgolly.stardustUiReactComponentEventListener.anon.Listener
 import typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventListenerOptions

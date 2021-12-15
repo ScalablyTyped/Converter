@@ -2,7 +2,7 @@ package typingsJapgolly.reactContextmenu.components
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
-import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.HTMLElement
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.reactContextmenu.mod.ContextMenuProps
 import org.scalablytyped.runtime.StObject

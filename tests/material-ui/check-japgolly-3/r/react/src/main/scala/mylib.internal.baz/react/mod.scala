@@ -5,11 +5,11 @@ import mylib.internal.baz.react.anon.Html
 import mylib.internal.baz.react.reactStrings.foo
 import mylib.internal.baz.std.Partial
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.raw.Empty
-import japgolly.scalajs.react.raw.JsNumber
-import japgolly.scalajs.react.raw.React.ComponentClassP
-import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.facade.Empty
+import japgolly.scalajs.react.facade.JsNumber
+import japgolly.scalajs.react.facade.React.ComponentClassP
+import japgolly.scalajs.react.facade.React.Element
+import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.Instantiable1
@@ -54,12 +54,12 @@ private[internal] object mod {
     extends StObject
        with Instantiable1[
           /* props */ P, 
-          japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object]
+          japgolly.scalajs.react.facade.React.Component[P & js.Object, js.Object]
         ]
        with Instantiable2[
           /* props */ P, 
           /* context */ js.Any, 
-          japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object]
+          japgolly.scalajs.react.facade.React.Component[P & js.Object, js.Object]
         ] {
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native

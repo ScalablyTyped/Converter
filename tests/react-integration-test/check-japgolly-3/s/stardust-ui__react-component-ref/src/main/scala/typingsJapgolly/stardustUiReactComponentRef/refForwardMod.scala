@@ -1,6 +1,6 @@
 package typingsJapgolly.stardustUiReactComponentRef
 
-import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.HTMLElement
 import typingsJapgolly.react.mod.Component
 import typingsJapgolly.stardustUiReactComponentRef.anon.Children
 import typingsJapgolly.stardustUiReactComponentRef.anon.InnerRef

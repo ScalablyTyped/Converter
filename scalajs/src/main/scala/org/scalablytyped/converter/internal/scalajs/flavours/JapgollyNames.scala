@@ -28,14 +28,15 @@ object JapgollyNames {
     val Array        = QualifiedName("japgolly.scalajs.react.vdom.VdomArray")
     val VdomNode     = QualifiedName("japgolly.scalajs.react.vdom.VdomNode")
   }
+
   object rawReact {
-    val Element         = QualifiedName("japgolly.scalajs.react.raw.React.Element")
-    val Node            = QualifiedName("japgolly.scalajs.react.raw.React.Node")
-    val RefFn           = QualifiedName("japgolly.scalajs.react.raw.React.RefFn")
-    val RefHandle       = QualifiedName("japgolly.scalajs.react.raw.React.RefHandle")
-    val Component       = QualifiedName("japgolly.scalajs.react.raw.React.Component")
-    val ComponentClassP = QualifiedName("japgolly.scalajs.react.raw.React.ComponentClassP")
-    val DomElement      = QualifiedName("japgolly.scalajs.react.raw.React.DomElement")
-    val ElementType     = QualifiedName("japgolly.scalajs.react.raw.React.ElementType")
+    val Element         = QualifiedName("japgolly.scalajs.react.facade.React.Element")
+    val Node            = QualifiedName("japgolly.scalajs.react.facade.React.Node")
+    val RefFn           = QualifiedName("japgolly.scalajs.react.facade.React.RefFn")
+    val RefHandle       = QualifiedName("japgolly.scalajs.react.facade.React.RefHandle")
+    val Component       = QualifiedName("japgolly.scalajs.react.facade.React.Component")
+    val ComponentClassP = QualifiedName("japgolly.scalajs.react.facade.React.ComponentClassP")
+    val DomElement      = QualifiedName("japgolly.scalajs.react.facade.React.DomElement")
+    val ElementType     = QualifiedName("japgolly.scalajs.react.facade.React.ElementType")
   }
 }

@@ -15,7 +15,7 @@ object abbr {
   @scala.inline
   open class Builder (val args: js.Array[js.Any])
     extends AnyVal
-       with StBuildingComponent[tag.type, HTMLElement & js.Object] {
+       with StBuildingComponent[tag.type, HTMLElement] {
     
     inline def dangerouslySetInnerHTML(value: Html): this.type = set("dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
     
