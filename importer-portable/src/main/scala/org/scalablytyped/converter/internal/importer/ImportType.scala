@@ -207,7 +207,14 @@ class ImportType(stdNames: QualifiedName.StdNames) {
         TypeRef.Union(imported, NoComments, sort = false)
 
       case TsTypeIntersect(types) =>
-        TypeRef.Intersection(types.map(apply(scope, importName)), NoComments)
+        types.map(apply(scope, importName)) match {
+          case stringObject
+              if stringObject.length == 2 && stringObject.contains(TypeRef.String) && stringObject.contains(
+                TypeRef.JsObject,
+              ) =>
+            TypeRef.String
+          case other => TypeRef.Intersection(other, NoComments)
+        }
 
       case TsTypeConstructor(_, TsTypeFunction(sig)) =>
         newableFunction(scope, importName, sig, NoComments)
