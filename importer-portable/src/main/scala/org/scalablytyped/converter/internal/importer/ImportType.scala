@@ -12,12 +12,6 @@ class ImportType(stdNames: QualifiedName.StdNames) {
   def orAny(scope: TsTreeScope, importName: AdaptiveNamingImport)(ott: Option[TsType]): TypeRef =
     ott.map(apply(scope, importName)).getOrElse(TypeRef.JsAny)
 
-  def orExprOrAny(scope: TsTreeScope, importName: AdaptiveNamingImport)(ott: Option[TsType]): TypeRef =
-    ott match {
-      case None    => TypeRef.JsAny
-      case Some(x) => apply(scope, importName)(x)
-    }
-
   /**
     * The point here? Dont inherit from sealed classes in scala.js, but otherwise
     * prefer types from there. Handle resolved and unresolved qidents

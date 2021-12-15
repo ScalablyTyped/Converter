@@ -1,7 +1,5 @@
 package typings.node
 
-import typings.std.ArrayBuffer
-import typings.std.Uint8Array
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -30,7 +28,7 @@ object bufferMod {
       *
       * @param arrayBuffer The ArrayBuffer with which to share memory.
       */
-    def this(arrayBuffer: ArrayBuffer) = this()
+    def this(arrayBuffer: js.typedarray.ArrayBuffer) = this()
     /**
       * Allocates a new buffer containing the given {array} of octets.
       *
@@ -42,7 +40,7 @@ object bufferMod {
       *
       * @param array The octets to store.
       */
-    def this(array: Uint8Array) = this()
+    def this(array: js.typedarray.Uint8Array) = this()
     /**
       * Copies the passed {buffer} data onto a new {Buffer} instance.
       *
@@ -94,8 +92,8 @@ object bufferMod {
     extends StObject
        with NodeBuffer {
     def this(array: js.Array[js.Any]) = this()
+    def this(size: js.typedarray.Uint8Array) = this()
     def this(size: Double) = this()
-    def this(size: Uint8Array) = this()
     def this(str: String) = this()
     def this(str: String, encoding: String) = this()
   }

@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.StringDictionary
 import org.scalablytyped.runtime.TopLevel
 import typings.std.Element
-import typings.std.Error
 import typings.std.HTMLElement
 import typings.std.Record
 import typings.std.ThisType
@@ -125,7 +124,7 @@ object optionsMod {
     
     var render: js.UndefOr[js.Function1[/* createElement */ CreateElement, VNode]] = js.undefined
     
-    var renderError: js.UndefOr[js.Function2[/* h */ js.Function0[VNode], /* err */ Error, VNode]] = js.undefined
+    var renderError: js.UndefOr[js.Function2[/* h */ js.Function0[VNode], /* err */ js.Error, VNode]] = js.undefined
     
     var staticRenderFns: js.UndefOr[js.Array[js.Function1[/* createElement */ CreateElement, VNode]]] = js.undefined
     
@@ -300,7 +299,7 @@ object optionsMod {
       
       inline def setRender(value: /* createElement */ CreateElement => VNode): Self = StObject.set(x, "render", js.Any.fromFunction1(value))
       
-      inline def setRenderError(value: (/* h */ js.Function0[VNode], /* err */ Error) => VNode): Self = StObject.set(x, "renderError", js.Any.fromFunction2(value))
+      inline def setRenderError(value: (/* h */ js.Function0[VNode], /* err */ js.Error) => VNode): Self = StObject.set(x, "renderError", js.Any.fromFunction2(value))
       
       inline def setRenderErrorUndefined: Self = StObject.set(x, "renderError", js.undefined)
       

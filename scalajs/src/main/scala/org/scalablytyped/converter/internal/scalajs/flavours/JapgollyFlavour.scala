@@ -11,7 +11,7 @@ case class JapgollyFlavour(
     versions:               Versions,
     enableReactTreeShaking: Selection[Name],
 ) extends FlavourImplReact {
-  override val rewrites      = JapgollyTypeConversions(reactNames, scalaJsDomNames)
+  override val rewrites      = JapgollyTypeConversions(reactNames, scalaJsDomNames, scalaJsLibNames)
   override val dependencies  = Set(versions.runtime, versions.scalajsReact)
   val memberToPro            = new JapgollyMemberToProp(reactNamesProxy, rewrites)
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToPro, parentsResolver)

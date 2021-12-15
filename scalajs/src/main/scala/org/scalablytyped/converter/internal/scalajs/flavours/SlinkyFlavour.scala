@@ -13,7 +13,7 @@ case class SlinkyFlavour(
 ) extends FlavourImplReact {
 
   override val dependencies = Set(versions.runtime, versions.slinkyWeb)
-  override val rewrites     = SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true)
+  override val rewrites     = SlinkyTypeConversions(scalaJsDomNames, scalaJsLibNames, reactNames, isWeb = true)
 
   val memberToProp           = new MemberToProp.Default(rewrites)
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)

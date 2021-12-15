@@ -8,7 +8,7 @@ object global {
   
   @JSGlobal("Error")
   @js.native
-  val Error: typings.std.Error = js.native
+  val Error: js.Error = js.native
   
   @JSGlobal("Function")
   @js.native
@@ -20,5 +20,5 @@ object global {
   
   @JSGlobal("RegExp")
   @js.native
-  val RegExp: typings.std.RegExp = js.native
+  val RegExp: js.RegExp = js.native
 }

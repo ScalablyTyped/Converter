@@ -5,7 +5,6 @@ import org.scalablytyped.runtime.Instantiable2
 import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import typings.node.NodeJS.EventEmitter
-import typings.std.RegExp
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -343,9 +342,9 @@ object mod extends Shortcut {
         fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, Unit],
         defaultValue: js.Any
       ): typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: String, fn: js.RegExp): typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: String, fn: js.RegExp, defaultValue: js.Any): typings.commander.mod.local.Command = js.native
       def option(flags: String, description: String, fn: Unit, defaultValue: js.Any): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: String, fn: RegExp): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: String, fn: RegExp, defaultValue: js.Any): typings.commander.mod.local.Command = js.native
       def option(flags: String, description: Unit, defaultValue: js.Any): typings.commander.mod.local.Command = js.native
       def option(flags: String, description: Unit, fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, Unit]): typings.commander.mod.local.Command = js.native
       def option(
@@ -354,9 +353,9 @@ object mod extends Shortcut {
         fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, Unit],
         defaultValue: js.Any
       ): typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: Unit, fn: js.RegExp): typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: Unit, fn: js.RegExp, defaultValue: js.Any): typings.commander.mod.local.Command = js.native
       def option(flags: String, description: Unit, fn: Unit, defaultValue: js.Any): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: Unit, fn: RegExp): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: Unit, fn: RegExp, defaultValue: js.Any): typings.commander.mod.local.Command = js.native
       
       /**
         * Return an object containing options as key-value pairs

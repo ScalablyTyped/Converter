@@ -18,6 +18,7 @@ trait FlavourImplReact extends FlavourImpl {
 
   lazy val parentsResolver    = new ParentsResolver
   lazy val stdNames           = new QualifiedName.StdNames(outputPkg)
+  lazy val scalaJsLibNames    = new ScalaJsLibNames(stdNames)
   lazy val scalaJsDomNames    = new ScalaJsDomNames(stdNames)
   lazy val reactNames         = new ReactNames(outputPkg)
   lazy val reactNamesProxy    = new ReactNamesProxy(reactNames, rewrites)
