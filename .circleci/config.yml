@@ -26,9 +26,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "build.sbt" }}
+            - v2-dependencies-{{ checksum "build.sbt" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v2-dependencies-
 
       - run: cat /dev/null | sbt test scalafmtCheck
 
@@ -51,4 +51,4 @@ jobs:
             - ~/.ivy2/cache
             - ~/.ivy2/local
             - ~/.cache/scalablytyped/tests/artifacts
-          key: v1-dependencies--{{ checksum "build.sbt" }}
+          key: v2-dependencies--{{ checksum "build.sbt" }}
