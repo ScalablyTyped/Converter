@@ -1,8 +1,6 @@
 package typings.webpackEnv
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.std.Error
-import typings.std.RegExp
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -65,7 +63,7 @@ object WebpackModuleApi {
       * @param callback
       */
     def accept(dependency: String, callback: js.Function0[Unit]): Unit = js.native
-    def accept(errHandler: js.Function1[/* err */ Error, Unit]): Unit = js.native
+    def accept(errHandler: js.Function1[/* err */ js.Error, Unit]): Unit = js.native
     
     var active: Boolean = js.native
     
@@ -89,7 +87,7 @@ object WebpackModuleApi {
       * @param callback
       */
     @JSName("apply")
-    def apply(callback: js.Function2[/* err */ Error, /* outdatedModules */ js.Array[ModuleId], Unit]): Unit = js.native
+    def apply(callback: js.Function2[/* err */ js.Error, /* outdatedModules */ js.Array[ModuleId], Unit]): Unit = js.native
     /**
       * If status() != "ready" it throws an error.
       * Continue the update process.
@@ -99,7 +97,7 @@ object WebpackModuleApi {
     @JSName("apply")
     def apply(
       options: AcceptOptions,
-      callback: js.Function2[/* err */ Error, /* outdatedModules */ js.Array[ModuleId], Unit]
+      callback: js.Function2[/* err */ js.Error, /* outdatedModules */ js.Array[ModuleId], Unit]
     ): Unit = js.native
     
     /**
@@ -114,7 +112,7 @@ object WebpackModuleApi {
       */
     def check(
       autoApply: Boolean,
-      callback: js.Function2[/* err */ Error, /* outdatedModules */ js.Array[ModuleId], Unit]
+      callback: js.Function2[/* err */ js.Error, /* outdatedModules */ js.Array[ModuleId], Unit]
     ): Unit = js.native
     /**
       * Throws an exceptions if status() is not idle.
@@ -123,7 +121,7 @@ object WebpackModuleApi {
       * The callback will be called with all modules that will be disposed on apply().
       * @param callback
       */
-    def check(callback: js.Function2[/* err */ Error, /* outdatedModules */ js.Array[ModuleId], Unit]): Unit = js.native
+    def check(callback: js.Function2[/* err */ js.Error, /* outdatedModules */ js.Array[ModuleId], Unit]): Unit = js.native
     
     var data: js.Any = js.native
     
@@ -251,8 +249,8 @@ object WebpackModuleApi {
     
     def context(path: String): RequireContext = js.native
     def context(path: String, deep: Boolean): RequireContext = js.native
-    def context(path: String, deep: Boolean, filter: RegExp): RequireContext = js.native
-    def context(path: String, deep: Unit, filter: RegExp): RequireContext = js.native
+    def context(path: String, deep: Boolean, filter: js.RegExp): RequireContext = js.native
+    def context(path: String, deep: Unit, filter: js.RegExp): RequireContext = js.native
     
     /**
       * Download additional dependencies on demand. The paths array lists modules that should be available. When they are, callback is called. If the callback is a function expression, dependencies in that source part are extracted and also loaded on demand. A single request is fired to the server, except if all modules are already available.

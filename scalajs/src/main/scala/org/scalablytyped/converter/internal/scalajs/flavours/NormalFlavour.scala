@@ -19,7 +19,7 @@ case class NormalFlavour(
     if (shouldUseScalaJsDomTypes) Set(versions.scalaJsDom, versions.runtime) else Set(versions.runtime)
 
   override val rewrites: IArray[CastConversion] =
-    if (shouldUseScalaJsDomTypes) scalaJsDomNames.All else Empty
+    scalaJsLibNames.All ++ (if (shouldUseScalaJsDomTypes) scalaJsDomNames.All else Empty)
 
   val memberToProp  = new MemberToProp.Default(rewrites)
   val findProps     = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)

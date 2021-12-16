@@ -16,7 +16,7 @@ case class SlinkyNativeFlavour(
     Set(versions.runtime, versions.slinkyNative, versions.scalaJsDom)
 
   override val rewrites: IArray[CastConversion] =
-    SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = false)
+    SlinkyTypeConversions(scalaJsDomNames, scalaJsLibNames, reactNames, isWeb = false)
 
   val memberToProp           = new MemberToProp.Default(rewrites)
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)

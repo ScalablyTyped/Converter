@@ -6,7 +6,12 @@ import org.scalablytyped.converter.internal.scalajs.CastConversion.TParam.{_1, _
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.names
 
 object SlinkyTypeConversions {
-  def apply(scalaJsDomNames: ScalaJsDomNames, reactNames: ReactNames, isWeb: Boolean): IArray[CastConversion] = {
+  def apply(
+      scalaJsDomNames: ScalaJsDomNames,
+      scalaJsLibNames: ScalaJsLibNames,
+      reactNames:      ReactNames,
+      isWeb:           Boolean,
+  ): IArray[CastConversion] = {
     val react: IArray[CastConversion] =
       IArray(
         CastConversion(reactNames.ComponentState, QualifiedName.JsObject),
@@ -40,7 +45,7 @@ object SlinkyTypeConversions {
       CastConversion(reactNames.WheelEvent, QualifiedName("slinky.web.SyntheticWheelEvent"), _1),
     )
 
-    val shared = scalaJsDomNames.All ++ react ++ components
+    val shared = scalaJsLibNames.All ++ scalaJsDomNames.All ++ react ++ components
 
     if (isWeb) shared ++ web else shared
   }

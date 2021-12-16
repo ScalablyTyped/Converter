@@ -5,13 +5,17 @@ package flavours
 import org.scalablytyped.converter.internal.scalajs.CastConversion.TParam
 
 object JapgollyTypeConversions {
-  def apply(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomNames): IArray[CastConversion] = {
+  def apply(
+      reactNames:      ReactNames,
+      scalaJsDomNames: ScalaJsDomNames,
+      scalaJsLibNames: ScalaJsLibNames,
+  ): IArray[CastConversion] = {
     val AllElements = scalaJsDomNames.AllElements + reactNames.JsxReactElement
     val _1Element   = TParam._1.among(AllElements, scalaJsDomNames.Element)
     val _2Element   = TParam._2.among(AllElements, scalaJsDomNames.Element)
     val _1Object    = TParam._1.among(Set.empty, QualifiedName.JsObject)
 
-    scalaJsDomNames.All ++ IArray(
+    scalaJsLibNames.All ++ scalaJsDomNames.All ++ IArray(
       CastConversion(reactNames.ComponentState, QualifiedName.JsObject),
       CastConversion(reactNames.ReactDOM, QualifiedName.JsAny),
       CastConversion(reactNames.ReactNode, JapgollyNames.rawReact.Node),

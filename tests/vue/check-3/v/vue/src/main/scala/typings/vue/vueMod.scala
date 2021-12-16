@@ -4,10 +4,8 @@ import org.scalablytyped.runtime.Instantiable0
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.StringDictionary
 import typings.std.Element
-import typings.std.Error
 import typings.std.HTMLElement
 import typings.std.Record
-import typings.std.RegExp
 import typings.vue.anon.FnCall
 import typings.vue.anon.FnCallObjectKey
 import typings.vue.anon.StaticRenderFns
@@ -376,9 +374,9 @@ object vueMod {
     
     var devtools: Boolean
     
-    def errorHandler(err: Error, vm: typings.vue.vueMod.Vue, info: String): Unit
+    def errorHandler(err: js.Error, vm: typings.vue.vueMod.Vue, info: String): Unit
     
-    var ignoredElements: js.Array[String | RegExp]
+    var ignoredElements: js.Array[String | js.RegExp]
     
     var keyCodes: StringDictionary[Double | js.Array[Double]]
     
@@ -396,8 +394,8 @@ object vueMod {
     
     inline def apply(
       devtools: Boolean,
-      errorHandler: (Error, typings.vue.vueMod.Vue, String) => Unit,
-      ignoredElements: js.Array[String | RegExp],
+      errorHandler: (js.Error, typings.vue.vueMod.Vue, String) => Unit,
+      ignoredElements: js.Array[String | js.RegExp],
       keyCodes: StringDictionary[Double | js.Array[Double]],
       optionMergeStrategies: js.Any,
       performance: Boolean,
@@ -413,11 +411,11 @@ object vueMod {
       
       inline def setDevtools(value: Boolean): Self = StObject.set(x, "devtools", value.asInstanceOf[js.Any])
       
-      inline def setErrorHandler(value: (Error, typings.vue.vueMod.Vue, String) => Unit): Self = StObject.set(x, "errorHandler", js.Any.fromFunction3(value))
+      inline def setErrorHandler(value: (js.Error, typings.vue.vueMod.Vue, String) => Unit): Self = StObject.set(x, "errorHandler", js.Any.fromFunction3(value))
       
-      inline def setIgnoredElements(value: js.Array[String | RegExp]): Self = StObject.set(x, "ignoredElements", value.asInstanceOf[js.Any])
+      inline def setIgnoredElements(value: js.Array[String | js.RegExp]): Self = StObject.set(x, "ignoredElements", value.asInstanceOf[js.Any])
       
-      inline def setIgnoredElementsVarargs(value: (String | RegExp)*): Self = StObject.set(x, "ignoredElements", js.Array(value*))
+      inline def setIgnoredElementsVarargs(value: (String | js.RegExp)*): Self = StObject.set(x, "ignoredElements", js.Array(value*))
       
       inline def setKeyCodes(value: StringDictionary[Double | js.Array[Double]]): Self = StObject.set(x, "keyCodes", value.asInstanceOf[js.Any])
       
