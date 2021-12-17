@@ -68,7 +68,7 @@ object Versions {
   implicit val encodes: Encoder[Versions] = io.circe013.generic.semiauto.deriveEncoder
   implicit val decodes: Decoder[Versions] = io.circe013.generic.semiauto.deriveDecoder
 
-  val ScalaJs1 = ScalaJs("1.7.0")
+  val ScalaJs1 = ScalaJs("1.8.0")
 }
 
 case class Versions(scala: Versions.Scala, scalaJs: Versions.ScalaJs) {
