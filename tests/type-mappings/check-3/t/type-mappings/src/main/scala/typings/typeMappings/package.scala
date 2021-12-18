@@ -17,7 +17,7 @@ type Omit[T, K /* <: /* keyof any */ java.lang.String */] = typings.std.Pick[T, 
 
 type Proxify[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
 {[ P in keyof T ]: {get (): T[P], set (v : T[P]): void}}
-  */ typings.typeMappings.typeMappingsStrings.Proxify & org.scalablytyped.runtime.TopLevel[js.Any]
+  */ typings.typeMappings.typeMappingsStrings.Proxify & org.scalablytyped.runtime.TopLevel[scala.Any]
 
 type ReturnedPerson = typings.std.ReturnType[js.Function0[typings.typeMappings.Person]]
 

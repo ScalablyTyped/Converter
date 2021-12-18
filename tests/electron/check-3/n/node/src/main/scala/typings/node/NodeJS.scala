@@ -49,8 +49,8 @@ object NodeJS {
   @js.native
   trait EventEmitter extends StObject {
     
-    def emit(event: String, args: js.Any*): Boolean = js.native
-    def emit(event: js.Symbol, args: js.Any*): Boolean = js.native
+    def emit(event: String, args: Any*): Boolean = js.native
+    def emit(event: js.Symbol, args: Any*): Boolean = js.native
   }
   
   @js.native

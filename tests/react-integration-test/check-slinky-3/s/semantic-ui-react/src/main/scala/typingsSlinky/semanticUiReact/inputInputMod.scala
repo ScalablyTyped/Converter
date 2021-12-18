@@ -31,7 +31,7 @@ object inputInputMod {
   
   @js.native
   trait Input
-    extends Component[InputProps, js.Object, js.Any] {
+    extends Component[InputProps, js.Object, Any] {
     
     def focus(): Unit = js.native
     
@@ -65,13 +65,13 @@ object inputInputMod {
        with InputHTMLAttributes[HTMLInputElement] {
     
     /** An Input can be formatted to alert the user to an action they may perform. */
-    var action: js.UndefOr[js.Any | Boolean] = js.undefined
+    var action: js.UndefOr[Any | Boolean] = js.undefined
     
     /** An action can appear along side an Input on the left or right. */
     var actionPosition: js.UndefOr[left] = js.undefined
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.undefined
+    var as: js.UndefOr[Any] = js.undefined
     
     /** An Input field can show the data contains errors. */
     var error: js.UndefOr[Boolean] = js.undefined
@@ -83,7 +83,7 @@ object inputInputMod {
     var focus: js.UndefOr[Boolean] = js.undefined
     
     /** Optional Icon to display inside the Input. */
-    var icon: js.UndefOr[js.Any | SemanticShorthandItem[InputProps]] = js.undefined
+    var icon: js.UndefOr[Any | SemanticShorthandItem[InputProps]] = js.undefined
     
     /** An Icon can appear inside an Input on the left. */
     var iconPosition: js.UndefOr[left] = js.undefined
@@ -97,7 +97,7 @@ object inputInputMod {
     /** Optional Label to display along side the Input. */
     var label: js.UndefOr[
         SemanticShorthandItem[
-          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any
         ]
       ] = js.undefined
     
@@ -138,7 +138,7 @@ object inputInputMod {
     
     extension [Self <: StrictInputProps](x: Self) {
       
-      inline def setAction(value: js.Any | Boolean): Self = StObject.set(x, "action", value.asInstanceOf[js.Any])
+      inline def setAction(value: Any | Boolean): Self = StObject.set(x, "action", value.asInstanceOf[js.Any])
       
       inline def setActionPosition(value: left): Self = StObject.set(x, "actionPosition", value.asInstanceOf[js.Any])
       
@@ -146,7 +146,7 @@ object inputInputMod {
       
       inline def setActionUndefined: Self = StObject.set(x, "action", js.undefined)
       
-      inline def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
+      inline def setAs(value: Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
@@ -162,7 +162,7 @@ object inputInputMod {
       
       inline def setFocusUndefined: Self = StObject.set(x, "focus", js.undefined)
       
-      inline def setIcon(value: js.Any | SemanticShorthandItem[InputProps]): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
+      inline def setIcon(value: Any | SemanticShorthandItem[InputProps]): Self = StObject.set(x, "icon", value.asInstanceOf[js.Any])
       
       inline def setIconFunction3(
         value: (/* component */ ReactType[InputProps], InputProps, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
@@ -192,14 +192,14 @@ object inputInputMod {
       
       inline def setLabel(
         value: SemanticShorthandItem[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any
             ]
       ): Self = StObject.set(x, "label", value.asInstanceOf[js.Any])
       
       inline def setLabelFunction3(
         value: (/* component */ ReactType[
-              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any
-            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ js.Any, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
+              /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any
+            ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ Any, /* children */ js.UndefOr[ReactElement | ReactNodeArray]) => ReactElement | Null
       ): Self = StObject.set(x, "label", js.Any.fromFunction3(value))
       
       inline def setLabelPosition(value: left | right | (`left corner`) | (`right corner`)): Self = StObject.set(x, "labelPosition", value.asInstanceOf[js.Any])

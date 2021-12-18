@@ -16,7 +16,7 @@ object global {
       def this(container: typings.tstl.std.Queue_[T]) = this()
       
       /* private */ /* CompleteClass */
-      var container_ : js.Any = js.native
+      var container_ : Any = js.native
       
       /* CompleteClass */
       override def empty(): Boolean = js.native
@@ -31,7 +31,7 @@ object global {
       def this(container: typings.tstl.std.Queue_[T]) = this()
       
       /* private */ /* CompleteClass */
-      var container_ : js.Any = js.native
+      var container_ : Any = js.native
       
       /* CompleteClass */
       override def empty(): Boolean = js.native

@@ -14,7 +14,7 @@ object EventListener {
   inline def apply[T /* <: EventTypes */](
     listener: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Callback,
     targetRef: RefHandle[
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ Any
     ],
     `type`: T
   ): Builder[T] = {
@@ -28,7 +28,7 @@ object EventListener {
   val component: js.Object = js.native
   
   @scala.inline
-  open class Builder[T /* <: EventTypes */] (val args: js.Array[js.Any])
+  open class Builder[T /* <: EventTypes */] (val args: js.Array[Any])
     extends AnyVal
        with StBuildingComponent[js.Object] {
     

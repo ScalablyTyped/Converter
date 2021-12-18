@@ -33,24 +33,24 @@ object unionToInheritanceStrings {
   @js.native
   sealed trait bar
     extends StObject
-       with Legal1[js.Any]
-       with Legal2[js.Any, js.Any]
-       with Legal3[js.Any, js.Any, js.Any]
+       with Legal1[Any]
+       with Legal2[Any, Any]
+       with Legal3[Any, Any, Any]
        with _Illegal1
        with _Illegal2
-       with _Illegal3[js.Any]
-       with _Test[js.Any, js.Any, js.Any]
+       with _Illegal3[Any]
+       with _Test[Any, Any, Any]
   inline def bar: bar = "bar".asInstanceOf[bar]
   
   @js.native
   sealed trait foo
     extends StObject
-       with Legal1[js.Any]
-       with Legal2[js.Any, js.Any]
-       with Legal3[js.Any, js.Any, js.Any]
+       with Legal1[Any]
+       with Legal2[Any, Any]
+       with Legal3[Any, Any, Any]
        with _Illegal1
        with _Illegal2
-       with _Illegal3[js.Any]
-       with _Test[js.Any, js.Any, js.Any]
+       with _Illegal3[Any]
+       with _Test[Any, Any, Any]
   inline def foo: foo = "foo".asInstanceOf[foo]
 }

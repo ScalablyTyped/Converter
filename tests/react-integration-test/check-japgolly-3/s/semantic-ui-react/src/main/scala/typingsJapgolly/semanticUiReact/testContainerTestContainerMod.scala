@@ -26,7 +26,7 @@ object testContainerTestContainerMod extends Shortcut {
   trait StrictTestContainerProps extends StObject {
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.undefined
+    var as: js.UndefOr[Any] = js.undefined
     
     /** Primary content. */
     var children: js.UndefOr[Node] = js.undefined
@@ -84,7 +84,7 @@ object testContainerTestContainerMod extends Shortcut {
     
     extension [Self <: StrictTestContainerProps](x: Self) {
       
-      inline def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
+      inline def setAs(value: Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
@@ -153,7 +153,7 @@ object testContainerTestContainerMod extends Shortcut {
   trait TestContainerProps
     extends StObject
        with StrictTestContainerProps
-       with /* key */ StringDictionary[js.Any]
+       with /* key */ StringDictionary[Any]
   object TestContainerProps {
     
     inline def apply(

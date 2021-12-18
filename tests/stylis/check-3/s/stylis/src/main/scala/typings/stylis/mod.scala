@@ -163,7 +163,7 @@ object mod extends Shortcut {
        with Instantiable0[Stylis]
        with Instantiable1[/* options */ Options, Stylis] {
     
-    def apply(namescope: String, input: String): String | js.Any = js.native
+    def apply(namescope: String, input: String): String | Any = js.native
     
     def set(): Set = js.native
     def set(options: Options): Set = js.native

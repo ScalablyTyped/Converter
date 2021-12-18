@@ -22,11 +22,11 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-open class SharedBuilder_ButtonGroupProps_158814638 (val args: js.Array[js.Any])
+open class SharedBuilder_ButtonGroupProps_158814638 (val args: js.Array[Any])
   extends AnyVal
      with StBuildingComponent[scala.Nothing] {
   
-  inline def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
+  inline def as(value: Any): this.type = set("as", value.asInstanceOf[js.Any])
   
   inline def attached(value: Boolean | left | right | top | bottom): this.type = set("attached", value.asInstanceOf[js.Any])
   

@@ -1,21 +1,58 @@
 package typingsSlinky.reactTransitionGroup.components
 
+import slinky.core.facade.ReactElement
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent.Default
+import typingsSlinky.StBuildingComponent
+import typingsSlinky.reactTransitionGroup.anon.ChildFactory
 import typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.abbr
-import typingsSlinky.reactTransitionGroup.transitionGroupMod.TransitionGroupProps
+import typingsSlinky.reactTransitionGroup.transitionGroupMod.ComponentTransitionGroupProps
+import typingsSlinky.reactTransitionGroup.transitionGroupMod.IntrinsicTransitionGroupProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-/* The props of this component has an unsupported shape. You can use `set` manually to use it, but with no compiler support :/ . Couldn't find props for typingsSlinky.reactTransitionGroup.transitionGroupMod.IntrinsicTransitionGroupProps[typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.abbr] & (/ * import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] * / js.Any) because: IArray(Could't extract props from / * import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] * / js.Any because couldn't resolve ClassTree.) */
 object TransitionGroup {
   
-  def apply(p: TransitionGroupProps[abbr, js.Any]): Default[tag.type, typingsSlinky.reactTransitionGroup.mod.TransitionGroup] = new Default[tag.type, typingsSlinky.reactTransitionGroup.mod.TransitionGroup](js.Array(this.component, p.asInstanceOf[js.Any]))
+  object ComponentTransitionGroupPropsChildFactory {
+    
+    inline def apply(component: Any): Builder = {
+      val __props = js.Dynamic.literal(component = component.asInstanceOf[js.Any])
+      new Builder(js.Array(this.component, __props.asInstanceOf[ComponentTransitionGroupProps[Any] & ChildFactory]))
+    }
+    
+    @JSImport("react-transition-group", "TransitionGroup")
+    @js.native
+    val component: js.Object = js.native
+    
+    @scala.inline
+    open class Builder (val args: js.Array[Any])
+      extends AnyVal
+         with StBuildingComponent[tag.type, typingsSlinky.reactTransitionGroup.mod.TransitionGroup] {
+      
+      inline def childFactory(value: /* child */ ReactElement => ReactElement): this.type = set("childFactory", js.Any.fromFunction1(value))
+    }
+    
+    def withProps(p: ComponentTransitionGroupProps[Any] & ChildFactory): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  }
   
-  @JSImport("react-transition-group", "TransitionGroup")
-  @js.native
-  val component: js.Object = js.native
-  
-  implicit def make(companion: TransitionGroup.type): Default[tag.type, typingsSlinky.reactTransitionGroup.mod.TransitionGroup] = new Default[tag.type, typingsSlinky.reactTransitionGroup.mod.TransitionGroup](js.Array(this.component, js.Dictionary.empty))()
+  object IntrinsicTransitionGroupPropsAny {
+    
+    @JSImport("react-transition-group", "TransitionGroup")
+    @js.native
+    val component: js.Object = js.native
+    
+    @scala.inline
+    open class Builder (val args: js.Array[Any])
+      extends AnyVal
+         with StBuildingComponent[tag.type, typingsSlinky.reactTransitionGroup.mod.TransitionGroup] {
+      
+      inline def component(value: abbr): this.type = set("component", value.asInstanceOf[js.Any])
+    }
+    
+    implicit def make(companion: IntrinsicTransitionGroupPropsAny.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+    
+    def withProps(
+      p: IntrinsicTransitionGroupProps[abbr] & (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)
+    ): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  }
 }

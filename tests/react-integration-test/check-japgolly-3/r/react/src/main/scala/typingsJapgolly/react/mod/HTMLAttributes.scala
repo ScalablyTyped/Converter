@@ -47,7 +47,7 @@ trait HTMLAttributes[T]
   
   var id: js.UndefOr[String] = js.undefined
   
-  var inlist: js.UndefOr[js.Any] = js.undefined
+  var inlist: js.UndefOr[Any] = js.undefined
   
   // Unknown
   var inputMode: js.UndefOr[String] = js.undefined
@@ -179,7 +179,7 @@ object HTMLAttributes {
     
     inline def setIdUndefined: Self = StObject.set(x, "id", js.undefined)
     
-    inline def setInlist(value: js.Any): Self = StObject.set(x, "inlist", value.asInstanceOf[js.Any])
+    inline def setInlist(value: Any): Self = StObject.set(x, "inlist", value.asInstanceOf[js.Any])
     
     inline def setInlistUndefined: Self = StObject.set(x, "inlist", js.undefined)
     

@@ -16,14 +16,14 @@ object global {
          with typings.monacoEditor.monaco.Promise[T, TProgress] {
       def this(executor: js.Function3[
                 /* resolve */ js.Function1[/* value */ T | js.Thenable[T], Unit], 
-                /* reject */ js.Function1[/* reason */ js.Any, Unit], 
+                /* reject */ js.Function1[/* reason */ Any, Unit], 
                 /* progress */ js.Function1[/* progress */ TProgress, Unit], 
                 Unit
               ]) = this()
       def this(
         executor: js.Function3[
                 /* resolve */ js.Function1[/* value */ T | js.Thenable[T], Unit], 
-                /* reject */ js.Function1[/* reason */ js.Any, Unit], 
+                /* reject */ js.Function1[/* reason */ Any, Unit], 
                 /* progress */ js.Function1[/* progress */ TProgress, Unit], 
                 Unit
               ],
@@ -37,7 +37,7 @@ object global {
       @js.native
       val ^ : js.Any = js.native
       
-      inline def any[T](promises: js.Array[T | js.Thenable[T]]): typings.monacoEditor.monaco.Promise[Key[T], js.Any] = ^.asInstanceOf[js.Dynamic].applyDynamic("any")(promises.asInstanceOf[js.Any]).asInstanceOf[typings.monacoEditor.monaco.Promise[Key[T], js.Any]]
+      inline def any[T](promises: js.Array[T | js.Thenable[T]]): typings.monacoEditor.monaco.Promise[Key[T], Any] = ^.asInstanceOf[js.Dynamic].applyDynamic("any")(promises.asInstanceOf[js.Any]).asInstanceOf[typings.monacoEditor.monaco.Promise[Key[T], Any]]
     }
   }
 }

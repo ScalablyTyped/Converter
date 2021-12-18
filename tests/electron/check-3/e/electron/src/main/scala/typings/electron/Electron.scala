@@ -21,18 +21,18 @@ object Electron {
       * details.
       */
     @JSName("on")
-    def on_accessibilitysupportchanged(event: `accessibility-support-changed`, listener: js.Any): String
+    def on_accessibilitysupportchanged(event: `accessibility-support-changed`, listener: Any): String
   }
   object App {
     
-    inline def apply(addListener: (String, js.Function) => App, on: (`accessibility-support-changed`, js.Any) => String): App = {
+    inline def apply(addListener: (String, js.Function) => App, on: (`accessibility-support-changed`, Any) => String): App = {
       val __obj = js.Dynamic.literal(addListener = js.Any.fromFunction2(addListener), on = js.Any.fromFunction2(on))
       __obj.asInstanceOf[App]
     }
     
     extension [Self <: App](x: Self) {
       
-      inline def setOn(value: (`accessibility-support-changed`, js.Any) => String): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
+      inline def setOn(value: (`accessibility-support-changed`, Any) => String): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
     }
   }
   
@@ -50,13 +50,13 @@ object Electron {
     
     def preventDefault(): Unit
     
-    var returnValue: js.Any
+    var returnValue: Any
     
     var shiftKey: js.UndefOr[Boolean] = js.undefined
   }
   object Event {
     
-    inline def apply(preventDefault: () => Unit, returnValue: js.Any): Event = {
+    inline def apply(preventDefault: () => Unit, returnValue: Any): Event = {
       val __obj = js.Dynamic.literal(preventDefault = js.Any.fromFunction0(preventDefault), returnValue = returnValue.asInstanceOf[js.Any])
       __obj.asInstanceOf[Event]
     }
@@ -77,7 +77,7 @@ object Electron {
       
       inline def setPreventDefault(value: () => Unit): Self = StObject.set(x, "preventDefault", js.Any.fromFunction0(value))
       
-      inline def setReturnValue(value: js.Any): Self = StObject.set(x, "returnValue", value.asInstanceOf[js.Any])
+      inline def setReturnValue(value: Any): Self = StObject.set(x, "returnValue", value.asInstanceOf[js.Any])
       
       inline def setShiftKey(value: Boolean): Self = StObject.set(x, "shiftKey", value.asInstanceOf[js.Any])
       

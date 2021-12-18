@@ -10,7 +10,7 @@ import org.scalablytyped.converter.internal.ts.transforms.ExtractInterfaces
 class ImportType(stdNames: QualifiedName.StdNames) {
 
   def orAny(scope: TsTreeScope, importName: AdaptiveNamingImport)(ott: Option[TsType]): TypeRef =
-    ott.map(apply(scope, importName)).getOrElse(TypeRef.JsAny)
+    ott.map(apply(scope, importName)).getOrElse(TypeRef.Any)
 
   /**
     * The point here? Dont inherit from sealed classes in scala.js, but otherwise
@@ -31,8 +31,8 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       TsQIdent.boolean -> BooleanM,
       TsQIdent.Boolean -> BooleanM,
       TsQIdent.Function -> FunctionM,
-      TsQIdent.never -> RefMapping(TypeRef.JsAny, TypeRef.JsAny, TypeRef.Nothing),
-      TsQIdent.`null` -> RefMapping(TypeRef.JsAny, TypeRef.JsAny, TypeRef.Null),
+      TsQIdent.never -> RefMapping(TypeRef.Any, TypeRef.Any, TypeRef.Nothing),
+      TsQIdent.`null` -> RefMapping(TypeRef.Any, TypeRef.Any, TypeRef.Null),
       TsQIdent.number -> RefMapping(TypeRef(stdNames.Number), TypeRef(stdNames.Number), TypeRef.Double),
       TsQIdent.`object` -> ObjectM,
       TsQIdent.Object -> ObjectM,
@@ -49,8 +49,8 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       TsQIdent.string -> StringM,
       TsQIdent.String -> StringM,
       TsQIdent.symbol -> RefMapping(TypeRef(stdNames.Symbol), TypeRef(stdNames.Symbol), TypeRef.JsSymbol),
-      TsQIdent.undefined -> RefMapping(TypeRef.JsAny, TypeRef.JsAny, TypeRef.Unit),
-      TsQIdent.void -> RefMapping(TypeRef.JsAny, TypeRef.JsAny, TypeRef.Unit),
+      TsQIdent.undefined -> RefMapping(TypeRef.Any, TypeRef.Any, TypeRef.Unit),
+      TsQIdent.void -> RefMapping(TypeRef.Any, TypeRef.Any, TypeRef.Unit),
     )
   }
 
@@ -68,7 +68,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case TsTypeRef(cs, base: TsQIdent, targs: IArray[TsType]) =>
         base match {
           case TsQIdent.any | TsQIdent.unknown =>
-            TypeRef.JsAny.withComments(cs)
+            TypeRef.Any.withComments(cs)
 
           case other =>
             lazy val isInheritance = IsInheritance(other, scope)
@@ -81,7 +81,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
                 try TypeRef(importName(other), targs2, cs)
                 catch {
                   case x: NoSuchElementException =>
-                    TypeRef.JsAny.withComments(Comments(s"/* Couldn't translate: '${x.getMessage}' */"))
+                    TypeRef.Any.withComments(Comments(s"/* Couldn't translate: '${x.getMessage}' */"))
                 }
             }
         }
@@ -109,7 +109,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
         val base = lookups match {
           case IArray.exactlyOne(one) => apply(scope, importName)(one)
-          case _                      => TypeRef.JsAny
+          case _                      => TypeRef.Any
         }
 
         def c = Comments(Comment.warning(s"Unsupported type mapping: \n${TsTypeFormatter(tpe)}\n"))

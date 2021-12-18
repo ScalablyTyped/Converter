@@ -13,38 +13,38 @@ object mod extends Shortcut {
   
   trait Attributes extends StObject {
     
-    var language: js.Any
+    var language: Any
   }
   object Attributes {
     
-    inline def apply(language: js.Any): Attributes = {
+    inline def apply(language: Any): Attributes = {
       val __obj = js.Dynamic.literal(language = language.asInstanceOf[js.Any])
       __obj.asInstanceOf[Attributes]
     }
     
     extension [Self <: Attributes](x: Self) {
       
-      inline def setLanguage(value: js.Any): Self = StObject.set(x, "language", value.asInstanceOf[js.Any])
+      inline def setLanguage(value: Any): Self = StObject.set(x, "language", value.asInstanceOf[js.Any])
     }
   }
   
   trait CldrFactory extends StObject {
     
-    def load(json: js.Any, otherJson: js.Any*): Unit
+    def load(json: Any, otherJson: Any*): Unit
     
-    def off(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
+    def off(event: String, listener: js.Function2[/* path */ String, /* value */ Any, Unit]): Unit
     
-    def on(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
+    def on(event: String, listener: js.Function2[/* path */ String, /* value */ Any, Unit]): Unit
     
-    def once(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
+    def once(event: String, listener: js.Function2[/* path */ String, /* value */ Any, Unit]): Unit
   }
   object CldrFactory {
     
     inline def apply(
-      load: (js.Any, /* repeated */ js.Any) => Unit,
-      off: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit,
-      on: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit,
-      once: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit
+      load: (Any, /* repeated */ Any) => Unit,
+      off: (String, js.Function2[/* path */ String, /* value */ Any, Unit]) => Unit,
+      on: (String, js.Function2[/* path */ String, /* value */ Any, Unit]) => Unit,
+      once: (String, js.Function2[/* path */ String, /* value */ Any, Unit]) => Unit
     ): CldrFactory = {
       val __obj = js.Dynamic.literal(load = js.Any.fromFunction2(load), off = js.Any.fromFunction2(off), on = js.Any.fromFunction2(on), once = js.Any.fromFunction2(once))
       __obj.asInstanceOf[CldrFactory]
@@ -52,13 +52,13 @@ object mod extends Shortcut {
     
     extension [Self <: CldrFactory](x: Self) {
       
-      inline def setLoad(value: (js.Any, /* repeated */ js.Any) => Unit): Self = StObject.set(x, "load", js.Any.fromFunction2(value))
+      inline def setLoad(value: (Any, /* repeated */ Any) => Unit): Self = StObject.set(x, "load", js.Any.fromFunction2(value))
       
-      inline def setOff(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "off", js.Any.fromFunction2(value))
+      inline def setOff(value: (String, js.Function2[/* path */ String, /* value */ Any, Unit]) => Unit): Self = StObject.set(x, "off", js.Any.fromFunction2(value))
       
-      inline def setOn(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
+      inline def setOn(value: (String, js.Function2[/* path */ String, /* value */ Any, Unit]) => Unit): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
       
-      inline def setOnce(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "once", js.Any.fromFunction2(value))
+      inline def setOnce(value: (String, js.Function2[/* path */ String, /* value */ Any, Unit]) => Unit): Self = StObject.set(x, "once", js.Any.fromFunction2(value))
     }
   }
   
@@ -72,26 +72,26 @@ object mod extends Shortcut {
     */
   trait CldrStatic extends StObject {
     
-    def get(path: String): js.Any
+    def get(path: String): Any
     
-    def off(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
+    def off(event: String, listener: js.Function2[/* path */ String, /* value */ Any, Unit]): Unit
     
-    def on(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
+    def on(event: String, listener: js.Function2[/* path */ String, /* value */ Any, Unit]): Unit
     
-    def once(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
+    def once(event: String, listener: js.Function2[/* path */ String, /* value */ Any, Unit]): Unit
     
-    def supplemental(path: String): js.Any
-    def supplemental(paths: js.Array[String]): js.Any
+    def supplemental(path: String): Any
+    def supplemental(paths: js.Array[String]): Any
     @JSName("supplemental")
     var supplemental_Original: SupplementalStatic
   }
   object CldrStatic {
     
     inline def apply(
-      get: String => js.Any,
-      off: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit,
-      on: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit,
-      once: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit,
+      get: String => Any,
+      off: (String, js.Function2[/* path */ String, /* value */ Any, Unit]) => Unit,
+      on: (String, js.Function2[/* path */ String, /* value */ Any, Unit]) => Unit,
+      once: (String, js.Function2[/* path */ String, /* value */ Any, Unit]) => Unit,
       supplemental: SupplementalStatic
     ): CldrStatic = {
       val __obj = js.Dynamic.literal(get = js.Any.fromFunction1(get), off = js.Any.fromFunction2(off), on = js.Any.fromFunction2(on), once = js.Any.fromFunction2(once), supplemental = supplemental.asInstanceOf[js.Any])
@@ -100,13 +100,13 @@ object mod extends Shortcut {
     
     extension [Self <: CldrStatic](x: Self) {
       
-      inline def setGet(value: String => js.Any): Self = StObject.set(x, "get", js.Any.fromFunction1(value))
+      inline def setGet(value: String => Any): Self = StObject.set(x, "get", js.Any.fromFunction1(value))
       
-      inline def setOff(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "off", js.Any.fromFunction2(value))
+      inline def setOff(value: (String, js.Function2[/* path */ String, /* value */ Any, Unit]) => Unit): Self = StObject.set(x, "off", js.Any.fromFunction2(value))
       
-      inline def setOn(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
+      inline def setOn(value: (String, js.Function2[/* path */ String, /* value */ Any, Unit]) => Unit): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
       
-      inline def setOnce(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = StObject.set(x, "once", js.Any.fromFunction2(value))
+      inline def setOnce(value: (String, js.Function2[/* path */ String, /* value */ Any, Unit]) => Unit): Self = StObject.set(x, "once", js.Any.fromFunction2(value))
       
       inline def setSupplemental(value: SupplementalStatic): Self = StObject.set(x, "supplemental", value.asInstanceOf[js.Any])
     }
@@ -115,8 +115,8 @@ object mod extends Shortcut {
   @js.native
   trait SupplementalStatic extends StObject {
     
-    def apply(path: String): js.Any = js.native
-    def apply(paths: js.Array[String]): js.Any = js.native
+    def apply(path: String): Any = js.native
+    def apply(paths: js.Array[String]): Any = js.native
     
     var timeData: TimeDataStatic = js.native
     

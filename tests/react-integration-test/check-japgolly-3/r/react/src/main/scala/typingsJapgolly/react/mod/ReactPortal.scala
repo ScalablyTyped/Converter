@@ -18,7 +18,7 @@ trait ReactPortal
 }
 object ReactPortal {
   
-  inline def apply(props: js.Any, `type`: js.Any): ReactPortal = {
+  inline def apply(props: Any, `type`: Any): ReactPortal = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], children = null, key = null)
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[ReactPortal]

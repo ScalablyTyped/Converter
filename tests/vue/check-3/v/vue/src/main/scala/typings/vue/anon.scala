@@ -12,7 +12,7 @@ object anon {
   
   trait Default extends StObject {
     
-    var default: js.UndefOr[js.Any] = js.undefined
+    var default: js.UndefOr[Any] = js.undefined
     
     var from: js.UndefOr[InjectKey] = js.undefined
   }
@@ -25,7 +25,7 @@ object anon {
     
     extension [Self <: Default](x: Self) {
       
-      inline def setDefault(value: js.Any): Self = StObject.set(x, "default", value.asInstanceOf[js.Any])
+      inline def setDefault(value: Any): Self = StObject.set(x, "default", value.asInstanceOf[js.Any])
       
       inline def setDefaultUndefined: Self = StObject.set(x, "default", js.undefined)
       
@@ -77,7 +77,7 @@ object anon {
   @js.native
   trait Instantiable[T]
     extends StObject
-       with Instantiable1[/* args (repeated) */ js.Any, T & js.Object]
+       with Instantiable1[/* args (repeated) */ Any, T & js.Object]
   
   trait Render extends StObject {
     

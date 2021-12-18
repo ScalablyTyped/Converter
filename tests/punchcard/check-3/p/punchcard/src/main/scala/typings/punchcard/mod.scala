@@ -10,11 +10,11 @@ object mod {
   
   type Collect[F /* <: Fields */] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ fqn in punchcard.punchcard.ExtractTypes<F>['FQN'] ]: {  type :std.Extract<punchcard.punchcard.ExtractTypes<F>, punchcard.punchcard.TypeShape<any, fqn>>,   fields :std.Extract<punchcard.punchcard.ExtractTypes<F>, punchcard.punchcard.TypeShape<any, fqn>>['Members'],   resolvers :{}}}
-    */ typings.punchcard.punchcardStrings.Collect & TopLevel[js.Any]
+    */ typings.punchcard.punchcardStrings.Collect & TopLevel[Any]
   
   type ExtractTypes[F /* <: Fields */] = Extract[
     /* import warning: importer.ImportType#apply Failed type conversion: F[keyof F] */ js.Any, 
-    TypeShape[js.Any, js.Any]
+    TypeShape[Any, Any]
   ]
   
   /* Inlined std.Readonly<{[member: string] : punchcard.punchcard.Shape}> */

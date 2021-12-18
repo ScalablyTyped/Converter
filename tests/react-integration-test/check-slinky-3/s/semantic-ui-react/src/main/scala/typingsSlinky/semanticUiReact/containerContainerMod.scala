@@ -19,7 +19,7 @@ object containerContainerMod extends Shortcut {
   trait ContainerProps
     extends StObject
        with StrictContainerProps
-       with /* key */ StringDictionary[js.Any]
+       with /* key */ StringDictionary[Any]
   object ContainerProps {
     
     inline def apply(): ContainerProps = {
@@ -31,7 +31,7 @@ object containerContainerMod extends Shortcut {
   trait StrictContainerProps extends StObject {
     
     /** An element type to render as (string or function). */
-    var as: js.UndefOr[js.Any] = js.undefined
+    var as: js.UndefOr[Any] = js.undefined
     
     /** Primary content. */
     var children: js.UndefOr[ReactElement] = js.undefined
@@ -60,7 +60,7 @@ object containerContainerMod extends Shortcut {
     
     extension [Self <: StrictContainerProps](x: Self) {
       
-      inline def setAs(value: js.Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
+      inline def setAs(value: Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       
       inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       

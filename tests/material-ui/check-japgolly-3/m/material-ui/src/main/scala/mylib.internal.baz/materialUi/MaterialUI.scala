@@ -39,7 +39,7 @@ private[internal] object MaterialUI {
     
     trait MuiTheme extends StObject {
       
-      var spacing: js.UndefOr[js.Any] = js.undefined
+      var spacing: js.UndefOr[Any] = js.undefined
     }
     object MuiTheme {
       
@@ -50,7 +50,7 @@ private[internal] object MaterialUI {
       
       extension [Self <: MuiTheme](x: Self) {
         
-        inline def setSpacing(value: js.Any): Self = StObject.set(x, "spacing", value.asInstanceOf[js.Any])
+        inline def setSpacing(value: Any): Self = StObject.set(x, "spacing", value.asInstanceOf[js.Any])
         
         inline def setSpacingUndefined: Self = StObject.set(x, "spacing", js.undefined)
       }

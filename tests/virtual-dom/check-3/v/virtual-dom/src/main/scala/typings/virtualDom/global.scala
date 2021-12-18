@@ -12,6 +12,6 @@ object global {
     @js.native
     val ^ : js.Any = js.native
     
-    inline def h(): js.Any = ^.asInstanceOf[js.Dynamic].applyDynamic("h")().asInstanceOf[js.Any]
+    inline def h(): Any = ^.asInstanceOf[js.Dynamic].applyDynamic("h")().asInstanceOf[Any]
   }
 }

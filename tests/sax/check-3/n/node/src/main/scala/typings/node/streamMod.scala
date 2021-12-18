@@ -29,11 +29,11 @@ object streamMod {
     
     def end(): Unit = js.native
     def end(cb: js.Function): Unit = js.native
-    def end(chunk: js.Any): Unit = js.native
-    def end(chunk: js.Any, cb: js.Function): Unit = js.native
-    def end(chunk: js.Any, encoding: String): Unit = js.native
-    def end(chunk: js.Any, encoding: String, cb: js.Function): Unit = js.native
-    def end(chunk: js.Any, encoding: Unit, cb: js.Function): Unit = js.native
+    def end(chunk: Any): Unit = js.native
+    def end(chunk: Any, cb: js.Function): Unit = js.native
+    def end(chunk: Any, encoding: String): Unit = js.native
+    def end(chunk: Any, encoding: String, cb: js.Function): Unit = js.native
+    def end(chunk: Any, encoding: Unit, cb: js.Function): Unit = js.native
     
     var writable: Boolean = js.native
   }
@@ -61,11 +61,11 @@ object streamMod {
     
     def end(): Unit = js.native
     def end(cb: js.Function): Unit = js.native
-    def end(chunk: js.Any): Unit = js.native
-    def end(chunk: js.Any, cb: js.Function): Unit = js.native
-    def end(chunk: js.Any, encoding: String): Unit = js.native
-    def end(chunk: js.Any, encoding: String, cb: js.Function): Unit = js.native
-    def end(chunk: js.Any, encoding: Unit, cb: js.Function): Unit = js.native
+    def end(chunk: Any): Unit = js.native
+    def end(chunk: Any, cb: js.Function): Unit = js.native
+    def end(chunk: Any, encoding: String): Unit = js.native
+    def end(chunk: Any, encoding: String, cb: js.Function): Unit = js.native
+    def end(chunk: Any, encoding: Unit, cb: js.Function): Unit = js.native
     
     @JSName("on")
     def on_close(event: close, listener: js.Function0[Unit]): this.type = js.native
@@ -95,7 +95,7 @@ object streamMod {
   
   trait ReadableOptions extends StObject {
     
-    var destroy: js.UndefOr[js.Function1[/* error */ js.UndefOr[Error], js.Any]] = js.undefined
+    var destroy: js.UndefOr[js.Function1[/* error */ js.UndefOr[Error], Any]] = js.undefined
     
     var encoding: js.UndefOr[String] = js.undefined
     
@@ -103,7 +103,7 @@ object streamMod {
     
     var objectMode: js.UndefOr[Boolean] = js.undefined
     
-    var read: js.UndefOr[js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], js.Any]] = js.undefined
+    var read: js.UndefOr[js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], Any]] = js.undefined
   }
   object ReadableOptions {
     
@@ -114,7 +114,7 @@ object streamMod {
     
     extension [Self <: ReadableOptions](x: Self) {
       
-      inline def setDestroy(value: /* error */ js.UndefOr[Error] => js.Any): Self = StObject.set(x, "destroy", js.Any.fromFunction1(value))
+      inline def setDestroy(value: /* error */ js.UndefOr[Error] => Any): Self = StObject.set(x, "destroy", js.Any.fromFunction1(value))
       
       inline def setDestroyUndefined: Self = StObject.set(x, "destroy", js.undefined)
       
@@ -130,7 +130,7 @@ object streamMod {
       
       inline def setObjectModeUndefined: Self = StObject.set(x, "objectMode", js.undefined)
       
-      inline def setRead(value: js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], js.Any]): Self = StObject.set(x, "read", value.asInstanceOf[js.Any])
+      inline def setRead(value: js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], Any]): Self = StObject.set(x, "read", value.asInstanceOf[js.Any])
       
       inline def setReadUndefined: Self = StObject.set(x, "read", js.undefined)
     }

@@ -25,13 +25,13 @@ object optionsMod {
   
   type Accessors[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ K in keyof T ]: (): T[K] | vue.vue/types/options.ComputedOptions<T[K]>}
-    */ typings.vue.vueStrings.Accessors & TopLevel[js.Any]
+    */ typings.vue.vueStrings.Accessors & TopLevel[Any]
   
   type ArrayPropsDefinition[T] = js.Array[/* keyof T */ String]
   
   type AsyncComponent[Data, Methods, Computed, Props] = js.Function2[
     /* resolve */ js.Function1[/* component */ Component[Data, Methods, Computed, Props], Unit], 
-    /* reject */ js.Function1[/* reason */ js.UndefOr[js.Any], Unit], 
+    /* reject */ js.Function1[/* reason */ js.UndefOr[Any], Unit], 
     (js.Promise[
       (Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]) | EsModuleComponent
     ]) | Unit
@@ -54,9 +54,7 @@ object optionsMod {
     var comments: js.UndefOr[Boolean] = js.undefined
     
     var components: js.UndefOr[
-        StringDictionary[
-          (Component[js.Any, js.Any, js.Any, js.Any]) | (AsyncComponent[js.Any, js.Any, js.Any, js.Any])
-        ]
+        StringDictionary[(Component[Any, Any, Any, Any]) | (AsyncComponent[Any, Any, Any, Any])]
       ] = js.undefined
     
     var computed: js.UndefOr[Accessors[Computed]] = js.undefined
@@ -134,7 +132,7 @@ object optionsMod {
     
     var updated: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    var watch: js.UndefOr[Record[String, WatchOptionsWithHandler[js.Any] | WatchHandler[js.Any] | String]] = js.undefined
+    var watch: js.UndefOr[Record[String, WatchOptionsWithHandler[Any] | WatchHandler[Any] | String]] = js.undefined
   }
   object ComponentOptions {
     
@@ -169,11 +167,7 @@ object optionsMod {
       
       inline def setCommentsUndefined: Self = StObject.set(x, "comments", js.undefined)
       
-      inline def setComponents(
-        value: StringDictionary[
-              (Component[js.Any, js.Any, js.Any, js.Any]) | (AsyncComponent[js.Any, js.Any, js.Any, js.Any])
-            ]
-      ): Self = StObject.set(x, "components", value.asInstanceOf[js.Any])
+      inline def setComponents(value: StringDictionary[(Component[Any, Any, Any, Any]) | (AsyncComponent[Any, Any, Any, Any])]): Self = StObject.set(x, "components", value.asInstanceOf[js.Any])
       
       inline def setComponentsUndefined: Self = StObject.set(x, "components", js.undefined)
       
@@ -323,7 +317,7 @@ object optionsMod {
       
       inline def setUpdatedUndefined: Self = StObject.set(x, "updated", js.undefined)
       
-      inline def setWatch(value: Record[String, WatchOptionsWithHandler[js.Any] | WatchHandler[js.Any] | String]): Self = StObject.set(x, "watch", value.asInstanceOf[js.Any])
+      inline def setWatch(value: Record[String, WatchOptionsWithHandler[Any] | WatchHandler[Any] | String]): Self = StObject.set(x, "watch", value.asInstanceOf[js.Any])
       
       inline def setWatchUndefined: Self = StObject.set(x, "watch", js.undefined)
     }
@@ -363,15 +357,15 @@ object optionsMod {
   @js.native
   trait Constructor
     extends StObject
-       with Instantiable1[/* args (repeated) */ js.Any, js.Any]
+       with Instantiable1[/* args (repeated) */ Any, Any]
   
-  type DefaultComputed = StringDictionary[js.Any]
+  type DefaultComputed = StringDictionary[Any]
   
   type DefaultData[V] = js.Object | (js.ThisFunction0[/* this */ V, js.Object])
   
-  type DefaultMethods[V] = StringDictionary[js.ThisFunction1[/* this */ V, /* repeated */ js.Any, js.Any]]
+  type DefaultMethods[V] = StringDictionary[js.ThisFunction1[/* this */ V, /* repeated */ Any, Any]]
   
-  type DefaultProps = Record[String, js.Any]
+  type DefaultProps = Record[String, Any]
   
   type DirectiveFunction = js.Function4[
     /* el */ HTMLElement, 
@@ -557,23 +551,23 @@ object optionsMod {
     
     var data: VNodeData
     
-    var injections: js.Any
+    var injections: Any
     
     var parent: Vue
     
     var props: Props
     
-    def slots(): js.Any
+    def slots(): Any
   }
   object RenderContext {
     
     inline def apply[Props](
       children: js.Array[VNode],
       data: VNodeData,
-      injections: js.Any,
+      injections: Any,
       parent: Vue,
       props: Props,
-      slots: () => js.Any
+      slots: () => Any
     ): RenderContext[Props] = {
       val __obj = js.Dynamic.literal(children = children.asInstanceOf[js.Any], data = data.asInstanceOf[js.Any], injections = injections.asInstanceOf[js.Any], parent = parent.asInstanceOf[js.Any], props = props.asInstanceOf[js.Any], slots = js.Any.fromFunction0(slots))
       __obj.asInstanceOf[RenderContext[Props]]
@@ -587,13 +581,13 @@ object optionsMod {
       
       inline def setData(value: VNodeData): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       
-      inline def setInjections(value: js.Any): Self = StObject.set(x, "injections", value.asInstanceOf[js.Any])
+      inline def setInjections(value: Any): Self = StObject.set(x, "injections", value.asInstanceOf[js.Any])
       
       inline def setParent(value: Vue): Self = StObject.set(x, "parent", value.asInstanceOf[js.Any])
       
       inline def setProps(value: Props): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
-      inline def setSlots(value: () => js.Any): Self = StObject.set(x, "slots", js.Any.fromFunction0(value))
+      inline def setSlots(value: () => Any): Self = StObject.set(x, "slots", js.Any.fromFunction0(value))
     }
   }
   
@@ -602,12 +596,12 @@ object optionsMod {
     extends StObject
        with ComponentOptions[
           V, 
-          Data | (js.ThisFunction0[/* this */ (Record[PropNames, js.Any]) & V, Data]), 
+          Data | (js.ThisFunction0[/* this */ (Record[PropNames, Any]) & V, Data]), 
           Methods, 
           Computed, 
           js.Array[PropNames]
         ]
-       with ThisType[CombinedVueInstance[V, Data, Methods, Computed, Record[PropNames, js.Any]]]
+       with ThisType[CombinedVueInstance[V, Data, Methods, Computed, Record[PropNames, Any]]]
   object ThisTypedComponentOptionsWithArrayProps {
     
     inline def apply[V /* <: Vue */, Data, Methods, Computed, PropNames /* <: String */](): ThisTypedComponentOptionsWithArrayProps[V, Data, Methods, Computed, PropNames] = {

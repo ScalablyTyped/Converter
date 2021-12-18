@@ -26,9 +26,9 @@ object global {
     */
   @JSGlobal("__non_webpack_require__")
   @js.native
-  def nonWebpackRequire: js.Any = js.native
+  def nonWebpackRequire: Any = js.native
   
-  inline def nonWebpackRequire_=(x: js.Any): Unit = js.Dynamic.global.updateDynamic("__non_webpack_require__")(x.asInstanceOf[js.Any])
+  inline def nonWebpackRequire_=(x: Any): Unit = js.Dynamic.global.updateDynamic("__non_webpack_require__")(x.asInstanceOf[js.Any])
   
   @JSGlobal("process")
   @js.native
@@ -60,14 +60,14 @@ object global {
   @JSGlobal("__webpack_chunk_load__")
   @js.native
   def webpackChunkLoad: js.Function2[
-    /* chunkId */ js.Any, 
+    /* chunkId */ Any, 
     /* callback */ js.Function1[/* require */ RequireLambda, Unit], 
     Unit
   ] = js.native
   
   inline def webpackChunkLoad_=(
     x: js.Function2[
-      /* chunkId */ js.Any, 
+      /* chunkId */ Any, 
       /* callback */ js.Function1[/* require */ RequireLambda, Unit], 
       Unit
     ]
@@ -80,18 +80,18 @@ object global {
     */
   @JSGlobal("__webpack_hash__")
   @js.native
-  def webpackHash: js.Any = js.native
+  def webpackHash: Any = js.native
   
-  inline def webpackHash_=(x: js.Any): Unit = js.Dynamic.global.updateDynamic("__webpack_hash__")(x.asInstanceOf[js.Any])
+  inline def webpackHash_=(x: Any): Unit = js.Dynamic.global.updateDynamic("__webpack_hash__")(x.asInstanceOf[js.Any])
   
   /**
     * Access to the internal object of all modules.
     */
   @JSGlobal("__webpack_modules__")
   @js.native
-  def webpackModules: js.Array[js.Any] = js.native
+  def webpackModules: js.Array[Any] = js.native
   
-  inline def webpackModules_=(x: js.Array[js.Any]): Unit = js.Dynamic.global.updateDynamic("__webpack_modules__")(x.asInstanceOf[js.Any])
+  inline def webpackModules_=(x: js.Array[Any]): Unit = js.Dynamic.global.updateDynamic("__webpack_modules__")(x.asInstanceOf[js.Any])
   
   /**
     * Equals the config options output.publicPath.
@@ -107,7 +107,7 @@ object global {
     */
   @JSGlobal("__webpack_require__")
   @js.native
-  def webpackRequire: js.Any = js.native
+  def webpackRequire: Any = js.native
   
-  inline def webpackRequire_=(x: js.Any): Unit = js.Dynamic.global.updateDynamic("__webpack_require__")(x.asInstanceOf[js.Any])
+  inline def webpackRequire_=(x: Any): Unit = js.Dynamic.global.updateDynamic("__webpack_require__")(x.asInstanceOf[js.Any])
 }

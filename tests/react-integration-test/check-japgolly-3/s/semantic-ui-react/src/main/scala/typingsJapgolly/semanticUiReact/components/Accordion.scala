@@ -56,7 +56,7 @@ object Accordion {
   val component: js.Object = js.native
   
   @scala.inline
-  open class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[Any])
     extends AnyVal
        with StBuildingComponent[default] {
     
@@ -64,7 +64,7 @@ object Accordion {
     
     inline def activeIndexVarargs(value: Double*): this.type = set("activeIndex", js.Array(value*))
     
-    inline def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
+    inline def as(value: Any): this.type = set("as", value.asInstanceOf[js.Any])
     
     inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     

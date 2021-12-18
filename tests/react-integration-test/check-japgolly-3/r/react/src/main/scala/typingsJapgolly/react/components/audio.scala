@@ -64,7 +64,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object audio {
   
   @scala.inline
-  open class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[Any])
     extends AnyVal
        with StBuildingComponent[HTMLAudioElement] {
     
@@ -208,7 +208,7 @@ object audio {
     
     inline def id(value: String): this.type = set("id", value.asInstanceOf[js.Any])
     
-    inline def inlist(value: js.Any): this.type = set("inlist", value.asInstanceOf[js.Any])
+    inline def inlist(value: Any): this.type = set("inlist", value.asInstanceOf[js.Any])
     
     inline def inputMode(value: String): this.type = set("inputMode", value.asInstanceOf[js.Any])
     

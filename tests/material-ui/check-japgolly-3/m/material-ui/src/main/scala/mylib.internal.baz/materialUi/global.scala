@@ -28,25 +28,25 @@ private[internal] object global {
       
       @JSGlobal("__MaterialUI.Styles.Transitions")
       @js.native
-      def Transitions: js.Any = js.native
-      inline def Transitions_=(x: js.Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("Transitions")(x.asInstanceOf[js.Any])
+      def Transitions: Any = js.native
+      inline def Transitions_=(x: Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("Transitions")(x.asInstanceOf[js.Any])
       
       @JSGlobal("__MaterialUI.Styles.Typography")
       @js.native
-      def Typography: js.Any = js.native
-      inline def Typography_=(x: js.Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("Typography")(x.asInstanceOf[js.Any])
+      def Typography: Any = js.native
+      inline def Typography_=(x: Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("Typography")(x.asInstanceOf[js.Any])
       
       @JSGlobal("__MaterialUI.Styles.a")
       @js.native
-      def a: js.Any = js.native
-      inline def a_=(x: js.Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("a")(x.asInstanceOf[js.Any])
+      def a: Any = js.native
+      inline def a_=(x: Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("a")(x.asInstanceOf[js.Any])
       
       inline def getMuiTheme(muiTheme: MuiTheme*): MuiTheme = ^.asInstanceOf[js.Dynamic].applyDynamic("getMuiTheme")(muiTheme.asInstanceOf[js.Any]).asInstanceOf[MuiTheme]
       
       @JSGlobal("__MaterialUI.Styles.zIndex")
       @js.native
-      def zIndex: js.Any = js.native
-      inline def zIndex_=(x: js.Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("zIndex")(x.asInstanceOf[js.Any])
+      def zIndex: Any = js.native
+      inline def zIndex_=(x: Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("zIndex")(x.asInstanceOf[js.Any])
     }
     
     @JSGlobal("__MaterialUI.SvgIcon")

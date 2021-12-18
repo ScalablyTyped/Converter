@@ -55,7 +55,7 @@ object mod {
       mode: SERIALIZATION,
       version: Double,
       raw: String,
-      callback: js.Function2[/* err */ js.Any, /* result */ js.Any, Unit]
+      callback: js.Function2[/* err */ Any, /* result */ Any, Unit]
     ): Unit = js.native
     
     def getFieldDefinition(stype: String, name: String): IField = js.native
@@ -64,14 +64,14 @@ object mod {
       mode: SERIALIZATION,
       version: Double,
       obj: ISerializable,
-      callback: js.Function2[/* err */ js.Any, /* result */ String, Unit]
+      callback: js.Function2[/* err */ Any, /* result */ String, Unit]
     ): Unit = js.native
     
     def serializeForPagination(
       mode: SERIALIZATION,
-      array: js.Array[js.Any],
-      metadata: js.Any,
-      callback: js.Function2[/* err */ js.Any, /* result */ String, Unit]
+      array: js.Array[Any],
+      metadata: Any,
+      callback: js.Function2[/* err */ Any, /* result */ String, Unit]
     ): Unit = js.native
   }
   

@@ -18,7 +18,7 @@ type Extract[T, U] = T
 /**
   * Obtain the return type of a constructor function type
   */
-type InstanceType[T /* <: org.scalablytyped.runtime.Instantiable1[/* args (repeated) */ js.Any, js.Any] */] = js.Any
+type InstanceType[T /* <: org.scalablytyped.runtime.Instantiable1[/* args (repeated) */ scala.Any, scala.Any] */] = scala.Any
 
 /**
   * Exclude null and undefined from T
@@ -41,7 +41,7 @@ type Pick[T, K /* <: /* keyof T */ java.lang.String */] = /* import warning: imp
 
 type Proxify[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
 {[ P in keyof T ]: {get (): T[P], set (v : T[P]): void}}
-  */ typings.std.stdStrings.Proxify & org.scalablytyped.runtime.TopLevel[js.Any]
+  */ typings.std.stdStrings.Proxify & org.scalablytyped.runtime.TopLevel[scala.Any]
 
 /**
   * Make all properties in T readonly
@@ -65,4 +65,4 @@ type Required[T] = /* import warning: importer.ImportType#apply c Unsupported ty
 /**
   * Obtain the return type of a function type
   */
-type ReturnType[T /* <: js.Function1[/* repeated */ js.Any, js.Any] */] = js.Any
+type ReturnType[T /* <: js.Function1[/* repeated */ scala.Any, scala.Any] */] = scala.Any

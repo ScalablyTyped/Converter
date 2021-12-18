@@ -20,14 +20,14 @@ object accordionPanelMod {
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionPanel", JSImport.Default)
   @js.native
   open class default ()
-    extends Component[AccordionPanelProps, js.Object, js.Any]
+    extends Component[AccordionPanelProps, js.Object, Any]
   
   type AccordionPanel = ReactComponentClass[AccordionPanelProps]
   
   trait AccordionPanelProps
     extends StObject
        with StrictAccordionPanelProps
-       with /* key */ StringDictionary[js.Any]
+       with /* key */ StringDictionary[Any]
   object AccordionPanelProps {
     
     inline def apply(): AccordionPanelProps = {

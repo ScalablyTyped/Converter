@@ -15,7 +15,7 @@ trait SuspenseProps extends StObject {
   var children: js.UndefOr[Node] = js.undefined
   
   /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
-  var fallback: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any) | Null
+  var fallback: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ Any) | Null
 }
 object SuspenseProps {
   
@@ -37,7 +37,7 @@ object SuspenseProps {
     inline def setChildrenVdomElement(value: VdomElement): Self = StObject.set(x, "children", value.rawElement.asInstanceOf[js.Any])
     
     inline def setFallback(
-      value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any
+      value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ Any
     ): Self = StObject.set(x, "fallback", value.asInstanceOf[js.Any])
     
     inline def setFallbackNull: Self = StObject.set(x, "fallback", null)

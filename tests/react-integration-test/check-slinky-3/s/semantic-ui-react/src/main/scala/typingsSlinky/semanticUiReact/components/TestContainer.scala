@@ -26,11 +26,11 @@ object TestContainer {
   val component: js.Object = js.native
   
   @scala.inline
-  open class Builder (val args: js.Array[js.Any])
+  open class Builder (val args: js.Array[Any])
     extends AnyVal
        with StBuildingComponent[tag.type, js.Object] {
     
-    inline def as(value: js.Any): this.type = set("as", value.asInstanceOf[js.Any])
+    inline def as(value: Any): this.type = set("as", value.asInstanceOf[js.Any])
     
     inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     

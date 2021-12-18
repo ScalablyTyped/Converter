@@ -23,7 +23,7 @@ object global {
     
     @js.native
     trait ElementClass
-      extends Component[js.Any, js.Object, js.Any]
+      extends Component[Any, js.Object, Any]
     
     // tslint:disable-next-line:no-empty-interface
     type IntrinsicAttributes = Attributes
@@ -113,6 +113,6 @@ object global {
     
     // We can't recurse forever because `type` can't be self-referential;
     // let's assume it's reasonable to do a single React.lazy() around a single React.memo() / vice-versa
-    type LibraryManagedAttributes[C, P] = ReactManagedAttributes[js.Any | C, P]
+    type LibraryManagedAttributes[C, P] = ReactManagedAttributes[Any | C, P]
   }
 }

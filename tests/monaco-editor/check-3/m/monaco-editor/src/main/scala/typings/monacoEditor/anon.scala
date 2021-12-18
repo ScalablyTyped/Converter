@@ -11,11 +11,11 @@ object anon {
     
     var key: String
     
-    var value: Promise[T, js.Any]
+    var value: Promise[T, Any]
   }
   object Key {
     
-    inline def apply[T](key: String, value: Promise[T, js.Any]): Key[T] = {
+    inline def apply[T](key: String, value: Promise[T, Any]): Key[T] = {
       val __obj = js.Dynamic.literal(key = key.asInstanceOf[js.Any], value = value.asInstanceOf[js.Any])
       __obj.asInstanceOf[Key[T]]
     }
@@ -24,7 +24,7 @@ object anon {
       
       inline def setKey(value: String): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
       
-      inline def setValue(value: Promise[T, js.Any]): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
+      inline def setValue(value: Promise[T, Any]): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     }
   }
 }

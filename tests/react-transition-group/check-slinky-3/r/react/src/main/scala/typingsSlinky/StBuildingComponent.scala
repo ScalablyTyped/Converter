@@ -23,22 +23,22 @@ trait StBuildingComponent[E, R <: js.Object] extends Any {
     this
   }
   
-  def args: js.Array[js.Any]
+  def args: js.Array[Any]
   
   /* You typically shouldnt call this yourself, but it can be useful if you're for instance mapping a sequence and you need types to infer properly */
   inline def build: ReactElement = make(this)
   
-  inline def set(key: String, value: js.Any): this.type = {
-    args(1).asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+  inline def set(key: String, value: Any): this.type = {
+    args(1).asInstanceOf[js.Dynamic].updateDynamic(key)(value.asInstanceOf[js.Any])
     this
   }
   
-  inline def unsafeSpread(obj: js.Any): this.type = {
+  inline def unsafeSpread(obj: Any): this.type = {
     js.Object.assign(args(1).asInstanceOf[js.Object], obj.asInstanceOf[js.Object])
     this
   }
   
-  inline def withComponent(f: js.Any => js.Any): this.type = {
+  inline def withComponent(f: Any => Any): this.type = {
     args.update(0, f(args(0)))
     this
   }
@@ -57,7 +57,7 @@ object StBuildingComponent {
     val createElement: js.Dynamic = js.native
   }
   
-  open class Default[E, R <: js.Object] (val args: js.Array[js.Any])
+  open class Default[E, R <: js.Object] (val args: js.Array[Any])
     extends AnyVal
        with StBuildingComponent[E, R]
   

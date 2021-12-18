@@ -11,5 +11,5 @@ object eitherMod {
   val URI: /* "Either" */ String = js.native
   type URI = /* "Either" */ String
   
-  type Either[L, A] = js.Any
+  type Either[L, A] = Any
 }

@@ -15,8 +15,8 @@ object NodeJS {
   @js.native
   trait EventEmitter extends StObject {
     
-    def on(event: String, listener: js.Function1[/* repeated */ js.Any, Unit]): this.type = js.native
-    def on(event: js.Symbol, listener: js.Function1[/* repeated */ js.Any, Unit]): this.type = js.native
+    def on(event: String, listener: js.Function1[/* repeated */ Any, Unit]): this.type = js.native
+    def on(event: js.Symbol, listener: js.Function1[/* repeated */ Any, Unit]): this.type = js.native
   }
   
   trait Global extends StObject {

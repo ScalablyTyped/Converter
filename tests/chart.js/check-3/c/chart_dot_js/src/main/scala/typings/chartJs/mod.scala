@@ -17,16 +17,16 @@ object mod extends Shortcut {
   open class ^ protected ()
     extends StObject
        with typings.chartJs.mod.Chart {
-    def this(context: String, options: js.Any) = this()
-    def this(context: ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement], options: js.Any) = this()
-    def this(context: CanvasRenderingContext2D, options: js.Any) = this()
-    def this(context: HTMLCanvasElement, options: js.Any) = this()
+    def this(context: String, options: Any) = this()
+    def this(context: ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement], options: Any) = this()
+    def this(context: CanvasRenderingContext2D, options: Any) = this()
+    def this(context: HTMLCanvasElement, options: Any) = this()
   }
   @JSImport("chart.js", JSImport.Namespace)
   @js.native
   val ^ : js.Object & (Instantiable2[
     /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
-    /* options */ js.Any, 
+    /* options */ Any, 
     typings.chartJs.mod.Chart
   ]) = js.native
   
@@ -41,16 +41,16 @@ object mod extends Shortcut {
     
     def generateLegend(): js.Object = js.native
     
-    def getDatasetAtEvent(e: js.Any): js.Array[js.Object] = js.native
+    def getDatasetAtEvent(e: Any): js.Array[js.Object] = js.native
     
-    def getElementAtEvent(e: js.Any): js.Object = js.native
+    def getElementAtEvent(e: Any): js.Object = js.native
     
-    def getElementsAtEvent(e: js.Any): js.Array[js.Object] = js.native
+    def getElementsAtEvent(e: Any): js.Array[js.Object] = js.native
     
     def render(): js.Object = js.native
-    def render(duration: js.Any): js.Object = js.native
-    def render(duration: js.Any, `lazy`: js.Any): js.Object = js.native
-    def render(duration: Unit, `lazy`: js.Any): js.Object = js.native
+    def render(duration: Any): js.Object = js.native
+    def render(duration: Any, `lazy`: Any): js.Object = js.native
+    def render(duration: Unit, `lazy`: Any): js.Object = js.native
     
     def resize(): js.Object = js.native
     
@@ -59,16 +59,16 @@ object mod extends Shortcut {
     def toBase64(): String = js.native
     
     def update(): js.Object = js.native
-    def update(duration: js.Any): js.Object = js.native
-    def update(duration: js.Any, `lazy`: js.Any): js.Object = js.native
-    def update(duration: Unit, `lazy`: js.Any): js.Object = js.native
+    def update(duration: Any): js.Object = js.native
+    def update(duration: Any, `lazy`: Any): js.Object = js.native
+    def update(duration: Unit, `lazy`: Any): js.Object = js.native
   }
   /* static member */
   @JSImport("chart.js", "Chart")
   @js.native
   val Chart: Instantiable2[
     /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
-    /* options */ js.Any, 
+    /* options */ Any, 
     typings.chartJs.mod.Chart
   ] = js.native
   
@@ -78,10 +78,10 @@ object mod extends Shortcut {
   open class ChartCls protected ()
     extends StObject
        with typings.chartJs.mod.Chart {
-    def this(context: String, options: js.Any) = this()
-    def this(context: ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement], options: js.Any) = this()
-    def this(context: CanvasRenderingContext2D, options: js.Any) = this()
-    def this(context: HTMLCanvasElement, options: js.Any) = this()
+    def this(context: String, options: Any) = this()
+    def this(context: ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement], options: Any) = this()
+    def this(context: CanvasRenderingContext2D, options: Any) = this()
+    def this(context: HTMLCanvasElement, options: Any) = this()
   }
   
   /* static member */
@@ -138,7 +138,7 @@ object mod extends Shortcut {
   trait ChartOptions extends StObject {
     
     // Plugins can require any options
-    var plugins: js.UndefOr[StringDictionary[js.Any]] = js.undefined
+    var plugins: js.UndefOr[StringDictionary[Any]] = js.undefined
     
     var responsive: js.UndefOr[Boolean] = js.undefined
   }
@@ -151,7 +151,7 @@ object mod extends Shortcut {
     
     extension [Self <: ChartOptions](x: Self) {
       
-      inline def setPlugins(value: StringDictionary[js.Any]): Self = StObject.set(x, "plugins", value.asInstanceOf[js.Any])
+      inline def setPlugins(value: StringDictionary[Any]): Self = StObject.set(x, "plugins", value.asInstanceOf[js.Any])
       
       inline def setPluginsUndefined: Self = StObject.set(x, "plugins", js.undefined)
       
@@ -163,14 +163,14 @@ object mod extends Shortcut {
   
   type _To = js.Object & (Instantiable2[
     /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
-    /* options */ js.Any, 
+    /* options */ Any, 
     typings.chartJs.mod.Chart
   ])
   
   /* This means you don't have to write `^`, but can instead just say `mod.foo` */
   override def _to: js.Object & (Instantiable2[
     /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
-    /* options */ js.Any, 
+    /* options */ Any, 
     typings.chartJs.mod.Chart
   ]) = ^
 }

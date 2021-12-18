@@ -58,7 +58,7 @@ private[internal] object mod {
         ]
        with Instantiable2[
           /* props */ P, 
-          /* context */ js.Any, 
+          /* context */ Any, 
           japgolly.scalajs.react.facade.React.Component[P & js.Object, js.Object]
         ] {
     
@@ -169,13 +169,13 @@ private[internal] object mod {
     
     var key: Key | Null
     
-    var props: js.Any
+    var props: Any
     
-    var `type`: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any]
+    var `type`: String | (ComponentClassP[Any & js.Object]) | SFC[Any]
   }
   object ReactElement {
     
-    inline def apply(props: js.Any, `type`: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any]): ReactElement = {
+    inline def apply(props: Any, `type`: String | (ComponentClassP[Any & js.Object]) | SFC[Any]): ReactElement = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], key = null)
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
       __obj.asInstanceOf[ReactElement]
@@ -187,9 +187,9 @@ private[internal] object mod {
       
       inline def setKeyNull: Self = StObject.set(x, "key", null)
       
-      inline def setProps(value: js.Any): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
+      inline def setProps(value: Any): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
       
-      inline def setType(value: String | (ComponentClassP[js.Any & js.Object]) | SFC[js.Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setType(value: String | (ComponentClassP[Any & js.Object]) | SFC[Any]): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
@@ -203,7 +203,7 @@ private[internal] object mod {
   trait StatelessComponent[P] extends StObject {
     
     def apply(props: P & Children): Element | Null = js.native
-    def apply(props: P & Children, context: js.Any): Element | Null = js.native
+    def apply(props: P & Children, context: Any): Element | Null = js.native
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
     

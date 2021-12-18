@@ -15,16 +15,11 @@ object aa {
     
     var defaultTargetContainerName: String
     
-    var notifyConfigs: js.Any
+    var notifyConfigs: Any
   }
   object INotifyConfigProvider {
     
-    inline def apply(
-      $get: js.Any,
-      defaultNotifyConfig: String,
-      defaultTargetContainerName: String,
-      notifyConfigs: js.Any
-    ): INotifyConfigProvider = {
+    inline def apply($get: Any, defaultNotifyConfig: String, defaultTargetContainerName: String, notifyConfigs: Any): INotifyConfigProvider = {
       val __obj = js.Dynamic.literal($get = $get.asInstanceOf[js.Any], defaultNotifyConfig = defaultNotifyConfig.asInstanceOf[js.Any], defaultTargetContainerName = defaultTargetContainerName.asInstanceOf[js.Any], notifyConfigs = notifyConfigs.asInstanceOf[js.Any])
       __obj.asInstanceOf[INotifyConfigProvider]
     }
@@ -35,7 +30,7 @@ object aa {
       
       inline def setDefaultTargetContainerName(value: String): Self = StObject.set(x, "defaultTargetContainerName", value.asInstanceOf[js.Any])
       
-      inline def setNotifyConfigs(value: js.Any): Self = StObject.set(x, "notifyConfigs", value.asInstanceOf[js.Any])
+      inline def setNotifyConfigs(value: Any): Self = StObject.set(x, "notifyConfigs", value.asInstanceOf[js.Any])
     }
   }
 }

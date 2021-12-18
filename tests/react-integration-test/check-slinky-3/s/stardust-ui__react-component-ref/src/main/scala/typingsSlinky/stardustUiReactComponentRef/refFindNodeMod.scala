@@ -33,7 +33,7 @@ object refFindNodeMod {
   
   @js.native
   trait RefFindNode
-    extends Component[RefProps, js.Object, js.Any] {
+    extends Component[RefProps, js.Object, Any] {
     
     @JSName("componentDidMount")
     def componentDidMount_MRefFindNode(): Unit = js.native
@@ -44,6 +44,6 @@ object refFindNodeMod {
     @JSName("componentWillUnmount")
     def componentWillUnmount_MRefFindNode(): Unit = js.native
     
-    var prevNode: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any) | Null = js.native
+    var prevNode: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ Any) | Null = js.native
   }
 }

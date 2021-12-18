@@ -46,7 +46,7 @@ object mod {
   
   type Not[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ key in keyof T ]:? never}
-    */ typingsJapgolly.reactMarkdown.reactMarkdownStrings.Not & TopLevel[js.Any]
+    */ typingsJapgolly.reactMarkdown.reactMarkdownStrings.Not & TopLevel[Any]
   
   type ReactMarkdownProps = ReactMarkdownPropsBase & (MutuallyExclusive[ChildrenProp, SourceProp])
   
@@ -102,7 +102,7 @@ object mod {
   
   type Renderer[T] = js.Function1[/* props */ T, ElementType]
   
-  type Renderers_ = StringDictionary[String | Renderer[js.Any]]
+  type Renderers_ = StringDictionary[String | Renderer[Any]]
   
   trait SourceProp extends StObject {
     

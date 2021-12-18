@@ -399,7 +399,7 @@ object ImportScalaDefinitions extends App {
             case NullaryMethodType(resultType) =>
               (toTypeRefForce(resultType), tparams, Empty)
             case MethodType(NoPrefixType, _) =>
-              (TypeRef.JsAny, Empty, Empty)
+              (TypeRef.Any, Empty, Empty)
             case MethodType(resultType, paramSymbols) =>
               val params = toParamTrees(paramSymbols)
               (toTypeRefForce(resultType), tparams, params)
@@ -413,9 +413,9 @@ object ImportScalaDefinitions extends App {
             case NoType =>
               (TypeRef.Nothing, Empty, Empty)
             case ThisType(_) =>
-              (TypeRef.JsAny, Empty, Empty)
+              (TypeRef.Any, Empty, Empty)
             case RefinedType(_: ClassSymbol, _) =>
-              (TypeRef.JsAny, Empty, Empty)
+              (TypeRef.Any, Empty, Empty)
             case other =>
               sys.error(s"Unexpected $other")
           }
@@ -505,7 +505,7 @@ object ImportScalaDefinitions extends App {
           case _    => Left(tpe)
         }
       case SingleType(NoPrefixType, _) => // todo
-        Right(TypeRef.JsAny)
+        Right(TypeRef.Any)
       case SingleType(typeRef, _) =>
         toTypeRef(typeRef).map(TypeRef.Singleton(_))
       case NullaryMethodType(resultType) =>
@@ -549,7 +549,7 @@ object ImportScalaDefinitions extends App {
         sequence(IArray.fromTraversable(typeRefs).map(toTypeRef)).map(types => TypeRef.Intersection(types, NoComments))
       // todo: from here and out - whatever. we have enough
       case PolyType(_, _) =>
-        Right(TypeRef.JsAny)
+        Right(TypeRef.Any)
       case TypeBoundsType(_, _)           => Left(tpe)
       case ClassInfoType(_, _)            => Left(tpe)
       case PolyTypeWithCons(_, _, _)      => Left(tpe)

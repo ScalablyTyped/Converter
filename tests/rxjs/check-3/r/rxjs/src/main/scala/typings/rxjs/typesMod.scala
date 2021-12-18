@@ -16,7 +16,7 @@ object typesMod {
     
     def complete(): Unit
     
-    var error: js.UndefOr[js.Function1[/* err */ js.Any, Unit]] = js.undefined
+    var error: js.UndefOr[js.Function1[/* err */ Any, Unit]] = js.undefined
     
     var next: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.undefined
   }
@@ -35,7 +35,7 @@ object typesMod {
       
       inline def setComplete(value: () => Unit): Self = StObject.set(x, "complete", js.Any.fromFunction0(value))
       
-      inline def setError(value: /* err */ js.Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
+      inline def setError(value: /* err */ Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
       
       inline def setErrorUndefined: Self = StObject.set(x, "error", js.undefined)
       
@@ -53,13 +53,13 @@ object typesMod {
     
     var complete: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    def error(err: js.Any): Unit
+    def error(err: Any): Unit
     
     var next: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.undefined
   }
   object ErrorObserver {
     
-    inline def apply[T](error: js.Any => Unit): ErrorObserver[T] = {
+    inline def apply[T](error: Any => Unit): ErrorObserver[T] = {
       val __obj = js.Dynamic.literal(error = js.Any.fromFunction1(error))
       __obj.asInstanceOf[ErrorObserver[T]]
     }
@@ -74,7 +74,7 @@ object typesMod {
       
       inline def setCompleteUndefined: Self = StObject.set(x, "complete", js.undefined)
       
-      inline def setError(value: js.Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
+      inline def setError(value: Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
       
       inline def setNext(value: /* value */ T => Unit): Self = StObject.set(x, "next", js.Any.fromFunction1(value))
       
@@ -90,7 +90,7 @@ object typesMod {
     
     var complete: js.UndefOr[js.Function0[Unit]] = js.undefined
     
-    var error: js.UndefOr[js.Function1[/* err */ js.Any, Unit]] = js.undefined
+    var error: js.UndefOr[js.Function1[/* err */ Any, Unit]] = js.undefined
     
     def next(value: T): Unit
   }
@@ -111,7 +111,7 @@ object typesMod {
       
       inline def setCompleteUndefined: Self = StObject.set(x, "complete", js.undefined)
       
-      inline def setError(value: /* err */ js.Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
+      inline def setError(value: /* err */ Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
       
       inline def setErrorUndefined: Self = StObject.set(x, "error", js.undefined)
       
@@ -125,13 +125,13 @@ object typesMod {
     
     def complete(): Unit
     
-    def error(err: js.Any): Unit
+    def error(err: Any): Unit
     
     def next(value: T): Unit
   }
   object Observer {
     
-    inline def apply[T](complete: () => Unit, error: js.Any => Unit, next: T => Unit): Observer[T] = {
+    inline def apply[T](complete: () => Unit, error: Any => Unit, next: T => Unit): Observer[T] = {
       val __obj = js.Dynamic.literal(complete = js.Any.fromFunction0(complete), error = js.Any.fromFunction1(error), next = js.Any.fromFunction1(next))
       __obj.asInstanceOf[Observer[T]]
     }
@@ -144,7 +144,7 @@ object typesMod {
       
       inline def setComplete(value: () => Unit): Self = StObject.set(x, "complete", js.Any.fromFunction0(value))
       
-      inline def setError(value: js.Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
+      inline def setError(value: Any => Unit): Self = StObject.set(x, "error", js.Any.fromFunction1(value))
       
       inline def setNext(value: T => Unit): Self = StObject.set(x, "next", js.Any.fromFunction1(value))
     }
@@ -165,7 +165,7 @@ object typesMod {
       __obj.asInstanceOf[typings.rxjs.typesMod.CompletionObserver[T]]
     }
     
-    inline def ErrorObserver[T](error: js.Any => Unit): typings.rxjs.typesMod.ErrorObserver[T] = {
+    inline def ErrorObserver[T](error: Any => Unit): typings.rxjs.typesMod.ErrorObserver[T] = {
       val __obj = js.Dynamic.literal(error = js.Any.fromFunction1(error))
       __obj.asInstanceOf[typings.rxjs.typesMod.ErrorObserver[T]]
     }
@@ -212,21 +212,21 @@ object typesMod {
     
     def subscribe(): Unsubscribable = js.native
     def subscribe(observerOrNext: js.Function1[/* value */ T, Unit]): Unsubscribable = js.native
-    def subscribe(observerOrNext: js.Function1[/* value */ T, Unit], error: js.Function1[/* error */ js.Any, Unit]): Unsubscribable = js.native
+    def subscribe(observerOrNext: js.Function1[/* value */ T, Unit], error: js.Function1[/* error */ Any, Unit]): Unsubscribable = js.native
     def subscribe(
       observerOrNext: js.Function1[/* value */ T, Unit],
-      error: js.Function1[/* error */ js.Any, Unit],
+      error: js.Function1[/* error */ Any, Unit],
       complete: js.Function0[Unit]
     ): Unsubscribable = js.native
     def subscribe(observerOrNext: js.Function1[/* value */ T, Unit], error: Unit, complete: js.Function0[Unit]): Unsubscribable = js.native
-    def subscribe(observerOrNext: Unit, error: js.Function1[/* error */ js.Any, Unit]): Unsubscribable = js.native
-    def subscribe(observerOrNext: Unit, error: js.Function1[/* error */ js.Any, Unit], complete: js.Function0[Unit]): Unsubscribable = js.native
+    def subscribe(observerOrNext: Unit, error: js.Function1[/* error */ Any, Unit]): Unsubscribable = js.native
+    def subscribe(observerOrNext: Unit, error: js.Function1[/* error */ Any, Unit], complete: js.Function0[Unit]): Unsubscribable = js.native
     def subscribe(observerOrNext: Unit, error: Unit, complete: js.Function0[Unit]): Unsubscribable = js.native
     def subscribe(observerOrNext: PartialObserver[T]): Unsubscribable = js.native
-    def subscribe(observerOrNext: PartialObserver[T], error: js.Function1[/* error */ js.Any, Unit]): Unsubscribable = js.native
+    def subscribe(observerOrNext: PartialObserver[T], error: js.Function1[/* error */ Any, Unit]): Unsubscribable = js.native
     def subscribe(
       observerOrNext: PartialObserver[T],
-      error: js.Function1[/* error */ js.Any, Unit],
+      error: js.Function1[/* error */ Any, Unit],
       complete: js.Function0[Unit]
     ): Unsubscribable = js.native
     def subscribe(observerOrNext: PartialObserver[T], error: Unit, complete: js.Function0[Unit]): Unsubscribable = js.native
