@@ -93,7 +93,7 @@ lazy val `sbt-converter` = project
     watchSources ++= {
       (sourceDirectory.value ** "*").get
     },
-    libraryDependencies ++= Seq(Deps.awssdkS3, Deps.java8Compat),
+    libraryDependencies ++= Seq(Deps.awssdkS3),
   )
 
 lazy val `import-scalajs-definitions` = project

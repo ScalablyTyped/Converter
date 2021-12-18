@@ -1,13 +1,11 @@
 package org.scalablytyped.converter.internal
 
-import java.net.URI
-import java.util.concurrent.CompletionException
-
 import _root_.io.circe013.syntax._
 import com.olvind.logging.{Formatter, Logger}
 import gigahorse.support.okhttp.Gigahorse
 import okhttp3.{OkHttpClient, Request, Response}
 import org.scalablytyped.converter.internal.ImportTypings.InOut
+import org.scalablytyped.converter.internal.compat.CompletableFutureOps
 import org.scalablytyped.converter.internal.importer.Cmd
 import org.scalablytyped.converter.internal.seqs._
 import org.scalablytyped.converter.plugin.RemoteCache
@@ -21,7 +19,8 @@ import software.amazon.awssdk.services.s3.model.{
 }
 import software.amazon.awssdk.services.s3.{S3AsyncClient, S3AsyncClientBuilder}
 
-import scala.compat.java8.FutureConverters._
+import java.net.URI
+import java.util.concurrent.CompletionException
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.util.control.NonFatal
