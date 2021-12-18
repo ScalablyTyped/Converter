@@ -26,7 +26,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v2-dependencies-{{ checksum "build.sbt" }}
+            - v2-dependencies--{{ checksum "build.sbt" }}
             # fallback to using the latest cache if no exact match is found
             - v2-dependencies-
 
