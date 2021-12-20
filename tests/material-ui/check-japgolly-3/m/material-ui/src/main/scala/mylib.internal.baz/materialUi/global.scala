@@ -41,7 +41,7 @@ private[internal] object global {
       def a: Any = js.native
       inline def a_=(x: Any): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("a")(x.asInstanceOf[js.Any])
       
-      inline def getMuiTheme(muiTheme: MuiTheme*): MuiTheme = ^.asInstanceOf[js.Dynamic].applyDynamic("getMuiTheme")(muiTheme.asInstanceOf[js.Any]).asInstanceOf[MuiTheme]
+      inline def getMuiTheme(muiTheme: MuiTheme*): MuiTheme = ^.asInstanceOf[js.Dynamic].applyDynamic("getMuiTheme")(muiTheme.asInstanceOf[Seq[js.Any]]*).asInstanceOf[MuiTheme]
       
       @JSGlobal("__MaterialUI.Styles.zIndex")
       @js.native

@@ -23,67 +23,67 @@ inline def cloneElement[P](
   element: slinky.core.facade.ReactElement,
   props: typingsSlinky.std.Partial[P] & typingsSlinky.react.mod.Attributes,
   children: slinky.core.facade.ReactElement*
-): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[slinky.core.facade.ReactElement]
+): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
 inline def cloneElement[P](
   element: slinky.core.facade.ReactElement,
   props: scala.Unit,
   children: slinky.core.facade.ReactElement*
-): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[slinky.core.facade.ReactElement]
+): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
 // Custom components
 inline def cloneElement[P](
   element: typingsSlinky.react.mod.FunctionComponentElement[P],
   props: typingsSlinky.std.Partial[P] & typingsSlinky.react.mod.Attributes,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.FunctionComponentElement[P] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.FunctionComponentElement[P]]
+): typingsSlinky.react.mod.FunctionComponentElement[P] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.FunctionComponentElement[P]]
 inline def cloneElement[P](
   element: typingsSlinky.react.mod.FunctionComponentElement[P],
   props: scala.Unit,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.FunctionComponentElement[P] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.FunctionComponentElement[P]]
+): typingsSlinky.react.mod.FunctionComponentElement[P] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.FunctionComponentElement[P]]
 // DOM Element (has to be the last, because type checking stops at first overload that fits)
 inline def cloneElement[P /* <: typingsSlinky.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.Element */](
   element: slinky.core.facade.ReactElement,
   props: typingsSlinky.react.mod.DOMAttributes[T] & P,
   children: slinky.core.facade.ReactElement*
-): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[slinky.core.facade.ReactElement]
+): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
 inline def cloneElement[P, T /* <: slinky.core.ReactComponentClass[P] */](
   element: typingsSlinky.react.mod.CElement[P, T],
   props: typingsSlinky.std.Partial[P] & typingsSlinky.react.mod.ClassAttributes[T],
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.CElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.CElement[P, T]]
+): typingsSlinky.react.mod.CElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.CElement[P, T]]
 inline def cloneElement[P, T /* <: slinky.core.ReactComponentClass[P] */](
   element: typingsSlinky.react.mod.CElement[P, T],
   props: scala.Unit,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.CElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.CElement[P, T]]
+): typingsSlinky.react.mod.CElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.CElement[P, T]]
 // ReactHTMLElement, less specific
 inline def cloneElement[P /* <: typingsSlinky.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.HTMLElement */](
   element: typingsSlinky.react.mod.ReactHTMLElement[T],
   props: P,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.ReactHTMLElement[T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.ReactHTMLElement[T]]
+): typingsSlinky.react.mod.ReactHTMLElement[T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.ReactHTMLElement[T]]
 inline def cloneElement[P /* <: typingsSlinky.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.HTMLElement */](
   element: typingsSlinky.react.mod.ReactHTMLElement[T],
   props: scala.Unit,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.ReactHTMLElement[T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.ReactHTMLElement[T]]
+): typingsSlinky.react.mod.ReactHTMLElement[T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.ReactHTMLElement[T]]
 // SVGElement
 inline def cloneElement[P /* <: typingsSlinky.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.SVGElement */](
   element: typingsSlinky.react.mod.ReactSVGElement,
   props: P,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.ReactSVGElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.ReactSVGElement]
+): typingsSlinky.react.mod.ReactSVGElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.ReactSVGElement]
 inline def cloneElement[P /* <: typingsSlinky.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.SVGElement */](
   element: typingsSlinky.react.mod.ReactSVGElement,
   props: scala.Unit,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.ReactSVGElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.ReactSVGElement]
+): typingsSlinky.react.mod.ReactSVGElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.ReactSVGElement]
 
 inline def cloneElement_P_DOMAttributesTT_Element[P /* <: typingsSlinky.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.Element */](
   element: slinky.core.facade.ReactElement,
   props: scala.Unit,
   children: slinky.core.facade.ReactElement*
-): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[slinky.core.facade.ReactElement]
+): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
 
 // DOM Elements
 // ReactHTMLElement
@@ -91,12 +91,12 @@ inline def cloneElement_P_HTMLAttributesTT_HTMLElement_DetailedReactHTMLElement[
   element: typingsSlinky.react.mod.DetailedReactHTMLElement[P, T],
   props: P,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.DetailedReactHTMLElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[P, T]]
+): typingsSlinky.react.mod.DetailedReactHTMLElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[P, T]]
 inline def cloneElement_P_HTMLAttributesTT_HTMLElement_DetailedReactHTMLElement[P /* <: typingsSlinky.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.HTMLElement */](
   element: typingsSlinky.react.mod.DetailedReactHTMLElement[P, T],
   props: scala.Unit,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.DetailedReactHTMLElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[P, T]]
+): typingsSlinky.react.mod.DetailedReactHTMLElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[P, T]]
 
 inline def createContext[T](defaultValue: T): typingsSlinky.react.mod.Context[T] = typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createContext")(defaultValue.asInstanceOf[js.Any]).asInstanceOf[typingsSlinky.react.mod.Context[T]]
 inline def createContext[T](defaultValue: T, calculateChangedBits: js.Function2[/* prev */ T, /* next */ T, scala.Double]): typingsSlinky.react.mod.Context[T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createContext")(defaultValue.asInstanceOf[js.Any], calculateChangedBits.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.Context[T]]
@@ -105,111 +105,111 @@ inline def createElement[P /* <: js.Object */](
   `type`: java.lang.String,
   props: typingsSlinky.react.mod.Attributes & P,
   children: slinky.core.facade.ReactElement*
-): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[slinky.core.facade.ReactElement]
-inline def createElement[P /* <: js.Object */](`type`: java.lang.String, props: scala.Null, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[slinky.core.facade.ReactElement]
-inline def createElement[P /* <: js.Object */](`type`: java.lang.String, props: scala.Unit, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[slinky.core.facade.ReactElement]
+): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
+inline def createElement[P /* <: js.Object */](`type`: java.lang.String, props: scala.Null, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
+inline def createElement[P /* <: js.Object */](`type`: java.lang.String, props: scala.Unit, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
 inline def createElement[P /* <: js.Object */](
   `type`: slinky.core.ReactComponentClass[P],
   props: typingsSlinky.react.mod.Attributes & P,
   children: slinky.core.facade.ReactElement*
-): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[slinky.core.facade.ReactElement]
+): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
 inline def createElement[P /* <: js.Object */](
   `type`: slinky.core.ReactComponentClass[P],
   props: scala.Null,
   children: slinky.core.facade.ReactElement*
-): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[slinky.core.facade.ReactElement]
+): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
 inline def createElement[P /* <: js.Object */](
   `type`: slinky.core.ReactComponentClass[P],
   props: scala.Unit,
   children: slinky.core.facade.ReactElement*
-): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[slinky.core.facade.ReactElement]
+): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
 inline def createElement[P /* <: js.Object */](
   `type`: typingsSlinky.react.mod.ClassType[P, slinky.core.ReactComponentClass[P], slinky.core.ReactComponentClass[P]],
   props: typingsSlinky.react.mod.ClassAttributes[slinky.core.ReactComponentClass[P]] & P,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.CElement[P, slinky.core.ReactComponentClass[P]] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.CElement[P, slinky.core.ReactComponentClass[P]]]
+): typingsSlinky.react.mod.CElement[P, slinky.core.ReactComponentClass[P]] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.CElement[P, slinky.core.ReactComponentClass[P]]]
 inline def createElement[P /* <: js.Object */](
   `type`: typingsSlinky.react.mod.ClassType[P, slinky.core.ReactComponentClass[P], slinky.core.ReactComponentClass[P]],
   props: scala.Null,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.CElement[P, slinky.core.ReactComponentClass[P]] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.CElement[P, slinky.core.ReactComponentClass[P]]]
+): typingsSlinky.react.mod.CElement[P, slinky.core.ReactComponentClass[P]] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.CElement[P, slinky.core.ReactComponentClass[P]]]
 inline def createElement[P /* <: js.Object */](
   `type`: typingsSlinky.react.mod.ClassType[P, slinky.core.ReactComponentClass[P], slinky.core.ReactComponentClass[P]],
   props: scala.Unit,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.CElement[P, slinky.core.ReactComponentClass[P]] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.CElement[P, slinky.core.ReactComponentClass[P]]]
+): typingsSlinky.react.mod.CElement[P, slinky.core.ReactComponentClass[P]] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.CElement[P, slinky.core.ReactComponentClass[P]]]
 inline def createElement[P /* <: typingsSlinky.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.HTMLElement */](
   `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ scala.Any,
   props: typingsSlinky.react.mod.ClassAttributes[T] & P,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.DetailedReactHTMLElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[P, T]]
+): typingsSlinky.react.mod.DetailedReactHTMLElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[P, T]]
 inline def createElement[P /* <: typingsSlinky.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.HTMLElement */](
   `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ scala.Any,
   props: scala.Null,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.DetailedReactHTMLElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[P, T]]
+): typingsSlinky.react.mod.DetailedReactHTMLElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[P, T]]
 inline def createElement[P /* <: typingsSlinky.react.mod.HTMLAttributes[T] */, T /* <: org.scalajs.dom.HTMLElement */](
   `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ scala.Any,
   props: scala.Unit,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.DetailedReactHTMLElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[P, T]]
+): typingsSlinky.react.mod.DetailedReactHTMLElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[P, T]]
 
 inline def createElement_P_DOMAttributesTT_Element[P /* <: typingsSlinky.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.Element */](
   `type`: java.lang.String,
   props: typingsSlinky.react.mod.ClassAttributes[T] & P,
   children: slinky.core.facade.ReactElement*
-): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[slinky.core.facade.ReactElement]
-inline def createElement_P_DOMAttributesTT_Element[P /* <: typingsSlinky.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.Element */](`type`: java.lang.String, props: scala.Null, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[slinky.core.facade.ReactElement]
-inline def createElement_P_DOMAttributesTT_Element[P /* <: typingsSlinky.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.Element */](`type`: java.lang.String, props: scala.Unit, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[slinky.core.facade.ReactElement]
+): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
+inline def createElement_P_DOMAttributesTT_Element[P /* <: typingsSlinky.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.Element */](`type`: java.lang.String, props: scala.Null, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
+inline def createElement_P_DOMAttributesTT_Element[P /* <: typingsSlinky.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.Element */](`type`: java.lang.String, props: scala.Unit, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
 
 inline def createElement_P_ObjectT_ReactComponentClassPC_ReactComponentClassP_CElement[P /* <: js.Object */, T /* <: slinky.core.ReactComponentClass[P] */, C /* <: slinky.core.ReactComponentClass[P] */](
   `type`: typingsSlinky.react.mod.ClassType[P, T, C],
   props: typingsSlinky.react.mod.ClassAttributes[T] & P,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.CElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.CElement[P, T]]
+): typingsSlinky.react.mod.CElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.CElement[P, T]]
 inline def createElement_P_ObjectT_ReactComponentClassPC_ReactComponentClassP_CElement[P /* <: js.Object */, T /* <: slinky.core.ReactComponentClass[P] */, C /* <: slinky.core.ReactComponentClass[P] */](
   `type`: typingsSlinky.react.mod.ClassType[P, T, C],
   props: scala.Null,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.CElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.CElement[P, T]]
+): typingsSlinky.react.mod.CElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.CElement[P, T]]
 inline def createElement_P_ObjectT_ReactComponentClassPC_ReactComponentClassP_CElement[P /* <: js.Object */, T /* <: slinky.core.ReactComponentClass[P] */, C /* <: slinky.core.ReactComponentClass[P] */](
   `type`: typingsSlinky.react.mod.ClassType[P, T, C],
   props: scala.Unit,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.CElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.CElement[P, T]]
+): typingsSlinky.react.mod.CElement[P, T] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.CElement[P, T]]
 
 // Custom components
 inline def createElement_P_Object_FunctionComponentElement[P /* <: js.Object */](
   `type`: slinky.core.ReactComponentClass[P],
   props: typingsSlinky.react.mod.Attributes & P,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.FunctionComponentElement[P] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.FunctionComponentElement[P]]
+): typingsSlinky.react.mod.FunctionComponentElement[P] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.FunctionComponentElement[P]]
 inline def createElement_P_Object_FunctionComponentElement[P /* <: js.Object */](
   `type`: slinky.core.ReactComponentClass[P],
   props: scala.Null,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.FunctionComponentElement[P] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.FunctionComponentElement[P]]
+): typingsSlinky.react.mod.FunctionComponentElement[P] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.FunctionComponentElement[P]]
 inline def createElement_P_Object_FunctionComponentElement[P /* <: js.Object */](
   `type`: slinky.core.ReactComponentClass[P],
   props: scala.Unit,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.FunctionComponentElement[P] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.FunctionComponentElement[P]]
+): typingsSlinky.react.mod.FunctionComponentElement[P] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.FunctionComponentElement[P]]
 
 inline def createElement_P_SVGAttributesTT_SVGElement_ReactSVGElement[P /* <: typingsSlinky.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.SVGElement */](
   `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ scala.Any,
   props: typingsSlinky.react.mod.ClassAttributes[T] & P,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.ReactSVGElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.ReactSVGElement]
+): typingsSlinky.react.mod.ReactSVGElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.ReactSVGElement]
 inline def createElement_P_SVGAttributesTT_SVGElement_ReactSVGElement[P /* <: typingsSlinky.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.SVGElement */](
   `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ scala.Any,
   props: scala.Null,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.ReactSVGElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.ReactSVGElement]
+): typingsSlinky.react.mod.ReactSVGElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.ReactSVGElement]
 inline def createElement_P_SVGAttributesTT_SVGElement_ReactSVGElement[P /* <: typingsSlinky.react.mod.SVGAttributes[T] */, T /* <: org.scalajs.dom.SVGElement */](
   `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ scala.Any,
   props: scala.Unit,
   children: slinky.core.facade.ReactElement*
-): typingsSlinky.react.mod.ReactSVGElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.ReactSVGElement]
+): typingsSlinky.react.mod.ReactSVGElement = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.ReactSVGElement]
 
 // DOM Elements
 // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
@@ -219,7 +219,7 @@ inline def createElement_input(
   children: slinky.core.facade.ReactElement*
 ): typingsSlinky.react.mod.DetailedReactHTMLElement[
 typingsSlinky.react.mod.InputHTMLAttributes[org.scalajs.dom.HTMLInputElement], 
-org.scalajs.dom.HTMLInputElement] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[
+org.scalajs.dom.HTMLInputElement] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[
 typingsSlinky.react.mod.InputHTMLAttributes[org.scalajs.dom.HTMLInputElement], 
 org.scalajs.dom.HTMLInputElement]]
 inline def createElement_input(
@@ -228,7 +228,7 @@ inline def createElement_input(
   children: slinky.core.facade.ReactElement*
 ): typingsSlinky.react.mod.DetailedReactHTMLElement[
 typingsSlinky.react.mod.InputHTMLAttributes[org.scalajs.dom.HTMLInputElement], 
-org.scalajs.dom.HTMLInputElement] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[
+org.scalajs.dom.HTMLInputElement] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[
 typingsSlinky.react.mod.InputHTMLAttributes[org.scalajs.dom.HTMLInputElement], 
 org.scalajs.dom.HTMLInputElement]]
 inline def createElement_input(
@@ -237,7 +237,7 @@ inline def createElement_input(
   children: slinky.core.facade.ReactElement*
 ): typingsSlinky.react.mod.DetailedReactHTMLElement[
 typingsSlinky.react.mod.InputHTMLAttributes[org.scalajs.dom.HTMLInputElement], 
-org.scalajs.dom.HTMLInputElement] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[js.Any])).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[
+org.scalajs.dom.HTMLInputElement] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[scala.Seq[js.Any]])*)).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement[
 typingsSlinky.react.mod.InputHTMLAttributes[org.scalajs.dom.HTMLInputElement], 
 org.scalajs.dom.HTMLInputElement]]
 
