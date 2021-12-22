@@ -146,7 +146,7 @@ object Mangler extends TreeTransformation {
               )
           }
 
-          Cast(call(m.params.flatten.map(p => Cast(Ref(p.name), TypeRef.JsAny))), m.resultType)
+          Cast(call(forwardParams(m)), m.resultType)
         }
 
         if (pkg.index(m.name).exists(_.isInstanceOf[ClassTree])) {
@@ -296,7 +296,7 @@ object Mangler extends TreeTransformation {
                 )
             }
 
-            Cast(call(m.params.flatten.map(p => Cast(Ref(p.name), TypeRef.JsAny))), m.resultType)
+            Cast(call(forwardParams(m)), m.resultType)
           }
 
           if (mod.index(m.name).exists(_.isInstanceOf[ClassTree])) {
@@ -466,4 +466,40 @@ object Mangler extends TreeTransformation {
         mod.copy(comments = comments, parents = mod.parents :+ parent, members = IArray(to, To) ++ mod.members)
     }
   }
+
+  /**
+    * When forwarding from a pure scala function to a javascript function through `js.Dynamic` we need to handle two things
+    * 1) All arguments must extend `js.Any`. We cast to ensure
+    *
+    * 2) Repeated arguments must be repeated also. this is problematic if there are also non-repeated arguments.
+    *    It is problematic because of a scala limitation in combination with `js.Dynamic`. The error you'll see is this
+    *    {{{
+    *    [E]       Sequence argument type annotation `*` cannot be used here:
+    *    [E]       it is not the only argument to be passed to the corresponding repeated parameter scala.scalajs.js.Any*
+    *    [E]       L240: org.scalajs.dom.HTMLInputElement] = (typingsSlinky.react.mod.^.asInstanceOf[js.Dynamic].applyDynamic("createElement")(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any], children.asInstanceOf[scala.Seq[js.Any]]*)).asInstanceOf[typingsSlinky.react.mod.DetailedReactHTMLElement
+    *   }}}
+    *
+    * So in that case we build a [[scala.List]] with all parameters and apply the method with that list with varargs syntax.
+    *
+    * @param m the method we're forwarding parameters for
+    * @return list of new arguments to put into a [[Call]]
+    */
+  private def forwardParams(m: MethodTree): IArray[Arg] =
+    m.params.flatten match {
+      case IArray.initLast(init, ParamTree(repeatedName, _, _, TypeRef.Repeated(_, _), _, _)) =>
+        val repeatedAsJsAnySeq =
+          Cast(Ref(repeatedName), TypeRef(QualifiedName.scala + Name("Seq"), IArray(TypeRef.JsAny), NoComments))
+
+        if (init.isEmpty) IArray(`:_*`(repeatedAsJsAnySeq))
+        else {
+          // cast normal parameters to js.Any and put into `List`
+          val initialParamsInList: Call =
+            Call(Ref(QualifiedName.scala + Name("List")), IArray(init.map(p => Cast(Ref(p.name), TypeRef.JsAny))))
+
+          val concatenated = Call(initialParamsInList.select("++"), IArray(IArray(repeatedAsJsAnySeq)))
+          IArray(`:_*`(concatenated))
+        }
+      case params =>
+        params.map(p => Cast(Ref(p.name), TypeRef.JsAny))
+    }
 }
