@@ -1,5 +1,7 @@
 package typingsSlinky.std
 
+import org.scalablytyped.runtime.StringDictionary
+import org.scalablytyped.runtime.TopLevel
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -140,21 +142,21 @@ type KeyboardEvent = org.scalajs.dom.Event
 
 type MouseEvent = org.scalajs.dom.Event
 
-type Omit[T, K /* <: /* keyof any */ java.lang.String */] = typingsSlinky.std.Pick[T, typingsSlinky.std.Exclude[/* keyof T */ java.lang.String, K]]
+type Omit[T, K /* <: /* keyof any */ String */] = Pick[T, Exclude[/* keyof T */ String, K]]
 
 /**
   * Make all properties in T optional
   */
 type Partial[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
 {[ P in keyof T ]:? T[P]}
-  */ typingsSlinky.std.stdStrings.Partial & org.scalablytyped.runtime.TopLevel[T]
+  */ typingsSlinky.std.stdStrings.Partial & TopLevel[T]
 
 /**
   * From T pick a set of properties K
   */
-type Pick[T, K /* <: /* keyof T */ java.lang.String */] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
+type Pick[T, K /* <: /* keyof T */ String */] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
 {[ P in K ]: T[P]}
-  */ typingsSlinky.std.stdStrings.Pick & org.scalablytyped.runtime.TopLevel[T]
+  */ typingsSlinky.std.stdStrings.Pick & TopLevel[T]
 
 type PointerEvent = org.scalajs.dom.Event
 
@@ -163,12 +165,12 @@ type PointerEvent = org.scalajs.dom.Event
   */
 type Readonly[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
 {readonly [ P in keyof T ]: T[P]}
-  */ typingsSlinky.std.stdStrings.Readonly & org.scalablytyped.runtime.TopLevel[T]
+  */ typingsSlinky.std.stdStrings.Readonly & TopLevel[T]
 
 /**
   * Construct a type with a set of properties K of type T
   */
-type Record[K /* <: /* keyof any */ java.lang.String */, T] = org.scalablytyped.runtime.StringDictionary[T]
+type Record[K /* <: /* keyof any */ String */, T] = StringDictionary[T]
 
 type SVGCircleElement = org.scalajs.dom.SVGElement
 

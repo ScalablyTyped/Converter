@@ -155,8 +155,11 @@ object Printer {
 
         case (ScalaOutput.PackageObject, members) if scalaVersion.is3 =>
           reg.write(targetFolder / packageScalaFileName) { writer =>
+            val (imports, shortenedMembers) =
+              ShortenNames(tree, scope, parentsResolver)(members)
             writer.println(s"package ${formatQN(QualifiedName(packages))}")
             writer.println("")
+            imports.foreach(i => writer.println(s"import ${formatQN(i.imported)}"))
             writer.println(Imports)
             writer.println("")
             printTrees(
@@ -167,7 +170,7 @@ object Printer {
               packages,
               targetFolder,
               if (scalaVersion.is3) 0 else 2,
-              members,
+              shortenedMembers,
             )
           }
 

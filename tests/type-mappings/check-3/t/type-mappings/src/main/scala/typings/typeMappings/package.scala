@@ -1,26 +1,36 @@
 package typings.typeMappings
 
+import org.scalablytyped.runtime.Instantiable0
+import org.scalablytyped.runtime.TopLevel
+import typings.std.Exclude
+import typings.std.InstanceType
+import typings.std.NonNullable
+import typings.std.Partial
+import typings.std.Pick
+import typings.std.ReturnType
+import typings.typeMappings.anon.Age
+import typings.typeMappings.anon.Name
+import typings.typeMappings.typeMappingsStrings.age
+import typings.typeMappings.typeMappingsStrings.name
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 
-type Double[T] = typings.std.Partial[typings.std.Partial[T]]
+type Double[T] = Partial[Partial[T]]
 
-type IPersonRecord = typings.typeMappings.PersonRecord
+type IPersonRecord = PersonRecord
 
-type NewedPerson = typings.std.InstanceType[org.scalablytyped.runtime.Instantiable0[typings.typeMappings.Person]]
+type NewedPerson = InstanceType[Instantiable0[Person]]
 
-type NonNullablePerson = typings.std.NonNullable[typings.typeMappings.Person]
+type NonNullablePerson = NonNullable[Person]
 
-type Omit[T, K /* <: /* keyof any */ java.lang.String */] = typings.std.Pick[T, typings.std.Exclude[/* keyof T */ java.lang.String, K]]
+type Omit[T, K /* <: /* keyof any */ String */] = Pick[T, Exclude[/* keyof T */ String, K]]
 
 type Proxify[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
 {[ P in keyof T ]: {get (): T[P], set (v : T[P]): void}}
-  */ typings.typeMappings.typeMappingsStrings.Proxify & org.scalablytyped.runtime.TopLevel[scala.Any]
+  */ typings.typeMappings.typeMappingsStrings.Proxify & TopLevel[Any]
 
-type ReturnedPerson = typings.std.ReturnType[js.Function0[typings.typeMappings.Person]]
+type ReturnedPerson = ReturnType[js.Function0[Person]]
 
-type T = typings.std.Pick[
-typings.typeMappings.anon.Name | typings.typeMappings.anon.Age, 
-typings.typeMappings.typeMappingsStrings.name & typings.typeMappings.typeMappingsStrings.age]
+type T = Pick[Name | Age, name & age]

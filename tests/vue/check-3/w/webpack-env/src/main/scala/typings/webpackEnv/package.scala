@@ -1,10 +1,12 @@
 package typings.webpackEnv
 
+import typings.webpackEnv.WebpackModuleApi.Module
+import typings.webpackEnv.WebpackModuleApi.RequireFunction
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 
-type NodeModule = typings.webpackEnv.WebpackModuleApi.Module
+type NodeModule = Module
 
-type NodeRequire = typings.webpackEnv.WebpackModuleApi.RequireFunction
+type NodeRequire = RequireFunction

@@ -5,6 +5,6 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 
-type Array[T] = scala.Any
+type Array[T] = Any
 
-type PromiseLike[T] = scala.Any
+type PromiseLike[T] = Any

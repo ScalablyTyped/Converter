@@ -1,18 +1,21 @@
 package typingsSlinky.semanticUiReact.genericMod
 
+import slinky.core.facade.ReactElement
+import typingsSlinky.react.mod.ReactNodeArray
+import typingsSlinky.react.mod.ReactType
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 
-type SemanticShorthandCollection[TProps] = js.Array[typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem[TProps]]
+type SemanticShorthandCollection[TProps] = js.Array[SemanticShorthandItem[TProps]]
 
-type SemanticShorthandContent = slinky.core.facade.ReactElement
+type SemanticShorthandContent = ReactElement
 
-type SemanticShorthandItem[TProps] = slinky.core.facade.ReactElement | TProps | typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItemFunc[TProps]
+type SemanticShorthandItem[TProps] = ReactElement | TProps | SemanticShorthandItemFunc[TProps]
 
 type SemanticShorthandItemFunc[TProps] = js.Function3[
-/* component */ typingsSlinky.react.mod.ReactType[TProps], 
+/* component */ ReactType[TProps], 
 /* props */ TProps, 
-/* children */ js.UndefOr[slinky.core.facade.ReactElement | typingsSlinky.react.mod.ReactNodeArray], 
-slinky.core.facade.ReactElement | scala.Null]
+/* children */ js.UndefOr[ReactElement | ReactNodeArray], 
+ReactElement | Null]

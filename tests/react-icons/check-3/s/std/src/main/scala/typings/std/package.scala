@@ -7,4 +7,4 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 type Partial[T] = T
 
-type SVGElement = typings.std.Element
+type SVGElement = Element
