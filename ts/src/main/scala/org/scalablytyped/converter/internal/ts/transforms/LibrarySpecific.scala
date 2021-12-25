@@ -30,24 +30,6 @@ object LibrarySpecific {
               ta.copy(alias = TsTypeIntersect(omit.tparams.head +: rest))
             case _ => ta
           }
-
-        /* resolve circular set of type aliases */
-        case TsDeclTypeAlias(cs, d, name @ TsIdent("InterpolationFunction"), tps, TsTypeFunction(sig), cp) =>
-          val call = IArray(TsMemberCall(NoComments, TsProtectionLevel.Default, sig))
-          TsDeclInterface(cs, d, name, tps, Empty, call, cp)
-        case other => other
-      }
-  }
-
-  object emotion extends Named {
-    override val libName = TsIdentLibraryScoped("emotion", "serialize")
-
-    override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl =
-      x match {
-        /* resolve circular set of type aliases */
-        case TsDeclTypeAlias(cs, d, name @ TsIdent("FunctionInterpolation"), tps, TsTypeFunction(sig), cp) =>
-          val call = IArray(TsMemberCall(NoComments, TsProtectionLevel.Default, sig))
-          TsDeclInterface(cs, d, name, tps, Empty, call, cp)
         case other => other
       }
   }
@@ -62,29 +44,6 @@ object LibrarySpecific {
           merge.copy(alias = TsTypeIntersect(TsTypeParam.asTypeArgs(tparams)))
         case other => other
       }
-  }
-
-  object atUifabricFoundation extends Named {
-    override val libName: TsIdentLibrary = TsIdentLibraryScoped("uifabric", "foundation")
-
-    override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl = x match {
-      /* break circular dependency */
-      case TsDeclTypeAlias(cs, d, name @ TsIdent("ITokenFunction"), tps, TsTypeFunction(sig), cp) =>
-        val call = IArray(TsMemberCall(NoComments, TsProtectionLevel.Default, sig))
-        TsDeclInterface(cs, d, name, tps, Empty, call, cp)
-      case other => other
-    }
-  }
-
-  object emberPolyfills extends Named {
-    override val libName: TsIdentLibrary = TsIdentLibraryScoped("ember", "polyfills")
-
-    override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl = x match {
-      /* Error: cyclic aliasing or subtyping involving type Mix */
-      case ta @ TsDeclTypeAlias(_, _, name, tps, _, _) if name.value.startsWith("Mix") =>
-        ta.copy(alias = TsTypeIntersect(TsTypeParam.asTypeArgs(tps)))
-      case other => other
-    }
   }
 
   object semanticUiReact extends Named {
@@ -222,7 +181,7 @@ object LibrarySpecific {
   }
 
   val patches: Map[TsIdentLibrary, Named] =
-    IArray(atUifabricFoundation, aMap, emberPolyfills, emotion, react, semanticUiReact, std, styledComponents)
+    IArray(aMap, react, semanticUiReact, std, styledComponents)
       .map(x => x.libName -> x)
       .toMap
 

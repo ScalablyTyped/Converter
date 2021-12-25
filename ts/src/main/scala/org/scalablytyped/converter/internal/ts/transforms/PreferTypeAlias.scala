@@ -2,216 +2,246 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-import scala.collection.mutable
+import com.olvind.logging.Logger
 
-object PreferTypeAlias extends TreeTransformationScopedChanges {
-  override def enterTsDecl(scope: TsTreeScope)(x: TsDecl): TsDecl =
-    x match {
+import scala.collection.{mutable, Map}
 
-      /**
-        * Given this:
-        * ```typescript
-        * interface Foo { [key: string]: value}
-        * ```
-        * We would normally end up with
-        * ```scala
-        * trait Foo extends StringDictionary[value]
-        * ```
-        * There is little value in keep these two types distinct
-        */
-      case i @ TsDeclInterface(comments, declared, name, tparams, Empty, members, codePath)
-          if TsType.isTypeMapping(members) || ExtractInterfaces.isDictionary(members) =>
-        if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), scope, members.head)) i
-        else
-          TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(NoComments, members), codePath)
+object PreferTypeAlias {
+  // we'll rewrite `target` to not point to any types in `circular`
+  case class Rewrite(target:         TsQIdent, circular: Set[TsQIdent])
+  case class CircularGroup(typeRefs: List[TsTypeRef])
 
-      /* the opposite of former */
-      case ta @ TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(_, members), codePath)
-          if ExtractInterfaces.isDictionary(members) =>
-        if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), scope, members.head))
-          TsDeclInterface(comments, declared, name, tparams, Empty, members, codePath)
-        else ta
+  def apply(lib: TsParsedFile, rootScope: TsTreeScope): TsParsedFile = {
+    val withTypeAliasPreferred = PreferTypeAliasVisitor.visitTsParsedFile(rootScope)(lib)
 
-      /**
-        * Given this:
-        * ```typescript
-        * interface Foo {bar: number}
-        * interface Bar extends Foo {}
-        * ```
-        * In Typescript these two are structurally equal while in nominally typed Scala we need to cast a `Foo` to a `Bar`
-        * For this reason we rewrite to a type alias to keep it as convenient.
-        *
-        * ```typescript
-        * interface Foo {bar: number}
-        * type Bar = Foo
-        * ```
-        * Note that we rewrite interfaces which extends one type, not more.
-        * The reason is that scala wont't let you `new` an intersection type
-        */
-      case i @ TsDeclInterface(
-            comments,
-            declared,
-            name,
-            tparams,
-            IArray.exactlyOne(singleInheritance),
-            Empty,
-            codePath,
-          ) =>
-        if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), scope, singleInheritance)) i
-        else TsDeclTypeAlias(comments, declared, name, tparams, singleInheritance, codePath)
+    val scope = rootScope / withTypeAliasPreferred
+    val groups: Set[CircularGroup] = findGroups(withTypeAliasPreferred, scope)
 
-      /**
-        * We do this rewrite because in Scala we have no way to instantiate a new instance of `Foo`
-        *
-        * ``typescript
-        * interface Foo {&LT;T extends object&GT;(a: T) => void}
-        * ```
-        * =>
-        * ```typescript
-        * type Foo = (a: object) => void;
-        * ```
-        **/
-      case IsFunction(typeAlias) =>
-        if (hasCircularReference(typeAlias.codePath.forceHasPath.codePath, mutable.Set(), scope, typeAlias.alias)) x
-        else {
-          scope.logger.info("Simplified to function type alias")
-          typeAlias
-        }
+    val allNamesInGroup = groups.flatMap(_.typeRefs.map(_.name))
 
-      /**
-        * There is also a case where we prefer interfaces:
-        * ```typescript
-        * type Foo = { bar: number }
-        * ```
-        * We would end up with the following given the logic in `ExtractInterfaces`:
-        * ```scala
-        * trait Anon_Bar { bar: Double}
-        * trait Foo extends Anon_Bar
-        * ```
-        *
-        * So we rewrite it early instead.
-        *
-        * We also handle `type Bar = {something: number} | {whatever: string}`
-        * and rewrite it into
-        * `interface Bar { something: | undefined, whatever: string | undefined }`
-        */
-      case TsDeclTypeAlias(cs, dec, name, tparams, AllTypeObjects(members), cp)
-          if members.nonEmpty &&
-            !TsType.isTypeMapping(members) &&
-            !ExtractInterfaces.isDictionary(members) =>
-        TsDeclInterface(cs, dec, name, tparams, Empty, members, cp)
-
-      /**
-        * Rewrite this:
-        * ```typescript
-        * export type RuleSetConditions = RuleSetCondition[];
-        * export type RuleSetCondition =
-        * | RegExp
-        * | RuleSetConditions
-        * ````
-        *
-        * to
-        * ```typescript
-        * export interface RuleSetConditions extends RuleSetCondition[] {};
-        * export type RuleSetCondition =
-        * | RegExp
-        * | RuleSetConditions
-        * `
-        *
-        * Only the latter will be legal in scala, unfortunately
-        */
-      case ta @ TsDeclTypeAlias(
-            cs,
-            dec,
-            name,
-            tparams,
-            arr @ TsTypeRef(_, TsQIdent.Std.Array | TsQIdent.Std.ReadonlyArray, IArray.exactlyOne(t)),
-            cp,
-          ) =>
-        if (hasCircularReference(cp.forceHasPath.codePath, mutable.Set(), scope, t))
-          TsDeclInterface(cs, dec, name, tparams, inheritance = IArray(arr), members = Empty, codePath = cp)
-        else ta
-
-      /* Encoding varargs as a type alias is rather pointless since we'll lose the varargs */
-      case TsDeclTypeAlias(cs, dec, name, tparams, TsTypeFunction(sig @ TsFunSig(_, _, params, _)), cp)
-          if params.exists(_.tpe.exists(_.isInstanceOf[TsTypeRepeated])) =>
-        val call = TsMemberCall(NoComments, TsProtectionLevel.Default, sig)
-        TsDeclInterface(cs, dec, name, tparams, inheritance = Empty, members = IArray(call), codePath = cp)
-
-      case other =>
-        other
-    }
-
-  private object IsFunction {
-    def unapply(i: TsDeclInterface): Option[TsDeclTypeAlias] =
-      if (i.members.length =/= 1 || i.inheritance.nonEmpty) None
-      else {
-        i.members.head match {
-          case call: TsMemberCall =>
-            Some(TsDeclTypeAlias(i.comments, i.declared, i.name, i.tparams, TsTypeFunction(call.signature), i.codePath))
-          case _ => None
+    // prefer these since they give good results when translating to a circular-safe interface
+    val preferredRewrites: Set[TsQIdent] =
+      allNamesInGroup.flatMap { name =>
+        FollowAliases(scope)(TsTypeRef(name)) match {
+          case TsTypeRef(_, dealiased, _) if dealiased.parts.last.value =/= "Array" => Some(dealiased)
+          case TsTypeFunction(_)                                                    => Some(name)
+          case TsTypeObject(_, members) if !TsType.isTypeMapping(members)           => Some(name)
+          case _                                                                    => None
         }
       }
+
+    val rewrites = breakCircularGroups(groups, preferredRewrites)
+
+    rewrites.foreach(r =>
+      scope.logger
+        .withContext(r.circular.map(TsTypeFormatter.qident))
+        .info(s"Rewriting: ${TsTypeFormatter.qident(r.target)} to break circular graph"),
+    )
+
+    new AvoidCircularVisitor(rewrites).visitTsParsedFile(rootScope)(withTypeAliasPreferred)
   }
 
-  /** Simulate that we have already ran `PreferTypeAlias` on `tree` somehow.
-    *
-    * The point is that as long as we know that `tree` is not going to be
-    *  a type alias itself, we can ignore the members
-    */
-  def memberHack(tree: TsTree): TsTree =
-    tree match {
-      case x: TsDeclInterface =>
-        val newMembers = x.members.collect {
-          case x: TsMemberCall => x
+  def findGroups(lib: TsParsedFile, scope: TsTreeScope): Set[CircularGroup] = {
+    val found     = Set.newBuilder[CircularGroup]
+    val libPrefix = lib.codePath.forceHasPath.codePath
+
+    def look(container: TsContainer): Unit =
+      container.members.foreach {
+        case ta: TsDeclTypeAlias =>
+          val ref = TsTypeRef(NoComments, ta.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(ta.tparams))
+
+          isInRecursiveGroup(scope / ta, List(ref), ta.alias, Empty).foreach { rawGroup =>
+            val group = CircularGroup(rawGroup.typeRefs.filter(_.name.parts.startsWith(libPrefix.parts)))
+            if (group.typeRefs.nonEmpty)
+              found += group
+
+          }
+        case c: TsContainer => look(c)
+        case _ => ()
+      }
+
+    look(lib)
+
+    found.result()
+  }
+
+  def isInRecursiveGroup(
+      scope:        TsTreeScope,
+      acc:          List[TsTypeRef],
+      current:      TsType,
+      lastTypeArgs: IArray[TsType],
+  ): IArray[CircularGroup] = {
+    def anyOf(
+        scope:        TsTreeScope,
+        acc:          List[TsTypeRef],
+        types:        IArray[TsType],
+        lastTypeArgs: IArray[TsType],
+    ): IArray[CircularGroup] =
+      types.flatMap(tpe => isInRecursiveGroup(scope, acc, tpe, lastTypeArgs))
+
+    def sig(
+        scope:        TsTreeScope,
+        acc:          List[TsTypeRef],
+        sig:          TsFunSig,
+        lastTypeArgs: IArray[TsType],
+    ): IArray[CircularGroup] = {
+      val types =
+        sig.tparams.mapNotNone(_.upperBound) ++
+          sig.params.mapNotNone(_.tpe) ++
+          IArray.fromOption(sig.resultType)
+      anyOf(scope / sig, acc, types, lastTypeArgs)
+    }
+    current match {
+      case x: TsTypeRef =>
+        val evaluated: IArray[CircularGroup] =
+          if (acc.contains(x)) IArray(CircularGroup(acc))
+          /* some types grow unbounded as we expand them without a reduction step. this may cause false positives, but it keeps code compiling */
+          else if (acc.count(_.name === x.name) > 3) IArray(CircularGroup(acc))
+          else
+            scope.lookupType(x.name).flatMap {
+              case ta: TsDeclTypeAlias =>
+                val alias = FillInTParams(ta, x.tparams).alias
+                isInRecursiveGroup(scope / ta, x :: acc, alias, x.tparams)
+              case _ => Empty
+            }
+
+        evaluated ++ anyOf(scope, acc, x.tparams.filterNot(lastTypeArgs.contains), Empty)
+
+      case TsTypeObject(_, members) =>
+        members.flatMap {
+          case x: TsMemberIndex =>
+            val fromIndexing = x.indexing match {
+              case Indexing.Dict(_, tpe) => Some(tpe)
+              case Indexing.Single(_)    => None
+            }
+            anyOf(scope, acc, IArray.fromOptions(x.valueType, fromIndexing), Empty)
+          case _ => Empty /** such a recursive link will be broken by [[ExtractInterfaces]] */
         }
-        x.copy(members = newMembers)
-      case x: TsDeclClass =>
-        val newMembers = x.members.collect {
-          case x: TsMemberCall => x
+
+      case TsTypeFunction(signature)                => sig(scope, acc, signature, Empty)
+      case TsTypeConstructor(_, f)                  => sig(scope, acc, f.signature, Empty)
+      case TsTypeRepeated(underlying)               => isInRecursiveGroup(scope, acc, underlying, Empty)
+      case TsTypeTuple(elems)                       => anyOf(scope, acc, elems.map(_.tpe), Empty)
+      case TsTypeIntersect(types)                   => anyOf(scope, acc, types, Empty)
+      case TsTypeUnion(types)                       => anyOf(scope, acc, types, Empty)
+      case TsTypeConditional(pred, ifTrue, ifFalse) => anyOf(scope, acc, IArray(pred, ifTrue, ifFalse), Empty)
+      case TsTypeLiteral(_)                         => Empty
+      case TsTypeQuery(_)                           => Empty
+      case TsTypeKeyOf(_)                           => Empty
+      case TsTypeLookup(_, _)                       => Empty
+      case TsTypeThis()                             => Empty
+      case TsTypeIs(_, _)                           => Empty
+      case TsTypeAsserts(_, _)                      => Empty
+      case TsTypeExtends(_, _)                      => Empty
+      case TsTypeInfer(_)                           => Empty
+    }
+  }
+
+  def breakCircularGroups(groups: Set[CircularGroup], preferredRewrites: Set[TsQIdent]): IArray[Rewrite] = {
+    val b             = IArray.Builder.empty[Rewrite]
+    var currentGroups = groups
+    while (currentGroups.nonEmpty) {
+      val chosen: TsQIdent =
+        currentGroups.flatMap(_.typeRefs).collectFirst { case tr if preferredRewrites(tr.name) => tr.name }.getOrElse {
+          // pick one type we'll rewrite to break the chain, and try to cover as many groups as possible
+          val occurrences = mutable.Map.empty[TsQIdent, Int]
+          currentGroups.foreach { group =>
+            group.typeRefs.foreach { typeRef =>
+              occurrences.update(typeRef.name, occurrences.getOrElse(typeRef.name, 0) + 1)
+            }
+          }
+
+          occurrences.max._1
         }
-        x.copy(members = newMembers)
-      case other => other
+
+      val (intersectsChosen, notIntersects) = currentGroups.partition(_.typeRefs.exists(_.name === chosen))
+      b += Rewrite(chosen, intersectsChosen.flatMap(_.typeRefs.map(_.name)))
+      currentGroups = notIntersects
     }
 
-  /**
-    * Typescript and Scala share limitations on recursive/circular types.
-    * For instance this is not allowed
-    * ```typescript
-    * type T = T[] | number;
-    * ```
-    *
-    * However, in both languages you can make it work by using an interface/trait
-    * ```typescript
-    * type T = TArray | number
-    * interface TArray extends T[] [}
-    * ```
-    *
-    * So to avoid compilation failure after we simplify, we leave it to the user of the generated
-    *  code to cast appropriately
-    */
-  def hasCircularReference(self: TsQIdent, cache: mutable.Set[TsTypeRef], scope: TsTreeScope, tree: TsTree): Boolean = {
-    val minimizedTree = memberHack(tree)
-    TsTreeTraverse.collect(minimizedTree) { case x: TsQIdent if x === self => x } match {
-      case Empty =>
-        val refs = TsTreeTraverse.collect(minimizedTree) { case x: TsTypeRef => x }.toSet
-        refs.exists { ref =>
-          if (cache(ref)) false
-          else
-            scope
-              .lookupTypeIncludeScope(ref.name, /* lazy handling of type parameters */ skipValidation = true)
-              .exists {
-                case (found, newScope) =>
-                  cache += ref
-                  hasCircularReference(self, cache, newScope, found)
-              }
-        }
-      case circularReferences =>
-        scope.logger.info(
-          s"Could not simplify ${TsTypeFormatter.qident(self)} to function type alias because of circular references $circularReferences",
-        )
-        true
-    }
+    b.result()
+  }
+
+  object PreferTypeAliasVisitor extends TreeTransformationScopedChanges {
+    override def enterTsDecl(scope: TsTreeScope)(x: TsDecl): TsDecl =
+      x match {
+
+        /**
+          * Given this:
+          * {{{
+          * interface Foo { [key: string]: value}
+          * }}}
+          * We would normally end up with
+          * {{{scala
+          * trait Foo extends StringDictionary[value]
+          * }}}
+          * There is little value in keep these two types distinct
+          */
+        case TsDeclInterface(comments, declared, name, tparams, Empty, members, codePath)
+            if ExtractInterfaces.isDictionary(members) =>
+          TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(NoComments, members), codePath)
+
+        /**
+          * Given this:
+          * {{{
+          * interface Foo {bar: number}
+          * interface Bar extends Foo {}
+          * }}}
+          * In Typescript these two are structurally equal while in nominally typed Scala we need to cast a `Foo` to a `Bar`
+          * For this reason we rewrite to a type alias to keep it as convenient.
+          *
+          * {{{
+          * interface Foo {bar: number}
+          * type Bar = Foo
+          * }}}
+          * Note that we rewrite interfaces which extends one type, not more.
+          * The reason is that scala wont't let you `new` an intersection type
+          */
+        case i @ TsDeclInterface(_, _, _, _, IArray.exactlyOne(single), Empty, _) =>
+          TsDeclTypeAlias(i.comments, i.declared, i.name, i.tparams, single, i.codePath)
+
+        /**
+          * We do this rewrite because in Scala we have no way to instantiate a new instance of `Foo`
+          *
+          * {{{
+          * interface Foo {<T extends object>(a: T) => void}
+          * }}}
+          * into
+          * {{{
+          * type Foo<T extends object> = (a: T) => void;
+          * }}}
+          **/
+        case i @ TsDeclInterface(_, _, _, _, Empty, IArray.exactlyOne(call: TsMemberCall), _) =>
+          TsDeclTypeAlias(i.comments, i.declared, i.name, i.tparams, TsTypeFunction(call.signature), i.codePath)
+
+        /**
+          * There is also a case where we prefer interfaces:
+          * {{{
+          * type Foo = { bar: number }
+          * }}}
+          * We would end up with the following given the logic in `ExtractInterfaces`:
+          * {{{scala
+          * trait Anon_Bar { bar: Double}
+          * trait Foo extends Anon_Bar
+          * }}}
+          *
+          * So we rewrite it early instead.
+          */
+        case TsDeclTypeAlias(cs, dec, name, tparams, AllTypeObjects(members), cp)
+            if members.nonEmpty &&
+              !TsType.isTypeMapping(members) &&
+              !ExtractInterfaces.isDictionary(members) =>
+          TsDeclInterface(cs, dec, name, tparams, Empty, members, cp)
+
+        /* Encoding varargs as a type alias is rather pointless since we'll lose the varargs */
+        case TsDeclTypeAlias(cs, dec, name, tparams, TsTypeFunction(sig @ TsFunSig(_, _, params, _)), cp)
+            if params.exists(_.tpe.exists(_.isInstanceOf[TsTypeRepeated])) =>
+          val call = TsMemberCall(NoComments, TsProtectionLevel.Default, sig)
+          TsDeclInterface(cs, dec, name, tparams, inheritance = Empty, members = IArray(call), codePath = cp)
+
+        case other =>
+          other
+      }
   }
 
   object AllTypeObjects {
@@ -226,6 +256,59 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
           }
         case _ => None
       }
+  }
 
+  class AvoidCircularVisitor(rewrites: IArray[Rewrite]) extends TreeTransformationScopedChanges {
+    val map: Map[TsQIdent, Set[TsQIdent]] = rewrites.map(r => (r.target, r.circular + r.target)).toMap
+
+    object ReplaceTypes extends TreeTransformation[Set[TsQIdent]] {
+      override def leaveTsTypeRef(toReplace: Set[TsQIdent])(x: TsTypeRef): TsTypeRef =
+        if (toReplace(x.name)) TsTypeRef.any
+        else x
+
+      override def withTree(t: Set[TsQIdent], tree: TsTree): Set[TsQIdent] =
+        tree match {
+          /* Handle if the current tree introduces a new type parameter which shadows what we are trying to inline */
+          case HasTParams(tparams) =>
+            t.filter {
+              case TsQIdent(IArray.exactlyOne(one: TsIdentSimple)) if tparams.exists(_.name === one) => false
+              case _ => true
+            }
+          case _ => t
+        }
+    }
+
+    override def enterTsDecl(scope: TsTreeScope)(x: TsDecl): TsDecl =
+      x match {
+        case ta @ TsDeclTypeAlias(comments, declared, name, tparams, alias, codePath)
+            if map.contains(codePath.forceHasPath.codePath) =>
+          alias match {
+            case TsTypeIntersect(AllTypeRefs(typeRefs)) =>
+              TsDeclInterface(comments, declared, name, tparams, inheritance = typeRefs, members = Empty, codePath)
+            case TsTypeObject(_, members) =>
+              TsDeclInterface(comments, declared, name, tparams, Empty, members, codePath)
+            case TsTypeFunction(signature) =>
+              val call = TsMemberCall(NoComments, TsProtectionLevel.Default, signature)
+              TsDeclInterface(comments, declared, name, tparams, Empty, IArray(call), codePath)
+            case tr: TsTypeRef =>
+              TsDeclInterface(comments, declared, name, tparams, inheritance = IArray(tr), members = Empty, codePath)
+            case _ =>
+              ReplaceTypes.visitTsDeclTypeAlias(map(codePath.forceHasPath.codePath))(ta)
+          }
+
+        case i: TsDeclInterface if map.contains(i.codePath.forceHasPath.codePath) =>
+          val ii = ReplaceTypes.visitTsDeclInterface(map(i.codePath.forceHasPath.codePath))(i.copy(members = Empty))
+          ii.copy(members = i.members)
+
+        case other =>
+          other
+      }
+  }
+  object AllTypeRefs {
+    def unapply(ts: IArray[TsType]): Option[IArray[TsTypeRef]] =
+      ts.partitionCollect { case x: TsTypeRef => x } match {
+        case (refs, Empty) => Some(refs)
+        case _             => None
+      }
   }
 }

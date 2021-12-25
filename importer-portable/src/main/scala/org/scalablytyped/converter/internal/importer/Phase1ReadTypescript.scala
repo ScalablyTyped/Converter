@@ -268,9 +268,7 @@ object Phase1ReadTypescript {
         T.SimplifyConditionals >> // after ExpandTypeMappings
           T.TypeAliasToConstEnum >>
           T.ForwardCtors >>
-          T.PreferTypeAlias >>
           T.ExpandTypeParams >>
-          T.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
           T.UnionTypesFromKeyOf >>
           T.DropProperties >>
           T.InferReturnTypes >>
@@ -280,6 +278,7 @@ object Phase1ReadTypescript {
       ).visitTsParsedFile(scope.caching),
       T.ResolveTypeLookups
         .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams
+      x => T.PreferTypeAlias(x, scope), // before extract interfaces
       T.ExtractInterfaces(libName, TsIdent("anon"), scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
       (
         if (involvesReact) T.ExtractClasses

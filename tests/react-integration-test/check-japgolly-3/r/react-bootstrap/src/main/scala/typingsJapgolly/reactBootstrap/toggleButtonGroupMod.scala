@@ -114,9 +114,7 @@ object toggleButtonGroupMod {
     }
   }
   
-  @js.native
-  trait ToggleButtonGroup
-    extends Component[ToggleButtonGroupProps, js.Object, Any]
+  type ToggleButtonGroup = japgolly.scalajs.react.facade.React.Component[ToggleButtonGroupProps & js.Object, js.Object]
   
-  type ToggleButtonGroupProps = (RadioProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[ToggleButtonGroup], defaultValue | `type` | value | onChange])) | (CheckboxProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[ToggleButtonGroup], defaultValue | `type` | value | onChange]))
+  type ToggleButtonGroupProps = (RadioProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[Any], defaultValue | `type` | value | onChange])) | (CheckboxProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[Any], defaultValue | `type` | value | onChange]))
 }

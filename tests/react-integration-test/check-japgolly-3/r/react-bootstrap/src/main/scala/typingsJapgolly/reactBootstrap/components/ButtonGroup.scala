@@ -14,6 +14,7 @@ import japgolly.scalajs.react.ReactTouchEventFrom
 import japgolly.scalajs.react.ReactTransitionEventFrom
 import japgolly.scalajs.react.ReactUIEventFrom
 import japgolly.scalajs.react.ReactWheelEventFrom
+import japgolly.scalajs.react.facade.React.Component
 import org.scalajs.dom.Element
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.react.anon.Html
@@ -368,321 +369,259 @@ object ButtonGroup {
     
     inline def nonce(value: String): this.type = set("nonce", value.asInstanceOf[js.Any])
     
-    inline def onAbort(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onAbort", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onAbort(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onAbort", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onAnimationEnd(
-      value: ReactAnimationEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onAnimationEnd", js.Any.fromFunction1((t0: ReactAnimationEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactAnimationEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onAnimationEnd", js.Any.fromFunction1((t0: ReactAnimationEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onAnimationIteration(
-      value: ReactAnimationEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onAnimationIteration", js.Any.fromFunction1((t0: ReactAnimationEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactAnimationEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onAnimationIteration", js.Any.fromFunction1((t0: ReactAnimationEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onAnimationStart(
-      value: ReactAnimationEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onAnimationStart", js.Any.fromFunction1((t0: ReactAnimationEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactAnimationEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onAnimationStart", js.Any.fromFunction1((t0: ReactAnimationEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onAuxClick(
-      value: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onAuxClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onAuxClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onBeforeInput(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onBeforeInput", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onBeforeInput(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onBeforeInput", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onBlur(
-      value: ReactFocusEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onBlur", js.Any.fromFunction1((t0: ReactFocusEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactFocusEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onBlur", js.Any.fromFunction1((t0: ReactFocusEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onCanPlay(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onCanPlay", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onCanPlay(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onCanPlay", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onCanPlayThrough(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onCanPlayThrough", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onCanPlayThrough(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onCanPlayThrough", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onChange(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onChange", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onChange(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onChange", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onClick(
-      value: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onCompositionEnd(
-      value: ReactCompositionEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onCompositionEnd", js.Any.fromFunction1((t0: ReactCompositionEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactCompositionEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onCompositionEnd", js.Any.fromFunction1((t0: ReactCompositionEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onCompositionStart(
-      value: ReactCompositionEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onCompositionStart", js.Any.fromFunction1((t0: ReactCompositionEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactCompositionEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onCompositionStart", js.Any.fromFunction1((t0: ReactCompositionEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onCompositionUpdate(
-      value: ReactCompositionEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onCompositionUpdate", js.Any.fromFunction1((t0: ReactCompositionEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactCompositionEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onCompositionUpdate", js.Any.fromFunction1((t0: ReactCompositionEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onContextMenu(
-      value: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onContextMenu", js.Any.fromFunction1((t0: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onContextMenu", js.Any.fromFunction1((t0: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onCopy(
-      value: ReactClipboardEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onCopy", js.Any.fromFunction1((t0: ReactClipboardEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactClipboardEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onCopy", js.Any.fromFunction1((t0: ReactClipboardEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onCut(
-      value: ReactClipboardEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onCut", js.Any.fromFunction1((t0: ReactClipboardEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactClipboardEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onCut", js.Any.fromFunction1((t0: ReactClipboardEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onDoubleClick(
-      value: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onDoubleClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onDoubleClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onDrag(
-      value: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onDrag", js.Any.fromFunction1((t0: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onDrag", js.Any.fromFunction1((t0: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onDragEnd(
-      value: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onDragEnd", js.Any.fromFunction1((t0: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onDragEnd", js.Any.fromFunction1((t0: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onDragEnter(
-      value: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onDragExit(
-      value: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onDragExit", js.Any.fromFunction1((t0: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onDragExit", js.Any.fromFunction1((t0: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onDragLeave(
-      value: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onDragOver(
-      value: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onDragStart(
-      value: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onDragStart", js.Any.fromFunction1((t0: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onDragStart", js.Any.fromFunction1((t0: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onDrop(
-      value: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onDrop", js.Any.fromFunction1((t0: ReactDragEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onDrop", js.Any.fromFunction1((t0: ReactDragEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onDurationChange(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onDurationChange", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onDurationChange(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onDurationChange", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onEmptied(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onEmptied", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onEmptied(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onEmptied", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onEncrypted(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onEncrypted", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onEncrypted(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onEncrypted", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onEnded(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onEnded", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onEnded(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onEnded", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onError(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onError", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onError(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onError", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onFocus(
-      value: ReactFocusEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onFocus", js.Any.fromFunction1((t0: ReactFocusEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactFocusEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onFocus", js.Any.fromFunction1((t0: ReactFocusEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onInput(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onInput", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onInput(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onInput", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onInvalid(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onInvalid", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onInvalid(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onInvalid", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onKeyDown(
-      value: ReactKeyboardEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onKeyDown", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactKeyboardEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onKeyDown", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onKeyPress(
-      value: ReactKeyboardEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onKeyPress", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactKeyboardEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onKeyPress", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onKeyUp(
-      value: ReactKeyboardEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onKeyUp", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactKeyboardEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onKeyUp", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onLoad(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onLoad", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onLoad(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onLoad", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onLoadStart(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onLoadStart", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onLoadStart(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onLoadStart", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onLoadedData(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onLoadedData", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onLoadedData(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onLoadedData", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onLoadedMetadata(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onLoadedMetadata", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onLoadedMetadata(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onLoadedMetadata", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onMouseDown(
-      value: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onMouseDown", js.Any.fromFunction1((t0: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onMouseDown", js.Any.fromFunction1((t0: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onMouseEnter(
-      value: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onMouseEnter", js.Any.fromFunction1((t0: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onMouseEnter", js.Any.fromFunction1((t0: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onMouseLeave(
-      value: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onMouseLeave", js.Any.fromFunction1((t0: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onMouseLeave", js.Any.fromFunction1((t0: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onMouseMove(
-      value: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onMouseMove", js.Any.fromFunction1((t0: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onMouseMove", js.Any.fromFunction1((t0: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onMouseOut(
-      value: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onMouseOut", js.Any.fromFunction1((t0: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onMouseOut", js.Any.fromFunction1((t0: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onMouseOver(
-      value: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onMouseOver", js.Any.fromFunction1((t0: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onMouseOver", js.Any.fromFunction1((t0: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onMouseUp(
-      value: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onMouseUp", js.Any.fromFunction1((t0: ReactMouseEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onMouseUp", js.Any.fromFunction1((t0: ReactMouseEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onPaste(
-      value: ReactClipboardEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onPaste", js.Any.fromFunction1((t0: ReactClipboardEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactClipboardEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onPaste", js.Any.fromFunction1((t0: ReactClipboardEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onPause(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onPause", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onPause(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onPause", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onPlay(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onPlay", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onPlay(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onPlay", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onPlaying(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onPlaying", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onPlaying(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onPlaying", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onPointerCancel(
-      value: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onPointerCancel", js.Any.fromFunction1((t0: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onPointerCancel", js.Any.fromFunction1((t0: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onPointerDown(
-      value: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onPointerDown", js.Any.fromFunction1((t0: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onPointerDown", js.Any.fromFunction1((t0: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onPointerEnter(
-      value: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onPointerEnter", js.Any.fromFunction1((t0: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onPointerEnter", js.Any.fromFunction1((t0: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onPointerLeave(
-      value: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onPointerLeave", js.Any.fromFunction1((t0: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onPointerLeave", js.Any.fromFunction1((t0: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onPointerMove(
-      value: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onPointerMove", js.Any.fromFunction1((t0: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onPointerMove", js.Any.fromFunction1((t0: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onPointerOut(
-      value: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onPointerOut", js.Any.fromFunction1((t0: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onPointerOut", js.Any.fromFunction1((t0: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onPointerOver(
-      value: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onPointerOver", js.Any.fromFunction1((t0: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onPointerOver", js.Any.fromFunction1((t0: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onPointerUp(
-      value: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onPointerUp", js.Any.fromFunction1((t0: ReactPointerEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onPointerUp", js.Any.fromFunction1((t0: ReactPointerEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onProgress(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onProgress", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onProgress(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onProgress", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onRateChange(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onRateChange", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onRateChange(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onRateChange", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onReset(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onReset", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onReset(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onReset", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onScroll(
-      value: ReactUIEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onScroll", js.Any.fromFunction1((t0: ReactUIEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactUIEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onScroll", js.Any.fromFunction1((t0: ReactUIEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onSeeked(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onSeeked", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onSeeked(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onSeeked", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onSeeking(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onSeeking", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onSeeking(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onSeeking", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onSelect(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onSelect", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onSelect(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onSelect", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onStalled(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onStalled", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onStalled(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onStalled", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onSubmit(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onSubmit", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onSubmit(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onSubmit", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onSuspend(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onSuspend", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onSuspend(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onSuspend", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onTimeUpdate(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onTimeUpdate", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onTimeUpdate(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onTimeUpdate", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onTouchCancel(
-      value: ReactTouchEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onTouchCancel", js.Any.fromFunction1((t0: ReactTouchEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactTouchEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onTouchCancel", js.Any.fromFunction1((t0: ReactTouchEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onTouchEnd(
-      value: ReactTouchEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onTouchEnd", js.Any.fromFunction1((t0: ReactTouchEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactTouchEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onTouchEnd", js.Any.fromFunction1((t0: ReactTouchEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onTouchMove(
-      value: ReactTouchEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onTouchMove", js.Any.fromFunction1((t0: ReactTouchEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactTouchEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onTouchMove", js.Any.fromFunction1((t0: ReactTouchEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onTouchStart(
-      value: ReactTouchEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onTouchStart", js.Any.fromFunction1((t0: ReactTouchEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactTouchEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onTouchStart", js.Any.fromFunction1((t0: ReactTouchEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onTransitionEnd(
-      value: ReactTransitionEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onTransitionEnd", js.Any.fromFunction1((t0: ReactTransitionEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactTransitionEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onTransitionEnd", js.Any.fromFunction1((t0: ReactTransitionEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onVolumeChange(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onVolumeChange", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onVolumeChange(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onVolumeChange", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
-    inline def onWaiting(
-      value: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onWaiting", js.Any.fromFunction1((t0: ReactEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+    inline def onWaiting(value: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback): this.type = set("onWaiting", js.Any.fromFunction1((t0: ReactEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def onWheel(
-      value: ReactWheelEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element] => Callback
-    ): this.type = set("onWheel", js.Any.fromFunction1((t0: ReactWheelEventFrom[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroup & Element]) => value(t0).runNow()))
+      value: ReactWheelEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element] => Callback
+    ): this.type = set("onWheel", js.Any.fromFunction1((t0: ReactWheelEventFrom[(Component[ButtonGroupProps & js.Object, js.Object]) & Element]) => value(t0).runNow()))
     
     inline def open(value: Boolean): this.type = set("open", value.asInstanceOf[js.Any])
     

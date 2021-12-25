@@ -14,13 +14,13 @@ object buttonGroupMod {
   open class ^ ()
     extends Component[ButtonGroupProps, js.Object, Any]
   
-  @js.native
-  trait ButtonGroup
-    extends Component[ButtonGroupProps, js.Object, Any]
+  type ButtonGroup = japgolly.scalajs.react.facade.React.Component[ButtonGroupProps & js.Object, js.Object]
   
   trait ButtonGroupProps
     extends StObject
-       with HTMLProps[ButtonGroup] {
+       with HTMLProps[
+          japgolly.scalajs.react.facade.React.Component[ButtonGroupProps & js.Object, js.Object]
+        ] {
     
     var block: js.UndefOr[Boolean] = js.undefined
     

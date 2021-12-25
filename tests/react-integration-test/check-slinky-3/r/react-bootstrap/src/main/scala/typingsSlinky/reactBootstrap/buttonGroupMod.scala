@@ -1,5 +1,6 @@
 package typingsSlinky.reactBootstrap
 
+import slinky.core.ReactComponentClass
 import typingsSlinky.react.mod.Component
 import typingsSlinky.react.mod.HTMLProps
 import typingsSlinky.reactBootstrap.mod.Sizes
@@ -14,13 +15,11 @@ object buttonGroupMod {
   open class ^ ()
     extends Component[ButtonGroupProps, js.Object, Any]
   
-  @js.native
-  trait ButtonGroup
-    extends Component[ButtonGroupProps, js.Object, Any]
+  type ButtonGroup = ReactComponentClass[ButtonGroupProps]
   
   trait ButtonGroupProps
     extends StObject
-       with HTMLProps[ButtonGroup] {
+       with HTMLProps[ReactComponentClass[ButtonGroupProps]] {
     
     var block: js.UndefOr[Boolean] = js.undefined
     

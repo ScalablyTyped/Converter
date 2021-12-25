@@ -431,8 +431,9 @@ final case class TsIdentLibraryScoped(scope: String, name: String) extends TsIde
 }
 
 object TsIdent {
-  implicit val encodes: Encoder[TsIdent] = io.circe013.generic.semiauto.deriveEncoder
-  implicit val decodes: Decoder[TsIdent] = io.circe013.generic.semiauto.deriveDecoder
+  implicit val encodes:  Encoder[TsIdent]  = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes:  Decoder[TsIdent]  = io.circe013.generic.semiauto.deriveDecoder
+  implicit val ordering: Ordering[TsIdent] = Ordering[String].on[TsIdent](_.value)
 
   implicit object TsIdentKey extends IsKey[TsIdent]
 
@@ -469,8 +470,9 @@ final case class TsQIdent(parts: IArray[TsIdent]) extends TsTree {
 }
 
 object TsQIdent {
-  implicit val encodes: Encoder[TsQIdent] = io.circe013.generic.semiauto.deriveEncoder
-  implicit val decodes: Decoder[TsQIdent] = io.circe013.generic.semiauto.deriveDecoder
+  implicit val encodes:  Encoder[TsQIdent]  = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes:  Decoder[TsQIdent]  = io.circe013.generic.semiauto.deriveDecoder
+  implicit val ordering: Ordering[TsQIdent] = Ordering.by(_.parts)
 
   def of(ss:      String*) = TsQIdent(IArray.fromTraversable(ss.map(TsIdent.apply)))
   def of(tsIdent: TsIdent) = TsQIdent(IArray(tsIdent))
