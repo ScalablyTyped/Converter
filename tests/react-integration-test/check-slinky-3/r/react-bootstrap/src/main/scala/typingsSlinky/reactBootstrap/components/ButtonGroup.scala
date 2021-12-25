@@ -2,6 +2,7 @@ package typingsSlinky.reactBootstrap.components
 
 import org.scalajs.dom.Event
 import org.scalajs.dom.EventTarget
+import slinky.core.ReactComponentClass
 import slinky.core.SyntheticEvent
 import slinky.web.SyntheticAnimationEvent
 import slinky.web.SyntheticClipboardEvent
@@ -368,175 +369,163 @@ object ButtonGroup {
     
     inline def nonce(value: String): this.type = set("nonce", value.asInstanceOf[js.Any])
     
-    inline def onAbort(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onAbort", js.Any.fromFunction1(value))
+    inline def onAbort(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onAbort", js.Any.fromFunction1(value))
     
-    inline def onAnimationEnd(value: SyntheticAnimationEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onAnimationEnd", js.Any.fromFunction1(value))
+    inline def onAnimationEnd(value: SyntheticAnimationEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onAnimationEnd", js.Any.fromFunction1(value))
     
-    inline def onAnimationIteration(value: SyntheticAnimationEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onAnimationIteration", js.Any.fromFunction1(value))
+    inline def onAnimationIteration(value: SyntheticAnimationEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onAnimationIteration", js.Any.fromFunction1(value))
     
-    inline def onAnimationStart(value: SyntheticAnimationEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onAnimationStart", js.Any.fromFunction1(value))
+    inline def onAnimationStart(value: SyntheticAnimationEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onAnimationStart", js.Any.fromFunction1(value))
     
-    inline def onAuxClick(value: SyntheticMouseEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onAuxClick", js.Any.fromFunction1(value))
+    inline def onAuxClick(value: SyntheticMouseEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onAuxClick", js.Any.fromFunction1(value))
     
-    inline def onBeforeInput(
-      value: SyntheticEvent[EventTarget & typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
-    ): this.type = set("onBeforeInput", js.Any.fromFunction1(value))
+    inline def onBeforeInput(value: SyntheticEvent[EventTarget & ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onBeforeInput", js.Any.fromFunction1(value))
     
-    inline def onBlur(value: SyntheticFocusEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onBlur", js.Any.fromFunction1(value))
+    inline def onBlur(value: SyntheticFocusEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onBlur", js.Any.fromFunction1(value))
     
-    inline def onCanPlay(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onCanPlay", js.Any.fromFunction1(value))
+    inline def onCanPlay(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onCanPlay", js.Any.fromFunction1(value))
     
-    inline def onCanPlayThrough(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
+    inline def onCanPlayThrough(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
     
-    inline def onChange(
-      value: SyntheticEvent[EventTarget & typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
-    ): this.type = set("onChange", js.Any.fromFunction1(value))
+    inline def onChange(value: SyntheticEvent[EventTarget & ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onChange", js.Any.fromFunction1(value))
     
-    inline def onClick(value: SyntheticMouseEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onClick", js.Any.fromFunction1(value))
+    inline def onClick(value: SyntheticMouseEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onClick", js.Any.fromFunction1(value))
     
-    inline def onCompositionEnd(value: SyntheticCompositionEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onCompositionEnd", js.Any.fromFunction1(value))
+    inline def onCompositionEnd(value: SyntheticCompositionEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onCompositionEnd", js.Any.fromFunction1(value))
     
-    inline def onCompositionStart(value: SyntheticCompositionEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onCompositionStart", js.Any.fromFunction1(value))
+    inline def onCompositionStart(value: SyntheticCompositionEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onCompositionStart", js.Any.fromFunction1(value))
     
-    inline def onCompositionUpdate(value: SyntheticCompositionEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onCompositionUpdate", js.Any.fromFunction1(value))
+    inline def onCompositionUpdate(value: SyntheticCompositionEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onCompositionUpdate", js.Any.fromFunction1(value))
     
-    inline def onContextMenu(value: SyntheticMouseEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onContextMenu", js.Any.fromFunction1(value))
+    inline def onContextMenu(value: SyntheticMouseEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onContextMenu", js.Any.fromFunction1(value))
     
-    inline def onCopy(value: SyntheticClipboardEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onCopy", js.Any.fromFunction1(value))
+    inline def onCopy(value: SyntheticClipboardEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onCopy", js.Any.fromFunction1(value))
     
-    inline def onCut(value: SyntheticClipboardEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onCut", js.Any.fromFunction1(value))
+    inline def onCut(value: SyntheticClipboardEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onCut", js.Any.fromFunction1(value))
     
-    inline def onDoubleClick(value: SyntheticMouseEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onDoubleClick", js.Any.fromFunction1(value))
+    inline def onDoubleClick(value: SyntheticMouseEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDoubleClick", js.Any.fromFunction1(value))
     
-    inline def onDrag(value: DragEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onDrag", js.Any.fromFunction1(value))
+    inline def onDrag(value: DragEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDrag", js.Any.fromFunction1(value))
     
-    inline def onDragEnd(value: DragEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onDragEnd", js.Any.fromFunction1(value))
+    inline def onDragEnd(value: DragEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDragEnd", js.Any.fromFunction1(value))
     
-    inline def onDragEnter(value: DragEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onDragEnter", js.Any.fromFunction1(value))
+    inline def onDragEnter(value: DragEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDragEnter", js.Any.fromFunction1(value))
     
-    inline def onDragExit(value: DragEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onDragExit", js.Any.fromFunction1(value))
+    inline def onDragExit(value: DragEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDragExit", js.Any.fromFunction1(value))
     
-    inline def onDragLeave(value: DragEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onDragLeave", js.Any.fromFunction1(value))
+    inline def onDragLeave(value: DragEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDragLeave", js.Any.fromFunction1(value))
     
-    inline def onDragOver(value: DragEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onDragOver", js.Any.fromFunction1(value))
+    inline def onDragOver(value: DragEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDragOver", js.Any.fromFunction1(value))
     
-    inline def onDragStart(value: DragEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onDragStart", js.Any.fromFunction1(value))
+    inline def onDragStart(value: DragEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDragStart", js.Any.fromFunction1(value))
     
-    inline def onDrop(value: DragEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onDrop", js.Any.fromFunction1(value))
+    inline def onDrop(value: DragEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDrop", js.Any.fromFunction1(value))
     
-    inline def onDurationChange(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onDurationChange", js.Any.fromFunction1(value))
+    inline def onDurationChange(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDurationChange", js.Any.fromFunction1(value))
     
-    inline def onEmptied(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onEmptied", js.Any.fromFunction1(value))
+    inline def onEmptied(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onEmptied", js.Any.fromFunction1(value))
     
-    inline def onEncrypted(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onEncrypted", js.Any.fromFunction1(value))
+    inline def onEncrypted(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onEncrypted", js.Any.fromFunction1(value))
     
-    inline def onEnded(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onEnded", js.Any.fromFunction1(value))
+    inline def onEnded(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onEnded", js.Any.fromFunction1(value))
     
-    inline def onError(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onError", js.Any.fromFunction1(value))
+    inline def onError(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onError", js.Any.fromFunction1(value))
     
-    inline def onFocus(value: SyntheticFocusEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onFocus", js.Any.fromFunction1(value))
+    inline def onFocus(value: SyntheticFocusEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onFocus", js.Any.fromFunction1(value))
     
-    inline def onInput(
-      value: SyntheticEvent[EventTarget & typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
-    ): this.type = set("onInput", js.Any.fromFunction1(value))
+    inline def onInput(value: SyntheticEvent[EventTarget & ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onInput", js.Any.fromFunction1(value))
     
-    inline def onInvalid(
-      value: SyntheticEvent[EventTarget & typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
-    ): this.type = set("onInvalid", js.Any.fromFunction1(value))
+    inline def onInvalid(value: SyntheticEvent[EventTarget & ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onInvalid", js.Any.fromFunction1(value))
     
-    inline def onKeyDown(value: SyntheticKeyboardEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onKeyDown", js.Any.fromFunction1(value))
+    inline def onKeyDown(value: SyntheticKeyboardEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onKeyDown", js.Any.fromFunction1(value))
     
-    inline def onKeyPress(value: SyntheticKeyboardEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onKeyPress", js.Any.fromFunction1(value))
+    inline def onKeyPress(value: SyntheticKeyboardEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onKeyPress", js.Any.fromFunction1(value))
     
-    inline def onKeyUp(value: SyntheticKeyboardEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onKeyUp", js.Any.fromFunction1(value))
+    inline def onKeyUp(value: SyntheticKeyboardEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onKeyUp", js.Any.fromFunction1(value))
     
-    inline def onLoad(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onLoad", js.Any.fromFunction1(value))
+    inline def onLoad(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onLoad", js.Any.fromFunction1(value))
     
-    inline def onLoadStart(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onLoadStart", js.Any.fromFunction1(value))
+    inline def onLoadStart(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onLoadStart", js.Any.fromFunction1(value))
     
-    inline def onLoadedData(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onLoadedData", js.Any.fromFunction1(value))
+    inline def onLoadedData(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onLoadedData", js.Any.fromFunction1(value))
     
-    inline def onLoadedMetadata(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onLoadedMetadata", js.Any.fromFunction1(value))
+    inline def onLoadedMetadata(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onLoadedMetadata", js.Any.fromFunction1(value))
     
-    inline def onMouseDown(value: SyntheticMouseEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onMouseDown", js.Any.fromFunction1(value))
+    inline def onMouseDown(value: SyntheticMouseEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onMouseDown", js.Any.fromFunction1(value))
     
-    inline def onMouseEnter(value: SyntheticMouseEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onMouseEnter", js.Any.fromFunction1(value))
+    inline def onMouseEnter(value: SyntheticMouseEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onMouseEnter", js.Any.fromFunction1(value))
     
-    inline def onMouseLeave(value: SyntheticMouseEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onMouseLeave", js.Any.fromFunction1(value))
+    inline def onMouseLeave(value: SyntheticMouseEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onMouseLeave", js.Any.fromFunction1(value))
     
-    inline def onMouseMove(value: SyntheticMouseEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onMouseMove", js.Any.fromFunction1(value))
+    inline def onMouseMove(value: SyntheticMouseEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onMouseMove", js.Any.fromFunction1(value))
     
-    inline def onMouseOut(value: SyntheticMouseEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onMouseOut", js.Any.fromFunction1(value))
+    inline def onMouseOut(value: SyntheticMouseEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onMouseOut", js.Any.fromFunction1(value))
     
-    inline def onMouseOver(value: SyntheticMouseEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onMouseOver", js.Any.fromFunction1(value))
+    inline def onMouseOver(value: SyntheticMouseEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onMouseOver", js.Any.fromFunction1(value))
     
-    inline def onMouseUp(value: SyntheticMouseEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onMouseUp", js.Any.fromFunction1(value))
+    inline def onMouseUp(value: SyntheticMouseEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onMouseUp", js.Any.fromFunction1(value))
     
-    inline def onPaste(value: SyntheticClipboardEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onPaste", js.Any.fromFunction1(value))
+    inline def onPaste(value: SyntheticClipboardEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPaste", js.Any.fromFunction1(value))
     
-    inline def onPause(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onPause", js.Any.fromFunction1(value))
+    inline def onPause(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPause", js.Any.fromFunction1(value))
     
-    inline def onPlay(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onPlay", js.Any.fromFunction1(value))
+    inline def onPlay(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPlay", js.Any.fromFunction1(value))
     
-    inline def onPlaying(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onPlaying", js.Any.fromFunction1(value))
+    inline def onPlaying(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPlaying", js.Any.fromFunction1(value))
     
-    inline def onPointerCancel(value: SyntheticPointerEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onPointerCancel", js.Any.fromFunction1(value))
+    inline def onPointerCancel(value: SyntheticPointerEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPointerCancel", js.Any.fromFunction1(value))
     
-    inline def onPointerDown(value: SyntheticPointerEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onPointerDown", js.Any.fromFunction1(value))
+    inline def onPointerDown(value: SyntheticPointerEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPointerDown", js.Any.fromFunction1(value))
     
-    inline def onPointerEnter(value: SyntheticPointerEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onPointerEnter", js.Any.fromFunction1(value))
+    inline def onPointerEnter(value: SyntheticPointerEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPointerEnter", js.Any.fromFunction1(value))
     
-    inline def onPointerLeave(value: SyntheticPointerEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onPointerLeave", js.Any.fromFunction1(value))
+    inline def onPointerLeave(value: SyntheticPointerEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPointerLeave", js.Any.fromFunction1(value))
     
-    inline def onPointerMove(value: SyntheticPointerEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onPointerMove", js.Any.fromFunction1(value))
+    inline def onPointerMove(value: SyntheticPointerEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPointerMove", js.Any.fromFunction1(value))
     
-    inline def onPointerOut(value: SyntheticPointerEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onPointerOut", js.Any.fromFunction1(value))
+    inline def onPointerOut(value: SyntheticPointerEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPointerOut", js.Any.fromFunction1(value))
     
-    inline def onPointerOver(value: SyntheticPointerEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onPointerOver", js.Any.fromFunction1(value))
+    inline def onPointerOver(value: SyntheticPointerEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPointerOver", js.Any.fromFunction1(value))
     
-    inline def onPointerUp(value: SyntheticPointerEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onPointerUp", js.Any.fromFunction1(value))
+    inline def onPointerUp(value: SyntheticPointerEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPointerUp", js.Any.fromFunction1(value))
     
-    inline def onProgress(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onProgress", js.Any.fromFunction1(value))
+    inline def onProgress(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onProgress", js.Any.fromFunction1(value))
     
-    inline def onRateChange(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
+    inline def onRateChange(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
     
-    inline def onReset(
-      value: SyntheticEvent[EventTarget & typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
-    ): this.type = set("onReset", js.Any.fromFunction1(value))
+    inline def onReset(value: SyntheticEvent[EventTarget & ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onReset", js.Any.fromFunction1(value))
     
-    inline def onScroll(value: SyntheticUIEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onScroll", js.Any.fromFunction1(value))
+    inline def onScroll(value: SyntheticUIEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onScroll", js.Any.fromFunction1(value))
     
-    inline def onSeeked(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onSeeked", js.Any.fromFunction1(value))
+    inline def onSeeked(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onSeeked", js.Any.fromFunction1(value))
     
-    inline def onSeeking(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onSeeking", js.Any.fromFunction1(value))
+    inline def onSeeking(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onSeeking", js.Any.fromFunction1(value))
     
-    inline def onSelect(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onSelect", js.Any.fromFunction1(value))
+    inline def onSelect(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onSelect", js.Any.fromFunction1(value))
     
-    inline def onStalled(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
+    inline def onStalled(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
     
-    inline def onSubmit(
-      value: SyntheticEvent[EventTarget & typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup, Event] => Unit
-    ): this.type = set("onSubmit", js.Any.fromFunction1(value))
+    inline def onSubmit(value: SyntheticEvent[EventTarget & ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onSubmit", js.Any.fromFunction1(value))
     
-    inline def onSuspend(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))
+    inline def onSuspend(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))
     
-    inline def onTimeUpdate(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onTimeUpdate", js.Any.fromFunction1(value))
+    inline def onTimeUpdate(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onTimeUpdate", js.Any.fromFunction1(value))
     
-    inline def onTouchCancel(value: SyntheticTouchEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onTouchCancel", js.Any.fromFunction1(value))
+    inline def onTouchCancel(value: SyntheticTouchEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onTouchCancel", js.Any.fromFunction1(value))
     
-    inline def onTouchEnd(value: SyntheticTouchEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onTouchEnd", js.Any.fromFunction1(value))
+    inline def onTouchEnd(value: SyntheticTouchEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onTouchEnd", js.Any.fromFunction1(value))
     
-    inline def onTouchMove(value: SyntheticTouchEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onTouchMove", js.Any.fromFunction1(value))
+    inline def onTouchMove(value: SyntheticTouchEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onTouchMove", js.Any.fromFunction1(value))
     
-    inline def onTouchStart(value: SyntheticTouchEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onTouchStart", js.Any.fromFunction1(value))
+    inline def onTouchStart(value: SyntheticTouchEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onTouchStart", js.Any.fromFunction1(value))
     
-    inline def onTransitionEnd(value: SyntheticTransitionEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onTransitionEnd", js.Any.fromFunction1(value))
+    inline def onTransitionEnd(value: SyntheticTransitionEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onTransitionEnd", js.Any.fromFunction1(value))
     
-    inline def onVolumeChange(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onVolumeChange", js.Any.fromFunction1(value))
+    inline def onVolumeChange(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onVolumeChange", js.Any.fromFunction1(value))
     
-    inline def onWaiting(value: SyntheticEvent[Event, typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onWaiting", js.Any.fromFunction1(value))
+    inline def onWaiting(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onWaiting", js.Any.fromFunction1(value))
     
-    inline def onWheel(value: SyntheticWheelEvent[typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroup] => Unit): this.type = set("onWheel", js.Any.fromFunction1(value))
+    inline def onWheel(value: SyntheticWheelEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onWheel", js.Any.fromFunction1(value))
     
     inline def open(value: Boolean): this.type = set("open", value.asInstanceOf[js.Any])
     

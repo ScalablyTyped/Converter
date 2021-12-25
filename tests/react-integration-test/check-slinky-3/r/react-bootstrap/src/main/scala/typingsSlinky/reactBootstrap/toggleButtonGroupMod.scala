@@ -1,5 +1,6 @@
 package typingsSlinky.reactBootstrap
 
+import slinky.core.ReactComponentClass
 import typingsSlinky.react.mod.Component
 import typingsSlinky.react.mod.HTMLProps
 import typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroupProps
@@ -113,9 +114,7 @@ object toggleButtonGroupMod {
     }
   }
   
-  @js.native
-  trait ToggleButtonGroup
-    extends Component[ToggleButtonGroupProps, js.Object, Any]
+  type ToggleButtonGroup = ReactComponentClass[ToggleButtonGroupProps]
   
-  type ToggleButtonGroupProps = (RadioProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[ToggleButtonGroup], defaultValue | `type` | value | onChange])) | (CheckboxProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[ToggleButtonGroup], defaultValue | `type` | value | onChange]))
+  type ToggleButtonGroupProps = (RadioProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[Any], defaultValue | `type` | value | onChange])) | (CheckboxProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[Any], defaultValue | `type` | value | onChange]))
 }

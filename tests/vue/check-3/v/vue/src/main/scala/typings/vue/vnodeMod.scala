@@ -12,7 +12,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object vnodeMod {
   
-  type ScopedSlot = js.Function1[/* props */ Any, VNodeChildrenArrayContents | String]
+  @js.native
+  trait ScopedSlot extends StObject {
+    
+    def apply(props: Any): VNodeChildrenArrayContents | String = js.native
+  }
   
   trait VNode extends StObject {
     
