@@ -259,7 +259,8 @@ object Phase1ReadTypescript {
       FlattenTrees.apply,
       (
         T.DefaultedTypeArguments >> //after FlattenTrees
-          T.TypeAliasIntersection // before ExpandTypeMappings
+          T.TypeAliasIntersection >> // before ExpandTypeMappings
+          T.RejiggerIntersections
       ).visitTsParsedFile(scope.caching),
       if (expandTypeMappings(libName)) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
       if (expandTypeMappings(libName)) T.ExpandTypeMappings.After.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
