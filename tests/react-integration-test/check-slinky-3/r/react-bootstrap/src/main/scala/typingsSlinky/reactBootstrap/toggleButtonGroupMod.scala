@@ -117,5 +117,5 @@ object toggleButtonGroupMod {
   trait ToggleButtonGroup
     extends Component[ToggleButtonGroupProps, js.Object, Any]
   
-  type ToggleButtonGroupProps = BaseProps & (RadioProps | CheckboxProps) & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[ToggleButtonGroup], defaultValue | `type` | value | onChange])
+  type ToggleButtonGroupProps = (RadioProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[ToggleButtonGroup], defaultValue | `type` | value | onChange])) | (CheckboxProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[ToggleButtonGroup], defaultValue | `type` | value | onChange]))
 }
