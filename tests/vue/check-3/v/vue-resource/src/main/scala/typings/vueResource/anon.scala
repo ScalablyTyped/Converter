@@ -176,7 +176,7 @@ object anon {
     
     var emulateJSON: js.UndefOr[Boolean] = js.undefined
     
-    var headers: js.UndefOr[HttpHeaders] & js.UndefOr[Any]
+    var headers: js.UndefOr[HttpHeaders] = js.undefined
     
     var method: js.UndefOr[String] = js.undefined
     
@@ -188,8 +188,8 @@ object anon {
   }
   object headersHttpHeadersundefin {
     
-    inline def apply(headers: js.UndefOr[HttpHeaders] & js.UndefOr[Any]): headersHttpHeadersundefin = {
-      val __obj = js.Dynamic.literal(headers = headers.asInstanceOf[js.Any])
+    inline def apply(): headersHttpHeadersundefin = {
+      val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[headersHttpHeadersundefin]
     }
     
@@ -215,7 +215,9 @@ object anon {
       
       inline def setEmulateJSONUndefined: Self = StObject.set(x, "emulateJSON", js.undefined)
       
-      inline def setHeaders(value: js.UndefOr[HttpHeaders] & js.UndefOr[Any]): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
+      inline def setHeaders(value: HttpHeaders): Self = StObject.set(x, "headers", value.asInstanceOf[js.Any])
+      
+      inline def setHeadersUndefined: Self = StObject.set(x, "headers", js.undefined)
       
       inline def setMethod(value: String): Self = StObject.set(x, "method", value.asInstanceOf[js.Any])
       

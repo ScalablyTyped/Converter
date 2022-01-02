@@ -175,14 +175,15 @@ object FlattenTrees {
     IArray.fromOptions(one, two) match {
       case IArray.Empty           => None
       case IArray.exactlyOne(one) => Some(one)
-      case more                   =>
-        /* if we combine a type query with an actual type, drop the former */
-        val filtered = more.filterNot(_.isInstanceOf[TsTypeQuery]) match {
-          case IArray.Empty           => more
-          case IArray.exactlyOne(one) => IArray(one)
-          case _                      => more
+      case more =>
+        val preferred = more.filter {
+          /* if we combine a type query with an actual type, drop the former */
+          case TsTypeQuery(_) => false
+          /* heuristic */
+          case tpe if TsTreeTraverse.collect(tpe) { case TsTypeRef.never => TsTypeRef.never }.nonEmpty => false
+          case _ => true
         }
-        Some(TsTypeIntersect.simplified(filtered))
+        preferred.headOption.orElse(more.headOption)
     }
 
   def mergeAugmentedModule(that: TsAugmentedModule, existing: TsAugmentedModule) =
