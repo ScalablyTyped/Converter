@@ -7,10 +7,15 @@ import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 object ExpandTypeMappings extends TreeTransformationScopedChanges {
 
   object After extends TreeTransformationScopedChanges {
-
     private object Unqualify extends TreeTransformationUnit {
       override def enterTsQIdent(t: Unit)(x: TsQIdent): TsQIdent =
         x.copy(parts = IArray(x.parts.last))
+
+      override def enterTsTypeObject(t: Unit)(x: TsTypeObject): TsTypeObject =
+        x.copy(members = Empty)
+
+      override def enterTsTypeTuple(t: Unit)(x: TsTypeTuple): TsTypeTuple =
+        x.copy(elems = Empty)
     }
 
     override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
