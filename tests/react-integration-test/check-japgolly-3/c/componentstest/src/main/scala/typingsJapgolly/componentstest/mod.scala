@@ -3,9 +3,9 @@ package typingsJapgolly.componentstest
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactMouseEventFrom
-import org.scalajs.dom.Element
+import japgolly.scalajs.react.facade.React.Element
 import org.scalajs.dom.HTMLDivElement
-import typingsJapgolly.componentstest.anon.Equals
+import typingsJapgolly.componentstest.anon.PropsWithChildren
 import typingsJapgolly.react.mod.CSSProperties
 import typingsJapgolly.react.mod.ComponentType
 import typingsJapgolly.react.mod.FC
@@ -34,7 +34,7 @@ object mod {
   
   @JSImport("componentstest", "ObjectNames")
   @js.native
-  val ObjectNames: FC[Equals] = js.native
+  val ObjectNames: js.Function1[/* props */ PropsWithChildren, Element | Null] = js.native
   
   @JSImport("componentstest", "VeryExotic")
   @js.native
@@ -145,7 +145,7 @@ object mod {
     
     extension [Self <: CardProps](x: Self) {
       
-      inline def setOnClick(value: ReactMouseEventFrom[HTMLDivElement & Element] => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement & Element]) => value(t0).runNow()))
+      inline def setOnClick(value: ReactMouseEventFrom[HTMLDivElement & org.scalajs.dom.Element] => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement & org.scalajs.dom.Element]) => value(t0).runNow()))
       
       inline def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
       

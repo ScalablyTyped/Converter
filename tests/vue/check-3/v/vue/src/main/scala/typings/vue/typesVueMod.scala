@@ -435,11 +435,11 @@ object typesVueMod {
     extends StObject
        with // ideally, the return type should just contains Props, not Record<keyof Props, any>. But TS requires Base constructors must all have the same return type.
   Instantiable0[
-          CombinedVueInstance[V, js.Object, js.Object, js.Object, Record[/* keyof object */ String, Any]]
+          CombinedVueInstance[V, js.Object, js.Object, js.Object, js.Object | (Record[/* keyof object */ String, Any])]
         ]
        with Instantiable1[
           (/* options */ ComponentOptions[V, DefaultData[V], DefaultMethods[V], DefaultComputed, PropsDefinition[DefaultProps]]) | (/* options */ ThisTypedComponentOptionsWithArrayProps[V, js.Object, js.Object, js.Object, String]) | (/* options */ ThisTypedComponentOptionsWithRecordProps[V, js.Object, js.Object, js.Object, js.Object]), 
-          CombinedVueInstance[V, js.Object, js.Object, js.Object, Record[/* keyof object */ String, Any]]
+          CombinedVueInstance[V, js.Object, js.Object, js.Object, js.Object | (Record[String, Any])]
         ] {
     
     def compile(template: String): StaticRenderFns = js.native

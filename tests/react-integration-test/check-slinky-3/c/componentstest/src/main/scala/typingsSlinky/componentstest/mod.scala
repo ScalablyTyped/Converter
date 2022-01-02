@@ -2,8 +2,9 @@ package typingsSlinky.componentstest
 
 import org.scalajs.dom.HTMLDivElement
 import slinky.core.ReactComponentClass
+import slinky.core.facade.ReactElement
 import slinky.web.SyntheticMouseEvent
-import typingsSlinky.componentstest.anon.Equals
+import typingsSlinky.componentstest.anon.PropsWithChildren
 import typingsSlinky.react.mod.CSSProperties
 import typingsSlinky.react.mod.FunctionComponent
 import typingsSlinky.react.mod.MouseEventHandler
@@ -28,7 +29,7 @@ object mod {
   
   @JSImport("componentstest", "ObjectNames")
   @js.native
-  val ObjectNames: ReactComponentClass[Equals] = js.native
+  val ObjectNames: js.Function1[/* props */ PropsWithChildren, ReactElement | Null] = js.native
   
   @JSImport("componentstest", "VeryExotic")
   @js.native

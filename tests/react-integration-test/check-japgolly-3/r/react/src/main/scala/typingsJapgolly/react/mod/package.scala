@@ -18,7 +18,6 @@ import japgolly.scalajs.react.facade.React.DomElement
 import japgolly.scalajs.react.facade.React.Element
 import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.facade.React.RefHandle
-import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
 import org.scalajs.dom.EventTarget
 import org.scalajs.dom.HTMLElement
@@ -524,9 +523,7 @@ type HTMLFactory[T /* <: HTMLElement */] = DetailedHTMLFactory[AllHTMLAttributes
   */
 type IsExactlyAny[T] = true
 
-type JSXElementConstructor[P] = (js.Function1[/* props */ P, Element | Null]) | (Instantiable1[
-/* props */ P, 
-japgolly.scalajs.react.facade.React.Component[P & js.Object, js.Object]])
+type JSXElementConstructor[P] = js.Function1[/* props */ P, Element | Null]
 
 type Key = String | Double
 

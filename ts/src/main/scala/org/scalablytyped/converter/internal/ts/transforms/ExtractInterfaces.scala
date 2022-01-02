@@ -87,7 +87,7 @@ object ExtractInterfaces {
               }
 
             obj.comments.extract { case Marker.NameHint(hint) => hint } match {
-              case Some((nameHint, _)) => nameHint.take(40)
+              case Some((nameHint, _)) => nameHint.filter(_.isLetterOrDigit).take(40)
               case None if isFunction  => DeriveNonConflictingName.Fn
               case None                => DeriveNonConflictingName.Anon
             }

@@ -32,7 +32,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object ToggleButtonGroup {
   
-  object CheckboxPropsBasePropsButtonGroupPropsHTMLProps {
+  object checkbox {
     
     inline def apply(): Builder = {
       val __props = js.Dynamic.literal()
@@ -711,7 +711,7 @@ object ToggleButtonGroup {
     def withProps(p: CheckboxProps & BaseProps & ButtonGroupProps & HTMLProps[Any]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
-  object RadioPropsBasePropsButtonGroupPropsHTMLProps {
+  object radio {
     
     inline def apply(name: String): Builder = {
       val __props = js.Dynamic.literal(name = name.asInstanceOf[js.Any])

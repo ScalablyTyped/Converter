@@ -313,10 +313,11 @@ object Phase1ReadTypescript {
       (
         T.DefaultedTypeArguments >> //after FlattenTrees
           T.TypeAliasIntersection >> // before ExpandTypeMappings
-          T.RejiggerIntersections
+          T.RejiggerIntersections >>
+          T.NonNullable // before ExpandTypeMappings
       ).visitTsParsedFile(scope.caching),
       if (expandTypeMappings(libName)) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
-      if (expandTypeMappings(libName)) T.ExpandTypeMappings.After.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
+      if (expandTypeMappings(libName)) new T.ExpandTypeMappings.After().visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
       (
         T.TypeAliasToConstEnum >>
           T.ForwardCtors >>

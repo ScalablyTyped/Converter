@@ -1,6 +1,5 @@
 package typingsSlinky.react.mod
 
-import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
 import org.scalajs.dom.Element
 import org.scalajs.dom.Event
@@ -540,7 +539,7 @@ type HTMLFactory[T /* <: HTMLElement */] = DetailedHTMLFactory[AllHTMLAttributes
   */
 type IsExactlyAny[T] = true
 
-type JSXElementConstructor[P] = (js.Function1[/* props */ P, slinky.core.facade.ReactElement | Null]) | (Instantiable1[/* props */ P, ReactComponentClass[P]])
+type JSXElementConstructor[P] = js.Function1[/* props */ P, slinky.core.facade.ReactElement | Null]
 
 type Key = String | Double
 

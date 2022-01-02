@@ -5,64 +5,77 @@ package transforms
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 
 object ExpandTypeMappings extends TreeTransformationScopedChanges {
+  private object Unqualify extends TreeTransformationUnit {
+    override def enterTsQIdent(t: Unit)(x: TsQIdent): TsQIdent =
+      x.copy(parts = IArray(x.parts.last))
+    override def enterTsTypeObject(t: Unit)(x: TsTypeObject): TsTypeObject =
+      x.copy(members = Empty)
 
-  object After extends TreeTransformationScopedChanges {
-    private object Unqualify extends TreeTransformationUnit {
-      override def enterTsQIdent(t: Unit)(x: TsQIdent): TsQIdent =
-        x.copy(parts = IArray(x.parts.last))
+    override def enterTsTypeTuple(t: Unit)(x: TsTypeTuple): TsTypeTuple =
+      x.copy(elems = Empty)
+  }
 
-      override def enterTsTypeObject(t: Unit)(x: TsTypeObject): TsTypeObject =
-        x.copy(members = Empty)
-
-      override def enterTsTypeTuple(t: Unit)(x: TsTypeTuple): TsTypeTuple =
-        x.copy(elems = Empty)
+  /**
+    * Inlines at the call site any of the support type mappings.
+    *
+    * @param typeStack avoid circular
+    * @param beforeTransformation not thread safe. we store original types before rewrite for naming purposes
+    */
+  class After(typeStack: List[TsType] = Nil, private var beforeTransformation: List[TsType] = Nil)
+      extends TreeTransformationScopedChanges {
+    override def enterTsType(t: TsTreeScope)(x: TsType): TsType = {
+      beforeTransformation = x :: beforeTransformation
+      x
     }
 
-    override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
+    override def leaveTsType(scope: TsTreeScope)(x: TsType): TsType =
       try {
-        lazy val nameHint = TsTypeFormatter.dropComments(Unqualify.visitTsType(())(x)).filter(_.isLetterOrDigit)
+        val before = beforeTransformation.head
+        beforeTransformation = beforeTransformation.tail
 
-        def repeated =
-          scope.stack.exists {
-            case TsTypeObject(Comments(cs), _) =>
-              cs.exists {
-                case Marker.NameHint(`nameHint`) => true
-                case _                           => false
-              }
-            case _ => false
-          }
+        lazy val nameHint =
+          TsTypeFormatter.dropComments.useNameHint.apply(Unqualify.visitTsType(())(before))
 
-        def refersAbstract =
+        // optimization. it speeds things up a lot, but it's not really precise enough.
+        def refersAbstract: Boolean =
           TsTreeTraverse
             .collect(x) {
               case TsTypeRef(_, name @ TsQIdent(IArray.exactlyOne(_)), Empty) if scope.isAbstract(name) => name
             }
             .nonEmpty
 
-        def tooDeep = {
-          val numTypeObjects = scope.stack.count {
-            case TsTypeObject(_, _) => true;
-            case _                  => false
-          }
-          numTypeObjects > 2
-        }
-
-        if (repeated || refersAbstract || tooDeep) return x
+        if (refersAbstract || typeStack.contains(x)) return x
 
         AllMembersFor.forType(scope, LoopDetector.initial)(x) match {
           case Problems(_) =>
             x
 
           case Ok(newMembers, true) =>
-            val nameHint = TsTypeFormatter.dropComments(Unqualify.visitTsType(())(x)).filter(_.isLetterOrDigit)
-
             val notices = Comments(
               List(
-                Comment("/* Inlined " + TsTypeFormatter(x) + " */\n"),
+                Comment("/* Inlined " + TsTypeFormatter.dropComments.useNameHint.apply(x) + " */\n"),
                 Marker.NameHint(nameHint),
               ),
             )
-            TsTypeObject(notices, newMembers)
+            lazy val newAfter = new After(x :: typeStack, beforeTransformation)
+
+            val recurseIntoMembers =
+              newMembers.map(newAfter.visitTsMember(scope))
+
+            TsTypeObject(notices, recurseIntoMembers)
+
+          // this is here to support things like material-ui
+          case Ok(allMembers, false) if typeStack.isEmpty =>
+            lazy val newAfter = new After(x :: typeStack, beforeTransformation)
+
+            val maybeFunction = allMembers.firstDefined {
+              case TsMemberCall(_, _, sig) =>
+                val newSig = newAfter.visitTsFunSig(scope)(sig)
+                if (newSig == sig) None else Some(TsTypeFunction(newSig))
+              case _ => None
+            }
+
+            maybeFunction.getOrElse(x)
           case _ => x
         }
       } catch {
@@ -196,6 +209,8 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
 
   case class InvalidType(scope: TsTreeScope, tpe: TsType) extends Problem
 
+  case class PropsFailed(scope: TsTreeScope, tpe: TsType) extends Problem {}
+
   case class Loop(scope: TsTreeScope) extends Problem
 
   case class TypeNotFound(scope: TsTreeScope, ref: TsTypeRef) extends Problem
@@ -291,6 +306,13 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         } yield kt.intersect(ku)
 
         ret.withIsRewritten
+
+      case cond: TsTypeConditional =>
+        evaluatePredicate(cond.pred).flatMap {
+          case true  => evaluateKeys(scope, ld)(cond.ifTrue)
+          case false => evaluateKeys(scope, ld)(cond.ifFalse)
+        }
+
       case lookup: TsTypeLookup =>
         ResolveTypeLookups.expandLookupType(scope, lookup) match {
           case Some(keyType) => evaluateKeys(scope, ld)(keyType).withIsRewritten
@@ -303,17 +325,98 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
   }
 
   /**
-    * This is obviously not much of an implementation, just enough to get @material-ui/core running
+    * This is obviously not much of an implementation
     */
   def evaluatePredicate(x: TsType): Res[Boolean] =
     x match {
-      case TsTypeExtends(_, TsTypeRef.any) => Ok(true, wasRewritten = false)
-      case other                           => Problems(IArray(UnsupportedPredicate(other)))
+      case TsTypeExtends(_, TsTypeRef.any) =>
+        Ok(true, wasRewritten = false)
+      case TsTypeExtends(left: TsTypeLiteral, right: TsTypeLiteral) =>
+        Ok(left == right, wasRewritten = false)
+      case TsTypeExtends(left: TsTypeUnion, right: TsType) =>
+        Ok(left.types.contains(right), wasRewritten = false)
+      case other =>
+        Problems(IArray(UnsupportedPredicate(other)))
     }
 
   object AllMembersFor {
+    val reactMod                 = TsQIdent(IArray(TsIdentLibrary("react"), TsIdentModule(None, List("react"))))
+    val ComponentProps           = reactMod + TsIdent("ComponentProps")
+    val ComponentPropsWithRef    = reactMod + TsIdent("ComponentPropsWithRef")
+    val ComponentPropsWithoutRef = reactMod + TsIdent("ComponentPropsWithoutRef")
+    val intrinsicElement         = reactMod + TsIdent.Global + TsIdent("JSX") + TsIdent("IntrinsicElements")
+    val NullUndefined            = TsTypeUnion(IArray(TsTypeRef.`null`, TsTypeRef.undefined))
+
     def forType(scope: TsTreeScope, ld: LoopDetector)(tpe: TsType): Res[IArray[TsMember]] =
       tpe match {
+        case TsTypeRef(_, ComponentProps, IArray.first(ctor)) =>
+          def resolveIntrinsic(literal: TsLiteral): Option[TsType] =
+            scope.lookupInternal(Picker.All, intrinsicElement.parts, ld).firstDefined {
+              case (i: TsDeclInterface, _) =>
+                i.membersByName.get(TsIdentSimple(literal.literal)).flatMap { member =>
+                  member.firstDefined {
+                    case p: TsMemberProperty => p.tpe
+                    case _ => None
+                  }
+                }
+              case _ => None
+            }
+
+          def resolve(tpe: TsType): Res[TsType] =
+            FollowAliases(scope)(tpe) match {
+              case abs: TsTypeRef if scope.isAbstract(abs.name) =>
+                Problems(IArray(NotStatic(scope, abs)))
+              case tpe @ TsTypeLiteral(literal) =>
+                resolveIntrinsic(literal) match {
+                  case Some(found) => Ok(found, wasRewritten = false)
+                  case None        => Problems(IArray(PropsFailed(scope, tpe)))
+                }
+              case TsTypeFunction(TsFunSig(_, _, IArray.first(TsFunParam(_, _, Some(propsType))), _)) =>
+                Ok(propsType, wasRewritten = false)
+              case TsTypeConstructor(
+                  _,
+                  TsTypeFunction(TsFunSig(_, _, IArray.first(TsFunParam(_, _, Some(propsType))), _)),
+                  ) =>
+                Ok(propsType, wasRewritten = false)
+              case x: TsTypeLookup =>
+                ResolveTypeLookups.expandLookupType(scope, x) match {
+                  case Some(found) => resolve(found)
+                  case None        => Problems(IArray(PropsFailed(scope, x)))
+                }
+              case cond: TsTypeConditional =>
+                evaluatePredicate(cond.pred).flatMap {
+                  case true  => resolve(cond.ifTrue)
+                  case false => resolve(cond.ifFalse)
+                }
+              case other =>
+                Problems(IArray(PropsFailed(scope, other)))
+            }
+
+          val propsRefOpt: Res[TsType] = resolve(ctor)
+
+          propsRefOpt.flatMap(forType(scope, ld))
+
+        case tr @ TsTypeRef(_, ComponentPropsWithRef, _) =>
+          forType(scope, ld)(tr.copy(name = ComponentProps))
+        case tr @ TsTypeRef(_, ComponentPropsWithoutRef, _) =>
+          forType(scope, ld)(tr.copy(name = ComponentProps))
+
+//        case TsTypeRef(_, TsQIdent.Std.Record, IArray.exactlyTwo(key, value)) =>
+//          if (value == TsTypeRef.never) Ok(Empty, wasRewritten = true)
+//          else
+//            evaluateKeys(scope, ld)(key).map { keys =>
+//              IArray.fromTraversable(keys).sortBy(_.lit.literal).map { lit =>
+//                TsMemberProperty(
+//                  NoComments,
+//                  TsProtectionLevel.Default,
+//                  TsIdentSimple(lit.lit.literal),
+//                  Some(value),
+//                  None,
+//                  isStatic   = false,
+//                  isReadOnly = false,
+//                )
+//              }
+//            }.withIsRewritten
         case x: TsTypeRef => apply(scope, ld)(x)
         case x: TsTypeIntersect =>
           val base = Res.sequence(x.types.map(forType(scope, ld))).map(_.flatten)
@@ -350,42 +453,31 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
             )
           }.withIsRewritten
         case x: TsTypeObject => Ok(x.members, wasRewritten = false)
-        // Exclude
-//        case TsTypeConditional(TsTypeExtends(t, u), TsTypeRef.never, t2) if t === t2 =>
-//          for {
-//            kt <- evaluateKeys(scope, loopDetector)(t)
-//            ku <- evaluateKeys(scope, loopDetector)(u)
-//            keys = kt -- ku
-//            tmembers <- AllMembersFor.forType(scope, loopDetector)(t)
-//            picked <- Res.ofOpt(extract(tmembers, keys), wasRewritten = true, CouldNotPickKeys(scope, keys))
-//          } yield picked
-//        // Extract
-//        case TsTypeConditional(TsTypeExtends(t, u), t2, TsTypeRef.never) if t === t2 =>
-//          val foo = for {
-//            kt <- evaluateKeys(scope, loopDetector)(t)
-//            ku <- evaluateKeys(scope, loopDetector)(u)
-//            keys = kt.intersect(ku)
-//            tmembers <- AllMembersFor.forType(scope, loopDetector)(t)
-//            picked <- Res.ofOpt(extract(tmembers, keys), wasRewritten = true, CouldNotPickKeys(scope, keys))
-//          } yield picked
-//          foo
+
         case TsTypeConditional(pred, ifTrue, ifFalse) =>
           for {
             conforms <- evaluatePredicate(pred)
             ret <- forType(scope, ld)(if (conforms) ifTrue else ifFalse)
           } yield ret
 
+        case x: TsTypeLookup =>
+          ResolveTypeLookups.expandLookupType(scope, x) match {
+            case Some(newType) => forType(scope, ld)(newType)
+            case None          => Problems(IArray(InvalidType(scope, x)))
+          }
+
+        case x: TsTypeFunction =>
+          Ok(IArray(TsMemberCall(NoComments, TsProtectionLevel.Default, x.signature)), wasRewritten = false)
+
         case x: TsTypeExtends     => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeInfer       => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeLiteral     => Problems(IArray(InvalidType(scope, x)))
-        case x: TsTypeFunction    => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeConstructor => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeIs          => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeTuple       => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeQuery       => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeRepeated    => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeKeyOf       => Problems(IArray(InvalidType(scope, x)))
-        case x: TsTypeLookup      => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeThis        => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeUnion       => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeAsserts     => Problems(IArray(InvalidType(scope, x)))
@@ -433,22 +525,28 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
             }
           }
 
-          val res = scope.lookupInternal(Picker.Types, typeRef.name.parts, ld).collectFirst {
-            case (x: TsDeclInterface, newScope) =>
-              FillInTParams(x, typeRef.tparams) match {
-                case i: TsDeclInterface => forInterface(newScope, ld)(i)
-              }
+          val res: Option[Res[IArray[TsMember]]] = {
+            if (typeRef === TsTypeRef.`object`) Some(Ok(Empty, wasRewritten = false))
+            // todo: need an ErrorType construct
+            else if (typeRef === TsTypeRef.any && typeRef.comments.cs.isEmpty) Some(Ok(Empty, wasRewritten = false))
+            else
+              scope.lookupInternal(Picker.Types, typeRef.name.parts, ld).collectFirst {
+                case (x: TsDeclInterface, newScope) =>
+                  FillInTParams(x, typeRef.tparams) match {
+                    case i: TsDeclInterface => forInterface(newScope, ld)(i)
+                  }
 
-            case (x: TsDeclClass, newScope) =>
-              FillInTParams(x, typeRef.tparams) match {
-                case TsDeclClass(_, _, _, _, _, parent, implements, members, _, _) =>
-                  Res
-                    .sequence((implements ++ IArray.fromOption(parent)).map(AllMembersFor(newScope, ld)))
-                    .map(fromParents => handleOverridingFields(members, fromParents))
-              }
+                case (x: TsDeclClass, newScope) =>
+                  FillInTParams(x, typeRef.tparams) match {
+                    case TsDeclClass(_, _, _, _, _, parent, implements, members, _, _) =>
+                      Res
+                        .sequence((implements ++ IArray.fromOption(parent)).map(AllMembersFor(newScope, ld)))
+                        .map(fromParents => handleOverridingFields(members, fromParents))
+                  }
 
-            case (x: TsDeclTypeAlias, _) =>
-              forType(scope, ld)(FillInTParams(x, typeRef.tparams).alias)
+                case (x: TsDeclTypeAlias, _) =>
+                  forType(scope, ld)(FillInTParams(x, typeRef.tparams).alias)
+              }
           }
 
           val ret = res.getOrElse(Problems(IArray(TypeNotFound(scope, typeRef))))

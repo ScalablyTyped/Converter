@@ -1,30 +1,38 @@
 package typingsSlinky.componentstest
 
+import slinky.core.facade.ReactElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
   
-  trait Equals extends StObject {
+  /* Inlined react.react.PropsWithChildren<{  ne :(other : object): boolean | undefined,   equals :boolean | undefined, finalize (other : object): boolean}> */
+  trait PropsWithChildren extends StObject {
+    
+    var children: js.UndefOr[ReactElement] = js.undefined
     
     @JSName("equals")
-    var equals_FEquals: js.UndefOr[Boolean] = js.undefined
+    var equals_FPropsWithChildren: js.UndefOr[Boolean] = js.undefined
     
     def finalize(other: js.Object): Boolean
     
     @JSName("ne")
-    var ne_FEquals: js.UndefOr[js.Function1[/* other */ js.Object, Boolean]] = js.undefined
+    var ne_FPropsWithChildren: js.UndefOr[js.Function1[/* other */ js.Object, Boolean]] = js.undefined
   }
-  object Equals {
+  object PropsWithChildren {
     
-    inline def apply(finalize_ : js.Object => Boolean): Equals = {
+    inline def apply(finalize_ : js.Object => Boolean): PropsWithChildren = {
       val __obj = js.Dynamic.literal()
       __obj.updateDynamic("finalize")(js.Any.fromFunction1(finalize_))
-      __obj.asInstanceOf[Equals]
+      __obj.asInstanceOf[PropsWithChildren]
     }
     
-    extension [Self <: Equals](x: Self) {
+    extension [Self <: PropsWithChildren](x: Self) {
+      
+      inline def setChildren(value: ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
+      
+      inline def setChildrenUndefined: Self = StObject.set(x, "children", js.undefined)
       
       inline def setEquals_(value: Boolean): Self = StObject.set(x, "equals", value.asInstanceOf[js.Any])
       

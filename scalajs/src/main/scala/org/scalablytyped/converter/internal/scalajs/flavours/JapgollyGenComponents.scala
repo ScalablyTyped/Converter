@@ -10,6 +10,7 @@ import org.scalablytyped.converter.internal.scalajs.flavours.GenBuilderClass.Ava
 object JapgollyGenComponents {
 
   final case class SplitProps(refTypes: IArray[TypeRef], propsInApply: IArray[Prop], propsInBuilder: IArray[Prop]) {
+    def allProps         = propsInApply ++ propsInBuilder
     val hasRequiredProps = propsInApply.exists(_.isRequired) || propsInBuilder.exists(_.isRequired)
   }
 
@@ -338,9 +339,11 @@ class JapgollyGenComponents(
         componentModule(c.fullName, c, componentCp, PropsRef(propsRef), splitProps, genBuilder, builderLookup)
 
       case Res.Many(values) =>
+        val names = nicerNamesFor(values)
+
         val members = values.mapToIArray {
           case (propsRef, (splitProps, genBuilder: GenBuilder)) =>
-            val name = Name(nameFor(propsRef))
+            val name = names(propsRef)
             componentModule(name, c, componentCp + name, PropsRef(propsRef), splitProps, genBuilder, builderLookup)
         }
 
@@ -355,6 +358,34 @@ class JapgollyGenComponents(
           isOverride  = false,
         )
     }
+  }
+
+  def nicerNamesFor(props: Map[TypeRef, (SplitProps, _)]): Map[TypeRef, Name] = {
+    val fromLiterals: Map[Name, TypeRef] =
+      props.map {
+        case (propsRef, (splitProps, _)) =>
+          val lit = splitProps.allProps
+            .collectFirst {
+              case Prop.Normal(_, _, _, _, FieldTree(_, _, _, TypeRef.StringLiteral(lit), _, _, _, _, _)) => lit
+            }
+            .getOrElse("normal")
+          Name(lit) -> propsRef
+      }
+
+    if (fromLiterals.size == props.size) return fromLiterals.map { case (k, v) => (v, k) }
+
+    val hrefAndNormal: Map[Name, TypeRef] =
+      props.map {
+        case (propsRef, (splitProps, _)) =>
+          val href = splitProps.allProps
+            .collectFirst { case x: Prop.Normal if x.name.value === "href" => "href" }
+            .getOrElse("normal")
+
+          Name(href) -> propsRef
+      }
+    if (hrefAndNormal.size == props.size) return hrefAndNormal.map { case (k, v) => (v, k) }
+
+    props.map { case (propsRef, _) => propsRef -> Name(nameFor(propsRef)) }
   }
 
   def errorModule(

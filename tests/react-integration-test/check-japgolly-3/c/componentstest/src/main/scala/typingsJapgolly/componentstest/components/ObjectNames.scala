@@ -1,7 +1,7 @@
 package typingsJapgolly.componentstest.components
 
 import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.componentstest.anon.Equals
+import typingsJapgolly.componentstest.anon.PropsWithChildren
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -11,7 +11,7 @@ object ObjectNames {
   inline def apply(finalize_ : js.Object => Boolean): Builder = {
     val __props = js.Dynamic.literal()
     __props.updateDynamic("finalize")(js.Any.fromFunction1(finalize_))
-    new Builder(js.Array(this.component, __props.asInstanceOf[Equals]))
+    new Builder(js.Array(this.component, __props.asInstanceOf[/* props */ PropsWithChildren]))
   }
   
   @JSImport("componentstest", "ObjectNames")
@@ -28,7 +28,7 @@ object ObjectNames {
     inline def ne_(value: /* other */ js.Object => Boolean): this.type = set("ne", js.Any.fromFunction1(value))
   }
   
-  type Props = Equals
+  type Props = /* props */ PropsWithChildren
   
-  def withProps(p: Equals): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: /* props */ PropsWithChildren): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

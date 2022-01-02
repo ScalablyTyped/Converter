@@ -514,6 +514,7 @@ object TsQIdent {
     val ReadonlyArray = TsQIdent(IArray(TsIdent.std, TsIdent("ReadonlyArray")))
     val Record        = TsQIdent(IArray(TsIdent.std, TsIdent("Record")))
     val String        = TsQIdent(IArray(TsIdent.std, TsIdent("String")))
+    val NonNullable   = TsQIdent(IArray(TsIdent.std, TsIdent("NonNullable")))
   }
 }
 

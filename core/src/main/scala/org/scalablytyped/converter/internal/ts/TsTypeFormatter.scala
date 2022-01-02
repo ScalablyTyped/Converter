@@ -1,10 +1,11 @@
 package org.scalablytyped.converter.internal
 package ts
 
-object TsTypeFormatter extends TsTypeFormatter(true)
+object TsTypeFormatter extends TsTypeFormatter(true, useNameHint = false)
 
-class TsTypeFormatter(val keepComments: Boolean) {
-  def dropComments = new TsTypeFormatter(false)
+class TsTypeFormatter(val keepComments: Boolean, useNameHint: Boolean) {
+  def dropComments = new TsTypeFormatter(false, useNameHint)
+  def useNameHint  = new TsTypeFormatter(keepComments, true)
 
   def qident(q: TsQIdent): String =
     q.parts.map(_.value).mkString(".")
@@ -123,8 +124,14 @@ class TsTypeFormatter(val keepComments: Boolean) {
     tpe match {
       case TsTypeRef(cs, name, ts) =>
         Comments.format(cs, keepComments) + qident(name) + tparams(ts)(apply).getOrElse("")
-      case TsTypeLiteral(l)                         => lit(l)
-      case TsTypeObject(cs, members)                => Comments.format(cs, keepComments) + s"{${members.map(member).mkString(", ")}}"
+      case TsTypeLiteral(l) => lit(l)
+      case TsTypeObject(cs, members) =>
+        cs.extract { case Marker.NameHint(hint) => hint } match {
+          case Some((hint, restCs)) if useNameHint =>
+            Comments.format(restCs, keepComments) + hint
+          case _ => Comments.format(cs, keepComments) + s"{${members.map(member).mkString(", ")}}"
+        }
+
       case TsTypeFunction(s)                        => s"${sig(s)}"
       case TsTypeConstructor(true, f)               => s"abstract new ${apply(f)}"
       case TsTypeConstructor(false, f)              => s"new ${apply(f)}"

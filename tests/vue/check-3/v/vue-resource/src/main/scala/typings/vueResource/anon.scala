@@ -3,7 +3,6 @@ package typings.vueResource
 import org.scalablytyped.runtime.StringDictionary
 import typings.std.PromiseLike
 import typings.vueResource.vuejs.HttpHeaders
-import typings.vueResource.vuejs.HttpOptions
 import typings.vueResource.vuejs.HttpResponse
 import typings.vueResource.vuejs.http
 import org.scalablytyped.runtime.StObject
@@ -15,59 +14,59 @@ object anon {
   @js.native
   trait Call extends StObject {
     
-    def apply(options: HttpOptions): PromiseLike[HttpResponse] = js.native
+    def apply(options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
     
     def delete(url: String): PromiseLike[HttpResponse] = js.native
     def delete(url: String, data: Any): PromiseLike[HttpResponse] = js.native
-    def delete(url: String, data: Any, options: HttpOptions): PromiseLike[HttpResponse] = js.native
-    def delete(url: String, data: Unit, options: HttpOptions): PromiseLike[HttpResponse] = js.native
-    def delete(url: String, options: HttpOptions): PromiseLike[HttpResponse] = js.native
+    def delete(url: String, data: Any, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
+    def delete(url: String, data: Unit, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
+    def delete(url: String, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
     @JSName("delete")
     var delete_Original: http = js.native
     
     def get(url: String): PromiseLike[HttpResponse] = js.native
     def get(url: String, data: Any): PromiseLike[HttpResponse] = js.native
-    def get(url: String, data: Any, options: HttpOptions): PromiseLike[HttpResponse] = js.native
-    def get(url: String, data: Unit, options: HttpOptions): PromiseLike[HttpResponse] = js.native
-    def get(url: String, options: HttpOptions): PromiseLike[HttpResponse] = js.native
+    def get(url: String, data: Any, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
+    def get(url: String, data: Unit, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
+    def get(url: String, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
     @JSName("get")
     var get_Original: http = js.native
     
     def jsonp(url: String): PromiseLike[HttpResponse] = js.native
     def jsonp(url: String, data: Any): PromiseLike[HttpResponse] = js.native
-    def jsonp(url: String, data: Any, options: HttpOptions): PromiseLike[HttpResponse] = js.native
-    def jsonp(url: String, data: Unit, options: HttpOptions): PromiseLike[HttpResponse] = js.native
-    def jsonp(url: String, options: HttpOptions): PromiseLike[HttpResponse] = js.native
+    def jsonp(url: String, data: Any, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
+    def jsonp(url: String, data: Unit, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
+    def jsonp(url: String, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
     @JSName("jsonp")
     var jsonp_Original: http = js.native
     
     def patch(url: String): PromiseLike[HttpResponse] = js.native
     def patch(url: String, data: Any): PromiseLike[HttpResponse] = js.native
-    def patch(url: String, data: Any, options: HttpOptions): PromiseLike[HttpResponse] = js.native
-    def patch(url: String, data: Unit, options: HttpOptions): PromiseLike[HttpResponse] = js.native
-    def patch(url: String, options: HttpOptions): PromiseLike[HttpResponse] = js.native
+    def patch(url: String, data: Any, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
+    def patch(url: String, data: Unit, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
+    def patch(url: String, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
     @JSName("patch")
     var patch_Original: http = js.native
     
     def post(url: String): PromiseLike[HttpResponse] = js.native
     def post(url: String, data: Any): PromiseLike[HttpResponse] = js.native
-    def post(url: String, data: Any, options: HttpOptions): PromiseLike[HttpResponse] = js.native
-    def post(url: String, data: Unit, options: HttpOptions): PromiseLike[HttpResponse] = js.native
-    def post(url: String, options: HttpOptions): PromiseLike[HttpResponse] = js.native
+    def post(url: String, data: Any, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
+    def post(url: String, data: Unit, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
+    def post(url: String, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
     @JSName("post")
     var post_Original: http = js.native
     
     def put(url: String): PromiseLike[HttpResponse] = js.native
     def put(url: String, data: Any): PromiseLike[HttpResponse] = js.native
-    def put(url: String, data: Any, options: HttpOptions): PromiseLike[HttpResponse] = js.native
-    def put(url: String, data: Unit, options: HttpOptions): PromiseLike[HttpResponse] = js.native
-    def put(url: String, options: HttpOptions): PromiseLike[HttpResponse] = js.native
+    def put(url: String, data: Any, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
+    def put(url: String, data: Unit, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
+    def put(url: String, options: typings.vueResource.vuejs.HttpOptions): PromiseLike[HttpResponse] = js.native
     @JSName("put")
     var put_Original: http = js.native
   }
   
   /* Inlined vue-resource.vuejs.HttpOptions & {  root :string} */
-  trait HttpOptionsrootstring extends StObject {
+  trait HttpOptions extends StObject {
     
     var before: js.UndefOr[js.Function1[/* request */ Any, Any]] = js.undefined
     
@@ -91,14 +90,14 @@ object anon {
     
     var url: js.UndefOr[String] = js.undefined
   }
-  object HttpOptionsrootstring {
+  object HttpOptions {
     
-    inline def apply(root: String): HttpOptionsrootstring = {
+    inline def apply(root: String): HttpOptions = {
       val __obj = js.Dynamic.literal(root = root.asInstanceOf[js.Any])
-      __obj.asInstanceOf[HttpOptionsrootstring]
+      __obj.asInstanceOf[HttpOptions]
     }
     
-    extension [Self <: HttpOptionsrootstring](x: Self) {
+    extension [Self <: HttpOptions](x: Self) {
       
       inline def setBefore(value: /* request */ Any => Any): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
       
@@ -144,25 +143,8 @@ object anon {
     }
   }
   
-  trait Method extends StObject {
-    
-    var method: String
-  }
-  object Method {
-    
-    inline def apply(method: String): Method = {
-      val __obj = js.Dynamic.literal(method = method.asInstanceOf[js.Any])
-      __obj.asInstanceOf[Method]
-    }
-    
-    extension [Self <: Method](x: Self) {
-      
-      inline def setMethod(value: String): Self = StObject.set(x, "method", value.asInstanceOf[js.Any])
-    }
-  }
-  
   /* Inlined {  headers :vue-resource.vuejs.HttpHeaders | undefined, [key: string] : any} & vue-resource.vuejs.HttpOptions */
-  trait headersHttpHeadersundefin
+  trait HttpOptionsDictkey
     extends StObject
        with /* key */ StringDictionary[Any] {
     
@@ -186,14 +168,14 @@ object anon {
     
     var url: js.UndefOr[String] = js.undefined
   }
-  object headersHttpHeadersundefin {
+  object HttpOptionsDictkey {
     
-    inline def apply(): headersHttpHeadersundefin = {
+    inline def apply(): HttpOptionsDictkey = {
       val __obj = js.Dynamic.literal()
-      __obj.asInstanceOf[headersHttpHeadersundefin]
+      __obj.asInstanceOf[HttpOptionsDictkey]
     }
     
-    extension [Self <: headersHttpHeadersundefin](x: Self) {
+    extension [Self <: HttpOptionsDictkey](x: Self) {
       
       inline def setBefore(value: /* request */ Any => Any): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
       
@@ -234,6 +216,23 @@ object anon {
       inline def setUrl(value: String): Self = StObject.set(x, "url", value.asInstanceOf[js.Any])
       
       inline def setUrlUndefined: Self = StObject.set(x, "url", js.undefined)
+    }
+  }
+  
+  trait Method extends StObject {
+    
+    var method: String
+  }
+  object Method {
+    
+    inline def apply(method: String): Method = {
+      val __obj = js.Dynamic.literal(method = method.asInstanceOf[js.Any])
+      __obj.asInstanceOf[Method]
+    }
+    
+    extension [Self <: Method](x: Self) {
+      
+      inline def setMethod(value: String): Self = StObject.set(x, "method", value.asInstanceOf[js.Any])
     }
   }
 }
