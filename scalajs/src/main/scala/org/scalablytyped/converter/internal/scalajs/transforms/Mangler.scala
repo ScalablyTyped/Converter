@@ -111,7 +111,14 @@ object Mangler extends TreeTransformation {
             case (n, _) => n
           }
 
+        def countMembers(x: ContainerTree): Int =
+          x.members.foldLeft(0) {
+            case (n, _: MemberTree) => n + 1
+            case (n, _) => n
+          }
+
         if (mod.comments.has[Marker.EnumObject.type]) false
+        else if (countMembers(mod) > 5000) true
         else countClasses(mod) > 40
       }
 
