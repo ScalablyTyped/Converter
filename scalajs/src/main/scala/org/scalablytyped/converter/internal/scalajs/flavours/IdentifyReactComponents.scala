@@ -250,7 +250,11 @@ class IdentifyReactComponents(
         c.index
           .getOrElse(Name.namespaced, Empty)
           .collectFirst {
-            case m: ModuleTree => m.parents
+            case m: ModuleTree =>
+              m.parents.flatMap {
+                case TypeRef.Intersection(types, _) => types
+                case tpe                            => IArray(tpe)
+              }
             case f: FieldTree =>
               f.tpe match {
                 case TypeRef.Intersection(types, _) => types
@@ -262,7 +266,11 @@ class IdentifyReactComponents(
 
       val normal = c match {
         case _: PackageTree => Empty
-        case x: ModuleTree  => x.parents
+        case x: ModuleTree =>
+          x.parents.flatMap {
+            case TypeRef.Intersection(types, _) => types
+            case other                          => IArray(other)
+          }
       }
 
       fromNamespaced ++ normal
@@ -282,21 +290,19 @@ class IdentifyReactComponents(
     val separated = separateContainer(c, scope)
 
     val componentOpt: Option[Component] = {
-      def fromParents = separated.parentRefs match {
-        case Empty => None
-        case some =>
-          val asField = FieldTree(
-            annotations = c.annotations,
-            level       = ProtectionLevel.Public,
-            name        = c.name,
-            tpe         = TypeRef.Intersection(some, NoComments),
-            impl        = ExprTree.native,
-            isReadOnly  = true,
-            isOverride  = false,
-            comments    = c.comments,
-            codePath    = c.codePath,
-          )
-          maybeFieldComponent(asField, c, scope)
+      def fromParents = separated.parentRefs.firstDefined { tpe =>
+        val asField = FieldTree(
+          annotations = c.annotations,
+          level       = ProtectionLevel.Public,
+          name        = c.name,
+          tpe         = tpe,
+          impl        = ExprTree.native,
+          isReadOnly  = true,
+          isOverride  = false,
+          comments    = c.comments,
+          codePath    = c.codePath,
+        )
+        maybeFieldComponent(asField, c, scope)
       }
       def fromApplies = separated.applyMembers.firstDefined(a => maybeMethodComponent(a, c, scope / a))
 
