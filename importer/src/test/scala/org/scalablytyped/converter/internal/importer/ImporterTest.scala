@@ -70,6 +70,7 @@ trait ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   test("punchcard")(assertImportsOk("punchcard", pedantic                           = true))
   test("recharts")(assertImportsOk("recharts", pedantic                             = true))
   test("firebase")(assertImportsOk("firebase", pedantic                             = true))
+  test("prisma")(assertImportsOk("prisma", pedantic                                 = true))
 
   test("material-ui-slinky")(
     assertImportsOk("material-ui", pedantic = true, flavour = Slinky),
