@@ -82,7 +82,7 @@ object Interface {
       println("\u001b[H")
 
       def row[N: Numeric](title: String, num: N) =
-        println(fansi.Str.join(title, ": ", fansi.Bold.On(num.toString)).render)
+        println(fansi.Str.join(List(title, ": ", fansi.Bold.On(num.toString))).render)
 
       row("Successes", numSucceded)
       row("Failed", numFailed)

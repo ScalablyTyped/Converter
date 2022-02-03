@@ -45,23 +45,25 @@ object Pattern {
       val source = if (t.source.startsWith("\"") || t.source.startsWith("s\"")) "" else t.source
 
       Str.join(
-        Color(prefixFor(m.logLevel)),
-        " ",
-        Subtle(m.instant.toString),
-        " ",
-        Subtle(Formatter(new File(m.file.value))),
-        ":",
-        Subtle(Formatter(m.line.value)),
-        " ",
-        Color(source),
-        " ",
-        Color(Formatter(t.value)),
-        " ",
-        Subtle(Formatter(ctx)),
-        throwable match {
-          case None     => ""
-          case Some(th) => Subtle(formatThrowable(th))
-        },
+        List(
+          Color(prefixFor(m.logLevel)),
+          " ",
+          Subtle(m.instant.toString),
+          " ",
+          Subtle(Formatter(new File(m.file.value))),
+          ":",
+          Subtle(Formatter(m.line.value)),
+          " ",
+          Color(source),
+          " ",
+          Color(Formatter(t.value)),
+          " ",
+          Subtle(Formatter(ctx)),
+          throwable match {
+            case None     => ""
+            case Some(th) => Subtle(formatThrowable(th))
+          },
+        ),
       )
     }
   }
