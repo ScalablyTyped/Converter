@@ -326,11 +326,16 @@ class ImportType(stdNames: QualifiedName.StdNames) {
     val ret: TypeRef =
       orAny(scope, importName)(sig.resultType)
 
-    TypeRef(
-      QualifiedName.Instantiable(sig.params.length),
-      params :+ ret,
-      comments,
-    )
+    if (sig.params.length > 22)
+      TypeRef.Any.withComments(
+        Comments(s"/* untranslatable newable function with more than 22 parameters: ${TsTypeFormatter.sig(_sig)} */"),
+      )
+    else
+      TypeRef(
+        QualifiedName.Instantiable(sig.params.length),
+        params :+ ret,
+        comments,
+      )
   }
 
   private def funParam(scope: TsTreeScope, importName: AdaptiveNamingImport)(param: TsFunParam): TypeRef =
