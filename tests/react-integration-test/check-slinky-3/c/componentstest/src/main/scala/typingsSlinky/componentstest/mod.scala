@@ -7,6 +7,7 @@ import typingsSlinky.componentstest.anon.Equals
 import typingsSlinky.react.mod.CSSProperties
 import typingsSlinky.react.mod.FunctionComponent
 import typingsSlinky.react.mod.MouseEventHandler
+import typingsSlinky.react.mod.RefAttributes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -28,6 +29,10 @@ object mod {
   @JSImport("componentstest", "ObjectNames")
   @js.native
   val ObjectNames: ReactComponentClass[Equals] = js.native
+  
+  @JSImport("componentstest", "VeryExotic")
+  @js.native
+  val VeryExotic: ReactComponentClass[ReactComponentClass[RefAttributes[HTMLDivElement]]] = js.native
   
   trait A
     extends StObject

@@ -28,35 +28,33 @@ class ReactNames(val outputPkg: Name) {
 
   val isRef: Set[QualifiedName] = Set(Ref, LegacyRef, RefObject, RefCallback)
 
-  val WrappedComponents: Set[String] = Set(
-    "MemoExoticComponent",
-    "LazyExoticComponent",
-    "RefForwardingComponent",
-  )
+  def explode(names: String*) = names.toSet.flatMap((name: String) => List(mod + Name(name), static + Name(name)))
+
+  val PropsWithWithoutRefQNames: Set[QualifiedName] =
+    explode("PropsWithoutRef", "PropsWithRef")
+
+  val ComponentPropsWithWithoutRefQNames: Set[QualifiedName] =
+    explode("ComponentPropsWithRef", "ComponentPropsWithoutRef")
 
   val WrappedComponentsQNames: Set[QualifiedName] =
-    WrappedComponents.flatMap(name => List(mod + Name(name), static + Name(name)))
+    explode("MemoExoticComponent", "LazyExoticComponent")
 
-  val ComponentNames: Set[String] =
-    Set(
-      "ClassicComponent",
-      "ClassicComponentClass",
-      "Component",
-      "ComponentClass",
-      "ComponentType",
-      "ExoticComponent",
-      "FC",
-      "FunctionComponent",
-      "NamedExoticComponent",
-      "ProviderExoticComponent",
-      "PureComponent",
-      "RefForwardingComponent",
-      "SFC",
-      "StatelessComponent",
-    )
-
-  val ComponentQNames: Set[QualifiedName] =
-    ComponentNames.flatMap(name => List(mod + Name(name), static + Name(name)))
+  val ComponentQNames: Set[QualifiedName] = explode(
+    "ClassicComponent",
+    "ClassicComponentClass",
+    "Component",
+    "ComponentClass",
+    "ComponentType",
+    "ExoticComponent",
+    "FC",
+    "FunctionComponent",
+    "NamedExoticComponent",
+    "ProviderExoticComponent",
+    "PureComponent",
+    "SFC",
+    "StatelessComponent",
+    "ForwardRefExoticComponent",
+  )
 
   val ComponentLike: Set[QualifiedName] =
     ComponentQNames ++ WrappedComponentsQNames

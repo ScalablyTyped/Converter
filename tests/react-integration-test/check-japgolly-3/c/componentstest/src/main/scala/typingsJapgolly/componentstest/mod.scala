@@ -9,8 +9,11 @@ import typingsJapgolly.componentstest.anon.Equals
 import typingsJapgolly.react.mod.CSSProperties
 import typingsJapgolly.react.mod.ComponentType
 import typingsJapgolly.react.mod.FC
+import typingsJapgolly.react.mod.ForwardRefExoticComponent
 import typingsJapgolly.react.mod.FunctionComponent
+import typingsJapgolly.react.mod.MemoExoticComponent
 import typingsJapgolly.react.mod.MouseEventHandler
+import typingsJapgolly.react.mod.RefAttributes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -32,6 +35,10 @@ object mod {
   @JSImport("componentstest", "ObjectNames")
   @js.native
   val ObjectNames: FC[Equals] = js.native
+  
+  @JSImport("componentstest", "VeryExotic")
+  @js.native
+  val VeryExotic: MemoExoticComponent[ForwardRefExoticComponent[RefAttributes[HTMLDivElement]]] = js.native
   
   trait A
     extends StObject

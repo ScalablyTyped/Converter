@@ -26,12 +26,18 @@ class ReactNamesProxy(reactNames: ReactNames, rewrites: IArray[CastConversion]) 
       case TypeRef.Intersection(types, _) =>
         types.firstDefined(isComponent)
       case TypeRef(c, IArray.first(props), _) if ComponentQNames(c) =>
-        Some(PropsRef(props))
+        isComponent(props).orElse(Some(unpackedProps(props)))
       case TypeRef(c, IArray.first(cc), _) if WrappedComponentsQNames(c) =>
         isComponent(cc)
       case _ =>
         None
     }
+
+  /* the portion of the type system implemented in ST is not powerful enough to handle these constructs */
+  def unpackedProps(propsRef: TypeRef): PropsRef =
+    if (reactNames.PropsWithWithoutRefQNames(propsRef.typeName)) PropsRef(propsRef.targs.head)
+    else if (reactNames.ComponentPropsWithWithoutRefQNames(propsRef.typeName)) PropsRef(propsRef.targs.head.targs.head)
+    else PropsRef(propsRef)
 
   val isElement: Set[QualifiedName] =
     Set(reactNames.ReactElement, reactNames.JsxReactElement).flatMap(withRewritten)

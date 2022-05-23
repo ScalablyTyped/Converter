@@ -65,7 +65,7 @@ class IdentifyReactComponents(
                   scalaRef      = tparams.last,
                   fullName      = name,
                   tparams       = Empty,
-                  propsRef      = PropsRef(props),
+                  propsRef      = reactNames.unpackedProps(props),
                   componentType = ComponentType.Intrinsic,
                   nested        = Empty,
                 )
@@ -203,7 +203,7 @@ class IdentifyReactComponents(
           case _: ClassTree => false
           case _ => true
         }
-        val propsRef = PropsRef(flattenedParams.headOption.map(_.tpe).getOrElse(TypeRef.JsObject))
+        val propsRef = reactNames.unpackedProps(flattenedParams.headOption.map(_.tpe).getOrElse(TypeRef.JsObject))
         def validName =
           isUpper(method.name) || (Unnamed(method.name) && (isUpper(owner.name) || Unnamed(owner.name) || owner.name === Name.mod))
 

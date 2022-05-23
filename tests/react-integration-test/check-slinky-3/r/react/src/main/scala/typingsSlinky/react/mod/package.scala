@@ -203,7 +203,7 @@ inline def createFactory_T_HTMLElement_HTMLFactory[T /* <: HTMLElement */](`type
 
 inline def createRef[T](): ReactRef[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("createRef")().asInstanceOf[ReactRef[T]]
 
-inline def forwardRef[T, P](Component: ReactComponentClass[T]): ReactComponentClass[PropsWithoutRef[P] & RefAttributes[T]] = ^.asInstanceOf[js.Dynamic].applyDynamic("forwardRef")(Component.asInstanceOf[js.Any]).asInstanceOf[ReactComponentClass[PropsWithoutRef[P] & RefAttributes[T]]]
+inline def forwardRef[T, P](Component: RefForwardingComponent[T, P]): ReactComponentClass[PropsWithoutRef[P] & RefAttributes[T]] = ^.asInstanceOf[js.Dynamic].applyDynamic("forwardRef")(Component.asInstanceOf[js.Any]).asInstanceOf[ReactComponentClass[PropsWithoutRef[P] & RefAttributes[T]]]
 
 inline def isValidElement[P](): /* is react.react.ReactElement */ Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("isValidElement")().asInstanceOf[/* is react.react.ReactElement */ Boolean]
 inline def isValidElement[P](`object`: js.Object): /* is react.react.ReactElement */ Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("isValidElement")(`object`.asInstanceOf[js.Any]).asInstanceOf[/* is react.react.ReactElement */ Boolean]

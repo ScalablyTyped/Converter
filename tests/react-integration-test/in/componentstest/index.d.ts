@@ -35,3 +35,6 @@ export const ObjectNames: React.FC<{
     equals?: boolean;
     finalize(other: object): boolean;
 }>;
+
+
+export const VeryExotic: React.MemoExoticComponent<React.ForwardRefExoticComponent<React.RefAttributes<HTMLDivElement>>>;
