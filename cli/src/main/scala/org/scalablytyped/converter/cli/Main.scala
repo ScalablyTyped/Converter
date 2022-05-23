@@ -179,7 +179,7 @@ object Main {
     val massaged = kvs.flatMap {
       case (header, value) => Seq[Str](Key(header.padTo(headerLength, ' ')), value, "\n")
     }
-    Str.join(massaged: _*)
+    Str.join(massaged)
   }
 
   def main(args: Array[String]): Unit =
