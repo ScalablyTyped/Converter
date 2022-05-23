@@ -72,6 +72,8 @@ object scala {
         
         def `-`(other: js.BigInt): js.BigInt = js.native
         
+        def `/`(other: js.BigInt): js.BigInt = js.native
+        
         def `<`(x: js.BigInt): Boolean = js.native
         
         def `<<`(other: js.BigInt): js.BigInt = js.native
@@ -87,6 +89,7 @@ object scala {
         def toLocaleString(locale: String, options: js.BigInt.ToLocaleStringOptions): String = js.native
         
         override def toString(): String = js.native
+        def toString(radix: Int): String = js.native
         
         def `unary_-`(): js.BigInt = js.native
         

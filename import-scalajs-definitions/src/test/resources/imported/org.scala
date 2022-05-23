@@ -1724,6 +1724,12 @@ object org {
       }
       
       @js.native
+      abstract class CustomElementRegistry () extends StObject {
+        
+        def define(name: String, constructor: js.Dynamic, options: ElementDefinitionOptions): Unit = js.native
+      }
+      
+      @js.native
       class CustomEvent protected ()
         extends StObject
            with Event {
@@ -1833,25 +1839,43 @@ object org {
       }
       
       @js.native
-      class DOMRect () extends StObject {
+      class DOMRect ()
+        extends StObject
+           with DOMRectReadOnly {
         
-        var bottom: Double = js.native
+        def height_=(height: Double): Unit = js.native
         
-        var height: Double = js.native
+        def width_=(width: Double): Unit = js.native
         
-        var left: Double = js.native
+        def x_=(x: Double): Unit = js.native
         
-        var right: Double = js.native
-        
-        var top: Double = js.native
-        
-        var width: Double = js.native
+        def y_=(y: Double): Unit = js.native
       }
       
       @js.native
       class DOMRectList ()
         extends StObject
            with DOMList[DOMRect]
+      
+      @js.native
+      trait DOMRectReadOnly extends StObject {
+        
+        def bottom(): Double = js.native
+        
+        def height(): Double = js.native
+        
+        def left(): Double = js.native
+        
+        def right(): Double = js.native
+        
+        def top(): Double = js.native
+        
+        def width(): Double = js.native
+        
+        def x(): Double = js.native
+        
+        def y(): Double = js.native
+      }
       
       @js.native
       trait DOMSettableTokenList
@@ -1994,13 +2018,13 @@ object org {
         extends StObject
            with EventInit {
         
-        val acceleration: js.UndefOr[DeviceAcceleration] = js.native
+        var acceleration: js.UndefOr[DeviceAcceleration] = js.native
         
-        val accelerationIncludingGravity: js.UndefOr[DeviceAcceleration] = js.native
+        var accelerationIncludingGravity: js.UndefOr[DeviceAcceleration] = js.native
         
-        val interval: js.UndefOr[Double] = js.native
+        var interval: js.UndefOr[Double] = js.native
         
-        val rotationRate: js.UndefOr[DeviceRotationRate] = js.native
+        var rotationRate: js.UndefOr[DeviceRotationRate] = js.native
       }
       
       @js.native
@@ -2297,6 +2321,8 @@ object org {
         
         def append(nodes: Node | String): Unit = js.native
         
+        def attachShadow(init: ShadowRootInit): ShadowRoot = js.native
+        
         def before(nodes: Node | String): Unit = js.native
         
         var classList: DOMTokenList = js.native
@@ -2387,7 +2413,15 @@ object org {
         
         def setAttributeNodeNS(newAttr: Attr): Attr = js.native
         
+        def shadowRoot(): ShadowRoot = js.native
+        
         def tagName(): String = js.native
+      }
+      
+      @js.native
+      trait ElementDefinitionOptions extends StObject {
+        
+        var `extends`: js.UndefOr[String] = js.native
       }
       
       @js.native
@@ -2490,6 +2524,8 @@ object org {
         var once: js.UndefOr[Boolean] = js.native
         
         var passive: js.UndefOr[Boolean] = js.native
+        
+        var signal: js.UndefOr[AbortSignal] = js.native
       }
       
       @js.native
@@ -2724,7 +2760,7 @@ object org {
         extends StObject
            with UIEventInit {
         
-        val relatedTarget: js.UndefOr[EventTarget] = js.native
+        var relatedTarget: js.UndefOr[EventTarget] = js.native
       }
       
       @js.native
@@ -2987,6 +3023,8 @@ object org {
         var formTarget: String = js.native
         
         var name: String = js.native
+        
+        def reportValidity(): Boolean = js.native
         
         def setCustomValidity(error: String): Unit = js.native
         
@@ -3503,6 +3541,8 @@ object org {
         
         def form(): HTMLFormElement = js.native
         
+        def reportValidity(): Boolean = js.native
+        
         def setCustomValidity(error: String): Unit = js.native
         
         def validationMessage(): String = js.native
@@ -3549,6 +3589,8 @@ object org {
         def namedItem(name: String): js.Dynamic = js.native
         
         var noValidate: Boolean = js.native
+        
+        def reportValidity(): Boolean = js.native
         
         def reset(): Unit = js.native
         
@@ -3692,6 +3734,8 @@ object org {
         var placeholder: String = js.native
         
         var readOnly: Boolean = js.native
+        
+        def reportValidity(): Boolean = js.native
         
         var required: Boolean = js.native
         
@@ -3942,6 +3986,8 @@ object org {
         
         var `object`: Object = js.native
         
+        def reportValidity(): Boolean = js.native
+        
         def setCustomValidity(error: String): Unit = js.native
         
         var `type`: String = js.native
@@ -4092,6 +4138,8 @@ object org {
         val options: HTMLOptionsCollection = js.native
         
         def remove(index: Int): Unit = js.native
+        
+        def reportValidity(): Boolean = js.native
         
         var required: Boolean = js.native
         
@@ -4251,6 +4299,14 @@ object org {
       }
       
       @js.native
+      abstract class HTMLTemplateElement ()
+        extends StObject
+           with HTMLElement {
+        
+        def content(): DocumentFragment = js.native
+      }
+      
+      @js.native
       abstract class HTMLTextAreaElement ()
         extends StObject
            with HTMLElement {
@@ -4274,6 +4330,8 @@ object org {
         var placeholder: String = js.native
         
         var readOnly: Boolean = js.native
+        
+        def reportValidity(): Boolean = js.native
         
         var required: Boolean = js.native
         
@@ -6405,6 +6463,14 @@ object org {
       }
       
       @js.native
+      trait QueuingStrategy[T] extends StObject {
+        
+        var highWaterMark: Int = js.native
+        
+        var size: js.Function1[T, Int] = js.native
+      }
+      
+      @js.native
       sealed trait RTCBundlePolicy
         extends StObject
            with js.Any
@@ -6830,31 +6896,30 @@ object org {
         
         def pipeThrough[U](pair: Any, options: Any): ReadableStream[U] = js.native
         
-        def pipeTo(dest: WriteableStream[T], options: Any): Unit = js.native
+        def pipeTo(dest: WriteableStream[T], options: Any): js.Promise[Unit] = js.native
         
         def tee(): js.Array[_] = js.native
       }
       
       @js.native
-      class ReadableStreamController[T] protected () extends StObject {
-        def this(stream: ReadableStream[T]) = this()
+      class ReadableStreamController[T] private () extends StObject {
         
         def close(): Unit = js.native
         
         def desiredSize(): Int = js.native
         
-        def enqueue(chunk: Chunk[T]): js.UndefOr[Int] = js.native
+        def enqueue(): Unit = js.native
+        def enqueue(chunk: T): Unit = js.native
         
         def error(e: Any): Unit = js.native
-        
-        val stream: ReadableStream[T] = js.native
       }
       
       @js.native
       class ReadableStreamReader[T] protected () extends StObject {
         def this(stream: ReadableStream[T]) = this()
         
-        def cancel(reason: Any): js.Promise[Any] = js.native
+        def cancel(): js.Promise[Unit] = js.native
+        def cancel(reason: Any): js.Promise[Unit] = js.native
         
         def closed(): js.Promise[ReadableStreamReader[T]] = js.native
         
@@ -6863,6 +6928,25 @@ object org {
         def releaseLock(): Unit = js.native
         
         val stream: ReadableStream[T] = js.native
+      }
+      
+      @js.native
+      sealed trait ReadableStreamType
+        extends StObject
+           with js.Any
+      
+      @js.native
+      trait ReadableStreamUnderlyingSource[T] extends StObject {
+        
+        var autoAllocateChunkSize: js.UndefOr[Int] = js.native
+        
+        var cancel: js.UndefOr[js.Function1[js.Any, js.UndefOr[js.Promise[Unit]]]] = js.native
+        
+        var pull: js.UndefOr[js.Function1[ReadableStreamController[T], js.UndefOr[js.Promise[Unit]]]] = js.native
+        
+        var start: js.UndefOr[js.Function1[ReadableStreamController[T], js.UndefOr[js.Promise[Unit]]]] = js.native
+        
+        var `type`: js.UndefOr[ReadableStreamType] = js.native
       }
       
       @js.native
@@ -6970,6 +7054,51 @@ object org {
            with js.Any
       
       @js.native
+      class ResizeObserver protected () extends StObject {
+        def this(callback: js.Function2[js.Array[ResizeObserverEntry], ResizeObserver, _]) = this()
+        
+        val callback: js.Function2[js.Array[ResizeObserverEntry], ResizeObserver, _] = js.native
+        
+        def disconnect(): Unit = js.native
+        
+        def observe(target: Element): Unit = js.native
+        def observe(target: Element, options: ResizeObserverOptions): Unit = js.native
+        
+        def unobserve(target: Element): Unit = js.native
+      }
+      
+      @js.native
+      sealed trait ResizeObserverBoxOption
+        extends StObject
+           with js.Any
+      
+      @js.native
+      trait ResizeObserverEntry extends StObject {
+        
+        def borderBoxSize(): js.Array[ResizeObserverSize] = js.native
+        
+        def contentBoxSize(): js.Array[ResizeObserverSize] = js.native
+        
+        def contentRect(): DOMRectReadOnly = js.native
+        
+        def target(): Element = js.native
+      }
+      
+      @js.native
+      trait ResizeObserverOptions extends StObject {
+        
+        var box: js.UndefOr[ResizeObserverBoxOption] = js.native
+      }
+      
+      @js.native
+      trait ResizeObserverSize extends StObject {
+        
+        def blockSize(): Double = js.native
+        
+        def inlineSize(): Double = js.native
+      }
+      
+      @js.native
       class Response protected ()
         extends StObject
            with Body {
@@ -7006,11 +7135,11 @@ object org {
       @js.native
       trait ResponseInit extends StObject {
         
-        var headers: HeadersInit = js.native
+        var headers: js.UndefOr[HeadersInit] = js.native
         
-        var status: Int = js.native
+        var status: js.UndefOr[Int] = js.native
         
-        var statusText: ByteString = js.native
+        var statusText: js.UndefOr[ByteString] = js.native
       }
       
       @js.native
@@ -9358,17 +9487,38 @@ object org {
            with js.Any
       
       @js.native
+      abstract class ShadowRoot ()
+        extends StObject
+           with DocumentFragment {
+        
+        def activeElement(): Element = js.native
+      }
+      
+      @js.native
+      trait ShadowRootInit extends StObject {
+        
+        var delegatesFocus: js.UndefOr[Boolean] = js.native
+        
+        var mode: ShadowRootMode = js.native
+      }
+      
+      @js.native
+      sealed trait ShadowRootMode
+        extends StObject
+           with js.Any
+      
+      @js.native
       class SharedWorker protected ()
         extends StObject
            with EventTarget
            with AbstractWorker {
-        def this(stringUrl: String, name: js.UndefOr[String]) = this()
-        
-        val name: js.UndefOr[String] = js.native
+        def this(scriptURL: String) = this()
+        def this(scriptURL: String, name: String) = this()
+        def this(scriptURL: String, options: WorkerOptions) = this()
         
         def port(): MessagePort = js.native
         
-        val stringUrl: String = js.native
+        val scriptURL: String = js.native
       }
       
       @js.native
@@ -9965,9 +10115,9 @@ object org {
         extends StObject
            with EventInit {
         
-        val detail: js.UndefOr[Int] = js.native
+        var detail: js.UndefOr[Int] = js.native
         
-        val view: js.UndefOr[Window] = js.native
+        var view: js.UndefOr[Window] = js.native
       }
       
       @js.native
@@ -10660,6 +10810,8 @@ object org {
         
         def confirm(message: String): Boolean = js.native
         
+        def customElements(): CustomElementRegistry = js.native
+        
         def devicePixelRatio(): Double = js.native
         
         def document(): HTMLDocument = js.native
@@ -10994,13 +11146,16 @@ object org {
         extends StObject
            with EventTarget
            with AbstractWorker {
-        def this(stringUrl: String) = this()
+        def this(scriptURL: String) = this()
+        def this(scriptURL: String, options: WorkerOptions) = this()
         
         var onmessage: js.Function1[MessageEvent, _] = js.native
         
+        val options: WorkerOptions = js.native
+        
         def postMessage(message: js.Any, transfer: js.UndefOr[js.Array[Transferable]]): Unit = js.native
         
-        val stringUrl: String = js.native
+        val scriptURL: String = js.native
         
         def terminate(): Unit = js.native
       }
@@ -11061,6 +11216,21 @@ object org {
         
         def sendBeacon(url: String, data: BodyInit): Boolean = js.native
       }
+      
+      @js.native
+      trait WorkerOptions extends StObject {
+        
+        var credentials: js.UndefOr[RequestCredentials] = js.native
+        
+        var name: js.UndefOr[String] = js.native
+        
+        var `type`: js.UndefOr[WorkerType] = js.native
+      }
+      
+      @js.native
+      sealed trait WorkerType
+        extends StObject
+           with js.Any
       
       @js.native
       sealed trait WriteableState

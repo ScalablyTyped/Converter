@@ -304,6 +304,7 @@ object slinky {
         def useEffect(thunk: js.Function0[EffectCallbackReturn], watchedObjects: js.Array[js.Any]): Unit = js.native
         
         def useImperativeHandle[R](ref: ReactRef[R], value: js.Function0[R]): Unit = js.native
+        def useImperativeHandle[R](ref: ReactRef[R], value: js.Function0[R], deps: js.Array[js.Any]): Unit = js.native
         
         def useLayoutEffect(thunk: js.Function0[EffectCallbackReturn]): Unit = js.native
         def useLayoutEffect(thunk: js.Function0[EffectCallbackReturn], watchedObjects: js.Array[js.Any]): Unit = js.native
@@ -422,7 +423,7 @@ object slinky {
         
         def createRef[T](): ReactRef[T] = js.native
         
-        def forwardRef[P](fn: js.Object): js.Object = js.native
+        def forwardRef[P](fn: js.Object): js.Function = js.native
         
         def memo(fn: js.Function, compare: js.UndefOr[js.Object]): js.Function = js.native
       }

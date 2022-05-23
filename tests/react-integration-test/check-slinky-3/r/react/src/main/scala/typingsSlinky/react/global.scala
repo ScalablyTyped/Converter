@@ -21,7 +21,6 @@ import typingsSlinky.react.mod.DetailedReactHTMLElement
 import typingsSlinky.react.mod.Dispatch
 import typingsSlinky.react.mod.EffectCallback
 import typingsSlinky.react.mod.Factory
-import typingsSlinky.react.mod.ForwardRefExoticComponent
 import typingsSlinky.react.mod.FunctionComponentElement
 import typingsSlinky.react.mod.FunctionComponentFactory
 import typingsSlinky.react.mod.HTMLAttributes
@@ -252,7 +251,7 @@ object global {
     
     inline def createRef[T](): ReactRef[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("createRef")().asInstanceOf[ReactRef[T]]
     
-    inline def forwardRef[T, P](Component: ReactComponentClass[T]): ForwardRefExoticComponent[PropsWithoutRef[P] & RefAttributes[T]] = ^.asInstanceOf[js.Dynamic].applyDynamic("forwardRef")(Component.asInstanceOf[js.Any]).asInstanceOf[ForwardRefExoticComponent[PropsWithoutRef[P] & RefAttributes[T]]]
+    inline def forwardRef[T, P](Component: ReactComponentClass[T]): ReactComponentClass[PropsWithoutRef[P] & RefAttributes[T]] = ^.asInstanceOf[js.Dynamic].applyDynamic("forwardRef")(Component.asInstanceOf[js.Any]).asInstanceOf[ReactComponentClass[PropsWithoutRef[P] & RefAttributes[T]]]
     
     inline def isValidElement[P](): /* is react.react.ReactElement */ Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("isValidElement")().asInstanceOf[/* is react.react.ReactElement */ Boolean]
     inline def isValidElement[P](`object`: js.Object): /* is react.react.ReactElement */ Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("isValidElement")(`object`.asInstanceOf[js.Any]).asInstanceOf[/* is react.react.ReactElement */ Boolean]
