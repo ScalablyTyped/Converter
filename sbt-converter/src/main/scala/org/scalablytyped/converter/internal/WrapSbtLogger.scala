@@ -64,17 +64,19 @@ object WrapSbtLogger {
       val source = if (t.source.startsWith("\"") || t.source.startsWith("s\"")) "" else t.source
 
       Str.join(
-        subtle(Str.join(Formatter(new sbt.File(m.file.value)), ":", Formatter(m.line.value))),
-        " ",
-        subtle(source),
-        " ",
-        color(Formatter(t.value)),
-        " ",
-        subtle(Formatter(ctx.updated("ms", Formatter(java.time.Duration.between(started, m.instant).toMillis)))),
-        throwable match {
-          case None     => ""
-          case Some(th) => subtle(Pattern.formatThrowable(th))
-        },
+        List(
+          subtle(Str.join(List(Formatter(new sbt.File(m.file.value)), ":", Formatter(m.line.value)))),
+          " ",
+          subtle(source),
+          " ",
+          color(Formatter(t.value)),
+          " ",
+          subtle(Formatter(ctx.updated("ms", Formatter(java.time.Duration.between(started, m.instant).toMillis)))),
+          throwable match {
+            case None     => ""
+            case Some(th) => subtle(Pattern.formatThrowable(th))
+          },
+        ),
       )
     }
   }
