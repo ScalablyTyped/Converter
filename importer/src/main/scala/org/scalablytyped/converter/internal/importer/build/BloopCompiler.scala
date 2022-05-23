@@ -123,7 +123,7 @@ class BloopCompiler private (
       else scalaJsCompiler.map(scalaJsCompiler => "-Xplugin:" + scalaJsCompiler.syntax).get
 
     val projectFile = BloopConfig.File(
-      "1.4.8",
+      "1.5.0",
       BloopConfig.Project(
         name         = name,
         directory    = compilerPaths.baseDir.toNIO,

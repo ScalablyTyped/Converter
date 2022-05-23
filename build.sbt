@@ -57,6 +57,7 @@ lazy val importer = project
   .settings(
     libraryDependencies ++= Seq(
       Deps.bloop,
+      Deps.coursier,
       Deps.scalatest % Test,
     ),
     Test / fork := true,
