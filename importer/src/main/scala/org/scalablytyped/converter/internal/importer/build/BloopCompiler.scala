@@ -29,7 +29,8 @@ object BloopCompiler {
       dep.version,
     )
 
-  val fileCache = FileCache[Task]()
+  // I've experienced `checksum not found` errors from coursier in test
+  val fileCache = FileCache[Task]().withChecksums(Nil)
 
   def resolve(deps: Dep.Concrete*)(implicit ec: ExecutionContext): Future[Array[AbsolutePath]] = {
     def go(remainingAttempts: Int): Future[Array[AbsolutePath]] =
