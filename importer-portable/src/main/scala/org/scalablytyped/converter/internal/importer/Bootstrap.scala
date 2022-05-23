@@ -109,6 +109,7 @@ object Bootstrap {
             if (path.last.startsWith("@types")) Nil
             else
               os.list(path)
+                .collect { case dir if os.isDir(dir) => dir }
                 .map(nestedPath => FromFolder(InFolder(nestedPath), TsIdentLibrary(s"${path.last}/${nestedPath.last}")))
           case path => List(FromFolder(InFolder(path), TsIdentLibrary(path.last)))
         }
