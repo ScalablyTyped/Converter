@@ -17,7 +17,7 @@ If you try the converter on a Typescript library and it doesn't terminate, runs 
 3. Register the new TS directory in the [ImporterTest](https://github.com/ScalablyTyped/Converter/blob/master/importer/src/test/scala/org/scalablytyped/converter/internal/importer/ImporterTest.scala). 
 You can try setting the `pedantic` flag to false initially. See [dev guidelines](devel/about.md) for further info.
 
-4. Start `sbt`. Run the import tests `testOnly org.scalablytyped.converter.internal.importer.ImporterTest`. Does the unit test run show the same failure that you saw during import? It should.
+4. Start `sbt`. Run the import tests `testOnly org.scalablytyped.converter.internal.importer.ImporterTest3`. Does the unit test run show the same failure that you saw during import? It should.
 
 5. Minimize! The aim is to find the structure in the TS that is causing problems, while removing all irrelevant code. No sugar coating it - minimizing can be effort intensive with some trial-and-error. It's likely you can remove 95-99% of the TS. 
 
