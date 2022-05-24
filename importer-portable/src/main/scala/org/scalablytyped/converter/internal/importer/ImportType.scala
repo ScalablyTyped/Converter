@@ -231,8 +231,8 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             case None        => NoComments
           }
 
-        targs match {
-          case IArray.initLast(init, elem @ TsTupleElement(_, TsTypeRepeated(repeated))) =>
+        targs.partitionCollect { case elem @ TsTupleElement(_, TsTypeRepeated(repeated)) => (elem, repeated) } match {
+          case (IArray.first((repeatedElem, repeated)), rest) =>
             ts.FollowAliases(scope)(repeated) match {
               case TsTypeRef(
                   _,
@@ -241,17 +241,18 @@ class ImportType(stdNames: QualifiedName.StdNames) {
                   ) =>
                 TypeRef(
                   importName(TsQIdent.Array),
-                  IArray(apply(scope, importName)(TsTypeUnion(init.map(_.tpe) :+ tpe))).distinct,
-                  labelComment(elem),
+                  IArray(apply(scope, importName)(TsTypeUnion(rest.map(_.tpe) :+ tpe))).distinct,
+                  labelComment(repeatedElem),
                 )
               case other =>
                 val c = Comment.warning(s"repeated non-array type: ${TsTypeFormatter(other)}")
-                apply(scope, importName)(TsTypeRef(Comments(c) ++ labelComment(elem), TsQIdent.Array, IArray(other)))
+                apply(scope, importName)(
+                  TsTypeRef(Comments(c) ++ labelComment(repeatedElem), TsQIdent.Array, IArray(other)),
+                )
             }
-          case nonRepeating =>
+          case (_, nonRepeating) =>
             TypeRef.JsTuple(nonRepeating.map { elem =>
-              apply(scope, importName)(elem.tpe)
-                .withComments(labelComment(elem))
+              apply(scope, importName)(elem.tpe).withComments(labelComment(elem))
             })
         }
 
