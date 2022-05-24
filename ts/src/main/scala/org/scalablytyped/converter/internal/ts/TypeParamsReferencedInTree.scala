@@ -3,15 +3,6 @@ package ts
 
 object TypeParamsReferencedInTree {
   def apply(inScope: Map[TsIdent, TsTypeParam], tree: TsTree): IArray[TsTypeParam] = {
-
-    val locallyDefined: Set[TsIdent] =
-      TsTreeTraverse
-        .collect(tree) {
-          case HasTParams(tparams) => tparams.map(_.name)
-        }
-        .flatten
-        .toSet
-
     val referencedInTree: IArray[TsIdent] =
       TsTreeTraverse
         .collect(tree) {
@@ -29,6 +20,6 @@ object TypeParamsReferencedInTree {
           unprefixedName
       }
 
-    (referencedInTree ++ fromBounds).distinct.filterNot(locallyDefined).map(inScope)
+    (referencedInTree ++ fromBounds).distinct.map(inScope)
   }
 }
