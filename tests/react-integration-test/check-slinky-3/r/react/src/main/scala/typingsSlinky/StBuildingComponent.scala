@@ -45,7 +45,7 @@ trait StBuildingComponent[E, R <: js.Object] extends Any {
   
   inline def withKey(key: String): this.type = set("key", key)
   
-  inline def withRef(ref: R => Unit): this.type = set("ref", ref)
+  inline def withRef(ref: js.Function1[R, Unit]): this.type = set("ref", ref)
   inline def withRef(ref: ReactRef[R]): this.type = set("ref", ref)
 }
 object StBuildingComponent {

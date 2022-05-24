@@ -329,9 +329,9 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
     }
 
     //
-    //  @inline final def withRef(ref: R => Unit): this.type = set("ref", ref)
+    //  @inline final def withRef(ref: js.Function1[R, Unit]): this.type = set("ref", ref)
     val withRef1 = {
-      val tpe   = TypeRef.ScalaFunction(IArray(TypeRef(R.name)), TypeRef.Unit, NoComments)
+      val tpe   = TypeRef.JsFunction(None, IArray(TypeRef(R.name)), TypeRef.Unit, NoComments)
       val param = ParamTree(Name("ref"), isImplicit = false, isVal = false, tpe, NotImplemented, NoComments)
       val name  = Name("withRef")
       MethodTree(
