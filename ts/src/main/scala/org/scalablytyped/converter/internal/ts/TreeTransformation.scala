@@ -328,7 +328,7 @@ trait TreeTransformation[T] { self =>
           _3,
           _4,
           visitTsType(tt)(_5),
-          _6.map(visitTsLiteralString(tt)),
+          _6.map(visitTsType(tt)),
           _7,
           visitTsType(tt)(_8),
         )

@@ -590,7 +590,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       }
     }
 
-    comments ~ protectionLevel ~ readonly ~ ("[" ~> tsIdent <~ "in") ~! tsType ~ ("as" ~> tsLiteralString).? ~ ("]" ~> opt) ~ typeAnnotation ^^ TsMemberTypeMapped
+    comments ~ protectionLevel ~ readonly ~ ("[" ~> tsIdent <~ "in") ~! tsType ~ ("as" ~> tsType).? ~ ("]" ~> opt) ~ typeAnnotation ^^ TsMemberTypeMapped
   }
 
   lazy val tsMember: Parser[TsMember] = {

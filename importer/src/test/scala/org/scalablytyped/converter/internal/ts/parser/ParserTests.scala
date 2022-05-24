@@ -3037,7 +3037,7 @@ export {};
               ReadonlyModifier.Noop,
               TsIdentSimple("K"),
               TsTypeIntersect(IArray(TsTypeKeyOf(T), TsTypeRef.string)),
-              Some(TsLiteral.Str("${Prefix}.${K}")),
+              Some(TsTypeLiteral(TsLiteral.Str("${Prefix}.${K}"))),
               OptionalModifier.Optionalize,
               TsTypeLookup(T, TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), Empty)),
             ),
@@ -3056,6 +3056,30 @@ export {};
         NoComments,
         TsIdentSimple("hasArr"),
         Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Array"))), IArray(T))),
+      ),
+    )
+  }
+
+  test("conditional as in mapped type") {
+    shouldParseAs(
+      """[K in keyof DirectiveFunctions as string extends K ? never : `use:${K}`]: any""".stripMargin,
+      TsParser.tsMemberTypeMapped,
+    )(
+      TsMemberTypeMapped(
+        NoComments,
+        TsProtectionLevel.Default,
+        ReadonlyModifier.Noop,
+        TsIdentSimple("K"),
+        TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("DirectiveFunctions"))), Empty)),
+        Some(
+          TsTypeConditional(
+            TsTypeExtends(TsTypeRef.string, TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), Empty)),
+            TsTypeRef.never,
+            TsTypeLiteral(TsLiteral.Str("use:${K}")),
+          ),
+        ),
+        Noop,
+        TsTypeRef.any,
       ),
     )
   }

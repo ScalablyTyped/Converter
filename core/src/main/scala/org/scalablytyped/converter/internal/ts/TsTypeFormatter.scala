@@ -95,7 +95,7 @@ class TsTypeFormatter(val keepComments: Boolean) {
         Some(key.value),
         Some("in"),
         Some(apply(from)),
-        as.map(as => s"as ${lit(as)}"),
+        as.map(as => s"as ${apply(as)}"),
         Some("]:"),
         optionalize match {
           case OptionalModifier.Noop          => None
