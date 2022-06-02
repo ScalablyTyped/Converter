@@ -83,9 +83,11 @@ object NotNeededPackages {
     val old = io.circe013.generic.semiauto.deriveDecoder[NotNeededPackages]
 
     // at some point they changed the format, this is the new one
-    val array = Decoder[Vector[NotNeededPackage]].map { ps =>
-      NotNeededPackages(ps.map(p => p.libraryName.value -> p).toMap)
-    }.at("packages")
+    val array = Decoder[Vector[NotNeededPackage]]
+      .map { ps =>
+        NotNeededPackages(ps.map(p => p.libraryName.value -> p).toMap)
+      }
+      .at("packages")
 
     old.or(array)
   }
