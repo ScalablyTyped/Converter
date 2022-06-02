@@ -65,12 +65,14 @@ lazy val importer = project
     assembly / mainClass := Some("org.scalablytyped.converter.Main"),
     /* meh meh meh */
     assembly / assemblyMergeStrategy := {
-      case foo if foo.contains("io/github/soc/directories/") => MergeStrategy.first
-      case foo if foo.endsWith("module-info.class")          => MergeStrategy.discard
-      case foo if foo.contains("org/fusesource")             => MergeStrategy.first
-      case foo if foo.contains("META-INF/native/")           => MergeStrategy.first
-      case foo if foo.contains("scala/annotation")           => MergeStrategy.last
-      case other                                             => (assembly / assemblyMergeStrategy).value(other)
+      case foo if foo.contains("io/github/soc/directories/")         => MergeStrategy.first
+      case foo if foo.contains("reflect.properties")                 => MergeStrategy.first
+      case foo if foo.contains("scala-collection-compat.properties") => MergeStrategy.first
+      case foo if foo.endsWith("module-info.class")                  => MergeStrategy.discard
+      case foo if foo.contains("org/fusesource")                     => MergeStrategy.first
+      case foo if foo.contains("META-INF/native/")                   => MergeStrategy.first
+      case foo if foo.contains("scala/annotation")                   => MergeStrategy.last
+      case other                                                     => (assembly / assemblyMergeStrategy).value(other)
     },
     Test / testOptions += Tests.Argument("-P4"),
   )
