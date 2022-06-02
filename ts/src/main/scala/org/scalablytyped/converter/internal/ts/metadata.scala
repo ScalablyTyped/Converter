@@ -79,5 +79,14 @@ case class NotNeededPackages(packages: Map[String, NotNeededPackage])
 
 object NotNeededPackages {
   implicit val encodes: Encoder[NotNeededPackages] = io.circe013.generic.semiauto.deriveEncoder
-  implicit val decodes: Decoder[NotNeededPackages] = io.circe013.generic.semiauto.deriveDecoder
+  implicit val decodes: Decoder[NotNeededPackages] = {
+    val old = io.circe013.generic.semiauto.deriveDecoder[NotNeededPackages]
+
+    // at some point they changed the format, this is the new one
+    val array = Decoder[Vector[NotNeededPackage]].map { ps =>
+      NotNeededPackages(ps.map(p => p.libraryName.value -> p).toMap)
+    }.at("packages")
+
+    old.or(array)
+  }
 }
