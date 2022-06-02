@@ -48,6 +48,7 @@ object UpToDateExternals {
           "--no-cache",
           "--no-audit",
           "--no-bin-links",
+          "--legacy-peer-deps",
           es,
         )(folder)
       }
