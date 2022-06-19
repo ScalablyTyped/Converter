@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Writing your own flavour · ScalablyTyped</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="After the complete conversion of a library has completed, we run the results through a flavour,"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Writing your own flavour · ScalablyTyped"/><meta property="og:type" content="website"/><meta property="og:url" content="https://scalablytyped.org/"/><meta property="og:description" content="After the complete conversion of a library has completed, we run the results through a flavour,"/><meta property="og:image" content="https://scalablytyped.org/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://scalablytyped.org/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon-st1.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo-3.svg" alt="ScalablyTyped"/><h2 class="headerTitleWithLogo">ScalablyTyped</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://github.com/ScalablyTyped/Converter" target="_self">Github</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Writing your own flavour</h1></header><article><div><span><p>After the complete conversion of a library has completed, we run the results through a flavour,
+which does code generation on top.</p>
+<p>The conversion itself leaves us with fully prepared ASTs which we can give to <code>scalac</code> to compile,
+everything implemented in a flavour is just convenience on top.</p>
+<p>Since no postprocessing is done (except a step to
+<a href="https://github.com/ScalablyTyped/Converter/blob/master/scalajs/src/main/scala/org/scalablytyped/converter/internal/scalajs/transforms/ShortenNames.scala">shorten names</a>
+with imports), all trees must compile afterwards.
+You'll need to generate code such that for instance no two methods have the same name and so on.</p>
+<p>The interface documents the capabilities:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">FlavourImpl</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">rewrittenTree</span></span>(s: <span class="hljs-type">TreeScope</span>, tree: <span class="hljs-type">PackageTree</span>): <span class="hljs-type">PackageTree</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dependencies</span></span>: <span class="hljs-type">Set</span>[<span class="hljs-type">Dep</span>]
+  <span class="hljs-keyword">val</span> outputPkg: <span class="hljs-type">Name</span>
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="rewrittentree"></a><a href="#rewrittentree" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>rewrittenTree</code></h3>
+<p>The implementation of the flavour, and is a function from a <code>PackageTree</code> to a new <code>PackageTree</code>.</p>
+<p>A <code>PackageTree</code> is an immutable structure which contains all the code for the given library
+and corresponds to a scala package.</p>
+<p>The <code>TreeScope</code> is a facility for looking up fully qualified types and terms in the current library and
+all its (transitive) dependencies.</p>
+<h3><a class="anchor" aria-hidden="true" id="dependencies"></a><a href="#dependencies" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>dependencies</code></h3>
+<p>Can be used to add external dependencies, which will trickle down all the way to the users sbt build.
+Remember to keep the <code>runtime</code> artifact here, see the other flavours.</p>
+<h3><a class="anchor" aria-hidden="true" id="outputpkg"></a><a href="#outputpkg" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>outputPkg</code></h3>
+<p>The flavours written so far are based on recognizing particular things in the converted scala code, like react components.
+All such recognition is based on names, so it's tightly bound with the user-provided <a href="/docs/plugin#stoutputpackage">outputPkg</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h2>
+<p>All the implemented flavours so far are for react so let's have a look at one of them,
+the scalajs-react flavour.</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">package</span> org.scalablytyped.converter.internal
+<span class="hljs-keyword">package</span> scalajs
+<span class="hljs-keyword">package</span> flavours
+
+<span class="hljs-keyword">import</span> org.scalablytyped.converter.internal.scalajs.transforms.{<span class="hljs-type">Adapter</span>, <span class="hljs-type">CleanIllegalNames</span>}
+
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JapgollyFlavour</span>(<span class="hljs-params">outputPkg: <span class="hljs-type">Name</span>, enableImplicitOps: <span class="hljs-type">Boolean</span></span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">FlavourImplReact</span> </span>{
+  <span class="hljs-keyword">override</span> <span class="hljs-keyword">val</span> dependencies = <span class="hljs-type">Set</span>(<span class="hljs-type">Versions</span>.runtime, <span class="hljs-type">Versions</span>.scalajsReact)
+  <span class="hljs-keyword">val</span> rewriter              = <span class="hljs-keyword">new</span> <span class="hljs-type">CastConversion</span>.<span class="hljs-type">TypeRewriterCast</span>(<span class="hljs-type">JapgollyTypeConversions</span>(reactNames, scalaJsDomNames))
+  <span class="hljs-keyword">val</span> memberToProp          = <span class="hljs-keyword">new</span> <span class="hljs-type">JapgollyMemberToProp</span>(reactNames, rewriter)
+  <span class="hljs-keyword">val</span> findProps             = <span class="hljs-keyword">new</span> <span class="hljs-type">FindProps</span>(<span class="hljs-keyword">new</span> <span class="hljs-type">CleanIllegalNames</span>(outputPkg), memberToProp)
+  <span class="hljs-keyword">val</span> genComponents         = <span class="hljs-keyword">new</span> <span class="hljs-type">JapgollyGenComponents</span>(reactNames, findProps)
+  <span class="hljs-keyword">val</span> genCompanions         = <span class="hljs-keyword">new</span> <span class="hljs-type">GenCompanions</span>(findProps, enableImplicitOps)
+
+  <span class="hljs-keyword">final</span> <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">rewrittenTree</span></span>(scope: <span class="hljs-type">TreeScope</span>, tree: <span class="hljs-type">PackageTree</span>): <span class="hljs-type">PackageTree</span> = {
+    <span class="hljs-keyword">val</span> withCompanions = genCompanions.visitPackageTree(scope)(tree)
+
+    <span class="hljs-keyword">val</span> withComponents: <span class="hljs-type">PackageTree</span> =
+      <span class="hljs-keyword">if</span> (involvesReact(scope)) {
+        <span class="hljs-keyword">val</span> components: <span class="hljs-type">IArray</span>[<span class="hljs-type">Component</span>] =
+          identifyComponents.oneOfEach(scope / withCompanions, withCompanions)
+        <span class="hljs-type">Adapter</span>(scope)((t, s) =&gt; genComponents(s, t, components))(withCompanions)
+      } <span class="hljs-keyword">else</span> withCompanions
+
+    rewriter.visitPackageTree(scope)(withComponents)
+  }
+}
+</code></pre>
+<p>From this top-level overview we can see all it does, while the details are hidden in implementations.</p>
+<ul>
+<li>it declares an sbt dependency (<code>dependencies</code>) on <code>val scalajsReact = Dep.ScalaJs(&quot;com.github.japgolly.scalajs-react&quot;, &quot;core&quot;, &quot;1.5.0&quot;)</code></li>
+<li>it sets up a bunch of type rewrites (<code>rewriter</code>).
+These have to be Javascript to Javascript types. See <a href="https://github.com/ScalablyTyped/Converter/blob/master/scalajs/src/main/scala/org/scalablytyped/converter/internal/scalajs/flavours/CastConversion.scala">CastConversion</a></li>
+<li>It sets up a way to find &quot;props&quot; (<code>findProps</code>). This word is borrowed from the react world, where it just means one field/method of an object.
+A <code>Prop</code> here is a field declaration with a Javascript type, and scala parameter with a mapping back to the Javascript type.
+This is how a <code>js.Function1[Double, Unit]</code> can be supplied as the Scala type <code>Double =&gt; Callback</code> by the user.</li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#example">Example</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo-1.svg" alt="ScalablyTyped" width="66" height="58"/></a><div><h5>Community</h5><a href="https://gitter.im/ScalablyTyped/community/">Project Chat</a></div><div><h5>More</h5><a href="https://github.com/oyvindberg/ScalablyTypedConverter/">GitHub</a><a class="github-button" href="https://github.com/ScalablyTyped/Converter/" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2022 Øyvind Raddum Berg</section></footer></div></body></html>
