@@ -4,7 +4,8 @@ title: SBT plugin without scalajs-bundler
 ---
 
 - [I want to use scalajs-bundler (recommended)](plugin.md)
-- [I can't/won't use sbt](cli.md)
+- [I want to use mill](https://github.com/lolgab/mill-scalablytyped)
+- [I can't/won't use sbt nor mill](cli.md)
 
 ## Ensure you use the correct plugin
 
