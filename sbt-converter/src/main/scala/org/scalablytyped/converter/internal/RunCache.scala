@@ -1,13 +1,13 @@
 package org.scalablytyped.converter.internal
 
-import _root_.io.circe013.syntax._
+import _root_.io.circe013.syntax.*
 import com.olvind.logging.{Formatter, Logger}
-import gigahorse.support.okhttp.Gigahorse
-import okhttp3.{OkHttpClient, Request, Response}
+import gigahorse.support.apachehttp.Gigahorse
+import gigahorse.{HttpClient, Request}
 import org.scalablytyped.converter.internal.ImportTypings.InOut
 import org.scalablytyped.converter.internal.compat.CompletableFutureOps
 import org.scalablytyped.converter.internal.importer.Cmd
-import org.scalablytyped.converter.internal.seqs._
+import org.scalablytyped.converter.internal.seqs.*
 import org.scalablytyped.converter.plugin.RemoteCache
 import org.scalablytyped.converter.plugin.ScalablyTypedPluginBase.autoImport.{stDir, stRemoteCache}
 import sbt.{Def, Global, Task, TaskKey}
@@ -21,9 +21,9 @@ import software.amazon.awssdk.services.s3.{S3AsyncClient, S3AsyncClientBuilder}
 
 import java.net.URI
 import java.util.concurrent.CompletionException
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.{Await, ExecutionContext, Future}
-import scala.util.control.NonFatal
+import scala.util.{Failure, Success}
 
 object RunCache {
   case class Key(input: ImportTypings.Input) {
@@ -161,7 +161,7 @@ object RunCache {
     def pull(pullUri: URI) =
       Lock.synchronized {
         val downloads: Future[Present] =
-          mehttp.ensureDownloaded(pullUri / localRunFile.relativeTo(cacheDir), localRunFile).flatMap {
+          ensureDownloaded(pullUri / localRunFile.relativeTo(cacheDir), localRunFile).flatMap {
             case yes: PresentFile.Yes =>
               val (input, output) = Json.force[InOut](new String(yes.bytes, constants.Utf8))
 
@@ -169,7 +169,7 @@ object RunCache {
 
               val files: Seq[Future[PresentFile]] =
                 output.allRelPaths
-                  .map(relPath => mehttp.ensureDownloaded(uri = pullUri / relPath, dest = ivyLocal / relPath))
+                  .map(relPath => ensureDownloaded(uri = pullUri / relPath, dest = ivyLocal / relPath))
 
               Future.sequence(files).map { presentFiles: Seq[PresentFile] =>
                 // format: off
@@ -249,54 +249,30 @@ object RunCache {
     }
   }
 
-  // Meh, I have no idea
-  //
-  // The combination of futures, execution contexts, gigahorse, okhttp is broken and starts failing requests east and west
-  // on any parallelism, like this:
-  // java.util.concurrent.RejectedExecutionException: Task okhttp3.RealCall$AsyncCall@6495a32c rejected from java.util.concurrent.ThreadPoolExecutor@6acf64c2[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 1]
-  //
-  // This here duplicates just enough working code from sbt and adapts it so things at least work.
-  // Also I've tried to not take any more dependencies on third party code into the sbt giga classloader,
-  //  as conflicts are more or less guaranteed.
-  object mehttp {
+  private lazy val http: HttpClient =
+    Gigahorse
+      .http(gigahorse.Config().withReadTimeout(60.minutes).withFollowRedirects(true))
 
-    private lazy val http: OkHttpClient =
-      Gigahorse
-        .http(gigahorse.Config().withReadTimeout(60.minutes))
-        .underlying[OkHttpClient]
-        .newBuilder()
-        .authenticator(new sbt.internal.librarymanagement.JavaNetAuthenticator)
-        .followRedirects(true)
-        .followSslRedirects(true)
-        .build
+  def ensureDownloaded(uri: URI, dest: os.Path)(implicit ec: ExecutionContext): Future[PresentFile] =
+    if (files.exists(dest)) Future.successful(PresentFile.Cached(dest))
+    else
+      getUrl(uri).map {
+        case ok @ PresentFile.Downloaded(bytes) =>
+          files.writeBytes(dest.toNIO, bytes)
+          ok
+        case otherwise => otherwise
+      }
 
-    def ensureDownloaded(uri: URI, dest: os.Path)(implicit ec: ExecutionContext): Future[PresentFile] =
-      if (files.exists(dest)) Future.successful(PresentFile.Cached(dest))
-      else
-        Future {
-          getUrl(uri) match {
-            case ok @ PresentFile.Downloaded(bytes) =>
-              files.writeBytes(dest.toNIO, bytes)
-              ok
-            case otherwise => otherwise
-          }
-        }
-
-    private def getUrl(uri: URI): PresentFile = {
-      var response: Response = null
-      try {
-        response = http.newCall(new Request.Builder().url(uri.toString).get().build()).execute()
-        response.code() match {
-          case success if success > 199 && success < 300 => PresentFile.Downloaded(response.body().bytes())
+  private def getUrl(uri: URI)(implicit ec: ExecutionContext): Future[PresentFile] =
+    http.run(Request(uri.toString)).transform {
+      case Success(response) =>
+        val res = response.status match {
+          case success if success > 199 && success < 300 => PresentFile.Downloaded(response.bodyAsByteBuffer.array())
           case 404                                       => PresentFile.NotFound
           case 403                                       => PresentFile.Forbidden
           case other                                     => PresentFile.Err(new RuntimeException(s"Got status code $other"))
         }
-      } catch {
-        case NonFatal(th) => PresentFile.Err(th)
-      } finally {
-        if (response != null) response.close()
-      }
+        Success(res)
+      case Failure(th) => Success(PresentFile.Err(th))
     }
-  }
 }
