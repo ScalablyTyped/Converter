@@ -4,7 +4,7 @@ package scalajs
 import io.circe013.{Decoder, Encoder}
 
 object Versions {
-  val sbtVersion = "1.5.5"
+  val sbtVersion = "1.7.1"
 
   // this accepts any nightly or milestone with the same binversion as a major release. good enough for now
   private val Version = "(\\d+).(\\d+).(\\d+).*".r
