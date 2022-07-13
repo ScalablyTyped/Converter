@@ -265,14 +265,9 @@ object RunCache {
 
   private def getUrl(uri: URI)(implicit ec: ExecutionContext): Future[PresentFile] =
     http.run(Request(uri.toString)).transform {
-      case Success(response) =>
-        val res = response.status match {
-          case success if success > 199 && success < 300 => PresentFile.Downloaded(response.bodyAsByteBuffer.array())
-          case 404                                       => PresentFile.NotFound
-          case 403                                       => PresentFile.Forbidden
-          case other                                     => PresentFile.Err(new RuntimeException(s"Got status code $other"))
-        }
-        Success(res)
+      case Success(response) => Success(PresentFile.Downloaded(response.bodyAsByteBuffer.array()))
+      case Failure(x: gigahorse.StatusError) if x.status == 404 => Success(PresentFile.NotFound)
+      case Failure(x: gigahorse.StatusError) if x.status == 403 => Success(PresentFile.Forbidden)
       case Failure(th) => Success(PresentFile.Err(th))
     }
 }
