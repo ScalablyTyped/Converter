@@ -411,4 +411,14 @@ B > = number"""
     val forced: TsDeclTypeAlias = TsParser.tsDeclTypeAlias(content).force
     assert(forced.tparams.length == 2)
   }
+
+  test("handle extraneous comments in type parameter list 2") {
+    val content = """interface A<T/**/
+/**/
+/**/
+/**/
+>{}"""
+    val forced  = TsParser.tsDeclInterface(content).force
+    assert(forced.tparams.length == 1)
+  }
 }
