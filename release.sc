@@ -19,7 +19,7 @@ case class DemoRepo(repo: String, name: String)(implicit path: os.Path) {
       case line if line.contains(s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" %""") =>
         Some(s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.10.0")""")
       case line if line.contains(s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" %""") =>
-        Some(s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0")""")
+        Some(s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.21.0")""")
       case line if line.contains(s"""addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" %""") =>
         Some(s"""addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "$version")""")
       case line if line.contains("resolvers +=") =>
