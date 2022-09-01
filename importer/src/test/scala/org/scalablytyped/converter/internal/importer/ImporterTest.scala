@@ -23,6 +23,7 @@ trait ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   val Japgolly     = JapgollyFlavour(Name("typingsJapgolly"), enableLongApplyMethod = false, version, Selection.All)
   val JapgollyLong = JapgollyFlavour(Name("typingsJapgolly"), enableLongApplyMethod = true, version, Selection.All)
 
+  test("pixi.js")(assertImportsOk("pixi.js", pedantic                               = false))
   test("augment-module")(assertImportsOk("augment-module", pedantic                 = false))
   test("typings-json")(assertImportsOk("typings-json", pedantic                     = true))
   test("export-as-namespace")(assertImportsOk("export-as-namespace", pedantic       = true))
