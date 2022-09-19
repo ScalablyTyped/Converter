@@ -282,8 +282,10 @@ object PreferTypeAlias {
       x match {
         case ta @ TsDeclTypeAlias(comments, declared, name, tparams, alias, codePath)
             if map.contains(codePath.forceHasPath.codePath) =>
+          val isTypeParam = TsTypeParam.asTypeArgs(tparams).toSet
+
           alias match {
-            case TsTypeIntersect(AllTypeRefs(typeRefs)) =>
+            case TsTypeIntersect(AllTypeRefs(typeRefs)) if !typeRefs.exists(isTypeParam) =>
               TsDeclInterface(comments, declared, name, tparams, inheritance = typeRefs, members = Empty, codePath)
             case TsTypeObject(_, members) =>
               TsDeclInterface(comments, declared, name, tparams, Empty, members, codePath)
