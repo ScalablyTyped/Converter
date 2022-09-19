@@ -1,7 +1,7 @@
 package typingsJapgolly.semanticUiReact
 
-import typingsJapgolly.semanticUiReact.genericMod.SemanticWIDTHS
-import typingsJapgolly.semanticUiReact.genericMod.SemanticWIDTHSNUMBER
+import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticWIDTHS
+import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticWIDTHSNUMBER
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

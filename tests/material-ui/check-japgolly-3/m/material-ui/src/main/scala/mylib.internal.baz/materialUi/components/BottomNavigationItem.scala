@@ -20,7 +20,9 @@ private[internal] object BottomNavigationItem {
   @scala.inline
   open class Builder (val args: js.Array[Any])
     extends AnyVal
-       with StBuildingComponent[mylib.internal.baz.materialUi.bottomNavigationItemMod.BottomNavigationItem] {
+       with StBuildingComponent[
+          mylib.internal.baz.materialUi.bottomNavigationBottomNavigationItemMod.BottomNavigationItem
+        ] {
     
     inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
   }

@@ -4,8 +4,8 @@ import japgolly.scalajs.react.facade.React.RefHandle
 import typingsJapgolly.react.mod.FunctionComponent
 import typingsJapgolly.stardustUiReactComponentRef.anon.Children
 import typingsJapgolly.stardustUiReactComponentRef.anon.InnerRef
-import typingsJapgolly.stardustUiReactComponentRef.refFindNodeMod.default
-import typingsJapgolly.stardustUiReactComponentRef.typesMod.RefProps
+import typingsJapgolly.stardustUiReactComponentRef.distEsRefFindNodeMod.default
+import typingsJapgolly.stardustUiReactComponentRef.distEsTypesMod.RefProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -44,7 +44,7 @@ object mod {
   @JSImport("@stardust-ui/react-component-ref", "RefForward")
   @js.native
   open class RefForward ()
-    extends typingsJapgolly.stardustUiReactComponentRef.refForwardMod.default
+    extends typingsJapgolly.stardustUiReactComponentRef.distEsRefForwardMod.default
   /* static members */
   object RefForward {
     

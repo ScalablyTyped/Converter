@@ -27,11 +27,12 @@ import scala.collection.immutable.SortedSet
   * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
   */
 class Phase2ToScalaJs(
-    pedantic:             Boolean,
-    scalaVersion:         Versions.Scala,
-    enableScalaJsDefined: Selection[TsIdentLibrary],
-    outputPkg:            Name,
-    flavour:              FlavourImpl,
+    pedantic:                 Boolean,
+    useDeprecatedModuleNames: Boolean,
+    scalaVersion:             Versions.Scala,
+    enableScalaJsDefined:     Selection[TsIdentLibrary],
+    outputPkg:                Name,
+    flavour:                  FlavourImpl,
 ) extends Phase[LibTsSource, LibTs, LibScalaJs] {
 
   override def apply(
@@ -90,6 +91,7 @@ class Phase2ToScalaJs(
         tsLibrary.parsed,
         scalaDeps.mapToIArray { case (_, v) => v.names },
         cleanIllegalNames,
+        useDeprecatedModuleNames,
       )
 
       val importType = new ImportType(new StdNames(outputPkg))

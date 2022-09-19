@@ -1,7 +1,7 @@
 package typings.vueScrollto
 
 import typings.std.Element
-import typings.vue.pluginMod.PluginFunction
+import typings.vue.typesPluginMod.PluginFunction
 import typings.vueScrollto.vueScrolltoBooleans.`false`
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js

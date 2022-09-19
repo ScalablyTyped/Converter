@@ -1,6 +1,6 @@
 package typingsJapgolly.reactBootstrap
 
-import typingsJapgolly.reactBootstrap.bootstrapUtilsMod.BSProps
+import typingsJapgolly.reactBootstrap.libUtilsBootstrapUtilsMod.BSProps
 import typingsJapgolly.std.Pick
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js

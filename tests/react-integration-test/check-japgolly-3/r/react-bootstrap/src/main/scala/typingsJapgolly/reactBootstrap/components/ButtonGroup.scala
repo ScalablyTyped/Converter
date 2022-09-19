@@ -55,8 +55,8 @@ import typingsJapgolly.react.reactStrings.text
 import typingsJapgolly.react.reactStrings.time
 import typingsJapgolly.react.reactStrings.tree
 import typingsJapgolly.react.reactStrings.vertical
-import typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroupProps
-import typingsJapgolly.reactBootstrap.buttonGroupMod.^
+import typingsJapgolly.reactBootstrap.libButtonGroupMod.ButtonGroupProps
+import typingsJapgolly.reactBootstrap.libButtonGroupMod.^
 import typingsJapgolly.reactBootstrap.mod.Sizes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js

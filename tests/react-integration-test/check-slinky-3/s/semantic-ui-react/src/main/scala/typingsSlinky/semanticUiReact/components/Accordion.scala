@@ -4,14 +4,14 @@ import org.scalajs.dom.HTMLDivElement
 import slinky.web.SyntheticMouseEvent
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
-import typingsSlinky.semanticUiReact.accordionAccordionAccordionMod.AccordionAccordionProps
-import typingsSlinky.semanticUiReact.accordionAccordionMod.AccordionProps
-import typingsSlinky.semanticUiReact.accordionContentMod.AccordionContentProps
-import typingsSlinky.semanticUiReact.accordionMod.default
-import typingsSlinky.semanticUiReact.accordionPanelMod.AccordionPanelProps
-import typingsSlinky.semanticUiReact.accordionTitleMod.AccordionTitleProps
-import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandCollection
-import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem
+import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandCollection
+import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionAccordionMod.AccordionAccordionProps
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionContentMod.AccordionContentProps
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionMod.AccordionProps
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionPanelMod.AccordionPanelProps
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -24,9 +24,9 @@ object Accordion {
     @js.native
     val component: js.Object = js.native
     
-    implicit def make(companion: Accordion.type): SharedBuilder_AccordionAccordionProps_1044969128[typingsSlinky.semanticUiReact.accordionMod.default.Accordion] = new SharedBuilder_AccordionAccordionProps_1044969128[typingsSlinky.semanticUiReact.accordionMod.default.Accordion](js.Array(this.component, js.Dictionary.empty))()
+    implicit def make(companion: Accordion.type): SharedBuilder_AccordionAccordionProps_2090513651[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Accordion] = new SharedBuilder_AccordionAccordionProps_2090513651[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Accordion](js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps_1044969128[typingsSlinky.semanticUiReact.accordionMod.default.Accordion] = new SharedBuilder_AccordionAccordionProps_1044969128[typingsSlinky.semanticUiReact.accordionMod.default.Accordion](js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps_2090513651[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Accordion] = new SharedBuilder_AccordionAccordionProps_2090513651[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Accordion](js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   object Content {
@@ -35,9 +35,9 @@ object Accordion {
     @js.native
     val component: js.Object = js.native
     
-    implicit def make(companion: Content.type): SharedBuilder_AccordionContentProps_1656243680 = new SharedBuilder_AccordionContentProps_1656243680(js.Array(this.component, js.Dictionary.empty))()
+    implicit def make(companion: Content.type): SharedBuilder_AccordionContentProps_1030703804 = new SharedBuilder_AccordionContentProps_1030703804(js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: AccordionContentProps): SharedBuilder_AccordionContentProps_1656243680 = new SharedBuilder_AccordionContentProps_1656243680(js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: AccordionContentProps): SharedBuilder_AccordionContentProps_1030703804 = new SharedBuilder_AccordionContentProps_1030703804(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   object Title {
@@ -46,9 +46,9 @@ object Accordion {
     @js.native
     val component: js.Object = js.native
     
-    implicit def make(companion: Title.type): SharedBuilder_AccordionTitleProps1986434512[typingsSlinky.semanticUiReact.accordionMod.default.Title] = new SharedBuilder_AccordionTitleProps1986434512[typingsSlinky.semanticUiReact.accordionMod.default.Title](js.Array(this.component, js.Dictionary.empty))()
+    implicit def make(companion: Title.type): SharedBuilder_AccordionTitleProps_420803499[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Title] = new SharedBuilder_AccordionTitleProps_420803499[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Title](js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: AccordionTitleProps): SharedBuilder_AccordionTitleProps1986434512[typingsSlinky.semanticUiReact.accordionMod.default.Title] = new SharedBuilder_AccordionTitleProps1986434512[typingsSlinky.semanticUiReact.accordionMod.default.Title](js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: AccordionTitleProps): SharedBuilder_AccordionTitleProps_420803499[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Title] = new SharedBuilder_AccordionTitleProps_420803499[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Title](js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", JSImport.Default)

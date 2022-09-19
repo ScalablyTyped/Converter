@@ -1,7 +1,7 @@
 package typings.winston
 
-import typings.winston.configMod.AbstractConfigSetLevels
-import typings.winston.configMod.Config
+import typings.winston.libWinstonConfigMod.AbstractConfigSetLevels
+import typings.winston.libWinstonConfigMod.Config
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

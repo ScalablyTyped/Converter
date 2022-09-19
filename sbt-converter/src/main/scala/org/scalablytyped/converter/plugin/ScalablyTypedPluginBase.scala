@@ -47,8 +47,11 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       "If a given library is enabled, the react flavour will pick *longest* module names instead of shortest.",
     )
     val stEnableLongApplyMethod = settingKey[Boolean]("long apply methods instead of implicit ops builders")
-    val stPrivateWithin         = settingKey[Option[String]]("generate all top-level things private to the given package")
-    val stIncludeDev            = settingKey[Boolean]("generate facades for dev dependencies as well")
+    val stShortModuleNames = settingKey[Boolean](
+      "Enables short module names. This used to be the default, and is now deprecated since it's so difficult to navigate",
+    )
+    val stPrivateWithin = settingKey[Option[String]]("generate all top-level things private to the given package")
+    val stIncludeDev    = settingKey[Boolean]("generate facades for dev dependencies as well")
   }
 
   override def requires = JvmPlugin && PlatformDepsPlugin
@@ -71,6 +74,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stEnableLongApplyMethod := false,
       stPrivateWithin := None,
       stIncludeDev := false,
+      stShortModuleNames := false,
       stConversionOptions := {
         val versions = Versions(
           Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),
@@ -85,18 +89,19 @@ object ScalablyTypedPluginBase extends AutoPlugin {
           }
 
         ConversionOptions(
-          useScalaJsDomTypes     = stUseScalaJsDom.value,
-          flavour                = stFlavour.value,
-          outputPackage          = outputPackage,
-          enableScalaJsDefined   = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
-          stdLibs                = SortedSet.empty ++ stStdlib.value,
-          expandTypeMappings     = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
-          ignored                = stIgnore.value.to[Set].sorted,
-          versions               = versions,
-          organization           = organization,
-          enableReactTreeShaking = stReactEnableTreeShaking.value.map(name => ImportName(TsIdentLibrary(name))),
-          enableLongApplyMethod  = stEnableLongApplyMethod.value,
-          privateWithin          = stPrivateWithin.value.map(Name.apply),
+          useScalaJsDomTypes       = stUseScalaJsDom.value,
+          flavour                  = stFlavour.value,
+          outputPackage            = outputPackage,
+          enableScalaJsDefined     = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
+          stdLibs                  = SortedSet.empty ++ stStdlib.value,
+          expandTypeMappings       = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
+          ignored                  = stIgnore.value.to[Set].sorted,
+          versions                 = versions,
+          organization             = organization,
+          enableReactTreeShaking   = stReactEnableTreeShaking.value.map(name => ImportName(TsIdentLibrary(name))),
+          enableLongApplyMethod    = stEnableLongApplyMethod.value,
+          privateWithin            = stPrivateWithin.value.map(Name.apply),
+          useDeprecatedModuleNames = stShortModuleNames.value,
         )
       },
     )

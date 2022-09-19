@@ -63,17 +63,17 @@ import typingsJapgolly.react.reactStrings.submit
 import typingsJapgolly.react.reactStrings.text
 import typingsJapgolly.react.reactStrings.time
 import typingsJapgolly.react.reactStrings.tree
-import typingsJapgolly.semanticUiReact.buttonContentMod.ButtonContentProps
-import typingsJapgolly.semanticUiReact.buttonGroupMod.ButtonGroupProps
-import typingsJapgolly.semanticUiReact.buttonMod.ButtonProps
-import typingsJapgolly.semanticUiReact.buttonMod.StrictButtonProps
-import typingsJapgolly.semanticUiReact.buttonMod.default
-import typingsJapgolly.semanticUiReact.buttonOrMod.ButtonOrProps
-import typingsJapgolly.semanticUiReact.genericMod.SemanticCOLORS
-import typingsJapgolly.semanticUiReact.genericMod.SemanticFLOATS
-import typingsJapgolly.semanticUiReact.genericMod.SemanticSIZES
-import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
-import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandItem
+import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonContentMod.ButtonContentProps
+import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
+import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.ButtonProps
+import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.StrictButtonProps
+import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.default
+import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps
+import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticCOLORS
+import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticFLOATS
+import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticSIZES
+import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
+import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`google plus`
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.facebook
@@ -99,9 +99,9 @@ object Button {
     @js.native
     val component: js.Object = js.native
     
-    implicit def make(companion: Content.type): SharedBuilder_ButtonContentProps1680783343 = new SharedBuilder_ButtonContentProps1680783343(js.Array(this.component, js.Dictionary.empty))()
+    implicit def make(companion: Content.type): SharedBuilder_ButtonContentProps_207125023 = new SharedBuilder_ButtonContentProps_207125023(js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps1680783343 = new SharedBuilder_ButtonContentProps1680783343(js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps_207125023 = new SharedBuilder_ButtonContentProps_207125023(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   object Group {
@@ -110,9 +110,9 @@ object Button {
     @js.native
     val component: js.Object = js.native
     
-    implicit def make(companion: Group.type): SharedBuilder_ButtonGroupProps_158814638 = new SharedBuilder_ButtonGroupProps_158814638(js.Array(this.component, js.Dictionary.empty))()
+    implicit def make(companion: Group.type): SharedBuilder_ButtonGroupProps1197812445 = new SharedBuilder_ButtonGroupProps1197812445(js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: ButtonGroupProps): SharedBuilder_ButtonGroupProps_158814638 = new SharedBuilder_ButtonGroupProps_158814638(js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: ButtonGroupProps): SharedBuilder_ButtonGroupProps1197812445 = new SharedBuilder_ButtonGroupProps1197812445(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   object Or {
@@ -121,9 +121,9 @@ object Button {
     @js.native
     val component: js.Object = js.native
     
-    implicit def make(companion: Or.type): SharedBuilder_ButtonOrProps_184214248 = new SharedBuilder_ButtonOrProps_184214248(js.Array(this.component, js.Dictionary.empty))()
+    implicit def make(companion: Or.type): SharedBuilder_ButtonOrProps_992167067 = new SharedBuilder_ButtonOrProps_992167067(js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: ButtonOrProps): SharedBuilder_ButtonOrProps_184214248 = new SharedBuilder_ButtonOrProps_184214248(js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: ButtonOrProps): SharedBuilder_ButtonOrProps_992167067 = new SharedBuilder_ButtonOrProps_992167067(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", JSImport.Default)

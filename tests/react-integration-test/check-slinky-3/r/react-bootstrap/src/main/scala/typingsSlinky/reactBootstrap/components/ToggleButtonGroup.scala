@@ -57,11 +57,11 @@ import typingsSlinky.react.reactStrings.text
 import typingsSlinky.react.reactStrings.time
 import typingsSlinky.react.reactStrings.tree
 import typingsSlinky.react.reactStrings.vertical
-import typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroupProps
+import typingsSlinky.reactBootstrap.libButtonGroupMod.ButtonGroupProps
+import typingsSlinky.reactBootstrap.libToggleButtonGroupMod.BaseProps
+import typingsSlinky.reactBootstrap.libToggleButtonGroupMod.CheckboxProps
+import typingsSlinky.reactBootstrap.libToggleButtonGroupMod.RadioProps
 import typingsSlinky.reactBootstrap.mod.Sizes
-import typingsSlinky.reactBootstrap.toggleButtonGroupMod.BaseProps
-import typingsSlinky.reactBootstrap.toggleButtonGroupMod.CheckboxProps
-import typingsSlinky.reactBootstrap.toggleButtonGroupMod.RadioProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

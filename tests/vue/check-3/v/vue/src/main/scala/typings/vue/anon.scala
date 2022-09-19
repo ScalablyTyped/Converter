@@ -1,9 +1,9 @@
 package typings.vue
 
 import org.scalablytyped.runtime.Instantiable1
-import typings.vue.optionsMod.InjectKey
-import typings.vue.vnodeMod.VNode
-import typings.vue.vueMod.CreateElement
+import typings.vue.typesOptionsMod.InjectKey
+import typings.vue.typesVnodeMod.VNode
+import typings.vue.typesVueMod.CreateElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

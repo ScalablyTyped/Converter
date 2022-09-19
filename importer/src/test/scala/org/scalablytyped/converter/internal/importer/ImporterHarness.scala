@@ -89,10 +89,11 @@ trait ImporterHarness extends AnyFunSuite {
         .next(
           new Phase2ToScalaJs(
             pedantic,
-            scalaVersion         = version.scala,
-            enableScalaJsDefined = Selection.All,
-            outputPkg            = flavour.outputPkg,
-            flavour              = flavour,
+            scalaVersion             = version.scala,
+            enableScalaJsDefined     = Selection.All,
+            outputPkg                = flavour.outputPkg,
+            flavour                  = flavour,
+            useDeprecatedModuleNames = false,
           ),
           "scala.js",
         )

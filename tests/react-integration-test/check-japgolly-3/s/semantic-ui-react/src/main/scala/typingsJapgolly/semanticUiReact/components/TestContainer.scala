@@ -7,9 +7,9 @@ import japgolly.scalajs.react.facade.JsNumber
 import japgolly.scalajs.react.facade.React.Element
 import japgolly.scalajs.react.vdom.VdomElement
 import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
-import typingsJapgolly.semanticUiReact.genericMod.SemanticTEXTALIGNMENTS
-import typingsJapgolly.semanticUiReact.testContainerTestContainerMod.TestContainerProps
+import typingsJapgolly.semanticUiReact.distCommonjsElementsTestContainerTestContainerMod.TestContainerProps
+import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
+import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticTEXTALIGNMENTS
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

@@ -3,8 +3,8 @@ package typingsJapgolly.stardustUiReactComponentEventListener.components
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.facade.React.RefHandle
 import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventListenerOptions
-import typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventTypes
+import typingsJapgolly.stardustUiReactComponentEventListener.distEsTypesMod.EventListenerOptions
+import typingsJapgolly.stardustUiReactComponentEventListener.distEsTypesMod.EventTypes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

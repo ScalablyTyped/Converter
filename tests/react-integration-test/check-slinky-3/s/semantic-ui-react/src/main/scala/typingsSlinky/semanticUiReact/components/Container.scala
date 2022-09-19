@@ -2,9 +2,9 @@ package typingsSlinky.semanticUiReact.components
 
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
-import typingsSlinky.semanticUiReact.containerContainerMod.ContainerProps
-import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandContent
-import typingsSlinky.semanticUiReact.genericMod.SemanticTEXTALIGNMENTS
+import typingsSlinky.semanticUiReact.distCommonjsElementsContainerContainerMod.ContainerProps
+import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
+import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticTEXTALIGNMENTS
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

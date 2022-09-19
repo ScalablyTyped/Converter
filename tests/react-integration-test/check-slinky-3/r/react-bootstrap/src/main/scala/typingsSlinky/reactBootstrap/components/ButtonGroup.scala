@@ -56,7 +56,7 @@ import typingsSlinky.react.reactStrings.text
 import typingsSlinky.react.reactStrings.time
 import typingsSlinky.react.reactStrings.tree
 import typingsSlinky.react.reactStrings.vertical
-import typingsSlinky.reactBootstrap.buttonGroupMod.ButtonGroupProps
+import typingsSlinky.reactBootstrap.libButtonGroupMod.ButtonGroupProps
 import typingsSlinky.reactBootstrap.mod.Sizes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js

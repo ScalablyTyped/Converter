@@ -7,11 +7,11 @@ import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
 import typingsSlinky.react.mod.ReactNodeArray
 import typingsSlinky.react.mod.ReactType
-import typingsSlinky.semanticUiReact.accordionContentMod.AccordionContentProps
-import typingsSlinky.semanticUiReact.accordionPanelMod.AccordionPanelProps
-import typingsSlinky.semanticUiReact.accordionPanelMod.default
-import typingsSlinky.semanticUiReact.accordionTitleMod.AccordionTitleProps
-import typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem
+import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionContentMod.AccordionContentProps
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionPanelMod.AccordionPanelProps
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionPanelMod.default
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

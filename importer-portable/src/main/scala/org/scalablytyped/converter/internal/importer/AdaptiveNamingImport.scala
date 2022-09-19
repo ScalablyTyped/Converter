@@ -27,11 +27,12 @@ final class AdaptiveNamingImport(private val rewrites: Map[IArray[TsIdent], Qual
 
 object AdaptiveNamingImport {
   def apply(
-      outputPkg:         Name,
-      libraryName:       TsIdentLibrary,
-      library:           TsParsedFile,
-      depsRewrites:      IArray[AdaptiveNamingImport],
-      cleanIllegalNames: CleanIllegalNames,
+      outputPkg:                Name,
+      libraryName:              TsIdentLibrary,
+      library:                  TsParsedFile,
+      depsRewrites:             IArray[AdaptiveNamingImport],
+      cleanIllegalNames:        CleanIllegalNames,
+      useDeprecatedModuleNames: Boolean,
   ): AdaptiveNamingImport = {
     val allReferences: IArray[IArray[TsIdent]] =
       TsTreeTraverse
@@ -60,9 +61,15 @@ object AdaptiveNamingImport {
       case IArray.Empty => ()
       case whole @ IArray.initLast(parent, current) =>
         val parentTranslated = registeredReferences(parent)
-        val variants         = variantsFor(current, parent.exists(_.isInstanceOf[TsIdentModule]), illegalNames)
-        var continue         = true
-        val iter             = variants.iterator
+        val variants = variantsFor(
+          current,
+          parent.exists(_.isInstanceOf[TsIdentModule]),
+          parent.collectFirst { case x: TsIdentLibrary => x },
+          illegalNames,
+          useDeprecatedModuleNames,
+        )
+        var continue = true
+        val iter     = variants.iterator
         while (continue && iter.hasNext) {
           val currentVariant = iter.next()
           val possibleQname  = QualifiedName(parentTranslated.parts :+ Name.necessaryRewrite(Name(currentVariant)))
@@ -88,7 +95,13 @@ object AdaptiveNamingImport {
     new AdaptiveNamingImport(registeredReferences.toMap)
   }
 
-  def variantsFor(tsIdent: TsIdent, hasModuleParent: Boolean, illegalNames: Set[String]): Stream[String] = {
+  def variantsFor(
+      tsIdent:                  TsIdent,
+      hasModuleParent:          Boolean,
+      inLib:                    Option[TsIdentLibrary],
+      illegalNames:             Set[String],
+      useDeprecatedModuleNames: Boolean,
+  ): Stream[String] = {
     val base = tsIdent match {
       case TsIdent.namespaced                          => Stream(Name.namespaced.unescaped)
       case TsIdent.Apply                               => Stream(Name.APPLY.unescaped)
@@ -100,7 +113,7 @@ object AdaptiveNamingImport {
         /* todo: We should look up what the augmented module is called and reuse it. I don't care enough to do it now */
         nameVariants(joinCamelCase(m.scopeOpt.toList ++ m.fragments)).map(_ + "AugmentingMod")
 
-      case m: TsIdentModule =>
+      case m: TsIdentModule if useDeprecatedModuleNames =>
         val increasingLength: Stream[List[String]] = {
           val (libraryBits, moduleBits) =
             m match {
@@ -122,15 +135,28 @@ object AdaptiveNamingImport {
 
         preferCamelCase.flatMap(frags => nameVariants(addMod(joinCamelCase(frags))))
 
-      case library: TsIdentLibrary =>
-        nameVariants(toCamelCase(library.value))
+      case m: TsIdentModule =>
+        val shortenedFragments = {
+          inLib match {
+            case Some(TsIdentLibrarySimple(value)) if m.fragments.head == value =>
+              m.fragments.drop(1)
+            case Some(TsIdentLibraryScoped(scope, name)) if m.scopeOpt.contains(scope) && m.fragments.head == name =>
+              m.fragments.drop(1)
+            case _ =>
+              m.fragments
+          }
+        }
+        Stream(addMod(joinCamelCase(shortenedFragments.map(toCamelCase))))
 
-      case _: TsIdentImport => sys.error("unexpected")
+      case library: TsIdentLibrary => variantsForLibName(library)
+      case _:       TsIdentImport  => sys.error("unexpected")
     }
 
     base #::: base.map(_ + "_") #::: base.map(_ + "__")
   }
 
+  def variantsForLibName(library: TsIdentLibrary) =
+    nameVariants(toCamelCase(library.value))
   private def addMod(str: String) = str match {
     case ""       => Name.mod.unescaped
     case nonEmpty => nonEmpty + "Mod"
