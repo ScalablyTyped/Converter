@@ -46,6 +46,7 @@ case class PackageJson(
     types:            Option[Json],
     files:            Option[IArray[String]],
     dist:             Option[PackageJson.Dist],
+    exports:          Option[Json],
 ) {
   def allLibs(dev: Boolean, peer: Boolean): SortedMap[TsIdentLibrary, String] =
     smash(IArray.fromOptions(dependencies, devDependencies.filter(_ => dev), peerDependencies.filter(_ => peer))).toSorted
@@ -91,6 +92,31 @@ case class PackageJson(
 
     module.map(look).filter(_.nonEmpty)
   }
+
+  // this is an impossibly flexibly defined structure, so we're maximally flexible in this parse step
+  // we only extract the `types` information for now
+  def parsedExported: Option[Map[String, String]] = {
+    def look(json: Json): Map[String, String] =
+      json.fold[Map[String, String]](
+        Map.empty,
+        _      => Map.empty,
+        _      => Map.empty,
+        _      => Map.empty,
+        values => maps.smash(IArray.fromTraversable(values.map(look))),
+        obj =>
+          obj.toMap.flatMap {
+            case (name, value) =>
+              val maybe = for {
+                obj <- value.asObject
+                types <- obj.toMap.get("types")
+                typesString <- types.asString
+              } yield typesString
+              maybe.map(tpe => (name, tpe))
+          },
+      )
+
+    exports.map(look).filter(_.nonEmpty)
+  }
 }
 
 object PackageJson {
@@ -101,7 +127,7 @@ object PackageJson {
     implicit val decodesDist: Decoder[Dist] = deriveDecoder
   }
 
-  val Empty: PackageJson = PackageJson(None, None, None, None, None, None, None, None, None)
+  val Empty: PackageJson = PackageJson(None, None, None, None, None, None, None, None, None, None)
 
   implicit val encodes: Encoder[PackageJson] = deriveEncoder
   implicit val decodes: Decoder[PackageJson] = deriveDecoder
