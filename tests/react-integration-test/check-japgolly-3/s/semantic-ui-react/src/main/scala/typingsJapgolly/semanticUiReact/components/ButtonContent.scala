@@ -1,6 +1,6 @@
 package typingsJapgolly.semanticUiReact.components
 
-import typingsJapgolly.semanticUiReact.buttonContentMod.ButtonContentProps
+import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonContentMod.ButtonContentProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -11,7 +11,7 @@ object ButtonContent {
   @js.native
   val component: js.Object = js.native
   
-  implicit def make(companion: ButtonContent.type): SharedBuilder_ButtonContentProps1680783343 = new SharedBuilder_ButtonContentProps1680783343(js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: ButtonContent.type): SharedBuilder_ButtonContentProps_207125023 = new SharedBuilder_ButtonContentProps_207125023(js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps1680783343 = new SharedBuilder_ButtonContentProps1680783343(js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps_207125023 = new SharedBuilder_ButtonContentProps_207125023(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

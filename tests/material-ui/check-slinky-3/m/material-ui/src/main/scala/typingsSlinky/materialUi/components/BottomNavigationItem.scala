@@ -3,7 +3,7 @@ package typingsSlinky.materialUi.components
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
 import typingsSlinky.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
-import typingsSlinky.materialUi.bottomNavigationItemMod.default
+import typingsSlinky.materialUi.bottomNavigationBottomNavigationItemMod.default
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

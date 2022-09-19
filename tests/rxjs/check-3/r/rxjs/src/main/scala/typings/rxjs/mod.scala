@@ -9,5 +9,5 @@ object mod {
   @JSImport("rxjs", "Observable")
   @js.native
   open class Observable[T] ()
-    extends typings.rxjs.observableMod.Observable[T]
+    extends typings.rxjs.internalObservableMod.Observable[T]
 }

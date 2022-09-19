@@ -1,6 +1,6 @@
 package typingsSlinky.materialUi.components
 
-import typingsSlinky.materialUi.accessibilityMod.default
+import typingsSlinky.materialUi.svgIconsActionAccessibilityMod.default
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

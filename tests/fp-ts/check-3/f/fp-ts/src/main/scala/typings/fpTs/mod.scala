@@ -1,6 +1,6 @@
 package typings.fpTs
 
-import typings.fpTs.eitherMod.Either
+import typings.fpTs.libEitherMod.Either
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

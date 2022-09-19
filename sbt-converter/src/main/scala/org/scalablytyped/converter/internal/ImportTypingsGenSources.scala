@@ -76,11 +76,12 @@ object ImportTypingsGenSources {
       )
       .next(
         new Phase2ToScalaJs(
-          pedantic             = false,
-          scalaVersion         = input.conversion.versions.scala,
-          enableScalaJsDefined = input.conversion.enableScalaJsDefined,
-          outputPkg            = conversion.outputPackage,
-          flavour              = input.conversion.flavourImpl,
+          pedantic                 = false,
+          scalaVersion             = input.conversion.versions.scala,
+          enableScalaJsDefined     = input.conversion.enableScalaJsDefined,
+          outputPkg                = conversion.outputPackage,
+          flavour                  = input.conversion.flavourImpl,
+          useDeprecatedModuleNames = input.conversion.useDeprecatedModuleNames,
         ),
         "scala.js",
       )
@@ -155,18 +156,19 @@ object ImportTypingsGenSources {
     val outputName = Name.typings
 
     val conversion = ConversionOptions(
-      useScalaJsDomTypes     = true,
-      flavour                = Flavour.Slinky,
-      outputPackage          = outputName,
-      enableScalaJsDefined   = Selection.All,
-      stdLibs                = SortedSet("es5", "dom"),
-      expandTypeMappings     = EnabledTypeMappingExpansion.DefaultSelection,
-      ignored                = SortedSet(),
-      versions               = Versions(Versions.Scala213, Versions.ScalaJs1),
-      organization           = "org.scalablytyped",
-      enableReactTreeShaking = Selection.None,
-      enableLongApplyMethod  = false,
-      privateWithin          = None,
+      useScalaJsDomTypes       = true,
+      flavour                  = Flavour.Slinky,
+      outputPackage            = outputName,
+      enableScalaJsDefined     = Selection.All,
+      stdLibs                  = SortedSet("es5", "dom"),
+      expandTypeMappings       = EnabledTypeMappingExpansion.DefaultSelection,
+      ignored                  = SortedSet(),
+      versions                 = Versions(Versions.Scala213, Versions.ScalaJs1),
+      organization             = "org.scalablytyped",
+      enableReactTreeShaking   = Selection.None,
+      enableLongApplyMethod    = false,
+      privateWithin            = None,
+      useDeprecatedModuleNames = false,
     )
 
     println(

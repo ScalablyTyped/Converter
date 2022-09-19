@@ -1,7 +1,7 @@
 package typingsSlinky.semanticUiReact
 
-import typingsSlinky.semanticUiReact.genericMod.SemanticWIDTHS
-import typingsSlinky.semanticUiReact.genericMod.SemanticWIDTHSNUMBER
+import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticWIDTHS
+import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticWIDTHSNUMBER
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

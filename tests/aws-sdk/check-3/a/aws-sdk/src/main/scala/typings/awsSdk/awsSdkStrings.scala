@@ -1,6 +1,6 @@
 package typings.awsSdk
 
-import typings.awsSdk.documentClientMod.DocumentClient._AttributeAction
+import typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient._AttributeAction
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
