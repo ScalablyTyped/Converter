@@ -62,36 +62,46 @@ object Source {
   implicit val SourceFormatter:             Formatter[Source] = _.libName.value
 
   /* for files referenced through here we must shorten the paths */
-  def findShortenedFiles(src: Source.TsLibSource): IArray[InFile] = {
-    def fromTypingsJson(fromFolder: Source.FromFolder, fileOpt: Option[String]): IArray[InFile] =
-      fileOpt match {
-        case Some(path) if path.endsWith("typings.json") =>
+  def findShortenedFiles(src: Source): IArray[InFile] = {
+    def fromTypingsJson(fromFolder: Source.FromFolder, files: Option[IArray[String]]): IArray[InFile] =
+      files.getOrElse(IArray.Empty).collect {
+        case path if path.endsWith("typings.json") =>
           val typingsJsonPath = fromFolder.folder.path / os.RelPath(path)
           val typingsJson     = Json.force[TypingsJson](typingsJsonPath)
-          IArray(InFile(typingsJsonPath / os.up / typingsJson.main))
-        case _ => Empty
+          InFile(typingsJsonPath / os.up / typingsJson.main)
       }
 
-    def fromFileEntry(fromFolder: Source.FromFolder, fileOpt: Option[String]): IArray[InFile] =
-      IArray.fromOption(fileOpt.flatMap(file => LibraryResolver.file(fromFolder.folder, file)))
+    def fromFileEntry(fromFolder: Source.FromFolder, files: Option[IArray[String]]): IArray[InFile] =
+      files.getOrElse(IArray.Empty).mapNotNone(file => LibraryResolver.file(fromFolder.folder, file))
 
-    def fromModuleDeclaration(fromFolder: Source.FromFolder, fileOpt: Option[String]): IArray[InFile] =
-      fileOpt.flatMap(file => LibraryResolver.file(fromFolder.folder, file)) match {
-        case Some(existingFile) if Source.hasTypescriptSources(existingFile.folder) => IArray(existingFile)
-        case _                                                                      => Empty
+    def fromModuleDeclaration(
+        fromFolder: Source.FromFolder,
+        files:      Option[Map[String, String]],
+    ): IArray[InFile] = {
+      val files1 = files match {
+        case Some(files) => IArray.fromTraversable(files.values)
+        case None        => IArray.Empty
       }
+
+      files1
+        .mapNotNone(file => LibraryResolver.file(fromFolder.folder, file))
+        .mapNotNone {
+          case existingFile if Source.hasTypescriptSources(existingFile.folder) => Some(existingFile)
+          case _                                                                => None
+        }
+    }
 
     src match {
       case _: StdLibSource => Empty
       case f: FromFolder =>
         val fromTypings =
           IArray(
-            fromFileEntry(f, f.packageJsonOpt.flatMap(_.types).orElse(f.packageJsonOpt.flatMap(_.typings))),
-            fromTypingsJson(f, f.packageJsonOpt.flatMap(_.typings)),
+            fromFileEntry(f, f.packageJsonOpt.flatMap(_.parsedTypes).orElse(f.packageJsonOpt.flatMap(_.parsedTypings))),
+            fromTypingsJson(f, f.packageJsonOpt.flatMap(_.parsedTypings)),
           ).flatten
 
         if (fromTypings.nonEmpty) fromTypings
-        else fromModuleDeclaration(f, f.packageJsonOpt.flatMap(_.module))
+        else fromModuleDeclaration(f, f.packageJsonOpt.flatMap(_.parsedModules))
     }
   }
 }

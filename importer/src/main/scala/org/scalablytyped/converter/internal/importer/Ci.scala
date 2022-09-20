@@ -215,12 +215,15 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
       val external: NotNeededPackages =
         Json.force[NotNeededPackages](dtFolder.path / os.up / "notNeededPackages.json")
 
+      val wanted = external.packages
+        .map(_._2.libraryName)
+        .toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals
+
       UpToDateExternals(
         interfaceLogger,
         interfaceCmd,
         files.existing(paths.cacheFolder / 'npm),
-        external.packages.map(_._2.libraryName).toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
-        config.conversion.ignoredLibs,
+        wanted -- config.conversion.ignoredLibs,
         config.conserveSpace,
         config.offline,
       )
