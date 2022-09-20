@@ -54,7 +54,7 @@ ${cs.mkString}
     }
 
   def renderData(data: Npmjs.Data): String = {
-    val Collected(metadata, npm) = data.collected
+    val metadata = data.collected.metadata
 
     s"""${metadata.description.fold("")(d => "## Library description:\n" + d)}
 
@@ -62,10 +62,10 @@ ${cs.mkString}
 | ------------------ | :-------------: |
 | Full name          | ${metadata.name} |
 | Keywords           | ${metadata.keywords.fold("-")(_.mkString(", "))} |
-| # releases         | ${metadata.releases.lastOption.fold("")(_.count.toString)} |
-| # dependents       | ${npm.dependentsCount} |
-| # downloads        | ${npm.downloads.lastOption.fold("-")(_.count.toString)} |
-| # stars            | ${npm.starsCount} |
+| # releases         | ${metadata.releases.lastOption.fold("?")(_.count.toString)} |
+| # dependents       | ${data.evaluation.popularity.dependentsCount} |
+| # downloads        | ${data.evaluation.popularity.downloadsCount} |
+| # stars            | ${data.collected.github.fold("?")(_.starsCount.toString)} |
 
 ## Links
 ${optList(

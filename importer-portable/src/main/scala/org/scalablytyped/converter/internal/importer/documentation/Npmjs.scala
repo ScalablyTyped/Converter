@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package importer.documentation
 
 import com.olvind.logging.Logger
+import io.circe013.generic.semiauto.{deriveDecoder, deriveEncoder}
 import io.circe013.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.importer.Source
 
@@ -23,7 +24,7 @@ object Npmjs {
 
   case class Metadata(
       name:        String,
-      scope:       String,
+      scope:       Option[String],
       version:     String,
       description: Option[String],
       keywords:    Option[List[String]],
@@ -32,35 +33,45 @@ object Npmjs {
       links:       Links,
       releases:    List[DatedNumbers],
   )
-  case class Npm(downloads: List[DatedNumbers], dependentsCount: Int, starsCount: Int)
+  case class Popularity(
+      communityInterest:     Double,
+      downloadsCount:        Double,
+      downloadsAcceleration: Double,
+      dependentsCount:       Double,
+  )
 
   case class ScoreDetail(quality: Double, popularity: Double, maintenance: Double)
 
-  case class Score(`final`: Double, detail: ScoreDetail)
+  case class Score(`final`:         Double, detail: ScoreDetail)
+  case class Github(starsCount:     Double)
+  case class Collected(metadata:    Metadata, github: Option[Github])
+  case class Evaluation(popularity: Popularity)
 
-  case class Collected(metadata: Metadata, npm: Npm)
-
-  case class Data(analyzedAt: DateString, collected: Collected, score: Score)
+  case class Data(analyzedAt: DateString, collected: Collected, evaluation: Evaluation, score: Score)
 
   object Data {
-    implicit val DecoderDatedNumbers: Decoder[DatedNumbers] = io.circe013.generic.semiauto.deriveDecoder
-    implicit val EncoderDatedNumbers: Encoder[DatedNumbers] = io.circe013.generic.semiauto.deriveEncoder
-    implicit val DecoderLinks:        Decoder[Links]        = io.circe013.generic.semiauto.deriveDecoder
-    implicit val EncoderLinks:        Encoder[Links]        = io.circe013.generic.semiauto.deriveEncoder
-    implicit val DecoderRepository:   Decoder[Repository]   = io.circe013.generic.semiauto.deriveDecoder
-    implicit val EncoderRepository:   Encoder[Repository]   = io.circe013.generic.semiauto.deriveEncoder
-    implicit val DecoderMetadata:     Decoder[Metadata]     = io.circe013.generic.semiauto.deriveDecoder
-    implicit val EncoderMetadata:     Encoder[Metadata]     = io.circe013.generic.semiauto.deriveEncoder
-    implicit val DecoderNpm:          Decoder[Npm]          = io.circe013.generic.semiauto.deriveDecoder
-    implicit val EncoderNpm:          Encoder[Npm]          = io.circe013.generic.semiauto.deriveEncoder
-    implicit val DecoderCollected:    Decoder[Collected]    = io.circe013.generic.semiauto.deriveDecoder
-    implicit val EncoderCollected:    Encoder[Collected]    = io.circe013.generic.semiauto.deriveEncoder
-    implicit val DecoderScoreDetail:  Decoder[ScoreDetail]  = io.circe013.generic.semiauto.deriveDecoder
-    implicit val EncoderScoreDetail:  Encoder[ScoreDetail]  = io.circe013.generic.semiauto.deriveEncoder
-    implicit val DecoderScore:        Decoder[Score]        = io.circe013.generic.semiauto.deriveDecoder
-    implicit val EncoderScore:        Encoder[Score]        = io.circe013.generic.semiauto.deriveEncoder
-    implicit val DecoderData:         Decoder[Data]         = io.circe013.generic.semiauto.deriveDecoder
-    implicit val EncoderData:         Encoder[Data]         = io.circe013.generic.semiauto.deriveEncoder
+    implicit val DecoderDatedNumbers: Decoder[DatedNumbers] = deriveDecoder
+    implicit val EncoderDatedNumbers: Encoder[DatedNumbers] = deriveEncoder
+    implicit val DecoderLinks:        Decoder[Links]        = deriveDecoder
+    implicit val EncoderLinks:        Encoder[Links]        = deriveEncoder
+    implicit val DecoderRepository:   Decoder[Repository]   = deriveDecoder
+    implicit val EncoderRepository:   Encoder[Repository]   = deriveEncoder
+    implicit val DecoderMetadata:     Decoder[Metadata]     = deriveDecoder
+    implicit val EncoderMetadata:     Encoder[Metadata]     = deriveEncoder
+    implicit val DecoderPopularity:   Decoder[Popularity]   = deriveDecoder
+    implicit val EncoderPopularity:   Encoder[Popularity]   = deriveEncoder
+    implicit val DecoderEvaluation:   Decoder[Evaluation]   = deriveDecoder
+    implicit val EncoderEvaluation:   Encoder[Evaluation]   = deriveEncoder
+    implicit val DecoderGithub:       Decoder[Github]       = deriveDecoder
+    implicit val EncoderGithub:       Encoder[Github]       = deriveEncoder
+    implicit val DecoderCollected:    Decoder[Collected]    = deriveDecoder
+    implicit val EncoderCollected:    Encoder[Collected]    = deriveEncoder
+    implicit val DecoderScoreDetail:  Decoder[ScoreDetail]  = deriveDecoder
+    implicit val EncoderScoreDetail:  Encoder[ScoreDetail]  = deriveEncoder
+    implicit val DecoderScore:        Decoder[Score]        = deriveDecoder
+    implicit val EncoderScore:        Encoder[Score]        = deriveEncoder
+    implicit val DecoderData:         Decoder[Data]         = deriveDecoder
+    implicit val EncoderData:         Encoder[Data]         = deriveEncoder
   }
 
   object No extends Npmjs {

@@ -44,10 +44,10 @@ object TopLists {
     }
 
     val byDependentsRows = withMetadata
-      .sortBy { case (p, m) => (-m.collected.npm.dependentsCount, p.project.name) }
+      .sortBy { case (p, m) => (-m.evaluation.popularity.dependentsCount, p.project.name) }
       .map {
         case (p, m) =>
-          s"| ${m.collected.npm.dependentsCount} | ${link(p.project.name, s"./${p.project.name.head}/${p.project.name}")} | ${desc(m)}"
+          s"| ${m.evaluation.popularity.dependentsCount} | ${link(p.project.name, s"./${p.project.name.head}/${p.project.name}")} | ${desc(m)}"
       }
 
     Lists(
