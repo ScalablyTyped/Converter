@@ -3083,4 +3083,21 @@ export {};
       ),
     )
   }
+
+  test("asserts type is not typeref") {
+    val a = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("a"))), IArray())
+    val repeatedA = TsTypeRepeated(
+      TsTypeRef(
+        NoComments,
+        TsQIdent(IArray(TsIdentSimple("Array"))),
+        IArray(a),
+      ),
+    )
+    shouldParseAs("asserts value is [a, ...a[]]", TsParser.tsType)(
+      TsTypeAsserts(
+        TsIdentSimple("value"),
+        Some(TsTypeTuple(IArray(TsTupleElement(None, a), TsTupleElement(None, repeatedA)))),
+      ),
+    )
+  }
 }
