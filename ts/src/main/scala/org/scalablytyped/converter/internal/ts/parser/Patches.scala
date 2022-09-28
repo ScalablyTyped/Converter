@@ -14,8 +14,8 @@ object Patches {
     os.RelPath("redux") / "index.d.ts" -> List(
       Patch(
         "handle ambiguity because of non-whitespace aware parser",
-        "): Store<S & StateExt, A> & Ext",
-        "): Store<S & StateExt, A> & Ext,",
+        "): Store<S & StateExt, A> & Ext\n  <",
+        "): Store<S & StateExt, A> & Ext,\n  <",
       ),
     ),
     os.RelPath("downshift") / 'typings / "index.d.ts" -> List(
