@@ -75,6 +75,8 @@ object AdaptiveNamingImport {
               lowercaseIndex.put(lowercase, whole)
               continue = false
             case Some(_) =>
+              if (!iter.hasNext)
+                sys.error(s"Couldn't translate $whole")
           }
         }
     }
@@ -126,7 +128,7 @@ object AdaptiveNamingImport {
       case _: TsIdentImport => sys.error("unexpected")
     }
 
-    base #::: base.map(_ + "_")
+    base #::: base.map(_ + "_") #::: base.map(_ + "__")
   }
 
   private def addMod(str: String) = str match {
