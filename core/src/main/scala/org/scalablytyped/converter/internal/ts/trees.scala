@@ -563,7 +563,7 @@ final case class TsTypeConstructor(isAbstract: Boolean, signature: TsTypeFunctio
 
 final case class TsTypeIs(ident: TsIdent, tpe: TsType) extends TsType
 
-final case class TsTypeAsserts(ident: TsIdentSimple, isOpt: Option[TsTypeRef]) extends TsType
+final case class TsTypeAsserts(ident: TsIdentSimple, isOpt: Option[TsType]) extends TsType
 
 final case class TsTupleElement(label: Option[TsIdent], tpe: TsType)
 
