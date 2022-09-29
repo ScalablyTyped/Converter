@@ -652,7 +652,11 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   }
 
   lazy val tsLiteralString: Parser[TsLiteral.Str] =
-    stringLit ^^ TsLiteral.Str.apply
+    elem("string literal", {
+      case _: TsLexer.StringLit             => true
+      case _: TsLexer.StringTemplateLiteral => true
+      case _ => false
+    }) ^^ (lit => TsLiteral.Str(lit.chars))
 
   lazy val tsIdentModule: Parser[TsIdentModule] =
     tsLiteralString ^^ ModuleNameParser.apply

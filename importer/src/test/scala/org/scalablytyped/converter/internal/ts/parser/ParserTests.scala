@@ -3100,4 +3100,13 @@ export {};
       ),
     )
   }
+
+  test("nested template strings") {
+    shouldParseAs(
+      "`${Head}.${FixPathSquareBrackets<`[${Middle}]${Tail}`>}`",
+      TsParser.tsType,
+    )(
+      TsTypeLiteral(TsLiteral.Str("${Head}.${FixPathSquareBrackets<[${Middle}]${Tail}>}")),
+    )
+  }
 }
