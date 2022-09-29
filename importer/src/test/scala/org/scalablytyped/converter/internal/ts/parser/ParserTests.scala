@@ -3109,7 +3109,7 @@ export {};
       TsTypeLiteral(TsLiteral.Str("${Head}.${FixPathSquareBrackets<[${Middle}]${Tail}>}")),
     )
   }
-  test("flaff") {
+  test("+readonly") {
     val O = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("O"))), IArray())
     val K = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), IArray())
     shouldParseAs(
@@ -3147,6 +3147,16 @@ export {};
           ),
         ),
         CodePath.NoPath,
+      ),
+    )
+  }
+
+  test("import()") {
+    shouldParseAs("""import('./lib/reanimated2/globals')""".stripMargin, TsParser.tsImport)(
+      TsImport(
+        typeOnly = false,
+        IArray(TsImported.Star(None)),
+        TsImportee.From(TsIdentModule(None, List(".", "lib", "reanimated2", "globals"))),
       ),
     )
   }
