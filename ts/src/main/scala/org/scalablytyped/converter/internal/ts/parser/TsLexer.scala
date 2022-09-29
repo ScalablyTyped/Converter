@@ -22,6 +22,15 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
   }
   final case class Shebang(chars: String) extends Token
 
+  final case class StringTemplateLiteral(tokens: List[Either[Char, List[Token]]]) extends Token {
+    def chars =
+      tokens
+        .map {
+          case Left(str)     => str.toString
+          case Right(tokens) => tokens.flatMap(_.chars).mkString("${", "", "}")
+        }
+        .mkString("")
+  }
   implicit def FromString[T](p: Parser[T]): String => ParseResult[T] =
     (str: String) => p.apply(new CharSequenceReader(str))
 
@@ -108,7 +117,20 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
     def quoted(quoteChar: Char): Parser[String] =
       quoteChar ~> stringOf(inQuoteChar(quoteChar)) <~ quoteChar
 
-    (quoted('\"') | quoted('\'') | quoted('`')) ^^ StringLit
+    (quoted('\"') | quoted('\'')) ^^ StringLit
+  }
+
+  lazy val stringTemplateLiteral: Parser[StringTemplateLiteral] = {
+    val templateQuote = '`'
+    val interpolationStart: Parser[Char] = '$' ~> '{'
+    val interpolationEnd:   Parser[Char] = '}'
+    val nonInterpolationEndToken = token.filter { case Keyword("}") => false; case _ => true }
+
+    val either: Parser[Either[Char, List[Token]]] =
+      interpolationStart.flatMap(_ => (rep(nonInterpolationEndToken) <~ interpolationEnd).map(Right.apply)) |
+        chrExcept(templateQuote).map(Left.apply)
+
+    templateQuote ~> rep(either) <~ templateQuote ^^ StringTemplateLiteral.apply
   }
 
   val delim: Parser[Keyword] = {
@@ -182,8 +204,8 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
     not(directive) ~> oneLine | block
   }
 
-  override val token: Parser[Token] = {
-    val base = identifier | directive | comment | numericLiteral | stringLiteral | delim | shebang | EofCh ^^^ EOF
+  override lazy val token: Parser[Token] = {
+    val base = identifier | directive | comment | numericLiteral | stringLiteral | stringTemplateLiteral | delim | shebang | EofCh ^^^ EOF
 
     val ignore = (newLine | whitespaceChar).*
 
