@@ -3109,4 +3109,45 @@ export {};
       TsTypeLiteral(TsLiteral.Str("${Head}.${FixPathSquareBrackets<[${Middle}]${Tail}>}")),
     )
   }
+  test("flaff") {
+    val O = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("O"))), IArray())
+    val K = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), IArray())
+    shouldParseAs(
+      """declare type ReadonlyDeep<O> = {
+        |    +readonly [K in keyof O]: O[K] extends BuiltIn ? O[K] : ReadonlyDeep<O[K]>;
+        |}
+        |""".stripMargin,
+      TsParser.tsDeclTypeAlias,
+    )(
+      TsDeclTypeAlias(
+        NoComments,
+        true,
+        TsIdentSimple("ReadonlyDeep"),
+        IArray(TsTypeParam(NoComments, TsIdentSimple("O"), None, None)),
+        TsTypeObject(
+          NoComments,
+          IArray(
+            TsMemberTypeMapped(
+              NoComments,
+              TsProtectionLevel.Default,
+              ReadonlyModifier.Yes,
+              TsIdentSimple("K"),
+              TsTypeKeyOf(O),
+              None,
+              Noop,
+              TsTypeConditional(
+                TsTypeExtends(
+                  TsTypeLookup(O, K),
+                  TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("BuiltIn"))), IArray()),
+                ),
+                TsTypeLookup(O, K),
+                TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("ReadonlyDeep"))), IArray(TsTypeLookup(O, K))),
+              ),
+            ),
+          ),
+        ),
+        CodePath.NoPath,
+      ),
+    )
+  }
 }
