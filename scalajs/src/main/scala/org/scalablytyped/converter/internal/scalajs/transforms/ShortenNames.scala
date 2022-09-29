@@ -6,7 +6,7 @@ import org.scalablytyped.converter.internal.maps._
 import scala.collection.mutable
 
 object ShortenNames {
-  val Forbidden: Set[Name] = Set(Name("|"), Name.underscore, Name.scala, Name.js, Name.com, Name.org)
+  val Forbidden: Set[Name] = Set(Name("|"), Name.underscore, Name.scala, Name.js, Name.com, Name.org, Name("List"))
 
   case class ImportTree(imported: QualifiedName)
 
@@ -87,7 +87,7 @@ object ShortenNames {
     val newMembers = members.map(V.visitTree(scope))
 
     def keepImport(qn: QualifiedName): Boolean =
-      if (qn.startsWith(QualifiedName.scala)) false
+      if (qn.startsWith(QualifiedName.scala) && qn.parts.length == 2) false
       else if (qn.startsWith(QualifiedName.java_lang)) false
       else if (qn === QualifiedName.StObject) false
       else true

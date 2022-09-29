@@ -60,7 +60,7 @@ object mod extends Shortcut {
       * @param props The property names or indexes of elements to pick, specified individually or in arrays.
       * @return Returns the new array of picked elements.
       */
-    def at[T](`object`: List[T], props: PropertyPath*): js.Array[T] = js.native
+    def at[T](`object`: typings.lodash.mod.List[T], props: PropertyPath*): js.Array[T] = js.native
   }
   
   type Many[T] = T | js.Array[T]
