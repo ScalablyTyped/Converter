@@ -65,7 +65,8 @@ object Name {
   val INTERSECTION:    Name = Name("<intersection>")
   val SINGLETON:       Name = Name("<typeof>")
   val STRING_LITERAL:  Name = Name("<string_literal>")
-  val NUMBER_LITERAL:  Name = Name("<number_literal>")
+  val DOUBLE_LITERAL:  Name = Name("<double_literal>")
+  val INT_LITERAL:     Name = Name("<int_literal>")
   val BOOLEAN_LITERAL: Name = Name("<boolean_literal>")
   val THIS:            Name = Name("<this>")
   val SUPER:           Name = Name("<super>")
@@ -81,7 +82,8 @@ object Name {
     INTERSECTION,
     SINGLETON,
     STRING_LITERAL,
-    NUMBER_LITERAL,
+    DOUBLE_LITERAL,
+    INT_LITERAL,
     BOOLEAN_LITERAL,
     THIS,
     SUPER,
@@ -96,7 +98,8 @@ object Name {
     case INTERSECTION    => Suffix("Intersection")
     case SINGLETON       => Suffix("Singleton")
     case BOOLEAN_LITERAL => Suffix("Boolean")
-    case NUMBER_LITERAL  => Suffix("Number")
+    case DOUBLE_LITERAL  => Suffix("Double")
+    case INT_LITERAL     => Suffix("Int")
     case STRING_LITERAL  => Suffix("String")
     case THIS            => Suffix("This")
     case WILDCARD        => Suffix("Wildcard")

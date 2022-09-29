@@ -702,7 +702,7 @@ class SlinkyGenComponents(
     val members: IArray[MethodTree] =
       props.filterNot(_.isRequired).flatMap {
         case Prop.CompressedProp(name, tpe, asExpr, isRequired) =>
-          val args1 = Call(Ref(genStBuilder.args.name), IArray(IArray(NumberLit("1"))))
+          val args1 = Call(Ref(genStBuilder.args.name), IArray(IArray(IntLit("1"))))
 
           val (default, update) =
             if (isRequired) (NotImplemented, asExpr(args1))

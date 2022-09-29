@@ -7,7 +7,7 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object constEnumNumbers {
+object constEnumInts {
   
   @js.native
   sealed trait `0`
@@ -46,10 +46,4 @@ object constEnumNumbers {
     extends StObject
        with PreOrderHookFlags
   inline def `65536`: `65536` = 65536.asInstanceOf[`65536`]
-  
-  @js.native
-  sealed trait _4294901760
-    extends StObject
-       with PreOrderHookFlags
-  inline def _4294901760: _4294901760 = 4294901760.0.asInstanceOf[_4294901760]
 }

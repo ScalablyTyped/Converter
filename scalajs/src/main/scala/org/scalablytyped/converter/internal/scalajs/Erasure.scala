@@ -58,7 +58,8 @@ class Erasure(scalaVersion: Versions.Scala) {
       case QualifiedName.REPEATED => QualifiedName.Array
       // the way we fake literal means these are true enough
       case QualifiedName.STRING_LITERAL  => tpe.targs.head.typeName
-      case QualifiedName.NUMBER_LITERAL  => tpe.targs.head.typeName
+      case QualifiedName.DOUBLE_LITERAL  => tpe.targs.head.typeName
+      case QualifiedName.INT_LITERAL     => tpe.targs.head.typeName
       case QualifiedName.BOOLEAN_LITERAL => tpe.targs.head.typeName
 
       case QualifiedName.INTERSECTION if scalaVersion.is3 =>

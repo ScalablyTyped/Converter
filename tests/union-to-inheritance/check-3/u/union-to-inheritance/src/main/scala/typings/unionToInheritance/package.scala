@@ -23,8 +23,8 @@ type A = _A | String
 type B = _B | Double | String
 
 /* Rewritten from type alias, can be one of: 
-  - typings.unionToInheritance.unionToInheritanceNumbers.`1`
-  - typings.unionToInheritance.unionToInheritanceNumbers.`2`
+  - typings.unionToInheritance.unionToInheritanceInts.`1`
+  - typings.unionToInheritance.unionToInheritanceInts.`2`
   - typings.std.HTMLInputElement
   - js.Array[typings.unionToInheritance.B]
   - typings.unionToInheritance.B

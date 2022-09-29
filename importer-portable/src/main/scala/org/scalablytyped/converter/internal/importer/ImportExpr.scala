@@ -2,7 +2,6 @@ package org.scalablytyped.converter.internal
 package importer
 
 import org.scalablytyped.converter.internal.scalajs.{ExprTree, QualifiedName}
-import org.scalablytyped.converter.internal.scalajs.transforms.FakeLiterals
 import org.scalablytyped.converter.internal.ts._
 
 class ImportExpr(importType: ImportType, importName: AdaptiveNamingImport) {
@@ -13,11 +12,7 @@ class ImportExpr(importType: ImportType, importName: AdaptiveNamingImport) {
 
       case TsExpr.Literal(value) =>
         value match {
-          case TsLiteral.Num(value) =>
-            FakeLiterals.isTooBigForInt(value) match {
-              case Some(long) => ExprTree.NumberLit(long.toString + ".0")
-              case None       => ExprTree.NumberLit(value)
-            }
+          case TsLiteral.Num(value)  => ImportType.numberToExpr(value)
           case TsLiteral.Str(value)  => ExprTree.StringLit(value)
           case TsLiteral.Bool(value) => ExprTree.BooleanLit(value)
         }

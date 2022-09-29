@@ -33,7 +33,7 @@ typings
     *Mod/
     global/
     fooStrings.scala
-    fooNumbers.scala
+    fooInts.scala
     fooBooleans.scala
     fooRequire.scala
     ... top-level types
