@@ -21,7 +21,7 @@ object mod {
       @js.native
       open class ^[EventTypes] ()
         extends StObject
-           with typings.pixiUtils.mod.^[EventTypes]
+           with typings.eventemitter3.mod.EventEmitter[EventTypes]
       
       @JSImport("pixi.js", "utils.EventEmitter")
       @js.native
@@ -31,10 +31,11 @@ object mod {
       val EventEmitter: EventEmitterStatic = js.native
       
       /* This class was inferred from a value with a constructor, it was renamed because a distinct type already exists with the same name. */
-      @JSImport("pixi.js", "utils.EventEmitter.EventEmitterCls")
+      @JSImport("pixi.js", "utils.EventEmitter.EventEmitter")
       @js.native
       open class EventEmitterCls[EventTypes] ()
-        extends typings.pixiUtils.mod.EventEmitter.EventEmitterCls[EventTypes]
+        extends StObject
+           with typings.eventemitter3.mod.EventEmitter[EventTypes]
       
       type _To = js.Object & EventEmitterStatic
       
