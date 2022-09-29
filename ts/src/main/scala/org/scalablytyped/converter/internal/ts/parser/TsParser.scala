@@ -583,10 +583,10 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     }
 
     val readonly: Parser[ReadonlyModifier] = {
-      ("readonly" | "-readonly").? ^^ {
-        case Some("readonly")  => ReadonlyModifier.Yes
-        case Some("-readonly") => ReadonlyModifier.No
-        case _                 => ReadonlyModifier.Noop
+      ("readonly" | "-readonly" | "+readonly").? ^^ {
+        case Some("readonly" | "+readonly") => ReadonlyModifier.Yes
+        case Some("-readonly")              => ReadonlyModifier.No
+        case _                              => ReadonlyModifier.Noop
       }
     }
 

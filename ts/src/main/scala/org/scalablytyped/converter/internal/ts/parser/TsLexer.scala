@@ -148,7 +148,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
       "{", "}", "(", ")", "[", "]", "<", ">",
       ".", ";", ",", "?", ":", "=", "|", "&", "*", "+", "-", "^", "/", "%",
       // TypeScript-specific
-      "...", "=>", "-?", "+?", "-readonly",
+      "...", "=>", "-?", "+?", "-readonly", "+readonly",
     )
     // format: on
     delimiters
