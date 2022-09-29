@@ -218,11 +218,12 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     val normalImport: Parser[TsImport] =
       "import" ~> "type".isDefined ~ imported ~ importee ^^ TsImport
 
-    val raw: Parser[TsImport] =
-      "import" ~> tsIdentModule ^^ (
-          id =>
-            TsImport(typeOnly = false, IArray(TsImported.Star(None)), TsImportee.From(id)),
-        )
+    val raw: Parser[TsImport] = {
+      val moduleIdentMaybeParams = ("(" ~> tsIdentModule <~ ")") | tsIdentModule
+      "import" ~> moduleIdentMaybeParams ^^ (
+          id => TsImport(typeOnly = false, IArray(TsImported.Star(None)), TsImportee.From(id)),
+      )
+    }
 
     normalImport | raw
   }
