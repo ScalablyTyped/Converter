@@ -13,7 +13,7 @@ class ImportExpr(importType: ImportType, importName: AdaptiveNamingImport) {
       case TsExpr.Literal(value) =>
         value match {
           case TsLiteral.Num(value)  => ImportType.numberToExpr(value)
-          case TsLiteral.Str(value)  => ExprTree.StringLit(value)
+          case TsLiteral.Str(value)  => ImportType.stringToExpr(value)
           case TsLiteral.Bool(value) => ExprTree.BooleanLit(value)
         }
       case TsExpr.Cast(expr, tpe) =>
