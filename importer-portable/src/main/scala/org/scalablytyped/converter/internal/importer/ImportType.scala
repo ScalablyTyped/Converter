@@ -7,6 +7,8 @@ import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 import org.scalablytyped.converter.internal.ts._
 import org.scalablytyped.converter.internal.ts.transforms.ExtractInterfaces
 
+import scala.util.{Success, Try}
+
 class ImportType(stdNames: QualifiedName.StdNames) {
 
   def orAny(scope: TsTreeScope, importName: AdaptiveNamingImport)(ott: Option[TsType]): TypeRef =
@@ -272,7 +274,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
       case TsTypeLiteral(lit) =>
         lit match {
-          case TsLiteral.Num(value)  => TypeRef.NumberLiteral(value)
+          case TsLiteral.Num(value)  => ImportType.numberToTypeRef(value)
           case TsLiteral.Str(value)  => TypeRef.StringLiteral(value)
           case TsLiteral.Bool(value) => TypeRef.BooleanLiteral(value.toString)
         }
@@ -374,5 +376,39 @@ object ImportType {
           if (owner.implements.exists(_.name eq tpe) || owner.parent.exists(_.name eq tpe)) InClass else Not
         case _ => Not
       }
+  }
+
+  def numberToExpr(value: String): ExprTree = {
+    def validInt = Try(java.lang.Long.decode(value)) match {
+      case Success(int) if int < Int.MaxValue && int > Int.MinValue => Some(ExprTree.IntLit(value))
+      case _                                                        => None
+    }
+
+    def validDouble = Try(java.lang.Double.parseDouble(value)) match {
+      case Success(double) if !double.isInfinite && !double.isNaN => Some(ExprTree.DoubleLit(value))
+      case _                                                      => None
+    }
+
+    def other =
+      ExprTree.Ref(TypeRef(QualifiedName.Double).withComments(Comments(s"/* $value */ ")))
+
+    validInt.orElse(validDouble).getOrElse(other)
+  }
+
+  def numberToTypeRef(value: String): TypeRef = {
+    def validInt = Try(java.lang.Long.decode(value)) match {
+      case Success(int) if int < Int.MaxValue && int > Int.MinValue => Some(TypeRef.IntLiteral(value))
+      case _                                                        => None
+    }
+
+    def validDouble = Try(java.lang.Double.parseDouble(value)) match {
+      case Success(double) if !double.isInfinite && !double.isNaN => Some(TypeRef.DoubleLiteral(value))
+      case _                                                      => None
+    }
+
+    def other =
+      TypeRef(QualifiedName.Double).withComments(Comments(s"/* $value */ "))
+
+    validInt.orElse(validDouble).getOrElse(other)
   }
 }

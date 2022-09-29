@@ -481,7 +481,8 @@ object TypeRef {
       }
   }
   object StringLiteral extends LiteralCompanion(QualifiedName.STRING_LITERAL)
-  object NumberLiteral extends LiteralCompanion(QualifiedName.NUMBER_LITERAL)
+  object DoubleLiteral extends LiteralCompanion(QualifiedName.DOUBLE_LITERAL)
+  object IntLiteral extends LiteralCompanion(QualifiedName.INT_LITERAL)
   object BooleanLiteral extends LiteralCompanion(QualifiedName.BOOLEAN_LITERAL)
   object Literal {
     def unapply(typeRef: TypeRef): Boolean =
@@ -489,7 +490,8 @@ object TypeRef {
 
     def apply(typeName: QualifiedName): Boolean =
       typeName === QualifiedName.STRING_LITERAL ||
-        typeName === QualifiedName.NUMBER_LITERAL ||
+        typeName === QualifiedName.DOUBLE_LITERAL ||
+        typeName === QualifiedName.INT_LITERAL ||
         typeName === QualifiedName.BOOLEAN_LITERAL
   }
 
@@ -587,7 +589,8 @@ object ExprTree {
   }
 
   case class BooleanLit(value: Boolean) extends Lit
-  case class NumberLit(value:  String) extends Lit
+  case class IntLit(value:     String) extends Lit
+  case class DoubleLit(value:  String) extends Lit
   case class StringLit(value:  String) extends Lit
   case object undefined extends Lit
   case object Null extends Lit

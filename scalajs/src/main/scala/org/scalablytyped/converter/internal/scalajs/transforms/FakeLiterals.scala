@@ -39,8 +39,10 @@ object FakeLiterals {
 
     val StringModuleName   = Name(tree.name.unescaped + "Strings")
     val collectedStrings   = mutable.HashMap.empty[Name, ExprTree.Lit]
-    val NumbersModuleName  = Name(tree.name.unescaped + "Numbers")
-    val collectedNumbers   = mutable.HashMap.empty[Name, ExprTree.Lit]
+    val DoublesModuleName  = Name(tree.name.unescaped + "Doubles")
+    val collectedDoubles   = mutable.HashMap.empty[Name, ExprTree.Lit]
+    val IntsModuleName     = Name(tree.name.unescaped + "Ints")
+    val collectedInts      = mutable.HashMap.empty[Name, ExprTree.Lit]
     val BooleansModuleName = Name(tree.name.unescaped + "Booleans")
     val collectedBooleans  = mutable.HashMap.empty[Name, ExprTree.Lit]
 
@@ -123,18 +125,22 @@ object FakeLiterals {
             Comments(Marker.WasLiteral(lit)),
           )
 
-        case TypeRef.NumberLiteral(underlying) =>
-          val (newUnderlying, name) =
-            (underlying, isTooBigForInt(underlying)) match {
-              case (baseName, Some(long)) =>
-                (long.toString + ".0", Name("_" + baseName))
-              case (baseName, _) => (underlying, Name(baseName))
-            }
-
-          val lit = ExprTree.NumberLit(newUnderlying)
-          collectedNumbers(name) = lit
+        case TypeRef.DoubleLiteral(underlying) =>
+          val name = Name(underlying)
+          val lit  = ExprTree.DoubleLit(underlying)
+          collectedDoubles(name) = lit
           TypeRef(
-            QualifiedName(IArray(outputPkg, tree.name, NumbersModuleName, name)),
+            QualifiedName(IArray(outputPkg, tree.name, DoublesModuleName, name)),
+            Empty,
+            Comments(Marker.WasLiteral(lit)),
+          )
+
+        case TypeRef.IntLiteral(underlying) =>
+          val name = Name(underlying)
+          val lit  = ExprTree.IntLit(underlying)
+          collectedInts(name) = lit
+          TypeRef(
+            QualifiedName(IArray(outputPkg, tree.name, IntsModuleName, name)),
             Empty,
             Comments(Marker.WasLiteral(lit)),
           )
@@ -145,21 +151,15 @@ object FakeLiterals {
 
     lazy val output: ContainerTree = {
       val ss         = visitContainerTree(scope)(tree)
-      val nums       = module(collectedNumbers, NumbersModuleName)
+      val doubles    = module(collectedDoubles, DoublesModuleName)
+      val ints       = module(collectedInts, IntsModuleName)
       val strings    = module(collectedStrings, StringModuleName)
       val booleans   = module(collectedBooleans, BooleansModuleName)
-      val newMembers = ss.members ++ IArray.fromOptions(nums, strings, booleans)
+      val newMembers = ss.members ++ IArray.fromOptions(doubles, ints, strings, booleans)
       ss match {
         case p: PackageTree => p.copy(members = newMembers)
         case m: ModuleTree  => m.copy(members = newMembers)
       }
     }
   }
-
-  def isTooBigForInt(strNum: String): Option[Long] =
-    Try(java.lang.Long.decode(strNum)) match {
-      case Success(value) if value > Int.MaxValue || value < Int.MinValue => Some(value)
-      case _                                                              => None
-    }
-
 }

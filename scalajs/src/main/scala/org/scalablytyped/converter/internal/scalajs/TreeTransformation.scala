@@ -107,7 +107,8 @@ class TreeTransformation { self =>
         case ExprTree.Arg.Variable(expr) =>
           ExprTree.Arg.Variable(visitExprTree(childrenScope)(expr))
         case x: ExprTree.Ref        => x
-        case x: ExprTree.NumberLit  => x
+        case x: ExprTree.DoubleLit  => x
+        case x: ExprTree.IntLit     => x
         case x: ExprTree.StringLit  => x
         case x: ExprTree.BooleanLit => x
 

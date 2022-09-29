@@ -407,7 +407,13 @@ object ImportScalaDefinitions extends App {
               val tps = toTypeParameterTrees(tparams)
               go(inner, tps)
             case x: ConstantType =>
-              (TypeRef.NumberLiteral(x.toString), Empty, Empty)
+              x.constant match {
+                case x: Double  => (TypeRef.DoubleLiteral(x.toString), Empty, Empty)
+                case x: Int     => (TypeRef.IntLiteral(x.toString), Empty, Empty)
+                case x: String  => (TypeRef.StringLiteral(x), Empty, Empty)
+                case x: Boolean => (TypeRef.BooleanLiteral(x.toString), Empty, Empty)
+                case null => (TypeRef.Null, Empty, Empty)
+              }
             case AnnotatedType(typeRef, _) =>
               go(typeRef, tparams)
             case NoType =>
@@ -498,8 +504,8 @@ object ImportScalaDefinitions extends App {
       case ConstantType(constant) =>
         constant match {
           case x: String  => Right(TypeRef.StringLiteral(x))
-          case x: Double  => Right(TypeRef.NumberLiteral(x.toString))
-          case x: Int     => Right(TypeRef.NumberLiteral(x.toString))
+          case x: Double  => Right(TypeRef.DoubleLiteral(x.toString))
+          case x: Int     => Right(TypeRef.IntLiteral(x.toString))
           case x: Boolean => Right(TypeRef.BooleanLiteral(x.toString))
           case null => Right(TypeRef.Null)
           case _    => Left(tpe)

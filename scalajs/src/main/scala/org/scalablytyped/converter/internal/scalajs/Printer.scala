@@ -539,7 +539,8 @@ object Printer {
             types.map(formatTypeRef(indent)).map(paramsIfNeeded).mkString(" | ")
 
           case TypeRef.StringLiteral(underlying)  => stringUtils.quote(underlying)
-          case TypeRef.NumberLiteral(underlying)  => underlying
+          case TypeRef.DoubleLiteral(underlying)  => underlying
+          case TypeRef.IntLiteral(underlying)     => underlying
           case TypeRef.BooleanLiteral(underlying) => underlying
 
           case TypeRef.Repeated(underlying: TypeRef, _) =>
@@ -633,8 +634,10 @@ object Printer {
           formatQN(value)
         case ExprTree.StringLit(value) =>
           stringUtils.quote(value)
-        case ExprTree.NumberLit(value) =>
+        case ExprTree.IntLit(value) =>
           value
+        case ExprTree.DoubleLit(value) =>
+          if (value.contains("e")) value else value + "d"
         case ExprTree.BooleanLit(value) =>
           value.toString
         case ExprTree.Unary(op, expr) =>

@@ -47,7 +47,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
     val impl = Block(
       Call(
-        Select(Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.JsDynamic), Name("updateDynamic")),
+        Select(Cast(Call(Ref(args.name), IArray(IArray(IntLit("1")))), TypeRef.JsDynamic), Name("updateDynamic")),
         IArray(IArray(Ref(keyParam.name)), IArray(Cast(Ref(valueParam.name), TypeRef.JsAny))),
       ),
       Ref(QualifiedName.THIS),
@@ -89,8 +89,8 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         Select(Ref(args.name), Name("update")),
         IArray(
           IArray(
-            NumberLit("0"),
-            Call(Ref(fParam.name), IArray(IArray(Call(Ref(args.name), IArray(IArray(NumberLit("0"))))))),
+            IntLit("0"),
+            Call(Ref(fParam.name), IArray(IArray(Call(Ref(args.name), IArray(IArray(IntLit("0"))))))),
           ),
         ),
       ),
@@ -121,7 +121,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         Ref(QualifiedName.JsObject + Name("assign")),
         IArray(
           IArray(
-            Cast(Call(Ref(args.name), IArray(IArray(NumberLit("1")))), TypeRef.JsObject),
+            Cast(Call(Ref(args.name), IArray(IArray(IntLit("1")))), TypeRef.JsObject),
             Cast(Ref(param.name), TypeRef.JsObject),
           ),
         ),
@@ -473,7 +473,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       val compParam          = ParamTree(Name("comp"), false, false, builderRef, NotImplemented, NoComments)
       val name               = Name("make")
       val compArgs           = Select(Ref(compParam.name), Name("args"))
-      val args0              = Call(compArgs, IArray(IArray(NumberLit("0"))))
+      val args0              = Call(compArgs, IArray(IArray(IntLit("0"))))
       val reactRawName       = Ref(ReactRaw.name)
       val createElementApply = reactRawName.select("createElement", "applyDynamic")
       val ret                = Name("ret")
@@ -508,7 +508,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
             TypeRef(JapgollyNames.rawReact.Element),
           ),
         ),
-        inDevMode(Call(Select(compArgs, Name("update")), IArray(IArray(NumberLit("0"), Null)))),
+        inDevMode(Call(Select(compArgs, Name("update")), IArray(IArray(IntLit("0"), Null)))),
         Call(Ref(JapgollyNames.vdom.ReactElement), IArray(IArray(Ref(ret)))),
       )
 
