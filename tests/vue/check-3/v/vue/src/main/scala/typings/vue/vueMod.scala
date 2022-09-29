@@ -459,11 +459,11 @@ object vueMod {
       definition: ThisTypedComponentOptionsWithRecordProps[V, Data, Methods, Computed, Props]
     ): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
     @JSName("component")
-    def component_DataMethodsComputedPropNames_String[Data, Methods, Computed, PropNames /* <: String */](id: String): ExtendedVue[V, Data, Methods, Computed, Record[PropNames, Any]] = js.native
+    def component_DataMethodsComputedPropNames[Data, Methods, Computed, PropNames /* <: String */](id: String): ExtendedVue[V, Data, Methods, Computed, Record[PropNames, Any]] = js.native
     @JSName("component")
     def component_DataMethodsComputedProps[Data, Methods, Computed, Props](id: String): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
     @JSName("component")
-    def component_PropNames_String[PropNames /* <: String */](id: String, definition: FunctionalComponentOptions[Record[PropNames, Any], js.Array[PropNames]]): ExtendedVue[V, js.Object, js.Object, js.Object, Record[PropNames, Any]] = js.native
+    def component_PropNames[PropNames /* <: String */](id: String, definition: FunctionalComponentOptions[Record[PropNames, Any], js.Array[PropNames]]): ExtendedVue[V, js.Object, js.Object, js.Object, Record[PropNames, Any]] = js.native
     @JSName("component")
     def component_VueConstructor(id: String): VueConstructor[typings.vue.vueMod.Vue] = js.native
     
@@ -484,11 +484,11 @@ object vueMod {
     def extend[Data, Methods, Computed, PropNames /* <: String */](options: ThisTypedComponentOptionsWithArrayProps[V, Data, Methods, Computed, PropNames]): ExtendedVue[V, Data, Methods, Computed, Record[PropNames, Any]] = js.native
     def extend[Data, Methods, Computed, Props](options: ThisTypedComponentOptionsWithRecordProps[V, Data, Methods, Computed, Props]): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
     @JSName("extend")
-    def extend_DataMethodsComputedPropNames_String[Data, Methods, Computed, PropNames /* <: String */](): ExtendedVue[V, Data, Methods, Computed, Record[PropNames, Any]] = js.native
+    def extend_DataMethodsComputedPropNames[Data, Methods, Computed, PropNames /* <: String */](): ExtendedVue[V, Data, Methods, Computed, Record[PropNames, Any]] = js.native
     @JSName("extend")
     def extend_DataMethodsComputedProps[Data, Methods, Computed, Props](): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
     @JSName("extend")
-    def extend_PropNames_String[PropNames /* <: String */](definition: FunctionalComponentOptions[Record[PropNames, Any], js.Array[PropNames]]): ExtendedVue[V, js.Object, js.Object, js.Object, Record[PropNames, Any]] = js.native
+    def extend_PropNames[PropNames /* <: String */](definition: FunctionalComponentOptions[Record[PropNames, Any], js.Array[PropNames]]): ExtendedVue[V, js.Object, js.Object, js.Object, Record[PropNames, Any]] = js.native
     
     def filter(id: String): js.Function = js.native
     def filter(id: String, definition: js.Function): js.Function = js.native

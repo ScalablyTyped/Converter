@@ -50,12 +50,8 @@ object mod extends Shortcut {
     def at[T /* <: js.Object */](`object`: T, props: (Many[/* keyof T */ String])*): js.Array[
         /* import warning: importer.ImportType#apply Failed type conversion: T[keyof T] */ js.Any
       ] = js.native
-    def at[T /* <: js.Object */](`object`: Null, props: (Many[/* keyof T */ String])*): js.Array[
-        /* import warning: importer.ImportType#apply Failed type conversion: T[keyof T] */ js.Any
-      ] = js.native
-    def at[T /* <: js.Object */](`object`: Unit, props: (Many[/* keyof T */ String])*): js.Array[
-        /* import warning: importer.ImportType#apply Failed type conversion: T[keyof T] */ js.Any
-      ] = js.native
+    def at[T](`object`: Null, props: ((Many[/* keyof T */ String]) | PropertyPath)*): js.Array[T] = js.native
+    def at[T](`object`: Unit, props: ((Many[/* keyof T */ String]) | PropertyPath)*): js.Array[T] = js.native
     /**
       * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
       * specified as individual arguments or as arrays of keys.
@@ -65,10 +61,6 @@ object mod extends Shortcut {
       * @return Returns the new array of picked elements.
       */
     def at[T](`object`: List[T], props: PropertyPath*): js.Array[T] = js.native
-    @JSName("at")
-    def at_T[T](`object`: Null, props: PropertyPath*): js.Array[T] = js.native
-    @JSName("at")
-    def at_T[T](`object`: Unit, props: PropertyPath*): js.Array[T] = js.native
   }
   
   type Many[T] = T | js.Array[T]

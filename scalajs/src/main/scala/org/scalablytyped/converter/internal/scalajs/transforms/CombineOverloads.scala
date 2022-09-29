@@ -73,9 +73,9 @@ class CombineOverloads(erasure: Erasure) extends TreeTransformation {
   }
 
   private def combineSameErasure(_methods: IArray[MethodTree], scope: TreeScope): IArray[MethodTree] = {
-    val grouped: IArray[((IArray[TypeParamTree], QualifiedName), IArray[MethodTree])] =
+    val grouped: IArray[((IArray[Name], QualifiedName), IArray[MethodTree])] =
       _methods
-        .groupBy(m => (m.tparams, m.resultType.typeName))
+        .groupBy(m => (m.tparams.map(_.name), m.resultType.typeName))
         .toIArray
         .sortBy(_._1._1.length)
 
@@ -83,18 +83,20 @@ class CombineOverloads(erasure: Erasure) extends TreeTransformation {
       combineSameErasureSameTypeParams(grouped.head._2, None)
 
     val suffixed: IArray[MethodTree] =
-      grouped.drop(1).mapNotNone {
-        case (_, methods) if methods.head.name === Name.APPLY || methods.head.name === Name.namespaced =>
-          scope.logger.info(
-            s"Dropping ${methods.length} incompatible `apply` overloads (have no way to express this) at $scope",
-          )
-          None
-        case ((tparams: IArray[TypeParamTree], retType), methods) =>
-          val returnTypeSuffix: Option[Suffix] =
-            if (retType === default.resultType.typeName) None else Some(ToSuffix(retType))
+      grouped
+        .drop(1)
+        .mapNotNone {
+          case (_, methods) if methods.head.name === Name.APPLY || methods.head.name === Name.namespaced =>
+            scope.logger.info(
+              s"Dropping ${methods.length} incompatible `apply` overloads (have no way to express this) at $scope",
+            )
+            None
+          case ((tparamNames, retType), methods) =>
+            val returnTypeSuffix: Option[Suffix] =
+              if (retType === default.resultType.typeName) None else Some(ToSuffix(retType))
 
-          Some(combineSameErasureSameTypeParams(methods, Some(ToSuffix(tparams) +? returnTypeSuffix)))
-      }
+            Some(combineSameErasureSameTypeParams(methods, Some(ToSuffix(tparamNames) +? returnTypeSuffix)))
+        }
 
     default +: suffixed
   }
