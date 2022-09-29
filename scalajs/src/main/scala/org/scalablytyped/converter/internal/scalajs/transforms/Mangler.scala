@@ -411,14 +411,28 @@ object Mangler extends TreeTransformation {
         })
         .filter(_.tpe =/= TypeRef.JsAny)
 
-    shortcut.foldLeft(
-      mod.copy(
-        annotations = Empty,
-        parents     = Empty,
-        members     = rewrittenMembers ++ IArray.fromOption(hatOpt),
-        comments    = mod.comments,
-      ),
-    ) {
+    val mod1 = mod.copy(
+      annotations = Empty,
+      parents     = Empty,
+      members     = rewrittenMembers ++ IArray.fromOption(hatOpt),
+      comments    = mod.comments,
+    )
+
+    // plug a hole where if there is a class and multiple functions all with the same name, the functions
+    // will all be rewritten to an object. this recombines them
+    val mod2 = {
+      val newMembers = IArray.fromTraversable(mod1.index).flatMap {
+        case (_, sameName) =>
+          val (mods, rest) = sameName.partitionCollect { case x: ModuleTree => x }
+          if (mods.length > 1) {
+            val mod = mods.head.copy(members = mods.flatMap(_.members))
+            mod +: rest
+          } else sameName
+      }
+      mod1.copy(members = newMembers)
+    }
+
+    shortcut.foldLeft(mod2) {
       case (mod, field) =>
         // implement the `Shortcut` trait for some nicer syntax
         val parent = TypeRef(QualifiedName.Shortcut)
