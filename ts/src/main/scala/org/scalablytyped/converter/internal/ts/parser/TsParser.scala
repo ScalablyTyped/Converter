@@ -221,8 +221,9 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     val raw: Parser[TsImport] = {
       val moduleIdentMaybeParams = ("(" ~> tsIdentModule <~ ")") | tsIdentModule
       "import" ~> moduleIdentMaybeParams ^^ (
-          id => TsImport(typeOnly = false, IArray(TsImported.Star(None)), TsImportee.From(id)),
-      )
+          id =>
+            TsImport(typeOnly = false, IArray(TsImported.Star(None)), TsImportee.From(id)),
+        )
     }
 
     normalImport | raw
@@ -459,6 +460,10 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       | tsTypeTuple
       | "(" ~> tsType <~ ")"
       | tsLiteral ^^ TsTypeLiteral
+      | tsLiteralTemplateString ^^ (
+          chars =>
+            TsTypeRef.string.copy(comments = Comments(s"/* template literal string: $chars */")),
+        )
       | "this" ~> success(TsTypeThis())
       | "asserts" ~> tsIdent ~ ("is" ~> tsType).? ^^ TsTypeAsserts
       | tsTypeKeyOf
@@ -654,10 +659,15 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val tsLiteralString: Parser[TsLiteral.Str] =
     elem("string literal", {
-      case _: TsLexer.StringLit             => true
-      case _: TsLexer.StringTemplateLiteral => true
+      case _: TsLexer.StringLit => true
       case _ => false
     }) ^^ (lit => TsLiteral.Str(lit.chars))
+
+  lazy val tsLiteralTemplateString: Parser[String] =
+    elem("string literal", {
+      case _: TsLexer.StringTemplateLiteral => true
+      case _ => false
+    }) ^^ (lit => lit.chars)
 
   lazy val tsIdentModule: Parser[TsIdentModule] =
     tsLiteralString ^^ ModuleNameParser.apply

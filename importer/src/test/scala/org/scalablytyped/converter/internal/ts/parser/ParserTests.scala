@@ -3037,7 +3037,7 @@ export {};
               ReadonlyModifier.Noop,
               TsIdentSimple("K"),
               TsTypeIntersect(IArray(TsTypeKeyOf(T), TsTypeRef.string)),
-              Some(TsTypeLiteral(TsLiteral.Str("${Prefix}.${K}"))),
+              Some(TsTypeRef.string),
               OptionalModifier.Optionalize,
               TsTypeLookup(T, TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), Empty)),
             ),
@@ -3075,7 +3075,7 @@ export {};
           TsTypeConditional(
             TsTypeExtends(TsTypeRef.string, TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), Empty)),
             TsTypeRef.never,
-            TsTypeLiteral(TsLiteral.Str("use:${K}")),
+            TsTypeRef.string,
           ),
         ),
         Noop,
@@ -3106,9 +3106,10 @@ export {};
       "`${Head}.${FixPathSquareBrackets<`[${Middle}]${Tail}`>}`",
       TsParser.tsType,
     )(
-      TsTypeLiteral(TsLiteral.Str("${Head}.${FixPathSquareBrackets<[${Middle}]${Tail}>}")),
+      TsTypeRef.string,
     )
   }
+
   test("+readonly") {
     val O = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("O"))), IArray())
     val K = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), IArray())
