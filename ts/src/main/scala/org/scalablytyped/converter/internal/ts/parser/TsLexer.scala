@@ -100,6 +100,9 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
   }
 
   val numericLiteral: Parser[NumericLit] = {
+    val binaryNumericLiteral: Parser[NumericLit] =
+      '0' ~> (Parser('b') | 'B') ~> stringOf1(Parser('0') | '1') ^^ (s => NumericLit("0b" + s))
+
     val hexNumericLiteral: Parser[NumericLit] =
       '0' ~> (Parser('x') | 'X') ~> stringOf1(
         digit | 'a' | 'A' | 'b' | 'B' | 'c' | 'C' | 'd' | 'D' | 'e' | 'E' | 'f' | 'F',
@@ -107,7 +110,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
 
     val decimal = stringOf1(digit | '.' | '-' | 'e') <~ 'n'.? ^^ NumericLit // yeah yeah, good enough for us
 
-    hexNumericLiteral | decimal.filter(_.chars.exists(_.isDigit))
+    binaryNumericLiteral | hexNumericLiteral | decimal.filter(_.chars.exists(_.isDigit))
   }
 
   val stringLiteral: Parser[StringLit] = {

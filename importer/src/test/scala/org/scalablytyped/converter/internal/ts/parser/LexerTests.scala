@@ -8,9 +8,22 @@ final class LexerTests extends AnyFunSuite with Matchers {
   import ParserHarness._
 
   test("numbers") {
-    Set("-1", "0", "1", "10", "999", "9", "0x42", "042", "-1.1", "0.1", "999.999", "0.000000", "0xAC").foreach(str =>
-      shouldParseAs(str, TsLexer.numericLiteral)(TsLexer.NumericLit(str)),
-    )
+    Set(
+      "-1",
+      "0",
+      "1",
+      "10",
+      "999",
+      "9",
+      "0x42",
+      "042",
+      "-1.1",
+      "0.1",
+      "999.999",
+      "0.000000",
+      "0xAC",
+      "0b0000000000000000000000000000001",
+    ).foreach(str => shouldParseAs(str, TsLexer.numericLiteral)(TsLexer.NumericLit(str)))
   }
 
   test("comment") {

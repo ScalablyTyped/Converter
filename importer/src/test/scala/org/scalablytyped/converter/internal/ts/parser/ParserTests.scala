@@ -2976,7 +2976,7 @@ export {};
     shouldParseAs(content, TsParser.tsMember)(
       TsMemberIndex(
         NoComments,
-        true,
+        isReadOnly = true,
         TsProtectionLevel.Default,
         Indexing.Single(TsQIdent(IArray(TsIdentSimple("entrypoint")))),
         Some(TsTypeLiteral(TsLiteral.Bool(true))),
@@ -3011,7 +3011,7 @@ export {};
     shouldParseAs(content, TsParser.tsDeclTypeAlias)(
       TsDeclTypeAlias(
         NoComments,
-        true,
+        declared = true,
         TsIdentSimple("AddPrefixToKeys"),
         IArray(
           TsTypeParam(NoComments, TsIdentSimple("Prefix"), Some(TsTypeRef.string), None),
@@ -3158,6 +3158,26 @@ export {};
         typeOnly = false,
         IArray(TsImported.Star(None)),
         TsImportee.From(TsIdentModule(None, List(".", "lib", "reanimated2", "globals"))),
+      ),
+    )
+  }
+
+  test("binary literal") {
+    shouldParseAs(
+      """const DiscreteEventPriority = 0b0000000000000000000000000000001""".stripMargin,
+      TsParser.tsDeclVars,
+    )(
+      IArray(
+        TsDeclVar(
+          NoComments,
+          declared = false,
+          readOnly = true,
+          TsIdentSimple("DiscreteEventPriority"),
+          None,
+          Some(TsExpr.Literal(TsLiteral.Num("0b0000000000000000000000000000001"))),
+          Zero,
+          CodePath.NoPath,
+        ),
       ),
     )
   }
