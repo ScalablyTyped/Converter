@@ -37,6 +37,10 @@ object DeriveCopy {
         val name = rename.getOrElse(origName)
 
         val derived = x match {
+          // these are synthetic, and should be re-expanded downstream
+          case _: TsDeclClass if x.comments.has[Marker.ExpandedClass.type] =>
+            IArray.Empty
+
           case x: TsDeclClass =>
             IArray(
               x.copy(
