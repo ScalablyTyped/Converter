@@ -2,6 +2,7 @@ package typings.vueResource
 
 import org.scalablytyped.runtime.StringDictionary
 import typings.std.Blob
+import typings.std.PromiseLike
 import typings.vueResource.anon.Call
 import typings.vueResource.anon.HttpOptionsrootstring
 import typings.vueResource.anon.Method
@@ -236,19 +237,19 @@ object vuejs {
   
   trait Http_ extends StObject {
     
-    def delete(url: String): js.Thenable[HttpResponse]
-    def delete(url: String, data: Any): js.Thenable[HttpResponse]
-    def delete(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse]
-    def delete(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse]
-    def delete(url: String, options: HttpOptions): js.Thenable[HttpResponse]
+    def delete(url: String): PromiseLike[HttpResponse]
+    def delete(url: String, data: Any): PromiseLike[HttpResponse]
+    def delete(url: String, data: Any, options: HttpOptions): PromiseLike[HttpResponse]
+    def delete(url: String, data: Unit, options: HttpOptions): PromiseLike[HttpResponse]
+    def delete(url: String, options: HttpOptions): PromiseLike[HttpResponse]
     @JSName("delete")
     var delete_Original: http
     
-    def get(url: String): js.Thenable[HttpResponse]
-    def get(url: String, data: Any): js.Thenable[HttpResponse]
-    def get(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse]
-    def get(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse]
-    def get(url: String, options: HttpOptions): js.Thenable[HttpResponse]
+    def get(url: String): PromiseLike[HttpResponse]
+    def get(url: String, data: Any): PromiseLike[HttpResponse]
+    def get(url: String, data: Any, options: HttpOptions): PromiseLike[HttpResponse]
+    def get(url: String, data: Unit, options: HttpOptions): PromiseLike[HttpResponse]
+    def get(url: String, options: HttpOptions): PromiseLike[HttpResponse]
     @JSName("get")
     var get_Original: http
     
@@ -256,37 +257,37 @@ object vuejs {
     
     var interceptors: js.Array[HttpInterceptor | js.Function0[HttpInterceptor]]
     
-    def jsonp(url: String): js.Thenable[HttpResponse]
-    def jsonp(url: String, data: Any): js.Thenable[HttpResponse]
-    def jsonp(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse]
-    def jsonp(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse]
-    def jsonp(url: String, options: HttpOptions): js.Thenable[HttpResponse]
+    def jsonp(url: String): PromiseLike[HttpResponse]
+    def jsonp(url: String, data: Any): PromiseLike[HttpResponse]
+    def jsonp(url: String, data: Any, options: HttpOptions): PromiseLike[HttpResponse]
+    def jsonp(url: String, data: Unit, options: HttpOptions): PromiseLike[HttpResponse]
+    def jsonp(url: String, options: HttpOptions): PromiseLike[HttpResponse]
     @JSName("jsonp")
     var jsonp_Original: http
     
     var options: HttpOptionsrootstring
     
-    def patch(url: String): js.Thenable[HttpResponse]
-    def patch(url: String, data: Any): js.Thenable[HttpResponse]
-    def patch(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse]
-    def patch(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse]
-    def patch(url: String, options: HttpOptions): js.Thenable[HttpResponse]
+    def patch(url: String): PromiseLike[HttpResponse]
+    def patch(url: String, data: Any): PromiseLike[HttpResponse]
+    def patch(url: String, data: Any, options: HttpOptions): PromiseLike[HttpResponse]
+    def patch(url: String, data: Unit, options: HttpOptions): PromiseLike[HttpResponse]
+    def patch(url: String, options: HttpOptions): PromiseLike[HttpResponse]
     @JSName("patch")
     var patch_Original: http
     
-    def post(url: String): js.Thenable[HttpResponse]
-    def post(url: String, data: Any): js.Thenable[HttpResponse]
-    def post(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse]
-    def post(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse]
-    def post(url: String, options: HttpOptions): js.Thenable[HttpResponse]
+    def post(url: String): PromiseLike[HttpResponse]
+    def post(url: String, data: Any): PromiseLike[HttpResponse]
+    def post(url: String, data: Any, options: HttpOptions): PromiseLike[HttpResponse]
+    def post(url: String, data: Unit, options: HttpOptions): PromiseLike[HttpResponse]
+    def post(url: String, options: HttpOptions): PromiseLike[HttpResponse]
     @JSName("post")
     var post_Original: http
     
-    def put(url: String): js.Thenable[HttpResponse]
-    def put(url: String, data: Any): js.Thenable[HttpResponse]
-    def put(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse]
-    def put(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse]
-    def put(url: String, options: HttpOptions): js.Thenable[HttpResponse]
+    def put(url: String): PromiseLike[HttpResponse]
+    def put(url: String, data: Any): PromiseLike[HttpResponse]
+    def put(url: String, data: Any, options: HttpOptions): PromiseLike[HttpResponse]
+    def put(url: String, data: Unit, options: HttpOptions): PromiseLike[HttpResponse]
+    def put(url: String, options: HttpOptions): PromiseLike[HttpResponse]
     @JSName("put")
     var put_Original: http
   }
@@ -371,123 +372,123 @@ object vuejs {
   @js.native
   trait ResourceMethod extends StObject {
     
-    def apply(): js.Thenable[HttpResponse] = js.native
-    def apply(params: Any): js.Thenable[HttpResponse] = js.native
-    def apply(params: Any, data: Any): js.Thenable[HttpResponse] = js.native
-    def apply(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: Any, success: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(success: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(success: js.Function, error: js.Function): js.Thenable[HttpResponse] = js.native
-    def apply(success: Unit, error: js.Function): js.Thenable[HttpResponse] = js.native
+    def apply(): PromiseLike[HttpResponse] = js.native
+    def apply(params: Any): PromiseLike[HttpResponse] = js.native
+    def apply(params: Any, data: Any): PromiseLike[HttpResponse] = js.native
+    def apply(params: Any, data: Any, success: js.Function): PromiseLike[HttpResponse] = js.native
+    def apply(params: Any, data: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse] = js.native
+    def apply(params: Any, data: Any, success: Unit, error: js.Function): PromiseLike[HttpResponse] = js.native
+    def apply(params: Any, data: Unit, success: js.Function): PromiseLike[HttpResponse] = js.native
+    def apply(params: Any, data: Unit, success: js.Function, error: js.Function): PromiseLike[HttpResponse] = js.native
+    def apply(params: Any, data: Unit, success: Unit, error: js.Function): PromiseLike[HttpResponse] = js.native
+    def apply(params: Any, success: js.Function): PromiseLike[HttpResponse] = js.native
+    def apply(params: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse] = js.native
+    def apply(success: js.Function): PromiseLike[HttpResponse] = js.native
+    def apply(success: js.Function, error: js.Function): PromiseLike[HttpResponse] = js.native
+    def apply(success: Unit, error: js.Function): PromiseLike[HttpResponse] = js.native
   }
   
   trait ResourceMethods extends StObject {
     
-    def delete(): js.Thenable[HttpResponse]
-    def delete(params: Any): js.Thenable[HttpResponse]
-    def delete(params: Any, data: Any): js.Thenable[HttpResponse]
-    def delete(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse]
-    def delete(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def delete(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def delete(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
-    def delete(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def delete(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def delete(params: Any, success: js.Function): js.Thenable[HttpResponse]
-    def delete(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def delete(success: js.Function): js.Thenable[HttpResponse]
-    def delete(success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def delete(success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def delete(): PromiseLike[HttpResponse]
+    def delete(params: Any): PromiseLike[HttpResponse]
+    def delete(params: Any, data: Any): PromiseLike[HttpResponse]
+    def delete(params: Any, data: Any, success: js.Function): PromiseLike[HttpResponse]
+    def delete(params: Any, data: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def delete(params: Any, data: Any, success: Unit, error: js.Function): PromiseLike[HttpResponse]
+    def delete(params: Any, data: Unit, success: js.Function): PromiseLike[HttpResponse]
+    def delete(params: Any, data: Unit, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def delete(params: Any, data: Unit, success: Unit, error: js.Function): PromiseLike[HttpResponse]
+    def delete(params: Any, success: js.Function): PromiseLike[HttpResponse]
+    def delete(params: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def delete(success: js.Function): PromiseLike[HttpResponse]
+    def delete(success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def delete(success: Unit, error: js.Function): PromiseLike[HttpResponse]
     @JSName("delete")
     var delete_Original: ResourceMethod
     
-    def get(): js.Thenable[HttpResponse]
-    def get(params: Any): js.Thenable[HttpResponse]
-    def get(params: Any, data: Any): js.Thenable[HttpResponse]
-    def get(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse]
-    def get(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def get(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def get(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
-    def get(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def get(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def get(params: Any, success: js.Function): js.Thenable[HttpResponse]
-    def get(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def get(success: js.Function): js.Thenable[HttpResponse]
-    def get(success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def get(success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def get(): PromiseLike[HttpResponse]
+    def get(params: Any): PromiseLike[HttpResponse]
+    def get(params: Any, data: Any): PromiseLike[HttpResponse]
+    def get(params: Any, data: Any, success: js.Function): PromiseLike[HttpResponse]
+    def get(params: Any, data: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def get(params: Any, data: Any, success: Unit, error: js.Function): PromiseLike[HttpResponse]
+    def get(params: Any, data: Unit, success: js.Function): PromiseLike[HttpResponse]
+    def get(params: Any, data: Unit, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def get(params: Any, data: Unit, success: Unit, error: js.Function): PromiseLike[HttpResponse]
+    def get(params: Any, success: js.Function): PromiseLike[HttpResponse]
+    def get(params: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def get(success: js.Function): PromiseLike[HttpResponse]
+    def get(success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def get(success: Unit, error: js.Function): PromiseLike[HttpResponse]
     @JSName("get")
     var get_Original: ResourceMethod
     
-    def query(): js.Thenable[HttpResponse]
-    def query(params: Any): js.Thenable[HttpResponse]
-    def query(params: Any, data: Any): js.Thenable[HttpResponse]
-    def query(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse]
-    def query(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def query(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def query(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
-    def query(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def query(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def query(params: Any, success: js.Function): js.Thenable[HttpResponse]
-    def query(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def query(success: js.Function): js.Thenable[HttpResponse]
-    def query(success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def query(success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def query(): PromiseLike[HttpResponse]
+    def query(params: Any): PromiseLike[HttpResponse]
+    def query(params: Any, data: Any): PromiseLike[HttpResponse]
+    def query(params: Any, data: Any, success: js.Function): PromiseLike[HttpResponse]
+    def query(params: Any, data: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def query(params: Any, data: Any, success: Unit, error: js.Function): PromiseLike[HttpResponse]
+    def query(params: Any, data: Unit, success: js.Function): PromiseLike[HttpResponse]
+    def query(params: Any, data: Unit, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def query(params: Any, data: Unit, success: Unit, error: js.Function): PromiseLike[HttpResponse]
+    def query(params: Any, success: js.Function): PromiseLike[HttpResponse]
+    def query(params: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def query(success: js.Function): PromiseLike[HttpResponse]
+    def query(success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def query(success: Unit, error: js.Function): PromiseLike[HttpResponse]
     @JSName("query")
     var query_Original: ResourceMethod
     
-    def remove(): js.Thenable[HttpResponse]
-    def remove(params: Any): js.Thenable[HttpResponse]
-    def remove(params: Any, data: Any): js.Thenable[HttpResponse]
-    def remove(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse]
-    def remove(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def remove(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def remove(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
-    def remove(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def remove(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def remove(params: Any, success: js.Function): js.Thenable[HttpResponse]
-    def remove(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def remove(success: js.Function): js.Thenable[HttpResponse]
-    def remove(success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def remove(success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def remove(): PromiseLike[HttpResponse]
+    def remove(params: Any): PromiseLike[HttpResponse]
+    def remove(params: Any, data: Any): PromiseLike[HttpResponse]
+    def remove(params: Any, data: Any, success: js.Function): PromiseLike[HttpResponse]
+    def remove(params: Any, data: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def remove(params: Any, data: Any, success: Unit, error: js.Function): PromiseLike[HttpResponse]
+    def remove(params: Any, data: Unit, success: js.Function): PromiseLike[HttpResponse]
+    def remove(params: Any, data: Unit, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def remove(params: Any, data: Unit, success: Unit, error: js.Function): PromiseLike[HttpResponse]
+    def remove(params: Any, success: js.Function): PromiseLike[HttpResponse]
+    def remove(params: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def remove(success: js.Function): PromiseLike[HttpResponse]
+    def remove(success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def remove(success: Unit, error: js.Function): PromiseLike[HttpResponse]
     @JSName("remove")
     var remove_Original: ResourceMethod
     
-    def save(): js.Thenable[HttpResponse]
-    def save(params: Any): js.Thenable[HttpResponse]
-    def save(params: Any, data: Any): js.Thenable[HttpResponse]
-    def save(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse]
-    def save(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def save(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def save(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
-    def save(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def save(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def save(params: Any, success: js.Function): js.Thenable[HttpResponse]
-    def save(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def save(success: js.Function): js.Thenable[HttpResponse]
-    def save(success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def save(success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def save(): PromiseLike[HttpResponse]
+    def save(params: Any): PromiseLike[HttpResponse]
+    def save(params: Any, data: Any): PromiseLike[HttpResponse]
+    def save(params: Any, data: Any, success: js.Function): PromiseLike[HttpResponse]
+    def save(params: Any, data: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def save(params: Any, data: Any, success: Unit, error: js.Function): PromiseLike[HttpResponse]
+    def save(params: Any, data: Unit, success: js.Function): PromiseLike[HttpResponse]
+    def save(params: Any, data: Unit, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def save(params: Any, data: Unit, success: Unit, error: js.Function): PromiseLike[HttpResponse]
+    def save(params: Any, success: js.Function): PromiseLike[HttpResponse]
+    def save(params: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def save(success: js.Function): PromiseLike[HttpResponse]
+    def save(success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def save(success: Unit, error: js.Function): PromiseLike[HttpResponse]
     @JSName("save")
     var save_Original: ResourceMethod
     
-    def update(): js.Thenable[HttpResponse]
-    def update(params: Any): js.Thenable[HttpResponse]
-    def update(params: Any, data: Any): js.Thenable[HttpResponse]
-    def update(params: Any, data: Any, success: js.Function): js.Thenable[HttpResponse]
-    def update(params: Any, data: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def update(params: Any, data: Any, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def update(params: Any, data: Unit, success: js.Function): js.Thenable[HttpResponse]
-    def update(params: Any, data: Unit, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def update(params: Any, data: Unit, success: Unit, error: js.Function): js.Thenable[HttpResponse]
-    def update(params: Any, success: js.Function): js.Thenable[HttpResponse]
-    def update(params: Any, success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def update(success: js.Function): js.Thenable[HttpResponse]
-    def update(success: js.Function, error: js.Function): js.Thenable[HttpResponse]
-    def update(success: Unit, error: js.Function): js.Thenable[HttpResponse]
+    def update(): PromiseLike[HttpResponse]
+    def update(params: Any): PromiseLike[HttpResponse]
+    def update(params: Any, data: Any): PromiseLike[HttpResponse]
+    def update(params: Any, data: Any, success: js.Function): PromiseLike[HttpResponse]
+    def update(params: Any, data: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def update(params: Any, data: Any, success: Unit, error: js.Function): PromiseLike[HttpResponse]
+    def update(params: Any, data: Unit, success: js.Function): PromiseLike[HttpResponse]
+    def update(params: Any, data: Unit, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def update(params: Any, data: Unit, success: Unit, error: js.Function): PromiseLike[HttpResponse]
+    def update(params: Any, success: js.Function): PromiseLike[HttpResponse]
+    def update(params: Any, success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def update(success: js.Function): PromiseLike[HttpResponse]
+    def update(success: js.Function, error: js.Function): PromiseLike[HttpResponse]
+    def update(success: Unit, error: js.Function): PromiseLike[HttpResponse]
     @JSName("update")
     var update_Original: ResourceMethod
   }
@@ -530,7 +531,7 @@ object vuejs {
   trait Vue extends StObject {
     
     @JSName("$http")
-    def $http(options: HttpOptions): js.Thenable[HttpResponse]
+    def $http(options: HttpOptions): PromiseLike[HttpResponse]
     @JSName("$http")
     var $http_Original: Call
     
@@ -597,11 +598,11 @@ object vuejs {
   @js.native
   trait http extends StObject {
     
-    def apply(url: String): js.Thenable[HttpResponse] = js.native
-    def apply(url: String, data: Any): js.Thenable[HttpResponse] = js.native
-    def apply(url: String, data: Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
-    def apply(url: String, data: Unit, options: HttpOptions): js.Thenable[HttpResponse] = js.native
-    def apply(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+    def apply(url: String): PromiseLike[HttpResponse] = js.native
+    def apply(url: String, data: Any): PromiseLike[HttpResponse] = js.native
+    def apply(url: String, data: Any, options: HttpOptions): PromiseLike[HttpResponse] = js.native
+    def apply(url: String, data: Unit, options: HttpOptions): PromiseLike[HttpResponse] = js.native
+    def apply(url: String, options: HttpOptions): PromiseLike[HttpResponse] = js.native
   }
   
   type resource = js.Function4[

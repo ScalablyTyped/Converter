@@ -18,7 +18,7 @@ case class JapgollyFlavour(
   val genStBuildingComponent = new JapgollyGenStBuildingComponent(outputPkg, versions.scala)
   val genComponents =
     new JapgollyGenComponents(findProps, genStBuildingComponent, reactNamesProxy, enableLongApplyMethod)
-  val genCompanions = new GenCompanions(findProps, enableLongApplyMethod)
+  val genCompanions = new GenCompanions(findProps, enableLongApplyMethod) >> GenPromiseOps
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
     val withCompanions = genCompanions.visitPackageTree(scope)(tree)

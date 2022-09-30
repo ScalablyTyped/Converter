@@ -22,7 +22,7 @@ case class SlinkyNativeFlavour(
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
   val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg, versions.scala)
   val gen                    = new SlinkyGenComponents(SlinkyGenComponents.Native(()), findProps, genStBuildingComponent, reactNamesProxy)
-  val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod)
+  val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod) >> GenPromiseOps
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
     val withCompanions = genCompanions.visitPackageTree(scope)(tree)
