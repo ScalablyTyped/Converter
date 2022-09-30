@@ -17,7 +17,7 @@ case class SlinkyFlavour(
 
   val memberToProp           = new MemberToProp.Default(rewrites)
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
-  val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod)
+  val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod) >> GenPromiseOps
   val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg, versions.scala)
 
   /* we need the actual typescript react definitions at runtime to compute this lazily */

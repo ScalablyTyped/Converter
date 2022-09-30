@@ -23,7 +23,7 @@ case class NormalFlavour(
 
   val memberToProp  = new MemberToProp.Default(rewrites)
   val findProps     = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
-  val genCompanions = new GenCompanions(findProps, enableLongApplyMethod)
+  val genCompanions = new GenCompanions(findProps, enableLongApplyMethod) >> GenPromiseOps
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree =
     genCompanions.visitPackageTree(scope)(tree)

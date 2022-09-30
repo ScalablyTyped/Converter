@@ -1,6 +1,7 @@
 package typings.monacoEditor
 
 import typings.monacoEditor.anon.Key
+import typings.std.PromiseLike
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -15,14 +16,14 @@ object global {
       extends StObject
          with typings.monacoEditor.monaco.Promise[T, TProgress] {
       def this(executor: js.Function3[
-                /* resolve */ js.Function1[/* value */ T | js.Thenable[T], Unit], 
+                /* resolve */ js.Function1[/* value */ T | PromiseLike[T], Unit], 
                 /* reject */ js.Function1[/* reason */ Any, Unit], 
                 /* progress */ js.Function1[/* progress */ TProgress, Unit], 
                 Unit
               ]) = this()
       def this(
         executor: js.Function3[
-                /* resolve */ js.Function1[/* value */ T | js.Thenable[T], Unit], 
+                /* resolve */ js.Function1[/* value */ T | PromiseLike[T], Unit], 
                 /* reject */ js.Function1[/* reason */ Any, Unit], 
                 /* progress */ js.Function1[/* progress */ TProgress, Unit], 
                 Unit
@@ -37,7 +38,7 @@ object global {
       @js.native
       val ^ : js.Any = js.native
       
-      inline def any[T](promises: js.Array[T | js.Thenable[T]]): typings.monacoEditor.monaco.Promise[Key[T], Any] = ^.asInstanceOf[js.Dynamic].applyDynamic("any")(promises.asInstanceOf[js.Any]).asInstanceOf[typings.monacoEditor.monaco.Promise[Key[T], Any]]
+      inline def any[T](promises: js.Array[T | PromiseLike[T]]): typings.monacoEditor.monaco.Promise[Key[T], Any] = ^.asInstanceOf[js.Dynamic].applyDynamic("any")(promises.asInstanceOf[js.Any]).asInstanceOf[typings.monacoEditor.monaco.Promise[Key[T], Any]]
     }
   }
 }
