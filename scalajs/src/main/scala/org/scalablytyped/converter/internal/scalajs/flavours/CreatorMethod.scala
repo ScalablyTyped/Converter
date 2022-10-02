@@ -117,14 +117,14 @@ object CreatorMethod {
             )
 
           case Optionality.Null =>
-            val default = if (prop.main.extendsAnyVal) Cast(Null, tpe) else Null
+            val default = if (prop.main.extendsAnyVal) AsInstanceOf(Null, tpe) else Null
 
             Provide(
               updateObj(
                 prop,
                 If(
                   pred    = BinaryOp(Ref(prop.name), "!=", Null),
-                  ifTrue  = asExpr(Cast(Ref(prop.name), tpe)),
+                  ifTrue  = asExpr(AsInstanceOf(Ref(prop.name), tpe)),
                   ifFalse = Some(Null),
                 ),
               ),
@@ -160,14 +160,14 @@ object CreatorMethod {
               val shortedDefaultImplementation =
                 asExpr(Null) match {
                   // default implementation, save boilerplate
-                  case Cast(Null, TypeRef.JsAny) =>
+                  case AsInstanceOf(Null, TypeRef.JsAny) =>
                     updateObj(prop, asExpr(Ref(prop.name)))
                   case _ =>
                     updateObj(
                       prop,
                       If(
                         pred    = BinaryOp(Ref(prop.name), "!=", Null),
-                        ifTrue  = asExpr(Cast(Ref(prop.name), tpe)),
+                        ifTrue  = asExpr(AsInstanceOf(Ref(prop.name), tpe)),
                         ifFalse = Some(Null),
                       ),
                     )

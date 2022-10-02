@@ -156,7 +156,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
           ),
         ),
         creatorMethod.mutators.map(f => f.value(Ref(objName))),
-        IArray(Cast(Ref(QualifiedName(IArray(objName))), ret)),
+        IArray(AsInstanceOf(Ref(QualifiedName(IArray(objName))), ret)),
       )
     }
 

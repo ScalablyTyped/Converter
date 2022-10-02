@@ -47,8 +47,11 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
 
     val impl = Block(
       Call(
-        Select(Cast(Call(Ref(args.name), IArray(IArray(IntLit("1")))), TypeRef.JsDynamic), Name("updateDynamic")),
-        IArray(IArray(Ref(keyParam.name)), IArray(Cast(Ref(valueParam.name), TypeRef.JsAny))),
+        Select(
+          AsInstanceOf(Call(Ref(args.name), IArray(IArray(IntLit("1")))), TypeRef.JsDynamic),
+          Name("updateDynamic"),
+        ),
+        IArray(IArray(Ref(keyParam.name)), IArray(AsInstanceOf(Ref(valueParam.name), TypeRef.JsAny))),
       ),
       Ref(QualifiedName.THIS),
     )
@@ -121,8 +124,8 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         Ref(QualifiedName.JsObject + Name("assign")),
         IArray(
           IArray(
-            Cast(Call(Ref(args.name), IArray(IArray(IntLit("1")))), TypeRef.JsObject),
-            Cast(Ref(param.name), TypeRef.JsObject),
+            AsInstanceOf(Call(Ref(args.name), IArray(IArray(IntLit("1")))), TypeRef.JsObject),
+            AsInstanceOf(Ref(param.name), TypeRef.JsObject),
           ),
         ),
       )
@@ -224,9 +227,9 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         }
 
         If(
-          InstanceOf(Ref(tParam.name), TagModComposite),
+          IsInstanceOf(Ref(tParam.name), TagModComposite),
           Block(
-            Val(ttName, Cast(Ref(tParam.name), TagModComposite)),
+            Val(ttName, AsInstanceOf(Ref(tParam.name), TagModComposite)),
             Call(
               Ref(QualifiedName(IArray(ttName, Name("mods"), Name("foreach")))),
               IArray(IArray(Lambda(IArray(modParam), Call(Ref(name), IArray(IArray(Ref(modParam.name))))))),
@@ -234,12 +237,12 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
           ),
           Some(
             If(
-              InstanceOf(Ref(tParam.name), VdomNode),
+              IsInstanceOf(Ref(tParam.name), VdomNode),
               Block(
-                Val(ttName, Cast(Ref(tParam.name), VdomNode)),
+                Val(ttName, AsInstanceOf(Ref(tParam.name), VdomNode)),
                 Call(
                   Select(Ref(args.name), Name("push")),
-                  IArray(IArray(Cast(Select(Ref(ttName), Name("rawNode")), TypeRef.JsAny))),
+                  IArray(IArray(AsInstanceOf(Select(Ref(ttName), Name("rawNode")), TypeRef.JsAny))),
                 ),
               ),
               Some(fallback),
@@ -318,8 +321,10 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         name        = name,
         tparams     = Empty,
         params      = IArray(IArray(param)),
-        impl =
-          Call(Ref(set.name), IArray(IArray(StringLit(param.name.unescaped), Cast(Ref(param.name), TypeRef.JsAny)))),
+        impl = Call(
+          Ref(set.name),
+          IArray(IArray(StringLit(param.name.unescaped), AsInstanceOf(Ref(param.name), TypeRef.JsAny))),
+        ),
         resultType = TypeRef(QualifiedName.THIS),
         isOverride = false,
         comments   = NoComments,
@@ -503,7 +508,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
         ),
         Val(
           ret,
-          Cast(
+          AsInstanceOf(
             Call(createElementApply, IArray(IArray(StringLit("apply")), IArray(reactRawName, compArgs))),
             TypeRef(JapgollyNames.rawReact.Element),
           ),

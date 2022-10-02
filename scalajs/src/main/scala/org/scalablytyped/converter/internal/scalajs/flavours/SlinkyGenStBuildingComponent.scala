@@ -48,8 +48,11 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
 
     val impl = Block(
       Call(
-        Select(Cast(Call(Ref(args.name), IArray(IArray(IntLit("1")))), TypeRef.JsDynamic), Name("updateDynamic")),
-        IArray(IArray(Ref(keyParam.name)), IArray(Cast(Ref(valueParam.name), TypeRef.JsAny))),
+        Select(
+          AsInstanceOf(Call(Ref(args.name), IArray(IArray(IntLit("1")))), TypeRef.JsDynamic),
+          Name("updateDynamic"),
+        ),
+        IArray(IArray(Ref(keyParam.name)), IArray(AsInstanceOf(Ref(valueParam.name), TypeRef.JsAny))),
       ),
       Ref(QualifiedName.THIS),
     )
@@ -144,8 +147,8 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
         Ref(QualifiedName.JsObject + Name("assign")),
         IArray(
           IArray(
-            Cast(Call(Ref(args.name), IArray(IArray(IntLit("1")))), TypeRef.JsObject),
-            Cast(Ref(param.name), TypeRef.JsObject),
+            AsInstanceOf(Call(Ref(args.name), IArray(IArray(IntLit("1")))), TypeRef.JsObject),
+            AsInstanceOf(Ref(param.name), TypeRef.JsObject),
           ),
         ),
       )
@@ -199,7 +202,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
         val ifIsAttrPair = {
           val a = Name("a")
           Block(
-            Val(a, Cast(modRef, AttrPair)),
+            Val(a, AsInstanceOf(modRef, AttrPair)),
             Call(Ref(set.name), IArray(IArray(Select(Ref(a), Name("name")), Select(Ref(a), Name("value"))))),
           )
         }
@@ -208,7 +211,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
           val o      = Name("o")
           val oValue = Select(Ref(o), Name("value"))
           Block(
-            Val(o, Cast(modRef, OptionalAttrPair)),
+            Val(o, AsInstanceOf(modRef, OptionalAttrPair)),
             If(
               Select(oValue, Name("isDefined")),
               Call(Ref(set.name), IArray(IArray(Select(Ref(o), Name("name")), Select(oValue, Name("get"))))),
@@ -219,11 +222,11 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
         val lambda = Lambda(
           IArray(modParam),
           If(
-            InstanceOf(modRef, AttrPair),
+            IsInstanceOf(modRef, AttrPair),
             ifIsAttrPair,
             Some(
               If(
-                InstanceOf(modRef, OptionalAttrPair),
+                IsInstanceOf(modRef, OptionalAttrPair),
                 ifIsOptionalAttrPair,
                 Some(Call(Select(Ref(args.name), Name("push")), IArray(IArray(modRef)))),
               ),
@@ -443,7 +446,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
         ),
         Val(
           ret,
-          Cast(
+          AsInstanceOf(
             Call(createElementApply, IArray(IArray(StringLit("apply")), IArray(reactRawName, compArgs))),
             TypeRef(SlinkyGenComponents.names.ReactElement),
           ),

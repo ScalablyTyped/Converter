@@ -55,13 +55,14 @@ object ImportEnum {
                 val expr            = exprOpt.getOrElse(sys.error("Expression cannot be empty here"))
                 val tpe             = importType(scope, importName)(TsExpr.typeOf(expr))
                 val memberNameFixed = if (illegalNames.Illegal(memberName)) memberName.withSuffix("") else memberName
+
                 MethodTree(
                   IArray(Annotation.Inline),
                   ProtectionLevel.Public,
                   memberNameFixed,
                   Empty,
                   Empty,
-                  ExprTree.Cast(importExpr(expr, scope), tpe),
+                  ExprTree.AsInstanceOf(importExpr(expr, scope, ImportType.ShouldWiden.No), tpe),
                   tpe,
                   isOverride = false,
                   memberCs,

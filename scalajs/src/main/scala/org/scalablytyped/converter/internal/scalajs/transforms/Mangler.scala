@@ -127,7 +127,7 @@ object Mangler extends TreeTransformation {
 
     val dynamicRef: ExprTree =
       if (isGlobal) Ref(QualifiedName.JsDynamic).select("global")
-      else Cast(Ref(hatCp), TypeRef.JsDynamic)
+      else AsInstanceOf(Ref(hatCp), TypeRef.JsDynamic)
 
     var needsHatObject = false
 
@@ -146,7 +146,7 @@ object Mangler extends TreeTransformation {
               )
           }
 
-          Cast(call(forwardParams(m)), m.resultType)
+          AsInstanceOf(call(forwardParams(m)), m.resultType)
         }
 
         if (pkg.index(m.name).exists(_.isInstanceOf[ClassTree])) {
@@ -182,7 +182,7 @@ object Mangler extends TreeTransformation {
         needsHatObject = true
 
         val getter = {
-          val impl = Cast(
+          val impl = AsInstanceOf(
             Call(Select(dynamicRef, Name("selectDynamic")), IArray(IArray(StringLit(f.originalName.unescaped)))),
             f.tpe,
           )
@@ -208,7 +208,10 @@ object Mangler extends TreeTransformation {
 
             val impl = Call(
               Select(dynamicRef, Name("updateDynamic")),
-              IArray(IArray(StringLit(f.originalName.unescaped)), IArray(Cast(Ref(xParam.name), TypeRef.JsAny))),
+              IArray(
+                IArray(StringLit(f.originalName.unescaped)),
+                IArray(AsInstanceOf(Ref(xParam.name), TypeRef.JsAny)),
+              ),
             )
 
             val m = MethodTree(
@@ -276,7 +279,7 @@ object Mangler extends TreeTransformation {
 
     val dynamicRef: ExprTree =
       if (isGlobal) Ref(QualifiedName.JsDynamic).select("global")
-      else Cast(Ref(Name.namespaced), TypeRef.JsDynamic)
+      else AsInstanceOf(Ref(Name.namespaced), TypeRef.JsDynamic)
 
     var needsHatObject = false
 
@@ -296,7 +299,7 @@ object Mangler extends TreeTransformation {
                 )
             }
 
-            Cast(call(forwardParams(m)), m.resultType)
+            AsInstanceOf(call(forwardParams(m)), m.resultType)
           }
 
           if (mod.index(m.name).exists(_.isInstanceOf[ClassTree])) {
@@ -341,7 +344,10 @@ object Mangler extends TreeTransformation {
 
             val impl = Call(
               Select(dynamicRef, Name("updateDynamic")),
-              IArray(IArray(StringLit(f.originalName.unescaped)), IArray(Cast(Ref(xParam.name), TypeRef.JsAny))),
+              IArray(
+                IArray(StringLit(f.originalName.unescaped)),
+                IArray(AsInstanceOf(Ref(xParam.name), TypeRef.JsAny)),
+              ),
             )
 
             MethodTree(
@@ -502,18 +508,21 @@ object Mangler extends TreeTransformation {
     m.params.flatten match {
       case IArray.initLast(init, ParamTree(repeatedName, _, _, TypeRef.Repeated(_, _), _, _)) =>
         val repeatedAsJsAnySeq =
-          Cast(Ref(repeatedName), TypeRef(QualifiedName.scala + Name("Seq"), IArray(TypeRef.JsAny), NoComments))
+          AsInstanceOf(Ref(repeatedName), TypeRef(QualifiedName.scala + Name("Seq"), IArray(TypeRef.JsAny), NoComments))
 
         if (init.isEmpty) IArray(`:_*`(repeatedAsJsAnySeq))
         else {
           // cast normal parameters to js.Any and put into `List`
           val initialParamsInList: Call =
-            Call(Ref(QualifiedName.scala + Name("List")), IArray(init.map(p => Cast(Ref(p.name), TypeRef.JsAny))))
+            Call(
+              Ref(QualifiedName.scala + Name("List")),
+              IArray(init.map(p => AsInstanceOf(Ref(p.name), TypeRef.JsAny))),
+            )
 
           val concatenated = Call(initialParamsInList.select("++"), IArray(IArray(repeatedAsJsAnySeq)))
           IArray(`:_*`(concatenated))
         }
       case params =>
-        params.map(p => Cast(Ref(p.name), TypeRef.JsAny))
+        params.map(p => AsInstanceOf(Ref(p.name), TypeRef.JsAny))
     }
 }

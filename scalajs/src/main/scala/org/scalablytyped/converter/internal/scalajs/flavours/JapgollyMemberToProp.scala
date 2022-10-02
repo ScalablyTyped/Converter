@@ -53,14 +53,14 @@ class JapgollyMemberToProp(reactNames: ReactNamesProxy, rewrites: IArray[CastCon
       case TypeRef(tpe, _, _) if reactNames.isElement(tpe) =>
         Prop.Variant(
           TypeRef(JapgollyNames.vdom.ReactElement),
-          ref => Cast(Select(ref, Name("rawElement")), TypeRef.JsAny),
+          ref => AsInstanceOf(Select(ref, Name("rawElement")), TypeRef.JsAny),
           isRewritten   = true,
           extendsAnyVal = false,
         )
       case TypeRef(tpe, _, _) if reactNames.isNode(tpe) =>
         Prop.Variant(
           TypeRef(JapgollyNames.vdom.VdomNode),
-          ref => Cast(Select(ref, Name("rawNode")), TypeRef.JsAny),
+          ref => AsInstanceOf(Select(ref, Name("rawNode")), TypeRef.JsAny),
           isRewritten   = true,
           extendsAnyVal = false,
         )

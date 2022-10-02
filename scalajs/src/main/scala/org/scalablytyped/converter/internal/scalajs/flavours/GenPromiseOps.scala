@@ -59,7 +59,7 @@ object GenPromiseOps extends TreeTransformation {
         name        = name,
         tparams     = Empty,
         params      = Empty,
-        impl        = ExprTree.Cast(ExprTree.Ref(paramName), tpe),
+        impl        = ExprTree.AsInstanceOf(ExprTree.Ref(paramName), tpe),
         resultType  = tpe,
         isOverride  = false,
         comments    = NoComments,

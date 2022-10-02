@@ -569,10 +569,10 @@ object ExprTree {
   case class Val(override val name: Name, value: ExprTree) extends ExprTree
   case class Throw(expr:            ExprTree) extends ExprTree
 
-  def InstanceOf(target: ExprTree, of: TypeRef): ExprTree =
+  def IsInstanceOf(target: ExprTree, of: TypeRef): ExprTree =
     TApply(Select(target, Name("isInstanceOf")), IArray(of))
 
-  object Cast {
+  object AsInstanceOf {
     def apply(target: ExprTree, of: TypeRef): ExprTree =
       TApply(Select(target, Name("asInstanceOf")), IArray(of))
 

@@ -66,7 +66,7 @@ object MemberToProp {
 
               val main = Prop.Variant(
                 tpe           = tpe,
-                asExpr        = ref => Cast(ref, TypeRef.JsAny),
+                asExpr        = ref => AsInstanceOf(ref, TypeRef.JsAny),
                 isRewritten   = wasRewritten,
                 extendsAnyVal = TypeRef.Primitive(FollowAliases(scope / x)(dealiased)),
               )

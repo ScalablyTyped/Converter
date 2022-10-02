@@ -76,7 +76,7 @@ object FakeLiterals {
                   name,
                   Empty,
                   Empty,
-                  ExprTree.Cast(underlying, TypeRef(name)),
+                  ExprTree.AsInstanceOf(underlying, TypeRef(name)),
                   TypeRef(QualifiedName(IArray(name)), Empty, NoComments),
                   isOverride = false,
                   comments   = NoComments,

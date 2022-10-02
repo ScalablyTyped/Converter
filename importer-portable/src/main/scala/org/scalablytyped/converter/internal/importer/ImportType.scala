@@ -273,7 +273,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case TsTypeLiteral(lit) =>
         lit match {
           case TsLiteral.Num(value)  => ImportType.numberToTypeRef(value)
-          case TsLiteral.Str(value)  => ImportType.stringToTypeRef(value)
+          case TsLiteral.Str(value)  => ImportType.stringToTypeRef(value, ImportType.ShouldWiden.Some)
           case TsLiteral.Bool(value) => TypeRef.BooleanLiteral(value.toString)
         }
 
@@ -404,27 +404,41 @@ object ImportType {
       case _                                                      => None
     }
 
-    def other =
+    def notExpressible =
       TypeRef(QualifiedName.Double).withComments(Comments(s"/* $value */ "))
 
-    validInt.orElse(validDouble).getOrElse(other)
+    validInt.orElse(validDouble).getOrElse(notExpressible)
   }
 
-  // it's hard to say when keeping it as a literal is beneficial.
-  // we sometimes widen because we may bump into max class length for the generated literal traits
-  private def shouldWiden(value: String) = {
-    val hasSpecialChar = value.exists(Set('\'', '(', ')', '\\'))
-    val long           = value.length > 60
-    hasSpecialChar || long
-  }
-
-  def stringToExpr(value: String): ExprTree = {
+  def stringToExpr(value: String, shouldWiden: ShouldWiden): ExprTree = {
     val lit = ExprTree.StringLit(value)
-    if (shouldWiden(value)) ExprTree.Ref(TypeRef.String.withComments(Comments(Marker.WasLiteral(lit))))
+    if (shouldWiden(value))
+      ExprTree.Ref(TypeRef.String.withComments(Comments(List(Comment(s"/* $value */ "), Marker.WasLiteral(lit)))))
     else lit
   }
 
-  def stringToTypeRef(value: String): TypeRef =
-    if (shouldWiden(value)) TypeRef.String.withComments(Comments(Marker.WasLiteral(ExprTree.StringLit(value))))
+  def stringToTypeRef(value: String, shouldWiden: ShouldWiden): TypeRef = {
+    val lit = ExprTree.StringLit(value)
+    if (shouldWiden(value))
+      TypeRef.String.withComments(Comments(List(Comment(s"/* $value */ "), Marker.WasLiteral(lit))))
     else TypeRef.StringLiteral(value)
+  }
+
+  trait ShouldWiden {
+    def apply(str: String): Boolean
+  }
+
+  object ShouldWiden {
+    val No:  ShouldWiden = _ => false
+    val Yes: ShouldWiden = _ => true
+
+    // it's hard to say when keeping it as a literal is beneficial.
+    // we sometimes widen because we may bump into max class length for the generated literal traits
+    val Some: ShouldWiden = value => {
+      val hasSpecialChar = value.exists(Set('\'', '(', ')', '\\'))
+      val long           = value.length > 60
+      hasSpecialChar || long
+
+    }
+  }
 }

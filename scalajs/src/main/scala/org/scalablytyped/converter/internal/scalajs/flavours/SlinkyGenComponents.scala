@@ -528,7 +528,7 @@ class SlinkyGenComponents(
               IArray(
                 IArray(
                   Ref(QualifiedName(IArray(Name.THIS, names.component))),
-                  Cast(Ref(QualifiedName(IArray(objName))), propsRef.ref),
+                  AsInstanceOf(Ref(QualifiedName(IArray(objName))), propsRef.ref),
                 ),
               ),
             ),
@@ -641,7 +641,10 @@ class SlinkyGenComponents(
           Call(
             Ref(QualifiedName.JsArray),
             IArray(
-              IArray(Ref(QualifiedName(IArray(Name.THIS, names.component))), Cast(Ref(param.name), TypeRef.JsAny)),
+              IArray(
+                Ref(QualifiedName(IArray(Name.THIS, names.component))),
+                AsInstanceOf(Ref(param.name), TypeRef.JsAny),
+              ),
             ),
           ),
         ),
