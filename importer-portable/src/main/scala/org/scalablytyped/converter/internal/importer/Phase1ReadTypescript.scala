@@ -212,14 +212,26 @@ class Phase1ReadTypescript(
         val flattened     = FlattenTrees(preparedFiles.map(_._1))
         val depsFromFiles = preparedFiles.foldLeft(Set.empty[LibTsSource]) { case (acc, (_, deps)) => acc ++ deps }
 
+        val withExportedModules = source.packageJsonOpt.flatMap(_.parsedExported).foldLeft(flattened) {
+          case (file, exports) =>
+            val proxyModules = ProxyModule.fromExports(
+              source,
+              logger,
+              resolve,
+              existing = file.membersByName.contains,
+              exports,
+            )
+            file.copy(members = IArray.fromTraversable(proxyModules).map(_.asModule) ++ file.members)
+        }
+
         val withFilteredModules: TsParsedFile =
           if (ignoredModulePrefixes.nonEmpty)
-            flattened.copy(members = flattened.members.filterNot {
+            withExportedModules.copy(members = withExportedModules.members.filterNot {
               case x: TsDeclModule      => ignoreModule(x.name)
               case x: TsAugmentedModule => ignoreModule(x.name)
               case _ => false
             })
-          else flattened
+          else withExportedModules
 
         val stdlibSourceOpt: Option[LibTsSource] =
           if (includedFiles.exists(_.path === resolve.stdLib.path)) None else Option(resolve.stdLib)
