@@ -9,44 +9,43 @@ import org.scalablytyped.converter.internal.scalajs.transforms.{Mangler, SetPriv
 import scala.collection.immutable.SortedSet
 
 class PhaseFlavour(flavour: FlavourImpl, maybePrivateWithin: Option[Name])
-    extends Phase[Source, LibScalaJs, LibScalaJs] {
+    extends Phase[LibTsSource, LibScalaJs, LibScalaJs] {
 
   override def apply(
-      source:     Source,
+      source:     LibTsSource,
       lib:        LibScalaJs,
-      getDeps:    GetDeps[Source, LibScalaJs],
+      getDeps:    GetDeps[LibTsSource, LibScalaJs],
       isCircular: IsCircular,
       _logger:    Logger[Unit],
-  ): PhaseRes[Source, LibScalaJs] = {
+  ): PhaseRes[LibTsSource, LibScalaJs] = {
     val logger = _logger.withContext("flavour", flavour.toString)
 
-    getDeps((lib.dependencies.keys: Iterable[Source]).to[SortedSet]).map {
-      case LibScalaJs.Unpack(deps) =>
-        val originalScope = new TreeScope.Root(
-          libName       = lib.scalaName,
-          _dependencies = lib.dependencies.map { case (_, lib) => lib.scalaName -> lib.packageTree },
-          logger        = logger,
-          pedantic      = false,
-          outputPkg     = flavour.outputPkg,
-        )
+    getDeps((lib.dependencies.keys: Iterable[LibTsSource]).to[SortedSet]).map { deps =>
+      val originalScope = new TreeScope.Root(
+        libName       = lib.scalaName,
+        _dependencies = lib.dependencies.map { case (_, lib) => lib.scalaName -> lib.packageTree },
+        logger        = logger,
+        pedantic      = false,
+        outputPkg     = flavour.outputPkg,
+      )
 
-        val tree0 = lib.packageTree
-        val tree1 = flavour.rewrittenTree(originalScope, tree0)
-        val tree2 = Mangler.visitPackageTree(originalScope)(tree1)
-        val tree3 = maybePrivateWithin.foldLeft(tree2) {
-          case (tree, privateWithin) => new SetPrivateWithin(privateWithin).visitPackageTree(originalScope)(tree)
-        }
-        val tree4 = Sorter.visitPackageTree(originalScope)(tree3)
+      val tree0 = lib.packageTree
+      val tree1 = flavour.rewrittenTree(originalScope, tree0)
+      val tree2 = Mangler.visitPackageTree(originalScope)(tree1)
+      val tree3 = maybePrivateWithin.foldLeft(tree2) {
+        case (tree, privateWithin) => new SetPrivateWithin(privateWithin).visitPackageTree(originalScope)(tree)
+      }
+      val tree4 = Sorter.visitPackageTree(originalScope)(tree3)
 
-        LibScalaJs(lib.source)(
-          libName      = lib.libName,
-          scalaName    = lib.scalaName,
-          libVersion   = lib.libVersion,
-          packageTree  = tree4,
-          dependencies = deps,
-          isStdLib     = lib.isStdLib,
-          names        = lib.names,
-        )
+      LibScalaJs(lib.source)(
+        libName      = lib.libName,
+        scalaName    = lib.scalaName,
+        libVersion   = lib.libVersion,
+        packageTree  = tree4,
+        dependencies = deps,
+        isStdLib     = lib.isStdLib,
+        names        = lib.names,
+      )
     }
   }
 }

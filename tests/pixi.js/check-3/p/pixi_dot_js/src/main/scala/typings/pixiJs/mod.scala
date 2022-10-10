@@ -16,26 +16,12 @@ object mod {
       extends typings.pixiUtils.mod.EventEmitter[EventTypes]
     object EventEmitter extends Shortcut {
       
-      /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
-      @JSImport("pixi.js", "utils.EventEmitter")
-      @js.native
-      open class ^[EventTypes] ()
-        extends StObject
-           with typings.eventemitter3.mod.EventEmitter[EventTypes]
-      
       @JSImport("pixi.js", "utils.EventEmitter")
       @js.native
       val ^ : js.Object & EventEmitterStatic = js.native
       @JSImport("pixi.js", "utils.EventEmitter.EventEmitter")
       @js.native
       val EventEmitter: EventEmitterStatic = js.native
-      
-      /* This class was inferred from a value with a constructor, it was renamed because a distinct type already exists with the same name. */
-      @JSImport("pixi.js", "utils.EventEmitter.EventEmitter")
-      @js.native
-      open class EventEmitterCls[EventTypes] ()
-        extends StObject
-           with typings.eventemitter3.mod.EventEmitter[EventTypes]
       
       type _To = js.Object & EventEmitterStatic
       

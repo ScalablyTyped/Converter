@@ -30,7 +30,7 @@ class Phase3Compile(
     flavour:                    FlavourImpl,
     generateScalaJsBundlerFile: Boolean,
     ensureSourceFilesWritten:   Boolean,
-) extends Phase[Source, LibScalaJs, PublishedSbtProject] {
+) extends Phase[LibTsSource, LibScalaJs, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(os.RelPath, Array[Byte]), Array[Byte]] = {
     case (path, value)
@@ -43,15 +43,15 @@ class Phase3Compile(
   implicit val PathFormatter: Formatter[os.Path] = _.toString
 
   override def apply(
-      source:  Source,
+      source:  LibTsSource,
       lib:     LibScalaJs,
-      getDeps: GetDeps[Source, PublishedSbtProject],
+      getDeps: GetDeps[LibTsSource, PublishedSbtProject],
       v4:      IsCircular,
       _logger: Logger[Unit],
-  ): PhaseRes[Source, PublishedSbtProject] = {
+  ): PhaseRes[LibTsSource, PublishedSbtProject] = {
     val logger = _logger.withContext("flavour", flavour.toString)
 
-    getDeps(lib.dependencies.keys.map(x => x: Source).to[SortedSet]).flatMap {
+    getDeps(lib.dependencies.keys.map(x => x: LibTsSource).to[SortedSet]).flatMap {
       case PublishedSbtProject.Unpack(deps) =>
         val scope = new TreeScope.Root(
           libName       = lib.scalaName,
@@ -122,7 +122,7 @@ class Phase3Compile(
 
             logger.warn(s"Building $jarFile...")
             val t0 = System.currentTimeMillis()
-            val ret: PhaseRes[Source, PublishedSbtProject] =
+            val ret: PhaseRes[LibTsSource, PublishedSbtProject] =
               compiler.compile(lib.libName, digest, compilerPaths, jarDeps, flavour.dependencies) match {
                 case Right(()) =>
                   val writtenIvyFiles: IvyLayout[os.RelPath, os.Path] =

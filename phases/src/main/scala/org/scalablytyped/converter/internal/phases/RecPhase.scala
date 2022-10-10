@@ -1,7 +1,5 @@
 package org.scalablytyped.converter.internal.phases
 
-import org.scalablytyped.converter.internal.Key
-
 /**
   * A representation of a computation of a set of elements which is done in phases.
   * Each phase can both compute and express a new set of dependencies needed for the next
@@ -13,10 +11,9 @@ import org.scalablytyped.converter.internal.Key
   * @tparam Id Every element and dependency must have an id
   * @tparam T The type of the element at the current stage of the computation
   */
-sealed abstract class RecPhase[Id: Key, T] {
+sealed abstract class RecPhase[Id, T] {
   final type _Id = Id
   final type _T  = T
-  final val idKey: Key[Id] = implicitly
 
   final def next[TT](f: Phase[Id, T, TT], name: String): RecPhase[Id, TT] =
     RecPhase.Next(this, f, new PhaseCache, name)
@@ -29,11 +26,11 @@ sealed abstract class RecPhase[Id: Key, T] {
 }
 
 object RecPhase {
-  def apply[Id: Key]: RecPhase[Id, Id] = Initial()
+  def apply[Id]: RecPhase[Id, Id] = Initial()
 
-  final case class Initial[Id: Key]() extends RecPhase[Id, Id]
+  final case class Initial[Id]() extends RecPhase[Id, Id]
 
-  final case class Next[Id: Key, T, TT](
+  final case class Next[Id, T, TT](
       prev:  RecPhase[Id, T],
       trans: Phase[Id, T, TT],
       cache: PhaseCache[Id, TT],

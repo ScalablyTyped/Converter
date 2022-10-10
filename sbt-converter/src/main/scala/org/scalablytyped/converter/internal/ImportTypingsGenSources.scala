@@ -7,7 +7,6 @@ import java.nio.file.Path
 import com.olvind.logging
 import com.olvind.logging.{LogLevel, Logger}
 import io.circe013.{Decoder, Encoder}
-import org.scalablytyped.converter.internal.importer.Source.TsLibSource
 import org.scalablytyped.converter.internal.importer._
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
@@ -17,7 +16,7 @@ import org.scalablytyped.converter.internal.ts._
 import scala.collection.immutable.{SortedMap, SortedSet}
 
 object ImportTypingsGenSources {
-  val NoListener: PhaseListener[Source] = (_, _, _) => ()
+  val NoListener: PhaseListener[LibTsSource] = (_, _, _) => ()
 
   case class Input(
       fromFolder:       InFolder,
@@ -40,7 +39,7 @@ object ImportTypingsGenSources {
       logger:           Logger[Unit],
       parseCacheDirOpt: Option[Path],
       cacheDirOpt:      os.Path,
-  ): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
+  ): Either[Map[LibTsSource, Either[Throwable, String]], Set[File]] = {
     import input._
 
     if (input.conversion.expandTypeMappings =/= EnabledTypeMappingExpansion.DefaultSelection) {
@@ -62,7 +61,7 @@ object ImportTypingsGenSources {
 
     val cachedParser = PersistingParser(parseCacheDirOpt, bootstrapped.inputFolders, logger)
 
-    val Phases: RecPhase[Source, LibScalaJs] = RecPhase[Source]
+    val Phases: RecPhase[LibTsSource, LibScalaJs] = RecPhase[LibTsSource]
       .next(
         new Phase1ReadTypescript(
           resolve                 = bootstrapped.libraryResolver,
@@ -90,14 +89,14 @@ object ImportTypingsGenSources {
         input.conversion.flavour.toString,
       )
 
-    val importedLibs: SortedMap[Source, PhaseRes[Source, LibScalaJs]] =
+    val importedLibs: SortedMap[LibTsSource, PhaseRes[LibTsSource, LibScalaJs]] =
       initial
-        .map(s => (s: Source) -> PhaseRunner(Phases, (_: Source) => logger, NoListener)(s))
+        .map(s => (s: LibTsSource) -> PhaseRunner(Phases, (_: LibTsSource) => logger, NoListener)(s))
         .toMap
         .toSorted
 
     PhaseRes.sequenceMap(importedLibs) match {
-      case PhaseRes.Ok(LibScalaJs.Unpack(libs: SortedMap[TsLibSource, LibScalaJs])) =>
+      case PhaseRes.Ok(LibScalaJs.Unpack(libs: SortedMap[LibTsSource, LibScalaJs])) =>
         /* global because it includes all translated libraries */
         val globalScope = new scalajs.TreeScope.Root(
           input.conversion.outputPackage,
