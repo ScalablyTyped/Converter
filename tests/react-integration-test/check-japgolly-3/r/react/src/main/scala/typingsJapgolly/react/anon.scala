@@ -15,39 +15,39 @@ object anon {
   
   trait `0` extends StObject {
     
-    var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
+    var ref: js.UndefOr[Exclude[Any, String]] = js.undefined
   }
   object `0` {
     
-    inline def apply(
-      defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
-    ): `0` = {
-      val __obj = js.Dynamic.literal(defaultProps = defaultProps.asInstanceOf[js.Any])
+    inline def apply(): `0` = {
+      val __obj = js.Dynamic.literal()
       __obj.asInstanceOf[`0`]
     }
     
     extension [Self <: `0`](x: Self) {
       
-      inline def setDefaultProps(value: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any): Self = StObject.set(x, "defaultProps", value.asInstanceOf[js.Any])
+      inline def setRef(value: Exclude[Any, String]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
+      
+      inline def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
     }
   }
   
   trait `1` extends StObject {
     
-    var ref: js.UndefOr[Exclude[Any, String]] = js.undefined
+    var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
   }
   object `1` {
     
-    inline def apply(): `1` = {
-      val __obj = js.Dynamic.literal()
+    inline def apply(
+      defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
+    ): `1` = {
+      val __obj = js.Dynamic.literal(defaultProps = defaultProps.asInstanceOf[js.Any])
       __obj.asInstanceOf[`1`]
     }
     
     extension [Self <: `1`](x: Self) {
       
-      inline def setRef(value: Exclude[Any, String]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
-      
-      inline def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
+      inline def setDefaultProps(value: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any): Self = StObject.set(x, "defaultProps", value.asInstanceOf[js.Any])
     }
   }
   

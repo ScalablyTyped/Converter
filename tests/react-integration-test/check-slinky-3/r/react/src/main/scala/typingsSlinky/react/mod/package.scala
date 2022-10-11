@@ -22,7 +22,7 @@ import slinky.web.SyntheticTouchEvent
 import slinky.web.SyntheticTransitionEvent
 import slinky.web.SyntheticUIEvent
 import slinky.web.SyntheticWheelEvent
-import typingsSlinky.react.anon.`1`
+import typingsSlinky.react.anon.`0`
 import typingsSlinky.react.mod.^
 import typingsSlinky.react.reactStrings.a_
 import typingsSlinky.react.reactStrings.abbr
@@ -595,7 +595,7 @@ Unit]
 type PropsWithChildren[P] = P & typingsSlinky.react.anon.Children
 
 /** Ensures that the props do not include string ref, which cannot be forwarded */
-type PropsWithRef[P] = P | (PropsWithoutRef[P] & `1`)
+type PropsWithRef[P] = P | (PropsWithoutRef[P] & `0`)
 
 /** Ensures that the props do not include ref at all */
 type PropsWithoutRef[P] = P | (Pick[P, Exclude[/* keyof P */ String, ref]])
