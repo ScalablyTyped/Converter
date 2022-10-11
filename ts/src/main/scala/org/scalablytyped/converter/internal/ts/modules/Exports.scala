@@ -93,9 +93,8 @@ object Exports {
               if (scope.stack contains mod) mod
               else CachedReplaceExports(newScope, loopDetector, mod)
 
-            resolvedModule.nameds.flatMap {
-              case n if n.name === TsIdent.default => Empty
-              case n                               => export(codePath, jsLocation, newScope, exportType, n, None, loopDetector)
+            resolvedModule.nameds.flatMap { n =>
+              export(codePath, jsLocation, newScope, exportType, n, None, loopDetector)
             }
           case _ =>
             scope.fatalMaybe(s"Couldn't find expected module $from")

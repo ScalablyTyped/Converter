@@ -25,7 +25,7 @@ import org.scalajs.dom.EventTarget
 import org.scalajs.dom.HTMLElement
 import org.scalajs.dom.HTMLInputElement
 import org.scalajs.dom.SVGElement
-import typingsJapgolly.react.anon.`1`
+import typingsJapgolly.react.anon.`0`
 import typingsJapgolly.react.mod.^
 import typingsJapgolly.react.reactStrings.a_
 import typingsJapgolly.react.reactStrings.abbr
@@ -581,7 +581,7 @@ Unit]
 type PropsWithChildren[P] = P & typingsJapgolly.react.anon.Children
 
 /** Ensures that the props do not include string ref, which cannot be forwarded */
-type PropsWithRef[P] = P | (PropsWithoutRef[P] & `1`)
+type PropsWithRef[P] = P | (PropsWithoutRef[P] & `0`)
 
 /** Ensures that the props do not include ref at all */
 type PropsWithoutRef[P] = P | (Pick[P, Exclude[/* keyof P */ String, ref]])
