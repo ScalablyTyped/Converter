@@ -1,16 +1,15 @@
-package typings.std
+package typingsJapgolly.react.mod
 
-import org.scalablytyped.runtime.StringDictionary
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-
 /** NOTE: Mapped type definitions are impossible to translate to Scala.
   * See https://www.typescriptlang.org/docs/handbook/2/mapped-types.html for an intro.
-  * This translation throws away the known field names. 
+  * You'll have to cast your way around this structure, unfortunately. 
   * TS definition: {{{
-  {[ P in K ]: T}
+  {[ K in keyof T ]:? null extends T[K]? react.react.Validator<T[K] | null | undefined> : undefined extends T[K]? react.react.Validator<T[K] | null | undefined> : react.react.Validator<T[K]>}
   }}}
   */
-type Record[K /* <: /* keyof any */ String */, T] = StringDictionary[T]
+@js.native
+trait WeakValidationMap[T] extends StObject

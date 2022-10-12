@@ -100,6 +100,7 @@ class Phase2ToScalaJs(
         cleanIllegalNames,
         new ImportExpr(importType, importName),
         enableScalaJsDefined(tsLibrary.name),
+        scalaVersion,
       )
 
       val scalaTree            = importTree(tsLibrary, logger)

@@ -1,7 +1,6 @@
 package typings.typeMappings
 
 import org.scalablytyped.runtime.Instantiable0
-import org.scalablytyped.runtime.TopLevel
 import typings.std.Exclude
 import typings.std.InstanceType
 import typings.std.NonNullable
@@ -26,10 +25,6 @@ type NewedPerson = InstanceType[Instantiable0[Person]]
 type NonNullablePerson = NonNullable[Person]
 
 type Omit[T, K /* <: /* keyof any */ String */] = Pick[T, Exclude[/* keyof T */ String, K]]
-
-type Proxify[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
-{[ P in keyof T ]: {get (): T[P], set (v : T[P]): void}}
-  */ typings.typeMappings.typeMappingsStrings.Proxify & TopLevel[Any]
 
 type ReturnedPerson = ReturnType[js.Function0[Person]]
 

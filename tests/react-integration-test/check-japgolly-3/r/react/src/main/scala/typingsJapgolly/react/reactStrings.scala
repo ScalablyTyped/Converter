@@ -19,10 +19,6 @@ object reactStrings {
   inline def I: I = "I".asInstanceOf[I]
   
   @js.native
-  sealed trait WeakValidationMap extends StObject
-  inline def WeakValidationMap: WeakValidationMap = "WeakValidationMap".asInstanceOf[WeakValidationMap]
-  
-  @js.native
   sealed trait _empty extends StObject
   inline def _empty: _empty = "".asInstanceOf[_empty]
   

@@ -7,10 +7,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object typeMappingsStrings {
   
   @js.native
-  sealed trait Proxify extends StObject
-  inline def Proxify: Proxify = "Proxify".asInstanceOf[Proxify]
-  
-  @js.native
   sealed trait age extends StObject
   inline def age: age = "age".asInstanceOf[age]
   

@@ -1,16 +1,15 @@
-package typings.std
+package typings.typeMappings
 
-import org.scalablytyped.runtime.StringDictionary
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-
 /** NOTE: Mapped type definitions are impossible to translate to Scala.
   * See https://www.typescriptlang.org/docs/handbook/2/mapped-types.html for an intro.
-  * This translation throws away the known field names. 
+  * You'll have to cast your way around this structure, unfortunately. 
   * TS definition: {{{
-  {[ P in K ]: T}
+  {[ P in keyof T ]: {get (): T[P], set (v : T[P]): void}}
   }}}
   */
-type Record[K /* <: /* keyof any */ String */, T] = StringDictionary[T]
+@js.native
+trait Proxify[T] extends StObject

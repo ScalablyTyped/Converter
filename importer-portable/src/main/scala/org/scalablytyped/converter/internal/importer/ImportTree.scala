@@ -14,6 +14,7 @@ class ImportTree(
     illegalNames:         CleanIllegalNames,
     importExpr:           ImportExpr,
     enableScalaJsDefined: Boolean,
+    scalaVersion:         Versions.Scala,
 ) {
   def apply(lib: LibTs, logger: Logger[Unit]): PackageTree = {
     val deps = lib.transitiveDependencies.map {
@@ -250,6 +251,93 @@ class ImportTree(
             codePath    = newCodePath,
           ),
         )
+
+      /* Mapped types. Proper handling (of static) cases is done elsewhere, this just takes care of the dependencies */
+      case TsDeclTypeAlias(
+          cs,
+          _,
+          _,
+          tparams,
+          tpe @ TsTypeObject(_, IArray.exactlyOne(mtm: TsMemberTypeMapped)),
+          codePath,
+          ) =>
+        val importedCp      = importName(codePath)
+        val importedName    = importedCp.parts.last
+        val importedTparams = tparams.map(typeParam(scope, importName))
+
+        def warning(explain: String) =
+          cs ++ Comments(
+            s"""/** NOTE: Mapped type definitions are impossible to translate to Scala.
+               | * See https://www.typescriptlang.org/docs/handbook/2/mapped-types.html for an intro.
+               | * $explain. 
+               | * TS definition: {{{
+               | ${TsTypeFormatter(tpe)}
+               | }}}
+               | */
+               |""".stripMargin,
+          )
+
+        val imported = mtm match {
+          // is this a `Record`-like structure? in that case translate to string dictionary
+          case TsMemberTypeMapped(_, _, ReadonlyModifier.Noop, _, from, None, _, to)
+              if tparams.length == 2 &&
+                tparams(0).upperBound.exists {
+                  case TsTypeKeyOf(_)   => true
+                  case TsTypeRef.string => true
+                  case _                => false
+                } &&
+                TsTypeRef(tparams(0).name) == from &&
+                TsTypeRef(tparams(1).name) == to =>
+            TypeAliasTree(
+              name     = importedName,
+              level    = ProtectionLevel.Public,
+              tparams  = importedTparams,
+              alias    = TypeRef.StringDictionary(TypeRef(importedTparams(1).name), NoComments),
+              comments = warning("This translation throws away the known field names"),
+              codePath = importedCp,
+            )
+
+          // can we ignore the effects of the type mapping and get more or less correct types? This is meant to cover `Readonly`, `Partial`, `Pick` and more
+          case TsMemberTypeMapped(_, _, _, _, _, None, _, TsTypeLookup(from, _)) =>
+            val base = importType(scope, importName)(from)
+            val alias =
+              if (scalaVersion.is3) base
+              else
+                TypeRef.Intersection(
+                  IArray(TypeRef.StringLiteral(importedName.unescaped), TypeRef.TopLevel(base)),
+                  Comments(
+                    "/* note, weird intersection type is needed for scala 2 since it doesn't handle `Id[Id[T]]`, and things like `Partial` frequently ends up applied twice */\n",
+                  ),
+                )
+
+            TypeAliasTree(
+              name     = importedName,
+              level    = ProtectionLevel.Public,
+              tparams  = importedTparams,
+              alias    = alias,
+              comments = warning("This translation is imprecise and ignores the effect of the type mapping"),
+              codePath = importedCp,
+            )
+
+          // for all other cases generate a new trait and have users cast
+          case _ =>
+            ClassTree(
+              isImplicit  = false,
+              annotations = IArray(Annotation.JsNative),
+              level       = ProtectionLevel.Public,
+              name        = importedName,
+              tparams     = importedTparams,
+              parents     = Empty,
+              ctors       = Empty,
+              members     = Empty,
+              classType   = ClassType.Trait,
+              isSealed    = false,
+              comments    = warning("You'll have to cast your way around this structure, unfortunately"),
+              codePath    = importedCp,
+            )
+        }
+
+        IArray(imported)
 
       case TsDeclTypeAlias(cs, _, _, tparams, alias, codePath) =>
         val importedCp = importName(codePath)

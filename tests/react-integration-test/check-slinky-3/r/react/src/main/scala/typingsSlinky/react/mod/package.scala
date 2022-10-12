@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
-import org.scalablytyped.runtime.TopLevel
 import org.scalajs.dom.Element
 import org.scalajs.dom.Event
 import org.scalajs.dom.EventTarget
@@ -76,12 +75,6 @@ inline def cloneElement[P](
   children: slinky.core.facade.ReactElement*
 ): FunctionComponentElement[P] = (^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[FunctionComponentElement[P]]
 inline def cloneElement[P](element: FunctionComponentElement[P], props: Unit, children: slinky.core.facade.ReactElement*): FunctionComponentElement[P] = (^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[FunctionComponentElement[P]]
-// DOM Element (has to be the last, because type checking stops at first overload that fits)
-inline def cloneElement[P /* <: DOMAttributes[T] */, T /* <: Element */](
-  element: slinky.core.facade.ReactElement,
-  props: DOMAttributes[T] & P,
-  children: slinky.core.facade.ReactElement*
-): slinky.core.facade.ReactElement = (^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
 inline def cloneElement[P, T /* <: ReactComponentClass[P] */](
   element: CElement[P, T],
   props: Partial[P] & ClassAttributes[T],
@@ -96,6 +89,12 @@ inline def cloneElement[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](el
 inline def cloneElement[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](element: ReactSVGElement, props: P, children: slinky.core.facade.ReactElement*): ReactSVGElement = (^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[ReactSVGElement]
 inline def cloneElement[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](element: ReactSVGElement, props: Unit, children: slinky.core.facade.ReactElement*): ReactSVGElement = (^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[ReactSVGElement]
 
+// DOM Element (has to be the last, because type checking stops at first overload that fits)
+inline def cloneElement_PT[P /* <: DOMAttributes[T] */, T /* <: Element */](
+  element: slinky.core.facade.ReactElement,
+  props: DOMAttributes[T] & P,
+  children: slinky.core.facade.ReactElement*
+): slinky.core.facade.ReactElement = (^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
 inline def cloneElement_PT[P /* <: DOMAttributes[T] */, T /* <: Element */](element: slinky.core.facade.ReactElement, props: Unit, children: slinky.core.facade.ReactElement*): slinky.core.facade.ReactElement = (^.asInstanceOf[js.Dynamic].applyDynamic("cloneElement")((scala.List(element.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[slinky.core.facade.ReactElement]
 
 // ReactHTMLElement, less specific
@@ -717,9 +716,5 @@ type ValidationMap[T] = /* import warning: transforms.QualifyReferences#resolveT
 // React.PropTypes
 // ----------------------------------------------------------------------
 type Validator[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<T> */ Any
-
-type WeakValidationMap[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
-{[ K in keyof T ]:? null extends T[K]? react.react.Validator<T[K] | null | undefined> : undefined extends T[K]? react.react.Validator<T[K] | null | undefined> : react.react.Validator<T[K]>}
-  */ typingsSlinky.react.reactStrings.WeakValidationMap & TopLevel[Any]
 
 type WheelEventHandler[T] = EventHandler[SyntheticWheelEvent[T]]

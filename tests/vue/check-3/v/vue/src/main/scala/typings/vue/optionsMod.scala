@@ -2,7 +2,6 @@ package typings.vue
 
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.StringDictionary
-import org.scalablytyped.runtime.TopLevel
 import typings.std.Element
 import typings.std.HTMLElement
 import typings.std.Record
@@ -23,9 +22,15 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object optionsMod {
   
-  type Accessors[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
-  {[ K in keyof T ]: (): T[K] | vue.vue/types/options.ComputedOptions<T[K]>}
-    */ typings.vue.vueStrings.Accessors & TopLevel[Any]
+  /** NOTE: Mapped type definitions are impossible to translate to Scala.
+    * See https://www.typescriptlang.org/docs/handbook/2/mapped-types.html for an intro.
+    * You'll have to cast your way around this structure, unfortunately. 
+    * TS definition: {{{
+    {[ K in keyof T ]: (): T[K] | vue.vue/types/options.ComputedOptions<T[K]>}
+    }}}
+    */
+  @js.native
+  trait Accessors[T] extends StObject
   
   type ArrayPropsDefinition[T] = js.Array[/* keyof T */ String]
   
@@ -541,9 +546,15 @@ object optionsMod {
   
   type PropsDefinition[T] = ArrayPropsDefinition[T] | RecordPropsDefinition[T]
   
-  type RecordPropsDefinition[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
-  {[ K in keyof T ]: vue.vue/types/options.PropValidator<T[K]>}
-    */ typings.vue.vueStrings.RecordPropsDefinition & TopLevel[T]
+  /** NOTE: Mapped type definitions are impossible to translate to Scala.
+    * See https://www.typescriptlang.org/docs/handbook/2/mapped-types.html for an intro.
+    * You'll have to cast your way around this structure, unfortunately. 
+    * TS definition: {{{
+    {[ K in keyof T ]: vue.vue/types/options.PropValidator<T[K]>}
+    }}}
+    */
+  @js.native
+  trait RecordPropsDefinition[T] extends StObject
   
   trait RenderContext[Props] extends StObject {
     

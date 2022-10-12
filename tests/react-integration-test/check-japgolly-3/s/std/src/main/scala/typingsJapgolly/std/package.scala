@@ -1,7 +1,6 @@
 package typingsJapgolly.std
 
 import org.scalablytyped.runtime.StringDictionary
-import org.scalablytyped.runtime.TopLevel
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -147,28 +146,50 @@ type Omit[T, K /* <: /* keyof any */ String */] = Pick[T, Exclude[/* keyof T */ 
 /**
   * Make all properties in T optional
   */
-type Partial[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
-{[ P in keyof T ]:? T[P]}
-  */ typingsJapgolly.std.stdStrings.Partial & TopLevel[T]
+/** NOTE: Mapped type definitions are impossible to translate to Scala.
+  * See https://www.typescriptlang.org/docs/handbook/2/mapped-types.html for an intro.
+  * This translation is imprecise and ignores the effect of the type mapping. 
+  * TS definition: {{{
+  {[ P in keyof T ]:? T[P]}
+  }}}
+  */
+type Partial[T] = T
 
 /**
   * From T pick a set of properties K
   */
-type Pick[T, K /* <: /* keyof T */ String */] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
-{[ P in K ]: T[P]}
-  */ typingsJapgolly.std.stdStrings.Pick & TopLevel[T]
+/** NOTE: Mapped type definitions are impossible to translate to Scala.
+  * See https://www.typescriptlang.org/docs/handbook/2/mapped-types.html for an intro.
+  * This translation is imprecise and ignores the effect of the type mapping. 
+  * TS definition: {{{
+  {[ P in K ]: T[P]}
+  }}}
+  */
+type Pick[T, K /* <: /* keyof T */ String */] = T
 
 type PointerEvent = org.scalajs.dom.Event
 
 /**
   * Make all properties in T readonly
   */
-type Readonly[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
-{readonly [ P in keyof T ]: T[P]}
-  */ typingsJapgolly.std.stdStrings.Readonly & TopLevel[T]
+/** NOTE: Mapped type definitions are impossible to translate to Scala.
+  * See https://www.typescriptlang.org/docs/handbook/2/mapped-types.html for an intro.
+  * This translation is imprecise and ignores the effect of the type mapping. 
+  * TS definition: {{{
+  {readonly [ P in keyof T ]: T[P]}
+  }}}
+  */
+type Readonly[T] = T
 
 /**
   * Construct a type with a set of properties K of type T
+  */
+/** NOTE: Mapped type definitions are impossible to translate to Scala.
+  * See https://www.typescriptlang.org/docs/handbook/2/mapped-types.html for an intro.
+  * This translation throws away the known field names. 
+  * TS definition: {{{
+  {[ P in K ]: T}
+  }}}
   */
 type Record[K /* <: /* keyof any */ String */, T] = StringDictionary[T]
 

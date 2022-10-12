@@ -4,7 +4,6 @@ import japgolly.scalajs.react.facade.React.Element
 import japgolly.scalajs.react.facade.React.ElementType
 import japgolly.scalajs.react.facade.React.Node
 import org.scalablytyped.runtime.StringDictionary
-import org.scalablytyped.runtime.TopLevel
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -44,9 +43,15 @@ object mod {
   
   type MutuallyExclusive[T, U] = (T & Not[U]) | (U & Not[T])
   
-  type Not[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
-  {[ key in keyof T ]:? never}
-    */ typingsJapgolly.reactMarkdown.reactMarkdownStrings.Not & TopLevel[Any]
+  /** NOTE: Mapped type definitions are impossible to translate to Scala.
+    * See https://www.typescriptlang.org/docs/handbook/2/mapped-types.html for an intro.
+    * You'll have to cast your way around this structure, unfortunately. 
+    * TS definition: {{{
+    {[ key in keyof T ]:? never}
+    }}}
+    */
+  @js.native
+  trait Not[T] extends StObject
   
   type ReactMarkdownProps = ReactMarkdownPropsBase & (MutuallyExclusive[ChildrenProp, SourceProp])
   

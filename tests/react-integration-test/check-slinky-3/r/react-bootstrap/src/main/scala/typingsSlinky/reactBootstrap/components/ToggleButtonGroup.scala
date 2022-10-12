@@ -62,19 +62,18 @@ import typingsSlinky.reactBootstrap.mod.Sizes
 import typingsSlinky.reactBootstrap.toggleButtonGroupMod.BaseProps
 import typingsSlinky.reactBootstrap.toggleButtonGroupMod.CheckboxProps
 import typingsSlinky.reactBootstrap.toggleButtonGroupMod.RadioProps
-import typingsSlinky.std.stdStrings.Pick
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object ToggleButtonGroup {
   
-  object CheckboxPropsBasePropsPickButtonGroupPropsHTMLProps {
+  object CheckboxPropsBasePropsButtonGroupPropsHTMLProps {
     
     inline def apply(): Builder = {
       val __props = js.Dynamic.literal()
       __props.updateDynamic("type")("checkbox")
-      new Builder(js.Array(this.component, __props.asInstanceOf[CheckboxProps & BaseProps & Pick & ButtonGroupProps & HTMLProps[Any]]))
+      new Builder(js.Array(this.component, __props.asInstanceOf[CheckboxProps & BaseProps & ButtonGroupProps & HTMLProps[Any]]))
     }
     
     @JSImport("react-bootstrap", "ToggleButtonGroup")
@@ -647,15 +646,15 @@ object ToggleButtonGroup {
       inline def wrap(value: String): this.type = set("wrap", value.asInstanceOf[js.Any])
     }
     
-    def withProps(p: CheckboxProps & BaseProps & Pick & ButtonGroupProps & HTMLProps[Any]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: CheckboxProps & BaseProps & ButtonGroupProps & HTMLProps[Any]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
-  object RadioPropsBasePropsPickButtonGroupPropsHTMLProps {
+  object RadioPropsBasePropsButtonGroupPropsHTMLProps {
     
     inline def apply(name: String): Builder = {
       val __props = js.Dynamic.literal(name = name.asInstanceOf[js.Any])
       __props.updateDynamic("type")("radio")
-      new Builder(js.Array(this.component, __props.asInstanceOf[RadioProps & BaseProps & Pick & ButtonGroupProps & HTMLProps[Any]]))
+      new Builder(js.Array(this.component, __props.asInstanceOf[RadioProps & BaseProps & ButtonGroupProps & HTMLProps[Any]]))
     }
     
     @JSImport("react-bootstrap", "ToggleButtonGroup")
@@ -1226,6 +1225,6 @@ object ToggleButtonGroup {
       inline def wrap(value: String): this.type = set("wrap", value.asInstanceOf[js.Any])
     }
     
-    def withProps(p: RadioProps & BaseProps & Pick & ButtonGroupProps & HTMLProps[Any]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: RadioProps & BaseProps & ButtonGroupProps & HTMLProps[Any]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
 }

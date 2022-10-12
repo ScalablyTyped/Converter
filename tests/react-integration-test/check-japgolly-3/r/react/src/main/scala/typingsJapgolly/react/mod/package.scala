@@ -20,7 +20,6 @@ import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.facade.React.RefHandle
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
-import org.scalablytyped.runtime.TopLevel
 import org.scalajs.dom.EventTarget
 import org.scalajs.dom.HTMLElement
 import org.scalajs.dom.HTMLInputElement
@@ -703,9 +702,5 @@ type ValidationMap[T] = /* import warning: transforms.QualifyReferences#resolveT
 // React.PropTypes
 // ----------------------------------------------------------------------
 type Validator[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<T> */ Any
-
-type WeakValidationMap[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
-{[ K in keyof T ]:? null extends T[K]? react.react.Validator<T[K] | null | undefined> : undefined extends T[K]? react.react.Validator<T[K] | null | undefined> : react.react.Validator<T[K]>}
-  */ typingsJapgolly.react.reactStrings.WeakValidationMap & TopLevel[Any]
 
 type WheelEventHandler[T] = EventHandler[ReactWheelEventFrom[T & org.scalajs.dom.Element]]
