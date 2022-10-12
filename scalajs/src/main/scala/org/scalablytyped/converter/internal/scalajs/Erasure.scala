@@ -115,9 +115,12 @@ class Erasure(scalaVersion: Versions.Scala) {
         scope
           .lookup(other)
           .collectFirst {
-            case (x: TypeAliasTree, s) =>
+            case (x: TypeAliasTree, _) =>
               if (x.alias.typeName === other) QualifiedName.Any
-              else simplify(s, FillInTParams(x, s, tpe.targs, Empty).alias)
+              else {
+                val newTa = FillInTParams(x, scope, tpe.targs, Empty)
+                simplify(scope / newTa, newTa.alias)
+              }
             case (x: ClassTree, _) => x.codePath
           }
           .getOrElse(other)
