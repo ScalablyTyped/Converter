@@ -11,5 +11,5 @@ object useEventListenerMod {
   @js.native
   val ^ : js.Any = js.native
   
-  inline def default[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91 */ Any */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  inline def default[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91, starting with typingsJapgolly.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.waiting, typingsJapgolly.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.error, typingsJapgolly.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.abort */ Any */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
 }

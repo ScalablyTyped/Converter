@@ -128,17 +128,17 @@ inline def createElement[P /* <: js.Object */](
   children: slinky.core.facade.ReactElement*
 ): CElement[P, ReactComponentClass[P]] = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[CElement[P, ReactComponentClass[P]]]
 inline def createElement[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](
-  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ Any,
+  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115, starting with typingsSlinky.react.reactStrings.a_, typingsSlinky.react.reactStrings.abbr, typingsSlinky.react.reactStrings.address */ Any,
   props: ClassAttributes[T] & P,
   children: slinky.core.facade.ReactElement*
 ): DetailedReactHTMLElement[P, T] = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[DetailedReactHTMLElement[P, T]]
 inline def createElement[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](
-  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ Any,
+  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115, starting with typingsSlinky.react.reactStrings.a_, typingsSlinky.react.reactStrings.abbr, typingsSlinky.react.reactStrings.address */ Any,
   props: Null,
   children: slinky.core.facade.ReactElement*
 ): DetailedReactHTMLElement[P, T] = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[DetailedReactHTMLElement[P, T]]
 inline def createElement[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](
-  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ Any,
+  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115, starting with typingsSlinky.react.reactStrings.a_, typingsSlinky.react.reactStrings.abbr, typingsSlinky.react.reactStrings.address */ Any,
   props: Unit,
   children: slinky.core.facade.ReactElement*
 ): DetailedReactHTMLElement[P, T] = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[DetailedReactHTMLElement[P, T]]
@@ -156,17 +156,17 @@ inline def createElement_PTC_CElement[P /* <: js.Object */, T /* <: ReactCompone
 inline def createElement_PTC_CElement[P /* <: js.Object */, T /* <: ReactComponentClass[P] */, C /* <: ReactComponentClass[P] */](`type`: ClassType[P, T, C], props: Unit, children: slinky.core.facade.ReactElement*): CElement[P, T] = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[CElement[P, T]]
 
 inline def createElement_PT_ReactSVGElement[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](
-  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ Any,
+  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55, starting with typingsSlinky.react.reactStrings.animate, typingsSlinky.react.reactStrings.circle, typingsSlinky.react.reactStrings.clipPath */ Any,
   props: ClassAttributes[T] & P,
   children: slinky.core.facade.ReactElement*
 ): ReactSVGElement = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[ReactSVGElement]
 inline def createElement_PT_ReactSVGElement[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](
-  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ Any,
+  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55, starting with typingsSlinky.react.reactStrings.animate, typingsSlinky.react.reactStrings.circle, typingsSlinky.react.reactStrings.clipPath */ Any,
   props: Null,
   children: slinky.core.facade.ReactElement*
 ): ReactSVGElement = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[ReactSVGElement]
 inline def createElement_PT_ReactSVGElement[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](
-  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ Any,
+  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55, starting with typingsSlinky.react.reactStrings.animate, typingsSlinky.react.reactStrings.circle, typingsSlinky.react.reactStrings.clipPath */ Any,
   props: Unit,
   children: slinky.core.facade.ReactElement*
 ): ReactSVGElement = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[ReactSVGElement]
@@ -185,7 +185,9 @@ inline def createElement_input(
 inline def createElement_input(`type`: input, props: Null, children: slinky.core.facade.ReactElement*): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement]]
 inline def createElement_input(`type`: input, props: Unit, children: slinky.core.facade.ReactElement*): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement]]
 
-inline def createFactory(`type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ Any): SVGFactory = ^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[SVGFactory]
+inline def createFactory(
+  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55, starting with typingsSlinky.react.reactStrings.animate, typingsSlinky.react.reactStrings.circle, typingsSlinky.react.reactStrings.clipPath */ Any
+): SVGFactory = ^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[SVGFactory]
 inline def createFactory[P](`type`: ReactComponentClass[P]): Factory[P] = ^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[Factory[P]]
 inline def createFactory[P](`type`: ClassType[P, ReactComponentClass[P], ReactComponentClass[P]]): CFactory[P, ReactComponentClass[P]] = ^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[CFactory[P, ReactComponentClass[P]]]
 inline def createFactory[P /* <: DOMAttributes[T] */, T /* <: Element */](`type`: String): DOMFactory[P, T] = ^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[DOMFactory[P, T]]
@@ -199,7 +201,9 @@ inline def createFactory_P_FunctionComponentFactory[P](`type`: ReactComponentCla
 // Top Level API
 // ----------------------------------------------------------------------
 // DOM Elements
-inline def createFactory_T_HTMLFactory[T /* <: HTMLElement */](`type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ Any): HTMLFactory[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[HTMLFactory[T]]
+inline def createFactory_T_HTMLFactory[T /* <: HTMLElement */](
+  `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115, starting with typingsSlinky.react.reactStrings.a_, typingsSlinky.react.reactStrings.abbr, typingsSlinky.react.reactStrings.address */ Any
+): HTMLFactory[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[HTMLFactory[T]]
 
 inline def createRef[T](): ReactRef[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("createRef")().asInstanceOf[ReactRef[T]]
 

@@ -193,17 +193,17 @@ object global {
     inline def createElement[P /* <: js.Object */](`type`: FunctionComponent[P], props: Null, children: Node*): Element = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[Element]
     inline def createElement[P /* <: js.Object */](`type`: FunctionComponent[P], props: Unit, children: Node*): Element = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[Element]
     inline def createElement[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](
-      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ Any,
+      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115, starting with typingsJapgolly.react.reactStrings.a_, typingsJapgolly.react.reactStrings.abbr, typingsJapgolly.react.reactStrings.address */ Any,
       props: ClassAttributes[T] & P,
       children: Node*
     ): DetailedReactHTMLElement[P, T] = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[DetailedReactHTMLElement[P, T]]
     inline def createElement[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](
-      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ Any,
+      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115, starting with typingsJapgolly.react.reactStrings.a_, typingsJapgolly.react.reactStrings.abbr, typingsJapgolly.react.reactStrings.address */ Any,
       props: Null,
       children: Node*
     ): DetailedReactHTMLElement[P, T] = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[DetailedReactHTMLElement[P, T]]
     inline def createElement[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](
-      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ Any,
+      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115, starting with typingsJapgolly.react.reactStrings.a_, typingsJapgolly.react.reactStrings.abbr, typingsJapgolly.react.reactStrings.address */ Any,
       props: Unit,
       children: Node*
     ): DetailedReactHTMLElement[P, T] = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[DetailedReactHTMLElement[P, T]]
@@ -217,17 +217,17 @@ object global {
     inline def createElement_PT_DomElement[P /* <: DOMAttributes[T] */, T /* <: org.scalajs.dom.Element */](`type`: String, props: Unit, children: Node*): DomElement = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[DomElement]
     
     inline def createElement_PT_ReactSVGElement[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](
-      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ Any,
+      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55, starting with typingsJapgolly.react.reactStrings.animate, typingsJapgolly.react.reactStrings.circle, typingsJapgolly.react.reactStrings.clipPath */ Any,
       props: ClassAttributes[T] & P,
       children: Node*
     ): ReactSVGElement = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[ReactSVGElement]
     inline def createElement_PT_ReactSVGElement[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](
-      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ Any,
+      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55, starting with typingsJapgolly.react.reactStrings.animate, typingsJapgolly.react.reactStrings.circle, typingsJapgolly.react.reactStrings.clipPath */ Any,
       props: Null,
       children: Node*
     ): ReactSVGElement = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[ReactSVGElement]
     inline def createElement_PT_ReactSVGElement[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](
-      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ Any,
+      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55, starting with typingsJapgolly.react.reactStrings.animate, typingsJapgolly.react.reactStrings.circle, typingsJapgolly.react.reactStrings.clipPath */ Any,
       props: Unit,
       children: Node*
     ): ReactSVGElement = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[ReactSVGElement]
@@ -247,7 +247,9 @@ object global {
     inline def createElement_input(`type`: input, props: Null, children: Node*): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement]]
     inline def createElement_input(`type`: input, props: Unit, children: Node*): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = (^.asInstanceOf[js.Dynamic].applyDynamic("createElement")((scala.List(`type`.asInstanceOf[js.Any], props.asInstanceOf[js.Any])).`++`(children.asInstanceOf[Seq[js.Any]])*)).asInstanceOf[DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement]]
     
-    inline def createFactory(`type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ Any): SVGFactory = ^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[SVGFactory]
+    inline def createFactory(
+      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55, starting with typingsJapgolly.react.reactStrings.animate, typingsJapgolly.react.reactStrings.circle, typingsJapgolly.react.reactStrings.clipPath */ Any
+    ): SVGFactory = ^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[SVGFactory]
     inline def createFactory[P](`type`: ComponentClassP[P & js.Object]): Factory[P] = ^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[Factory[P]]
     inline def createFactory[P](`type`: ClassType[P, ClassicComponent[P, js.Object], ClassicComponentClass[P]]): CFactory[P, ClassicComponent[P, js.Object]] = ^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[CFactory[P, ClassicComponent[P, js.Object]]]
     // Custom components
@@ -260,7 +262,9 @@ object global {
     // Top Level API
     // ----------------------------------------------------------------------
     // DOM Elements
-    inline def createFactory_T_HTMLFactory[T /* <: HTMLElement */](`type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ Any): HTMLFactory[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[HTMLFactory[T]]
+    inline def createFactory_T_HTMLFactory[T /* <: HTMLElement */](
+      `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115, starting with typingsJapgolly.react.reactStrings.a_, typingsJapgolly.react.reactStrings.abbr, typingsJapgolly.react.reactStrings.address */ Any
+    ): HTMLFactory[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("createFactory")(`type`.asInstanceOf[js.Any]).asInstanceOf[HTMLFactory[T]]
     
     inline def createRef[T](): RefHandle[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("createRef")().asInstanceOf[RefHandle[T]]
     

@@ -15,9 +15,9 @@ object LimitUnionLength extends TreeTransformation {
         val base =
           if (rest.forall(x => TypeRef.StringLiteral.unapply(x).isDefined)) TypeRef.String else TypeRef.Any
 
-        base
-          .withComments(cs + Comment.warning(s"Was union type with length ${types.length}"))
-          .withOptional(undefineds.nonEmpty)
+        val formattedTypes = types.take(3).map(Printer.formatTypeRef(0)).mkString(", ")
+        val msg            = s"Was union type with length ${types.length}, starting with $formattedTypes"
+        base.withComments(cs + Comment.warning(msg)).withOptional(undefineds.nonEmpty)
       case other => other
     }
 }
