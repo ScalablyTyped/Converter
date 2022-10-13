@@ -72,8 +72,8 @@ class Phase2ToScalaJs(
         (new S.RemoveDuplicateInheritance(parentResolver()) >>
           cleanIllegalNames >>
           S.Deduplicator).visitPackageTree(scope),
-        Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s, cleanIllegalNames)(tree)),
-        Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals
+//        Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s, cleanIllegalNames)(tree)),
+//        Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals
         S.LimitUnionLength.visitPackageTree(scope), // after UnionToInheritance
         new S.RemoveMultipleInheritance(parentResolver()).visitPackageTree(scope),
         new S.CombineOverloads(erasure())

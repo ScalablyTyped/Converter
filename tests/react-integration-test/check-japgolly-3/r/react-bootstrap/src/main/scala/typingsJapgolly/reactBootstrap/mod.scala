@@ -41,30 +41,21 @@ object mod {
     /* import warning: importer.ImportType#apply Failed type conversion: {[ P in keyof T ]: P} & {[ P in K ]: never} & {[x: string] : never, [x: number] : never}[keyof T] */ js.Any
   ]
   
-  /* Rewritten from type alias, can be one of: 
-    - typingsJapgolly.reactBootstrap.reactBootstrapStrings.xs
-    - typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall
-    - typingsJapgolly.reactBootstrap.reactBootstrapStrings.sm
-    - typingsJapgolly.reactBootstrap.reactBootstrapStrings.small
-    - typingsJapgolly.reactBootstrap.reactBootstrapStrings.medium
-    - typingsJapgolly.reactBootstrap.reactBootstrapStrings.lg
-    - typingsJapgolly.reactBootstrap.reactBootstrapStrings.large
-  */
-  trait Sizes extends StObject
   object Sizes {
     
-    inline def large: typingsJapgolly.reactBootstrap.reactBootstrapStrings.large = "large".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.large]
+    inline def large: "large" = "large".asInstanceOf["large"]
     
-    inline def lg: typingsJapgolly.reactBootstrap.reactBootstrapStrings.lg = "lg".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.lg]
+    inline def lg: "lg" = "lg".asInstanceOf["lg"]
     
-    inline def medium: typingsJapgolly.reactBootstrap.reactBootstrapStrings.medium = "medium".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.medium]
+    inline def medium: "medium" = "medium".asInstanceOf["medium"]
     
-    inline def sm: typingsJapgolly.reactBootstrap.reactBootstrapStrings.sm = "sm".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.sm]
+    inline def sm: "sm" = "sm".asInstanceOf["sm"]
     
-    inline def small: typingsJapgolly.reactBootstrap.reactBootstrapStrings.small = "small".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.small]
+    inline def small: "small" = "small".asInstanceOf["small"]
     
-    inline def xs: typingsJapgolly.reactBootstrap.reactBootstrapStrings.xs = "xs".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.xs]
+    inline def xs: "xs" = "xs".asInstanceOf["xs"]
     
-    inline def xsmall: typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall = "xsmall".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall]
+    inline def xsmall: "xsmall" = "xsmall".asInstanceOf["xsmall"]
   }
+  type Sizes = "xs" | "xsmall" | "sm" | "small" | "medium" | "lg" | "large"
 }

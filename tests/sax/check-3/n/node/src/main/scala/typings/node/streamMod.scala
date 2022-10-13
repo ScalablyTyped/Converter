@@ -4,7 +4,6 @@ import typings.node.NodeJS.ReadableStream
 import typings.node.NodeJS.WritableStream
 import typings.node.anon.End
 import typings.node.eventsMod.EventEmitter
-import typings.node.nodeStrings.close
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -22,7 +21,7 @@ object streamMod {
   - typings.node.streamMod.internal because Already inherited
   - typings.node.NodeJS.WritableStream because var conflicts: writable. Inlined 
   - typings.node.streamMod.Stream because Already inherited
-  - typings.node.streamMod.Writable because Inheritance from two classes. Inlined writable, end, end, end, end, end, end, end, on, on_close */ @JSImport("stream", "Duplex")
+  - typings.node.streamMod.Writable because Inheritance from two classes. Inlined writable, end, end, end, end, end, end, end, on, on */ @JSImport("stream", "Duplex")
   @js.native
   open class Duplex () extends Readable {
     def this(opts: DuplexOptions) = this()
@@ -45,7 +44,8 @@ object streamMod {
        with ReadableStream {
     
     @JSName("on")
-    def on_close(event: close, listener: js.Function0[Unit]): this.type = js.native
+    @scala.annotation.targetName("on_close")
+    def on(event: "close", listener: js.Function0[Unit]): this.type = js.native
   }
   
   @JSImport("stream", "Stream")
@@ -68,7 +68,8 @@ object streamMod {
     def end(chunk: Any, encoding: Unit, cb: js.Function): Unit = js.native
     
     @JSName("on")
-    def on_close(event: close, listener: js.Function0[Unit]): this.type = js.native
+    @scala.annotation.targetName("on_close")
+    def on(event: "close", listener: js.Function0[Unit]): this.type = js.native
   }
   
   trait DuplexOptions

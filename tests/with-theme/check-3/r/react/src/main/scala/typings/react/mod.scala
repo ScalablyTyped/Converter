@@ -1,7 +1,6 @@
 package typings.react
 
 import typings.react.anon.Html
-import typings.react.reactStrings.foo
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -89,13 +88,13 @@ object mod {
     extends StObject
        with AllHTMLAttributes[T] {
     
-    var defaultValue: foo
+    var defaultValue: "foo"
     
-    var onChange: foo
+    var onChange: "foo"
     
-    var `type`: foo
+    var `type`: "foo"
     
-    var value: foo
+    var value: "foo"
   }
   object HTMLProps {
     
@@ -107,13 +106,13 @@ object mod {
     
     extension [Self <: HTMLProps[?], T](x: Self & HTMLProps[T]) {
       
-      inline def setDefaultValue(value: foo): Self = StObject.set(x, "defaultValue", value.asInstanceOf[js.Any])
+      inline def setDefaultValue(value: "foo"): Self = StObject.set(x, "defaultValue", value.asInstanceOf[js.Any])
       
-      inline def setOnChange(value: foo): Self = StObject.set(x, "onChange", value.asInstanceOf[js.Any])
+      inline def setOnChange(value: "foo"): Self = StObject.set(x, "onChange", value.asInstanceOf[js.Any])
       
-      inline def setType(value: foo): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setType(value: "foo"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
       
-      inline def setValue(value: foo): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
+      inline def setValue(value: "foo"): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     }
   }
   

@@ -46,7 +46,7 @@ object Versions {
 
   val Scala212 = Scala("2.12.17")
   val Scala213 = Scala("2.13.10")
-  val Scala3   = Scala("3.2.0")
+  val Scala3   = Scala("3.2.2-RC1")
 
   case class ScalaJs(scalaJsVersion: String) {
     val scalaJsBinVersion: String =

@@ -1,18 +1,5 @@
 package typingsJapgolly.react.mod
 
-import typingsJapgolly.react.reactStrings.a_
-import typingsJapgolly.react.reactStrings.abbr
-import typingsJapgolly.react.reactStrings.address
-import typingsJapgolly.react.reactStrings.area
-import typingsJapgolly.react.reactStrings.article
-import typingsJapgolly.react.reactStrings.aside
-import typingsJapgolly.react.reactStrings.audio
-import typingsJapgolly.react.reactStrings.b
-import typingsJapgolly.react.reactStrings.base
-import typingsJapgolly.react.reactStrings.bdi
-import typingsJapgolly.react.reactStrings.bdo
-import typingsJapgolly.react.reactStrings.big
-import typingsJapgolly.react.reactStrings.view
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -29,4 +16,4 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   }}}
   */
 @js.native
-trait ComponentProps[T /* <: a_ | abbr | address | area | article | aside | audio | b | base | bdi | bdo | big | view | JSXElementConstructor[Any] */] extends StObject
+trait ComponentProps[T /* <: "a" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "view" | JSXElementConstructor[Any] */] extends StObject

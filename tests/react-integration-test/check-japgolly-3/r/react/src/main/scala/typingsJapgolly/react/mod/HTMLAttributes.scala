@@ -1,7 +1,5 @@
 package typingsJapgolly.react.mod
 
-import typingsJapgolly.react.reactStrings.off
-import typingsJapgolly.react.reactStrings.on
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -100,7 +98,7 @@ trait HTMLAttributes[T]
   
   var typeof: js.UndefOr[String] = js.undefined
   
-  var unselectable: js.UndefOr[on | off] = js.undefined
+  var unselectable: js.UndefOr["on" | "off"] = js.undefined
   
   var vocab: js.UndefOr[String] = js.undefined
 }
@@ -279,7 +277,7 @@ object HTMLAttributes {
     
     inline def setTypeofUndefined: Self = StObject.set(x, "typeof", js.undefined)
     
-    inline def setUnselectable(value: on | off): Self = StObject.set(x, "unselectable", value.asInstanceOf[js.Any])
+    inline def setUnselectable(value: "on" | "off"): Self = StObject.set(x, "unselectable", value.asInstanceOf[js.Any])
     
     inline def setUnselectableUndefined: Self = StObject.set(x, "unselectable", js.undefined)
     

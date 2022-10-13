@@ -1,7 +1,7 @@
 organization := "org.scalablytyped"
 name := "eventemitter3"
-version := "0.0-unknown-06649d"
-scalaVersion := "3.2.0"
+version := "0.0-unknown-32b6e4"
+scalaVersion := "3.2.2-RC1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2")

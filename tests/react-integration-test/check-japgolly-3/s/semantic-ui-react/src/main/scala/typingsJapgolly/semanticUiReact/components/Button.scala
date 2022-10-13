@@ -25,44 +25,6 @@ import typingsJapgolly.react.anon.Html
 import typingsJapgolly.react.mod.CSSProperties
 import typingsJapgolly.react.mod.ReactNodeArray
 import typingsJapgolly.react.mod.ReactType
-import typingsJapgolly.react.reactStrings.`additions text`
-import typingsJapgolly.react.reactStrings.`inline`
-import typingsJapgolly.react.reactStrings.additions
-import typingsJapgolly.react.reactStrings.all
-import typingsJapgolly.react.reactStrings.ascending
-import typingsJapgolly.react.reactStrings.assertive
-import typingsJapgolly.react.reactStrings.both
-import typingsJapgolly.react.reactStrings.button
-import typingsJapgolly.react.reactStrings.copy
-import typingsJapgolly.react.reactStrings.date
-import typingsJapgolly.react.reactStrings.descending
-import typingsJapgolly.react.reactStrings.dialog
-import typingsJapgolly.react.reactStrings.execute
-import typingsJapgolly.react.reactStrings.grammar
-import typingsJapgolly.react.reactStrings.grid
-import typingsJapgolly.react.reactStrings.horizontal
-import typingsJapgolly.react.reactStrings.link
-import typingsJapgolly.react.reactStrings.list
-import typingsJapgolly.react.reactStrings.listbox
-import typingsJapgolly.react.reactStrings.location
-import typingsJapgolly.react.reactStrings.menu
-import typingsJapgolly.react.reactStrings.mixed
-import typingsJapgolly.react.reactStrings.move
-import typingsJapgolly.react.reactStrings.none
-import typingsJapgolly.react.reactStrings.off
-import typingsJapgolly.react.reactStrings.on
-import typingsJapgolly.react.reactStrings.other
-import typingsJapgolly.react.reactStrings.page
-import typingsJapgolly.react.reactStrings.polite
-import typingsJapgolly.react.reactStrings.popup
-import typingsJapgolly.react.reactStrings.removals
-import typingsJapgolly.react.reactStrings.reset
-import typingsJapgolly.react.reactStrings.spelling
-import typingsJapgolly.react.reactStrings.step
-import typingsJapgolly.react.reactStrings.submit
-import typingsJapgolly.react.reactStrings.text
-import typingsJapgolly.react.reactStrings.time
-import typingsJapgolly.react.reactStrings.tree
 import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonContentMod.ButtonContentProps
 import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
 import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.ButtonProps
@@ -74,19 +36,6 @@ import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticFLOATS
 import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticSIZES
 import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
 import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`google plus`
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.facebook
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.fade
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.instagram
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.linkedin
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.top
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.twitter
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.vertical
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.vk
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.youtube
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -147,17 +96,17 @@ object Button {
     
     inline def active(value: Boolean): this.type = set("active", value.asInstanceOf[js.Any])
     
-    inline def animated(value: Boolean | fade | vertical): this.type = set("animated", value.asInstanceOf[js.Any])
+    inline def animated(value: Boolean | "fade" | "vertical"): this.type = set("animated", value.asInstanceOf[js.Any])
     
     inline def `aria-activedescendant`(value: String): this.type = set("aria-activedescendant", value.asInstanceOf[js.Any])
     
     inline def `aria-atomic`(value: Boolean): this.type = set("aria-atomic", value.asInstanceOf[js.Any])
     
-    inline def `aria-autocomplete`(value: none | `inline` | list | both): this.type = set("aria-autocomplete", value.asInstanceOf[js.Any])
+    inline def `aria-autocomplete`(value: "none" | "inline" | "list" | "both"): this.type = set("aria-autocomplete", value.asInstanceOf[js.Any])
     
     inline def `aria-busy`(value: Boolean): this.type = set("aria-busy", value.asInstanceOf[js.Any])
     
-    inline def `aria-checked`(value: Boolean | mixed): this.type = set("aria-checked", value.asInstanceOf[js.Any])
+    inline def `aria-checked`(value: Boolean | "mixed"): this.type = set("aria-checked", value.asInstanceOf[js.Any])
     
     inline def `aria-colcount`(value: Double): this.type = set("aria-colcount", value.asInstanceOf[js.Any])
     
@@ -167,7 +116,7 @@ object Button {
     
     inline def `aria-controls`(value: String): this.type = set("aria-controls", value.asInstanceOf[js.Any])
     
-    inline def `aria-current`(value: Boolean | page | step | location | date | time): this.type = set("aria-current", value.asInstanceOf[js.Any])
+    inline def `aria-current`(value: Boolean | "page" | "step" | "location" | "date" | "time"): this.type = set("aria-current", value.asInstanceOf[js.Any])
     
     inline def `aria-describedby`(value: String): this.type = set("aria-describedby", value.asInstanceOf[js.Any])
     
@@ -175,7 +124,7 @@ object Button {
     
     inline def `aria-disabled`(value: Boolean): this.type = set("aria-disabled", value.asInstanceOf[js.Any])
     
-    inline def `aria-dropeffect`(value: none | copy | execute | link | move | popup): this.type = set("aria-dropeffect", value.asInstanceOf[js.Any])
+    inline def `aria-dropeffect`(value: "none" | "copy" | "execute" | "link" | "move" | "popup"): this.type = set("aria-dropeffect", value.asInstanceOf[js.Any])
     
     inline def `aria-errormessage`(value: String): this.type = set("aria-errormessage", value.asInstanceOf[js.Any])
     
@@ -185,11 +134,11 @@ object Button {
     
     inline def `aria-grabbed`(value: Boolean): this.type = set("aria-grabbed", value.asInstanceOf[js.Any])
     
-    inline def `aria-haspopup`(value: Boolean | menu | listbox | tree | grid | dialog): this.type = set("aria-haspopup", value.asInstanceOf[js.Any])
+    inline def `aria-haspopup`(value: Boolean | "menu" | "listbox" | "tree" | "grid" | "dialog"): this.type = set("aria-haspopup", value.asInstanceOf[js.Any])
     
     inline def `aria-hidden`(value: Boolean): this.type = set("aria-hidden", value.asInstanceOf[js.Any])
     
-    inline def `aria-invalid`(value: Boolean | grammar | spelling): this.type = set("aria-invalid", value.asInstanceOf[js.Any])
+    inline def `aria-invalid`(value: Boolean | "grammar" | "spelling"): this.type = set("aria-invalid", value.asInstanceOf[js.Any])
     
     inline def `aria-keyshortcuts`(value: String): this.type = set("aria-keyshortcuts", value.asInstanceOf[js.Any])
     
@@ -199,7 +148,7 @@ object Button {
     
     inline def `aria-level`(value: Double): this.type = set("aria-level", value.asInstanceOf[js.Any])
     
-    inline def `aria-live`(value: off | assertive | polite): this.type = set("aria-live", value.asInstanceOf[js.Any])
+    inline def `aria-live`(value: "off" | "assertive" | "polite"): this.type = set("aria-live", value.asInstanceOf[js.Any])
     
     inline def `aria-modal`(value: Boolean): this.type = set("aria-modal", value.asInstanceOf[js.Any])
     
@@ -207,7 +156,7 @@ object Button {
     
     inline def `aria-multiselectable`(value: Boolean): this.type = set("aria-multiselectable", value.asInstanceOf[js.Any])
     
-    inline def `aria-orientation`(value: horizontal | typingsJapgolly.react.reactStrings.vertical): this.type = set("aria-orientation", value.asInstanceOf[js.Any])
+    inline def `aria-orientation`(value: "horizontal" | "vertical"): this.type = set("aria-orientation", value.asInstanceOf[js.Any])
     
     inline def `aria-owns`(value: String): this.type = set("aria-owns", value.asInstanceOf[js.Any])
     
@@ -215,11 +164,11 @@ object Button {
     
     inline def `aria-posinset`(value: Double): this.type = set("aria-posinset", value.asInstanceOf[js.Any])
     
-    inline def `aria-pressed`(value: Boolean | mixed): this.type = set("aria-pressed", value.asInstanceOf[js.Any])
+    inline def `aria-pressed`(value: Boolean | "mixed"): this.type = set("aria-pressed", value.asInstanceOf[js.Any])
     
     inline def `aria-readonly`(value: Boolean): this.type = set("aria-readonly", value.asInstanceOf[js.Any])
     
-    inline def `aria-relevant`(value: additions | (`additions text`) | all | removals | text): this.type = set("aria-relevant", value.asInstanceOf[js.Any])
+    inline def `aria-relevant`(value: "additions" | ("additions text") | "all" | "removals" | "text"): this.type = set("aria-relevant", value.asInstanceOf[js.Any])
     
     inline def `aria-required`(value: Boolean): this.type = set("aria-required", value.asInstanceOf[js.Any])
     
@@ -235,7 +184,7 @@ object Button {
     
     inline def `aria-setsize`(value: Double): this.type = set("aria-setsize", value.asInstanceOf[js.Any])
     
-    inline def `aria-sort`(value: none | ascending | descending | other): this.type = set("aria-sort", value.asInstanceOf[js.Any])
+    inline def `aria-sort`(value: "none" | "ascending" | "descending" | "other"): this.type = set("aria-sort", value.asInstanceOf[js.Any])
     
     inline def `aria-valuemax`(value: Double): this.type = set("aria-valuemax", value.asInstanceOf[js.Any])
     
@@ -247,7 +196,7 @@ object Button {
     
     inline def as(value: Any): this.type = set("as", value.asInstanceOf[js.Any])
     
-    inline def attached(value: Boolean | left | right | top | bottom): this.type = set("attached", value.asInstanceOf[js.Any])
+    inline def attached(value: Boolean | "left" | "right" | "top" | "bottom"): this.type = set("attached", value.asInstanceOf[js.Any])
     
     inline def autoCapitalize(value: String): this.type = set("autoCapitalize", value.asInstanceOf[js.Any])
     
@@ -263,7 +212,9 @@ object Button {
     
     inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     
-    inline def color(value: SemanticCOLORS | facebook | (`google plus`) | vk | twitter | linkedin | instagram | youtube): this.type = set("color", value.asInstanceOf[js.Any])
+    inline def color(
+      value: SemanticCOLORS | "facebook" | ("google plus") | "vk" | "twitter" | "linkedin" | "instagram" | "youtube"
+    ): this.type = set("color", value.asInstanceOf[js.Any])
     
     inline def compact(value: Boolean): this.type = set("compact", value.asInstanceOf[js.Any])
     
@@ -365,7 +316,7 @@ object Button {
     
     inline def labelNull: this.type = set("label", null)
     
-    inline def labelPosition(value: right | left): this.type = set("labelPosition", value.asInstanceOf[js.Any])
+    inline def labelPosition(value: "right" | "left"): this.type = set("labelPosition", value.asInstanceOf[js.Any])
     
     inline def labelVarargs(value: (Empty | String | JsNumber | Element)*): this.type = set("label", js.Array(value*))
     
@@ -577,11 +528,11 @@ object Button {
     
     inline def toggle(value: Boolean): this.type = set("toggle", value.asInstanceOf[js.Any])
     
-    inline def `type`(value: submit | reset | button): this.type = set("type", value.asInstanceOf[js.Any])
+    inline def `type`(value: "submit" | "reset" | "button"): this.type = set("type", value.asInstanceOf[js.Any])
     
     inline def typeof(value: String): this.type = set("typeof", value.asInstanceOf[js.Any])
     
-    inline def unselectable(value: on | off): this.type = set("unselectable", value.asInstanceOf[js.Any])
+    inline def unselectable(value: "on" | "off"): this.type = set("unselectable", value.asInstanceOf[js.Any])
     
     inline def value(value: String | js.Array[String] | Double): this.type = set("value", value.asInstanceOf[js.Any])
     

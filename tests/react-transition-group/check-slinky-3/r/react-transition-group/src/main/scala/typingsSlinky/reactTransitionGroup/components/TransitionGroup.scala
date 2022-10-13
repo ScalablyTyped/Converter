@@ -4,7 +4,6 @@ import slinky.core.facade.ReactElement
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
 import typingsSlinky.reactTransitionGroup.anon.ChildFactory
-import typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.abbr
 import typingsSlinky.reactTransitionGroup.transitionGroupMod.ComponentTransitionGroupProps
 import typingsSlinky.reactTransitionGroup.transitionGroupMod.IntrinsicTransitionGroupProps
 import org.scalablytyped.runtime.StObject
@@ -48,15 +47,15 @@ object TransitionGroup {
       extends AnyVal
          with StBuildingComponent[tag.type, typingsSlinky.reactTransitionGroup.mod.TransitionGroup] {
       
-      inline def component(value: abbr): this.type = set("component", value.asInstanceOf[js.Any])
+      inline def component(value: "abbr"): this.type = set("component", value.asInstanceOf[js.Any])
     }
     
-    type Props = IntrinsicTransitionGroupProps[abbr] & (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)
+    type Props = IntrinsicTransitionGroupProps["abbr"] & (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)
     
     implicit def make(companion: IntrinsicTransitionGroupPropsAny.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
     
     def withProps(
-      p: IntrinsicTransitionGroupProps[abbr] & (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)
+      p: IntrinsicTransitionGroupProps["abbr"] & (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)
     ): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
 }
