@@ -7,15 +7,14 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-/* Inferred short module name */
-object mod extends Shortcut {
+object typesMod extends Shortcut {
   
-  @JSImport("vue", JSImport.Default)
+  @JSImport("vue/types", JSImport.Default)
   @js.native
   val default: VueConstructor[Vue] = js.native
   
   type _To = VueConstructor[Vue]
   
-  /* This means you don't have to write `default`, but can instead just say `mod.foo` */
+  /* This means you don't have to write `default`, but can instead just say `typesMod.foo` */
   override def _to: VueConstructor[Vue] = default
 }

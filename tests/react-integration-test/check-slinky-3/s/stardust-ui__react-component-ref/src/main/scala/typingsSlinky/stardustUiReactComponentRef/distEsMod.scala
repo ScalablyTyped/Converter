@@ -4,61 +4,60 @@ import slinky.core.ReactComponentClass
 import slinky.core.facade.ReactRef
 import typingsSlinky.stardustUiReactComponentRef.anon.Children
 import typingsSlinky.stardustUiReactComponentRef.anon.InnerRef
+import typingsSlinky.stardustUiReactComponentRef.distEsRefFindNodeMod.default
 import typingsSlinky.stardustUiReactComponentRef.distEsTypesMod.RefProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-/* Inferred short module name */
-object mod {
+object distEsMod {
   
-  @JSImport("@stardust-ui/react-component-ref", JSImport.Namespace)
+  @JSImport("@stardust-ui/react-component-ref/dist/es", JSImport.Namespace)
   @js.native
   val ^ : js.Any = js.native
   
-  @JSImport("@stardust-ui/react-component-ref", "Ref")
+  @JSImport("@stardust-ui/react-component-ref/dist/es", "Ref")
   @js.native
   val Ref: ReactComponentClass[RefProps] = js.native
   
-  @JSImport("@stardust-ui/react-component-ref", "RefFindNode")
+  @JSImport("@stardust-ui/react-component-ref/dist/es", "RefFindNode")
   @js.native
-  open class RefFindNode ()
-    extends typingsSlinky.stardustUiReactComponentRef.distEsMod.RefFindNode
+  open class RefFindNode () extends default
   /* static members */
   object RefFindNode {
     
-    @JSImport("@stardust-ui/react-component-ref", "RefFindNode")
+    @JSImport("@stardust-ui/react-component-ref/dist/es", "RefFindNode")
     @js.native
     val ^ : js.Any = js.native
     
-    @JSImport("@stardust-ui/react-component-ref", "RefFindNode.displayName")
+    @JSImport("@stardust-ui/react-component-ref/dist/es", "RefFindNode.displayName")
     @js.native
     def displayName: String = js.native
     inline def displayName_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("displayName")(x.asInstanceOf[js.Any])
     
-    @JSImport("@stardust-ui/react-component-ref", "RefFindNode.propTypes")
+    @JSImport("@stardust-ui/react-component-ref/dist/es", "RefFindNode.propTypes")
     @js.native
     def propTypes: Children | InnerRef = js.native
     inline def propTypes_=(x: Children | InnerRef): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("propTypes")(x.asInstanceOf[js.Any])
   }
   
-  @JSImport("@stardust-ui/react-component-ref", "RefForward")
+  @JSImport("@stardust-ui/react-component-ref/dist/es", "RefForward")
   @js.native
   open class RefForward ()
-    extends typingsSlinky.stardustUiReactComponentRef.distEsMod.RefForward
+    extends typingsSlinky.stardustUiReactComponentRef.distEsRefForwardMod.default
   /* static members */
   object RefForward {
     
-    @JSImport("@stardust-ui/react-component-ref", "RefForward")
+    @JSImport("@stardust-ui/react-component-ref/dist/es", "RefForward")
     @js.native
     val ^ : js.Any = js.native
     
-    @JSImport("@stardust-ui/react-component-ref", "RefForward.displayName")
+    @JSImport("@stardust-ui/react-component-ref/dist/es", "RefForward.displayName")
     @js.native
     def displayName: String = js.native
     inline def displayName_=(x: String): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("displayName")(x.asInstanceOf[js.Any])
     
-    @JSImport("@stardust-ui/react-component-ref", "RefForward.propTypes")
+    @JSImport("@stardust-ui/react-component-ref/dist/es", "RefForward.propTypes")
     @js.native
     def propTypes: Children | InnerRef = js.native
     inline def propTypes_=(x: Children | InnerRef): Unit = ^.asInstanceOf[js.Dynamic].updateDynamic("propTypes")(x.asInstanceOf[js.Any])
@@ -75,7 +74,7 @@ object mod {
   /** Checks that the passed object is a valid React ref object. */
   inline def isRefObject(ref: Any): /* is react.react.RefObject<any> */ Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("isRefObject")(ref.asInstanceOf[js.Any]).asInstanceOf[/* is react.react.RefObject<any> */ Boolean]
   
-  @JSImport("@stardust-ui/react-component-ref", "refPropType")
+  @JSImport("@stardust-ui/react-component-ref/dist/es", "refPropType")
   @js.native
   val refPropType: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ Any = js.native
   

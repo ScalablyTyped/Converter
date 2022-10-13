@@ -5,19 +5,18 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-/* Inferred short module name */
-object mod {
+object libMod {
   
   object either {
     
-    @JSImport("fp-ts", "either.URI")
+    @JSImport("fp-ts/lib", "either.URI")
     @js.native
     val URI: /* "Either" */ String = js.native
   }
   
   object task {
     
-    @JSImport("fp-ts", "task")
+    @JSImport("fp-ts/lib", "task")
     @js.native
     val ^ : js.Any = js.native
     
