@@ -15,8 +15,6 @@ object PathsFromTsLibSource {
          */
         case "amd" => true
         case "umd" => true
-        case "es"  => true
-        case "es6" => true
         /* DefinitelyTyped uses this pattern for newer versions of typescript. We just use the default */
         case TS() => true
         /* DefinitelyTyped uses this pattern for old versions of the library */

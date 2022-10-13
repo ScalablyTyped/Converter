@@ -5,12 +5,13 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
+/* Inferred short module name */
 object mod {
   
   object firestore {
     
-    inline def apply(): Firestore = ^.asInstanceOf[js.Dynamic].apply().asInstanceOf[Firestore]
-    inline def apply(str: String): Firestore = ^.asInstanceOf[js.Dynamic].apply(str.asInstanceOf[js.Any]).asInstanceOf[Firestore]
+    inline def apply(): typings.firebaseAdmin.libMod.firestore.Firestore = ^.asInstanceOf[js.Dynamic].apply().asInstanceOf[typings.firebaseAdmin.libMod.firestore.Firestore]
+    inline def apply(str: String): typings.firebaseAdmin.libMod.firestore.Firestore = ^.asInstanceOf[js.Dynamic].apply(str.asInstanceOf[js.Any]).asInstanceOf[typings.firebaseAdmin.libMod.firestore.Firestore]
     
     @JSImport("firebase-admin", "firestore")
     @js.native
@@ -23,24 +24,8 @@ object mod {
       * {@link https://firebase.google.com/docs/firestore/}
       */
     open class Firestore ()
-      extends StObject
-         with typings.googleCloudFirestore.FirebaseFirestore.Firestore {
+      extends typings.firebaseAdmin.libMod.firestore.Firestore {
       def this(settings: Settings) = this()
-      
-      /**
-        * Specifies custom settings to be used to configure the `Firestore`
-        * instance. Can only be invoked once and before any other Firestore
-        * method.
-        *
-        * If settings are provided via both `settings()` and the `Firestore`
-        * constructor, both settings objects are merged and any settings provided
-        * via `settings()` take precedence.
-        *
-        * @param {object} settings The settings to use for all Firestore
-        * operations.
-        */
-      /* CompleteClass */
-      override def settings(settings: Settings): Unit = js.native
     }
   }
 }

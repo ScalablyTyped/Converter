@@ -28,7 +28,64 @@ case class ProxyModule(
 }
 
 object ProxyModule {
-  val FromExports = Comments("/* from `exports` in `package.json` */\n")
+  val FromExports     = Comments("/* from `exports` in `package.json` */\n")
+  val TopLevelModule = Comments("/* Inferred short module name */\n")
+
+  /* some things kind of implicitly end up being the top-level module. this will add such a default module if none exist */
+  def topLevel(source: LibTsSource.FromFolder, existing: TsIdent => Boolean): Option[ProxyModule] = {
+    def fromTypingsJson(files: Option[IArray[String]]): IArray[InFile] =
+      files.getOrElse(IArray.Empty).collect {
+        case path if path.endsWith("typings.json") =>
+          val typingsJsonPath = source.folder.path / os.RelPath(path)
+          val typingsJson     = Json.force[TypingsJson](typingsJsonPath)
+          InFile(typingsJsonPath / os.up / typingsJson.main)
+      }
+
+    def fromFileEntry(files: Option[IArray[String]]): IArray[InFile] =
+      files.getOrElse(IArray.Empty).mapNotNone(file => LibraryResolver.file(source.folder, file))
+
+    def fromModuleDeclaration(files: Option[Map[String, String]]): IArray[InFile] = {
+      val files1 = files match {
+        case Some(files) => IArray.fromTraversable(files.values)
+        case None        => IArray.Empty
+      }
+
+      files1
+        .mapNotNone(file => LibraryResolver.file(source.folder, file))
+        .mapNotNone {
+          case existingFile if LibTsSource.hasTypescriptSources(existingFile.folder) => Some(existingFile)
+          case _                                                                     => None
+        }
+    }
+
+    val found = {
+      val fromTypings = {
+        val types = source.packageJsonOpt.flatMap(_.parsedTypes).orElse(source.packageJsonOpt.flatMap(_.parsedTypings))
+        IArray(
+          fromFileEntry(types),
+          fromTypingsJson(source.packageJsonOpt.flatMap(_.parsedTypings)),
+        ).flatten
+      }
+
+      if (fromTypings.nonEmpty) fromTypings
+      else fromModuleDeclaration(source.packageJsonOpt.flatMap(_.parsedModules))
+    }
+
+    val sorted = found.sortBy(inFile => (inFile.path.last.startsWith("index"), inFile.path.toString().length))
+    if (sorted.length > 1) {
+      print(0)
+    }
+    val maybeChosenFile =
+      sorted.lastOption
+
+    maybeChosenFile
+      .map { chosenFile =>
+        val fromModule = LibraryResolver.moduleNameFor(source, chosenFile)
+        val toModule   = TsIdentModule.fromLibrary(source.libName)
+        ProxyModule(TopLevelModule, source.libName, fromModule, toModule)
+      }
+      .filterNot(pm => existing(pm.toModule))
+  }
 
   def fromExports(
       source:   LibTsSource,

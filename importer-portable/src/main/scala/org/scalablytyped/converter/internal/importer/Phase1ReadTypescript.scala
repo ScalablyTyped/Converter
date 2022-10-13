@@ -54,11 +54,9 @@ class Phase1ReadTypescript(
               PathsFromTsLibSource.filesFrom(files.head.folder)
             case f @ LibTsSource.FromFolder(_, TsIdentLibrarySimple("typescript")) =>
               /* don't include std */
-              f.shortenedFiles
+              PathsFromTsLibSource.filesFrom(f.folder).filterNot(_.path.segments.contains("lib"))
             case f: LibTsSource.FromFolder =>
-              /* There are often whole trees parallel to what is specified in `typings` (or similar). This ignores them */
-              val bound = f.shortenedFiles.headOption.map(_.folder).getOrElse(f.folder)
-              PathsFromTsLibSource.filesFrom(bound)
+              PathsFromTsLibSource.filesFrom(f.folder)
           }
 
         val includedViaDirective = mutable.Set.empty[InFile]
@@ -84,9 +82,9 @@ class Phase1ReadTypescript(
                           LibraryResolver.file(resolve.stdLib.folder, s"lib.$value.d.ts").toRight(dir)
                       }
 
-                    val moduleNames = LibraryResolver.moduleNameFor(source, file)
+                    val moduleName = LibraryResolver.moduleNameFor(source, file)
 
-                    val withInferredModule = modules.InferredDefaultModule(parsed, moduleNames.head, logger)
+                    val withInferredModule = modules.InferredDefaultModule(parsed, moduleName, fileLogger)
 
                     withInferredModule.directives.foreach {
                       case dir @ Directive.TypesRef(value) =>
@@ -94,16 +92,16 @@ class Phase1ReadTypescript(
                           case Some(ResolvedModule.NotLocal(depSource, _)) =>
                             deps += depSource
                           case Some(ResolvedModule.Local(depSource, _)) =>
-                            logger.warn(s"unexpected typeref from local file $depSource")
+                            fileLogger.warn(s"unexpected typeref from local file $depSource")
                           case _ =>
-                            logger.warn(s"directives: couldn't resolve $dir")
+                            fileLogger.warn(s"directives: couldn't resolve $dir")
                         }
                       case _ => ()
                     }
 
                     /* Resolve all references to other modules in `from` clauses, rename modules */
                     val ResolveExternalReferences.Result(withExternals, resolvedModules, unresolvedModules) =
-                      ResolveExternalReferences(resolve, source, file.folder, withInferredModule, logger)
+                      ResolveExternalReferences(resolve, source, file.folder, withInferredModule, fileLogger)
 
                     resolvedModules.foreach {
                       case ResolvedModule.NotLocal(source, _) => deps += source
@@ -129,7 +127,7 @@ class Phase1ReadTypescript(
                         source.libName,
                         withOrigin,
                         unresolvedModules,
-                        logger,
+                        fileLogger,
                       )
 
                     inferredDepNames.foreach { libraryName =>
@@ -137,7 +135,7 @@ class Phase1ReadTypescript(
                         case Some(ResolvedModule.NotLocal(dep, _)) =>
                           deps += dep
                         case _ =>
-                          logger.warn(s"Couldn't resolve inferred dependency ${libraryName.value}")
+                          fileLogger.warn(s"Couldn't resolve inferred dependency ${libraryName.value}")
                       }
                     }
 
@@ -163,18 +161,10 @@ class Phase1ReadTypescript(
                           parsed
                       }
 
-                    val _3 = moduleNames match {
-                      case IArray.exactlyOne(_) => withInlined
-                      case more =>
-                        withInlined.copy(members = withInlined.members.map {
-                          case m: TsDeclModule if more.contains(m.name) =>
-                            m.copy(comments = m.comments + Marker.ModuleAliases(more.filterNot(_ === m.name)))
-                          case other => other
-                        })
-                    }
-                    val _4 = T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_3)
+                    val _3 =
+                      T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(withInlined)
 
-                    (_4, deps.result())
+                    (_3, deps.result())
                 }
               }
             }
@@ -212,7 +202,20 @@ class Phase1ReadTypescript(
         val flattened     = FlattenTrees(preparedFiles.map(_._1))
         val depsFromFiles = preparedFiles.foldLeft(Set.empty[LibTsSource]) { case (acc, (_, deps)) => acc ++ deps }
 
-        val withExportedModules = source.packageJsonOpt.flatMap(_.parsedExported).foldLeft(flattened) {
+        val topLevelProxyModule = {
+          val maybeProxy: Option[ProxyModule] =
+            source match {
+              case _:      LibTsSource.StdLibSource => None
+              case source: LibTsSource.FromFolder =>
+                ProxyModule.topLevel(source, existing = flattened.membersByName.contains)
+            }
+
+          maybeProxy.foldLeft(flattened) {
+            case (file, pm) => file.copy(members = pm.asModule +: file.members)
+          }
+        }
+
+        val withExportedModules = source.packageJsonOpt.flatMap(_.parsedExported).foldLeft(topLevelProxyModule) {
           case (file, exports) =>
             val proxyModules = ProxyModule.fromExports(
               source,
