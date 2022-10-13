@@ -52,7 +52,7 @@ object mod {
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ Any
   ] = js.native
   
-  inline def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91, starting with typingsSlinky.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.waiting, typingsSlinky.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.error, typingsSlinky.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.abort */ Any */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("useEventListener")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  inline def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91, starting with "waiting", "error", "abort" */ String */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("useEventListener")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
   
   @JSImport("@stardust-ui/react-component-event-listener", "windowRef")
   @js.native

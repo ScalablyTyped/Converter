@@ -10,10 +10,6 @@ import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandCol
 import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
 import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
 import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticWIDTHS
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.bottom
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.left
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.right
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.top
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -25,7 +21,7 @@ open class SharedBuilder_ButtonGroupProps1675589688 (val args: js.Array[Any])
   
   inline def as(value: Any): this.type = set("as", value.asInstanceOf[js.Any])
   
-  inline def attached(value: Boolean | left | right | top | bottom): this.type = set("attached", value.asInstanceOf[js.Any])
+  inline def attached(value: Boolean | "left" | "right" | "top" | "bottom"): this.type = set("attached", value.asInstanceOf[js.Any])
   
   inline def basic(value: Boolean): this.type = set("basic", value.asInstanceOf[js.Any])
   

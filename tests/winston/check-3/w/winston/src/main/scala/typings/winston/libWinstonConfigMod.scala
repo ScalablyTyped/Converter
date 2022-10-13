@@ -2,7 +2,6 @@ package typings.winston
 
 import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
-import typings.winston.winstonStrings.bar
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -17,7 +16,7 @@ object libWinstonConfigMod extends Shortcut {
   
   trait Config extends StObject {
     
-    var foo: bar
+    var foo: "bar"
   }
   object Config {
     
@@ -28,7 +27,7 @@ object libWinstonConfigMod extends Shortcut {
     
     extension [Self <: Config](x: Self) {
       
-      inline def setFoo(value: bar): Self = StObject.set(x, "foo", value.asInstanceOf[js.Any])
+      inline def setFoo(value: "bar"): Self = StObject.set(x, "foo", value.asInstanceOf[js.Any])
     }
   }
   

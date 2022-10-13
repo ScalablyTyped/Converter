@@ -320,21 +320,15 @@ object mod {
     var rootRef: ReactRef[HTMLElement] = js.native
   }
   
-  /* Rewritten from type alias, can be one of: 
-    - typingsSlinky.reactDropzone.reactDropzoneStrings.multiple
-    - typingsSlinky.reactDropzone.reactDropzoneStrings.onDragEnter
-    - typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver
-    - typingsSlinky.reactDropzone.reactDropzoneStrings.onDragLeave
-  */
-  trait PropTypes extends StObject
   object PropTypes {
     
-    inline def multiple: typingsSlinky.reactDropzone.reactDropzoneStrings.multiple = "multiple".asInstanceOf[typingsSlinky.reactDropzone.reactDropzoneStrings.multiple]
+    inline def multiple: "multiple" = "multiple".asInstanceOf["multiple"]
     
-    inline def onDragEnter: typingsSlinky.reactDropzone.reactDropzoneStrings.onDragEnter = "onDragEnter".asInstanceOf[typingsSlinky.reactDropzone.reactDropzoneStrings.onDragEnter]
+    inline def onDragEnter: "onDragEnter" = "onDragEnter".asInstanceOf["onDragEnter"]
     
-    inline def onDragLeave: typingsSlinky.reactDropzone.reactDropzoneStrings.onDragLeave = "onDragLeave".asInstanceOf[typingsSlinky.reactDropzone.reactDropzoneStrings.onDragLeave]
+    inline def onDragLeave: "onDragLeave" = "onDragLeave".asInstanceOf["onDragLeave"]
     
-    inline def onDragOver: typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver = "onDragOver".asInstanceOf[typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver]
+    inline def onDragOver: "onDragOver" = "onDragOver".asInstanceOf["onDragOver"]
   }
+  type PropTypes = "multiple" | "onDragEnter" | "onDragOver" | "onDragLeave"
 }

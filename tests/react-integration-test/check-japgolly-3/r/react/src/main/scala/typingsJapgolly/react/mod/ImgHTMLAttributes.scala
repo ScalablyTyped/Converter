@@ -1,11 +1,5 @@
 package typingsJapgolly.react.mod
 
-import typingsJapgolly.react.reactStrings._empty
-import typingsJapgolly.react.reactStrings.`use-credentials`
-import typingsJapgolly.react.reactStrings.anonymous
-import typingsJapgolly.react.reactStrings.async
-import typingsJapgolly.react.reactStrings.auto
-import typingsJapgolly.react.reactStrings.sync
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -16,9 +10,9 @@ trait ImgHTMLAttributes[T]
   
   var alt: js.UndefOr[String] = js.undefined
   
-  var crossOrigin: js.UndefOr[anonymous | `use-credentials` | _empty] = js.undefined
+  var crossOrigin: js.UndefOr["anonymous" | "use-credentials" | ""] = js.undefined
   
-  var decoding: js.UndefOr[async | auto | sync] = js.undefined
+  var decoding: js.UndefOr["async" | "auto" | "sync"] = js.undefined
   
   var height: js.UndefOr[Double | String] = js.undefined
   
@@ -45,11 +39,11 @@ object ImgHTMLAttributes {
     
     inline def setAltUndefined: Self = StObject.set(x, "alt", js.undefined)
     
-    inline def setCrossOrigin(value: anonymous | `use-credentials` | _empty): Self = StObject.set(x, "crossOrigin", value.asInstanceOf[js.Any])
+    inline def setCrossOrigin(value: "anonymous" | "use-credentials" | ""): Self = StObject.set(x, "crossOrigin", value.asInstanceOf[js.Any])
     
     inline def setCrossOriginUndefined: Self = StObject.set(x, "crossOrigin", js.undefined)
     
-    inline def setDecoding(value: async | auto | sync): Self = StObject.set(x, "decoding", value.asInstanceOf[js.Any])
+    inline def setDecoding(value: "async" | "auto" | "sync"): Self = StObject.set(x, "decoding", value.asInstanceOf[js.Any])
     
     inline def setDecodingUndefined: Self = StObject.set(x, "decoding", js.undefined)
     

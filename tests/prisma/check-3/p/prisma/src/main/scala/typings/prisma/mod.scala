@@ -1,6 +1,5 @@
 package typings.prisma
 
-import typings.prisma.prismaStrings.PrismaClientPromise
 import typings.std.Promise
 import typings.std.PromiseLike
 import org.scalablytyped.runtime.StObject
@@ -31,7 +30,7 @@ object mod {
     def `then`[TResult1, TResult2](onfulfilled: Unit, onrejected: js.Function1[/* reason */ Any, TResult2 | PromiseLike[TResult2]]): js.Promise[TResult1 | TResult2] = js.native
     
     @JSName(js.Symbol.toStringTag)
-    val toStringTag: PrismaClientPromise = js.native
+    val toStringTag: "PrismaClientPromise" = js.native
   }
   
   @js.native

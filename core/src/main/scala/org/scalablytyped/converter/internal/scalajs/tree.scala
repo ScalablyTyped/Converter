@@ -34,6 +34,9 @@ sealed trait HasAnnotations { self: Tree =>
       }
       .getOrElse(name)
 
+  final def targetName: Name =
+    annotations.collectFirst { case x: Annotation.TargetName => Name(x.name) }.getOrElse(name)
+
   final def location: Option[LocationAnnotation] =
     annotations.collectFirst {
       case x: LocationAnnotation => x
@@ -579,6 +582,18 @@ object ExprTree {
   object Lit {
     implicit val encodes: Encoder[Lit] = io.circe013.generic.semiauto.deriveEncoder
     implicit val decodes: Decoder[Lit] = io.circe013.generic.semiauto.deriveDecoder
+
+    def unapply(tpe: TypeRef): Option[Lit] = {
+      val fromComment = tpe.comments.extract { case Marker.WasLiteral(lit) => lit }.map { case (lit, _) => lit }
+      val fromType = tpe match {
+        case TypeRef.StringLiteral(x)  => Some(StringLit(x))
+        case TypeRef.DoubleLiteral(x)  => Some(DoubleLit(x))
+        case TypeRef.IntLiteral(x)     => Some(IntLit(x))
+        case TypeRef.BooleanLiteral(x) => Some(BooleanLit(x.toBoolean))
+        case _                         => None
+      }
+      fromComment.orElse(fromType)
+    }
   }
 
   case class BooleanLit(value: Boolean) extends Lit

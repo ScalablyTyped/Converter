@@ -1,10 +1,5 @@
 package typingsSlinky.react.mod
 
-import typingsSlinky.react.reactStrings.center
-import typingsSlinky.react.reactStrings.char
-import typingsSlinky.react.reactStrings.justify
-import typingsSlinky.react.reactStrings.left
-import typingsSlinky.react.reactStrings.right
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -13,7 +8,7 @@ trait ThHTMLAttributes[T]
   extends StObject
      with HTMLAttributes[T] {
   
-  var align: js.UndefOr[left | center | right | justify | char] = js.undefined
+  var align: js.UndefOr["left" | "center" | "right" | "justify" | "char"] = js.undefined
   
   var colSpan: js.UndefOr[Double] = js.undefined
   
@@ -32,7 +27,7 @@ object ThHTMLAttributes {
   
   extension [Self <: ThHTMLAttributes[?], T](x: Self & ThHTMLAttributes[T]) {
     
-    inline def setAlign(value: left | center | right | justify | char): Self = StObject.set(x, "align", value.asInstanceOf[js.Any])
+    inline def setAlign(value: "left" | "center" | "right" | "justify" | "char"): Self = StObject.set(x, "align", value.asInstanceOf[js.Any])
     
     inline def setAlignUndefined: Self = StObject.set(x, "align", js.undefined)
     

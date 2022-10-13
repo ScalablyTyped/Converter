@@ -14,16 +14,6 @@ import typingsJapgolly.react.mod.ReactNodeArray
 import typingsJapgolly.react.mod.ReactType
 import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.HtmlInputrops
 import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`left corner`
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`right corner`
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.big
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.huge
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.large
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.massive
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.mini
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.small
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -73,7 +63,7 @@ object distCommonjsElementsInputInputMod {
     var action: js.UndefOr[Any | Boolean] = js.undefined
     
     /** An action can appear along side an Input on the left or right. */
-    var actionPosition: js.UndefOr[left] = js.undefined
+    var actionPosition: js.UndefOr["left"] = js.undefined
     
     /** An element type to render as (string or function). */
     var as: js.UndefOr[Any] = js.undefined
@@ -91,7 +81,7 @@ object distCommonjsElementsInputInputMod {
     var icon: js.UndefOr[Any | SemanticShorthandItem[InputProps]] = js.undefined
     
     /** An Icon can appear inside an Input on the left. */
-    var iconPosition: js.UndefOr[left] = js.undefined
+    var iconPosition: js.UndefOr["left"] = js.undefined
     
     /** Shorthand for creating the HTML Input. */
     var input: js.UndefOr[SemanticShorthandItem[HtmlInputrops]] = js.undefined
@@ -107,7 +97,7 @@ object distCommonjsElementsInputInputMod {
       ] = js.undefined
     
     /** A Label can appear outside an Input on the left or right. */
-    var labelPosition: js.UndefOr[left | right | (`left corner`) | (`right corner`)] = js.undefined
+    var labelPosition: js.UndefOr["left" | "right" | ("left corner") | ("right corner")] = js.undefined
     
     /** An Icon Input field can show that it is currently loading data. */
     var loading: js.UndefOr[Boolean] = js.undefined
@@ -125,7 +115,7 @@ object distCommonjsElementsInputInputMod {
     
     /** An Input can vary in size. */
     @JSName("size")
-    var size_StrictInputProps: js.UndefOr[mini | small | large | big | huge | massive] = js.undefined
+    var size_StrictInputProps: js.UndefOr["mini" | "small" | "large" | "big" | "huge" | "massive"] = js.undefined
     
     /** An Input can receive focus. */
     @JSName("tabIndex")
@@ -145,7 +135,7 @@ object distCommonjsElementsInputInputMod {
       
       inline def setAction(value: Any | Boolean): Self = StObject.set(x, "action", value.asInstanceOf[js.Any])
       
-      inline def setActionPosition(value: left): Self = StObject.set(x, "actionPosition", value.asInstanceOf[js.Any])
+      inline def setActionPosition(value: "left"): Self = StObject.set(x, "actionPosition", value.asInstanceOf[js.Any])
       
       inline def setActionPositionUndefined: Self = StObject.set(x, "actionPosition", js.undefined)
       
@@ -175,7 +165,7 @@ object distCommonjsElementsInputInputMod {
       
       inline def setIconNull: Self = StObject.set(x, "icon", null)
       
-      inline def setIconPosition(value: left): Self = StObject.set(x, "iconPosition", value.asInstanceOf[js.Any])
+      inline def setIconPosition(value: "left"): Self = StObject.set(x, "iconPosition", value.asInstanceOf[js.Any])
       
       inline def setIconPositionUndefined: Self = StObject.set(x, "iconPosition", js.undefined)
       
@@ -217,7 +207,7 @@ object distCommonjsElementsInputInputMod {
       
       inline def setLabelNull: Self = StObject.set(x, "label", null)
       
-      inline def setLabelPosition(value: left | right | (`left corner`) | (`right corner`)): Self = StObject.set(x, "labelPosition", value.asInstanceOf[js.Any])
+      inline def setLabelPosition(value: "left" | "right" | ("left corner") | ("right corner")): Self = StObject.set(x, "labelPosition", value.asInstanceOf[js.Any])
       
       inline def setLabelPositionUndefined: Self = StObject.set(x, "labelPosition", js.undefined)
       
@@ -235,7 +225,7 @@ object distCommonjsElementsInputInputMod {
       
       inline def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       
-      inline def setSize(value: mini | small | large | big | huge | massive): Self = StObject.set(x, "size", value.asInstanceOf[js.Any])
+      inline def setSize(value: "mini" | "small" | "large" | "big" | "huge" | "massive"): Self = StObject.set(x, "size", value.asInstanceOf[js.Any])
       
       inline def setSizeUndefined: Self = StObject.set(x, "size", js.undefined)
       

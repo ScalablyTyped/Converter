@@ -67,12 +67,8 @@ object CreatorMethod {
           ObjectUpdater.Mutator(asExpr),
           ParamTree(name, isImplicit = false, isVal = false, tpe, NotImplemented, NoComments),
         )
-
       // required literals
-      case prop @ Prop.Normal(Prop.Variant(tpe, _, _, _), _, Optionality.No, _, _)
-          if tpe.comments.has[Marker.WasLiteral] =>
-        val literal = tpe.comments.extract { case Marker.WasLiteral(lit) => lit }.get._1
-
+      case prop @ Prop.Normal(Prop.Variant(ExprTree.Lit(literal), _, _, _), _, Optionality.No, _, _) =>
         Const(requiredProp(prop, literal))
 
       // required props
@@ -102,10 +98,7 @@ object CreatorMethod {
           ParamTree(name, isImplicit = false, isVal = false, tpe, default, NoComments),
         )
 
-      case prop @ Prop.Normal(Prop.Variant(tpe, _, _, _), _, Optionality.No, _, _)
-          if tpe.comments.has[Marker.WasLiteral] =>
-        val lit = tpe.comments.extract { case Marker.WasLiteral(lit) => lit }.get._1
-
+      case prop @ Prop.Normal(Prop.Variant(ExprTree.Lit(lit), _, _, _), _, Optionality.No, _, _) =>
         Const(requiredProp(prop, lit))
 
       case prop @ Prop.Normal(Prop.Variant(tpe, asExpr, _, _), _, optionality, _, _) =>

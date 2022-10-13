@@ -5,12 +5,6 @@ import typingsSlinky.react.mod.Component
 import typingsSlinky.react.mod.HTMLProps
 import typingsSlinky.reactBootstrap.libButtonGroupMod.ButtonGroupProps
 import typingsSlinky.reactBootstrap.mod.Omit
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.`type`
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.checkbox
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.defaultValue
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.onChange
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.radio
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.value
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -61,7 +55,7 @@ object libToggleButtonGroupMod {
     
     var onChange: js.UndefOr[js.Function1[/* values */ js.Array[Any], Unit]] = js.undefined
     
-    var `type`: checkbox
+    var `type`: "checkbox"
   }
   object CheckboxProps {
     
@@ -81,7 +75,7 @@ object libToggleButtonGroupMod {
       
       inline def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       
-      inline def setType(value: checkbox): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setType(value: "checkbox"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
@@ -92,7 +86,7 @@ object libToggleButtonGroupMod {
     
     var onChange: js.UndefOr[js.Function1[/* value */ Any, Unit]] = js.undefined
     
-    var `type`: radio
+    var `type`: "radio"
   }
   object RadioProps {
     
@@ -110,7 +104,7 @@ object libToggleButtonGroupMod {
       
       inline def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       
-      inline def setType(value: radio): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setType(value: "radio"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
@@ -125,5 +119,5 @@ object libToggleButtonGroupMod {
   - react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.ToggleButtonGroup
   - react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.ToggleButtonGroupProps
   */
-  type ToggleButtonGroupProps = (RadioProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[Any], defaultValue | `type` | value | onChange])) | (CheckboxProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[Any], defaultValue | `type` | value | onChange]))
+  type ToggleButtonGroupProps = (RadioProps & BaseProps & (Omit[ButtonGroupProps, "onChange"]) & (Omit[HTMLProps[Any], "defaultValue" | "type" | "value" | "onChange"])) | (CheckboxProps & BaseProps & (Omit[ButtonGroupProps, "onChange"]) & (Omit[HTMLProps[Any], "defaultValue" | "type" | "value" | "onChange"]))
 }
