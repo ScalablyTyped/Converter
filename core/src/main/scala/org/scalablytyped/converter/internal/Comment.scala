@@ -21,7 +21,6 @@ object Marker {
   case object HasClassParent extends Marker
 
   case class NameHint(value:        String) extends Marker
-  case class ModuleAliases(aliases: IArray[TsIdentModule]) extends Marker
   case class WasLiteral(lit:        ExprTree.Lit) extends Marker
   case class WasUnion(related:      IArray[TypeRef]) extends Marker
 

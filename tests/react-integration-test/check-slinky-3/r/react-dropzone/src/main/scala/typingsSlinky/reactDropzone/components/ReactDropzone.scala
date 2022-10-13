@@ -6,10 +6,10 @@ import typingsSlinky.StBuildingComponent
 import typingsSlinky.react.mod.DragEvent
 import typingsSlinky.react.mod.RefAttributes
 import typingsSlinky.react.mod.global.JSX.Element
-import typingsSlinky.reactDropzone.mod.DropEvent
-import typingsSlinky.reactDropzone.mod.DropzoneProps
-import typingsSlinky.reactDropzone.mod.DropzoneRef
-import typingsSlinky.reactDropzone.mod.DropzoneState
+import typingsSlinky.reactDropzone.typingsReactDropzoneMod.DropEvent
+import typingsSlinky.reactDropzone.typingsReactDropzoneMod.DropzoneProps
+import typingsSlinky.reactDropzone.typingsReactDropzoneMod.DropzoneRef
+import typingsSlinky.reactDropzone.typingsReactDropzoneMod.DropzoneState
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

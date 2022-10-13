@@ -17,7 +17,7 @@ class LibraryResolver(
     value match {
       case LocalPath(localPath) =>
         file(folder, localPath).map { inFile =>
-          ResolvedModule.Local(inFile, LibraryResolver.moduleNameFor(source, inFile).head)
+          ResolvedModule.Local(inFile, LibraryResolver.moduleNameFor(source, inFile))
         }
       case globalRef =>
         val modName = ModuleNameParser(globalRef.split("/").to[List], keepIndexFragment = true)
@@ -56,44 +56,16 @@ object LibraryResolver {
   case class Ignored(name:      TsIdentLibrary) extends Res[Nothing]
   case class NotAvailable(name: TsIdentLibrary) extends Res[Nothing]
 
-  def moduleNameFor(source: LibTsSource, file: InFile): IArray[TsIdentModule] = {
-    val shortened: Option[TsIdentModule] =
-      if (source.shortenedFiles.contains(file)) {
-        source.libName match {
-          case TsIdentLibraryScoped(scope, name) =>
-            Some(TsIdentModule(Some(scope), List(name)))
-          case TsIdentLibrarySimple(value) =>
-            Some(TsIdentModule(None, value :: Nil))
-        }
-      } else None
-
-    val longName: TsIdentModule = {
-      val keepIndexPath = file.path match {
-        case base / segment / "index.d.ts" => files.exists(base / segment.concat(".d.ts"))
-        case _                             => false
-      }
-
-      ModuleNameParser(
-        source.libName.`__value` +: file.path.relativeTo(source.folder.path).segments.to[List],
-        keepIndexPath,
-      )
+  def moduleNameFor(source: LibTsSource, file: InFile): TsIdentModule = {
+    val keepIndexPath = file.path match {
+      case base / segment / "index.d.ts" => files.exists(base / segment.concat(".d.ts"))
+      case _                             => false
     }
 
-    val ret = IArray.fromOptions(shortened, Some(longName))
-
-    /* some libraries contain multiple directory trees with type definitions, and refer to just one of them through
-     * `typings` in package.json for instance.
-     *
-     * Remarkably it can reach into one of the other trees even if the current tree has everything needed.
-     * This resolves the most common case, and fixes antd 4 in particular */
-    val inParallelDirectory = ret.collect {
-      case TsIdentModule(scopeOpt, fragments) if fragments.contains("lib") =>
-        TsIdentModule(scopeOpt, fragments.map { case "lib" => "es"; case other => other })
-      case TsIdentModule(scopeOpt, fragments) if fragments.contains("es") =>
-        TsIdentModule(scopeOpt, fragments.map { case "es" => "lib"; case other => other })
-    }
-
-    ret ++ inParallelDirectory
+    ModuleNameParser(
+      source.libName.`__value` +: file.path.relativeTo(source.folder.path).segments.to[List],
+      keepIndexPath,
+    )
   }
 
   def file(within: InFolder, fragment: String): Option[InFile] =
