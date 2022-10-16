@@ -94,7 +94,7 @@ class Phase1ReadTypescript(
                           case Some(ResolvedModule.NotLocal(depSource, _)) =>
                             deps += depSource
                           case Some(ResolvedModule.Local(depSource, _)) =>
-                            logger.fatal(s"unexpected typeref from local file $depSource")
+                            logger.warn(s"unexpected typeref from local file $depSource")
                           case _ =>
                             logger.warn(s"directives: couldn't resolve $dir")
                         }
