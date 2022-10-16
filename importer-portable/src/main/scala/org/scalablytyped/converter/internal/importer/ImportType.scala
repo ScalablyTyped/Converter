@@ -54,8 +54,8 @@ class ImportType(stdNames: QualifiedName.StdNames) {
     )
   }
 
-  def apply(_scope: TsTreeScope, importName: AdaptiveNamingImport)(t1: TsType): TypeRef = {
-    val scope = _scope / t1
+  def apply(outerScope: TsTreeScope, importName: AdaptiveNamingImport)(t1: TsType): TypeRef = {
+    val scope = outerScope / t1
     t1 match {
       case TsTypeRef(cs, TsQIdent.Std.Readonly, IArray.exactlyOne(one)) =>
         val withComments = one match {
@@ -66,7 +66,17 @@ class ImportType(stdNames: QualifiedName.StdNames) {
         apply(scope, importName)(withComments)
 
       case TsTypeRef(cs, base: TsQIdent, targs: IArray[TsType]) =>
+        def willBeVal: Boolean =
+          outerScope.stack.headOption match {
+            case Some(_: TsDeclVar) => true
+            case _ => false
+          }
+
         base match {
+          // val x: Unit = js.native is not legal.
+          case TsQIdent.undefined if willBeVal =>
+            TypeRef.Any.withComments(Comments("/* undefined */")).withComments(cs)
+
           case TsQIdent.any | TsQIdent.unknown =>
             TypeRef.Any.withComments(cs)
 
