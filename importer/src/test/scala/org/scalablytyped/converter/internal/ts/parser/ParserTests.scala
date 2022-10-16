@@ -3085,7 +3085,7 @@ export {};
   }
 
   test("asserts type is not typeref") {
-    val a = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("a"))), IArray())
+    val a = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("a"))), Empty)
     val repeatedA = TsTypeRepeated(
       TsTypeRef(
         NoComments,
@@ -3111,8 +3111,8 @@ export {};
   }
 
   test("+readonly") {
-    val O = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("O"))), IArray())
-    val K = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), IArray())
+    val O = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("O"))), Empty)
+    val K = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), Empty)
     shouldParseAs(
       """declare type ReadonlyDeep<O> = {
         |    +readonly [K in keyof O]: O[K] extends BuiltIn ? O[K] : ReadonlyDeep<O[K]>;
@@ -3139,7 +3139,7 @@ export {};
               TsTypeConditional(
                 TsTypeExtends(
                   TsTypeLookup(O, K),
-                  TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("BuiltIn"))), IArray()),
+                  TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("BuiltIn"))), Empty),
                 ),
                 TsTypeLookup(O, K),
                 TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("ReadonlyDeep"))), IArray(TsTypeLookup(O, K))),
@@ -3178,6 +3178,147 @@ export {};
           Zero,
           CodePath.NoPath,
         ),
+      ),
+    )
+  }
+
+  test("`[` after newline should not be joined to preceding type") {
+    val FormDataEntryValue = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("FormDataEntryValue"))), Empty)
+    val SpecIterableIterator = TsTypeRef(
+      NoComments,
+      TsQIdent(IArray(TsIdentSimple("SpecIterableIterator"))),
+      IArray(TsTypeTuple(IArray(TsTupleElement(None, TsTypeRef.string), TsTupleElement(None, FormDataEntryValue)))),
+    )
+
+    shouldParseAs(
+      """class Foo {
+        |  entries: () => SpecIterableIterator<[string, FormDataEntryValue]>
+        |
+        |  /**
+        |   * An alias for FormData#entries()
+        |   */
+        |  [Symbol.iterator]: () => SpecIterableIterator<[string, FormDataEntryValue]>
+        |}""".stripMargin,
+      TsParser.tsDeclClass,
+    )(
+      TsDeclClass(
+        NoComments,
+        false,
+        false,
+        TsIdentSimple("Foo"),
+        Empty,
+        None,
+        Empty,
+        IArray(
+          TsMemberProperty(
+            NoComments,
+            TsProtectionLevel.Default,
+            TsIdentSimple("entries"),
+            Some(TsTypeFunction(TsFunSig(NoComments, Empty, Empty, Some(SpecIterableIterator)))),
+            None,
+            isStatic   = false,
+            isReadOnly = false,
+          ),
+          TsMemberIndex(
+            NoComments,
+            isReadOnly = false,
+            TsProtectionLevel.Default,
+            Indexing.Single(TsQIdent(IArray(TsIdentSimple("Symbol"), TsIdentSimple("iterator")))),
+            Some(TsTypeFunction(TsFunSig(NoComments, Empty, Empty, Some(SpecIterableIterator)))),
+          ),
+        ),
+        JsLocation.Zero,
+        CodePath.NoPath,
+      ),
+    )
+  }
+
+  test("`<` after newline should not be joined to preceding type") {
+    val S              = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("S"))), Empty)
+    val A              = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("A"))), Empty)
+    val Ext            = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Ext"))), Empty)
+    val StateExt       = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("StateExt"))), Empty)
+    val StoreEnhancer1 = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("StoreEnhancer"))), IArray(Ext))
+    val StoreEnhancer2 = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("StoreEnhancer"))), IArray(Ext, StateExt))
+    val Action         = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Action"))), Empty)
+    val Reducer        = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Reducer"))), IArray(S, A))
+    val PreloadedState = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("PreloadedState"))), IArray(S))
+    val Store = TsTypeRef(
+      NoComments,
+      TsQIdent(IArray(TsIdentSimple("Store"))),
+      IArray(TsTypeIntersect(IArray(S, StateExt)), A),
+    )
+
+    val tparams = IArray(
+      TsTypeParam(NoComments, TsIdentSimple("S"), None, None),
+      TsTypeParam(NoComments, TsIdentSimple("A"), Some(Action), None),
+      TsTypeParam(NoComments, TsIdentSimple("Ext"), None, None),
+      TsTypeParam(NoComments, TsIdentSimple("StateExt"), None, None),
+    )
+
+    shouldParseAs(
+      """interface StoreCreator {
+        |  <S, A extends Action, Ext, StateExt>(
+        |    reducer: Reducer<S, A>,
+        |    enhancer?: StoreEnhancer<Ext, StateExt>
+        |  ): Store<S & StateExt, A> & Ext
+        |  <S, A extends Action, Ext, StateExt>(
+        |    reducer: Reducer<S, A>,
+        |    preloadedState?: PreloadedState<S>,
+        |    enhancer?: StoreEnhancer<Ext>
+        |  ): Store<S & StateExt, A> & Ext
+        |}
+        |""".stripMargin,
+      TsParser.tsDeclInterface,
+    )(
+      TsDeclInterface(
+        NoComments,
+        false,
+        TsIdentSimple("StoreCreator"),
+        Empty,
+        Empty,
+        IArray(
+          TsMemberCall(
+            NoComments,
+            TsProtectionLevel.Default,
+            TsFunSig(
+              NoComments,
+              tparams,
+              IArray(
+                TsFunParam(NoComments, TsIdentSimple("reducer"), Some(Reducer)),
+                TsFunParam(
+                  NoComments,
+                  TsIdentSimple("enhancer"),
+                  Some(TsTypeUnion(IArray(StoreEnhancer2, TsTypeRef.undefined))),
+                ),
+              ),
+              Some(TsTypeIntersect(IArray(Store, Ext))),
+            ),
+          ),
+          TsMemberCall(
+            NoComments,
+            TsProtectionLevel.Default,
+            TsFunSig(
+              NoComments,
+              tparams,
+              IArray(
+                TsFunParam(NoComments, TsIdentSimple("reducer"), Some(Reducer)),
+                TsFunParam(
+                  NoComments,
+                  TsIdentSimple("preloadedState"),
+                  Some(TsTypeUnion(IArray(PreloadedState, TsTypeRef.undefined))),
+                ),
+                TsFunParam(
+                  NoComments,
+                  TsIdentSimple("enhancer"),
+                  Some(TsTypeUnion(IArray(StoreEnhancer1, TsTypeRef.undefined))),
+                ),
+              ),
+              Some(TsTypeIntersect(IArray(Store, Ext))),
+            ),
+          ),
+        ),
+        CodePath.NoPath,
       ),
     )
   }

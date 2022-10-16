@@ -8,10 +8,9 @@ package object parser {
     val BOM = "\uFEFF"
     val s1  = new String(bytes, constants.Utf8)
     val s2  = if (s1.startsWith(BOM)) s1.replace(BOM, "") else s1
-    val s3  = Patches(inFile, s2)
-    val p   = new TsParser(Some((inFile.path, s3.length)))
+    val p   = new TsParser(Some((inFile.path, s2.length)))
 
-    p(s3) match {
+    p(s2) match {
       case p.Success(t, _) =>
         Right(t)
 

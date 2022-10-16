@@ -3,7 +3,7 @@ package ts
 package parser
 
 import scala.util.parsing.combinator.syntactical._
-import scala.util.parsing.input.{OffsetPosition, Reader}
+import scala.util.parsing.input.{OffsetPosition, Positional, Reader}
 
 object TsParser extends TsParser(None)
 
@@ -43,6 +43,19 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
             case _ => p(in)
           }
       case None => p
+    }
+
+  case class WithPos[T](value: T) extends Positional
+
+  def notAfterNewline[T](p: Parser[T]): Parser[T] =
+    positioned(p.map(WithPos.apply)).flatMap { positionedValue =>
+      positionedValue.pos match {
+        case pos: OffsetPosition =>
+          val pre = pos.lineContents.take(pos.column - 1)
+          if (pre.trim.isEmpty) failure(s"`${positionedValue.value}` should not appear immediately after newline")
+          else success(positionedValue.value)
+        case _ => sys.error("expected position")
+      }
     }
 
   def apply(content: String): ParseResult[TsParsedFile] =
@@ -474,7 +487,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val tsType: Parser[TsType] = {
     val tsTypeLookupAndArray: Parser[TsType] = memo {
-      baseTypeDesc ~ rep("[" ~> tsType.? <~ "]") ^^ {
+      baseTypeDesc ~ rep(notAfterNewline("[") ~> tsType.? <~ "]") ^^ {
         case base ~ typeLookups =>
           typeLookups.foldLeft(base) {
             case (elem, Some(key)) => TsTypeLookup(elem, key)
@@ -527,7 +540,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val tsTypeRef: Parser[TsTypeRef] = {
     val typeArgs: Parser[IArray[TsType]] =
-      ("<" ~> rep1_(tsType <~ ",".?) <~ ">") | success(IArray.Empty)
+      (notAfterNewline("<") ~> rep1_(tsType <~ ",".?) <~ ">") | success(IArray.Empty)
 
     val base = comments ~ qualifiedIdent ~ typeArgs ^^ flatten3(TsTypeRef.apply)
 
