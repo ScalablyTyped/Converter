@@ -187,7 +187,8 @@ class ImportTree(
         val anns    = ImportJsLocation(location)
         val parents = (IArray.fromOption(parent) ++ implements).map(importType(scope, importName))
 
-        val classType = if (isAbstract) ClassType.AbstractClass else ClassType.Class
+        val abstractComment = if (isAbstract) Comments("/* note: abstract class */") else NoComments
+
         val cls = ClassTree(
           isImplicit  = false,
           annotations = anns,
@@ -197,9 +198,9 @@ class ImportTree(
           parents     = parents ++ extraInheritance.sorted,
           ctors       = ctors,
           members     = ms,
-          classType   = classType,
+          classType   = ClassType.Class,
           isSealed    = false,
-          comments    = cs ++ cs2,
+          comments    = cs ++ cs2 ++ abstractComment,
           codePath    = newCodePath,
         )
 

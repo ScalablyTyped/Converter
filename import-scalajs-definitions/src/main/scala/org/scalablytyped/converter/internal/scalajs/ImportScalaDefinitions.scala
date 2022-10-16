@@ -283,10 +283,7 @@ object ImportScalaDefinitions extends App {
                 IArray.fromTraversable(parentTypes).map(toTypeRefForce).filter(_.typeName =/= codePath).filterNot(Anies)
               val name = Name(processName(c.name))
 
-              val classType =
-                if (c.isTrait) ClassType.Trait
-                else if (c.isAbstract) ClassType.AbstractClass
-                else ClassType.Class
+              val classType = if (c.isTrait) ClassType.Trait else ClassType.Class
 
               val (ctors, _, members) =
                 IArray

@@ -8,24 +8,20 @@ sealed trait ClassType {
 
   final def combine(that: ClassType): ClassType =
     (this, that) match {
-      case (Class, _)         => Class
-      case (_, Class)         => Class
-      case (AbstractClass, _) => AbstractClass
-      case (_, AbstractClass) => AbstractClass
-      case (_, _)             => Trait
+      case (Class, _) => Class
+      case (_, Class) => Class
+      case (_, _)     => Trait
     }
 
   final def asString: String =
     this match {
-      case Trait         => "trait"
-      case AbstractClass => "abstract class"
-      case Class         => "class"
+      case Trait => "trait"
+      case Class => "class"
     }
 }
 
 object ClassType {
   case object Class extends ClassType
-  case object AbstractClass extends ClassType
   case object Trait extends ClassType
 
   implicit val encodes: Encoder[ClassType] = io.circe013.generic.semiauto.deriveEncoder
