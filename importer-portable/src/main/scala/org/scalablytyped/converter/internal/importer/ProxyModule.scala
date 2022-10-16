@@ -72,18 +72,21 @@ object ProxyModule {
 
     expandedGlobs.flatMap {
       case tuple @ (name, types) =>
-        val fromModule = resolve.module(source, source.folder, types) match {
-          case Some(resolvedModule) => resolvedModule.moduleName
-          case None                 => logger.fatal(s"couldn't resolve $tuple")
-        }
+        resolve.module(source, source.folder, types) match {
+          case None =>
+            // exports are manually annotated, no surprise there are typos
+            logger.warn(s"couldn't resolve export $tuple")
+            None
 
-        val toModule =
-          libModule.copy(fragments = libModule.fragments ++ name.split("/").toList.filterNot(_ == "."))
+          case Some(resolvedModule) =>
+            val fromModule = resolvedModule.moduleName
+            val toModule   = libModule.copy(fragments = libModule.fragments ++ name.split("/").toList.filterNot(_ == "."))
 
-        if (existing(toModule)) None
-        else {
-          logger.info(s"exposing module ${toModule.value} from ${fromModule.value}")
-          Some(ProxyModule(FromExports, source.libName, fromModule, toModule))
+            if (existing(toModule)) None
+            else {
+              logger.info(s"exposing module ${toModule.value} from ${fromModule.value}")
+              Some(ProxyModule(FromExports, source.libName, fromModule, toModule))
+            }
         }
     }
   }
