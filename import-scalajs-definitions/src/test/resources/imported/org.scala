@@ -1,6 +1,7 @@
 package imported
 
 import org.scalajs.dom.AlgorithmIdentifier
+import org.scalajs.dom.BlobPart
 import org.scalajs.dom.BodyInit
 import org.scalajs.dom.ByteString
 import org.scalajs.dom.HashAlgorithmIdentifier
@@ -136,6 +137,20 @@ object org {
         def aborted(): Boolean = js.native
         
         var onabort: js.Function0[Any] = js.native
+      }
+      
+      @js.native
+      abstract class AbstractRange () extends StObject {
+        
+        def collapsed(): Boolean = js.native
+        
+        def endContainer(): Node = js.native
+        
+        def endOffset(): Int = js.native
+        
+        def startContainer(): Node = js.native
+        
+        def startOffset(): Int = js.native
       }
       
       @js.native
@@ -562,11 +577,11 @@ object org {
       
       @js.native
       class Blob protected () extends StObject {
-        def this(blobParts: js.Array[js.Any], options: BlobPropertyBag) = this()
+        def this(blobParts: js.Iterable[BlobPart], options: BlobPropertyBag) = this()
         
         def arrayBuffer(): js.Promise[js.typedarray.ArrayBuffer] = js.native
         
-        val blobParts: js.Array[js.Any] = js.native
+        val blobParts: js.Iterable[BlobPart] = js.native
         
         def close(): Unit = js.native
         
@@ -586,7 +601,7 @@ object org {
       @js.native
       trait BlobPropertyBag extends StObject {
         
-        var endings: js.UndefOr[String] = js.native
+        var endings: js.UndefOr[EndingType] = js.native
         
         var `type`: js.UndefOr[String] = js.native
       }
@@ -2391,6 +2406,8 @@ object org {
         
         def removeAttributeNode(oldAttr: Attr): Attr = js.native
         
+        def replaceWith(nodes: Node | String): Unit = js.native
+        
         def requestFullscreen(options: FullscreenOptions): js.Promise[Unit] = js.native
         
         def requestPointerLock(): Unit = js.native
@@ -2426,6 +2443,11 @@ object org {
       
       @js.native
       sealed trait EndOfStreamError
+        extends StObject
+           with js.Any
+      
+      @js.native
+      sealed trait EndingType
         extends StObject
            with js.Any
       
@@ -2529,12 +2551,10 @@ object org {
       }
       
       @js.native
-      class EventSource protected ()
+      class EventSource private ()
         extends StObject
            with EventTarget {
-        def this(URL: String, settings: js.Dynamic) = this()
-        
-        val URL: String = js.native
+        def this(url: String, configuration: EventSourceInit) = this()
         
         def close(): Unit = js.native
         
@@ -2545,8 +2565,6 @@ object org {
         var onopen: js.Function1[Event, _] = js.native
         
         def readyState(): Int = js.native
-        
-        val settings: js.Dynamic = js.native
         
         def url(): String = js.native
         
@@ -2560,6 +2578,12 @@ object org {
         val CONNECTING: Int = js.native
         
         val OPEN: Int = js.native
+      }
+      
+      @js.native
+      trait EventSourceInit extends StObject {
+        
+        var withCredentials: js.UndefOr[Boolean] = js.native
       }
       
       @js.native
@@ -2676,11 +2700,22 @@ object org {
       }
       
       @js.native
-      abstract class File ()
+      class File protected ()
         extends StObject
            with Blob {
+        def this(bits: js.Iterable[BlobPart], _name: String, options: FilePropertyBag) = this()
+        
+        val _name: String = js.native
+        
+        val bits: js.Iterable[BlobPart] = js.native
+        
+        def lastModified(): Double = js.native
         
         def name(): String = js.native
+        
+        val options: FilePropertyBag = js.native
+        
+        def webkitRelativePath(): String = js.native
       }
       
       @js.native
@@ -2689,6 +2724,14 @@ object org {
            with DOMList[File] {
         
         def item(index: Int): File = js.native
+      }
+      
+      @js.native
+      trait FilePropertyBag
+        extends StObject
+           with BlobPropertyBag {
+        
+        var lastModified: js.UndefOr[Double] = js.native
       }
       
       @js.native
@@ -3076,6 +3119,22 @@ object org {
            with HTMLElement {
         
         def options(): HTMLCollection[Element] = js.native
+      }
+      
+      @js.native
+      abstract class HTMLDialogElement ()
+        extends StObject
+           with HTMLElement {
+        
+        def close(returnValue: String): Unit = js.native
+        
+        def open(): Boolean = js.native
+        
+        var returnValue: String = js.native
+        
+        def show(): Unit = js.native
+        
+        def showModal(): Unit = js.native
       }
       
       @js.native
@@ -4470,6 +4529,8 @@ object org {
         def replaceState(statedata: js.Any, title: String): Unit = js.native
         def replaceState(statedata: js.Any, title: String, url: String): Unit = js.native
         
+        var scrollRestoration: ScrollRestoration = js.native
+        
         def state(): js.Any = js.native
       }
       
@@ -4767,9 +4828,9 @@ object org {
         
         def name(): String = js.native
         
-        def openCursor(range: js.UndefOr[IDBKeyRange | IDBKey], direction: js.UndefOr[IDBCursorDirection]): IDBRequest[S, IDBCursor[S]] = js.native
+        def openCursor(range: js.UndefOr[IDBKeyRange | IDBKey], direction: js.UndefOr[IDBCursorDirection]): IDBRequest[S, IDBCursorWithValue[S]] = js.native
         
-        def openKeyCursor(range: js.UndefOr[IDBKeyRange | IDBKey], direction: js.UndefOr[IDBCursorDirection]): IDBRequest[S, IDBCursorReadOnly[S]] = js.native
+        def openKeyCursor(range: js.UndefOr[IDBKeyRange | IDBKey], direction: js.UndefOr[IDBCursorDirection]): IDBRequest[S, IDBCursor[S]] = js.native
       }
       
       @js.native
@@ -4867,6 +4928,45 @@ object org {
         
         def width(): Int = js.native
       }
+      
+      @js.native
+      class InputEvent protected ()
+        extends StObject
+           with UIEvent {
+        def this(typeArg: String) = this()
+        def this(typeArg: String, init: InputEventInit) = this()
+        
+        def data(): String = js.native
+        
+        def dataTransfer(): DataTransfer = js.native
+        
+        def getTargetRanges(): js.Array[StaticRange] = js.native
+        
+        val init: InputEventInit = js.native
+        
+        def inputType(): InputType = js.native
+        
+        def isComposing(): Boolean = js.native
+        
+        val typeArg: String = js.native
+      }
+      
+      @js.native
+      trait InputEventInit
+        extends StObject
+           with UIEventInit {
+        
+        var data: js.UndefOr[String] = js.native
+        
+        var inputType: js.UndefOr[InputType] = js.native
+        
+        var isComposing: js.UndefOr[Boolean] = js.native
+      }
+      
+      @js.native
+      sealed trait InputType
+        extends StObject
+           with js.Any
       
       @js.native
       trait JsonWebKey extends StObject {
@@ -6819,15 +6919,15 @@ object org {
       }
       
       @js.native
-      class Range () extends StObject {
+      class Range ()
+        extends StObject
+           with AbstractRange {
         
         def cloneContents(): DocumentFragment = js.native
         
         def cloneRange(): Range = js.native
         
         def collapse(toStart: Boolean): Unit = js.native
-        
-        def collapsed(): Boolean = js.native
         
         def commonAncestorContainer(): Node = js.native
         
@@ -6838,10 +6938,6 @@ object org {
         def deleteContents(): Unit = js.native
         
         def detach(): Unit = js.native
-        
-        def endContainer(): Node = js.native
-        
-        def endOffset(): Int = js.native
         
         def extractContents(): DocumentFragment = js.native
         
@@ -6866,10 +6962,6 @@ object org {
         def setStartAfter(refNode: Node): Unit = js.native
         
         def setStartBefore(refNode: Node): Unit = js.native
-        
-        def startContainer(): Node = js.native
-        
-        def startOffset(): Int = js.native
         
         def surroundContents(newParent: Node): Unit = js.native
       }
@@ -7009,6 +7101,11 @@ object org {
            with js.Any
       
       @js.native
+      sealed trait RequestDuplex
+        extends StObject
+           with js.Any
+      
+      @js.native
       trait RequestInit extends StObject {
         
         var body: js.UndefOr[BodyInit] = js.native
@@ -7016,6 +7113,8 @@ object org {
         var cache: js.UndefOr[RequestCache] = js.native
         
         var credentials: js.UndefOr[RequestCredentials] = js.native
+        
+        var duplex: js.UndefOr[RequestDuplex] = js.native
         
         var headers: js.UndefOr[HeadersInit] = js.native
         
@@ -9336,6 +9435,11 @@ object org {
       }
       
       @js.native
+      sealed trait ScrollRestoration
+        extends StObject
+           with js.Any
+      
+      @js.native
       class Selection () extends StObject {
         
         def addRange(range: Range): Unit = js.native
@@ -9406,7 +9510,7 @@ object org {
         
         def ready(): js.Promise[ServiceWorkerRegistration] = js.native
         
-        def register(scriptURL: String, options: js.Object): js.Promise[ServiceWorkerRegistration] = js.native
+        def register(scriptURL: String, options: ServiceWorkerRegistrationOptions): js.Promise[ServiceWorkerRegistration] = js.native
       }
       
       @js.native
@@ -9482,7 +9586,22 @@ object org {
       }
       
       @js.native
+      trait ServiceWorkerRegistrationOptions extends StObject {
+        
+        var scope: js.UndefOr[String] = js.native
+        
+        var `type`: js.UndefOr[WorkerType] = js.native
+        
+        var updateViaCache: js.UndefOr[ServiceWorkerUpdateViaCache] = js.native
+      }
+      
+      @js.native
       sealed trait ServiceWorkerState
+        extends StObject
+           with js.Any
+      
+      @js.native
+      sealed trait ServiceWorkerUpdateViaCache
         extends StObject
            with js.Any
       
@@ -9591,6 +9710,27 @@ object org {
         var onaddsourcebuffer: js.Function1[Event, Any] = js.native
         
         var onremovesourcebuffer: js.Function1[Event, Any] = js.native
+      }
+      
+      @js.native
+      class StaticRange protected ()
+        extends StObject
+           with AbstractRange {
+        def this(init: StaticRangeInit) = this()
+        
+        val init: StaticRangeInit = js.native
+      }
+      
+      @js.native
+      trait StaticRangeInit extends StObject {
+        
+        val endContainer: Node = js.native
+        
+        val endOffset: Int = js.native
+        
+        val startContainer: Node = js.native
+        
+        val startOffset: Int = js.native
       }
       
       @js.native
