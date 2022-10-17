@@ -41,10 +41,17 @@ object DefaultedTypeArguments extends TreeTransformationScopedChanges {
                   current.upperBound.getOrElse(TsTypeRef.any.copy(comments = Comments(Comment.warning(msg))))
                 }
 
+                /* we may default in a reference to the same type, making this transformation run until SOE */
+                val next2 = next match {
+                  case nextTr: TsTypeRef if nextTr.name == typeRef.name =>
+                    TsTypeRef.any.copy(Comments(s"/* ${TsTypeFormatter(nextTr)} */"))
+                  case _ => next
+                }
+
                 /* a defaulted tparam may refer to earlier tparams by name, so handle that here */
-                val nextRewritten = new TypeRewriter(next).visitTsType(instantiated)(next)
-                instantiated(TsTypeRef(current.name)) = nextRewritten
-                nextRewritten
+                val next3 = new TypeRewriter(next2).visitTsType(instantiated)(next2)
+                instantiated(TsTypeRef(current.name)) = next3
+                next3
             }
 
           typeRef.copy(tparams = newTParams)
