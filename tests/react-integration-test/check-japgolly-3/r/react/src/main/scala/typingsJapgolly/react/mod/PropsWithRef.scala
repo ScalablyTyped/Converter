@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   * See https://www.typescriptlang.org/docs/handbook/2/conditional-types.html for an intro.
   * You'll have to cast your way around this structure, unfortunately. 
   * TS definition: {{{
-  'ref' extends keyof P ? P extends react.anon.Ref ? string extends R ? react.react.PropsWithoutRef<P> & react.anon.0<R> : P : P : P
+  'ref' extends keyof P ? P extends {  ref :infer R | undefined} ? string extends R ? react.react.PropsWithoutRef<P> & {  ref :std.Exclude<R, string> | undefined} : P : P : P
   }}}
   */
 @js.native

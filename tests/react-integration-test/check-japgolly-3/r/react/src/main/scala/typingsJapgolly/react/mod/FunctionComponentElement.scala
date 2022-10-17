@@ -9,7 +9,7 @@ trait FunctionComponentElement[P]
      with ReactElement {
   
   var ref: js.UndefOr[
-    /* import warning: importer.ImportType#apply Failed type conversion: 'ref' extends keyof P ? P extends react.anon.Ref ? R : never : never */ js.Any
+    /* import warning: importer.ImportType#apply Failed type conversion: 'ref' extends keyof P ? P extends {  ref :infer R | undefined} ? R : never : never */ js.Any
   ] = js.undefined
 }
 object FunctionComponentElement {
@@ -23,7 +23,7 @@ object FunctionComponentElement {
   extension [Self <: FunctionComponentElement[?], P](x: Self & FunctionComponentElement[P]) {
     
     inline def setRef(
-      value: /* import warning: importer.ImportType#apply Failed type conversion: 'ref' extends keyof P ? P extends react.anon.Ref ? R : never : never */ js.Any
+      value: /* import warning: importer.ImportType#apply Failed type conversion: 'ref' extends keyof P ? P extends {  ref :infer R | undefined} ? R : never : never */ js.Any
     ): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
     
     inline def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)

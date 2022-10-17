@@ -6,50 +6,11 @@ import japgolly.scalajs.react.facade.React.Element
 import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
-import typingsJapgolly.std.Exclude
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 object anon {
-  
-  trait `0`[R] extends StObject {
-    
-    var ref: js.UndefOr[Exclude[R, String]] = js.undefined
-  }
-  object `0` {
-    
-    inline def apply[R](): `0`[R] = {
-      val __obj = js.Dynamic.literal()
-      __obj.asInstanceOf[`0`[R]]
-    }
-    
-    extension [Self <: `0`[?], R](x: Self & `0`[R]) {
-      
-      inline def setRef(value: Exclude[R, String]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
-      
-      inline def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
-    }
-  }
-  
-  trait `1` extends StObject {
-    
-    var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
-  }
-  object `1` {
-    
-    inline def apply(
-      defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
-    ): `1` = {
-      val __obj = js.Dynamic.literal(defaultProps = defaultProps.asInstanceOf[js.Any])
-      __obj.asInstanceOf[`1`]
-    }
-    
-    extension [Self <: `1`](x: Self) {
-      
-      inline def setDefaultProps(value: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any): Self = StObject.set(x, "defaultProps", value.asInstanceOf[js.Any])
-    }
-  }
   
   trait Children extends StObject {
     
@@ -76,30 +37,6 @@ object anon {
     }
   }
   
-  trait DefaultProps extends StObject {
-    
-    var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
-    
-    var propTypes: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any
-  }
-  object DefaultProps {
-    
-    inline def apply(
-      defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any,
-      propTypes: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any
-    ): DefaultProps = {
-      val __obj = js.Dynamic.literal(defaultProps = defaultProps.asInstanceOf[js.Any], propTypes = propTypes.asInstanceOf[js.Any])
-      __obj.asInstanceOf[DefaultProps]
-    }
-    
-    extension [Self <: DefaultProps](x: Self) {
-      
-      inline def setDefaultProps(value: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any): Self = StObject.set(x, "defaultProps", value.asInstanceOf[js.Any])
-      
-      inline def setPropTypes(value: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any): Self = StObject.set(x, "propTypes", value.asInstanceOf[js.Any])
-    }
-  }
-  
   trait Html extends StObject {
     
     var __html: String
@@ -114,44 +51,6 @@ object anon {
     extension [Self <: Html](x: Self) {
       
       inline def set__html(value: String): Self = StObject.set(x, "__html", value.asInstanceOf[js.Any])
-    }
-  }
-  
-  trait PropTypes extends StObject {
-    
-    var propTypes: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any
-  }
-  object PropTypes {
-    
-    inline def apply(propTypes: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any): PropTypes = {
-      val __obj = js.Dynamic.literal(propTypes = propTypes.asInstanceOf[js.Any])
-      __obj.asInstanceOf[PropTypes]
-    }
-    
-    extension [Self <: PropTypes](x: Self) {
-      
-      inline def setPropTypes(value: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any): Self = StObject.set(x, "propTypes", value.asInstanceOf[js.Any])
-    }
-  }
-  
-  trait Ref extends StObject {
-    
-    var ref: js.UndefOr[
-        /* import warning: importer.ImportType#apply Failed type conversion: infer R */ js.Any
-      ] = js.undefined
-  }
-  object Ref {
-    
-    inline def apply(): Ref = {
-      val __obj = js.Dynamic.literal()
-      __obj.asInstanceOf[Ref]
-    }
-    
-    extension [Self <: Ref](x: Self) {
-      
-      inline def setRef(value: /* import warning: importer.ImportType#apply Failed type conversion: infer R */ js.Any): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
-      
-      inline def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
     }
   }
 }

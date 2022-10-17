@@ -55,8 +55,12 @@ object ExtractInterfaces {
     }
   }
 
-  def partOfTypeMapping(stack: List[TsTree], obj: TsTypeObject): Boolean =
-    stack.exists(_.isInstanceOf[TsMemberTypeMapped]) || TsType.isTypeMapping(obj.members)
+  def willBeErased(stack: List[TsTree], obj: TsTypeObject): Boolean =
+    stack.exists {
+      case _: TsMemberTypeMapped => true
+      case _: TsTypePredicate    => true
+      case _ => false
+    } || TsType.isTypeMapping(obj.members)
 
   def isDictionary(members: IArray[TsMember]): Boolean =
     members.nonEmpty && members.forall {
@@ -70,7 +74,7 @@ object ExtractInterfaces {
         case obj: TsTypeObject
             if obj.members.nonEmpty &&
               !isDictionary(obj.members) &&
-              !partOfTypeMapping(scope.stack, obj) &&
+              !willBeErased(scope.stack, obj) &&
               shouldBeExtracted(scope) =>
           val referencedTparams: IArray[TsTypeParam] =
             TypeParamsReferencedInTree(scope.tparams, obj)
