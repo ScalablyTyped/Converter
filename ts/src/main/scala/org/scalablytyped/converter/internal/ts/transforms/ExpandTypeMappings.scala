@@ -13,96 +13,107 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         x.copy(parts = IArray(x.parts.last))
     }
 
-    override def enterTsType(scope: TsTreeScope)(x: TsType): TsType = {
-      lazy val nameHint = TsTypeFormatter.dropComments(Unqualify.visitTsType(())(x)).filter(_.isLetterOrDigit)
+    override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
+      try {
+        lazy val nameHint = TsTypeFormatter.dropComments(Unqualify.visitTsType(())(x)).filter(_.isLetterOrDigit)
 
-      def repeated =
-        scope.stack.exists {
-          case TsTypeObject(Comments(cs), _) =>
-            cs.exists {
-              case Marker.NameHint(`nameHint`) => true
-              case _                           => false
-            }
-          case _ => false
-        }
-
-      def refersAbstract =
-        TsTreeTraverse
-          .collect(x) {
-            case TsTypeRef(_, name @ TsQIdent(IArray.exactlyOne(_)), Empty) if scope.isAbstract(name) => name
+        def repeated =
+          scope.stack.exists {
+            case TsTypeObject(Comments(cs), _) =>
+              cs.exists {
+                case Marker.NameHint(`nameHint`) => true
+                case _                           => false
+              }
+            case _ => false
           }
-          .nonEmpty
 
-      def tooDeep = {
-        val numTypeObjects = scope.stack.count {
-          case TsTypeObject(_, _) => true;
-          case _                  => false
+        def refersAbstract =
+          TsTreeTraverse
+            .collect(x) {
+              case TsTypeRef(_, name @ TsQIdent(IArray.exactlyOne(_)), Empty) if scope.isAbstract(name) => name
+            }
+            .nonEmpty
+
+        def tooDeep = {
+          val numTypeObjects = scope.stack.count {
+            case TsTypeObject(_, _) => true;
+            case _                  => false
+          }
+          numTypeObjects > 2
         }
-        numTypeObjects > 2
+
+        if (repeated || refersAbstract || tooDeep) return x
+
+        AllMembersFor.forType(scope, LoopDetector.initial)(x) match {
+          case Problems(_) =>
+            x
+
+          case Ok(newMembers, true) =>
+            val nameHint = TsTypeFormatter.dropComments(Unqualify.visitTsType(())(x)).filter(_.isLetterOrDigit)
+
+            val notices = Comments(
+              List(
+                Comment("/* Inlined " + TsTypeFormatter(x) + " */\n"),
+                Marker.NameHint(nameHint),
+              ),
+            )
+            TsTypeObject(notices, newMembers)
+          case _ => x
+        }
+      } catch {
+        case _: StackOverflowError =>
+          scope.logger.warn(s"SOE while expanding ${TsTypeFormatter(x)}")
+          x // todo: all of `ExpandTypeMappings` should be much improvd
       }
-
-      if (repeated || refersAbstract || tooDeep) return x
-
-      AllMembersFor.forType(scope, LoopDetector.initial)(x) match {
-        case Problems(_) =>
-          x
-
-        case Ok(newMembers, true) =>
-          val nameHint = TsTypeFormatter.dropComments(Unqualify.visitTsType(())(x)).filter(_.isLetterOrDigit)
-
-          val notices = Comments(
-            List(
-              Comment("/* Inlined " + TsTypeFormatter(x) + " */\n"),
-              Marker.NameHint(nameHint),
-            ),
-          )
-          TsTypeObject(notices, newMembers)
-        case _ => x
-      }
-    }
   }
 
   override def enterTsDecl(scope: TsTreeScope)(x: TsDecl): TsDecl =
-    x match {
-      case i: TsDeclInterface =>
-        AllMembersFor.forInterface(scope, LoopDetector.initial)(i) match {
-          case Problems(_) =>
-            i
-          case Ok(newMembers, true) =>
-            val notices = Comments(
-              i.inheritance.map(i => Comment("/* Inlined parent " + TsTypeFormatter(i) + " */\n")).toList,
-            )
-            i.copy(
-              comments    = i.comments ++ notices,
-              members     = newMembers,
-              inheritance = Empty,
-            )
-          case _ => x
-        }
+    try {
+      x match {
+        case i: TsDeclInterface =>
+          AllMembersFor.forInterface(scope, LoopDetector.initial)(i) match {
+            case Problems(_) =>
+              i
+            case Ok(newMembers, true) =>
+              val notices = Comments(
+                i.inheritance.map(i => Comment("/* Inlined parent " + TsTypeFormatter(i) + " */\n")).toList,
+              )
+              i.copy(
+                comments    = i.comments ++ notices,
+                members     = newMembers,
+                inheritance = Empty,
+              )
+            case _ => x
+          }
 
-      case ta @ TsDeclTypeAlias(comments, declared, name, tparams, alias, codePath)
-          if !comments.has[Marker.IsTrivial.type] && !pointsToConcreteType(scope, alias) =>
-        AllMembersFor.forType(scope, LoopDetector.initial)(alias) match {
-          case Problems(_) =>
-            evaluateKeys(scope, LoopDetector.initial)(alias) match {
-              case Ok(value, true) =>
-                val notice = Comment("/* Inlined " + TsTypeFormatter(alias) + " */\n")
-                ta.copy(
-                  comments = comments + notice,
-                  alias    = TsTypeUnion.simplified(IArray.fromTraversable(value).map(x => TsTypeLiteral(x.lit))),
-                )
-              case Ok(_, false) =>
-                ta
-              case Problems(_) =>
-                ta
-            }
-          case Ok(newMembers, true) =>
-            val notice = Comment("/* Inlined " + TsTypeFormatter(alias) + " */\n")
-            TsDeclInterface(comments + notice, declared, name, tparams, Empty, newMembers, codePath)
-          case _ => x
-        }
+        case ta @ TsDeclTypeAlias(comments, declared, name, tparams, alias, codePath)
+            if !comments.has[Marker.IsTrivial.type] && !pointsToConcreteType(scope, alias) =>
+          AllMembersFor.forType(scope, LoopDetector.initial)(alias) match {
+            case Problems(_) =>
+              evaluateKeys(scope, LoopDetector.initial)(alias) match {
+                case Ok(value, true) =>
+                  val notice = Comment("/* Inlined " + TsTypeFormatter(alias) + " */\n")
+                  ta.copy(
+                    comments = comments + notice,
+                    alias    = TsTypeUnion.simplified(IArray.fromTraversable(value).map(x => TsTypeLiteral(x.lit))),
+                  )
+                case Ok(_, false) =>
+                  ta
+                case Problems(_) =>
+                  ta
+              }
+            case Ok(newMembers, true) =>
+              val notice = Comment("/* Inlined " + TsTypeFormatter(alias) + " */\n")
+              TsDeclInterface(comments + notice, declared, name, tparams, Empty, newMembers, codePath)
+            case _ => x
+          }
 
-      case _ => x
+        case _ => x
+      }
+    } catch {
+      case _: StackOverflowError =>
+        scope.logger.warn(s"SOE while expanding ")
+        x // todo: all of `ExpandTypeMappings` should be much improvd
     }
 
   val EmptySet = Set.empty[String]
