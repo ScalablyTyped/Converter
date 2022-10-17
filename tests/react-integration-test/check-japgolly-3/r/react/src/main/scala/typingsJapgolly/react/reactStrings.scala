@@ -759,10 +759,6 @@ object reactStrings {
   inline def rect: rect = "rect".asInstanceOf[rect]
   
   @js.native
-  sealed trait ref extends StObject
-  inline def ref: ref = "ref".asInstanceOf[ref]
-  
-  @js.native
   sealed trait removals extends StObject
   inline def removals: removals = "removals".asInstanceOf[removals]
   

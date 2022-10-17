@@ -253,6 +253,41 @@ class ImportTree(
           ),
         )
 
+      /* Conditional types. Proper handling (of static) cases is done elsewhere, this just takes care of the dependencies */
+      case TsDeclTypeAlias(cs, _, _, tparams, tpe: TsTypeConditional, codePath) =>
+        val importedCp      = importName(codePath)
+        val importedName    = importedCp.parts.last
+        val importedTparams = tparams.map(typeParam(scope, importName))
+
+        def warning(explain: String) =
+          cs ++ Comments(
+            s"""/** NOTE: Conditional type definitions are impossible to translate to Scala.
+               | * See https://www.typescriptlang.org/docs/handbook/2/conditional-types.html for an intro.
+               | * $explain. 
+               | * TS definition: {{{
+               | ${TsTypeFormatter(tpe)}
+               | }}}
+               | */
+               |""".stripMargin,
+          )
+
+        IArray(
+          ClassTree(
+            isImplicit  = false,
+            annotations = IArray(Annotation.JsNative),
+            level       = ProtectionLevel.Public,
+            name        = importedName,
+            tparams     = importedTparams,
+            parents     = Empty,
+            ctors       = Empty,
+            members     = Empty,
+            classType   = ClassType.Trait,
+            isSealed    = false,
+            comments    = warning("You'll have to cast your way around this structure, unfortunately"),
+            codePath    = importedCp,
+          ),
+        )
+
       /* Mapped types. Proper handling (of static) cases is done elsewhere, this just takes care of the dependencies */
       case TsDeclTypeAlias(
           cs,

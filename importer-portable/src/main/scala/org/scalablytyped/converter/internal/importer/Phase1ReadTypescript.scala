@@ -318,8 +318,7 @@ object Phase1ReadTypescript {
       if (expandTypeMappings(libName)) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
       if (expandTypeMappings(libName)) T.ExpandTypeMappings.After.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
       (
-        T.SimplifyConditionals >> // after ExpandTypeMappings
-          T.TypeAliasToConstEnum >>
+        T.TypeAliasToConstEnum >>
           T.ForwardCtors >>
           T.ExpandTypeParams >>
           T.UnionTypesFromKeyOf >>

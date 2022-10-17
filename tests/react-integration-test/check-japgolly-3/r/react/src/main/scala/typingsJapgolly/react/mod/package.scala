@@ -24,7 +24,6 @@ import org.scalajs.dom.EventTarget
 import org.scalajs.dom.HTMLElement
 import org.scalajs.dom.HTMLInputElement
 import org.scalajs.dom.SVGElement
-import typingsJapgolly.react.anon.`0`
 import typingsJapgolly.react.mod.^
 import typingsJapgolly.react.reactStrings.a_
 import typingsJapgolly.react.reactStrings.abbr
@@ -40,12 +39,10 @@ import typingsJapgolly.react.reactStrings.bdo
 import typingsJapgolly.react.reactStrings.big
 import typingsJapgolly.react.reactStrings.input
 import typingsJapgolly.react.reactStrings.mount
-import typingsJapgolly.react.reactStrings.ref
 import typingsJapgolly.react.reactStrings.update
 import typingsJapgolly.react.reactStrings.view
 import typingsJapgolly.std.Exclude
 import typingsJapgolly.std.Partial
-import typingsJapgolly.std.Pick
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -439,15 +436,6 @@ type ClassicFactory[P] = CFactory[P, ClassicComponent[P, js.Object]]
 
 type ClipboardEventHandler[T] = EventHandler[ReactClipboardEventFrom[T & org.scalajs.dom.Element]]
 
-/**
-  * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
-  * or ComponentPropsWithoutRef when refs are not supported.
-  */
-type ComponentProps[T /* <: a_ | abbr | address | area | article | aside | audio | b | base | bdi | bdo | big | view | JSXElementConstructor[Any] */] = js.Object | (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)
-
-type ComponentPropsWithRef[T /* <: japgolly.scalajs.react.facade.React.ElementType */] = PropsWithRef[ComponentProps[T]] | (PropsWithoutRef[Any] & (RefAttributes[
-/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify InstanceType<T> */ Any]))
-
 type ComponentPropsWithoutRef[T /* <: japgolly.scalajs.react.facade.React.ElementType */] = PropsWithoutRef[ComponentProps[T]]
 
 type ComponentState = Any
@@ -457,18 +445,6 @@ type ComponentType[P] = (ComponentClassP[P & js.Object]) | FunctionComponent[P]
 type CompositionEventHandler[T] = EventHandler[ReactCompositionEventFrom[T & org.scalajs.dom.Element]]
 
 type Consumer[T] = ExoticComponent[ConsumerProps[T]]
-
-type ContextType[C /* <: Context[Any] */] = Any
-
-// Any prop that has a default prop becomes optional, but its type is unchanged
-// Undeclared default props are augmented into the resulting allowable attributes
-// If declared props have indexed properties, ignore default props entirely as keyof gets widened
-// Wrap in an outer-level conditional type to allow distribution over props that are unions
-type Defaultize[P, D] = ((Pick[P, Exclude[/* keyof P */ String, /* keyof D */ String]]) & (Partial[
-Pick[
-  P, 
-  /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Extract<keyof P, keyof D> */ Any
-]]) & (Partial[Pick[D, Exclude[/* keyof D */ String, /* keyof P */ String]]])) | P
 
 // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
 // TODO (TypeScript 3.0): ReadonlyArray<unknown>
@@ -535,9 +511,6 @@ type KeyboardEventHandler[T] = EventHandler[ReactKeyboardEventFrom[T & org.scala
 
 type LegacyRef[T] = String | Ref[T]
 
-// Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
-type MergePropTypes[P, T] = ((Pick[P, NotExactlyAnyPropertyKeys[P]]) & (Pick[T, Exclude[/* keyof T */ String, NotExactlyAnyPropertyKeys[P]]]) & (Pick[P, Exclude[/* keyof P */ String, /* keyof T */ String]])) | P | T
-
 type MouseEventHandler[T] = EventHandler[ReactMouseEventFrom[T & org.scalajs.dom.Element]]
 
 type NativeAnimationEvent = org.scalajs.dom.AnimationEvent
@@ -583,12 +556,6 @@ Unit]
 
 type PropsWithChildren[P] = P & typingsJapgolly.react.anon.Children
 
-/** Ensures that the props do not include string ref, which cannot be forwarded */
-type PropsWithRef[P] = P | (PropsWithoutRef[P] & `0`)
-
-/** Ensures that the props do not include ref at all */
-type PropsWithoutRef[P] = P | (Pick[P, Exclude[/* keyof P */ String, ref]])
-
 // NOTE: only the Context object itself can get a displayName
 // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
 type Provider[T] = ProviderExoticComponent[ProviderProps[T]]
@@ -610,15 +577,6 @@ type ReactHTMLElement[T /* <: HTMLElement */] = DetailedReactHTMLElement[AllHTML
 // ----------------------------------------------------------------------
 type ReactInstance = (japgolly.scalajs.react.facade.React.Component[Any & js.Object, js.Object]) | org.scalajs.dom.Element
 
-type ReactManagedAttributes[C, P] = P | (Defaultize[
-(MergePropTypes[
-  P, 
-  /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ Any
-]) | P, 
-Any]) | (MergePropTypes[
-P, 
-/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ Any])
-
 type ReactNode = js.UndefOr[ReactChild | ReactFragment | ReactPortal | Boolean]
 
 //
@@ -634,12 +592,6 @@ type ReactType[P] = japgolly.scalajs.react.facade.React.ElementType
 
 // Unlike redux, the actions _can_ be anything
 type Reducer[S, A] = js.Function2[/* prevState */ S, /* action */ A, S]
-
-type ReducerAction[R /* <: Reducer[Any, Any] */] = Any
-
-// types used to try and prevent the compiler from reducing S
-// to a supertype common with the second argument to useReducer()
-type ReducerState[R /* <: Reducer[Any, Any] */] = Any
 
 type Ref[T] = (js.Function1[/* instance */ T | Null, Unit]) | RefHandle[T] | Null
 

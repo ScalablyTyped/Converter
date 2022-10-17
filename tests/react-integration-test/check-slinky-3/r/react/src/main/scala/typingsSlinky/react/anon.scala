@@ -8,20 +8,20 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object anon {
   
-  trait `0` extends StObject {
+  trait `0`[R] extends StObject {
     
-    var ref: js.UndefOr[Exclude[Any, String]] = js.undefined
+    var ref: js.UndefOr[Exclude[R, String]] = js.undefined
   }
   object `0` {
     
-    inline def apply(): `0` = {
+    inline def apply[R](): `0`[R] = {
       val __obj = js.Dynamic.literal()
-      __obj.asInstanceOf[`0`]
+      __obj.asInstanceOf[`0`[R]]
     }
     
-    extension [Self <: `0`](x: Self) {
+    extension [Self <: `0`[?], R](x: Self & `0`[R]) {
       
-      inline def setRef(value: Exclude[Any, String]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
+      inline def setRef(value: Exclude[R, String]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
       inline def setRefUndefined: Self = StObject.set(x, "ref", js.undefined)
     }

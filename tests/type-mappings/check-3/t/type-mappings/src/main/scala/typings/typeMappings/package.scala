@@ -1,7 +1,6 @@
 package typings.typeMappings
 
 import org.scalablytyped.runtime.Instantiable0
-import typings.std.Exclude
 import typings.std.InstanceType
 import typings.std.NonNullable
 import typings.std.Partial
@@ -23,8 +22,6 @@ type IPersonRecord = PersonRecord
 type NewedPerson = InstanceType[Instantiable0[Person]]
 
 type NonNullablePerson = NonNullable[Person]
-
-type Omit[T, K /* <: /* keyof any */ String */] = Pick[T, Exclude[/* keyof T */ String, K]]
 
 type ReturnedPerson = ReturnType[js.Function0[Person]]
 

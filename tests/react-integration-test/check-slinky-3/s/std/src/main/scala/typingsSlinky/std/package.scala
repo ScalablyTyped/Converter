@@ -14,11 +14,6 @@ type CompositionEvent = org.scalajs.dom.Event
 
 type DragEvent = org.scalajs.dom.Event
 
-/**
-  * Exclude from T those types that are assignable to U
-  */
-type Exclude[T, U] = T
-
 type FocusEvent = org.scalajs.dom.Event
 
 type HTMLAnchorElement = org.scalajs.dom.HTMLElement

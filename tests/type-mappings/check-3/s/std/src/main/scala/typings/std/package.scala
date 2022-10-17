@@ -1,31 +1,10 @@
 package typings.std
 
-import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.StringDictionary
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-
-/**
-  * Exclude from T those types that are assignable to U
-  */
-type Exclude[T, U] = T
-
-/**
-  * Extract from T those types that are assignable to U
-  */
-type Extract[T, U] = T
-
-/**
-  * Obtain the return type of a constructor function type
-  */
-type InstanceType[T /* <: Instantiable1[/* args (repeated) */ Any, Any] */] = Any
-
-/**
-  * Exclude null and undefined from T
-  */
-type NonNullable[T] = T
 
 /**
   * Make all properties in T optional
@@ -86,8 +65,3 @@ type Record[K /* <: /* keyof any */ String */, T] = StringDictionary[T]
   }}}
   */
 type Required[T] = T
-
-/**
-  * Obtain the return type of a function type
-  */
-type ReturnType[T /* <: js.Function1[/* repeated */ Any, Any] */] = Any

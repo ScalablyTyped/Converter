@@ -256,9 +256,6 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case TsTypeThis() =>
         TypeRef.ThisType(NoComments)
 
-      case x: TsTypeConditional =>
-        apply(scope, importName)(unify(IArray(x.ifFalse, x.ifTrue)))
-
       case other =>
         val msg = s"Failed type conversion: ${TsTypeFormatter(other)}"
         scope.logger.info(msg)
