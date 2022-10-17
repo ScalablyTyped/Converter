@@ -32,18 +32,19 @@ object Main {
   }
 
   val DefaultOptions = ConversionOptions(
-    useScalaJsDomTypes     = true,
-    outputPackage          = Name.typings,
-    enableScalaJsDefined   = Selection.All,
-    flavour                = Flavour.Normal,
-    ignored                = SortedSet("typescript"),
-    stdLibs                = SortedSet("es6"),
-    expandTypeMappings     = EnabledTypeMappingExpansion.DefaultSelection,
-    versions               = Versions(Versions.Scala3, Versions.ScalaJs1),
-    organization           = "org.scalablytyped",
-    enableReactTreeShaking = Selection.None,
-    enableLongApplyMethod  = false,
-    privateWithin          = None,
+    useScalaJsDomTypes       = true,
+    outputPackage            = Name.typings,
+    enableScalaJsDefined     = Selection.All,
+    flavour                  = Flavour.Normal,
+    ignored                  = SortedSet("typescript"),
+    stdLibs                  = SortedSet("es6"),
+    expandTypeMappings       = EnabledTypeMappingExpansion.DefaultSelection,
+    versions                 = Versions(Versions.Scala3, Versions.ScalaJs1),
+    organization             = "org.scalablytyped",
+    enableReactTreeShaking   = Selection.None,
+    enableLongApplyMethod    = false,
+    privateWithin            = None,
+    useDeprecatedModuleNames = false,
   )
 
   case class Config(
@@ -166,6 +167,11 @@ object Main {
       opt[Boolean]("enableLongApplyMethod")
         .action((x, c) => c.mapConversion(_.copy(enableLongApplyMethod = x)))
         .text(s"Enables long apply methods, instead of implicit ops builders"),
+      opt[Boolean]("shortModuleNames")
+        .action((x, c) => c.mapConversion(_.copy(useDeprecatedModuleNames = x)))
+        .text(
+          s"Enables short module names. This used to be the default, and is now deprecated since it's so difficult to navigate",
+        ),
       arg[Seq[TsIdentLibrary]]("libs")
         .text("Libraries you want to convert from node_modules")
         .unbounded()
@@ -263,11 +269,12 @@ object Main {
             )
             .next(
               new Phase2ToScalaJs(
-                pedantic             = false,
-                scalaVersion         = conversion.versions.scala,
-                enableScalaJsDefined = conversion.enableScalaJsDefined,
-                outputPkg            = conversion.outputPackage,
-                flavour              = conversion.flavourImpl,
+                pedantic                 = false,
+                scalaVersion             = conversion.versions.scala,
+                enableScalaJsDefined     = conversion.enableScalaJsDefined,
+                outputPkg                = conversion.outputPackage,
+                flavour                  = conversion.flavourImpl,
+                useDeprecatedModuleNames = conversion.useDeprecatedModuleNames,
               ),
               "scala.js",
             )

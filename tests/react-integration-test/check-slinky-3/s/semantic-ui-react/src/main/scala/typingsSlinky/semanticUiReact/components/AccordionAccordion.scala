@@ -1,7 +1,7 @@
 package typingsSlinky.semanticUiReact.components
 
-import typingsSlinky.semanticUiReact.accordionAccordionAccordionMod.AccordionAccordionProps
-import typingsSlinky.semanticUiReact.accordionAccordionAccordionMod.default
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionAccordionMod.AccordionAccordionProps
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionAccordionMod.default
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -12,7 +12,7 @@ object AccordionAccordion {
   @js.native
   val component: js.Object = js.native
   
-  implicit def make(companion: AccordionAccordion.type): SharedBuilder_AccordionAccordionProps_1044969128[default] = new SharedBuilder_AccordionAccordionProps_1044969128[default](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: AccordionAccordion.type): SharedBuilder_AccordionAccordionProps_2090513651[default] = new SharedBuilder_AccordionAccordionProps_2090513651[default](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps_1044969128[default] = new SharedBuilder_AccordionAccordionProps_1044969128[default](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps_2090513651[default] = new SharedBuilder_AccordionAccordionProps_2090513651[default](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

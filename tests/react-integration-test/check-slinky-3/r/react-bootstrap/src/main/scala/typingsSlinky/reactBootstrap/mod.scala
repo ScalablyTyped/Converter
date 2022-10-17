@@ -1,6 +1,6 @@
 package typingsSlinky.reactBootstrap
 
-import typingsSlinky.reactBootstrap.bootstrapUtilsMod.BSProps
+import typingsSlinky.reactBootstrap.libUtilsBootstrapUtilsMod.BSProps
 import typingsSlinky.std.Pick
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js

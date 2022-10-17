@@ -1,6 +1,6 @@
 package typingsSlinky.semanticUiReact.components
 
-import typingsSlinky.semanticUiReact.accordionContentMod.AccordionContentProps
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionContentMod.AccordionContentProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -11,7 +11,7 @@ object AccordionContent {
   @js.native
   val component: js.Object = js.native
   
-  implicit def make(companion: AccordionContent.type): SharedBuilder_AccordionContentProps_1656243680 = new SharedBuilder_AccordionContentProps_1656243680(js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: AccordionContent.type): SharedBuilder_AccordionContentProps_1030703804 = new SharedBuilder_AccordionContentProps_1030703804(js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: AccordionContentProps): SharedBuilder_AccordionContentProps_1656243680 = new SharedBuilder_AccordionContentProps_1656243680(js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: AccordionContentProps): SharedBuilder_AccordionContentProps_1030703804 = new SharedBuilder_AccordionContentProps_1030703804(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

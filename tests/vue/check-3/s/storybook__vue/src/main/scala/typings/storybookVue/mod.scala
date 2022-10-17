@@ -2,13 +2,13 @@ package typings.storybookVue
 
 import org.scalablytyped.runtime.StringDictionary
 import typings.storybookVue.anon.Kind
-import typings.vue.optionsMod.ComponentOptions
-import typings.vue.optionsMod.DefaultComputed
-import typings.vue.optionsMod.DefaultData
-import typings.vue.optionsMod.DefaultMethods
-import typings.vue.optionsMod.DefaultProps
-import typings.vue.optionsMod.PropsDefinition
-import typings.vue.vueMod.Vue
+import typings.vue.typesOptionsMod.ComponentOptions
+import typings.vue.typesOptionsMod.DefaultComputed
+import typings.vue.typesOptionsMod.DefaultData
+import typings.vue.typesOptionsMod.DefaultMethods
+import typings.vue.typesOptionsMod.DefaultProps
+import typings.vue.typesOptionsMod.PropsDefinition
+import typings.vue.typesVueMod.Vue
 import typings.webpackEnv.NodeModule
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js

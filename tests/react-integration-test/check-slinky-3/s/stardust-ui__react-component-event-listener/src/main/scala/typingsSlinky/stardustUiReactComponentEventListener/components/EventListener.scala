@@ -3,8 +3,8 @@ package typingsSlinky.stardustUiReactComponentEventListener.components
 import slinky.core.facade.ReactRef
 import slinky.web.html.`*`.tag
 import typingsSlinky.StBuildingComponent
-import typingsSlinky.stardustUiReactComponentEventListener.typesMod.EventListenerOptions
-import typingsSlinky.stardustUiReactComponentEventListener.typesMod.EventTypes
+import typingsSlinky.stardustUiReactComponentEventListener.distEsTypesMod.EventListenerOptions
+import typingsSlinky.stardustUiReactComponentEventListener.distEsTypesMod.EventTypes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

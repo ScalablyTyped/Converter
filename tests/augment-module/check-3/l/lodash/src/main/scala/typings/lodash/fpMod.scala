@@ -1,7 +1,7 @@
 package typings.lodash
 
 import org.scalablytyped.runtime.Shortcut
-import typings.lodash.curryMod.Curry
+import typings.lodash.fpCurryMod.Curry
 import typings.lodash.mod.CurriedFunction1
 import typings.lodash.mod.CurriedFunction2
 import org.scalablytyped.runtime.StObject

@@ -10,18 +10,19 @@ import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import scala.collection.immutable.SortedSet
 
 case class ConversionOptions(
-    useScalaJsDomTypes:     Boolean,
-    flavour:                Flavour,
-    outputPackage:          Name,
-    enableScalaJsDefined:   Selection[TsIdentLibrary],
-    stdLibs:                SortedSet[String],
-    expandTypeMappings:     Selection[TsIdentLibrary],
-    ignored:                SortedSet[String],
-    versions:               Versions,
-    organization:           String,
-    enableReactTreeShaking: Selection[Name],
-    enableLongApplyMethod:  Boolean,
-    privateWithin:          Option[Name],
+    useScalaJsDomTypes:       Boolean,
+    flavour:                  Flavour,
+    outputPackage:            Name,
+    enableScalaJsDefined:     Selection[TsIdentLibrary],
+    stdLibs:                  SortedSet[String],
+    expandTypeMappings:       Selection[TsIdentLibrary],
+    ignored:                  SortedSet[String],
+    versions:                 Versions,
+    organization:             String,
+    enableReactTreeShaking:   Selection[Name],
+    enableLongApplyMethod:    Boolean,
+    privateWithin:            Option[Name],
+    useDeprecatedModuleNames: Boolean,
 ) {
   val ignoredLibs: Set[TsIdentLibrary] =
     ignored.map(TsIdentLibrary.apply)

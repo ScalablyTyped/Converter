@@ -56,12 +56,12 @@ import typingsJapgolly.react.reactStrings.text
 import typingsJapgolly.react.reactStrings.time
 import typingsJapgolly.react.reactStrings.tree
 import typingsJapgolly.react.reactStrings.vertical
-import typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroupProps
+import typingsJapgolly.reactBootstrap.libButtonGroupMod.ButtonGroupProps
+import typingsJapgolly.reactBootstrap.libToggleButtonGroupMod.BaseProps
+import typingsJapgolly.reactBootstrap.libToggleButtonGroupMod.CheckboxProps
+import typingsJapgolly.reactBootstrap.libToggleButtonGroupMod.RadioProps
+import typingsJapgolly.reactBootstrap.libToggleButtonGroupMod.^
 import typingsJapgolly.reactBootstrap.mod.Sizes
-import typingsJapgolly.reactBootstrap.toggleButtonGroupMod.BaseProps
-import typingsJapgolly.reactBootstrap.toggleButtonGroupMod.CheckboxProps
-import typingsJapgolly.reactBootstrap.toggleButtonGroupMod.RadioProps
-import typingsJapgolly.reactBootstrap.toggleButtonGroupMod.^
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
