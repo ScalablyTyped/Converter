@@ -655,7 +655,7 @@ object Libraries {
     "react-slick",
     "redux",
     "redux-devtools-extension",
-    "reveal",
+    "reveal.js",
     "rxjs",
     "semantic-ui-react",
     "semantic-ui-react__event-stack",
