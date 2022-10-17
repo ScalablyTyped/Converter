@@ -23,6 +23,7 @@ final class LexerTests extends AnyFunSuite with Matchers {
       "0.000000",
       "0xAC",
       "0b0000000000000000000000000000001",
+      "1e+24",
     ).foreach(str => shouldParseAs(str, TsLexer.numericLiteral)(TsLexer.NumericLit(str)))
   }
 
