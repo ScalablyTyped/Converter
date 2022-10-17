@@ -118,22 +118,25 @@ object PreferTypeAlias {
           case _ => Empty /** such a recursive link will be broken by [[ExtractInterfaces]] */
         }
 
-      case TsTypeFunction(signature)                => sig(scope, acc, signature, Empty)
-      case TsTypeConstructor(_, f)                  => sig(scope, acc, f.signature, Empty)
-      case TsTypeRepeated(underlying)               => isInRecursiveGroup(scope, acc, underlying, Empty)
-      case TsTypeTuple(elems)                       => anyOf(scope, acc, elems.map(_.tpe), Empty)
-      case TsTypeIntersect(types)                   => anyOf(scope, acc, types, Empty)
-      case TsTypeUnion(types)                       => anyOf(scope, acc, types, Empty)
-      case TsTypeConditional(pred, ifTrue, ifFalse) => anyOf(scope, acc, IArray(pred, ifTrue, ifFalse), Empty)
-      case TsTypeLiteral(_)                         => Empty
-      case TsTypeQuery(_)                           => Empty
-      case TsTypeKeyOf(_)                           => Empty
-      case TsTypeLookup(_, _)                       => Empty
-      case TsTypeThis()                             => Empty
-      case TsTypeIs(_, _)                           => Empty
-      case TsTypeAsserts(_, _)                      => Empty
-      case TsTypeExtends(_, _)                      => Empty
-      case TsTypeInfer(_)                           => Empty
+      case TsTypeFunction(signature)  => sig(scope, acc, signature, Empty)
+      case TsTypeConstructor(_, f)    => sig(scope, acc, f.signature, Empty)
+      case TsTypeRepeated(underlying) => isInRecursiveGroup(scope, acc, underlying, Empty)
+      case TsTypeTuple(elems)         => anyOf(scope, acc, elems.map(_.tpe), Empty)
+      case TsTypeIntersect(types)     => anyOf(scope, acc, types, Empty)
+      case TsTypeUnion(types)         => anyOf(scope, acc, types, Empty)
+      case TsTypeConditional(_, _, _) =>
+        // should likely check this, but there are recursive cases where it never completes, since the obvious implementation
+        // would continue down both branches.
+        Empty
+      case TsTypeLiteral(_)    => Empty
+      case TsTypeQuery(_)      => Empty
+      case TsTypeKeyOf(_)      => Empty
+      case TsTypeLookup(_, _)  => Empty
+      case TsTypeThis()        => Empty
+      case TsTypeIs(_, _)      => Empty
+      case TsTypeAsserts(_, _) => Empty
+      case TsTypeExtends(_, _) => Empty
+      case TsTypeInfer(_)      => Empty
     }
   }
 
