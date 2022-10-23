@@ -386,15 +386,11 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   lazy val tsTypeParams: Parser[IArray[TsTypeParam]] =
     "<" ~>! repsep_(typeParam, ",") <~! ",".? <~ comments.? <~! ">" | success(Empty)
 
-  val tsFunctionParams: Parser[IArray[TsFunParam]] = functionParam.** ^^ {
-
-    /** **/
-    case ps if ps.count(_.name.value === "has") > 1 =>
-      ps.zipWithIndex.map {
-        case (p @ TsFunParam(_, TsIdentSimple("has"), _), idx) => p.copy(name = TsIdent("has" + idx))
-        case (other, _)                                        => other
-      }
-    case ok => ok
+  val tsFunctionParams: Parser[IArray[TsFunParam]] = functionParam.** ^^ { params =>
+    params.zipWithIndex.map {
+      case (p @ TsFunParam(_, TsIdent.Destructured, _), i) => p.copy(name = TsIdent(s"param$i"))
+      case (p, _)                                          => p
+    }
   }
 
   lazy val functionSignature: Parser[TsFunSig] =
@@ -404,20 +400,16 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
     /** Note: we don't care about the specifics of a destructured parameter. we just want a unique name and a type **/
     lazy val destructuredObj: Parser[TsIdentSimple] =
-      "{" ~>! rep((tsIdentLiberal | ("..." ~> tsIdent)) ~ (":" ~> (tsIdent | destructured)).? <~ ",".?) <~ "}" ^^ {
-        tupled =>
-          val rendered = tupled.map {
-            case _ ~ Some(renamed) => renamed.value.capitalize;
-            case ident ~ None      => ident.value.capitalize
-          }
-          TsIdent("has" + rendered.mkString(""))
-
-      }
+      "{" ~>! rep((tsIdentLiberal | ("..." ~> tsIdent)) ~ (":" ~> (tsIdent | destructured)).? <~ ",".?) <~ "}" ^^ (
+          _ =>
+            TsIdent.Destructured,
+        )
     lazy val destructuredArray: Parser[TsIdentSimple] =
       "[" ~>! ",".? ~> repsep("...".? ~> tsIdent <~ (":" <~ (tsIdent | destructured)).?, ",") <~ "]" ^^ (
-          ids =>
-            TsIdent("has" + ids.map(_.value.capitalize).mkString("")),
+          _ =>
+            TsIdent.Destructured,
         )
+
     lazy val destructured = destructuredArray | destructuredObj
 
     comments ~ "...".isDefined ~ (tsIdent | destructured) ~ "?".isDefined ~ (typeAnnotationOpt <~ ("=" ~ expr).?) <~ ",".? ^^ {

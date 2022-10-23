@@ -3054,7 +3054,7 @@ export {};
     shouldParseAs(content, TsParser.functionParam)(
       TsFunParam(
         NoComments,
-        TsIdentSimple("hasArr"),
+        TsIdent.Destructured,
         Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Array"))), IArray(T))),
       ),
     )

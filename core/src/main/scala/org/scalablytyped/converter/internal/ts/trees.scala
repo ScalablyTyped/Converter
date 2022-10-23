@@ -441,9 +441,10 @@ object TsIdent {
   def unapply(ident: TsIdent): Some[String] =
     Some(ident.value)
 
-  val `this`: TsIdentSimple = TsIdent("this")
-  val Apply:  TsIdentSimple = TsIdent("<apply>") // keep in sync with Name.necessaryRewrite
-  val Global: TsIdentSimple = TsIdent("<global>") // keep in sync with Name.necessaryRewrite
+  val `this`:       TsIdentSimple = TsIdent("this")
+  val Apply:        TsIdentSimple = TsIdent("<apply>") // keep in sync with Name.necessaryRewrite
+  val Global:       TsIdentSimple = TsIdent("<global>") // keep in sync with Name.necessaryRewrite
+  val Destructured: TsIdentSimple = TsIdent("<destructured>") // for parameters with no name.
 
   val update:        TsIdentSimple = TsIdent("update")
   val prototype:     TsIdentSimple = TsIdent("prototype")
