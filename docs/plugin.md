@@ -31,7 +31,7 @@ If you really want more than one conversion make sure to [shade](conversion-opti
 **This plugin needs sbt 1.7.x**.
 
 Since we generate source code, it should work with any combination of 
-Scala 2.12 / 2.13 / 3 and Scala.js 1.10+
+Scala 2.12 / 2.13 / 3.2.0+ and Scala.js 1.11+
 
 ## Add to your `project/plugins.sbt`
 

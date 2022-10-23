@@ -4,7 +4,7 @@ package scalajs
 import io.circe013.{Decoder, Encoder}
 
 object Versions {
-  val sbtVersion = "1.7.1"
+  val sbtVersion = "1.7.2"
 
   // this accepts any nightly or milestone with the same binversion as a major release. good enough for now
   private val Version = "(\\d+).(\\d+).(\\d+).*".r
@@ -46,7 +46,7 @@ object Versions {
 
   val Scala212 = Scala("2.12.15")
   val Scala213 = Scala("2.13.8")
-  val Scala3   = Scala("3.1.2")
+  val Scala3   = Scala("3.2.0")
 
   case class ScalaJs(scalaJsVersion: String) {
     val scalaJsBinVersion: String =
@@ -68,7 +68,7 @@ object Versions {
   implicit val encodes: Encoder[Versions] = io.circe013.generic.semiauto.deriveEncoder
   implicit val decodes: Decoder[Versions] = io.circe013.generic.semiauto.deriveDecoder
 
-  val ScalaJs1 = ScalaJs("1.10.0")
+  val ScalaJs1 = ScalaJs("1.11.0")
 }
 
 case class Versions(scala: Versions.Scala, scalaJs: Versions.ScalaJs) {

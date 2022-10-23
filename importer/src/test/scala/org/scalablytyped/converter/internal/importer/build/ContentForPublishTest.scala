@@ -12,7 +12,7 @@ import org.scalatest.matchers.should.Matchers
 class ContentForPublishTest extends AnyFunSuite with Matchers {
 
   val dummyPath = os.root / 'tmp
-  val versions  = Versions(Versions.Scala213, Versions.ScalaJs1)
+  val versions  = Versions(Versions.Scala("2.13.8"), Versions.ScalaJs("1.10.0"))
   val project = SbtProject(
     name = "sbtprojectname",
     reference = Dep
