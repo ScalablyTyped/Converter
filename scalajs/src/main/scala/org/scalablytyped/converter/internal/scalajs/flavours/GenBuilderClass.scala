@@ -11,7 +11,7 @@ import scala.collection.mutable
 object GenBuilderClass {
   def apply(original: ClassTree, props: IArray[Prop], ownerCp: QualifiedName): Option[ClassTree] = {
     val x           = Name("x")
-    val clsName     = Name(s"${original.name.unescaped}MutableBuilder")
+    val clsName     = Name("MutableBuilder")
     val clsCodePath = ownerCp + clsName
     val value       = Name("value")
 
