@@ -3,7 +3,7 @@ package org.scalablytyped.converter.cli
 import com.olvind.logging.{stdout, storing, LogLevel, Logger}
 import fansi.{Attr, Color, Str}
 import org.scalablytyped.converter.internal.importer._
-import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, PublishedSbtProject, SbtProject}
+import org.scalablytyped.converter.internal.importer.build.{BleepCompiler, ScalaProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.phases.PhaseListener.NoListener
 import org.scalablytyped.converter.internal.phases.{PhaseRes, PhaseRunner, RecPhase}
@@ -248,12 +248,9 @@ object Main {
           ),
         )
 
-        val compiler = Await.result(
-          BloopCompiler(logger.filter(LogLevel.debug).void, conversion.versions, failureCacheFolderOpt = None),
-          Duration.Inf,
-        )
+        val bleepCompiler = Await.result(BleepCompiler(logger.filter(LogLevel.debug).void), Duration.Inf)
 
-        val Pipeline: RecPhase[LibTsSource, PublishedSbtProject] =
+        val Pipeline: RecPhase[LibTsSource, ScalaProject] =
           RecPhase[LibTsSource]
             .next(
               new Phase1ReadTypescript(
@@ -285,10 +282,10 @@ object Main {
             .next(
               new Phase3Compile(
                 versions                   = conversion.versions,
-                compiler                   = compiler,
+                bleepCompiler              = bleepCompiler,
                 targetFolder               = c.paths.out,
                 organization               = conversion.organization,
-                publishLocalFolder         = constants.defaultLocalPublishFolder,
+                publishLocalTarget         = PublishLocalTarget.DefaultIvy2,
                 metadataFetcher            = Npmjs.No,
                 softWrites                 = true,
                 flavour                    = conversion.flavourImpl,
@@ -298,7 +295,7 @@ object Main {
               "build",
             )
 
-        val results: Map[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]] =
+        val results: Map[LibTsSource, PhaseRes[LibTsSource, ScalaProject]] =
           sources
             .map(source => source -> PhaseRunner(Pipeline, (_: LibTsSource) => logger.void, NoListener)(source))
             .toMap
@@ -324,16 +321,16 @@ object Main {
 
           System.exit(1)
         } else {
-          val allSuccesses: Map[LibTsSource, PublishedSbtProject] = {
-            def go(source: LibTsSource, p: PublishedSbtProject): Map[LibTsSource, PublishedSbtProject] =
-              Map(source -> p) ++ p.project.deps.flatMap { case (k, v) => go(k, v) }
+          val allSuccesses: Map[LibTsSource, ScalaProject] = {
+            def go(source: LibTsSource, p: ScalaProject): Map[LibTsSource, ScalaProject] =
+              Map(source -> p) ++ p.deps.flatMap { case (k, v) => go(k, v) }
 
             results.collect { case (s, PhaseRes.Ok(res)) => go(s, res) }.reduceOption(_ ++ _).getOrElse(Map.empty)
           }
 
-          val short: Seq[SbtProject] =
+          val short: Seq[ScalaProject] =
             results
-              .collect { case (_, PhaseRes.Ok(res)) => res.project }
+              .collect { case (_, PhaseRes.Ok(res)) => res }
               .toSeq
               .filter(_.name != Name.std.unescaped)
               .sortBy(_.name)

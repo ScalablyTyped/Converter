@@ -5,7 +5,7 @@ import ammonite.ops.{%, %%, ShelloutException}
 import com.olvind.logging
 import com.olvind.logging.{LogLevel, LogRegistry}
 import org.scalablytyped.converter.Selection
-import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, PublishedSbtProject}
+import org.scalablytyped.converter.internal.importer.build.{BleepCompiler, ScalaProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
@@ -54,20 +54,17 @@ trait ImporterHarness extends AnyFunSuite {
   def version: Versions
   def mode:    Mode
 
-  private lazy val bloop = Await.result(
-    BloopCompiler(testLogger, version, Some(failureCacheDir.toNIO))(ExecutionContext.Implicits.global),
-    Duration.Inf,
-  )
+  val bleepCompiler = Await.result(BleepCompiler(testLogger)(ExecutionContext.Implicits.global), Duration.Inf)
 
   private def runImport(
       source:             InFolder,
       targetFolder:       os.Path,
       pedantic:           Boolean,
       logRegistry:        LogRegistry[LibTsSource, TsIdentLibrary, StringWriter],
-      publishLocalFolder: os.Path,
+      publishLocalTarget: PublishLocalTarget.InHomeFolder,
       flavour:            FlavourImpl,
       maybePrivateWithin: Option[Name],
-  ): PhaseRes[LibTsSource, SortedMap[LibTsSource, PublishedSbtProject]] = {
+  ): PhaseRes[LibTsSource, SortedMap[LibTsSource, ScalaProject]] = {
     val stdLibSource: LibTsSource.StdLibSource =
       LibTsSource.StdLibSource(
         InFolder(source.path),
@@ -79,7 +76,7 @@ trait ImporterHarness extends AnyFunSuite {
     val ignored    = Set.empty[TsIdentLibrary]
     val resolver   = new LibraryResolver(stdLibSource, allSources, ignored)
 
-    val phase: RecPhase[LibTsSource, PublishedSbtProject] =
+    val phase: RecPhase[LibTsSource, ScalaProject] =
       RecPhase[LibTsSource]
         .next(
           new Phase1ReadTypescript(
@@ -108,10 +105,10 @@ trait ImporterHarness extends AnyFunSuite {
         .next(
           new Phase3Compile(
             versions                   = version,
-            compiler                   = bloop,
+            bleepCompiler              = bleepCompiler,
             targetFolder               = targetFolder,
             organization               = "org.scalablytyped",
-            publishLocalFolder         = publishLocalFolder,
+            publishLocalTarget         = publishLocalTarget,
             metadataFetcher            = Npmjs.No,
             softWrites                 = true,
             flavour                    = flavour,
@@ -121,13 +118,13 @@ trait ImporterHarness extends AnyFunSuite {
           "build",
         )
 
-    val results: SortedMap[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]] =
+    val results: SortedMap[LibTsSource, PhaseRes[LibTsSource, ScalaProject]] =
       allSources
         .map(s => (s: LibTsSource) -> PhaseRunner(phase, logRegistry.get, PhaseListener.NoListener)(s))
         .toMap
         .toSorted
 
-    PhaseRes.sequenceMap(results).map(PublishedSbtProject.Unpack.apply)
+    PhaseRes.sequenceMap(results).map(ScalaProject.Unpack.apply)
   }
 
   def findTestFolder(testName: String): InFolder = {
@@ -174,9 +171,10 @@ trait ImporterHarness extends AnyFunSuite {
             _ => logging.appendable(new StringWriter()),
           )
 
-        val publishFolder = baseDir / "artifacts" / testName
+        val publishLocalTarget =
+          PublishLocalTarget.InHomeFolder(os.RelPath(".cache") / "scalablytyped" / "test-artifacts" / testName)
 
-        runImport(source, targetFolder, pedantic, logRegistry, publishFolder, flavour, maybePrivateWithin) match {
+        runImport(source, targetFolder, pedantic, logRegistry, publishLocalTarget, flavour, maybePrivateWithin) match {
           case PhaseRes.Ok(_) if run == Mode.RunDontStore => succeed
           case PhaseRes.Ok(_) =>
             implicit val wd = os.pwd

@@ -28,7 +28,7 @@ object Ci {
       npmjs:              Path,
       parseCache:         Option[Path],
       cacheFolder:        os.Path,
-      publishLocalFolder: os.Path,
+      publishLocalTarget: PublishLocalTarget,
       gitCache:           os.Path,
   )
 
@@ -199,12 +199,8 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
     } yield Bootstrap.forCi(externalsFolder, dtFolder, config.conversion, config.wantedLibs)
   }
 
-  val compilerF: Future[BloopCompiler] =
-    BloopCompiler(
-      logger                = logger.filter(LogLevel.debug).void,
-      v                     = config.conversion.versions,
-      failureCacheFolderOpt = Some((paths.cacheFolder / 'compileFailures).toNIO),
-    )(ec)
+  val compilerF: Future[BleepCompiler] =
+    BleepCompiler(logger = logger.filter(LogLevel.debug).void)(ec)
 
   val dtFolderF: Future[InFolder] =
     Future(
@@ -238,8 +234,8 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
 
   val localCleaningF = Future {
     if (config.conserveSpace) {
-      interfaceLogger.warn(s"Cleaning old artifacts in ${paths.publishLocalFolder}")
-      LocalCleanup(paths.publishLocalFolder, config.conversion.organization, keepNum = 1)
+      interfaceLogger.warn(s"Cleaning old artifacts in ${paths.publishLocalTarget.path}")
+      LocalCleanup(paths.publishLocalTarget.path, config.conversion.organization, keepNum = 1)
     }
   }(ec)
 
@@ -256,7 +252,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
 
     val t0 = System.currentTimeMillis
 
-    val Pipeline: RecPhase[LibTsSource, PublishedSbtProject] =
+    val Pipeline: RecPhase[LibTsSource, ScalaProject] =
       RecPhase[LibTsSource]
         .next(
           new Phase1ReadTypescript(
@@ -288,10 +284,10 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
         .next(
           new Phase3Compile(
             versions                   = config.conversion.versions,
-            compiler                   = compiler,
+            bleepCompiler              = compiler,
             targetFolder               = targetFolder,
             organization               = config.conversion.organization,
-            publishLocalFolder         = paths.publishLocalFolder,
+            publishLocalTarget         = paths.publishLocalTarget,
             metadataFetcher            = NpmjsFetcher(paths.npmjs)(ec),
             softWrites                 = config.softWrites,
             flavour                    = config.conversion.flavourImpl,
@@ -307,7 +303,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
       case Right(sources) => sources
     }
 
-    val results: Map[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]] =
+    val results: Map[LibTsSource, PhaseRes[LibTsSource, ScalaProject]] =
       Interface(config.debugMode) { listener =>
         initial
           .map(source => source -> PhaseRunner(Pipeline, logRegistry.get, listener)(source))
@@ -318,9 +314,9 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
       return Some(System.currentTimeMillis - t0)
     }
 
-    val successes: Map[LibTsSource, PublishedSbtProject] = {
-      def go(source: LibTsSource, p: PublishedSbtProject): Map[LibTsSource, PublishedSbtProject] =
-        Map(source -> p) ++ p.project.deps.flatMap { case (k, v) => go(k, v) }
+    val successes: Map[LibTsSource, ScalaProject] = {
+      def go(source: LibTsSource, p: ScalaProject): Map[LibTsSource, ScalaProject] =
+        Map(source -> p) ++ p.deps.flatMap { case (k, v) => go(k, v) }
 
       results.collect { case (s, PhaseRes.Ok(res)) => go(s, res) }.reduceOption(_ ++ _).getOrElse(Map.empty)
     }
@@ -377,7 +373,7 @@ target/
       CommitChanges(
         interfaceCmd,
         summary,
-        successes.values.map(_.project.baseDir).to[Vector],
+        successes.values.map(_.baseDir).to[Vector],
         Vector(sbtProjectDir, readme, librariesByScore, librariesByName, librariesByDependents, gitIgnore, summaryFile),
         formattedDiff,
       )(targetFolder)

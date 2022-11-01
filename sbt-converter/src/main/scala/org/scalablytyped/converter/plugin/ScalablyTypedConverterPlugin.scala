@@ -3,18 +3,19 @@ package plugin
 
 import _root_.io.circe013.syntax._
 import com.olvind.logging.LogLevel
-import org.scalablytyped.converter.internal.RunCache.Present
 import org.scalablytyped.converter.internal._
-import sbt.Keys._
+import org.scalablytyped.converter.internal.RunCache.Present
+import org.scalablytyped.converter.internal.importer.PublishLocalTarget
+import org.scalablytyped.converter.internal.importer.build.BleepCompiler
 import sbt._
+import sbt.Keys._
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, ExecutionContext}
 
 object ScalablyTypedConverterPlugin extends AutoPlugin {
   override def requires = ScalablyTypedPluginBase && ScalaJSBundlerPlugin
-
-  private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
   object autoImport {
     val stImport       = taskKey[ImportTypings.InOut]("Imports all the bundled npm and generates bindings")
@@ -64,10 +65,10 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
             input              = input,
             logger             = stLogger.filter(LogLevel.warn),
             parseCacheDirOpt   = Some(cacheDir.toNIO.resolve("parse")),
-            publishLocalFolder = publishLocalFolder,
+            publishLocalTarget = PublishLocalTarget.DefaultIvy2,
             fromFolder         = fromFolder,
             targetFolder       = targetFolder,
-            compiler           = stInternalZincCompiler.value,
+            bleepCompiler      = Await.result(BleepCompiler(stLogger)(ExecutionContext.Implicits.global), Duration.Inf),
           ) match {
             case Right(output) =>
               Json.persist[ImportTypings.InOut](runCacheKey.path(cacheDir))((input, output))
@@ -91,7 +92,6 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
       /* This is where we add our generated artifacts to the project for compilation */
       allDependencies ++= stImport.value._2.moduleIds.toSeq,
       stImport := stImportTask.value,
-      stInternalZincCompiler := ZincCompiler.task.value,
       ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
       stPublishCache := RunCache.publishCacheTask(stImport).value,
     )

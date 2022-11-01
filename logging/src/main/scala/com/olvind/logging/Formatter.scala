@@ -87,7 +87,7 @@ object Formatter {
       }
 
   implicit val StrFormatter:    Formatter[Str]    = x => x
-  implicit val StringFormatter: Formatter[String] = x => x
+  implicit val StringFormatter: Formatter[String] = Str.Strip(_)
   implicit val IntFormatter:    Formatter[Int]    = _.toString
   implicit val LongFormatter:   Formatter[Long]   = _.toString
   implicit val UnitFormatter:   Formatter[Unit]   = _ => ""

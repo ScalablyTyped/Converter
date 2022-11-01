@@ -12,7 +12,7 @@ object GenerateSbtPlugin {
       organization:  String,
       projectName:   ProjectName,
       projectDir:    os.Path,
-      projects:      Set[PublishedSbtProject],
+      projects:      Set[ScalaProject],
       pluginVersion: String,
       action:        String,
   ): Unit = {
@@ -36,7 +36,7 @@ object GenerateSbtPlugin {
       isDeprecated:  Boolean,
       organization:  String,
       projectName:   ProjectName,
-      projects:      Set[PublishedSbtProject],
+      projects:      Set[ScalaProject],
       pluginVersion: String,
   ): IArray[(os.RelPath, String)] = {
 
@@ -58,7 +58,6 @@ object GenerateSbtPlugin {
 
     val projectsByLetter =
       projects
-        .map(_.project)
         .groupBy(_.name.head)
         .to[Array]
         .sortBy(_._1)

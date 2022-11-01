@@ -1,20 +1,21 @@
 package org.scalablytyped.converter.plugin
 
 import _root_.io.circe013.syntax._
-import com.olvind.logging.{Formatter, LogLevel}
-import org.scalablytyped.converter.internal.RunCache.Present
+import com.olvind.logging.LogLevel
 import org.scalablytyped.converter.internal._
-import org.scalablytyped.converter.internal.maps._
+import org.scalablytyped.converter.internal.RunCache.Present
+import org.scalablytyped.converter.internal.importer.PublishLocalTarget
+import org.scalablytyped.converter.internal.importer.build.BleepCompiler
 import org.scalablytyped.converter.internal.ts.{PackageJson, TsIdentLibrary}
 import org.scalajs.sbtplugin.ScalaJSPlugin
-import sbt.Keys._
 import sbt._
+import sbt.Keys._
 
 import scala.collection.immutable.SortedMap
-import scala.concurrent.ExecutionContext
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, ExecutionContext}
 
 object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
-  private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
   object autoImport {
     val stImport       = taskKey[ImportTypings.InOut]("Imports all the bundled npm and generates bindings")
@@ -70,10 +71,10 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
             input              = input,
             logger             = stLogger.filter(LogLevel.warn),
             parseCacheDirOpt   = Some(cacheDir.toPath.resolve("parse")),
-            publishLocalFolder = publishLocalFolder,
+            publishLocalTarget = PublishLocalTarget.DefaultIvy2,
             fromFolder         = nodeModules,
             targetFolder       = outputDir / "sources",
-            compiler           = stInternalZincCompiler.value,
+            bleepCompiler      = Await.result(BleepCompiler(stLogger)(ExecutionContext.Implicits.global), Duration.Inf),
           ) match {
             case Right(output) =>
               Json.persist[ImportTypings.InOut](runCacheKey.path(os.Path(cacheDir)))((input, output))
@@ -97,7 +98,6 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
       stImport := stImportTask.value,
       /* This is where we add our generated artifacts to the project for compilation */
       allDependencies ++= stImport.value._2.moduleIds.toSeq,
-      stInternalZincCompiler := ZincCompiler.task.value,
       stPublishCache := RunCache.publishCacheTask(stImport).value,
     )
 }

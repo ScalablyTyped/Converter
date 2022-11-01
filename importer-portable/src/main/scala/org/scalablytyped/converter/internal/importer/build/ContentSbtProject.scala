@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 package build
 
+import bleep.{model, yaml}
 import org.scalablytyped.converter.internal.importer.documentation.{Npmjs, ProjectReadme}
 import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
 import org.scalablytyped.converter.internal.stringUtils.quote
@@ -13,18 +14,15 @@ object ContentSbtProject {
       organization:    String,
       name:            String,
       version:         String,
-      localDeps:       IArray[PublishedSbtProject],
-      deps:            Set[Dep],
       scalaFiles:      IArray[(os.RelPath, String)],
       resources:       IArray[(os.RelPath, String)],
       metadataOpt:     Option[Npmjs.Data],
       declaredVersion: Option[LibraryVersion],
+      bleepBuildFile:  model.BuildFile,
+      allDeps:         IArray[Dep],
   ): SbtProjectLayout[os.RelPath, String] = {
 
     val buildSbt = {
-      val allDeps: IArray[Dep] = IArray.fromTraversable(deps) ++ IArray(versions.runtime) ++ localDeps.map(d =>
-        d.project.reference,
-      )
       val depsString = allDeps.map(_.asSbt).distinct.sorted.mkString("Seq(\n  ", ",\n  ", ")")
 
       s"""|organization := ${quote(organization)}
@@ -51,6 +49,7 @@ object ContentSbtProject {
       os.RelPath("project") / "build.properties" -> s"sbt.version=${Versions.sbtVersion}",
       os.RelPath("project") / "plugins.sbt" -> pluginsSbt,
       readme,
+      os.RelPath("bleep.yaml") -> yaml.encodeShortened(bleepBuildFile),
       scalaFiles,
       resources,
     )

@@ -2,10 +2,9 @@ package org.scalablytyped.converter
 
 import java.nio.file.Path
 import java.util.concurrent.ForkJoinPool
-
 import org.scalablytyped.converter.internal.constants
 import org.scalablytyped.converter.internal.constants.defaultCacheFolder
-import org.scalablytyped.converter.internal.importer.{withZipFs, Ci}
+import org.scalablytyped.converter.internal.importer.{withZipFs, Ci, PublishLocalTarget}
 
 import scala.concurrent.ExecutionContext
 
@@ -31,7 +30,7 @@ object Main {
               npmjs              = npmjsPath,
               parseCache         = parseCacheOpt,
               cacheFolder        = defaultCacheFolder,
-              publishLocalFolder = constants.defaultLocalPublishFolder,
+              publishLocalTarget = PublishLocalTarget.DefaultIvy2,
               gitCache           = defaultCacheFolder / "git",
             )
           val ci = new Ci(config, paths, pool, ec)

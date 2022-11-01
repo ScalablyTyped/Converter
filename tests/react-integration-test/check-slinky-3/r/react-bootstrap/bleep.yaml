@@ -1,0 +1,23 @@
+$schema: https://raw.githubusercontent.com/oyvindberg/bleep/master/schema.json
+$version: 0.0.1-M21
+jvm:
+  name: graalvm-java17:22.3.0
+projects:
+  react-bootstrap:
+    dependencies:
+    - com.olvind:scalablytyped-runtime_sjs1_3:2.4.2
+    - me.shadaj:slinky-web_sjs1_3:0.7.2
+    - org.scalablytyped:react_sjs1_3:16.9.2-6c1b12
+    - org.scalablytyped:std_sjs1_3:0.0-unknown-d57ac3
+    folder: ./
+    platform:
+      jsVersion: 1.11.0
+      name: js
+    sbt-scope: main
+    scala:
+      options: -encoding utf-8 -feature -language:existentials -language:higherKinds
+        -language:implicitConversions -no-indent -source:future
+      version: 3.2.0
+resolvers:
+  path: ${HOME_DIR}/.cache/scalablytyped/test-artifacts/react-integration-test
+  type: maven-folder
