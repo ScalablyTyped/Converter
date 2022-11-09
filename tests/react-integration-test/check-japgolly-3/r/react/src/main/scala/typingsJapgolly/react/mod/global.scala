@@ -115,12 +115,14 @@ object global {
     // let's assume it's reasonable to do a single React.lazy() around a single React.memo() / vice-versa
     /** NOTE: Conditional type definitions are impossible to translate to Scala.
       * See https://www.typescriptlang.org/docs/handbook/2/conditional-types.html for an intro.
-      * You'll have to cast your way around this structure, unfortunately. 
+      * This RHS of the type alias is guess work. You should cast if it's not correct in your case.
       * TS definition: {{{
       C extends react.react.MemoExoticComponent<infer T> | react.react.LazyExoticComponent<infer T> ? T extends react.react.MemoExoticComponent<infer U> | react.react.LazyExoticComponent<infer U> ? react.react.ReactManagedAttributes<U, P> : react.react.ReactManagedAttributes<T, P> : react.react.ReactManagedAttributes<C, P>
       }}}
       */
-    @js.native
-    trait LibraryManagedAttributes[C, P] extends StObject
+    type LibraryManagedAttributes[C, P] = MergePropTypes[
+        P, 
+        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ Any
+      ]
   }
 }

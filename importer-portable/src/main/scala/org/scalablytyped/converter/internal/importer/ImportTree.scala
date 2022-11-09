@@ -263,7 +263,7 @@ class ImportTree(
           cs ++ Comments(
             s"""/** NOTE: Conditional type definitions are impossible to translate to Scala.
                | * See https://www.typescriptlang.org/docs/handbook/2/conditional-types.html for an intro.
-               | * $explain. 
+               | * $explain.
                | * TS definition: {{{
                | ${TsTypeFormatter(tpe)}
                | }}}
@@ -271,22 +271,91 @@ class ImportTree(
                |""".stripMargin,
           )
 
-        IArray(
-          ClassTree(
-            isImplicit  = false,
-            annotations = IArray(Annotation.JsNative),
-            level       = ProtectionLevel.Public,
-            name        = importedName,
-            tparams     = importedTparams,
-            parents     = Empty,
-            ctors       = Empty,
-            members     = Empty,
-            classType   = ClassType.Trait,
-            isSealed    = false,
-            comments    = warning("You'll have to cast your way around this structure, unfortunately"),
-            codePath    = importedCp,
-          ),
-        )
+        /* It's common to nest these things, so handle that */
+
+        /**
+          * Find the first referenced type in the conditional type which
+          * - is not  recursive
+          * - does not refer to any inferred types
+          * - does not translate to `Any` or similar, since those types are not useful
+          */
+        def findCandidates(x: TsType, depth: Int, inferred: IArray[TsTypeRef]): IArray[TsType] =
+          x match {
+            case tr: TsTypeRef if inferred.contains(tr) => Empty
+            case aliased =>
+              ts.FollowAliases(scope)(x) match {
+                case xx: TsTypeConditional if depth < 3 =>
+                  val inferredThis = TsTreeTraverse.collect(xx.pred) { case TsTypeInfer(tp) => TsTypeRef(tp.name) }
+
+                  lazy val inferredAll: IArray[TsTypeRef] =
+                    inferred ++ inferredThis
+
+                  findCandidates(xx.ifTrue, depth + 1, inferredAll) ++
+                    findCandidates(xx.ifFalse, depth + 1, inferredAll)
+
+                // break recursion by referencing back to initial type alias (the depth check is more through)
+                case typeRef: TsTypeRef if typeRef.name == codePath.forceHasPath.codePath =>
+                  Empty
+                // keep types which do not refer to inferred types
+                case _ =>
+                  val referencesInferred = TsTreeTraverse.collect(aliased) {
+                    case tr: TsTypeRef if inferred.contains(tr) => tr
+                  }
+                  referencesInferred match {
+                    case Empty => IArray(aliased)
+                    case _     => Empty
+                  }
+              }
+          }
+
+        val approximationCandidates = findCandidates(tpe, depth = 0, inferred = Empty)
+        if (codePath.forceHasPath.codePath.parts.last.value == "PipelineDestination") {
+          val foo = findCandidates(tpe, depth = 0, inferred = Empty)
+          println(foo)
+        }
+
+        val chosen: Option[TypeRef] =
+          approximationCandidates
+            .collectFirst {
+              case x @ TsTypeRef(_, name, Empty) if scope.isAbstract(name) => importType(scope, importName)(x)
+            }
+            .orElse {
+              approximationCandidates.map(importType(scope, importName)).collectFirst {
+                case x if x != TypeRef.Any && x != TypeRef.JsObject && x != TypeRef.JsAny && x != TypeRef.Nothing => x
+              }
+            }
+
+        chosen match {
+          case Some(approximation) =>
+            IArray(
+              TypeAliasTree(
+                importedName,
+                ProtectionLevel.Public,
+                importedTparams,
+                approximation,
+                warning("This RHS of the type alias is guess work. You should cast if it's not correct in your case"),
+                codePath = importedCp,
+              ),
+            )
+
+          case None =>
+            IArray(
+              ClassTree(
+                isImplicit  = false,
+                annotations = IArray(Annotation.JsNative),
+                level       = ProtectionLevel.Public,
+                name        = importedName,
+                tparams     = importedTparams,
+                parents     = Empty,
+                ctors       = Empty,
+                members     = Empty,
+                classType   = ClassType.Trait,
+                isSealed    = false,
+                comments    = warning("You'll have to cast your way around this structure, unfortunately"),
+                codePath    = importedCp,
+              ),
+            )
+        }
 
       /* Mapped types. Proper handling (of static) cases is done elsewhere, this just takes care of the dependencies */
       case TsDeclTypeAlias(

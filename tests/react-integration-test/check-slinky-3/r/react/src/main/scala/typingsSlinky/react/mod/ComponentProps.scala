@@ -23,7 +23,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   */
 /** NOTE: Conditional type definitions are impossible to translate to Scala.
   * See https://www.typescriptlang.org/docs/handbook/2/conditional-types.html for an intro.
-  * You'll have to cast your way around this structure, unfortunately. 
+  * You'll have to cast your way around this structure, unfortunately.
   * TS definition: {{{
   T extends react.react.JSXElementConstructor<infer P> ? P : T extends 'a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'big' | 'view' ? react.react.<global>.JSX.IntrinsicElements[T] : {}
   }}}
