@@ -88,10 +88,6 @@ class Phase3Compile(
         val finalVersion          = lib.libVersion.version(digest)
         val allFilesProperVersion = VersionHack.templateVersion(sbtLayout, finalVersion)
 
-        if (ensureSourceFilesWritten) {
-          files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknowns = true, soft = softWrites)
-        }
-
         val reference = Dep.ScalaJs(organization, lib.libName, finalVersion).concrete(versions)
 
         val sbtProject = SbtProject(lib.libName, reference)(compilerPaths.baseDir, deps, metadataOpt)
@@ -103,6 +99,10 @@ class Phase3Compile(
         val lockFile = jarFile / os.up / ".lock"
 
         FileLocking.withLock(lockFile.toNIO) { _ =>
+          if (ensureSourceFilesWritten) {
+            files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknowns = true, soft = softWrites)
+          }
+
           if (existing.all.values.forall(files.exists)) {
             logger.warn(s"Using cached build $jarFile")
             PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, existing, None))
