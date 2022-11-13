@@ -1,0 +1,87 @@
+name: CI Build
+on:
+  pull_request:
+    branches: [ 'master' ]
+
+jobs:
+  scalafmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: coursier/setup-action@v1.2.0-M3
+        with:
+          apps: scalafmt
+
+      - uses: coursier/cache-action@v6
+
+      - name: Scalafmt
+        run: scalafmt -c .scalafmt.conf --check
+
+  build:
+    name: CI Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+          - os: macos-latest
+          - os: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: coursier/cache-action@v6
+
+      - uses: coursier/setup-action@v1.2.0-M3
+        with:
+          jvm: adopt:11
+          apps: sbt
+
+      - name: Get tests folder sha
+        id: get-tests-folder-sha
+        run: |
+          echo "::set-output name=sha::$(git ls-tree HEAD tests --object-only)"
+
+      - uses: actions/cache@v3
+        with:
+          path: test-cache
+          key: ${{ runner.os }}-${{ steps.get-tests-folder-sha.outputs.sha }}-test-cache-v1
+
+      - name: Build and test
+        run: sbt test
+        env:
+          CI: true
+          CI_TEST_CACHE: ../test-cache
+
+# commented out while I figure out how to speed it up or when to run it
+#  sbt-scripted-tests:
+#    name: Run sbt scripted tests
+#    runs-on: ubuntu-latest
+#    timeout-minutes: 25
+#    steps:
+#      - uses: actions/checkout@v3
+#        with:
+#          fetch-depth: 0
+#
+#      - uses: coursier/cache-action@v6
+#
+#      # cache artifacts within same date. should help a bit with the compile time
+#      - name: Get timestamp
+#        id: get-date
+#        run: |
+#          echo "::set-output name=time::$(date +%yy-%m-%d)"
+#
+#      - uses: actions/cache@v3
+#        with:
+#          path: ~/.ivy2/local/org.scalablytyped
+#          key: scripted-v1-${{ steps.get-date.outputs.time }}
+#
+#      - uses: coursier/setup-action@v1.2.0-M3
+#        with:
+#          jvm: adopt:11
+#          apps: sbt
+#
+#      - name: Run scripted
+#        run: sbt scripted

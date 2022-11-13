@@ -1,0 +1,18 @@
+# note that the proper release is made manually with the release script because it's
+# a heavy operation (builds all demo repos)
+# that's why we don't trigger on tag
+name: Release snapshot
+on:
+  push:
+    branches: [ 'master' ]
+jobs:
+  release-snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: coursier/cache-action@v6
+      - uses: coursier/setup-action@v1.2.0-M3
+        apps: sbt
+
+      - name: publish snapshot
+        run: sbt ci-release
