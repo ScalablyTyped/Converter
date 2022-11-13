@@ -60,6 +60,10 @@ lazy val importer = project
       Deps.coursier,
       Deps.scalatest % Test,
     ),
+    // bloop hasn't upgraded to scala-xml 2 yet
+    libraryDependencySchemes ++= Seq(
+      "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
+    ),
     Test / fork := true,
     assembly / test := {},
     assembly / mainClass := Some("org.scalablytyped.converter.Main"),
@@ -80,7 +84,13 @@ lazy val importer = project
 lazy val cli = project
   .dependsOn(importer)
   .configure(baseSettings)
-  .settings(libraryDependencies += Deps.scopt)
+  .settings(
+    libraryDependencies += Deps.scopt,
+    // bloop hasn't upgraded to scala-xml 2 yet
+    libraryDependencySchemes ++= Seq(
+      "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
+    ),
+  )
 
 lazy val `sbt-converter` = project
   .dependsOn(`importer-portable`)
@@ -131,7 +141,7 @@ lazy val baseSettings: Project => Project =
         url("https://github.com/oyvindberg"),
       ),
     ),
-    scalaVersion := "2.12.16",
+    scalaVersion := "2.12.17",
     scalacOptions ~= (_.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-unused:params", "-Xfatal-warnings"))),
     /* disable scaladoc */
     Compile / doc / sources := Nil,

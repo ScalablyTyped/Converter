@@ -7,11 +7,11 @@ object Deps {
   val sourcecode        = "com.lihaoyi" %% "sourcecode" % "0.3.0"
   val scalatest         = "org.scalatest" %% "scalatest" % "3.2.14"
   val fansi             = "com.lihaoyi" %% "fansi" % "0.4.0"
-  val bloop             = "ch.epfl.scala" %% "bloop-frontend" % "1.5.0"
-  val scalaXml          = "org.scala-lang.modules" %% "scala-xml" % "1.3.0"
+  val bloop             = "ch.epfl.scala" %% "bloop-frontend" % "1.5.4"
+  val scalaXml          = "org.scala-lang.modules" %% "scala-xml" % "2.1.0"
   val scopt             = "com.github.scopt" %% "scopt" % "4.1.0"
   val awssdkS3          = "software.amazon.awssdk" % "s3" % "2.15.28"
-  val coursier          = "io.get-coursier" %% "coursier" % "2.0.16"
+  val coursier          = "io.get-coursier" %% "coursier" % "2.1.0-RC1"
 
   val circe: Seq[ModuleID] =
     Seq(

@@ -111,10 +111,10 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       Global / Keys.onLoad := (state => {
         val old = (Global / Keys.onLoad).value
         Keys.sbtVersion.value match {
-          case valid if valid.startsWith("1.7") => old(state)
+          case valid if valid.startsWith("1.8") => old(state)
           case invalid =>
             sys.error(
-              s"This version of the ScalablyTyped plugin only supports 1.7.x. You're currently using $invalid",
+              s"This version of the ScalablyTyped plugin only supports 1.8.x. You're currently using $invalid",
             )
         }
       }),
