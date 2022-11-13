@@ -26,7 +26,7 @@ private object GitLock
 
 sealed trait Mode
 object Mode {
-  val isCi        = sys.env.contains("CIRCLECI")
+  val isCi        = sys.env.contains("CI")
   val isRelease   = sys.env.contains("CI_COMMIT_TAG")
   val isLocalhost = !isCi
   def releaseOnly = if (isLocalhost || isRelease) RunDontStore else Skip
@@ -39,7 +39,14 @@ object Mode {
 }
 
 trait ImporterHarness extends AnyFunSuite {
-  val baseDir         = constants.defaultCacheFolder / 'tests
+  val baseDir = sys.env.get("CI_TEST_CACHE") match {
+    case Some(value) if value.startsWith("/") || value.contains(":") =>
+      os.Path(value)
+    case Some(value) =>
+      os.pwd / os.RelPath(value)
+    case None =>
+      constants.defaultCacheFolder / 'tests
+  }
   val failureCacheDir = baseDir / 'compileFailures
   os.makeDir.all(failureCacheDir)
 
