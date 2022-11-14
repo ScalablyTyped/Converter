@@ -150,6 +150,14 @@ object stylisMod extends Shortcut {
   
   type Selectors = js.Array[String]
   
+  /** 
+  NOTE: Rewritten from type alias:
+  {{{
+  type Set = (options : stylis.stylis/stylis.Options | undefined): stylis.stylis/stylis.Set
+  }}}
+  to avoid circular code involving: 
+  - stylis.stylis/stylis.Set
+  */
   @js.native
   trait Set extends StObject {
     
@@ -177,6 +185,14 @@ object stylisMod extends Shortcut {
     var use_Original: Use = js.native
   }
   
+  /** 
+  NOTE: Rewritten from type alias:
+  {{{
+  type Use = (plugin : std.Array<stylis.stylis/stylis.Plugin> | stylis.stylis/stylis.Plugin | null | undefined): stylis.stylis/stylis.Use
+  }}}
+  to avoid circular code involving: 
+  - stylis.stylis/stylis.Use
+  */
   @js.native
   trait Use extends StObject {
     

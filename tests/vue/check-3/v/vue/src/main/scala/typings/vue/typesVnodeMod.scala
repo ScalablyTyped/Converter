@@ -12,6 +12,18 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object typesVnodeMod {
   
+  /** 
+  NOTE: Rewritten from type alias:
+  {{{
+  type ScopedSlot = (props : any): vue.vue/types/vnode.VNodeChildrenArrayContents | string
+  }}}
+  to avoid circular code involving: 
+  - vue.vue.VNodeChildren
+  - vue.vue.VNodeChildrenArrayContents
+  - vue.vue/types/vnode.ScopedSlot
+  - vue.vue/types/vnode.VNodeChildren
+  - vue.vue/types/vnode.VNodeChildrenArrayContents
+  */
   @js.native
   trait ScopedSlot extends StObject {
     
@@ -121,6 +133,16 @@ object typesVnodeMod {
   
   type VNodeChildren = VNodeChildrenArrayContents | js.Array[ScopedSlot] | String
   
+  /** 
+  NOTE: Rewritten from type alias:
+  {{{
+  type VNodeChildrenArrayContents = {[x: number] : vue.vue/types/vnode.VNode | string | vue.vue/types/vnode.VNodeChildren}
+  }}}
+  to avoid circular code involving: 
+  - vue.vue.VNodeChildren
+  - vue.vue/types/vnode.VNodeChildren
+  - vue.vue/types/vnode.VNodeChildrenArrayContents
+  */
   trait VNodeChildrenArrayContents
     extends StObject
        with /* x */ NumberDictionary[VNode | String | VNodeChildren]
