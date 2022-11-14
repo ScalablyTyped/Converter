@@ -8,6 +8,9 @@ Global / bspEnabled := false
 autoStartServer := false
 Global / excludeLintKeys += autoStartServer
 
+// bloop hasn't upgraded to scala-xml 2 yet
+ThisBuild / libraryDependencySchemes ++= Seq("org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always)
+
 lazy val core = project
   .configure(baseSettings)
   .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode) ++ Deps.circe)
@@ -60,10 +63,6 @@ lazy val importer = project
       Deps.coursier,
       Deps.scalatest % Test,
     ),
-    // bloop hasn't upgraded to scala-xml 2 yet
-    libraryDependencySchemes ++= Seq(
-      "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
-    ),
     Test / fork := true,
     assembly / test := {},
     assembly / mainClass := Some("org.scalablytyped.converter.Main"),
@@ -86,10 +85,6 @@ lazy val cli = project
   .configure(baseSettings)
   .settings(
     libraryDependencies += Deps.scopt,
-    // bloop hasn't upgraded to scala-xml 2 yet
-    libraryDependencySchemes ++= Seq(
-      "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
-    ),
   )
 
 lazy val `sbt-converter` = project
