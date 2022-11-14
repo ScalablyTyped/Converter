@@ -2,8 +2,6 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-import com.olvind.logging.Logger
-
 import scala.collection.{mutable, Map}
 
 object PreferTypeAlias {
@@ -283,11 +281,27 @@ object PreferTypeAlias {
 
     override def enterTsDecl(scope: TsTreeScope)(x: TsDecl): TsDecl =
       x match {
-        case ta @ TsDeclTypeAlias(comments, declared, name, tparams, alias, codePath)
+        case ta @ TsDeclTypeAlias(comments0, declared, name, tparams, alias, codePath)
             if map.contains(codePath.forceHasPath.codePath) =>
+          val rewrite     = map(codePath.forceHasPath.codePath)
           val isTypeParam = TsTypeParam.asTypeArgs(tparams).toSet
 
-          alias match {
+          val newComment = Comment {
+            val formattedCircularGroup = rewrite.toList.sorted.map(TsTypeFormatter.qident).mkString("- ", "\n- ", "\n")
+            s"""/** 
+                 |NOTE: Rewritten from type alias:
+                 |{{{
+                 |type ${name.value} = ${TsTypeFormatter(alias)}
+                 |}}}
+                 |to avoid circular code involving: 
+                 |$formattedCircularGroup
+                 |*/
+                 |""".stripMargin
+          }
+
+          val comments = comments0 + newComment
+
+          FollowAliases(scope)(alias) match {
             case TsTypeIntersect(AllTypeRefs(typeRefs)) if !typeRefs.exists(isTypeParam) =>
               TsDeclInterface(comments, declared, name, tparams, inheritance = typeRefs, members = Empty, codePath)
             case TsTypeObject(_, members) =>
@@ -298,7 +312,7 @@ object PreferTypeAlias {
             case tr: TsTypeRef =>
               TsDeclInterface(comments, declared, name, tparams, inheritance = IArray(tr), members = Empty, codePath)
             case _ =>
-              ReplaceTypes.visitTsDeclTypeAlias(map(codePath.forceHasPath.codePath))(ta)
+              ReplaceTypes.visitTsDeclTypeAlias(rewrite)(ta.copy(comments = comments))
           }
 
         case i: TsDeclInterface if map.contains(i.codePath.forceHasPath.codePath) =>
