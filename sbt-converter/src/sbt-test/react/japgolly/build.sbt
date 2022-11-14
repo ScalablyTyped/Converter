@@ -12,7 +12,7 @@ lazy val testProject =
         "react" -> "16.9",
         "semantic-ui-react" -> "0.88.1",
       ),
-      stFlavour := Flavour.Japgolly,
+      stFlavour := Flavour.ScalajsReact,
       stIgnore += "csstype",
       scalaJSUseMainModuleInitializer := true,
       scalaVersion := "2.13.2",
