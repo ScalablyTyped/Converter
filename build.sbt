@@ -98,7 +98,7 @@ lazy val `sbt-converter` = project
   .configure(baseSettings)
   .settings(
     name := "sbt-converter",
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.21.0"),
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.21.1"),
     sbtPlugin := true,
     // set up 'scripted; sbt plugin for testing sbt plugins
     scriptedBufferLog := false,
