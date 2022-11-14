@@ -8,6 +8,9 @@ Global / bspEnabled := false
 autoStartServer := false
 Global / excludeLintKeys += autoStartServer
 
+// bloop hasn't upgraded to scala-xml 2 yet
+ThisBuild / libraryDependencySchemes ++= Seq("org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always)
+
 lazy val core = project
   .configure(baseSettings)
   .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode) ++ Deps.circe)
@@ -80,7 +83,9 @@ lazy val importer = project
 lazy val cli = project
   .dependsOn(importer)
   .configure(baseSettings)
-  .settings(libraryDependencies += Deps.scopt)
+  .settings(
+    libraryDependencies += Deps.scopt,
+  )
 
 lazy val `sbt-converter` = project
   .dependsOn(`importer-portable`)
@@ -88,7 +93,7 @@ lazy val `sbt-converter` = project
   .configure(baseSettings)
   .settings(
     name := "sbt-converter",
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.21.0"),
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.21.1"),
     sbtPlugin := true,
     // set up 'scripted; sbt plugin for testing sbt plugins
     scriptedBufferLog := false,
@@ -131,7 +136,7 @@ lazy val baseSettings: Project => Project =
         url("https://github.com/oyvindberg"),
       ),
     ),
-    scalaVersion := "2.12.16",
+    scalaVersion := "2.12.17",
     scalacOptions ~= (_.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-unused:params", "-Xfatal-warnings"))),
     /* disable scaladoc */
     Compile / doc / sources := Nil,
