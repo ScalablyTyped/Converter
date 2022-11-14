@@ -253,7 +253,7 @@ class NpmJsTest extends AnyFunSuite {
         |}
         |""".stripMargin
 
-    succeed
+    Json.force[Npmjs.Data](content)
   }
 
   test("example 2") {
@@ -395,6 +395,7 @@ class NpmJsTest extends AnyFunSuite {
         |    }
         |  }
         |}""".stripMargin
-    succeed
+
+    Json.force[Npmjs.Data](content)
   }
 }
