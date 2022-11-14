@@ -114,7 +114,7 @@ object ImportTypingsGenSources {
           Minimization.findReferences(globalScope, input.minimizeKeep, packagesWithShouldMinimize)
         }
 
-        val outFiles: IArray[(os.Path, Array[Byte])] = {
+        val outFiles: IArray[(os.Path, String)] = {
           IArray.fromTraversable {
             libs.par.flatMap {
               case (source, lib) =>

@@ -54,7 +54,7 @@ object files {
   }
 
   def syncAbs(
-      absolutePathFiles: IArray[(os.Path, Array[Byte])],
+      absolutePathFiles: IArray[(os.Path, String)],
       folder:            os.Path,
       deleteUnknowns:    Boolean,
       soft:              Boolean,
@@ -74,11 +74,13 @@ object files {
 
     absolutePathFiles.foreach {
       case (file, content) =>
-        if (soft) softWriteBytes(file.toNIO, content) else writeBytes(file.toNIO, content)
+        val bytes = content.getBytes(constants.Utf8)
+        if (soft) softWriteBytes(file.toNIO, bytes) else writeBytes(file.toNIO, bytes)
+        ()
     }
   }
 
-  def sync(fs: IArray[(os.RelPath, Array[Byte])], folder: os.Path, deleteUnknowns: Boolean, soft: Boolean): Unit =
+  def sync(fs: IArray[(os.RelPath, String)], folder: os.Path, deleteUnknowns: Boolean, soft: Boolean): Unit =
     syncAbs(fs.map { case (relPath, content) => folder / relPath -> content }, folder, deleteUnknowns, soft)
 
   def softWrite[T](path: os.Path)(f: PrintWriter => T): Synced =
