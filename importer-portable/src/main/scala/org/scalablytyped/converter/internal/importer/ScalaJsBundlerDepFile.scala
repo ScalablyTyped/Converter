@@ -24,11 +24,11 @@ object ScalaJsBundlerDepFile {
     implicit val Decoder: Decoder[NpmDependencies] = io.circe013.generic.semiauto.deriveDecoder
   }
 
-  def apply(libName: TsIdentLibrary, v: LibraryVersion): Map[os.RelPath, Array[Byte]] =
+  def apply(libName: TsIdentLibrary, v: LibraryVersion): IArray[(os.RelPath, Array[Byte])] =
     (v.libraryVersion, v.inGit) match {
       case (Some(version), None) if libName =/= ts.TsIdent.std =>
         val deps = List(Map(libName.value -> version))
-        Map(
+        IArray(
           os.RelPath(ScalaJsBundlerDepFile.manifestFileName) ->
             NpmDependencies(
               `compile-dependencies`    = deps,
@@ -37,6 +37,6 @@ object ScalaJsBundlerDepFile {
               `test-devDependencies`    = Nil,
             ).asJson.spaces2.getBytes(constants.Utf8),
         )
-      case _ => Map.empty
+      case _ => Empty
     }
 }

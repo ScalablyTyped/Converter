@@ -20,7 +20,7 @@ object PersistingParser {
               val shortestRelative =
                 inputFolders.map(f => file.path.relativeTo(f.path)).sortBy(_.toString.length).head.toString
               val base = cacheDir.resolve(s"${BuildInfo.version}").resolve(shortestRelative)
-              base.resolve(Digest.of(List(bs)).hexString)
+              base.resolve(Digest.of(IArray(bs)).hexString)
           },
           logger,
         ) {

@@ -15,7 +15,7 @@ object Printer {
 
   private[Printer] class Registry() {
 
-    private val fs = mutable.Map.empty[os.RelPath, Array[Byte]]
+    private val files = IArray.Builder.empty[(os.RelPath, Array[Byte])]
 
     def write(file: os.RelPath)(f: PrintWriter => Unit): Unit = {
       val w  = new StringWriter()
@@ -23,14 +23,14 @@ object Printer {
 
       try {
         f(pw)
-        fs(file) = w.toString.getBytes(constants.Utf8)
+        files += ((file, w.toString.getBytes(constants.Utf8)))
       } finally {
         pw.close()
       }
     }
 
-    def result: Map[os.RelPath, Array[Byte]] =
-      fs.toMap
+    def result: IArray[(os.RelPath, Array[Byte])] =
+      files.result()
   }
 
   def apply(
@@ -39,7 +39,7 @@ object Printer {
       tree:            ContainerTree,
       outputPackage:   Name,
       scalaVersion:    Versions.Scala,
-  ): Map[os.RelPath, Array[Byte]] = {
+  ): IArray[(os.RelPath, Array[Byte])] = {
     val reg = new Registry()
 
     new Impl(outputPackage, scalaVersion).apply(

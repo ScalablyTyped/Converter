@@ -6,7 +6,7 @@ import org.scalablytyped.converter.internal.scalajs.Dep
 trait Layout[F, V] {
   type Self[f, v] <: Layout[f, v]
 
-  def all: Map[F, V]
+  def all: IArray[(F, V)]
 
   def map[FF, VV](f: (F, V) => (FF, VV)): Self[FF, VV]
 
@@ -17,7 +17,7 @@ trait Layout[F, V] {
     map { case (k, v) => k -> f(k, v) }
 }
 
-final case class MapLayout[F, V](all: Map[F, V]) extends Layout[F, V] {
+final case class MapLayout[F, V](all: IArray[(F, V)]) extends Layout[F, V] {
   override type Self[f, v] = MapLayout[f, v]
 
   override def map[FF, VV](f: (F, V) => (FF, VV)): MapLayout[FF, VV] =
@@ -29,12 +29,12 @@ final case class SbtProjectLayout[F, V](
     buildProperties: (F, V),
     pluginsSbt:      (F, V),
     readmeMd:        (F, V),
-    sourcesDir:      Map[F, V],
-    resourcesDir:    Map[F, V],
+    sourcesDir:      IArray[(F, V)],
+    resourcesDir:    IArray[(F, V)],
 ) extends Layout[F, V] {
   override type Self[f, v] = SbtProjectLayout[f, v]
-  override def all: Map[F, V] =
-    (IArray(buildSbt, buildProperties, pluginsSbt, readmeMd)).toMap ++ sourcesDir ++ resourcesDir
+  override def all: IArray[(F, V)] =
+    IArray(buildSbt, buildProperties, pluginsSbt, readmeMd) ++ sourcesDir ++ resourcesDir
 
   override def map[FF, VV](f: (F, V) => (FF, VV)): SbtProjectLayout[FF, VV] =
     this match {
@@ -53,7 +53,7 @@ final case class SbtProjectLayout[F, V](
 final case class IvyLayout[F, V](jarFile: (F, V), sourceFile: (F, V), ivyFile: (F, V), pomFile: (F, V))
     extends Layout[F, V] {
   override type Self[f, v] = IvyLayout[f, v]
-  override def all: Map[F, V] = IArray(jarFile, sourceFile, ivyFile, pomFile).toMap
+  override def all: IArray[(F, V)] = IArray(jarFile, sourceFile, ivyFile, pomFile)
   override def map[FF, VV](f: (F, V) => (FF, VV)): IvyLayout[FF, VV] =
     this match {
       case IvyLayout((_1k, _1v), (_2k, _2v), (_3k, _3v), (_4k, _4v)) =>
@@ -77,7 +77,7 @@ object IvyLayout {
 }
 
 final case class MavenLayout[F, V](jarFile: (F, V), sourceFile: (F, V), pomFile: (F, V)) extends Layout[F, V] {
-  override def all: Map[F, V] = IArray(jarFile, sourceFile, pomFile).toMap
+  override def all: IArray[(F, V)] = IArray(jarFile, sourceFile, pomFile)
   override type Self[f, v] = MavenLayout[f, v]
   override def map[FF, VV](f: (F, V) => (FF, VV)): MavenLayout[FF, VV] =
     this match {

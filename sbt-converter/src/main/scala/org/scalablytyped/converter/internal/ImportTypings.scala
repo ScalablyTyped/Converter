@@ -25,7 +25,8 @@ object ImportTypings {
       conversion:       ConversionOptions,
       wantedLibs:       SortedMap[TsIdentLibrary, String],
   ) {
-    lazy val packageJsonHash: String = Digest.of(wantedLibs.map { case (name, v) => s"${name.value} $v" }).hexString
+    lazy val packageJsonHash: String =
+      Digest.of(IArray.fromTraversable(wantedLibs.map { case (name, v) => s"${name.value} $v" })).hexString
   }
 
   object Input {
@@ -33,15 +34,12 @@ object ImportTypings {
     implicit val decodes: Decoder[Input] = io.circe013.generic.semiauto.deriveDecoder
   }
 
-  case class Output(externalDeps: Set[Dep.Concrete], allProjects: Seq[Dep.Concrete]) {
-    val allRelPaths: Seq[RelPath] =
-      allProjects.flatMap(p => IvyLayout.unit(p).all.keys)
-
-    def allPaths(in: os.Path): Seq[os.Path] =
-      allRelPaths.map(in / _)
+  case class Output(externalDeps: Set[Dep.Concrete], allProjects: IArray[Dep.Concrete]) {
+    val allRelPaths: IArray[RelPath] =
+      allProjects.flatMap(p => IvyLayout.unit(p).all.map { case (k, _) => k })
 
     def moduleIds: Set[ModuleID] =
-      (externalDeps ++ allProjects).map(Utils.asModuleID)
+      (externalDeps ++ allProjects.toSet).map(Utils.asModuleID)
   }
 
   object Output {
@@ -143,7 +141,7 @@ object ImportTypings {
       Right(
         Output(
           input.conversion.flavourImpl.dependencies.map(_.concrete(input.conversion.versions)),
-          successes.values.toVector,
+          IArray.fromTraversable(successes.values),
         ),
       )
   }
