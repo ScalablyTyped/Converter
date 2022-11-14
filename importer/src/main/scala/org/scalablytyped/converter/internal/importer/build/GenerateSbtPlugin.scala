@@ -18,7 +18,7 @@ object GenerateSbtPlugin {
       action:        String,
   ): Unit = {
     files.sync(
-      contents(isDeprecated, versions, organization, projectName, projects, pluginVersion),
+      contents(isDeprecated, organization, projectName, projects, pluginVersion),
       projectDir,
       deleteUnknowns = true,
       soft           = true,
@@ -35,12 +35,11 @@ object GenerateSbtPlugin {
 
   def contents(
       isDeprecated:  Boolean,
-      v:             Versions,
       organization:  String,
       projectName:   ProjectName,
       projects:      Set[PublishedSbtProject],
       pluginVersion: String,
-  ): Map[os.RelPath, Array[Byte]] = {
+  ): IArray[(os.RelPath, Array[Byte])] = {
 
     val buildSbt = s"""name := "sbt-${projectName.value}"
       |organization := ${quote(organization)}
@@ -101,7 +100,7 @@ object GenerateSbtPlugin {
 
     val pluginSourcePath = os.RelPath("src") / 'main / 'scala / 'com / 'olvind / 'sbt / "ScalablytypedPlugin.scala"
 
-    Map(
+    IArray(
       os.RelPath("build.sbt") -> buildSbt,
       os.RelPath("project") / "build.properties" -> s"sbt.version=${Versions.sbtVersion}",
       pluginSourcePath -> pluginSource,

@@ -22,13 +22,11 @@ object Digest {
       (bs: Array[Byte]) => bs
   }
 
-  def of[T: Digestable](ts: scala.collection.Iterable[T]): Digest =
-    new Digest(
-      ts.foldLeft(MessageDigest.getInstance("MD5")) {
-          case (digest, t) =>
-            digest.update(Digestable[T].bytesFrom(t))
-            digest
-        }
-        .digest(),
-    )
+  def of[T <: AnyRef: Digestable](ts: IArray[T]): Digest = {
+    val md5 = MessageDigest.getInstance("MD5")
+    ts.foreach { t =>
+      md5.update(Digestable[T].bytesFrom(t))
+    }
+    new Digest(md5.digest())
+  }
 }

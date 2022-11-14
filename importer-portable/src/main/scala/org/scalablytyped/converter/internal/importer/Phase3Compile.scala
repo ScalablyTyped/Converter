@@ -66,9 +66,9 @@ class Phase3Compile(
         val resourcesDir  = os.RelPath("src") / 'main / 'resources
         val metadataOpt   = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten
         val compilerPaths = CompilerPaths.of(versions, targetFolder, lib.libName)
-        val resources: Map[os.RelPath, Array[Byte]] =
+        val resources: IArray[(os.RelPath, Array[Byte])] =
           if (generateScalaJsBundlerFile) ScalaJsBundlerDepFile(lib.source.libName, lib.libVersion)
-          else Map()
+          else Empty
 
         val sbtLayout = ContentSbtProject(
           versions        = versions,
@@ -103,7 +103,7 @@ class Phase3Compile(
             files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknowns = true, soft = softWrites)
           }
 
-          if (existing.all.values.forall(files.exists)) {
+          if (existing.all.forall { case (_, file) => files.exists(file) }) {
             logger.warn(s"Using cached build $jarFile")
             PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, existing, None))
           } else {
@@ -111,7 +111,12 @@ class Phase3Compile(
             files.deleteAll(compilerPaths.classesDir)
             os.makeDir.all(compilerPaths.classesDir)
             if (!ensureSourceFilesWritten) {
-              files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknowns = true, soft = softWrites)
+              files.sync(
+                allFilesProperVersion.all,
+                compilerPaths.baseDir,
+                deleteUnknowns = true,
+                soft           = softWrites,
+              )
             }
 
             val jarDeps: Set[Compiler.InternalDep] =

@@ -54,21 +54,23 @@ object files {
   }
 
   def syncAbs(
-      absolutePathFiles: Map[os.Path, Array[Byte]],
+      absolutePathFiles: IArray[(os.Path, Array[Byte])],
       folder:            os.Path,
       deleteUnknowns:    Boolean,
       soft:              Boolean,
   ): Unit = {
 
-    if (deleteUnknowns)
+    if (deleteUnknowns) {
+      val known = absolutePathFiles.map { case (p, _) => p }.toSet
       folder match {
         case f if files.exists(f) =>
           os.walk(f, IgnoreProjectFiles).foreach {
-            case p if os.isFile(p) && !absolutePathFiles.contains(p) => deleteAll(p)
-            case _                                                   => ()
+            case p if os.isFile(p) && !known(p) => deleteAll(p)
+            case _                              => ()
           }
         case _ => ()
       }
+    }
 
     absolutePathFiles.foreach {
       case (file, content) =>
@@ -76,7 +78,7 @@ object files {
     }
   }
 
-  def sync(fs: Map[os.RelPath, Array[Byte]], folder: os.Path, deleteUnknowns: Boolean, soft: Boolean): Unit =
+  def sync(fs: IArray[(os.RelPath, Array[Byte])], folder: os.Path, deleteUnknowns: Boolean, soft: Boolean): Unit =
     syncAbs(fs.map { case (relPath, content) => folder / relPath -> content }, folder, deleteUnknowns, soft)
 
   def softWrite[T](path: os.Path)(f: PrintWriter => T): Synced =

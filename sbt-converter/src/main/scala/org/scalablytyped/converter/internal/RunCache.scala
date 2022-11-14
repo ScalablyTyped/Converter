@@ -27,7 +27,7 @@ import scala.util.{Failure, Success}
 
 object RunCache {
   case class Key(input: ImportTypings.Input) {
-    lazy val digest: Digest = Digest.of(List(input.asJson.noSpaces))
+    lazy val digest: Digest = Digest.of(IArray(input.asJson.noSpaces))
     def path(cacheDir: os.Path): os.Path = cacheDir / "runs" / s"${digest.hexString}.json"
   }
 
@@ -64,7 +64,7 @@ object RunCache {
           Lock.synchronized {
             locally {
               implicit val wd = Utils.IvyLocal.value
-              cmd.run("rsync", "-aR", output.allRelPaths.map(_.toString), pushLocation)
+              cmd.run("rsync", "-aR", output.allRelPaths.map(_.toString).toList, pushLocation)
             }
             // this is somewhat convoluted. we know `wc` is a prefix of `runCachePath`, but compute `relPath`
             // in order for `rsync` to create the folder if necessary
@@ -130,10 +130,11 @@ object RunCache {
               .toScala
 
           Lock.synchronized {
-            val allRelPaths = output.allRelPaths
             val eventualUploadedArtifacts: Future[Int] =
               for {
-                cacheStatus <- Future.sequence(allRelPaths.map(relPath => exists(relPath).map(relPath -> _)))
+                cacheStatus <- Future.sequence(
+                  output.allRelPaths.toList.map(relPath => exists(relPath).map(relPath -> _)),
+                )
                 relPathsToUpload = cacheStatus.collect { case (relPath, false) => relPath }
                 uploadResults <- Future.sequence(relPathsToUpload.map(upload(_, Utils.IvyLocal.value)))
               } yield uploadResults.length
@@ -167,13 +168,13 @@ object RunCache {
 
               require(input === key.input)
 
-              val files: Seq[Future[PresentFile]] =
-                output.allRelPaths
+              val files: Vector[Future[PresentFile]] =
+                output.allRelPaths.toVector
                   .map(relPath => ensureDownloaded(uri = pullUri / relPath, dest = ivyLocal / relPath))
 
-              Future.sequence(files).map { presentFiles: Seq[PresentFile] =>
+              Future.sequence(files).map { presentFiles: Vector[PresentFile] =>
                 // format: off
-                val (errors, notFounds, cacheds, downloadeds, Nil) =
+                val (errors, notFounds, cacheds, downloadeds, Vector()) =
                   presentFiles.partitionCollect4(
                     { case x: PresentFile.Err => x },
                     {

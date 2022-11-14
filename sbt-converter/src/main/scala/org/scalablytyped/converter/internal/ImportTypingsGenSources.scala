@@ -114,36 +114,39 @@ object ImportTypingsGenSources {
           Minimization.findReferences(globalScope, input.minimizeKeep, packagesWithShouldMinimize)
         }
 
-        val outFiles: Map[os.Path, Array[Byte]] =
-          libs.par.flatMap {
-            case (source, lib) =>
-              val willMinimize = minimize(source.libName)
-              val minimized =
-                if (willMinimize) {
-                  Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
-                } else lib.packageTree
+        val outFiles: IArray[(os.Path, Array[Byte])] = {
+          IArray.fromTraversable {
+            libs.par.flatMap {
+              case (source, lib) =>
+                val willMinimize = minimize(source.libName)
+                val minimized =
+                  if (willMinimize) {
+                    Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
+                  } else lib.packageTree
 
-              val printed = Printer(
-                globalScope,
-                new ParentsResolver,
-                minimized,
-                conversion.outputPackage,
-                conversion.versions.scala,
-              )
+                val printed = Printer(
+                  globalScope,
+                  new ParentsResolver,
+                  minimized,
+                  conversion.outputPackage,
+                  conversion.versions.scala,
+                )
 
-              val outFiles = printed.map {
-                case (relPath, content) => targetFolder / relPath -> content
-              }
-              val minimizedMessage = if (willMinimize) "minimized " else ""
-              logger.info(
-                s"Wrote $minimizedMessage${source.libName.value} (${outFiles.size} files) to $targetFolder...",
-              )
-              outFiles
-          }.seq
+                val outFiles = printed.map {
+                  case (relPath, content) => targetFolder / relPath -> content
+                }
+                val minimizedMessage = if (willMinimize) "minimized " else ""
+                logger.info(
+                  s"Wrote $minimizedMessage${source.libName.value} (${outFiles.length} files) to $targetFolder...",
+                )
+                outFiles.iterator
+            }.seq
+          }
+        }
 
         files.syncAbs(outFiles, folder = targetFolder, deleteUnknowns = true, soft = true)
 
-        Right(outFiles.keys.map(_.toIO)(collection.breakOut))
+        Right(outFiles.map { case (p, _) => p.toIO }.toSet)
 
       case PhaseRes.Failure(errors) => Left(errors)
       case PhaseRes.Ignore()        => Right(Set.empty)

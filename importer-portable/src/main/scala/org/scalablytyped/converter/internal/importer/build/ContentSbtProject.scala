@@ -15,8 +15,8 @@ object ContentSbtProject {
       version:         String,
       localDeps:       IArray[PublishedSbtProject],
       deps:            Set[Dep],
-      scalaFiles:      Map[os.RelPath, Array[Byte]],
-      resources:       Map[os.RelPath, Array[Byte]],
+      scalaFiles:      IArray[(os.RelPath, Array[Byte])],
+      resources:       IArray[(os.RelPath, Array[Byte])],
       metadataOpt:     Option[Npmjs.Data],
       declaredVersion: Option[LibraryVersion],
   ): SbtProjectLayout[os.RelPath, Array[Byte]] = {
