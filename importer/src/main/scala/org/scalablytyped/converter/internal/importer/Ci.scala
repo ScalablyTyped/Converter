@@ -366,7 +366,6 @@ target/
 
       GenerateSbtPlugin(
         isDeprecated  = true,
-        versions      = config.conversion.versions,
         organization  = config.conversion.organization,
         projectName   = config.projectName,
         projectDir    = sbtProjectDir,

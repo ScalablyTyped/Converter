@@ -1,12 +1,10 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-import java.io._
-
 import org.scalablytyped.converter.internal.scalajs.transforms.ShortenNames
 import org.scalablytyped.converter.internal.stringUtils.quote
 
-import scala.collection.mutable
+import java.io._
 
 object debugPrinter extends Printer.Impl(Name(""), Versions.Scala3)
 
@@ -15,7 +13,7 @@ object Printer {
 
   private[Printer] class Registry() {
 
-    private val files = IArray.Builder.empty[(os.RelPath, Array[Byte])]
+    private val files = IArray.Builder.empty[(os.RelPath, String)]
 
     def write(file: os.RelPath)(f: PrintWriter => Unit): Unit = {
       val w  = new StringWriter()
@@ -23,13 +21,13 @@ object Printer {
 
       try {
         f(pw)
-        files += ((file, w.toString.getBytes(constants.Utf8)))
+        files += ((file, w.toString))
       } finally {
         pw.close()
       }
     }
 
-    def result: IArray[(os.RelPath, Array[Byte])] =
+    def result: IArray[(os.RelPath, String)] =
       files.result()
   }
 
@@ -39,7 +37,7 @@ object Printer {
       tree:            ContainerTree,
       outputPackage:   Name,
       scalaVersion:    Versions.Scala,
-  ): IArray[(os.RelPath, Array[Byte])] = {
+  ): IArray[(os.RelPath, String)] = {
     val reg = new Registry()
 
     new Impl(outputPackage, scalaVersion).apply(

@@ -8,9 +8,9 @@ package build
 object VersionHack {
   val TemplateValue = "$$$___VERSION___$$$"
 
-  def templateVersion[K](out: SbtProjectLayout[K, Array[Byte]], version: String): SbtProjectLayout[K, Array[Byte]] = {
+  def templateVersion[K](out: SbtProjectLayout[K, String], version: String): SbtProjectLayout[K, String] = {
     val (key, content) = out.buildSbt
-    val patched        = new String(content, constants.Utf8).replace(TemplateValue, version)
-    out.copy(buildSbt = key -> patched.getBytes(constants.Utf8))
+    val patched        = content.replace(TemplateValue, version)
+    out.copy(buildSbt = key -> patched)
   }
 }

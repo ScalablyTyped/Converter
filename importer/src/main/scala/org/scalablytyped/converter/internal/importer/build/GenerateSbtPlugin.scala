@@ -9,7 +9,6 @@ import org.scalablytyped.converter.internal.stringUtils.quote
 object GenerateSbtPlugin {
   def apply(
       isDeprecated:  Boolean,
-      versions:      Versions,
       organization:  String,
       projectName:   ProjectName,
       projectDir:    os.Path,
@@ -39,7 +38,7 @@ object GenerateSbtPlugin {
       projectName:   ProjectName,
       projects:      Set[PublishedSbtProject],
       pluginVersion: String,
-  ): IArray[(os.RelPath, Array[Byte])] = {
+  ): IArray[(os.RelPath, String)] = {
 
     val buildSbt = s"""name := "sbt-${projectName.value}"
       |organization := ${quote(organization)}
@@ -104,8 +103,6 @@ object GenerateSbtPlugin {
       os.RelPath("build.sbt") -> buildSbt,
       os.RelPath("project") / "build.properties" -> s"sbt.version=${Versions.sbtVersion}",
       pluginSourcePath -> pluginSource,
-    ).map {
-      case (relPath, str) => relPath -> str.getBytes(constants.Utf8)
-    }
+    )
   }
 }

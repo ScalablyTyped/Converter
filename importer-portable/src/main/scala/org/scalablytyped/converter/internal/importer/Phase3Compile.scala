@@ -1,8 +1,6 @@
 package org.scalablytyped.converter.internal
 package importer
 
-import java.time.ZonedDateTime
-
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.internal.importer.build._
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
@@ -11,6 +9,7 @@ import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, 
 import org.scalablytyped.converter.internal.scalajs._
 import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
 
+import java.time.ZonedDateTime
 import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -32,7 +31,7 @@ class Phase3Compile(
     ensureSourceFilesWritten:   Boolean,
 ) extends Phase[LibTsSource, LibScalaJs, PublishedSbtProject] {
 
-  val ScalaFiles: PartialFunction[(os.RelPath, Array[Byte]), Array[Byte]] = {
+  val ScalaFiles: PartialFunction[(os.RelPath, String), String] = {
     case (path, value)
         if path.ext === "scala" ||
           path.ext === "sbt" ||
@@ -66,23 +65,24 @@ class Phase3Compile(
         val resourcesDir  = os.RelPath("src") / 'main / 'resources
         val metadataOpt   = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten
         val compilerPaths = CompilerPaths.of(versions, targetFolder, lib.libName)
-        val resources: IArray[(os.RelPath, Array[Byte])] =
+        val resources: IArray[(os.RelPath, String)] =
           if (generateScalaJsBundlerFile) ScalaJsBundlerDepFile(lib.source.libName, lib.libVersion)
           else Empty
 
-        val sbtLayout = ContentSbtProject(
-          versions        = versions,
-          comments        = lib.packageTree.comments,
-          organization    = organization,
-          name            = lib.libName,
-          version         = VersionHack.TemplateValue,
-          localDeps       = deps.toIArrayValues,
-          deps            = flavour.dependencies,
-          scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
-          resources       = resources.map { case (relPath, content) => resourcesDir / relPath -> content },
-          metadataOpt     = metadataOpt,
-          declaredVersion = Some(lib.libVersion),
-        )
+        val sbtLayout: SbtProjectLayout[os.RelPath, String] =
+          ContentSbtProject(
+            versions        = versions,
+            comments        = lib.packageTree.comments,
+            organization    = organization,
+            name            = lib.libName,
+            version         = VersionHack.TemplateValue,
+            localDeps       = deps.toIArrayValues,
+            deps            = flavour.dependencies,
+            scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
+            resources       = resources.map { case (relPath, content) => resourcesDir / relPath -> content },
+            metadataOpt     = metadataOpt,
+            declaredVersion = Some(lib.libVersion),
+          )
 
         val digest                = Digest.of(sbtLayout.all.collect(ScalaFiles))
         val finalVersion          = lib.libVersion.version(digest)

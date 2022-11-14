@@ -15,11 +15,11 @@ object ContentSbtProject {
       version:         String,
       localDeps:       IArray[PublishedSbtProject],
       deps:            Set[Dep],
-      scalaFiles:      IArray[(os.RelPath, Array[Byte])],
-      resources:       IArray[(os.RelPath, Array[Byte])],
+      scalaFiles:      IArray[(os.RelPath, String)],
+      resources:       IArray[(os.RelPath, String)],
       metadataOpt:     Option[Npmjs.Data],
       declaredVersion: Option[LibraryVersion],
-  ): SbtProjectLayout[os.RelPath, Array[Byte]] = {
+  ): SbtProjectLayout[os.RelPath, String] = {
 
     val buildSbt = {
       val allDeps: IArray[Dep] = IArray.fromTraversable(deps) ++ IArray(versions.runtime) ++ localDeps.map(d =>
@@ -43,13 +43,13 @@ object ContentSbtProject {
       .map(dep => s"addSbtPlugin(${dep.asSbt})")
       .mkString("", "\n", "\n")
 
-    val readme: (os.RelPath, Array[Byte]) =
-      os.RelPath("readme.md") -> ProjectReadme(name, declaredVersion, metadataOpt, comments).getBytes(constants.Utf8)
+    val readme: (os.RelPath, String) =
+      os.RelPath("readme.md") -> ProjectReadme(name, declaredVersion, metadataOpt, comments)
 
     SbtProjectLayout(
-      os.RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
-      os.RelPath("project") / "build.properties" -> s"sbt.version=${Versions.sbtVersion}".getBytes(constants.Utf8),
-      os.RelPath("project") / "plugins.sbt" -> pluginsSbt.getBytes(constants.Utf8),
+      os.RelPath("build.sbt") -> buildSbt,
+      os.RelPath("project") / "build.properties" -> s"sbt.version=${Versions.sbtVersion}",
+      os.RelPath("project") / "plugins.sbt" -> pluginsSbt,
       readme,
       scalaFiles,
       resources,
