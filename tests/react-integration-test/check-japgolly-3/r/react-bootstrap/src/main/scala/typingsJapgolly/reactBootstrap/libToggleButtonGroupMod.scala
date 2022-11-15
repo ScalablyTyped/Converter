@@ -122,12 +122,6 @@ object libToggleButtonGroupMod {
   type ToggleButtonGroupProps = react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.RadioProps & react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.BaseProps & react-bootstrap.react-bootstrap.Omit<react-bootstrap.react-bootstrap/lib/ButtonGroup.ButtonGroupProps, 'onChange'> & react-bootstrap.react-bootstrap.Omit<react.react.HTMLProps<react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.ToggleButtonGroup>, 'defaultValue' | 'type' | 'value' | 'onChange'> | react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.CheckboxProps & react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.BaseProps & react-bootstrap.react-bootstrap.Omit<react-bootstrap.react-bootstrap/lib/ButtonGroup.ButtonGroupProps, 'onChange'> & react-bootstrap.react-bootstrap.Omit<react.react.HTMLProps<react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.ToggleButtonGroup>, 'defaultValue' | 'type' | 'value' | 'onChange'>
   }}}
   to avoid circular code involving: 
-  - react-bootstrap.react-bootstrap.ToggleButtonGroup.ToggleButtonGroup
-  - react-bootstrap.react-bootstrap.ToggleButtonGroup.ToggleButtonGroupProps
-  - react-bootstrap.react-bootstrap.ToggleButtonGroupProps
-  - react-bootstrap.react-bootstrap/lib.ToggleButtonGroup.ToggleButtonGroup
-  - react-bootstrap.react-bootstrap/lib.ToggleButtonGroup.ToggleButtonGroupProps
-  - react-bootstrap.react-bootstrap/lib.ToggleButtonGroupProps
   - react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.ToggleButtonGroup
   - react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.ToggleButtonGroupProps
   */

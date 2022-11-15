@@ -18,8 +18,6 @@ object typesVnodeMod {
   type ScopedSlot = (props : any): vue.vue/types/vnode.VNodeChildrenArrayContents | string
   }}}
   to avoid circular code involving: 
-  - vue.vue.VNodeChildren
-  - vue.vue.VNodeChildrenArrayContents
   - vue.vue/types/vnode.ScopedSlot
   - vue.vue/types/vnode.VNodeChildren
   - vue.vue/types/vnode.VNodeChildrenArrayContents
@@ -139,7 +137,6 @@ object typesVnodeMod {
   type VNodeChildrenArrayContents = {[x: number] : vue.vue/types/vnode.VNode | string | vue.vue/types/vnode.VNodeChildren}
   }}}
   to avoid circular code involving: 
-  - vue.vue.VNodeChildren
   - vue.vue/types/vnode.VNodeChildren
   - vue.vue/types/vnode.VNodeChildrenArrayContents
   */

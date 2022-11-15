@@ -45,7 +45,7 @@ object PreferTypeAlias {
 
     def look(container: TsContainer): Unit =
       container.members.foreach {
-        case ta: TsDeclTypeAlias =>
+        case ta: TsDeclTypeAlias if !ta.comments.has[Marker.IsTrivial.type] =>
           val ref = TsTypeRef(NoComments, ta.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(ta.tparams))
 
           isInRecursiveGroup(scope / ta, List(ref), ta.alias, Empty).foreach { rawGroup =>
