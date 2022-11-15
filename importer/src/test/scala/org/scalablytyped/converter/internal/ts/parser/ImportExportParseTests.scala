@@ -6,6 +6,8 @@ import org.scalablytyped.converter.internal.ts.JsLocation.Zero
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
+import java.io.File
+
 final class ImportExportParseTests extends AnyFunSuite with Matchers {
   import ParserHarness._
 
@@ -270,7 +272,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
   }
 
   test("history") {
-    withTsFile("parsertests/history.d.ts") { contents: String =>
+    withTsFile(s"parsertests${File.separator}history.d.ts") { contents: String =>
       parseAs(contents, TsParser.parsedTsFile)
     }
   }

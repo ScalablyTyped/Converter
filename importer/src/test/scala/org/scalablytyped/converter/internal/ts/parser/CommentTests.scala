@@ -2,9 +2,10 @@ package org.scalablytyped.converter.internal
 package ts
 package parser
 
-import org.scalablytyped.converter.internal.ts.parser.TsLexer.{CommentLineToken, DirectiveToken}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
+
+import java.io.File
 
 final class CommentTests extends AnyFunSuite with Matchers {
   import ParserHarness._
@@ -15,7 +16,9 @@ final class CommentTests extends AnyFunSuite with Matchers {
         | * Width of the tangible instance, length on the X-axis in 3D.
         | */""".stripMargin
     shouldParseAs(content, TsParser.lexical.comment)(
-      TsParser.lexical.CommentBlockToken(content),
+      TsParser.lexical.CommentBlockToken(
+        content.replace("\r\n", "\n"),
+      ),
     )
   }
 
@@ -67,7 +70,7 @@ final class CommentTests extends AnyFunSuite with Matchers {
         """/**
           |         * A react component that renders a row of the grid
           |         */
-          |""".stripMargin,
+          |""".stripMargin.replace("\r\n", "\n"),
       )
 
     value.comments.cs.zip(expecteds.cs).foreach {
@@ -86,35 +89,35 @@ final class CommentTests extends AnyFunSuite with Matchers {
     shouldParseAs(
       "/// <reference path=\"../bluebird/bluebird-2.0.d.ts\" />",
       TsParser.lexical.directive,
-    )(DirectiveToken("reference", "path", "../bluebird/bluebird-2.0.d.ts"))
+    )(TsLexer.DirectiveToken("reference", "path", "../bluebird/bluebird-2.0.d.ts"))
   }
 
   test("directive three") {
     shouldParseAs(
       "/// <reference path='../bluebird/bluebird-2.0.d.ts' />",
       TsParser.lexical.directive,
-    )(DirectiveToken("reference", "path", "../bluebird/bluebird-2.0.d.ts"))
+    )(TsLexer.DirectiveToken("reference", "path", "../bluebird/bluebird-2.0.d.ts"))
   }
 
   test("directive lib") {
     shouldParseAs(
       """/// <reference lib="dom.iterable" />""",
       TsParser.lexical.directive,
-    )(DirectiveToken("reference", "lib", "dom.iterable"))
+    )(TsLexer.DirectiveToken("reference", "lib", "dom.iterable"))
   }
 
   test("directive no-default-lib") {
     shouldParseAs(
       """/// <reference no-default-lib="true"/>""",
       TsParser.lexical.directive,
-    )(DirectiveToken("reference", "no-default-lib", "true"))
+    )(TsLexer.DirectiveToken("reference", "no-default-lib", "true"))
   }
 
   test("amd-module") {
     shouldParseAs(
       """/// <amd-module name="angular/packages/zone.js/lib/zone"/>""",
       TsParser.lexical.directive,
-    )(DirectiveToken("amd-module", "name", "angular/packages/zone.js/lib/zone"))
+    )(TsLexer.DirectiveToken("amd-module", "name", "angular/packages/zone.js/lib/zone"))
   }
 
   test("parameter comments") {
@@ -264,19 +267,19 @@ final class CommentTests extends AnyFunSuite with Matchers {
   }
 
   test("handle stray references") {
-    withTsFile("parsertests/graphql.d.ts") { content =>
+    withTsFile(s"parsertests${File.separator}graphql.d.ts") { content =>
       parseAs(content, TsParser.tsContainerOrDecls)
     }
   }
 
   test("trailing comments") {
-    withTsFile("parsertests/egg.d.ts") { content =>
+    withTsFile(s"parsertests${File.separator}egg.d.ts") { content =>
       parseAs(content, TsParser.tsContainerOrDecls)
     }
   }
 
   test("trailing comments (2)") {
-    withTsFile("parsertests/emissary.d.ts") { content =>
+    withTsFile(s"parsertests${File.separator}emissary.d.ts") { content =>
       parseAs(content, TsParser.parsedTsFile)
     }
   }
@@ -295,7 +298,7 @@ final class CommentTests extends AnyFunSuite with Matchers {
   }
 
   test("handle trailing comments in block") {
-    withTsFile("parsertests/knockout.d.ts") { content =>
+    withTsFile(s"parsertests${File.separator}knockout.d.ts") { content =>
       parseAs(content, TsParser.tsContainerOrDecls)
     }
   }

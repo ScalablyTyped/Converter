@@ -75,7 +75,7 @@ class ContentForPublishTest extends AnyFunSuite with Matchers {
         <dependency org="deporg" name="departifactid_sjs1_2.13" rev="depversion" conf="compile-&gt;default(compile)"/>
         <dependency org="externaldeporg" name="externaldepartifact_sjs1_2.13" rev="externaldepversion" conf="compile-&gt;default(compile)"/>
       </dependencies>
-    </ivy-module>""",
+    </ivy-module>""".replace("\r\n", "\n"),
     )
   }
 
@@ -126,7 +126,7 @@ class ContentForPublishTest extends AnyFunSuite with Matchers {
       <version>externaldepversion</version>
     </dependency>
       </dependencies>
-    </project>""",
+    </project>""".replace("\r\n", "\n"),
     )
   }
 }
