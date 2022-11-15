@@ -31,8 +31,6 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
         }
         .mkString("")
   }
-  implicit def FromString[T](p: Parser[T]): String => ParseResult[T] =
-    (str: String) => p.apply(new CharSequenceReader(str))
 
   // format: off
 
@@ -161,12 +159,12 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
   }
 
   private val newLine: Parser[Char] =
-    ('\r'.? ~> '\n') | ('\r') ^^ (_ => '\n')
+    '\n'
 
   /** A character-parser that matches a white-space character (and returns it).
     * We dont ignore newlines */
   override val whitespaceChar: Parser[Char] = {
-    elem("space char", ch => ch <= ' ' && ch != EofCh && ch != '\n' && ch != '\r')
+    elem("space char", ch => ch <= ' ' && ch != EofCh && ch != '\n')
   }
 
   override val whitespace: Parser[Any] =
@@ -190,7 +188,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
 
   val comment: Parser[CommentToken] = {
     val oneLine: Parser[CommentLineToken] =
-      (whitespaceChar.* ~ '/' ~ '/' ~ rep(chrExcept(EofCh, '\n', '\r'))) ^^ {
+      (whitespaceChar.* ~ '/' ~ '/' ~ rep(chrExcept(EofCh, '\n'))) ^^ {
         case cs1 ~ c1 ~ c2 ~ cs2 =>
           CommentLineToken(s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}\n")
       }
@@ -199,8 +197,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
       (whitespaceChar.* ~ '/' ~ '*' ~ rep(not('*' ~ '/') ~> chrExcept(EofCh)) ~ '*' ~ '/' ~ whitespaceChar.* ~ newLine.*) ^^ {
         case cs1 ~ c1 ~ c2 ~ cs2 ~ c3 ~ c4 ~ cs3 ~ cs4 =>
           CommentBlockToken(
-            s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}$c3$c4${chars2string(cs3)}${chars2string(cs4)}"
-              .replaceAll("\r", ""),
+            s"${chars2string(cs1)}$c1$c2${chars2string(cs2)}$c3$c4${chars2string(cs3)}${chars2string(cs4)}",
           )
       }
 
