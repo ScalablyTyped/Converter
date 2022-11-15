@@ -271,8 +271,6 @@ class ImportTree(
                |""".stripMargin,
           )
 
-        /* It's common to nest these things, so handle that */
-
         /**
           * Find the first referenced type in the conditional type which
           * - is not  recursive
@@ -283,23 +281,22 @@ class ImportTree(
           x match {
             case tr: TsTypeRef if inferred.contains(tr) => Empty
             case aliased =>
-              ts.FollowAliases(scope)(x) match {
+              ts.FollowAliases(scope, skipValidation = true)(x) match {
+                /* It's common to nest these things, so handle that */
                 case xx: TsTypeConditional if depth < 3 =>
                   val inferredThis = TsTreeTraverse.collect(xx.pred) { case TsTypeInfer(tp) => TsTypeRef(tp.name) }
 
-                  lazy val inferredAll: IArray[TsTypeRef] =
-                    inferred ++ inferredThis
+                  val inferredAll: IArray[TsTypeRef] = inferred ++ inferredThis
 
                   findCandidates(xx.ifTrue, depth + 1, inferredAll) ++
                     findCandidates(xx.ifFalse, depth + 1, inferredAll)
 
-                // break recursion by referencing back to initial type alias (the depth check is more through)
-                case typeRef: TsTypeRef if typeRef.name == codePath.forceHasPath.codePath =>
-                  Empty
-                // keep types which do not refer to inferred types
+                // keep types which do not refer to inferred types (or back to self)
                 case _ =>
                   val referencesInferred = TsTreeTraverse.collect(aliased) {
                     case tr: TsTypeRef if inferred.contains(tr) => tr
+                    // break recursion by referencing back to initial type alias (the depth check is more through)
+                    case tr: TsTypeRef if tr.name == codePath.forceHasPath.codePath => tr
                   }
                   referencesInferred match {
                     case Empty => IArray(aliased)
