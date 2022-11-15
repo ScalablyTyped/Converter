@@ -5,6 +5,7 @@ import org.scalatest.Assertion
 import org.scalatest.matchers.should.Matchers._
 
 import scala.util.parsing.combinator.Parsers
+import scala.util.parsing.input.CharSequenceReader
 
 object ParserHarness {
   implicit final class Forcer[T](res: Parsers#ParseResult[T]) {
@@ -17,6 +18,19 @@ object ParserHarness {
         ),
       )
   }
+
+  implicit def UseLexerParser[T](p: TsLexer.Parser[T]): String => Parsers#ParseResult[T] =
+    (str: String) => {
+      val str1 = cleanedString(str)
+      p(new CharSequenceReader(str1))
+    }
+
+  /** enable direct use of parsers with strings * */
+  implicit def UseParserParser[T](p: TsParser.Parser[T]): String => Parsers#ParseResult[T] =
+    (str: String) => {
+      val str1 = cleanedString(str)
+      TsParser.phrase(p)(new TsParser.lexical.Scanner(str1))
+    }
 
   def withTsFile[T](resourceName: String)(f: String => T): T =
     f(files.content(InFile(os.Path(getClass.getResource(s"/$resourceName").getFile))))

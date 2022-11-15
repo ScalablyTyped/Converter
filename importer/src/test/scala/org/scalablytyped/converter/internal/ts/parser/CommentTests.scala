@@ -22,7 +22,7 @@ final class CommentTests extends AnyFunSuite with Matchers {
   test("line comment") {
     val content = " //asdasdasd\n"
     shouldParseAs(content, TsParser.lexical.comment)(
-      TsParser.lexical.CommentLineToken(content),
+      TsParser.lexical.CommentLineToken("//asdasdasd\n"),
     )
   }
 
@@ -71,7 +71,8 @@ final class CommentTests extends AnyFunSuite with Matchers {
       )
 
     value.comments.cs.zip(expecteds.cs).foreach {
-      case (actual, expected) => actual should equal(expected)
+      case (actual, expected) =>
+        actual should equal(expected)
     }
   }
 
@@ -401,7 +402,7 @@ declare const NaN: number;
 declare const Infinity: number;
 """
 
-    val forced: TsParsedFile = TsParser(content).force
+    val forced: TsParsedFile = TsParser.parsedTsFile(content).force
     assert(forced.directives.length == 1)
   }
 

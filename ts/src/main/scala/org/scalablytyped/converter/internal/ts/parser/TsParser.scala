@@ -21,10 +21,6 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   protected def perhapsParens[T](p: Parser[T]): Parser[T] =
     p | ("(" ~> p <~ ")")
 
-  /** enable direct use of parsers with strings **/
-  implicit def FromString[T](p: Parser[T]): String => ParseResult[T] =
-    (str: String) => phrase(p)(new lexical.Scanner(str.trim))
-
   def memo[P](p: Parser[P]): Parser[P] =
     path match {
       case Some((_, length)) =>
@@ -58,8 +54,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       }
     }
 
-  def apply(content: String): ParseResult[TsParsedFile] =
-    parsedTsFile(content)
+//  def apply(content: String): ParseResult[TsParsedFile] =
+//    parsedTsFile(content)
 
   /** handle stray comments **/
   override def Parser[T](f: Input => ParseResult[T]): Parser[T] =

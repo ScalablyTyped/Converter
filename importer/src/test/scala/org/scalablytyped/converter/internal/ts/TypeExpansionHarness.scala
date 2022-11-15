@@ -1,20 +1,17 @@
 package org.scalablytyped.converter.internal
 package ts
 
-import java.io.StringWriter
-
 import com.olvind.logging
 import com.olvind.logging.Logger
 import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.importer.Phase1ReadTypescript
 import org.scalablytyped.converter.internal.ts.parser.TsParser
 import org.scalablytyped.converter.internal.ts.transforms.SetCodePath
-
+import org.scalablytyped.converter.internal.ts.parser.ParserHarness._
 import scala.reflect.ClassTag
 import scala.util.control.NonFatal
 
 trait TypeExpansionHarness {
-  val parser  = new TsParser(None)
   val libName = TsIdentLibrarySimple("testing")
 
   def Transformations(logger: Logger[Unit]): List[TsParsedFile => TsParsedFile] =
@@ -26,7 +23,7 @@ trait TypeExpansionHarness {
     )
 
   def run(input: String): TsParsedFile = {
-    val parsed       = parser(input).get
+    val parsed       = TsParser.parsedTsFile(input).get
     val logger       = logging.stringWriter()
     val withCodePath = SetCodePath.visitTsParsedFile(CodePath.HasPath(libName, TsQIdent.empty))(parsed)
 
