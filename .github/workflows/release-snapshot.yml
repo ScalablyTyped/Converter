@@ -5,14 +5,18 @@ name: Release snapshot
 on:
   push:
     branches: [ 'master' ]
+
 jobs:
   release-snapshot:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - uses: coursier/cache-action@v6
       - uses: coursier/setup-action@v1.2.0-M3
-        apps: sbt
+        with:
+          apps: sbt
 
       - name: publish snapshot
         run: sbt ci-release
