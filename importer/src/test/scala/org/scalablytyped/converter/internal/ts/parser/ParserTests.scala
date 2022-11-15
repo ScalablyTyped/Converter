@@ -7,13 +7,15 @@ import org.scalablytyped.converter.internal.ts.OptionalModifier.Noop
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers._
 
+import java.io.File
+
 final class ParserTests extends AnyFunSuite {
   private val T = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("T"))), Empty)
 
   import ParserHarness._
 
   test("whole file") {
-    withTsFile("parsertests/path-case.d.ts") { content =>
+    withTsFile(s"parsertests${File.separator}path-case.d.ts") { content =>
       val expected =
         TsParsedFile(
           NoComments,
@@ -67,13 +69,13 @@ final class ParserTests extends AnyFunSuite {
   }
 
   test("handle byte order mark") {
-    withTsFile("parsertests/adm-zip.d.ts") { content =>
+    withTsFile(s"parsertests${File.separator}adm-zip.d.ts") { content =>
       parseAs(content, TsParser.tsContainerOrDecls)
     }
   }
 
   test("CR line endings") {
-    withTsFile("parsertests/mathfield.d.ts") { content =>
+    withTsFile(s"parsertests${File.separator}mathfield.d.ts") { content =>
       parseAs(content, TsParser.parsedTsFile)
     }
   }
@@ -96,7 +98,7 @@ final class ParserTests extends AnyFunSuite {
   }
 
   test("windows line separators and mixed newlines/whitespace") {
-    withTsFile("parsertests/adal.d.ts") { content =>
+    withTsFile(s"parsertests${File.separator}adal.d.ts") { content =>
       parseAs(content, TsParser.parsedTsFile)
     }
   }

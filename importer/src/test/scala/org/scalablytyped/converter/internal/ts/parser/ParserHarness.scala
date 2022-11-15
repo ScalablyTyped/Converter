@@ -1,9 +1,9 @@
 package org.scalablytyped.converter.internal.ts.parser
 
-import org.scalablytyped.converter.internal.{files, InFile}
 import org.scalatest.Assertion
 import org.scalatest.matchers.should.Matchers._
 
+import java.nio.file.{Files, Paths}
 import scala.util.parsing.combinator.Parsers
 import scala.util.parsing.input.CharSequenceReader
 
@@ -33,7 +33,7 @@ object ParserHarness {
     }
 
   def withTsFile[T](resourceName: String)(f: String => T): T =
-    f(files.content(InFile(os.Path(getClass.getResource(s"/$resourceName").getFile))))
+    f(Files.readString(Paths.get(getClass.getResource(s"/$resourceName").toURI)))
 
   def parseAs[T](input: String, parser: String => Parsers#ParseResult[T]): T =
     parser(input).force

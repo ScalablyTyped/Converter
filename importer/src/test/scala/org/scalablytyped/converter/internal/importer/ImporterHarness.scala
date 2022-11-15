@@ -196,11 +196,16 @@ trait ImporterHarness extends AnyFunSuite {
               GitLock.synchronized(%("git", "add", checkFolder))
             }
 
-            Try(%%("diff", "-Naur", checkFolder, targetFolder)) match {
+            Try(%%("diff", "-NaurwB", checkFolder, targetFolder)) match {
               case Success(_) => if (run.update) pending else succeed
               case Failure(th: ShelloutException) =>
-                val diff = %%("diff", "-r", checkFolder, targetFolder).out.string
-                fail(s"Output for test $testFolder was not as expected : $diff", th)
+                try {
+                  val diff = %%("diff", "-rwB", checkFolder, targetFolder).out.string
+                  fail(s"Output for test $testFolder was not as expected : $diff", th)
+                } catch {
+                  // not serializable
+                  case th: ShelloutException => sys.error(th.getMessage)
+                }
               case Failure(th) => throw th
             }
 
