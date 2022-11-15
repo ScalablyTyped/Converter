@@ -75,6 +75,7 @@ lazy val importer = project
       case foo if foo.contains("org/fusesource")                     => MergeStrategy.first
       case foo if foo.contains("META-INF/native/")                   => MergeStrategy.first
       case foo if foo.contains("scala/annotation")                   => MergeStrategy.last
+      case foo if foo.contains("META-INF/sisu/javax.inject.Named")   => MergeStrategy.discard
       case other                                                     => (assembly / assemblyMergeStrategy).value(other)
     },
     Test / testOptions += Tests.Argument("-P4"),
