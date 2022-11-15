@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package importer.documentation
 
-import org.scalablytyped.converter.internal.importer.build.PublishedSbtProject
+import org.scalablytyped.converter.internal.importer.build.ScalaProject
 
 object TopLists {
   case class Lists(byScore: String, byName: String, byDependents: String)
@@ -22,20 +22,20 @@ object TopLists {
       .filter(_.nonEmpty)
       .getOrElse("-")
 
-  def apply(successes: Set[PublishedSbtProject]): Lists = {
+  def apply(successes: Set[ScalaProject]): Lists = {
     val withMetadata = successes.toArray.collect {
-      case x if x.project.metadata.isDefined => x -> x.project.metadata.get
+      case x if x.metadata.isDefined => x -> x.metadata.get
     }
 
-    val byScoreRows = withMetadata.sortBy { case (p, m) => (-m.score.`final`, p.project.name) }.map {
+    val byScoreRows = withMetadata.sortBy { case (p, m) => (-m.score.`final`, p.name) }.map {
       case (p, m) =>
-        s"| ${m.score.`final`} | ${link(p.project.name, s"./${p.project.name.head}/${p.project.name}")} | ${desc(m)}"
+        s"| ${m.score.`final`} | ${link(p.name, s"./${p.name.head}/${p.name}")} | ${desc(m)}"
     }
 
-    val byNameRows = successes.toArray.sortBy { _.project.name }.map { x =>
-      val nameLink    = link(x.project.name, s"./${x.project.name.head}/${x.project.name}")
-      val description = x.project.metadata.fold("-")(desc)
-      val keywords = x.project.metadata
+    val byNameRows = successes.toArray.sortBy { _.name }.map { x =>
+      val nameLink    = link(x.name, s"./${x.name.head}/${x.name}")
+      val description = x.metadata.fold("-")(desc)
+      val keywords = x.metadata
         .flatMap(_.collected.metadata.keywords)
         .map(_.mkString(", "))
         .filter(_.nonEmpty)
@@ -44,10 +44,10 @@ object TopLists {
     }
 
     val byDependentsRows = withMetadata
-      .sortBy { case (p, m) => (-m.evaluation.popularity.dependentsCount, p.project.name) }
+      .sortBy { case (p, m) => (-m.evaluation.popularity.dependentsCount, p.name) }
       .map {
         case (p, m) =>
-          s"| ${m.evaluation.popularity.dependentsCount} | ${link(p.project.name, s"./${p.project.name.head}/${p.project.name}")} | ${desc(m)}"
+          s"| ${m.evaluation.popularity.dependentsCount} | ${link(p.name, s"./${p.name.head}/${p.name}")} | ${desc(m)}"
       }
 
     Lists(

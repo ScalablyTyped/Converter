@@ -1,18 +1,20 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-import java.util.regex.Pattern
-
 import ammonite.ops._
-import bloop.io.AbsolutePath
 import com.olvind.logging
-import org.scalablytyped.converter.internal.importer.build.BloopCompiler
+import coursier.Fetch
+import coursier.cache.{ArtifactError, FileCache}
+import coursier.core.{Dependency, Module}
+import coursier.error.{FetchError, ResolutionError}
+import coursier.util.Task
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.transforms.Sorter
 
-import scala.concurrent.Await
+import java.util.regex.Pattern
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 import scala.reflect.NameTransformer
 import scala.tools.scalap.scalax.rules.scalasig._
 
@@ -29,9 +31,37 @@ import scala.tools.scalap.scalax.rules.scalasig._
 object ImportScalaDefinitions extends App {
   private val defaultVersions: Versions = Versions(Versions.Scala213, Versions.ScalaJs1)
 
-  val All: Array[AbsolutePath] = Await
+  val fileCache = FileCache[Task]().withChecksums(List(None))
+
+  def toCoursier(dep: Dep.Concrete): Dependency =
+    Dependency(
+      Module(coursier.Organization(dep.org), coursier.ModuleName(dep.mangledArtifact), Map.empty),
+      dep.version,
+    )
+
+  def resolve(deps: Dep.Concrete*): Future[Array[Path]] = {
+    def go(remainingAttempts: Int): Future[Array[Path]] =
+      Fetch[Task](fileCache)
+        .withDependencies(deps.map(toCoursier))
+        .io
+        .future()
+        .map(files => files.map(f => Path(f)).toArray)
+        .recoverWith {
+          case x: ResolutionError.CantDownloadModule
+              if remainingAttempts > 0 && x.perRepositoryErrors.exists(_.contains("concurrent download")) =>
+            go(remainingAttempts - 1)
+          case x: FetchError.DownloadingArtifacts if remainingAttempts > 0 && x.errors.exists {
+                case (_, artifactError) => artifactError.isInstanceOf[ArtifactError.Recoverable]
+              } =>
+            go(remainingAttempts - 1)
+        }
+
+    go(remainingAttempts = 3)
+  }
+
+  val All: Array[Path] = Await
     .result(
-      BloopCompiler.resolve(
+      resolve(
         defaultVersions.scalajsReact.concrete(defaultVersions),
         defaultVersions.scalaJsDom.concrete(defaultVersions),
         defaultVersions.slinkyWeb.concrete(defaultVersions),

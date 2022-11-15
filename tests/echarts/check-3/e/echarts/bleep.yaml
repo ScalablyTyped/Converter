@@ -1,0 +1,19 @@
+$schema: https://raw.githubusercontent.com/oyvindberg/bleep/master/schema.json
+$version: 0.0.1-M21
+jvm:
+  name: graalvm-java17:22.3.0
+projects:
+  echarts:
+    dependencies: com.olvind:scalablytyped-runtime_sjs1_3:2.4.2
+    folder: ./
+    platform:
+      jsVersion: 1.11.0
+      name: js
+    sbt-scope: main
+    scala:
+      options: -encoding utf-8 -feature -language:existentials -language:higherKinds
+        -language:implicitConversions -no-indent -source:future
+      version: 3.2.0
+resolvers:
+  path: ${HOME_DIR}/.cache/scalablytyped/test-artifacts/echarts
+  type: maven-folder

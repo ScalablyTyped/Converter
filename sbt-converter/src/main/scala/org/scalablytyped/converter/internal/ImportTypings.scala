@@ -2,11 +2,10 @@ package org.scalablytyped.converter
 package internal
 
 import java.nio.file.Path
-
 import com.olvind.logging.Logger
 import io.circe013.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.importer._
-import org.scalablytyped.converter.internal.importer.build.{Compiler, IvyLayout, PublishedSbtProject}
+import org.scalablytyped.converter.internal.importer.build.{BleepCompiler, IvyLayout, ScalaProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
@@ -51,10 +50,10 @@ object ImportTypings {
       input:              Input,
       logger:             Logger[Unit],
       parseCacheDirOpt:   Option[Path],
-      publishLocalFolder: os.Path,
+      publishLocalTarget: PublishLocalTarget,
       fromFolder:         InFolder,
       targetFolder:       os.Path,
-      compiler:           Compiler,
+      bleepCompiler:      BleepCompiler,
   ): Either[Map[LibTsSource, Either[Throwable, String]], Output] = {
 
     if (input.conversion.expandTypeMappings =/= EnabledTypeMappingExpansion.DefaultSelection) {
@@ -76,7 +75,7 @@ object ImportTypings {
 
     val cachedParser = PersistingParser(parseCacheDirOpt, bootstrapped.inputFolders, logger)
 
-    val Phases: RecPhase[LibTsSource, PublishedSbtProject] = RecPhase[LibTsSource]
+    val Phases: RecPhase[LibTsSource, ScalaProject] = RecPhase[LibTsSource]
       .next(
         new Phase1ReadTypescript(
           resolve                 = bootstrapped.libraryResolver,
@@ -107,10 +106,10 @@ object ImportTypings {
       .next(
         new Phase3Compile(
           versions                   = input.conversion.versions,
-          compiler                   = compiler,
+          bleepCompiler              = bleepCompiler,
           targetFolder               = targetFolder,
           organization               = input.conversion.organization,
-          publishLocalFolder         = publishLocalFolder,
+          publishLocalTarget         = publishLocalTarget,
           metadataFetcher            = Npmjs.No,
           softWrites                 = true,
           flavour                    = input.conversion.flavourImpl,
@@ -120,15 +119,15 @@ object ImportTypings {
         "build",
       )
 
-    val results: SortedMap[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]] =
+    val results: SortedMap[LibTsSource, PhaseRes[LibTsSource, ScalaProject]] =
       initial
         .map(s => (s: LibTsSource) -> PhaseRunner(Phases, (_: LibTsSource) => logger, PhaseListener.NoListener)(s))
         .toMap
         .toSorted
 
     val successes: Map[LibTsSource, Dep.Concrete] = {
-      def go(source: LibTsSource, lib: PublishedSbtProject): Map[LibTsSource, Dep.Concrete] =
-        Map(source -> lib.project.reference) ++ lib.project.deps.flatMap { case (k, v) => go(k, v) }
+      def go(source: LibTsSource, lib: ScalaProject): Map[LibTsSource, Dep.Concrete] =
+        Map(source -> lib.reference) ++ lib.deps.flatMap { case (k, v) => go(k, v) }
 
       results.collect { case (s, PhaseRes.Ok(res)) => go(s, res) }.reduceOption(_ ++ _).getOrElse(Map.empty)
     }

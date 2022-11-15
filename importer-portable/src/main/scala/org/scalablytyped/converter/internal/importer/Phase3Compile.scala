@@ -1,14 +1,19 @@
 package org.scalablytyped.converter.internal
 package importer
 
+import bleep.model
 import com.olvind.logging.{Formatter, Logger}
+import org.scalablytyped.converter.internal.importer.Phase3Compile.bleepBuildFile
 import org.scalablytyped.converter.internal.importer.build._
+import org.scalablytyped.converter.internal.importer.cli.WrittenLine
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import org.scalablytyped.converter.internal.scalajs._
 import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
 
+import java.nio.file.Paths
+import scala.collection.immutable.{SortedMap, SortedSet}
 import java.time.ZonedDateTime
 import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
@@ -20,16 +25,16 @@ import scala.util.Try
   */
 class Phase3Compile(
     versions:                   Versions,
-    compiler:                   Compiler,
+    bleepCompiler:              BleepCompiler,
     targetFolder:               os.Path,
     organization:               String,
-    publishLocalFolder:         os.Path,
+    publishLocalTarget:         PublishLocalTarget,
     metadataFetcher:            Npmjs,
     softWrites:                 Boolean,
     flavour:                    FlavourImpl,
     generateScalaJsBundlerFile: Boolean,
     ensureSourceFilesWritten:   Boolean,
-) extends Phase[LibTsSource, LibScalaJs, PublishedSbtProject] {
+) extends Phase[LibTsSource, LibScalaJs, ScalaProject] {
 
   val ScalaFiles: PartialFunction[(os.RelPath, String), String] = {
     case (path, value)
@@ -44,14 +49,14 @@ class Phase3Compile(
   override def apply(
       source:  LibTsSource,
       lib:     LibScalaJs,
-      getDeps: GetDeps[LibTsSource, PublishedSbtProject],
+      getDeps: GetDeps[LibTsSource, ScalaProject],
       v4:      IsCircular,
       _logger: Logger[Unit],
-  ): PhaseRes[LibTsSource, PublishedSbtProject] = {
+  ): PhaseRes[LibTsSource, ScalaProject] = {
     val logger = _logger.withContext("flavour", flavour.toString)
 
     getDeps(lib.dependencies.keys.map(x => x: LibTsSource).to[SortedSet]).flatMap {
-      case PublishedSbtProject.Unpack(deps) =>
+      case ScalaProject.Unpack(deps: SortedMap[LibTsSource, ScalaProject]) =>
         val scope = new TreeScope.Root(
           libName       = lib.scalaName,
           _dependencies = lib.dependencies.map { case (_, lib) => lib.scalaName -> lib.packageTree },
@@ -69,20 +74,25 @@ class Phase3Compile(
           if (generateScalaJsBundlerFile) ScalaJsBundlerDepFile(lib.source.libName, lib.libVersion)
           else Empty
 
-        val sbtLayout: SbtProjectLayout[os.RelPath, String] =
-          ContentSbtProject(
-            versions        = versions,
-            comments        = lib.packageTree.comments,
-            organization    = organization,
-            name            = lib.libName,
-            version         = VersionHack.TemplateValue,
-            localDeps       = deps.toIArrayValues,
-            deps            = flavour.dependencies,
-            scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
-            resources       = resources.map { case (relPath, content) => resourcesDir / relPath -> content },
-            metadataOpt     = metadataOpt,
-            declaredVersion = Some(lib.libVersion),
+        val allDeps: IArray[Dep] =
+          IArray.fromTraversable(flavour.dependencies) ++ IArray(versions.runtime) ++ deps.toIArrayValues.map(d =>
+            d.reference,
           )
+
+        val bleepFile = bleepBuildFile(lib.libName, versions, allDeps, publishLocalTarget)
+        val sbtLayout: SbtProjectLayout[os.RelPath, String] = ContentSbtProject(
+          versions        = versions,
+          comments        = lib.packageTree.comments,
+          organization    = organization,
+          name            = lib.libName,
+          version         = VersionHack.TemplateValue,
+          scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
+          resources       = resources.map { case (relPath, content) => resourcesDir / relPath -> content },
+          metadataOpt     = metadataOpt,
+          declaredVersion = Some(lib.libVersion),
+          bleepBuildFile  = bleepFile,
+          allDeps         = allDeps,
+        )
 
         val digest                = Digest.of(sbtLayout.all.collect(ScalaFiles))
         val finalVersion          = lib.libVersion.version(digest)
@@ -90,12 +100,21 @@ class Phase3Compile(
 
         val reference = Dep.ScalaJs(organization, lib.libName, finalVersion).concrete(versions)
 
-        val sbtProject = SbtProject(lib.libName, reference)(compilerPaths.baseDir, deps, metadataOpt)
+        val sbtProject = ScalaProject(lib.libName, reference)(compilerPaths.baseDir, deps, metadataOpt, bleepFile)
 
-        val existing: IvyLayout[os.RelPath, os.Path] =
-          IvyLayout.unit(reference).mapValues { case (relPath, _) => publishLocalFolder / relPath }
+        val (jarFile, existing) = {
+          publishLocalTarget match {
+            case PublishLocalTarget.DefaultIvy2 =>
+              val layout =
+                IvyLayout.unit(reference).mapValues { case (relPath, _) => publishLocalTarget.path / relPath }
+              (layout.jarFile._2, layout)
+            case PublishLocalTarget.InHomeFolder(_) =>
+              val layout =
+                MavenLayout.unit(reference).mapValues { case (relPath, _) => publishLocalTarget.path / relPath }
+              (layout.jarFile._2, layout)
+          }
+        }
 
-        val jarFile  = existing.jarFile._2
         val lockFile = jarFile / os.up / ".lock"
 
         FileLocking.withLock(lockFile.toNIO) { _ =>
@@ -105,11 +124,9 @@ class Phase3Compile(
 
           if (existing.all.forall { case (_, file) => files.exists(file) }) {
             logger.warn(s"Using cached build $jarFile")
-            PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, existing, None))
+            PhaseRes.Ok(sbtProject)
           } else {
 
-            files.deleteAll(compilerPaths.classesDir)
-            os.makeDir.all(compilerPaths.classesDir)
             if (!ensureSourceFilesWritten) {
               files.sync(
                 allFilesProperVersion.all,
@@ -119,46 +136,136 @@ class Phase3Compile(
               )
             }
 
-            val jarDeps: Set[Compiler.InternalDep] =
-              deps.values.to[Set].map(x => Compiler.InternalDepJar(x.localIvyFiles.jarFile._2))
-
-            if (files.exists(compilerPaths.resourcesDir))
-              os.copy.over(from = compilerPaths.resourcesDir, to = compilerPaths.classesDir, replaceExisting = true)
-
             logger.warn(s"Building $jarFile...")
             val t0 = System.currentTimeMillis()
-            val ret: PhaseRes[LibTsSource, PublishedSbtProject] =
-              compiler.compile(lib.libName, digest, compilerPaths, jarDeps, flavour.dependencies) match {
-                case Right(()) =>
-                  val writtenIvyFiles: IvyLayout[os.RelPath, os.Path] =
-                    ContentForPublish(
-                      v            = versions,
-                      paths        = compilerPaths,
-                      p            = sbtProject,
-                      publication  = ZonedDateTime.now(),
-                      externalDeps = flavour.dependencies,
-                    ).mapValues { (relPath, contents) =>
-                      val path = publishLocalFolder / relPath
-                      files.softWriteBytes(path, contents)
-                      path
-                    }
 
+            cli(
+              "bleep compile-server auto-shutdown-enable",
+              cwd = compilerPaths.baseDir.toNIO,
+              cmd = List(
+                bleepCompiler.path.toString,
+                "compile-server",
+                "auto-shutdown-enable",
+              ),
+              cli.CliLogger(logger),
+            )
+
+            val ret: PhaseRes[LibTsSource, ScalaProject] = {
+              val cmd = {
+                List(
+                  List(
+                    bleepCompiler.path.toString,
+                    "--debug",
+                    "--dev",
+                    "publish-local",
+                    "--groupId",
+                    organization,
+                    "--version",
+                    finalVersion,
+                  ),
+                  publishLocalTarget match {
+                    case PublishLocalTarget.DefaultIvy2 => Nil
+                    case inHome: PublishLocalTarget.InHomeFolder => List("--to", inHome.path.toString())
+                  },
+                  List(lib.libName),
+                ).flatten
+              }
+
+              cli(
+                "bleep publish-local",
+                compilerPaths.baseDir.toNIO,
+                cmd,
+                cliLogger = cli.CliLogger(logger),
+              ) match {
+                case Right(_) =>
                   val elapsed = System.currentTimeMillis - t0
                   logger.warn(s"Built $jarFile in $elapsed ms")
 
-                  PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, writtenIvyFiles, None))
+                  PhaseRes.Ok(sbtProject)
+                case Left(writtenLines) =>
+                  val errors = writtenLines.combined
+                    .collect {
+                      case WrittenLine.StdErr(line) if line.contains("\uD83D\uDCD5") => line
+                      case WrittenLine.StdOut(line) if line.contains("\uD83D\uDCD5") => line
+                    }
+                    .mkString("\n")
+                  logger.error(errors)
 
-                case Left(err) =>
-                  logger.error(err)
-                  val firstError = err.split("\n").drop(1).headOption.getOrElse("")
-                  PhaseRes.Failure(Map(source -> Right(s"Compilation failed: $firstError")))
+                  PhaseRes.Failure(Map(source -> Right(s"Compilation failed: $errors")))
+
               }
+            }
 
-            files.deleteAll(compilerPaths.targetDir)
+            // ignore errors - the folder may not exist if everything failed above
+            Try(files.deleteAll(compilerPaths.baseDir / ".bleep"))
 
             ret
           }
         }
     }
+  }
+
+}
+
+object Phase3Compile {
+  def bleepBuildFile(
+      name:               String,
+      versions:           Versions,
+      allDeps:            IArray[Dep],
+      publishLocalTarget: PublishLocalTarget,
+  ): model.BuildFile = {
+    def toBleep(dep: Dep.Concrete): model.Dep =
+      model.Dep.Java(dep.org, dep.mangledArtifact, dep.version)
+
+    model.BuildFile(
+      $schema   = model.$schema,
+      $version  = model.BleepVersion.current,
+      templates = model.JsonMap.empty,
+      scripts   = model.JsonMap.empty,
+      resolvers = publishLocalTarget match {
+        case PublishLocalTarget.DefaultIvy2 => model.JsonList.empty
+        case PublishLocalTarget.InHomeFolder(relPath) =>
+          model.JsonList(List(model.Repository.MavenFolder(None, Paths.get(s"$${HOME_DIR}/$relPath"))))
+      },
+      projects = model.JsonMap(
+        Map(
+          model.ProjectName(name) -> model.Project(
+            `extends`       = model.JsonSet.empty,
+            cross           = model.JsonMap.empty,
+            folder          = Some(bleep.RelPath.force(".")),
+            dependsOn       = model.JsonSet.empty,
+            `source-layout` = None,
+            `sbt-scope`     = Some("main"),
+            sources         = model.JsonSet.empty,
+            resources       = model.JsonSet.empty,
+            dependencies    = model.JsonSet[model.Dep](allDeps.map(dep => toBleep(dep.concrete(versions))).toList: _*),
+            java            = None,
+            scala = Some(
+              model.Scala(
+                version         = Some(model.VersionScala(versions.scala.scalaVersion)),
+                options         = model.Options.parse(versions.scalacOptions, None),
+                setup           = None,
+                compilerPlugins = model.JsonSet.empty,
+                strict          = None,
+              ),
+            ),
+            platform = Some(
+              model.Platform.Js(
+                model.VersionScalaJs(versions.scalaJs.scalaJsVersion),
+                jsMode           = None,
+                jsKind           = None,
+                jsEmitSourceMaps = None,
+                jsJsdom          = None,
+                jsNodeVersion    = None,
+                jsMainClass      = None,
+              ),
+            ),
+            isTestProject  = None,
+            testFrameworks = model.JsonSet.empty,
+          ),
+        ),
+      ),
+      jvm = Some(model.Jvm("graalvm-java17:22.3.0", None)),
+    )
   }
 }

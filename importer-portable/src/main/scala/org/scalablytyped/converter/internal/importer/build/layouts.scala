@@ -29,21 +29,23 @@ final case class SbtProjectLayout[F, V](
     buildProperties: (F, V),
     pluginsSbt:      (F, V),
     readmeMd:        (F, V),
+    bleepYaml:       (F, V),
     sourcesDir:      IArray[(F, V)],
     resourcesDir:    IArray[(F, V)],
 ) extends Layout[F, V] {
   override type Self[f, v] = SbtProjectLayout[f, v]
   override def all: IArray[(F, V)] =
-    IArray(buildSbt, buildProperties, pluginsSbt, readmeMd) ++ sourcesDir ++ resourcesDir
+    IArray(buildSbt, buildProperties, pluginsSbt, readmeMd, bleepYaml) ++ sourcesDir ++ resourcesDir
 
   override def map[FF, VV](f: (F, V) => (FF, VV)): SbtProjectLayout[FF, VV] =
     this match {
-      case SbtProjectLayout((_1k, _1v), (_2k, _2v), (_3k, _3v), (_4k, _4v), sources, resources) =>
+      case SbtProjectLayout((_1k, _1v), (_2k, _2v), (_3k, _3v), (_4k, _4v), (_5k, _5v), sources, resources) =>
         SbtProjectLayout(
           f(_1k, _1v),
           f(_2k, _2v),
           f(_3k, _3v),
           f(_4k, _4v),
+          f(_5k, _5v),
           sources.map { case (k, v)   => f(k, v) },
           resources.map { case (k, v) => f(k, v) },
         )
@@ -86,6 +88,9 @@ final case class MavenLayout[F, V](jarFile: (F, V), sourceFile: (F, V), pomFile:
 }
 
 object MavenLayout {
+  def unit(p: Dep.Concrete): MavenLayout[os.RelPath, Unit] =
+    apply(p, (), (), ())
+
   def apply[T](p: Dep.Concrete, jarFile: T, sourceFile: T, pomFile: T): MavenLayout[os.RelPath, T] = {
     val org: os.RelPath =
       p.org.split("\\.").foldLeft(os.RelPath(""))(_ / _)

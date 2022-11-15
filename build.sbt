@@ -47,6 +47,7 @@ lazy val `importer-portable` = project
   .dependsOn(ts, scalajs, phases)
   .enablePlugins(BuildInfoPlugin)
   .settings(
+    libraryDependencies ++= List(Deps.bleepModel),
     buildInfoPackage := "org.scalablytyped.converter.internal",
     buildInfoKeys := Seq[BuildInfoKey](
       "gitSha" -> "git rev-parse -1 HEAD".!!.split("\n").last.trim,
@@ -59,7 +60,7 @@ lazy val importer = project
   .configure(baseSettings, optimize)
   .settings(
     libraryDependencies ++= Seq(
-      Deps.bloop,
+      Deps.gigahorse,
       Deps.coursier,
       Deps.scalatest % Test,
     ),

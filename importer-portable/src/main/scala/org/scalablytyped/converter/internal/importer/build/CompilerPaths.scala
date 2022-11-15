@@ -9,7 +9,6 @@ case class CompilerPaths private (
     sourcesDir:   os.Path,
     resourcesDir: os.Path,
     targetDir:    os.Path,
-    classesDir:   os.Path,
 )
 
 object CompilerPaths {
@@ -21,7 +20,6 @@ object CompilerPaths {
       sourcesDir   = thisBaseDir / "src" / 'main / 'scala,
       resourcesDir = thisBaseDir / "src" / 'main / 'resources,
       targetDir    = targetDir,
-      classesDir   = targetDir / s"scala-${v.scala.binVersion}" / 'classes,
     )
   }
 
