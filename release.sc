@@ -17,9 +17,9 @@ case class DemoRepo(repo: String, name: String)(implicit path: os.Path) {
     val pluginsFile = path / "project" / "plugins.sbt"
     val newLines = os.read.lines(pluginsFile).flatMap {
       case line if line.contains(s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" %""") =>
-        Some(s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.10.0")""")
+        Some(s"""addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.11.0")""")
       case line if line.contains(s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" %""") =>
-        Some(s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.21.0")""")
+        Some(s"""addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.21.1")""")
       case line if line.contains(s"""addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" %""") =>
         Some(s"""addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "$version")""")
       case line if line.contains("resolvers +=") =>
@@ -115,6 +115,10 @@ def doRelease(version: String): Int = {
   // at this point we're ready to push everything
   repo.assertClean()
   repo.publish()
+  // wait for libraries to be accessible through maven central
+  println("Sleeping two hours before pushing demos, in order for ST to propagate through maven central")
+  val Hour = 60 * 60 * 1000
+  Thread.sleep(2 * Hour)
   demoRepos.foreach(_.pushGit())
   0
 }
