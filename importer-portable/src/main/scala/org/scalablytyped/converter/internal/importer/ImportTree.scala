@@ -309,10 +309,6 @@ class ImportTree(
           }
 
         val approximationCandidates = findCandidates(tpe, depth = 0, inferred = Empty)
-        if (codePath.forceHasPath.codePath.parts.last.value == "PipelineDestination") {
-          val foo = findCandidates(tpe, depth = 0, inferred = Empty)
-          println(foo)
-        }
 
         val chosen: Option[TypeRef] =
           approximationCandidates
