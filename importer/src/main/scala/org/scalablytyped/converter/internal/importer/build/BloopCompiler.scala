@@ -2,21 +2,20 @@ package org.scalablytyped.converter.internal
 package importer
 package build
 
-import java.io.{ByteArrayOutputStream, PrintStream}
-import java.nio.file.{Files, Path}
-
 import bloop.Cli
 import bloop.cli.{CliOptions, Commands, CommonOptions, ExitStatus}
 import bloop.config.{Config => BloopConfig}
 import bloop.engine.NoPool
 import bloop.io.AbsolutePath
 import com.olvind.logging.{Formatter, Logger}
-import coursier.cache.{ArtifactError, FileCache}
-import coursier.error.{FetchError, ResolutionError}
+import coursier.cache.FileCache
+import coursier.error.CoursierError
 import coursier.util.Task
 import coursier.{Dependency, Fetch, Module}
 import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
 
+import java.io.{ByteArrayOutputStream, PrintStream}
+import java.nio.file.{Files, Path}
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
 
@@ -40,13 +39,7 @@ object BloopCompiler {
         .future()
         .map(files => files.map(f => AbsolutePath(f)).toArray)
         .recoverWith {
-          case x: ResolutionError.CantDownloadModule
-              if remainingAttempts > 0 && x.perRepositoryErrors.exists(_.contains("concurrent download")) =>
-            go(remainingAttempts - 1)
-          case x: FetchError.DownloadingArtifacts if remainingAttempts > 0 && x.errors.exists {
-                case (_, artifactError) => artifactError.isInstanceOf[ArtifactError.Recoverable]
-              } =>
-            go(remainingAttempts - 1)
+          case _: CoursierError if remainingAttempts > 0 => go(remainingAttempts - 1)
         }
 
     go(remainingAttempts = 3)
