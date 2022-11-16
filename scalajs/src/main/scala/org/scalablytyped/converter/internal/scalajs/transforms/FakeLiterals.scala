@@ -22,7 +22,7 @@ object FakeLiterals {
           case TypeRef.StringLiteral(underlying) => cleanName(underlying)
         }
         .groupBy(_.toLowerCase)
-        .mapValues(_.distinct.sorted)
+        .map { case (k, v) => (k, v.distinct.sorted) }
 
     def calculateName(underlying: String): Name = {
       val cleaned = cleanName(underlying)
