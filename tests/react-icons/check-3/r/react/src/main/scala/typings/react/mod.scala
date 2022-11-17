@@ -4,9 +4,6 @@ import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
 import typings.react.anon.Children
 import typings.react.anon.Html
-import typings.react.reactStrings.animate
-import typings.react.reactStrings.circle
-import typings.react.reactStrings.clipPath
 import typings.std.Element
 import typings.std.Partial
 import typings.std.SVGElement
@@ -91,8 +88,7 @@ object mod {
   trait ComponentClass[P]
     extends StObject
        with Instantiable1[/* props */ P, Component[P, ComponentState]]
-       with Instantiable2[/* props */ P, /* context */ Any, Component[P, ComponentState]]
-       with ComponentType[P] {
+       with Instantiable2[/* props */ P, /* context */ Any, Component[P, ComponentState]] {
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
     
@@ -101,11 +97,7 @@ object mod {
   
   type ComponentState = js.Object
   
-  /* Rewritten from type alias, can be one of: 
-    - typings.react.mod.ComponentClass[P]
-    - typings.react.mod.StatelessComponent[P]
-  */
-  trait ComponentType[P] extends StObject
+  type ComponentType[P] = ComponentClass[P] | StatelessComponent[P]
   
   trait DOMAttributes[T] extends StObject {
     
@@ -252,11 +244,11 @@ object mod {
        with DOMElement[SVGAttributes[SVGElement], SVGElement] {
     
     @JSName("type")
-    var type_ReactSVGElement: animate | circle | clipPath
+    var type_ReactSVGElement: "animate" | "circle" | "clipPath"
   }
   object ReactSVGElement {
     
-    inline def apply(props: Any, ref: Ref[SVGElement], `type`: animate | circle | clipPath): ReactSVGElement = {
+    inline def apply(props: Any, ref: Ref[SVGElement], `type`: "animate" | "circle" | "clipPath"): ReactSVGElement = {
       val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], ref = ref.asInstanceOf[js.Any], key = null)
       __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
       __obj.asInstanceOf[ReactSVGElement]
@@ -264,7 +256,7 @@ object mod {
     
     extension [Self <: ReactSVGElement](x: Self) {
       
-      inline def setType(value: animate | circle | clipPath): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+      inline def setType(value: "animate" | "circle" | "clipPath"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
   }
   
@@ -315,9 +307,7 @@ object mod {
   type SVGProps[T] = ClassAttributes[T]
   
   @js.native
-  trait StatelessComponent[P]
-    extends StObject
-       with ComponentType[P] {
+  trait StatelessComponent[P] extends StObject {
     
     def apply(props: P & Children): ReactElement | Null = js.native
     def apply(props: P & Children, context: Any): ReactElement | Null = js.native

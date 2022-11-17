@@ -40,9 +40,7 @@ object mod {
   @js.native
   val VeryExotic: MemoExoticComponent[ForwardRefExoticComponent[RefAttributes[HTMLDivElement]]] = js.native
   
-  trait A
-    extends StObject
-       with Props {
+  trait A extends StObject {
     
     def aCallback(): Double
     
@@ -63,9 +61,7 @@ object mod {
     }
   }
   
-  trait B
-    extends StObject
-       with Props {
+  trait B extends StObject {
     
     var bCallback: js.UndefOr[js.Function0[String]] = js.undefined
     
@@ -159,21 +155,5 @@ object mod {
     }
   }
   
-  /* Rewritten from type alias, can be one of: 
-    - typingsJapgolly.componentstest.mod.A
-    - typingsJapgolly.componentstest.mod.B
-  */
-  trait Props extends StObject
-  object Props {
-    
-    inline def A(aCallback: CallbackTo[Double], aMember: Double): typingsJapgolly.componentstest.mod.A = {
-      val __obj = js.Dynamic.literal(aCallback = aCallback.toJsFn, aMember = aMember.asInstanceOf[js.Any])
-      __obj.asInstanceOf[typingsJapgolly.componentstest.mod.A]
-    }
-    
-    inline def B(bMember: String): typingsJapgolly.componentstest.mod.B = {
-      val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
-      __obj.asInstanceOf[typingsJapgolly.componentstest.mod.B]
-    }
-  }
+  type Props = A | B
 }

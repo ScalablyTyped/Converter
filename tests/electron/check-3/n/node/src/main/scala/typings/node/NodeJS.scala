@@ -1,6 +1,5 @@
 package typings.node
 
-import typings.node.nodeStrings.foo
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -58,7 +57,7 @@ object NodeJS {
     extends StObject
        with EventEmitter {
     
-    var bar: foo = js.native
+    var bar: "foo" = js.native
   }
   
   @js.native

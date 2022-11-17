@@ -12,14 +12,14 @@ class Erasure(scalaVersion: Versions.Scala) {
   def base(_scope: TreeScope)(s: MethodTree): MethodBase = {
     val newScope = _scope / s
     MethodBase(
-      s.name,
+      s.targetName,
       s.params.flatten.map(param => simplify(newScope, param.tpe)),
     )
   }
   def erasure(_scope: TreeScope)(s: MethodTree): MethodErasure = {
     val newScope = _scope / s
     MethodErasure(
-      s.name,
+      s.targetName,
       s.params.flatten.map(param => simplify(newScope, param.tpe)),
       simplify(newScope, s.resultType),
     )
@@ -55,12 +55,11 @@ class Erasure(scalaVersion: Versions.Scala) {
       case QualifiedName.THIS =>
         scope.stack.collectFirst { case x: ClassTree => x.codePath }.getOrElse(QualifiedName.THIS)
 
-      case QualifiedName.REPEATED => QualifiedName.Array
-      // the way we fake literal means these are true enough
-      case QualifiedName.STRING_LITERAL  => tpe.targs.head.typeName
-      case QualifiedName.DOUBLE_LITERAL  => tpe.targs.head.typeName
-      case QualifiedName.INT_LITERAL     => tpe.targs.head.typeName
-      case QualifiedName.BOOLEAN_LITERAL => tpe.targs.head.typeName
+      case QualifiedName.REPEATED        => QualifiedName.Array
+      case QualifiedName.STRING_LITERAL  => QualifiedName.String
+      case QualifiedName.DOUBLE_LITERAL  => QualifiedName.Double
+      case QualifiedName.INT_LITERAL     => QualifiedName.Int
+      case QualifiedName.BOOLEAN_LITERAL => QualifiedName.Boolean
 
       case QualifiedName.INTERSECTION if scalaVersion.is3 =>
         // this is not in the spec, but for instance `foo(String & Double)` clashes with `foo(Double)` regardless of order, etc

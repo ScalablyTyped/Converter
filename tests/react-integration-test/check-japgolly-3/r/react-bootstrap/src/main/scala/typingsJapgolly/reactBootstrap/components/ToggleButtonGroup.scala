@@ -20,42 +20,6 @@ import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.react.anon.Html
 import typingsJapgolly.react.mod.CSSProperties
 import typingsJapgolly.react.mod.HTMLProps
-import typingsJapgolly.react.reactStrings.`additions text`
-import typingsJapgolly.react.reactStrings.`inline`
-import typingsJapgolly.react.reactStrings.additions
-import typingsJapgolly.react.reactStrings.all
-import typingsJapgolly.react.reactStrings.ascending
-import typingsJapgolly.react.reactStrings.assertive
-import typingsJapgolly.react.reactStrings.both
-import typingsJapgolly.react.reactStrings.copy
-import typingsJapgolly.react.reactStrings.date
-import typingsJapgolly.react.reactStrings.descending
-import typingsJapgolly.react.reactStrings.dialog
-import typingsJapgolly.react.reactStrings.execute
-import typingsJapgolly.react.reactStrings.grammar
-import typingsJapgolly.react.reactStrings.grid
-import typingsJapgolly.react.reactStrings.horizontal
-import typingsJapgolly.react.reactStrings.link
-import typingsJapgolly.react.reactStrings.list
-import typingsJapgolly.react.reactStrings.listbox
-import typingsJapgolly.react.reactStrings.location
-import typingsJapgolly.react.reactStrings.menu
-import typingsJapgolly.react.reactStrings.mixed
-import typingsJapgolly.react.reactStrings.move
-import typingsJapgolly.react.reactStrings.none
-import typingsJapgolly.react.reactStrings.off
-import typingsJapgolly.react.reactStrings.on
-import typingsJapgolly.react.reactStrings.other
-import typingsJapgolly.react.reactStrings.page
-import typingsJapgolly.react.reactStrings.polite
-import typingsJapgolly.react.reactStrings.popup
-import typingsJapgolly.react.reactStrings.removals
-import typingsJapgolly.react.reactStrings.spelling
-import typingsJapgolly.react.reactStrings.step
-import typingsJapgolly.react.reactStrings.text
-import typingsJapgolly.react.reactStrings.time
-import typingsJapgolly.react.reactStrings.tree
-import typingsJapgolly.react.reactStrings.vertical
 import typingsJapgolly.reactBootstrap.libButtonGroupMod.ButtonGroupProps
 import typingsJapgolly.reactBootstrap.libToggleButtonGroupMod.BaseProps
 import typingsJapgolly.reactBootstrap.libToggleButtonGroupMod.CheckboxProps
@@ -107,11 +71,11 @@ object ToggleButtonGroup {
       
       inline def `aria-atomic`(value: Boolean): this.type = set("aria-atomic", value.asInstanceOf[js.Any])
       
-      inline def `aria-autocomplete`(value: none | `inline` | list | both): this.type = set("aria-autocomplete", value.asInstanceOf[js.Any])
+      inline def `aria-autocomplete`(value: "none" | "inline" | "list" | "both"): this.type = set("aria-autocomplete", value.asInstanceOf[js.Any])
       
       inline def `aria-busy`(value: Boolean): this.type = set("aria-busy", value.asInstanceOf[js.Any])
       
-      inline def `aria-checked`(value: Boolean | mixed): this.type = set("aria-checked", value.asInstanceOf[js.Any])
+      inline def `aria-checked`(value: Boolean | "mixed"): this.type = set("aria-checked", value.asInstanceOf[js.Any])
       
       inline def `aria-colcount`(value: Double): this.type = set("aria-colcount", value.asInstanceOf[js.Any])
       
@@ -121,7 +85,7 @@ object ToggleButtonGroup {
       
       inline def `aria-controls`(value: String): this.type = set("aria-controls", value.asInstanceOf[js.Any])
       
-      inline def `aria-current`(value: Boolean | page | step | location | date | time): this.type = set("aria-current", value.asInstanceOf[js.Any])
+      inline def `aria-current`(value: Boolean | "page" | "step" | "location" | "date" | "time"): this.type = set("aria-current", value.asInstanceOf[js.Any])
       
       inline def `aria-describedby`(value: String): this.type = set("aria-describedby", value.asInstanceOf[js.Any])
       
@@ -129,7 +93,7 @@ object ToggleButtonGroup {
       
       inline def `aria-disabled`(value: Boolean): this.type = set("aria-disabled", value.asInstanceOf[js.Any])
       
-      inline def `aria-dropeffect`(value: none | copy | execute | link | move | popup): this.type = set("aria-dropeffect", value.asInstanceOf[js.Any])
+      inline def `aria-dropeffect`(value: "none" | "copy" | "execute" | "link" | "move" | "popup"): this.type = set("aria-dropeffect", value.asInstanceOf[js.Any])
       
       inline def `aria-errormessage`(value: String): this.type = set("aria-errormessage", value.asInstanceOf[js.Any])
       
@@ -139,11 +103,11 @@ object ToggleButtonGroup {
       
       inline def `aria-grabbed`(value: Boolean): this.type = set("aria-grabbed", value.asInstanceOf[js.Any])
       
-      inline def `aria-haspopup`(value: Boolean | menu | listbox | tree | grid | dialog): this.type = set("aria-haspopup", value.asInstanceOf[js.Any])
+      inline def `aria-haspopup`(value: Boolean | "menu" | "listbox" | "tree" | "grid" | "dialog"): this.type = set("aria-haspopup", value.asInstanceOf[js.Any])
       
       inline def `aria-hidden`(value: Boolean): this.type = set("aria-hidden", value.asInstanceOf[js.Any])
       
-      inline def `aria-invalid`(value: Boolean | grammar | spelling): this.type = set("aria-invalid", value.asInstanceOf[js.Any])
+      inline def `aria-invalid`(value: Boolean | "grammar" | "spelling"): this.type = set("aria-invalid", value.asInstanceOf[js.Any])
       
       inline def `aria-keyshortcuts`(value: String): this.type = set("aria-keyshortcuts", value.asInstanceOf[js.Any])
       
@@ -153,7 +117,7 @@ object ToggleButtonGroup {
       
       inline def `aria-level`(value: Double): this.type = set("aria-level", value.asInstanceOf[js.Any])
       
-      inline def `aria-live`(value: off | assertive | polite): this.type = set("aria-live", value.asInstanceOf[js.Any])
+      inline def `aria-live`(value: "off" | "assertive" | "polite"): this.type = set("aria-live", value.asInstanceOf[js.Any])
       
       inline def `aria-modal`(value: Boolean): this.type = set("aria-modal", value.asInstanceOf[js.Any])
       
@@ -161,7 +125,7 @@ object ToggleButtonGroup {
       
       inline def `aria-multiselectable`(value: Boolean): this.type = set("aria-multiselectable", value.asInstanceOf[js.Any])
       
-      inline def `aria-orientation`(value: horizontal | vertical): this.type = set("aria-orientation", value.asInstanceOf[js.Any])
+      inline def `aria-orientation`(value: "horizontal" | "vertical"): this.type = set("aria-orientation", value.asInstanceOf[js.Any])
       
       inline def `aria-owns`(value: String): this.type = set("aria-owns", value.asInstanceOf[js.Any])
       
@@ -169,11 +133,11 @@ object ToggleButtonGroup {
       
       inline def `aria-posinset`(value: Double): this.type = set("aria-posinset", value.asInstanceOf[js.Any])
       
-      inline def `aria-pressed`(value: Boolean | mixed): this.type = set("aria-pressed", value.asInstanceOf[js.Any])
+      inline def `aria-pressed`(value: Boolean | "mixed"): this.type = set("aria-pressed", value.asInstanceOf[js.Any])
       
       inline def `aria-readonly`(value: Boolean): this.type = set("aria-readonly", value.asInstanceOf[js.Any])
       
-      inline def `aria-relevant`(value: additions | (`additions text`) | all | removals | text): this.type = set("aria-relevant", value.asInstanceOf[js.Any])
+      inline def `aria-relevant`(value: "additions" | ("additions text") | "all" | "removals" | "text"): this.type = set("aria-relevant", value.asInstanceOf[js.Any])
       
       inline def `aria-required`(value: Boolean): this.type = set("aria-required", value.asInstanceOf[js.Any])
       
@@ -189,7 +153,7 @@ object ToggleButtonGroup {
       
       inline def `aria-setsize`(value: Double): this.type = set("aria-setsize", value.asInstanceOf[js.Any])
       
-      inline def `aria-sort`(value: none | ascending | descending | other): this.type = set("aria-sort", value.asInstanceOf[js.Any])
+      inline def `aria-sort`(value: "none" | "ascending" | "descending" | "other"): this.type = set("aria-sort", value.asInstanceOf[js.Any])
       
       inline def `aria-valuemax`(value: Double): this.type = set("aria-valuemax", value.asInstanceOf[js.Any])
       
@@ -725,7 +689,7 @@ object ToggleButtonGroup {
       
       inline def typeof(value: String): this.type = set("typeof", value.asInstanceOf[js.Any])
       
-      inline def unselectable(value: on | off): this.type = set("unselectable", value.asInstanceOf[js.Any])
+      inline def unselectable(value: "on" | "off"): this.type = set("unselectable", value.asInstanceOf[js.Any])
       
       inline def useMap(value: String): this.type = set("useMap", value.asInstanceOf[js.Any])
       
@@ -784,11 +748,11 @@ object ToggleButtonGroup {
       
       inline def `aria-atomic`(value: Boolean): this.type = set("aria-atomic", value.asInstanceOf[js.Any])
       
-      inline def `aria-autocomplete`(value: none | `inline` | list | both): this.type = set("aria-autocomplete", value.asInstanceOf[js.Any])
+      inline def `aria-autocomplete`(value: "none" | "inline" | "list" | "both"): this.type = set("aria-autocomplete", value.asInstanceOf[js.Any])
       
       inline def `aria-busy`(value: Boolean): this.type = set("aria-busy", value.asInstanceOf[js.Any])
       
-      inline def `aria-checked`(value: Boolean | mixed): this.type = set("aria-checked", value.asInstanceOf[js.Any])
+      inline def `aria-checked`(value: Boolean | "mixed"): this.type = set("aria-checked", value.asInstanceOf[js.Any])
       
       inline def `aria-colcount`(value: Double): this.type = set("aria-colcount", value.asInstanceOf[js.Any])
       
@@ -798,7 +762,7 @@ object ToggleButtonGroup {
       
       inline def `aria-controls`(value: String): this.type = set("aria-controls", value.asInstanceOf[js.Any])
       
-      inline def `aria-current`(value: Boolean | page | step | location | date | time): this.type = set("aria-current", value.asInstanceOf[js.Any])
+      inline def `aria-current`(value: Boolean | "page" | "step" | "location" | "date" | "time"): this.type = set("aria-current", value.asInstanceOf[js.Any])
       
       inline def `aria-describedby`(value: String): this.type = set("aria-describedby", value.asInstanceOf[js.Any])
       
@@ -806,7 +770,7 @@ object ToggleButtonGroup {
       
       inline def `aria-disabled`(value: Boolean): this.type = set("aria-disabled", value.asInstanceOf[js.Any])
       
-      inline def `aria-dropeffect`(value: none | copy | execute | link | move | popup): this.type = set("aria-dropeffect", value.asInstanceOf[js.Any])
+      inline def `aria-dropeffect`(value: "none" | "copy" | "execute" | "link" | "move" | "popup"): this.type = set("aria-dropeffect", value.asInstanceOf[js.Any])
       
       inline def `aria-errormessage`(value: String): this.type = set("aria-errormessage", value.asInstanceOf[js.Any])
       
@@ -816,11 +780,11 @@ object ToggleButtonGroup {
       
       inline def `aria-grabbed`(value: Boolean): this.type = set("aria-grabbed", value.asInstanceOf[js.Any])
       
-      inline def `aria-haspopup`(value: Boolean | menu | listbox | tree | grid | dialog): this.type = set("aria-haspopup", value.asInstanceOf[js.Any])
+      inline def `aria-haspopup`(value: Boolean | "menu" | "listbox" | "tree" | "grid" | "dialog"): this.type = set("aria-haspopup", value.asInstanceOf[js.Any])
       
       inline def `aria-hidden`(value: Boolean): this.type = set("aria-hidden", value.asInstanceOf[js.Any])
       
-      inline def `aria-invalid`(value: Boolean | grammar | spelling): this.type = set("aria-invalid", value.asInstanceOf[js.Any])
+      inline def `aria-invalid`(value: Boolean | "grammar" | "spelling"): this.type = set("aria-invalid", value.asInstanceOf[js.Any])
       
       inline def `aria-keyshortcuts`(value: String): this.type = set("aria-keyshortcuts", value.asInstanceOf[js.Any])
       
@@ -830,7 +794,7 @@ object ToggleButtonGroup {
       
       inline def `aria-level`(value: Double): this.type = set("aria-level", value.asInstanceOf[js.Any])
       
-      inline def `aria-live`(value: off | assertive | polite): this.type = set("aria-live", value.asInstanceOf[js.Any])
+      inline def `aria-live`(value: "off" | "assertive" | "polite"): this.type = set("aria-live", value.asInstanceOf[js.Any])
       
       inline def `aria-modal`(value: Boolean): this.type = set("aria-modal", value.asInstanceOf[js.Any])
       
@@ -838,7 +802,7 @@ object ToggleButtonGroup {
       
       inline def `aria-multiselectable`(value: Boolean): this.type = set("aria-multiselectable", value.asInstanceOf[js.Any])
       
-      inline def `aria-orientation`(value: horizontal | vertical): this.type = set("aria-orientation", value.asInstanceOf[js.Any])
+      inline def `aria-orientation`(value: "horizontal" | "vertical"): this.type = set("aria-orientation", value.asInstanceOf[js.Any])
       
       inline def `aria-owns`(value: String): this.type = set("aria-owns", value.asInstanceOf[js.Any])
       
@@ -846,11 +810,11 @@ object ToggleButtonGroup {
       
       inline def `aria-posinset`(value: Double): this.type = set("aria-posinset", value.asInstanceOf[js.Any])
       
-      inline def `aria-pressed`(value: Boolean | mixed): this.type = set("aria-pressed", value.asInstanceOf[js.Any])
+      inline def `aria-pressed`(value: Boolean | "mixed"): this.type = set("aria-pressed", value.asInstanceOf[js.Any])
       
       inline def `aria-readonly`(value: Boolean): this.type = set("aria-readonly", value.asInstanceOf[js.Any])
       
-      inline def `aria-relevant`(value: additions | (`additions text`) | all | removals | text): this.type = set("aria-relevant", value.asInstanceOf[js.Any])
+      inline def `aria-relevant`(value: "additions" | ("additions text") | "all" | "removals" | "text"): this.type = set("aria-relevant", value.asInstanceOf[js.Any])
       
       inline def `aria-required`(value: Boolean): this.type = set("aria-required", value.asInstanceOf[js.Any])
       
@@ -866,7 +830,7 @@ object ToggleButtonGroup {
       
       inline def `aria-setsize`(value: Double): this.type = set("aria-setsize", value.asInstanceOf[js.Any])
       
-      inline def `aria-sort`(value: none | ascending | descending | other): this.type = set("aria-sort", value.asInstanceOf[js.Any])
+      inline def `aria-sort`(value: "none" | "ascending" | "descending" | "other"): this.type = set("aria-sort", value.asInstanceOf[js.Any])
       
       inline def `aria-valuemax`(value: Double): this.type = set("aria-valuemax", value.asInstanceOf[js.Any])
       
@@ -1400,7 +1364,7 @@ object ToggleButtonGroup {
       
       inline def typeof(value: String): this.type = set("typeof", value.asInstanceOf[js.Any])
       
-      inline def unselectable(value: on | off): this.type = set("unselectable", value.asInstanceOf[js.Any])
+      inline def unselectable(value: "on" | "off"): this.type = set("unselectable", value.asInstanceOf[js.Any])
       
       inline def useMap(value: String): this.type = set("useMap", value.asInstanceOf[js.Any])
       

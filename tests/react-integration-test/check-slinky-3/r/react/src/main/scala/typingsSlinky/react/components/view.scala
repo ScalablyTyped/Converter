@@ -21,71 +21,6 @@ import typingsSlinky.react.anon.Html
 import typingsSlinky.react.mod.CSSProperties
 import typingsSlinky.react.mod.DragEvent
 import typingsSlinky.react.mod.SVGProps
-import typingsSlinky.react.reactStrings.`additions text`
-import typingsSlinky.react.reactStrings.`after-edge`
-import typingsSlinky.react.reactStrings.`before-edge`
-import typingsSlinky.react.reactStrings.`inline`
-import typingsSlinky.react.reactStrings.`text-after-edge`
-import typingsSlinky.react.reactStrings.`text-before-edge`
-import typingsSlinky.react.reactStrings.additions
-import typingsSlinky.react.reactStrings.all
-import typingsSlinky.react.reactStrings.alphabetic
-import typingsSlinky.react.reactStrings.ascending
-import typingsSlinky.react.reactStrings.assertive
-import typingsSlinky.react.reactStrings.auto
-import typingsSlinky.react.reactStrings.baseline
-import typingsSlinky.react.reactStrings.bevel
-import typingsSlinky.react.reactStrings.both
-import typingsSlinky.react.reactStrings.butt
-import typingsSlinky.react.reactStrings.central
-import typingsSlinky.react.reactStrings.copy
-import typingsSlinky.react.reactStrings.date
-import typingsSlinky.react.reactStrings.descending
-import typingsSlinky.react.reactStrings.dialog
-import typingsSlinky.react.reactStrings.evenodd
-import typingsSlinky.react.reactStrings.execute
-import typingsSlinky.react.reactStrings.grammar
-import typingsSlinky.react.reactStrings.grid
-import typingsSlinky.react.reactStrings.hanging
-import typingsSlinky.react.reactStrings.horizontal
-import typingsSlinky.react.reactStrings.ideographic
-import typingsSlinky.react.reactStrings.inherit
-import typingsSlinky.react.reactStrings.initial
-import typingsSlinky.react.reactStrings.isolated
-import typingsSlinky.react.reactStrings.linearRGB
-import typingsSlinky.react.reactStrings.link
-import typingsSlinky.react.reactStrings.list
-import typingsSlinky.react.reactStrings.listbox
-import typingsSlinky.react.reactStrings.location
-import typingsSlinky.react.reactStrings.mathematical
-import typingsSlinky.react.reactStrings.medial
-import typingsSlinky.react.reactStrings.menu
-import typingsSlinky.react.reactStrings.middle
-import typingsSlinky.react.reactStrings.miter
-import typingsSlinky.react.reactStrings.mixed
-import typingsSlinky.react.reactStrings.move
-import typingsSlinky.react.reactStrings.no
-import typingsSlinky.react.reactStrings.none
-import typingsSlinky.react.reactStrings.nonzero
-import typingsSlinky.react.reactStrings.off
-import typingsSlinky.react.reactStrings.other
-import typingsSlinky.react.reactStrings.page
-import typingsSlinky.react.reactStrings.polite
-import typingsSlinky.react.reactStrings.popup
-import typingsSlinky.react.reactStrings.removals
-import typingsSlinky.react.reactStrings.replace
-import typingsSlinky.react.reactStrings.round
-import typingsSlinky.react.reactStrings.sRGB
-import typingsSlinky.react.reactStrings.spelling
-import typingsSlinky.react.reactStrings.square
-import typingsSlinky.react.reactStrings.step
-import typingsSlinky.react.reactStrings.sum
-import typingsSlinky.react.reactStrings.terminal
-import typingsSlinky.react.reactStrings.text
-import typingsSlinky.react.reactStrings.time
-import typingsSlinky.react.reactStrings.tree
-import typingsSlinky.react.reactStrings.vertical
-import typingsSlinky.react.reactStrings.yes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -99,31 +34,31 @@ object view {
     
     inline def accentHeight(value: Double | String): this.type = set("accentHeight", value.asInstanceOf[js.Any])
     
-    inline def accumulate(value: none | sum): this.type = set("accumulate", value.asInstanceOf[js.Any])
+    inline def accumulate(value: "none" | "sum"): this.type = set("accumulate", value.asInstanceOf[js.Any])
     
-    inline def additive(value: replace | sum): this.type = set("additive", value.asInstanceOf[js.Any])
+    inline def additive(value: "replace" | "sum"): this.type = set("additive", value.asInstanceOf[js.Any])
     
     inline def alignmentBaseline(
-      value: auto | baseline | `before-edge` | `text-before-edge` | middle | central | `after-edge` | `text-after-edge` | ideographic | alphabetic | hanging | mathematical | inherit
+      value: "auto" | "baseline" | "before-edge" | "text-before-edge" | "middle" | "central" | "after-edge" | "text-after-edge" | "ideographic" | "alphabetic" | "hanging" | "mathematical" | "inherit"
     ): this.type = set("alignmentBaseline", value.asInstanceOf[js.Any])
     
-    inline def allowReorder(value: no | yes): this.type = set("allowReorder", value.asInstanceOf[js.Any])
+    inline def allowReorder(value: "no" | "yes"): this.type = set("allowReorder", value.asInstanceOf[js.Any])
     
     inline def alphabetic(value: Double | String): this.type = set("alphabetic", value.asInstanceOf[js.Any])
     
     inline def amplitude(value: Double | String): this.type = set("amplitude", value.asInstanceOf[js.Any])
     
-    inline def arabicForm(value: initial | medial | terminal | isolated): this.type = set("arabicForm", value.asInstanceOf[js.Any])
+    inline def arabicForm(value: "initial" | "medial" | "terminal" | "isolated"): this.type = set("arabicForm", value.asInstanceOf[js.Any])
     
     inline def `aria-activedescendant`(value: String): this.type = set("aria-activedescendant", value.asInstanceOf[js.Any])
     
     inline def `aria-atomic`(value: Boolean): this.type = set("aria-atomic", value.asInstanceOf[js.Any])
     
-    inline def `aria-autocomplete`(value: none | `inline` | list | both): this.type = set("aria-autocomplete", value.asInstanceOf[js.Any])
+    inline def `aria-autocomplete`(value: "none" | "inline" | "list" | "both"): this.type = set("aria-autocomplete", value.asInstanceOf[js.Any])
     
     inline def `aria-busy`(value: Boolean): this.type = set("aria-busy", value.asInstanceOf[js.Any])
     
-    inline def `aria-checked`(value: Boolean | mixed): this.type = set("aria-checked", value.asInstanceOf[js.Any])
+    inline def `aria-checked`(value: Boolean | "mixed"): this.type = set("aria-checked", value.asInstanceOf[js.Any])
     
     inline def `aria-colcount`(value: Double): this.type = set("aria-colcount", value.asInstanceOf[js.Any])
     
@@ -133,7 +68,7 @@ object view {
     
     inline def `aria-controls`(value: String): this.type = set("aria-controls", value.asInstanceOf[js.Any])
     
-    inline def `aria-current`(value: Boolean | page | step | location | date | time): this.type = set("aria-current", value.asInstanceOf[js.Any])
+    inline def `aria-current`(value: Boolean | "page" | "step" | "location" | "date" | "time"): this.type = set("aria-current", value.asInstanceOf[js.Any])
     
     inline def `aria-describedby`(value: String): this.type = set("aria-describedby", value.asInstanceOf[js.Any])
     
@@ -141,7 +76,7 @@ object view {
     
     inline def `aria-disabled`(value: Boolean): this.type = set("aria-disabled", value.asInstanceOf[js.Any])
     
-    inline def `aria-dropeffect`(value: none | copy | execute | link | move | popup): this.type = set("aria-dropeffect", value.asInstanceOf[js.Any])
+    inline def `aria-dropeffect`(value: "none" | "copy" | "execute" | "link" | "move" | "popup"): this.type = set("aria-dropeffect", value.asInstanceOf[js.Any])
     
     inline def `aria-errormessage`(value: String): this.type = set("aria-errormessage", value.asInstanceOf[js.Any])
     
@@ -151,11 +86,11 @@ object view {
     
     inline def `aria-grabbed`(value: Boolean): this.type = set("aria-grabbed", value.asInstanceOf[js.Any])
     
-    inline def `aria-haspopup`(value: Boolean | menu | listbox | tree | grid | dialog): this.type = set("aria-haspopup", value.asInstanceOf[js.Any])
+    inline def `aria-haspopup`(value: Boolean | "menu" | "listbox" | "tree" | "grid" | "dialog"): this.type = set("aria-haspopup", value.asInstanceOf[js.Any])
     
     inline def `aria-hidden`(value: Boolean): this.type = set("aria-hidden", value.asInstanceOf[js.Any])
     
-    inline def `aria-invalid`(value: Boolean | grammar | spelling): this.type = set("aria-invalid", value.asInstanceOf[js.Any])
+    inline def `aria-invalid`(value: Boolean | "grammar" | "spelling"): this.type = set("aria-invalid", value.asInstanceOf[js.Any])
     
     inline def `aria-keyshortcuts`(value: String): this.type = set("aria-keyshortcuts", value.asInstanceOf[js.Any])
     
@@ -165,7 +100,7 @@ object view {
     
     inline def `aria-level`(value: Double): this.type = set("aria-level", value.asInstanceOf[js.Any])
     
-    inline def `aria-live`(value: off | assertive | polite): this.type = set("aria-live", value.asInstanceOf[js.Any])
+    inline def `aria-live`(value: "off" | "assertive" | "polite"): this.type = set("aria-live", value.asInstanceOf[js.Any])
     
     inline def `aria-modal`(value: Boolean): this.type = set("aria-modal", value.asInstanceOf[js.Any])
     
@@ -173,7 +108,7 @@ object view {
     
     inline def `aria-multiselectable`(value: Boolean): this.type = set("aria-multiselectable", value.asInstanceOf[js.Any])
     
-    inline def `aria-orientation`(value: horizontal | vertical): this.type = set("aria-orientation", value.asInstanceOf[js.Any])
+    inline def `aria-orientation`(value: "horizontal" | "vertical"): this.type = set("aria-orientation", value.asInstanceOf[js.Any])
     
     inline def `aria-owns`(value: String): this.type = set("aria-owns", value.asInstanceOf[js.Any])
     
@@ -181,11 +116,11 @@ object view {
     
     inline def `aria-posinset`(value: Double): this.type = set("aria-posinset", value.asInstanceOf[js.Any])
     
-    inline def `aria-pressed`(value: Boolean | mixed): this.type = set("aria-pressed", value.asInstanceOf[js.Any])
+    inline def `aria-pressed`(value: Boolean | "mixed"): this.type = set("aria-pressed", value.asInstanceOf[js.Any])
     
     inline def `aria-readonly`(value: Boolean): this.type = set("aria-readonly", value.asInstanceOf[js.Any])
     
-    inline def `aria-relevant`(value: additions | (`additions text`) | all | removals | text): this.type = set("aria-relevant", value.asInstanceOf[js.Any])
+    inline def `aria-relevant`(value: "additions" | ("additions text") | "all" | "removals" | "text"): this.type = set("aria-relevant", value.asInstanceOf[js.Any])
     
     inline def `aria-required`(value: Boolean): this.type = set("aria-required", value.asInstanceOf[js.Any])
     
@@ -201,7 +136,7 @@ object view {
     
     inline def `aria-setsize`(value: Double): this.type = set("aria-setsize", value.asInstanceOf[js.Any])
     
-    inline def `aria-sort`(value: none | ascending | descending | other): this.type = set("aria-sort", value.asInstanceOf[js.Any])
+    inline def `aria-sort`(value: "none" | "ascending" | "descending" | "other"): this.type = set("aria-sort", value.asInstanceOf[js.Any])
     
     inline def `aria-valuemax`(value: Double): this.type = set("aria-valuemax", value.asInstanceOf[js.Any])
     
@@ -253,7 +188,7 @@ object view {
     
     inline def colorInterpolation(value: Double | String): this.type = set("colorInterpolation", value.asInstanceOf[js.Any])
     
-    inline def colorInterpolationFilters(value: auto | sRGB | linearRGB | inherit): this.type = set("colorInterpolationFilters", value.asInstanceOf[js.Any])
+    inline def colorInterpolationFilters(value: "auto" | "sRGB" | "linearRGB" | "inherit"): this.type = set("colorInterpolationFilters", value.asInstanceOf[js.Any])
     
     inline def colorProfile(value: Double | String): this.type = set("colorProfile", value.asInstanceOf[js.Any])
     
@@ -309,7 +244,7 @@ object view {
     
     inline def fillOpacity(value: Double | String): this.type = set("fillOpacity", value.asInstanceOf[js.Any])
     
-    inline def fillRule(value: nonzero | evenodd | inherit): this.type = set("fillRule", value.asInstanceOf[js.Any])
+    inline def fillRule(value: "nonzero" | "evenodd" | "inherit"): this.type = set("fillRule", value.asInstanceOf[js.Any])
     
     inline def filter(value: String): this.type = set("filter", value.asInstanceOf[js.Any])
     
@@ -731,9 +666,9 @@ object view {
     
     inline def strokeDashoffset(value: String | Double): this.type = set("strokeDashoffset", value.asInstanceOf[js.Any])
     
-    inline def strokeLinecap(value: butt | round | square | inherit): this.type = set("strokeLinecap", value.asInstanceOf[js.Any])
+    inline def strokeLinecap(value: "butt" | "round" | "square" | "inherit"): this.type = set("strokeLinecap", value.asInstanceOf[js.Any])
     
-    inline def strokeLinejoin(value: miter | round | bevel | inherit): this.type = set("strokeLinejoin", value.asInstanceOf[js.Any])
+    inline def strokeLinejoin(value: "miter" | "round" | "bevel" | "inherit"): this.type = set("strokeLinejoin", value.asInstanceOf[js.Any])
     
     inline def strokeMiterlimit(value: Double | String): this.type = set("strokeMiterlimit", value.asInstanceOf[js.Any])
     

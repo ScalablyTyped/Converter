@@ -23,6 +23,14 @@ object Annotation {
   case object ScalaJSDefined extends Annotation
   case object JsGlobalScope extends LocationAnnotation
   case object Inline extends Annotation
+  case class TargetName(owner: Name, suffix: String) extends Annotation {
+    def name =
+      owner match {
+        case Name.APPLY      => s"apply_$suffix"
+        case Name.namespaced => s"_$suffix"
+        case other           => s"${other.unescaped}_$suffix"
+      }
+  }
 
   case class JsName(name:       Name) extends Annotation
   case class JsNameSymbol(name: QualifiedName) extends Annotation
@@ -35,11 +43,20 @@ object Annotation {
   }
 
   def renamedFrom(newName: Name)(oldAnnotations: IArray[Annotation]): IArray[Annotation] = {
-    val (names, others) =
-      oldAnnotations.partition {
-        case _: JsName | _: JsNameSymbol | JsBracketCall | (_: LocationAnnotation) => true
-        case _ => false
-      }
+    val (names, targetNames, others) =
+      oldAnnotations.partitionCollect2(
+        {
+          case x: JsName       => x
+          case x: JsNameSymbol => x
+          case x @ JsBracketCall => x
+          case x: LocationAnnotation => x
+        },
+        { case x: TargetName => x },
+      )
+
+    val updatedTargetNames = targetNames.map {
+      case Annotation.TargetName(_, suffix) => Annotation.TargetName(newName, suffix)
+    }
 
     val updatedNames: IArray[Annotation] =
       (names, newName) match {
@@ -48,7 +65,7 @@ object Annotation {
         case (existing, _)                               => existing
       }
 
-    others ++ updatedNames
+    others ++ updatedTargetNames ++ updatedNames
   }
 
   implicit lazy val encodes: Encoder[Annotation] = io.circe013.generic.semiauto.deriveEncoder

@@ -1,18 +1,5 @@
 package typingsSlinky.react.mod
 
-import typingsSlinky.react.reactStrings.a_
-import typingsSlinky.react.reactStrings.abbr
-import typingsSlinky.react.reactStrings.address
-import typingsSlinky.react.reactStrings.area
-import typingsSlinky.react.reactStrings.article
-import typingsSlinky.react.reactStrings.aside
-import typingsSlinky.react.reactStrings.audio
-import typingsSlinky.react.reactStrings.b
-import typingsSlinky.react.reactStrings.base
-import typingsSlinky.react.reactStrings.bdi
-import typingsSlinky.react.reactStrings.bdo
-import typingsSlinky.react.reactStrings.big
-import typingsSlinky.react.reactStrings.view
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -29,4 +16,4 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
   }}}
   */
 @js.native
-trait ComponentProps[T /* <: a_ | abbr | address | area | article | aside | audio | b | base | bdi | bdo | big | view | JSXElementConstructor[Any] */] extends StObject
+trait ComponentProps[T /* <: "a" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "view" | JSXElementConstructor[Any] */] extends StObject

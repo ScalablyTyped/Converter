@@ -776,17 +776,11 @@ class ImportTree(
       isImplicit  = false,
     )
 
-    if (name === Name.APPLY || name === Name.namespaced) ret
-    else {
-      val containedLiterals: IArray[String] =
-        TsTreeTraverse.collectIArray(sig.params) {
-          case x: TsLiteral => x.literal
-        }
-
-      containedLiterals.distinct.toList.map(_.filter(_.isLetterOrDigit)).filter(_.nonEmpty) match {
-        case suffix :: Nil => ret.withSuffix(suffix)
-        case _             => ret
-      }
+    TsTreeTraverse.collectIArray(sig.params) { case x: TsLiteral => x.literal } match {
+      case Empty => ret
+      case containedLiterals =>
+        val suffix = containedLiterals.mkString("_").filter(_.isUnicodeIdentifierPart)
+        ret.copy(annotations = ret.annotations ++ IArray(Annotation.TargetName(name, suffix), Annotation.JsName(name)))
     }
   }
 

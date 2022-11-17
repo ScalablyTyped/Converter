@@ -1,6 +1,5 @@
 package typings.awsSdk
 
-import typings.awsSdk.awsSdkStrings.latest
 import typings.awsSdk.libConfigServicePlaceholdersMod.ConfigurationServiceApiVersions
 import typings.awsSdk.libConfigServicePlaceholdersMod.ConfigurationServicePlaceholders
 import org.scalablytyped.runtime.StObject
@@ -33,7 +32,7 @@ object libConfigMod {
     /**
       * A string in YYYY-MM-DD format that represents the latest possible API version that can be used in all services (unless overridden by apiVersions). Specify \'latest\' to use the latest possible version.
       */
-    var apiVersion: js.UndefOr[latest | String] = js.undefined
+    var apiVersion: js.UndefOr["latest" | String] = js.undefined
     
     /**
       * A map of service identifiers (the lowercase service class name) with the API version to use when instantiating a service. Specify 'latest' for each individual that can use the latest available version.
@@ -49,7 +48,7 @@ object libConfigMod {
     
     extension [Self <: APIVersions](x: Self) {
       
-      inline def setApiVersion(value: latest | String): Self = StObject.set(x, "apiVersion", value.asInstanceOf[js.Any])
+      inline def setApiVersion(value: "latest" | String): Self = StObject.set(x, "apiVersion", value.asInstanceOf[js.Any])
       
       inline def setApiVersionUndefined: Self = StObject.set(x, "apiVersion", js.undefined)
       

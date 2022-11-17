@@ -537,7 +537,7 @@ object Printer {
             types.map(formatTypeRef(indent)).map(paramsIfNeeded).mkString(" | ")
 
           case TypeRef.StringLiteral(underlying)  => stringUtils.quote(underlying)
-          case TypeRef.DoubleLiteral(underlying)  => underlying
+          case TypeRef.DoubleLiteral(underlying)  => formatDouble(underlying)
           case TypeRef.IntLiteral(underlying)     => underlying
           case TypeRef.BooleanLiteral(underlying) => underlying
 
@@ -574,6 +574,8 @@ object Printer {
 
     def formatAnn(a: Annotation): String =
       a match {
+        case x: Annotation.TargetName =>
+          s"@scala.annotation.targetName(${quote(x.name)})"
         case Annotation.Inline =>
           "@scala.inline"
         case Annotation.JsBracketAccess =>
@@ -635,7 +637,7 @@ object Printer {
         case ExprTree.IntLit(value) =>
           value
         case ExprTree.DoubleLit(value) =>
-          if (value.contains("e")) value else value + "d"
+          formatDouble(value)
         case ExprTree.BooleanLit(value) =>
           value.toString
         case ExprTree.Unary(op, expr) =>
@@ -662,6 +664,9 @@ object Printer {
         case ExprTree.Throw(expr) =>
           s"throw ${formatExpr(indent)(expr)}"
       }
+
+    def formatDouble(double: String): String =
+      if (double.contains("e")) double else double + "d"
 
     def formatImpl(indent: Int)(e: ImplTree): String =
       e match {

@@ -21,19 +21,6 @@ import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticFLOATS
 import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticSIZES
 import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
 import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`google plus`
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.facebook
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.fade
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.instagram
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.linkedin
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.top
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.twitter
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.vertical
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.vk
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.youtube
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -78,13 +65,13 @@ object distCommonjsElementsButtonButtonMod {
     var active: js.UndefOr[Boolean] = js.undefined
     
     /** A button can animate to show hidden content. */
-    var animated: js.UndefOr[Boolean | fade | vertical] = js.undefined
+    var animated: js.UndefOr[Boolean | "fade" | "vertical"] = js.undefined
     
     /** An element type to render as (string or function). */
     var as: js.UndefOr[Any] = js.undefined
     
     /** A button can be attached to other content. */
-    var attached: js.UndefOr[Boolean | left | right | top | bottom] = js.undefined
+    var attached: js.UndefOr[Boolean | "left" | "right" | "top" | "bottom"] = js.undefined
     
     /** A basic button is less pronounced. */
     var basic: js.UndefOr[Boolean] = js.undefined
@@ -95,7 +82,7 @@ object distCommonjsElementsButtonButtonMod {
     /** A button can have different colors. */
     @JSName("color")
     var color_StrictButtonProps: js.UndefOr[
-        SemanticCOLORS | facebook | (`google plus`) | vk | twitter | linkedin | instagram | youtube
+        SemanticCOLORS | "facebook" | ("google plus") | "vk" | "twitter" | "linkedin" | "instagram" | "youtube"
       ] = js.undefined
     
     /** A button can reduce its padding to fit into tighter spaces. */
@@ -128,7 +115,7 @@ object distCommonjsElementsButtonButtonMod {
       ] = js.undefined
     
     /** A labeled button can format a Label or Icon to appear on the left or right. */
-    var labelPosition: js.UndefOr[right | left] = js.undefined
+    var labelPosition: js.UndefOr["right" | "left"] = js.undefined
     
     /** A button can show a loading indicator. */
     var loading: js.UndefOr[Boolean] = js.undefined
@@ -178,7 +165,7 @@ object distCommonjsElementsButtonButtonMod {
       
       inline def setActiveUndefined: Self = StObject.set(x, "active", js.undefined)
       
-      inline def setAnimated(value: Boolean | fade | vertical): Self = StObject.set(x, "animated", value.asInstanceOf[js.Any])
+      inline def setAnimated(value: Boolean | "fade" | "vertical"): Self = StObject.set(x, "animated", value.asInstanceOf[js.Any])
       
       inline def setAnimatedUndefined: Self = StObject.set(x, "animated", js.undefined)
       
@@ -186,7 +173,7 @@ object distCommonjsElementsButtonButtonMod {
       
       inline def setAsUndefined: Self = StObject.set(x, "as", js.undefined)
       
-      inline def setAttached(value: Boolean | left | right | top | bottom): Self = StObject.set(x, "attached", value.asInstanceOf[js.Any])
+      inline def setAttached(value: Boolean | "left" | "right" | "top" | "bottom"): Self = StObject.set(x, "attached", value.asInstanceOf[js.Any])
       
       inline def setAttachedUndefined: Self = StObject.set(x, "attached", js.undefined)
       
@@ -198,7 +185,9 @@ object distCommonjsElementsButtonButtonMod {
       
       inline def setCircularUndefined: Self = StObject.set(x, "circular", js.undefined)
       
-      inline def setColor(value: SemanticCOLORS | facebook | (`google plus`) | vk | twitter | linkedin | instagram | youtube): Self = StObject.set(x, "color", value.asInstanceOf[js.Any])
+      inline def setColor(
+        value: SemanticCOLORS | "facebook" | ("google plus") | "vk" | "twitter" | "linkedin" | "instagram" | "youtube"
+      ): Self = StObject.set(x, "color", value.asInstanceOf[js.Any])
       
       inline def setColorUndefined: Self = StObject.set(x, "color", js.undefined)
       
@@ -262,7 +251,7 @@ object distCommonjsElementsButtonButtonMod {
       
       inline def setLabelNull: Self = StObject.set(x, "label", null)
       
-      inline def setLabelPosition(value: right | left): Self = StObject.set(x, "labelPosition", value.asInstanceOf[js.Any])
+      inline def setLabelPosition(value: "right" | "left"): Self = StObject.set(x, "labelPosition", value.asInstanceOf[js.Any])
       
       inline def setLabelPositionUndefined: Self = StObject.set(x, "labelPosition", js.undefined)
       

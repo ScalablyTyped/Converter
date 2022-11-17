@@ -152,7 +152,7 @@ object Mangler extends TreeTransformation {
         if (pkg.index(m.name).exists(_.isInstanceOf[ClassTree])) {
           val asApply =
             m.copy(
-              annotations = IArray(Annotation.Inline),
+              annotations = IArray(Annotation.Inline) ++ m.annotations.collect { case a: Annotation.TargetName => a },
               name        = Name.APPLY,
               impl        = impl,
               comments    = m.comments ++ WasJsNativeComment,
@@ -172,10 +172,10 @@ object Mangler extends TreeTransformation {
             ),
           )
 
-        } else
-          IArray(
-            m.copy(annotations = IArray(Annotation.Inline), impl = impl, comments = m.comments ++ WasJsNativeComment),
-          )
+        } else {
+          val anns = IArray(Annotation.Inline) ++ m.annotations.collect { case a: Annotation.TargetName => a }
+          IArray(m.copy(annotations = anns, impl = impl, comments = m.comments ++ WasJsNativeComment))
+        }
 
       case f: FieldTree if f.tpe.typeName === QualifiedName.THIS => Empty
       case f: FieldTree if f.location.isDefined =>
@@ -306,7 +306,7 @@ object Mangler extends TreeTransformation {
             val asApply =
               m.copy(
                 comments    = m.comments ++ WasJsNativeComment,
-                annotations = IArray(Annotation.Inline),
+                annotations = IArray(Annotation.Inline) ++ m.annotations.collect { case a: Annotation.TargetName => a },
                 name        = Name.APPLY,
                 impl        = impl,
                 codePath    = m.codePath + Name.APPLY,
@@ -325,10 +325,10 @@ object Mangler extends TreeTransformation {
               ),
             )
 
-          } else
-            IArray(
-              m.copy(annotations = IArray(Annotation.Inline), impl = impl, comments = m.comments ++ WasJsNativeComment),
-            )
+          } else {
+            val anns = IArray(Annotation.Inline) ++ m.annotations.collect { case a: Annotation.TargetName => a }
+            IArray(m.copy(annotations = anns, impl = impl, comments = m.comments ++ WasJsNativeComment))
+          }
 
         case f: FieldTree if f.isReadOnly || f.location.isEmpty =>
           IArray(f)
