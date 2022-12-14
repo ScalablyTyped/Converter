@@ -11,7 +11,7 @@ object Deps {
   val scalaXml          = "org.scala-lang.modules" %% "scala-xml" % "2.1.0"
   val scopt             = "com.github.scopt" %% "scopt" % "4.1.0"
   val awssdkS3          = "software.amazon.awssdk" % "s3" % "2.15.28"
-  val coursier          = "io.get-coursier" %% "coursier" % "2.1.0-RC2"
+  val coursier          = "io.get-coursier" %% "coursier" % "2.1.0-RC3"
 
   val circe: Seq[ModuleID] =
     Seq(
