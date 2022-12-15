@@ -177,14 +177,15 @@ class ImportType(stdNames: QualifiedName.StdNames) {
         TypeRef.Union(imported, NoComments, sort = false)
 
       case TsTypeIntersect(types) =>
-        types.map(apply(scope, importName)) match {
-          case stringObject
-              if stringObject.length == 2 && stringObject.contains(TypeRef.String) && stringObject.contains(
-                TypeRef.JsObject,
-              ) =>
-            TypeRef.String
-          case other => TypeRef.Intersection(other, NoComments)
-        }
+        val types1 = types.map(apply(scope, importName))
+        val types2 = if (types1.contains(TypeRef.JsObject)) {
+          types1.filterNot(_ == TypeRef.JsObject) match {
+            case Empty    => types1
+            case nonEmpty => nonEmpty
+          }
+        } else types1
+
+        TypeRef.Intersection(types2, NoComments)
 
       case TsTypeConstructor(_, TsTypeFunction(sig)) =>
         newableFunction(scope, importName, sig, NoComments)
