@@ -469,6 +469,12 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         case x: TsTypeFunction =>
           Ok(IArray(TsMemberCall(NoComments, TsProtectionLevel.Default, x.signature)), wasRewritten = false)
 
+        case x: TsTypeUnion       =>
+          val flaff = scope.stack.collectFirst {case x: TsType => TsTypeFormatter(x).contains("DefaultComponentProps")}.getOrElse(false)
+          if (flaff) {
+            forType(scope, ld)(x.types.last)
+          }
+          else Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeExtends     => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeInfer       => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeLiteral     => Problems(IArray(InvalidType(scope, x)))
@@ -479,7 +485,6 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         case x: TsTypeRepeated    => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeKeyOf       => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeThis        => Problems(IArray(InvalidType(scope, x)))
-        case x: TsTypeUnion       => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeAsserts     => Problems(IArray(InvalidType(scope, x)))
       }
 
