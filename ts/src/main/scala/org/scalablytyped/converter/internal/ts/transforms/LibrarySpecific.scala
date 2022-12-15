@@ -139,6 +139,9 @@ object LibrarySpecific {
               sys.error(s"unexpected $other")
           }
           ta.copy(alias = TsTypeRef(NoComments, react.ExoticComponent, IArray(TsTypeUnion(propsTypes))))
+        case ta @ TsDeclTypeAlias(_, _, TsIdentSimple("IfEquals"), IArray.exactlyFour(_, _, yes, _), _, _) =>
+          ta.copy(alias = TsTypeRef(yes.name))
+
         case other => other
       }
   }
@@ -246,6 +249,18 @@ object LibrarySpecific {
             ).map(str => TsTypeLiteral(TsLiteral.Str(str))),
           ),
           )
+        case other => other
+      }
+  }
+
+  object muiTypes extends Named {
+    override val libName = TsIdentLibraryScoped("mui", "types")
+
+    override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl =
+      x match {
+        case ta@TsDeclTypeAlias(_, _, TsIdentSimple("IfEquals"), IArray.exactlyFour(_, _, yes, _), _, _) =>
+          ta.copy(alias = TsTypeRef(yes.name))
+
         case other => other
       }
   }
@@ -418,6 +433,7 @@ object LibrarySpecific {
       chakraUiSystem,
       muiMaterial,
       muiSystem,
+      muiTypes,
       react,
       semanticUiReact,
       std,
