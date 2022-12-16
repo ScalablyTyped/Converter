@@ -304,6 +304,44 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       )
     }
 
+//    @scala.inline
+//    def apply(children: japgolly.scalajs.react.PropsChildren): this.type = {
+//      args.push(children.raw)
+//      this
+//    }
+    val applyChildren = {
+      val childrenParam = ParamTree(
+        name       = Name("children"),
+        isImplicit = false,
+        isVal      = false,
+        tpe        = TypeRef(JapgollyNames.PropsChildren),
+        default    = NotImplemented,
+        comments   = NoComments,
+      )
+      val impl =
+        Block(
+          Call(
+            Ref(args.name).select("push"),
+            IArray(IArray(Ref(childrenParam.name).select("raw"))),
+          ),
+          Ref(Name.THIS),
+        )
+
+      MethodTree(
+        annotations = IArray(Annotation.Inline),
+        level       = ProtectionLevel.Public,
+        name        = Name.APPLY,
+        tparams     = Empty,
+        params      = IArray(IArray(childrenParam)),
+        impl,
+        resultType = TypeRef(QualifiedName.THIS),
+        isOverride = false,
+        comments   = NoComments,
+        codePath   = builderCp + Name.APPLY,
+        isImplicit = false,
+      )
+    }
+
     //  @inline final def withKey(key: japgolly.scalajs.react.Key): this.type = set("key", key)
     val withKey = {
       val param = ParamTree(
@@ -385,11 +423,23 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
       tparams     = builderTparams,
       parents     = IArray.fromOption(enableAnyVal.map(_ => TypeRef.Any)),
       ctors       = Empty,
-      members     = IArray(args, set, withComponent, unsafeSpread, build, applyTagMod, apply, withKey, withRef1, withRef2),
-      classType   = ClassType.Trait,
-      isSealed    = false,
-      comments    = NoComments,
-      codePath    = builderCp,
+      members = IArray(
+        args,
+        set,
+        withComponent,
+        unsafeSpread,
+        build,
+        applyTagMod,
+        apply,
+        applyChildren,
+        withKey,
+        withRef1,
+        withRef2,
+      ),
+      classType = ClassType.Trait,
+      isSealed  = false,
+      comments  = NoComments,
+      codePath  = builderCp,
     )
   }
 

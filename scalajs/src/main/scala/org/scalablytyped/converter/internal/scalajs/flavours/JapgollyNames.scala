@@ -5,6 +5,7 @@ object JapgollyNames {
   val Callback                  = QualifiedName("japgolly.scalajs.react.Callback")
   val CallbackTo                = QualifiedName("japgolly.scalajs.react.CallbackTo")
   val Key                       = QualifiedName("japgolly.scalajs.react.Key")
+  val PropsChildren             = QualifiedName("japgolly.scalajs.react.PropsChildren")
   val RefSimple                 = QualifiedName("japgolly.scalajs.react.Ref.Simple")
   val ReactEventFrom            = QualifiedName("japgolly.scalajs.react.ReactEventFrom")
   val ReactAnimationEventFrom   = QualifiedName("japgolly.scalajs.react.ReactAnimationEventFrom")

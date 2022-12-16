@@ -2,6 +2,7 @@ package mylib.internal.baz
 
 import mylib.internal.baz.StBuildingComponent.make
 import japgolly.scalajs.react.Key
+import japgolly.scalajs.react.PropsChildren
 import japgolly.scalajs.react.Ref.Simple
 import japgolly.scalajs.react.facade.React.Element
 import japgolly.scalajs.react.facade.React.Node
@@ -15,6 +16,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 private[internal] trait StBuildingComponent[R <: js.Object] extends Any {
   
+  inline def apply(children: PropsChildren): this.type = {
+    args.push(children.raw)
+    this
+  }
   inline def apply(mods: TagMod*): this.type = {
     mods.foreach((m: TagMod) => applyTagMod(m))
     this
