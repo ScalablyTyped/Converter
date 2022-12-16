@@ -154,7 +154,8 @@ object distCommonjsElementsButtonButtonMod {
       __obj.asInstanceOf[StrictButtonProps]
     }
     
-    extension [Self <: StrictButtonProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: StrictButtonProps] (val x: Self) extends AnyVal {
       
       inline def setActive(value: Boolean): Self = StObject.set(x, "active", value.asInstanceOf[js.Any])
       

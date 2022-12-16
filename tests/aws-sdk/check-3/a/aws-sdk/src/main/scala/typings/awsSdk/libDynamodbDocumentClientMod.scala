@@ -44,7 +44,8 @@ object libDynamodbDocumentClientMod {
         __obj.asInstanceOf[ConverterOptions]
       }
       
-      extension [Self <: ConverterOptions](x: Self) {
+      @scala.inline
+      implicit open class MutableBuilder[Self <: ConverterOptions] (val x: Self) extends AnyVal {
         
         inline def setConvertEmptyValues(value: Boolean): Self = StObject.set(x, "convertEmptyValues", value.asInstanceOf[js.Any])
         
@@ -77,7 +78,8 @@ object libDynamodbDocumentClientMod {
         __obj.asInstanceOf[DocumentClientOptions]
       }
       
-      extension [Self <: DocumentClientOptions](x: Self) {
+      @scala.inline
+      implicit open class MutableBuilder[Self <: DocumentClientOptions] (val x: Self) extends AnyVal {
         
         inline def setParams(value: StringDictionary[Any]): Self = StObject.set(x, "params", value.asInstanceOf[js.Any])
         

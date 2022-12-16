@@ -20,7 +20,8 @@ object ProxiedPerson {
     __obj.asInstanceOf[ProxiedPerson]
   }
   
-  extension [Self <: ProxiedPerson](x: Self) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: ProxiedPerson] (val x: Self) extends AnyVal {
     
     inline def setAge(value: Get): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
     

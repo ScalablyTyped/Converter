@@ -146,7 +146,8 @@ object typesOptionsMod {
       __obj.asInstanceOf[ComponentOptions[V, Data, Methods, Computed, PropsDef]]
     }
     
-    extension [Self <: ComponentOptions[?, ?, ?, ?, ?], V /* <: Vue */, Data, Methods, Computed, PropsDef](x: Self & (ComponentOptions[V, Data, Methods, Computed, PropsDef])) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ComponentOptions[?, ?, ?, ?, ?], V /* <: Vue */, Data, Methods, Computed, PropsDef] (val x: Self & (ComponentOptions[V, Data, Methods, Computed, PropsDef])) extends AnyVal {
       
       inline def setActivated(value: () => Unit): Self = StObject.set(x, "activated", js.Any.fromFunction0(value))
       
@@ -343,7 +344,8 @@ object typesOptionsMod {
       __obj.asInstanceOf[ComputedOptions[T]]
     }
     
-    extension [Self <: ComputedOptions[?], T](x: Self & ComputedOptions[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ComputedOptions[?], T] (val x: Self & ComputedOptions[T]) extends AnyVal {
       
       inline def setCache(value: Boolean): Self = StObject.set(x, "cache", value.asInstanceOf[js.Any])
       
@@ -399,7 +401,8 @@ object typesOptionsMod {
       __obj.asInstanceOf[DirectiveOptions]
     }
     
-    extension [Self <: DirectiveOptions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: DirectiveOptions] (val x: Self) extends AnyVal {
       
       inline def setBind(
         value: (/* el */ HTMLElement, /* binding */ VNodeDirective, /* vnode */ VNode, /* oldVnode */ VNode) => Unit
@@ -444,7 +447,8 @@ object typesOptionsMod {
       __obj.asInstanceOf[EsModuleComponent]
     }
     
-    extension [Self <: EsModuleComponent](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: EsModuleComponent] (val x: Self) extends AnyVal {
       
       inline def setDefault(value: Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]): Self = StObject.set(x, "default", value.asInstanceOf[js.Any])
     }
@@ -469,7 +473,8 @@ object typesOptionsMod {
       __obj.asInstanceOf[FunctionalComponentOptions[Props, PropDefs]]
     }
     
-    extension [Self <: FunctionalComponentOptions[?, ?], Props, PropDefs](x: Self & (FunctionalComponentOptions[Props, PropDefs])) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: FunctionalComponentOptions[?, ?], Props, PropDefs] (val x: Self & (FunctionalComponentOptions[Props, PropDefs])) extends AnyVal {
       
       inline def setFunctional(value: Boolean): Self = StObject.set(x, "functional", value.asInstanceOf[js.Any])
       
@@ -514,7 +519,8 @@ object typesOptionsMod {
       __obj.asInstanceOf[PropOptions[T]]
     }
     
-    extension [Self <: PropOptions[?], T](x: Self & PropOptions[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: PropOptions[?], T] (val x: Self & PropOptions[T]) extends AnyVal {
       
       inline def setDefault(value: T | js.Function0[js.Object]): Self = StObject.set(x, "default", value.asInstanceOf[js.Any])
       
@@ -584,7 +590,8 @@ object typesOptionsMod {
       __obj.asInstanceOf[RenderContext[Props]]
     }
     
-    extension [Self <: RenderContext[?], Props](x: Self & RenderContext[Props]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: RenderContext[?], Props] (val x: Self & RenderContext[Props]) extends AnyVal {
       
       inline def setChildren(value: js.Array[VNode]): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
@@ -655,7 +662,8 @@ object typesOptionsMod {
       __obj.asInstanceOf[WatchOptions]
     }
     
-    extension [Self <: WatchOptions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: WatchOptions] (val x: Self) extends AnyVal {
       
       inline def setDeep(value: Boolean): Self = StObject.set(x, "deep", value.asInstanceOf[js.Any])
       
@@ -682,7 +690,8 @@ object typesOptionsMod {
       __obj.asInstanceOf[WatchOptionsWithHandler[T]]
     }
     
-    extension [Self <: WatchOptionsWithHandler[?], T](x: Self & WatchOptionsWithHandler[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: WatchOptionsWithHandler[?], T] (val x: Self & WatchOptionsWithHandler[T]) extends AnyVal {
       
       inline def setHandler(value: (T, T) => Unit): Self = StObject.set(x, "handler", js.Any.fromFunction2(value))
     }

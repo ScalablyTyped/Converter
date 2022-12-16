@@ -18,7 +18,8 @@ object Leaf {
     __obj.asInstanceOf[Leaf[T]]
   }
   
-  extension [Self <: Leaf[?], T](x: Self & Leaf[T]) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: Leaf[?], T] (val x: Self & Leaf[T]) extends AnyVal {
     
     inline def setType(value: "Leaf"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     

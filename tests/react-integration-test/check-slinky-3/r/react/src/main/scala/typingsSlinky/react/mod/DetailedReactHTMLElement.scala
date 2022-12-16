@@ -23,7 +23,8 @@ object DetailedReactHTMLElement {
     __obj.asInstanceOf[DetailedReactHTMLElement[P, T]]
   }
   
-  extension [Self <: DetailedReactHTMLElement[?, ?], P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](x: Self & (DetailedReactHTMLElement[P, T])) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: DetailedReactHTMLElement[?, ?], P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */] (val x: Self & (DetailedReactHTMLElement[P, T])) extends AnyVal {
     
     inline def setType(
       value: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115, starting with "a", "abbr", "address" */ String

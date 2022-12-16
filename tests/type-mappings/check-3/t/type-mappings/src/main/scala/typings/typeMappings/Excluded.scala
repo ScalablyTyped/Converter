@@ -33,7 +33,8 @@ object Excluded {
     __obj.asInstanceOf[Excluded]
   }
   
-  extension [Self <: Excluded](x: Self) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: Excluded] (val x: Self) extends AnyVal {
     
     inline def setFontFamily(value: String): Self = StObject.set(x, "fontFamily", value.asInstanceOf[js.Any])
     

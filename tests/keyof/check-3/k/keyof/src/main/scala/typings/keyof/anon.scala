@@ -20,7 +20,8 @@ object anon {
       __obj.asInstanceOf[PickAcb]
     }
     
-    extension [Self <: PickAcb](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: PickAcb] (val x: Self) extends AnyVal {
       
       inline def setB(value: Double): Self = StObject.set(x, "b", value.asInstanceOf[js.Any])
       

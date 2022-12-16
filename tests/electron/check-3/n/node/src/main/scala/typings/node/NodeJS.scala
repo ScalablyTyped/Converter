@@ -25,7 +25,8 @@ object NodeJS {
       __obj.asInstanceOf[ErrnoException]
     }
     
-    extension [Self <: ErrnoException](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ErrnoException] (val x: Self) extends AnyVal {
       
       inline def setCode(value: String): Self = StObject.set(x, "code", value.asInstanceOf[js.Any])
       

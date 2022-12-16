@@ -22,7 +22,8 @@ object anon {
       __obj.asInstanceOf[Children]
     }
     
-    extension [Self <: Children](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Children] (val x: Self) extends AnyVal {
       
       inline def setChildren(
         value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<PropTypes.ReactElementLike> */ Any
@@ -47,7 +48,8 @@ object anon {
       __obj.asInstanceOf[InnerRef]
     }
     
-    extension [Self <: InnerRef](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: InnerRef] (val x: Self) extends AnyVal {
       
       inline def setChildren(value: Unit): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       

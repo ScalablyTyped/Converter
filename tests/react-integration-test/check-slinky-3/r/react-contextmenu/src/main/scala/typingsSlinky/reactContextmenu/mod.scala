@@ -112,7 +112,8 @@ object mod {
       __obj.asInstanceOf[ContextMenuProps]
     }
     
-    extension [Self <: ContextMenuProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ContextMenuProps] (val x: Self) extends AnyVal {
       
       inline def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
@@ -178,7 +179,8 @@ object mod {
       __obj.asInstanceOf[ContextMenuTriggerProps]
     }
     
-    extension [Self <: ContextMenuTriggerProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ContextMenuTriggerProps] (val x: Self) extends AnyVal {
       
       inline def setAttributes(value: HTMLAttributes[Any]): Self = StObject.set(x, "attributes", value.asInstanceOf[js.Any])
       
@@ -236,7 +238,8 @@ object mod {
       __obj.asInstanceOf[MenuItemProps]
     }
     
-    extension [Self <: MenuItemProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: MenuItemProps] (val x: Self) extends AnyVal {
       
       inline def setAttributes(value: HTMLAttributes[HTMLDivElement]): Self = StObject.set(x, "attributes", value.asInstanceOf[js.Any])
       
@@ -311,7 +314,8 @@ object mod {
       __obj.asInstanceOf[SubMenuProps]
     }
     
-    extension [Self <: SubMenuProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: SubMenuProps] (val x: Self) extends AnyVal {
       
       inline def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       

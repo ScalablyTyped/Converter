@@ -18,7 +18,8 @@ object anon {
       __obj.asInstanceOf[ChildFactory]
     }
     
-    extension [Self <: ChildFactory](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ChildFactory] (val x: Self) extends AnyVal {
       
       inline def setChildFactory(value: /* child */ ReactElement => ReactElement): Self = StObject.set(x, "childFactory", js.Any.fromFunction1(value))
       

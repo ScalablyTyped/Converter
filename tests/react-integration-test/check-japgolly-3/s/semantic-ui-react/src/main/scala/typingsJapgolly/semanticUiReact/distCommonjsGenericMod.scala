@@ -2993,7 +2993,8 @@ object distCommonjsGenericMod {
       __obj.asInstanceOf[StrictHtmlIframeProps]
     }
     
-    extension [Self <: StrictHtmlIframeProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: StrictHtmlIframeProps] (val x: Self) extends AnyVal {
       
       inline def setSrc(value: String): Self = StObject.set(x, "src", value.asInstanceOf[js.Any])
       
@@ -3012,7 +3013,8 @@ object distCommonjsGenericMod {
       __obj.asInstanceOf[StrictHtmlImageProps]
     }
     
-    extension [Self <: StrictHtmlImageProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: StrictHtmlImageProps] (val x: Self) extends AnyVal {
       
       inline def setSrc(value: String): Self = StObject.set(x, "src", value.asInstanceOf[js.Any])
       
@@ -3031,7 +3033,8 @@ object distCommonjsGenericMod {
       __obj.asInstanceOf[StrictHtmlInputrops]
     }
     
-    extension [Self <: StrictHtmlInputrops](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: StrictHtmlInputrops] (val x: Self) extends AnyVal {
       
       inline def setType(value: String): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
       
@@ -3050,7 +3053,8 @@ object distCommonjsGenericMod {
       __obj.asInstanceOf[StrictHtmlLabelProps]
     }
     
-    extension [Self <: StrictHtmlLabelProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: StrictHtmlLabelProps] (val x: Self) extends AnyVal {
       
       inline def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
       
@@ -3075,7 +3079,8 @@ object distCommonjsGenericMod {
       __obj.asInstanceOf[StrictHtmlSpanProps]
     }
     
-    extension [Self <: StrictHtmlSpanProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: StrictHtmlSpanProps] (val x: Self) extends AnyVal {
       
       inline def setChildren(value: VdomNode): Self = StObject.set(x, "children", value.rawNode.asInstanceOf[js.Any])
       

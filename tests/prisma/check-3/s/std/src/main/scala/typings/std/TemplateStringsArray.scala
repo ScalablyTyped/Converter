@@ -17,7 +17,8 @@ object TemplateStringsArray {
     __obj.asInstanceOf[TemplateStringsArray]
   }
   
-  extension [Self <: TemplateStringsArray](x: Self) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: TemplateStringsArray] (val x: Self) extends AnyVal {
     
     inline def setRaw(value: js.Array[String]): Self = StObject.set(x, "raw", value.asInstanceOf[js.Any])
     

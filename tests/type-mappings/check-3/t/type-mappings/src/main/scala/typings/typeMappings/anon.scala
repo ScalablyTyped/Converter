@@ -17,7 +17,8 @@ object anon {
       __obj.asInstanceOf[Age]
     }
     
-    extension [Self <: Age](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Age] (val x: Self) extends AnyVal {
       
       inline def setAge(value: scala.Double): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
     }
@@ -43,7 +44,8 @@ object anon {
       __obj.asInstanceOf[Name]
     }
     
-    extension [Self <: Name](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Name] (val x: Self) extends AnyVal {
       
       inline def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
     }
@@ -62,7 +64,8 @@ object anon {
       __obj.asInstanceOf[Set]
     }
     
-    extension [Self <: Set](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Set] (val x: Self) extends AnyVal {
       
       inline def setGet(value: () => String): Self = StObject.set(x, "get", js.Any.fromFunction0(value))
       

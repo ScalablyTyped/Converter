@@ -16,7 +16,8 @@ object TwoFoo {
     __obj.asInstanceOf[TwoFoo[Foo1, Foo2]]
   }
   
-  extension [Self <: TwoFoo[?, ?], Foo1, Foo2](x: Self & (TwoFoo[Foo1, Foo2])) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: TwoFoo[?, ?], Foo1, Foo2] (val x: Self & (TwoFoo[Foo1, Foo2])) extends AnyVal {
     
     inline def setValue(value: Foo1): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
   }

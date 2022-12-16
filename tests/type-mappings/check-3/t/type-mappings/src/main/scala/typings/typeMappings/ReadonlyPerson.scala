@@ -18,7 +18,8 @@ object ReadonlyPerson {
     __obj.asInstanceOf[ReadonlyPerson]
   }
   
-  extension [Self <: ReadonlyPerson](x: Self) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: ReadonlyPerson] (val x: Self) extends AnyVal {
     
     inline def setAge(value: scala.Double): Self = StObject.set(x, "age", value.asInstanceOf[js.Any])
     

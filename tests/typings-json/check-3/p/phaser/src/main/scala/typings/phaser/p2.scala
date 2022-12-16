@@ -17,7 +17,8 @@ object p2 {
       __obj.asInstanceOf[AABB]
     }
     
-    extension [Self <: AABB](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: AABB] (val x: Self) extends AnyVal {
       
       inline def setCopy(value: AABB => Unit): Self = StObject.set(x, "copy", js.Any.fromFunction1(value))
     }

@@ -20,7 +20,8 @@ object mod {
       __obj.asInstanceOf[TransportRequestPromise[T]]
     }
     
-    extension [Self <: TransportRequestPromise[?], T](x: Self & TransportRequestPromise[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: TransportRequestPromise[?], T] (val x: Self & TransportRequestPromise[T]) extends AnyVal {
       
       inline def setAbort(value: () => Unit): Self = StObject.set(x, "abort", js.Any.fromFunction0(value))
     }

@@ -27,7 +27,8 @@ object mod {
       __obj.asInstanceOf[AllHTMLAttributes[T]]
     }
     
-    extension [Self <: AllHTMLAttributes[?], T](x: Self & AllHTMLAttributes[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: AllHTMLAttributes[?], T] (val x: Self & AllHTMLAttributes[T]) extends AnyVal {
       
       inline def setAccept(value: String): Self = StObject.set(x, "accept", value.asInstanceOf[js.Any])
       
@@ -71,7 +72,8 @@ object mod {
       __obj.asInstanceOf[DOMAttributes[T]]
     }
     
-    extension [Self <: DOMAttributes[?], T](x: Self & DOMAttributes[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: DOMAttributes[?], T] (val x: Self & DOMAttributes[T]) extends AnyVal {
       
       inline def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
@@ -102,7 +104,8 @@ object mod {
       __obj.asInstanceOf[HTMLAttributes[T]]
     }
     
-    extension [Self <: HTMLAttributes[?], T](x: Self & HTMLAttributes[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: HTMLAttributes[?], T] (val x: Self & HTMLAttributes[T]) extends AnyVal {
       
       inline def setDefaultChecked(value: Boolean): Self = StObject.set(x, "defaultChecked", value.asInstanceOf[js.Any])
       
@@ -130,7 +133,8 @@ object mod {
       __obj.asInstanceOf[HTMLProps[T]]
     }
     
-    extension [Self <: HTMLProps[?], T](x: Self & HTMLProps[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: HTMLProps[?], T] (val x: Self & HTMLProps[T]) extends AnyVal {
       
       inline def setDefaultValue(value: "foo"): Self = StObject.set(x, "defaultValue", value.asInstanceOf[js.Any])
       
@@ -160,7 +164,8 @@ object mod {
       __obj.asInstanceOf[ReactElement]
     }
     
-    extension [Self <: ReactElement](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ReactElement] (val x: Self) extends AnyVal {
       
       inline def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
       

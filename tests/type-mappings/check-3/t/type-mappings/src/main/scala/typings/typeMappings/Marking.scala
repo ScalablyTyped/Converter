@@ -18,7 +18,8 @@ object Marking {
     __obj.asInstanceOf[Marking]
   }
   
-  extension [Self <: Marking](x: Self) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: Marking] (val x: Self) extends AnyVal {
     
     inline def setText(value: String): Self = StObject.set(x, "text", value.asInstanceOf[js.Any])
     

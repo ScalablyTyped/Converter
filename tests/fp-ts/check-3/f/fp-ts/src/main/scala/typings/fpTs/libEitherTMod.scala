@@ -24,7 +24,8 @@ object libEitherTMod {
       __obj.asInstanceOf[EitherT[F]]
     }
     
-    extension [Self <: EitherT[?], F](x: Self & EitherT[F]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: EitherT[?], F] (val x: Self & EitherT[F]) extends AnyVal {
       
       inline def setChain(
         value: (js.Function1[Any, HKT[F, Either[Any, Any]]], HKT[F, Either[Any, Any]]) => HKT[F, Either[Any, Any]]

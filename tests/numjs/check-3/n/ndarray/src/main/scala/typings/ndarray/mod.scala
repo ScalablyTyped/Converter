@@ -36,7 +36,8 @@ object mod {
       __obj.asInstanceOf[typings.ndarray.mod.ndarray[T]]
     }
     
-    extension [Self <: typings.ndarray.mod.ndarray[?], T](x: Self & typings.ndarray.mod.ndarray[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: typings.ndarray.mod.ndarray[?], T] (val x: Self & typings.ndarray.mod.ndarray[T]) extends AnyVal {
       
       inline def setData(value: Data[T]): Self = StObject.set(x, "data", value.asInstanceOf[js.Any])
       

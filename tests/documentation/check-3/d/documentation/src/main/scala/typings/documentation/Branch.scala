@@ -20,7 +20,8 @@ object Branch {
     __obj.asInstanceOf[Branch[T]]
   }
   
-  extension [Self <: Branch[?], T](x: Self & Branch[T]) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: Branch[?], T] (val x: Self & Branch[T]) extends AnyVal {
     
     inline def setLeft(value: T): Self = StObject.set(x, "left", value.asInstanceOf[js.Any])
     

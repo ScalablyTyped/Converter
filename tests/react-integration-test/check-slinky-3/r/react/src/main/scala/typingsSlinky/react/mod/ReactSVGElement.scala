@@ -24,7 +24,8 @@ object ReactSVGElement {
     __obj.asInstanceOf[ReactSVGElement]
   }
   
-  extension [Self <: ReactSVGElement](x: Self) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: ReactSVGElement] (val x: Self) extends AnyVal {
     
     inline def setType(
       value: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55, starting with "animate", "circle", "clipPath" */ String

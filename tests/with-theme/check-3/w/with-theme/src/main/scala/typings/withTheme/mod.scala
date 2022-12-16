@@ -32,7 +32,8 @@ object mod {
       __obj.asInstanceOf[WithTheme]
     }
     
-    extension [Self <: WithTheme](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: WithTheme] (val x: Self) extends AnyVal {
       
       inline def setInnerRef(value: Ref[Any] | RefObject[Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
       

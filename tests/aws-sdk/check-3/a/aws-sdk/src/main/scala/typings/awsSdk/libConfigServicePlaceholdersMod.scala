@@ -26,7 +26,8 @@ object libConfigServicePlaceholdersMod {
       __obj.asInstanceOf[ConfigurationServiceApiVersions]
     }
     
-    extension [Self <: ConfigurationServiceApiVersions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ConfigurationServiceApiVersions] (val x: Self) extends AnyVal {
       
       inline def setDynamodb(value: apiVersion): Self = StObject.set(x, "dynamodb", value.asInstanceOf[js.Any])
       

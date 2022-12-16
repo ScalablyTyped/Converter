@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "serve-static"
-version := "0.0-unknown-32033b"
+version := "0.0-unknown-a601e8"
 scalaVersion := "3.2.2-RC1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2",
-  "org.scalablytyped" %%% "express-serve-static-core" % "0.0-unknown-5fbd67",
+  "org.scalablytyped" %%% "express-serve-static-core" % "0.0-unknown-ec9da3",
   "org.scalablytyped" %%% "mime" % "2.0-510b0c",
   "org.scalablytyped" %%% "std" % "0.0-unknown-5ee2fd")
 publishArtifact in packageDoc := false

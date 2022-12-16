@@ -45,7 +45,8 @@ object mod {
       __obj.asInstanceOf[Insight_]
     }
     
-    extension [Self <: Insight_](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Insight_] (val x: Self) extends AnyVal {
       
       inline def setClientId(value: String): Self = StObject.set(x, "clientId", value.asInstanceOf[js.Any])
       
@@ -78,7 +79,8 @@ object mod {
         __obj.asInstanceOf[IConfigstore]
       }
       
-      extension [Self <: IConfigstore](x: Self) {
+      @scala.inline
+      implicit open class MutableBuilder[Self <: IConfigstore] (val x: Self) extends AnyVal {
         
         inline def setAll(value: Any): Self = StObject.set(x, "all", value.asInstanceOf[js.Any])
         
@@ -103,7 +105,8 @@ object mod {
         __obj.asInstanceOf[IOptions]
       }
       
-      extension [Self <: IOptions](x: Self) {
+      @scala.inline
+      implicit open class MutableBuilder[Self <: IOptions] (val x: Self) extends AnyVal {
         
         inline def setTrackingCode(value: String): Self = StObject.set(x, "trackingCode", value.asInstanceOf[js.Any])
       }

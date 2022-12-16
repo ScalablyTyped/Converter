@@ -27,7 +27,8 @@ object echarts {
           __obj.asInstanceOf[Inside]
         }
         
-        extension [Self <: Inside](x: Self) {
+        @scala.inline
+        implicit open class MutableBuilder[Self <: Inside] (val x: Self) extends AnyVal {
           
           inline def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
           
@@ -56,7 +57,8 @@ object echarts {
           __obj.asInstanceOf[Slider]
         }
         
-        extension [Self <: Slider](x: Self) {
+        @scala.inline
+        implicit open class MutableBuilder[Self <: Slider] (val x: Self) extends AnyVal {
           
           inline def setId(value: String): Self = StObject.set(x, "id", value.asInstanceOf[js.Any])
           

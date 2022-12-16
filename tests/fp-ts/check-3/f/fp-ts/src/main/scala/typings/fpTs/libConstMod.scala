@@ -47,7 +47,8 @@ object libConstMod {
         __obj.asInstanceOf[URI2HKT2[L, A]]
       }
       
-      extension [Self <: URI2HKT2[?, ?], L, A](x: Self & (URI2HKT2[L, A])) {
+      @scala.inline
+      implicit open class MutableBuilder[Self <: URI2HKT2[?, ?], L, A] (val x: Self & (URI2HKT2[L, A])) extends AnyVal {
         
         inline def setConst(value: Const[L, A]): Self = StObject.set(x, "Const", value.asInstanceOf[js.Any])
       }

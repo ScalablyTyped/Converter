@@ -28,7 +28,8 @@ object mod {
       __obj.asInstanceOf[AllHTMLAttributes[T]]
     }
     
-    extension [Self <: AllHTMLAttributes[?], T](x: Self & AllHTMLAttributes[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: AllHTMLAttributes[?], T] (val x: Self & AllHTMLAttributes[T]) extends AnyVal {
       
       inline def setAccept(value: String): Self = StObject.set(x, "accept", value.asInstanceOf[js.Any])
       
@@ -51,7 +52,8 @@ object mod {
       __obj.asInstanceOf[Attributes]
     }
     
-    extension [Self <: Attributes](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Attributes] (val x: Self) extends AnyVal {
       
       inline def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
       
@@ -72,7 +74,8 @@ object mod {
       __obj.asInstanceOf[ClassAttributes[T]]
     }
     
-    extension [Self <: ClassAttributes[?], T](x: Self & ClassAttributes[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ClassAttributes[?], T] (val x: Self & ClassAttributes[T]) extends AnyVal {
       
       inline def setRef(value: Ref[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
@@ -112,7 +115,8 @@ object mod {
       __obj.asInstanceOf[DOMAttributes[T]]
     }
     
-    extension [Self <: DOMAttributes[?], T](x: Self & DOMAttributes[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: DOMAttributes[?], T] (val x: Self & DOMAttributes[T]) extends AnyVal {
       
       inline def setChildren(value: ReactNode): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
@@ -142,7 +146,8 @@ object mod {
       __obj.asInstanceOf[DOMElement[P, T]]
     }
     
-    extension [Self <: DOMElement[?, ?], P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](x: Self & (DOMElement[P, T])) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: DOMElement[?, ?], P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] (val x: Self & (DOMElement[P, T])) extends AnyVal {
       
       inline def setRef(value: Ref[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
       
@@ -173,7 +178,8 @@ object mod {
       __obj.asInstanceOf[HTMLAttributes[T]]
     }
     
-    extension [Self <: HTMLAttributes[?], T](x: Self & HTMLAttributes[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: HTMLAttributes[?], T] (val x: Self & HTMLAttributes[T]) extends AnyVal {
       
       inline def setDefaultChecked(value: Boolean): Self = StObject.set(x, "defaultChecked", value.asInstanceOf[js.Any])
       
@@ -199,7 +205,8 @@ object mod {
       __obj.asInstanceOf[ReactElement]
     }
     
-    extension [Self <: ReactElement](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ReactElement] (val x: Self) extends AnyVal {
       
       inline def setKey(value: Key): Self = StObject.set(x, "key", value.asInstanceOf[js.Any])
       
@@ -228,7 +235,8 @@ object mod {
       __obj.asInstanceOf[ReactSVG]
     }
     
-    extension [Self <: ReactSVG](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ReactSVG] (val x: Self) extends AnyVal {
       
       inline def setAnimate(value: SVGFactory): Self = StObject.set(x, "animate", value.asInstanceOf[js.Any])
       
@@ -254,7 +262,8 @@ object mod {
       __obj.asInstanceOf[ReactSVGElement]
     }
     
-    extension [Self <: ReactSVGElement](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ReactSVGElement] (val x: Self) extends AnyVal {
       
       inline def setType(value: "animate" | "circle" | "clipPath"): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     }
@@ -283,7 +292,8 @@ object mod {
       __obj.asInstanceOf[SVGAttributes[T]]
     }
     
-    extension [Self <: SVGAttributes[?], T](x: Self & SVGAttributes[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: SVGAttributes[?], T] (val x: Self & SVGAttributes[T]) extends AnyVal {
       
       inline def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       

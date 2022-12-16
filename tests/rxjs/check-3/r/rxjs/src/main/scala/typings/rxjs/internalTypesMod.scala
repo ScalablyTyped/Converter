@@ -25,7 +25,8 @@ object internalTypesMod {
       __obj.asInstanceOf[CompletionObserver[T]]
     }
     
-    extension [Self <: CompletionObserver[?], T](x: Self & CompletionObserver[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: CompletionObserver[?], T] (val x: Self & CompletionObserver[T]) extends AnyVal {
       
       inline def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
       
@@ -60,7 +61,8 @@ object internalTypesMod {
       __obj.asInstanceOf[ErrorObserver[T]]
     }
     
-    extension [Self <: ErrorObserver[?], T](x: Self & ErrorObserver[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ErrorObserver[?], T] (val x: Self & ErrorObserver[T]) extends AnyVal {
       
       inline def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
       
@@ -95,7 +97,8 @@ object internalTypesMod {
       __obj.asInstanceOf[NextObserver[T]]
     }
     
-    extension [Self <: NextObserver[?], T](x: Self & NextObserver[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: NextObserver[?], T] (val x: Self & NextObserver[T]) extends AnyVal {
       
       inline def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
       
@@ -130,7 +133,8 @@ object internalTypesMod {
       __obj.asInstanceOf[Observer[T]]
     }
     
-    extension [Self <: Observer[?], T](x: Self & Observer[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Observer[?], T] (val x: Self & Observer[T]) extends AnyVal {
       
       inline def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
       
@@ -217,7 +221,8 @@ object internalTypesMod {
       __obj.asInstanceOf[SubscriptionLike]
     }
     
-    extension [Self <: SubscriptionLike](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: SubscriptionLike] (val x: Self) extends AnyVal {
       
       inline def setClosed(value: Boolean): Self = StObject.set(x, "closed", value.asInstanceOf[js.Any])
     }
@@ -236,7 +241,8 @@ object internalTypesMod {
       __obj.asInstanceOf[Unsubscribable]
     }
     
-    extension [Self <: Unsubscribable](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Unsubscribable] (val x: Self) extends AnyVal {
       
       inline def setUnsubscribe(value: () => Unit): Self = StObject.set(x, "unsubscribe", js.Any.fromFunction0(value))
     }

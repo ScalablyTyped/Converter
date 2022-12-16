@@ -35,7 +35,8 @@ private[internal] object HTMLElementTagNameMap {
     __obj.asInstanceOf[HTMLElementTagNameMap]
   }
   
-  extension [Self <: HTMLElementTagNameMap](x: Self) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: HTMLElementTagNameMap] (val x: Self) extends AnyVal {
     
     inline def setA(value: org.scalajs.dom.HTMLAnchorElement): Self = StObject.set(x, "a", value.asInstanceOf[js.Any])
     

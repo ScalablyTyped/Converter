@@ -29,7 +29,8 @@ object FirebaseFirestore {
       __obj.asInstanceOf[Firestore]
     }
     
-    extension [Self <: Firestore](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Firestore] (val x: Self) extends AnyVal {
       
       inline def setSettings(value: Settings => Unit): Self = StObject.set(x, "settings", js.Any.fromFunction1(value))
     }
@@ -46,7 +47,8 @@ object FirebaseFirestore {
       __obj.asInstanceOf[Settings]
     }
     
-    extension [Self <: Settings](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Settings] (val x: Self) extends AnyVal {
       
       inline def setProjectId(value: String): Self = StObject.set(x, "projectId", value.asInstanceOf[js.Any])
       

@@ -31,7 +31,8 @@ object mod {
       __obj.asInstanceOf[ChildrenProp]
     }
     
-    extension [Self <: ChildrenProp](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ChildrenProp] (val x: Self) extends AnyVal {
       
       inline def setChildren(value: String): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
     }
@@ -77,7 +78,8 @@ object mod {
       __obj.asInstanceOf[ReactMarkdownPropsBase]
     }
     
-    extension [Self <: ReactMarkdownPropsBase](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ReactMarkdownPropsBase] (val x: Self) extends AnyVal {
       
       inline def setAllowNode(value: /* index */ Double => Boolean): Self = StObject.set(x, "allowNode", js.Any.fromFunction1(value))
       
@@ -119,7 +121,8 @@ object mod {
       __obj.asInstanceOf[SourceProp]
     }
     
-    extension [Self <: SourceProp](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: SourceProp] (val x: Self) extends AnyVal {
       
       inline def setSource(value: String): Self = StObject.set(x, "source", value.asInstanceOf[js.Any])
     }

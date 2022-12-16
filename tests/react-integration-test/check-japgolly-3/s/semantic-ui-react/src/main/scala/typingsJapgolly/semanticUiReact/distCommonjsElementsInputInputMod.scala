@@ -47,7 +47,8 @@ object distCommonjsElementsInputInputMod {
       __obj.asInstanceOf[InputOnChangeData]
     }
     
-    extension [Self <: InputOnChangeData](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: InputOnChangeData] (val x: Self) extends AnyVal {
       
       inline def setValue(value: String): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
     }
@@ -131,7 +132,8 @@ object distCommonjsElementsInputInputMod {
       __obj.asInstanceOf[StrictInputProps]
     }
     
-    extension [Self <: StrictInputProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: StrictInputProps] (val x: Self) extends AnyVal {
       
       inline def setAction(value: Any | Boolean): Self = StObject.set(x, "action", value.asInstanceOf[js.Any])
       

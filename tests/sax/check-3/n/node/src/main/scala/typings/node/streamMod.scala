@@ -86,7 +86,8 @@ object streamMod {
       __obj.asInstanceOf[DuplexOptions]
     }
     
-    extension [Self <: DuplexOptions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: DuplexOptions] (val x: Self) extends AnyVal {
       
       inline def setAllowHalfOpen(value: Boolean): Self = StObject.set(x, "allowHalfOpen", value.asInstanceOf[js.Any])
       
@@ -113,7 +114,8 @@ object streamMod {
       __obj.asInstanceOf[ReadableOptions]
     }
     
-    extension [Self <: ReadableOptions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ReadableOptions] (val x: Self) extends AnyVal {
       
       inline def setDestroy(value: /* error */ js.UndefOr[Error] => Any): Self = StObject.set(x, "destroy", js.Any.fromFunction1(value))
       
@@ -150,7 +152,8 @@ object streamMod {
       __obj.asInstanceOf[WritableOptions]
     }
     
-    extension [Self <: WritableOptions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: WritableOptions] (val x: Self) extends AnyVal {
       
       inline def setFinal(value: /* callback */ js.Function1[/* error */ js.UndefOr[Error], Unit] => Unit): Self = StObject.set(x, "final", js.Any.fromFunction1(value))
       

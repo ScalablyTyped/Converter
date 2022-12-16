@@ -19,7 +19,8 @@ object std {
       __obj.asInstanceOf[Queue_[T]]
     }
     
-    extension [Self <: Queue_[?], T](x: Self & Queue_[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Queue_[?], T] (val x: Self & Queue_[T]) extends AnyVal {
       
       inline def setContainer_(value: Any): Self = StObject.set(x, "container_", value.asInstanceOf[js.Any])
       

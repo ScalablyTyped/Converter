@@ -88,7 +88,8 @@ object mod {
       __obj.asInstanceOf[Options]
     }
     
-    extension [Self <: Options](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Options] (val x: Self) extends AnyVal {
       
       inline def setCancelable(value: Boolean): Self = StObject.set(x, "cancelable", value.asInstanceOf[js.Any])
       
@@ -161,7 +162,8 @@ object mod {
       __obj.asInstanceOf[VueScrollTo]
     }
     
-    extension [Self <: VueScrollTo](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: VueScrollTo] (val x: Self) extends AnyVal {
       
       inline def setScrollTo(value: VueStatic): Self = StObject.set(x, "scrollTo", value.asInstanceOf[js.Any])
     }
@@ -214,7 +216,8 @@ object mod {
         __obj.asInstanceOf[Vue]
       }
       
-      extension [Self <: Vue](x: Self) {
+      @scala.inline
+      implicit open class MutableBuilder[Self <: Vue] (val x: Self) extends AnyVal {
         
         inline def set$scrollTo(value: VueStatic): Self = StObject.set(x, "$scrollTo", value.asInstanceOf[js.Any])
       }

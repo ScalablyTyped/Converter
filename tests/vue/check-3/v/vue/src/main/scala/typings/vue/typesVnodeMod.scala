@@ -67,7 +67,8 @@ object typesVnodeMod {
       __obj.asInstanceOf[VNode]
     }
     
-    extension [Self <: VNode](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: VNode] (val x: Self) extends AnyVal {
       
       inline def setChildren(value: js.Array[VNode]): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
@@ -170,7 +171,8 @@ object typesVnodeMod {
       __obj.asInstanceOf[VNodeComponentOptions]
     }
     
-    extension [Self <: VNodeComponentOptions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: VNodeComponentOptions] (val x: Self) extends AnyVal {
       
       inline def setChildren(value: VNodeChildren): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
       
@@ -243,7 +245,8 @@ object typesVnodeMod {
       __obj.asInstanceOf[VNodeData]
     }
     
-    extension [Self <: VNodeData](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: VNodeData] (val x: Self) extends AnyVal {
       
       inline def setAttrs(value: StringDictionary[Any]): Self = StObject.set(x, "attrs", value.asInstanceOf[js.Any])
       
@@ -359,7 +362,8 @@ object typesVnodeMod {
       __obj.asInstanceOf[VNodeDirective]
     }
     
-    extension [Self <: VNodeDirective](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: VNodeDirective] (val x: Self) extends AnyVal {
       
       inline def setArg(value: String): Self = StObject.set(x, "arg", value.asInstanceOf[js.Any])
       

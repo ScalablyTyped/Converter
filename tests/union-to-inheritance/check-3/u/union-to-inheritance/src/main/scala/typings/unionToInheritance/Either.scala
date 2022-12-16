@@ -15,7 +15,8 @@ object Either {
     __obj.asInstanceOf[Either[L, R]]
   }
   
-  extension [Self <: Either[?, ?], L, R](x: Self & (Either[L, R])) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: Either[?, ?], L, R] (val x: Self & (Either[L, R])) extends AnyVal {
     
     inline def setValue(value: R): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
   }

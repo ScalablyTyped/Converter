@@ -26,7 +26,8 @@ object WebpackModuleApi {
       __obj.asInstanceOf[AcceptOptions]
     }
     
-    extension [Self <: AcceptOptions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: AcceptOptions] (val x: Self) extends AnyVal {
       
       inline def setAutoApply(value: Boolean): Self = StObject.set(x, "autoApply", value.asInstanceOf[js.Any])
       
@@ -208,7 +209,8 @@ object WebpackModuleApi {
       __obj.asInstanceOf[NodeProcess]
     }
     
-    extension [Self <: NodeProcess](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: NodeProcess] (val x: Self) extends AnyVal {
       
       inline def setEnv(value: Any): Self = StObject.set(x, "env", value.asInstanceOf[js.Any])
       
