@@ -444,6 +444,7 @@ class JapgollyGenComponents(
       Some(genPropsMethod(Name("withProps"), componentCp, propsRef, c.tparams, builder.ref)),
       genApplyMethodOpt(Name.APPLY, componentCp, propsRef, splitProps, c.tparams, builder.ref),
       genImplicitConversionOpt(Name("make"), componentCp, c.tparams, splitProps, builder.ref),
+      Some(genStyled(componentCp, c.tparams, builder.ref, propsRef.ref)),
     )
 
     val nested = c.nested.map(genComponent(componentCp, builderLookup))
@@ -528,6 +529,69 @@ class JapgollyGenComponents(
         ),
       )
     }
+
+  // def styled = new StyledComponent.Builder[DefaultComponentPropsPaperTypeMapdiv, Builder](
+  //    component,
+  //    new js.Object,
+  //    js.Array(),
+  //    (newComponent: Any) => new Builder(js.Array(newComponent, js.Dictionary.empty))()
+  //  )
+  def genStyled(
+      ownerCp:    QualifiedName,
+      tparams:    IArray[TypeParamTree],
+      builderRef: TypeRef,
+      propsRef:   TypeRef,
+  ): MethodTree = {
+    val styled = Name("styled")
+
+    val styledComponentBuilderRef =
+      TypeRef(QualifiedName("com.olvind.mui.StyledComponent.Builder"), IArray(propsRef, builderRef), NoComments)
+    val mkBuilderParam = {
+      val input =
+        ParamTree(Name("newComponent"), isImplicit = false, isVal = false, TypeRef.Any, NotImplemented, NoComments)
+      Lambda(
+        IArray(input),
+        New(
+          builderRef,
+          IArray(
+            Call(
+              Ref(QualifiedName.JsArray),
+              IArray(
+                IArray(
+                  Ref(input.name),
+                  Select(Ref(QualifiedName.JsDictionary), Name("empty")),
+                ),
+              ),
+            ),
+          ),
+        ),
+      )
+    }
+
+    val impl = New(
+      styledComponentBuilderRef,
+      IArray(
+        Ref(QualifiedName(IArray(Name.THIS, names.component))),
+        New(TypeRef.JsObject, Empty),
+        Call(Ref(TypeRef(QualifiedName.JsArray)), IArray(Empty)),
+        mkBuilderParam,
+      ),
+    )
+
+    MethodTree(
+      annotations = Empty,
+      level       = ProtectionLevel.Public,
+      name        = styled,
+      tparams     = tparams,
+      params      = Empty,
+      impl        = impl,
+      resultType  = styledComponentBuilderRef,
+      isOverride  = false,
+      comments    = NoComments,
+      codePath    = ownerCp + styled,
+      isImplicit  = false,
+    )
+  }
 
   /* support directly using the companion as a builder if no required props */
   def genImplicitConversionOpt(
