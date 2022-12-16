@@ -24,7 +24,8 @@ object ProfilerProps {
     __obj.asInstanceOf[ProfilerProps]
   }
   
-  extension [Self <: ProfilerProps](x: Self) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: ProfilerProps] (val x: Self) extends AnyVal {
     
     inline def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
     

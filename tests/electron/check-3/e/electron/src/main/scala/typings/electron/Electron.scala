@@ -30,7 +30,8 @@ object Electron {
       __obj.asInstanceOf[App]
     }
     
-    extension [Self <: App](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: App] (val x: Self) extends AnyVal {
       
       inline def setOn(value: (`accessibility-support-changed`, Any) => String): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
     }
@@ -61,7 +62,8 @@ object Electron {
       __obj.asInstanceOf[Event]
     }
     
-    extension [Self <: Event](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Event] (val x: Self) extends AnyVal {
       
       inline def setAltKey(value: Boolean): Self = StObject.set(x, "altKey", value.asInstanceOf[js.Any])
       
@@ -96,7 +98,8 @@ object Electron {
       __obj.asInstanceOf[EventEmitter]
     }
     
-    extension [Self <: EventEmitter](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: EventEmitter] (val x: Self) extends AnyVal {
       
       inline def setAddListener(value: (String, js.Function) => EventEmitter): Self = StObject.set(x, "addListener", js.Any.fromFunction2(value))
     }
@@ -115,7 +118,8 @@ object Electron {
       __obj.asInstanceOf[MainInterface]
     }
     
-    extension [Self <: MainInterface](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: MainInterface] (val x: Self) extends AnyVal {
       
       inline def setApp(value: App): Self = StObject.set(x, "app", value.asInstanceOf[js.Any])
     }

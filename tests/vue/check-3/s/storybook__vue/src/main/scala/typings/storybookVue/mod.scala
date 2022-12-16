@@ -47,7 +47,8 @@ object mod {
       __obj.asInstanceOf[Story]
     }
     
-    extension [Self <: Story](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Story] (val x: Self) extends AnyVal {
       
       inline def setAdd(value: (String, StoryFunction) => Story): Self = StObject.set(x, "add", js.Any.fromFunction2(value))
       
@@ -117,7 +118,8 @@ object mod {
       __obj.asInstanceOf[StoryObject]
     }
     
-    extension [Self <: StoryObject](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: StoryObject] (val x: Self) extends AnyVal {
       
       inline def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
@@ -148,7 +150,8 @@ object mod {
       __obj.asInstanceOf[StoryStore]
     }
     
-    extension [Self <: StoryStore](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: StoryStore] (val x: Self) extends AnyVal {
       
       inline def setFileName(value: String): Self = StObject.set(x, "fileName", value.asInstanceOf[js.Any])
       

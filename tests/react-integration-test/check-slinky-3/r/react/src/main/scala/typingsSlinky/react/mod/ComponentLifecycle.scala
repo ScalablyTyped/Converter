@@ -59,7 +59,8 @@ object ComponentLifecycle {
     __obj.asInstanceOf[ComponentLifecycle[P, S, SS]]
   }
   
-  extension [Self <: ComponentLifecycle[?, ?, ?], P, S, SS](x: Self & (ComponentLifecycle[P, S, SS])) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: ComponentLifecycle[?, ?, ?], P, S, SS] (val x: Self & (ComponentLifecycle[P, S, SS])) extends AnyVal {
     
     inline def setComponentDidCatch(
       value: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ Any, /* errorInfo */ ErrorInfo) => Unit

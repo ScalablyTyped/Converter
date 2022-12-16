@@ -27,7 +27,8 @@ object typesPluginMod {
       __obj.asInstanceOf[PluginObject[T]]
     }
     
-    extension [Self <: PluginObject[?], T](x: Self & PluginObject[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: PluginObject[?], T] (val x: Self & PluginObject[T]) extends AnyVal {
       
       inline def setInstall(value: (/* Vue */ VueConstructor[Vue], /* options */ js.UndefOr[T]) => Unit): Self = StObject.set(x, "install", js.Any.fromFunction2(value))
     }

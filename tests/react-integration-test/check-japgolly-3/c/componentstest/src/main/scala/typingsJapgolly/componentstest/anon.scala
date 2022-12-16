@@ -24,7 +24,8 @@ object anon {
       __obj.asInstanceOf[Equals]
     }
     
-    extension [Self <: Equals](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Equals] (val x: Self) extends AnyVal {
       
       inline def setEquals_(value: Boolean): Self = StObject.set(x, "equals", value.asInstanceOf[js.Any])
       

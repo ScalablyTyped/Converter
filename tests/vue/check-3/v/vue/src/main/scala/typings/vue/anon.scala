@@ -23,7 +23,8 @@ object anon {
       __obj.asInstanceOf[Default]
     }
     
-    extension [Self <: Default](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Default] (val x: Self) extends AnyVal {
       
       inline def setDefault(value: Any): Self = StObject.set(x, "default", value.asInstanceOf[js.Any])
       
@@ -48,7 +49,8 @@ object anon {
       __obj.asInstanceOf[Event]
     }
     
-    extension [Self <: Event](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Event] (val x: Self) extends AnyVal {
       
       inline def setEvent(value: String): Self = StObject.set(x, "event", value.asInstanceOf[js.Any])
       
@@ -92,7 +94,8 @@ object anon {
       __obj.asInstanceOf[Render]
     }
     
-    extension [Self <: Render](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Render] (val x: Self) extends AnyVal {
       
       inline def setRender(value: js.Function): Self = StObject.set(x, "render", value.asInstanceOf[js.Any])
       
@@ -115,7 +118,8 @@ object anon {
       __obj.asInstanceOf[StaticRenderFns]
     }
     
-    extension [Self <: StaticRenderFns](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: StaticRenderFns] (val x: Self) extends AnyVal {
       
       inline def setRender(value: CreateElement => VNode): Self = StObject.set(x, "render", js.Any.fromFunction1(value))
       

@@ -406,7 +406,8 @@ object typesVueMod {
       __obj.asInstanceOf[VueConfiguration]
     }
     
-    extension [Self <: VueConfiguration](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: VueConfiguration] (val x: Self) extends AnyVal {
       
       inline def setDevtools(value: Boolean): Self = StObject.set(x, "devtools", value.asInstanceOf[js.Any])
       

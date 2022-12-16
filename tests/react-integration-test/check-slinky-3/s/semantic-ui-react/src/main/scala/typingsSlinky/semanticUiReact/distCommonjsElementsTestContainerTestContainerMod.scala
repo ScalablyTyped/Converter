@@ -75,7 +75,8 @@ object distCommonjsElementsTestContainerTestContainerMod extends Shortcut {
       __obj.asInstanceOf[StrictTestContainerProps]
     }
     
-    extension [Self <: StrictTestContainerProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: StrictTestContainerProps] (val x: Self) extends AnyVal {
       
       inline def setAs(value: Any): Self = StObject.set(x, "as", value.asInstanceOf[js.Any])
       

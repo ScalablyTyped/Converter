@@ -28,7 +28,8 @@ object TypographyStyle {
     __obj.asInstanceOf[TypographyStyle]
   }
   
-  extension [Self <: TypographyStyle](x: Self) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: TypographyStyle] (val x: Self) extends AnyVal {
     
     inline def setColor(value: String): Self = StObject.set(x, "color", value.asInstanceOf[js.Any])
     

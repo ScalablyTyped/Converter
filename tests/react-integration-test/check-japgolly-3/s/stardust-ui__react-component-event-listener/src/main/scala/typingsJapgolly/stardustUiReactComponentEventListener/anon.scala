@@ -29,7 +29,8 @@ object anon {
       __obj.asInstanceOf[Capture]
     }
     
-    extension [Self <: Capture](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Capture] (val x: Self) extends AnyVal {
       
       inline def setCapture(
         value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<boolean> */ Any
@@ -67,7 +68,8 @@ object anon {
       __obj.asInstanceOf[Listener]
     }
     
-    extension [Self <: Listener](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Listener] (val x: Self) extends AnyVal {
       
       inline def setCapture(value: Unit): Self = StObject.set(x, "capture", value.asInstanceOf[js.Any])
       

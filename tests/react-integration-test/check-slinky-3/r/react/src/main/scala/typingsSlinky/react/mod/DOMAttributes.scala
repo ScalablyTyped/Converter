@@ -205,7 +205,8 @@ object DOMAttributes {
     __obj.asInstanceOf[DOMAttributes[T]]
   }
   
-  extension [Self <: DOMAttributes[?], T](x: Self & DOMAttributes[T]) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: DOMAttributes[?], T] (val x: Self & DOMAttributes[T]) extends AnyVal {
     
     inline def setChildren(value: slinky.core.facade.ReactElement): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
     

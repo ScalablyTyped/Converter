@@ -44,7 +44,8 @@ object mod {
       __obj.asInstanceOf[DropzoneInputProps]
     }
     
-    extension [Self <: DropzoneInputProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: DropzoneInputProps] (val x: Self) extends AnyVal {
       
       inline def setRefKey(value: String): Self = StObject.set(x, "refKey", value.asInstanceOf[js.Any])
       
@@ -130,7 +131,8 @@ object mod {
       __obj.asInstanceOf[DropzoneOptions]
     }
     
-    extension [Self <: DropzoneOptions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: DropzoneOptions] (val x: Self) extends AnyVal {
       
       inline def setAccept(value: String | js.Array[String]): Self = StObject.set(x, "accept", value.asInstanceOf[js.Any])
       
@@ -245,7 +247,8 @@ object mod {
       __obj.asInstanceOf[DropzoneProps]
     }
     
-    extension [Self <: DropzoneProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: DropzoneProps] (val x: Self) extends AnyVal {
       
       inline def setChildren(value: /* state */ DropzoneState => Element): Self = StObject.set(x, "children", js.Any.fromFunction1(value))
       
@@ -264,7 +267,8 @@ object mod {
       __obj.asInstanceOf[DropzoneRef]
     }
     
-    extension [Self <: DropzoneRef](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: DropzoneRef] (val x: Self) extends AnyVal {
       
       inline def setOpen(value: Callback): Self = StObject.set(x, "open", value.toJsFn)
     }
@@ -284,7 +288,8 @@ object mod {
       __obj.asInstanceOf[DropzoneRootProps]
     }
     
-    extension [Self <: DropzoneRootProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: DropzoneRootProps] (val x: Self) extends AnyVal {
       
       inline def setRefKey(value: String): Self = StObject.set(x, "refKey", value.asInstanceOf[js.Any])
       

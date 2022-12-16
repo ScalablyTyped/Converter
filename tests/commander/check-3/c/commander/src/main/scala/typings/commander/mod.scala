@@ -78,7 +78,8 @@ object mod extends Shortcut {
       __obj.asInstanceOf[CommandOptions]
     }
     
-    extension [Self <: CommandOptions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: CommandOptions] (val x: Self) extends AnyVal {
       
       inline def setIsDefault(value: Boolean): Self = StObject.set(x, "isDefault", value.asInstanceOf[js.Any])
       
@@ -123,7 +124,8 @@ object mod extends Shortcut {
       __obj.asInstanceOf[ParseOptionsResult]
     }
     
-    extension [Self <: ParseOptionsResult](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ParseOptionsResult] (val x: Self) extends AnyVal {
       
       inline def setArgs(value: js.Array[String]): Self = StObject.set(x, "args", value.asInstanceOf[js.Any])
       
@@ -451,7 +453,8 @@ object mod extends Shortcut {
         __obj.asInstanceOf[typings.commander.mod.local.Option]
       }
       
-      extension [Self <: typings.commander.mod.local.Option](x: Self) {
+      @scala.inline
+      implicit open class MutableBuilder[Self <: typings.commander.mod.local.Option] (val x: Self) extends AnyVal {
         
         inline def setBool(value: Boolean): Self = StObject.set(x, "bool", value.asInstanceOf[js.Any])
         

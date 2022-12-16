@@ -24,7 +24,8 @@ object aa {
       __obj.asInstanceOf[INotifyConfigProvider]
     }
     
-    extension [Self <: INotifyConfigProvider](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: INotifyConfigProvider] (val x: Self) extends AnyVal {
       
       inline def setDefaultNotifyConfig(value: String): Self = StObject.set(x, "defaultNotifyConfig", value.asInstanceOf[js.Any])
       

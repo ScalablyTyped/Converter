@@ -31,7 +31,8 @@ object mod {
       __obj.asInstanceOf[Option[TValue]]
     }
     
-    extension [Self <: Option[?], TValue](x: Self & Option[TValue]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Option[?], TValue] (val x: Self & Option[TValue]) extends AnyVal {
       
       inline def setValue(value: TValue): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
       
@@ -67,7 +68,8 @@ object mod {
       __obj.asInstanceOf[ReactSelectProps[TValue]]
     }
     
-    extension [Self <: ReactSelectProps[?], TValue](x: Self & ReactSelectProps[TValue]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ReactSelectProps[?], TValue] (val x: Self & ReactSelectProps[TValue]) extends AnyVal {
       
       inline def setAddLabelText(value: String): Self = StObject.set(x, "addLabelText", value.asInstanceOf[js.Any])
       

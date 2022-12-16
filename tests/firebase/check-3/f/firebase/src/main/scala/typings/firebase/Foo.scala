@@ -15,7 +15,8 @@ object Foo {
     __obj.asInstanceOf[Foo]
   }
   
-  extension [Self <: Foo](x: Self) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: Foo] (val x: Self) extends AnyVal {
     
     inline def setName(value: Any => Unit): Self = StObject.set(x, "name", js.Any.fromFunction1(value))
   }

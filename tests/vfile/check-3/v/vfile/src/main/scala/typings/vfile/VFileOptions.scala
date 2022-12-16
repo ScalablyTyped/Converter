@@ -15,7 +15,8 @@ object VFileOptions {
     __obj.asInstanceOf[VFileOptions]
   }
   
-  extension [Self <: VFileOptions](x: Self) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: VFileOptions] (val x: Self) extends AnyVal {
     
     inline def setContents(value: VFileContents): Self = StObject.set(x, "contents", value.asInstanceOf[js.Any])
     

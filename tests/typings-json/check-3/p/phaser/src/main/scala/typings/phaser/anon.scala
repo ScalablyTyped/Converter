@@ -19,7 +19,8 @@ object anon {
       __obj.asInstanceOf[LowerBound]
     }
     
-    extension [Self <: LowerBound](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: LowerBound] (val x: Self) extends AnyVal {
       
       inline def setLowerBound(value: js.Array[Double]): Self = StObject.set(x, "lowerBound", value.asInstanceOf[js.Any])
       

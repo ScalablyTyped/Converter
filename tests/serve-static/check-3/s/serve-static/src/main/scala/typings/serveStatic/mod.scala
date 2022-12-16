@@ -48,7 +48,8 @@ object mod {
       __obj.asInstanceOf[ServeStaticOptions]
     }
     
-    extension [Self <: ServeStaticOptions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ServeStaticOptions] (val x: Self) extends AnyVal {
       
       inline def setSetHeaders(value: (/* res */ Response, /* path */ String, /* stat */ Any) => Any): Self = StObject.set(x, "setHeaders", js.Any.fromFunction3(value))
       

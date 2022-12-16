@@ -263,23 +263,23 @@ object Printer {
         case tree: PackageTree =>
           apply(scope, parentsResolver, reg, packageNames :+ tree.name, folder / os.RelPath(tree.name.value), tree)
 
-        case c: ClassTree
-            if scalaVersion.is3 &&
-              c.classType === ClassType.Class &&
-              c.annotations.contains(Annotation.Inline) &&
-              c.ctors.length === 1 &&
-              c.parents.length === 1 &&
-              c.parents.head.name === Name.AnyVal =>
-          print("extension ")
-
-          if (c.tparams.nonEmpty)
-            print("[", c.tparams.map(formatTypeParamTree(indent)).mkString(", "), "]")
-
-          print(formatParams(indent + 2)(c.ctors.head.params.map(_.copy(isVal = false))))
-
-          println(" {")
-          printTrees(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, c.members)
-          println("}")
+//        case c: ClassTree
+//            if scalaVersion.is3 &&
+//              c.classType === ClassType.Class &&
+//              c.annotations.contains(Annotation.Inline) &&
+//              c.ctors.length === 1 &&
+//              c.parents.length === 1 &&
+//              c.parents.head.name === Name.AnyVal =>
+//          print("extension ")
+//
+//          if (c.tparams.nonEmpty)
+//            print("[", c.tparams.map(formatTypeParamTree(indent)).mkString(", "), "]")
+//
+//          print(formatParams(indent + 2)(c.ctors.head.params.map(_.copy(isVal = false))))
+//
+//          println(" {")
+//          printTrees(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, c.members)
+//          println("}")
 
         case c @ ClassTree(
               isImplicit,

@@ -64,7 +64,8 @@ object mod extends Shortcut {
       __obj.asInstanceOf[IAngularStatic]
     }
     
-    extension [Self <: IAngularStatic](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: IAngularStatic] (val x: Self) extends AnyVal {
       
       inline def setElement(
         value: /* element */ String | Element | Document | JQuery | ArrayLike[Element] | js.Function0[Unit] => JQLite
@@ -93,7 +94,8 @@ object mod extends Shortcut {
       __obj.asInstanceOf[IServiceProvider]
     }
     
-    extension [Self <: IServiceProvider](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: IServiceProvider] (val x: Self) extends AnyVal {
       
       inline def set$get(value: Any): Self = StObject.set(x, "$get", value.asInstanceOf[js.Any])
     }

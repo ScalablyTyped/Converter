@@ -24,7 +24,8 @@ object vuejs {
       __obj.asInstanceOf[ComponentOption]
     }
     
-    extension [Self <: ComponentOption](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ComponentOption] (val x: Self) extends AnyVal {
       
       inline def setHttp(value: headersHttpHeadersundefin): Self = StObject.set(x, "http", value.asInstanceOf[js.Any])
       
@@ -55,7 +56,8 @@ object vuejs {
       __obj.asInstanceOf[HttpHeaders]
     }
     
-    extension [Self <: HttpHeaders](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: HttpHeaders] (val x: Self) extends AnyVal {
       
       inline def setCommon(value: StringDictionary[String]): Self = StObject.set(x, "common", value.asInstanceOf[js.Any])
       
@@ -96,7 +98,8 @@ object vuejs {
       __obj.asInstanceOf[HttpInterceptor]
     }
     
-    extension [Self <: HttpInterceptor](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: HttpInterceptor] (val x: Self) extends AnyVal {
       
       inline def setRequest(value: /* request */ HttpOptions => HttpOptions): Self = StObject.set(x, "request", js.Any.fromFunction1(value))
       
@@ -137,7 +140,8 @@ object vuejs {
       __obj.asInstanceOf[HttpOptions]
     }
     
-    extension [Self <: HttpOptions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: HttpOptions] (val x: Self) extends AnyVal {
       
       inline def setBefore(value: /* request */ Any => Any): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
       
@@ -215,7 +219,8 @@ object vuejs {
       __obj.asInstanceOf[HttpResponse]
     }
     
-    extension [Self <: HttpResponse](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: HttpResponse] (val x: Self) extends AnyVal {
       
       inline def setBlob(value: () => Blob): Self = StObject.set(x, "blob", js.Any.fromFunction0(value))
       
@@ -308,7 +313,8 @@ object vuejs {
       __obj.asInstanceOf[Http_]
     }
     
-    extension [Self <: Http_](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Http_] (val x: Self) extends AnyVal {
       
       inline def setDelete(value: http): Self = StObject.set(x, "delete", value.asInstanceOf[js.Any])
       
@@ -353,7 +359,8 @@ object vuejs {
       __obj.asInstanceOf[ResourceActions]
     }
     
-    extension [Self <: ResourceActions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ResourceActions] (val x: Self) extends AnyVal {
       
       inline def setDelete(value: Method): Self = StObject.set(x, "delete", value.asInstanceOf[js.Any])
       
@@ -506,7 +513,8 @@ object vuejs {
       __obj.asInstanceOf[ResourceMethods]
     }
     
-    extension [Self <: ResourceMethods](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ResourceMethods] (val x: Self) extends AnyVal {
       
       inline def setDelete(value: ResourceMethod): Self = StObject.set(x, "delete", value.asInstanceOf[js.Any])
       
@@ -564,7 +572,8 @@ object vuejs {
       __obj.asInstanceOf[Vue]
     }
     
-    extension [Self <: Vue](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Vue] (val x: Self) extends AnyVal {
       
       inline def set$http(value: Call): Self = StObject.set(x, "$http", value.asInstanceOf[js.Any])
       
@@ -587,7 +596,8 @@ object vuejs {
       __obj.asInstanceOf[VueStatic]
     }
     
-    extension [Self <: VueStatic](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: VueStatic] (val x: Self) extends AnyVal {
       
       inline def setHttp(value: Http_): Self = StObject.set(x, "http", value.asInstanceOf[js.Any])
       

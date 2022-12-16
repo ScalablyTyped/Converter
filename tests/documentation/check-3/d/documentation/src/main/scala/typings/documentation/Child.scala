@@ -17,7 +17,8 @@ object Child {
     __obj.asInstanceOf[Child[T1, T2]]
   }
   
-  extension [Self <: Child[?, ?], T1, T2](x: Self & (Child[T1, T2])) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: Child[?, ?], T1, T2] (val x: Self & (Child[T1, T2])) extends AnyVal {
     
     inline def setT2(value: T2): Self = StObject.set(x, "t2", value.asInstanceOf[js.Any])
     

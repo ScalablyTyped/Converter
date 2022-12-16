@@ -8,7 +8,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 trait Promise[T] extends StObject
 object Promise {
   
-  extension [T](promise: Promise[T]) {
+  @scala.inline
+  implicit open class PromiseOps[T] (val promise: Promise[T]) extends AnyVal {
     
     def toFuture: Future[T] = toPromise.toFuture
     

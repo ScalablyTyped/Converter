@@ -31,7 +31,8 @@ object emitterMixinMod {
       __obj.asInstanceOf[EmitterInterface]
     }
     
-    extension [Self <: EmitterInterface](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: EmitterInterface] (val x: Self) extends AnyVal {
       
       inline def setOn(value: (Any, Any) => Any): Self = StObject.set(x, "on", js.Any.fromFunction2(value))
     }

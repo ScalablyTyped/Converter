@@ -28,7 +28,8 @@ object fpMod extends Shortcut {
       __obj.asInstanceOf[LoDashFp]
     }
     
-    extension [Self <: LoDashFp](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: LoDashFp] (val x: Self) extends AnyVal {
       
       inline def setCurry(value: Curry): Self = StObject.set(x, "curry", value.asInstanceOf[js.Any])
     }

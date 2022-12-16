@@ -29,7 +29,8 @@ object transitionGroupMod {
       __obj.asInstanceOf[ComponentTransitionGroupProps[T]]
     }
     
-    extension [Self <: ComponentTransitionGroupProps[?], T /* <: ReactType[Any] */](x: Self & ComponentTransitionGroupProps[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ComponentTransitionGroupProps[?], T /* <: ReactType[Any] */] (val x: Self & ComponentTransitionGroupProps[T]) extends AnyVal {
       
       inline def setComponent(value: T): Self = StObject.set(x, "component", value.asInstanceOf[js.Any])
     }
@@ -46,7 +47,8 @@ object transitionGroupMod {
       __obj.asInstanceOf[IntrinsicTransitionGroupProps[T]]
     }
     
-    extension [Self <: IntrinsicTransitionGroupProps[?], T /* <: abbr | animate */](x: Self & IntrinsicTransitionGroupProps[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: IntrinsicTransitionGroupProps[?], T /* <: abbr | animate */] (val x: Self & IntrinsicTransitionGroupProps[T]) extends AnyVal {
       
       inline def setComponent(value: T): Self = StObject.set(x, "component", value.asInstanceOf[js.Any])
       

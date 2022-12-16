@@ -24,7 +24,8 @@ object MaterialUI {
         __obj.asInstanceOf[BottomNavigationItemProps]
       }
       
-      extension [Self <: BottomNavigationItemProps](x: Self) {
+      @scala.inline
+      implicit open class MutableBuilder[Self <: BottomNavigationItemProps] (val x: Self) extends AnyVal {
         
         inline def setChildren(value: Double): Self = StObject.set(x, "children", value.asInstanceOf[js.Any])
         
@@ -48,7 +49,8 @@ object MaterialUI {
         __obj.asInstanceOf[MuiTheme]
       }
       
-      extension [Self <: MuiTheme](x: Self) {
+      @scala.inline
+      implicit open class MutableBuilder[Self <: MuiTheme] (val x: Self) extends AnyVal {
         
         inline def setSpacing(value: Any): Self = StObject.set(x, "spacing", value.asInstanceOf[js.Any])
         

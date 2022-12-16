@@ -19,7 +19,8 @@ object ViewabilityConfigCallbackPair {
     __obj.asInstanceOf[ViewabilityConfigCallbackPair]
   }
   
-  extension [Self <: ViewabilityConfigCallbackPair](x: Self) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: ViewabilityConfigCallbackPair] (val x: Self) extends AnyVal {
     
     inline def setOnViewableItemsChanged(value: /* info */ Changed => Callback): Self = StObject.set(x, "onViewableItemsChanged", js.Any.fromFunction1((t0: /* info */ Changed) => value(t0).runNow()))
     

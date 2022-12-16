@@ -106,7 +106,8 @@ object DeprecatedLifecycle {
     __obj.asInstanceOf[DeprecatedLifecycle[P, S]]
   }
   
-  extension [Self <: DeprecatedLifecycle[?, ?], P, S](x: Self & (DeprecatedLifecycle[P, S])) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: DeprecatedLifecycle[?, ?], P, S] (val x: Self & (DeprecatedLifecycle[P, S])) extends AnyVal {
     
     inline def setComponentWillMount(value: Callback): Self = StObject.set(x, "componentWillMount", value.toJsFn)
     

@@ -108,7 +108,8 @@ object mod extends Shortcut {
       __obj.asInstanceOf[ChartData]
     }
     
-    extension [Self <: ChartData](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ChartData] (val x: Self) extends AnyVal {
       
       inline def setLabels(value: js.Array[String | js.Array[String]]): Self = StObject.set(x, "labels", value.asInstanceOf[js.Any])
       
@@ -129,7 +130,8 @@ object mod extends Shortcut {
       __obj.asInstanceOf[ChartFontOptions]
     }
     
-    extension [Self <: ChartFontOptions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ChartFontOptions] (val x: Self) extends AnyVal {
       
       inline def setFoo(value: Boolean): Self = StObject.set(x, "foo", value.asInstanceOf[js.Any])
     }
@@ -149,7 +151,8 @@ object mod extends Shortcut {
       __obj.asInstanceOf[ChartOptions]
     }
     
-    extension [Self <: ChartOptions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ChartOptions] (val x: Self) extends AnyVal {
       
       inline def setPlugins(value: StringDictionary[Any]): Self = StObject.set(x, "plugins", value.asInstanceOf[js.Any])
       

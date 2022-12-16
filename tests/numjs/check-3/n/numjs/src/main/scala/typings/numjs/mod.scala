@@ -27,7 +27,8 @@ object mod {
       __obj.asInstanceOf[NdArray[T]]
     }
     
-    extension [Self <: NdArray[?], T](x: Self & NdArray[T]) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: NdArray[?], T] (val x: Self & NdArray[T]) extends AnyVal {
       
       inline def setNdim(value: Double): Self = StObject.set(x, "ndim", value.asInstanceOf[js.Any])
       

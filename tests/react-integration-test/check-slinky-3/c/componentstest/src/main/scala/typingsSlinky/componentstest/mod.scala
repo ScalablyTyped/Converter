@@ -49,7 +49,8 @@ object mod {
       __obj.asInstanceOf[A]
     }
     
-    extension [Self <: A](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: A] (val x: Self) extends AnyVal {
       
       inline def setACallback(value: () => Double): Self = StObject.set(x, "aCallback", js.Any.fromFunction0(value))
       
@@ -72,7 +73,8 @@ object mod {
       __obj.asInstanceOf[B]
     }
     
-    extension [Self <: B](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: B] (val x: Self) extends AnyVal {
       
       inline def setBCallback(value: () => String): Self = StObject.set(x, "bCallback", js.Any.fromFunction0(value))
       
@@ -99,7 +101,8 @@ object mod {
       __obj.asInstanceOf[CardGridProps]
     }
     
-    extension [Self <: CardGridProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: CardGridProps] (val x: Self) extends AnyVal {
       
       inline def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
       
@@ -141,7 +144,8 @@ object mod {
       __obj.asInstanceOf[CardProps]
     }
     
-    extension [Self <: CardProps](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: CardProps] (val x: Self) extends AnyVal {
       
       inline def setOnClick(value: SyntheticMouseEvent[HTMLDivElement] => Unit): Self = StObject.set(x, "onClick", js.Any.fromFunction1(value))
       

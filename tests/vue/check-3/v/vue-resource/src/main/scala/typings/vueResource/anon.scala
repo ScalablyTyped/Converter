@@ -98,7 +98,8 @@ object anon {
       __obj.asInstanceOf[HttpOptionsrootstring]
     }
     
-    extension [Self <: HttpOptionsrootstring](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: HttpOptionsrootstring] (val x: Self) extends AnyVal {
       
       inline def setBefore(value: /* request */ Any => Any): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
       
@@ -155,7 +156,8 @@ object anon {
       __obj.asInstanceOf[Method]
     }
     
-    extension [Self <: Method](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Method] (val x: Self) extends AnyVal {
       
       inline def setMethod(value: String): Self = StObject.set(x, "method", value.asInstanceOf[js.Any])
     }
@@ -193,7 +195,8 @@ object anon {
       __obj.asInstanceOf[headersHttpHeadersundefin]
     }
     
-    extension [Self <: headersHttpHeadersundefin](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: headersHttpHeadersundefin] (val x: Self) extends AnyVal {
       
       inline def setBefore(value: /* request */ Any => Any): Self = StObject.set(x, "before", js.Any.fromFunction1(value))
       

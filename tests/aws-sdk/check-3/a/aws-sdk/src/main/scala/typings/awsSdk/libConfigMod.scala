@@ -47,7 +47,8 @@ object libConfigMod {
       __obj.asInstanceOf[APIVersions]
     }
     
-    extension [Self <: APIVersions](x: Self) {
+    @scala.inline
+    implicit open class MutableBuilder[Self <: APIVersions] (val x: Self) extends AnyVal {
       
       inline def setApiVersion(value: latest | String): Self = StObject.set(x, "apiVersion", value.asInstanceOf[js.Any])
       

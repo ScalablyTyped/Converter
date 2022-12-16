@@ -38,7 +38,8 @@ object Queue {
     __obj.asInstanceOf[Queue[S, T]]
   }
   
-  extension [Self <: Queue[?, ?], S, T](x: Self & (Queue[S, T])) {
+  @scala.inline
+  implicit open class MutableBuilder[Self <: Queue[?, ?], S, T] (val x: Self & (Queue[S, T])) extends AnyVal {
     
     inline def setEmpty(value: Boolean): Self = StObject.set(x, "empty", value.asInstanceOf[js.Any])
     
