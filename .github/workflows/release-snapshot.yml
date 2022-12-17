@@ -4,7 +4,7 @@
 name: Release snapshot
 on:
   push:
-    branches: [ 'master' ]
+    branches: [ 'master', 'mui5-support' ]
 
 jobs:
   release-snapshot:
@@ -20,3 +20,8 @@ jobs:
 
       - name: publish snapshot
         run: sbt ci-release
+        env:
+          PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+          PGP_SECRET: ${{ secrets.PGP_SECRET }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
