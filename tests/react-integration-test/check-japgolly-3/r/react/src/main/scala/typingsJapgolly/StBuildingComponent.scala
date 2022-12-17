@@ -16,10 +16,6 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 trait StBuildingComponent[R <: js.Object] extends Any {
   
-  inline def apply(children: PropsChildren): this.type = {
-    args.push(children.raw)
-    this
-  }
   inline def apply(mods: TagMod*): this.type = {
     mods.foreach((m: TagMod) => applyTagMod(m))
     this
@@ -44,6 +40,11 @@ trait StBuildingComponent[R <: js.Object] extends Any {
   
   /* You typically shouldnt call this yourself, but it can be useful if you're for instance mapping a sequence and you need types to infer properly */
   inline def build: VdomElement = make(this)
+  
+  inline def children(children: PropsChildren): this.type = {
+    args.push(children.raw)
+    this
+  }
   
   inline def set(key: String, value: Any): this.type = {
     args(1).asInstanceOf[js.Dynamic].updateDynamic(key)(value.asInstanceOf[js.Any])

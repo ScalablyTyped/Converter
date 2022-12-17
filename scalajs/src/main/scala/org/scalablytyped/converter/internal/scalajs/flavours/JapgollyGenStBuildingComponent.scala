@@ -327,17 +327,18 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
           Ref(Name.THIS),
         )
 
+      val name = Name("children")
       MethodTree(
         annotations = IArray(Annotation.Inline),
         level       = ProtectionLevel.Public,
-        name        = Name.APPLY,
+        name        = name,
         tparams     = Empty,
         params      = IArray(IArray(childrenParam)),
         impl,
         resultType = TypeRef(QualifiedName.THIS),
         isOverride = false,
         comments   = NoComments,
-        codePath   = builderCp + Name.APPLY,
+        codePath   = builderCp + name,
         isImplicit = false,
       )
     }
