@@ -36,5 +36,7 @@ object ContextMenuTrigger {
     inline def renderTag(value: ReactType[Any]): this.type = set("renderTag", value.asInstanceOf[js.Any])
   }
   
+  type Props = ContextMenuTriggerProps
+  
   def withProps(p: ContextMenuTriggerProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

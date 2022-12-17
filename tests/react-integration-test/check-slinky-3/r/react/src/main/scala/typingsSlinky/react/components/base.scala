@@ -418,6 +418,8 @@ object base {
     inline def vocab(value: String): this.type = set("vocab", value.asInstanceOf[js.Any])
   }
   
+  type Props = DetailedHTMLProps[BaseHTMLAttributes[HTMLBaseElement], HTMLBaseElement]
+  
   val component: String = "base"
   
   implicit def make(companion: base.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()

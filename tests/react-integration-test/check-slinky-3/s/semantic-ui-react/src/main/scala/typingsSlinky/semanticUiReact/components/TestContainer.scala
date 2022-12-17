@@ -51,5 +51,7 @@ object TestContainer {
     inline def textAlign(value: SemanticTEXTALIGNMENTS): this.type = set("textAlign", value.asInstanceOf[js.Any])
   }
   
+  type Props = TestContainerProps
+  
   def withProps(p: TestContainerProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

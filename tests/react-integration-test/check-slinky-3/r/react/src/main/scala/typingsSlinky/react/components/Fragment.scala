@@ -13,6 +13,8 @@ object Fragment {
   @js.native
   val component: js.Object = js.native
   
+  type Props = Children
+  
   implicit def make(companion: Fragment.type): Default[tag.type, js.Object] = new Default[tag.type, js.Object](js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: Children): Default[tag.type, js.Object] = new Default[tag.type, js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))

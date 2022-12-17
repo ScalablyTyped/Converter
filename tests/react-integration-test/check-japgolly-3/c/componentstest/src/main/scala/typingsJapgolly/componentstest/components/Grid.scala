@@ -11,6 +11,8 @@ object Grid {
   @js.native
   val component: js.Object = js.native
   
+  type Props = CardGridProps
+  
   implicit def make(companion: Grid.type): SharedBuilder_CardGridProps2094947949 = new SharedBuilder_CardGridProps2094947949(js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: CardGridProps): SharedBuilder_CardGridProps2094947949 = new SharedBuilder_CardGridProps2094947949(js.Array(this.component, p.asInstanceOf[js.Any]))

@@ -25,6 +25,8 @@ object TransitionGroup {
     @js.native
     val component: js.Object = js.native
     
+    type Props = ComponentTransitionGroupProps[Any] & ChildFactory
+    
     def withProps(p: ComponentTransitionGroupProps[Any] & ChildFactory): Default[^] = new Default[^](js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
@@ -39,6 +41,8 @@ object TransitionGroup {
     @JSImport("react-transition-group/TransitionGroup", JSImport.Namespace)
     @js.native
     val component: js.Object = js.native
+    
+    type Props = IntrinsicTransitionGroupProps[abbr] & (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)
     
     implicit def make(companion: IntrinsicTransitionGroupPropsAny.type): Default[^] = new Default[^](js.Array(this.component, js.Dictionary.empty))()
     

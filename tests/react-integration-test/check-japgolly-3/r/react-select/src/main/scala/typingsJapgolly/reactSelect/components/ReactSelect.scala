@@ -26,6 +26,8 @@ object ReactSelect {
     inline def addLabelText(value: String): this.type = set("addLabelText", value.asInstanceOf[js.Any])
   }
   
+  type Props[TValue] = ReactSelectProps[TValue]
+  
   implicit def make[TValue](companion: ReactSelect.type): Builder[TValue] = new Builder[TValue](js.Array(this.component, js.Dictionary.empty))()
   
   def withProps[TValue](p: ReactSelectProps[TValue]): Builder[TValue] = new Builder[TValue](js.Array(this.component, p.asInstanceOf[js.Any]))

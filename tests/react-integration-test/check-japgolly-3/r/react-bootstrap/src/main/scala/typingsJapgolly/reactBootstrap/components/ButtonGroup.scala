@@ -736,6 +736,8 @@ object ButtonGroup {
     inline def wrap(value: String): this.type = set("wrap", value.asInstanceOf[js.Any])
   }
   
+  type Props = ButtonGroupProps
+  
   implicit def make(companion: ButtonGroup.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: ButtonGroupProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))

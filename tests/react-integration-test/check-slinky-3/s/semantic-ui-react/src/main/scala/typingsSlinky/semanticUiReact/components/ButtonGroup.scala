@@ -11,6 +11,8 @@ object ButtonGroup {
   @js.native
   val component: js.Object = js.native
   
+  type Props = ButtonGroupProps
+  
   implicit def make(companion: ButtonGroup.type): SharedBuilder_ButtonGroupProps1675589688 = new SharedBuilder_ButtonGroupProps1675589688(js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: ButtonGroupProps): SharedBuilder_ButtonGroupProps1675589688 = new SharedBuilder_ButtonGroupProps1675589688(js.Array(this.component, p.asInstanceOf[js.Any]))

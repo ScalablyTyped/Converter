@@ -434,6 +434,8 @@ object audio {
     inline def vocab(value: String): this.type = set("vocab", value.asInstanceOf[js.Any])
   }
   
+  type Props = DetailedHTMLProps[AudioHTMLAttributes[HTMLAudioElement], HTMLAudioElement]
+  
   val component: String = "audio"
   
   implicit def make(companion: audio.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()

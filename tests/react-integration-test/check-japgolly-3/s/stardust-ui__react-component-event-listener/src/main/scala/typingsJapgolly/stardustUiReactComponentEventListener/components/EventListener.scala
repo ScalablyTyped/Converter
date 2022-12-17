@@ -35,5 +35,7 @@ object EventListener {
     inline def capture(value: Boolean): this.type = set("capture", value.asInstanceOf[js.Any])
   }
   
+  type Props[T /* <: EventTypes */] = EventListenerOptions[T]
+  
   def withProps[T /* <: EventTypes */](p: EventListenerOptions[T]): Builder[T] = new Builder[T](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

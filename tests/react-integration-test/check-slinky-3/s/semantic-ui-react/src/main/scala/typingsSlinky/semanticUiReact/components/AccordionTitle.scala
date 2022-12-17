@@ -12,6 +12,8 @@ object AccordionTitle {
   @js.native
   val component: js.Object = js.native
   
+  type Props = AccordionTitleProps
+  
   implicit def make(companion: AccordionTitle.type): SharedBuilder_AccordionTitleProps_420803499[default] = new SharedBuilder_AccordionTitleProps_420803499[default](js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: AccordionTitleProps): SharedBuilder_AccordionTitleProps_420803499[default] = new SharedBuilder_AccordionTitleProps_420803499[default](js.Array(this.component, p.asInstanceOf[js.Any]))

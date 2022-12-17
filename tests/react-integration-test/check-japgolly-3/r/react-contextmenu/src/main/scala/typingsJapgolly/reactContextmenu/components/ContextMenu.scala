@@ -51,5 +51,7 @@ object ContextMenu {
     inline def rtl(value: Boolean): this.type = set("rtl", value.asInstanceOf[js.Any])
   }
   
+  type Props = ContextMenuProps
+  
   def withProps(p: ContextMenuProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

@@ -10,6 +10,8 @@ private[internal] object ActionAccessibility {
   @js.native
   val component: js.Object = js.native
   
+  type Props = js.Object
+  
   implicit def make(companion: ActionAccessibility.type): SharedBuilder_Object_159303587[mylib.internal.baz.materialUi.svgIconsActionAccessibilityMod.ActionAccessibility] = new SharedBuilder_Object_159303587[mylib.internal.baz.materialUi.svgIconsActionAccessibilityMod.ActionAccessibility](js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: js.Object): SharedBuilder_Object_159303587[mylib.internal.baz.materialUi.svgIconsActionAccessibilityMod.ActionAccessibility] = new SharedBuilder_Object_159303587[mylib.internal.baz.materialUi.svgIconsActionAccessibilityMod.ActionAccessibility](js.Array(this.component, p.asInstanceOf[js.Any]))

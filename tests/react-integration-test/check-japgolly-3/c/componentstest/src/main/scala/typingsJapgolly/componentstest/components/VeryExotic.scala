@@ -14,6 +14,8 @@ object VeryExotic {
     @js.native
     val component: js.Object = js.native
     
+    type Props = RefAttributes[HTMLDivElement]
+    
     implicit def make(companion: Type.type): SharedBuilder_RefAttributes_1542162006[HTMLDivElement] = new SharedBuilder_RefAttributes_1542162006[HTMLDivElement](js.Array(this.component, js.Dictionary.empty))()
     
     def withProps(p: RefAttributes[HTMLDivElement]): SharedBuilder_RefAttributes_1542162006[HTMLDivElement] = new SharedBuilder_RefAttributes_1542162006[HTMLDivElement](js.Array(this.component, p.asInstanceOf[js.Any]))
@@ -22,6 +24,8 @@ object VeryExotic {
   @JSImport("componentstest", "VeryExotic")
   @js.native
   val component: js.Object = js.native
+  
+  type Props = RefAttributes[HTMLDivElement]
   
   implicit def make(companion: VeryExotic.type): SharedBuilder_RefAttributes_1542162006[HTMLDivElement] = new SharedBuilder_RefAttributes_1542162006[HTMLDivElement](js.Array(this.component, js.Dictionary.empty))()
   

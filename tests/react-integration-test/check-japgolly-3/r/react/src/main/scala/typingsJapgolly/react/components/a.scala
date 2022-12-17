@@ -431,6 +431,8 @@ object a {
     inline def vocab(value: String): this.type = set("vocab", value.asInstanceOf[js.Any])
   }
   
+  type Props = DetailedHTMLProps[AnchorHTMLAttributes[HTMLAnchorElement], HTMLAnchorElement]
+  
   val component: String = "a"
   
   implicit def make(companion: a.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()

@@ -407,6 +407,7 @@ class JapgollyGenComponents(
     val builder = genBuilder(componentCp, c)
 
     val members = IArray.fromOptions(
+      Some(genPropsAlias(propsRef, c.tparams, componentCp)),
       Some(genImportModule(c, componentCp)),
       builder.include,
       Some(genPropsMethod(Name("withProps"), componentCp, propsRef, c.tparams, builder.ref)),
@@ -425,6 +426,18 @@ class JapgollyGenComponents(
       comments    = Minimization.KeepMarker,
       codePath    = componentCp,
       isOverride  = false,
+    )
+  }
+
+  def genPropsAlias(propsRef: PropsRef, tparams: IArray[TypeParamTree], ownerCp: QualifiedName): TypeAliasTree = {
+    val Props = Name("Props")
+    TypeAliasTree(
+      Props,
+      ProtectionLevel.Public,
+      tparams,
+      alias = propsRef.ref,
+      NoComments,
+      ownerCp + Props,
     )
   }
 

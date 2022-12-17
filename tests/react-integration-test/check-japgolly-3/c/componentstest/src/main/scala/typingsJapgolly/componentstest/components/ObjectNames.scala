@@ -28,5 +28,7 @@ object ObjectNames {
     inline def ne_(value: /* other */ js.Object => Boolean): this.type = set("ne", js.Any.fromFunction1(value))
   }
   
+  type Props = Equals
+  
   def withProps(p: Equals): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

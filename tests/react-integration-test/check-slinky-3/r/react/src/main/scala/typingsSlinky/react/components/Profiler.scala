@@ -23,5 +23,7 @@ object Profiler {
   @js.native
   val component: js.Object = js.native
   
+  type Props = ProfilerProps
+  
   def withProps(p: ProfilerProps): Default[tag.type, js.Object] = new Default[tag.type, js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

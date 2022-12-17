@@ -25,6 +25,8 @@ object Suspense {
     inline def fallbackNull: this.type = set("fallback", null)
   }
   
+  type Props = SuspenseProps
+  
   implicit def make(companion: Suspense.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: SuspenseProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))

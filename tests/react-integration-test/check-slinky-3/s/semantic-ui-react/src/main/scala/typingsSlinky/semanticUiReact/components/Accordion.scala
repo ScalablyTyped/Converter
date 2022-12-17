@@ -24,6 +24,8 @@ object Accordion {
     @js.native
     val component: js.Object = js.native
     
+    type Props = AccordionAccordionProps
+    
     implicit def make(companion: Accordion.type): SharedBuilder_AccordionAccordionProps_2090513651[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Accordion] = new SharedBuilder_AccordionAccordionProps_2090513651[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Accordion](js.Array(this.component, js.Dictionary.empty))()
     
     def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps_2090513651[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Accordion] = new SharedBuilder_AccordionAccordionProps_2090513651[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Accordion](js.Array(this.component, p.asInstanceOf[js.Any]))
@@ -35,6 +37,8 @@ object Accordion {
     @js.native
     val component: js.Object = js.native
     
+    type Props = AccordionContentProps
+    
     implicit def make(companion: Content.type): SharedBuilder_AccordionContentProps_1030703804 = new SharedBuilder_AccordionContentProps_1030703804(js.Array(this.component, js.Dictionary.empty))()
     
     def withProps(p: AccordionContentProps): SharedBuilder_AccordionContentProps_1030703804 = new SharedBuilder_AccordionContentProps_1030703804(js.Array(this.component, p.asInstanceOf[js.Any]))
@@ -45,6 +49,8 @@ object Accordion {
     @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", "default.Title")
     @js.native
     val component: js.Object = js.native
+    
+    type Props = AccordionTitleProps
     
     implicit def make(companion: Title.type): SharedBuilder_AccordionTitleProps_420803499[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Title] = new SharedBuilder_AccordionTitleProps_420803499[typingsSlinky.semanticUiReact.distCommonjsModulesAccordionMod.default.Title](js.Array(this.component, js.Dictionary.empty))()
     
@@ -86,6 +92,8 @@ object Accordion {
     
     inline def styled(value: Boolean): this.type = set("styled", value.asInstanceOf[js.Any])
   }
+  
+  type Props = AccordionProps
   
   implicit def make(companion: Accordion.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   

@@ -32,6 +32,8 @@ object TransitionGroup {
       inline def childFactory(value: /* child */ ReactElement => ReactElement): this.type = set("childFactory", js.Any.fromFunction1(value))
     }
     
+    type Props = ComponentTransitionGroupProps[Any] & ChildFactory
+    
     def withProps(p: ComponentTransitionGroupProps[Any] & ChildFactory): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
@@ -48,6 +50,8 @@ object TransitionGroup {
       
       inline def component(value: abbr): this.type = set("component", value.asInstanceOf[js.Any])
     }
+    
+    type Props = IntrinsicTransitionGroupProps[abbr] & (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)
     
     implicit def make(companion: IntrinsicTransitionGroupPropsAny.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
     

@@ -11,6 +11,8 @@ object ButtonOr {
   @js.native
   val component: js.Object = js.native
   
+  type Props = ButtonOrProps
+  
   implicit def make(companion: ButtonOr.type): SharedBuilder_ButtonOrProps1040544165 = new SharedBuilder_ButtonOrProps1040544165(js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: ButtonOrProps): SharedBuilder_ButtonOrProps1040544165 = new SharedBuilder_ButtonOrProps1040544165(js.Array(this.component, p.asInstanceOf[js.Any]))

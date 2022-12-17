@@ -11,6 +11,8 @@ object AccordionContent {
   @js.native
   val component: js.Object = js.native
   
+  type Props = AccordionContentProps
+  
   implicit def make(companion: AccordionContent.type): SharedBuilder_AccordionContentProps_1030703804 = new SharedBuilder_AccordionContentProps_1030703804(js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: AccordionContentProps): SharedBuilder_AccordionContentProps_1030703804 = new SharedBuilder_AccordionContentProps_1030703804(js.Array(this.component, p.asInstanceOf[js.Any]))

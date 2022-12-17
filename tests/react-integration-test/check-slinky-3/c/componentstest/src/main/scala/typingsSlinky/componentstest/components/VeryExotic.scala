@@ -14,6 +14,8 @@ object VeryExotic {
   @js.native
   val component: js.Object = js.native
   
+  type Props = RefAttributes[HTMLDivElement]
+  
   implicit def make(companion: VeryExotic.type): Default[tag.type, HTMLDivElement] = new Default[tag.type, HTMLDivElement](js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: RefAttributes[HTMLDivElement]): Default[tag.type, HTMLDivElement] = new Default[tag.type, HTMLDivElement](js.Array(this.component, p.asInstanceOf[js.Any]))

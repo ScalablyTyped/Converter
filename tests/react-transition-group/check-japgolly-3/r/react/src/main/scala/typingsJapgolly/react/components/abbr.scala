@@ -18,6 +18,8 @@ object abbr {
     new Default[HTMLElement](js.Array(this.component, __props.asInstanceOf[DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]]))
   }
   
+  type Props = DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
+  
   val component: String = "abbr"
   
   implicit def make(companion: abbr.type): Default[HTMLElement] = new Default[HTMLElement](js.Array(this.component, js.Dictionary.empty))()

@@ -53,5 +53,7 @@ object SubMenu {
     inline def rtl(value: Boolean): this.type = set("rtl", value.asInstanceOf[js.Any])
   }
   
+  type Props = SubMenuProps
+  
   def withProps(p: SubMenuProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

@@ -646,6 +646,8 @@ object ToggleButtonGroup {
       inline def wrap(value: String): this.type = set("wrap", value.asInstanceOf[js.Any])
     }
     
+    type Props = CheckboxProps & BaseProps & ButtonGroupProps & HTMLProps[Any]
+    
     def withProps(p: CheckboxProps & BaseProps & ButtonGroupProps & HTMLProps[Any]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
@@ -1224,6 +1226,8 @@ object ToggleButtonGroup {
       
       inline def wrap(value: String): this.type = set("wrap", value.asInstanceOf[js.Any])
     }
+    
+    type Props = RadioProps & BaseProps & ButtonGroupProps & HTMLProps[Any]
     
     def withProps(p: RadioProps & BaseProps & ButtonGroupProps & HTMLProps[Any]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   }

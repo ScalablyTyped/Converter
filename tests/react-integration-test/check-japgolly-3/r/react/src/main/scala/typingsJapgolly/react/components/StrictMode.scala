@@ -12,6 +12,8 @@ object StrictMode {
   @js.native
   val component: js.Object = js.native
   
+  type Props = Children
+  
   implicit def make(companion: StrictMode.type): Default[js.Object] = new Default[js.Object](js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: Children): Default[js.Object] = new Default[js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))

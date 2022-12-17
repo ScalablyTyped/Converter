@@ -11,6 +11,8 @@ object ButtonContent {
   @js.native
   val component: js.Object = js.native
   
+  type Props = ButtonContentProps
+  
   implicit def make(companion: ButtonContent.type): SharedBuilder_ButtonContentProps_207125023 = new SharedBuilder_ButtonContentProps_207125023(js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps_207125023 = new SharedBuilder_ButtonContentProps_207125023(js.Array(this.component, p.asInstanceOf[js.Any]))

@@ -18,6 +18,8 @@ object Card {
     @js.native
     val component: js.Object = js.native
     
+    type Props = CardGridProps
+    
     implicit def make(companion: Grid2.type): SharedBuilder_CardGridProps_2000043299 = new SharedBuilder_CardGridProps_2000043299(js.Array(this.component, js.Dictionary.empty))()
     
     def withProps(p: CardGridProps): SharedBuilder_CardGridProps_2000043299 = new SharedBuilder_CardGridProps_2000043299(js.Array(this.component, p.asInstanceOf[js.Any]))
@@ -36,6 +38,8 @@ object Card {
     
     inline def prefixCls(value: String): this.type = set("prefixCls", value.asInstanceOf[js.Any])
   }
+  
+  type Props = CardProps
   
   implicit def make(companion: Card.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   

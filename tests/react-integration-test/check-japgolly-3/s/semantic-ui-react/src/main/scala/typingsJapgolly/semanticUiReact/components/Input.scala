@@ -565,6 +565,8 @@ object Input {
     inline def width(value: Double | String): this.type = set("width", value.asInstanceOf[js.Any])
   }
   
+  type Props = StrictInputProps
+  
   implicit def make(companion: Input.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: StrictInputProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))

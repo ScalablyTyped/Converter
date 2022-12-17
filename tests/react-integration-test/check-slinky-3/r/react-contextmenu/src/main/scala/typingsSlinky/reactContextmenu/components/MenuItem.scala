@@ -51,6 +51,8 @@ object MenuItem {
     inline def preventClose(value: Boolean): this.type = set("preventClose", value.asInstanceOf[js.Any])
   }
   
+  type Props = MenuItemProps
+  
   implicit def make(companion: MenuItem.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: MenuItemProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))

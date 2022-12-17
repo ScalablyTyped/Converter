@@ -27,5 +27,7 @@ private[internal] object BottomNavigationItem {
     inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
   }
   
+  type Props = BottomNavigationItemProps
+  
   def withProps(p: BottomNavigationItemProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

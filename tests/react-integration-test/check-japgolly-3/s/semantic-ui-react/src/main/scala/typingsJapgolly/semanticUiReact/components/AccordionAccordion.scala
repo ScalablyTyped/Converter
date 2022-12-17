@@ -12,6 +12,8 @@ object AccordionAccordion {
   @js.native
   val component: js.Object = js.native
   
+  type Props = AccordionAccordionProps
+  
   implicit def make(companion: AccordionAccordion.type): SharedBuilder_AccordionAccordionProps600409291[default] = new SharedBuilder_AccordionAccordionProps600409291[default](js.Array(this.component, js.Dictionary.empty))()
   
   def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps600409291[default] = new SharedBuilder_AccordionAccordionProps600409291[default](js.Array(this.component, p.asInstanceOf[js.Any]))

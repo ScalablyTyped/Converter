@@ -99,6 +99,8 @@ object Button {
     @js.native
     val component: js.Object = js.native
     
+    type Props = ButtonContentProps
+    
     implicit def make(companion: Content.type): SharedBuilder_ButtonContentProps_207125023 = new SharedBuilder_ButtonContentProps_207125023(js.Array(this.component, js.Dictionary.empty))()
     
     def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps_207125023 = new SharedBuilder_ButtonContentProps_207125023(js.Array(this.component, p.asInstanceOf[js.Any]))
@@ -110,6 +112,8 @@ object Button {
     @js.native
     val component: js.Object = js.native
     
+    type Props = ButtonGroupProps
+    
     implicit def make(companion: Group.type): SharedBuilder_ButtonGroupProps1197812445 = new SharedBuilder_ButtonGroupProps1197812445(js.Array(this.component, js.Dictionary.empty))()
     
     def withProps(p: ButtonGroupProps): SharedBuilder_ButtonGroupProps1197812445 = new SharedBuilder_ButtonGroupProps1197812445(js.Array(this.component, p.asInstanceOf[js.Any]))
@@ -120,6 +124,8 @@ object Button {
     @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", "default.Or")
     @js.native
     val component: js.Object = js.native
+    
+    type Props = ButtonOrProps
     
     implicit def make(companion: Or.type): SharedBuilder_ButtonOrProps_992167067 = new SharedBuilder_ButtonOrProps_992167067(js.Array(this.component, js.Dictionary.empty))()
     
@@ -583,6 +589,8 @@ object Button {
     
     inline def vocab(value: String): this.type = set("vocab", value.asInstanceOf[js.Any])
   }
+  
+  type Props = StrictButtonProps
   
   implicit def make(companion: Button.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   

@@ -20,6 +20,8 @@ object Component {
     @js.native
     val component: js.Object = js.native
     
+    type Props = typingsJapgolly.componentstest.mod.A
+    
     def withProps(p: typingsJapgolly.componentstest.mod.A): Default[js.Object] = new Default[js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
@@ -41,6 +43,8 @@ object Component {
       
       inline def bCallback(value: CallbackTo[String]): this.type = set("bCallback", value.toJsFn)
     }
+    
+    type Props = typingsJapgolly.componentstest.mod.B
     
     def withProps(p: typingsJapgolly.componentstest.mod.B): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
