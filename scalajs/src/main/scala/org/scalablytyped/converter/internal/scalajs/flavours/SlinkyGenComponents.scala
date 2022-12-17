@@ -459,7 +459,7 @@ class SlinkyGenComponents(
       props.map {
         case (propsRef, (splitProps, _)) =>
           val href = splitProps.props
-            .collectFirst { case x: Prop.Normal if x.name.value === "href" => "href" }
+            .collectFirst { case x: Prop.Normal if x.name.value === "href" && x.optionality == Optionality.No => "href" }
             .getOrElse("normal")
 
           Name(href) -> propsRef
