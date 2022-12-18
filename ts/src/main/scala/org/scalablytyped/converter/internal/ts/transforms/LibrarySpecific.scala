@@ -141,9 +141,9 @@ object LibrarySpecific {
           ta.copy(alias = TsTypeRef(NoComments, react.ExoticComponent, IArray(TsTypeUnion(propsTypes))))
         case ta @ TsDeclTypeAlias(_, _, TsIdentSimple("IfEquals"), IArray.exactlyFour(_, _, yes, _), _, _) =>
           ta.copy(alias = TsTypeRef(yes.name))
-        case x @ TsDeclTypeAlias(_, _, TsIdentSimple("ComponentsProps"), _, _, _) => x.copy(alias = TsTypeRef.number)
-        case x @ TsDeclTypeAlias(_, _, TsIdentSimple("ComponentsVariants"), _, _, _) => x.copy(alias = TsTypeRef.number)
-        case x @ TsDeclInterface(_, _, TsIdentSimple("Components"), _, _, _, _) => x.copy(members = Empty)
+        case x @ TsDeclTypeAlias(_, _, TsIdentSimple("ComponentsProps"), _, _, _)    => x.copy(alias   = TsTypeRef.number)
+        case x @ TsDeclTypeAlias(_, _, TsIdentSimple("ComponentsVariants"), _, _, _) => x.copy(alias   = TsTypeRef.number)
+        case x @ TsDeclInterface(_, _, TsIdentSimple("Components"), _, _, _, _)      => x.copy(members = Empty)
 
         case other => other
       }
@@ -261,8 +261,10 @@ object LibrarySpecific {
 
     override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl =
       x match {
-        case ta@TsDeclTypeAlias(_, _, TsIdentSimple("IfEquals"), IArray.exactlyFour(_, _, yes, _), _, _) =>
+        case ta @ TsDeclTypeAlias(_, _, TsIdentSimple("IfEquals"), IArray.exactlyFour(_, _, yes, _), _, _) =>
           ta.copy(alias = TsTypeRef(yes.name))
+        case x @ TsDeclTypeAlias(_, _, TsIdentSimple("OverridableStringUnion"), IArray.exactlyTwo(one, _), _, _) =>
+          x.copy(alias = TsTypeRef(one.name))
 
         case other => other
       }
