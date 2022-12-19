@@ -93,12 +93,19 @@ class IdentifyReactComponents(
             val IArray.initLast(init, originalChosen) = sorted
 
             val newFound = init
-              .find(other =>
+              .find { other =>
+                val isLegal = other match {
+                  case Component(Right(Annotation.JsImport(module, _, _)), _, _, _, _, _, _) =>
+                    module.split("/").length <= 3 // @mui/material/Tabs
+                  case _ => true
+                }
+                isLegal &&
                 other.propsRef === originalChosen.propsRef &&
-                  other.isGlobal === originalChosen.isGlobal &&
-                  other.componentType === originalChosen.componentType &&
-                  other.nested.length === originalChosen.nested.length,
-              )
+                other.isGlobal === originalChosen.isGlobal &&
+                other.componentType === originalChosen.componentType &&
+                other.nested.length === originalChosen.nested.length
+
+              }
               .getOrElse(originalChosen)
 
             newFound
