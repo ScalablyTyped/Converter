@@ -3,15 +3,15 @@ package internal
 
 import java.io.File
 import java.nio.file.Path
-
 import com.olvind.logging
 import com.olvind.logging.{LogLevel, Logger}
 import io.circe013.{Decoder, Encoder}
-import org.scalablytyped.converter.internal.importer._
-import org.scalablytyped.converter.internal.maps._
+import org.scalablytyped.converter.internal.importer.*
+import org.scalablytyped.converter.internal.maps.*
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import org.scalablytyped.converter.internal.scalajs.{ParentsResolver, _}
-import org.scalablytyped.converter.internal.ts._
+import org.scalablytyped.converter.internal.scalajs.*
+import org.scalablytyped.converter.internal.ts.*
+import os.RelPath
 
 import scala.collection.immutable.{SortedMap, SortedSet}
 
@@ -19,13 +19,14 @@ object ImportTypingsGenSources {
   val NoListener: PhaseListener[LibTsSource] = (_, _, _) => ()
 
   case class Input(
-      fromFolder:       InFolder,
-      targetFolder:     os.Path,
-      converterVersion: String,
-      conversion:       ConversionOptions,
-      wantedLibs:       SortedMap[TsIdentLibrary, String],
-      minimize:         Selection[TsIdentLibrary],
-      minimizeKeep:     IArray[QualifiedName],
+      fromFolder:           InFolder,
+      targetFolder:         os.Path,
+      overrideTargetFolder: Map[TsIdentLibrary, os.Path],
+      converterVersion:     String,
+      conversion:           ConversionOptions,
+      wantedLibs:           SortedMap[TsIdentLibrary, String],
+      minimize:             Selection[TsIdentLibrary],
+      minimizeKeep:         IArray[QualifiedName],
   )
 
   object Input {
@@ -114,39 +115,54 @@ object ImportTypingsGenSources {
           Minimization.findReferences(globalScope, input.minimizeKeep, packagesWithShouldMinimize)
         }
 
-        val outFiles: IArray[(os.Path, String)] = {
+        val outFilesByTargetFolder: IArray[(os.Path, IArray[(os.RelPath, String)])] = {
           IArray.fromTraversable {
-            libs.par.flatMap {
+            libs.toArray.par.map {
               case (source, lib) =>
                 val willMinimize = minimize(source.libName)
                 val minimized =
-                  if (willMinimize) {
-                    Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
-                  } else lib.packageTree
+                  if (willMinimize) Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
+                  else lib.packageTree
 
-                val printed = Printer(
-                  globalScope,
-                  new ParentsResolver,
-                  minimized,
-                  conversion.outputPackage,
-                  conversion.versions.scala,
-                )
+                val files: IArray[(RelPath, String)] =
+                  Printer(
+                    globalScope,
+                    new ParentsResolver,
+                    minimized,
+                    conversion.outputPackage,
+                    conversion.versions.scala,
+                  )
 
-                val outFiles = printed.map {
-                  case (relPath, content) => targetFolder / relPath -> content
-                }
+                val targetFolder     = input.overrideTargetFolder.getOrElse(source.libName, input.targetFolder)
                 val minimizedMessage = if (willMinimize) "minimized " else ""
-                logger.info(
-                  s"Wrote $minimizedMessage${source.libName.value} (${outFiles.length} files) to $targetFolder...",
+                logger.warn(
+                  s"Writing $minimizedMessage${source.libName.value} (${files.length} files) to $targetFolder...",
                 )
-                outFiles.iterator
+                (targetFolder, files)
             }.seq
           }
         }
 
-        files.syncAbs(outFiles, folder = targetFolder, deleteUnknowns = true, soft = true)
+        val allFiles: Iterator[(os.Path, String)] =
+          outFilesByTargetFolder.groupBy { case (targetFolder, _) => targetFolder }.iterator.flatMap {
+            case (targetFolder, sameTargetFolder) =>
+              val absolute: IArray[(os.Path, String)] =
+                sameTargetFolder.flatMap {
+                  case (_, files) => files.map { case (relPath, content) => (targetFolder / relPath, content) }
+                }
 
-        Right(outFiles.map { case (p, _) => p.toIO }.toSet)
+              logger.withContext(targetFolder.toString).warn(s"Syncing ${absolute.length} files")
+
+              files.syncAbs(
+                absolute,
+                folder         = targetFolder,
+                deleteUnknowns = true,
+                soft           = true,
+              )
+              absolute.iterator
+          }
+
+        Right(allFiles.map { case (p, _) => p.toIO }.toSet)
 
       case PhaseRes.Failure(errors) => Left(errors)
       case PhaseRes.Ignore()        => Right(Set.empty)
@@ -177,10 +193,11 @@ object ImportTypingsGenSources {
     println(
       ImportTypingsGenSources(
         input = Input(
-          fromFolder       = InFolder(cacheDir / "npm" / "node_modules"),
-          targetFolder     = files.existing(cacheDir / 'work),
-          converterVersion = BuildInfo.version,
-          conversion       = conversion,
+          fromFolder           = InFolder(cacheDir / "npm" / "node_modules"),
+          targetFolder         = files.existing(cacheDir / 'work),
+          overrideTargetFolder = Map.empty,
+          converterVersion     = BuildInfo.version,
+          conversion           = conversion,
           wantedLibs = SortedMap(
             TsIdentLibrary("typescript") -> "1",
             TsIdentLibrary("csstype") -> "1",

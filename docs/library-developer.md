@@ -109,10 +109,16 @@ free-standing with no dependency on the plugin.
 In this mode the plugin works as a source generator in sbt, and the source code will be placed in
 `target/scala-2.13/src_managed/scalablytyped` (or similar)
  
-- `stSourceGenMode := SourceGenMode.Manual(toDir: File)`
+- `stSourceGenMode := SourceGenMode.Manual(toDir: File, toDirOverrides: Map[String, File] = Map.empty)`
 In this mode the plugin will only run when you run `stImport` manually, and you specify which directory
  the source files will be placed in. Note that the plugin *will delete any other files in this folder*,
 
+You can also optionally provide `toDirOverrides` if you want to split the generated files into multiple source folders.
+Typically, you'll use this to publish multiple projects instead of one. 
+Note that it's your responsibility to split things into projects in such a manner that the dependency graph is maintained.
+For that reason it's likely you'll want to extract leaf nodes in the dependency graph.
+
+The key in the map is the typescript name of a library, for instance `@mui/base` or `typescript`.
 
 ### Compiling all that generated code
 
@@ -187,4 +193,4 @@ If you are only packaging a facade generated from scalablytyped, without any cus
 
 ## Troubleshooting
 
-If you get Stackoverflow errors, make sure that the `-Ymacro-annotations` compiler option is not enabled, while this works fine on application development, it commonly causes issues on library development. 
+If you get Stackoverflow errors from Scala 2, make sure that the `-Ymacro-annotations` compiler option is not enabled, as it commonly causes issues on library development. 

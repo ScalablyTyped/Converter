@@ -2,12 +2,13 @@ package org.scalablytyped.converter
 package plugin
 
 import com.olvind.logging.LogLevel
-import org.scalablytyped.converter.internal._
+import org.scalablytyped.converter.internal.*
 import org.scalablytyped.converter.internal.orphanCodecs.{FileDecoder, FileEncoder}
 import org.scalablytyped.converter.internal.scalajs.{Name, QualifiedName}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
-import sbt.Keys._
-import sbt._
+import os.Path
+import sbt.Keys.*
+import sbt.*
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
 import scala.util.Try
@@ -19,7 +20,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
     sealed trait SourceGenMode
     object SourceGenMode {
       case object ResourceGenerator extends SourceGenMode
-      case class Manual(toDir: File) extends SourceGenMode
+      case class Manual(toDir: File, overrideToDir: Map[String, File] = Map.empty) extends SourceGenMode
     }
 
     val stSourceGenMode = settingKey[SourceGenMode]("Whether to run automatically as source generator or manually")
@@ -51,7 +52,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       Compile / sourceGenerators ++= {
         stSourceGenMode.value match {
           case SourceGenMode.ResourceGenerator => List(stImport.taskValue)
-          case SourceGenMode.Manual(_)         => Nil
+          case SourceGenMode.Manual(_, _)      => Nil
         }
       },
       libraryDependencies ++= {
@@ -76,11 +77,13 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
 
         (Compile / npmUpdate).value
 
-        val toDir = stSourceGenMode.value match {
+        val (toDir, overrideTargetFolder) = stSourceGenMode.value match {
           case SourceGenMode.ResourceGenerator =>
-            os.Path((Compile / sourceManaged).value / "scalablytyped")
-          case SourceGenMode.Manual(toDir) =>
-            os.Path(toDir)
+            (os.Path((Compile / sourceManaged).value / "scalablytyped"), Map.empty[TsIdentLibrary, Path])
+          case SourceGenMode.Manual(toDir, overrideToDir) =>
+            (os.Path(toDir), overrideToDir.map {
+              case (libNameStr, file) => (TsIdentLibrary(libNameStr), os.Path(file))
+            })
         }
 
         val nodeModulesDir = os.Path((Compile / npmUpdate / crossTarget).value / "node_modules")
@@ -89,13 +92,14 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
         val cachedOutputs  = os.Path(streams.value.cacheDirectory / "output.json")
 
         val input = ImportTypingsGenSources.Input(
-          converterVersion = BuildInfo.version,
-          conversion       = conversion,
-          fromFolder       = InFolder(nodeModulesDir),
-          targetFolder     = toDir,
-          wantedLibs       = WantedLibs.setting.value,
-          minimize         = stMinimize.value.map(TsIdentLibrary.apply),
-          minimizeKeep     = minimizeKeep,
+          converterVersion     = BuildInfo.version,
+          conversion           = conversion,
+          fromFolder           = InFolder(nodeModulesDir),
+          targetFolder         = toDir,
+          overrideTargetFolder = overrideTargetFolder,
+          wantedLibs           = WantedLibs.setting.value,
+          minimize             = stMinimize.value.map(TsIdentLibrary.apply),
+          minimizeKeep         = minimizeKeep,
         )
 
         (Try(Json.force[ImportTypingsGenSources.Input](cachedInputs)).toOption, Json.opt[Seq[File]](cachedOutputs)) match {
