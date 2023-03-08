@@ -430,7 +430,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
     val lit:   Parser[TsExpr.Literal] = tsLiteral ^^ TsExpr.Literal
     val ref:   Parser[TsExpr.Ref]     = qualifiedIdent ^^ TsExpr.Ref
-    val call:  Parser[TsExpr.Call]    = ref ~ ("(" ~> upgrade(repsep(expr, ",")) <~ ")") ^^ TsExpr.Call
+    val call:  Parser[TsExpr.Call]    = ref ~ ("(" ~> upgrade(repsep(expr, ",")) <~ ",".? <~ ")") ^^ TsExpr.Call
     val unary: Parser[TsExpr.Unary]   = (operator ~ expr) ^^ TsExpr.Unary
     val array: Parser[TsExpr.ArrayOf] = ("[" ~> expr <~ "]") ^^ TsExpr.ArrayOf
 
