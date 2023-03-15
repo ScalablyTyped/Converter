@@ -80,6 +80,12 @@ final class ParserTests extends AnyFunSuite {
     }
   }
 
+  test("trailing commas") {
+    withTsFile(s"parsertests${File.separator}trailing-commas.d.ts") { content =>
+      parseAs(content, TsParser.parsedTsFile)
+    }
+  }
+
   test("handle nbsp") {
     shouldParseAs("\u00a0var _: string", TsParser.tsDeclVars)(
       IArray(
