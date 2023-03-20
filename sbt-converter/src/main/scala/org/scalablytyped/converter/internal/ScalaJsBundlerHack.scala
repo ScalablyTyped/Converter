@@ -19,7 +19,7 @@ object ScalaJsBundlerHack {
 
   val adaptScalaJSBundlerPackageJson: Def.Setting[_] = {
     Compile / scalaJSBundlerPackageJson := {
-      val deps = (Compile / npmDependencies).value
+      val deps = (Compile / npmDevDependencies).value
       /* Make sure we always include typescript for the stdlib if it wasnt already added */
       val withTypescript: Seq[(String, String)] =
         if (deps.exists { case (lib, _) => lib == "typescript" }) deps
@@ -27,8 +27,8 @@ object ScalaJsBundlerHack {
 
       PackageJsonTasks.writePackageJson(
         (Compile / npmUpdate / crossTarget).value,
+        (Compile / npmDependencies).value,
         withTypescript,
-        (Compile / npmDevDependencies).value,
         (Compile / npmResolutions).value,
         (Compile / additionalNpmConfig).value,
         fullClasspath = Nil, // hack here
