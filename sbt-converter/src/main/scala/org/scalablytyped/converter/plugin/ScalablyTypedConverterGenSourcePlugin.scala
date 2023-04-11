@@ -19,6 +19,8 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
   object autoImport extends GenSourceKeys {
     type SourceGenMode = plugin.SourceGenMode
     val SourceGenMode: plugin.SourceGenMode.type = plugin.SourceGenMode
+    @deprecated(message = "Use stImportSources instead.", since = "1.0.0-beta42")
+    val stImport = stImportSources
   }
 
   override lazy val projectSettings: scala.Seq[Def.Setting[_]] = {
@@ -30,7 +32,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       stSourceGenMode := SourceGenMode.ResourceGenerator,
       Compile / sourceGenerators ++= {
         stSourceGenMode.value match {
-          case SourceGenMode.ResourceGenerator => List(stImportSources.taskValue)
+          case SourceGenMode.ResourceGenerator => List(stImport.taskValue)
           case SourceGenMode.Manual(_, _)      => Nil
         }
       },
@@ -42,7 +44,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       stMinimizeKeep := Nil,
       ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
       ScalaJsBundlerHack.adaptNpmInstallJSResources,
-      stImportSources := {
+      stImport := {
         val stLogger   = WrapSbtLogger.task.value
         val conversion = stConversionOptions.value
 
