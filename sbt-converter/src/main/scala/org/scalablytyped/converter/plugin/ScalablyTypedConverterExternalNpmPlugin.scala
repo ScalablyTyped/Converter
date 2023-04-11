@@ -16,11 +16,7 @@ import scala.concurrent.ExecutionContext
 object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
   private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
-  object autoImport {
-    val stImport       = taskKey[ImportTypings.InOut]("Imports all the bundled npm and generates bindings")
-    val externalNpm    = taskKey[File]("Runs npm and returns the folder with package.json and node_modules")
-    val stPublishCache = taskKey[Unit]("Publish all necessary files to cache")
-  }
+  object autoImport extends ExternalNpmKeys
 
   import ScalablyTypedPluginBase.autoImport._
   import autoImport._

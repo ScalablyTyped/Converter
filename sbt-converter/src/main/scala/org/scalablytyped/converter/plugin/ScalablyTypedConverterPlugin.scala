@@ -16,10 +16,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
 
   private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
-  object autoImport {
-    val stImport       = taskKey[ImportTypings.InOut]("Imports all the bundled npm and generates bindings")
-    val stPublishCache = taskKey[Unit]("Publish all necessary files to cache")
-  }
+  object autoImport extends ConverterKeys
 
   import ScalablyTypedPluginBase.autoImport._
   import autoImport._
