@@ -1,10 +1,9 @@
 package org.scalablytyped.converter.plugin
 
 import _root_.io.circe013.syntax._
-import com.olvind.logging.{Formatter, LogLevel}
+import com.olvind.logging.LogLevel
 import org.scalablytyped.converter.internal.RunCache.Present
 import org.scalablytyped.converter.internal._
-import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.ts.{PackageJson, TsIdentLibrary}
 import org.scalajs.sbtplugin.ScalaJSPlugin
 import sbt.Keys._
@@ -16,7 +15,7 @@ import scala.concurrent.ExecutionContext
 object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
   private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
-  object autoImport extends ExternalNpmKeys
+  object autoImport extends ConverterKeys with ExternalNpmKeys
 
   import ScalablyTypedPluginBase.autoImport._
   import autoImport._
