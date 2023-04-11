@@ -21,5 +21,5 @@ trait GenSourceKeys {
    */
   val stMinimizeKeep = settingKey[List[String]]("a list of things you want to keep from minimized libraries")
 
-  val stImport = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
+  val stImportSources = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
 }
