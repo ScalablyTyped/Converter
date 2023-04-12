@@ -9,7 +9,7 @@ import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import sbt.Keys.{concurrentRestrictions, onLoad, sbtVersion, scalaVersion}
 import sbt.Tags.Tag
-import sbt.*
+import sbt._
 import sbt.plugins.JvmPlugin
 import scala.util.matching.Regex
 import scala.util.Try

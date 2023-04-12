@@ -7,8 +7,8 @@ import org.scalablytyped.converter.internal.orphanCodecs.{FileDecoder, FileEncod
 import org.scalablytyped.converter.internal.scalajs.{Name, QualifiedName}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import os.Path
-import sbt.Keys.*
-import sbt.*
+import sbt.Keys._
+import sbt._
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
 import scala.util.Try
