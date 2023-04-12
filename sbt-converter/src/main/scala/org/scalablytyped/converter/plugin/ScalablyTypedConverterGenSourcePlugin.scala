@@ -32,7 +32,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       stSourceGenMode := SourceGenMode.ResourceGenerator,
       Compile / sourceGenerators ++= {
         stSourceGenMode.value match {
-          case SourceGenMode.ResourceGenerator => List(stImport.taskValue)
+          case SourceGenMode.ResourceGenerator => List(stImportSources.taskValue)
           case SourceGenMode.Manual(_, _)      => Nil
         }
       },
@@ -44,7 +44,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       stMinimizeKeep := Nil,
       ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
       ScalaJsBundlerHack.adaptNpmInstallJSResources,
-      stImport := {
+      stImportSources := {
         val stLogger   = WrapSbtLogger.task.value
         val conversion = stConversionOptions.value
 
