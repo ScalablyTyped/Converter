@@ -119,7 +119,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
             old(state)
           case invalid =>
             sys.error(
-              s"This version of the ScalablyTyped plugin only supports 1.8.x. You're currently using $invalid",
+              s"This version of the ScalablyTyped plugin only supports 1.8.x or later. You're currently using $invalid",
             )
         }
       }),
