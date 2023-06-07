@@ -1,4 +1,4 @@
-import $ivy.`com.lihaoyi::ammonite-ops:2.4.1`
+import $ivy.`com.lihaoyi:ammonite-ops_2.13:2.4.1`
 import ammonite.ops._
 
 import scala.util.Try
