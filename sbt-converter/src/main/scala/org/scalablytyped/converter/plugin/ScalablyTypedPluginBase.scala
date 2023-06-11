@@ -7,15 +7,13 @@ import org.scalablytyped.converter.internal.importer.{ConversionOptions, Enabled
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
-import sbt.Keys.{concurrentRestrictions, onLoad, sbtVersion, scalaVersion}
+import sbt.*
 import sbt.Tags.Tag
-import sbt._
 import sbt.plugins.JvmPlugin
-import scala.util.matching.Regex
-import scala.util.Try
 
 import java.io.File
 import scala.collection.immutable.SortedSet
+import scala.util.Try
 
 object ScalablyTypedPluginBase extends AutoPlugin {
 
@@ -59,13 +57,13 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
   override def requires = JvmPlugin && PlatformDepsPlugin
 
-  import autoImport._
+  import autoImport.*
 
   override lazy val projectSettings =
     Seq(
       stInternalExpandTypeMappings := EnabledTypeMappingExpansion.DefaultSelection.map(_.value),
       stEnableScalaJsDefined := {
-        if ((Compile / scalaVersion).value.startsWith("3")) converter.Selection.All else converter.Selection.None
+        if ((Compile / Keys.scalaVersion).value.startsWith("3")) converter.Selection.All else converter.Selection.None
       },
       stFlavour := converter.Flavour.Normal,
       stIgnore := List("typescript"),
@@ -80,7 +78,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stShortModuleNames := false,
       stConversionOptions := {
         val versions = Versions(
-          Versions.Scala(scalaVersion = (Compile / scalaVersion).value),
+          Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),
           Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion),
         )
 
@@ -111,12 +109,11 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
   override lazy val globalSettings =
     Seq(
-      Global / onLoad := (state => {
-        val old               = (Global / onLoad).value
+      Global / Keys.onLoad := (state => {
+        val old               = (Global / Keys.onLoad).value
         val sbtVersionPattern = """^(\d+)\.(\d+)(\..*)?""".r
-        sbtVersion.value match {
-          case sbtVersionPattern(major, minor, _)
-              if major == "1" && Try(minor.toInt).toOption.map(_ >= 8).getOrElse(false) =>
+        Keys.sbtVersion.value match {
+          case sbtVersionPattern(major, minor, _) if major == "1" && Try(minor.toInt).toOption.exists(_ >= 8) =>
             old(state)
           case invalid =>
             sys.error(
@@ -128,7 +125,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stDir := constants.defaultCacheFolder.toIO,
       stRemoteCache := RemoteCache.Disabled,
       // don't OOM memory constrained environments like IDE build imports or CI
-      Global / concurrentRestrictions += {
+      Global / Keys.concurrentRestrictions += {
         val gigabytes   = (java.lang.Runtime.getRuntime.maxMemory) / (1000 * 1000 * 1000)
         val numParallel = Math.max(1, gigabytes.toInt)
         Tags.limit(ScalablyTypedTag, numParallel)

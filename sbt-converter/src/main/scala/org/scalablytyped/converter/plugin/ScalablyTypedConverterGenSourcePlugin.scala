@@ -7,8 +7,7 @@ import org.scalablytyped.converter.internal.orphanCodecs.{FileDecoder, FileEncod
 import org.scalablytyped.converter.internal.scalajs.{Name, QualifiedName}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import os.Path
-import sbt.Keys._
-import sbt._
+import sbt.*
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
 import scala.util.Try
@@ -24,19 +23,19 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
   }
 
   override lazy val projectSettings: scala.Seq[Def.Setting[_]] = {
-    import ScalablyTypedPluginBase.autoImport._
-    import autoImport._
-    import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
+    import ScalablyTypedPluginBase.autoImport.*
+    import autoImport.*
+    import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport.*
 
     Seq(
       stSourceGenMode := SourceGenMode.ResourceGenerator,
-      Compile / sourceGenerators ++= {
+      Compile / Keys.sourceGenerators ++= {
         stSourceGenMode.value match {
           case SourceGenMode.ResourceGenerator => List(stImportSources.taskValue)
           case SourceGenMode.Manual(_, _)      => Nil
         }
       },
-      libraryDependencies ++= {
+      Keys.libraryDependencies ++= {
         val conversion = stConversionOptions.value
         conversion.flavourImpl.dependencies.map(dep => Utils.asModuleID(dep.concrete(conversion.versions))).to[Seq]
       },
@@ -60,17 +59,17 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
 
         val (toDir, overrideTargetFolder) = stSourceGenMode.value match {
           case SourceGenMode.ResourceGenerator =>
-            (os.Path((Compile / sourceManaged).value / "scalablytyped"), Map.empty[TsIdentLibrary, Path])
+            (os.Path((Compile / Keys.sourceManaged).value / "scalablytyped"), Map.empty[TsIdentLibrary, Path])
           case SourceGenMode.Manual(toDir, overrideToDir) =>
             (os.Path(toDir), overrideToDir.map {
               case (libNameStr, file) => (TsIdentLibrary(libNameStr), os.Path(file))
             })
         }
 
-        val nodeModulesDir = os.Path((Compile / npmUpdate / crossTarget).value / "node_modules")
+        val nodeModulesDir = os.Path((Compile / npmUpdate / Keys.crossTarget).value / "node_modules")
         val globalCacheDir = (Global / stDir).value
-        val cachedInputs   = os.Path(streams.value.cacheDirectory / "input.json")
-        val cachedOutputs  = os.Path(streams.value.cacheDirectory / "output.json")
+        val cachedInputs   = os.Path(Keys.streams.value.cacheDirectory / "input.json")
+        val cachedOutputs  = os.Path(Keys.streams.value.cacheDirectory / "output.json")
 
         val input = ImportTypingsGenSources.Input(
           converterVersion     = BuildInfo.version,
