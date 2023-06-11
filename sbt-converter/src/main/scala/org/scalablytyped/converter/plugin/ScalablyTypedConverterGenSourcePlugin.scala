@@ -7,7 +7,6 @@ import org.scalablytyped.converter.internal.orphanCodecs.{FileDecoder, FileEncod
 import org.scalablytyped.converter.internal.scalajs.{Name, QualifiedName}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import os.Path
-import sbt.Keys.*
 import sbt.*
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
@@ -16,46 +15,27 @@ import scala.util.Try
 object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
   override def requires = ScalablyTypedPluginBase && ScalaJSBundlerPlugin
 
-  object autoImport {
-    sealed trait SourceGenMode
-    object SourceGenMode {
-      case object ResourceGenerator extends SourceGenMode
-      case class Manual(toDir: File, overrideToDir: Map[String, File] = Map.empty) extends SourceGenMode
-    }
-
-    val stSourceGenMode = settingKey[SourceGenMode]("Whether to run automatically as source generator or manually")
-
-    /**
-      * A list of library names you don't care too much about.
-      * The idea is that we can limit compile time (by a lot!)
-      */
-    val stMinimize = settingKey[Selection[String]]("Specify which libraries you want minimized")
-
-    /**
-      * If you care about a small set of specific things from a library you can explicitly say you want that.
-      * Examples:
-      * - `angularCommon.mod.AsyncPipe`
-      * - `std.console`
-      */
-    val stMinimizeKeep = settingKey[List[String]]("a list of things you want to keep from minimized libraries")
-
-    val stImport = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
+  object autoImport extends GenSourceKeys {
+    type SourceGenMode = plugin.SourceGenMode
+    val SourceGenMode: plugin.SourceGenMode.type = plugin.SourceGenMode
+    @deprecated(message = "Use stImportSources instead.", since = "1.0.0-beta42")
+    val stImport = stImportSources
   }
 
   override lazy val projectSettings: scala.Seq[Def.Setting[_]] = {
-    import ScalablyTypedPluginBase.autoImport._
-    import autoImport._
-    import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
+    import ScalablyTypedPluginBase.autoImport.*
+    import autoImport.*
+    import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport.*
 
     Seq(
       stSourceGenMode := SourceGenMode.ResourceGenerator,
-      Compile / sourceGenerators ++= {
+      Compile / Keys.sourceGenerators ++= {
         stSourceGenMode.value match {
-          case SourceGenMode.ResourceGenerator => List(stImport.taskValue)
+          case SourceGenMode.ResourceGenerator => List(stImportSources.taskValue)
           case SourceGenMode.Manual(_, _)      => Nil
         }
       },
-      libraryDependencies ++= {
+      Keys.libraryDependencies ++= {
         val conversion = stConversionOptions.value
         conversion.flavourImpl.dependencies.map(dep => Utils.asModuleID(dep.concrete(conversion.versions))).to[Seq]
       },
@@ -63,7 +43,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       stMinimizeKeep := Nil,
       ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
       ScalaJsBundlerHack.adaptNpmInstallJSResources,
-      stImport := {
+      stImportSources := {
         val stLogger   = WrapSbtLogger.task.value
         val conversion = stConversionOptions.value
 
@@ -79,17 +59,17 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
 
         val (toDir, overrideTargetFolder) = stSourceGenMode.value match {
           case SourceGenMode.ResourceGenerator =>
-            (os.Path((Compile / sourceManaged).value / "scalablytyped"), Map.empty[TsIdentLibrary, Path])
+            (os.Path((Compile / Keys.sourceManaged).value / "scalablytyped"), Map.empty[TsIdentLibrary, Path])
           case SourceGenMode.Manual(toDir, overrideToDir) =>
             (os.Path(toDir), overrideToDir.map {
               case (libNameStr, file) => (TsIdentLibrary(libNameStr), os.Path(file))
             })
         }
 
-        val nodeModulesDir = os.Path((Compile / npmUpdate / crossTarget).value / "node_modules")
+        val nodeModulesDir = os.Path((Compile / npmUpdate / Keys.crossTarget).value / "node_modules")
         val globalCacheDir = (Global / stDir).value
-        val cachedInputs   = os.Path(streams.value.cacheDirectory / "input.json")
-        val cachedOutputs  = os.Path(streams.value.cacheDirectory / "output.json")
+        val cachedInputs   = os.Path(Keys.streams.value.cacheDirectory / "input.json")
+        val cachedOutputs  = os.Path(Keys.streams.value.cacheDirectory / "output.json")
 
         val input = ImportTypingsGenSources.Input(
           converterVersion     = BuildInfo.version,

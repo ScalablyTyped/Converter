@@ -7,14 +7,13 @@ import org.scalablytyped.converter.internal.importer.{ConversionOptions, Enabled
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
+import sbt.*
 import sbt.Tags.Tag
-import sbt._
 import sbt.plugins.JvmPlugin
-import scala.util.matching.Regex
-import scala.util.Try
 
 import java.io.File
 import scala.collection.immutable.SortedSet
+import scala.util.Try
 
 object ScalablyTypedPluginBase extends AutoPlugin {
 
@@ -58,7 +57,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
   override def requires = JvmPlugin && PlatformDepsPlugin
 
-  import autoImport._
+  import autoImport.*
 
   override lazy val projectSettings =
     Seq(
@@ -114,8 +113,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
         val old               = (Global / Keys.onLoad).value
         val sbtVersionPattern = """^(\d+)\.(\d+)(\..*)?""".r
         Keys.sbtVersion.value match {
-          case sbtVersionPattern(major, minor, _)
-              if major == "1" && Try(minor.toInt).toOption.map(_ >= 8).getOrElse(false) =>
+          case sbtVersionPattern(major, minor, _) if major == "1" && Try(minor.toInt).toOption.exists(_ >= 8) =>
             old(state)
           case invalid =>
             sys.error(

@@ -1,12 +1,11 @@
 package org.scalablytyped.converter
 package plugin
 
-import _root_.io.circe013.syntax._
+import _root_.io.circe013.syntax.*
 import com.olvind.logging.LogLevel
+import org.scalablytyped.converter.internal.*
 import org.scalablytyped.converter.internal.RunCache.Present
-import org.scalablytyped.converter.internal._
-import sbt.Keys._
-import sbt._
+import sbt.*
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
 import scala.concurrent.ExecutionContext
@@ -16,22 +15,19 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
 
   private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
-  object autoImport {
-    val stImport       = taskKey[ImportTypings.InOut]("Imports all the bundled npm and generates bindings")
-    val stPublishCache = taskKey[Unit]("Publish all necessary files to cache")
-  }
+  object autoImport extends ConverterKeys
 
-  import ScalablyTypedPluginBase.autoImport._
-  import autoImport._
-  import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
+  import ScalablyTypedPluginBase.autoImport.*
+  import autoImport.*
+  import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport.*
 
   private[plugin] val stImportTask = Def.taskDyn[ImportTypings.InOut] {
     val cacheDir           = os.Path((Global / stDir).value)
     val stLogger           = WrapSbtLogger.task.value
     val conversion         = stConversionOptions.value
     val publishLocalFolder = Utils.IvyLocal.value
-    val fromFolder         = InFolder(os.Path((Compile / npmUpdate / crossTarget).value / "node_modules"))
-    val targetFolder       = os.Path(streams.value.cacheDirectory) / "sources"
+    val fromFolder         = InFolder(os.Path((Compile / npmUpdate / Keys.crossTarget).value / "node_modules"))
+    val targetFolder       = os.Path(Keys.streams.value.cacheDirectory) / "sources"
 
     val input = ImportTypings.Input(
       converterVersion = BuildInfo.version,
@@ -89,7 +85,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
   override lazy val projectSettings =
     Seq(
       /* This is where we add our generated artifacts to the project for compilation */
-      allDependencies ++= stImport.value._2.moduleIds.toSeq,
+      Keys.allDependencies ++= stImport.value._2.moduleIds.toSeq,
       stImport := stImportTask.value,
       stInternalZincCompiler := ZincCompiler.task.value,
       ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
