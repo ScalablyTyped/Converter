@@ -189,7 +189,7 @@ object Main {
   }
 
   def main(args: Array[String]): Unit = System.exit(mainNoExit(args))
-  
+
   def mainNoExit(args: Array[String]): Int =
     OParser.parse(ParseConversionOptions, args, DefaultConfig) match {
       case Some(
