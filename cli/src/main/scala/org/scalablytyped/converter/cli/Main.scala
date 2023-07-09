@@ -188,7 +188,9 @@ object Main {
     Str.join(massaged)
   }
 
-  def main(args: Array[String]): Unit =
+  def main(args: Array[String]): Unit = System.exit(mainNoExit(args))
+
+  def mainNoExit(args: Array[String]): Int =
     OParser.parse(ParseConversionOptions, args, DefaultConfig) match {
       case Some(
           c @ Config(
@@ -322,7 +324,7 @@ object Main {
               println(s"${source.libName.value}: $value (${source.path})")
           }
 
-          System.exit(1)
+          1
         } else {
           val allSuccesses: Map[LibTsSource, PublishedSbtProject] = {
             def go(source: LibTsSource, p: PublishedSbtProject): Map[LibTsSource, PublishedSbtProject] =
@@ -345,11 +347,11 @@ object Main {
                |  ${short.map(p => p.reference.asSbt).mkString("", ",\n  ", "")}
                |)""".stripMargin))
 
-          System.exit(0)
+          0
         }
 
       case _ =>
-        System.exit(1)
+        1
     }
 
 }
