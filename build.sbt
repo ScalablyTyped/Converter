@@ -138,7 +138,7 @@ lazy val baseSettings: Project => Project =
       ),
     ),
     pgpSigningKey := Some("763825CAF9034C05E56A042EF5BAF6416BD9F936"),
-    scalaVersion := "2.12.18",
+    scalaVersion := "2.13.12",
     scalacOptions ~= (_.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-unused:params", "-Xfatal-warnings"))),
     /* disable scaladoc */
     Compile / doc / sources := Nil,
