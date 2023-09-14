@@ -1,6 +1,7 @@
 package org.scalablytyped.converter.internal
 package ts
 
+import scala.IterableOnce
 object TsTreeTraverse {
   def collect[T <: AnyRef](tree: TsTree)(extract: PartialFunction[TsTree, T]): IArray[T] =
     collectIArray(IArray(tree))(extract)
@@ -22,7 +23,7 @@ object TsTreeTraverse {
       a match {
         case x: TsTree if x ne tree =>
           go(extract, buf)(x)
-        case xs: TraversableOnce[_] =>
+        case xs: IterableOnceIterableOnce[_] =>
           val it = xs.toIterator
           while (it.hasNext) {
             rec(it.next())

@@ -8,7 +8,7 @@ object CommitChanges {
 
     others.foreach(other => cmd.runVerbose.git('add, other))
 
-    mainFolders.grouped(500).foreach(xs => cmd.runVerbose.git('add, xs.map(_.toString()).to[List]))
+    mainFolders.grouped(500).foreach(xs => cmd.runVerbose.git('add, xs.map(_.toString()).to(List)))
 
     cmd.runVerbose.git('commit, "-m", formattedDiff)
     ()

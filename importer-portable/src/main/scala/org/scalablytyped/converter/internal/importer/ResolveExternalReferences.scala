@@ -43,7 +43,7 @@ object ResolveExternalReferences {
           TsImport(typeOnly = false, IArray(TsImported.Star(Some(name))), TsImportee.From(from))
       }
 
-    Result(after.withMembers(after.members ++ newImports), visitor.resolvedModules.to[Set], visitor.notFound.to[Set])
+    Result(after.withMembers(after.members ++ newImports), visitor.resolvedModules.to(Set), visitor.notFound.to(Set))
   }
 
   private class V(resolve: LibraryResolver, source: LibTsSource, folder: InFolder, imported: Set[TsIdentModule])

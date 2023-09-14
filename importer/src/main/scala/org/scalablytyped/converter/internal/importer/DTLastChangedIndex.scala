@@ -77,7 +77,7 @@ object DTLastChangedIndex {
         case _ =>
       }
 
-      Impl(lastChanged.map { case (relPath, long) => (repo / relPath).toIO -> long }(collection.breakOut))
+      Impl(lastChanged.iterator.map { case (relPath, long) => (repo / relPath).toIO -> long }.toMap)
     }
   }
 }

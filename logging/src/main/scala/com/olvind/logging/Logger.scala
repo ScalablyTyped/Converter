@@ -27,7 +27,7 @@ object Logger {
       reversed = s :: reversed
 
     def normal: Array[Stored] =
-      reversed.to[Array].reverse
+      reversed.to(Array).reverse
   }
 
   private[logging] final class StoringLogger(store: Store, val ctx: Ctx) extends Logger[Array[Stored]] {

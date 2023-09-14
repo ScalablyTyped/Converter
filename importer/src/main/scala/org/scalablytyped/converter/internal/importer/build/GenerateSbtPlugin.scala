@@ -60,13 +60,13 @@ object GenerateSbtPlugin {
       projects
         .map(_.project)
         .groupBy(_.name.head)
-        .to[Array]
+        .to(Array)
         .sortBy(_._1)
         .map {
           case (letter, ps) =>
             s"""|      object ${ScalaNameEscape(letter.toUpper.toString)} {
                 |${ps
-                 .to[Vector]
+                 .to(Vector)
                  .distinct
                  .sortBy(_.name)
                  .map(p => s"|        val ${ScalaNameEscape(fix(p.name))} = ${p.reference.asMangledSbt}")
