@@ -17,4 +17,5 @@ lazy val testProject =
       scalaJSUseMainModuleInitializer := true,
       scalaVersion := "2.13.2",
       organization := "net.leibman",
+      webpack / version := "5.88.2",
     )
