@@ -34,9 +34,12 @@ object Versions {
     }
 
     val compilerBridge: Option[Dep.Java] =
-      if (is3)
-        Some(Dep.Java(scalaOrganization, "scala3-sbt-bridge", scalaVersion))
-      else None
+      scalaVersion match {
+        case Version("3", _, _) => Some(Dep.Java(scalaOrganization, "scala3-sbt-bridge", scalaVersion))
+        case Version("2", "13", n) if n.toInt >= 12 =>
+          Some(Dep.Java(scalaOrganization, "scala2-sbt-bridge", scalaVersion))
+        case _ => None
+      }
   }
 
   object Scala {
@@ -45,7 +48,7 @@ object Versions {
   }
 
   val Scala212 = Scala("2.12.18")
-  val Scala213 = Scala("2.13.10")
+  val Scala213 = Scala("2.13.12")
   val Scala3   = Scala("3.2.0")
 
   case class ScalaJs(scalaJsVersion: String) {
