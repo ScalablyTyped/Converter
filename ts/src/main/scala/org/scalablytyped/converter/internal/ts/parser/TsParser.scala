@@ -457,7 +457,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       | tsTypeFunction
       | ("abstract".isDefined <~ "new") ~ tsTypeFunction ^^ TsTypeConstructor
       | "unique" ~> "symbol" ~> success(TsTypeRef(NoComments, TsQIdent.symbol, Empty))
-      | "typeof" ~> qualifiedIdent ^^ TsTypeQuery
+      | "typeof" ~> tsTypeRef ^^ { case TsTypeRef(_, name, _) => TsTypeQuery(name) } // todo: targs may be used to with `typoeof f<asd>`
       | tsTypeTuple
       | "(" ~> tsType <~ ")"
       | tsLiteral ^^ TsTypeLiteral
