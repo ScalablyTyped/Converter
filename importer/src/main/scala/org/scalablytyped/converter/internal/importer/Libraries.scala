@@ -129,6 +129,7 @@ object Libraries {
     "libphonenumber-js",
     "logrocket",
     "lottie-web",
+    "@material/web",
     "@material-ui/core",
     "@material-ui/icons",
     "@material-ui/lab",
@@ -551,8 +552,11 @@ object Libraries {
       "raspi-board",
       "raspi-soft-pwm",
       "windows-process-tree",
-      // doesnt exists
+      // doesnt exist
       "xumm-api",
+      // runs forever
+      "@atlaskit/primitives",
+      "json-joy",
     ).map(TsIdentLibrary.apply)
 
   val Slow = SortedSet("@pulumi/aws", "aws-sdk", "googleapis", "@material-ui/core", "@storybook/components").map(
