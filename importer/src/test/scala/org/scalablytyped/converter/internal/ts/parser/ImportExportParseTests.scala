@@ -431,4 +431,16 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
       ),
     )
   }
+
+  test("export all types") {
+    val content = """export type * from 'types'"""
+    shouldParseAs(content, TsParser.tsExport)(
+      TsExport(
+        NoComments,
+        typeOnly = true,
+        ExportType.Named,
+        TsExportee.Star(None, TsIdentModule.simple("types")),
+      ),
+    )
+  }
 }

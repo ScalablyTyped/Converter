@@ -9,7 +9,16 @@ Developing a compiler is complex. Testing it well is expensive, so we focus on g
 For that reason we have a few levels of testing:
 
 ### Unit tests
+
 Only really used for the parser, but utterly necessary to write one. All changes to the parser should come with a corresponding unit test.
+
+Take a look at test in [parser](https://github.com/ScalablyTyped/Converter/tree/master/importer/src/test/scala/org/scalablytyped/converter/internal/ts/parser) for examples.
+
+Run them with:
+
+```shell
+sbt importer/testOnly org.scalablytyped.converter.internal.ts.parser.*
+```
 
 ### [ImporterTest](https://github.com/ScalablyTyped/Converter/blob/master/importer/src/test/scala/org/scalablytyped/converter/internal/importer/ImporterTest.scala)
 Built in the same spirit as the scala compiler's `partest`, this takes smallish [pieces of typescript](https://github.com/ScalablyTyped/Converter/tree/master/importer/src/test/resources) 
