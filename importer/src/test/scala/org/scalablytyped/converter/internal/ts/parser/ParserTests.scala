@@ -3330,4 +3330,11 @@ export {};
       ),
     )
   }
+
+  test("ignore type args in typeof") {
+    shouldParseAs(
+      """typeof genComponentStyleHook<ComponentName>""".stripMargin,
+      TsParser.tsType,
+    )(TsTypeQuery(TsQIdent(IArray(TsIdentSimple("genComponentStyleHook")))))
+  }
 }

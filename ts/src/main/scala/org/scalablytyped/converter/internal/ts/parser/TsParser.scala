@@ -264,13 +264,15 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
         ("type".isDefined ~ base) | (success(false) ~ base)
       }
 
-      val exporteeStar: Parser[Boolean ~ TsExportee.Star] =
-        success(false) ~ ("*" ~> ("as" ~> tsIdent).? ~ from ^^ TsExportee.Star.apply)
+      val exporteeStar: Parser[Boolean ~ TsExportee.Star] = {
+        val base = "*" ~> ("as" ~> tsIdent).? ~ from ^^ TsExportee.Star.apply
+        ("type".isDefined ~ base) | (success(false) ~ base)
+      }
 
       val exporteeTree: Parser[Boolean ~ TsExportee.Tree] =
         success(false) ~ (tsDecl ^^ TsExportee.Tree)
 
-      exporteeTree | exportedNames | exporteeStar
+      exporteeTree | exporteeStar | exportedNames
     }
 
     (comments <~ "export") ~ exportType ~! exportee ^^ {
@@ -457,7 +459,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       | tsTypeFunction
       | ("abstract".isDefined <~ "new") ~ tsTypeFunction ^^ TsTypeConstructor
       | "unique" ~> "symbol" ~> success(TsTypeRef(NoComments, TsQIdent.symbol, Empty))
-      | "typeof" ~> qualifiedIdent ^^ TsTypeQuery
+      | "typeof" ~> tsTypeRef ^^ { case TsTypeRef(_, name, _) => TsTypeQuery(name) } // todo: targs may be used to with `typoeof f<asd>`
       | tsTypeTuple
       | "(" ~> tsType <~ ")"
       | tsLiteral ^^ TsTypeLiteral

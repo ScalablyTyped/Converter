@@ -1,7 +1,7 @@
 organization := "org.scalablytyped"
 name := "express-serve-static-core"
-version := "0.0-unknown-bf1a14"
-scalaVersion := "3.2.0"
+version := "0.0-unknown-c9d184"
+scalaVersion := "3.3.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2")
