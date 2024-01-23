@@ -4,9 +4,6 @@ lazy val latestTag = "git tag -l --sort=committerdate".!!.linesIterator.toVector
 
 // BSP setup to use with bloop
 Global / bloopExportJarClassifiers := Some(Set("sources"))
-Global / bspEnabled := false
-autoStartServer := false
-Global / excludeLintKeys += autoStartServer
 
 // bloop hasn't upgraded to scala-xml 2 yet
 ThisBuild / libraryDependencySchemes ++= Seq("org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always)
