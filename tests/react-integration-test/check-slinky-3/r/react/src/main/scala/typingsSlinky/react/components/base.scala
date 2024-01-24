@@ -221,7 +221,7 @@ object base {
     
     inline def lang(value: String): this.type = set("lang", value.asInstanceOf[js.Any])
     
-    inline def onAbort(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onAbort", js.Any.fromFunction1(value))
+    inline def onAbort(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onAbort", js.Any.fromFunction1(value))
     
     inline def onAnimationEnd(value: SyntheticAnimationEvent[HTMLBaseElement] => Unit): this.type = set("onAnimationEnd", js.Any.fromFunction1(value))
     
@@ -235,9 +235,9 @@ object base {
     
     inline def onBlur(value: SyntheticFocusEvent[HTMLBaseElement] => Unit): this.type = set("onBlur", js.Any.fromFunction1(value))
     
-    inline def onCanPlay(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onCanPlay", js.Any.fromFunction1(value))
+    inline def onCanPlay(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onCanPlay", js.Any.fromFunction1(value))
     
-    inline def onCanPlayThrough(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
+    inline def onCanPlayThrough(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
     
     inline def onChange(value: SyntheticEvent[EventTarget & HTMLBaseElement, Event] => Unit): this.type = set("onChange", js.Any.fromFunction1(value))
     
@@ -273,15 +273,15 @@ object base {
     
     inline def onDrop(value: DragEvent[HTMLBaseElement] => Unit): this.type = set("onDrop", js.Any.fromFunction1(value))
     
-    inline def onDurationChange(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onDurationChange", js.Any.fromFunction1(value))
+    inline def onDurationChange(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onDurationChange", js.Any.fromFunction1(value))
     
-    inline def onEmptied(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onEmptied", js.Any.fromFunction1(value))
+    inline def onEmptied(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onEmptied", js.Any.fromFunction1(value))
     
-    inline def onEncrypted(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onEncrypted", js.Any.fromFunction1(value))
+    inline def onEncrypted(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onEncrypted", js.Any.fromFunction1(value))
     
-    inline def onEnded(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onEnded", js.Any.fromFunction1(value))
+    inline def onEnded(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onEnded", js.Any.fromFunction1(value))
     
-    inline def onError(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onError", js.Any.fromFunction1(value))
+    inline def onError(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onError", js.Any.fromFunction1(value))
     
     inline def onFocus(value: SyntheticFocusEvent[HTMLBaseElement] => Unit): this.type = set("onFocus", js.Any.fromFunction1(value))
     
@@ -295,13 +295,13 @@ object base {
     
     inline def onKeyUp(value: SyntheticKeyboardEvent[HTMLBaseElement] => Unit): this.type = set("onKeyUp", js.Any.fromFunction1(value))
     
-    inline def onLoad(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onLoad", js.Any.fromFunction1(value))
+    inline def onLoad(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onLoad", js.Any.fromFunction1(value))
     
-    inline def onLoadStart(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onLoadStart", js.Any.fromFunction1(value))
+    inline def onLoadStart(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onLoadStart", js.Any.fromFunction1(value))
     
-    inline def onLoadedData(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onLoadedData", js.Any.fromFunction1(value))
+    inline def onLoadedData(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onLoadedData", js.Any.fromFunction1(value))
     
-    inline def onLoadedMetadata(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onLoadedMetadata", js.Any.fromFunction1(value))
+    inline def onLoadedMetadata(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onLoadedMetadata", js.Any.fromFunction1(value))
     
     inline def onMouseDown(value: SyntheticMouseEvent[HTMLBaseElement] => Unit): this.type = set("onMouseDown", js.Any.fromFunction1(value))
     
@@ -319,11 +319,11 @@ object base {
     
     inline def onPaste(value: SyntheticClipboardEvent[HTMLBaseElement] => Unit): this.type = set("onPaste", js.Any.fromFunction1(value))
     
-    inline def onPause(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onPause", js.Any.fromFunction1(value))
+    inline def onPause(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onPause", js.Any.fromFunction1(value))
     
-    inline def onPlay(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onPlay", js.Any.fromFunction1(value))
+    inline def onPlay(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onPlay", js.Any.fromFunction1(value))
     
-    inline def onPlaying(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onPlaying", js.Any.fromFunction1(value))
+    inline def onPlaying(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onPlaying", js.Any.fromFunction1(value))
     
     inline def onPointerCancel(value: SyntheticPointerEvent[HTMLBaseElement] => Unit): this.type = set("onPointerCancel", js.Any.fromFunction1(value))
     
@@ -341,27 +341,27 @@ object base {
     
     inline def onPointerUp(value: SyntheticPointerEvent[HTMLBaseElement] => Unit): this.type = set("onPointerUp", js.Any.fromFunction1(value))
     
-    inline def onProgress(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onProgress", js.Any.fromFunction1(value))
+    inline def onProgress(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onProgress", js.Any.fromFunction1(value))
     
-    inline def onRateChange(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
+    inline def onRateChange(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
     
     inline def onReset(value: SyntheticEvent[EventTarget & HTMLBaseElement, Event] => Unit): this.type = set("onReset", js.Any.fromFunction1(value))
     
     inline def onScroll(value: SyntheticUIEvent[HTMLBaseElement] => Unit): this.type = set("onScroll", js.Any.fromFunction1(value))
     
-    inline def onSeeked(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onSeeked", js.Any.fromFunction1(value))
+    inline def onSeeked(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onSeeked", js.Any.fromFunction1(value))
     
-    inline def onSeeking(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onSeeking", js.Any.fromFunction1(value))
+    inline def onSeeking(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onSeeking", js.Any.fromFunction1(value))
     
-    inline def onSelect(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onSelect", js.Any.fromFunction1(value))
+    inline def onSelect(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onSelect", js.Any.fromFunction1(value))
     
-    inline def onStalled(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
+    inline def onStalled(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
     
     inline def onSubmit(value: SyntheticEvent[EventTarget & HTMLBaseElement, Event] => Unit): this.type = set("onSubmit", js.Any.fromFunction1(value))
     
-    inline def onSuspend(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))
+    inline def onSuspend(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))
     
-    inline def onTimeUpdate(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onTimeUpdate", js.Any.fromFunction1(value))
+    inline def onTimeUpdate(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onTimeUpdate", js.Any.fromFunction1(value))
     
     inline def onTouchCancel(value: SyntheticTouchEvent[HTMLBaseElement] => Unit): this.type = set("onTouchCancel", js.Any.fromFunction1(value))
     
@@ -373,9 +373,9 @@ object base {
     
     inline def onTransitionEnd(value: SyntheticTransitionEvent[HTMLBaseElement] => Unit): this.type = set("onTransitionEnd", js.Any.fromFunction1(value))
     
-    inline def onVolumeChange(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onVolumeChange", js.Any.fromFunction1(value))
+    inline def onVolumeChange(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onVolumeChange", js.Any.fromFunction1(value))
     
-    inline def onWaiting(value: SyntheticEvent[Event, HTMLBaseElement] => Unit): this.type = set("onWaiting", js.Any.fromFunction1(value))
+    inline def onWaiting(value: SyntheticEvent[HTMLBaseElement, Event] => Unit): this.type = set("onWaiting", js.Any.fromFunction1(value))
     
     inline def onWheel(value: SyntheticWheelEvent[HTMLBaseElement] => Unit): this.type = set("onWheel", js.Any.fromFunction1(value))
     

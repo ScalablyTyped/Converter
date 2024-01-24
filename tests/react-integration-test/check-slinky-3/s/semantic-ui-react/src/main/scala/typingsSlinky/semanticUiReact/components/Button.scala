@@ -363,7 +363,7 @@ object Button {
     
     inline def negative(value: Boolean): this.type = set("negative", value.asInstanceOf[js.Any])
     
-    inline def onAbort(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onAbort", js.Any.fromFunction1(value))
+    inline def onAbort(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onAbort", js.Any.fromFunction1(value))
     
     inline def onAnimationEnd(value: SyntheticAnimationEvent[HTMLButtonElement] => Unit): this.type = set("onAnimationEnd", js.Any.fromFunction1(value))
     
@@ -377,9 +377,9 @@ object Button {
     
     inline def onBlur(value: SyntheticFocusEvent[HTMLButtonElement] => Unit): this.type = set("onBlur", js.Any.fromFunction1(value))
     
-    inline def onCanPlay(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onCanPlay", js.Any.fromFunction1(value))
+    inline def onCanPlay(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onCanPlay", js.Any.fromFunction1(value))
     
-    inline def onCanPlayThrough(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
+    inline def onCanPlayThrough(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
     
     inline def onChange(value: SyntheticEvent[EventTarget & HTMLButtonElement, Event] => Unit): this.type = set("onChange", js.Any.fromFunction1(value))
     
@@ -415,15 +415,15 @@ object Button {
     
     inline def onDrop(value: DragEvent[HTMLButtonElement] => Unit): this.type = set("onDrop", js.Any.fromFunction1(value))
     
-    inline def onDurationChange(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onDurationChange", js.Any.fromFunction1(value))
+    inline def onDurationChange(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onDurationChange", js.Any.fromFunction1(value))
     
-    inline def onEmptied(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onEmptied", js.Any.fromFunction1(value))
+    inline def onEmptied(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onEmptied", js.Any.fromFunction1(value))
     
-    inline def onEncrypted(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onEncrypted", js.Any.fromFunction1(value))
+    inline def onEncrypted(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onEncrypted", js.Any.fromFunction1(value))
     
-    inline def onEnded(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onEnded", js.Any.fromFunction1(value))
+    inline def onEnded(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onEnded", js.Any.fromFunction1(value))
     
-    inline def onError(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onError", js.Any.fromFunction1(value))
+    inline def onError(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onError", js.Any.fromFunction1(value))
     
     inline def onFocus(value: SyntheticFocusEvent[HTMLButtonElement] => Unit): this.type = set("onFocus", js.Any.fromFunction1(value))
     
@@ -437,13 +437,13 @@ object Button {
     
     inline def onKeyUp(value: SyntheticKeyboardEvent[HTMLButtonElement] => Unit): this.type = set("onKeyUp", js.Any.fromFunction1(value))
     
-    inline def onLoad(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onLoad", js.Any.fromFunction1(value))
+    inline def onLoad(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onLoad", js.Any.fromFunction1(value))
     
-    inline def onLoadStart(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onLoadStart", js.Any.fromFunction1(value))
+    inline def onLoadStart(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onLoadStart", js.Any.fromFunction1(value))
     
-    inline def onLoadedData(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onLoadedData", js.Any.fromFunction1(value))
+    inline def onLoadedData(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onLoadedData", js.Any.fromFunction1(value))
     
-    inline def onLoadedMetadata(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onLoadedMetadata", js.Any.fromFunction1(value))
+    inline def onLoadedMetadata(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onLoadedMetadata", js.Any.fromFunction1(value))
     
     inline def onMouseDown(value: SyntheticMouseEvent[HTMLButtonElement] => Unit): this.type = set("onMouseDown", js.Any.fromFunction1(value))
     
@@ -461,11 +461,11 @@ object Button {
     
     inline def onPaste(value: SyntheticClipboardEvent[HTMLButtonElement] => Unit): this.type = set("onPaste", js.Any.fromFunction1(value))
     
-    inline def onPause(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onPause", js.Any.fromFunction1(value))
+    inline def onPause(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onPause", js.Any.fromFunction1(value))
     
-    inline def onPlay(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onPlay", js.Any.fromFunction1(value))
+    inline def onPlay(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onPlay", js.Any.fromFunction1(value))
     
-    inline def onPlaying(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onPlaying", js.Any.fromFunction1(value))
+    inline def onPlaying(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onPlaying", js.Any.fromFunction1(value))
     
     inline def onPointerCancel(value: SyntheticPointerEvent[HTMLButtonElement] => Unit): this.type = set("onPointerCancel", js.Any.fromFunction1(value))
     
@@ -483,27 +483,27 @@ object Button {
     
     inline def onPointerUp(value: SyntheticPointerEvent[HTMLButtonElement] => Unit): this.type = set("onPointerUp", js.Any.fromFunction1(value))
     
-    inline def onProgress(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onProgress", js.Any.fromFunction1(value))
+    inline def onProgress(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onProgress", js.Any.fromFunction1(value))
     
-    inline def onRateChange(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
+    inline def onRateChange(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
     
     inline def onReset(value: SyntheticEvent[EventTarget & HTMLButtonElement, Event] => Unit): this.type = set("onReset", js.Any.fromFunction1(value))
     
     inline def onScroll(value: SyntheticUIEvent[HTMLButtonElement] => Unit): this.type = set("onScroll", js.Any.fromFunction1(value))
     
-    inline def onSeeked(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onSeeked", js.Any.fromFunction1(value))
+    inline def onSeeked(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onSeeked", js.Any.fromFunction1(value))
     
-    inline def onSeeking(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onSeeking", js.Any.fromFunction1(value))
+    inline def onSeeking(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onSeeking", js.Any.fromFunction1(value))
     
-    inline def onSelect(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onSelect", js.Any.fromFunction1(value))
+    inline def onSelect(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onSelect", js.Any.fromFunction1(value))
     
-    inline def onStalled(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
+    inline def onStalled(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
     
     inline def onSubmit(value: SyntheticEvent[EventTarget & HTMLButtonElement, Event] => Unit): this.type = set("onSubmit", js.Any.fromFunction1(value))
     
-    inline def onSuspend(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))
+    inline def onSuspend(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))
     
-    inline def onTimeUpdate(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onTimeUpdate", js.Any.fromFunction1(value))
+    inline def onTimeUpdate(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onTimeUpdate", js.Any.fromFunction1(value))
     
     inline def onTouchCancel(value: SyntheticTouchEvent[HTMLButtonElement] => Unit): this.type = set("onTouchCancel", js.Any.fromFunction1(value))
     
@@ -515,9 +515,9 @@ object Button {
     
     inline def onTransitionEnd(value: SyntheticTransitionEvent[HTMLButtonElement] => Unit): this.type = set("onTransitionEnd", js.Any.fromFunction1(value))
     
-    inline def onVolumeChange(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onVolumeChange", js.Any.fromFunction1(value))
+    inline def onVolumeChange(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onVolumeChange", js.Any.fromFunction1(value))
     
-    inline def onWaiting(value: SyntheticEvent[Event, HTMLButtonElement] => Unit): this.type = set("onWaiting", js.Any.fromFunction1(value))
+    inline def onWaiting(value: SyntheticEvent[HTMLButtonElement, Event] => Unit): this.type = set("onWaiting", js.Any.fromFunction1(value))
     
     inline def onWheel(value: SyntheticWheelEvent[HTMLButtonElement] => Unit): this.type = set("onWheel", js.Any.fromFunction1(value))
     

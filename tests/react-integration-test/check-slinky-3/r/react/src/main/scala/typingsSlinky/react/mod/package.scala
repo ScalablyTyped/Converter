@@ -509,7 +509,7 @@ type ElementType[P] = (/* import warning: importer.ImportType#apply Failed type 
 //
 // Event Handler Types
 // ----------------------------------------------------------------------
-type EventHandler[E /* <: slinky.core.SyntheticEvent[Event, Any] */] = js.Function1[/* event */ E, Unit]
+type EventHandler[E /* <: slinky.core.SyntheticEvent[Any, Event] */] = js.Function1[/* event */ E, Unit]
 
 type ExactlyAnyPropertyKeys[T] = /* import warning: importer.ImportType#apply Failed type conversion: {[ K in keyof T ]: react.react.IsExactlyAny<T[K]> extends true? K : never}[keyof T] */ js.Any
 
@@ -518,7 +518,7 @@ type FC[P] = ReactComponentClass[P]
 type FocusEventHandler[T] = EventHandler[SyntheticFocusEvent[T]]
 
 // tslint:disable-next-line:no-empty-interface
-type FormEvent[T] = slinky.core.SyntheticEvent[Event, T]
+type FormEvent[T] = slinky.core.SyntheticEvent[T, Event]
 
 type FormEventHandler[T] = EventHandler[slinky.core.SyntheticEvent[EventTarget & T, Event]]
 
@@ -644,7 +644,7 @@ type ReactChild = slinky.core.facade.ReactElement | ReactText
 
 type ReactComponentElement[T /* <: a_ | abbr | address | area | article | aside | audio | b | base | bdi | bdo | big | view | JSXElementConstructor[Any] */, P] = slinky.core.facade.ReactElement
 
-type ReactEventHandler[T] = EventHandler[slinky.core.SyntheticEvent[Event, T]]
+type ReactEventHandler[T] = EventHandler[slinky.core.SyntheticEvent[T, Event]]
 
 type ReactFragment = js.Object | ReactNodeArray
 

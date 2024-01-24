@@ -22,7 +22,7 @@ object SlinkyTypeConversions {
         CastConversion(reactNames.DOMElement, names.ReactElement),
         CastConversion(reactNames.ElementType, names.ReactElement),
         CastConversion(reactNames.BaseSyntheticEvent, names.SyntheticEvent, _2, _1),
-        CastConversion(reactNames.SyntheticEvent, names.SyntheticEvent, _2, _1),
+        CastConversion(reactNames.SyntheticEvent, names.SyntheticEvent, _1, _2),
       )
 
     val components: IArray[CastConversion] =

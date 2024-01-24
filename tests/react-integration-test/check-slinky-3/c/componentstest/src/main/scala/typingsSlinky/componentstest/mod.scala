@@ -160,24 +160,24 @@ object mod {
   }
   
   trait Events extends StObject {
-
+    
     def onClick(event: SyntheticEvent[Any, Event]): Unit
   }
   object Events {
-
+    
     inline def apply(onClick: SyntheticEvent[Any, Event] => Unit): Events = {
       val __obj = js.Dynamic.literal(onClick = js.Any.fromFunction1(onClick))
       __obj.asInstanceOf[Events]
     }
-
+    
     @scala.inline
     implicit open class MutableBuilder[Self <: Events] (val x: Self) extends AnyVal {
-
+      
       inline def setOnClick(value: SyntheticEvent[Any, Event] => Unit): Self = StObject.set(x, "onClick", js.Any.fromFunction1(value))
     }
   }
-
-  /* Rewritten from type alias, can be one of:
+  
+  /* Rewritten from type alias, can be one of: 
     - typingsSlinky.componentstest.mod.A
     - typingsSlinky.componentstest.mod.B
   */

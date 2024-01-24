@@ -227,7 +227,7 @@ object a {
     
     inline def media(value: String): this.type = set("media", value.asInstanceOf[js.Any])
     
-    inline def onAbort(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onAbort", js.Any.fromFunction1(value))
+    inline def onAbort(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onAbort", js.Any.fromFunction1(value))
     
     inline def onAnimationEnd(value: SyntheticAnimationEvent[HTMLAnchorElement] => Unit): this.type = set("onAnimationEnd", js.Any.fromFunction1(value))
     
@@ -241,9 +241,9 @@ object a {
     
     inline def onBlur(value: SyntheticFocusEvent[HTMLAnchorElement] => Unit): this.type = set("onBlur", js.Any.fromFunction1(value))
     
-    inline def onCanPlay(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onCanPlay", js.Any.fromFunction1(value))
+    inline def onCanPlay(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onCanPlay", js.Any.fromFunction1(value))
     
-    inline def onCanPlayThrough(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
+    inline def onCanPlayThrough(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
     
     inline def onChange(value: SyntheticEvent[EventTarget & HTMLAnchorElement, Event] => Unit): this.type = set("onChange", js.Any.fromFunction1(value))
     
@@ -279,15 +279,15 @@ object a {
     
     inline def onDrop(value: DragEvent[HTMLAnchorElement] => Unit): this.type = set("onDrop", js.Any.fromFunction1(value))
     
-    inline def onDurationChange(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onDurationChange", js.Any.fromFunction1(value))
+    inline def onDurationChange(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onDurationChange", js.Any.fromFunction1(value))
     
-    inline def onEmptied(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onEmptied", js.Any.fromFunction1(value))
+    inline def onEmptied(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onEmptied", js.Any.fromFunction1(value))
     
-    inline def onEncrypted(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onEncrypted", js.Any.fromFunction1(value))
+    inline def onEncrypted(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onEncrypted", js.Any.fromFunction1(value))
     
-    inline def onEnded(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onEnded", js.Any.fromFunction1(value))
+    inline def onEnded(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onEnded", js.Any.fromFunction1(value))
     
-    inline def onError(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onError", js.Any.fromFunction1(value))
+    inline def onError(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onError", js.Any.fromFunction1(value))
     
     inline def onFocus(value: SyntheticFocusEvent[HTMLAnchorElement] => Unit): this.type = set("onFocus", js.Any.fromFunction1(value))
     
@@ -301,13 +301,13 @@ object a {
     
     inline def onKeyUp(value: SyntheticKeyboardEvent[HTMLAnchorElement] => Unit): this.type = set("onKeyUp", js.Any.fromFunction1(value))
     
-    inline def onLoad(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onLoad", js.Any.fromFunction1(value))
+    inline def onLoad(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onLoad", js.Any.fromFunction1(value))
     
-    inline def onLoadStart(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onLoadStart", js.Any.fromFunction1(value))
+    inline def onLoadStart(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onLoadStart", js.Any.fromFunction1(value))
     
-    inline def onLoadedData(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onLoadedData", js.Any.fromFunction1(value))
+    inline def onLoadedData(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onLoadedData", js.Any.fromFunction1(value))
     
-    inline def onLoadedMetadata(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onLoadedMetadata", js.Any.fromFunction1(value))
+    inline def onLoadedMetadata(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onLoadedMetadata", js.Any.fromFunction1(value))
     
     inline def onMouseDown(value: SyntheticMouseEvent[HTMLAnchorElement] => Unit): this.type = set("onMouseDown", js.Any.fromFunction1(value))
     
@@ -325,11 +325,11 @@ object a {
     
     inline def onPaste(value: SyntheticClipboardEvent[HTMLAnchorElement] => Unit): this.type = set("onPaste", js.Any.fromFunction1(value))
     
-    inline def onPause(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onPause", js.Any.fromFunction1(value))
+    inline def onPause(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onPause", js.Any.fromFunction1(value))
     
-    inline def onPlay(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onPlay", js.Any.fromFunction1(value))
+    inline def onPlay(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onPlay", js.Any.fromFunction1(value))
     
-    inline def onPlaying(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onPlaying", js.Any.fromFunction1(value))
+    inline def onPlaying(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onPlaying", js.Any.fromFunction1(value))
     
     inline def onPointerCancel(value: SyntheticPointerEvent[HTMLAnchorElement] => Unit): this.type = set("onPointerCancel", js.Any.fromFunction1(value))
     
@@ -347,27 +347,27 @@ object a {
     
     inline def onPointerUp(value: SyntheticPointerEvent[HTMLAnchorElement] => Unit): this.type = set("onPointerUp", js.Any.fromFunction1(value))
     
-    inline def onProgress(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onProgress", js.Any.fromFunction1(value))
+    inline def onProgress(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onProgress", js.Any.fromFunction1(value))
     
-    inline def onRateChange(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
+    inline def onRateChange(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
     
     inline def onReset(value: SyntheticEvent[EventTarget & HTMLAnchorElement, Event] => Unit): this.type = set("onReset", js.Any.fromFunction1(value))
     
     inline def onScroll(value: SyntheticUIEvent[HTMLAnchorElement] => Unit): this.type = set("onScroll", js.Any.fromFunction1(value))
     
-    inline def onSeeked(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onSeeked", js.Any.fromFunction1(value))
+    inline def onSeeked(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onSeeked", js.Any.fromFunction1(value))
     
-    inline def onSeeking(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onSeeking", js.Any.fromFunction1(value))
+    inline def onSeeking(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onSeeking", js.Any.fromFunction1(value))
     
-    inline def onSelect(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onSelect", js.Any.fromFunction1(value))
+    inline def onSelect(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onSelect", js.Any.fromFunction1(value))
     
-    inline def onStalled(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
+    inline def onStalled(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
     
     inline def onSubmit(value: SyntheticEvent[EventTarget & HTMLAnchorElement, Event] => Unit): this.type = set("onSubmit", js.Any.fromFunction1(value))
     
-    inline def onSuspend(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))
+    inline def onSuspend(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))
     
-    inline def onTimeUpdate(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onTimeUpdate", js.Any.fromFunction1(value))
+    inline def onTimeUpdate(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onTimeUpdate", js.Any.fromFunction1(value))
     
     inline def onTouchCancel(value: SyntheticTouchEvent[HTMLAnchorElement] => Unit): this.type = set("onTouchCancel", js.Any.fromFunction1(value))
     
@@ -379,9 +379,9 @@ object a {
     
     inline def onTransitionEnd(value: SyntheticTransitionEvent[HTMLAnchorElement] => Unit): this.type = set("onTransitionEnd", js.Any.fromFunction1(value))
     
-    inline def onVolumeChange(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onVolumeChange", js.Any.fromFunction1(value))
+    inline def onVolumeChange(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onVolumeChange", js.Any.fromFunction1(value))
     
-    inline def onWaiting(value: SyntheticEvent[Event, HTMLAnchorElement] => Unit): this.type = set("onWaiting", js.Any.fromFunction1(value))
+    inline def onWaiting(value: SyntheticEvent[HTMLAnchorElement, Event] => Unit): this.type = set("onWaiting", js.Any.fromFunction1(value))
     
     inline def onWheel(value: SyntheticWheelEvent[HTMLAnchorElement] => Unit): this.type = set("onWheel", js.Any.fromFunction1(value))
     
