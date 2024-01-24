@@ -1,7 +1,9 @@
 package typingsSlinky.componentstest
 
+import org.scalajs.dom.Event
 import org.scalajs.dom.HTMLDivElement
 import slinky.core.ReactComponentClass
+import slinky.core.SyntheticEvent
 import slinky.web.SyntheticMouseEvent
 import typingsSlinky.componentstest.anon.Equals
 import typingsSlinky.react.mod.CSSProperties
@@ -157,7 +159,25 @@ object mod {
     }
   }
   
-  /* Rewritten from type alias, can be one of: 
+  trait Events extends StObject {
+
+    def onClick(event: SyntheticEvent[Any, Event]): Unit
+  }
+  object Events {
+
+    inline def apply(onClick: SyntheticEvent[Any, Event] => Unit): Events = {
+      val __obj = js.Dynamic.literal(onClick = js.Any.fromFunction1(onClick))
+      __obj.asInstanceOf[Events]
+    }
+
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Events] (val x: Self) extends AnyVal {
+
+      inline def setOnClick(value: SyntheticEvent[Any, Event] => Unit): Self = StObject.set(x, "onClick", js.Any.fromFunction1(value))
+    }
+  }
+
+  /* Rewritten from type alias, can be one of:
     - typingsSlinky.componentstest.mod.A
     - typingsSlinky.componentstest.mod.B
   */
