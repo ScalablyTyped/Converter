@@ -2,6 +2,7 @@ package typingsJapgolly.componentstest
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
+import japgolly.scalajs.react.ReactEventFrom
 import japgolly.scalajs.react.ReactMouseEventFrom
 import org.scalajs.dom.Element
 import org.scalajs.dom.HTMLDivElement
@@ -160,6 +161,24 @@ object mod {
       inline def setPrefixCls(value: String): Self = StObject.set(x, "prefixCls", value.asInstanceOf[js.Any])
       
       inline def setPrefixClsUndefined: Self = StObject.set(x, "prefixCls", js.undefined)
+    }
+  }
+  
+  trait Events extends StObject {
+    
+    def onClick(event: ReactEventFrom[Any & Element]): Unit
+  }
+  object Events {
+    
+    inline def apply(onClick: ReactEventFrom[Any & Element] => Callback): Events = {
+      val __obj = js.Dynamic.literal(onClick = js.Any.fromFunction1((t0: ReactEventFrom[Any & Element]) => onClick(t0).runNow()))
+      __obj.asInstanceOf[Events]
+    }
+    
+    @scala.inline
+    implicit open class MutableBuilder[Self <: Events] (val x: Self) extends AnyVal {
+      
+      inline def setOnClick(value: ReactEventFrom[Any & Element] => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: ReactEventFrom[Any & Element]) => value(t0).runNow()))
     }
   }
   
