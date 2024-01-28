@@ -38,3 +38,7 @@ export const ObjectNames: React.FC<{
 
 
 export const VeryExotic: React.MemoExoticComponent<React.ForwardRefExoticComponent<React.RefAttributes<HTMLDivElement>>>;
+
+export interface Events {
+    onClick: (event: React.SyntheticEvent<any>) => void;
+}

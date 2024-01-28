@@ -216,7 +216,7 @@ object DOMAttributes {
     
     inline def setDangerouslySetInnerHTMLUndefined: Self = StObject.set(x, "dangerouslySetInnerHTML", js.undefined)
     
-    inline def setOnAbort(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onAbort", js.Any.fromFunction1(value))
+    inline def setOnAbort(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onAbort", js.Any.fromFunction1(value))
     
     inline def setOnAbortUndefined: Self = StObject.set(x, "onAbort", js.undefined)
     
@@ -244,9 +244,9 @@ object DOMAttributes {
     
     inline def setOnBlurUndefined: Self = StObject.set(x, "onBlur", js.undefined)
     
-    inline def setOnCanPlay(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onCanPlay", js.Any.fromFunction1(value))
+    inline def setOnCanPlay(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onCanPlay", js.Any.fromFunction1(value))
     
-    inline def setOnCanPlayThrough(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onCanPlayThrough", js.Any.fromFunction1(value))
+    inline def setOnCanPlayThrough(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onCanPlayThrough", js.Any.fromFunction1(value))
     
     inline def setOnCanPlayThroughUndefined: Self = StObject.set(x, "onCanPlayThrough", js.undefined)
     
@@ -320,23 +320,23 @@ object DOMAttributes {
     
     inline def setOnDropUndefined: Self = StObject.set(x, "onDrop", js.undefined)
     
-    inline def setOnDurationChange(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onDurationChange", js.Any.fromFunction1(value))
+    inline def setOnDurationChange(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onDurationChange", js.Any.fromFunction1(value))
     
     inline def setOnDurationChangeUndefined: Self = StObject.set(x, "onDurationChange", js.undefined)
     
-    inline def setOnEmptied(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onEmptied", js.Any.fromFunction1(value))
+    inline def setOnEmptied(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onEmptied", js.Any.fromFunction1(value))
     
     inline def setOnEmptiedUndefined: Self = StObject.set(x, "onEmptied", js.undefined)
     
-    inline def setOnEncrypted(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onEncrypted", js.Any.fromFunction1(value))
+    inline def setOnEncrypted(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onEncrypted", js.Any.fromFunction1(value))
     
     inline def setOnEncryptedUndefined: Self = StObject.set(x, "onEncrypted", js.undefined)
     
-    inline def setOnEnded(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onEnded", js.Any.fromFunction1(value))
+    inline def setOnEnded(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onEnded", js.Any.fromFunction1(value))
     
     inline def setOnEndedUndefined: Self = StObject.set(x, "onEnded", js.undefined)
     
-    inline def setOnError(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onError", js.Any.fromFunction1(value))
+    inline def setOnError(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onError", js.Any.fromFunction1(value))
     
     inline def setOnErrorUndefined: Self = StObject.set(x, "onError", js.undefined)
     
@@ -364,19 +364,19 @@ object DOMAttributes {
     
     inline def setOnKeyUpUndefined: Self = StObject.set(x, "onKeyUp", js.undefined)
     
-    inline def setOnLoad(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onLoad", js.Any.fromFunction1(value))
+    inline def setOnLoad(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onLoad", js.Any.fromFunction1(value))
     
-    inline def setOnLoadStart(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onLoadStart", js.Any.fromFunction1(value))
+    inline def setOnLoadStart(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onLoadStart", js.Any.fromFunction1(value))
     
     inline def setOnLoadStartUndefined: Self = StObject.set(x, "onLoadStart", js.undefined)
     
     inline def setOnLoadUndefined: Self = StObject.set(x, "onLoad", js.undefined)
     
-    inline def setOnLoadedData(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onLoadedData", js.Any.fromFunction1(value))
+    inline def setOnLoadedData(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onLoadedData", js.Any.fromFunction1(value))
     
     inline def setOnLoadedDataUndefined: Self = StObject.set(x, "onLoadedData", js.undefined)
     
-    inline def setOnLoadedMetadata(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onLoadedMetadata", js.Any.fromFunction1(value))
+    inline def setOnLoadedMetadata(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onLoadedMetadata", js.Any.fromFunction1(value))
     
     inline def setOnLoadedMetadataUndefined: Self = StObject.set(x, "onLoadedMetadata", js.undefined)
     
@@ -412,15 +412,15 @@ object DOMAttributes {
     
     inline def setOnPasteUndefined: Self = StObject.set(x, "onPaste", js.undefined)
     
-    inline def setOnPause(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onPause", js.Any.fromFunction1(value))
+    inline def setOnPause(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onPause", js.Any.fromFunction1(value))
     
     inline def setOnPauseUndefined: Self = StObject.set(x, "onPause", js.undefined)
     
-    inline def setOnPlay(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onPlay", js.Any.fromFunction1(value))
+    inline def setOnPlay(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onPlay", js.Any.fromFunction1(value))
     
     inline def setOnPlayUndefined: Self = StObject.set(x, "onPlay", js.undefined)
     
-    inline def setOnPlaying(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onPlaying", js.Any.fromFunction1(value))
+    inline def setOnPlaying(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onPlaying", js.Any.fromFunction1(value))
     
     inline def setOnPlayingUndefined: Self = StObject.set(x, "onPlaying", js.undefined)
     
@@ -456,11 +456,11 @@ object DOMAttributes {
     
     inline def setOnPointerUpUndefined: Self = StObject.set(x, "onPointerUp", js.undefined)
     
-    inline def setOnProgress(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onProgress", js.Any.fromFunction1(value))
+    inline def setOnProgress(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onProgress", js.Any.fromFunction1(value))
     
     inline def setOnProgressUndefined: Self = StObject.set(x, "onProgress", js.undefined)
     
-    inline def setOnRateChange(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onRateChange", js.Any.fromFunction1(value))
+    inline def setOnRateChange(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onRateChange", js.Any.fromFunction1(value))
     
     inline def setOnRateChangeUndefined: Self = StObject.set(x, "onRateChange", js.undefined)
     
@@ -472,19 +472,19 @@ object DOMAttributes {
     
     inline def setOnScrollUndefined: Self = StObject.set(x, "onScroll", js.undefined)
     
-    inline def setOnSeeked(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onSeeked", js.Any.fromFunction1(value))
+    inline def setOnSeeked(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onSeeked", js.Any.fromFunction1(value))
     
     inline def setOnSeekedUndefined: Self = StObject.set(x, "onSeeked", js.undefined)
     
-    inline def setOnSeeking(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onSeeking", js.Any.fromFunction1(value))
+    inline def setOnSeeking(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onSeeking", js.Any.fromFunction1(value))
     
     inline def setOnSeekingUndefined: Self = StObject.set(x, "onSeeking", js.undefined)
     
-    inline def setOnSelect(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onSelect", js.Any.fromFunction1(value))
+    inline def setOnSelect(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onSelect", js.Any.fromFunction1(value))
     
     inline def setOnSelectUndefined: Self = StObject.set(x, "onSelect", js.undefined)
     
-    inline def setOnStalled(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onStalled", js.Any.fromFunction1(value))
+    inline def setOnStalled(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onStalled", js.Any.fromFunction1(value))
     
     inline def setOnStalledUndefined: Self = StObject.set(x, "onStalled", js.undefined)
     
@@ -492,11 +492,11 @@ object DOMAttributes {
     
     inline def setOnSubmitUndefined: Self = StObject.set(x, "onSubmit", js.undefined)
     
-    inline def setOnSuspend(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onSuspend", js.Any.fromFunction1(value))
+    inline def setOnSuspend(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onSuspend", js.Any.fromFunction1(value))
     
     inline def setOnSuspendUndefined: Self = StObject.set(x, "onSuspend", js.undefined)
     
-    inline def setOnTimeUpdate(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onTimeUpdate", js.Any.fromFunction1(value))
+    inline def setOnTimeUpdate(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onTimeUpdate", js.Any.fromFunction1(value))
     
     inline def setOnTimeUpdateUndefined: Self = StObject.set(x, "onTimeUpdate", js.undefined)
     
@@ -520,11 +520,11 @@ object DOMAttributes {
     
     inline def setOnTransitionEndUndefined: Self = StObject.set(x, "onTransitionEnd", js.undefined)
     
-    inline def setOnVolumeChange(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onVolumeChange", js.Any.fromFunction1(value))
+    inline def setOnVolumeChange(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onVolumeChange", js.Any.fromFunction1(value))
     
     inline def setOnVolumeChangeUndefined: Self = StObject.set(x, "onVolumeChange", js.undefined)
     
-    inline def setOnWaiting(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = StObject.set(x, "onWaiting", js.Any.fromFunction1(value))
+    inline def setOnWaiting(value: slinky.core.SyntheticEvent[T, Event] => Unit): Self = StObject.set(x, "onWaiting", js.Any.fromFunction1(value))
     
     inline def setOnWaitingUndefined: Self = StObject.set(x, "onWaiting", js.undefined)
     
