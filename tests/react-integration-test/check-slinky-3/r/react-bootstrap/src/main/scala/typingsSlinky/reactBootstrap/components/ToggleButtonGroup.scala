@@ -379,7 +379,7 @@ object ToggleButtonGroup {
       
       inline def nonce(value: String): this.type = set("nonce", value.asInstanceOf[js.Any])
       
-      inline def onAbort(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onAbort", js.Any.fromFunction1(value))
+      inline def onAbort(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onAbort", js.Any.fromFunction1(value))
       
       inline def onAnimationEnd(value: SyntheticAnimationEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onAnimationEnd", js.Any.fromFunction1(value))
       
@@ -393,9 +393,9 @@ object ToggleButtonGroup {
       
       inline def onBlur(value: SyntheticFocusEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onBlur", js.Any.fromFunction1(value))
       
-      inline def onCanPlay(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onCanPlay", js.Any.fromFunction1(value))
+      inline def onCanPlay(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onCanPlay", js.Any.fromFunction1(value))
       
-      inline def onCanPlayThrough(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
+      inline def onCanPlayThrough(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
       
       inline def onChange(value: /* values */ js.Array[Any] => Unit): this.type = set("onChange", js.Any.fromFunction1(value))
       
@@ -431,15 +431,15 @@ object ToggleButtonGroup {
       
       inline def onDrop(value: DragEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDrop", js.Any.fromFunction1(value))
       
-      inline def onDurationChange(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDurationChange", js.Any.fromFunction1(value))
+      inline def onDurationChange(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onDurationChange", js.Any.fromFunction1(value))
       
-      inline def onEmptied(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onEmptied", js.Any.fromFunction1(value))
+      inline def onEmptied(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onEmptied", js.Any.fromFunction1(value))
       
-      inline def onEncrypted(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onEncrypted", js.Any.fromFunction1(value))
+      inline def onEncrypted(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onEncrypted", js.Any.fromFunction1(value))
       
-      inline def onEnded(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onEnded", js.Any.fromFunction1(value))
+      inline def onEnded(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onEnded", js.Any.fromFunction1(value))
       
-      inline def onError(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onError", js.Any.fromFunction1(value))
+      inline def onError(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onError", js.Any.fromFunction1(value))
       
       inline def onFocus(value: SyntheticFocusEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onFocus", js.Any.fromFunction1(value))
       
@@ -453,13 +453,13 @@ object ToggleButtonGroup {
       
       inline def onKeyUp(value: SyntheticKeyboardEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onKeyUp", js.Any.fromFunction1(value))
       
-      inline def onLoad(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onLoad", js.Any.fromFunction1(value))
+      inline def onLoad(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onLoad", js.Any.fromFunction1(value))
       
-      inline def onLoadStart(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onLoadStart", js.Any.fromFunction1(value))
+      inline def onLoadStart(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onLoadStart", js.Any.fromFunction1(value))
       
-      inline def onLoadedData(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onLoadedData", js.Any.fromFunction1(value))
+      inline def onLoadedData(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onLoadedData", js.Any.fromFunction1(value))
       
-      inline def onLoadedMetadata(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onLoadedMetadata", js.Any.fromFunction1(value))
+      inline def onLoadedMetadata(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onLoadedMetadata", js.Any.fromFunction1(value))
       
       inline def onMouseDown(value: SyntheticMouseEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onMouseDown", js.Any.fromFunction1(value))
       
@@ -477,11 +477,11 @@ object ToggleButtonGroup {
       
       inline def onPaste(value: SyntheticClipboardEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPaste", js.Any.fromFunction1(value))
       
-      inline def onPause(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPause", js.Any.fromFunction1(value))
+      inline def onPause(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onPause", js.Any.fromFunction1(value))
       
-      inline def onPlay(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPlay", js.Any.fromFunction1(value))
+      inline def onPlay(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onPlay", js.Any.fromFunction1(value))
       
-      inline def onPlaying(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPlaying", js.Any.fromFunction1(value))
+      inline def onPlaying(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onPlaying", js.Any.fromFunction1(value))
       
       inline def onPointerCancel(value: SyntheticPointerEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPointerCancel", js.Any.fromFunction1(value))
       
@@ -499,27 +499,27 @@ object ToggleButtonGroup {
       
       inline def onPointerUp(value: SyntheticPointerEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPointerUp", js.Any.fromFunction1(value))
       
-      inline def onProgress(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onProgress", js.Any.fromFunction1(value))
+      inline def onProgress(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onProgress", js.Any.fromFunction1(value))
       
-      inline def onRateChange(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
+      inline def onRateChange(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
       
       inline def onReset(value: SyntheticEvent[EventTarget & ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onReset", js.Any.fromFunction1(value))
       
       inline def onScroll(value: SyntheticUIEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onScroll", js.Any.fromFunction1(value))
       
-      inline def onSeeked(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onSeeked", js.Any.fromFunction1(value))
+      inline def onSeeked(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onSeeked", js.Any.fromFunction1(value))
       
-      inline def onSeeking(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onSeeking", js.Any.fromFunction1(value))
+      inline def onSeeking(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onSeeking", js.Any.fromFunction1(value))
       
-      inline def onSelect(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onSelect", js.Any.fromFunction1(value))
+      inline def onSelect(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onSelect", js.Any.fromFunction1(value))
       
-      inline def onStalled(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
+      inline def onStalled(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
       
       inline def onSubmit(value: SyntheticEvent[EventTarget & ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onSubmit", js.Any.fromFunction1(value))
       
-      inline def onSuspend(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))
+      inline def onSuspend(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))
       
-      inline def onTimeUpdate(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onTimeUpdate", js.Any.fromFunction1(value))
+      inline def onTimeUpdate(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onTimeUpdate", js.Any.fromFunction1(value))
       
       inline def onTouchCancel(value: SyntheticTouchEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onTouchCancel", js.Any.fromFunction1(value))
       
@@ -531,9 +531,9 @@ object ToggleButtonGroup {
       
       inline def onTransitionEnd(value: SyntheticTransitionEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onTransitionEnd", js.Any.fromFunction1(value))
       
-      inline def onVolumeChange(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onVolumeChange", js.Any.fromFunction1(value))
+      inline def onVolumeChange(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onVolumeChange", js.Any.fromFunction1(value))
       
-      inline def onWaiting(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onWaiting", js.Any.fromFunction1(value))
+      inline def onWaiting(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onWaiting", js.Any.fromFunction1(value))
       
       inline def onWheel(value: SyntheticWheelEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onWheel", js.Any.fromFunction1(value))
       
@@ -960,7 +960,7 @@ object ToggleButtonGroup {
       
       inline def nonce(value: String): this.type = set("nonce", value.asInstanceOf[js.Any])
       
-      inline def onAbort(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onAbort", js.Any.fromFunction1(value))
+      inline def onAbort(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onAbort", js.Any.fromFunction1(value))
       
       inline def onAnimationEnd(value: SyntheticAnimationEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onAnimationEnd", js.Any.fromFunction1(value))
       
@@ -974,9 +974,9 @@ object ToggleButtonGroup {
       
       inline def onBlur(value: SyntheticFocusEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onBlur", js.Any.fromFunction1(value))
       
-      inline def onCanPlay(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onCanPlay", js.Any.fromFunction1(value))
+      inline def onCanPlay(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onCanPlay", js.Any.fromFunction1(value))
       
-      inline def onCanPlayThrough(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
+      inline def onCanPlayThrough(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onCanPlayThrough", js.Any.fromFunction1(value))
       
       inline def onChange(value: /* value */ Any => Unit): this.type = set("onChange", js.Any.fromFunction1(value))
       
@@ -1012,15 +1012,15 @@ object ToggleButtonGroup {
       
       inline def onDrop(value: DragEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDrop", js.Any.fromFunction1(value))
       
-      inline def onDurationChange(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onDurationChange", js.Any.fromFunction1(value))
+      inline def onDurationChange(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onDurationChange", js.Any.fromFunction1(value))
       
-      inline def onEmptied(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onEmptied", js.Any.fromFunction1(value))
+      inline def onEmptied(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onEmptied", js.Any.fromFunction1(value))
       
-      inline def onEncrypted(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onEncrypted", js.Any.fromFunction1(value))
+      inline def onEncrypted(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onEncrypted", js.Any.fromFunction1(value))
       
-      inline def onEnded(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onEnded", js.Any.fromFunction1(value))
+      inline def onEnded(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onEnded", js.Any.fromFunction1(value))
       
-      inline def onError(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onError", js.Any.fromFunction1(value))
+      inline def onError(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onError", js.Any.fromFunction1(value))
       
       inline def onFocus(value: SyntheticFocusEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onFocus", js.Any.fromFunction1(value))
       
@@ -1034,13 +1034,13 @@ object ToggleButtonGroup {
       
       inline def onKeyUp(value: SyntheticKeyboardEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onKeyUp", js.Any.fromFunction1(value))
       
-      inline def onLoad(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onLoad", js.Any.fromFunction1(value))
+      inline def onLoad(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onLoad", js.Any.fromFunction1(value))
       
-      inline def onLoadStart(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onLoadStart", js.Any.fromFunction1(value))
+      inline def onLoadStart(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onLoadStart", js.Any.fromFunction1(value))
       
-      inline def onLoadedData(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onLoadedData", js.Any.fromFunction1(value))
+      inline def onLoadedData(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onLoadedData", js.Any.fromFunction1(value))
       
-      inline def onLoadedMetadata(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onLoadedMetadata", js.Any.fromFunction1(value))
+      inline def onLoadedMetadata(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onLoadedMetadata", js.Any.fromFunction1(value))
       
       inline def onMouseDown(value: SyntheticMouseEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onMouseDown", js.Any.fromFunction1(value))
       
@@ -1058,11 +1058,11 @@ object ToggleButtonGroup {
       
       inline def onPaste(value: SyntheticClipboardEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPaste", js.Any.fromFunction1(value))
       
-      inline def onPause(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPause", js.Any.fromFunction1(value))
+      inline def onPause(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onPause", js.Any.fromFunction1(value))
       
-      inline def onPlay(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPlay", js.Any.fromFunction1(value))
+      inline def onPlay(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onPlay", js.Any.fromFunction1(value))
       
-      inline def onPlaying(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPlaying", js.Any.fromFunction1(value))
+      inline def onPlaying(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onPlaying", js.Any.fromFunction1(value))
       
       inline def onPointerCancel(value: SyntheticPointerEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPointerCancel", js.Any.fromFunction1(value))
       
@@ -1080,27 +1080,27 @@ object ToggleButtonGroup {
       
       inline def onPointerUp(value: SyntheticPointerEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onPointerUp", js.Any.fromFunction1(value))
       
-      inline def onProgress(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onProgress", js.Any.fromFunction1(value))
+      inline def onProgress(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onProgress", js.Any.fromFunction1(value))
       
-      inline def onRateChange(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
+      inline def onRateChange(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onRateChange", js.Any.fromFunction1(value))
       
       inline def onReset(value: SyntheticEvent[EventTarget & ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onReset", js.Any.fromFunction1(value))
       
       inline def onScroll(value: SyntheticUIEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onScroll", js.Any.fromFunction1(value))
       
-      inline def onSeeked(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onSeeked", js.Any.fromFunction1(value))
+      inline def onSeeked(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onSeeked", js.Any.fromFunction1(value))
       
-      inline def onSeeking(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onSeeking", js.Any.fromFunction1(value))
+      inline def onSeeking(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onSeeking", js.Any.fromFunction1(value))
       
-      inline def onSelect(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onSelect", js.Any.fromFunction1(value))
+      inline def onSelect(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onSelect", js.Any.fromFunction1(value))
       
-      inline def onStalled(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
+      inline def onStalled(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onStalled", js.Any.fromFunction1(value))
       
       inline def onSubmit(value: SyntheticEvent[EventTarget & ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onSubmit", js.Any.fromFunction1(value))
       
-      inline def onSuspend(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))
+      inline def onSuspend(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onSuspend", js.Any.fromFunction1(value))
       
-      inline def onTimeUpdate(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onTimeUpdate", js.Any.fromFunction1(value))
+      inline def onTimeUpdate(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onTimeUpdate", js.Any.fromFunction1(value))
       
       inline def onTouchCancel(value: SyntheticTouchEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onTouchCancel", js.Any.fromFunction1(value))
       
@@ -1112,9 +1112,9 @@ object ToggleButtonGroup {
       
       inline def onTransitionEnd(value: SyntheticTransitionEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onTransitionEnd", js.Any.fromFunction1(value))
       
-      inline def onVolumeChange(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onVolumeChange", js.Any.fromFunction1(value))
+      inline def onVolumeChange(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onVolumeChange", js.Any.fromFunction1(value))
       
-      inline def onWaiting(value: SyntheticEvent[Event, ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onWaiting", js.Any.fromFunction1(value))
+      inline def onWaiting(value: SyntheticEvent[ReactComponentClass[ButtonGroupProps], Event] => Unit): this.type = set("onWaiting", js.Any.fromFunction1(value))
       
       inline def onWheel(value: SyntheticWheelEvent[ReactComponentClass[ButtonGroupProps]] => Unit): this.type = set("onWheel", js.Any.fromFunction1(value))
       
