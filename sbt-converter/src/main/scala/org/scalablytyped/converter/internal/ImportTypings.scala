@@ -47,7 +47,11 @@ object ImportTypings {
     implicit val decodes: Decoder[Output] = io.circe013.generic.semiauto.deriveDecoder
   }
 
-  def apply(
+  type Results   = Map[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]]
+  type Successes = Map[LibTsSource, Dep.Concrete]
+  type Failures  = Map[LibTsSource, Either[Throwable, String]]
+
+  def get(
       input:              Input,
       logger:             Logger[Unit],
       parseCacheDirOpt:   Option[Path],
@@ -55,8 +59,7 @@ object ImportTypings {
       fromFolder:         InFolder,
       targetFolder:       os.Path,
       compiler:           Compiler,
-  ): Either[Map[LibTsSource, Either[Throwable, String]], Output] = {
-
+  ): (Results, Successes, Failures) = {
     if (input.conversion.expandTypeMappings =/= EnabledTypeMappingExpansion.DefaultSelection) {
       logger.warn("Changing stInternalExpandTypeMappings not encouraged. It might blow up")
     }
@@ -135,6 +138,22 @@ object ImportTypings {
 
     val failures: Map[LibTsSource, Either[Throwable, String]] =
       results.collect { case (_, PhaseRes.Failure(errors)) => errors }.reduceOption(_ ++ _).getOrElse(Map.empty)
+
+    (results, successes, failures)
+  }
+
+  def apply(
+      input:              Input,
+      logger:             Logger[Unit],
+      parseCacheDirOpt:   Option[Path],
+      publishLocalFolder: os.Path,
+      fromFolder:         InFolder,
+      targetFolder:       os.Path,
+      compiler:           Compiler,
+  ): Either[Failures, Output] = {
+
+    val (_, successes, failures) =
+      get(input, logger, parseCacheDirOpt, publishLocalFolder, fromFolder, targetFolder, compiler)
 
     if (failures.nonEmpty) Left(failures)
     else
