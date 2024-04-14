@@ -59,6 +59,7 @@ object ImportTypings {
       fromFolder:         InFolder,
       targetFolder:       os.Path,
       compiler:           Compiler,
+      includeProject:     Boolean = false,
   ): (Results, Successes, Failures) = {
     if (input.conversion.expandTypeMappings =/= EnabledTypeMappingExpansion.DefaultSelection) {
       logger.warn("Changing stInternalExpandTypeMappings not encouraged. It might blow up")
@@ -70,12 +71,19 @@ object ImportTypings {
 
     val bootstrapped = Bootstrap.fromNodeModules(fromFolder, input.conversion, input.wantedLibs.keySet)
 
-    val initial = bootstrapped.initialLibs match {
-      case Left(unresolved) => sys.error(unresolved.msg)
-      case Right(initial)   => initial
+    val inDir = fromFolder.path / os.up
+
+    val projectSource: Option[LibTsSource.FromFolder] =
+      if (includeProject) Some(LibTsSource.FromFolder(InFolder(inDir), TsIdentLibrary(inDir.last))) else None
+
+    val sources: Vector[LibTsSource] = {
+      bootstrapped.initialLibs match {
+        case Left(unresolved) => sys.error(unresolved.msg)
+        case Right(initial)   => projectSource.foldLeft(initial)(_ :+ _)
+      }
     }
 
-    logger.info(s"Importing ${initial.map(_.libName.value).mkString(", ")}")
+    logger.info(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
     val cachedParser = PersistingParser(parseCacheDirOpt, bootstrapped.inputFolders, logger)
 
@@ -124,7 +132,7 @@ object ImportTypings {
       )
 
     val results: Results =
-      initial
+      sources
         .map(s => (s: LibTsSource) -> PhaseRunner(Phases, (_: LibTsSource) => logger, PhaseListener.NoListener)(s))
         .toMap
         .toSorted
