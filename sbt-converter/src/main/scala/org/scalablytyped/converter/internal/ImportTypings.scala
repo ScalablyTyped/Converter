@@ -48,7 +48,7 @@ object ImportTypings {
   }
 
   type Results   = Map[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]]
-  type Successes = Map[LibTsSource, Dep.Concrete]
+  type Successes = Map[LibTsSource, PublishedSbtProject]
   type Failures  = Map[LibTsSource, Either[Throwable, String]]
 
   def get(
@@ -123,20 +123,20 @@ object ImportTypings {
         "build",
       )
 
-    val results: SortedMap[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]] =
+    val results: Results =
       initial
         .map(s => (s: LibTsSource) -> PhaseRunner(Phases, (_: LibTsSource) => logger, PhaseListener.NoListener)(s))
         .toMap
         .toSorted
 
-    val successes: Map[LibTsSource, Dep.Concrete] = {
-      def go(source: LibTsSource, lib: PublishedSbtProject): Map[LibTsSource, Dep.Concrete] =
-        Map(source -> lib.project.reference) ++ lib.project.deps.flatMap { case (k, v) => go(k, v) }
+    val successes: Successes = {
+      def go(source: LibTsSource, p: PublishedSbtProject): Successes =
+        Map(source -> p) ++ p.project.deps.flatMap { case (k, v) => go(k, v) }
 
       results.collect { case (s, PhaseRes.Ok(res)) => go(s, res) }.reduceOption(_ ++ _).getOrElse(Map.empty)
     }
 
-    val failures: Map[LibTsSource, Either[Throwable, String]] =
+    val failures: Failures =
       results.collect { case (_, PhaseRes.Failure(errors)) => errors }.reduceOption(_ ++ _).getOrElse(Map.empty)
 
     (results, successes, failures)
@@ -160,7 +160,7 @@ object ImportTypings {
       Right(
         Output(
           input.conversion.flavourImpl.dependencies.map(_.concrete(input.conversion.versions)),
-          IArray.fromTraversable(successes.values),
+          IArray.fromTraversable(successes.values.map(_.project.reference)),
         ),
       )
   }
