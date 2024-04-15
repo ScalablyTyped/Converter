@@ -35,7 +35,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
 
     val conversion = stConversionOptions.value
 
-    val input = ImportTypings.Input(
+    val input = new ImportTypings.Input(
       converterVersion = BuildInfo.version,
       conversion       = conversion,
       wantedLibs       = wantedLibs,
