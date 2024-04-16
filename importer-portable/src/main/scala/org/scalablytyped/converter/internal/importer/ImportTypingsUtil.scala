@@ -36,14 +36,15 @@ object ImportTypingsUtil {
   type Failures  = Map[LibTsSource, Either[Throwable, String]]
 
   def get(
-      input:              Input,
-      logger:             Logger[Unit],
-      parseCacheDirOpt:   Option[Path],
-      publishLocalFolder: os.Path,
-      fromFolder:         InFolder,
-      targetFolder:       os.Path,
-      compiler:           Compiler,
-      includeProject:     Boolean = false,
+      input:                    Input,
+      logger:                   Logger[Unit],
+      parseCacheDirOpt:         Option[Path],
+      publishLocalFolder:       os.Path,
+      fromFolder:               InFolder,
+      targetFolder:             os.Path,
+      compiler:                 Compiler,
+      includeProject:           Boolean = false,
+      ensureSourceFilesWritten: Boolean = false,
   ): (Results, Successes, Failures) = {
     if (input.conversion.expandTypeMappings =/= EnabledTypeMappingExpansion.DefaultSelection) {
       logger.warn("Changing stInternalExpandTypeMappings not encouraged. It might blow up")
