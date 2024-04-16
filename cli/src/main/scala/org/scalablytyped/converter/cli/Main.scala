@@ -43,6 +43,7 @@ object Main {
     organization             = "org.scalablytyped",
     enableReactTreeShaking   = Selection.None,
     enableLongApplyMethod    = false,
+    disableCallbackWrapping  = false,
     privateWithin            = None,
     useDeprecatedModuleNames = false,
   )
@@ -167,6 +168,9 @@ object Main {
       opt[Boolean]("enableLongApplyMethod")
         .action((x, c) => c.mapConversion(_.copy(enableLongApplyMethod = x)))
         .text(s"Enables long apply methods, instead of implicit ops builders"),
+      opt[Boolean]("disableCallbackWrapping")
+        .action((x, c) => c.mapConversion(_.copy(disableCallbackWrapping = x)))
+        .text(s"Disable wrapping of native js function props in scalajs-react Callback"),
       opt[Boolean]("shortModuleNames")
         .action((x, c) => c.mapConversion(_.copy(useDeprecatedModuleNames = x)))
         .text(

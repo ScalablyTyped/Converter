@@ -21,6 +21,7 @@ case class ConversionOptions(
     organization:             String,
     enableReactTreeShaking:   Selection[Name],
     enableLongApplyMethod:    Boolean,
+    disableCallbackWrapping:  Boolean,
     privateWithin:            Option[Name],
     useDeprecatedModuleNames: Boolean,
 ) {
@@ -39,7 +40,7 @@ case class ConversionOptions(
       case Flavour.SlinkyNative =>
         SlinkyNativeFlavour(outputPackage, enableLongApplyMethod, versions, enableReactTreeShaking)
       case Flavour.ScalajsReact =>
-        JapgollyFlavour(outputPackage, enableLongApplyMethod, versions, enableReactTreeShaking)
+        JapgollyFlavour(outputPackage, enableLongApplyMethod, disableCallbackWrapping, versions, enableReactTreeShaking)
     }
 
 }
