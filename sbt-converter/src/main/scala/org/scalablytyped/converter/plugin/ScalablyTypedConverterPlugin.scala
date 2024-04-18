@@ -29,7 +29,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
     val fromFolder         = InFolder(os.Path((Compile / npmUpdate / Keys.crossTarget).value / "node_modules"))
     val targetFolder       = os.Path(Keys.streams.value.cacheDirectory) / "sources"
 
-    val input = ImportTypings.Input(
+    val input = new ImportTypings.Input(
       converterVersion = BuildInfo.version,
       conversion       = conversion,
       wantedLibs       = WantedLibs.setting.value,

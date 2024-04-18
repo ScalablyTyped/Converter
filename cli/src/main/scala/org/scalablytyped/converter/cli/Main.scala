@@ -2,6 +2,7 @@ package org.scalablytyped.converter.cli
 
 import com.olvind.logging.{stdout, storing, LogLevel, Logger}
 import fansi.{Attr, Color, Str}
+import org.scalablytyped.converter.internal.ImportTypingsUtil
 import org.scalablytyped.converter.internal.importer._
 import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, PublishedSbtProject, SbtProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
@@ -15,7 +16,7 @@ import org.scalablytyped.converter.internal.{constants, files, sets, BuildInfo, 
 import org.scalablytyped.converter.{Flavour, Selection}
 import scopt.{OParser, OParserBuilder, Read}
 
-import scala.collection.immutable.SortedSet
+import scala.collection.immutable.{SortedMap, SortedSet}
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
@@ -66,8 +67,8 @@ object Main {
     includeProject = false,
   )
 
-  val parseCachePath = Some(files.existing(constants.defaultCacheFolder / 'parse).toNIO)
-  val t0             = System.currentTimeMillis
+  val parseCacheDirOpt = Some(files.existing(constants.defaultCacheFolder / 'parse).toNIO)
+  val t0               = System.currentTimeMillis
 
   val logger: Logger[(Array[Logger.Stored], Unit)] =
     storing().zipWith(stdout.filter(LogLevel.warn))
@@ -207,9 +208,6 @@ object Main {
 
         val packageJson = Json.force[PackageJson](packageJsonPath)
 
-        val projectSource: Option[LibTsSource.FromFolder] =
-          if (includeProject) Some(LibTsSource.FromFolder(InFolder(inDir), TsIdentLibrary(inDir.last))) else None
-
         val wantedLibs: SortedSet[TsIdentLibrary] =
           libsFromCmdLine match {
             case sets.EmptySet() =>
@@ -221,21 +219,54 @@ object Main {
             case otherwise => otherwise
           }
 
-        val bootstrapped = Bootstrap.fromNodeModules(InFolder(nodeModulesPath), conversion, wantedLibs)
+        /* ImportTypings only uses the library names, not the versions */
+        val wantedLibsEmptyVersion: SortedMap[TsIdentLibrary, String] =
+          SortedMap.empty[TsIdentLibrary, String] ++ (wantedLibs.map(k => (k, "")))
 
-        val sources: Vector[LibTsSource] = {
-          bootstrapped.initialLibs match {
-            case Left(unresolved) => sys.error(unresolved.msg)
-            case Right(initial)   => projectSource.foldLeft(initial)(_ :+ _)
-          }
-        }
+        val publishLocalFolder = constants.defaultLocalPublishFolder
+        val fromFolder         = InFolder(nodeModulesPath)
+        val targetFolder       = c.paths.out
+
+        val input = ImportTypingsUtil.Input(
+          converterVersion = BuildInfo.version,
+          conversion       = conversion,
+          wantedLibs       = wantedLibsEmptyVersion,
+        )
+
+        val logger: Logger[(Array[Logger.Stored], Unit)] =
+          storing().zipWith(stdout.filter(LogLevel.warn))
+
+        val parseCacheDirOpt = Some(
+          files.existing(constants.defaultCacheFolder / "parse").toNIO,
+        )
+
+        val compiler = Await.result(
+          BloopCompiler(logger.filter(LogLevel.debug).void, conversion.versions, failureCacheFolderOpt = None),
+          Duration.Inf,
+        )
+
+        val ensureSourceFilesWritten = true
+
+        val (results, successes, failures) = ImportTypingsUtil.get(
+          input,
+          logger.void,
+          parseCacheDirOpt,
+          publishLocalFolder,
+          fromFolder,
+          targetFolder,
+          compiler,
+          includeProject,
+          ensureSourceFilesWritten,
+        )
 
         println(
           table(fansi.Color.LightBlue)(
             "directory" -> inDir.toString,
             "includeDev" -> includeDev.toString,
             "includeProject" -> includeProject.toString,
-            "wantedLibs" -> sources.map(s => s.libName.value).mkString(", "),
+            // TODO how to resolve this? where to put this table printing?
+            // Bootstrapped is inside ImportTypingsUtil.get and includeDev, for example, is not.
+//            "wantedLibs" -> sources.map(s => s.libName.value).mkString(", "),
             "useScalaJsDomTypes" -> conversion.useScalaJsDomTypes.toString,
             "flavour" -> conversion.flavour.toString,
             "outputPackage" -> conversion.outputPackage.unescaped,
@@ -250,66 +281,8 @@ object Main {
           ),
         )
 
-        val compiler = Await.result(
-          BloopCompiler(logger.filter(LogLevel.debug).void, conversion.versions, failureCacheFolderOpt = None),
-          Duration.Inf,
-        )
-
-        val Pipeline: RecPhase[LibTsSource, PublishedSbtProject] =
-          RecPhase[LibTsSource]
-            .next(
-              new Phase1ReadTypescript(
-                calculateLibraryVersion = PackageJsonOnly,
-                resolve                 = bootstrapped.libraryResolver,
-                ignored                 = conversion.ignoredLibs,
-                ignoredModulePrefixes   = conversion.ignoredModulePrefixes,
-                pedantic                = false,
-                parser                  = PersistingParser(parseCachePath, bootstrapped.inputFolders, logger.void),
-                expandTypeMappings      = conversion.expandTypeMappings,
-              ),
-              "typescript",
-            )
-            .next(
-              new Phase2ToScalaJs(
-                pedantic                 = false,
-                scalaVersion             = conversion.versions.scala,
-                enableScalaJsDefined     = conversion.enableScalaJsDefined,
-                outputPkg                = conversion.outputPackage,
-                flavour                  = conversion.flavourImpl,
-                useDeprecatedModuleNames = conversion.useDeprecatedModuleNames,
-              ),
-              "scala.js",
-            )
-            .next(
-              new PhaseFlavour(conversion.flavourImpl, maybePrivateWithin = conversion.privateWithin),
-              conversion.flavourImpl.toString,
-            )
-            .next(
-              new Phase3Compile(
-                versions                   = conversion.versions,
-                compiler                   = compiler,
-                targetFolder               = c.paths.out,
-                organization               = conversion.organization,
-                publishLocalFolder         = constants.defaultLocalPublishFolder,
-                metadataFetcher            = Npmjs.No,
-                softWrites                 = true,
-                flavour                    = conversion.flavourImpl,
-                generateScalaJsBundlerFile = false,
-                ensureSourceFilesWritten   = true,
-              ),
-              "build",
-            )
-
-        val results: Map[LibTsSource, PhaseRes[LibTsSource, PublishedSbtProject]] =
-          sources
-            .map(source => source -> PhaseRunner(Pipeline, (_: LibTsSource) => logger.void, NoListener)(source))
-            .toMap
-
         val td = System.currentTimeMillis - t0
         logger.warn(td)
-
-        val failures: Map[LibTsSource, Either[Throwable, String]] =
-          results.collect { case (_, PhaseRes.Failure(errors)) => errors }.reduceOption(_ ++ _).getOrElse(Map.empty)
 
         if (failures.nonEmpty) {
           println(
@@ -326,13 +299,6 @@ object Main {
 
           1
         } else {
-          val allSuccesses: Map[LibTsSource, PublishedSbtProject] = {
-            def go(source: LibTsSource, p: PublishedSbtProject): Map[LibTsSource, PublishedSbtProject] =
-              Map(source -> p) ++ p.project.deps.flatMap { case (k, v) => go(k, v) }
-
-            results.collect { case (s, PhaseRes.Ok(res)) => go(s, res) }.reduceOption(_ ++ _).getOrElse(Map.empty)
-          }
-
           val short: Seq[SbtProject] =
             results
               .collect { case (_, PhaseRes.Ok(res)) => res.project }
@@ -341,7 +307,7 @@ object Main {
               .sortBy(_.name)
 
           println()
-          println(s"Successfully converted ${allSuccesses.keys.map(x => Color.Green(x.libName.value)).mkString(", ")}")
+          println(s"Successfully converted ${successes.keys.map(x => Color.Green(x.libName.value)).mkString(", ")}")
           println("To use in sbt: ")
           println(Color.DarkGray(s"""libraryDependencies ++= Seq(
                |  ${short.map(p => p.reference.asSbt).mkString("", ",\n  ", "")}
