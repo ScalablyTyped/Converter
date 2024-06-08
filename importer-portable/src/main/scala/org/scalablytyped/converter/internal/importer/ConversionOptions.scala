@@ -17,6 +17,7 @@ case class ConversionOptions(
     stdLibs:                  SortedSet[String],
     expandTypeMappings:       Selection[TsIdentLibrary],
     ignored:                  SortedSet[String],
+    explicitlyIncluded:       Option[SortedSet[String]],
     versions:                 Versions,
     organization:             String,
     enableReactTreeShaking:   Selection[Name],
@@ -24,6 +25,9 @@ case class ConversionOptions(
     privateWithin:            Option[Name],
     useDeprecatedModuleNames: Boolean,
 ) {
+  val explicitlyIncludedLibs: Option[Set[TsIdentLibrary]] =
+    explicitlyIncluded.map(_.map(TsIdentLibrary.apply))
+
   val ignoredLibs: Set[TsIdentLibrary] =
     ignored.map(TsIdentLibrary.apply)
 

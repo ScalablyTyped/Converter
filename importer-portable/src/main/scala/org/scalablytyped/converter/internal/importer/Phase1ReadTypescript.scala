@@ -21,6 +21,7 @@ class Phase1ReadTypescript(
     calculateLibraryVersion: CalculateLibraryVersion,
     ignored:                 Set[TsIdentLibrary],
     ignoredModulePrefixes:   Set[List[String]],
+    explicitlyIncluded:      Option[Set[TsIdentLibrary]],
     pedantic:                Boolean,
     parser:                  InFile => Either[String, TsParsedFile],
     expandTypeMappings:      Selection[TsIdentLibrary],
@@ -47,7 +48,7 @@ class Phase1ReadTypescript(
   ): PhaseRes[LibTsSource, LibTs] = {
     source match {
       case source if ignored(source.libName) || isCircular => PhaseRes.Ignore()
-      case source =>
+      case source if explicitlyIncluded.forall(_(source.libName)) =>
         val includedFiles: IArray[InFile] =
           source match {
             case LibTsSource.StdLibSource(_, files, _) =>
