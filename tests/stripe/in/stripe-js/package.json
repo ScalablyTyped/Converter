@@ -1,0 +1,19 @@
+{
+  "name": "@stripe/stripe-js",
+  "version": "4.1.0",
+  "description": "Stripe.js loading utility",
+  "repository": "github:stripe/stripe-js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
+  "author": "Stripe (https://www.stripe.com)",
+  "license": "MIT",
+  "homepage": "https://stripe.com/docs/js",
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "engines": {
+    "node": ">=12.16"
+  }
+}
