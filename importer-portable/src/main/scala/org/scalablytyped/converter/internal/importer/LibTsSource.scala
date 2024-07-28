@@ -74,8 +74,17 @@ object LibTsSource {
             fromTypingsJson(f, f.packageJsonOpt.flatMap(_.parsedTypings)),
           ).flatten
 
-        if (fromTypings.nonEmpty) fromTypings
-        else fromModuleDeclaration(f, f.packageJsonOpt.flatMap(_.parsedModules))
+        val mainTypings =
+          if (fromTypings.nonEmpty) fromTypings
+          else fromModuleDeclaration(f, f.packageJsonOpt.flatMap(_.parsedModules))
+
+        // This used to only find files from the types and typings fields but that is far too limited.
+        // At the very least we need to also include any types specified in the files field.
+        // FIXME: The files field includes file patterns but this assumes that they are all files/folders pointing to
+        //  modules.
+        val filesTypings = fromFileEntry(f, f.packageJsonOpt.flatMap(_.files))
+
+        (mainTypings ++ filesTypings).distinct
     }
   }
 }

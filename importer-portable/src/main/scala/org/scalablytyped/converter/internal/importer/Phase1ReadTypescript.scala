@@ -56,9 +56,10 @@ class Phase1ReadTypescript(
               /* don't include std */
               f.shortenedFiles
             case f: LibTsSource.FromFolder =>
-              /* There are often whole trees parallel to what is specified in `typings` (or similar). This ignores them */
-              val bound = f.shortenedFiles.headOption.map(_.folder).getOrElse(f.folder)
-              PathsFromTsLibSource.filesFrom(bound)
+              /* There are often whole trees parallel to what is specified in `typings` (or similar). This ignores some of them. */
+              val bound = f.shortenedFiles.map(_.folder)
+              val boundOrParent = if (bound.isEmpty) IArray(f.folder) else bound
+              boundOrParent.flatMap(PathsFromTsLibSource.filesFrom).distinct
           }
 
         val includedViaDirective = mutable.Set.empty[InFile]
