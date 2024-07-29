@@ -50,7 +50,7 @@ object LibTsSource {
 
     def fromFilesGlobEntry(fromFolder: LibTsSource.FromFolder, globs: Option[IArray[String]]): IArray[InFile] = {
       val baseDirectory = fromFolder.folder.path
-      val files = globs.fold(os.walk(baseDirectory))(GlobWalker.walkFiles(baseDirectory, _)).map(InFile(_))
+      val files         = globs.fold(os.walk(baseDirectory))(GlobWalker.walkFiles(baseDirectory, _)).map(InFile(_))
       IArray.fromTraversable(files)
     }
 
