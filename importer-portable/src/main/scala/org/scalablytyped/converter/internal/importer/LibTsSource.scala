@@ -48,12 +48,6 @@ object LibTsSource {
     def fromFileEntry(fromFolder: LibTsSource.FromFolder, files: Option[IArray[String]]): IArray[InFile] =
       files.getOrElse(IArray.Empty).mapNotNone(file => LibraryResolver.file(fromFolder.folder, file))
 
-    def fromFilesGlobEntry(fromFolder: LibTsSource.FromFolder, globs: Option[IArray[String]]): IArray[InFile] = {
-      val baseDirectory = fromFolder.folder.path
-      val files         = globs.fold(os.walk(baseDirectory))(GlobWalker.walkFiles(baseDirectory, _)).map(InFile(_))
-      IArray.fromTraversable(files)
-    }
-
     def fromModuleDeclaration(
         fromFolder: LibTsSource.FromFolder,
         files:      Option[Map[String, String]],
@@ -80,13 +74,8 @@ object LibTsSource {
             fromTypingsJson(f, f.packageJsonOpt.flatMap(_.parsedTypings)),
           ).flatten
 
-        val mainTypings =
-          if (fromTypings.nonEmpty) fromTypings
-          else fromModuleDeclaration(f, f.packageJsonOpt.flatMap(_.parsedModules))
-
-        val filesTypings = fromFilesGlobEntry(f, f.packageJsonOpt.flatMap(_.files))
-
-        (mainTypings ++ filesTypings).distinct
+        if (fromTypings.nonEmpty) fromTypings
+        else fromModuleDeclaration(f, f.packageJsonOpt.flatMap(_.parsedModules))
     }
   }
 }

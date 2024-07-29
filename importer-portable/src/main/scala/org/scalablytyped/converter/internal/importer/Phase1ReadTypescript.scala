@@ -3,6 +3,7 @@ package importer
 
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.Selection
+import org.scalablytyped.converter.internal.importer.Phase1ReadTypescript.fromFilesGlobEntry
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
@@ -57,7 +58,8 @@ class Phase1ReadTypescript(
               f.shortenedFiles
             case f: LibTsSource.FromFolder =>
               /* There are often whole trees parallel to what is specified in `typings` (or similar). This ignores some of them. */
-              val bound         = f.shortenedFiles.map(_.folder).distinct
+              val filesTypings  = fromFilesGlobEntry(f, f.packageJsonOpt.flatMap(_.files))
+              val bound         = (f.shortenedFiles ++ filesTypings).map(_.folder)
               val boundOrParent = if (bound.isEmpty) IArray(f.folder) else bound
               boundOrParent.flatMap(PathsFromTsLibSource.filesFrom).distinct
           }
@@ -342,4 +344,10 @@ object Phase1ReadTypescript {
         T.VarToNamespace // after ExtractClasses
       ).visitTsParsedFile(scope.caching),
     )
+
+  private def fromFilesGlobEntry(fromFolder: LibTsSource.FromFolder, globs: Option[IArray[String]]): IArray[InFile] = {
+    val baseDirectory = fromFolder.folder.path
+    val files         = globs.fold(os.walk(baseDirectory))(GlobWalker.walkFiles(baseDirectory, _)).map(InFile(_))
+    IArray.fromTraversable(files)
+  }
 }
