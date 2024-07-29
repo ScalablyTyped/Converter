@@ -31,7 +31,7 @@ object GlobWalker {
     val builder = IndexedSeq.newBuilder[os.Path]
 
     def processDirectoryAndSkip(dir: os.Path): Boolean =
-      if (matches(dir)) {
+      if (dir.toIO.isDirectory && matches(dir)) {
         os.walk.stream(dir).generate { path =>
           if (path.toIO.isFile) builder += path
           Generator.Continue
