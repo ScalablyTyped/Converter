@@ -3,6 +3,7 @@ package scalajs
 
 import io.circe013.{Decoder, Encoder}
 import io.circe013.generic.semiauto.{deriveDecoder, deriveEncoder}
+import org.scalablytyped.converter.internal.scalajs.QualifiedName.dropRoot
 
 final case class QualifiedName(parts: IArray[Name]) {
   def +(name: Name) =
@@ -14,12 +15,12 @@ final case class QualifiedName(parts: IArray[Name]) {
   def startsWith(other: QualifiedName): Boolean =
     parts.startsWith(other.parts)
 
-  override lazy val hashCode = parts.hashCode
+  override lazy val hashCode = dropRoot(parts).hashCode
 
   override def equals(obj: Any): Boolean =
     obj match {
       case other: QualifiedName if other.hashCode == hashCode =>
-        parts === other.parts
+        dropRoot(parts) === dropRoot(other.parts)
       case _ => false
     }
 }
@@ -85,7 +86,7 @@ object QualifiedName {
   def AnyFromFunction(n: Int): QualifiedName = JsAny + Name(s"fromFunction$n")
 
   class StdNames(outputPkg: Name) {
-    val lib:                   QualifiedName = QualifiedName(IArray(outputPkg, Name.std))
+    val lib:                   QualifiedName = QualifiedName(IArray(Name.root, outputPkg, Name.std))
     val Array:                 QualifiedName = lib + Name.Array
     val Boolean:               QualifiedName = lib + Name.Boolean
     val BigInt:                QualifiedName = lib + Name("BigInt")
@@ -116,4 +117,7 @@ object QualifiedName {
   implicit val suffix:  ToSuffix[QualifiedName] = t => ToSuffix(t.parts.last)
   implicit val encodes: Encoder[QualifiedName]  = deriveEncoder
   implicit val decodes: Decoder[QualifiedName]  = deriveDecoder
+
+  private def dropRoot(parts: IArray[Name]): IArray[Name] =
+    parts.dropWhile(_ == Name.root)
 }

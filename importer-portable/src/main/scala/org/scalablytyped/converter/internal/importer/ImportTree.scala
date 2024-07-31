@@ -49,7 +49,7 @@ class ImportTree(
             Marker.ManglerLeaveAlone,
           ),
         ),
-        codePath   = QualifiedName(IArray(outputPkg, libName, name)),
+        codePath   = QualifiedName(IArray(Name.root, outputPkg, libName, name)),
         isOverride = false,
       )
     }
@@ -61,7 +61,7 @@ class ImportTree(
       outputPkg,
       IArray(withRequire),
       NoComments,
-      QualifiedName(IArray(outputPkg)),
+      QualifiedName(IArray(Name.root, outputPkg)),
     )
   }
 

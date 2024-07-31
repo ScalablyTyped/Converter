@@ -489,7 +489,7 @@ object Printer {
       else q.parts.map(formatName).mkString(".")
 
     def formatName(name: Name): String = name match {
-      case `outputPackage` => outputPackage.unescaped // this let's dots in chosen package name slip through
+      case `outputPackage` => s"_root_.${outputPackage.unescaped}" // this let's dots in chosen package name slip through
       case Name.APPLY      => "apply"
       case Name.THIS       => "this"
       case Name.SUPER      => "super"

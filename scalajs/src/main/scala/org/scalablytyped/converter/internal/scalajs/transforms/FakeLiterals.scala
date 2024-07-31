@@ -110,7 +110,7 @@ object FakeLiterals {
           val lit  = ExprTree.StringLit(underlying)
           collectedStrings(name) = lit
           TypeRef(
-            QualifiedName(IArray(outputPkg, tree.name, StringModuleName, name)),
+            QualifiedName(IArray(Name.root, outputPkg, tree.name, StringModuleName, name)),
             Empty,
             Comments(Marker.WasLiteral(lit)),
           )
@@ -120,7 +120,7 @@ object FakeLiterals {
           val lit  = ExprTree.BooleanLit(underlying.toBoolean)
           collectedBooleans(name) = lit
           TypeRef(
-            QualifiedName(IArray(outputPkg, tree.name, BooleansModuleName, name)),
+            QualifiedName(IArray(Name.root, outputPkg, tree.name, BooleansModuleName, name)),
             Empty,
             Comments(Marker.WasLiteral(lit)),
           )
@@ -130,7 +130,7 @@ object FakeLiterals {
           val lit  = ExprTree.DoubleLit(underlying)
           collectedDoubles(name) = lit
           TypeRef(
-            QualifiedName(IArray(outputPkg, tree.name, DoublesModuleName, name)),
+            QualifiedName(IArray(Name.root, outputPkg, tree.name, DoublesModuleName, name)),
             Empty,
             Comments(Marker.WasLiteral(lit)),
           )
@@ -140,7 +140,7 @@ object FakeLiterals {
           val lit  = ExprTree.IntLit(underlying)
           collectedInts(name) = lit
           TypeRef(
-            QualifiedName(IArray(outputPkg, tree.name, IntsModuleName, name)),
+            QualifiedName(IArray(Name.root, outputPkg, tree.name, IntsModuleName, name)),
             Empty,
             Comments(Marker.WasLiteral(lit)),
           )

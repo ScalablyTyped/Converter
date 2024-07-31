@@ -58,6 +58,7 @@ object Name {
   val underscore: Name = Name("_")
   val org:        Name = Name("org")
   val com:        Name = Name("com")
+  val root:       Name = Name("_root_")
 
   val APPLY:           Name = Name("<apply>")
   val CONSTRUCTOR:     Name = Name("<init>")
