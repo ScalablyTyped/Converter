@@ -4,11 +4,9 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-trait Leaf[T]
-  extends StObject
-     with Tree[T] {
+trait Leaf[T] extends StObject {
   
-  var `type`: typings.documentation.documentationStrings.Leaf
+  var `type`: _root_.typings.documentation.documentationStrings.Leaf
   
   var value: T
 }
@@ -23,7 +21,7 @@ object Leaf {
   @scala.inline
   implicit open class MutableBuilder[Self <: Leaf[?], T] (val x: Self & Leaf[T]) extends AnyVal {
     
-    inline def setType(value: typings.documentation.documentationStrings.Leaf): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
+    inline def setType(value: _root_.typings.documentation.documentationStrings.Leaf): Self = StObject.set(x, "type", value.asInstanceOf[js.Any])
     
     inline def setValue(value: T): Self = StObject.set(x, "value", value.asInstanceOf[js.Any])
   }

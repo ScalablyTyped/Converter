@@ -1,5 +1,6 @@
 package typingsSlinky.react.mod
 
+import _root_.typingsSlinky.react.anon.Html
 import org.scalajs.dom.Event
 import org.scalajs.dom.EventTarget
 import slinky.web.SyntheticAnimationEvent
@@ -13,7 +14,6 @@ import slinky.web.SyntheticTouchEvent
 import slinky.web.SyntheticTransitionEvent
 import slinky.web.SyntheticUIEvent
 import slinky.web.SyntheticWheelEvent
-import typingsSlinky.react.anon.Html
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

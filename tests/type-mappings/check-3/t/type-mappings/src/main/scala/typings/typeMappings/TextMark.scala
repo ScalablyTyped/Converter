@@ -1,13 +1,11 @@
 package typings.typeMappings
 
-import typings.typeMappings.typeMappingsStrings.text
+import _root_.typings.typeMappings.typeMappingsStrings.text
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-trait TextMark
-  extends StObject
-     with Mark {
+trait TextMark extends StObject {
   
   var `type`: text
 }

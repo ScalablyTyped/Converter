@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "vfile"
-version := "0.0-unknown-58701f"
+version := "0.0-unknown-35ee1c"
 scalaVersion := "3.3.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

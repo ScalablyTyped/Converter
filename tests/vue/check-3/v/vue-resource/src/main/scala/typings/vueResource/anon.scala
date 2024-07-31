@@ -1,11 +1,11 @@
 package typings.vueResource
 
+import _root_.typings.std.PromiseLike
+import _root_.typings.vueResource.vuejs.HttpHeaders
+import _root_.typings.vueResource.vuejs.HttpOptions
+import _root_.typings.vueResource.vuejs.HttpResponse
+import _root_.typings.vueResource.vuejs.http
 import org.scalablytyped.runtime.StringDictionary
-import typings.std.PromiseLike
-import typings.vueResource.vuejs.HttpHeaders
-import typings.vueResource.vuejs.HttpOptions
-import typings.vueResource.vuejs.HttpResponse
-import typings.vueResource.vuejs.http
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

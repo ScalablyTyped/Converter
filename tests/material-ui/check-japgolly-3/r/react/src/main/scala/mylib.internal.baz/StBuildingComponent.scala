@@ -1,6 +1,6 @@
 package mylib.internal.baz
 
-import mylib.internal.baz.StBuildingComponent.make
+import _root_.mylib.internal.baz.StBuildingComponent.make
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.PropsChildren
 import japgolly.scalajs.react.Ref.Simple

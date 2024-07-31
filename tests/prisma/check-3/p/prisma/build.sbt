@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "prisma"
-version := "0.0-unknown-fad13a"
+version := "0.0-unknown-6f54c6"
 scalaVersion := "3.3.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

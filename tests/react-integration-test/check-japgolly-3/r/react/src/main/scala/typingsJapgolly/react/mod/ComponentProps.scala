@@ -1,18 +1,18 @@
 package typingsJapgolly.react.mod
 
-import typingsJapgolly.react.reactStrings.a_
-import typingsJapgolly.react.reactStrings.abbr
-import typingsJapgolly.react.reactStrings.address
-import typingsJapgolly.react.reactStrings.area
-import typingsJapgolly.react.reactStrings.article
-import typingsJapgolly.react.reactStrings.aside
-import typingsJapgolly.react.reactStrings.audio
-import typingsJapgolly.react.reactStrings.b
-import typingsJapgolly.react.reactStrings.base
-import typingsJapgolly.react.reactStrings.bdi
-import typingsJapgolly.react.reactStrings.bdo
-import typingsJapgolly.react.reactStrings.big
-import typingsJapgolly.react.reactStrings.view
+import _root_.typingsJapgolly.react.reactStrings.a_
+import _root_.typingsJapgolly.react.reactStrings.abbr
+import _root_.typingsJapgolly.react.reactStrings.address
+import _root_.typingsJapgolly.react.reactStrings.area
+import _root_.typingsJapgolly.react.reactStrings.article
+import _root_.typingsJapgolly.react.reactStrings.aside
+import _root_.typingsJapgolly.react.reactStrings.audio
+import _root_.typingsJapgolly.react.reactStrings.b
+import _root_.typingsJapgolly.react.reactStrings.base
+import _root_.typingsJapgolly.react.reactStrings.bdi
+import _root_.typingsJapgolly.react.reactStrings.bdo
+import _root_.typingsJapgolly.react.reactStrings.big
+import _root_.typingsJapgolly.react.reactStrings.view
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

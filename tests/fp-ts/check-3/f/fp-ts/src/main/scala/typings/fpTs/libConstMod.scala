@@ -15,7 +15,7 @@ object libConstMod {
     
     val _L: L = js.native
     
-    val _URI: typings.fpTs.libConstMod.URI = js.native
+    val _URI: _root_.typings.fpTs.libConstMod.URI = js.native
     
     def contramap[B](f: js.Function1[/* b */ B, A]): Const[L, B] = js.native
     
@@ -38,7 +38,7 @@ object libConstMod {
     
     trait URI2HKT2[L, A] extends StObject {
       
-      var Const: typings.fpTs.libConstMod.Const[L, A]
+      var Const: _root_.typings.fpTs.libConstMod.Const[L, A]
     }
     object URI2HKT2 {
       

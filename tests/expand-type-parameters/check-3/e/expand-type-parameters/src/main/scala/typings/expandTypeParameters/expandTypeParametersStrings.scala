@@ -15,8 +15,6 @@ object expandTypeParametersStrings {
   inline def b: b = "b".asInstanceOf[b]
   
   @js.native
-  sealed trait c
-    extends StObject
-       with TA
+  sealed trait c extends StObject
   inline def c: c = "c".asInstanceOf[c]
 }

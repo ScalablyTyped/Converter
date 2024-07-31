@@ -1,6 +1,6 @@
 package typings.cldrjs
 
-import typings.cldrjs.mod.CldrFactory
+import _root_.typings.cldrjs.mod.CldrFactory
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

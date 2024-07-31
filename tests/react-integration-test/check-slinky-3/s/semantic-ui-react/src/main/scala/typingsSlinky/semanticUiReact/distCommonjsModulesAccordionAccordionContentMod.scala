@@ -1,10 +1,10 @@
 package typingsSlinky.semanticUiReact
 
+import _root_.typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
 import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
 import slinky.core.ReactComponentClass
 import slinky.core.facade.ReactElement
-import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

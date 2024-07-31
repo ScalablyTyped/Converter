@@ -1,6 +1,6 @@
 package typings.monacoEditor
 
-import typings.monacoEditor.monaco.Promise
+import _root_.typings.monacoEditor.monaco.Promise
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

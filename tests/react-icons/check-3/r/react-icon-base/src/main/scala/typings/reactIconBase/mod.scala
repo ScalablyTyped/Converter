@@ -1,8 +1,8 @@
 package typings.reactIconBase
 
-import typings.react.mod.ClassAttributes
-import typings.react.mod.Component
-import typings.react.mod.ReactSVGElement
+import _root_.typings.react.mod.ClassAttributes
+import _root_.typings.react.mod.Component
+import _root_.typings.react.mod.ReactSVGElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

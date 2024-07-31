@@ -1,14 +1,14 @@
 package typingsSlinky.react
 
+import _root_.typingsSlinky.react.anon.Children
+import _root_.typingsSlinky.react.anon.Html
+import _root_.typingsSlinky.std.Partial
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
 import org.scalajs.dom.AnimationEvent
 import org.scalajs.dom.HTMLElement
 import org.scalajs.dom.SVGElement
 import slinky.core.ReactComponentClass
-import typingsSlinky.react.anon.Children
-import typingsSlinky.react.anon.Html
-import typingsSlinky.std.Partial
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

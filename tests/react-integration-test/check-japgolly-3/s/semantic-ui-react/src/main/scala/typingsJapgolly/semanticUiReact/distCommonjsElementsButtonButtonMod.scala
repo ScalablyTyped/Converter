@@ -1,5 +1,31 @@
 package typingsJapgolly.semanticUiReact
 
+import _root_.typingsJapgolly.react.mod.ButtonHTMLAttributes
+import _root_.typingsJapgolly.react.mod.Component
+import _root_.typingsJapgolly.react.mod.ReactNodeArray
+import _root_.typingsJapgolly.react.mod.ReactType
+import _root_.typingsJapgolly.react.mod.StatelessComponent
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonContentMod.ButtonContentProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticCOLORS
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticFLOATS
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticSIZES
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.`google plus`
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.facebook
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.fade
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.instagram
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.linkedin
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.top
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.twitter
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.vertical
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.vk
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.youtube
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.facade.Empty
@@ -8,32 +34,6 @@ import japgolly.scalajs.react.facade.React.Element
 import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import org.scalajs.dom.HTMLButtonElement
-import typingsJapgolly.react.mod.ButtonHTMLAttributes
-import typingsJapgolly.react.mod.Component
-import typingsJapgolly.react.mod.ReactNodeArray
-import typingsJapgolly.react.mod.ReactType
-import typingsJapgolly.react.mod.StatelessComponent
-import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonContentMod.ButtonContentProps
-import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
-import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticCOLORS
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticFLOATS
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticSIZES
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`google plus`
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.facebook
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.fade
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.instagram
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.linkedin
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.top
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.twitter
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.vertical
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.vk
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.youtube
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

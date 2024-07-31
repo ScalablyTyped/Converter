@@ -1,5 +1,8 @@
 package typingsJapgolly.react
 
+import _root_.typingsJapgolly.react.anon.Children
+import _root_.typingsJapgolly.react.anon.Html
+import _root_.typingsJapgolly.std.Partial
 import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.facade.React.ComponentClassP
 import japgolly.scalajs.react.facade.React.Element
@@ -10,9 +13,6 @@ import org.scalablytyped.runtime.Instantiable2
 import org.scalajs.dom.AnimationEvent
 import org.scalajs.dom.HTMLElement
 import org.scalajs.dom.SVGElement
-import typingsJapgolly.react.anon.Children
-import typingsJapgolly.react.anon.Html
-import typingsJapgolly.std.Partial
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

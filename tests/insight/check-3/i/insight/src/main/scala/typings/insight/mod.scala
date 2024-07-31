@@ -1,7 +1,7 @@
 package typings.insight
 
-import typings.insight.mod.insight.IConfigstore
-import typings.insight.mod.insight.IOptions
+import _root_.typings.insight.mod.insight.IConfigstore
+import _root_.typings.insight.mod.insight.IOptions
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

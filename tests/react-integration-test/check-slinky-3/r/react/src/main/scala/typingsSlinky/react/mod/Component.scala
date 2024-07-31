@@ -1,7 +1,7 @@
 package typingsSlinky.react.mod
 
+import _root_.typingsSlinky.std.Pick
 import org.scalablytyped.runtime.StringDictionary
-import typingsSlinky.std.Pick
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -39,7 +39,7 @@ open class Component[P, S, SS] protected ()
   // always pass children as variadic arguments to `createElement`.
   // In the future, if we can define its call signature conditionally
   // on the existence of `children` in `P`, then we should remove this.
-  val props: P & typingsSlinky.react.anon.Children = js.native
+  val props: P & _root_.typingsSlinky.react.anon.Children = js.native
   
   /**
     * @deprecated

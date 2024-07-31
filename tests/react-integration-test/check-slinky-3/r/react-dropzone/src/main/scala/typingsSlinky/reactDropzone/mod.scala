@@ -1,17 +1,21 @@
 package typingsSlinky.reactDropzone
 
+import _root_.typingsSlinky.react.mod.ChangeEvent
+import _root_.typingsSlinky.react.mod.DragEvent
+import _root_.typingsSlinky.react.mod.DragEventHandler
+import _root_.typingsSlinky.react.mod.HTMLAttributes
+import _root_.typingsSlinky.react.mod.InputHTMLAttributes
+import _root_.typingsSlinky.react.mod.RefAttributes
+import _root_.typingsSlinky.react.mod.global.JSX.Element
+import _root_.typingsSlinky.reactDropzone.reactDropzoneStrings.multiple
+import _root_.typingsSlinky.reactDropzone.reactDropzoneStrings.onDragEnter
+import _root_.typingsSlinky.reactDropzone.reactDropzoneStrings.onDragLeave
+import _root_.typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.Event
 import org.scalajs.dom.HTMLElement
 import org.scalajs.dom.HTMLInputElement
 import slinky.core.facade.ReactRef
-import typingsSlinky.react.mod.ChangeEvent
-import typingsSlinky.react.mod.DragEvent
-import typingsSlinky.react.mod.DragEventHandler
-import typingsSlinky.react.mod.HTMLAttributes
-import typingsSlinky.react.mod.InputHTMLAttributes
-import typingsSlinky.react.mod.RefAttributes
-import typingsSlinky.react.mod.global.JSX.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -325,21 +329,15 @@ object mod {
     var rootRef: ReactRef[HTMLElement] = js.native
   }
   
-  /* Rewritten from type alias, can be one of: 
-    - typingsSlinky.reactDropzone.reactDropzoneStrings.multiple
-    - typingsSlinky.reactDropzone.reactDropzoneStrings.onDragEnter
-    - typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver
-    - typingsSlinky.reactDropzone.reactDropzoneStrings.onDragLeave
-  */
-  trait PropTypes extends StObject
   object PropTypes {
     
-    inline def multiple: typingsSlinky.reactDropzone.reactDropzoneStrings.multiple = "multiple".asInstanceOf[typingsSlinky.reactDropzone.reactDropzoneStrings.multiple]
+    inline def multiple: _root_.typingsSlinky.reactDropzone.reactDropzoneStrings.multiple = "multiple".asInstanceOf[_root_.typingsSlinky.reactDropzone.reactDropzoneStrings.multiple]
     
-    inline def onDragEnter: typingsSlinky.reactDropzone.reactDropzoneStrings.onDragEnter = "onDragEnter".asInstanceOf[typingsSlinky.reactDropzone.reactDropzoneStrings.onDragEnter]
+    inline def onDragEnter: _root_.typingsSlinky.reactDropzone.reactDropzoneStrings.onDragEnter = "onDragEnter".asInstanceOf[_root_.typingsSlinky.reactDropzone.reactDropzoneStrings.onDragEnter]
     
-    inline def onDragLeave: typingsSlinky.reactDropzone.reactDropzoneStrings.onDragLeave = "onDragLeave".asInstanceOf[typingsSlinky.reactDropzone.reactDropzoneStrings.onDragLeave]
+    inline def onDragLeave: _root_.typingsSlinky.reactDropzone.reactDropzoneStrings.onDragLeave = "onDragLeave".asInstanceOf[_root_.typingsSlinky.reactDropzone.reactDropzoneStrings.onDragLeave]
     
-    inline def onDragOver: typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver = "onDragOver".asInstanceOf[typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver]
+    inline def onDragOver: _root_.typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver = "onDragOver".asInstanceOf[_root_.typingsSlinky.reactDropzone.reactDropzoneStrings.onDragOver]
   }
+  type PropTypes = multiple | onDragEnter | onDragOver | onDragLeave
 }

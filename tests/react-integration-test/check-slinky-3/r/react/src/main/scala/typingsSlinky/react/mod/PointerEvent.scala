@@ -1,9 +1,9 @@
 package typingsSlinky.react.mod
 
+import _root_.typingsSlinky.react.reactStrings.mouse
+import _root_.typingsSlinky.react.reactStrings.pen
+import _root_.typingsSlinky.react.reactStrings.touch
 import org.scalajs.dom.EventTarget
-import typingsSlinky.react.reactStrings.mouse
-import typingsSlinky.react.reactStrings.pen
-import typingsSlinky.react.reactStrings.touch
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

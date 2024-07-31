@@ -26,7 +26,7 @@ object mod {
   @js.native
   trait Error[T /* <: js.Error */]
     extends StObject
-       with typings.std.Error
+       with _root_.typings.std.Error
        with Instantiable0[T]
        with Instantiable1[/* message */ String, T]
        with Instantiable2[(/* message */ String) | (/* message */ Unit), /* obj */ Any, T]

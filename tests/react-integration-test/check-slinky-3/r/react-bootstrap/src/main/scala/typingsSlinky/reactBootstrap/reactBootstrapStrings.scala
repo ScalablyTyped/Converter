@@ -1,6 +1,5 @@
 package typingsSlinky.reactBootstrap
 
-import typingsSlinky.reactBootstrap.mod.Sizes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -16,21 +15,15 @@ object reactBootstrapStrings {
   inline def defaultValue: defaultValue = "defaultValue".asInstanceOf[defaultValue]
   
   @js.native
-  sealed trait large
-    extends StObject
-       with Sizes
+  sealed trait large extends StObject
   inline def large: large = "large".asInstanceOf[large]
   
   @js.native
-  sealed trait lg
-    extends StObject
-       with Sizes
+  sealed trait lg extends StObject
   inline def lg: lg = "lg".asInstanceOf[lg]
   
   @js.native
-  sealed trait medium
-    extends StObject
-       with Sizes
+  sealed trait medium extends StObject
   inline def medium: medium = "medium".asInstanceOf[medium]
   
   @js.native
@@ -42,15 +35,11 @@ object reactBootstrapStrings {
   inline def radio: radio = "radio".asInstanceOf[radio]
   
   @js.native
-  sealed trait sm
-    extends StObject
-       with Sizes
+  sealed trait sm extends StObject
   inline def sm: sm = "sm".asInstanceOf[sm]
   
   @js.native
-  sealed trait small
-    extends StObject
-       with Sizes
+  sealed trait small extends StObject
   inline def small: small = "small".asInstanceOf[small]
   
   @js.native
@@ -62,14 +51,10 @@ object reactBootstrapStrings {
   inline def value: value = "value".asInstanceOf[value]
   
   @js.native
-  sealed trait xs
-    extends StObject
-       with Sizes
+  sealed trait xs extends StObject
   inline def xs: xs = "xs".asInstanceOf[xs]
   
   @js.native
-  sealed trait xsmall
-    extends StObject
-       with Sizes
+  sealed trait xsmall extends StObject
   inline def xsmall: xsmall = "xsmall".asInstanceOf[xsmall]
 }

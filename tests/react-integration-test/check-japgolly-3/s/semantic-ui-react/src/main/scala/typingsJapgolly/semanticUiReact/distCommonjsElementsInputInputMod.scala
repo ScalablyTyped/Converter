@@ -1,5 +1,21 @@
 package typingsJapgolly.semanticUiReact
 
+import _root_.typingsJapgolly.react.mod.Component
+import _root_.typingsJapgolly.react.mod.InputHTMLAttributes
+import _root_.typingsJapgolly.react.mod.ReactNodeArray
+import _root_.typingsJapgolly.react.mod.ReactType
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.HtmlInputrops
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.`left corner`
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.`right corner`
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.big
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.huge
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.large
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.massive
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.mini
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.small
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactEventFrom
 import japgolly.scalajs.react.facade.Empty
@@ -8,22 +24,6 @@ import japgolly.scalajs.react.facade.React.Element
 import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import org.scalajs.dom.HTMLInputElement
-import typingsJapgolly.react.mod.Component
-import typingsJapgolly.react.mod.InputHTMLAttributes
-import typingsJapgolly.react.mod.ReactNodeArray
-import typingsJapgolly.react.mod.ReactType
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.HtmlInputrops
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`left corner`
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`right corner`
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.big
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.huge
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.large
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.massive
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.mini
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.small
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

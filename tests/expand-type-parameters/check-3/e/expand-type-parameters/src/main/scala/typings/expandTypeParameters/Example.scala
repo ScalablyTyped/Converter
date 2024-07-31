@@ -1,8 +1,8 @@
 package typings.expandTypeParameters
 
-import typings.expandTypeParameters.expandTypeParametersStrings.a
-import typings.expandTypeParameters.expandTypeParametersStrings.b
-import typings.expandTypeParameters.expandTypeParametersStrings.c
+import _root_.typings.expandTypeParameters.expandTypeParametersStrings.a
+import _root_.typings.expandTypeParameters.expandTypeParametersStrings.b
+import _root_.typings.expandTypeParameters.expandTypeParametersStrings.c
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

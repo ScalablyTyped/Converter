@@ -1,35 +1,35 @@
 package typings.vue
 
+import _root_.typings.std.Element
+import _root_.typings.std.HTMLElement
+import _root_.typings.std.Record
+import _root_.typings.vue.anon.FnCall
+import _root_.typings.vue.anon.FnCallObjectKey
+import _root_.typings.vue.anon.StaticRenderFns
+import _root_.typings.vue.typesOptionsMod.AsyncComponent
+import _root_.typings.vue.typesOptionsMod.Component
+import _root_.typings.vue.typesOptionsMod.ComponentOptions
+import _root_.typings.vue.typesOptionsMod.DefaultComputed
+import _root_.typings.vue.typesOptionsMod.DefaultData
+import _root_.typings.vue.typesOptionsMod.DefaultMethods
+import _root_.typings.vue.typesOptionsMod.DefaultProps
+import _root_.typings.vue.typesOptionsMod.DirectiveFunction
+import _root_.typings.vue.typesOptionsMod.DirectiveOptions
+import _root_.typings.vue.typesOptionsMod.FunctionalComponentOptions
+import _root_.typings.vue.typesOptionsMod.PropsDefinition
+import _root_.typings.vue.typesOptionsMod.RecordPropsDefinition
+import _root_.typings.vue.typesOptionsMod.ThisTypedComponentOptionsWithArrayProps
+import _root_.typings.vue.typesOptionsMod.ThisTypedComponentOptionsWithRecordProps
+import _root_.typings.vue.typesOptionsMod.WatchOptions
+import _root_.typings.vue.typesPluginMod.PluginFunction
+import _root_.typings.vue.typesPluginMod.PluginObject
+import _root_.typings.vue.typesVnodeMod.ScopedSlot
+import _root_.typings.vue.typesVnodeMod.VNode
+import _root_.typings.vue.typesVnodeMod.VNodeChildren
+import _root_.typings.vue.typesVnodeMod.VNodeData
 import org.scalablytyped.runtime.Instantiable0
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.StringDictionary
-import typings.std.Element
-import typings.std.HTMLElement
-import typings.std.Record
-import typings.vue.anon.FnCall
-import typings.vue.anon.FnCallObjectKey
-import typings.vue.anon.StaticRenderFns
-import typings.vue.typesOptionsMod.AsyncComponent
-import typings.vue.typesOptionsMod.Component
-import typings.vue.typesOptionsMod.ComponentOptions
-import typings.vue.typesOptionsMod.DefaultComputed
-import typings.vue.typesOptionsMod.DefaultData
-import typings.vue.typesOptionsMod.DefaultMethods
-import typings.vue.typesOptionsMod.DefaultProps
-import typings.vue.typesOptionsMod.DirectiveFunction
-import typings.vue.typesOptionsMod.DirectiveOptions
-import typings.vue.typesOptionsMod.FunctionalComponentOptions
-import typings.vue.typesOptionsMod.PropsDefinition
-import typings.vue.typesOptionsMod.RecordPropsDefinition
-import typings.vue.typesOptionsMod.ThisTypedComponentOptionsWithArrayProps
-import typings.vue.typesOptionsMod.ThisTypedComponentOptionsWithRecordProps
-import typings.vue.typesOptionsMod.WatchOptions
-import typings.vue.typesPluginMod.PluginFunction
-import typings.vue.typesPluginMod.PluginObject
-import typings.vue.typesVnodeMod.ScopedSlot
-import typings.vue.typesVnodeMod.VNode
-import typings.vue.typesVnodeMod.VNodeChildren
-import typings.vue.typesVnodeMod.VNodeData
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -43,26 +43,46 @@ object typesVueMod {
     val $attrs: Record[String, String] = js.native
     
     @JSName("$children")
-    val $children: js.Array[typings.vue.typesVueMod.Vue] = js.native
+    val $children: js.Array[_root_.typings.vue.typesVueMod.Vue] = js.native
     
     @JSName("$createElement")
     def $createElement(): VNode = js.native
+    @JSName("$createElement")
+    def $createElement(tag: AsyncComponent[Any, Any, Any, Any]): VNode = js.native
+    @JSName("$createElement")
+    def $createElement(tag: AsyncComponent[Any, Any, Any, Any], children: VNodeChildren): VNode = js.native
+    @JSName("$createElement")
+    def $createElement(tag: AsyncComponent[Any, Any, Any, Any], data: VNodeData): VNode = js.native
+    @JSName("$createElement")
+    def $createElement(tag: AsyncComponent[Any, Any, Any, Any], data: VNodeData, children: VNodeChildren): VNode = js.native
+    @JSName("$createElement")
+    def $createElement(tag: AsyncComponent[Any, Any, Any, Any], data: Unit, children: VNodeChildren): VNode = js.native
+    @JSName("$createElement")
+    def $createElement(tag: Component[Any, Any, Any, Any]): VNode = js.native
+    @JSName("$createElement")
+    def $createElement(tag: Component[Any, Any, Any, Any], children: VNodeChildren): VNode = js.native
+    @JSName("$createElement")
+    def $createElement(tag: Component[Any, Any, Any, Any], data: VNodeData): VNode = js.native
+    @JSName("$createElement")
+    def $createElement(tag: Component[Any, Any, Any, Any], data: VNodeData, children: VNodeChildren): VNode = js.native
+    @JSName("$createElement")
+    def $createElement(tag: Component[Any, Any, Any, Any], data: Unit, children: VNodeChildren): VNode = js.native
     @JSName("$createElement")
     def $createElement(tag: String): VNode = js.native
     @JSName("$createElement")
     def $createElement(tag: String, children: VNodeChildren): VNode = js.native
     @JSName("$createElement")
-    def $createElement(tag: String, data: Unit, children: VNodeChildren): VNode = js.native
-    @JSName("$createElement")
     def $createElement(tag: String, data: VNodeData): VNode = js.native
     @JSName("$createElement")
     def $createElement(tag: String, data: VNodeData, children: VNodeChildren): VNode = js.native
     @JSName("$createElement")
+    def $createElement(tag: String, data: Unit, children: VNodeChildren): VNode = js.native
+    @JSName("$createElement")
     def $createElement(
       tag: js.Function0[
           Component[
-            DefaultData[typings.vue.typesVueMod.Vue], 
-            DefaultMethods[typings.vue.typesVueMod.Vue], 
+            DefaultData[_root_.typings.vue.typesVueMod.Vue], 
+            DefaultMethods[_root_.typings.vue.typesVueMod.Vue], 
             DefaultComputed, 
             DefaultProps
           ]
@@ -72,8 +92,8 @@ object typesVueMod {
     def $createElement(
       tag: js.Function0[
           Component[
-            DefaultData[typings.vue.typesVueMod.Vue], 
-            DefaultMethods[typings.vue.typesVueMod.Vue], 
+            DefaultData[_root_.typings.vue.typesVueMod.Vue], 
+            DefaultMethods[_root_.typings.vue.typesVueMod.Vue], 
             DefaultComputed, 
             DefaultProps
           ]
@@ -84,21 +104,8 @@ object typesVueMod {
     def $createElement(
       tag: js.Function0[
           Component[
-            DefaultData[typings.vue.typesVueMod.Vue], 
-            DefaultMethods[typings.vue.typesVueMod.Vue], 
-            DefaultComputed, 
-            DefaultProps
-          ]
-        ],
-      data: Unit,
-      children: VNodeChildren
-    ): VNode = js.native
-    @JSName("$createElement")
-    def $createElement(
-      tag: js.Function0[
-          Component[
-            DefaultData[typings.vue.typesVueMod.Vue], 
-            DefaultMethods[typings.vue.typesVueMod.Vue], 
+            DefaultData[_root_.typings.vue.typesVueMod.Vue], 
+            DefaultMethods[_root_.typings.vue.typesVueMod.Vue], 
             DefaultComputed, 
             DefaultProps
           ]
@@ -109,8 +116,8 @@ object typesVueMod {
     def $createElement(
       tag: js.Function0[
           Component[
-            DefaultData[typings.vue.typesVueMod.Vue], 
-            DefaultMethods[typings.vue.typesVueMod.Vue], 
+            DefaultData[_root_.typings.vue.typesVueMod.Vue], 
+            DefaultMethods[_root_.typings.vue.typesVueMod.Vue], 
             DefaultComputed, 
             DefaultProps
           ]
@@ -119,33 +126,26 @@ object typesVueMod {
       children: VNodeChildren
     ): VNode = js.native
     @JSName("$createElement")
-    def $createElement(tag: Unit, children: VNodeChildren): VNode = js.native
+    def $createElement(
+      tag: js.Function0[
+          Component[
+            DefaultData[_root_.typings.vue.typesVueMod.Vue], 
+            DefaultMethods[_root_.typings.vue.typesVueMod.Vue], 
+            DefaultComputed, 
+            DefaultProps
+          ]
+        ],
+      data: Unit,
+      children: VNodeChildren
+    ): VNode = js.native
     @JSName("$createElement")
-    def $createElement(tag: Unit, data: Unit, children: VNodeChildren): VNode = js.native
+    def $createElement(tag: Unit, children: VNodeChildren): VNode = js.native
     @JSName("$createElement")
     def $createElement(tag: Unit, data: VNodeData): VNode = js.native
     @JSName("$createElement")
     def $createElement(tag: Unit, data: VNodeData, children: VNodeChildren): VNode = js.native
     @JSName("$createElement")
-    def $createElement(tag: AsyncComponent[Any, Any, Any, Any]): VNode = js.native
-    @JSName("$createElement")
-    def $createElement(tag: AsyncComponent[Any, Any, Any, Any], children: VNodeChildren): VNode = js.native
-    @JSName("$createElement")
-    def $createElement(tag: AsyncComponent[Any, Any, Any, Any], data: Unit, children: VNodeChildren): VNode = js.native
-    @JSName("$createElement")
-    def $createElement(tag: AsyncComponent[Any, Any, Any, Any], data: VNodeData): VNode = js.native
-    @JSName("$createElement")
-    def $createElement(tag: AsyncComponent[Any, Any, Any, Any], data: VNodeData, children: VNodeChildren): VNode = js.native
-    @JSName("$createElement")
-    def $createElement(tag: Component[Any, Any, Any, Any]): VNode = js.native
-    @JSName("$createElement")
-    def $createElement(tag: Component[Any, Any, Any, Any], children: VNodeChildren): VNode = js.native
-    @JSName("$createElement")
-    def $createElement(tag: Component[Any, Any, Any, Any], data: Unit, children: VNodeChildren): VNode = js.native
-    @JSName("$createElement")
-    def $createElement(tag: Component[Any, Any, Any, Any], data: VNodeData): VNode = js.native
-    @JSName("$createElement")
-    def $createElement(tag: Component[Any, Any, Any, Any], data: VNodeData, children: VNodeChildren): VNode = js.native
+    def $createElement(tag: Unit, data: Unit, children: VNodeChildren): VNode = js.native
     @JSName("$createElement")
     var $createElement_Original: CreateElement = js.native
     
@@ -180,15 +180,15 @@ object typesVueMod {
     @JSName("$mount")
     def $mount(): this.type = js.native
     @JSName("$mount")
+    def $mount(elementOrSelector: Element): this.type = js.native
+    @JSName("$mount")
+    def $mount(elementOrSelector: Element, hydrating: Boolean): this.type = js.native
+    @JSName("$mount")
     def $mount(elementOrSelector: String): this.type = js.native
     @JSName("$mount")
     def $mount(elementOrSelector: String, hydrating: Boolean): this.type = js.native
     @JSName("$mount")
     def $mount(elementOrSelector: Unit, hydrating: Boolean): this.type = js.native
-    @JSName("$mount")
-    def $mount(elementOrSelector: Element): this.type = js.native
-    @JSName("$mount")
-    def $mount(elementOrSelector: Element, hydrating: Boolean): this.type = js.native
     
     @JSName("$nextTick")
     def $nextTick(): js.Promise[Unit] = js.native
@@ -218,26 +218,26 @@ object typesVueMod {
     
     @JSName("$options")
     val $options: ComponentOptions[
-        typings.vue.typesVueMod.Vue, 
-        DefaultData[typings.vue.typesVueMod.Vue], 
-        DefaultMethods[typings.vue.typesVueMod.Vue], 
+        _root_.typings.vue.typesVueMod.Vue, 
+        DefaultData[_root_.typings.vue.typesVueMod.Vue], 
+        DefaultMethods[_root_.typings.vue.typesVueMod.Vue], 
         DefaultComputed, 
         PropsDefinition[DefaultProps]
       ] = js.native
     
     @JSName("$parent")
-    val $parent: typings.vue.typesVueMod.Vue = js.native
+    val $parent: _root_.typings.vue.typesVueMod.Vue = js.native
     
     @JSName("$props")
     val $props: Record[String, Any] = js.native
     
     @JSName("$refs")
     val $refs: StringDictionary[
-        typings.vue.typesVueMod.Vue | Element | (js.Array[Element | typings.vue.typesVueMod.Vue])
+        _root_.typings.vue.typesVueMod.Vue | Element | (js.Array[Element | _root_.typings.vue.typesVueMod.Vue])
       ] = js.native
     
     @JSName("$root")
-    val $root: typings.vue.typesVueMod.Vue = js.native
+    val $root: _root_.typings.vue.typesVueMod.Vue = js.native
     
     @JSName("$scopedSlots")
     val $scopedSlots: StringDictionary[ScopedSlot] = js.native
@@ -280,24 +280,34 @@ object typesVueMod {
   }
   @JSImport("vue/types/vue", "Vue")
   @js.native
-  val Vue: VueConstructor[typings.vue.typesVueMod.Vue] = js.native
+  val Vue: VueConstructor[_root_.typings.vue.typesVueMod.Vue] = js.native
   
-  type CombinedVueInstance[Instance /* <: typings.vue.typesVueMod.Vue */, Data, Methods, Computed, Props] = Data & Methods & Computed & Props & Instance
+  type CombinedVueInstance[Instance /* <: _root_.typings.vue.typesVueMod.Vue */, Data, Methods, Computed, Props] = Data & Methods & Computed & Props & Instance
   
   @js.native
   trait CreateElement extends StObject {
     
     def apply(): VNode = js.native
+    def apply(tag: AsyncComponent[Any, Any, Any, Any]): VNode = js.native
+    def apply(tag: AsyncComponent[Any, Any, Any, Any], children: VNodeChildren): VNode = js.native
+    def apply(tag: AsyncComponent[Any, Any, Any, Any], data: VNodeData): VNode = js.native
+    def apply(tag: AsyncComponent[Any, Any, Any, Any], data: VNodeData, children: VNodeChildren): VNode = js.native
+    def apply(tag: AsyncComponent[Any, Any, Any, Any], data: Unit, children: VNodeChildren): VNode = js.native
+    def apply(tag: Component[Any, Any, Any, Any]): VNode = js.native
+    def apply(tag: Component[Any, Any, Any, Any], children: VNodeChildren): VNode = js.native
+    def apply(tag: Component[Any, Any, Any, Any], data: VNodeData): VNode = js.native
+    def apply(tag: Component[Any, Any, Any, Any], data: VNodeData, children: VNodeChildren): VNode = js.native
+    def apply(tag: Component[Any, Any, Any, Any], data: Unit, children: VNodeChildren): VNode = js.native
     def apply(tag: String): VNode = js.native
     def apply(tag: String, children: VNodeChildren): VNode = js.native
-    def apply(tag: String, data: Unit, children: VNodeChildren): VNode = js.native
     def apply(tag: String, data: VNodeData): VNode = js.native
     def apply(tag: String, data: VNodeData, children: VNodeChildren): VNode = js.native
+    def apply(tag: String, data: Unit, children: VNodeChildren): VNode = js.native
     def apply(
       tag: js.Function0[
           Component[
-            DefaultData[typings.vue.typesVueMod.Vue], 
-            DefaultMethods[typings.vue.typesVueMod.Vue], 
+            DefaultData[_root_.typings.vue.typesVueMod.Vue], 
+            DefaultMethods[_root_.typings.vue.typesVueMod.Vue], 
             DefaultComputed, 
             DefaultProps
           ]
@@ -306,8 +316,8 @@ object typesVueMod {
     def apply(
       tag: js.Function0[
           Component[
-            DefaultData[typings.vue.typesVueMod.Vue], 
-            DefaultMethods[typings.vue.typesVueMod.Vue], 
+            DefaultData[_root_.typings.vue.typesVueMod.Vue], 
+            DefaultMethods[_root_.typings.vue.typesVueMod.Vue], 
             DefaultComputed, 
             DefaultProps
           ]
@@ -317,20 +327,8 @@ object typesVueMod {
     def apply(
       tag: js.Function0[
           Component[
-            DefaultData[typings.vue.typesVueMod.Vue], 
-            DefaultMethods[typings.vue.typesVueMod.Vue], 
-            DefaultComputed, 
-            DefaultProps
-          ]
-        ],
-      data: Unit,
-      children: VNodeChildren
-    ): VNode = js.native
-    def apply(
-      tag: js.Function0[
-          Component[
-            DefaultData[typings.vue.typesVueMod.Vue], 
-            DefaultMethods[typings.vue.typesVueMod.Vue], 
+            DefaultData[_root_.typings.vue.typesVueMod.Vue], 
+            DefaultMethods[_root_.typings.vue.typesVueMod.Vue], 
             DefaultComputed, 
             DefaultProps
           ]
@@ -340,8 +338,8 @@ object typesVueMod {
     def apply(
       tag: js.Function0[
           Component[
-            DefaultData[typings.vue.typesVueMod.Vue], 
-            DefaultMethods[typings.vue.typesVueMod.Vue], 
+            DefaultData[_root_.typings.vue.typesVueMod.Vue], 
+            DefaultMethods[_root_.typings.vue.typesVueMod.Vue], 
             DefaultComputed, 
             DefaultProps
           ]
@@ -349,31 +347,33 @@ object typesVueMod {
       data: VNodeData,
       children: VNodeChildren
     ): VNode = js.native
+    def apply(
+      tag: js.Function0[
+          Component[
+            DefaultData[_root_.typings.vue.typesVueMod.Vue], 
+            DefaultMethods[_root_.typings.vue.typesVueMod.Vue], 
+            DefaultComputed, 
+            DefaultProps
+          ]
+        ],
+      data: Unit,
+      children: VNodeChildren
+    ): VNode = js.native
     def apply(tag: Unit, children: VNodeChildren): VNode = js.native
-    def apply(tag: Unit, data: Unit, children: VNodeChildren): VNode = js.native
     def apply(tag: Unit, data: VNodeData): VNode = js.native
     def apply(tag: Unit, data: VNodeData, children: VNodeChildren): VNode = js.native
-    def apply(tag: AsyncComponent[Any, Any, Any, Any]): VNode = js.native
-    def apply(tag: AsyncComponent[Any, Any, Any, Any], children: VNodeChildren): VNode = js.native
-    def apply(tag: AsyncComponent[Any, Any, Any, Any], data: Unit, children: VNodeChildren): VNode = js.native
-    def apply(tag: AsyncComponent[Any, Any, Any, Any], data: VNodeData): VNode = js.native
-    def apply(tag: AsyncComponent[Any, Any, Any, Any], data: VNodeData, children: VNodeChildren): VNode = js.native
-    def apply(tag: Component[Any, Any, Any, Any]): VNode = js.native
-    def apply(tag: Component[Any, Any, Any, Any], children: VNodeChildren): VNode = js.native
-    def apply(tag: Component[Any, Any, Any, Any], data: Unit, children: VNodeChildren): VNode = js.native
-    def apply(tag: Component[Any, Any, Any, Any], data: VNodeData): VNode = js.native
-    def apply(tag: Component[Any, Any, Any, Any], data: VNodeData, children: VNodeChildren): VNode = js.native
+    def apply(tag: Unit, data: Unit, children: VNodeChildren): VNode = js.native
   }
   
-  type ExtendedVue[Instance /* <: typings.vue.typesVueMod.Vue */, Data, Methods, Computed, Props] = VueConstructor[
-    (CombinedVueInstance[Instance, Data, Methods, Computed, Props]) & typings.vue.typesVueMod.Vue
+  type ExtendedVue[Instance /* <: _root_.typings.vue.typesVueMod.Vue */, Data, Methods, Computed, Props] = VueConstructor[
+    (CombinedVueInstance[Instance, Data, Methods, Computed, Props]) & _root_.typings.vue.typesVueMod.Vue
   ]
   
   trait VueConfiguration extends StObject {
     
     var devtools: Boolean
     
-    def errorHandler(err: js.Error, vm: typings.vue.typesVueMod.Vue, info: String): Unit
+    def errorHandler(err: js.Error, vm: _root_.typings.vue.typesVueMod.Vue, info: String): Unit
     
     var ignoredElements: js.Array[String | js.RegExp]
     
@@ -387,20 +387,20 @@ object typesVueMod {
     
     var silent: Boolean
     
-    def warnHandler(msg: String, vm: typings.vue.typesVueMod.Vue, trace: String): Unit
+    def warnHandler(msg: String, vm: _root_.typings.vue.typesVueMod.Vue, trace: String): Unit
   }
   object VueConfiguration {
     
     inline def apply(
       devtools: Boolean,
-      errorHandler: (js.Error, typings.vue.typesVueMod.Vue, String) => Unit,
+      errorHandler: (js.Error, _root_.typings.vue.typesVueMod.Vue, String) => Unit,
       ignoredElements: js.Array[String | js.RegExp],
       keyCodes: StringDictionary[Double | js.Array[Double]],
       optionMergeStrategies: Any,
       performance: Boolean,
       productionTip: Boolean,
       silent: Boolean,
-      warnHandler: (String, typings.vue.typesVueMod.Vue, String) => Unit
+      warnHandler: (String, _root_.typings.vue.typesVueMod.Vue, String) => Unit
     ): VueConfiguration = {
       val __obj = js.Dynamic.literal(devtools = devtools.asInstanceOf[js.Any], errorHandler = js.Any.fromFunction3(errorHandler), ignoredElements = ignoredElements.asInstanceOf[js.Any], keyCodes = keyCodes.asInstanceOf[js.Any], optionMergeStrategies = optionMergeStrategies.asInstanceOf[js.Any], performance = performance.asInstanceOf[js.Any], productionTip = productionTip.asInstanceOf[js.Any], silent = silent.asInstanceOf[js.Any], warnHandler = js.Any.fromFunction3(warnHandler))
       __obj.asInstanceOf[VueConfiguration]
@@ -411,7 +411,7 @@ object typesVueMod {
       
       inline def setDevtools(value: Boolean): Self = StObject.set(x, "devtools", value.asInstanceOf[js.Any])
       
-      inline def setErrorHandler(value: (js.Error, typings.vue.typesVueMod.Vue, String) => Unit): Self = StObject.set(x, "errorHandler", js.Any.fromFunction3(value))
+      inline def setErrorHandler(value: (js.Error, _root_.typings.vue.typesVueMod.Vue, String) => Unit): Self = StObject.set(x, "errorHandler", js.Any.fromFunction3(value))
       
       inline def setIgnoredElements(value: js.Array[String | js.RegExp]): Self = StObject.set(x, "ignoredElements", value.asInstanceOf[js.Any])
       
@@ -427,12 +427,12 @@ object typesVueMod {
       
       inline def setSilent(value: Boolean): Self = StObject.set(x, "silent", value.asInstanceOf[js.Any])
       
-      inline def setWarnHandler(value: (String, typings.vue.typesVueMod.Vue, String) => Unit): Self = StObject.set(x, "warnHandler", js.Any.fromFunction3(value))
+      inline def setWarnHandler(value: (String, _root_.typings.vue.typesVueMod.Vue, String) => Unit): Self = StObject.set(x, "warnHandler", js.Any.fromFunction3(value))
     }
   }
   
   @js.native
-  trait VueConstructor[V /* <: typings.vue.typesVueMod.Vue */]
+  trait VueConstructor[V /* <: _root_.typings.vue.typesVueMod.Vue */]
     extends StObject
        with // ideally, the return type should just contains Props, not Record<keyof Props, any>. But TS requires Base constructors must all have the same return type.
   Instantiable0[
@@ -450,7 +450,7 @@ object typesVueMod {
       id: String,
       definition: ComponentOptions[V, DefaultData[V], DefaultMethods[V], DefaultComputed, PropsDefinition[DefaultProps]]
     ): ExtendedVue[V, js.Object, js.Object, js.Object, js.Object] = js.native
-    def component[VC /* <: VueConstructor[typings.vue.typesVueMod.Vue] */](id: String, constructor: VC): VC = js.native
+    def component[VC /* <: VueConstructor[_root_.typings.vue.typesVueMod.Vue] */](id: String, constructor: VC): VC = js.native
     def component[PropNames /* <: String */](id: String, definition: FunctionalComponentOptions[Record[PropNames, Any], js.Array[PropNames]]): ExtendedVue[V, js.Object, js.Object, js.Object, Record[PropNames, Any]] = js.native
     def component[Data, Methods, Computed, Props](id: String, definition: AsyncComponent[Data, Methods, Computed, Props]): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
     def component[Data, Methods, Computed, PropNames /* <: String */](
@@ -468,7 +468,7 @@ object typesVueMod {
     @JSName("component")
     def component_Props[Props](id: String, definition: FunctionalComponentOptions[Props, RecordPropsDefinition[Props]]): ExtendedVue[V, js.Object, js.Object, js.Object, Props] = js.native
     @JSName("component")
-    def component_VueConstructor(id: String): VueConstructor[typings.vue.typesVueMod.Vue] = js.native
+    def component_VueConstructor(id: String): VueConstructor[_root_.typings.vue.typesVueMod.Vue] = js.native
     
     var config: VueConfiguration = js.native
     
@@ -498,14 +498,14 @@ object typesVueMod {
     
     def mixin(
       mixin: ComponentOptions[
-          typings.vue.typesVueMod.Vue, 
-          DefaultData[typings.vue.typesVueMod.Vue], 
-          DefaultMethods[typings.vue.typesVueMod.Vue], 
+          _root_.typings.vue.typesVueMod.Vue, 
+          DefaultData[_root_.typings.vue.typesVueMod.Vue], 
+          DefaultMethods[_root_.typings.vue.typesVueMod.Vue], 
           DefaultComputed, 
           PropsDefinition[DefaultProps]
         ]
     ): Unit = js.native
-    def mixin(mixin: VueConstructor[typings.vue.typesVueMod.Vue]): Unit = js.native
+    def mixin(mixin: VueConstructor[_root_.typings.vue.typesVueMod.Vue]): Unit = js.native
     
     def nextTick(): js.Promise[Unit] = js.native
     def nextTick(callback: js.Function0[Unit]): Unit = js.native

@@ -1,6 +1,6 @@
 package typings.mime
 
-import typings.mime.mod.TypeMap
+import _root_.typings.mime.mod.TypeMap
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

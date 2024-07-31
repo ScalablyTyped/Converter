@@ -1,9 +1,12 @@
 package typings.awsSdk
 
+import _root_.typings.awsSdk.awsSdkStrings.ADD
+import _root_.typings.awsSdk.awsSdkStrings.DELETE
+import _root_.typings.awsSdk.awsSdkStrings.PUT
+import _root_.typings.awsSdk.clientsDynamodbMod.ClientConfiguration
+import _root_.typings.awsSdk.clientsDynamodbMod.^
+import _root_.typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient.DocumentClientOptions
 import org.scalablytyped.runtime.StringDictionary
-import typings.awsSdk.clientsDynamodbMod.ClientConfiguration
-import typings.awsSdk.clientsDynamodbMod.^
-import typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient.DocumentClientOptions
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -20,13 +23,7 @@ object libDynamodbDocumentClientMod {
   }
   object DocumentClient {
     
-    /* Rewritten from type alias, can be one of: 
-      - typings.awsSdk.awsSdkStrings.ADD
-      - typings.awsSdk.awsSdkStrings.PUT
-      - typings.awsSdk.awsSdkStrings.DELETE
-      - java.lang.String
-    */
-    type AttributeAction = _AttributeAction | String
+    type AttributeAction = ADD | PUT | DELETE | String
     
     trait ConverterOptions extends StObject {
       
@@ -96,7 +93,5 @@ object libDynamodbDocumentClientMod {
         inline def setServiceUndefined: Self = StObject.set(x, "service", js.undefined)
       }
     }
-    
-    trait _AttributeAction extends StObject
   }
 }

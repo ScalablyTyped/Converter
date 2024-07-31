@@ -1,6 +1,6 @@
 package typings.fpTs
 
-import typings.fpTs.libConstMod.Const
+import _root_.typings.fpTs.libConstMod.Const
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -35,7 +35,7 @@ object libHktMod {
   
   trait URI2HKT2[L, A] extends StObject {
     
-    var Const: typings.fpTs.libConstMod.Const[L, A]
+    var Const: _root_.typings.fpTs.libConstMod.Const[L, A]
   }
   object URI2HKT2 {
     

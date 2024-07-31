@@ -1,13 +1,13 @@
 package typingsSlinky.reactContextmenu.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.react.mod.HTMLAttributes
+import _root_.typingsSlinky.reactContextmenu.mod.MenuItemProps
 import org.scalajs.dom.HTMLDivElement
 import org.scalajs.dom.HTMLElement
 import slinky.web.SyntheticMouseEvent
 import slinky.web.SyntheticTouchEvent
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.react.mod.HTMLAttributes
-import typingsSlinky.reactContextmenu.mod.MenuItemProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -21,7 +21,7 @@ object MenuItem {
   @scala.inline
   open class Builder (val args: js.Array[Any])
     extends AnyVal
-       with StBuildingComponent[tag.type, typingsSlinky.reactContextmenu.mod.MenuItem] {
+       with StBuildingComponent[tag.type, _root_.typingsSlinky.reactContextmenu.mod.MenuItem] {
     
     inline def attributes(value: HTMLAttributes[HTMLDivElement]): this.type = set("attributes", value.asInstanceOf[js.Any])
     

@@ -1,11 +1,11 @@
 package typingsJapgolly.react.mod
 
-import typingsJapgolly.react.reactStrings._empty
-import typingsJapgolly.react.reactStrings.`use-credentials`
-import typingsJapgolly.react.reactStrings.anonymous
-import typingsJapgolly.react.reactStrings.async
-import typingsJapgolly.react.reactStrings.auto
-import typingsJapgolly.react.reactStrings.sync
+import _root_.typingsJapgolly.react.reactStrings._empty
+import _root_.typingsJapgolly.react.reactStrings.`use-credentials`
+import _root_.typingsJapgolly.react.reactStrings.anonymous
+import _root_.typingsJapgolly.react.reactStrings.async
+import _root_.typingsJapgolly.react.reactStrings.auto
+import _root_.typingsJapgolly.react.reactStrings.sync
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

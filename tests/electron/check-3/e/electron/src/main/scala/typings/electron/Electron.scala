@@ -1,6 +1,6 @@
 package typings.electron
 
-import typings.electron.electronStrings.`accessibility-support-changed`
+import _root_.typings.electron.electronStrings.`accessibility-support-changed`
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -41,7 +41,7 @@ object Electron {
   
   trait Event
     extends StObject
-       with typings.std.Event {
+       with _root_.typings.std.Event {
     
     var altKey: js.UndefOr[Boolean] = js.undefined
     

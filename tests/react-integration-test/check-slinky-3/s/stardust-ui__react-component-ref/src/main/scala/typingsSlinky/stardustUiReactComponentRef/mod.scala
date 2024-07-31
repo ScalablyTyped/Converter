@@ -1,11 +1,11 @@
 package typingsSlinky.stardustUiReactComponentRef
 
+import _root_.typingsSlinky.stardustUiReactComponentRef.anon.Children
+import _root_.typingsSlinky.stardustUiReactComponentRef.anon.InnerRef
+import _root_.typingsSlinky.stardustUiReactComponentRef.distEsRefFindNodeMod.default
+import _root_.typingsSlinky.stardustUiReactComponentRef.distEsTypesMod.RefProps
 import slinky.core.ReactComponentClass
 import slinky.core.facade.ReactRef
-import typingsSlinky.stardustUiReactComponentRef.anon.Children
-import typingsSlinky.stardustUiReactComponentRef.anon.InnerRef
-import typingsSlinky.stardustUiReactComponentRef.distEsRefFindNodeMod.default
-import typingsSlinky.stardustUiReactComponentRef.distEsTypesMod.RefProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -44,7 +44,7 @@ object mod {
   @JSImport("@stardust-ui/react-component-ref", "RefForward")
   @js.native
   open class RefForward ()
-    extends typingsSlinky.stardustUiReactComponentRef.distEsRefForwardMod.default
+    extends _root_.typingsSlinky.stardustUiReactComponentRef.distEsRefForwardMod.default
   /* static members */
   object RefForward {
     
@@ -69,7 +69,7 @@ object mod {
     * @param ref An ref object or function
     * @param node A node that should be passed by ref
     */
-  inline def handleRef[N](ref: typingsSlinky.react.mod.Ref[N], node: N): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("handleRef")(ref.asInstanceOf[js.Any], node.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  inline def handleRef[N](ref: _root_.typingsSlinky.react.mod.Ref[N], node: N): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("handleRef")(ref.asInstanceOf[js.Any], node.asInstanceOf[js.Any])).asInstanceOf[Unit]
   
   /** Checks that the passed object is a valid React ref object. */
   inline def isRefObject(ref: Any): /* is react.react.RefObject<any> */ Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("isRefObject")(ref.asInstanceOf[js.Any]).asInstanceOf[/* is react.react.RefObject<any> */ Boolean]

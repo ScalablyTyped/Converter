@@ -1,8 +1,8 @@
 package typingsJapgolly.react.components
 
+import _root_.typingsJapgolly.react.mod.DetailedHTMLProps
+import _root_.typingsJapgolly.react.mod.HTMLAttributes
 import org.scalajs.dom.HTMLElement
-import typingsJapgolly.react.mod.DetailedHTMLProps
-import typingsJapgolly.react.mod.HTMLAttributes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

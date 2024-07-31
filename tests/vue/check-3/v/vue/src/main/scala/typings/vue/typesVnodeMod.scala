@@ -1,11 +1,11 @@
 package typings.vue
 
+import _root_.typings.std.Node
+import _root_.typings.vue.anon.Render
+import _root_.typings.vue.typesVueMod.Vue
+import _root_.typings.vue.typesVueMod.VueConstructor
 import org.scalablytyped.runtime.NumberDictionary
 import org.scalablytyped.runtime.StringDictionary
-import typings.std.Node
-import typings.vue.anon.Render
-import typings.vue.typesVueMod.Vue
-import typings.vue.typesVueMod.VueConstructor
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

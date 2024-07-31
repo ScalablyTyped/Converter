@@ -1,9 +1,9 @@
 package typingsSlinky.react.components
 
+import _root_.typingsSlinky.StBuildingComponent.Default
+import _root_.typingsSlinky.react.mod.ClassAttributes
 import org.scalajs.dom.SVGElement
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent.Default
-import typingsSlinky.react.mod.ClassAttributes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

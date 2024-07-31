@@ -1,7 +1,7 @@
 package typingsSlinky.semanticUiReact.components
 
-import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
-import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.default
+import _root_.typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
+import _root_.typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.default
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

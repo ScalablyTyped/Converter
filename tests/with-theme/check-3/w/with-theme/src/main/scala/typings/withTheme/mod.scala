@@ -1,10 +1,10 @@
 package typings.withTheme
 
-import typings.react.mod.ComponentClass
-import typings.react.mod.ComponentType
-import typings.react.mod.Ref
-import typings.react.mod.RefObject
-import typings.std.Pick
+import _root_.typings.react.mod.ComponentClass
+import _root_.typings.react.mod.ComponentType
+import _root_.typings.react.mod.Ref
+import _root_.typings.react.mod.RefObject
+import _root_.typings.std.Pick
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

@@ -1,9 +1,9 @@
 package typingsSlinky.reactSelect.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.reactSelect.mod.ReactSelectProps
+import _root_.typingsSlinky.reactSelect.mod.default
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.reactSelect.mod.ReactSelectProps
-import typingsSlinky.reactSelect.mod.default
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

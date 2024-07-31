@@ -1,5 +1,7 @@
 package typings.echarts
 
+import _root_.typings.echarts.echarts.EChartOption.DataZoom.Inside
+import _root_.typings.echarts.echarts.EChartOption.DataZoom.Slider
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -8,16 +10,9 @@ object echarts {
   
   object EChartOption {
     
-    /* Rewritten from type alias, can be one of: 
-      - typings.echarts.echarts.EChartOption.DataZoom.Inside
-      - typings.echarts.echarts.EChartOption.DataZoom.Slider
-    */
-    trait DataZoom extends StObject
     object DataZoom {
       
-      trait Inside
-        extends StObject
-           with DataZoom {
+      trait Inside extends StObject {
         
         var disabled: js.UndefOr[Boolean] = js.undefined
         
@@ -49,9 +44,7 @@ object echarts {
         }
       }
       
-      trait Slider
-        extends StObject
-           with DataZoom {
+      trait Slider extends StObject {
         
         var id: js.UndefOr[String] = js.undefined
         
@@ -77,5 +70,6 @@ object echarts {
         }
       }
     }
+    type DataZoom = Inside | Slider
   }
 }

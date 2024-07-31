@@ -1,8 +1,8 @@
 package typingsSlinky.react.mod
 
-import typingsSlinky.react.reactStrings.button
-import typingsSlinky.react.reactStrings.reset
-import typingsSlinky.react.reactStrings.submit
+import _root_.typingsSlinky.react.reactStrings.button
+import _root_.typingsSlinky.react.reactStrings.reset
+import _root_.typingsSlinky.react.reactStrings.submit
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

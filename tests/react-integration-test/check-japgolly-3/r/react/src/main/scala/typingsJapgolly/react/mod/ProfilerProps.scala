@@ -1,5 +1,7 @@
 package typingsJapgolly.react.mod
 
+import _root_.typingsJapgolly.react.reactStrings.mount
+import _root_.typingsJapgolly.react.reactStrings.update
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.facade.Empty
 import japgolly.scalajs.react.facade.JsNumber
@@ -7,8 +9,6 @@ import japgolly.scalajs.react.facade.React.Element
 import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
-import typingsJapgolly.react.reactStrings.mount
-import typingsJapgolly.react.reactStrings.update
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

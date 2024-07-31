@@ -13,7 +13,7 @@ object emitterMixinMod {
   @JSImport("fullcalendar/EmitterMixin", "Default")
   @js.native
   open class Default_ ()
-    extends typings.fullcalendar.mixinMod.default
+    extends _root_.typings.fullcalendar.mixinMod.default
        with EmitterInterface {
     
     /* CompleteClass */

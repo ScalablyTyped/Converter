@@ -1,20 +1,20 @@
 package typingsJapgolly.componentstest
 
+import _root_.typingsJapgolly.componentstest.anon.Equals
+import _root_.typingsJapgolly.react.mod.CSSProperties
+import _root_.typingsJapgolly.react.mod.ComponentType
+import _root_.typingsJapgolly.react.mod.FC
+import _root_.typingsJapgolly.react.mod.ForwardRefExoticComponent
+import _root_.typingsJapgolly.react.mod.FunctionComponent
+import _root_.typingsJapgolly.react.mod.MemoExoticComponent
+import _root_.typingsJapgolly.react.mod.MouseEventHandler
+import _root_.typingsJapgolly.react.mod.RefAttributes
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactEventFrom
 import japgolly.scalajs.react.ReactMouseEventFrom
 import org.scalajs.dom.Element
 import org.scalajs.dom.HTMLDivElement
-import typingsJapgolly.componentstest.anon.Equals
-import typingsJapgolly.react.mod.CSSProperties
-import typingsJapgolly.react.mod.ComponentType
-import typingsJapgolly.react.mod.FC
-import typingsJapgolly.react.mod.ForwardRefExoticComponent
-import typingsJapgolly.react.mod.FunctionComponent
-import typingsJapgolly.react.mod.MemoExoticComponent
-import typingsJapgolly.react.mod.MouseEventHandler
-import typingsJapgolly.react.mod.RefAttributes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -41,9 +41,7 @@ object mod {
   @js.native
   val VeryExotic: MemoExoticComponent[ForwardRefExoticComponent[RefAttributes[HTMLDivElement]]] = js.native
   
-  trait A
-    extends StObject
-       with Props {
+  trait A extends StObject {
     
     def aCallback(): Double
     
@@ -65,9 +63,7 @@ object mod {
     }
   }
   
-  trait B
-    extends StObject
-       with Props {
+  trait B extends StObject {
     
     var bCallback: js.UndefOr[js.Function0[String]] = js.undefined
     
@@ -182,21 +178,5 @@ object mod {
     }
   }
   
-  /* Rewritten from type alias, can be one of: 
-    - typingsJapgolly.componentstest.mod.A
-    - typingsJapgolly.componentstest.mod.B
-  */
-  trait Props extends StObject
-  object Props {
-    
-    inline def A(aCallback: CallbackTo[Double], aMember: Double): typingsJapgolly.componentstest.mod.A = {
-      val __obj = js.Dynamic.literal(aCallback = aCallback.toJsFn, aMember = aMember.asInstanceOf[js.Any])
-      __obj.asInstanceOf[typingsJapgolly.componentstest.mod.A]
-    }
-    
-    inline def B(bMember: String): typingsJapgolly.componentstest.mod.B = {
-      val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
-      __obj.asInstanceOf[typingsJapgolly.componentstest.mod.B]
-    }
-  }
+  type Props = A | B
 }

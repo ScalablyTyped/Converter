@@ -1,8 +1,8 @@
 package typings.keyof
 
-import typings.keyof.keyofStrings.a
-import typings.keyof.keyofStrings.b
-import typings.keyof.keyofStrings.c
+import _root_.typings.keyof.keyofStrings.a
+import _root_.typings.keyof.keyofStrings.b
+import _root_.typings.keyof.keyofStrings.c
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

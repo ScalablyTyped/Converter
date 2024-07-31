@@ -1,8 +1,8 @@
 package typingsSlinky.componentstest.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.componentstest.anon.Equals
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.componentstest.anon.Equals
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

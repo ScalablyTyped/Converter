@@ -1,10 +1,10 @@
 package typingsSlinky.react.mod
 
-import typingsSlinky.react.reactStrings.A
-import typingsSlinky.react.reactStrings.I
-import typingsSlinky.react.reactStrings.`1`
-import typingsSlinky.react.reactStrings.a_
-import typingsSlinky.react.reactStrings.i_
+import _root_.typingsSlinky.react.reactStrings.A
+import _root_.typingsSlinky.react.reactStrings.I
+import _root_.typingsSlinky.react.reactStrings.`1`
+import _root_.typingsSlinky.react.reactStrings.a_
+import _root_.typingsSlinky.react.reactStrings.i_
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

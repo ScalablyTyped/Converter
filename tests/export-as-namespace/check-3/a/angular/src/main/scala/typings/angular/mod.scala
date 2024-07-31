@@ -1,12 +1,12 @@
 package typings.angular
 
+import _root_.typings.angular.anon.Instantiable
+import _root_.typings.angular.mod.auto.IInjectorService
+import _root_.typings.angular.mod.global.Function
+import _root_.typings.std.ArrayLike
+import _root_.typings.std.Document
+import _root_.typings.std.Element
 import org.scalablytyped.runtime.Shortcut
-import typings.angular.anon.Instantiable
-import typings.angular.mod.auto.IInjectorService
-import typings.angular.mod.global.Function
-import typings.std.ArrayLike
-import typings.std.Document
-import typings.std.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -23,6 +23,10 @@ object mod extends Shortcut {
   ///////////////////////////////////////////////////////////////////////////
   trait IAngularStatic extends StObject {
     
+    def element(element: JQuery): JQLite
+    def element(element: ArrayLike[Element]): JQLite
+    def element(element: Document): JQLite
+    def element(element: Element): JQLite
     /**
       * Wraps a raw DOM element or HTML string as a jQuery element.
       *
@@ -30,10 +34,6 @@ object mod extends Shortcut {
       */
     def element(element: String): JQLite
     def element(element: js.Function0[Unit]): JQLite
-    def element(element: JQuery): JQLite
-    def element(element: ArrayLike[Element]): JQLite
-    def element(element: Document): JQLite
-    def element(element: Element): JQLite
     /**
       * Wraps a raw DOM element or HTML string as a jQuery element.
       *

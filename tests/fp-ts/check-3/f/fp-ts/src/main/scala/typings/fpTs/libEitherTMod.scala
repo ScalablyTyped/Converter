@@ -1,8 +1,8 @@
 package typings.fpTs
 
-import typings.fpTs.libEitherMod.Either
-import typings.fpTs.libEitherMod.URI
-import typings.fpTs.libHktMod.HKT
+import _root_.typings.fpTs.libEitherMod.Either
+import _root_.typings.fpTs.libEitherMod.URI
+import _root_.typings.fpTs.libHktMod.HKT
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

@@ -1,8 +1,8 @@
 package typings.keyof
 
-import typings.keyof.keyofStrings.a
-import typings.keyof.keyofStrings.b
-import typings.keyof.keyofStrings.c
+import _root_.typings.keyof.keyofStrings.a
+import _root_.typings.keyof.keyofStrings.b
+import _root_.typings.keyof.keyofStrings.c
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -13,7 +13,7 @@ object global {
   @js.native
   open class B ()
     extends StObject
-       with typings.keyof.B {
+       with _root_.typings.keyof.B {
     
     /* CompleteClass */
     override def foo(p: a | b | c): String = js.native

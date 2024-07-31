@@ -1,6 +1,6 @@
 package typings.angular
 
-import typings.angular.mod.auto.IInjectorService
+import _root_.typings.angular.mod.auto.IInjectorService
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

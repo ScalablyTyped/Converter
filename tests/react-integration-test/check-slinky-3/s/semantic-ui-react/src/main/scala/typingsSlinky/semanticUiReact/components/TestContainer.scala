@@ -1,10 +1,10 @@
 package typingsSlinky.semanticUiReact.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.semanticUiReact.distCommonjsElementsTestContainerTestContainerMod.TestContainerProps
+import _root_.typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
+import _root_.typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticTEXTALIGNMENTS
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.semanticUiReact.distCommonjsElementsTestContainerTestContainerMod.TestContainerProps
-import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
-import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticTEXTALIGNMENTS
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

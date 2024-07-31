@@ -1,7 +1,7 @@
 package typingsJapgolly.stardustUiReactComponentRef.components
 
-import typingsJapgolly.stardustUiReactComponentRef.distEsRefFindNodeMod.default
-import typingsJapgolly.stardustUiReactComponentRef.distEsTypesMod.RefProps
+import _root_.typingsJapgolly.stardustUiReactComponentRef.distEsRefFindNodeMod.default
+import _root_.typingsJapgolly.stardustUiReactComponentRef.distEsTypesMod.RefProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

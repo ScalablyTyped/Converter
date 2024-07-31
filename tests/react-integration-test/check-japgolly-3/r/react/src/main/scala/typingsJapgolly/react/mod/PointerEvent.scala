@@ -1,11 +1,11 @@
 package typingsJapgolly.react.mod
 
+import _root_.typingsJapgolly.react.reactStrings.mouse
+import _root_.typingsJapgolly.react.reactStrings.pen
+import _root_.typingsJapgolly.react.reactStrings.touch
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import org.scalajs.dom.EventTarget
-import typingsJapgolly.react.reactStrings.mouse
-import typingsJapgolly.react.reactStrings.pen
-import typingsJapgolly.react.reactStrings.touch
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

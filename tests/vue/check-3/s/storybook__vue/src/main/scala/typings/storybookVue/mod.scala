@@ -1,15 +1,15 @@
 package typings.storybookVue
 
+import _root_.typings.storybookVue.anon.Kind
+import _root_.typings.vue.typesOptionsMod.ComponentOptions
+import _root_.typings.vue.typesOptionsMod.DefaultComputed
+import _root_.typings.vue.typesOptionsMod.DefaultData
+import _root_.typings.vue.typesOptionsMod.DefaultMethods
+import _root_.typings.vue.typesOptionsMod.DefaultProps
+import _root_.typings.vue.typesOptionsMod.PropsDefinition
+import _root_.typings.vue.typesVueMod.Vue
+import _root_.typings.webpackEnv.NodeModule
 import org.scalablytyped.runtime.StringDictionary
-import typings.storybookVue.anon.Kind
-import typings.vue.typesOptionsMod.ComponentOptions
-import typings.vue.typesOptionsMod.DefaultComputed
-import typings.vue.typesOptionsMod.DefaultData
-import typings.vue.typesOptionsMod.DefaultMethods
-import typings.vue.typesOptionsMod.DefaultProps
-import typings.vue.typesOptionsMod.PropsDefinition
-import typings.vue.typesVueMod.Vue
-import typings.webpackEnv.NodeModule
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

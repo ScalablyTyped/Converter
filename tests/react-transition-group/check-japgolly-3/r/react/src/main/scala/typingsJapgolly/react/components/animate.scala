@@ -1,8 +1,8 @@
 package typingsJapgolly.react.components
 
+import _root_.typingsJapgolly.StBuildingComponent.Default
+import _root_.typingsJapgolly.react.mod.ClassAttributes
 import org.scalajs.dom.SVGElement
-import typingsJapgolly.StBuildingComponent.Default
-import typingsJapgolly.react.mod.ClassAttributes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

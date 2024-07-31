@@ -1,7 +1,7 @@
 package typingsJapgolly.react.mod
 
-import typingsJapgolly.react.reactStrings.off
-import typingsJapgolly.react.reactStrings.on
+import _root_.typingsJapgolly.react.reactStrings.off
+import _root_.typingsJapgolly.react.reactStrings.on
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

@@ -1,7 +1,7 @@
 package typings.pixiJs
 
+import _root_.typings.eventemitter3.mod.EventEmitterStatic
 import org.scalablytyped.runtime.Shortcut
-import typings.eventemitter3.mod.EventEmitterStatic
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -13,7 +13,7 @@ object mod {
     @JSImport("pixi.js", "utils.EventEmitter")
     @js.native
     open class EventEmitter[EventTypes] ()
-      extends typings.pixiUtils.mod.EventEmitter[EventTypes]
+      extends _root_.typings.pixiUtils.mod.EventEmitter[EventTypes]
     object EventEmitter extends Shortcut {
       
       /* This class was inferred from a value with a constructor. In rare cases (like HTMLElement in the DOM) it might not work as you expect. */
@@ -21,7 +21,7 @@ object mod {
       @js.native
       open class ^[EventTypes] ()
         extends StObject
-           with typings.eventemitter3.mod.EventEmitter[EventTypes]
+           with _root_.typings.eventemitter3.mod.EventEmitter[EventTypes]
       
       @JSImport("pixi.js", "utils.EventEmitter")
       @js.native
@@ -35,7 +35,7 @@ object mod {
       @js.native
       open class EventEmitterCls[EventTypes] ()
         extends StObject
-           with typings.eventemitter3.mod.EventEmitter[EventTypes]
+           with _root_.typings.eventemitter3.mod.EventEmitter[EventTypes]
       
       type _To = js.Object & EventEmitterStatic
       

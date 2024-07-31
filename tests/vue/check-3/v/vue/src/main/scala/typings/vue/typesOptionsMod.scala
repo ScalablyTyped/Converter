@@ -1,21 +1,21 @@
 package typings.vue
 
+import _root_.typings.std.Element
+import _root_.typings.std.HTMLElement
+import _root_.typings.std.Record
+import _root_.typings.std.ThisType
+import _root_.typings.vue.anon.Default
+import _root_.typings.vue.anon.Event
+import _root_.typings.vue.anon.Instantiable
+import _root_.typings.vue.typesVnodeMod.VNode
+import _root_.typings.vue.typesVnodeMod.VNodeData
+import _root_.typings.vue.typesVnodeMod.VNodeDirective
+import _root_.typings.vue.typesVueMod.CombinedVueInstance
+import _root_.typings.vue.typesVueMod.CreateElement
+import _root_.typings.vue.typesVueMod.Vue
+import _root_.typings.vue.typesVueMod.VueConstructor
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.StringDictionary
-import typings.std.Element
-import typings.std.HTMLElement
-import typings.std.Record
-import typings.std.ThisType
-import typings.vue.anon.Default
-import typings.vue.anon.Event
-import typings.vue.anon.Instantiable
-import typings.vue.typesVnodeMod.VNode
-import typings.vue.typesVnodeMod.VNodeData
-import typings.vue.typesVnodeMod.VNodeDirective
-import typings.vue.typesVueMod.CombinedVueInstance
-import typings.vue.typesVueMod.CreateElement
-import typings.vue.typesVueMod.Vue
-import typings.vue.typesVueMod.VueConstructor
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

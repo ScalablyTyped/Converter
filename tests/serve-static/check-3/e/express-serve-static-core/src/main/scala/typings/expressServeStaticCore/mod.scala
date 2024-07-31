@@ -12,7 +12,7 @@ object mod {
   
   trait Request
     extends StObject
-       with typings.expressServeStaticCore.mod.global.Express.Request {
+       with _root_.typings.expressServeStaticCore.mod.global.Express.Request {
     
     var url: String
   }
@@ -34,7 +34,7 @@ object mod {
   
   trait Response
     extends StObject
-       with typings.expressServeStaticCore.mod.global.Express.Response {
+       with _root_.typings.expressServeStaticCore.mod.global.Express.Response {
     
     def location(url: String): Response
   }

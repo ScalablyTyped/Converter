@@ -1,5 +1,11 @@
 package typingsSlinky.react.mod
 
+import _root_.typingsSlinky.std.HTMLDataElement
+import _root_.typingsSlinky.std.HTMLDialogElement
+import _root_.typingsSlinky.std.HTMLTableDataCellElement
+import _root_.typingsSlinky.std.HTMLTableHeaderCellElement
+import _root_.typingsSlinky.std.HTMLTemplateElement
+import _root_.typingsSlinky.std.HTMLWebViewElement
 import org.scalajs.dom.HTMLAnchorElement
 import org.scalajs.dom.HTMLAreaElement
 import org.scalajs.dom.HTMLAudioElement
@@ -52,12 +58,6 @@ import org.scalajs.dom.HTMLTitleElement
 import org.scalajs.dom.HTMLTrackElement
 import org.scalajs.dom.HTMLUListElement
 import org.scalajs.dom.HTMLVideoElement
-import typingsSlinky.std.HTMLDataElement
-import typingsSlinky.std.HTMLDialogElement
-import typingsSlinky.std.HTMLTableDataCellElement
-import typingsSlinky.std.HTMLTableHeaderCellElement
-import typingsSlinky.std.HTMLTemplateElement
-import typingsSlinky.std.HTMLWebViewElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

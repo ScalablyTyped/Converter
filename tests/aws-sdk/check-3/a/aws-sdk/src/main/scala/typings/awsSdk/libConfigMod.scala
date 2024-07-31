@@ -1,8 +1,8 @@
 package typings.awsSdk
 
-import typings.awsSdk.awsSdkStrings.latest
-import typings.awsSdk.libConfigServicePlaceholdersMod.ConfigurationServiceApiVersions
-import typings.awsSdk.libConfigServicePlaceholdersMod.ConfigurationServicePlaceholders
+import _root_.typings.awsSdk.awsSdkStrings.latest
+import _root_.typings.awsSdk.libConfigServicePlaceholdersMod.ConfigurationServiceApiVersions
+import _root_.typings.awsSdk.libConfigServicePlaceholdersMod.ConfigurationServicePlaceholders
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

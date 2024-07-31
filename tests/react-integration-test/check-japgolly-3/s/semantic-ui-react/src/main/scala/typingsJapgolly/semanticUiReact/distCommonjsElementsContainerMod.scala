@@ -1,8 +1,8 @@
 package typingsJapgolly.semanticUiReact
 
+import _root_.typingsJapgolly.react.mod.StatelessComponent
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsContainerContainerMod.ContainerProps
 import org.scalablytyped.runtime.Shortcut
-import typingsJapgolly.react.mod.StatelessComponent
-import typingsJapgolly.semanticUiReact.distCommonjsElementsContainerContainerMod.ContainerProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

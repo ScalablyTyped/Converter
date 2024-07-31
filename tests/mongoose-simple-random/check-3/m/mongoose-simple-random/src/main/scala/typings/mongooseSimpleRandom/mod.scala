@@ -1,9 +1,9 @@
 package typings.mongooseSimpleRandom
 
-import typings.mongoose.mod.Document
-import typings.mongoose.mod.ModelProperties
-import typings.mongoose.mod.Schema
-import typings.node.NodeJS.EventEmitter
+import _root_.typings.mongoose.mod.Document
+import _root_.typings.mongoose.mod.ModelProperties
+import _root_.typings.mongoose.mod.Schema
+import _root_.typings.node.NodeJS.EventEmitter
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

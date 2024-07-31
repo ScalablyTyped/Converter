@@ -1,15 +1,15 @@
 package typingsSlinky.componentstest
 
+import _root_.typingsSlinky.componentstest.anon.Equals
+import _root_.typingsSlinky.react.mod.CSSProperties
+import _root_.typingsSlinky.react.mod.FunctionComponent
+import _root_.typingsSlinky.react.mod.MouseEventHandler
+import _root_.typingsSlinky.react.mod.RefAttributes
 import org.scalajs.dom.Event
 import org.scalajs.dom.HTMLDivElement
 import slinky.core.ReactComponentClass
 import slinky.core.SyntheticEvent
 import slinky.web.SyntheticMouseEvent
-import typingsSlinky.componentstest.anon.Equals
-import typingsSlinky.react.mod.CSSProperties
-import typingsSlinky.react.mod.FunctionComponent
-import typingsSlinky.react.mod.MouseEventHandler
-import typingsSlinky.react.mod.RefAttributes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -36,9 +36,7 @@ object mod {
   @js.native
   val VeryExotic: ReactComponentClass[ReactComponentClass[RefAttributes[HTMLDivElement]]] = js.native
   
-  trait A
-    extends StObject
-       with Props {
+  trait A extends StObject {
     
     def aCallback(): Double
     
@@ -60,9 +58,7 @@ object mod {
     }
   }
   
-  trait B
-    extends StObject
-       with Props {
+  trait B extends StObject {
     
     var bCallback: js.UndefOr[js.Function0[String]] = js.undefined
     
@@ -177,21 +173,5 @@ object mod {
     }
   }
   
-  /* Rewritten from type alias, can be one of: 
-    - typingsSlinky.componentstest.mod.A
-    - typingsSlinky.componentstest.mod.B
-  */
-  trait Props extends StObject
-  object Props {
-    
-    inline def A(aCallback: () => Double, aMember: Double): typingsSlinky.componentstest.mod.A = {
-      val __obj = js.Dynamic.literal(aCallback = js.Any.fromFunction0(aCallback), aMember = aMember.asInstanceOf[js.Any])
-      __obj.asInstanceOf[typingsSlinky.componentstest.mod.A]
-    }
-    
-    inline def B(bMember: String): typingsSlinky.componentstest.mod.B = {
-      val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
-      __obj.asInstanceOf[typingsSlinky.componentstest.mod.B]
-    }
-  }
+  type Props = A | B
 }

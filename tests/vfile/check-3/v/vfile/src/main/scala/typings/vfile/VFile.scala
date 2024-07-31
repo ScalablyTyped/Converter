@@ -16,6 +16,6 @@ to avoid circular code involving:
 trait VFile extends StObject {
   
   def apply[F /* <: VFile */](): F = js.native
-  def apply[F /* <: VFile */](input: F | VFileContents): F = js.native
   def apply[F /* <: VFile */](input: VFileOptions): F = js.native
+  def apply[F /* <: VFile */](input: F | VFileContents): F = js.native
 }

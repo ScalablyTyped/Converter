@@ -1,15 +1,15 @@
 package typingsSlinky.reactContextmenu
 
+import _root_.typingsSlinky.react.mod.Component
+import _root_.typingsSlinky.react.mod.HTMLAttributes
+import _root_.typingsSlinky.react.mod.ReactText
+import _root_.typingsSlinky.react.mod.ReactType
 import org.scalajs.dom.HTMLDivElement
 import org.scalajs.dom.HTMLElement
 import slinky.core.ReactComponentClass
 import slinky.core.facade.ReactElement
 import slinky.web.SyntheticMouseEvent
 import slinky.web.SyntheticTouchEvent
-import typingsSlinky.react.mod.Component
-import typingsSlinky.react.mod.HTMLAttributes
-import typingsSlinky.react.mod.ReactText
-import typingsSlinky.react.mod.ReactType
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

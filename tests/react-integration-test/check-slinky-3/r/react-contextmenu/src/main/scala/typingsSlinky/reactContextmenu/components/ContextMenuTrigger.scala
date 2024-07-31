@@ -1,10 +1,10 @@
 package typingsSlinky.reactContextmenu.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.react.mod.HTMLAttributes
+import _root_.typingsSlinky.react.mod.ReactType
+import _root_.typingsSlinky.reactContextmenu.mod.ContextMenuTriggerProps
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.react.mod.HTMLAttributes
-import typingsSlinky.react.mod.ReactType
-import typingsSlinky.reactContextmenu.mod.ContextMenuTriggerProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -23,7 +23,7 @@ object ContextMenuTrigger {
   @scala.inline
   open class Builder (val args: js.Array[Any])
     extends AnyVal
-       with StBuildingComponent[tag.type, typingsSlinky.reactContextmenu.mod.ContextMenuTrigger] {
+       with StBuildingComponent[tag.type, _root_.typingsSlinky.reactContextmenu.mod.ContextMenuTrigger] {
     
     inline def attributes(value: HTMLAttributes[Any]): this.type = set("attributes", value.asInstanceOf[js.Any])
     

@@ -1,6 +1,6 @@
 package typingsSlinky.componentstest.components
 
-import typingsSlinky.componentstest.mod.CardGridProps
+import _root_.typingsSlinky.componentstest.mod.CardGridProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

@@ -1,6 +1,6 @@
 package typings.angular
 
-import typings.angular.mod.IAngularStatic
+import _root_.typings.angular.mod.IAngularStatic
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

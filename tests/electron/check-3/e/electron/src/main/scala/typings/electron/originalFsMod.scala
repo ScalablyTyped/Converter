@@ -9,10 +9,10 @@ object originalFsMod {
   @JSImport("original-fs", "ReadStream")
   @js.native
   open class ReadStream ()
-    extends typings.node.fsMod.ReadStream
+    extends _root_.typings.node.fsMod.ReadStream
   
   @JSImport("original-fs", "WriteStream")
   @js.native
   open class WriteStream ()
-    extends typings.node.fsMod.WriteStream
+    extends _root_.typings.node.fsMod.WriteStream
 }

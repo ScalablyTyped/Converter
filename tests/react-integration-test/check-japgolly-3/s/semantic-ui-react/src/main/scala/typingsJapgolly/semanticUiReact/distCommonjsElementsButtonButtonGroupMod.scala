@@ -1,5 +1,18 @@
 package typingsJapgolly.semanticUiReact
 
+import _root_.typingsJapgolly.react.mod.StatelessComponent
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.ButtonProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticCOLORS
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticFLOATS
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticSIZES
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandCollection
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticWIDTHS
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.top
 import japgolly.scalajs.react.facade.Empty
 import japgolly.scalajs.react.facade.JsNumber
 import japgolly.scalajs.react.facade.React.Element
@@ -8,19 +21,6 @@ import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
-import typingsJapgolly.react.mod.StatelessComponent
-import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.ButtonProps
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticCOLORS
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticFLOATS
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticSIZES
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandCollection
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticWIDTHS
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.top
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

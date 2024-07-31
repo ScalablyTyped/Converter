@@ -1,8 +1,8 @@
 package typingsJapgolly.react.mod
 
-import typingsJapgolly.react.reactStrings.button
-import typingsJapgolly.react.reactStrings.reset
-import typingsJapgolly.react.reactStrings.submit
+import _root_.typingsJapgolly.react.reactStrings.button
+import _root_.typingsJapgolly.react.reactStrings.reset
+import _root_.typingsJapgolly.react.reactStrings.submit
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

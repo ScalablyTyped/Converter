@@ -10,13 +10,13 @@ object eventsMod {
   @js.native
   open class ^ ()
     extends StObject
-       with typings.node.NodeJS.EventEmitter
+       with _root_.typings.node.NodeJS.EventEmitter
   
   @JSImport("events", "EventEmitter")
   @js.native
   open class EventEmitter ()
     extends StObject
-       with typings.node.NodeJS.EventEmitter
+       with _root_.typings.node.NodeJS.EventEmitter
   /* static members */
   object EventEmitter {
     
@@ -28,5 +28,5 @@ object eventsMod {
     inline def listenerCount(emitter: EventEmitter, event: js.Symbol): Double = (^.asInstanceOf[js.Dynamic].applyDynamic("listenerCount")(emitter.asInstanceOf[js.Any], event.asInstanceOf[js.Any])).asInstanceOf[Double]
   }
   
-  type internal = typings.node.NodeJS.EventEmitter
+  type internal = _root_.typings.node.NodeJS.EventEmitter
 }

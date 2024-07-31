@@ -1,10 +1,10 @@
 package typingsSlinky.stardustUiReactComponentEventListener.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.stardustUiReactComponentEventListener.distEsTypesMod.EventListenerOptions
+import _root_.typingsSlinky.stardustUiReactComponentEventListener.distEsTypesMod.EventTypes
 import slinky.core.facade.ReactRef
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.stardustUiReactComponentEventListener.distEsTypesMod.EventListenerOptions
-import typingsSlinky.stardustUiReactComponentEventListener.distEsTypesMod.EventTypes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

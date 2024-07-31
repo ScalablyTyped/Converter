@@ -1,6 +1,6 @@
 package typingsSlinky.stardustUiReactComponentEventListener
 
-import typingsSlinky.stardustUiReactComponentEventListener.distEsTypesMod.EventListenerOptions
+import _root_.typingsSlinky.stardustUiReactComponentEventListener.distEsTypesMod.EventListenerOptions
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -11,5 +11,5 @@ object distEsUseEventListenerMod {
   @js.native
   val ^ : js.Any = js.native
   
-  inline def default[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91, starting with typingsSlinky.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.waiting, typingsSlinky.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.error, typingsSlinky.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.abort */ Any */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  inline def default[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91, starting with _root_.typingsSlinky.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.waiting, _root_.typingsSlinky.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.error, _root_.typingsSlinky.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.abort */ Any */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("default")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
 }

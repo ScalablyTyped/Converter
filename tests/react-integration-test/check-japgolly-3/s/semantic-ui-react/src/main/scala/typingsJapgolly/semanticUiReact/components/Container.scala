@@ -1,13 +1,13 @@
 package typingsJapgolly.semanticUiReact.components
 
+import _root_.typingsJapgolly.StBuildingComponent
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsContainerContainerMod.ContainerProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticTEXTALIGNMENTS
 import japgolly.scalajs.react.facade.Empty
 import japgolly.scalajs.react.facade.JsNumber
 import japgolly.scalajs.react.facade.React.Element
 import japgolly.scalajs.react.vdom.VdomElement
-import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.semanticUiReact.distCommonjsElementsContainerContainerMod.ContainerProps
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticTEXTALIGNMENTS
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

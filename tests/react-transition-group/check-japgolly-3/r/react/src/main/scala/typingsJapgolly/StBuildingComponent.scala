@@ -1,5 +1,6 @@
 package typingsJapgolly
 
+import _root_.typingsJapgolly.StBuildingComponent.make
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.PropsChildren
 import japgolly.scalajs.react.Ref.Simple
@@ -9,7 +10,6 @@ import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.TagMod.Composite
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
-import typingsJapgolly.StBuildingComponent.make
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

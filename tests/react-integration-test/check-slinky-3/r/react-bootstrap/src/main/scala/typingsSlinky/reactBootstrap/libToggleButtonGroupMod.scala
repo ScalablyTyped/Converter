@@ -1,16 +1,16 @@
 package typingsSlinky.reactBootstrap
 
+import _root_.typingsSlinky.react.mod.Component
+import _root_.typingsSlinky.react.mod.HTMLProps
+import _root_.typingsSlinky.reactBootstrap.libButtonGroupMod.ButtonGroupProps
+import _root_.typingsSlinky.reactBootstrap.mod.Omit
+import _root_.typingsSlinky.reactBootstrap.reactBootstrapStrings.`type`
+import _root_.typingsSlinky.reactBootstrap.reactBootstrapStrings.checkbox
+import _root_.typingsSlinky.reactBootstrap.reactBootstrapStrings.defaultValue
+import _root_.typingsSlinky.reactBootstrap.reactBootstrapStrings.onChange
+import _root_.typingsSlinky.reactBootstrap.reactBootstrapStrings.radio
+import _root_.typingsSlinky.reactBootstrap.reactBootstrapStrings.value
 import slinky.core.ReactComponentClass
-import typingsSlinky.react.mod.Component
-import typingsSlinky.react.mod.HTMLProps
-import typingsSlinky.reactBootstrap.libButtonGroupMod.ButtonGroupProps
-import typingsSlinky.reactBootstrap.mod.Omit
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.`type`
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.checkbox
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.defaultValue
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.onChange
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.radio
-import typingsSlinky.reactBootstrap.reactBootstrapStrings.value
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

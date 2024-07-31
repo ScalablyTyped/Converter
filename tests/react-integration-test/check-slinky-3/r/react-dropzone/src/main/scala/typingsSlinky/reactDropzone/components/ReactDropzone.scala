@@ -1,15 +1,15 @@
 package typingsSlinky.reactDropzone.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.react.mod.DragEvent
+import _root_.typingsSlinky.react.mod.RefAttributes
+import _root_.typingsSlinky.react.mod.global.JSX.Element
+import _root_.typingsSlinky.reactDropzone.mod.DropEvent
+import _root_.typingsSlinky.reactDropzone.mod.DropzoneProps
+import _root_.typingsSlinky.reactDropzone.mod.DropzoneRef
+import _root_.typingsSlinky.reactDropzone.mod.DropzoneState
 import org.scalajs.dom.HTMLElement
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.react.mod.DragEvent
-import typingsSlinky.react.mod.RefAttributes
-import typingsSlinky.react.mod.global.JSX.Element
-import typingsSlinky.reactDropzone.mod.DropEvent
-import typingsSlinky.reactDropzone.mod.DropzoneProps
-import typingsSlinky.reactDropzone.mod.DropzoneRef
-import typingsSlinky.reactDropzone.mod.DropzoneState
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

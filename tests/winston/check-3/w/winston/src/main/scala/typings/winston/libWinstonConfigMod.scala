@@ -1,8 +1,8 @@
 package typings.winston
 
+import _root_.typings.winston.winstonStrings.bar
 import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
-import typings.winston.winstonStrings.bar
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

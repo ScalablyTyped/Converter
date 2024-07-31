@@ -1,6 +1,6 @@
 package typings.angularAgility
 
-import typings.angular.mod.IServiceProvider
+import _root_.typings.angular.mod.IServiceProvider
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

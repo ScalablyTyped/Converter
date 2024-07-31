@@ -1,7 +1,7 @@
 package typingsSlinky.materialUi
 
-import typingsSlinky.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
-import typingsSlinky.react.mod.Component
+import _root_.typingsSlinky.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
+import _root_.typingsSlinky.react.mod.Component
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

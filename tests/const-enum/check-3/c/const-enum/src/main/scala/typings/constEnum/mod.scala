@@ -1,13 +1,13 @@
 package typings.constEnum
 
-import typings.constEnum.constEnumDoubles.`4294901760`
-import typings.constEnum.constEnumInts.`0`
-import typings.constEnum.constEnumInts.`16`
-import typings.constEnum.constEnumInts.`1`
-import typings.constEnum.constEnumInts.`22`
-import typings.constEnum.constEnumInts.`65535`
-import typings.constEnum.constEnumInts.`65536`
-import typings.constEnum.constEnumStrings.C
+import _root_.typings.constEnum.constEnumDoubles.`4294901760`
+import _root_.typings.constEnum.constEnumInts.`0`
+import _root_.typings.constEnum.constEnumInts.`16`
+import _root_.typings.constEnum.constEnumInts.`1`
+import _root_.typings.constEnum.constEnumInts.`22`
+import _root_.typings.constEnum.constEnumInts.`65535`
+import _root_.typings.constEnum.constEnumInts.`65536`
+import _root_.typings.constEnum.constEnumStrings.C
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -24,12 +24,6 @@ object mod {
   
   inline def foo2(x: Foo2_): Double = ^.asInstanceOf[js.Dynamic].applyDynamic("foo2")(x.asInstanceOf[js.Any]).asInstanceOf[Double]
   
-  /* Rewritten from type alias, can be one of: 
-    - typings.constEnum.constEnumInts.`0`
-    - typings.constEnum.constEnumInts.`22`
-    - typings.constEnum.constEnumInts.`1`
-  */
-  trait Foo2_ extends StObject
   object Foo2_ {
     
     inline def A: `0` = 0.asInstanceOf[`0`]
@@ -38,29 +32,18 @@ object mod {
     
     inline def C: `1` = (0 + 1).asInstanceOf[`1`]
   }
+  type Foo2_ = `0` | `22` | `1`
   
-  /* Rewritten from type alias, can be one of: 
-    - typings.constEnum.constEnumInts.`1`
-    - typings.constEnum.constEnumInts.`22`
-    - typings.constEnum.constEnumStrings.C
-  */
-  trait Foo_ extends StObject
   object Foo_ {
     
     inline def A: `1` = 1.asInstanceOf[`1`]
     
     inline def B: `22` = 22.asInstanceOf[`22`]
     
-    inline def C: typings.constEnum.constEnumStrings.C = "C".asInstanceOf[typings.constEnum.constEnumStrings.C]
+    inline def C: _root_.typings.constEnum.constEnumStrings.C = "C".asInstanceOf[_root_.typings.constEnum.constEnumStrings.C]
   }
+  type Foo_ = `1` | `22` | C
   
-  /* Rewritten from type alias, can be one of: 
-    - typings.constEnum.constEnumInts.`65535`
-    - typings.constEnum.constEnumInts.`65536`
-    - typings.constEnum.constEnumInts.`16`
-    - typings.constEnum.constEnumDoubles.`4294901760`
-  */
-  trait PreOrderHookFlags extends StObject
   object PreOrderHookFlags {
     
     /** The index of the next pre-order hook to be called in the hooks array, on the first 16
@@ -76,4 +59,5 @@ object mod {
     
     inline def NumberOfInitHooksCalledShift: `16` = 16.asInstanceOf[`16`]
   }
+  type PreOrderHookFlags = `65535` | `65536` | `16` | `4294901760`
 }

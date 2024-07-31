@@ -1,9 +1,9 @@
 package typingsJapgolly.semanticUiReact
 
-import typingsJapgolly.react.mod.StatelessComponent
-import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonContentMod.ButtonContentProps
-import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
-import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps
+import _root_.typingsJapgolly.react.mod.StatelessComponent
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonContentMod.ButtonContentProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -13,7 +13,7 @@ object distCommonjsElementsButtonMod {
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button", JSImport.Default)
   @js.native
   open class default ()
-    extends typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.default
+    extends _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.default
   object default {
     
     /* was `typeof ButtonContent` */

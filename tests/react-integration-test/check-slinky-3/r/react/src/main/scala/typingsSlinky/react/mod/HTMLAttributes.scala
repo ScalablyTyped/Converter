@@ -1,7 +1,7 @@
 package typingsSlinky.react.mod
 
-import typingsSlinky.react.reactStrings.off
-import typingsSlinky.react.reactStrings.on
+import _root_.typingsSlinky.react.reactStrings.off
+import _root_.typingsSlinky.react.reactStrings.on
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

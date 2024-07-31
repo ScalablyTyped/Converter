@@ -1,8 +1,8 @@
 package typingsSlinky.stardustUiReactComponentRef
 
+import _root_.typingsSlinky.react.mod.Ref
 import slinky.core.facade.ReactElement
 import slinky.core.facade.ReactRef
-import typingsSlinky.react.mod.Ref
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

@@ -1,14 +1,14 @@
 package typingsSlinky.reactContextmenu.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.react.mod.ReactText
+import _root_.typingsSlinky.reactContextmenu.mod.SubMenuProps
 import org.scalajs.dom.HTMLDivElement
 import org.scalajs.dom.HTMLElement
 import slinky.core.facade.ReactElement
 import slinky.web.SyntheticMouseEvent
 import slinky.web.SyntheticTouchEvent
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.react.mod.ReactText
-import typingsSlinky.reactContextmenu.mod.SubMenuProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -27,7 +27,7 @@ object SubMenu {
   @scala.inline
   open class Builder (val args: js.Array[Any])
     extends AnyVal
-       with StBuildingComponent[tag.type, typingsSlinky.reactContextmenu.mod.SubMenu] {
+       with StBuildingComponent[tag.type, _root_.typingsSlinky.reactContextmenu.mod.SubMenu] {
     
     inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     

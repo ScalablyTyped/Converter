@@ -1,7 +1,7 @@
 package typings.react
 
-import typings.react.anon.Html
-import typings.react.reactStrings.foo
+import _root_.typings.react.anon.Html
+import _root_.typings.react.reactStrings.foo
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

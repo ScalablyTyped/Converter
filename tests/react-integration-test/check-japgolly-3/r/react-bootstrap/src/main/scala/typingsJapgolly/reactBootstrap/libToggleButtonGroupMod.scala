@@ -1,16 +1,16 @@
 package typingsJapgolly.reactBootstrap
 
+import _root_.typingsJapgolly.react.mod.Component
+import _root_.typingsJapgolly.react.mod.HTMLProps
+import _root_.typingsJapgolly.reactBootstrap.libButtonGroupMod.ButtonGroupProps
+import _root_.typingsJapgolly.reactBootstrap.mod.Omit
+import _root_.typingsJapgolly.reactBootstrap.reactBootstrapStrings.`type`
+import _root_.typingsJapgolly.reactBootstrap.reactBootstrapStrings.checkbox
+import _root_.typingsJapgolly.reactBootstrap.reactBootstrapStrings.defaultValue
+import _root_.typingsJapgolly.reactBootstrap.reactBootstrapStrings.onChange
+import _root_.typingsJapgolly.reactBootstrap.reactBootstrapStrings.radio
+import _root_.typingsJapgolly.reactBootstrap.reactBootstrapStrings.value
 import japgolly.scalajs.react.Callback
-import typingsJapgolly.react.mod.Component
-import typingsJapgolly.react.mod.HTMLProps
-import typingsJapgolly.reactBootstrap.libButtonGroupMod.ButtonGroupProps
-import typingsJapgolly.reactBootstrap.mod.Omit
-import typingsJapgolly.reactBootstrap.reactBootstrapStrings.`type`
-import typingsJapgolly.reactBootstrap.reactBootstrapStrings.checkbox
-import typingsJapgolly.reactBootstrap.reactBootstrapStrings.defaultValue
-import typingsJapgolly.reactBootstrap.reactBootstrapStrings.onChange
-import typingsJapgolly.reactBootstrap.reactBootstrapStrings.radio
-import typingsJapgolly.reactBootstrap.reactBootstrapStrings.value
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

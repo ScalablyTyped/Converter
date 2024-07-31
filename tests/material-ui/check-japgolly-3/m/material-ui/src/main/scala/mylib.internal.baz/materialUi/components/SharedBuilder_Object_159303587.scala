@@ -1,6 +1,6 @@
 package mylib.internal.baz.materialUi.components
 
-import mylib.internal.baz.StBuildingComponent
+import _root_.mylib.internal.baz.StBuildingComponent
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

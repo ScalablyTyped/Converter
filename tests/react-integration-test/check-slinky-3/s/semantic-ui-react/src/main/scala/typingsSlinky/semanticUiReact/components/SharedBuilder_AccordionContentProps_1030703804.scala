@@ -1,8 +1,8 @@
 package typingsSlinky.semanticUiReact.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

@@ -1,7 +1,7 @@
 package typings.node
 
-import typings.node.NodeJS.ReadableStream
-import typings.node.NodeJS.WritableStream
+import _root_.typings.node.NodeJS.ReadableStream
+import _root_.typings.node.NodeJS.WritableStream
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -9,10 +9,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object streamMod {
   
   /* import warning: transforms.RemoveMultipleInheritance#findNewParents newComments Dropped parents 
-  - typings.node.NodeJS.EventEmitter because Already inherited
-  - typings.node.NodeJS.WritableStream because var conflicts: writable. Inlined 
-  - typings.node.streamMod.Stream because Already inherited
-  - typings.node.streamMod.Writable because Inheritance from two classes. Inlined writable, emit, emit, end, end, end, end */ @JSImport("stream", "Duplex")
+  - _root_.typings.node.NodeJS.EventEmitter because Already inherited
+  - _root_.typings.node.NodeJS.WritableStream because var conflicts: writable. Inlined 
+  - _root_.typings.node.streamMod.Stream because Already inherited
+  - _root_.typings.node.streamMod.Writable because Inheritance from two classes. Inlined writable, emit, emit, end, end, end, end */ @JSImport("stream", "Duplex")
   @js.native
   open class Duplex () extends Readable {
     

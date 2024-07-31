@@ -1,6 +1,6 @@
 package typings.firebaseAdmin
 
-import typings.googleCloudFirestore.FirebaseFirestore.Settings
+import _root_.typings.googleCloudFirestore.FirebaseFirestore.Settings
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -24,7 +24,7 @@ object mod {
       */
     open class Firestore ()
       extends StObject
-         with typings.googleCloudFirestore.FirebaseFirestore.Firestore {
+         with _root_.typings.googleCloudFirestore.FirebaseFirestore.Firestore {
       def this(settings: Settings) = this()
       
       /**

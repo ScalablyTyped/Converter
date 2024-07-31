@@ -1,11 +1,11 @@
 package typingsSlinky.reactTransitionGroup
 
+import _root_.typingsSlinky.react.mod.Component
+import _root_.typingsSlinky.react.mod.ReactType
+import _root_.typingsSlinky.reactTransitionGroup.anon.ChildFactory
+import _root_.typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.abbr
+import _root_.typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.animate
 import slinky.core.ReactComponentClass
-import typingsSlinky.react.mod.Component
-import typingsSlinky.react.mod.ReactType
-import typingsSlinky.reactTransitionGroup.anon.ChildFactory
-import typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.abbr
-import typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.animate
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
