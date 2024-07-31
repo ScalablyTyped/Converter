@@ -1,14 +1,14 @@
 package typingsSlinky.react.mod
 
-import typingsSlinky.react.reactStrings.baseline
-import typingsSlinky.react.reactStrings.bottom
-import typingsSlinky.react.reactStrings.center
-import typingsSlinky.react.reactStrings.char
-import typingsSlinky.react.reactStrings.justify
-import typingsSlinky.react.reactStrings.left
-import typingsSlinky.react.reactStrings.middle
-import typingsSlinky.react.reactStrings.right
-import typingsSlinky.react.reactStrings.top
+import _root_.typingsSlinky.react.reactStrings.baseline
+import _root_.typingsSlinky.react.reactStrings.bottom
+import _root_.typingsSlinky.react.reactStrings.center
+import _root_.typingsSlinky.react.reactStrings.char
+import _root_.typingsSlinky.react.reactStrings.justify
+import _root_.typingsSlinky.react.reactStrings.left
+import _root_.typingsSlinky.react.reactStrings.middle
+import _root_.typingsSlinky.react.reactStrings.right
+import _root_.typingsSlinky.react.reactStrings.top
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

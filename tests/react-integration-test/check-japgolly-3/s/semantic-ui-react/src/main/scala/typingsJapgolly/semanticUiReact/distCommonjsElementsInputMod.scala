@@ -9,5 +9,5 @@ object distCommonjsElementsInputMod {
   @JSImport("semantic-ui-react/dist/commonjs/elements/Input", JSImport.Default)
   @js.native
   open class default ()
-    extends typingsJapgolly.semanticUiReact.distCommonjsElementsInputInputMod.default
+    extends _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsInputInputMod.default
 }

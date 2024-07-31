@@ -1,10 +1,10 @@
 package typings.node
 
-import typings.node.NodeJS.ReadableStream
-import typings.node.NodeJS.WritableStream
-import typings.node.anon.End
-import typings.node.eventsMod.EventEmitter
-import typings.node.nodeStrings.close
+import _root_.typings.node.NodeJS.ReadableStream
+import _root_.typings.node.NodeJS.WritableStream
+import _root_.typings.node.anon.End
+import _root_.typings.node.eventsMod.EventEmitter
+import _root_.typings.node.nodeStrings.close
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -16,13 +16,13 @@ object streamMod {
   open class ^ () extends internal
   
   /* import warning: transforms.RemoveMultipleInheritance#findNewParents newComments Dropped parents 
-  - typings.node.NodeJS.EventEmitter because Already inherited
-  - typings.node.eventsMod.EventEmitter because Already inherited
-  - typings.node.NodeJS.EventEmitter because Already inherited
-  - typings.node.streamMod.internal because Already inherited
-  - typings.node.NodeJS.WritableStream because var conflicts: writable. Inlined 
-  - typings.node.streamMod.Stream because Already inherited
-  - typings.node.streamMod.Writable because Inheritance from two classes. Inlined writable, end, end, end, end, end, end, end, on, on_close */ @JSImport("stream", "Duplex")
+  - _root_.typings.node.NodeJS.EventEmitter because Already inherited
+  - _root_.typings.node.eventsMod.EventEmitter because Already inherited
+  - _root_.typings.node.NodeJS.EventEmitter because Already inherited
+  - _root_.typings.node.streamMod.internal because Already inherited
+  - _root_.typings.node.NodeJS.WritableStream because var conflicts: writable. Inlined 
+  - _root_.typings.node.streamMod.Stream because Already inherited
+  - _root_.typings.node.streamMod.Writable because Inheritance from two classes. Inlined writable, end, end, end, end, end, end, end, on, on_close */ @JSImport("stream", "Duplex")
   @js.native
   open class Duplex () extends Readable {
     def this(opts: DuplexOptions) = this()

@@ -1,8 +1,8 @@
 package typings.vueScrollto
 
-import typings.std.Element
-import typings.vue.typesPluginMod.PluginFunction
-import typings.vueScrollto.vueScrolltoBooleans.`false`
+import _root_.typings.std.Element
+import _root_.typings.vue.typesPluginMod.PluginFunction
+import _root_.typings.vueScrollto.vueScrolltoBooleans.`false`
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -16,14 +16,6 @@ object mod {
        with VueScrollTo {
     
     /* CompleteClass */
-    override def scrollTo(element: String): Unit = js.native
-    /* CompleteClass */
-    override def scrollTo(element: String, duration: Double): Unit = js.native
-    /* CompleteClass */
-    override def scrollTo(element: String, duration: Double, options: Options): Unit = js.native
-    /* CompleteClass */
-    override def scrollTo(element: String, options: Options): Unit = js.native
-    /* CompleteClass */
     override def scrollTo(element: Element): Unit = js.native
     /* CompleteClass */
     override def scrollTo(element: Element, duration: Double): Unit = js.native
@@ -31,6 +23,14 @@ object mod {
     override def scrollTo(element: Element, duration: Double, options: Options): Unit = js.native
     /* CompleteClass */
     override def scrollTo(element: Element, options: Options): Unit = js.native
+    /* CompleteClass */
+    override def scrollTo(element: String): Unit = js.native
+    /* CompleteClass */
+    override def scrollTo(element: String, duration: Double): Unit = js.native
+    /* CompleteClass */
+    override def scrollTo(element: String, duration: Double, options: Options): Unit = js.native
+    /* CompleteClass */
+    override def scrollTo(element: String, options: Options): Unit = js.native
     /* CompleteClass */
     override def scrollTo(options: Options): Unit = js.native
     /* CompleteClass */
@@ -144,14 +144,14 @@ object mod {
   
   trait VueScrollTo extends StObject {
     
-    def scrollTo(element: String): Unit
-    def scrollTo(element: String, duration: Double): Unit
-    def scrollTo(element: String, duration: Double, options: Options): Unit
-    def scrollTo(element: String, options: Options): Unit
     def scrollTo(element: Element): Unit
     def scrollTo(element: Element, duration: Double): Unit
     def scrollTo(element: Element, duration: Double, options: Options): Unit
     def scrollTo(element: Element, options: Options): Unit
+    def scrollTo(element: String): Unit
+    def scrollTo(element: String, duration: Double): Unit
+    def scrollTo(element: String, duration: Double, options: Options): Unit
+    def scrollTo(element: String, options: Options): Unit
     def scrollTo(options: Options): Unit
     @JSName("scrollTo")
     var scrollTo_Original: VueStatic
@@ -173,14 +173,14 @@ object mod {
   @js.native
   trait VueStatic extends StObject {
     
-    def apply(element: String): Unit = js.native
-    def apply(element: String, duration: Double): Unit = js.native
-    def apply(element: String, duration: Double, options: Options): Unit = js.native
-    def apply(element: String, options: Options): Unit = js.native
     def apply(element: Element): Unit = js.native
     def apply(element: Element, duration: Double): Unit = js.native
     def apply(element: Element, duration: Double, options: Options): Unit = js.native
     def apply(element: Element, options: Options): Unit = js.native
+    def apply(element: String): Unit = js.native
+    def apply(element: String, duration: Double): Unit = js.native
+    def apply(element: String, duration: Double, options: Options): Unit = js.native
+    def apply(element: String, options: Options): Unit = js.native
     def apply(options: Options): Unit = js.native
   }
   
@@ -190,14 +190,6 @@ object mod {
     trait Vue extends StObject {
       
       @JSName("$scrollTo")
-      def $scrollTo(element: String): Unit
-      @JSName("$scrollTo")
-      def $scrollTo(element: String, duration: Double): Unit
-      @JSName("$scrollTo")
-      def $scrollTo(element: String, duration: Double, options: Options): Unit
-      @JSName("$scrollTo")
-      def $scrollTo(element: String, options: Options): Unit
-      @JSName("$scrollTo")
       def $scrollTo(element: Element): Unit
       @JSName("$scrollTo")
       def $scrollTo(element: Element, duration: Double): Unit
@@ -205,6 +197,14 @@ object mod {
       def $scrollTo(element: Element, duration: Double, options: Options): Unit
       @JSName("$scrollTo")
       def $scrollTo(element: Element, options: Options): Unit
+      @JSName("$scrollTo")
+      def $scrollTo(element: String): Unit
+      @JSName("$scrollTo")
+      def $scrollTo(element: String, duration: Double): Unit
+      @JSName("$scrollTo")
+      def $scrollTo(element: String, duration: Double, options: Options): Unit
+      @JSName("$scrollTo")
+      def $scrollTo(element: String, options: Options): Unit
       @JSName("$scrollTo")
       def $scrollTo(options: Options): Unit
       @JSName("$scrollTo")

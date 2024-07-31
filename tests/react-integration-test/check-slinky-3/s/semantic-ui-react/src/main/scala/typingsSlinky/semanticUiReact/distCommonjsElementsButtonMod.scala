@@ -1,9 +1,9 @@
 package typingsSlinky.semanticUiReact
 
+import _root_.typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonContentMod.ButtonContentProps
+import _root_.typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
+import _root_.typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps
 import slinky.core.ReactComponentClass
-import typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonContentMod.ButtonContentProps
-import typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
-import typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -13,7 +13,7 @@ object distCommonjsElementsButtonMod {
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button", JSImport.Default)
   @js.native
   open class default ()
-    extends typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonMod.default
+    extends _root_.typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonMod.default
   object default {
     
     /* was `typeof ButtonContent` */

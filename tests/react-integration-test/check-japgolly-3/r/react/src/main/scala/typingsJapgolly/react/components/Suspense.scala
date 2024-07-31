@@ -1,7 +1,7 @@
 package typingsJapgolly.react.components
 
-import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.react.mod.SuspenseProps
+import _root_.typingsJapgolly.StBuildingComponent
+import _root_.typingsJapgolly.react.mod.SuspenseProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

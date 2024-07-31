@@ -1,5 +1,73 @@
 package typingsSlinky.semanticUiReact.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.react.anon.Html
+import _root_.typingsSlinky.react.mod.CSSProperties
+import _root_.typingsSlinky.react.mod.DragEvent
+import _root_.typingsSlinky.react.mod.ReactNodeArray
+import _root_.typingsSlinky.react.mod.ReactType
+import _root_.typingsSlinky.react.reactStrings.`additions text`
+import _root_.typingsSlinky.react.reactStrings.`inline`
+import _root_.typingsSlinky.react.reactStrings.additions
+import _root_.typingsSlinky.react.reactStrings.all
+import _root_.typingsSlinky.react.reactStrings.ascending
+import _root_.typingsSlinky.react.reactStrings.assertive
+import _root_.typingsSlinky.react.reactStrings.both
+import _root_.typingsSlinky.react.reactStrings.button
+import _root_.typingsSlinky.react.reactStrings.copy
+import _root_.typingsSlinky.react.reactStrings.date
+import _root_.typingsSlinky.react.reactStrings.descending
+import _root_.typingsSlinky.react.reactStrings.dialog
+import _root_.typingsSlinky.react.reactStrings.execute
+import _root_.typingsSlinky.react.reactStrings.grammar
+import _root_.typingsSlinky.react.reactStrings.grid
+import _root_.typingsSlinky.react.reactStrings.horizontal
+import _root_.typingsSlinky.react.reactStrings.link
+import _root_.typingsSlinky.react.reactStrings.list
+import _root_.typingsSlinky.react.reactStrings.listbox
+import _root_.typingsSlinky.react.reactStrings.location
+import _root_.typingsSlinky.react.reactStrings.menu
+import _root_.typingsSlinky.react.reactStrings.mixed
+import _root_.typingsSlinky.react.reactStrings.move
+import _root_.typingsSlinky.react.reactStrings.none
+import _root_.typingsSlinky.react.reactStrings.off
+import _root_.typingsSlinky.react.reactStrings.on
+import _root_.typingsSlinky.react.reactStrings.other
+import _root_.typingsSlinky.react.reactStrings.page
+import _root_.typingsSlinky.react.reactStrings.polite
+import _root_.typingsSlinky.react.reactStrings.popup
+import _root_.typingsSlinky.react.reactStrings.removals
+import _root_.typingsSlinky.react.reactStrings.reset
+import _root_.typingsSlinky.react.reactStrings.spelling
+import _root_.typingsSlinky.react.reactStrings.step
+import _root_.typingsSlinky.react.reactStrings.submit
+import _root_.typingsSlinky.react.reactStrings.text
+import _root_.typingsSlinky.react.reactStrings.time
+import _root_.typingsSlinky.react.reactStrings.tree
+import _root_.typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonContentMod.ButtonContentProps
+import _root_.typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
+import _root_.typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonMod.ButtonProps
+import _root_.typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonMod.StrictButtonProps
+import _root_.typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps
+import _root_.typingsSlinky.semanticUiReact.distCommonjsElementsButtonMod.default
+import _root_.typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticCOLORS
+import _root_.typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticFLOATS
+import _root_.typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticSIZES
+import _root_.typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
+import _root_.typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus`
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.bottom
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.facebook
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.fade
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.instagram
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.left
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.linkedin
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.right
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.top
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.twitter
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.vertical
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.vk
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.youtube
 import org.scalajs.dom.Event
 import org.scalajs.dom.EventTarget
 import org.scalajs.dom.HTMLButtonElement
@@ -17,74 +85,6 @@ import slinky.web.SyntheticTransitionEvent
 import slinky.web.SyntheticUIEvent
 import slinky.web.SyntheticWheelEvent
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.react.anon.Html
-import typingsSlinky.react.mod.CSSProperties
-import typingsSlinky.react.mod.DragEvent
-import typingsSlinky.react.mod.ReactNodeArray
-import typingsSlinky.react.mod.ReactType
-import typingsSlinky.react.reactStrings.`additions text`
-import typingsSlinky.react.reactStrings.`inline`
-import typingsSlinky.react.reactStrings.additions
-import typingsSlinky.react.reactStrings.all
-import typingsSlinky.react.reactStrings.ascending
-import typingsSlinky.react.reactStrings.assertive
-import typingsSlinky.react.reactStrings.both
-import typingsSlinky.react.reactStrings.button
-import typingsSlinky.react.reactStrings.copy
-import typingsSlinky.react.reactStrings.date
-import typingsSlinky.react.reactStrings.descending
-import typingsSlinky.react.reactStrings.dialog
-import typingsSlinky.react.reactStrings.execute
-import typingsSlinky.react.reactStrings.grammar
-import typingsSlinky.react.reactStrings.grid
-import typingsSlinky.react.reactStrings.horizontal
-import typingsSlinky.react.reactStrings.link
-import typingsSlinky.react.reactStrings.list
-import typingsSlinky.react.reactStrings.listbox
-import typingsSlinky.react.reactStrings.location
-import typingsSlinky.react.reactStrings.menu
-import typingsSlinky.react.reactStrings.mixed
-import typingsSlinky.react.reactStrings.move
-import typingsSlinky.react.reactStrings.none
-import typingsSlinky.react.reactStrings.off
-import typingsSlinky.react.reactStrings.on
-import typingsSlinky.react.reactStrings.other
-import typingsSlinky.react.reactStrings.page
-import typingsSlinky.react.reactStrings.polite
-import typingsSlinky.react.reactStrings.popup
-import typingsSlinky.react.reactStrings.removals
-import typingsSlinky.react.reactStrings.reset
-import typingsSlinky.react.reactStrings.spelling
-import typingsSlinky.react.reactStrings.step
-import typingsSlinky.react.reactStrings.submit
-import typingsSlinky.react.reactStrings.text
-import typingsSlinky.react.reactStrings.time
-import typingsSlinky.react.reactStrings.tree
-import typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonContentMod.ButtonContentProps
-import typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
-import typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonMod.ButtonProps
-import typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonMod.StrictButtonProps
-import typingsSlinky.semanticUiReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps
-import typingsSlinky.semanticUiReact.distCommonjsElementsButtonMod.default
-import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticCOLORS
-import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticFLOATS
-import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticSIZES
-import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
-import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus`
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.bottom
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.facebook
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.fade
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.instagram
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.left
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.linkedin
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.right
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.top
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.twitter
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.vertical
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.vk
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.youtube
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -205,7 +205,7 @@ object Button {
     
     inline def `aria-multiselectable`(value: Boolean): this.type = set("aria-multiselectable", value.asInstanceOf[js.Any])
     
-    inline def `aria-orientation`(value: horizontal | typingsSlinky.react.reactStrings.vertical): this.type = set("aria-orientation", value.asInstanceOf[js.Any])
+    inline def `aria-orientation`(value: horizontal | _root_.typingsSlinky.react.reactStrings.vertical): this.type = set("aria-orientation", value.asInstanceOf[js.Any])
     
     inline def `aria-owns`(value: String): this.type = set("aria-owns", value.asInstanceOf[js.Any])
     

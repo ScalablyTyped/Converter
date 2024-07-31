@@ -45,7 +45,7 @@ object AdaptiveNamingImport {
         .sorted(ShortestAndLowercaseFirst)
 
     val registeredReferences =
-      mutable.Map[IArray[TsIdent], QualifiedName](IArray.Empty -> QualifiedName(IArray(outputPkg)))
+      mutable.Map[IArray[TsIdent], QualifiedName](IArray.Empty -> QualifiedName(IArray(Name.root, outputPkg)))
 
     val lowercaseIndex = mutable.Map.empty[String, IArray[TsIdent]]
 

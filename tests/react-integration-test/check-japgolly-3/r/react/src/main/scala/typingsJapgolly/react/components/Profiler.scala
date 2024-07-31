@@ -1,10 +1,10 @@
 package typingsJapgolly.react.components
 
+import _root_.typingsJapgolly.StBuildingComponent.Default
+import _root_.typingsJapgolly.react.mod.ProfilerProps
+import _root_.typingsJapgolly.react.reactStrings.mount
+import _root_.typingsJapgolly.react.reactStrings.update
 import japgolly.scalajs.react.Callback
-import typingsJapgolly.StBuildingComponent.Default
-import typingsJapgolly.react.mod.ProfilerProps
-import typingsJapgolly.react.reactStrings.mount
-import typingsJapgolly.react.reactStrings.update
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

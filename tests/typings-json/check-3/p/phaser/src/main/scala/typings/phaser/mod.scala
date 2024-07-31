@@ -26,7 +26,7 @@ object mod {
   @js.native
   open class Animation ()
     extends StObject
-       with typings.phaser.Phaser.Animation
+       with _root_.typings.phaser.Phaser.Animation
   
   /* static member */
   @JSImport("phaser", "VERSION")

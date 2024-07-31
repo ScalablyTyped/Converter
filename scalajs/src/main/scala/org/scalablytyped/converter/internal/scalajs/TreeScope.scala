@@ -108,11 +108,13 @@ object TreeScope {
 
     override def _lookup(fragments: IArray[Name]): IArray[(Tree, TreeScope)] =
       fragments match {
-        case IArray.headHeadTail(`outputPkg`, head, tail) =>
+        case IArray.headHeadTail(`outputPkg`, head, _) =>
           dependencies.get(head) match {
-            case Some(dep) => dep.lookupNoBacktrack(outputPkg +: head +: tail)
+            case Some(dep) => dep.lookupNoBacktrack(fragments)
             case None      => Empty
           }
+        case IArray.headTail(Name.root, tail) =>
+          _lookup(tail)
         case _ => Empty
       }
 
@@ -151,6 +153,9 @@ object TreeScope {
 
     def lookupNoBacktrack(names: IArray[Name]): IArray[(Tree, TreeScope)] =
       names match {
+        case IArray.headTail(Name.root, tail) =>
+          lookupNoBacktrack(tail)
+
         case IArray.exactlyOne(current.name) =>
           IArray((current, this))
 

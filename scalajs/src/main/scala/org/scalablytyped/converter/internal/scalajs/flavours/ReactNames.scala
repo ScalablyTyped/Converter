@@ -4,8 +4,8 @@ package flavours
 
 class ReactNames(val outputPkg: Name) {
   val libName              = Name("react")
-  val mod                  = QualifiedName(IArray(outputPkg, libName, Name.mod))
-  val static               = QualifiedName(IArray(outputPkg, libName, Name.global, Name("React")))
+  val mod                  = QualifiedName(IArray(Name.root, outputPkg, libName, Name.mod))
+  val static               = QualifiedName(IArray(Name.root, outputPkg, libName, Name.global, Name("React")))
   val Ref                  = mod + Name("Ref")
   val RefCallback          = mod + Name("RefCallback")
   val LegacyRef            = mod + Name("LegacyRef")

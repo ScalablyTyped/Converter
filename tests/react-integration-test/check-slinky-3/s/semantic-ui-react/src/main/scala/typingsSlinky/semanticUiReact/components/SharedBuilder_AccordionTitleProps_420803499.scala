@@ -1,15 +1,15 @@
 package typingsSlinky.semanticUiReact.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.react.mod.ReactNodeArray
+import _root_.typingsSlinky.react.mod.ReactType
+import _root_.typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
+import _root_.typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
+import _root_.typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
 import org.scalajs.dom.HTMLDivElement
 import slinky.core.facade.ReactElement
 import slinky.web.SyntheticMouseEvent
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.react.mod.ReactNodeArray
-import typingsSlinky.react.mod.ReactType
-import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
-import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
-import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

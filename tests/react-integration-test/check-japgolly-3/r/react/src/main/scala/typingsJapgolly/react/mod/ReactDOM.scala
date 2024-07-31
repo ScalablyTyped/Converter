@@ -1,5 +1,11 @@
 package typingsJapgolly.react.mod
 
+import _root_.typingsJapgolly.std.HTMLDataElement
+import _root_.typingsJapgolly.std.HTMLDialogElement
+import _root_.typingsJapgolly.std.HTMLTableDataCellElement
+import _root_.typingsJapgolly.std.HTMLTableHeaderCellElement
+import _root_.typingsJapgolly.std.HTMLTemplateElement
+import _root_.typingsJapgolly.std.HTMLWebViewElement
 import org.scalajs.dom.HTMLAnchorElement
 import org.scalajs.dom.HTMLAreaElement
 import org.scalajs.dom.HTMLAudioElement
@@ -52,12 +58,6 @@ import org.scalajs.dom.HTMLTitleElement
 import org.scalajs.dom.HTMLTrackElement
 import org.scalajs.dom.HTMLUListElement
 import org.scalajs.dom.HTMLVideoElement
-import typingsJapgolly.std.HTMLDataElement
-import typingsJapgolly.std.HTMLDialogElement
-import typingsJapgolly.std.HTMLTableDataCellElement
-import typingsJapgolly.std.HTMLTableHeaderCellElement
-import typingsJapgolly.std.HTMLTemplateElement
-import typingsJapgolly.std.HTMLWebViewElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

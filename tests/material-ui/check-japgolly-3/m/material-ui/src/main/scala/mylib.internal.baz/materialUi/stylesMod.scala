@@ -1,6 +1,6 @@
 package mylib.internal.baz.materialUi
 
-import mylib.internal.baz.materialUi.MaterialUI.Styles.MuiTheme
+import _root_.mylib.internal.baz.materialUi.MaterialUI.Styles.MuiTheme
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

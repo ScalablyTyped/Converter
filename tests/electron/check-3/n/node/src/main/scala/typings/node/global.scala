@@ -1,6 +1,6 @@
 package typings.node
 
-import typings.node.NodeJS.Process
+import _root_.typings.node.NodeJS.Process
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -13,7 +13,7 @@ object global {
     @js.native
     open class EventEmitter ()
       extends StObject
-         with typings.node.NodeJS.EventEmitter
+         with _root_.typings.node.NodeJS.EventEmitter
   }
   
   @JSGlobal("Symbol")

@@ -1,11 +1,11 @@
 package typingsSlinky.componentstest.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.componentstest.mod.CardGridProps
+import _root_.typingsSlinky.componentstest.mod.CardProps
 import org.scalajs.dom.HTMLDivElement
 import slinky.web.SyntheticMouseEvent
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.componentstest.mod.CardGridProps
-import typingsSlinky.componentstest.mod.CardProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

@@ -1,7 +1,7 @@
 package typingsJapgolly.semanticUiReact.components
 
-import typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
-import typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.default
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.default
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

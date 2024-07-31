@@ -1,11 +1,11 @@
 package typingsJapgolly.semanticUiReact.components
 
+import _root_.typingsJapgolly.StBuildingComponent
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
 import japgolly.scalajs.react.facade.Empty
 import japgolly.scalajs.react.facade.JsNumber
 import japgolly.scalajs.react.facade.React.Element
 import japgolly.scalajs.react.vdom.VdomElement
-import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

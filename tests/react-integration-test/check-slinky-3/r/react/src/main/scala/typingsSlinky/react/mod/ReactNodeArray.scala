@@ -1,6 +1,6 @@
 package typingsSlinky.react.mod
 
-import typingsSlinky.std.Array
+import _root_.typingsSlinky.std.Array
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

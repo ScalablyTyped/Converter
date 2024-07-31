@@ -1,7 +1,7 @@
 package typings.swiz
 
-import typings.swiz.mod.struct.IField
-import typings.swiz.mod.struct.IObj
+import _root_.typings.swiz.mod.struct.IField
+import _root_.typings.swiz.mod.struct.IObj
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

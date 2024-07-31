@@ -1,7 +1,7 @@
 package typingsJapgolly.componentstest.components
 
+import _root_.typingsJapgolly.react.mod.RefAttributes
 import org.scalajs.dom.HTMLDivElement
-import typingsJapgolly.react.mod.RefAttributes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

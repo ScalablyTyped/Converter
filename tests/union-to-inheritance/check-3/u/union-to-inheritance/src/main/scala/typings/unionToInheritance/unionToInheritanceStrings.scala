@@ -7,50 +7,26 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object unionToInheritanceStrings {
   
   @js.native
-  sealed trait a1
-    extends StObject
-       with _A
+  sealed trait a1 extends StObject
   inline def a1: a1 = "a1".asInstanceOf[a1]
   
   @js.native
-  sealed trait a2
-    extends StObject
-       with _A
+  sealed trait a2 extends StObject
   inline def a2: a2 = "a2".asInstanceOf[a2]
   
   @js.native
-  sealed trait b1
-    extends StObject
-       with _B
+  sealed trait b1 extends StObject
   inline def b1: b1 = "b1".asInstanceOf[b1]
   
   @js.native
-  sealed trait b2
-    extends StObject
-       with _B
+  sealed trait b2 extends StObject
   inline def b2: b2 = "b2".asInstanceOf[b2]
   
   @js.native
-  sealed trait bar
-    extends StObject
-       with Legal1[Any]
-       with Legal2[Any, Any]
-       with Legal3[Any, Any, Any]
-       with _Illegal1
-       with _Illegal2
-       with _Illegal3[Any]
-       with _Test[Any, Any, Any]
+  sealed trait bar extends StObject
   inline def bar: bar = "bar".asInstanceOf[bar]
   
   @js.native
-  sealed trait foo
-    extends StObject
-       with Legal1[Any]
-       with Legal2[Any, Any]
-       with Legal3[Any, Any, Any]
-       with _Illegal1
-       with _Illegal2
-       with _Illegal3[Any]
-       with _Test[Any, Any, Any]
+  sealed trait foo extends StObject
   inline def foo: foo = "foo".asInstanceOf[foo]
 }

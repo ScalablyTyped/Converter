@@ -1,6 +1,6 @@
 package typings.node
 
-import typings.std.ArrayConstrucor
+import _root_.typings.std.ArrayConstrucor
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

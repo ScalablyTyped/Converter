@@ -1,6 +1,6 @@
 package typings.recharts
 
-import typings.recharts.anon.Height
+import _root_.typings.recharts.anon.Height
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

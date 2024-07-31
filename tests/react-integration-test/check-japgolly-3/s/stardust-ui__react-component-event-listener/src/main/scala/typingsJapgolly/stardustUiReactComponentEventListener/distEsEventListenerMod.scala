@@ -1,9 +1,9 @@
 package typingsJapgolly.stardustUiReactComponentEventListener
 
-import typingsJapgolly.stardustUiReactComponentEventListener.anon.Capture
-import typingsJapgolly.stardustUiReactComponentEventListener.anon.Listener
-import typingsJapgolly.stardustUiReactComponentEventListener.distEsTypesMod.EventListenerOptions
-import typingsJapgolly.stardustUiReactComponentEventListener.distEsTypesMod.EventTypes
+import _root_.typingsJapgolly.stardustUiReactComponentEventListener.anon.Capture
+import _root_.typingsJapgolly.stardustUiReactComponentEventListener.anon.Listener
+import _root_.typingsJapgolly.stardustUiReactComponentEventListener.distEsTypesMod.EventListenerOptions
+import _root_.typingsJapgolly.stardustUiReactComponentEventListener.distEsTypesMod.EventTypes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

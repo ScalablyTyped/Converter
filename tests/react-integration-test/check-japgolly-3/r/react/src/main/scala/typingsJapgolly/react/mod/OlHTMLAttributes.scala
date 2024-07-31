@@ -1,10 +1,10 @@
 package typingsJapgolly.react.mod
 
-import typingsJapgolly.react.reactStrings.A
-import typingsJapgolly.react.reactStrings.I
-import typingsJapgolly.react.reactStrings.`1`
-import typingsJapgolly.react.reactStrings.a_
-import typingsJapgolly.react.reactStrings.i_
+import _root_.typingsJapgolly.react.reactStrings.A
+import _root_.typingsJapgolly.react.reactStrings.I
+import _root_.typingsJapgolly.react.reactStrings.`1`
+import _root_.typingsJapgolly.react.reactStrings.a_
+import _root_.typingsJapgolly.react.reactStrings.i_
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

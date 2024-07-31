@@ -10,7 +10,7 @@ class JapgollyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Vers
   val enableAnyVal = if (scalaVersion.binVersion <= "2.12") None else Some(TypeRef.AnyVal)
 
   val StBuildingComponent = Name("StBuildingComponent")
-  val builderCp           = QualifiedName(IArray(outputPkg, StBuildingComponent))
+  val builderCp           = QualifiedName(IArray(Name.root, outputPkg, StBuildingComponent))
   val R                   = TypeParamTree(Name("R"), Empty, Some(TypeRef.JsObject), NoComments, ignoreBound = false)
   val builderTparams      = IArray(R)
   val builderRef          = TypeRef(builderCp, TypeParamTree.asTypeArgs(builderTparams), NoComments)

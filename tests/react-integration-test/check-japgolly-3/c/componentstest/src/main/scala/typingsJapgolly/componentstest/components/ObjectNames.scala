@@ -1,7 +1,7 @@
 package typingsJapgolly.componentstest.components
 
-import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.componentstest.anon.Equals
+import _root_.typingsJapgolly.StBuildingComponent
+import _root_.typingsJapgolly.componentstest.anon.Equals
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

@@ -1,12 +1,12 @@
 package typings.vueResource
 
+import _root_.typings.std.Blob
+import _root_.typings.std.PromiseLike
+import _root_.typings.vueResource.anon.Call
+import _root_.typings.vueResource.anon.HttpOptionsrootstring
+import _root_.typings.vueResource.anon.Method
+import _root_.typings.vueResource.anon.headersHttpHeadersundefin
 import org.scalablytyped.runtime.StringDictionary
-import typings.std.Blob
-import typings.std.PromiseLike
-import typings.vueResource.anon.Call
-import typings.vueResource.anon.HttpOptionsrootstring
-import typings.vueResource.anon.Method
-import typings.vueResource.anon.headersHttpHeadersundefin
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

@@ -12,7 +12,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name, val scalaVersion: Versio
   val enableAnyVal = if (scalaVersion.binVersion <= "2.12") None else Some(TypeRef.AnyVal)
 
   val StBuildingComponent = Name("StBuildingComponent")
-  val builderCp           = QualifiedName(IArray(outputPkg, StBuildingComponent))
+  val builderCp           = QualifiedName(IArray(Name.root, outputPkg, StBuildingComponent))
   val E                   = TypeParamTree(Name("E"), Empty, None, NoComments, ignoreBound = false)
   val R                   = TypeParamTree(Name("R"), Empty, Some(TypeRef.JsObject), NoComments, ignoreBound = false)
   val builderTparams      = IArray(E, R)

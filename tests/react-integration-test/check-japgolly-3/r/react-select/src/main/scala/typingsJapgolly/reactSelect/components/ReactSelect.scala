@@ -1,8 +1,8 @@
 package typingsJapgolly.reactSelect.components
 
-import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.reactSelect.mod.ReactSelectProps
-import typingsJapgolly.reactSelect.mod.default
+import _root_.typingsJapgolly.StBuildingComponent
+import _root_.typingsJapgolly.reactSelect.mod.ReactSelectProps
+import _root_.typingsJapgolly.reactSelect.mod.default
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

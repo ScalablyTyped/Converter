@@ -1,11 +1,11 @@
 package typings.chartJs
 
+import _root_.typings.std.ArrayLike
+import _root_.typings.std.CanvasRenderingContext2D
+import _root_.typings.std.HTMLCanvasElement
 import org.scalablytyped.runtime.Instantiable2
 import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
-import typings.std.ArrayLike
-import typings.std.CanvasRenderingContext2D
-import typings.std.HTMLCanvasElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -16,18 +16,18 @@ object mod extends Shortcut {
   @js.native
   open class ^ protected ()
     extends StObject
-       with typings.chartJs.mod.Chart {
-    def this(context: String, options: Any) = this()
+       with _root_.typings.chartJs.mod.Chart {
     def this(context: ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement], options: Any) = this()
     def this(context: CanvasRenderingContext2D, options: Any) = this()
     def this(context: HTMLCanvasElement, options: Any) = this()
+    def this(context: String, options: Any) = this()
   }
   @JSImport("chart.js", JSImport.Namespace)
   @js.native
   val ^ : js.Object & (Instantiable2[
     /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
     /* options */ Any, 
-    typings.chartJs.mod.Chart
+    _root_.typings.chartJs.mod.Chart
   ]) = js.native
   
   @js.native
@@ -69,7 +69,7 @@ object mod extends Shortcut {
   val Chart: Instantiable2[
     /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
     /* options */ Any, 
-    typings.chartJs.mod.Chart
+    _root_.typings.chartJs.mod.Chart
   ] = js.native
   
   /* This class was inferred from a value with a constructor, it was renamed because a distinct type already exists with the same name. */
@@ -77,11 +77,11 @@ object mod extends Shortcut {
   @js.native
   open class ChartCls protected ()
     extends StObject
-       with typings.chartJs.mod.Chart {
-    def this(context: String, options: Any) = this()
+       with _root_.typings.chartJs.mod.Chart {
     def this(context: ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement], options: Any) = this()
     def this(context: CanvasRenderingContext2D, options: Any) = this()
     def this(context: HTMLCanvasElement, options: Any) = this()
+    def this(context: String, options: Any) = this()
   }
   
   /* static member */
@@ -167,13 +167,13 @@ object mod extends Shortcut {
   type _To = js.Object & (Instantiable2[
     /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
     /* options */ Any, 
-    typings.chartJs.mod.Chart
+    _root_.typings.chartJs.mod.Chart
   ])
   
   /* This means you don't have to write `^`, but can instead just say `mod.foo` */
   override def _to: js.Object & (Instantiable2[
     /* context */ String | CanvasRenderingContext2D | HTMLCanvasElement | (ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]), 
     /* options */ Any, 
-    typings.chartJs.mod.Chart
+    _root_.typings.chartJs.mod.Chart
   ]) = ^
 }

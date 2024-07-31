@@ -1,6 +1,6 @@
 package typingsJapgolly.componentstest.components
 
-import typingsJapgolly.componentstest.mod.CardGridProps
+import _root_.typingsJapgolly.componentstest.mod.CardGridProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

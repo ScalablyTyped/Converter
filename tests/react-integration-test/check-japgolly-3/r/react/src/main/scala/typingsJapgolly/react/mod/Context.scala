@@ -6,9 +6,9 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 trait Context[T] extends StObject {
   
-  var Consumer: typingsJapgolly.react.mod.Consumer[T]
+  var Consumer: _root_.typingsJapgolly.react.mod.Consumer[T]
   
-  var Provider: typingsJapgolly.react.mod.Provider[T]
+  var Provider: _root_.typingsJapgolly.react.mod.Provider[T]
   
   var displayName: js.UndefOr[String] = js.undefined
 }

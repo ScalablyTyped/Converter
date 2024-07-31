@@ -46,7 +46,7 @@ object bufferMod {
       *
       * @param buffer The buffer to copy.
       */
-    def this(buffer: typings.node.Buffer) = this()
+    def this(buffer: _root_.typings.node.Buffer) = this()
     /**
       * Allocates a new buffer of {size} octets.
       *
@@ -77,7 +77,7 @@ object bufferMod {
     /**
       * Allocates a new Buffer using an {array} of octets.
       */
-    inline def from(array: js.Array[Any]): typings.node.Buffer = ^.asInstanceOf[js.Dynamic].applyDynamic("from")(array.asInstanceOf[js.Any]).asInstanceOf[typings.node.Buffer]
+    inline def from(array: js.Array[Any]): _root_.typings.node.Buffer = ^.asInstanceOf[js.Dynamic].applyDynamic("from")(array.asInstanceOf[js.Any]).asInstanceOf[_root_.typings.node.Buffer]
   }
   
   @JSImport("buffer", "INSPECT_MAX_BYTES")
@@ -107,8 +107,8 @@ object bufferMod {
     inline def byteLength(string: String): Double = ^.asInstanceOf[js.Dynamic].applyDynamic("byteLength")(string.asInstanceOf[js.Any]).asInstanceOf[Double]
     inline def byteLength(string: String, encoding: String): Double = (^.asInstanceOf[js.Dynamic].applyDynamic("byteLength")(string.asInstanceOf[js.Any], encoding.asInstanceOf[js.Any])).asInstanceOf[Double]
     
-    inline def concat(list: js.Array[typings.node.Buffer]): typings.node.Buffer = ^.asInstanceOf[js.Dynamic].applyDynamic("concat")(list.asInstanceOf[js.Any]).asInstanceOf[typings.node.Buffer]
-    inline def concat(list: js.Array[typings.node.Buffer], totalLength: Double): typings.node.Buffer = (^.asInstanceOf[js.Dynamic].applyDynamic("concat")(list.asInstanceOf[js.Any], totalLength.asInstanceOf[js.Any])).asInstanceOf[typings.node.Buffer]
+    inline def concat(list: js.Array[_root_.typings.node.Buffer]): _root_.typings.node.Buffer = ^.asInstanceOf[js.Dynamic].applyDynamic("concat")(list.asInstanceOf[js.Any]).asInstanceOf[_root_.typings.node.Buffer]
+    inline def concat(list: js.Array[_root_.typings.node.Buffer], totalLength: Double): _root_.typings.node.Buffer = (^.asInstanceOf[js.Dynamic].applyDynamic("concat")(list.asInstanceOf[js.Any], totalLength.asInstanceOf[js.Any])).asInstanceOf[_root_.typings.node.Buffer]
     
     inline def isBuffer(obj: Any): Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("isBuffer")(obj.asInstanceOf[js.Any]).asInstanceOf[Boolean]
   }

@@ -12,8 +12,8 @@ object global {
     @js.native
     open class Queue_[T] ()
       extends StObject
-         with typings.tstl.std.Queue_[T] {
-      def this(container: typings.tstl.std.Queue_[T]) = this()
+         with _root_.typings.tstl.std.Queue_[T] {
+      def this(container: _root_.typings.tstl.std.Queue_[T]) = this()
       
       /* private */ /* CompleteClass */
       var container_ : Any = js.native
@@ -27,8 +27,8 @@ object global {
     @js.native
     open class queue[T] ()
       extends StObject
-         with typings.tstl.std.Queue_[T] {
-      def this(container: typings.tstl.std.Queue_[T]) = this()
+         with _root_.typings.tstl.std.Queue_[T] {
+      def this(container: _root_.typings.tstl.std.Queue_[T]) = this()
       
       /* private */ /* CompleteClass */
       var container_ : Any = js.native

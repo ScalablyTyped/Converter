@@ -10,11 +10,11 @@ trait Test extends StObject {
   
   var b: js.BigInt
   
-  var c: typings.bigint.BigInt.BigInt
+  var c: _root_.typings.bigint.BigInt.BigInt
 }
 object Test {
   
-  inline def apply(a: js.BigInt, b: js.BigInt, c: typings.bigint.BigInt.BigInt): Test = {
+  inline def apply(a: js.BigInt, b: js.BigInt, c: _root_.typings.bigint.BigInt.BigInt): Test = {
     val __obj = js.Dynamic.literal(a = a.asInstanceOf[js.Any], b = b.asInstanceOf[js.Any], c = c.asInstanceOf[js.Any])
     __obj.asInstanceOf[Test]
   }
@@ -26,7 +26,7 @@ object Test {
     
     inline def setB(value: js.BigInt): Self = StObject.set(x, "b", value.asInstanceOf[js.Any])
     
-    inline def setC(value: typings.bigint.BigInt.BigInt): Self = StObject.set(x, "c", value.asInstanceOf[js.Any])
+    inline def setC(value: _root_.typings.bigint.BigInt.BigInt): Self = StObject.set(x, "c", value.asInstanceOf[js.Any])
     
     inline def setCVarargs(value: Double*): Self = StObject.set(x, "c", js.Array(value*))
   }

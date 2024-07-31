@@ -1,10 +1,10 @@
 package typings.commander
 
+import _root_.typings.node.NodeJS.EventEmitter
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
 import org.scalablytyped.runtime.Shortcut
 import org.scalablytyped.runtime.StringDictionary
-import typings.node.NodeJS.EventEmitter
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -25,7 +25,7 @@ object mod extends Shortcut {
     */
   open class CommandCls ()
     extends StObject
-       with typings.commander.mod.local.Command {
+       with _root_.typings.commander.mod.local.Command {
     def this(name: String) = this()
   }
   
@@ -34,7 +34,7 @@ object mod extends Shortcut {
   @js.native
   open class OptionCls protected ()
     extends StObject
-       with typings.commander.mod.local.Option {
+       with _root_.typings.commander.mod.local.Option {
     /**
       * Initialize a new `Option` with the given `flags` and `description`.
       *
@@ -63,7 +63,7 @@ object mod extends Shortcut {
     var required: Boolean = js.native
   }
   
-  type Command = typings.commander.mod.local.Command
+  type Command = _root_.typings.commander.mod.local.Command
   
   trait CommandOptions extends StObject {
     
@@ -94,22 +94,22 @@ object mod extends Shortcut {
   @js.native
   trait CommanderStatic
     extends StObject
-       with typings.commander.mod.local.Command {
+       with _root_.typings.commander.mod.local.Command {
     
-    var Command: Instantiable1[/* name */ js.UndefOr[String], typings.commander.mod.local.Command] = js.native
+    var Command: Instantiable1[/* name */ js.UndefOr[String], _root_.typings.commander.mod.local.Command] = js.native
     
-    var CommandOptions: typings.commander.mod.CommandOptions = js.native
+    var CommandOptions: _root_.typings.commander.mod.CommandOptions = js.native
     
     var Option: Instantiable2[
         /* flags */ String, 
         /* description */ js.UndefOr[String], 
-        typings.commander.mod.local.Option
+        _root_.typings.commander.mod.local.Option
       ] = js.native
     
-    var ParseOptionsResult: typings.commander.mod.ParseOptionsResult = js.native
+    var ParseOptionsResult: _root_.typings.commander.mod.ParseOptionsResult = js.native
   }
   
-  type Option = typings.commander.mod.local.Option
+  type Option = _root_.typings.commander.mod.local.Option
   
   trait ParseOptionsResult extends StObject {
     
@@ -164,7 +164,7 @@ object mod extends Shortcut {
         * @param {(...args: any[]) => void} fn
         * @returns {Command} for chaining
         */
-      def action(fn: js.Function1[/* repeated */ Any, Unit]): typings.commander.mod.local.Command = js.native
+      def action(fn: js.Function1[/* repeated */ Any, Unit]): _root_.typings.commander.mod.local.Command = js.native
       
       def alias(): String = js.native
       /**
@@ -173,7 +173,7 @@ object mod extends Shortcut {
         * @param {string} alias
         * @return {(Command | string)}
         */
-      def alias(alias: String): typings.commander.mod.local.Command = js.native
+      def alias(alias: String): _root_.typings.commander.mod.local.Command = js.native
       
       /**
         * Allow unknown options on the command line.
@@ -181,8 +181,8 @@ object mod extends Shortcut {
         * @param {boolean} [arg] if `true` or omitted, no error will be thrown for unknown options.
         * @returns {Command} for chaining
         */
-      def allowUnknownOption(): typings.commander.mod.local.Command = js.native
-      def allowUnknownOption(arg: Boolean): typings.commander.mod.local.Command = js.native
+      def allowUnknownOption(): _root_.typings.commander.mod.local.Command = js.native
+      def allowUnknownOption(arg: Boolean): _root_.typings.commander.mod.local.Command = js.native
       
       var args: js.Array[String] = js.native
       
@@ -192,7 +192,7 @@ object mod extends Shortcut {
         * @param {string} desc
         * @returns {Command} for chaining
         */
-      def arguments(desc: String): typings.commander.mod.local.Command = js.native
+      def arguments(desc: String): _root_.typings.commander.mod.local.Command = js.native
       
       /**
         * Add command `name`.
@@ -253,10 +253,10 @@ object mod extends Shortcut {
         * @param {CommandOptions} [opts] command options
         * @returns {Command} the new command
         */
-      def command(name: String): typings.commander.mod.local.Command = js.native
-      def command(name: String, desc: String): typings.commander.mod.local.Command = js.native
-      def command(name: String, desc: String, opts: CommandOptions): typings.commander.mod.local.Command = js.native
-      def command(name: String, desc: Unit, opts: CommandOptions): typings.commander.mod.local.Command = js.native
+      def command(name: String): _root_.typings.commander.mod.local.Command = js.native
+      def command(name: String, desc: String): _root_.typings.commander.mod.local.Command = js.native
+      def command(name: String, desc: String, opts: CommandOptions): _root_.typings.commander.mod.local.Command = js.native
+      def command(name: String, desc: Unit, opts: CommandOptions): _root_.typings.commander.mod.local.Command = js.native
       
       def description(): String = js.native
       /**
@@ -265,7 +265,7 @@ object mod extends Shortcut {
         * @param {string} str
         * @return {(Command | string)}
         */
-      def description(str: String): typings.commander.mod.local.Command = js.native
+      def description(str: String): _root_.typings.commander.mod.local.Command = js.native
       
       /** Output help information and exit.
         *
@@ -286,7 +286,7 @@ object mod extends Shortcut {
         * @param {string} str
         * @return {Command}
         */
-      def name(str: String): typings.commander.mod.local.Command = js.native
+      def name(str: String): _root_.typings.commander.mod.local.Command = js.native
       
       /**
         * Define option with `flags`, `description` and optional
@@ -334,30 +334,30 @@ object mod extends Shortcut {
         * @param {*} [defaultValue]
         * @returns {Command} for chaining
         */
-      def option(flags: String): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: String): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: String, defaultValue: Any): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: String, fn: js.Function2[/* arg1 */ Any, /* arg2 */ Any, Unit]): typings.commander.mod.local.Command = js.native
+      def option(flags: String): _root_.typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: String): _root_.typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: String, defaultValue: Any): _root_.typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: String, fn: js.Function2[/* arg1 */ Any, /* arg2 */ Any, Unit]): _root_.typings.commander.mod.local.Command = js.native
       def option(
         flags: String,
         description: String,
         fn: js.Function2[/* arg1 */ Any, /* arg2 */ Any, Unit],
         defaultValue: Any
-      ): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: String, fn: js.RegExp): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: String, fn: js.RegExp, defaultValue: Any): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: String, fn: Unit, defaultValue: Any): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: Unit, defaultValue: Any): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: Unit, fn: js.Function2[/* arg1 */ Any, /* arg2 */ Any, Unit]): typings.commander.mod.local.Command = js.native
+      ): _root_.typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: String, fn: js.RegExp): _root_.typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: String, fn: js.RegExp, defaultValue: Any): _root_.typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: String, fn: Unit, defaultValue: Any): _root_.typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: Unit, defaultValue: Any): _root_.typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: Unit, fn: js.Function2[/* arg1 */ Any, /* arg2 */ Any, Unit]): _root_.typings.commander.mod.local.Command = js.native
       def option(
         flags: String,
         description: Unit,
         fn: js.Function2[/* arg1 */ Any, /* arg2 */ Any, Unit],
         defaultValue: Any
-      ): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: Unit, fn: js.RegExp): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: Unit, fn: js.RegExp, defaultValue: Any): typings.commander.mod.local.Command = js.native
-      def option(flags: String, description: Unit, fn: Unit, defaultValue: Any): typings.commander.mod.local.Command = js.native
+      ): _root_.typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: Unit, fn: js.RegExp): _root_.typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: Unit, fn: js.RegExp, defaultValue: Any): _root_.typings.commander.mod.local.Command = js.native
+      def option(flags: String, description: Unit, fn: Unit, defaultValue: Any): _root_.typings.commander.mod.local.Command = js.native
       
       /**
         * Return an object containing options as key-value pairs
@@ -380,7 +380,7 @@ object mod extends Shortcut {
         * @param {string[]} argv
         * @returns {Command} for chaining
         */
-      def parse(argv: js.Array[String]): typings.commander.mod.local.Command = js.native
+      def parse(argv: js.Array[String]): _root_.typings.commander.mod.local.Command = js.native
       
       /**
         * Parse expected `args`.
@@ -390,7 +390,7 @@ object mod extends Shortcut {
         * @param {string[]} args
         * @returns {Command} for chaining
         */
-      def parseExpectedArgs(args: js.Array[String]): typings.commander.mod.local.Command = js.native
+      def parseExpectedArgs(args: js.Array[String]): _root_.typings.commander.mod.local.Command = js.native
       
       /**
         * Parse options from `argv` returning `argv` void of these options.
@@ -407,7 +407,7 @@ object mod extends Shortcut {
         * @param {string} str
         * @return {(Command | string)}
         */
-      def usage(str: String): typings.commander.mod.local.Command = js.native
+      def usage(str: String): _root_.typings.commander.mod.local.Command = js.native
       
       /**
         * Set the program version to `str`.
@@ -419,8 +419,8 @@ object mod extends Shortcut {
         * @param {string} [flags]
         * @returns {Command} for chaining
         */
-      def version(str: String): typings.commander.mod.local.Command = js.native
-      def version(str: String, flags: String): typings.commander.mod.local.Command = js.native
+      def version(str: String): _root_.typings.commander.mod.local.Command = js.native
+      def version(str: String, flags: String): _root_.typings.commander.mod.local.Command = js.native
     }
     
     trait Option extends StObject {
@@ -448,13 +448,13 @@ object mod extends Shortcut {
         long: String,
         optional: Boolean,
         required: Boolean
-      ): typings.commander.mod.local.Option = {
+      ): _root_.typings.commander.mod.local.Option = {
         val __obj = js.Dynamic.literal(bool = bool.asInstanceOf[js.Any], description = description.asInstanceOf[js.Any], flags = flags.asInstanceOf[js.Any], long = long.asInstanceOf[js.Any], optional = optional.asInstanceOf[js.Any], required = required.asInstanceOf[js.Any])
-        __obj.asInstanceOf[typings.commander.mod.local.Option]
+        __obj.asInstanceOf[_root_.typings.commander.mod.local.Option]
       }
       
       @scala.inline
-      implicit open class MutableBuilder[Self <: typings.commander.mod.local.Option] (val x: Self) extends AnyVal {
+      implicit open class MutableBuilder[Self <: _root_.typings.commander.mod.local.Option] (val x: Self) extends AnyVal {
         
         inline def setBool(value: Boolean): Self = StObject.set(x, "bool", value.asInstanceOf[js.Any])
         

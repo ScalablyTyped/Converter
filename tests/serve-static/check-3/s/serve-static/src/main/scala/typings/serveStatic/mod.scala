@@ -1,8 +1,8 @@
 package typings.serveStatic
 
-import typings.expressServeStaticCore.mod.Handler
-import typings.expressServeStaticCore.mod.Response
-import typings.mime.mod.TypeMap
+import _root_.typings.expressServeStaticCore.mod.Handler
+import _root_.typings.expressServeStaticCore.mod.Response
+import _root_.typings.mime.mod.TypeMap
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

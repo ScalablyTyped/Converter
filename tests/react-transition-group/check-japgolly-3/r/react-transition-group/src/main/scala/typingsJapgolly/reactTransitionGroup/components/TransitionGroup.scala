@@ -1,12 +1,12 @@
 package typingsJapgolly.reactTransitionGroup.components
 
+import _root_.typingsJapgolly.StBuildingComponent.Default
+import _root_.typingsJapgolly.reactTransitionGroup.anon.ChildFactory
+import _root_.typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr
+import _root_.typingsJapgolly.reactTransitionGroup.transitionGroupMod.ComponentTransitionGroupProps
+import _root_.typingsJapgolly.reactTransitionGroup.transitionGroupMod.IntrinsicTransitionGroupProps
+import _root_.typingsJapgolly.reactTransitionGroup.transitionGroupMod.^
 import japgolly.scalajs.react.facade.React.Element
-import typingsJapgolly.StBuildingComponent.Default
-import typingsJapgolly.reactTransitionGroup.anon.ChildFactory
-import typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr
-import typingsJapgolly.reactTransitionGroup.transitionGroupMod.ComponentTransitionGroupProps
-import typingsJapgolly.reactTransitionGroup.transitionGroupMod.IntrinsicTransitionGroupProps
-import typingsJapgolly.reactTransitionGroup.transitionGroupMod.^
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

@@ -1,9 +1,9 @@
 package typingsJapgolly.reactContextmenu.components
 
-import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.react.mod.HTMLAttributes
-import typingsJapgolly.react.mod.ReactType
-import typingsJapgolly.reactContextmenu.mod.ContextMenuTriggerProps
+import _root_.typingsJapgolly.StBuildingComponent
+import _root_.typingsJapgolly.react.mod.HTMLAttributes
+import _root_.typingsJapgolly.react.mod.ReactType
+import _root_.typingsJapgolly.reactContextmenu.mod.ContextMenuTriggerProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -22,7 +22,7 @@ object ContextMenuTrigger {
   @scala.inline
   open class Builder (val args: js.Array[Any])
     extends AnyVal
-       with StBuildingComponent[typingsJapgolly.reactContextmenu.mod.ContextMenuTrigger] {
+       with StBuildingComponent[_root_.typingsJapgolly.reactContextmenu.mod.ContextMenuTrigger] {
     
     inline def attributes(value: HTMLAttributes[Any]): this.type = set("attributes", value.asInstanceOf[js.Any])
     

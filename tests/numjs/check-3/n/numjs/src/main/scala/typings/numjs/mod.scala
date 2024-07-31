@@ -1,8 +1,8 @@
 package typings.numjs
 
-import typings.ndarray.mod.Data
-import typings.ndarray.mod.DataType
-import typings.ndarray.mod.ndarray
+import _root_.typings.ndarray.mod.Data
+import _root_.typings.ndarray.mod.DataType
+import _root_.typings.ndarray.mod.ndarray
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

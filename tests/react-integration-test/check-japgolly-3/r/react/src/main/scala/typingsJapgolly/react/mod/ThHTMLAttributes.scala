@@ -1,10 +1,10 @@
 package typingsJapgolly.react.mod
 
-import typingsJapgolly.react.reactStrings.center
-import typingsJapgolly.react.reactStrings.char
-import typingsJapgolly.react.reactStrings.justify
-import typingsJapgolly.react.reactStrings.left
-import typingsJapgolly.react.reactStrings.right
+import _root_.typingsJapgolly.react.reactStrings.center
+import _root_.typingsJapgolly.react.reactStrings.char
+import _root_.typingsJapgolly.react.reactStrings.justify
+import _root_.typingsJapgolly.react.reactStrings.left
+import _root_.typingsJapgolly.react.reactStrings.right
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

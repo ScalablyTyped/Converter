@@ -1,10 +1,10 @@
 package typingsJapgolly.stardustUiReactComponentRef
 
+import _root_.typingsJapgolly.react.mod.Component
+import _root_.typingsJapgolly.stardustUiReactComponentRef.anon.Children
+import _root_.typingsJapgolly.stardustUiReactComponentRef.anon.InnerRef
+import _root_.typingsJapgolly.stardustUiReactComponentRef.distEsTypesMod.RefProps
 import org.scalajs.dom.HTMLElement
-import typingsJapgolly.react.mod.Component
-import typingsJapgolly.stardustUiReactComponentRef.anon.Children
-import typingsJapgolly.stardustUiReactComponentRef.anon.InnerRef
-import typingsJapgolly.stardustUiReactComponentRef.distEsTypesMod.RefProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

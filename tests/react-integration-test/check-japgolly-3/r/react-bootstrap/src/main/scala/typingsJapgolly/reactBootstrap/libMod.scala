@@ -1,7 +1,7 @@
 package typingsJapgolly.reactBootstrap
 
-import typingsJapgolly.reactBootstrap.libButtonGroupMod.^
-import typingsJapgolly.reactBootstrap.libUtilsBootstrapUtilsMod.BSProps
+import _root_.typingsJapgolly.reactBootstrap.libButtonGroupMod.^
+import _root_.typingsJapgolly.reactBootstrap.libUtilsBootstrapUtilsMod.BSProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -15,7 +15,7 @@ object libMod {
   @JSImport("react-bootstrap/lib", "ToggleButtonGroup")
   @js.native
   open class ToggleButtonGroup ()
-    extends typingsJapgolly.reactBootstrap.libToggleButtonGroupMod.^
+    extends _root_.typingsJapgolly.reactBootstrap.libToggleButtonGroupMod.^
   
   object utils {
     

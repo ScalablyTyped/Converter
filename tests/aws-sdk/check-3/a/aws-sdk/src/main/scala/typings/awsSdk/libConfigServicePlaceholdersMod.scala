@@ -1,7 +1,7 @@
 package typings.awsSdk
 
-import typings.awsSdk.clientsDynamodbMod.ClientConfiguration
-import typings.awsSdk.clientsDynamodbMod.apiVersion
+import _root_.typings.awsSdk.clientsDynamodbMod.ClientConfiguration
+import _root_.typings.awsSdk.clientsDynamodbMod.apiVersion
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

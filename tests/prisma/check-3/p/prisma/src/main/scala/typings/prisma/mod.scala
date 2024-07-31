@@ -1,8 +1,8 @@
 package typings.prisma
 
-import typings.prisma.prismaStrings.PrismaClientPromise
-import typings.std.Promise
-import typings.std.PromiseLike
+import _root_.typings.prisma.prismaStrings.PrismaClientPromise
+import _root_.typings.std.Promise
+import _root_.typings.std.PromiseLike
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

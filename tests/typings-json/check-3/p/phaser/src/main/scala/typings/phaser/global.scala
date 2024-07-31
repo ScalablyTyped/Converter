@@ -1,6 +1,6 @@
 package typings.phaser
 
-import typings.phaser.anon.LowerBound
+import _root_.typings.phaser.anon.LowerBound
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -33,11 +33,11 @@ object global {
     object blendModes extends StObject {
       
       @JSBracketAccess
-      def apply(value: Double): js.UndefOr[typings.phaser.PIXI.blendModes & Double] = js.native
+      def apply(value: Double): js.UndefOr[_root_.typings.phaser.PIXI.blendModes & Double] = js.native
       
-      /* 1 */ val ADD: typings.phaser.PIXI.blendModes.ADD & Double = js.native
+      /* 1 */ val ADD: _root_.typings.phaser.PIXI.blendModes.ADD & Double = js.native
       
-      /* 0 */ val NORMAL: typings.phaser.PIXI.blendModes.NORMAL & Double = js.native
+      /* 0 */ val NORMAL: _root_.typings.phaser.PIXI.blendModes.NORMAL & Double = js.native
     }
     
     @JSGlobal("PIXI.scaleModes")
@@ -45,13 +45,13 @@ object global {
     object scaleModes extends StObject {
       
       @JSBracketAccess
-      def apply(value: Double): js.UndefOr[typings.phaser.PIXI.scaleModes & Double] = js.native
+      def apply(value: Double): js.UndefOr[_root_.typings.phaser.PIXI.scaleModes & Double] = js.native
       
-      /* 0 */ val DEFAULT: typings.phaser.PIXI.scaleModes.DEFAULT & Double = js.native
+      /* 0 */ val DEFAULT: _root_.typings.phaser.PIXI.scaleModes.DEFAULT & Double = js.native
       
-      /* 1 */ val LINEAR: typings.phaser.PIXI.scaleModes.LINEAR & Double = js.native
+      /* 1 */ val LINEAR: _root_.typings.phaser.PIXI.scaleModes.LINEAR & Double = js.native
       
-      /* 2 */ val NEAREST: typings.phaser.PIXI.scaleModes.NEAREST & Double = js.native
+      /* 2 */ val NEAREST: _root_.typings.phaser.PIXI.scaleModes.NEAREST & Double = js.native
     }
   }
   
@@ -59,7 +59,7 @@ object global {
   @js.native
   open class Phaser ()
     extends StObject
-       with typings.phaser.Phaser
+       with _root_.typings.phaser.Phaser
   object Phaser {
     
     @JSGlobal("Phaser")
@@ -75,7 +75,7 @@ object global {
     @js.native
     open class Animation ()
       extends StObject
-         with typings.phaser.Phaser.Animation
+         with _root_.typings.phaser.Phaser.Animation
     
     /* static member */
     @JSGlobal("Phaser.VERSION")
@@ -90,11 +90,11 @@ object global {
     @js.native
     open class AABB ()
       extends StObject
-         with typings.phaser.p2.AABB {
+         with _root_.typings.phaser.p2.AABB {
       def this(options: LowerBound) = this()
       
       /* CompleteClass */
-      override def copy(aabb: typings.phaser.p2.AABB): Unit = js.native
+      override def copy(aabb: _root_.typings.phaser.p2.AABB): Unit = js.native
     }
   }
 }

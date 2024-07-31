@@ -1,7 +1,7 @@
 package typings.webpackEnv
 
-import typings.webpackEnv.NodeJS.Process
-import typings.webpackEnv.WebpackModuleApi.RequireLambda
+import _root_.typings.webpackEnv.NodeJS.Process
+import _root_.typings.webpackEnv.WebpackModuleApi.RequireLambda
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

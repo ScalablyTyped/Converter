@@ -290,6 +290,6 @@ object WebpackModuleApi {
   - js.Any because Already inherited
   - js.Object because Already inherited
   - js.Function because Already inherited
-  - typings.webpackEnv.WebpackModuleApi.Require2 because Already inherited */ @js.native
+  - _root_.typings.webpackEnv.WebpackModuleApi.Require2 because Already inherited */ @js.native
   trait RequireLambda extends Require1
 }

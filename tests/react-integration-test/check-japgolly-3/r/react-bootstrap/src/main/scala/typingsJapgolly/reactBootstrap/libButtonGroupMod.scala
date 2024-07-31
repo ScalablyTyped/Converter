@@ -1,8 +1,8 @@
 package typingsJapgolly.reactBootstrap
 
-import typingsJapgolly.react.mod.Component
-import typingsJapgolly.react.mod.HTMLProps
-import typingsJapgolly.reactBootstrap.mod.Sizes
+import _root_.typingsJapgolly.react.mod.Component
+import _root_.typingsJapgolly.react.mod.HTMLProps
+import _root_.typingsJapgolly.reactBootstrap.mod.Sizes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

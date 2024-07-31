@@ -1,8 +1,8 @@
 package typings.lodash
 
+import _root_.typings.lodash.mod.CurriedFunction1
+import _root_.typings.lodash.mod.CurriedFunction2
 import org.scalablytyped.runtime.Shortcut
-import typings.lodash.mod.CurriedFunction1
-import typings.lodash.mod.CurriedFunction2
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

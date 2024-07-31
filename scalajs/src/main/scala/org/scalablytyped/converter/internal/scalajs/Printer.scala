@@ -128,7 +128,7 @@ object Printer {
         case (ScalaOutput.File(name), members: IArray[Tree]) =>
           reg.write(targetFolder / os.RelPath(s"${name.unescaped}.scala")) { writer =>
             val (imports, shortenedMembers) = ShortenNames(tree, scope, parentsResolver)(members)
-            writer.println(s"package ${formatQN(QualifiedName(packages))}")
+            writer.println(s"package ${formatQN(QualifiedName(packages).dropRoot)}")
             writer.println("")
             imports.foreach(i => writer.println(s"import ${formatQN(i.imported)}"))
             writer.println(Imports)
@@ -155,7 +155,7 @@ object Printer {
           reg.write(targetFolder / packageScalaFileName) { writer =>
             val (imports, shortenedMembers) =
               ShortenNames(tree, scope, parentsResolver)(members)
-            writer.println(s"package ${formatQN(QualifiedName(packages))}")
+            writer.println(s"package ${formatQN(QualifiedName(packages).dropRoot)}")
             writer.println("")
             imports.foreach(i => writer.println(s"import ${formatQN(i.imported)}"))
             writer.println(Imports)
@@ -177,7 +177,7 @@ object Printer {
             packages.dropRight(1) match {
               case IArray.Empty => ()
               case remaining =>
-                writer.println(s"package ${formatQN(QualifiedName(remaining))}")
+                writer.println(s"package ${formatQN(QualifiedName(remaining).dropRoot)}")
             }
 
             writer.println("")

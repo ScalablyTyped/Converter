@@ -1,5 +1,14 @@
 package typingsJapgolly.reactDropzone
 
+import _root_.typingsJapgolly.react.mod.DragEventHandler
+import _root_.typingsJapgolly.react.mod.HTMLAttributes
+import _root_.typingsJapgolly.react.mod.InputHTMLAttributes
+import _root_.typingsJapgolly.react.mod.RefAttributes
+import _root_.typingsJapgolly.react.mod.global.JSX.Element
+import _root_.typingsJapgolly.reactDropzone.reactDropzoneStrings.multiple
+import _root_.typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragEnter
+import _root_.typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragLeave
+import _root_.typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragOver
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactDragEventFrom
 import japgolly.scalajs.react.ReactEventFrom
@@ -9,11 +18,6 @@ import org.scalajs.dom.DragEvent
 import org.scalajs.dom.Event
 import org.scalajs.dom.HTMLElement
 import org.scalajs.dom.HTMLInputElement
-import typingsJapgolly.react.mod.DragEventHandler
-import typingsJapgolly.react.mod.HTMLAttributes
-import typingsJapgolly.react.mod.InputHTMLAttributes
-import typingsJapgolly.react.mod.RefAttributes
-import typingsJapgolly.react.mod.global.JSX.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -335,21 +339,15 @@ object mod {
     var rootRef: RefHandle[HTMLElement] = js.native
   }
   
-  /* Rewritten from type alias, can be one of: 
-    - typingsJapgolly.reactDropzone.reactDropzoneStrings.multiple
-    - typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragEnter
-    - typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragOver
-    - typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragLeave
-  */
-  trait PropTypes extends StObject
   object PropTypes {
     
-    inline def multiple: typingsJapgolly.reactDropzone.reactDropzoneStrings.multiple = "multiple".asInstanceOf[typingsJapgolly.reactDropzone.reactDropzoneStrings.multiple]
+    inline def multiple: _root_.typingsJapgolly.reactDropzone.reactDropzoneStrings.multiple = "multiple".asInstanceOf[_root_.typingsJapgolly.reactDropzone.reactDropzoneStrings.multiple]
     
-    inline def onDragEnter: typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragEnter = "onDragEnter".asInstanceOf[typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragEnter]
+    inline def onDragEnter: _root_.typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragEnter = "onDragEnter".asInstanceOf[_root_.typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragEnter]
     
-    inline def onDragLeave: typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragLeave = "onDragLeave".asInstanceOf[typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragLeave]
+    inline def onDragLeave: _root_.typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragLeave = "onDragLeave".asInstanceOf[_root_.typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragLeave]
     
-    inline def onDragOver: typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragOver = "onDragOver".asInstanceOf[typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragOver]
+    inline def onDragOver: _root_.typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragOver = "onDragOver".asInstanceOf[_root_.typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragOver]
   }
+  type PropTypes = multiple | onDragEnter | onDragOver | onDragLeave
 }

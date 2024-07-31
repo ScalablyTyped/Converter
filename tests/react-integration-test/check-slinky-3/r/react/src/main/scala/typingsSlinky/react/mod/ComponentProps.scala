@@ -1,18 +1,18 @@
 package typingsSlinky.react.mod
 
-import typingsSlinky.react.reactStrings.a_
-import typingsSlinky.react.reactStrings.abbr
-import typingsSlinky.react.reactStrings.address
-import typingsSlinky.react.reactStrings.area
-import typingsSlinky.react.reactStrings.article
-import typingsSlinky.react.reactStrings.aside
-import typingsSlinky.react.reactStrings.audio
-import typingsSlinky.react.reactStrings.b
-import typingsSlinky.react.reactStrings.base
-import typingsSlinky.react.reactStrings.bdi
-import typingsSlinky.react.reactStrings.bdo
-import typingsSlinky.react.reactStrings.big
-import typingsSlinky.react.reactStrings.view
+import _root_.typingsSlinky.react.reactStrings.a_
+import _root_.typingsSlinky.react.reactStrings.abbr
+import _root_.typingsSlinky.react.reactStrings.address
+import _root_.typingsSlinky.react.reactStrings.area
+import _root_.typingsSlinky.react.reactStrings.article
+import _root_.typingsSlinky.react.reactStrings.aside
+import _root_.typingsSlinky.react.reactStrings.audio
+import _root_.typingsSlinky.react.reactStrings.b
+import _root_.typingsSlinky.react.reactStrings.base
+import _root_.typingsSlinky.react.reactStrings.bdi
+import _root_.typingsSlinky.react.reactStrings.bdo
+import _root_.typingsSlinky.react.reactStrings.big
+import _root_.typingsSlinky.react.reactStrings.view
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

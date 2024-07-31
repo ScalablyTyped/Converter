@@ -1,5 +1,9 @@
 package typingsJapgolly.reactContextmenu
 
+import _root_.typingsJapgolly.react.mod.Component
+import _root_.typingsJapgolly.react.mod.HTMLAttributes
+import _root_.typingsJapgolly.react.mod.ReactText
+import _root_.typingsJapgolly.react.mod.ReactType
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.ReactTouchEventFrom
@@ -8,10 +12,6 @@ import japgolly.scalajs.react.facade.React.Element
 import japgolly.scalajs.react.vdom.VdomElement
 import org.scalajs.dom.HTMLDivElement
 import org.scalajs.dom.HTMLElement
-import typingsJapgolly.react.mod.Component
-import typingsJapgolly.react.mod.HTMLAttributes
-import typingsJapgolly.react.mod.ReactText
-import typingsJapgolly.react.mod.ReactType
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

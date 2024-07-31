@@ -12,7 +12,7 @@ object SvgIcon {
   
   type Props = js.Object
   
-  implicit def make(companion: SvgIcon.type): SharedBuilder_Object_159303587[typingsSlinky.materialUi.global.MaterialUI.SvgIcon] = new SharedBuilder_Object_159303587[typingsSlinky.materialUi.global.MaterialUI.SvgIcon](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: SvgIcon.type): SharedBuilder_Object_159303587[_root_.typingsSlinky.materialUi.global.MaterialUI.SvgIcon] = new SharedBuilder_Object_159303587[_root_.typingsSlinky.materialUi.global.MaterialUI.SvgIcon](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: js.Object): SharedBuilder_Object_159303587[typingsSlinky.materialUi.global.MaterialUI.SvgIcon] = new SharedBuilder_Object_159303587[typingsSlinky.materialUi.global.MaterialUI.SvgIcon](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: js.Object): SharedBuilder_Object_159303587[_root_.typingsSlinky.materialUi.global.MaterialUI.SvgIcon] = new SharedBuilder_Object_159303587[_root_.typingsSlinky.materialUi.global.MaterialUI.SvgIcon](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

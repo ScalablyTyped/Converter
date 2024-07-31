@@ -10,7 +10,7 @@ object global {
   @js.native
   open class Queue[S, T] ()
     extends StObject
-       with typings.defaultedTparams.Queue[S, T] {
+       with _root_.typings.defaultedTparams.Queue[S, T] {
     
     /**
       * Whether the queue is empty
@@ -49,7 +49,7 @@ object global {
     val ^ : js.Any = js.native
     
     /* static member */
-    inline def from[T](iterable: js.Iterable[T]): typings.defaultedTparams.Queue[T, T] = ^.asInstanceOf[js.Dynamic].applyDynamic("from")(iterable.asInstanceOf[js.Any]).asInstanceOf[typings.defaultedTparams.Queue[T, T]]
-    inline def from[T](iterable: js.Iterable[T], length: Double): typings.defaultedTparams.Queue[T, T] = (^.asInstanceOf[js.Dynamic].applyDynamic("from")(iterable.asInstanceOf[js.Any], length.asInstanceOf[js.Any])).asInstanceOf[typings.defaultedTparams.Queue[T, T]]
+    inline def from[T](iterable: js.Iterable[T]): _root_.typings.defaultedTparams.Queue[T, T] = ^.asInstanceOf[js.Dynamic].applyDynamic("from")(iterable.asInstanceOf[js.Any]).asInstanceOf[_root_.typings.defaultedTparams.Queue[T, T]]
+    inline def from[T](iterable: js.Iterable[T], length: Double): _root_.typings.defaultedTparams.Queue[T, T] = (^.asInstanceOf[js.Dynamic].applyDynamic("from")(iterable.asInstanceOf[js.Any], length.asInstanceOf[js.Any])).asInstanceOf[_root_.typings.defaultedTparams.Queue[T, T]]
   }
 }

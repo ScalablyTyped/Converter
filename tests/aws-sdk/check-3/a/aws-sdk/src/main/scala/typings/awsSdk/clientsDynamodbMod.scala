@@ -1,9 +1,9 @@
 package typings.awsSdk
 
-import typings.awsSdk.awsSdkStrings.latest
-import typings.awsSdk.libDynamodbConverterMod.Converter.ConverterOptions
-import typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient.DocumentClientOptions
-import typings.awsSdk.libServicesDynamodbMod.DynamoDBCustomizations
+import _root_.typings.awsSdk.awsSdkStrings.latest
+import _root_.typings.awsSdk.libDynamodbConverterMod.Converter.ConverterOptions
+import _root_.typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient.DocumentClientOptions
+import _root_.typings.awsSdk.libServicesDynamodbMod.DynamoDBCustomizations
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -19,7 +19,7 @@ object clientsDynamodbMod {
   @JSImport("aws-sdk/clients/dynamodb", "Converter")
   @js.native
   open class Converter ()
-    extends typings.awsSdk.libDynamodbConverterMod.Converter
+    extends _root_.typings.awsSdk.libDynamodbConverterMod.Converter
   /* static members */
   object Converter {
     
@@ -37,7 +37,7 @@ object clientsDynamodbMod {
     * Creates a DynamoDB document client with a set of configuration options.
     */
   open class DocumentClient ()
-    extends typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient {
+    extends _root_.typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient {
     def this(options: DocumentClientOptions & ClientConfiguration) = this()
   }
   

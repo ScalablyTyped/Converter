@@ -1,10 +1,10 @@
 package typingsJapgolly.stardustUiReactComponentEventListener
 
+import _root_.typingsJapgolly.stardustUiReactComponentEventListener.anon.Capture
+import _root_.typingsJapgolly.stardustUiReactComponentEventListener.anon.Listener
+import _root_.typingsJapgolly.stardustUiReactComponentEventListener.distEsTypesMod.EventListenerOptions
+import _root_.typingsJapgolly.stardustUiReactComponentEventListener.distEsTypesMod.EventTypes
 import japgolly.scalajs.react.facade.React.RefHandle
-import typingsJapgolly.stardustUiReactComponentEventListener.anon.Capture
-import typingsJapgolly.stardustUiReactComponentEventListener.anon.Listener
-import typingsJapgolly.stardustUiReactComponentEventListener.distEsTypesMod.EventListenerOptions
-import typingsJapgolly.stardustUiReactComponentEventListener.distEsTypesMod.EventTypes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -52,7 +52,7 @@ object mod {
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ Any
   ] = js.native
   
-  inline def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91, starting with typingsJapgolly.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.waiting, typingsJapgolly.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.error, typingsJapgolly.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.abort */ Any */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("useEventListener")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
+  inline def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91, starting with _root_.typingsJapgolly.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.waiting, _root_.typingsJapgolly.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.error, _root_.typingsJapgolly.stardustUiReactComponentEventListener.stardustUiReactComponentEventListenerStrings.abort */ Any */](options: EventListenerOptions[T]): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("useEventListener")(options.asInstanceOf[js.Any]).asInstanceOf[Unit]
   
   @JSImport("@stardust-ui/react-component-event-listener", "windowRef")
   @js.native

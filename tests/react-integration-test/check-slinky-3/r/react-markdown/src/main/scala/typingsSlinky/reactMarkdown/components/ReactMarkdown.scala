@@ -1,8 +1,8 @@
 package typingsSlinky.reactMarkdown.components
 
+import _root_.typingsSlinky.StBuildingComponent.Default
+import _root_.typingsSlinky.reactMarkdown.mod.ReactMarkdownProps
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent.Default
-import typingsSlinky.reactMarkdown.mod.ReactMarkdownProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

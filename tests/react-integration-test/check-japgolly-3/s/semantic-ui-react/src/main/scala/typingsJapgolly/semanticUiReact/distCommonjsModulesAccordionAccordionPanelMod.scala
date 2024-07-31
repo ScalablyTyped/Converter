@@ -1,5 +1,11 @@
 package typingsJapgolly.semanticUiReact
 
+import _root_.typingsJapgolly.react.mod.Component
+import _root_.typingsJapgolly.react.mod.ReactNodeArray
+import _root_.typingsJapgolly.react.mod.ReactType
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionContentMod.AccordionContentProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.facade.Empty
@@ -9,12 +15,6 @@ import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.HTMLDivElement
-import typingsJapgolly.react.mod.Component
-import typingsJapgolly.react.mod.ReactNodeArray
-import typingsJapgolly.react.mod.ReactType
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
-import typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionContentMod.AccordionContentProps
-import typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

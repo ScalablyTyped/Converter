@@ -1,13 +1,11 @@
 package typings.typeMappings
 
-import typings.typeMappings.typeMappingsStrings.trail
+import _root_.typings.typeMappings.typeMappingsStrings.trail
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-trait TrailMark
-  extends StObject
-     with Mark {
+trait TrailMark extends StObject {
   
   var `type`: trail
 }

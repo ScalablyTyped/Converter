@@ -1,7 +1,7 @@
 package mylib.internal.baz.materialUi.components
 
-import mylib.internal.baz.StBuildingComponent
-import mylib.internal.baz.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
+import _root_.mylib.internal.baz.StBuildingComponent
+import _root_.mylib.internal.baz.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -21,7 +21,7 @@ private[internal] object BottomNavigationItem {
   open class Builder (val args: js.Array[Any])
     extends AnyVal
        with StBuildingComponent[
-          mylib.internal.baz.materialUi.bottomNavigationBottomNavigationItemMod.BottomNavigationItem
+          _root_.mylib.internal.baz.materialUi.bottomNavigationBottomNavigationItemMod.BottomNavigationItem
         ] {
     
     inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])

@@ -1,11 +1,11 @@
 package typingsJapgolly.stardustUiReactComponentRef
 
+import _root_.typingsJapgolly.react.mod.FunctionComponent
+import _root_.typingsJapgolly.stardustUiReactComponentRef.anon.Children
+import _root_.typingsJapgolly.stardustUiReactComponentRef.anon.InnerRef
+import _root_.typingsJapgolly.stardustUiReactComponentRef.distEsRefFindNodeMod.default
+import _root_.typingsJapgolly.stardustUiReactComponentRef.distEsTypesMod.RefProps
 import japgolly.scalajs.react.facade.React.RefHandle
-import typingsJapgolly.react.mod.FunctionComponent
-import typingsJapgolly.stardustUiReactComponentRef.anon.Children
-import typingsJapgolly.stardustUiReactComponentRef.anon.InnerRef
-import typingsJapgolly.stardustUiReactComponentRef.distEsRefFindNodeMod.default
-import typingsJapgolly.stardustUiReactComponentRef.distEsTypesMod.RefProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -44,7 +44,7 @@ object mod {
   @JSImport("@stardust-ui/react-component-ref", "RefForward")
   @js.native
   open class RefForward ()
-    extends typingsJapgolly.stardustUiReactComponentRef.distEsRefForwardMod.default
+    extends _root_.typingsJapgolly.stardustUiReactComponentRef.distEsRefForwardMod.default
   /* static members */
   object RefForward {
     
@@ -69,7 +69,7 @@ object mod {
     * @param ref An ref object or function
     * @param node A node that should be passed by ref
     */
-  inline def handleRef[N](ref: typingsJapgolly.react.mod.Ref[N], node: N): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("handleRef")(ref.asInstanceOf[js.Any], node.asInstanceOf[js.Any])).asInstanceOf[Unit]
+  inline def handleRef[N](ref: _root_.typingsJapgolly.react.mod.Ref[N], node: N): Unit = (^.asInstanceOf[js.Dynamic].applyDynamic("handleRef")(ref.asInstanceOf[js.Any], node.asInstanceOf[js.Any])).asInstanceOf[Unit]
   
   /** Checks that the passed object is a valid React ref object. */
   inline def isRefObject(ref: Any): /* is react.react.RefObject<any> */ Boolean = ^.asInstanceOf[js.Dynamic].applyDynamic("isRefObject")(ref.asInstanceOf[js.Any]).asInstanceOf[/* is react.react.RefObject<any> */ Boolean]

@@ -1,11 +1,11 @@
 package typingsSlinky
 
+import _root_.typingsSlinky.StBuildingComponent.make
 import slinky.core.AttrPair
 import slinky.core.OptionalAttrPair
 import slinky.core.TagMod
 import slinky.core.facade.ReactElement
 import slinky.core.facade.ReactRef
-import typingsSlinky.StBuildingComponent.make
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

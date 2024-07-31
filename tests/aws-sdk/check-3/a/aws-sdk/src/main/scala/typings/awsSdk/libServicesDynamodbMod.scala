@@ -1,9 +1,9 @@
 package typings.awsSdk
 
+import _root_.typings.awsSdk.clientsDynamodbMod.ClientConfiguration
+import _root_.typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient
+import _root_.typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient.DocumentClientOptions
 import org.scalablytyped.runtime.Instantiable1
-import typings.awsSdk.clientsDynamodbMod.ClientConfiguration
-import typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient
-import typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient.DocumentClientOptions
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -28,7 +28,7 @@ object libServicesDynamodbMod {
     @js.native
     def DocumentClient: Instantiable1[
         /* options */ js.UndefOr[DocumentClientOptions & ClientConfiguration], 
-        typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient
+        _root_.typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient
       ] = js.native
     inline def DocumentClient_=(
       x: Instantiable1[

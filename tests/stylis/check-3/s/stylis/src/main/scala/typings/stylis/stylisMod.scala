@@ -180,8 +180,8 @@ object stylisMod extends Shortcut {
     var set_Original: Set = js.native
     
     def use(): Use = js.native
-    def use(plugin: js.Array[Plugin]): Use = js.native
     def use(plugin: Plugin): Use = js.native
+    def use(plugin: js.Array[Plugin]): Use = js.native
     @JSName("use")
     var use_Original: Use = js.native
   }
@@ -198,8 +198,8 @@ object stylisMod extends Shortcut {
   trait Use extends StObject {
     
     def apply(): Use = js.native
-    def apply(plugin: js.Array[Plugin]): Use = js.native
     def apply(plugin: Plugin): Use = js.native
+    def apply(plugin: js.Array[Plugin]): Use = js.native
   }
   
   type _To = js.Object & Stylis

@@ -1,24 +1,24 @@
 package typingsSlinky.semanticUiReact
 
+import _root_.typingsSlinky.react.mod.ChangeEvent
+import _root_.typingsSlinky.react.mod.Component
+import _root_.typingsSlinky.react.mod.InputHTMLAttributes
+import _root_.typingsSlinky.react.mod.ReactNodeArray
+import _root_.typingsSlinky.react.mod.ReactType
+import _root_.typingsSlinky.semanticUiReact.distCommonjsGenericMod.HtmlInputrops
+import _root_.typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.`left corner`
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.`right corner`
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.big
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.huge
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.large
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.left
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.massive
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.mini
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.right
+import _root_.typingsSlinky.semanticUiReact.semanticUiReactStrings.small
 import org.scalajs.dom.HTMLInputElement
 import slinky.core.facade.ReactElement
-import typingsSlinky.react.mod.ChangeEvent
-import typingsSlinky.react.mod.Component
-import typingsSlinky.react.mod.InputHTMLAttributes
-import typingsSlinky.react.mod.ReactNodeArray
-import typingsSlinky.react.mod.ReactType
-import typingsSlinky.semanticUiReact.distCommonjsGenericMod.HtmlInputrops
-import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.`left corner`
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.`right corner`
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.big
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.huge
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.large
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.left
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.massive
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.mini
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.right
-import typingsSlinky.semanticUiReact.semanticUiReactStrings.small
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

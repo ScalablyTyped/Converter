@@ -1,9 +1,9 @@
 package typingsSlinky.reactBootstrap
 
+import _root_.typingsSlinky.react.mod.Component
+import _root_.typingsSlinky.react.mod.HTMLProps
+import _root_.typingsSlinky.reactBootstrap.mod.Sizes
 import slinky.core.ReactComponentClass
-import typingsSlinky.react.mod.Component
-import typingsSlinky.react.mod.HTMLProps
-import typingsSlinky.reactBootstrap.mod.Sizes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

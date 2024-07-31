@@ -1,6 +1,6 @@
 package typings.react
 
-import typings.react.mod.ReactNode
+import _root_.typings.react.mod.ReactNode
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

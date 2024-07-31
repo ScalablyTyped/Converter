@@ -1,12 +1,12 @@
 package typingsJapgolly.componentstest.components
 
+import _root_.typingsJapgolly.StBuildingComponent
+import _root_.typingsJapgolly.componentstest.mod.CardGridProps
+import _root_.typingsJapgolly.componentstest.mod.CardProps
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
 import org.scalajs.dom.Element
 import org.scalajs.dom.HTMLDivElement
-import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.componentstest.mod.CardGridProps
-import typingsJapgolly.componentstest.mod.CardProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

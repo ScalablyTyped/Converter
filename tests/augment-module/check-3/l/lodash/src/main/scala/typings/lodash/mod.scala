@@ -1,7 +1,7 @@
 package typings.lodash
 
+import _root_.typings.std.ArrayLike
 import org.scalablytyped.runtime.Shortcut
-import typings.std.ArrayLike
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -50,8 +50,6 @@ object mod extends Shortcut {
     def at[T /* <: js.Object */](`object`: T, props: (Many[/* keyof T */ String])*): js.Array[
         /* import warning: importer.ImportType#apply Failed type conversion: T[keyof T] */ js.Any
       ] = js.native
-    def at[T](`object`: Null, props: ((Many[/* keyof T */ String]) | PropertyPath)*): js.Array[T] = js.native
-    def at[T](`object`: Unit, props: ((Many[/* keyof T */ String]) | PropertyPath)*): js.Array[T] = js.native
     /**
       * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
       * specified as individual arguments or as arrays of keys.
@@ -60,7 +58,9 @@ object mod extends Shortcut {
       * @param props The property names or indexes of elements to pick, specified individually or in arrays.
       * @return Returns the new array of picked elements.
       */
-    def at[T](`object`: typings.lodash.mod.List[T], props: PropertyPath*): js.Array[T] = js.native
+    def at[T](`object`: _root_.typings.lodash.mod.List[T], props: PropertyPath*): js.Array[T] = js.native
+    def at[T](`object`: Null, props: ((Many[/* keyof T */ String]) | PropertyPath)*): js.Array[T] = js.native
+    def at[T](`object`: Unit, props: ((Many[/* keyof T */ String]) | PropertyPath)*): js.Array[T] = js.native
   }
   
   type Many[T] = T | js.Array[T]

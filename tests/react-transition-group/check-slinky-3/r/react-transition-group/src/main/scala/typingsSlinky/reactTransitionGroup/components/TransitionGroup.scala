@@ -1,12 +1,12 @@
 package typingsSlinky.reactTransitionGroup.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.reactTransitionGroup.anon.ChildFactory
+import _root_.typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.abbr
+import _root_.typingsSlinky.reactTransitionGroup.transitionGroupMod.ComponentTransitionGroupProps
+import _root_.typingsSlinky.reactTransitionGroup.transitionGroupMod.IntrinsicTransitionGroupProps
 import slinky.core.facade.ReactElement
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.reactTransitionGroup.anon.ChildFactory
-import typingsSlinky.reactTransitionGroup.reactTransitionGroupStrings.abbr
-import typingsSlinky.reactTransitionGroup.transitionGroupMod.ComponentTransitionGroupProps
-import typingsSlinky.reactTransitionGroup.transitionGroupMod.IntrinsicTransitionGroupProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -27,7 +27,7 @@ object TransitionGroup {
     @scala.inline
     open class Builder (val args: js.Array[Any])
       extends AnyVal
-         with StBuildingComponent[tag.type, typingsSlinky.reactTransitionGroup.mod.TransitionGroup] {
+         with StBuildingComponent[tag.type, _root_.typingsSlinky.reactTransitionGroup.mod.TransitionGroup] {
       
       inline def childFactory(value: /* child */ ReactElement => ReactElement): this.type = set("childFactory", js.Any.fromFunction1(value))
     }
@@ -46,7 +46,7 @@ object TransitionGroup {
     @scala.inline
     open class Builder (val args: js.Array[Any])
       extends AnyVal
-         with StBuildingComponent[tag.type, typingsSlinky.reactTransitionGroup.mod.TransitionGroup] {
+         with StBuildingComponent[tag.type, _root_.typingsSlinky.reactTransitionGroup.mod.TransitionGroup] {
       
       inline def component(value: abbr): this.type = set("component", value.asInstanceOf[js.Any])
     }

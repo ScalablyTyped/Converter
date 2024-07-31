@@ -1,15 +1,15 @@
 package typings.react
 
+import _root_.typings.react.anon.Children
+import _root_.typings.react.anon.Html
+import _root_.typings.react.reactStrings.animate
+import _root_.typings.react.reactStrings.circle
+import _root_.typings.react.reactStrings.clipPath
+import _root_.typings.std.Element
+import _root_.typings.std.Partial
+import _root_.typings.std.SVGElement
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
-import typings.react.anon.Children
-import typings.react.anon.Html
-import typings.react.reactStrings.animate
-import typings.react.reactStrings.circle
-import typings.react.reactStrings.clipPath
-import typings.std.Element
-import typings.std.Partial
-import typings.std.SVGElement
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -94,8 +94,7 @@ object mod {
   trait ComponentClass[P]
     extends StObject
        with Instantiable1[/* props */ P, Component[P, ComponentState]]
-       with Instantiable2[/* props */ P, /* context */ Any, Component[P, ComponentState]]
-       with ComponentType[P] {
+       with Instantiable2[/* props */ P, /* context */ Any, Component[P, ComponentState]] {
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
     
@@ -104,11 +103,7 @@ object mod {
   
   type ComponentState = js.Object
   
-  /* Rewritten from type alias, can be one of: 
-    - typings.react.mod.ComponentClass[P]
-    - typings.react.mod.StatelessComponent[P]
-  */
-  trait ComponentType[P] extends StObject
+  type ComponentType[P] = ComponentClass[P] | StatelessComponent[P]
   
   trait DOMAttributes[T] extends StObject {
     
@@ -325,9 +320,7 @@ object mod {
   type SVGProps[T] = ClassAttributes[T]
   
   @js.native
-  trait StatelessComponent[P]
-    extends StObject
-       with ComponentType[P] {
+  trait StatelessComponent[P] extends StObject {
     
     def apply(props: P & Children): ReactElement | Null = js.native
     def apply(props: P & Children, context: Any): ReactElement | Null = js.native

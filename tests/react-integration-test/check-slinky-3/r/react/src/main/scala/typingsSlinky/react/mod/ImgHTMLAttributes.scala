@@ -1,11 +1,11 @@
 package typingsSlinky.react.mod
 
-import typingsSlinky.react.reactStrings._empty
-import typingsSlinky.react.reactStrings.`use-credentials`
-import typingsSlinky.react.reactStrings.anonymous
-import typingsSlinky.react.reactStrings.async
-import typingsSlinky.react.reactStrings.auto
-import typingsSlinky.react.reactStrings.sync
+import _root_.typingsSlinky.react.reactStrings._empty
+import _root_.typingsSlinky.react.reactStrings.`use-credentials`
+import _root_.typingsSlinky.react.reactStrings.anonymous
+import _root_.typingsSlinky.react.reactStrings.async
+import _root_.typingsSlinky.react.reactStrings.auto
+import _root_.typingsSlinky.react.reactStrings.sync
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

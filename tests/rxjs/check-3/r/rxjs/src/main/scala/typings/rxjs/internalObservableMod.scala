@@ -1,7 +1,7 @@
 package typings.rxjs
 
-import typings.rxjs.internalTypesMod.OperatorFunction
-import typings.rxjs.internalTypesMod.Subscribable
+import _root_.typings.rxjs.internalTypesMod.OperatorFunction
+import _root_.typings.rxjs.internalTypesMod.Subscribable
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

@@ -1,10 +1,10 @@
 package typingsSlinky.reactContextmenu.components
 
+import _root_.typingsSlinky.StBuildingComponent
+import _root_.typingsSlinky.reactContextmenu.mod.ContextMenuProps
 import org.scalajs.dom.HTMLElement
 import slinky.web.SyntheticMouseEvent
 import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent
-import typingsSlinky.reactContextmenu.mod.ContextMenuProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -23,7 +23,7 @@ object ContextMenu {
   @scala.inline
   open class Builder (val args: js.Array[Any])
     extends AnyVal
-       with StBuildingComponent[tag.type, typingsSlinky.reactContextmenu.mod.ContextMenu] {
+       with StBuildingComponent[tag.type, _root_.typingsSlinky.reactContextmenu.mod.ContextMenu] {
     
     inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     

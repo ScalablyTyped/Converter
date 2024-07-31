@@ -12,7 +12,7 @@ object mod extends Shortcut {
   @js.native
   open class ^[EventTypes] ()
     extends StObject
-       with typings.eventemitter3.mod.EventEmitter[EventTypes]
+       with _root_.typings.eventemitter3.mod.EventEmitter[EventTypes]
   @JSImport("eventemitter3", JSImport.Namespace)
   @js.native
   val ^ : EventEmitterStatic = js.native
@@ -27,12 +27,12 @@ object mod extends Shortcut {
   @js.native
   open class EventEmitterCls[EventTypes] ()
     extends StObject
-       with typings.eventemitter3.mod.EventEmitter[EventTypes]
+       with _root_.typings.eventemitter3.mod.EventEmitter[EventTypes]
   
   @js.native
   trait EventEmitterStatic
     extends StObject
-       with Instantiable0[typings.eventemitter3.mod.EventEmitter[js.Object]]
+       with Instantiable0[_root_.typings.eventemitter3.mod.EventEmitter[js.Object]]
   
   type _To = EventEmitterStatic
   

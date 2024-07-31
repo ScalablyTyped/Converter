@@ -1,16 +1,16 @@
 package typings.typeMappings
 
+import _root_.typings.std.Exclude
+import _root_.typings.std.InstanceType
+import _root_.typings.std.NonNullable
+import _root_.typings.std.Partial
+import _root_.typings.std.Pick
+import _root_.typings.std.ReturnType
+import _root_.typings.typeMappings.anon.Age
+import _root_.typings.typeMappings.anon.Name
+import _root_.typings.typeMappings.typeMappingsStrings.age
+import _root_.typings.typeMappings.typeMappingsStrings.name
 import org.scalablytyped.runtime.Instantiable0
-import typings.std.Exclude
-import typings.std.InstanceType
-import typings.std.NonNullable
-import typings.std.Partial
-import typings.std.Pick
-import typings.std.ReturnType
-import typings.typeMappings.anon.Age
-import typings.typeMappings.anon.Name
-import typings.typeMappings.typeMappingsStrings.age
-import typings.typeMappings.typeMappingsStrings.name
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -19,6 +19,8 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 type Double[T] = Partial[Partial[T]]
 
 type IPersonRecord = PersonRecord
+
+type Mark = TextMark | TrailMark
 
 type NewedPerson = InstanceType[Instantiable0[Person]]
 

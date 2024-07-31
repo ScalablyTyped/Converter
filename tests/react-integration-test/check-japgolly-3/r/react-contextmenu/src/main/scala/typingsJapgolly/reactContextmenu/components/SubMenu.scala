@@ -1,14 +1,14 @@
 package typingsJapgolly.reactContextmenu.components
 
+import _root_.typingsJapgolly.StBuildingComponent
+import _root_.typingsJapgolly.react.mod.ReactText
+import _root_.typingsJapgolly.reactContextmenu.mod.SubMenuProps
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.ReactTouchEventFrom
 import japgolly.scalajs.react.facade.React.Element
 import org.scalajs.dom.HTMLDivElement
 import org.scalajs.dom.HTMLElement
-import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.react.mod.ReactText
-import typingsJapgolly.reactContextmenu.mod.SubMenuProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -27,7 +27,7 @@ object SubMenu {
   @scala.inline
   open class Builder (val args: js.Array[Any])
     extends AnyVal
-       with StBuildingComponent[typingsJapgolly.reactContextmenu.mod.SubMenu] {
+       with StBuildingComponent[_root_.typingsJapgolly.reactContextmenu.mod.SubMenu] {
     
     inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     

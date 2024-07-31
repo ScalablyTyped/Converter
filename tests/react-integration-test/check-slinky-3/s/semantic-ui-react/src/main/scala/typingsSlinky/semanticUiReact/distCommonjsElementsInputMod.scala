@@ -9,5 +9,5 @@ object distCommonjsElementsInputMod {
   @JSImport("semantic-ui-react/dist/commonjs/elements/Input", JSImport.Default)
   @js.native
   open class default ()
-    extends typingsSlinky.semanticUiReact.distCommonjsElementsInputInputMod.default
+    extends _root_.typingsSlinky.semanticUiReact.distCommonjsElementsInputInputMod.default
 }

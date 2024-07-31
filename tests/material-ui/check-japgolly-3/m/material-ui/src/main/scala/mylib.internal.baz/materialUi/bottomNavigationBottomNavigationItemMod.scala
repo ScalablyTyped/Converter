@@ -1,7 +1,7 @@
 package mylib.internal.baz.materialUi
 
-import mylib.internal.baz.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
-import mylib.internal.baz.react.mod.Component
+import _root_.mylib.internal.baz.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
+import _root_.mylib.internal.baz.react.mod.Component
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

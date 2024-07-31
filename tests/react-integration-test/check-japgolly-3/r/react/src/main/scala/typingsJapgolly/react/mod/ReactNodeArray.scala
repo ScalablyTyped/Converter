@@ -1,7 +1,7 @@
 package typingsJapgolly.react.mod
 
+import _root_.typingsJapgolly.std.Array
 import japgolly.scalajs.react.facade.React.Node
-import typingsJapgolly.std.Array
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

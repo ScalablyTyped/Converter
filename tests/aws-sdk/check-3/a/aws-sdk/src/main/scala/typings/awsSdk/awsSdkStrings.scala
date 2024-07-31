@@ -1,6 +1,5 @@
 package typings.awsSdk
 
-import typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient._AttributeAction
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -8,21 +7,15 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object awsSdkStrings {
   
   @js.native
-  sealed trait ADD
-    extends StObject
-       with _AttributeAction
+  sealed trait ADD extends StObject
   inline def ADD: ADD = "ADD".asInstanceOf[ADD]
   
   @js.native
-  sealed trait DELETE
-    extends StObject
-       with _AttributeAction
+  sealed trait DELETE extends StObject
   inline def DELETE: DELETE = "DELETE".asInstanceOf[DELETE]
   
   @js.native
-  sealed trait PUT
-    extends StObject
-       with _AttributeAction
+  sealed trait PUT extends StObject
   inline def PUT: PUT = "PUT".asInstanceOf[PUT]
   
   @js.native

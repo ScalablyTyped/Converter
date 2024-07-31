@@ -1,7 +1,7 @@
 package typingsJapgolly.reactNative
 
+import _root_.typingsJapgolly.reactNative.anon.Changed
 import japgolly.scalajs.react.Callback
-import typingsJapgolly.reactNative.anon.Changed
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}

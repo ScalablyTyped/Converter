@@ -1,5 +1,72 @@
 package typingsJapgolly.semanticUiReact.components
 
+import _root_.typingsJapgolly.StBuildingComponent
+import _root_.typingsJapgolly.react.anon.Html
+import _root_.typingsJapgolly.react.mod.CSSProperties
+import _root_.typingsJapgolly.react.mod.ReactNodeArray
+import _root_.typingsJapgolly.react.mod.ReactType
+import _root_.typingsJapgolly.react.reactStrings.`additions text`
+import _root_.typingsJapgolly.react.reactStrings.`inline`
+import _root_.typingsJapgolly.react.reactStrings.additions
+import _root_.typingsJapgolly.react.reactStrings.all
+import _root_.typingsJapgolly.react.reactStrings.ascending
+import _root_.typingsJapgolly.react.reactStrings.assertive
+import _root_.typingsJapgolly.react.reactStrings.both
+import _root_.typingsJapgolly.react.reactStrings.button
+import _root_.typingsJapgolly.react.reactStrings.copy
+import _root_.typingsJapgolly.react.reactStrings.date
+import _root_.typingsJapgolly.react.reactStrings.descending
+import _root_.typingsJapgolly.react.reactStrings.dialog
+import _root_.typingsJapgolly.react.reactStrings.execute
+import _root_.typingsJapgolly.react.reactStrings.grammar
+import _root_.typingsJapgolly.react.reactStrings.grid
+import _root_.typingsJapgolly.react.reactStrings.horizontal
+import _root_.typingsJapgolly.react.reactStrings.link
+import _root_.typingsJapgolly.react.reactStrings.list
+import _root_.typingsJapgolly.react.reactStrings.listbox
+import _root_.typingsJapgolly.react.reactStrings.location
+import _root_.typingsJapgolly.react.reactStrings.menu
+import _root_.typingsJapgolly.react.reactStrings.mixed
+import _root_.typingsJapgolly.react.reactStrings.move
+import _root_.typingsJapgolly.react.reactStrings.none
+import _root_.typingsJapgolly.react.reactStrings.off
+import _root_.typingsJapgolly.react.reactStrings.on
+import _root_.typingsJapgolly.react.reactStrings.other
+import _root_.typingsJapgolly.react.reactStrings.page
+import _root_.typingsJapgolly.react.reactStrings.polite
+import _root_.typingsJapgolly.react.reactStrings.popup
+import _root_.typingsJapgolly.react.reactStrings.removals
+import _root_.typingsJapgolly.react.reactStrings.reset
+import _root_.typingsJapgolly.react.reactStrings.spelling
+import _root_.typingsJapgolly.react.reactStrings.step
+import _root_.typingsJapgolly.react.reactStrings.submit
+import _root_.typingsJapgolly.react.reactStrings.text
+import _root_.typingsJapgolly.react.reactStrings.time
+import _root_.typingsJapgolly.react.reactStrings.tree
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonContentMod.ButtonContentProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.ButtonProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.StrictButtonProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.default
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticCOLORS
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticFLOATS
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticSIZES
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
+import _root_.typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.`google plus`
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.facebook
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.fade
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.instagram
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.linkedin
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.top
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.twitter
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.vertical
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.vk
+import _root_.typingsJapgolly.semanticUiReact.semanticUiReactStrings.youtube
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactAnimationEventFrom
 import japgolly.scalajs.react.ReactClipboardEventFrom
@@ -20,73 +87,6 @@ import japgolly.scalajs.react.facade.React.Element
 import japgolly.scalajs.react.facade.React.Node
 import japgolly.scalajs.react.vdom.VdomElement
 import org.scalajs.dom.HTMLButtonElement
-import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.react.anon.Html
-import typingsJapgolly.react.mod.CSSProperties
-import typingsJapgolly.react.mod.ReactNodeArray
-import typingsJapgolly.react.mod.ReactType
-import typingsJapgolly.react.reactStrings.`additions text`
-import typingsJapgolly.react.reactStrings.`inline`
-import typingsJapgolly.react.reactStrings.additions
-import typingsJapgolly.react.reactStrings.all
-import typingsJapgolly.react.reactStrings.ascending
-import typingsJapgolly.react.reactStrings.assertive
-import typingsJapgolly.react.reactStrings.both
-import typingsJapgolly.react.reactStrings.button
-import typingsJapgolly.react.reactStrings.copy
-import typingsJapgolly.react.reactStrings.date
-import typingsJapgolly.react.reactStrings.descending
-import typingsJapgolly.react.reactStrings.dialog
-import typingsJapgolly.react.reactStrings.execute
-import typingsJapgolly.react.reactStrings.grammar
-import typingsJapgolly.react.reactStrings.grid
-import typingsJapgolly.react.reactStrings.horizontal
-import typingsJapgolly.react.reactStrings.link
-import typingsJapgolly.react.reactStrings.list
-import typingsJapgolly.react.reactStrings.listbox
-import typingsJapgolly.react.reactStrings.location
-import typingsJapgolly.react.reactStrings.menu
-import typingsJapgolly.react.reactStrings.mixed
-import typingsJapgolly.react.reactStrings.move
-import typingsJapgolly.react.reactStrings.none
-import typingsJapgolly.react.reactStrings.off
-import typingsJapgolly.react.reactStrings.on
-import typingsJapgolly.react.reactStrings.other
-import typingsJapgolly.react.reactStrings.page
-import typingsJapgolly.react.reactStrings.polite
-import typingsJapgolly.react.reactStrings.popup
-import typingsJapgolly.react.reactStrings.removals
-import typingsJapgolly.react.reactStrings.reset
-import typingsJapgolly.react.reactStrings.spelling
-import typingsJapgolly.react.reactStrings.step
-import typingsJapgolly.react.reactStrings.submit
-import typingsJapgolly.react.reactStrings.text
-import typingsJapgolly.react.reactStrings.time
-import typingsJapgolly.react.reactStrings.tree
-import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonContentMod.ButtonContentProps
-import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
-import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.ButtonProps
-import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.StrictButtonProps
-import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonMod.default
-import typingsJapgolly.semanticUiReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticCOLORS
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticFLOATS
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticSIZES
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandContent
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`google plus`
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.bottom
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.facebook
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.fade
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.instagram
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.left
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.linkedin
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.right
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.top
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.twitter
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.vertical
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.vk
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.youtube
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -207,7 +207,7 @@ object Button {
     
     inline def `aria-multiselectable`(value: Boolean): this.type = set("aria-multiselectable", value.asInstanceOf[js.Any])
     
-    inline def `aria-orientation`(value: horizontal | typingsJapgolly.react.reactStrings.vertical): this.type = set("aria-orientation", value.asInstanceOf[js.Any])
+    inline def `aria-orientation`(value: horizontal | _root_.typingsJapgolly.react.reactStrings.vertical): this.type = set("aria-orientation", value.asInstanceOf[js.Any])
     
     inline def `aria-owns`(value: String): this.type = set("aria-owns", value.asInstanceOf[js.Any])
     
