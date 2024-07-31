@@ -763,6 +763,7 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
   }
 
   def drop(n: Int): IArray[A] = {
+    if (n == 0) return this
     val newLength = math.max(0, length - n)
     if (newLength == 0) return IArray.Empty
     val ret = Array.ofDim[AnyRef](newLength)

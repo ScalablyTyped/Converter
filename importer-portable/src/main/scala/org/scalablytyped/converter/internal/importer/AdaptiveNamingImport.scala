@@ -52,7 +52,7 @@ object AdaptiveNamingImport {
     // very obviously a hack. node is the only library seen so far where the shortest module name (`assert`)
     // doesnt correspond to the library name
     if (libraryName.value === "node") {
-      lowercaseIndex(s"_root_.${outputPkg.unescaped.toLowerCase}.node.mod") = IArray(TsIdentSimple("_____"))
+      lowercaseIndex(s"${outputPkg.unescaped.toLowerCase}.node.mod") = IArray(TsIdentSimple("_____"))
     }
 
     val illegalNames = (cleanIllegalNames.Illegal ++ ScalaJsClasses.jsObjectMembersByName.keys).map(_.value)

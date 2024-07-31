@@ -3,7 +3,8 @@ package scalajs
 
 import io.circe013.{Decoder, Encoder}
 import io.circe013.generic.semiauto.{deriveDecoder, deriveEncoder}
-import org.scalablytyped.converter.internal.scalajs.QualifiedName.dropRoot
+import org.scalablytyped.converter.internal.scalajs.QualifiedName.dropRootPart
+import scala.annotation.tailrec
 
 final case class QualifiedName(parts: IArray[Name]) {
   def +(name: Name) =
@@ -15,12 +16,18 @@ final case class QualifiedName(parts: IArray[Name]) {
   def startsWith(other: QualifiedName): Boolean =
     parts.startsWith(other.parts)
 
-  override lazy val hashCode = dropRoot(parts).hashCode
+  def dropRoot: QualifiedName = {
+    val partsWithoutRoot = dropRootPart(parts)
+    if (partsWithoutRoot eq parts) this
+    else QualifiedName(partsWithoutRoot)
+  }
+
+  override lazy val hashCode = dropRootPart(parts).hashCode
 
   override def equals(obj: Any): Boolean =
     obj match {
       case other: QualifiedName if other.hashCode == hashCode =>
-        dropRoot(parts) === dropRoot(other.parts)
+        dropRootPart(parts) === dropRootPart(other.parts)
       case _ => false
     }
 }
@@ -118,6 +125,9 @@ object QualifiedName {
   implicit val encodes: Encoder[QualifiedName]  = deriveEncoder
   implicit val decodes: Decoder[QualifiedName]  = deriveDecoder
 
-  private def dropRoot(parts: IArray[Name]): IArray[Name] =
-    parts.dropWhile(_ == Name.root)
+  @tailrec
+  private def dropRootPart(parts: IArray[Name]): IArray[Name] =
+    if (parts.isEmpty) parts
+    else if (parts(0) == Name.root) dropRootPart(parts.tail)
+    else parts
 }
