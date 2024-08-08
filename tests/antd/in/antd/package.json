@@ -4,13 +4,13 @@
   "description": "An enterprise-class UI design language and React components implementation",
   "files": [
     "dist",
-    "lib",
-    "es"
+    "es",
+    "lib"
   ],
   "main": "lib/index.js",
   "module": "es/index.js",
   "unpkg": "dist/antd.min.js",
-  "typings": "lib/index.d.ts",
+  "typings": "es/index.d.ts",
   "title": "Ant Design",
   "dependencies": {
     "rc-field-form": "^1.4.4"
