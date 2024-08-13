@@ -1,5 +1,6 @@
 package typingsSlinky.react.mod
 
+import typingsSlinky.react.Readonly
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -13,7 +14,12 @@ trait NewLifecycle[P, S, SS] extends StObject {
     * The snapshot is only present if getSnapshotBeforeUpdate is present and returns non-null.
     */
   var componentDidUpdate: js.UndefOr[
-    js.Function3[/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS], Unit]
+    js.Function3[
+      /* prevProps */ Readonly[P], 
+      /* prevState */ Readonly[S], 
+      /* snapshot */ js.UndefOr[SS], 
+      Unit
+    ]
   ] = js.undefined
   
   /**
@@ -24,7 +30,9 @@ trait NewLifecycle[P, S, SS] extends StObject {
     * Note: the presence of getSnapshotBeforeUpdate prevents any of the deprecated
     * lifecycle events from running.
     */
-  var getSnapshotBeforeUpdate: js.UndefOr[js.Function2[/* prevProps */ P, /* prevState */ S, SS | Null]] = js.undefined
+  var getSnapshotBeforeUpdate: js.UndefOr[
+    js.Function2[/* prevProps */ Readonly[P], /* prevState */ Readonly[S], SS | Null]
+  ] = js.undefined
 }
 object NewLifecycle {
   
@@ -36,11 +44,13 @@ object NewLifecycle {
   @scala.inline
   implicit open class MutableBuilder[Self <: NewLifecycle[?, ?, ?], P, S, SS] (val x: Self & (NewLifecycle[P, S, SS])) extends AnyVal {
     
-    inline def setComponentDidUpdate(value: (/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS]) => Unit): Self = StObject.set(x, "componentDidUpdate", js.Any.fromFunction3(value))
+    inline def setComponentDidUpdate(
+      value: (/* prevProps */ Readonly[P], /* prevState */ Readonly[S], /* snapshot */ js.UndefOr[SS]) => Unit
+    ): Self = StObject.set(x, "componentDidUpdate", js.Any.fromFunction3(value))
     
     inline def setComponentDidUpdateUndefined: Self = StObject.set(x, "componentDidUpdate", js.undefined)
     
-    inline def setGetSnapshotBeforeUpdate(value: (/* prevProps */ P, /* prevState */ S) => SS | Null): Self = StObject.set(x, "getSnapshotBeforeUpdate", js.Any.fromFunction2(value))
+    inline def setGetSnapshotBeforeUpdate(value: (/* prevProps */ Readonly[P], /* prevState */ Readonly[S]) => SS | Null): Self = StObject.set(x, "getSnapshotBeforeUpdate", js.Any.fromFunction2(value))
     
     inline def setGetSnapshotBeforeUpdateUndefined: Self = StObject.set(x, "getSnapshotBeforeUpdate", js.undefined)
   }

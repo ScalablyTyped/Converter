@@ -43,6 +43,7 @@ case class PackageJson(
     peerDependencies: Option[Map[TsIdentLibrary, String]],
     typings:          Option[Json],
     module:           Option[Json],
+    main:             Option[String],
     types:            Option[Json],
     files:            Option[IArray[String]],
     dist:             Option[PackageJson.Dist],
@@ -127,7 +128,7 @@ object PackageJson {
     implicit val decodesDist: Decoder[Dist] = deriveDecoder
   }
 
-  val Empty: PackageJson = PackageJson(None, None, None, None, None, None, None, None, None, None)
+  val Empty: PackageJson = PackageJson(None, None, None, None, None, None, None, None, None, None, None)
 
   implicit val encodes: Encoder[PackageJson] = deriveEncoder
   implicit val decodes: Decoder[PackageJson] = deriveDecoder

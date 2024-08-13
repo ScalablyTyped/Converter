@@ -1,8 +1,6 @@
 package typingsJapgolly.reactBootstrap
 
 import japgolly.scalajs.react.Callback
-import typingsJapgolly.react.mod.Component
-import typingsJapgolly.react.mod.HTMLProps
 import typingsJapgolly.reactBootstrap.libButtonGroupMod.ButtonGroupProps
 import typingsJapgolly.reactBootstrap.mod.Omit
 import typingsJapgolly.reactBootstrap.reactBootstrapStrings.`type`
@@ -17,10 +15,10 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object libToggleButtonGroupMod {
   
-  @JSImport("react-bootstrap/lib/ToggleButtonGroup", JSImport.Namespace)
+  /* import warning: RemoveDifficultInheritance.summarizeChanges 
+  - Dropped / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify React.Component<ToggleButtonGroupProps> * / any */ @JSImport("react-bootstrap/lib/ToggleButtonGroup", JSImport.Namespace)
   @js.native
-  open class ^ ()
-    extends Component[ToggleButtonGroupProps, js.Object, Any]
+  open class ^ () extends StObject
   
   trait BaseProps extends StObject {
     
@@ -117,16 +115,13 @@ object libToggleButtonGroupMod {
     }
   }
   
-  type ToggleButtonGroup = japgolly.scalajs.react.facade.React.Component[ToggleButtonGroupProps & js.Object, js.Object]
+  type ToggleButtonGroup = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify React.Component<ToggleButtonGroupProps> */ Any
   
-  /** 
-  NOTE: Rewritten from type alias:
-  {{{
-  type ToggleButtonGroupProps = react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.RadioProps & react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.BaseProps & react-bootstrap.react-bootstrap.Omit<react-bootstrap.react-bootstrap/lib/ButtonGroup.ButtonGroupProps, 'onChange'> & react-bootstrap.react-bootstrap.Omit<react.react.HTMLProps<react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.ToggleButtonGroup>, 'defaultValue' | 'type' | 'value' | 'onChange'> | react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.CheckboxProps & react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.BaseProps & react-bootstrap.react-bootstrap.Omit<react-bootstrap.react-bootstrap/lib/ButtonGroup.ButtonGroupProps, 'onChange'> & react-bootstrap.react-bootstrap.Omit<react.react.HTMLProps<react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.ToggleButtonGroup>, 'defaultValue' | 'type' | 'value' | 'onChange'>
-  }}}
-  to avoid circular code involving: 
-  - react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.ToggleButtonGroup
-  - react-bootstrap.react-bootstrap/lib/ToggleButtonGroup.ToggleButtonGroupProps
-  */
-  type ToggleButtonGroupProps = (RadioProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[Any], defaultValue | `type` | value | onChange])) | (CheckboxProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[HTMLProps[Any], defaultValue | `type` | value | onChange]))
+  type ToggleButtonGroupProps = (RadioProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify React.HTMLProps<ToggleButtonGroup> */ Any, 
+    defaultValue | `type` | value | onChange
+  ])) | (CheckboxProps & BaseProps & (Omit[ButtonGroupProps, onChange]) & (Omit[
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify React.HTMLProps<ToggleButtonGroup> */ Any, 
+    defaultValue | `type` | value | onChange
+  ]))
 }

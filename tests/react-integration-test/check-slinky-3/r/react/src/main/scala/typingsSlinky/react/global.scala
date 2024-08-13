@@ -44,7 +44,6 @@ import typingsSlinky.react.mod.SVGFactory
 import typingsSlinky.react.mod.SetStateAction
 import typingsSlinky.react.mod.SuspenseProps
 import typingsSlinky.react.reactStrings.input
-import typingsSlinky.std.Partial
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -67,7 +66,11 @@ object global {
     @js.native
     open class Component[P, S, SS] protected ()
       extends typingsSlinky.react.mod.Component[P, S, SS] {
-      def this(props: P) = this()
+      /**
+        * @deprecated
+        * @see https://reactjs.org/docs/legacy-context.html
+        */
+      def this(props: P | Readonly[P]) = this()
       def this(props: P, context: Any) = this()
     }
     object Component {
@@ -116,7 +119,11 @@ object global {
     @js.native
     open class PureComponent[P, S, SS] protected ()
       extends typingsSlinky.react.mod.PureComponent[P, S, SS] {
-      def this(props: P) = this()
+      /**
+        * @deprecated
+        * @see https://reactjs.org/docs/legacy-context.html
+        */
+      def this(props: P | Readonly[P]) = this()
       def this(props: P, context: Any) = this()
     }
     
@@ -270,12 +277,20 @@ object global {
     inline def memo[T /* <: ReactComponentClass[Any] */](Component: T): ReactComponentClass[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any]).asInstanceOf[ReactComponentClass[T]]
     inline def memo[T /* <: ReactComponentClass[Any] */](
       Component: T,
-      propsAreEqual: js.Function2[/* prevProps */ ComponentProps[T], /* nextProps */ ComponentProps[T], Boolean]
+      propsAreEqual: js.Function2[
+          /* prevProps */ Readonly[ComponentProps[T]], 
+          /* nextProps */ Readonly[ComponentProps[T]], 
+          Boolean
+        ]
     ): ReactComponentClass[T] = (^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any], propsAreEqual.asInstanceOf[js.Any])).asInstanceOf[ReactComponentClass[T]]
     inline def memo[P /* <: js.Object */](Component: ReactComponentClass[P]): ReactComponentClass[P] = ^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any]).asInstanceOf[ReactComponentClass[P]]
     inline def memo[P /* <: js.Object */](
       Component: ReactComponentClass[P],
-      propsAreEqual: js.Function2[/* prevProps */ PropsWithChildren[P], /* nextProps */ PropsWithChildren[P], Boolean]
+      propsAreEqual: js.Function2[
+          /* prevProps */ Readonly[PropsWithChildren[P]], 
+          /* nextProps */ Readonly[PropsWithChildren[P]], 
+          Boolean
+        ]
     ): ReactComponentClass[P] = (^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any], propsAreEqual.asInstanceOf[js.Any])).asInstanceOf[ReactComponentClass[P]]
     
     // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key

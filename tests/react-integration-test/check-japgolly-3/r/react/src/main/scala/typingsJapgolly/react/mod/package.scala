@@ -24,6 +24,9 @@ import org.scalajs.dom.EventTarget
 import org.scalajs.dom.HTMLElement
 import org.scalajs.dom.HTMLInputElement
 import org.scalajs.dom.SVGElement
+import typingsJapgolly.react.Exclude
+import typingsJapgolly.react.Partial
+import typingsJapgolly.react.Readonly
 import typingsJapgolly.react.mod.^
 import typingsJapgolly.react.reactBooleans.`true`
 import typingsJapgolly.react.reactStrings.a_
@@ -42,8 +45,6 @@ import typingsJapgolly.react.reactStrings.input
 import typingsJapgolly.react.reactStrings.mount
 import typingsJapgolly.react.reactStrings.update
 import typingsJapgolly.react.reactStrings.view
-import typingsJapgolly.std.Exclude
-import typingsJapgolly.std.Partial
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -202,12 +203,20 @@ inline def `lazy`[T /* <: ComponentType[Any] */](
 inline def memo[T /* <: ComponentType[Any] */](Component: T): MemoExoticComponent[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any]).asInstanceOf[MemoExoticComponent[T]]
 inline def memo[T /* <: ComponentType[Any] */](
   Component: T,
-  propsAreEqual: js.Function2[/* prevProps */ ComponentProps[T], /* nextProps */ ComponentProps[T], Boolean]
+  propsAreEqual: js.Function2[
+  /* prevProps */ Readonly[ComponentProps[T]], 
+  /* nextProps */ Readonly[ComponentProps[T]], 
+  Boolean
+]
 ): MemoExoticComponent[T] = (^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any], propsAreEqual.asInstanceOf[js.Any])).asInstanceOf[MemoExoticComponent[T]]
 inline def memo[P /* <: js.Object */](Component: SFC[P]): NamedExoticComponent[P] = ^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any]).asInstanceOf[NamedExoticComponent[P]]
 inline def memo[P /* <: js.Object */](
   Component: SFC[P],
-  propsAreEqual: js.Function2[/* prevProps */ PropsWithChildren[P], /* nextProps */ PropsWithChildren[P], Boolean]
+  propsAreEqual: js.Function2[
+  /* prevProps */ Readonly[PropsWithChildren[P]], 
+  /* nextProps */ Readonly[PropsWithChildren[P]], 
+  Boolean
+]
 ): NamedExoticComponent[P] = (^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any], propsAreEqual.asInstanceOf[js.Any])).asInstanceOf[NamedExoticComponent[P]]
 
 // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key
@@ -464,7 +473,7 @@ type Consumer[T] = ExoticComponent[ConsumerProps[T]]
   * See https://www.typescriptlang.org/docs/handbook/2/conditional-types.html for an intro.
   * This RHS of the type alias is guess work. You should cast if it's not correct in your case.
   * TS definition: {{{
-  P extends any ? string extends keyof P ? P : std.Pick<P, std.Exclude<keyof P, keyof D>> & std.Partial<std.Pick<P, / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Extract<keyof P, keyof D> * / any>> & std.Partial<std.Pick<D, std.Exclude<keyof D, keyof P>>> : never
+  P extends any ? string extends keyof P ? P : react.Pick<P, react.Exclude<keyof P, keyof D>> & react.Partial<react.Pick<P, / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Extract<keyof P, keyof D> * / any>> & react.Partial<react.Pick<D, react.Exclude<keyof D, keyof P>>> : never
   }}}
   */
 type Defaultize[P, D] = P
@@ -519,7 +528,7 @@ type GetDerivedStateFromProps[P, S] = /**
   *
   * Note: its presence prevents any of the deprecated lifecycle methods from being invoked
   */
-js.Function2[/* nextProps */ P, /* prevState */ S, Partial[S] | Null]
+js.Function2[/* nextProps */ Readonly[P], /* prevState */ S, Partial[S] | Null]
 
 // tslint:disable-next-line:no-empty-interface
 type HTMLFactory[T /* <: HTMLElement */] = DetailedHTMLFactory[AllHTMLAttributes[T], T]
@@ -552,7 +561,7 @@ type LegacyRef[T] = String | Ref[T]
   * TS definition: {{{
   // Distribute over P in case it is a union type
 P extends any ? react.react.IsExactlyAny<P> extends true ? T : // If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
-string extends keyof P ? P : std.Pick<P, react.react.NotExactlyAnyPropertyKeys<P>> & std.Pick<T, std.Exclude<keyof T, react.react.NotExactlyAnyPropertyKeys<P>>> & std.Pick<P, std.Exclude<keyof P, keyof T>> : never
+string extends keyof P ? P : react.Pick<P, react.react.NotExactlyAnyPropertyKeys<P>> & react.Pick<T, react.Exclude<keyof T, react.react.NotExactlyAnyPropertyKeys<P>>> & react.Pick<P, react.Exclude<keyof P, keyof T>> : never
   }}}
   */
 type MergePropTypes[P, T] = T
@@ -607,7 +616,7 @@ type PropsWithChildren[P] = P & typingsJapgolly.react.anon.Children
   * See https://www.typescriptlang.org/docs/handbook/2/conditional-types.html for an intro.
   * This RHS of the type alias is guess work. You should cast if it's not correct in your case.
   * TS definition: {{{
-  'ref' extends keyof P ? P extends {  ref :infer R | undefined} ? string extends R ? react.react.PropsWithoutRef<P> & {  ref :std.Exclude<R, string> | undefined} : P : P : P
+  'ref' extends keyof P ? P extends {  ref :infer R | undefined} ? string extends R ? react.react.PropsWithoutRef<P> & {  ref :react.Exclude<R, string> | undefined} : P : P : P
   }}}
   */
 type PropsWithRef[P] = P
@@ -617,7 +626,7 @@ type PropsWithRef[P] = P
   * See https://www.typescriptlang.org/docs/handbook/2/conditional-types.html for an intro.
   * This RHS of the type alias is guess work. You should cast if it's not correct in your case.
   * TS definition: {{{
-  'ref' extends keyof P ? std.Pick<P, std.Exclude<keyof P, 'ref'>> : P
+  'ref' extends keyof P ? react.Pick<P, react.Exclude<keyof P, 'ref'>> : P
   }}}
   */
 type PropsWithoutRef[P] = P

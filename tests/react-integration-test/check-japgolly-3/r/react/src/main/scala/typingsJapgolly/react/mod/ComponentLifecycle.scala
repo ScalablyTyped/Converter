@@ -1,6 +1,7 @@
 package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.Callback
+import typingsJapgolly.react.Readonly
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -50,7 +51,12 @@ trait ComponentLifecycle[P, S, SS]
     * and `componentDidUpdate` will not be called.
     */
   var shouldComponentUpdate: js.UndefOr[
-    js.Function3[/* nextProps */ P, /* nextState */ S, /* nextContext */ Any, Boolean]
+    js.Function3[
+      /* nextProps */ Readonly[P], 
+      /* nextState */ Readonly[S], 
+      /* nextContext */ Any, 
+      Boolean
+    ]
   ] = js.undefined
 }
 object ComponentLifecycle {
@@ -77,7 +83,9 @@ object ComponentLifecycle {
     
     inline def setComponentWillUnmountUndefined: Self = StObject.set(x, "componentWillUnmount", js.undefined)
     
-    inline def setShouldComponentUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ Any) => Boolean): Self = StObject.set(x, "shouldComponentUpdate", js.Any.fromFunction3(value))
+    inline def setShouldComponentUpdate(
+      value: (/* nextProps */ Readonly[P], /* nextState */ Readonly[S], /* nextContext */ Any) => Boolean
+    ): Self = StObject.set(x, "shouldComponentUpdate", js.Any.fromFunction3(value))
     
     inline def setShouldComponentUpdateUndefined: Self = StObject.set(x, "shouldComponentUpdate", js.undefined)
   }

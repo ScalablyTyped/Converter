@@ -223,6 +223,10 @@ object TsTreeScope {
         case (_, dep: TsParsedFile, depScope: Scoped) =>
           dep.modules.foreach { case (_, mod) => addModuleScope(ret, mod, depScope) }
       }
+      depScopes.values.foreach {
+        case (_, dep: TsParsedFile, depScope: Scoped) =>
+          dep.modules.foreach { case (_, mod) => addModuleAliasScope(ret, mod, depScope) }
+      }
       ret.toMap
     }
 
@@ -323,6 +327,7 @@ object TsTreeScope {
           val ret = mutable.Map.empty[TsIdentModule, TsTreeScope.Scoped]
           ret ++= outer.moduleScopes
           x.modules.foreach { case (_, mod) => addModuleScope(ret, mod, this) }
+          x.modules.foreach { case (_, mod) => addModuleAliasScope(ret, mod, this) }
           ret.toMap
         case _ => outer.moduleScopes
       }
@@ -521,29 +526,43 @@ object TsTreeScope {
         }
     }
 
+  private def addAlternative(
+      ret:      mutable.Map[TsIdentModule, TsTreeScope.Scoped],
+      modName:  TsIdentModule,
+      modScope: TsTreeScope.Scoped,
+  ): Unit = {
+    val alternative = modName.copy(fragments =
+      if (modName.fragments.endsWith("index")) modName.fragments.dropRight(1) else modName.fragments :+ "index",
+    )
+
+    if (!ret.contains(alternative)) {
+      ret += (alternative -> modScope)
+    }
+  }
+
   private def addModuleScope(
       ret:           mutable.Map[TsIdentModule, TsTreeScope.Scoped],
       mod:           TsDeclModule,
       outsideModule: TsTreeScope,
   ): Unit = {
-    def addAlternative(modName: TsIdentModule, modScope: TsTreeScope.Scoped): Unit = {
-      val alternative = modName.copy(fragments =
-        if (modName.fragments.endsWith("index")) modName.fragments.dropRight(1) else modName.fragments :+ "index",
-      )
-
-      if (!ret.contains(alternative)) {
-        ret += (alternative -> modScope)
-      }
-    }
-
     val modScope = outsideModule / mod
-    addAlternative(mod.name, modScope)
+    addAlternative(ret, mod.name, modScope)
     ret += (mod.name -> modScope)
+  }
+
+  private def addModuleAliasScope(
+      ret:           mutable.Map[TsIdentModule, TsTreeScope.Scoped],
+      mod:           TsDeclModule,
+      outsideModule: TsTreeScope,
+  ): Unit = {
+    val modScope = outsideModule / mod
     mod.comments.cs.foreach {
       case Marker.ModuleAliases(aliases) =>
         aliases.foreach { alias =>
-          ret += ((alias, modScope))
-          addAlternative(alias, modScope)
+          if (!ret.contains(alias)) {
+            ret += ((alias, modScope))
+          }
+          addAlternative(ret, alias, modScope)
         }
       case _ => ()
     }

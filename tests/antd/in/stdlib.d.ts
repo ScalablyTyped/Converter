@@ -16,3 +16,12 @@ type Exclude<T, U> = T extends U ? never : T;
  * Construct a type with the properties of T except for those in type K.
  */
 type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+
+type Partial<T> = {
+    [P in keyof T]?: T[P];
+};
+
+interface Array<T> {}
+interface Node{}
+interface Element extends Node {}
+interface HTMLElement extends Element {}

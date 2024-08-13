@@ -1,0 +1,20 @@
+{
+  "private": false,
+  "name": "@zootools/email-spell-checker",
+  "version": "1.12.0",
+  "description": "mailSpellChecker.js (mail spell checker) is a lightweight module that suggests a right domain when your users misspell it in an email address",
+  "main": "./dist/index.js",
+  "files": [
+    "dist/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZooTools/mail-spell-checker.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "ZooTools, Inc",
+    "email": "jobs@zootools.co",
+    "url": "https://zootools.co"
+  }
+}
