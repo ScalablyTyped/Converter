@@ -60,7 +60,8 @@ class Phase1ReadTypescript(
               /* There are often whole trees parallel to what is specified in `typings` (or similar). This ignores some of them. */
               val main          = packageJsonMain(f)
               val includedFiles = packageJsonFiles(f)
-              val bound         = (f.shortenedFiles ++ main ++ includedFiles).map(_.folder).distinct.filter(_.path.toIO.exists())
+              val bound =
+                (f.shortenedFiles ++ main ++ includedFiles).map(_.folder).distinct.filter(_.path.toIO.exists())
               bound.flatMap(PathsFromTsLibSource.filesFrom).distinct
           }
 
@@ -347,13 +348,13 @@ object Phase1ReadTypescript {
 
   private def packageJsonMain(fromFolder: LibTsSource.FromFolder): IArray[InFile] = {
     val baseDirectory = fromFolder.folder.path
-    val main = os.RelPath(fromFolder.packageJsonOpt.flatMap(_.main).getOrElse("index.js"))
+    val main          = os.RelPath(fromFolder.packageJsonOpt.flatMap(_.main).getOrElse("index.js"))
     IArray(InFile(baseDirectory / main))
   }
 
   private def packageJsonFiles(fromFolder: LibTsSource.FromFolder): IArray[InFile] = {
     val baseDirectory = fromFolder.folder.path
-    val globs = fromFolder.packageJsonOpt.flatMap(_.files)
+    val globs         = fromFolder.packageJsonOpt.flatMap(_.files)
     val files         = globs.fold(os.walk(baseDirectory))(GlobWalker.walkFiles(baseDirectory, _)).map(InFile(_))
     IArray.fromTraversable(files)
   }
