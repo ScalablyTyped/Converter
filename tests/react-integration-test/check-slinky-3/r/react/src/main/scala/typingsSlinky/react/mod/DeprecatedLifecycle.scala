@@ -1,5 +1,6 @@
 package typingsSlinky.react.mod
 
+import typingsSlinky.react.Readonly
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -37,7 +38,7 @@ trait DeprecatedLifecycle[P, S] extends StObject {
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
     */
-  var UNSAFE_componentWillReceiveProps: js.UndefOr[js.Function2[/* nextProps */ P, /* nextContext */ Any, Unit]] = js.undefined
+  var UNSAFE_componentWillReceiveProps: js.UndefOr[js.Function2[/* nextProps */ Readonly[P], /* nextContext */ Any, Unit]] = js.undefined
   
   /**
     * Called immediately before rendering when new props or state is received. Not called for the initial render.
@@ -53,7 +54,9 @@ trait DeprecatedLifecycle[P, S] extends StObject {
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
     */
-  var UNSAFE_componentWillUpdate: js.UndefOr[js.Function3[/* nextProps */ P, /* nextState */ S, /* nextContext */ Any, Unit]] = js.undefined
+  var UNSAFE_componentWillUpdate: js.UndefOr[
+    js.Function3[/* nextProps */ Readonly[P], /* nextState */ Readonly[S], /* nextContext */ Any, Unit]
+  ] = js.undefined
   
   /**
     * Called immediately before mounting occurs, and before `Component#render`.
@@ -82,7 +85,7 @@ trait DeprecatedLifecycle[P, S] extends StObject {
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
     */
-  var componentWillReceiveProps: js.UndefOr[js.Function2[/* nextProps */ P, /* nextContext */ Any, Unit]] = js.undefined
+  var componentWillReceiveProps: js.UndefOr[js.Function2[/* nextProps */ Readonly[P], /* nextContext */ Any, Unit]] = js.undefined
   
   /**
     * Called immediately before rendering when new props or state is received. Not called for the initial render.
@@ -96,7 +99,9 @@ trait DeprecatedLifecycle[P, S] extends StObject {
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
     */
-  var componentWillUpdate: js.UndefOr[js.Function3[/* nextProps */ P, /* nextState */ S, /* nextContext */ Any, Unit]] = js.undefined
+  var componentWillUpdate: js.UndefOr[
+    js.Function3[/* nextProps */ Readonly[P], /* nextState */ Readonly[S], /* nextContext */ Any, Unit]
+  ] = js.undefined
 }
 object DeprecatedLifecycle {
   
@@ -112,11 +117,11 @@ object DeprecatedLifecycle {
     
     inline def setComponentWillMountUndefined: Self = StObject.set(x, "componentWillMount", js.undefined)
     
-    inline def setComponentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ Any) => Unit): Self = StObject.set(x, "componentWillReceiveProps", js.Any.fromFunction2(value))
+    inline def setComponentWillReceiveProps(value: (/* nextProps */ Readonly[P], /* nextContext */ Any) => Unit): Self = StObject.set(x, "componentWillReceiveProps", js.Any.fromFunction2(value))
     
     inline def setComponentWillReceivePropsUndefined: Self = StObject.set(x, "componentWillReceiveProps", js.undefined)
     
-    inline def setComponentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ Any) => Unit): Self = StObject.set(x, "componentWillUpdate", js.Any.fromFunction3(value))
+    inline def setComponentWillUpdate(value: (/* nextProps */ Readonly[P], /* nextState */ Readonly[S], /* nextContext */ Any) => Unit): Self = StObject.set(x, "componentWillUpdate", js.Any.fromFunction3(value))
     
     inline def setComponentWillUpdateUndefined: Self = StObject.set(x, "componentWillUpdate", js.undefined)
     
@@ -124,11 +129,11 @@ object DeprecatedLifecycle {
     
     inline def setUNSAFE_componentWillMountUndefined: Self = StObject.set(x, "UNSAFE_componentWillMount", js.undefined)
     
-    inline def setUNSAFE_componentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ Any) => Unit): Self = StObject.set(x, "UNSAFE_componentWillReceiveProps", js.Any.fromFunction2(value))
+    inline def setUNSAFE_componentWillReceiveProps(value: (/* nextProps */ Readonly[P], /* nextContext */ Any) => Unit): Self = StObject.set(x, "UNSAFE_componentWillReceiveProps", js.Any.fromFunction2(value))
     
     inline def setUNSAFE_componentWillReceivePropsUndefined: Self = StObject.set(x, "UNSAFE_componentWillReceiveProps", js.undefined)
     
-    inline def setUNSAFE_componentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ Any) => Unit): Self = StObject.set(x, "UNSAFE_componentWillUpdate", js.Any.fromFunction3(value))
+    inline def setUNSAFE_componentWillUpdate(value: (/* nextProps */ Readonly[P], /* nextState */ Readonly[S], /* nextContext */ Any) => Unit): Self = StObject.set(x, "UNSAFE_componentWillUpdate", js.Any.fromFunction3(value))
     
     inline def setUNSAFE_componentWillUpdateUndefined: Self = StObject.set(x, "UNSAFE_componentWillUpdate", js.undefined)
   }

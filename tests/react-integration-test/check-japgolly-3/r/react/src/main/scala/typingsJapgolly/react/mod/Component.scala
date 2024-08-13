@@ -2,7 +2,8 @@ package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.facade.React.Node
 import org.scalablytyped.runtime.StringDictionary
-import typingsJapgolly.std.Pick
+import typingsJapgolly.react.Pick
+import typingsJapgolly.react.Readonly
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -14,7 +15,11 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 open class Component[P, S, SS] protected ()
   extends StObject
      with ComponentLifecycle[P, S, SS] {
-  def this(props: P) = this()
+  /**
+    * @deprecated
+    * @see https://reactjs.org/docs/legacy-context.html
+    */
+  def this(props: P | Readonly[P]) = this()
   def this(props: P, context: Any) = this()
   
   /**
@@ -40,7 +45,7 @@ open class Component[P, S, SS] protected ()
   // always pass children as variadic arguments to `createElement`.
   // In the future, if we can define its call signature conditionally
   // on the existence of `children` in `P`, then we should remove this.
-  val props: P & typingsJapgolly.react.anon.Children = js.native
+  val props: Readonly[P] & Readonly[typingsJapgolly.react.anon.Children] = js.native
   
   /**
     * @deprecated
@@ -56,14 +61,14 @@ open class Component[P, S, SS] protected ()
   def setState[K /* <: /* keyof S */ String */](): Unit = js.native
   def setState[K /* <: /* keyof S */ String */](state: (Pick[S, K]) | S): Unit = js.native
   def setState[K /* <: /* keyof S */ String */](state: (Pick[S, K]) | S, callback: js.Function0[Unit]): Unit = js.native
-  def setState[K /* <: /* keyof S */ String */](state: js.Function2[/* prevState */ S, /* props */ P, (Pick[S, K]) | S | Null]): Unit = js.native
+  def setState[K /* <: /* keyof S */ String */](state: js.Function2[/* prevState */ Readonly[S], /* props */ Readonly[P], (Pick[S, K]) | S | Null]): Unit = js.native
   def setState[K /* <: /* keyof S */ String */](
-    state: js.Function2[/* prevState */ S, /* props */ P, (Pick[S, K]) | S | Null],
+    state: js.Function2[/* prevState */ Readonly[S], /* props */ Readonly[P], (Pick[S, K]) | S | Null],
     callback: js.Function0[Unit]
   ): Unit = js.native
   def setState[K /* <: /* keyof S */ String */](state: Null, callback: js.Function0[Unit]): Unit = js.native
   
-  var state: S = js.native
+  var state: Readonly[S] = js.native
 }
 object Component {
   

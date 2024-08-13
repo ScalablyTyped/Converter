@@ -55,7 +55,6 @@ import typingsJapgolly.react.mod.SVGFactory
 import typingsJapgolly.react.mod.SetStateAction
 import typingsJapgolly.react.mod.SuspenseProps
 import typingsJapgolly.react.reactStrings.input
-import typingsJapgolly.std.Partial
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -78,7 +77,11 @@ object global {
     @js.native
     open class Component[P, S, SS] protected ()
       extends typingsJapgolly.react.mod.Component[P, S, SS] {
-      def this(props: P) = this()
+      /**
+        * @deprecated
+        * @see https://reactjs.org/docs/legacy-context.html
+        */
+      def this(props: P | Readonly[P]) = this()
       def this(props: P, context: Any) = this()
     }
     object Component {
@@ -127,7 +130,11 @@ object global {
     @js.native
     open class PureComponent[P, S, SS] protected ()
       extends typingsJapgolly.react.mod.PureComponent[P, S, SS] {
-      def this(props: P) = this()
+      /**
+        * @deprecated
+        * @see https://reactjs.org/docs/legacy-context.html
+        */
+      def this(props: P | Readonly[P]) = this()
       def this(props: P, context: Any) = this()
     }
     
@@ -282,12 +289,20 @@ object global {
     inline def memo[T /* <: ComponentType[Any] */](Component: T): MemoExoticComponent[T] = ^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any]).asInstanceOf[MemoExoticComponent[T]]
     inline def memo[T /* <: ComponentType[Any] */](
       Component: T,
-      propsAreEqual: js.Function2[/* prevProps */ ComponentProps[T], /* nextProps */ ComponentProps[T], Boolean]
+      propsAreEqual: js.Function2[
+          /* prevProps */ Readonly[ComponentProps[T]], 
+          /* nextProps */ Readonly[ComponentProps[T]], 
+          Boolean
+        ]
     ): MemoExoticComponent[T] = (^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any], propsAreEqual.asInstanceOf[js.Any])).asInstanceOf[MemoExoticComponent[T]]
     inline def memo[P /* <: js.Object */](Component: SFC[P]): NamedExoticComponent[P] = ^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any]).asInstanceOf[NamedExoticComponent[P]]
     inline def memo[P /* <: js.Object */](
       Component: SFC[P],
-      propsAreEqual: js.Function2[/* prevProps */ PropsWithChildren[P], /* nextProps */ PropsWithChildren[P], Boolean]
+      propsAreEqual: js.Function2[
+          /* prevProps */ Readonly[PropsWithChildren[P]], 
+          /* nextProps */ Readonly[PropsWithChildren[P]], 
+          Boolean
+        ]
     ): NamedExoticComponent[P] = (^.asInstanceOf[js.Dynamic].applyDynamic("memo")(Component.asInstanceOf[js.Any], propsAreEqual.asInstanceOf[js.Any])).asInstanceOf[NamedExoticComponent[P]]
     
     // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key

@@ -1,7 +1,5 @@
 package typingsJapgolly.reactBootstrap
 
-import typingsJapgolly.react.mod.Component
-import typingsJapgolly.react.mod.HTMLProps
 import typingsJapgolly.reactBootstrap.mod.Sizes
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
@@ -9,18 +7,15 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object libButtonGroupMod {
   
-  @JSImport("react-bootstrap/lib/ButtonGroup", JSImport.Namespace)
+  /* import warning: RemoveDifficultInheritance.summarizeChanges 
+  - Dropped / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify React.Component<ButtonGroupProps> * / any */ @JSImport("react-bootstrap/lib/ButtonGroup", JSImport.Namespace)
   @js.native
-  open class ^ ()
-    extends Component[ButtonGroupProps, js.Object, Any]
+  open class ^ () extends StObject
   
-  type ButtonGroup = japgolly.scalajs.react.facade.React.Component[ButtonGroupProps & js.Object, js.Object]
+  type ButtonGroup = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify React.Component<ButtonGroupProps> */ Any
   
-  trait ButtonGroupProps
-    extends StObject
-       with HTMLProps[
-          japgolly.scalajs.react.facade.React.Component[ButtonGroupProps & js.Object, js.Object]
-        ] {
+  /* import warning: RemoveDifficultInheritance.summarizeChanges 
+  - Dropped / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify React.HTMLProps<ButtonGroup> * / any */ trait ButtonGroupProps extends StObject {
     
     var block: js.UndefOr[Boolean] = js.undefined
     
