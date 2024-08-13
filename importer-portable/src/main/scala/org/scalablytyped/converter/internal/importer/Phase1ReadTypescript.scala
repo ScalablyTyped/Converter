@@ -60,7 +60,7 @@ class Phase1ReadTypescript(
               /* There are often whole trees parallel to what is specified in `typings` (or similar). This ignores some of them. */
               val main          = packageJsonMain(f)
               val includedFiles = packageJsonFiles(f)
-              val bound         = (f.shortenedFiles ++ main ++ includedFiles).map(_.folder)
+              val bound         = (f.shortenedFiles ++ main ++ includedFiles).map(_.folder).distinct.filter(_.path.toIO.exists())
               bound.flatMap(PathsFromTsLibSource.filesFrom).distinct
           }
 
