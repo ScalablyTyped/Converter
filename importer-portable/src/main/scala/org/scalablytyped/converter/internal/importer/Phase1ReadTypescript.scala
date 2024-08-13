@@ -3,7 +3,7 @@ package importer
 
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.Selection
-import org.scalablytyped.converter.internal.importer.Phase1ReadTypescript.fromFilesGlobEntry
+import org.scalablytyped.converter.internal.importer.Phase1ReadTypescript.{packageJsonFiles, packageJsonMain}
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
@@ -58,10 +58,10 @@ class Phase1ReadTypescript(
               f.shortenedFiles
             case f: LibTsSource.FromFolder =>
               /* There are often whole trees parallel to what is specified in `typings` (or similar). This ignores some of them. */
-              val filesTypings  = fromFilesGlobEntry(f, f.packageJsonOpt.flatMap(_.files))
-              val bound         = (f.shortenedFiles ++ filesTypings).map(_.folder)
-              val boundOrParent = if (bound.isEmpty) IArray(f.folder) else bound
-              boundOrParent.flatMap(PathsFromTsLibSource.filesFrom).distinct
+              val main          = packageJsonMain(f)
+              val includedFiles = packageJsonFiles(f)
+              val bound         = (f.shortenedFiles ++ main ++ includedFiles).map(_.folder)
+              bound.flatMap(PathsFromTsLibSource.filesFrom).distinct
           }
 
         val includedViaDirective = mutable.Set.empty[InFile]
@@ -345,8 +345,15 @@ object Phase1ReadTypescript {
       ).visitTsParsedFile(scope.caching),
     )
 
-  private def fromFilesGlobEntry(fromFolder: LibTsSource.FromFolder, globs: Option[IArray[String]]): IArray[InFile] = {
+  private def packageJsonMain(fromFolder: LibTsSource.FromFolder): IArray[InFile] = {
     val baseDirectory = fromFolder.folder.path
+    val main = os.RelPath(fromFolder.packageJsonOpt.flatMap(_.main).getOrElse("index.js"))
+    IArray(InFile(baseDirectory / main))
+  }
+
+  private def packageJsonFiles(fromFolder: LibTsSource.FromFolder): IArray[InFile] = {
+    val baseDirectory = fromFolder.folder.path
+    val globs = fromFolder.packageJsonOpt.flatMap(_.files)
     val files         = globs.fold(os.walk(baseDirectory))(GlobWalker.walkFiles(baseDirectory, _)).map(InFile(_))
     IArray.fromTraversable(files)
   }
