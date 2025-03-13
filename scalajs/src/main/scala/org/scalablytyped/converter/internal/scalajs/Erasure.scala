@@ -85,23 +85,32 @@ class Erasure(scalaVersion: Versions.Scala) {
         val isPrimitive = tpe.targs.collectFirst {
           case tr @ (TypeRef.String | TypeRef.Boolean | TypeRef.Double) => tr.typeName
         }
+        def isTypeArg(ref: TypeRef): Boolean = ref.typeName match {
+          case QualifiedName(IArray.exactlyOne(head)) => scope.tparams.contains(head)
+          case _                                      => false
+        }
 
         isPrimitive
           .getOrElse {
-            val erasedParentLattices: IArray[IArray[QualifiedName]] =
-              tpe.targs.map(t => typeLattice(scope, t))
-
-            erasedParentLattices
-              .foldLeft(Empty: IArray[QualifiedName]) {
-                case (nonEmpty, lattice) =>
-                  val latticeSet = lattice.toSet
-                  nonEmpty.filterNot(latticeSet) match {
-                    case Empty => lattice
-                    case other => other
+            tpe.targs.reverse.dropWhile(isTypeArg) match {
+              // If removing the intersection with the trailing type parameters results in a single remaining type, use that type.
+              case IArray.exactlyOne(head) =>
+                simplify(scope, head)
+              case _ =>
+                val erasedParentLattices: IArray[IArray[QualifiedName]] =
+                  tpe.targs.map(t => typeLattice(scope, t))
+                erasedParentLattices
+                  .foldLeft(Empty: IArray[QualifiedName]) {
+                    case (nonEmpty, lattice) =>
+                      val latticeSet = lattice.toSet
+                      nonEmpty.filterNot(latticeSet) match {
+                        case Empty => lattice
+                        case other => other
+                      }
                   }
-              }
-              .headOption
-              .getOrElse(QualifiedName.Any)
+                  .headOption
+                  .getOrElse(QualifiedName.Any)
+            }
           }
 
       // if this is a type parameter
