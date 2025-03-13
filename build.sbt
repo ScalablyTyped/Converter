@@ -129,10 +129,10 @@ lazy val baseSettings: Project => Project =
     credentials += Credentials(Path.userHome / ".sbt" / "kurusugawa.credentials"),
     publishTo := {
       val suffix =
-        if (isVersionStable.value) {
-          "release"
-        } else {
+        if (isSnapshot.value) {
           "snapshot"
+        } else {
+          "release"
         }
       Some("kurusugawa nexus".at(s"https://kurusugawa.jp/nexus3/content/repositories/KRSPUBLIC-$suffix/"))
     },
