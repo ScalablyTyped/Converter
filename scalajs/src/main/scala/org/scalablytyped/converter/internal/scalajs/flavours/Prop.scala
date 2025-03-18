@@ -6,6 +6,14 @@ sealed trait Prop {
   val name:        Name
   val optionality: Optionality
   val isRequired:  Boolean
+
+  /** prop size for function argument
+    * acording to scalac output ` a parameter list's length cannot exceed 254 (Long and Double count as 2).`
+    */
+  lazy val size: Int = this match {
+    case Prop.Normal(main, _, _, _, _) => if (main.tpe == TypeRef.Double || main.tpe == TypeRef.Long) 2 else 1
+    case _: Prop.CompressedProp => 1
+  }
 }
 
 object Prop {

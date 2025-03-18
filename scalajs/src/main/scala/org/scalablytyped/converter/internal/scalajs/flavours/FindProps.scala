@@ -6,6 +6,8 @@ import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 import org.scalablytyped.converter.internal.scalajs.transforms.{CleanIllegalNames, UnionToInheritance}
 
+import scala.collection.mutable.ArrayBuffer
+
 object FindProps {
   /* javascript limitation */
   val MaxParamsForMethod = 254
@@ -253,8 +255,30 @@ final class FindProps(
               all.toIArrayValues.sorted
             }
 
+          implicit class PropsOps(props: IArray[Prop]) {
+            def totalSize: Int = props.foldLeft(0)(_ + _.size)
+            def takeBySize(size: Int): IArray[Prop] = {
+              val resultList = props
+                .foldLeft((List.empty[Prop], 0)) {
+                  case ((acc, accSize), prop) =>
+                    val newSize = accSize + prop.size
+                    if (newSize <= size) {
+                      (prop :: acc, newSize)
+                    } else {
+                      (acc, accSize)
+                    }
+                }
+                ._1
+                .reverse
+
+              IArray.fromArray(resultList.toArray)
+            }
+          }
+
           val valid: Option[IArray[Prop]] =
-            propsStream.find(_.length <= maxNum).orElse(propsStream.lastOption.map(filtered => filtered.take(maxNum)))
+            propsStream
+              .find(_.totalSize <= maxNum)
+              .orElse(propsStream.lastOption.map(filtered => filtered.takeBySize(maxNum)))
 
           valid match {
             case Some(props) => Res.One(selfRef, props)
