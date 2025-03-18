@@ -48,7 +48,7 @@ object Versions {
   }
 
   val Scala212 = Scala("2.12.20")
-  val Scala213 = Scala("2.13.12")
+  val Scala213 = Scala("2.13.16")
   val Scala3   = Scala("3.3.1")
 
   case class ScalaJs(scalaJsVersion: String) {
@@ -71,7 +71,7 @@ object Versions {
   implicit val encodes: Encoder[Versions] = io.circe013.generic.semiauto.deriveEncoder
   implicit val decodes: Decoder[Versions] = io.circe013.generic.semiauto.deriveDecoder
 
-  val ScalaJs1 = ScalaJs("1.11.0")
+  val ScalaJs1 = ScalaJs("1.18.2")
 }
 
 case class Versions(scala: Versions.Scala, scalaJs: Versions.ScalaJs) {
