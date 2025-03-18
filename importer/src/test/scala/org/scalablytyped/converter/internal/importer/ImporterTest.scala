@@ -74,6 +74,7 @@ trait ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   test("node")(assertImportsOk("node", pedantic                                     = true))
   test("util-dynamodb")(assertImportsOk("util-dynamodb", pedantic                   = true))
   test("node-22")(assertImportsOk("node-22", pedantic                               = true))
+  test("pixijs-8")(assertImportsOk("pixijs-8", pedantic                             = true))
 
   test("material-ui-slinky")(
     assertImportsOk("material-ui", pedantic = true, flavour = Slinky),
