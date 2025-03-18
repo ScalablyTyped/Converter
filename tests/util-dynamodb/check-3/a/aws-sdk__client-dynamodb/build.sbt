@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "aws-sdk__client-dynamodb"
-version := "0.0-unknown-0dad99"
+version := "0.0-unknown-3597f5"
 scalaVersion := "3.3.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-6fc558")
+  "org.scalablytyped" %%% "std" % "0.0-unknown-05bef4")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-feature", "-language:implicitConversions", "-language:higherKinds", "-language:existentials", "-no-indent", "-source:future")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

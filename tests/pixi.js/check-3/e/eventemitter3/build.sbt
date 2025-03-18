@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "eventemitter3"
-version := "0.0-unknown-76f52b"
+version := "0.0-unknown-3f0bea"
 scalaVersion := "3.3.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
