@@ -6,6 +6,7 @@ import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 import org.scalablytyped.converter.internal.scalajs.transforms.{CleanIllegalNames, UnionToInheritance}
 
+import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 object FindProps {
@@ -254,6 +255,32 @@ final class FindProps(
 
               all.toIArrayValues.sorted
             }
+
+          def sizeOfTypeRef(ref: TypeRef, scope: TreeScope): Int = ref match {
+            case TypeRef.Double | TypeRef.Long => 2
+            case TypeRef(name, _, _) =>
+              scope
+                .lookup(name)
+                .collectFirst {
+                  // trace type alias
+                  case (t: TypeAliasTree, s) => sizeOfTypeRef(t.alias, s)
+                }
+                .getOrElse(1)
+            case _ => 1
+          }
+
+          val sizeCache = mutable.Map.empty[Prop, Int]
+          implicit class PropOps(prop: Prop) {
+
+            /** prop size for function argument
+              * acording to scalac output ` a parameter list's length cannot exceed 254 (Long and Double count as 2).`
+              */
+            def size: Int =
+              sizeCache.getOrElseUpdate(prop, prop match {
+                case Prop.Normal(main, _, _, _, _) => sizeOfTypeRef(main.tpe, scope)
+                case _: Prop.CompressedProp => 1
+              })
+          }
 
           implicit class PropsOps(props: IArray[Prop]) {
             def totalSize: Int = props.foldLeft(0)(_ + _.size)

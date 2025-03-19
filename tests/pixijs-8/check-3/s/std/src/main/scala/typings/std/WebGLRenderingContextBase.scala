@@ -1,0 +1,1336 @@
+package typings.std
+
+import typings.std.stdInts.`0`
+import org.scalablytyped.runtime.StObject
+import scala.scalajs.js
+import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
+
+trait WebGLRenderingContextBase extends StObject {
+  
+  val ACTIVE_ATTRIBUTES: GLenum
+  
+  val ACTIVE_TEXTURE: GLenum
+  
+  val ACTIVE_UNIFORMS: GLenum
+  
+  val ALIASED_LINE_WIDTH_RANGE: GLenum
+  
+  val ALIASED_POINT_SIZE_RANGE: GLenum
+  
+  val ALPHA: GLenum
+  
+  val ALPHA_BITS: GLenum
+  
+  val ALWAYS: GLenum
+  
+  val ARRAY_BUFFER: GLenum
+  
+  val ARRAY_BUFFER_BINDING: GLenum
+  
+  val ATTACHED_SHADERS: GLenum
+  
+  val BACK: GLenum
+  
+  val BLEND: GLenum
+  
+  val BLEND_COLOR: GLenum
+  
+  val BLEND_DST_ALPHA: GLenum
+  
+  val BLEND_DST_RGB: GLenum
+  
+  val BLEND_EQUATION: GLenum
+  
+  val BLEND_EQUATION_ALPHA: GLenum
+  
+  val BLEND_EQUATION_RGB: GLenum
+  
+  val BLEND_SRC_ALPHA: GLenum
+  
+  val BLEND_SRC_RGB: GLenum
+  
+  val BLUE_BITS: GLenum
+  
+  val BOOL: GLenum
+  
+  val BOOL_VEC2: GLenum
+  
+  val BOOL_VEC3: GLenum
+  
+  val BOOL_VEC4: GLenum
+  
+  val BROWSER_DEFAULT_WEBGL: GLenum
+  
+  val BUFFER_SIZE: GLenum
+  
+  val BUFFER_USAGE: GLenum
+  
+  val BYTE: GLenum
+  
+  val CCW: GLenum
+  
+  val CLAMP_TO_EDGE: GLenum
+  
+  val COLOR_ATTACHMENT0: GLenum
+  
+  val COLOR_BUFFER_BIT: GLenum
+  
+  val COLOR_CLEAR_VALUE: GLenum
+  
+  val COLOR_WRITEMASK: GLenum
+  
+  val COMPILE_STATUS: GLenum
+  
+  val COMPRESSED_TEXTURE_FORMATS: GLenum
+  
+  val CONSTANT_ALPHA: GLenum
+  
+  val CONSTANT_COLOR: GLenum
+  
+  val CONTEXT_LOST_WEBGL: GLenum
+  
+  val CULL_FACE: GLenum
+  
+  val CULL_FACE_MODE: GLenum
+  
+  val CURRENT_PROGRAM: GLenum
+  
+  val CURRENT_VERTEX_ATTRIB: GLenum
+  
+  val CW: GLenum
+  
+  val DECR: GLenum
+  
+  val DECR_WRAP: GLenum
+  
+  val DELETE_STATUS: GLenum
+  
+  val DEPTH_ATTACHMENT: GLenum
+  
+  val DEPTH_BITS: GLenum
+  
+  val DEPTH_BUFFER_BIT: GLenum
+  
+  val DEPTH_CLEAR_VALUE: GLenum
+  
+  val DEPTH_COMPONENT: GLenum
+  
+  val DEPTH_COMPONENT16: GLenum
+  
+  val DEPTH_FUNC: GLenum
+  
+  val DEPTH_RANGE: GLenum
+  
+  val DEPTH_STENCIL: GLenum
+  
+  val DEPTH_STENCIL_ATTACHMENT: GLenum
+  
+  val DEPTH_TEST: GLenum
+  
+  val DEPTH_WRITEMASK: GLenum
+  
+  val DITHER: GLenum
+  
+  val DONT_CARE: GLenum
+  
+  val DST_ALPHA: GLenum
+  
+  val DST_COLOR: GLenum
+  
+  val DYNAMIC_DRAW: GLenum
+  
+  val ELEMENT_ARRAY_BUFFER: GLenum
+  
+  val ELEMENT_ARRAY_BUFFER_BINDING: GLenum
+  
+  val EQUAL: GLenum
+  
+  val FASTEST: GLenum
+  
+  val FLOAT: GLenum
+  
+  val FLOAT_MAT2: GLenum
+  
+  val FLOAT_MAT3: GLenum
+  
+  val FLOAT_MAT4: GLenum
+  
+  val FLOAT_VEC2: GLenum
+  
+  val FLOAT_VEC3: GLenum
+  
+  val FLOAT_VEC4: GLenum
+  
+  val FRAGMENT_SHADER: GLenum
+  
+  val FRAMEBUFFER: GLenum
+  
+  val FRAMEBUFFER_ATTACHMENT_OBJECT_NAME: GLenum
+  
+  val FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE: GLenum
+  
+  val FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE: GLenum
+  
+  val FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL: GLenum
+  
+  val FRAMEBUFFER_BINDING: GLenum
+  
+  val FRAMEBUFFER_COMPLETE: GLenum
+  
+  val FRAMEBUFFER_INCOMPLETE_ATTACHMENT: GLenum
+  
+  val FRAMEBUFFER_INCOMPLETE_DIMENSIONS: GLenum
+  
+  val FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT: GLenum
+  
+  val FRAMEBUFFER_UNSUPPORTED: GLenum
+  
+  val FRONT: GLenum
+  
+  val FRONT_AND_BACK: GLenum
+  
+  val FRONT_FACE: GLenum
+  
+  val FUNC_ADD: GLenum
+  
+  val FUNC_REVERSE_SUBTRACT: GLenum
+  
+  val FUNC_SUBTRACT: GLenum
+  
+  val GENERATE_MIPMAP_HINT: GLenum
+  
+  val GEQUAL: GLenum
+  
+  val GREATER: GLenum
+  
+  val GREEN_BITS: GLenum
+  
+  val HIGH_FLOAT: GLenum
+  
+  val HIGH_INT: GLenum
+  
+  val IMPLEMENTATION_COLOR_READ_FORMAT: GLenum
+  
+  val IMPLEMENTATION_COLOR_READ_TYPE: GLenum
+  
+  val INCR: GLenum
+  
+  val INCR_WRAP: GLenum
+  
+  val INT: GLenum
+  
+  val INT_VEC2: GLenum
+  
+  val INT_VEC3: GLenum
+  
+  val INT_VEC4: GLenum
+  
+  val INVALID_ENUM: GLenum
+  
+  val INVALID_FRAMEBUFFER_OPERATION: GLenum
+  
+  val INVALID_OPERATION: GLenum
+  
+  val INVALID_VALUE: GLenum
+  
+  val INVERT: GLenum
+  
+  val KEEP: GLenum
+  
+  val LEQUAL: GLenum
+  
+  val LESS: GLenum
+  
+  val LINEAR: GLenum
+  
+  val LINEAR_MIPMAP_LINEAR: GLenum
+  
+  val LINEAR_MIPMAP_NEAREST: GLenum
+  
+  val LINES: GLenum
+  
+  val LINE_LOOP: GLenum
+  
+  val LINE_STRIP: GLenum
+  
+  val LINE_WIDTH: GLenum
+  
+  val LINK_STATUS: GLenum
+  
+  val LOW_FLOAT: GLenum
+  
+  val LOW_INT: GLenum
+  
+  val LUMINANCE: GLenum
+  
+  val LUMINANCE_ALPHA: GLenum
+  
+  val MAX_COMBINED_TEXTURE_IMAGE_UNITS: GLenum
+  
+  val MAX_CUBE_MAP_TEXTURE_SIZE: GLenum
+  
+  val MAX_FRAGMENT_UNIFORM_VECTORS: GLenum
+  
+  val MAX_RENDERBUFFER_SIZE: GLenum
+  
+  val MAX_TEXTURE_IMAGE_UNITS: GLenum
+  
+  val MAX_TEXTURE_SIZE: GLenum
+  
+  val MAX_VARYING_VECTORS: GLenum
+  
+  val MAX_VERTEX_ATTRIBS: GLenum
+  
+  val MAX_VERTEX_TEXTURE_IMAGE_UNITS: GLenum
+  
+  val MAX_VERTEX_UNIFORM_VECTORS: GLenum
+  
+  val MAX_VIEWPORT_DIMS: GLenum
+  
+  val MEDIUM_FLOAT: GLenum
+  
+  val MEDIUM_INT: GLenum
+  
+  val MIRRORED_REPEAT: GLenum
+  
+  val NEAREST: GLenum
+  
+  val NEAREST_MIPMAP_LINEAR: GLenum
+  
+  val NEAREST_MIPMAP_NEAREST: GLenum
+  
+  val NEVER: GLenum
+  
+  val NICEST: GLenum
+  
+  val NONE: `0`
+  
+  val NOTEQUAL: GLenum
+  
+  val NO_ERROR: `0`
+  
+  val ONE: GLenum
+  
+  val ONE_MINUS_CONSTANT_ALPHA: GLenum
+  
+  val ONE_MINUS_CONSTANT_COLOR: GLenum
+  
+  val ONE_MINUS_DST_ALPHA: GLenum
+  
+  val ONE_MINUS_DST_COLOR: GLenum
+  
+  val ONE_MINUS_SRC_ALPHA: GLenum
+  
+  val ONE_MINUS_SRC_COLOR: GLenum
+  
+  val OUT_OF_MEMORY: GLenum
+  
+  val PACK_ALIGNMENT: GLenum
+  
+  val POINTS: GLenum
+  
+  val POLYGON_OFFSET_FACTOR: GLenum
+  
+  val POLYGON_OFFSET_FILL: GLenum
+  
+  val POLYGON_OFFSET_UNITS: GLenum
+  
+  val RED_BITS: GLenum
+  
+  val RENDERBUFFER: GLenum
+  
+  val RENDERBUFFER_ALPHA_SIZE: GLenum
+  
+  val RENDERBUFFER_BINDING: GLenum
+  
+  val RENDERBUFFER_BLUE_SIZE: GLenum
+  
+  val RENDERBUFFER_DEPTH_SIZE: GLenum
+  
+  val RENDERBUFFER_GREEN_SIZE: GLenum
+  
+  val RENDERBUFFER_HEIGHT: GLenum
+  
+  val RENDERBUFFER_INTERNAL_FORMAT: GLenum
+  
+  val RENDERBUFFER_RED_SIZE: GLenum
+  
+  val RENDERBUFFER_STENCIL_SIZE: GLenum
+  
+  val RENDERBUFFER_WIDTH: GLenum
+  
+  val RENDERER: GLenum
+  
+  val REPEAT: GLenum
+  
+  val REPLACE: GLenum
+  
+  val RGB: GLenum
+  
+  val RGB565: GLenum
+  
+  val RGB5_A1: GLenum
+  
+  val RGBA: GLenum
+  
+  val RGBA4: GLenum
+  
+  val RGBA8: GLenum
+  
+  val SAMPLER_2D: GLenum
+  
+  val SAMPLER_CUBE: GLenum
+  
+  val SAMPLES: GLenum
+  
+  val SAMPLE_ALPHA_TO_COVERAGE: GLenum
+  
+  val SAMPLE_BUFFERS: GLenum
+  
+  val SAMPLE_COVERAGE: GLenum
+  
+  val SAMPLE_COVERAGE_INVERT: GLenum
+  
+  val SAMPLE_COVERAGE_VALUE: GLenum
+  
+  val SCISSOR_BOX: GLenum
+  
+  val SCISSOR_TEST: GLenum
+  
+  val SHADER_TYPE: GLenum
+  
+  val SHADING_LANGUAGE_VERSION: GLenum
+  
+  val SHORT: GLenum
+  
+  val SRC_ALPHA: GLenum
+  
+  val SRC_ALPHA_SATURATE: GLenum
+  
+  val SRC_COLOR: GLenum
+  
+  val STATIC_DRAW: GLenum
+  
+  val STENCIL_ATTACHMENT: GLenum
+  
+  val STENCIL_BACK_FAIL: GLenum
+  
+  val STENCIL_BACK_FUNC: GLenum
+  
+  val STENCIL_BACK_PASS_DEPTH_FAIL: GLenum
+  
+  val STENCIL_BACK_PASS_DEPTH_PASS: GLenum
+  
+  val STENCIL_BACK_REF: GLenum
+  
+  val STENCIL_BACK_VALUE_MASK: GLenum
+  
+  val STENCIL_BACK_WRITEMASK: GLenum
+  
+  val STENCIL_BITS: GLenum
+  
+  val STENCIL_BUFFER_BIT: GLenum
+  
+  val STENCIL_CLEAR_VALUE: GLenum
+  
+  val STENCIL_FAIL: GLenum
+  
+  val STENCIL_FUNC: GLenum
+  
+  val STENCIL_INDEX8: GLenum
+  
+  val STENCIL_PASS_DEPTH_FAIL: GLenum
+  
+  val STENCIL_PASS_DEPTH_PASS: GLenum
+  
+  val STENCIL_REF: GLenum
+  
+  val STENCIL_TEST: GLenum
+  
+  val STENCIL_VALUE_MASK: GLenum
+  
+  val STENCIL_WRITEMASK: GLenum
+  
+  val STREAM_DRAW: GLenum
+  
+  val SUBPIXEL_BITS: GLenum
+  
+  val TEXTURE: GLenum
+  
+  val TEXTURE0: GLenum
+  
+  val TEXTURE1: GLenum
+  
+  val TEXTURE10: GLenum
+  
+  val TEXTURE11: GLenum
+  
+  val TEXTURE12: GLenum
+  
+  val TEXTURE13: GLenum
+  
+  val TEXTURE14: GLenum
+  
+  val TEXTURE15: GLenum
+  
+  val TEXTURE16: GLenum
+  
+  val TEXTURE17: GLenum
+  
+  val TEXTURE18: GLenum
+  
+  val TEXTURE19: GLenum
+  
+  val TEXTURE2: GLenum
+  
+  val TEXTURE20: GLenum
+  
+  val TEXTURE21: GLenum
+  
+  val TEXTURE22: GLenum
+  
+  val TEXTURE23: GLenum
+  
+  val TEXTURE24: GLenum
+  
+  val TEXTURE25: GLenum
+  
+  val TEXTURE26: GLenum
+  
+  val TEXTURE27: GLenum
+  
+  val TEXTURE28: GLenum
+  
+  val TEXTURE29: GLenum
+  
+  val TEXTURE3: GLenum
+  
+  val TEXTURE30: GLenum
+  
+  val TEXTURE31: GLenum
+  
+  val TEXTURE4: GLenum
+  
+  val TEXTURE5: GLenum
+  
+  val TEXTURE6: GLenum
+  
+  val TEXTURE7: GLenum
+  
+  val TEXTURE8: GLenum
+  
+  val TEXTURE9: GLenum
+  
+  val TEXTURE_2D: GLenum
+  
+  val TEXTURE_BINDING_2D: GLenum
+  
+  val TEXTURE_BINDING_CUBE_MAP: GLenum
+  
+  val TEXTURE_CUBE_MAP: GLenum
+  
+  val TEXTURE_CUBE_MAP_NEGATIVE_X: GLenum
+  
+  val TEXTURE_CUBE_MAP_NEGATIVE_Y: GLenum
+  
+  val TEXTURE_CUBE_MAP_NEGATIVE_Z: GLenum
+  
+  val TEXTURE_CUBE_MAP_POSITIVE_X: GLenum
+  
+  val TEXTURE_CUBE_MAP_POSITIVE_Y: GLenum
+  
+  val TEXTURE_CUBE_MAP_POSITIVE_Z: GLenum
+  
+  val TEXTURE_MAG_FILTER: GLenum
+  
+  val TEXTURE_MIN_FILTER: GLenum
+  
+  val TEXTURE_WRAP_S: GLenum
+  
+  val TEXTURE_WRAP_T: GLenum
+  
+  val TRIANGLES: GLenum
+  
+  val TRIANGLE_FAN: GLenum
+  
+  val TRIANGLE_STRIP: GLenum
+  
+  val UNPACK_ALIGNMENT: GLenum
+  
+  val UNPACK_COLORSPACE_CONVERSION_WEBGL: GLenum
+  
+  val UNPACK_FLIP_Y_WEBGL: GLenum
+  
+  val UNPACK_PREMULTIPLY_ALPHA_WEBGL: GLenum
+  
+  val UNSIGNED_BYTE: GLenum
+  
+  val UNSIGNED_INT: GLenum
+  
+  val UNSIGNED_SHORT: GLenum
+  
+  val UNSIGNED_SHORT_4_4_4_4: GLenum
+  
+  val UNSIGNED_SHORT_5_5_5_1: GLenum
+  
+  val UNSIGNED_SHORT_5_6_5: GLenum
+  
+  val VALIDATE_STATUS: GLenum
+  
+  val VENDOR: GLenum
+  
+  val VERSION: GLenum
+  
+  val VERTEX_ATTRIB_ARRAY_BUFFER_BINDING: GLenum
+  
+  val VERTEX_ATTRIB_ARRAY_ENABLED: GLenum
+  
+  val VERTEX_ATTRIB_ARRAY_NORMALIZED: GLenum
+  
+  val VERTEX_ATTRIB_ARRAY_POINTER: GLenum
+  
+  val VERTEX_ATTRIB_ARRAY_SIZE: GLenum
+  
+  val VERTEX_ATTRIB_ARRAY_STRIDE: GLenum
+  
+  val VERTEX_ATTRIB_ARRAY_TYPE: GLenum
+  
+  val VERTEX_SHADER: GLenum
+  
+  val VIEWPORT: GLenum
+  
+  val ZERO: GLenum
+}
+object WebGLRenderingContextBase {
+  
+  inline def apply(
+    ACTIVE_ATTRIBUTES: GLenum,
+    ACTIVE_TEXTURE: GLenum,
+    ACTIVE_UNIFORMS: GLenum,
+    ALIASED_LINE_WIDTH_RANGE: GLenum,
+    ALIASED_POINT_SIZE_RANGE: GLenum,
+    ALPHA: GLenum,
+    ALPHA_BITS: GLenum,
+    ALWAYS: GLenum,
+    ARRAY_BUFFER: GLenum,
+    ARRAY_BUFFER_BINDING: GLenum,
+    ATTACHED_SHADERS: GLenum,
+    BACK: GLenum,
+    BLEND: GLenum,
+    BLEND_COLOR: GLenum,
+    BLEND_DST_ALPHA: GLenum,
+    BLEND_DST_RGB: GLenum,
+    BLEND_EQUATION: GLenum,
+    BLEND_EQUATION_ALPHA: GLenum,
+    BLEND_EQUATION_RGB: GLenum,
+    BLEND_SRC_ALPHA: GLenum,
+    BLEND_SRC_RGB: GLenum,
+    BLUE_BITS: GLenum,
+    BOOL: GLenum,
+    BOOL_VEC2: GLenum,
+    BOOL_VEC3: GLenum,
+    BOOL_VEC4: GLenum,
+    BROWSER_DEFAULT_WEBGL: GLenum,
+    BUFFER_SIZE: GLenum,
+    BUFFER_USAGE: GLenum,
+    BYTE: GLenum,
+    CCW: GLenum,
+    CLAMP_TO_EDGE: GLenum,
+    COLOR_ATTACHMENT0: GLenum,
+    COLOR_BUFFER_BIT: GLenum,
+    COLOR_CLEAR_VALUE: GLenum,
+    COLOR_WRITEMASK: GLenum,
+    COMPILE_STATUS: GLenum,
+    COMPRESSED_TEXTURE_FORMATS: GLenum,
+    CONSTANT_ALPHA: GLenum,
+    CONSTANT_COLOR: GLenum,
+    CONTEXT_LOST_WEBGL: GLenum,
+    CULL_FACE: GLenum,
+    CULL_FACE_MODE: GLenum,
+    CURRENT_PROGRAM: GLenum,
+    CURRENT_VERTEX_ATTRIB: GLenum,
+    CW: GLenum,
+    DECR: GLenum,
+    DECR_WRAP: GLenum,
+    DELETE_STATUS: GLenum,
+    DEPTH_ATTACHMENT: GLenum,
+    DEPTH_BITS: GLenum,
+    DEPTH_BUFFER_BIT: GLenum,
+    DEPTH_CLEAR_VALUE: GLenum,
+    DEPTH_COMPONENT: GLenum,
+    DEPTH_COMPONENT16: GLenum,
+    DEPTH_FUNC: GLenum,
+    DEPTH_RANGE: GLenum,
+    DEPTH_STENCIL: GLenum,
+    DEPTH_STENCIL_ATTACHMENT: GLenum,
+    DEPTH_TEST: GLenum,
+    DEPTH_WRITEMASK: GLenum,
+    DITHER: GLenum,
+    DONT_CARE: GLenum,
+    DST_ALPHA: GLenum,
+    DST_COLOR: GLenum,
+    DYNAMIC_DRAW: GLenum,
+    ELEMENT_ARRAY_BUFFER: GLenum,
+    ELEMENT_ARRAY_BUFFER_BINDING: GLenum,
+    EQUAL: GLenum,
+    FASTEST: GLenum,
+    FLOAT: GLenum,
+    FLOAT_MAT2: GLenum,
+    FLOAT_MAT3: GLenum,
+    FLOAT_MAT4: GLenum,
+    FLOAT_VEC2: GLenum,
+    FLOAT_VEC3: GLenum,
+    FLOAT_VEC4: GLenum,
+    FRAGMENT_SHADER: GLenum,
+    FRAMEBUFFER: GLenum,
+    FRAMEBUFFER_ATTACHMENT_OBJECT_NAME: GLenum,
+    FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE: GLenum,
+    FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE: GLenum,
+    FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL: GLenum,
+    FRAMEBUFFER_BINDING: GLenum,
+    FRAMEBUFFER_COMPLETE: GLenum,
+    FRAMEBUFFER_INCOMPLETE_ATTACHMENT: GLenum,
+    FRAMEBUFFER_INCOMPLETE_DIMENSIONS: GLenum,
+    FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT: GLenum,
+    FRAMEBUFFER_UNSUPPORTED: GLenum,
+    FRONT: GLenum,
+    FRONT_AND_BACK: GLenum,
+    FRONT_FACE: GLenum,
+    FUNC_ADD: GLenum,
+    FUNC_REVERSE_SUBTRACT: GLenum,
+    FUNC_SUBTRACT: GLenum,
+    GENERATE_MIPMAP_HINT: GLenum,
+    GEQUAL: GLenum,
+    GREATER: GLenum,
+    GREEN_BITS: GLenum,
+    HIGH_FLOAT: GLenum,
+    HIGH_INT: GLenum,
+    IMPLEMENTATION_COLOR_READ_FORMAT: GLenum,
+    IMPLEMENTATION_COLOR_READ_TYPE: GLenum,
+    INCR: GLenum,
+    INCR_WRAP: GLenum,
+    INT: GLenum,
+    INT_VEC2: GLenum,
+    INT_VEC3: GLenum,
+    INT_VEC4: GLenum,
+    INVALID_ENUM: GLenum,
+    INVALID_FRAMEBUFFER_OPERATION: GLenum,
+    INVALID_OPERATION: GLenum,
+    INVALID_VALUE: GLenum,
+    INVERT: GLenum,
+    KEEP: GLenum,
+    LEQUAL: GLenum,
+    LESS: GLenum,
+    LINEAR: GLenum,
+    LINEAR_MIPMAP_LINEAR: GLenum,
+    LINEAR_MIPMAP_NEAREST: GLenum,
+    LINES: GLenum,
+    LINE_LOOP: GLenum,
+    LINE_STRIP: GLenum,
+    LINE_WIDTH: GLenum,
+    LINK_STATUS: GLenum,
+    LOW_FLOAT: GLenum,
+    LOW_INT: GLenum
+  ): WebGLRenderingContextBase = {
+    val __obj = js.Dynamic.literal(ACTIVE_ATTRIBUTES = ACTIVE_ATTRIBUTES.asInstanceOf[js.Any], ACTIVE_TEXTURE = ACTIVE_TEXTURE.asInstanceOf[js.Any], ACTIVE_UNIFORMS = ACTIVE_UNIFORMS.asInstanceOf[js.Any], ALIASED_LINE_WIDTH_RANGE = ALIASED_LINE_WIDTH_RANGE.asInstanceOf[js.Any], ALIASED_POINT_SIZE_RANGE = ALIASED_POINT_SIZE_RANGE.asInstanceOf[js.Any], ALPHA = ALPHA.asInstanceOf[js.Any], ALPHA_BITS = ALPHA_BITS.asInstanceOf[js.Any], ALWAYS = ALWAYS.asInstanceOf[js.Any], ARRAY_BUFFER = ARRAY_BUFFER.asInstanceOf[js.Any], ARRAY_BUFFER_BINDING = ARRAY_BUFFER_BINDING.asInstanceOf[js.Any], ATTACHED_SHADERS = ATTACHED_SHADERS.asInstanceOf[js.Any], BACK = BACK.asInstanceOf[js.Any], BLEND = BLEND.asInstanceOf[js.Any], BLEND_COLOR = BLEND_COLOR.asInstanceOf[js.Any], BLEND_DST_ALPHA = BLEND_DST_ALPHA.asInstanceOf[js.Any], BLEND_DST_RGB = BLEND_DST_RGB.asInstanceOf[js.Any], BLEND_EQUATION = BLEND_EQUATION.asInstanceOf[js.Any], BLEND_EQUATION_ALPHA = BLEND_EQUATION_ALPHA.asInstanceOf[js.Any], BLEND_EQUATION_RGB = BLEND_EQUATION_RGB.asInstanceOf[js.Any], BLEND_SRC_ALPHA = BLEND_SRC_ALPHA.asInstanceOf[js.Any], BLEND_SRC_RGB = BLEND_SRC_RGB.asInstanceOf[js.Any], BLUE_BITS = BLUE_BITS.asInstanceOf[js.Any], BOOL = BOOL.asInstanceOf[js.Any], BOOL_VEC2 = BOOL_VEC2.asInstanceOf[js.Any], BOOL_VEC3 = BOOL_VEC3.asInstanceOf[js.Any], BOOL_VEC4 = BOOL_VEC4.asInstanceOf[js.Any], BROWSER_DEFAULT_WEBGL = BROWSER_DEFAULT_WEBGL.asInstanceOf[js.Any], BUFFER_SIZE = BUFFER_SIZE.asInstanceOf[js.Any], BUFFER_USAGE = BUFFER_USAGE.asInstanceOf[js.Any], BYTE = BYTE.asInstanceOf[js.Any], CCW = CCW.asInstanceOf[js.Any], CLAMP_TO_EDGE = CLAMP_TO_EDGE.asInstanceOf[js.Any], COLOR_ATTACHMENT0 = COLOR_ATTACHMENT0.asInstanceOf[js.Any], COLOR_BUFFER_BIT = COLOR_BUFFER_BIT.asInstanceOf[js.Any], COLOR_CLEAR_VALUE = COLOR_CLEAR_VALUE.asInstanceOf[js.Any], COLOR_WRITEMASK = COLOR_WRITEMASK.asInstanceOf[js.Any], COMPILE_STATUS = COMPILE_STATUS.asInstanceOf[js.Any], COMPRESSED_TEXTURE_FORMATS = COMPRESSED_TEXTURE_FORMATS.asInstanceOf[js.Any], CONSTANT_ALPHA = CONSTANT_ALPHA.asInstanceOf[js.Any], CONSTANT_COLOR = CONSTANT_COLOR.asInstanceOf[js.Any], CONTEXT_LOST_WEBGL = CONTEXT_LOST_WEBGL.asInstanceOf[js.Any], CULL_FACE = CULL_FACE.asInstanceOf[js.Any], CULL_FACE_MODE = CULL_FACE_MODE.asInstanceOf[js.Any], CURRENT_PROGRAM = CURRENT_PROGRAM.asInstanceOf[js.Any], CURRENT_VERTEX_ATTRIB = CURRENT_VERTEX_ATTRIB.asInstanceOf[js.Any], CW = CW.asInstanceOf[js.Any], DECR = DECR.asInstanceOf[js.Any], DECR_WRAP = DECR_WRAP.asInstanceOf[js.Any], DELETE_STATUS = DELETE_STATUS.asInstanceOf[js.Any], DEPTH_ATTACHMENT = DEPTH_ATTACHMENT.asInstanceOf[js.Any], DEPTH_BITS = DEPTH_BITS.asInstanceOf[js.Any], DEPTH_BUFFER_BIT = DEPTH_BUFFER_BIT.asInstanceOf[js.Any], DEPTH_CLEAR_VALUE = DEPTH_CLEAR_VALUE.asInstanceOf[js.Any], DEPTH_COMPONENT = DEPTH_COMPONENT.asInstanceOf[js.Any], DEPTH_COMPONENT16 = DEPTH_COMPONENT16.asInstanceOf[js.Any], DEPTH_FUNC = DEPTH_FUNC.asInstanceOf[js.Any], DEPTH_RANGE = DEPTH_RANGE.asInstanceOf[js.Any], DEPTH_STENCIL = DEPTH_STENCIL.asInstanceOf[js.Any], DEPTH_STENCIL_ATTACHMENT = DEPTH_STENCIL_ATTACHMENT.asInstanceOf[js.Any], DEPTH_TEST = DEPTH_TEST.asInstanceOf[js.Any], DEPTH_WRITEMASK = DEPTH_WRITEMASK.asInstanceOf[js.Any], DITHER = DITHER.asInstanceOf[js.Any], DONT_CARE = DONT_CARE.asInstanceOf[js.Any], DST_ALPHA = DST_ALPHA.asInstanceOf[js.Any], DST_COLOR = DST_COLOR.asInstanceOf[js.Any], DYNAMIC_DRAW = DYNAMIC_DRAW.asInstanceOf[js.Any], ELEMENT_ARRAY_BUFFER = ELEMENT_ARRAY_BUFFER.asInstanceOf[js.Any], ELEMENT_ARRAY_BUFFER_BINDING = ELEMENT_ARRAY_BUFFER_BINDING.asInstanceOf[js.Any], EQUAL = EQUAL.asInstanceOf[js.Any], FASTEST = FASTEST.asInstanceOf[js.Any], FLOAT = FLOAT.asInstanceOf[js.Any], FLOAT_MAT2 = FLOAT_MAT2.asInstanceOf[js.Any], FLOAT_MAT3 = FLOAT_MAT3.asInstanceOf[js.Any], FLOAT_MAT4 = FLOAT_MAT4.asInstanceOf[js.Any], FLOAT_VEC2 = FLOAT_VEC2.asInstanceOf[js.Any], FLOAT_VEC3 = FLOAT_VEC3.asInstanceOf[js.Any], FLOAT_VEC4 = FLOAT_VEC4.asInstanceOf[js.Any], FRAGMENT_SHADER = FRAGMENT_SHADER.asInstanceOf[js.Any], FRAMEBUFFER = FRAMEBUFFER.asInstanceOf[js.Any], FRAMEBUFFER_ATTACHMENT_OBJECT_NAME = FRAMEBUFFER_ATTACHMENT_OBJECT_NAME.asInstanceOf[js.Any], FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE = FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE.asInstanceOf[js.Any], FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE = FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE.asInstanceOf[js.Any], FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL = FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL.asInstanceOf[js.Any], FRAMEBUFFER_BINDING = FRAMEBUFFER_BINDING.asInstanceOf[js.Any], FRAMEBUFFER_COMPLETE = FRAMEBUFFER_COMPLETE.asInstanceOf[js.Any], FRAMEBUFFER_INCOMPLETE_ATTACHMENT = FRAMEBUFFER_INCOMPLETE_ATTACHMENT.asInstanceOf[js.Any], FRAMEBUFFER_INCOMPLETE_DIMENSIONS = FRAMEBUFFER_INCOMPLETE_DIMENSIONS.asInstanceOf[js.Any], FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT = FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT.asInstanceOf[js.Any], FRAMEBUFFER_UNSUPPORTED = FRAMEBUFFER_UNSUPPORTED.asInstanceOf[js.Any], FRONT = FRONT.asInstanceOf[js.Any], FRONT_AND_BACK = FRONT_AND_BACK.asInstanceOf[js.Any], FRONT_FACE = FRONT_FACE.asInstanceOf[js.Any], FUNC_ADD = FUNC_ADD.asInstanceOf[js.Any], FUNC_REVERSE_SUBTRACT = FUNC_REVERSE_SUBTRACT.asInstanceOf[js.Any], FUNC_SUBTRACT = FUNC_SUBTRACT.asInstanceOf[js.Any], GENERATE_MIPMAP_HINT = GENERATE_MIPMAP_HINT.asInstanceOf[js.Any], GEQUAL = GEQUAL.asInstanceOf[js.Any], GREATER = GREATER.asInstanceOf[js.Any], GREEN_BITS = GREEN_BITS.asInstanceOf[js.Any], HIGH_FLOAT = HIGH_FLOAT.asInstanceOf[js.Any], HIGH_INT = HIGH_INT.asInstanceOf[js.Any], IMPLEMENTATION_COLOR_READ_FORMAT = IMPLEMENTATION_COLOR_READ_FORMAT.asInstanceOf[js.Any], IMPLEMENTATION_COLOR_READ_TYPE = IMPLEMENTATION_COLOR_READ_TYPE.asInstanceOf[js.Any], INCR = INCR.asInstanceOf[js.Any], INCR_WRAP = INCR_WRAP.asInstanceOf[js.Any], INT = INT.asInstanceOf[js.Any], INT_VEC2 = INT_VEC2.asInstanceOf[js.Any], INT_VEC3 = INT_VEC3.asInstanceOf[js.Any], INT_VEC4 = INT_VEC4.asInstanceOf[js.Any], INVALID_ENUM = INVALID_ENUM.asInstanceOf[js.Any], INVALID_FRAMEBUFFER_OPERATION = INVALID_FRAMEBUFFER_OPERATION.asInstanceOf[js.Any], INVALID_OPERATION = INVALID_OPERATION.asInstanceOf[js.Any], INVALID_VALUE = INVALID_VALUE.asInstanceOf[js.Any], INVERT = INVERT.asInstanceOf[js.Any], KEEP = KEEP.asInstanceOf[js.Any], LEQUAL = LEQUAL.asInstanceOf[js.Any], LESS = LESS.asInstanceOf[js.Any], LINEAR = LINEAR.asInstanceOf[js.Any], LINEAR_MIPMAP_LINEAR = LINEAR_MIPMAP_LINEAR.asInstanceOf[js.Any], LINEAR_MIPMAP_NEAREST = LINEAR_MIPMAP_NEAREST.asInstanceOf[js.Any], LINES = LINES.asInstanceOf[js.Any], LINE_LOOP = LINE_LOOP.asInstanceOf[js.Any], LINE_STRIP = LINE_STRIP.asInstanceOf[js.Any], LINE_WIDTH = LINE_WIDTH.asInstanceOf[js.Any], LINK_STATUS = LINK_STATUS.asInstanceOf[js.Any], LOW_FLOAT = LOW_FLOAT.asInstanceOf[js.Any], LOW_INT = LOW_INT.asInstanceOf[js.Any])
+    __obj.asInstanceOf[WebGLRenderingContextBase]
+  }
+  
+  @scala.inline
+  implicit open class MutableBuilder[Self <: WebGLRenderingContextBase] (val x: Self) extends AnyVal {
+    
+    inline def setACTIVE_ATTRIBUTES(value: GLenum): Self = StObject.set(x, "ACTIVE_ATTRIBUTES", value.asInstanceOf[js.Any])
+    
+    inline def setACTIVE_TEXTURE(value: GLenum): Self = StObject.set(x, "ACTIVE_TEXTURE", value.asInstanceOf[js.Any])
+    
+    inline def setACTIVE_UNIFORMS(value: GLenum): Self = StObject.set(x, "ACTIVE_UNIFORMS", value.asInstanceOf[js.Any])
+    
+    inline def setALIASED_LINE_WIDTH_RANGE(value: GLenum): Self = StObject.set(x, "ALIASED_LINE_WIDTH_RANGE", value.asInstanceOf[js.Any])
+    
+    inline def setALIASED_POINT_SIZE_RANGE(value: GLenum): Self = StObject.set(x, "ALIASED_POINT_SIZE_RANGE", value.asInstanceOf[js.Any])
+    
+    inline def setALPHA(value: GLenum): Self = StObject.set(x, "ALPHA", value.asInstanceOf[js.Any])
+    
+    inline def setALPHA_BITS(value: GLenum): Self = StObject.set(x, "ALPHA_BITS", value.asInstanceOf[js.Any])
+    
+    inline def setALWAYS(value: GLenum): Self = StObject.set(x, "ALWAYS", value.asInstanceOf[js.Any])
+    
+    inline def setARRAY_BUFFER(value: GLenum): Self = StObject.set(x, "ARRAY_BUFFER", value.asInstanceOf[js.Any])
+    
+    inline def setARRAY_BUFFER_BINDING(value: GLenum): Self = StObject.set(x, "ARRAY_BUFFER_BINDING", value.asInstanceOf[js.Any])
+    
+    inline def setATTACHED_SHADERS(value: GLenum): Self = StObject.set(x, "ATTACHED_SHADERS", value.asInstanceOf[js.Any])
+    
+    inline def setBACK(value: GLenum): Self = StObject.set(x, "BACK", value.asInstanceOf[js.Any])
+    
+    inline def setBLEND(value: GLenum): Self = StObject.set(x, "BLEND", value.asInstanceOf[js.Any])
+    
+    inline def setBLEND_COLOR(value: GLenum): Self = StObject.set(x, "BLEND_COLOR", value.asInstanceOf[js.Any])
+    
+    inline def setBLEND_DST_ALPHA(value: GLenum): Self = StObject.set(x, "BLEND_DST_ALPHA", value.asInstanceOf[js.Any])
+    
+    inline def setBLEND_DST_RGB(value: GLenum): Self = StObject.set(x, "BLEND_DST_RGB", value.asInstanceOf[js.Any])
+    
+    inline def setBLEND_EQUATION(value: GLenum): Self = StObject.set(x, "BLEND_EQUATION", value.asInstanceOf[js.Any])
+    
+    inline def setBLEND_EQUATION_ALPHA(value: GLenum): Self = StObject.set(x, "BLEND_EQUATION_ALPHA", value.asInstanceOf[js.Any])
+    
+    inline def setBLEND_EQUATION_RGB(value: GLenum): Self = StObject.set(x, "BLEND_EQUATION_RGB", value.asInstanceOf[js.Any])
+    
+    inline def setBLEND_SRC_ALPHA(value: GLenum): Self = StObject.set(x, "BLEND_SRC_ALPHA", value.asInstanceOf[js.Any])
+    
+    inline def setBLEND_SRC_RGB(value: GLenum): Self = StObject.set(x, "BLEND_SRC_RGB", value.asInstanceOf[js.Any])
+    
+    inline def setBLUE_BITS(value: GLenum): Self = StObject.set(x, "BLUE_BITS", value.asInstanceOf[js.Any])
+    
+    inline def setBOOL(value: GLenum): Self = StObject.set(x, "BOOL", value.asInstanceOf[js.Any])
+    
+    inline def setBOOL_VEC2(value: GLenum): Self = StObject.set(x, "BOOL_VEC2", value.asInstanceOf[js.Any])
+    
+    inline def setBOOL_VEC3(value: GLenum): Self = StObject.set(x, "BOOL_VEC3", value.asInstanceOf[js.Any])
+    
+    inline def setBOOL_VEC4(value: GLenum): Self = StObject.set(x, "BOOL_VEC4", value.asInstanceOf[js.Any])
+    
+    inline def setBROWSER_DEFAULT_WEBGL(value: GLenum): Self = StObject.set(x, "BROWSER_DEFAULT_WEBGL", value.asInstanceOf[js.Any])
+    
+    inline def setBUFFER_SIZE(value: GLenum): Self = StObject.set(x, "BUFFER_SIZE", value.asInstanceOf[js.Any])
+    
+    inline def setBUFFER_USAGE(value: GLenum): Self = StObject.set(x, "BUFFER_USAGE", value.asInstanceOf[js.Any])
+    
+    inline def setBYTE(value: GLenum): Self = StObject.set(x, "BYTE", value.asInstanceOf[js.Any])
+    
+    inline def setCCW(value: GLenum): Self = StObject.set(x, "CCW", value.asInstanceOf[js.Any])
+    
+    inline def setCLAMP_TO_EDGE(value: GLenum): Self = StObject.set(x, "CLAMP_TO_EDGE", value.asInstanceOf[js.Any])
+    
+    inline def setCOLOR_ATTACHMENT0(value: GLenum): Self = StObject.set(x, "COLOR_ATTACHMENT0", value.asInstanceOf[js.Any])
+    
+    inline def setCOLOR_BUFFER_BIT(value: GLenum): Self = StObject.set(x, "COLOR_BUFFER_BIT", value.asInstanceOf[js.Any])
+    
+    inline def setCOLOR_CLEAR_VALUE(value: GLenum): Self = StObject.set(x, "COLOR_CLEAR_VALUE", value.asInstanceOf[js.Any])
+    
+    inline def setCOLOR_WRITEMASK(value: GLenum): Self = StObject.set(x, "COLOR_WRITEMASK", value.asInstanceOf[js.Any])
+    
+    inline def setCOMPILE_STATUS(value: GLenum): Self = StObject.set(x, "COMPILE_STATUS", value.asInstanceOf[js.Any])
+    
+    inline def setCOMPRESSED_TEXTURE_FORMATS(value: GLenum): Self = StObject.set(x, "COMPRESSED_TEXTURE_FORMATS", value.asInstanceOf[js.Any])
+    
+    inline def setCONSTANT_ALPHA(value: GLenum): Self = StObject.set(x, "CONSTANT_ALPHA", value.asInstanceOf[js.Any])
+    
+    inline def setCONSTANT_COLOR(value: GLenum): Self = StObject.set(x, "CONSTANT_COLOR", value.asInstanceOf[js.Any])
+    
+    inline def setCONTEXT_LOST_WEBGL(value: GLenum): Self = StObject.set(x, "CONTEXT_LOST_WEBGL", value.asInstanceOf[js.Any])
+    
+    inline def setCULL_FACE(value: GLenum): Self = StObject.set(x, "CULL_FACE", value.asInstanceOf[js.Any])
+    
+    inline def setCULL_FACE_MODE(value: GLenum): Self = StObject.set(x, "CULL_FACE_MODE", value.asInstanceOf[js.Any])
+    
+    inline def setCURRENT_PROGRAM(value: GLenum): Self = StObject.set(x, "CURRENT_PROGRAM", value.asInstanceOf[js.Any])
+    
+    inline def setCURRENT_VERTEX_ATTRIB(value: GLenum): Self = StObject.set(x, "CURRENT_VERTEX_ATTRIB", value.asInstanceOf[js.Any])
+    
+    inline def setCW(value: GLenum): Self = StObject.set(x, "CW", value.asInstanceOf[js.Any])
+    
+    inline def setDECR(value: GLenum): Self = StObject.set(x, "DECR", value.asInstanceOf[js.Any])
+    
+    inline def setDECR_WRAP(value: GLenum): Self = StObject.set(x, "DECR_WRAP", value.asInstanceOf[js.Any])
+    
+    inline def setDELETE_STATUS(value: GLenum): Self = StObject.set(x, "DELETE_STATUS", value.asInstanceOf[js.Any])
+    
+    inline def setDEPTH_ATTACHMENT(value: GLenum): Self = StObject.set(x, "DEPTH_ATTACHMENT", value.asInstanceOf[js.Any])
+    
+    inline def setDEPTH_BITS(value: GLenum): Self = StObject.set(x, "DEPTH_BITS", value.asInstanceOf[js.Any])
+    
+    inline def setDEPTH_BUFFER_BIT(value: GLenum): Self = StObject.set(x, "DEPTH_BUFFER_BIT", value.asInstanceOf[js.Any])
+    
+    inline def setDEPTH_CLEAR_VALUE(value: GLenum): Self = StObject.set(x, "DEPTH_CLEAR_VALUE", value.asInstanceOf[js.Any])
+    
+    inline def setDEPTH_COMPONENT(value: GLenum): Self = StObject.set(x, "DEPTH_COMPONENT", value.asInstanceOf[js.Any])
+    
+    inline def setDEPTH_COMPONENT16(value: GLenum): Self = StObject.set(x, "DEPTH_COMPONENT16", value.asInstanceOf[js.Any])
+    
+    inline def setDEPTH_FUNC(value: GLenum): Self = StObject.set(x, "DEPTH_FUNC", value.asInstanceOf[js.Any])
+    
+    inline def setDEPTH_RANGE(value: GLenum): Self = StObject.set(x, "DEPTH_RANGE", value.asInstanceOf[js.Any])
+    
+    inline def setDEPTH_STENCIL(value: GLenum): Self = StObject.set(x, "DEPTH_STENCIL", value.asInstanceOf[js.Any])
+    
+    inline def setDEPTH_STENCIL_ATTACHMENT(value: GLenum): Self = StObject.set(x, "DEPTH_STENCIL_ATTACHMENT", value.asInstanceOf[js.Any])
+    
+    inline def setDEPTH_TEST(value: GLenum): Self = StObject.set(x, "DEPTH_TEST", value.asInstanceOf[js.Any])
+    
+    inline def setDEPTH_WRITEMASK(value: GLenum): Self = StObject.set(x, "DEPTH_WRITEMASK", value.asInstanceOf[js.Any])
+    
+    inline def setDITHER(value: GLenum): Self = StObject.set(x, "DITHER", value.asInstanceOf[js.Any])
+    
+    inline def setDONT_CARE(value: GLenum): Self = StObject.set(x, "DONT_CARE", value.asInstanceOf[js.Any])
+    
+    inline def setDST_ALPHA(value: GLenum): Self = StObject.set(x, "DST_ALPHA", value.asInstanceOf[js.Any])
+    
+    inline def setDST_COLOR(value: GLenum): Self = StObject.set(x, "DST_COLOR", value.asInstanceOf[js.Any])
+    
+    inline def setDYNAMIC_DRAW(value: GLenum): Self = StObject.set(x, "DYNAMIC_DRAW", value.asInstanceOf[js.Any])
+    
+    inline def setELEMENT_ARRAY_BUFFER(value: GLenum): Self = StObject.set(x, "ELEMENT_ARRAY_BUFFER", value.asInstanceOf[js.Any])
+    
+    inline def setELEMENT_ARRAY_BUFFER_BINDING(value: GLenum): Self = StObject.set(x, "ELEMENT_ARRAY_BUFFER_BINDING", value.asInstanceOf[js.Any])
+    
+    inline def setEQUAL(value: GLenum): Self = StObject.set(x, "EQUAL", value.asInstanceOf[js.Any])
+    
+    inline def setFASTEST(value: GLenum): Self = StObject.set(x, "FASTEST", value.asInstanceOf[js.Any])
+    
+    inline def setFLOAT(value: GLenum): Self = StObject.set(x, "FLOAT", value.asInstanceOf[js.Any])
+    
+    inline def setFLOAT_MAT2(value: GLenum): Self = StObject.set(x, "FLOAT_MAT2", value.asInstanceOf[js.Any])
+    
+    inline def setFLOAT_MAT3(value: GLenum): Self = StObject.set(x, "FLOAT_MAT3", value.asInstanceOf[js.Any])
+    
+    inline def setFLOAT_MAT4(value: GLenum): Self = StObject.set(x, "FLOAT_MAT4", value.asInstanceOf[js.Any])
+    
+    inline def setFLOAT_VEC2(value: GLenum): Self = StObject.set(x, "FLOAT_VEC2", value.asInstanceOf[js.Any])
+    
+    inline def setFLOAT_VEC3(value: GLenum): Self = StObject.set(x, "FLOAT_VEC3", value.asInstanceOf[js.Any])
+    
+    inline def setFLOAT_VEC4(value: GLenum): Self = StObject.set(x, "FLOAT_VEC4", value.asInstanceOf[js.Any])
+    
+    inline def setFRAGMENT_SHADER(value: GLenum): Self = StObject.set(x, "FRAGMENT_SHADER", value.asInstanceOf[js.Any])
+    
+    inline def setFRAMEBUFFER(value: GLenum): Self = StObject.set(x, "FRAMEBUFFER", value.asInstanceOf[js.Any])
+    
+    inline def setFRAMEBUFFER_ATTACHMENT_OBJECT_NAME(value: GLenum): Self = StObject.set(x, "FRAMEBUFFER_ATTACHMENT_OBJECT_NAME", value.asInstanceOf[js.Any])
+    
+    inline def setFRAMEBUFFER_ATTACHMENT_OBJECT_TYPE(value: GLenum): Self = StObject.set(x, "FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE", value.asInstanceOf[js.Any])
+    
+    inline def setFRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE(value: GLenum): Self = StObject.set(x, "FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE", value.asInstanceOf[js.Any])
+    
+    inline def setFRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL(value: GLenum): Self = StObject.set(x, "FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL", value.asInstanceOf[js.Any])
+    
+    inline def setFRAMEBUFFER_BINDING(value: GLenum): Self = StObject.set(x, "FRAMEBUFFER_BINDING", value.asInstanceOf[js.Any])
+    
+    inline def setFRAMEBUFFER_COMPLETE(value: GLenum): Self = StObject.set(x, "FRAMEBUFFER_COMPLETE", value.asInstanceOf[js.Any])
+    
+    inline def setFRAMEBUFFER_INCOMPLETE_ATTACHMENT(value: GLenum): Self = StObject.set(x, "FRAMEBUFFER_INCOMPLETE_ATTACHMENT", value.asInstanceOf[js.Any])
+    
+    inline def setFRAMEBUFFER_INCOMPLETE_DIMENSIONS(value: GLenum): Self = StObject.set(x, "FRAMEBUFFER_INCOMPLETE_DIMENSIONS", value.asInstanceOf[js.Any])
+    
+    inline def setFRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT(value: GLenum): Self = StObject.set(x, "FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT", value.asInstanceOf[js.Any])
+    
+    inline def setFRAMEBUFFER_UNSUPPORTED(value: GLenum): Self = StObject.set(x, "FRAMEBUFFER_UNSUPPORTED", value.asInstanceOf[js.Any])
+    
+    inline def setFRONT(value: GLenum): Self = StObject.set(x, "FRONT", value.asInstanceOf[js.Any])
+    
+    inline def setFRONT_AND_BACK(value: GLenum): Self = StObject.set(x, "FRONT_AND_BACK", value.asInstanceOf[js.Any])
+    
+    inline def setFRONT_FACE(value: GLenum): Self = StObject.set(x, "FRONT_FACE", value.asInstanceOf[js.Any])
+    
+    inline def setFUNC_ADD(value: GLenum): Self = StObject.set(x, "FUNC_ADD", value.asInstanceOf[js.Any])
+    
+    inline def setFUNC_REVERSE_SUBTRACT(value: GLenum): Self = StObject.set(x, "FUNC_REVERSE_SUBTRACT", value.asInstanceOf[js.Any])
+    
+    inline def setFUNC_SUBTRACT(value: GLenum): Self = StObject.set(x, "FUNC_SUBTRACT", value.asInstanceOf[js.Any])
+    
+    inline def setGENERATE_MIPMAP_HINT(value: GLenum): Self = StObject.set(x, "GENERATE_MIPMAP_HINT", value.asInstanceOf[js.Any])
+    
+    inline def setGEQUAL(value: GLenum): Self = StObject.set(x, "GEQUAL", value.asInstanceOf[js.Any])
+    
+    inline def setGREATER(value: GLenum): Self = StObject.set(x, "GREATER", value.asInstanceOf[js.Any])
+    
+    inline def setGREEN_BITS(value: GLenum): Self = StObject.set(x, "GREEN_BITS", value.asInstanceOf[js.Any])
+    
+    inline def setHIGH_FLOAT(value: GLenum): Self = StObject.set(x, "HIGH_FLOAT", value.asInstanceOf[js.Any])
+    
+    inline def setHIGH_INT(value: GLenum): Self = StObject.set(x, "HIGH_INT", value.asInstanceOf[js.Any])
+    
+    inline def setIMPLEMENTATION_COLOR_READ_FORMAT(value: GLenum): Self = StObject.set(x, "IMPLEMENTATION_COLOR_READ_FORMAT", value.asInstanceOf[js.Any])
+    
+    inline def setIMPLEMENTATION_COLOR_READ_TYPE(value: GLenum): Self = StObject.set(x, "IMPLEMENTATION_COLOR_READ_TYPE", value.asInstanceOf[js.Any])
+    
+    inline def setINCR(value: GLenum): Self = StObject.set(x, "INCR", value.asInstanceOf[js.Any])
+    
+    inline def setINCR_WRAP(value: GLenum): Self = StObject.set(x, "INCR_WRAP", value.asInstanceOf[js.Any])
+    
+    inline def setINT(value: GLenum): Self = StObject.set(x, "INT", value.asInstanceOf[js.Any])
+    
+    inline def setINT_VEC2(value: GLenum): Self = StObject.set(x, "INT_VEC2", value.asInstanceOf[js.Any])
+    
+    inline def setINT_VEC3(value: GLenum): Self = StObject.set(x, "INT_VEC3", value.asInstanceOf[js.Any])
+    
+    inline def setINT_VEC4(value: GLenum): Self = StObject.set(x, "INT_VEC4", value.asInstanceOf[js.Any])
+    
+    inline def setINVALID_ENUM(value: GLenum): Self = StObject.set(x, "INVALID_ENUM", value.asInstanceOf[js.Any])
+    
+    inline def setINVALID_FRAMEBUFFER_OPERATION(value: GLenum): Self = StObject.set(x, "INVALID_FRAMEBUFFER_OPERATION", value.asInstanceOf[js.Any])
+    
+    inline def setINVALID_OPERATION(value: GLenum): Self = StObject.set(x, "INVALID_OPERATION", value.asInstanceOf[js.Any])
+    
+    inline def setINVALID_VALUE(value: GLenum): Self = StObject.set(x, "INVALID_VALUE", value.asInstanceOf[js.Any])
+    
+    inline def setINVERT(value: GLenum): Self = StObject.set(x, "INVERT", value.asInstanceOf[js.Any])
+    
+    inline def setKEEP(value: GLenum): Self = StObject.set(x, "KEEP", value.asInstanceOf[js.Any])
+    
+    inline def setLEQUAL(value: GLenum): Self = StObject.set(x, "LEQUAL", value.asInstanceOf[js.Any])
+    
+    inline def setLESS(value: GLenum): Self = StObject.set(x, "LESS", value.asInstanceOf[js.Any])
+    
+    inline def setLINEAR(value: GLenum): Self = StObject.set(x, "LINEAR", value.asInstanceOf[js.Any])
+    
+    inline def setLINEAR_MIPMAP_LINEAR(value: GLenum): Self = StObject.set(x, "LINEAR_MIPMAP_LINEAR", value.asInstanceOf[js.Any])
+    
+    inline def setLINEAR_MIPMAP_NEAREST(value: GLenum): Self = StObject.set(x, "LINEAR_MIPMAP_NEAREST", value.asInstanceOf[js.Any])
+    
+    inline def setLINES(value: GLenum): Self = StObject.set(x, "LINES", value.asInstanceOf[js.Any])
+    
+    inline def setLINE_LOOP(value: GLenum): Self = StObject.set(x, "LINE_LOOP", value.asInstanceOf[js.Any])
+    
+    inline def setLINE_STRIP(value: GLenum): Self = StObject.set(x, "LINE_STRIP", value.asInstanceOf[js.Any])
+    
+    inline def setLINE_WIDTH(value: GLenum): Self = StObject.set(x, "LINE_WIDTH", value.asInstanceOf[js.Any])
+    
+    inline def setLINK_STATUS(value: GLenum): Self = StObject.set(x, "LINK_STATUS", value.asInstanceOf[js.Any])
+    
+    inline def setLOW_FLOAT(value: GLenum): Self = StObject.set(x, "LOW_FLOAT", value.asInstanceOf[js.Any])
+    
+    inline def setLOW_INT(value: GLenum): Self = StObject.set(x, "LOW_INT", value.asInstanceOf[js.Any])
+    
+    inline def setLUMINANCE(value: GLenum): Self = StObject.set(x, "LUMINANCE", value.asInstanceOf[js.Any])
+    
+    inline def setLUMINANCE_ALPHA(value: GLenum): Self = StObject.set(x, "LUMINANCE_ALPHA", value.asInstanceOf[js.Any])
+    
+    inline def setMAX_COMBINED_TEXTURE_IMAGE_UNITS(value: GLenum): Self = StObject.set(x, "MAX_COMBINED_TEXTURE_IMAGE_UNITS", value.asInstanceOf[js.Any])
+    
+    inline def setMAX_CUBE_MAP_TEXTURE_SIZE(value: GLenum): Self = StObject.set(x, "MAX_CUBE_MAP_TEXTURE_SIZE", value.asInstanceOf[js.Any])
+    
+    inline def setMAX_FRAGMENT_UNIFORM_VECTORS(value: GLenum): Self = StObject.set(x, "MAX_FRAGMENT_UNIFORM_VECTORS", value.asInstanceOf[js.Any])
+    
+    inline def setMAX_RENDERBUFFER_SIZE(value: GLenum): Self = StObject.set(x, "MAX_RENDERBUFFER_SIZE", value.asInstanceOf[js.Any])
+    
+    inline def setMAX_TEXTURE_IMAGE_UNITS(value: GLenum): Self = StObject.set(x, "MAX_TEXTURE_IMAGE_UNITS", value.asInstanceOf[js.Any])
+    
+    inline def setMAX_TEXTURE_SIZE(value: GLenum): Self = StObject.set(x, "MAX_TEXTURE_SIZE", value.asInstanceOf[js.Any])
+    
+    inline def setMAX_VARYING_VECTORS(value: GLenum): Self = StObject.set(x, "MAX_VARYING_VECTORS", value.asInstanceOf[js.Any])
+    
+    inline def setMAX_VERTEX_ATTRIBS(value: GLenum): Self = StObject.set(x, "MAX_VERTEX_ATTRIBS", value.asInstanceOf[js.Any])
+    
+    inline def setMAX_VERTEX_TEXTURE_IMAGE_UNITS(value: GLenum): Self = StObject.set(x, "MAX_VERTEX_TEXTURE_IMAGE_UNITS", value.asInstanceOf[js.Any])
+    
+    inline def setMAX_VERTEX_UNIFORM_VECTORS(value: GLenum): Self = StObject.set(x, "MAX_VERTEX_UNIFORM_VECTORS", value.asInstanceOf[js.Any])
+    
+    inline def setMAX_VIEWPORT_DIMS(value: GLenum): Self = StObject.set(x, "MAX_VIEWPORT_DIMS", value.asInstanceOf[js.Any])
+    
+    inline def setMEDIUM_FLOAT(value: GLenum): Self = StObject.set(x, "MEDIUM_FLOAT", value.asInstanceOf[js.Any])
+    
+    inline def setMEDIUM_INT(value: GLenum): Self = StObject.set(x, "MEDIUM_INT", value.asInstanceOf[js.Any])
+    
+    inline def setMIRRORED_REPEAT(value: GLenum): Self = StObject.set(x, "MIRRORED_REPEAT", value.asInstanceOf[js.Any])
+    
+    inline def setNEAREST(value: GLenum): Self = StObject.set(x, "NEAREST", value.asInstanceOf[js.Any])
+    
+    inline def setNEAREST_MIPMAP_LINEAR(value: GLenum): Self = StObject.set(x, "NEAREST_MIPMAP_LINEAR", value.asInstanceOf[js.Any])
+    
+    inline def setNEAREST_MIPMAP_NEAREST(value: GLenum): Self = StObject.set(x, "NEAREST_MIPMAP_NEAREST", value.asInstanceOf[js.Any])
+    
+    inline def setNEVER(value: GLenum): Self = StObject.set(x, "NEVER", value.asInstanceOf[js.Any])
+    
+    inline def setNICEST(value: GLenum): Self = StObject.set(x, "NICEST", value.asInstanceOf[js.Any])
+    
+    inline def setNONE(value: `0`): Self = StObject.set(x, "NONE", value.asInstanceOf[js.Any])
+    
+    inline def setNOTEQUAL(value: GLenum): Self = StObject.set(x, "NOTEQUAL", value.asInstanceOf[js.Any])
+    
+    inline def setNO_ERROR(value: `0`): Self = StObject.set(x, "NO_ERROR", value.asInstanceOf[js.Any])
+    
+    inline def setONE(value: GLenum): Self = StObject.set(x, "ONE", value.asInstanceOf[js.Any])
+    
+    inline def setONE_MINUS_CONSTANT_ALPHA(value: GLenum): Self = StObject.set(x, "ONE_MINUS_CONSTANT_ALPHA", value.asInstanceOf[js.Any])
+    
+    inline def setONE_MINUS_CONSTANT_COLOR(value: GLenum): Self = StObject.set(x, "ONE_MINUS_CONSTANT_COLOR", value.asInstanceOf[js.Any])
+    
+    inline def setONE_MINUS_DST_ALPHA(value: GLenum): Self = StObject.set(x, "ONE_MINUS_DST_ALPHA", value.asInstanceOf[js.Any])
+    
+    inline def setONE_MINUS_DST_COLOR(value: GLenum): Self = StObject.set(x, "ONE_MINUS_DST_COLOR", value.asInstanceOf[js.Any])
+    
+    inline def setONE_MINUS_SRC_ALPHA(value: GLenum): Self = StObject.set(x, "ONE_MINUS_SRC_ALPHA", value.asInstanceOf[js.Any])
+    
+    inline def setONE_MINUS_SRC_COLOR(value: GLenum): Self = StObject.set(x, "ONE_MINUS_SRC_COLOR", value.asInstanceOf[js.Any])
+    
+    inline def setOUT_OF_MEMORY(value: GLenum): Self = StObject.set(x, "OUT_OF_MEMORY", value.asInstanceOf[js.Any])
+    
+    inline def setPACK_ALIGNMENT(value: GLenum): Self = StObject.set(x, "PACK_ALIGNMENT", value.asInstanceOf[js.Any])
+    
+    inline def setPOINTS(value: GLenum): Self = StObject.set(x, "POINTS", value.asInstanceOf[js.Any])
+    
+    inline def setPOLYGON_OFFSET_FACTOR(value: GLenum): Self = StObject.set(x, "POLYGON_OFFSET_FACTOR", value.asInstanceOf[js.Any])
+    
+    inline def setPOLYGON_OFFSET_FILL(value: GLenum): Self = StObject.set(x, "POLYGON_OFFSET_FILL", value.asInstanceOf[js.Any])
+    
+    inline def setPOLYGON_OFFSET_UNITS(value: GLenum): Self = StObject.set(x, "POLYGON_OFFSET_UNITS", value.asInstanceOf[js.Any])
+    
+    inline def setRED_BITS(value: GLenum): Self = StObject.set(x, "RED_BITS", value.asInstanceOf[js.Any])
+    
+    inline def setRENDERBUFFER(value: GLenum): Self = StObject.set(x, "RENDERBUFFER", value.asInstanceOf[js.Any])
+    
+    inline def setRENDERBUFFER_ALPHA_SIZE(value: GLenum): Self = StObject.set(x, "RENDERBUFFER_ALPHA_SIZE", value.asInstanceOf[js.Any])
+    
+    inline def setRENDERBUFFER_BINDING(value: GLenum): Self = StObject.set(x, "RENDERBUFFER_BINDING", value.asInstanceOf[js.Any])
+    
+    inline def setRENDERBUFFER_BLUE_SIZE(value: GLenum): Self = StObject.set(x, "RENDERBUFFER_BLUE_SIZE", value.asInstanceOf[js.Any])
+    
+    inline def setRENDERBUFFER_DEPTH_SIZE(value: GLenum): Self = StObject.set(x, "RENDERBUFFER_DEPTH_SIZE", value.asInstanceOf[js.Any])
+    
+    inline def setRENDERBUFFER_GREEN_SIZE(value: GLenum): Self = StObject.set(x, "RENDERBUFFER_GREEN_SIZE", value.asInstanceOf[js.Any])
+    
+    inline def setRENDERBUFFER_HEIGHT(value: GLenum): Self = StObject.set(x, "RENDERBUFFER_HEIGHT", value.asInstanceOf[js.Any])
+    
+    inline def setRENDERBUFFER_INTERNAL_FORMAT(value: GLenum): Self = StObject.set(x, "RENDERBUFFER_INTERNAL_FORMAT", value.asInstanceOf[js.Any])
+    
+    inline def setRENDERBUFFER_RED_SIZE(value: GLenum): Self = StObject.set(x, "RENDERBUFFER_RED_SIZE", value.asInstanceOf[js.Any])
+    
+    inline def setRENDERBUFFER_STENCIL_SIZE(value: GLenum): Self = StObject.set(x, "RENDERBUFFER_STENCIL_SIZE", value.asInstanceOf[js.Any])
+    
+    inline def setRENDERBUFFER_WIDTH(value: GLenum): Self = StObject.set(x, "RENDERBUFFER_WIDTH", value.asInstanceOf[js.Any])
+    
+    inline def setRENDERER(value: GLenum): Self = StObject.set(x, "RENDERER", value.asInstanceOf[js.Any])
+    
+    inline def setREPEAT(value: GLenum): Self = StObject.set(x, "REPEAT", value.asInstanceOf[js.Any])
+    
+    inline def setREPLACE(value: GLenum): Self = StObject.set(x, "REPLACE", value.asInstanceOf[js.Any])
+    
+    inline def setRGB(value: GLenum): Self = StObject.set(x, "RGB", value.asInstanceOf[js.Any])
+    
+    inline def setRGB565(value: GLenum): Self = StObject.set(x, "RGB565", value.asInstanceOf[js.Any])
+    
+    inline def setRGB5_A1(value: GLenum): Self = StObject.set(x, "RGB5_A1", value.asInstanceOf[js.Any])
+    
+    inline def setRGBA(value: GLenum): Self = StObject.set(x, "RGBA", value.asInstanceOf[js.Any])
+    
+    inline def setRGBA4(value: GLenum): Self = StObject.set(x, "RGBA4", value.asInstanceOf[js.Any])
+    
+    inline def setRGBA8(value: GLenum): Self = StObject.set(x, "RGBA8", value.asInstanceOf[js.Any])
+    
+    inline def setSAMPLER_2D(value: GLenum): Self = StObject.set(x, "SAMPLER_2D", value.asInstanceOf[js.Any])
+    
+    inline def setSAMPLER_CUBE(value: GLenum): Self = StObject.set(x, "SAMPLER_CUBE", value.asInstanceOf[js.Any])
+    
+    inline def setSAMPLES(value: GLenum): Self = StObject.set(x, "SAMPLES", value.asInstanceOf[js.Any])
+    
+    inline def setSAMPLE_ALPHA_TO_COVERAGE(value: GLenum): Self = StObject.set(x, "SAMPLE_ALPHA_TO_COVERAGE", value.asInstanceOf[js.Any])
+    
+    inline def setSAMPLE_BUFFERS(value: GLenum): Self = StObject.set(x, "SAMPLE_BUFFERS", value.asInstanceOf[js.Any])
+    
+    inline def setSAMPLE_COVERAGE(value: GLenum): Self = StObject.set(x, "SAMPLE_COVERAGE", value.asInstanceOf[js.Any])
+    
+    inline def setSAMPLE_COVERAGE_INVERT(value: GLenum): Self = StObject.set(x, "SAMPLE_COVERAGE_INVERT", value.asInstanceOf[js.Any])
+    
+    inline def setSAMPLE_COVERAGE_VALUE(value: GLenum): Self = StObject.set(x, "SAMPLE_COVERAGE_VALUE", value.asInstanceOf[js.Any])
+    
+    inline def setSCISSOR_BOX(value: GLenum): Self = StObject.set(x, "SCISSOR_BOX", value.asInstanceOf[js.Any])
+    
+    inline def setSCISSOR_TEST(value: GLenum): Self = StObject.set(x, "SCISSOR_TEST", value.asInstanceOf[js.Any])
+    
+    inline def setSHADER_TYPE(value: GLenum): Self = StObject.set(x, "SHADER_TYPE", value.asInstanceOf[js.Any])
+    
+    inline def setSHADING_LANGUAGE_VERSION(value: GLenum): Self = StObject.set(x, "SHADING_LANGUAGE_VERSION", value.asInstanceOf[js.Any])
+    
+    inline def setSHORT(value: GLenum): Self = StObject.set(x, "SHORT", value.asInstanceOf[js.Any])
+    
+    inline def setSRC_ALPHA(value: GLenum): Self = StObject.set(x, "SRC_ALPHA", value.asInstanceOf[js.Any])
+    
+    inline def setSRC_ALPHA_SATURATE(value: GLenum): Self = StObject.set(x, "SRC_ALPHA_SATURATE", value.asInstanceOf[js.Any])
+    
+    inline def setSRC_COLOR(value: GLenum): Self = StObject.set(x, "SRC_COLOR", value.asInstanceOf[js.Any])
+    
+    inline def setSTATIC_DRAW(value: GLenum): Self = StObject.set(x, "STATIC_DRAW", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_ATTACHMENT(value: GLenum): Self = StObject.set(x, "STENCIL_ATTACHMENT", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_BACK_FAIL(value: GLenum): Self = StObject.set(x, "STENCIL_BACK_FAIL", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_BACK_FUNC(value: GLenum): Self = StObject.set(x, "STENCIL_BACK_FUNC", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_BACK_PASS_DEPTH_FAIL(value: GLenum): Self = StObject.set(x, "STENCIL_BACK_PASS_DEPTH_FAIL", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_BACK_PASS_DEPTH_PASS(value: GLenum): Self = StObject.set(x, "STENCIL_BACK_PASS_DEPTH_PASS", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_BACK_REF(value: GLenum): Self = StObject.set(x, "STENCIL_BACK_REF", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_BACK_VALUE_MASK(value: GLenum): Self = StObject.set(x, "STENCIL_BACK_VALUE_MASK", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_BACK_WRITEMASK(value: GLenum): Self = StObject.set(x, "STENCIL_BACK_WRITEMASK", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_BITS(value: GLenum): Self = StObject.set(x, "STENCIL_BITS", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_BUFFER_BIT(value: GLenum): Self = StObject.set(x, "STENCIL_BUFFER_BIT", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_CLEAR_VALUE(value: GLenum): Self = StObject.set(x, "STENCIL_CLEAR_VALUE", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_FAIL(value: GLenum): Self = StObject.set(x, "STENCIL_FAIL", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_FUNC(value: GLenum): Self = StObject.set(x, "STENCIL_FUNC", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_INDEX8(value: GLenum): Self = StObject.set(x, "STENCIL_INDEX8", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_PASS_DEPTH_FAIL(value: GLenum): Self = StObject.set(x, "STENCIL_PASS_DEPTH_FAIL", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_PASS_DEPTH_PASS(value: GLenum): Self = StObject.set(x, "STENCIL_PASS_DEPTH_PASS", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_REF(value: GLenum): Self = StObject.set(x, "STENCIL_REF", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_TEST(value: GLenum): Self = StObject.set(x, "STENCIL_TEST", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_VALUE_MASK(value: GLenum): Self = StObject.set(x, "STENCIL_VALUE_MASK", value.asInstanceOf[js.Any])
+    
+    inline def setSTENCIL_WRITEMASK(value: GLenum): Self = StObject.set(x, "STENCIL_WRITEMASK", value.asInstanceOf[js.Any])
+    
+    inline def setSTREAM_DRAW(value: GLenum): Self = StObject.set(x, "STREAM_DRAW", value.asInstanceOf[js.Any])
+    
+    inline def setSUBPIXEL_BITS(value: GLenum): Self = StObject.set(x, "SUBPIXEL_BITS", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE(value: GLenum): Self = StObject.set(x, "TEXTURE", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE0(value: GLenum): Self = StObject.set(x, "TEXTURE0", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE1(value: GLenum): Self = StObject.set(x, "TEXTURE1", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE10(value: GLenum): Self = StObject.set(x, "TEXTURE10", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE11(value: GLenum): Self = StObject.set(x, "TEXTURE11", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE12(value: GLenum): Self = StObject.set(x, "TEXTURE12", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE13(value: GLenum): Self = StObject.set(x, "TEXTURE13", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE14(value: GLenum): Self = StObject.set(x, "TEXTURE14", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE15(value: GLenum): Self = StObject.set(x, "TEXTURE15", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE16(value: GLenum): Self = StObject.set(x, "TEXTURE16", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE17(value: GLenum): Self = StObject.set(x, "TEXTURE17", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE18(value: GLenum): Self = StObject.set(x, "TEXTURE18", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE19(value: GLenum): Self = StObject.set(x, "TEXTURE19", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE2(value: GLenum): Self = StObject.set(x, "TEXTURE2", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE20(value: GLenum): Self = StObject.set(x, "TEXTURE20", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE21(value: GLenum): Self = StObject.set(x, "TEXTURE21", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE22(value: GLenum): Self = StObject.set(x, "TEXTURE22", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE23(value: GLenum): Self = StObject.set(x, "TEXTURE23", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE24(value: GLenum): Self = StObject.set(x, "TEXTURE24", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE25(value: GLenum): Self = StObject.set(x, "TEXTURE25", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE26(value: GLenum): Self = StObject.set(x, "TEXTURE26", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE27(value: GLenum): Self = StObject.set(x, "TEXTURE27", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE28(value: GLenum): Self = StObject.set(x, "TEXTURE28", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE29(value: GLenum): Self = StObject.set(x, "TEXTURE29", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE3(value: GLenum): Self = StObject.set(x, "TEXTURE3", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE30(value: GLenum): Self = StObject.set(x, "TEXTURE30", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE31(value: GLenum): Self = StObject.set(x, "TEXTURE31", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE4(value: GLenum): Self = StObject.set(x, "TEXTURE4", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE5(value: GLenum): Self = StObject.set(x, "TEXTURE5", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE6(value: GLenum): Self = StObject.set(x, "TEXTURE6", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE7(value: GLenum): Self = StObject.set(x, "TEXTURE7", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE8(value: GLenum): Self = StObject.set(x, "TEXTURE8", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE9(value: GLenum): Self = StObject.set(x, "TEXTURE9", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_2D(value: GLenum): Self = StObject.set(x, "TEXTURE_2D", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_BINDING_2D(value: GLenum): Self = StObject.set(x, "TEXTURE_BINDING_2D", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_BINDING_CUBE_MAP(value: GLenum): Self = StObject.set(x, "TEXTURE_BINDING_CUBE_MAP", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_CUBE_MAP(value: GLenum): Self = StObject.set(x, "TEXTURE_CUBE_MAP", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_CUBE_MAP_NEGATIVE_X(value: GLenum): Self = StObject.set(x, "TEXTURE_CUBE_MAP_NEGATIVE_X", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_CUBE_MAP_NEGATIVE_Y(value: GLenum): Self = StObject.set(x, "TEXTURE_CUBE_MAP_NEGATIVE_Y", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_CUBE_MAP_NEGATIVE_Z(value: GLenum): Self = StObject.set(x, "TEXTURE_CUBE_MAP_NEGATIVE_Z", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_CUBE_MAP_POSITIVE_X(value: GLenum): Self = StObject.set(x, "TEXTURE_CUBE_MAP_POSITIVE_X", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_CUBE_MAP_POSITIVE_Y(value: GLenum): Self = StObject.set(x, "TEXTURE_CUBE_MAP_POSITIVE_Y", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_CUBE_MAP_POSITIVE_Z(value: GLenum): Self = StObject.set(x, "TEXTURE_CUBE_MAP_POSITIVE_Z", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_MAG_FILTER(value: GLenum): Self = StObject.set(x, "TEXTURE_MAG_FILTER", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_MIN_FILTER(value: GLenum): Self = StObject.set(x, "TEXTURE_MIN_FILTER", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_WRAP_S(value: GLenum): Self = StObject.set(x, "TEXTURE_WRAP_S", value.asInstanceOf[js.Any])
+    
+    inline def setTEXTURE_WRAP_T(value: GLenum): Self = StObject.set(x, "TEXTURE_WRAP_T", value.asInstanceOf[js.Any])
+    
+    inline def setTRIANGLES(value: GLenum): Self = StObject.set(x, "TRIANGLES", value.asInstanceOf[js.Any])
+    
+    inline def setTRIANGLE_FAN(value: GLenum): Self = StObject.set(x, "TRIANGLE_FAN", value.asInstanceOf[js.Any])
+    
+    inline def setTRIANGLE_STRIP(value: GLenum): Self = StObject.set(x, "TRIANGLE_STRIP", value.asInstanceOf[js.Any])
+    
+    inline def setUNPACK_ALIGNMENT(value: GLenum): Self = StObject.set(x, "UNPACK_ALIGNMENT", value.asInstanceOf[js.Any])
+    
+    inline def setUNPACK_COLORSPACE_CONVERSION_WEBGL(value: GLenum): Self = StObject.set(x, "UNPACK_COLORSPACE_CONVERSION_WEBGL", value.asInstanceOf[js.Any])
+    
+    inline def setUNPACK_FLIP_Y_WEBGL(value: GLenum): Self = StObject.set(x, "UNPACK_FLIP_Y_WEBGL", value.asInstanceOf[js.Any])
+    
+    inline def setUNPACK_PREMULTIPLY_ALPHA_WEBGL(value: GLenum): Self = StObject.set(x, "UNPACK_PREMULTIPLY_ALPHA_WEBGL", value.asInstanceOf[js.Any])
+    
+    inline def setUNSIGNED_BYTE(value: GLenum): Self = StObject.set(x, "UNSIGNED_BYTE", value.asInstanceOf[js.Any])
+    
+    inline def setUNSIGNED_INT(value: GLenum): Self = StObject.set(x, "UNSIGNED_INT", value.asInstanceOf[js.Any])
+    
+    inline def setUNSIGNED_SHORT(value: GLenum): Self = StObject.set(x, "UNSIGNED_SHORT", value.asInstanceOf[js.Any])
+    
+    inline def setUNSIGNED_SHORT_4_4_4_4(value: GLenum): Self = StObject.set(x, "UNSIGNED_SHORT_4_4_4_4", value.asInstanceOf[js.Any])
+    
+    inline def setUNSIGNED_SHORT_5_5_5_1(value: GLenum): Self = StObject.set(x, "UNSIGNED_SHORT_5_5_5_1", value.asInstanceOf[js.Any])
+    
+    inline def setUNSIGNED_SHORT_5_6_5(value: GLenum): Self = StObject.set(x, "UNSIGNED_SHORT_5_6_5", value.asInstanceOf[js.Any])
+    
+    inline def setVALIDATE_STATUS(value: GLenum): Self = StObject.set(x, "VALIDATE_STATUS", value.asInstanceOf[js.Any])
+    
+    inline def setVENDOR(value: GLenum): Self = StObject.set(x, "VENDOR", value.asInstanceOf[js.Any])
+    
+    inline def setVERSION(value: GLenum): Self = StObject.set(x, "VERSION", value.asInstanceOf[js.Any])
+    
+    inline def setVERTEX_ATTRIB_ARRAY_BUFFER_BINDING(value: GLenum): Self = StObject.set(x, "VERTEX_ATTRIB_ARRAY_BUFFER_BINDING", value.asInstanceOf[js.Any])
+    
+    inline def setVERTEX_ATTRIB_ARRAY_ENABLED(value: GLenum): Self = StObject.set(x, "VERTEX_ATTRIB_ARRAY_ENABLED", value.asInstanceOf[js.Any])
+    
+    inline def setVERTEX_ATTRIB_ARRAY_NORMALIZED(value: GLenum): Self = StObject.set(x, "VERTEX_ATTRIB_ARRAY_NORMALIZED", value.asInstanceOf[js.Any])
+    
+    inline def setVERTEX_ATTRIB_ARRAY_POINTER(value: GLenum): Self = StObject.set(x, "VERTEX_ATTRIB_ARRAY_POINTER", value.asInstanceOf[js.Any])
+    
+    inline def setVERTEX_ATTRIB_ARRAY_SIZE(value: GLenum): Self = StObject.set(x, "VERTEX_ATTRIB_ARRAY_SIZE", value.asInstanceOf[js.Any])
+    
+    inline def setVERTEX_ATTRIB_ARRAY_STRIDE(value: GLenum): Self = StObject.set(x, "VERTEX_ATTRIB_ARRAY_STRIDE", value.asInstanceOf[js.Any])
+    
+    inline def setVERTEX_ATTRIB_ARRAY_TYPE(value: GLenum): Self = StObject.set(x, "VERTEX_ATTRIB_ARRAY_TYPE", value.asInstanceOf[js.Any])
+    
+    inline def setVERTEX_SHADER(value: GLenum): Self = StObject.set(x, "VERTEX_SHADER", value.asInstanceOf[js.Any])
+    
+    inline def setVIEWPORT(value: GLenum): Self = StObject.set(x, "VIEWPORT", value.asInstanceOf[js.Any])
+    
+    inline def setZERO(value: GLenum): Self = StObject.set(x, "ZERO", value.asInstanceOf[js.Any])
+  }
+}
