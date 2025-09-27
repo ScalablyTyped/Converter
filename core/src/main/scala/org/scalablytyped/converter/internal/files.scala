@@ -65,7 +65,7 @@ object files {
       folder match {
         case f if files.exists(f) =>
           os.walk(f, IgnoreProjectFiles).foreach {
-            case p if os.isFile(p) && !known(p) => deleteAll(p)
+            case p if os.isFile(p) && !known(p) => os.remove(p)
             case _                              => ()
           }
         case _ => ()
