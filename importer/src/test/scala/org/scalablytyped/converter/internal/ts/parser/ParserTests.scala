@@ -3337,4 +3337,15 @@ export {};
       TsParser.tsType,
     )(TsTypeQuery(TsQIdent(IArray(TsIdentSimple("genComponentStyleHook")))))
   }
+
+  test("parse Omit type with complex mapped types (parenthesized mapped type with index access)") {
+    // This tests the fix for parsing parenthesized object types containing mapped type members
+    // The parser was incorrectly trying to parse `{ [P in keyof T]: P }` when it was inside parentheses
+    // The fix was to move the parenthesized type parser before the object type parser in baseTypeDesc
+    val omitTypeDefinition =
+      """export type Omit<T, K extends keyof T> = Pick<T,
+        |    ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;""".stripMargin
+
+    parseAs(omitTypeDefinition, TsParser.tsContainerOrDecls)
+  }
 }
