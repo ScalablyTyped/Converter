@@ -1,7 +1,7 @@
 import sbt.{stringToOrganization, ModuleID}
 
 object Deps {
-  val parserCombinators = "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
+  val parserCombinators = "org.scala-lang.modules" %% "scala-parser-combinators" % "2.4.0"
   val ammoniteOps       = "com.lihaoyi" %% "ammonite-ops" % "2.4.0"
   val osLib             = "com.lihaoyi" %% "os-lib" % "0.11.5"
   val sourcecode        = "com.lihaoyi" %% "sourcecode" % "0.4.4"
