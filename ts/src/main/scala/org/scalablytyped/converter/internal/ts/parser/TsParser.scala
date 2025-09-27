@@ -397,11 +397,12 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   lazy val functionParam: Parser[TsFunParam] = {
 
     /** Note: we don't care about the specifics of a destructured parameter. we just want a unique name and a type **/
-    lazy val destructuredObj: Parser[TsIdentSimple] =
-      "{" ~>! rep((tsIdentLiberal | ("..." ~> tsIdent)) ~ (":" ~> (tsIdent | destructured)).? <~ ",".?) <~ "}" ^^ (
-          _ =>
-            TsIdent.Destructured,
-        )
+    lazy val destructuredObj: Parser[TsIdentSimple] = {
+      val normalProp = tsIdentLiberal ~ (":" ~> (tsIdent | destructured)).?
+      val restProp = "..." ~> tsIdent
+      val prop = restProp | normalProp
+      "{" ~> rep(prop <~ ",".?) <~ "}" ^^ (_ => TsIdent.Destructured)
+    }
     lazy val destructuredArray: Parser[TsIdentSimple] =
       "[" ~>! ",".? ~> repsep("...".? ~> tsIdent <~ (":" <~ (tsIdent | destructured)).?, ",") <~ "]" ^^ (
           _ =>
@@ -455,9 +456,9 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       }
 
     ((tsIdent <~ "is") ~ tsType ^^ TsTypeIs
+      | tsTypeFunction
       | "(" ~> tsType <~ ")"
       | comments ~ tsMembers ^^ TsTypeObject
-      | tsTypeFunction
       | ("abstract".isDefined <~ "new") ~ tsTypeFunction ^^ TsTypeConstructor
       | "unique" ~> "symbol" ~> success(TsTypeRef(NoComments, TsQIdent.symbol, Empty))
       | "typeof" ~> tsTypeRef ^^ { case TsTypeRef(_, name, _) => TsTypeQuery(name) } // todo: targs may be used to with `typoeof f<asd>`

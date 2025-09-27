@@ -3339,13 +3339,46 @@ export {};
   }
 
   test("parse Omit type with complex mapped types (parenthesized mapped type with index access)") {
-    // This tests the fix for parsing parenthesized object types containing mapped type members
-    // The parser was incorrectly trying to parse `{ [P in keyof T]: P }` when it was inside parentheses
-    // The fix was to move the parenthesized type parser before the object type parser in baseTypeDesc
+    // This test ensures mapped types work correctly inside parenthesized expressions.
+    // The fix: removed aggressive commit (~>!) from destructuredObj parser to allow backtracking
+    // when { [ pattern is a mapped type, not a destructured parameter.
+
+    // Test the full Omit type that was failing in react-bootstrap
     val omitTypeDefinition =
       """export type Omit<T, K extends keyof T> = Pick<T,
         |    ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;""".stripMargin
 
     parseAs(omitTypeDefinition, TsParser.tsContainerOrDecls)
+  }
+
+  test("rest spread in destructured function parameters") {
+    // Test rest spread in destructured object parameters
+    val simple = """{ ...rest }: any"""
+    parseAs(simple, TsParser.functionParam)
+
+    // Test with normal props before rest spread
+    val withProp = """{ a, ...rest }: any"""
+    parseAs(withProp, TsParser.functionParam)
+
+    // Test as arrow function type
+    val arrowFunc = """({ ...rest }: any) => void"""
+    parseAs(arrowFunc, TsParser.tsType)
+
+    // Test in full function declaration with complex type
+    val content =
+      """export declare const MaybeScreenContainer: ({ enabled, ...rest }: ViewProps & {
+        |    enabled: boolean;
+        |    hasTwoStates: boolean;
+        |    children: React.ReactNode;
+        |}) => JSX.Element;
+        |""".stripMargin
+
+    parseAs(content, TsParser.tsContainerOrDecls)
+
+    // Test in inline function type
+    val content2 =
+      """export declare const RawButton: ({ enabled, ...rest }: any) => React.JSX.Element;""".stripMargin
+
+    parseAs(content2, TsParser.tsContainerOrDecls)
   }
 }
