@@ -85,8 +85,6 @@ case class Versions(scala: Versions.Scala, scalaJs: Versions.ScalaJs) {
         "-language:higherKinds",
         "-language:existentials",
         "-no-indent",
-        "-source:future",
-//        "-Yexplicit-nulls"
       )
     else
       List(
