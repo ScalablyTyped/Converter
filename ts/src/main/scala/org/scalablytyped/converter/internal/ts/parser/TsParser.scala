@@ -379,7 +379,9 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     "keyof" ~>! baseTypeDesc ^^ TsTypeKeyOf
 
   lazy val typeParam: Parser[TsTypeParam] =
-    comments ~ tsIdent ~ ("extends" ~>! perhapsParens(tsType)).? ~ ("=" ~>! tsType).? ^^ TsTypeParam.apply
+    comments ~ "const".? ~ tsIdent ~ ("extends" ~>! perhapsParens(tsType)).? ~ ("=" ~>! tsType).? ^^ {
+      case comments ~ _ ~ name ~ upperBound ~ default => TsTypeParam(comments, name, upperBound, default)
+    }
 
   lazy val tsTypeParams: Parser[IArray[TsTypeParam]] =
     "<" ~>! repsep_(typeParam, ",") <~! ",".? <~ comments.? <~! ">" | success(Empty)
