@@ -6,7 +6,7 @@ object Deps {
   val osLib             = "com.lihaoyi" %% "os-lib" % "0.11.5"
   val sourcecode        = "com.lihaoyi" %% "sourcecode" % "0.4.4"
   val scalatest         = "org.scalatest" %% "scalatest" % "3.2.17"
-  val fansi             = "com.lihaoyi" %% "fansi" % "0.4.0"
+  val fansi             = "com.lihaoyi" %% "fansi" % "0.5.1"
   val bloop             = "ch.epfl.scala" %% "bloop-frontend" % "1.5.4"
   val scalaXml          = "org.scala-lang.modules" %% "scala-xml" % "2.2.0"
   val scopt             = "com.github.scopt" %% "scopt" % "4.1.0"
