@@ -160,14 +160,23 @@ final class ParserTests extends AnyFunSuite {
     shouldParseAs(content, TsParser.tsDeclInterface)(expected)
   }
 
-  test("interface with const modifier for type parameters ") {
+  test("interface with const modifier for type parameters") {
     val content: String =
-      """      interface TFunctionStrict {
-         |           < const Key extends string>(key: Key): void;
-         |       }
-         |      """.stripMargin
+      """interface TFunctionStrict {
+        |  <const Key extends string>(key: Key): void;
+        |}
+        |""".stripMargin
 
     parseAs(content, TsParser.tsDeclInterface)
+
+    // Also test multiple const type parameters
+    val content2: String =
+      """interface MultiConst {
+        |  <const T, const U extends string, V>(t: T, u: U, v: V): void;
+        |}
+        |""".stripMargin
+
+    parseAs(content2, TsParser.tsDeclInterface)
   }
 
   test("class") {
