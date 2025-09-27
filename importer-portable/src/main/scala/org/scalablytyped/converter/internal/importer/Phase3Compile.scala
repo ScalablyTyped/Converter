@@ -50,7 +50,7 @@ class Phase3Compile(
   ): PhaseRes[LibTsSource, PublishedSbtProject] = {
     val logger = _logger.withContext("flavour", flavour.toString)
 
-    getDeps(lib.dependencies.keys.map(x => x: LibTsSource).to[SortedSet]).flatMap {
+    getDeps(lib.dependencies.keys.map(x => x: LibTsSource).to(SortedSet)).flatMap {
       case PublishedSbtProject.Unpack(deps) =>
         val scope = new TreeScope.Root(
           libName       = lib.scalaName,
@@ -120,7 +120,7 @@ class Phase3Compile(
             }
 
             val jarDeps: Set[Compiler.InternalDep] =
-              deps.values.to[Set].map(x => Compiler.InternalDepJar(x.localIvyFiles.jarFile._2))
+              deps.values.to(Set).map(x => Compiler.InternalDepJar(x.localIvyFiles.jarFile._2))
 
             if (files.exists(compilerPaths.resourcesDir))
               os.copy.over(from = compilerPaths.resourcesDir, to = compilerPaths.classesDir, replaceExisting = true)

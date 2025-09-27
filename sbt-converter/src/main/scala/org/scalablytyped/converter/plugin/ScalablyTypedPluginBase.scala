@@ -96,7 +96,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
           enableScalaJsDefined     = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
           stdLibs                  = SortedSet.empty ++ stStdlib.value,
           expandTypeMappings       = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
-          ignored                  = stIgnore.value.to[Set].sorted,
+          ignored                  = stIgnore.value.to(Set).sorted,
           versions                 = versions,
           organization             = organization,
           enableReactTreeShaking   = stReactEnableTreeShaking.value.map(name => ImportName(TsIdentLibrary(name))),

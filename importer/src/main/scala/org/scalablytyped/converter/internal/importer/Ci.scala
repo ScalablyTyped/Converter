@@ -328,8 +328,8 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
     val failures: Map[LibTsSource, Either[Throwable, String]] =
       results.collect { case (_, PhaseRes.Failure(errors)) => errors }.reduceOption(_ ++ _).getOrElse(Map.empty)
 
-    val summary               = Summary(successes.keys.to[Set].map(_.libName), failures.keys.to[Set].map(_.libName))
-    val lists                 = TopLists(successes.values.to[Set])
+    val summary               = Summary(successes.keys.to(Set).map(_.libName), failures.keys.to(Set).map(_.libName))
+    val lists                 = TopLists(successes.values.to(Set))
     val gitIgnore             = targetFolder / ".gitignore"
     val readme                = targetFolder / "readme.md"
     val librariesByName       = targetFolder / "libraries_by_name.md"
@@ -369,7 +369,7 @@ target/
         organization  = config.conversion.organization,
         projectName   = config.projectName,
         projectDir    = sbtProjectDir,
-        projects      = successes.values.to[Set],
+        projects      = successes.values.to(Set),
         pluginVersion = RunId,
         action        = "publishLocal",
       )
@@ -377,7 +377,7 @@ target/
       CommitChanges(
         interfaceCmd,
         summary,
-        successes.values.map(_.project.baseDir).to[Vector],
+        successes.values.map(_.project.baseDir).to(Vector),
         Vector(sbtProjectDir, readme, librariesByScore, librariesByName, librariesByDependents, gitIgnore, summaryFile),
         formattedDiff,
       )(targetFolder)

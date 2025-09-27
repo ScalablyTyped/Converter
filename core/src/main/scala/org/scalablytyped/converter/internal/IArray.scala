@@ -8,6 +8,7 @@ import org.scalablytyped.converter.internal.IArray.fromArrayAndSize
 import scala.collection.immutable.{Range, SortedSet}
 import scala.collection.mutable.WrappedArray.ofRef
 import scala.collection.{immutable, mutable, GenTraversableOnce, Iterator}
+import scala.Iterable
 
 object IArray {
   implicit def IArrayEncoder[T <: AnyRef: Encoder]: Encoder[IArray[T]] =
@@ -50,8 +51,8 @@ object IArray {
   def fromArray[A <: AnyRef](as: Array[A]): IArray[A] =
     fromArrayAndSize(as.asInstanceOf[Array[AnyRef]], as.length)
 
-  def fromTraversable[A <: AnyRef](as: Traversable[A]): IArray[A] =
-    fromArrayAndSize(as.asInstanceOf[Traversable[AnyRef]].toArray, as.size)
+  def fromTraversable[A <: AnyRef](as: Iterable[A]): IArray[A] =
+    fromArrayAndSize(as.asInstanceOf[Iterable[AnyRef]].toArray, as.size)
 
   @inline private def fromArrayAndSize[A <: AnyRef](as: Array[AnyRef], length: Int): IArray[A] =
     if (length == 0) Empty else new IArray[A](as, length)

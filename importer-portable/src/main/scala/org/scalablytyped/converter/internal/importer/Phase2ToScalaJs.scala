@@ -122,7 +122,7 @@ class Phase2ToScalaJs(
 
   private def garbageCollectLibs(lib: LibTs): SortedSet[LibTsSource] = {
     val all: SortedSet[LibTsSource] =
-      lib.transitiveDependencies.keys.map(x => x: LibTsSource).to[SortedSet]
+      lib.transitiveDependencies.keys.map(x => x: LibTsSource).to(SortedSet)
 
     val referenced: Set[TsIdentLibrary] =
       TsTreeTraverse.collect(lib.parsed) { case x: ts.TsIdentLibrary => x }.toSet
