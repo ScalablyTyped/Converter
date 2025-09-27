@@ -288,7 +288,7 @@ object japgolly {
           }
           
           @js.native
-          abstract class Component[P, S] protected () extends StObject {
+          class Component[P, S] protected () extends StObject {
             def this(ctorProps: P) = this()
             
             type Props = P with PropsWithChildren

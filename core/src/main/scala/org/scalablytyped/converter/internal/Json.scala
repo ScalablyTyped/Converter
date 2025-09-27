@@ -134,9 +134,9 @@ object Json {
   def opt[T: Decoder](path: Path): Option[T] =
     if (Files.exists(path)) Some(force(path)) else None
 
-  def persist[V: Encoder](file: os.Path)(value: V): Synced =
-    persist(file.toNIO)(value)
+  def persist[V: Encoder](file: os.Path)(value: V, printer: Printer = Printer.noSpaces): Synced =
+    persist(file.toNIO)(value, printer)
 
-  def persist[V: Encoder](file: Path)(value: V): Synced =
-    files.softWrite(file)(_.append(value.asJson.noSpaces))
+  def persist[V: Encoder](file: Path)(value: V, printer: Printer): Synced =
+    files.softWrite(file)(_.append(printer.print(value.asJson)))
 }
