@@ -52,7 +52,7 @@ object Printer {
     reg.result
   }
 
-  private final case class Indenter(a: Appendable) {
+  final case class Indenter(a: Appendable) {
     private var hasIndented: Boolean = false
 
     private def doIndent(indent: Int): Unit = {

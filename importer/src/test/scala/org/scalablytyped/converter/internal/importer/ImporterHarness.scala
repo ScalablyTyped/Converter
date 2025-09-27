@@ -45,9 +45,9 @@ trait ImporterHarness extends AnyFunSuite {
     case Some(value) =>
       os.pwd / os.RelPath(value)
     case None =>
-      constants.defaultCacheFolder / 'tests
+      constants.defaultCacheFolder / "tests"
   }
-  val failureCacheDir = baseDir / 'compileFailures
+  val failureCacheDir = baseDir / "compileFailures"
   os.makeDir.all(failureCacheDir)
 
   val testLogger = logging.stdout.filter(LogLevel.warn)
@@ -154,7 +154,7 @@ trait ImporterHarness extends AnyFunSuite {
       case Mode.Skip => pending
       case run: Mode.Run =>
         val testFolder   = findTestFolder(testName)
-        val source       = InFolder(testFolder.path / 'in)
+        val source       = InFolder(testFolder.path / "in")
         val targetFolder = os.Path(Files.createTempDirectory("scalablytyped-test-"))
 
         val flavourFolderPart = flavour match {

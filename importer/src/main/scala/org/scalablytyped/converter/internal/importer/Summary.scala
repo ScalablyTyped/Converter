@@ -1,8 +1,8 @@
 package org.scalablytyped.converter.internal
 package importer
 
-import io.circe013.Decoder.Result
-import io.circe013.{Decoder, Encoder, HCursor}
+import io.circe.Decoder.Result
+import io.circe.{Decoder, Encoder, HCursor}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 
 case class Summary(
@@ -31,13 +31,13 @@ object Summary {
     }
   }
 
-  implicit val EncoderTsIdentLibrary: Encoder[TsIdentLibrary] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val EncoderTsIdentLibrary: Encoder[TsIdentLibrary] = io.circe.generic.semiauto.deriveEncoder
   implicit val DecoderTsIdentLibrary: Decoder[TsIdentLibrary] =
-    io.circe013.generic.semiauto.deriveDecoder[TsIdentLibrary].or(legacyLibDecoder)
-  implicit val EncoderSummary:     Encoder[Summary]     = io.circe013.generic.semiauto.deriveEncoder
-  implicit val DecoderSummary:     Decoder[Summary]     = io.circe013.generic.semiauto.deriveDecoder
-  implicit val EncoderSummaryDiff: Encoder[SummaryDiff] = io.circe013.generic.semiauto.deriveEncoder
-  implicit val DecoderSummaryDiff: Decoder[SummaryDiff] = io.circe013.generic.semiauto.deriveDecoder
+    io.circe.generic.semiauto.deriveDecoder[TsIdentLibrary].or(legacyLibDecoder)
+  implicit val EncoderSummary:     Encoder[Summary]     = io.circe.generic.semiauto.deriveEncoder
+  implicit val DecoderSummary:     Decoder[Summary]     = io.circe.generic.semiauto.deriveDecoder
+  implicit val EncoderSummaryDiff: Encoder[SummaryDiff] = io.circe.generic.semiauto.deriveEncoder
+  implicit val DecoderSummaryDiff: Decoder[SummaryDiff] = io.circe.generic.semiauto.deriveDecoder
 
   val path = os.RelPath("summary.json")
 

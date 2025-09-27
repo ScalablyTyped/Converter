@@ -13,7 +13,7 @@ object address {
   
   val component: String = "address"
   
-  implicit def make(companion: address.type): SharedBuilder_DetailedHTMLProps_1670340210[HTMLElement] = new SharedBuilder_DetailedHTMLProps_1670340210[HTMLElement](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: address.type): SharedBuilder_DetailedHTMLProps_1630102984[HTMLElement] = new SharedBuilder_DetailedHTMLProps_1630102984[HTMLElement](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): SharedBuilder_DetailedHTMLProps_1670340210[HTMLElement] = new SharedBuilder_DetailedHTMLProps_1670340210[HTMLElement](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): SharedBuilder_DetailedHTMLProps_1630102984[HTMLElement] = new SharedBuilder_DetailedHTMLProps_1630102984[HTMLElement](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

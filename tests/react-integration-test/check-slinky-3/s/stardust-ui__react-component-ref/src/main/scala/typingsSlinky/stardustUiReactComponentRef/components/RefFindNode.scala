@@ -13,7 +13,7 @@ object RefFindNode {
   
   type Props = RefProps
   
-  implicit def make(companion: RefFindNode.type): SharedBuilder_RefProps_93134828[typingsSlinky.stardustUiReactComponentRef.mod.RefFindNode] = new SharedBuilder_RefProps_93134828[typingsSlinky.stardustUiReactComponentRef.mod.RefFindNode](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: RefFindNode.type): SharedBuilder_RefProps676918644[typingsSlinky.stardustUiReactComponentRef.mod.RefFindNode] = new SharedBuilder_RefProps676918644[typingsSlinky.stardustUiReactComponentRef.mod.RefFindNode](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: RefProps): SharedBuilder_RefProps_93134828[typingsSlinky.stardustUiReactComponentRef.mod.RefFindNode] = new SharedBuilder_RefProps_93134828[typingsSlinky.stardustUiReactComponentRef.mod.RefFindNode](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: RefProps): SharedBuilder_RefProps676918644[typingsSlinky.stardustUiReactComponentRef.mod.RefFindNode] = new SharedBuilder_RefProps676918644[typingsSlinky.stardustUiReactComponentRef.mod.RefFindNode](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

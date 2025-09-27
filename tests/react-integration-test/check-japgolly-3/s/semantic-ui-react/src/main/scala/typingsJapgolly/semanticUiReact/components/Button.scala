@@ -101,9 +101,9 @@ object Button {
     
     type Props = ButtonContentProps
     
-    implicit def make(companion: Content.type): SharedBuilder_ButtonContentProps_207125023 = new SharedBuilder_ButtonContentProps_207125023(js.Array(this.component, js.Dictionary.empty))()
+    implicit def make(companion: Content.type): SharedBuilder_ButtonContentProps_1283954424 = new SharedBuilder_ButtonContentProps_1283954424(js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps_207125023 = new SharedBuilder_ButtonContentProps_207125023(js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps_1283954424 = new SharedBuilder_ButtonContentProps_1283954424(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   object Group {
@@ -114,9 +114,9 @@ object Button {
     
     type Props = ButtonGroupProps
     
-    implicit def make(companion: Group.type): SharedBuilder_ButtonGroupProps1197812445 = new SharedBuilder_ButtonGroupProps1197812445(js.Array(this.component, js.Dictionary.empty))()
+    implicit def make(companion: Group.type): SharedBuilder_ButtonGroupProps_1402391633 = new SharedBuilder_ButtonGroupProps_1402391633(js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: ButtonGroupProps): SharedBuilder_ButtonGroupProps1197812445 = new SharedBuilder_ButtonGroupProps1197812445(js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: ButtonGroupProps): SharedBuilder_ButtonGroupProps_1402391633 = new SharedBuilder_ButtonGroupProps_1402391633(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   object Or {
@@ -127,9 +127,9 @@ object Button {
     
     type Props = ButtonOrProps
     
-    implicit def make(companion: Or.type): SharedBuilder_ButtonOrProps_992167067 = new SharedBuilder_ButtonOrProps_992167067(js.Array(this.component, js.Dictionary.empty))()
+    implicit def make(companion: Or.type): SharedBuilder_ButtonOrProps_1316981655 = new SharedBuilder_ButtonOrProps_1316981655(js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: ButtonOrProps): SharedBuilder_ButtonOrProps_992167067 = new SharedBuilder_ButtonOrProps_992167067(js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: ButtonOrProps): SharedBuilder_ButtonOrProps_1316981655 = new SharedBuilder_ButtonOrProps_1316981655(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/Button", JSImport.Default)

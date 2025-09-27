@@ -1,6 +1,6 @@
 package org.scalablytyped.converter.internal
 
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.seqs._
 
 import scala.collection.mutable
@@ -10,13 +10,15 @@ import scala.reflect.ClassTag
 sealed class Comments(val cs: List[Comment]) extends Serializable {
   def rawCs = cs.collect { case Comment.Raw(raw) => raw }
 
-  def extract[T](pf: PartialFunction[Marker, T]): Option[(T, Comments)] =
-    cs.partitionCollect {
+  def extract[T](pf: PartialFunction[Marker, T]): Option[(T, Comments)] = {
+    val (extracted: List[T], rest: List[Comment]) = cs.partitionCollect[T, List] {
       case marker: Marker if pf.isDefinedAt(marker) => pf(marker)
-    } match {
-      case (Nil, _)     => None
-      case (some, rest) => Some((some.head, Comments(rest)))
     }
+    extracted match {
+      case Nil       => None
+      case head :: _ => Some((head, Comments(rest)))
+    }
+  }
 
   def has[T <: Marker: ClassTag]: Boolean =
     cs.exists {

@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 
 object Versions {
   val sbtVersion = "1.11.6"
@@ -68,8 +68,8 @@ object Versions {
     implicit val decodes: Decoder[ScalaJs] = Decoder[String].map(ScalaJs.apply)
   }
 
-  implicit val encodes: Encoder[Versions] = io.circe013.generic.semiauto.deriveEncoder
-  implicit val decodes: Decoder[Versions] = io.circe013.generic.semiauto.deriveDecoder
+  implicit val encodes: Encoder[Versions] = io.circe.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[Versions] = io.circe.generic.semiauto.deriveDecoder
 
   val ScalaJs1 = ScalaJs("1.20.1")
 }

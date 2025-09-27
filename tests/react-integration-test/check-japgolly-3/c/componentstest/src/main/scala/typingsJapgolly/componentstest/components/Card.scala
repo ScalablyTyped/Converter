@@ -21,9 +21,9 @@ object Card {
     
     type Props = CardGridProps
     
-    implicit def make(companion: Grid2.type): SharedBuilder_CardGridProps2094947949 = new SharedBuilder_CardGridProps2094947949(js.Array(this.component, js.Dictionary.empty))()
+    implicit def make(companion: Grid2.type): SharedBuilder_CardGridProps_1761484424 = new SharedBuilder_CardGridProps_1761484424(js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: CardGridProps): SharedBuilder_CardGridProps2094947949 = new SharedBuilder_CardGridProps2094947949(js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: CardGridProps): SharedBuilder_CardGridProps_1761484424 = new SharedBuilder_CardGridProps_1761484424(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   @JSImport("componentstest", "Card")

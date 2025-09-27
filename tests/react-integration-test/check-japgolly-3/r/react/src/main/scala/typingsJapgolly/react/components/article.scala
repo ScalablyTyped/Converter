@@ -13,7 +13,7 @@ object article {
   
   val component: String = "article"
   
-  implicit def make(companion: article.type): SharedBuilder_DetailedHTMLProps1253650682[HTMLElement] = new SharedBuilder_DetailedHTMLProps1253650682[HTMLElement](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: article.type): SharedBuilder_DetailedHTMLProps_19736828[HTMLElement] = new SharedBuilder_DetailedHTMLProps_19736828[HTMLElement](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): SharedBuilder_DetailedHTMLProps1253650682[HTMLElement] = new SharedBuilder_DetailedHTMLProps1253650682[HTMLElement](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): SharedBuilder_DetailedHTMLProps_19736828[HTMLElement] = new SharedBuilder_DetailedHTMLProps_19736828[HTMLElement](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

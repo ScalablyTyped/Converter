@@ -84,11 +84,10 @@ object Interface {
       row("Seconds per library", processedPerSecond)
 
       println("Active:")
-      active.to[Vector].map(x => (Color.Green(x._1.value).render, x._2.phase)).sorted.foreach(x => println(x.toString))
+      active.toVector.map(x => (Color.Green(x._1.value).render, x._2.phase)).sorted.foreach(x => println(x.toString))
 
       println("Blocked:")
-      blocked
-        .to[Vector]
+      blocked.toVector
         .map {
           case (name, Blocked(phase, on)) =>
             s"${Color.LightGray(name.value).render} ($phase) blocked on ${(on.map(_.libName) -- succeeded.keys).map(_.value)}"

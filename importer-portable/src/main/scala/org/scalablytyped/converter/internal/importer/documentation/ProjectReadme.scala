@@ -62,7 +62,7 @@ ${cs.mkString}
 | ------------------ | :-------------: |
 | Full name          | ${metadata.name} |
 | Keywords           | ${metadata.keywords.fold("-")(_.mkString(", "))} |
-| # releases         | ${metadata.releases.lastOption.fold("?")(_.count.toString)} |
+| # releases         | ${metadata.releases.flatMap(_.lastOption).fold("?")(_.count.toString)} |
 | # dependents       | ${data.evaluation.popularity.dependentsCount} |
 | # downloads        | ${data.evaluation.popularity.downloadsCount} |
 | # stars            | ${data.collected.github.fold("?")(_.starsCount.toString)} |

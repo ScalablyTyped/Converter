@@ -13,7 +13,7 @@ object Accessibility {
   
   type Props = js.Object
   
-  implicit def make(companion: Accessibility.type): SharedBuilder_Object_159303587[default] = new SharedBuilder_Object_159303587[default](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: Accessibility.type): SharedBuilder_Object_176609137[default] = new SharedBuilder_Object_176609137[default](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: js.Object): SharedBuilder_Object_159303587[default] = new SharedBuilder_Object_159303587[default](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: js.Object): SharedBuilder_Object_176609137[default] = new SharedBuilder_Object_176609137[default](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

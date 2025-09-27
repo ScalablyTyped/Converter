@@ -2,12 +2,12 @@ package org.scalablytyped.converter.internal
 
 import java.util
 
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.IArray.fromArrayAndSize
 
 import scala.collection.immutable.{Range, SortedSet}
-import scala.collection.mutable.WrappedArray.ofRef
-import scala.collection.{immutable, mutable, GenTraversableOnce, Iterator}
+import scala.collection.{immutable, mutable, Iterator}
+import scala.collection.compat._
 
 object IArray {
   implicit def IArrayEncoder[T <: AnyRef: Encoder]: Encoder[IArray[T]] =
@@ -32,11 +32,7 @@ object IArray {
     }
 
   def apply[A <: AnyRef](as: A*): IArray[A] =
-    as match {
-      case x: ofRef[A]                => fromArray(x.array)
-      case x: mutable.WrappedArray[A] => fromArray(x.array)
-      case x: GenTraversableOnce[A]   => fromTraversable(x)
-    }
+    fromTraversable(as)
 
   def fromOption[A <: AnyRef](oa: Option[A]): IArray[A] =
     oa match {
@@ -50,8 +46,10 @@ object IArray {
   def fromArray[A <: AnyRef](as: Array[A]): IArray[A] =
     fromArrayAndSize(as.asInstanceOf[Array[AnyRef]], as.length)
 
-  def fromTraversable[A <: AnyRef](as: Traversable[A]): IArray[A] =
-    fromArrayAndSize(as.asInstanceOf[Traversable[AnyRef]].toArray, as.size)
+  def fromTraversable[A <: AnyRef](as: IterableOnce[A]): IArray[A] = {
+    val arr = as.iterator.toArray[AnyRef]
+    fromArrayAndSize(arr, arr.length)
+  }
 
   @inline private def fromArrayAndSize[A <: AnyRef](as: Array[AnyRef], length: Int): IArray[A] =
     if (length == 0) Empty else new IArray[A](as, length)
@@ -108,13 +106,14 @@ object IArray {
     }
   }
 
-  final class Builder[A <: AnyRef](initialCapacity: Int) extends mutable.Builder[A, IArray[A]] {
+  final class Builder[A <: AnyRef](initialCapacity: Int) extends mutable.Builder[A, IArray[A]] with BuilderCompat[A] {
     private val buf = new util.ArrayList[A](initialCapacity)
 
-    override def +=(elem: A): this.type = {
+    def addOne(elem: A): this.type = {
       buf.add(elem)
       this
     }
+
     override def clear(): Unit = buf.clear()
 
     override def result(): IArray[A] = new IArray[A](buf.toArray, buf.size())
@@ -935,7 +934,7 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
   }
 
   def toMap[T, U](implicit ev: A <:< (T, U)): immutable.Map[T, U] = {
-    val ret = new mutable.MapBuilder[T, U, immutable.Map[T, U]](immutable.Map.empty)
+    val ret = immutable.Map.newBuilder[T, U]
     ret.sizeHint(length)
     var idx = 0
     while (idx < length) {

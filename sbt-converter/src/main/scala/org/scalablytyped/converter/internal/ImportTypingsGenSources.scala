@@ -5,7 +5,7 @@ import java.io.File
 import java.nio.file.Path
 import com.olvind.logging
 import com.olvind.logging.{LogLevel, Logger}
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.importer.*
 import org.scalablytyped.converter.internal.maps.*
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
@@ -31,8 +31,8 @@ object ImportTypingsGenSources {
 
   object Input {
     import orphanCodecs._
-    implicit val encodes: Encoder[Input] = io.circe013.generic.semiauto.deriveEncoder
-    implicit val decodes: Decoder[Input] = io.circe013.generic.semiauto.deriveDecoder
+    implicit val encodes: Encoder[Input] = io.circe.generic.semiauto.deriveEncoder
+    implicit val decodes: Decoder[Input] = io.circe.generic.semiauto.deriveDecoder
   }
 
   def apply(

@@ -765,6 +765,6 @@ class JapgollyGenComponents(
           codePath    = clsCodePath,
         ),
       )
-    },
+    }
   }
 }

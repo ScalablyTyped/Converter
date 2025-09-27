@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "rc-field-form"
-version := "1.4.4-340798"
+version := "1.4.4-2bb1a7"
 scalaVersion := "3.3.6"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

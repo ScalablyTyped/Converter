@@ -6,7 +6,7 @@ import java.nio.file.{Files, Path}
 import java.util
 
 import ammonite.ops.%
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.environment.OpSystem
 
 import scala.util.Try

@@ -29,7 +29,7 @@ object GenerateSbtPlugin {
         "JVM_OPTS" -> "-Xmx1G",
         "JAVA_TOOL_OPTIONS" -> "-XX:MaxInlineLevel=24 -Xmx1G -Xss2M",
       ),
-    )('sbt, action)
+    )("sbt", action)
   }
 
   def contents(
@@ -60,14 +60,12 @@ object GenerateSbtPlugin {
       projects
         .map(_.project)
         .groupBy(_.name.head)
-        .to[Array]
+        .toArray
         .sortBy(_._1)
         .map {
           case (letter, ps) =>
             s"""|      object ${ScalaNameEscape(letter.toUpper.toString)} {
-                |${ps
-                 .to[Vector]
-                 .distinct
+                |${ps.toVector.distinct
                  .sortBy(_.name)
                  .map(p => s"|        val ${ScalaNameEscape(fix(p.name))} = ${p.reference.asMangledSbt}")
                  .mkString("", "\n", "")}
@@ -97,7 +95,7 @@ object GenerateSbtPlugin {
       |  }
       |}""".stripMargin
 
-    val pluginSourcePath = os.RelPath("src") / 'main / 'scala / 'com / 'olvind / 'sbt / "ScalablytypedPlugin.scala"
+    val pluginSourcePath = os.RelPath("src") / "main" / "scala" / "com" / "olvind" / "sbt" / "ScalablytypedPlugin.scala"
 
     IArray(
       os.RelPath("build.sbt") -> buildSbt,

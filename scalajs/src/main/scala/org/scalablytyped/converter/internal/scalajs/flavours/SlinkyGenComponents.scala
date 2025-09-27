@@ -841,6 +841,6 @@ class SlinkyGenComponents(
           codePath    = clsCodePath,
         ),
       )
-    },
+    }
   }
 }

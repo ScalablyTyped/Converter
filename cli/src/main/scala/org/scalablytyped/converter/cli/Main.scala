@@ -24,9 +24,9 @@ import scala.util.{Failure, Success, Try}
 object Main {
   class Paths(base: os.Path) {
     lazy val out: os.Path =
-      files.existing(base / 'out)
+      files.existing(base / "out")
     val node_modules: Option[os.Path] =
-      Option(base / 'node_modules).filter(files.exists)
+      Option(base / "node_modules").filter(files.exists)
     val packageJson: Option[os.Path] =
       Option(base / "package.json").filter(files.exists)
   }
@@ -66,7 +66,7 @@ object Main {
     includeProject = false,
   )
 
-  val parseCachePath = Some(files.existing(constants.defaultCacheFolder / 'parse).toNIO)
+  val parseCachePath = Some(files.existing(constants.defaultCacheFolder / "parse").toNIO)
   val t0             = System.currentTimeMillis
 
   val logger: Logger[(Array[Logger.Stored], Unit)] =

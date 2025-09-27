@@ -99,7 +99,7 @@ object TreeScope {
   ) extends TreeScope {
 
     lazy val dependencies: Map[Name, TreeScope] =
-      _dependencies.mapValues(x => this / x)
+      _dependencies.mapValues(x => this / x).toMap
 
     override val stack: List[Tree] =
       Nil

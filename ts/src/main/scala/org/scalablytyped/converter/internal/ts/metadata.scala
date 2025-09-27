@@ -1,8 +1,8 @@
 package org.scalablytyped.converter.internal
 package ts
 
-import io.circe013.generic.semiauto.{deriveDecoder, deriveEncoder}
-import io.circe013.{Decoder, Encoder, Json}
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.{Decoder, Encoder, Json}
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.orphanCodecs._
 

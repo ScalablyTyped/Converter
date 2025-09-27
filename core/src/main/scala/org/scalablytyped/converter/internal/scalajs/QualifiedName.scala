@@ -1,8 +1,8 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-import io.circe013.{Decoder, Encoder}
-import io.circe013.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.{Decoder, Encoder}
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 final case class QualifiedName(parts: IArray[Name]) {
   def +(name: Name) =

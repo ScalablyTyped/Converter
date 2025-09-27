@@ -14,7 +14,7 @@ object RefFindNode {
   
   type Props = RefProps
   
-  implicit def make(companion: RefFindNode.type): SharedBuilder_RefProps_154979285[default] = new SharedBuilder_RefProps_154979285[default](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: RefFindNode.type): SharedBuilder_RefProps618491947[default] = new SharedBuilder_RefProps618491947[default](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: RefProps): SharedBuilder_RefProps_154979285[default] = new SharedBuilder_RefProps_154979285[default](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: RefProps): SharedBuilder_RefProps618491947[default] = new SharedBuilder_RefProps618491947[default](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

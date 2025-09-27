@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "angular-agility"
-version := "0.0-unknown-982013"
+version := "0.0-unknown-23a2b8"
 scalaVersion := "3.3.6"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

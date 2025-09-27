@@ -1,6 +1,6 @@
 package org.scalablytyped.converter.internal
 
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.scalajs.{ExprTree, QualifiedName, TypeRef}
 import org.scalablytyped.converter.internal.ts.TsIdentModule
 
@@ -45,6 +45,6 @@ object Comment {
   def warning(s: String)(implicit e: sourcecode.Enclosing): Comment =
     Comment(s"/* import warning: ${e.value.split("\\.").takeRight(2).mkString(".")} $s */")
 
-  implicit lazy val encodes: Encoder[Comment] = io.circe013.generic.semiauto.deriveEncoder
-  implicit lazy val decodes: Decoder[Comment] = io.circe013.generic.semiauto.deriveDecoder
+  implicit lazy val encodes: Encoder[Comment] = io.circe.generic.semiauto.deriveEncoder
+  implicit lazy val decodes: Decoder[Comment] = io.circe.generic.semiauto.deriveDecoder
 }

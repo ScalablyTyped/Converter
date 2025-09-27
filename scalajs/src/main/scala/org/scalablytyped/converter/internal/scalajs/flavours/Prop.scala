@@ -16,7 +16,7 @@ object Prop {
       variants:    IArray[Variant],
       original:    MemberTree,
   ) extends Prop {
-    lazy val name: Name = original.name
+    val name: Name = original.name
 
     lazy val originalName: Name = original.originalName
 

@@ -5,11 +5,12 @@ package parser
 import com.olvind.logging
 import org.scalablytyped.converter.internal.constants.defaultCacheFolder
 import org.scalablytyped.converter.internal.importer.{Ci, Cmd, DTUpToDate, PersistingParser}
+import org.scalablytyped.converter.internal.ParallelCompat._
 
 object SuchTestMuchFail extends App {
   val logger = logging.stdout
 
-  val parseTempFolder = defaultCacheFolder / 'tests / getClass.getSimpleName.toLowerCase
+  val parseTempFolder = defaultCacheFolder / "tests" / getClass.getSimpleName.toLowerCase
   os.makeDir.all(parseTempFolder)
 
   val dtFolder: InFolder =
@@ -37,7 +38,7 @@ object SuchTestMuchFail extends App {
   val parser = PersistingParser(None, IArray(dtFolder), logger.void)
 
   val parsed: Seq[(os.Path, Either[String, TsParsedFile])] =
-    allFiles.par.map { path: os.Path =>
+    allFiles.parMap { (path: os.Path) =>
       val t0 = System.currentTimeMillis
       val res =
         try parser(InFile(path))
@@ -46,7 +47,7 @@ object SuchTestMuchFail extends App {
         }
       println(s"$path in ${System.currentTimeMillis() - t0} ms")
       (path, res)
-    }.seq
+    }
 
   val successes: Seq[os.Path] =
     parsed

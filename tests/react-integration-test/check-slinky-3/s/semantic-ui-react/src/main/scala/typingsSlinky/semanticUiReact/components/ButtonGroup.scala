@@ -13,7 +13,7 @@ object ButtonGroup {
   
   type Props = ButtonGroupProps
   
-  implicit def make(companion: ButtonGroup.type): SharedBuilder_ButtonGroupProps1675589688 = new SharedBuilder_ButtonGroupProps1675589688(js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: ButtonGroup.type): SharedBuilder_ButtonGroupProps_1385514261 = new SharedBuilder_ButtonGroupProps_1385514261(js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: ButtonGroupProps): SharedBuilder_ButtonGroupProps1675589688 = new SharedBuilder_ButtonGroupProps1675589688(js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: ButtonGroupProps): SharedBuilder_ButtonGroupProps_1385514261 = new SharedBuilder_ButtonGroupProps_1385514261(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

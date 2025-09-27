@@ -13,7 +13,7 @@ object Ref {
   
   type Props = RefProps
   
-  implicit def make(companion: Ref.type): SharedBuilder_RefProps_93134828[js.Object] = new SharedBuilder_RefProps_93134828[js.Object](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: Ref.type): SharedBuilder_RefProps676918644[js.Object] = new SharedBuilder_RefProps676918644[js.Object](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: RefProps): SharedBuilder_RefProps_93134828[js.Object] = new SharedBuilder_RefProps_93134828[js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: RefProps): SharedBuilder_RefProps676918644[js.Object] = new SharedBuilder_RefProps676918644[js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
 }
