@@ -2,7 +2,7 @@
   <configuration default="false" name="CI All Japgolly" type="Application" factoryName="Application" singleton="false">
     <option name="ALTERNATIVE_JRE_PATH" value="graalvm 1.8" />
     <option name="MAIN_CLASS_NAME" value="org.scalablytyped.converter.Main" />
-    <module name="importer" />
+    <module name="converter-root.importer.main" />
     <option name="PROGRAM_PARAMETERS" value="-softWrites -enableParseCache -offline -dontCleanProject2 -flavourJapgolly" />
     <option name="VM_PARAMETERS" value="-Xmx12G" />
     <extension name="coverage">
@@ -13,7 +13,6 @@
     </extension>
     <method v="2">
       <option name="Make" enabled="true" />
-      <option name="BSP.BeforeRunTask" enabled="true" />
     </method>
   </configuration>
 </component>

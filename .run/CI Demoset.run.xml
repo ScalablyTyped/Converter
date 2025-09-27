@@ -2,7 +2,7 @@
   <configuration default="false" name="CI Demoset" type="Application" factoryName="Application" singleton="false">
     <option name="ALTERNATIVE_JRE_PATH" value="/usr/lib/jvm/java-8-openjdk-amd64/jre" />
     <option name="MAIN_CLASS_NAME" value="org.scalablytyped.converter.Main" />
-    <module name="importer" />
+    <module name="converter-root.importer.main" />
     <option name="PROGRAM_PARAMETERS" value="-softWrites -nextVersions2 -enableParseCache -offline -dontCleanProject -forceCommit -demoSet" />
     <extension name="coverage">
       <pattern>
@@ -12,7 +12,6 @@
     </extension>
     <method v="2">
       <option name="Make" enabled="true" />
-      <option name="BSP.BeforeRunTask" enabled="true" />
     </method>
   </configuration>
 </component>
