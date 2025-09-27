@@ -199,11 +199,11 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
     } yield Bootstrap.forCi(externalsFolder, dtFolder, config.conversion, config.wantedLibs)
   }
 
-  val compilerF: Future[BloopCompiler] =
-    BloopCompiler(
-      logger                = logger.filter(LogLevel.debug).void,
-      v                     = config.conversion.versions,
-      failureCacheFolderOpt = Some((paths.cacheFolder / 'compileFailures).toNIO),
+  val compilerF: Future[Compiler] =
+    ScalaCliCompiler(
+      logger   = logger.filter(LogLevel.debug).void,
+      versions = config.conversion.versions,
+      cacheDir = paths.cacheFolder,
     )(ec)
 
   val dtFolderF: Future[InFolder] =

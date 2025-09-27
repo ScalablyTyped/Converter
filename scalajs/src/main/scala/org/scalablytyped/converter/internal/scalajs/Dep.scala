@@ -28,6 +28,23 @@ sealed trait Dep {
         s"""(${dep.asSbt}).cross(CrossVersion.for3Use2_13)"""
     }
 
+  def asScalaCli(versions: Versions): String =
+    this match {
+      case Dep.Mangled(_, dep) =>
+        dep.asScalaCli(versions)
+      case Dep.Java(_, artifact, _) =>
+        s"${org}:${artifact}:${version}"
+      case Dep.Scala(_, artifact, _) =>
+        s"${org}::${artifact}:${version}"
+      case Dep.ScalaJs(_, artifact, _) =>
+        s"${org}::${artifact}::${version}"
+      case Dep.ScalaFullVersion(_, artifact, _) =>
+        // For full cross version, we need to bake in the entire Scala version
+        s"${org}:${artifact}_${versions.scala.scalaVersion}:${version}"
+      case Dep.For3Use2_13(dep) =>
+        dep.asScalaCli(versions.copy(scala = Versions.Scala213))
+    }
+
   def concrete(versions: Versions): Dep.Concrete =
     this match {
       case concrete: Dep.Concrete => concrete
@@ -48,6 +65,12 @@ object Dep {
 
     def asMangledSbt: String =
       s"${quote(org)} % ${quote(mangledArtifact)} % ${quote(version)}"
+
+    def asMangledScalaCli: String =
+      s"${org}:${mangledArtifact}:${version}"
+
+    def asConcreteScalaCli: String =
+      s"${org}:${mangledArtifact}:${version}"
 
     def asIvy(config: String = "compile->default(compile)"): Elem =
       <dependency org={org} name={mangledArtifact} rev={version} conf={config}/>
