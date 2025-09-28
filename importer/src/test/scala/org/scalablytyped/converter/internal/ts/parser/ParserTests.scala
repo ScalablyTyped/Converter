@@ -3337,4 +3337,178 @@ export {};
       TsParser.tsType,
     )(TsTypeQuery(TsQIdent(IArray(TsIdentSimple("genComponentStyleHook")))))
   }
+
+  test("parse Omit type with complex mapped types (parenthesized mapped type with index access)") {
+    // This test ensures mapped types work correctly inside parenthesized expressions.
+    // The fix: removed aggressive commit (~>!) from destructuredObj parser to allow backtracking
+    // when { [ pattern is a mapped type, not a destructured parameter.
+
+    // Test the full Omit type that was failing in react-bootstrap
+    val omitTypeDefinition =
+      """export type Omit<T, K extends keyof T> = Pick<T,
+        |    ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;""".stripMargin
+
+    parseAs(omitTypeDefinition, TsParser.tsContainerOrDecls)
+  }
+
+  test("indexed access types in various contexts") {
+    // Test case for Token[] in optional property (node/util.d.ts error)
+    val optionalArray = """{
+      |  values: { [longOption: string]: undefined | string | boolean | Array<string | boolean> };
+      |  positionals: string[];
+      |  tokens?: Token[];
+      |}""".stripMargin
+    parseAs(optionalArray, TsParser.tsType)
+
+    // Test case for nested indexed access T[K]['validOptions'] (jackspeak error)
+    val nestedIndexedAccess = """{
+      |  [K in keyof T]: T[K]['validOptions'] extends ReadonlyArrays ? string : never
+      |}""".stripMargin
+    parseAs(nestedIndexedAccess, TsParser.tsType)
+
+    // Test case for indexed access in conditional type (type-fest error)
+    val indexedInConditional = """Options['requireExactProps'] extends true
+      |  ? Partial<Record<string, never>>
+      |  : {}""".stripMargin
+    parseAs(indexedInConditional, TsParser.tsType)
+
+    // Test case for accessing tuple length property (rc-field-form error)
+    val tupleLength = """ParentNamePath['length'] extends 5 ? never : string"""
+    parseAs(tupleLength, TsParser.tsType)
+
+    // Test case for indexed access in intersection (storybook error)
+    val indexedInIntersection = """Parameters & (TRenderer['csf4'] extends true ? CoreTypes : unknown)"""
+    parseAs(indexedInIntersection, TsParser.tsType)
+
+    // Test case for complex conditional with indexed access (ajv error)
+    val complexConditional = """true extends IsRecord<Exclude<T, null>, false> ? (
+      |  [RequiredKeys<Exclude<T, null>>] extends [never] ? {} : { properties: {} }
+      |) : never""".stripMargin
+    parseAs(complexConditional, TsParser.tsType)
+
+    // Test the full type alias declarations as well
+    val fullTypeAlias = """type ParsedResults<T extends ParseArgsConfig> = ParseArgsConfig extends T ? {
+      |  values: { [longOption: string]: undefined | string | boolean | Array<string | boolean> };
+      |  positionals: string[];
+      |  tokens?: Token[];
+      |} : PreciseParsedResults<T>""".stripMargin
+    parseAs(fullTypeAlias, TsParser.tsContainerOrDecls)
+  }
+
+  test("simple indexed access with string literal") {
+    // This should work - basic indexed access
+    val simpleIndexed = """Options['requireExactProps']"""
+    parseAs(simpleIndexed, TsParser.tsType)
+  }
+
+  test("indexed access with string literal in conditional") {
+    // This might fail - indexed access in conditional context
+    val indexedInConditional = """Options['requireExactProps'] extends true ? yes : no"""
+    parseAs(indexedInConditional, TsParser.tsType)
+  }
+
+  test("nested indexed access") {
+    // This likely fails - T[K]['validOptions']
+    val nestedIndexed = """T[K]['validOptions']"""
+    parseAs(nestedIndexed, TsParser.tsType)
+  }
+
+  test("indexed access without parentheses") {
+    // This should work
+    val withoutParens = """TRenderer['csf4']"""
+    parseAs(withoutParens, TsParser.tsType)
+  }
+
+  test("indexed access in parentheses") {
+    // Test if parentheses cause issues
+    // This fails with: ']' expected but "csf4" found
+    // Same root cause as above - string literal tokenization issue in parenthesized context
+    val parenthesized = """(TRenderer['csf4'])"""
+    parseAs(parenthesized, TsParser.tsType)
+  }
+
+  test("string literal as type") {
+    // Test if string literals work as types
+    val stringLiteral = """'csf4'"""
+    parseAs(stringLiteral, TsParser.tsType)
+  }
+
+  test("array with string literal type") {
+    // Test if we can have string literals in array position
+    val arrayStringLit = """['csf4']"""
+    parseAs(arrayStringLit, TsParser.tsType)
+  }
+
+  test("simple type with bracket in parentheses") {
+    // Test if parentheses + bracket causes issues
+    val simpleWithBracket = """(A[B])"""
+    parseAs(simpleWithBracket, TsParser.tsType)
+  }
+
+  test("type with string literal index in parentheses - minimal") {
+    // The exact failing case - indexed access with string literal fails in parentheses
+    // Error: ']' expected but "b" found at position 4
+    // This works without parentheses: A['b']
+    // This works with identifier: (A[B])
+    // But fails with string literal in parentheses: (A['b'])
+    // Root cause: String literals are not being correctly tokenized when inside
+    // parentheses followed by brackets. The lexer seems to split 'b' into separate tokens.
+    val minimalFailing = """(A['b'])"""
+    parseAs(minimalFailing, TsParser.tsType)
+  }
+
+  test("parenthesized tuple with string literal") {
+    // Test if parentheses affect tuple parsing
+    // Even simple tuple with string literal fails: (['b'])
+    // Same issue as above - string tokenization problem
+    val parenTuple = """(['b'])"""
+    parseAs(parenTuple, TsParser.tsType)
+  }
+
+  test("string literal in brackets") {
+    // Direct test of the problematic pattern
+    val lit = """'b'"""
+    parseAs(lit, TsParser.tsType)
+
+    // Test in array context
+    val inBrackets = """['b']"""
+    parseAs(inBrackets, TsParser.tsType)
+  }
+
+  test("indexed access in conditional inside parentheses") {
+    // Test if the combination of parentheses and conditional breaks
+    val parenthesizedConditional = """(TRenderer['csf4'] extends true ? CoreTypes : unknown)"""
+    parseAs(parenthesizedConditional, TsParser.tsType)
+  }
+
+  test("rest spread in destructured function parameters") {
+    // Test rest spread in destructured object parameters
+    val simple = """{ ...rest }: any"""
+    parseAs(simple, TsParser.functionParam)
+
+    // Test with normal props before rest spread
+    val withProp = """{ a, ...rest }: any"""
+    parseAs(withProp, TsParser.functionParam)
+
+    // Test as arrow function type
+    val arrowFunc = """({ ...rest }: any) => void"""
+    parseAs(arrowFunc, TsParser.tsType)
+
+    // Test in full function declaration with complex type
+    val content =
+      """export declare const MaybeScreenContainer: ({ enabled, ...rest }: ViewProps & {
+        |    enabled: boolean;
+        |    hasTwoStates: boolean;
+        |    children: React.ReactNode;
+        |}) => JSX.Element;
+        |""".stripMargin
+
+    parseAs(content, TsParser.tsContainerOrDecls)
+
+    // Test in inline function type
+    val content2 =
+      """export declare const RawButton: ({ enabled, ...rest }: any) => React.JSX.Element;""".stripMargin
+
+    parseAs(content2, TsParser.tsContainerOrDecls)
+  }
 }
