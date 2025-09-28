@@ -13,7 +13,7 @@ object ButtonOr {
   
   type Props = ButtonOrProps
   
-  implicit def make(companion: ButtonOr.type): SharedBuilder_ButtonOrProps_1316981655 = new SharedBuilder_ButtonOrProps_1316981655(js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: ButtonOr.type): SharedBuilder_ButtonOrProps_1866251671 = new SharedBuilder_ButtonOrProps_1866251671(js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: ButtonOrProps): SharedBuilder_ButtonOrProps_1316981655 = new SharedBuilder_ButtonOrProps_1316981655(js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: ButtonOrProps): SharedBuilder_ButtonOrProps_1866251671 = new SharedBuilder_ButtonOrProps_1866251671(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

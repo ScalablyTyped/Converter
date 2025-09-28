@@ -12,7 +12,7 @@ private[internal] object ActionAccessibility {
   
   type Props = js.Object
   
-  implicit def make(companion: ActionAccessibility.type): SharedBuilder_Object_176609137[mylib.internal.baz.materialUi.svgIconsActionAccessibilityMod.ActionAccessibility] = new SharedBuilder_Object_176609137[mylib.internal.baz.materialUi.svgIconsActionAccessibilityMod.ActionAccessibility](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: ActionAccessibility.type): SharedBuilder_Object1264044994[mylib.internal.baz.materialUi.svgIconsActionAccessibilityMod.ActionAccessibility] = new SharedBuilder_Object1264044994[mylib.internal.baz.materialUi.svgIconsActionAccessibilityMod.ActionAccessibility](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: js.Object): SharedBuilder_Object_176609137[mylib.internal.baz.materialUi.svgIconsActionAccessibilityMod.ActionAccessibility] = new SharedBuilder_Object_176609137[mylib.internal.baz.materialUi.svgIconsActionAccessibilityMod.ActionAccessibility](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: js.Object): SharedBuilder_Object1264044994[mylib.internal.baz.materialUi.svgIconsActionAccessibilityMod.ActionAccessibility] = new SharedBuilder_Object1264044994[mylib.internal.baz.materialUi.svgIconsActionAccessibilityMod.ActionAccessibility](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

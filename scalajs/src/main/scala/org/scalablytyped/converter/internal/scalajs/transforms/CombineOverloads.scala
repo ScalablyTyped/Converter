@@ -77,7 +77,10 @@ class CombineOverloads(erasure: Erasure) extends TreeTransformation {
       _methods
         .groupBy(m => (m.tparams.map(_.name), m.resultType.typeName))
         .toIArray
-        .sortBy(_._1._1.length)
+        .sortBy { case ((tparams, retType), _) =>
+          // Sort first by tparam length, then by tparam names, then by return type
+          (tparams.length, tparams.map(_.value).mkString(","), retType.parts.map(_.value).mkString("."))
+        }
 
     val default: MethodTree =
       combineSameErasureSameTypeParams(grouped.head._2, None)

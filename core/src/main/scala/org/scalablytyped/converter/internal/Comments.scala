@@ -7,7 +7,7 @@ import scala.collection.mutable
 import scala.reflect.ClassTag
 
 @SerialVersionUID(8167323919307012581L) // something about this class seems brittle
-sealed class Comments(val cs: List[Comment]) extends Serializable {
+sealed class Comments(val cs: List[Comment]) extends Serializable with HasStableHash {
   def rawCs = cs.collect { case Comment.Raw(raw) => raw }
 
   def extract[T](pf: PartialFunction[Marker, T]): Option[(T, Comments)] = {

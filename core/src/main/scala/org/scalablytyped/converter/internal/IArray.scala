@@ -946,6 +946,7 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
   }
 
   def groupBy[K](f: A => K): Map[K, IArray[A]] = {
+    // Reverted to HashMap - relying on deterministic sorting in CombineOverloads instead
     val builder = mutable.HashMap.empty[K, IArray[A]]
     var idx     = 0
     while (idx < length) {
@@ -1045,16 +1046,7 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
   override def toString: String =
     mkString("IArray(", ", ", ")")
 
-  override lazy val hashCode: Int = {
-    var idx    = 0
-    val prime  = 31
-    var result = 1
-    while (idx < length) {
-      result = prime * result + apply(idx).##
-      idx += 1
-    }
-    result
-  }
+  override lazy val hashCode: Int = StableHash(this)
 
   override def equals(obj: Any): Boolean =
     obj match {

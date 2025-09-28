@@ -26,15 +26,15 @@ object Accordion {
     
     type Props = AccordionAccordionProps
     
-    implicit def make(companion: Accordion.type): SharedBuilder_AccordionAccordionProps128479885[
+    implicit def make(companion: Accordion.type): SharedBuilder_AccordionAccordionProps134260595[
         typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionMod.default.Accordion
-      ] = new SharedBuilder_AccordionAccordionProps128479885[
+      ] = new SharedBuilder_AccordionAccordionProps134260595[
         typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionMod.default.Accordion
       ](js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps128479885[
+    def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps134260595[
         typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionMod.default.Accordion
-      ] = new SharedBuilder_AccordionAccordionProps128479885[
+      ] = new SharedBuilder_AccordionAccordionProps134260595[
         typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionMod.default.Accordion
       ](js.Array(this.component, p.asInstanceOf[js.Any]))
   }
@@ -47,9 +47,9 @@ object Accordion {
     
     type Props = AccordionContentProps
     
-    implicit def make(companion: Content.type): SharedBuilder_AccordionContentProps964070972 = new SharedBuilder_AccordionContentProps964070972(js.Array(this.component, js.Dictionary.empty))()
+    implicit def make(companion: Content.type): SharedBuilder_AccordionContentProps1293740607 = new SharedBuilder_AccordionContentProps1293740607(js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: AccordionContentProps): SharedBuilder_AccordionContentProps964070972 = new SharedBuilder_AccordionContentProps964070972(js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: AccordionContentProps): SharedBuilder_AccordionContentProps1293740607 = new SharedBuilder_AccordionContentProps1293740607(js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   object Title {
@@ -60,15 +60,15 @@ object Accordion {
     
     type Props = AccordionTitleProps
     
-    implicit def make(companion: Title.type): SharedBuilder_AccordionTitleProps_627211106[
+    implicit def make(companion: Title.type): SharedBuilder_AccordionTitleProps693949406[
         typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionMod.default.Title
-      ] = new SharedBuilder_AccordionTitleProps_627211106[
+      ] = new SharedBuilder_AccordionTitleProps693949406[
         typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionMod.default.Title
       ](js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: AccordionTitleProps): SharedBuilder_AccordionTitleProps_627211106[
+    def withProps(p: AccordionTitleProps): SharedBuilder_AccordionTitleProps693949406[
         typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionMod.default.Title
-      ] = new SharedBuilder_AccordionTitleProps_627211106[
+      ] = new SharedBuilder_AccordionTitleProps693949406[
         typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionMod.default.Title
       ](js.Array(this.component, p.asInstanceOf[js.Any]))
   }

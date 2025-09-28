@@ -19,7 +19,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-open class SharedBuilder_ButtonGroupProps_1385514261 (val args: js.Array[Any])
+open class SharedBuilder_ButtonGroupProps_138423406 (val args: js.Array[Any])
   extends AnyVal
      with StBuildingComponent[tag.type, scala.Nothing] {
   

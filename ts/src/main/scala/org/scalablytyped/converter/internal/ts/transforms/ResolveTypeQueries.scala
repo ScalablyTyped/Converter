@@ -117,7 +117,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
       case other => other
     }
 
-  private case class P(x: TsTypeQuery) extends Picker[TsNamedValueDecl] {
+  private case class P(x: TsTypeQuery) extends Picker[TsNamedValueDecl](("P", x)) {
     override def unapply(t: TsNamedDecl): Option[TsNamedValueDecl] =
       t match {
         case v: TsDeclVar        => if (v.tpe.exists(_ eq x)) None else Some(v)

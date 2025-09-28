@@ -1,14 +1,15 @@
-package typingsJapgolly.semanticUiReact.components
+package typingsSlinky.semanticUiReact.components
 
-import typingsJapgolly.StBuildingComponent
+import slinky.web.html.`*`.tag
+import typingsSlinky.StBuildingComponent
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-open class SharedBuilder_ButtonOrProps_1316981655 (val args: js.Array[Any])
+open class SharedBuilder_ButtonOrProps1435030884 (val args: js.Array[Any])
   extends AnyVal
-     with StBuildingComponent[scala.Nothing] {
+     with StBuildingComponent[tag.type, scala.Nothing] {
   
   inline def as(value: Any): this.type = set("as", value.asInstanceOf[js.Any])
   

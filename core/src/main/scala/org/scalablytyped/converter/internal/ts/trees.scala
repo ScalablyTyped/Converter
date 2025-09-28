@@ -2,14 +2,13 @@ package org.scalablytyped.converter.internal
 package ts
 
 import io.circe.{Decoder, Encoder, KeyDecoder, KeyEncoder}
-
-import scala.util.hashing.MurmurHash3.productHash
+import org.scalablytyped.converter.internal.{HasStableHash, StableHash}
 
 sealed trait TsTree extends Serializable with Product {
 
   override def canEqual(that: Any): Boolean = that.## == ##
 
-  override lazy val hashCode: Int = productHash(this)
+  override lazy val hashCode: Int = StableHash(this)
 
   lazy val asString: String = {
     val name = this match {
@@ -320,7 +319,7 @@ final case class TsFunParam(comments: Comments, name: TsIdentSimple, tpe: Option
       case _ => false
     }
 
-  override lazy val hashCode: Int = tpe.hashCode
+  override lazy val hashCode: Int = StableHash(tpe)
 }
 
 sealed trait Variance
@@ -377,7 +376,7 @@ final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]
       case Some(scope) => "@" + scope + "/" + fragments.mkString("/")
     }
 
-  override lazy val hashCode: Int = value.hashCode
+  override lazy val hashCode: Int = StableHash(value)
 
   override def equals(obj: Any): Boolean =
     obj match {

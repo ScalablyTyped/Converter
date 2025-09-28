@@ -16,9 +16,9 @@ object VeryExotic {
     
     type Props = RefAttributes[HTMLDivElement]
     
-    implicit def make(companion: Type.type): SharedBuilder_RefAttributes251122092[HTMLDivElement] = new SharedBuilder_RefAttributes251122092[HTMLDivElement](js.Array(this.component, js.Dictionary.empty))()
+    implicit def make(companion: Type.type): SharedBuilder_RefAttributes_421359150[HTMLDivElement] = new SharedBuilder_RefAttributes_421359150[HTMLDivElement](js.Array(this.component, js.Dictionary.empty))()
     
-    def withProps(p: RefAttributes[HTMLDivElement]): SharedBuilder_RefAttributes251122092[HTMLDivElement] = new SharedBuilder_RefAttributes251122092[HTMLDivElement](js.Array(this.component, p.asInstanceOf[js.Any]))
+    def withProps(p: RefAttributes[HTMLDivElement]): SharedBuilder_RefAttributes_421359150[HTMLDivElement] = new SharedBuilder_RefAttributes_421359150[HTMLDivElement](js.Array(this.component, p.asInstanceOf[js.Any]))
   }
   
   @JSImport("componentstest", "VeryExotic")
@@ -27,7 +27,7 @@ object VeryExotic {
   
   type Props = RefAttributes[HTMLDivElement]
   
-  implicit def make(companion: VeryExotic.type): SharedBuilder_RefAttributes251122092[HTMLDivElement] = new SharedBuilder_RefAttributes251122092[HTMLDivElement](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: VeryExotic.type): SharedBuilder_RefAttributes_421359150[HTMLDivElement] = new SharedBuilder_RefAttributes_421359150[HTMLDivElement](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: RefAttributes[HTMLDivElement]): SharedBuilder_RefAttributes251122092[HTMLDivElement] = new SharedBuilder_RefAttributes251122092[HTMLDivElement](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: RefAttributes[HTMLDivElement]): SharedBuilder_RefAttributes_421359150[HTMLDivElement] = new SharedBuilder_RefAttributes_421359150[HTMLDivElement](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

@@ -124,7 +124,8 @@ object Printer {
         s"$name.scala"
       }
 
-      files.foreach {
+      // Sort by a stable key to ensure deterministic output
+      files.toList.sortBy(_._1.hashCode).foreach {
         case (ScalaOutput.File(name), members: IArray[Tree]) =>
           reg.write(targetFolder / os.RelPath(s"${name.unescaped}.scala")) { writer =>
             val (imports, shortenedMembers) = ShortenNames(tree, scope, parentsResolver)(members)

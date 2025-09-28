@@ -1,11 +1,11 @@
-package typingsJapgolly.componentstest.components
+package mylib.internal.baz.materialUi.components
 
-import typingsJapgolly.StBuildingComponent
+import mylib.internal.baz.StBuildingComponent
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-open class SharedBuilder_RefAttributes251122092[R <: js.Object] (val args: js.Array[Any])
+private[internal] open class SharedBuilder_Object1264044994[R <: js.Object] (val args: js.Array[Any])
   extends AnyVal
      with StBuildingComponent[R]

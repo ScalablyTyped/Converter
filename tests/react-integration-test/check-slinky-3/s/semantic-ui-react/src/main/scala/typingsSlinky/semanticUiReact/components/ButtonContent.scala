@@ -13,7 +13,7 @@ object ButtonContent {
   
   type Props = ButtonContentProps
   
-  implicit def make(companion: ButtonContent.type): SharedBuilder_ButtonContentProps1568753139 = new SharedBuilder_ButtonContentProps1568753139(js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: ButtonContent.type): SharedBuilder_ButtonContentProps2140108940 = new SharedBuilder_ButtonContentProps2140108940(js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps1568753139 = new SharedBuilder_ButtonContentProps1568753139(js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: ButtonContentProps): SharedBuilder_ButtonContentProps2140108940 = new SharedBuilder_ButtonContentProps2140108940(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

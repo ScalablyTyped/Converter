@@ -13,7 +13,7 @@ object bdo {
   
   val component: String = "bdo"
   
-  implicit def make(companion: bdo.type): SharedBuilder_DetailedHTMLProps_1630102984[HTMLElement] = new SharedBuilder_DetailedHTMLProps_1630102984[HTMLElement](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: bdo.type): SharedBuilder_DetailedHTMLProps2003142551[HTMLElement] = new SharedBuilder_DetailedHTMLProps2003142551[HTMLElement](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): SharedBuilder_DetailedHTMLProps_1630102984[HTMLElement] = new SharedBuilder_DetailedHTMLProps_1630102984[HTMLElement](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]): SharedBuilder_DetailedHTMLProps2003142551[HTMLElement] = new SharedBuilder_DetailedHTMLProps2003142551[HTMLElement](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

@@ -445,7 +445,7 @@ object typesVueMod {
     
     def compile(template: String): StaticRenderFns = js.native
     
-    def component(id: String): VueConstructor[typings.vue.typesVueMod.Vue] = js.native
+    def component(id: String): ExtendedVue[V, js.Object, js.Object, js.Object, js.Object] = js.native
     def component(
       id: String,
       definition: ComponentOptions[V, DefaultData[V], DefaultMethods[V], DefaultComputed, PropsDefinition[DefaultProps]]
@@ -462,13 +462,13 @@ object typesVueMod {
       definition: ThisTypedComponentOptionsWithRecordProps[V, Data, Methods, Computed, Props]
     ): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
     @JSName("component")
-    def component_DataMethodsComputedPropNames_ExtendedVue[Data, Methods, Computed, PropNames /* <: String */](id: String): ExtendedVue[V, Data, Methods, Computed, Record[PropNames, Any]] = js.native
+    def component_DataMethodsComputedPropNames[Data, Methods, Computed, PropNames /* <: String */](id: String): ExtendedVue[V, Data, Methods, Computed, Record[PropNames, Any]] = js.native
     @JSName("component")
-    def component_DataMethodsComputedProps_ExtendedVue[Data, Methods, Computed, Props](id: String): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
-    @JSName("component")
-    def component_ExtendedVue(id: String): ExtendedVue[V, js.Object, js.Object, js.Object, js.Object] = js.native
+    def component_DataMethodsComputedProps[Data, Methods, Computed, Props](id: String): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
     @JSName("component")
     def component_Props[Props](id: String, definition: FunctionalComponentOptions[Props, RecordPropsDefinition[Props]]): ExtendedVue[V, js.Object, js.Object, js.Object, Props] = js.native
+    @JSName("component")
+    def component_VueConstructor(id: String): VueConstructor[typings.vue.typesVueMod.Vue] = js.native
     
     var config: VueConfiguration = js.native
     
