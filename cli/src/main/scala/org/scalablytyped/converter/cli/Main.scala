@@ -3,7 +3,7 @@ package org.scalablytyped.converter.cli
 import com.olvind.logging.{stdout, storing, LogLevel, Logger}
 import fansi.{Attr, Color, Str}
 import org.scalablytyped.converter.internal.importer._
-import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, PublishedSbtProject, SbtProject}
+import org.scalablytyped.converter.internal.importer.build.{PublishedSbtProject, SbtProject, ScalaCliCompiler}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.phases.PhaseListener.NoListener
 import org.scalablytyped.converter.internal.phases.{PhaseRes, PhaseRunner, RecPhase}
@@ -251,7 +251,7 @@ object Main {
         )
 
         val compiler = Await.result(
-          BloopCompiler(logger.filter(LogLevel.debug).void, conversion.versions, failureCacheFolderOpt = None),
+          ScalaCliCompiler(logger.filter(LogLevel.debug).void, conversion.versions, constants.defaultCacheFolder),
           Duration.Inf,
         )
 

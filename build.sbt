@@ -2,12 +2,6 @@ import scala.sys.process.stringToProcess
 
 lazy val latestTag = "git tag -l --sort=committerdate".!!.linesIterator.toVector.last.drop( /* 'v' */ 1)
 
-// BSP setup to use with bloop
-Global / bloopExportJarClassifiers := Some(Set("sources"))
-
-// bloop hasn't upgraded to scala-xml 2 yet
-ThisBuild / libraryDependencySchemes ++= Seq("org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always)
-
 lazy val core = project
   .configure(baseSettings)
   .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode) ++ Deps.circe)
@@ -56,8 +50,8 @@ lazy val importer = project
   .configure(baseSettings, optimize)
   .settings(
     libraryDependencies ++= Seq(
-      Deps.bloop,
       Deps.coursier,
+      Deps.gigahorse,
       Deps.scalatest % Test,
     ),
     Test / fork := true,
@@ -107,7 +101,10 @@ lazy val `import-scalajs-definitions` = project
   .configure(baseSettings)
   .dependsOn(importer)
   .settings(
-    libraryDependencies ++= List("org.scala-lang" % "scalap" % scalaVersion.value),
+    libraryDependencies ++= List(
+      "org.scala-lang" % "scalap" % scalaVersion.value,
+      Deps.coursier,
+    ),
     publish / skip := true,
   )
 
