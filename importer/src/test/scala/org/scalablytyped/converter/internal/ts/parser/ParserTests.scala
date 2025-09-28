@@ -1489,7 +1489,7 @@ type Readonly<T> = {
           IArray(
             TsFunParam(
               NoComments,
-              TsIdent("hasToken"),
+              TsIdent("param0"),
               Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("TokenAuthData"))), Empty)),
             ),
           ),
@@ -1745,7 +1745,7 @@ type Readonly<T> = {
           IArray(
             TsFunParam(
               NoComments,
-              TsIdentSimple("hasFacetNameFacetQueryQp"),
+              TsIdentSimple("param0"),
               Some(
                 TsTypeIntersect(
                   IArray(
@@ -1815,7 +1815,7 @@ type Readonly<T> = {
               IArray(
                 TsFunParam(
                   NoComments,
-                  TsIdentSimple("hasArgsTargetValueConfig"),
+                  TsIdentSimple("param0"),
                   Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("ApplicateOptions"))), Empty)),
                 ),
               ),
@@ -2146,7 +2146,7 @@ type Readonly<T> = {
           IArray(
             TsFunParam(
               NoComments,
-              TsIdentSimple("hasOptimisticResponseUpdateQueriesRefetchQueriesUpdateErrorPolicy"),
+              TsIdentSimple("param0"),
               Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Fpp"))), Empty)),
             ),
           ),
@@ -2258,7 +2258,7 @@ type Readonly<T> = {
                   TsFunParam(NoComments, TsIdentSimple("accum"), Some(TsTypeRef.any)),
                   TsFunParam(
                     NoComments,
-                    TsIdentSimple("hasKeyVal"),
+                    TsIdentSimple("param1"),
                     Some(
                       TsTypeTuple(
                         IArray(TsTupleElement.unlabeled(TsTypeRef.any), TsTupleElement.unlabeled(TsTypeRef.any)),
@@ -2476,8 +2476,8 @@ export {};
           NoComments,
           Empty,
           IArray(
-            TsFunParam(NoComments, TsIdentSimple("has0"), Some(TsTypeObject(NoComments, Empty))),
-            TsFunParam(NoComments, TsIdentSimple("has1"), Some(TsTypeObject(NoComments, Empty))),
+            TsFunParam(NoComments, TsIdentSimple("param0"), Some(TsTypeObject(NoComments, Empty))),
+            TsFunParam(NoComments, TsIdentSimple("param1"), Some(TsTypeObject(NoComments, Empty))),
           ),
           Some(TsTypeRef.void),
         ),
@@ -2882,7 +2882,7 @@ export {};
           IArray(
             TsFunParam(
               NoComments,
-              TsIdentSimple("hasSectionItem"),
+              TsIdentSimple("param0"),
               Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("ConfigurationSectionEntry"))), Empty)),
             ),
           ),
@@ -2907,7 +2907,7 @@ export {};
           IArray(
             TsFunParam(
               NoComments,
-              TsIdentSimple("hasCom.apple.developer.contacts.notesEntitlementsPlist"),
+              TsIdentSimple("param0"),
               Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Plist"))), Empty)),
             ),
           ),
@@ -2960,7 +2960,7 @@ export {};
                   IArray(
                     TsFunParam(
                       NoComments,
-                      TsIdentSimple("any"),
+                      TsIdentSimple("args"),
                       Some(TsTypeInfer(TsTypeParam(NoComments, TsIdentSimple("P"), None, None))),
                     ),
                   ),
