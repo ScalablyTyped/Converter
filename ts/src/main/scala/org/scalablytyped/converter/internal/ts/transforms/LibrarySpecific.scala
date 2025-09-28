@@ -104,6 +104,23 @@ object LibrarySpecific {
       }
   }
 
+  object node extends Named {
+    override val libName = TsIdentLibrarySimple("node")
+
+    override def enterTsDeclTypeAlias(t: TsTreeScope)(x: TsDeclTypeAlias): TsDeclTypeAlias =
+      x.name match {
+        case TsIdentSimple("BuiltinIteratorReturn") =>
+          // The actual TypeScript definition uses a complex conditional type with the intrinsic keyword
+          // which is not supported by the converter. We rewrite it to Any to avoid conversion errors.
+          x.copy(
+            alias = TsTypeRef.any.copy(
+              comments = Comments(Comment.warning("Simplified from TypeScript intrinsic keyword")),
+            ),
+          )
+        case _ => x
+      }
+  }
+
   object react extends Named {
     val libName       = TsIdentLibrarySimple("react")
     val DOMAttributes = TsIdent("DOMAttributes")
@@ -181,7 +198,7 @@ object LibrarySpecific {
   }
 
   val patches: Map[TsIdentLibrary, Named] =
-    IArray(aMap, react, semanticUiReact, std, styledComponents)
+    IArray(aMap, node, react, semanticUiReact, std, styledComponents)
       .map(x => x.libName -> x)
       .toMap
 
