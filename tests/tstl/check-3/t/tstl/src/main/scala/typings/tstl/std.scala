@@ -28,6 +28,5 @@ object std {
     }
   }
   
-  /* was `typeof Queue` */
   type queue[T] = Queue_[T]
 }
