@@ -9,12 +9,12 @@ jobs:
   scalafmt:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: coursier/setup-action@v1.2.0-M3
+      - uses: actions/checkout@v4
+      - uses: coursier/setup-action@v1
         with:
           apps: scalafmt
 
-      - uses: coursier/cache-action@v6
+      - uses: coursier/cache-action@v6.4
 
       - name: Scalafmt
         run: scalafmt -c .scalafmt.conf --check
@@ -30,23 +30,23 @@ jobs:
           - os: macos-latest
           - os: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: coursier/cache-action@v6
+      - uses: coursier/cache-action@v6.4
 
-      - uses: coursier/setup-action@v1.2.0-M3
+      - uses: coursier/setup-action@v1
         with:
-          jvm: adopt:11
+          jvm: adoptium:1.21.0.1
           apps: sbt
 
       - name: Get tests folder sha
         id: get-tests-folder-sha
         run: |
-          echo "::set-output name=sha::$(git ls-tree HEAD tests --object-only)"
+          echo "sha=$(git ls-tree HEAD tests --object-only)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: test-cache
           key: ${{ runner.os }}-${{ steps.get-tests-folder-sha.outputs.sha }}-test-cache-v1
@@ -63,24 +63,24 @@ jobs:
 #    runs-on: ubuntu-latest
 #    timeout-minutes: 25
 #    steps:
-#      - uses: actions/checkout@v3
+#      - uses: actions/checkout@v4
 #        with:
 #          fetch-depth: 0
 #
-#      - uses: coursier/cache-action@v6
+#      - uses: coursier/cache-action@v6.4
 #
 #      # cache artifacts within same date. should help a bit with the compile time
 #      - name: Get timestamp
 #        id: get-date
 #        run: |
-#          echo "::set-output name=time::$(date +%yy-%m-%d)"
+#          echo "time=$(date +%yy-%m-%d)" >> $GITHUB_OUTPUT
 #
-#      - uses: actions/cache@v3
+#      - uses: actions/cache@v4
 #        with:
 #          path: ~/.ivy2/local/org.scalablytyped
 #          key: scripted-v1-${{ steps.get-date.outputs.time }}
 #
-#      - uses: coursier/setup-action@v1.2.0-M3
+#      - uses: coursier/setup-action@v1
 #        with:
 #          jvm: adopt:11
 #          apps: sbt
