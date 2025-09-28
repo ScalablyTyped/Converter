@@ -52,7 +52,7 @@ class ScalaCliCompiler private (
         "-d",
         compilerPaths.classesDir.toString,
         compilerPaths.sourcesDir.toString,
-      ) ++ (if (depClasspath.nonEmpty) Seq("--classpath", depClasspath.mkString(":")) else Seq.empty)
+      ) ++ (if (depClasspath.nonEmpty) Seq("--classpath", depClasspath.mkString(java.io.File.pathSeparator)) else Seq.empty)
 
       logger.info(s"Compiling $name with scala-cli...")
       logger.debug(s"Command: ${compileCmd.mkString(" ")}")
