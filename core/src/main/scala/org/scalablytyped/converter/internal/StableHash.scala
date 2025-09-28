@@ -61,9 +61,9 @@ trait HasStableHash
 object StableHash {
   // MurmurHash3 constants - using stringHash for consistency
   final val productSeed = 0xcafebabe
-  lazy val seqSeed = stringHash("Seq")
-  lazy val mapSeed = stringHash("Map")
-  lazy val setSeed = stringHash("Set")
+  lazy val seqSeed      = stringHash("Seq")
+  lazy val mapSeed      = stringHash("Map")
+  lazy val setSeed      = stringHash("Set")
 
   /** Mix in a block of data into an intermediate hash value. */
   private def mix(hash: Int, data: Int): Int = {
@@ -100,7 +100,7 @@ object StableHash {
       // Primitives and basic types
       case null => 0
       case s: String => stringHash(s)
-      case b: Boolean => if (b) 1231 else 1237  // Standard Java boolean hash values
+      case b: Boolean => if (b) 1231 else 1237 // Standard Java boolean hash values
       case b: Byte => b.toInt
       case s: Short => s.toInt
       case i: Int => i
@@ -133,7 +133,7 @@ object StableHash {
 
       // Collections
       case arr: Array[_] =>
-        var h = 0x3c074a61  // arraySeed
+        var h = 0x3c074a61 // arraySeed
         var i = 0
         while (i < arr.length) {
           h = mix(h, computeHash(arr(i)))
@@ -142,8 +142,8 @@ object StableHash {
         finalizeHash(h, arr.length)
 
       case list: List[_] =>
-        var n = 0
-        var h = seqSeed
+        var n     = 0
+        var h     = seqSeed
         var elems = list
         while (elems.nonEmpty) {
           h = mix(h, computeHash(elems.head))
@@ -163,7 +163,7 @@ object StableHash {
           def compare(a: (Any, Int), b: (Any, Int)): Int = {
             val hashCmp = Integer.compare(a._2, b._2)
             if (hashCmp != 0) hashCmp
-            else a._1.toString.compareTo(b._1.toString)  // Only compute toString if hashes are equal
+            else a._1.toString.compareTo(b._1.toString) // Only compute toString if hashes are equal
           }
         }
 
@@ -171,9 +171,10 @@ object StableHash {
 
         var h = setSeed
         var n = 0
-        sorted.foreach { case (_, elemHash) =>
-          h = mix(h, elemHash)
-          n += 1
+        sorted.foreach {
+          case (_, elemHash) =>
+            h = mix(h, elemHash)
+            n += 1
         }
         finalizeHash(h, n)
 
@@ -200,10 +201,11 @@ object StableHash {
 
         var h = mapSeed
         var n = 0
-        sorted.foreach { case (_, _, kh, vh) =>
-          h = mix(h, kh)
-          h = mix(h, vh)
-          n += 1
+        sorted.foreach {
+          case (_, _, kh, vh) =>
+            h = mix(h, kh)
+            h = mix(h, vh)
+            n += 1
         }
         finalizeHash(h, n)
 
@@ -223,13 +225,13 @@ object StableHash {
       case other =>
         throw new IllegalArgumentException(
           s"StableHash: Unsupported type ${other.getClass.getName}. " +
-          s"Value: ${other.toString.take(100)}"
+            s"Value: ${other.toString.take(100)}",
         )
     }
   }
 
   private def stringHash(str: String): Int = {
-    var h = 0xf7ca7fd2  // stringSeed
+    var h = 0xf7ca7fd2 // stringSeed
     var i = 0
     while (i + 1 < str.length) {
       val data = (str.charAt(i) << 16) + str.charAt(i + 1)
@@ -256,7 +258,7 @@ object StableHash {
   }
 
   private def arrayHash(arr: IArray[_]): Int = {
-    var h = 0x3c074a61  // arraySeed
+    var h = 0x3c074a61 // arraySeed
     var i = 0
     while (i < arr.length) {
       h = mix(h, computeHash(arr(i)))
@@ -266,7 +268,7 @@ object StableHash {
   }
 
   private def pathHash(path: java.nio.file.Path): Int = {
-    var h = stringHash("Path")  // seed
+    var h = stringHash("Path") // seed
     var n = 0
 
     // Hash root if present
@@ -287,7 +289,7 @@ object StableHash {
   }
 
   private def relPathHash(relPath: os.RelPath): Int = {
-    var h = stringHash("RelPath")  // seed
+    var h = stringHash("RelPath") // seed
     var n = 0
 
     // Hash ups (parent directory traversals)
@@ -303,7 +305,7 @@ object StableHash {
     finalizeHash(h, n)
   }
 
-  private def orderedHash(xs: TraversableOnce[Any], seed: Int): Int = {
+  private def orderedHash(xs: TraversableOnce[Any], seed: Int): Int =
     if (xs.isEmpty) {
       finalizeHash(seed, 0)
     } else {
@@ -315,5 +317,4 @@ object StableHash {
       }
       finalizeHash(h, n)
     }
-  }
 }

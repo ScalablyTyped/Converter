@@ -12,7 +12,7 @@ class StableHashTest extends AnyFunSuite with Matchers {
     StableHash("hello") shouldBe 469940726
     StableHash("world") shouldBe -1967831175
     StableHash("ScalablyTyped") shouldBe -1116352842
-    StableHash("") shouldBe 377927480  // empty string
+    StableHash("") shouldBe 377927480 // empty string
   }
 
   test("primitives have stable hashes") {
@@ -47,7 +47,7 @@ class StableHashTest extends AnyFunSuite with Matchers {
   test("nested structures have stable hashes") {
     val nested = List(
       Map("a" -> List(1, 2)),
-      Map("b" -> List(3, 4))
+      Map("b" -> List(3, 4)),
     )
     StableHash(nested) shouldBe -2112717056
   }
@@ -61,11 +61,11 @@ class StableHashTest extends AnyFunSuite with Matchers {
   }
 
   test("Name and QualifiedName have stable hashes") {
-    val name = Name("TestName")
+    val name  = Name("TestName")
     val qname = QualifiedName(IArray(Name("org"), Name("example"), Name("Test")))
 
     // These use their overridden hashCode which should use StableHash
-    name.hashCode shouldBe name.hashCode  // Just checking consistency
+    name.hashCode shouldBe name.hashCode // Just checking consistency
     qname.hashCode shouldBe qname.hashCode
   }
 
@@ -74,13 +74,13 @@ class StableHashTest extends AnyFunSuite with Matchers {
     val tuple = (
       TsIdentLibrary("react"),
       true,
-      IArray(TsIdent("T"), TsIdent("U"))
+      IArray(TsIdent("T"), TsIdent("U")),
     )
 
     // The actual value will depend on the implementation details,
     // but it should be consistent
     val hash = StableHash(tuple)
-    hash shouldBe hash  // At least consistent with itself
+    hash shouldBe hash // At least consistent with itself
 
     // Verify it's not zero or some trivial value
     hash should not be 0
