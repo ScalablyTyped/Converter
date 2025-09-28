@@ -1,8 +1,6 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-import java.util.regex.Pattern
-
 import ammonite.ops._
 import bloop.io.AbsolutePath
 import com.olvind.logging
@@ -10,9 +8,8 @@ import org.scalablytyped.converter.internal.importer.build.BloopCompiler
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.transforms.Sorter
 
-import scala.concurrent.Await
+import java.util.regex.Pattern
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.Duration
 import scala.reflect.NameTransformer
 import scala.tools.scalap.scalax.rules.scalasig._
 
@@ -174,7 +171,7 @@ object ImportScalaDefinitions extends App {
     all.mapNotNone(isJs)
   }
 
-  Json.persist[IArray[Tree]](dumpJsonTo)(flatten(allJs))
+  Json.persist[IArray[Tree]](dumpJsonTo)(flatten(allJs).sortBy(_.codePath.parts), io.circe.Printer.spaces2)
 
   {
     val inContainers: IArray[Tree] =

@@ -140,7 +140,7 @@ object org {
       }
       
       @js.native
-      abstract class AbstractRange () extends StObject {
+      class AbstractRange () extends StObject {
         
         def collapsed(): Boolean = js.native
         
@@ -336,6 +336,13 @@ object org {
         def specified(): Boolean = js.native
         
         var value: String = js.native
+      }
+      
+      @js.native
+      class Audio ()
+        extends StObject
+           with HTMLAudioElement {
+        def this(url: String) = this()
       }
       
       @js.native
@@ -622,10 +629,29 @@ object org {
         def text(): js.Promise[String] = js.native
       }
       
+      @js.native
+      class BroadcastChannel protected ()
+        extends StObject
+           with EventTarget {
+        def this(channelName: String) = this()
+        
+        val channelName: String = js.native
+        
+        def close(): Unit = js.native
+        
+        def name(): String = js.native
+        
+        var onmessage: js.Function1[MessageEvent, _] = js.native
+        
+        var onmessageerror: js.Function1[MessageEvent, _] = js.native
+        
+        def postMessage(message: Any): Unit = js.native
+      }
+      
       type BufferSource = js.typedarray.ArrayBufferView | js.typedarray.ArrayBuffer
       
       @js.native
-      abstract class CDATASection ()
+      class CDATASection ()
         extends StObject
            with Text
       
@@ -1230,7 +1256,7 @@ object org {
       }
       
       @js.native
-      abstract class Cache () extends StObject {
+      class Cache () extends StObject {
         
         def add(request: RequestInfo): js.Promise[Unit] = js.native
         
@@ -1274,6 +1300,11 @@ object org {
       }
       
       @js.native
+      sealed trait CanvasFillRule
+        extends StObject
+           with js.Any
+      
+      @js.native
       class CanvasGradient () extends StObject {
         
         def addColorStop(offset: Double, color: String): Unit = js.native
@@ -1294,7 +1325,14 @@ object org {
       class CanvasRenderingContext2D () extends StObject {
         
         def arc(x: Double, y: Double, radius: Double, startAngle: Double, endAngle: Double): Unit = js.native
-        def arc(x: Double, y: Double, radius: Double, startAngle: Double, endAngle: Double, anticlockwise: Boolean): Unit = js.native
+        def arc(
+          x: Double,
+          y: Double,
+          radius: Double,
+          startAngle: Double,
+          endAngle: Double,
+          counterclockwise: Boolean
+        ): Unit = js.native
         
         def arcTo(x1: Double, y1: Double, x2: Double, y2: Double, radius: Double): Unit = js.native
         
@@ -1306,7 +1344,9 @@ object org {
         
         def clearRect(x: Double, y: Double, w: Double, h: Double): Unit = js.native
         
-        def clip(fillRule: String): Unit = js.native
+        def clip(fillRule: CanvasFillRule): Unit = js.native
+        def clip(path: Path2D): Unit = js.native
+        def clip(path: Path2D, fillRule: CanvasFillRule): Unit = js.native
         
         def closePath(): Unit = js.native
         
@@ -1338,16 +1378,20 @@ object org {
           rotation: Double,
           startAngle: Double,
           endAngle: Double,
-          anticlockwise: Boolean
+          counterclockwise: Boolean
         ): Unit = js.native
         
-        def fill(): Unit = js.native
+        def fill(fillRule: CanvasFillRule): Unit = js.native
+        def fill(path: Path2D): Unit = js.native
+        def fill(path: Path2D, fillRule: CanvasFillRule): Unit = js.native
         
         def fillRect(x: Double, y: Double, w: Double, h: Double): Unit = js.native
         
         var fillStyle: js.Any = js.native
         
         def fillText(text: String, x: Double, y: Double, maxWidth: Double): Unit = js.native
+        
+        var filter: String = js.native
         
         var font: String = js.native
         
@@ -1361,8 +1405,9 @@ object org {
         
         var imageSmoothingEnabled: Boolean = js.native
         
-        def isPointInPath(x: Double, y: Double): Boolean = js.native
-        def isPointInPath(x: Double, y: Double, fillRule: String): Boolean = js.native
+        def isPointInPath(path: Path2D, x: Double, y: Double): Boolean = js.native
+        def isPointInPath(path: Path2D, x: Double, y: Double, fillRule: CanvasFillRule): Boolean = js.native
+        def isPointInPath(x: Double, y: Double, fillRule: CanvasFillRule): Boolean = js.native
         
         var lineCap: String = js.native
         
@@ -1415,6 +1460,7 @@ object org {
         var shadowOffsetY: Double = js.native
         
         def stroke(): Unit = js.native
+        def stroke(path: Path2D): Unit = js.native
         
         def strokeRect(x: Double, y: Double, w: Double, h: Double): Unit = js.native
         
@@ -1444,7 +1490,7 @@ object org {
            with AudioNode
       
       @js.native
-      abstract class CharacterData ()
+      class CharacterData ()
         extends StObject
            with Node
            with NonDocumentTypeChildNode {
@@ -1518,11 +1564,11 @@ object org {
         extends StObject
            with EventTarget {
         
-        def read(): js.Promise[DataTransfer] = js.native
+        def read(): js.Promise[js.Array[ClipboardItem]] = js.native
         
         def readText(): js.Promise[String] = js.native
         
-        def write(data: DataTransfer): js.Promise[Unit] = js.native
+        def write(data: js.Array[ClipboardItem]): js.Promise[Unit] = js.native
         
         def writeText(newClipText: String): js.Promise[Unit] = js.native
       }
@@ -1548,6 +1594,29 @@ object org {
         var data: js.UndefOr[String] = js.native
         
         var dataType: js.UndefOr[String] = js.native
+      }
+      
+      @js.native
+      class ClipboardItem protected () extends StObject {
+        def this(items: js.Dictionary[ClipboardItemData], options: ClipboardItemOptions) = this()
+        
+        def getType(`type`: String): js.Promise[Blob] = js.native
+        
+        val items: js.Dictionary[ClipboardItemData] = js.native
+        
+        val options: ClipboardItemOptions = js.native
+        
+        def presentationStyle(): PresentationStyle = js.native
+        
+        def types(): FrozenArray[String] = js.native
+      }
+      
+      type ClipboardItemData = js.Promise[String | Blob]
+      
+      @js.native
+      trait ClipboardItemOptions extends StObject {
+        
+        def presentationStyle(): js.UndefOr[PresentationStyle] = js.native
       }
       
       @js.native
@@ -1593,6 +1662,22 @@ object org {
         var data: js.UndefOr[String] = js.native
         
         var locale: js.UndefOr[String] = js.native
+      }
+      
+      @js.native
+      sealed trait CompressionFormat
+        extends StObject
+           with js.Any
+      
+      @js.native
+      class CompressionStream protected () extends StObject {
+        def this(format: CompressionFormat) = this()
+        
+        val format: CompressionFormat = js.native
+        
+        def readable(): ReadableStream[js.typedarray.Uint8Array] = js.native
+        
+        def writable(): WriteableStream[js.typedarray.Uint8Array] = js.native
       }
       
       @js.native
@@ -1739,7 +1824,7 @@ object org {
       }
       
       @js.native
-      abstract class CustomElementRegistry () extends StObject {
+      class CustomElementRegistry () extends StObject {
         
         def define(name: String, constructor: js.Dynamic, options: ElementDefinitionOptions): Unit = js.native
       }
@@ -1868,6 +1953,18 @@ object org {
       }
       
       @js.native
+      trait DOMRectInit extends StObject {
+        
+        var height: js.UndefOr[Double] = js.native
+        
+        var width: js.UndefOr[Double] = js.native
+        
+        var x: js.UndefOr[Double] = js.native
+        
+        var y: js.UndefOr[Double] = js.native
+      }
+      
+      @js.native
       class DOMRectList ()
         extends StObject
            with DOMList[DOMRect]
@@ -1932,19 +2029,69 @@ object org {
         
         def clearData(format: String): Unit = js.native
         
-        var dropEffect: String = js.native
+        var dropEffect: DataTransferDropEffectKind = js.native
         
-        var effectAllowed: String = js.native
+        var effectAllowed: DataTransferEffectAllowedKind = js.native
         
         def files(): FileList = js.native
         
         def getData(format: String): String = js.native
         
+        def items(): DataTransferItemList = js.native
+        
         def setData(format: String, data: String): Unit = js.native
         
         def setDragImage(image: Element, x: Double, y: Double): Unit = js.native
         
-        def types(): js.Array[String] = js.native
+        def types(): FrozenArray[String] = js.native
+      }
+      
+      @js.native
+      sealed trait DataTransferDropEffectKind
+        extends StObject
+           with js.Any
+      
+      @js.native
+      sealed trait DataTransferEffectAllowedKind
+        extends StObject
+           with js.Any
+      
+      @js.native
+      class DataTransferItem private () extends StObject {
+        
+        def getAsFile(): File = js.native
+        
+        def getAsString(callback: js.Function1[String, Unit]): Unit = js.native
+        
+        def kind(): DragDataItemKind = js.native
+        
+        def `type`(): String = js.native
+      }
+      
+      @js.native
+      class DataTransferItemList private () extends StObject {
+        
+        def add(data: String, `type`: String): DataTransferItem = js.native
+        def add(data: File): DataTransferItem = js.native
+        
+        def apply(index: Int): DataTransferItem = js.native
+        
+        def clear(): Unit = js.native
+        
+        def length(): Int = js.native
+        
+        def remove(index: Int): Unit = js.native
+      }
+      
+      @js.native
+      class DecompressionStream protected () extends StObject {
+        def this(format: CompressionFormat) = this()
+        
+        val format: CompressionFormat = js.native
+        
+        def readable(): ReadableStream[js.typedarray.Uint8Array] = js.native
+        
+        def writable(): WriteableStream[js.typedarray.Uint8Array] = js.native
       }
       
       @js.native
@@ -2126,7 +2273,7 @@ object org {
       }
       
       @js.native
-      abstract class Document ()
+      class Document ()
         extends StObject
            with Node
            with NodeSelector
@@ -2149,8 +2296,12 @@ object org {
         def createDocumentFragment(): DocumentFragment = js.native
         
         def createElement(tagName: String): Element = js.native
+        def createElement(tagName: String, options: String): Element = js.native
+        def createElement(tagName: String, options: ElementCreationOptions): Element = js.native
         
         def createElementNS(namespaceURI: String, qualifiedName: String): Element = js.native
+        def createElementNS(namespaceURI: String, qualifiedName: String, options: String): Element = js.native
+        def createElementNS(namespaceURI: String, qualifiedName: String, options: ElementCreationOptions): Element = js.native
         
         def createNSResolver(node: Node): XPathNSResolver = js.native
         
@@ -2233,7 +2384,7 @@ object org {
       }
       
       @js.native
-      abstract class DocumentFragment ()
+      class DocumentFragment ()
         extends StObject
            with Node
            with NodeSelector
@@ -2244,7 +2395,7 @@ object org {
            with js.Any
       
       @js.native
-      abstract class DocumentType ()
+      class DocumentType ()
         extends StObject
            with Node {
         
@@ -2254,6 +2405,11 @@ object org {
         
         def systemId(): String = js.native
       }
+      
+      @js.native
+      sealed trait DragDataItemKind
+        extends StObject
+           with js.Any
       
       @js.native
       trait DragEvent
@@ -2323,7 +2479,7 @@ object org {
       }
       
       @js.native
-      abstract class Element ()
+      class Element ()
         extends StObject
            with Node
            with NodeSelector
@@ -2338,6 +2494,8 @@ object org {
         
         def attachShadow(init: ShadowRootInit): ShadowRoot = js.native
         
+        def attributes(): NamedNodeMap = js.native
+        
         def before(nodes: Node | String): Unit = js.native
         
         var classList: DOMTokenList = js.native
@@ -2349,6 +2507,8 @@ object org {
         def clientTop(): Int = js.native
         
         def clientWidth(): Int = js.native
+        
+        def closest(selector: String): Element = js.native
         
         def getAttribute(name: String): String = js.native
         
@@ -2372,6 +2532,10 @@ object org {
         
         def hasAttributeNS(namespaceURI: String, localName: String): Boolean = js.native
         
+        def hasAttributes(): Boolean = js.native
+        
+        def hasPointerCapture(pointerId: Double): Boolean = js.native
+        
         var id: String = js.native
         
         var innerHTML: String = js.native
@@ -2381,6 +2545,12 @@ object org {
         def insertAdjacentHTML(where: String, html: String): Unit = js.native
         
         def matches(selector: String): Boolean = js.native
+        
+        var oncompositionend: js.Function1[CompositionEvent, _] = js.native
+        
+        var oncompositionstart: js.Function1[CompositionEvent, _] = js.native
+        
+        var oncompositionupdate: js.Function1[CompositionEvent, _] = js.native
         
         var oncopy: js.Function1[ClipboardEvent, _] = js.native
         
@@ -2397,6 +2567,8 @@ object org {
         def prefix(): String = js.native
         
         def prepend(nodes: Node | String): Unit = js.native
+        
+        def releasePointerCapture(pointerId: Double): Unit = js.native
         
         def remove(): Unit = js.native
         
@@ -2430,9 +2602,17 @@ object org {
         
         def setAttributeNodeNS(newAttr: Attr): Attr = js.native
         
+        def setPointerCapture(pointerId: Double): Unit = js.native
+        
         def shadowRoot(): ShadowRoot = js.native
         
         def tagName(): String = js.native
+      }
+      
+      @js.native
+      trait ElementCreationOptions extends StObject {
+        
+        var is: js.UndefOr[String] = js.native
       }
       
       @js.native
@@ -2474,6 +2654,8 @@ object org {
         def cancelBubble(): Boolean = js.native
         
         def cancelable(): Boolean = js.native
+        
+        def composed(): Boolean = js.native
         
         def currentTarget(): EventTarget = js.native
         
@@ -2558,7 +2740,7 @@ object org {
         
         def close(): Unit = js.native
         
-        var onerror: js.Function1[ErrorEvent, _] = js.native
+        var onerror: js.Function1[Event, _] = js.native
         
         var onmessage: js.Function1[MessageEvent, _] = js.native
         
@@ -2807,18 +2989,57 @@ object org {
       }
       
       @js.native
-      class FormData protected () extends StObject {
+      trait FocusOptions extends StObject {
+        
+        var focusVisible: js.UndefOr[Boolean] = js.native
+        
+        var preventScroll: js.UndefOr[Boolean] = js.native
+      }
+      
+      @js.native
+      class FormData ()
+        extends StObject
+           with js.Iterable[js.Tuple2[String, String | Blob]] {
         def this(form: HTMLFormElement) = this()
+        def this(form: HTMLFormElement, submitter: HTMLElement) = this()
         
-        def append(name: js.Any, value: js.Any, blobName: String): Unit = js.native
+        def append(name: String, value: String): Unit = js.native
+        def append(name: String, value: Blob, blobName: String): Unit = js.native
         
-        val form: HTMLFormElement = js.native
+        def delete(name: String): Unit = js.native
+        
+        def entries(): js.Iterator[js.Tuple2[String, String | Blob]] = js.native
+        
+        def get(name: String): String | Blob = js.native
+        
+        def getAll(name: String): js.Array[String | Blob] = js.native
+        
+        def has(name: String): Boolean = js.native
+        
+        override def jsIterator(): js.Iterator[js.Tuple2[String, String | Blob]] = js.native
+        
+        def keys(): js.Iterator[String] = js.native
+        
+        def set(name: String, value: String): Unit = js.native
+        def set(name: String, value: Blob, blobName: String): Unit = js.native
+        
+        def values(): js.Iterator[String | Blob] = js.native
       }
       
       @js.native
       sealed trait FrameType
         extends StObject
            with js.Any
+      
+      @js.native
+      trait FrozenArray[T]
+        extends StObject
+           with js.Iterable[T] {
+        
+        def apply(index: Int): T = js.native
+        
+        val length: Int = js.native
+      }
       
       @js.native
       trait FullscreenOptions extends StObject {
@@ -2923,11 +3144,13 @@ object org {
       }
       
       @js.native
-      abstract class HTMLAnchorElement ()
+      class HTMLAnchorElement ()
         extends StObject
            with HTMLElement {
         
         var charset: String = js.native
+        
+        var download: String = js.native
         
         var hash: String = js.native
         
@@ -2959,7 +3182,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLAreaElement ()
+      class HTMLAreaElement ()
         extends StObject
            with HTMLElement {
         
@@ -2989,17 +3212,17 @@ object org {
       }
       
       @js.native
-      abstract class HTMLAudioElement ()
+      class HTMLAudioElement ()
         extends StObject
            with HTMLMediaElement
       
       @js.native
-      abstract class HTMLBRElement ()
+      class HTMLBRElement ()
         extends StObject
            with HTMLElement
       
       @js.native
-      abstract class HTMLBaseElement ()
+      class HTMLBaseElement ()
         extends StObject
            with HTMLElement {
         
@@ -3009,7 +3232,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLBodyElement ()
+      class HTMLBodyElement ()
         extends StObject
            with HTMLElement {
         
@@ -3043,7 +3266,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLButtonElement ()
+      class HTMLButtonElement ()
         extends StObject
            with HTMLElement {
         
@@ -3085,7 +3308,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLCanvasElement ()
+      class HTMLCanvasElement ()
         extends StObject
            with HTMLElement {
         
@@ -3099,7 +3322,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLCollection[E] ()
+      class HTMLCollection[E] ()
         extends StObject
            with DOMList[E] {
         
@@ -3109,12 +3332,12 @@ object org {
       }
       
       @js.native
-      abstract class HTMLDListElement ()
+      class HTMLDListElement ()
         extends StObject
            with HTMLElement
       
       @js.native
-      abstract class HTMLDataListElement ()
+      class HTMLDataListElement ()
         extends StObject
            with HTMLElement {
         
@@ -3122,7 +3345,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLDialogElement ()
+      class HTMLDialogElement ()
         extends StObject
            with HTMLElement {
         
@@ -3138,12 +3361,12 @@ object org {
       }
       
       @js.native
-      abstract class HTMLDivElement ()
+      class HTMLDivElement ()
         extends StObject
            with HTMLElement
       
       @js.native
-      abstract class HTMLDocument ()
+      class HTMLDocument ()
         extends StObject
            with Document {
         
@@ -3371,7 +3594,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLElement ()
+      class HTMLElement ()
         extends StObject
            with Element {
         
@@ -3394,6 +3617,7 @@ object org {
         var filters: Object = js.native
         
         def focus(): Unit = js.native
+        def focus(options: FocusOptions): Unit = js.native
         
         var gotpointercapture: js.Function1[PointerEvent, _] = js.native
         
@@ -3577,7 +3801,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLEmbedElement ()
+      class HTMLEmbedElement ()
         extends StObject
            with HTMLElement
            with GetSVGDocument {
@@ -3590,7 +3814,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLFieldSetElement ()
+      class HTMLFieldSetElement ()
         extends StObject
            with HTMLElement {
         
@@ -3617,7 +3841,7 @@ object org {
            with HTMLCollection[RadioNodeList | Element]
       
       @js.native
-      abstract class HTMLFormElement ()
+      class HTMLFormElement ()
         extends StObject
            with HTMLElement {
         
@@ -3661,27 +3885,27 @@ object org {
       }
       
       @js.native
-      abstract class HTMLHRElement ()
+      class HTMLHRElement ()
         extends StObject
            with HTMLElement
       
       @js.native
-      abstract class HTMLHeadElement ()
+      class HTMLHeadElement ()
         extends StObject
            with HTMLElement
       
       @js.native
-      abstract class HTMLHeadingElement ()
+      class HTMLHeadingElement ()
         extends StObject
            with HTMLElement
       
       @js.native
-      abstract class HTMLHtmlElement ()
+      class HTMLHtmlElement ()
         extends StObject
            with HTMLElement
       
       @js.native
-      abstract class HTMLIFrameElement ()
+      class HTMLIFrameElement ()
         extends StObject
            with HTMLElement
            with GetSVGDocument {
@@ -3708,7 +3932,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLImageElement ()
+      class HTMLImageElement ()
         extends StObject
            with HTMLElement {
         
@@ -3716,11 +3940,15 @@ object org {
         
         def complete(): Boolean = js.native
         
+        def currentSrc(): String = js.native
+        
         var height: Int = js.native
         
         var href: String = js.native
         
         var isMap: Boolean = js.native
+        
+        var loading: LazyLoadingState = js.native
         
         var naturalHeight: Int = js.native
         
@@ -3728,15 +3956,23 @@ object org {
         
         var onload: js.Function1[Event, _] = js.native
         
+        var sizes: String = js.native
+        
         var src: String = js.native
+        
+        var srcset: String = js.native
         
         var useMap: String = js.native
         
         var width: Int = js.native
+        
+        def x(): Int = js.native
+        
+        def y(): Int = js.native
       }
       
       @js.native
-      abstract class HTMLInputElement ()
+      class HTMLInputElement ()
         extends StObject
            with HTMLElement {
         
@@ -3836,7 +4072,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLLIElement ()
+      class HTMLLIElement ()
         extends StObject
            with HTMLElement {
         
@@ -3844,7 +4080,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLLabelElement ()
+      class HTMLLabelElement ()
         extends StObject
            with HTMLElement {
         
@@ -3854,7 +4090,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLLegendElement ()
+      class HTMLLegendElement ()
         extends StObject
            with HTMLElement {
         
@@ -3864,7 +4100,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLLinkElement ()
+      class HTMLLinkElement ()
         extends StObject
            with HTMLElement
            with LinkStyle {
@@ -3885,7 +4121,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLMapElement ()
+      class HTMLMapElement ()
         extends StObject
            with HTMLElement {
         
@@ -3893,7 +4129,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLMediaElement ()
+      class HTMLMediaElement ()
         extends StObject
            with HTMLElement {
         
@@ -3976,7 +4212,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLMenuElement ()
+      class HTMLMenuElement ()
         extends StObject
            with HTMLElement {
         
@@ -3984,7 +4220,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLMetaElement ()
+      class HTMLMetaElement ()
         extends StObject
            with HTMLElement {
         
@@ -4000,7 +4236,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLModElement ()
+      class HTMLModElement ()
         extends StObject
            with HTMLElement {
         
@@ -4010,7 +4246,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLOListElement ()
+      class HTMLOListElement ()
         extends StObject
            with HTMLElement {
         
@@ -4018,7 +4254,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLObjectElement ()
+      class HTMLObjectElement ()
         extends StObject
            with HTMLElement
            with GetSVGDocument {
@@ -4063,7 +4299,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLOptGroupElement ()
+      class HTMLOptGroupElement ()
         extends StObject
            with HTMLElement {
         
@@ -4073,7 +4309,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLOptionElement ()
+      class HTMLOptionElement ()
         extends StObject
            with HTMLElement {
         
@@ -4102,12 +4338,12 @@ object org {
            with HTMLCollection[HTMLOptionElement]
       
       @js.native
-      abstract class HTMLParagraphElement ()
+      class HTMLParagraphElement ()
         extends StObject
            with HTMLElement
       
       @js.native
-      abstract class HTMLParamElement ()
+      class HTMLParamElement ()
         extends StObject
            with HTMLElement {
         
@@ -4117,12 +4353,12 @@ object org {
       }
       
       @js.native
-      abstract class HTMLPreElement ()
+      class HTMLPreElement ()
         extends StObject
            with HTMLElement
       
       @js.native
-      abstract class HTMLProgressElement ()
+      class HTMLProgressElement ()
         extends StObject
            with HTMLElement {
         
@@ -4136,7 +4372,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLQuoteElement ()
+      class HTMLQuoteElement ()
         extends StObject
            with HTMLElement {
         
@@ -4146,7 +4382,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLScriptElement ()
+      class HTMLScriptElement ()
         extends StObject
            with HTMLElement {
         
@@ -4168,7 +4404,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLSelectElement ()
+      class HTMLSelectElement ()
         extends StObject
            with HTMLElement {
         
@@ -4222,7 +4458,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLSourceElement ()
+      class HTMLSourceElement ()
         extends StObject
            with HTMLElement {
         
@@ -4234,12 +4470,12 @@ object org {
       }
       
       @js.native
-      abstract class HTMLSpanElement ()
+      class HTMLSpanElement ()
         extends StObject
            with HTMLElement
       
       @js.native
-      abstract class HTMLStyleElement ()
+      class HTMLStyleElement ()
         extends StObject
            with HTMLElement
            with LinkStyle {
@@ -4253,12 +4489,12 @@ object org {
       trait HTMLTableAlignment extends StObject
       
       @js.native
-      abstract class HTMLTableCaptionElement ()
+      class HTMLTableCaptionElement ()
         extends StObject
            with HTMLElement
       
       @js.native
-      abstract class HTMLTableCellElement ()
+      class HTMLTableCellElement ()
         extends StObject
            with HTMLElement
            with HTMLTableAlignment {
@@ -4273,7 +4509,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLTableColElement ()
+      class HTMLTableColElement ()
         extends StObject
            with HTMLElement
            with HTMLTableAlignment {
@@ -4282,7 +4518,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLTableElement ()
+      class HTMLTableElement ()
         extends StObject
            with HTMLElement {
         
@@ -4318,7 +4554,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLTableRowElement ()
+      class HTMLTableRowElement ()
         extends StObject
            with HTMLElement
            with HTMLTableAlignment {
@@ -4343,7 +4579,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLTableSectionElement ()
+      class HTMLTableSectionElement ()
         extends StObject
            with HTMLElement
            with HTMLTableAlignment {
@@ -4358,7 +4594,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLTemplateElement ()
+      class HTMLTemplateElement ()
         extends StObject
            with HTMLElement {
         
@@ -4366,7 +4602,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLTextAreaElement ()
+      class HTMLTextAreaElement ()
         extends StObject
            with HTMLElement {
         
@@ -4422,7 +4658,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLTitleElement ()
+      class HTMLTitleElement ()
         extends StObject
            with HTMLElement {
         
@@ -4430,7 +4666,7 @@ object org {
       }
       
       @js.native
-      abstract class HTMLTrackElement ()
+      class HTMLTrackElement ()
         extends StObject
            with HTMLElement {
         
@@ -4446,17 +4682,17 @@ object org {
       }
       
       @js.native
-      abstract class HTMLUListElement ()
+      class HTMLUListElement ()
         extends StObject
            with HTMLElement
       
       @js.native
-      abstract class HTMLUnknownElement ()
+      class HTMLUnknownElement ()
         extends StObject
            with HTMLElement
       
       @js.native
-      abstract class HTMLVideoElement ()
+      class HTMLVideoElement ()
         extends StObject
            with HTMLMediaElement {
         
@@ -4897,6 +5133,18 @@ object org {
       }
       
       @js.native
+      class Image ()
+        extends StObject
+           with HTMLImageElement {
+        def this(width: Int) = this()
+        def this(width: Int, height: Int) = this()
+        
+        val height: Int = js.native
+        
+        val width: Int = js.native
+      }
+      
+      @js.native
       trait ImageBitmap extends StObject {
         
         def close(): Unit = js.native
@@ -4921,12 +5169,23 @@ object org {
       
       @js.native
       class ImageData () extends StObject {
+        def this(data: js.typedarray.Uint8ClampedArray, width: Int) = this()
+        def this(width: Int, height: Int) = this()
+        def this(data: js.typedarray.Uint8ClampedArray, width: Int, height: Int) = this()
+        def this(width: Int, height: Int, settings: ImageDataSettings) = this()
+        def this(data: js.typedarray.Uint8ClampedArray, width: Int, height: Int, settings: ImageDataSettings) = this()
         
-        def data(): js.Array[Int] = js.native
+        def data(): js.typedarray.Uint8ClampedArray = js.native
         
         def height(): Int = js.native
         
         def width(): Int = js.native
+      }
+      
+      @js.native
+      trait ImageDataSettings extends StObject {
+        
+        var colorSpace: js.UndefOr[PredefinedColorSpace] = js.native
       }
       
       @js.native
@@ -4967,6 +5226,81 @@ object org {
       sealed trait InputType
         extends StObject
            with js.Any
+      
+      @js.native
+      class IntersectionObserver protected () extends StObject {
+        def this(
+          callback: js.Function2[js.Array[IntersectionObserverEntry], IntersectionObserver, Unit],
+          options: IntersectionObserverInit
+        ) = this()
+        
+        val callback: js.Function2[js.Array[IntersectionObserverEntry], IntersectionObserver, Unit] = js.native
+        
+        def disconnect(): Unit = js.native
+        
+        def observe(target: Element): Unit = js.native
+        
+        val options: IntersectionObserverInit = js.native
+        
+        def root(): Document | Element = js.native
+        
+        def rootMargin(): String = js.native
+        
+        def takeRecords(): js.Array[IntersectionObserverEntry] = js.native
+        
+        def thresholds(): FrozenArray[Double] = js.native
+        
+        def unobserve(target: Element): Unit = js.native
+      }
+      
+      @js.native
+      class IntersectionObserverEntry protected () extends StObject {
+        def this(init: IntersectionObserverEntryInit) = this()
+        
+        def boundingClientRect(): DOMRectReadOnly = js.native
+        
+        val init: IntersectionObserverEntryInit = js.native
+        
+        def intersectionRatio(): Double = js.native
+        
+        def intersectionRect(): DOMRectReadOnly = js.native
+        
+        def isIntersecting(): Boolean = js.native
+        
+        def rootBounds(): DOMRectReadOnly = js.native
+        
+        def target(): Element = js.native
+        
+        def time(): Double = js.native
+      }
+      
+      @js.native
+      trait IntersectionObserverEntryInit extends StObject {
+        
+        var boundingClientRect: DOMRectInit = js.native
+        
+        var intersectionRatio: Double = js.native
+        
+        var intersectionRect: DOMRectInit = js.native
+        
+        var isIntersecting: Boolean = js.native
+        
+        var rootBounds: DOMRectInit = js.native
+        
+        var target: Element = js.native
+        
+        var time: Double = js.native
+      }
+      
+      @js.native
+      trait IntersectionObserverInit extends StObject {
+        
+        var root: js.UndefOr[Document | Element] = js.native
+        
+        var rootMargin: js.UndefOr[String] = js.native
+        
+        var threshold: js.UndefOr[Double | js.Array[Double]] = js.native
+      }
       
       @js.native
       trait JsonWebKey extends StObject {
@@ -5038,9 +5372,13 @@ object org {
         
         def charCode(): Int = js.native
         
+        def code(): String = js.native
+        
         def getModifierState(keyArg: String): Boolean = js.native
         
         val init: js.UndefOr[KeyboardEventInit] = js.native
+        
+        def isComposing(): Boolean = js.native
         
         def key(): String = js.native
         
@@ -5072,6 +5410,8 @@ object org {
         
         var charCode: js.UndefOr[Int] = js.native
         
+        var code: js.UndefOr[String] = js.native
+        
         var key: js.UndefOr[String] = js.native
         
         var keyCode: js.UndefOr[Int] = js.native
@@ -5082,6 +5422,11 @@ object org {
         
         var repeat: js.UndefOr[Boolean] = js.native
       }
+      
+      @js.native
+      sealed trait LazyLoadingState
+        extends StObject
+           with js.Any
       
       @js.native
       trait LinkStyle extends StObject {
@@ -5102,7 +5447,7 @@ object org {
         
         var href: String = js.native
         
-        def origin(): js.UndefOr[String] = js.native
+        def origin(): String = js.native
         
         var pathname: String = js.native
         
@@ -5110,7 +5455,7 @@ object org {
         
         var protocol: String = js.native
         
-        def reload(flag: Boolean): Unit = js.native
+        def reload(): Unit = js.native
         
         def replace(url: String): Unit = js.native
         
@@ -5118,9 +5463,93 @@ object org {
       }
       
       @js.native
+      class Lock private () extends StObject {
+        
+        def mode(): LockMode = js.native
+        
+        def name(): String = js.native
+      }
+      
+      @js.native
+      trait LockInfo extends StObject {
+        
+        def clientId(): String = js.native
+        
+        def mode(): LockMode = js.native
+        
+        def name(): String = js.native
+      }
+      
+      @js.native
+      class LockManager private () extends StObject {
+        
+        def query(): js.Promise[LockManagerSnapshot] = js.native
+        
+        def request(name: String, callback: js.Function1[Lock, js.Promise[Unit]]): js.Promise[Unit] = js.native
+        def request(name: String, options: LockOptions, callback: js.Function1[Lock, js.Promise[Unit]]): js.Promise[Unit] = js.native
+      }
+      
+      @js.native
+      trait LockManagerSnapshot extends StObject {
+        
+        def held(): js.Array[LockInfo] = js.native
+        
+        def pending(): js.Array[LockInfo] = js.native
+      }
+      
+      @js.native
+      sealed trait LockMode
+        extends StObject
+           with js.Any
+      
+      @js.native
+      trait LockOptions extends StObject {
+        
+        var ifAvailable: js.UndefOr[Boolean] = js.native
+        
+        var mode: js.UndefOr[LockMode] = js.native
+        
+        var signal: js.UndefOr[AbortSignal] = js.native
+        
+        var steal: js.UndefOr[Boolean] = js.native
+      }
+      
+      @js.native
       sealed trait MIMEType
         extends StObject
            with js.Any
+      
+      @js.native
+      class MathMLElement ()
+        extends StObject
+           with Element {
+        
+        var autofocus: Boolean = js.native
+        
+        var className: String = js.native
+        
+        var onclick: js.Function1[MouseEvent, _] = js.native
+        
+        var onfocusin: js.Function1[FocusEvent, _] = js.native
+        
+        var onfocusout: js.Function1[FocusEvent, _] = js.native
+        
+        var onload: js.Function1[Event, _] = js.native
+        
+        var onmousedown: js.Function1[MouseEvent, _] = js.native
+        
+        var onmousemove: js.Function1[MouseEvent, _] = js.native
+        
+        var onmouseout: js.Function1[MouseEvent, _] = js.native
+        
+        var onmouseover: js.Function1[MouseEvent, _] = js.native
+        
+        var onmouseup: js.Function1[MouseEvent, _] = js.native
+        
+        var style: CSSStyleDeclaration = js.native
+        
+        var tabIndex: Int = js.native
+      }
       
       @js.native
       trait MediaDeviceInfo extends StObject {
@@ -5195,13 +5624,15 @@ object org {
       }
       
       @js.native
-      trait MediaQueryList extends StObject {
+      trait MediaQueryList
+        extends StObject
+           with EventTarget {
         
         def addListener(listener: MediaQueryListListener): Unit = js.native
         
         def matches(): Boolean = js.native
         
-        var media: String = js.native
+        def media(): String = js.native
         
         def removeListener(listener: MediaQueryListListener): Unit = js.native
       }
@@ -5669,6 +6100,115 @@ object org {
       }
       
       @js.native
+      class NDEFMessage protected () extends StObject {
+        def this(messageInit: js.Array[NDEFRecordInit]) = this()
+        
+        val messageInit: js.Array[NDEFRecordInit] = js.native
+        
+        def records(): FrozenArray[NDEFRecord] = js.native
+      }
+      
+      @js.native
+      class NDEFReader ()
+        extends StObject
+           with EventTarget {
+        
+        var onreading: js.Function1[NDEFReadingEvent, Any] = js.native
+        
+        var onreadingerror: js.Function1[Event, Any] = js.native
+        
+        def scan(options: NDEFScanOptions): js.Promise[Unit] = js.native
+        
+        def write(message: String): js.Promise[Unit] = js.native
+        def write(message: String, options: NDEFWriteOptions): js.Promise[Unit] = js.native
+        def write(message: js.Array[NDEFRecord]): js.Promise[Unit] = js.native
+        def write(message: js.Array[NDEFRecord], options: NDEFWriteOptions): js.Promise[Unit] = js.native
+        def write(message: js.typedarray.ArrayBuffer): js.Promise[Unit] = js.native
+        def write(message: js.typedarray.ArrayBuffer, options: NDEFWriteOptions): js.Promise[Unit] = js.native
+        def write(message: js.typedarray.DataView): js.Promise[Unit] = js.native
+        def write(message: js.typedarray.DataView, options: NDEFWriteOptions): js.Promise[Unit] = js.native
+        def write(message: js.typedarray.TypedArray[_, _], options: NDEFWriteOptions): js.Promise[Unit] = js.native
+      }
+      
+      @js.native
+      class NDEFReadingEvent protected ()
+        extends StObject
+           with Event {
+        def this(typeArg: String, init: NDEFReadingEventInit) = this()
+        
+        val init: NDEFReadingEventInit = js.native
+        
+        def message(): NDEFMessage = js.native
+        
+        def serialNumber(): String = js.native
+        
+        val typeArg: String = js.native
+      }
+      
+      @js.native
+      trait NDEFReadingEventInit
+        extends StObject
+           with EventInit {
+        
+        var message: NDEFRecordInit = js.native
+        
+        var serialNumber: js.UndefOr[String] = js.native
+      }
+      
+      @js.native
+      class NDEFRecord protected () extends StObject {
+        def this(init: NDEFRecordInit) = this()
+        
+        def data(): js.typedarray.DataView = js.native
+        
+        def encoding(): js.UndefOr[String] = js.native
+        
+        def id(): js.UndefOr[String] = js.native
+        
+        val init: NDEFRecordInit = js.native
+        
+        def lang(): js.UndefOr[String] = js.native
+        
+        def mediaType(): js.UndefOr[String] = js.native
+        
+        def recordType(): String = js.native
+        
+        def toRecords(): js.UndefOr[js.Array[NDEFRecord]] = js.native
+      }
+      
+      @js.native
+      trait NDEFRecordInit extends StObject {
+        
+        var data: js.UndefOr[
+                String | js.typedarray.DataView | js.typedarray.ArrayBuffer | (js.typedarray.TypedArray[_, _]) | js.Array[NDEFRecord]
+              ] = js.native
+        
+        var encoding: js.UndefOr[String] = js.native
+        
+        var id: js.UndefOr[String] = js.native
+        
+        var lang: js.UndefOr[String] = js.native
+        
+        var mediaType: js.UndefOr[String] = js.native
+        
+        var recordType: String = js.native
+      }
+      
+      @js.native
+      trait NDEFScanOptions extends StObject {
+        
+        var signal: js.UndefOr[AbortSignal] = js.native
+      }
+      
+      @js.native
+      trait NDEFWriteOptions extends StObject {
+        
+        var overwrite: js.UndefOr[Boolean] = js.native
+        
+        var signal: js.UndefOr[AbortSignal] = js.native
+      }
+      
+      @js.native
       class NamedNodeMap () extends StObject {
         
         def apply(index: Int): Attr = js.native
@@ -5701,6 +6241,7 @@ object org {
            with NavigatorGeolocation
            with NavigatorStorageUtils
            with NavigatorLanguage
+           with NavigatorLocks
            with NavigatorVibration {
         
         def clipboard(): Clipboard = js.native
@@ -5719,7 +6260,14 @@ object org {
       }
       
       @js.native
-      trait NavigatorContentUtils extends StObject
+      trait NavigatorContentUtils extends StObject {
+        
+        def registerProtocolHandler(scheme: String, url: String): Unit = js.native
+        def registerProtocolHandler(scheme: String, url: URL): Unit = js.native
+        
+        def unregisterProtocolHandler(scheme: String, url: String): Unit = js.native
+        def unregisterProtocolHandler(scheme: String, url: URL): Unit = js.native
+      }
       
       @js.native
       trait NavigatorGeolocation extends StObject {
@@ -5748,6 +6296,12 @@ object org {
       }
       
       @js.native
+      trait NavigatorLocks extends StObject {
+        
+        def locks(): LockManager = js.native
+      }
+      
+      @js.native
       trait NavigatorOnLine extends StObject {
         
         def onLine(): Boolean = js.native
@@ -5764,13 +6318,11 @@ object org {
       }
       
       @js.native
-      abstract class Node ()
+      class Node ()
         extends StObject
            with EventTarget {
         
         def appendChild(newChild: Node): Node = js.native
-        
-        def attributes(): NamedNodeMap = js.native
         
         def baseURI(): String = js.native
         
@@ -5783,8 +6335,6 @@ object org {
         def contains(otherNode: Node): Boolean = js.native
         
         def firstChild(): Node = js.native
-        
-        def hasAttributes(): Boolean = js.native
         
         def hasChildNodes(): Boolean = js.native
         
@@ -6160,6 +6710,47 @@ object org {
       }
       
       @js.native
+      class Path2D () extends StObject {
+        
+        def addPath(path: Path2D): Unit = js.native
+        
+        def arc(x: Double, y: Double, radius: Double, startAngle: Double, endAngle: Double): Unit = js.native
+        def arc(
+          x: Double,
+          y: Double,
+          radius: Double,
+          startAngle: Double,
+          endAngle: Double,
+          counterclockwise: Boolean
+        ): Unit = js.native
+        
+        def arcTo(x1: Double, y1: Double, x2: Double, y2: Double, radius: Double): Unit = js.native
+        
+        def bezierCurveTo(cp1x: Double, cp1y: Double, cp2x: Double, cp2y: Double, x: Double, y: Double): Unit = js.native
+        
+        def closePath(): Unit = js.native
+        
+        def ellipse(
+          x: Double,
+          y: Double,
+          radiusX: Double,
+          radiusY: Double,
+          rotation: Double,
+          startAngle: Double,
+          endAngle: Double,
+          counterclockwise: Boolean
+        ): Unit = js.native
+        
+        def lineTo(x: Double, y: Double): Unit = js.native
+        
+        def moveTo(x: Double, y: Double): Unit = js.native
+        
+        def quadraticCurveTo(cpx: Double, cpy: Double, x: Double, y: Double): Unit = js.native
+        
+        def rect(x: Double, y: Double, w: Double, h: Double): Unit = js.native
+      }
+      
+      @js.native
       trait Pbkdf2Params
         extends StObject
            with HashAlgorithm {
@@ -6172,7 +6763,7 @@ object org {
       }
       
       @js.native
-      class Performance () extends StObject {
+      class Performance private () extends StObject {
         
         def clearMarks(markName: String): Unit = js.native
         
@@ -6180,19 +6771,19 @@ object org {
         
         def clearResourceTimings(): Unit = js.native
         
-        def getEntries(): js.Dynamic = js.native
+        def getEntries(): js.Array[PerformanceEntry] = js.native
         
-        def getEntriesByName(name: String, entryType: String): js.Dynamic = js.native
+        def getEntriesByName(name: String, `type`: String): js.Array[PerformanceEntry] = js.native
         
-        def getEntriesByType(entryType: String): js.Dynamic = js.native
+        def getEntriesByType(entryType: String): js.Array[PerformanceEntry] = js.native
         
         def getMarks(markName: String): js.Dynamic = js.native
         
         def getMeasures(measureName: String): js.Dynamic = js.native
         
-        def mark(markName: String): Unit = js.native
+        def mark(markName: String): PerformanceMark = js.native
         
-        def measure(measureName: String, startMarkName: String, endMarkName: String): Unit = js.native
+        def measure(measureName: String, startMarkName: String, endMarkName: String): PerformanceMeasure = js.native
         
         def navigation(): PerformanceNavigation = js.native
         
@@ -6202,7 +6793,7 @@ object org {
         
         def timing(): PerformanceTiming = js.native
         
-        def toJSON(): js.Dynamic = js.native
+        def toJSON(): js.Object = js.native
       }
       
       @js.native
@@ -6215,6 +6806,8 @@ object org {
         def name(): String = js.native
         
         def startTime(): Double = js.native
+        
+        def toJSON(): js.Object = js.native
       }
       
       @js.native
@@ -6459,7 +7052,17 @@ object org {
       }
       
       @js.native
-      abstract class ProcessingInstruction ()
+      sealed trait PredefinedColorSpace
+        extends StObject
+           with js.Any
+      
+      @js.native
+      sealed trait PresentationStyle
+        extends StObject
+           with js.Any
+      
+      @js.native
+      class ProcessingInstruction ()
         extends StObject
            with Node {
         
@@ -7317,7 +7920,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGAElement ()
+      class SVGAElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -7470,7 +8073,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGCircleElement ()
+      class SVGCircleElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -7487,7 +8090,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGClipPathElement ()
+      class SVGClipPathElement ()
         extends StObject
            with SVGElement
            with SVGUnitTypes
@@ -7501,7 +8104,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGComponentTransferFunctionElement ()
+      class SVGComponentTransferFunctionElement ()
         extends StObject
            with SVGElement {
         
@@ -7536,7 +8139,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGDefsElement ()
+      class SVGDefsElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -7546,14 +8149,14 @@ object org {
            with SVGExternalResourcesRequired
       
       @js.native
-      abstract class SVGDescElement ()
+      class SVGDescElement ()
         extends StObject
            with SVGElement
            with SVGStylable
            with SVGLangSpace
       
       @js.native
-      abstract class SVGElement ()
+      class SVGElement ()
         extends StObject
            with Element {
         
@@ -7615,7 +8218,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGEllipseElement ()
+      class SVGEllipseElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -7659,7 +8262,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFEBlendElement ()
+      class SVGFEBlendElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes {
@@ -7687,7 +8290,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFEColorMatrixElement ()
+      class SVGFEColorMatrixElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes {
@@ -7713,7 +8316,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFEComponentTransferElement ()
+      class SVGFEComponentTransferElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes {
@@ -7722,7 +8325,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFECompositeElement ()
+      class SVGFECompositeElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes {
@@ -7760,7 +8363,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFEConvolveMatrixElement ()
+      class SVGFEConvolveMatrixElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes {
@@ -7802,7 +8405,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFEDiffuseLightingElement ()
+      class SVGFEDiffuseLightingElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes {
@@ -7819,7 +8422,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFEDisplacementMapElement ()
+      class SVGFEDisplacementMapElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes {
@@ -7849,7 +8452,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFEDistantLightElement ()
+      class SVGFEDistantLightElement ()
         extends StObject
            with SVGElement {
         
@@ -7859,33 +8462,33 @@ object org {
       }
       
       @js.native
-      abstract class SVGFEFloodElement ()
+      class SVGFEFloodElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes
       
       @js.native
-      abstract class SVGFEFuncAElement ()
+      class SVGFEFuncAElement ()
         extends StObject
            with SVGComponentTransferFunctionElement
       
       @js.native
-      abstract class SVGFEFuncBElement ()
+      class SVGFEFuncBElement ()
         extends StObject
            with SVGComponentTransferFunctionElement
       
       @js.native
-      abstract class SVGFEFuncGElement ()
+      class SVGFEFuncGElement ()
         extends StObject
            with SVGComponentTransferFunctionElement
       
       @js.native
-      abstract class SVGFEFuncRElement ()
+      class SVGFEFuncRElement ()
         extends StObject
            with SVGComponentTransferFunctionElement
       
       @js.native
-      abstract class SVGFEGaussianBlurElement ()
+      class SVGFEGaussianBlurElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes {
@@ -7900,7 +8503,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFEImageElement ()
+      class SVGFEImageElement ()
         extends StObject
            with SVGElement
            with SVGLangSpace
@@ -7912,13 +8515,13 @@ object org {
       }
       
       @js.native
-      abstract class SVGFEMergeElement ()
+      class SVGFEMergeElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes
       
       @js.native
-      abstract class SVGFEMergeNodeElement ()
+      class SVGFEMergeNodeElement ()
         extends StObject
            with SVGElement {
         
@@ -7926,7 +8529,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFEMorphologyElement ()
+      class SVGFEMorphologyElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes {
@@ -7950,7 +8553,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFEOffsetElement ()
+      class SVGFEOffsetElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes {
@@ -7963,7 +8566,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFEPointLightElement ()
+      class SVGFEPointLightElement ()
         extends StObject
            with SVGElement {
         
@@ -7975,7 +8578,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFESpecularLightingElement ()
+      class SVGFESpecularLightingElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes {
@@ -7994,7 +8597,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFESpotLightElement ()
+      class SVGFESpotLightElement ()
         extends StObject
            with SVGElement {
         
@@ -8016,7 +8619,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFETileElement ()
+      class SVGFETileElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes {
@@ -8025,7 +8628,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFETurbulenceElement ()
+      class SVGFETurbulenceElement ()
         extends StObject
            with SVGElement
            with SVGFilterPrimitiveStandardAttributes {
@@ -8059,7 +8662,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGFilterElement ()
+      class SVGFilterElement ()
         extends StObject
            with SVGElement
            with SVGUnitTypes
@@ -8112,7 +8715,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGGElement ()
+      class SVGGElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -8122,7 +8725,7 @@ object org {
            with SVGExternalResourcesRequired
       
       @js.native
-      abstract class SVGGradientElement ()
+      class SVGGradientElement ()
         extends StObject
            with SVGElement
            with SVGUnitTypes
@@ -8149,7 +8752,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGImageElement ()
+      class SVGImageElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -8240,7 +8843,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGLineElement ()
+      class SVGLineElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -8289,7 +8892,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGMarkerElement ()
+      class SVGMarkerElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -8332,7 +8935,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGMaskElement ()
+      class SVGMaskElement ()
         extends StObject
            with SVGElement
            with SVGUnitTypes
@@ -8393,7 +8996,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGMetadataElement ()
+      class SVGMetadataElement ()
         extends StObject
            with SVGElement
       
@@ -8424,7 +9027,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGPathElement ()
+      class SVGPathElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -8796,7 +9399,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGPatternElement ()
+      class SVGPatternElement ()
         extends StObject
            with SVGElement
            with SVGUnitTypes
@@ -8853,7 +9456,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGPolygonElement ()
+      class SVGPolygonElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -8864,7 +9467,7 @@ object org {
            with SVGExternalResourcesRequired
       
       @js.native
-      abstract class SVGPolylineElement ()
+      class SVGPolylineElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -8942,7 +9545,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGRectElement ()
+      class SVGRectElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -8965,7 +9568,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGSVGElement ()
+      class SVGSVGElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -9063,7 +9666,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGScriptElement ()
+      class SVGScriptElement ()
         extends StObject
            with SVGElement
            with SVGExternalResourcesRequired
@@ -9073,7 +9676,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGStopElement ()
+      class SVGStopElement ()
         extends StObject
            with SVGElement
            with SVGStylable {
@@ -9110,7 +9713,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGStyleElement ()
+      class SVGStyleElement ()
         extends StObject
            with SVGElement
            with SVGLangSpace {
@@ -9123,7 +9726,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGSwitchElement ()
+      class SVGSwitchElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -9133,7 +9736,7 @@ object org {
            with SVGExternalResourcesRequired
       
       @js.native
-      abstract class SVGSymbolElement ()
+      class SVGSymbolElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -9142,7 +9745,7 @@ object org {
            with SVGExternalResourcesRequired
       
       @js.native
-      abstract class SVGTSpanElement ()
+      class SVGTSpanElement ()
         extends StObject
            with SVGTextPositioningElement
       
@@ -9159,7 +9762,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGTextContentElement ()
+      class SVGTextContentElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -9200,13 +9803,13 @@ object org {
       }
       
       @js.native
-      abstract class SVGTextElement ()
+      class SVGTextElement ()
         extends StObject
            with SVGTextPositioningElement
            with SVGTransformable
       
       @js.native
-      abstract class SVGTextPathElement ()
+      class SVGTextPathElement ()
         extends StObject
            with SVGTextContentElement
            with SVGURIReference {
@@ -9234,7 +9837,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGTextPositioningElement ()
+      class SVGTextPositioningElement ()
         extends StObject
            with SVGTextContentElement {
         
@@ -9250,7 +9853,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGTitleElement ()
+      class SVGTitleElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -9353,7 +9956,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGUseElement ()
+      class SVGUseElement ()
         extends StObject
            with SVGElement
            with SVGStylable
@@ -9377,7 +9980,7 @@ object org {
       }
       
       @js.native
-      abstract class SVGViewElement ()
+      class SVGViewElement ()
         extends StObject
            with SVGElement
            with SVGZoomAndPan
@@ -9606,7 +10209,7 @@ object org {
            with js.Any
       
       @js.native
-      abstract class ShadowRoot ()
+      class ShadowRoot ()
         extends StObject
            with DocumentFragment {
         
@@ -9751,7 +10354,7 @@ object org {
         
         def key(index: Int): String = js.native
         
-        var length: Int = js.native
+        def length(): Int = js.native
         
         def removeItem(key: String): Unit = js.native
         
@@ -9856,7 +10459,7 @@ object org {
         
         def decrypt(algorithm: AlgorithmIdentifier, key: CryptoKey, data: BufferSource): js.Promise[js.Any] = js.native
         
-        def deriveBits(algorithm: AlgorithmIdentifier, baseKey: CryptoKey, length: Double): js.Promise[js.Any] = js.native
+        def deriveBits(algorithm: AlgorithmIdentifier, baseKey: CryptoKey, length: Double): js.Promise[js.typedarray.ArrayBuffer] = js.native
         
         def deriveKey(
           algorithm: AlgorithmIdentifier,
@@ -9980,6 +10583,28 @@ object org {
       
       @js.native
       class TextMetrics () extends StObject {
+        
+        val actualBoundingBoxAscent: Double = js.native
+        
+        val actualBoundingBoxDescent: Double = js.native
+        
+        val actualBoundingBoxLeft: Double = js.native
+        
+        val actualBoundingBoxRight: Double = js.native
+        
+        val alphabeticBaseline: Double = js.native
+        
+        val emHeightAscent: Double = js.native
+        
+        val emHeightDescent: Double = js.native
+        
+        val fontBoundingBoxAscent: Double = js.native
+        
+        val fontBoundingBoxDescent: Double = js.native
+        
+        val hangingBaseline: Double = js.native
+        
+        val ideographicBaseline: Double = js.native
         
         var width: Double = js.native
       }
@@ -10286,7 +10911,7 @@ object org {
         
         var search: String = js.native
         
-        var searchParams: URLSearchParams = js.native
+        val searchParams: URLSearchParams = js.native
         
         val url: String = js.native
         
@@ -10296,6 +10921,7 @@ object org {
       object URL extends StObject {
         
         def createObjectURL(blob: Blob): String = js.native
+        def createObjectURL(src: MediaSource): String = js.native
         
         def revokeObjectURL(url: String): Unit = js.native
       }
@@ -10306,7 +10932,7 @@ object org {
            with js.Iterable[js.Tuple2[String, String]] {
         def this(init: String) = this()
         def this(init: js.Dictionary[String]) = this()
-        def this(init: Sequence[String]) = this()
+        def this(init: Sequence[js.Tuple2[String, String]]) = this()
         
         def append(name: String, value: String): Unit = js.native
         
@@ -10856,7 +11482,7 @@ object org {
         
         var onclose: js.Function1[CloseEvent, _] = js.native
         
-        var onerror: js.Function1[ErrorEvent, _] = js.native
+        var onerror: js.Function1[Event, _] = js.native
         
         var onmessage: js.Function1[MessageEvent, _] = js.native
         
@@ -11282,20 +11908,18 @@ object org {
       }
       
       @js.native
-      class Worker protected ()
+      class Worker ()
         extends StObject
            with EventTarget
            with AbstractWorker {
         def this(scriptURL: String) = this()
+        def this(scriptURL: URL) = this()
         def this(scriptURL: String, options: WorkerOptions) = this()
+        def this(scriptURL: URL, options: WorkerOptions) = this()
         
         var onmessage: js.Function1[MessageEvent, _] = js.native
         
-        val options: WorkerOptions = js.native
-        
         def postMessage(message: js.Any, transfer: js.UndefOr[js.Array[Transferable]]): Unit = js.native
-        
-        val scriptURL: String = js.native
         
         def terminate(): Unit = js.native
       }
@@ -11392,6 +12016,11 @@ object org {
         
         def write(chunk: Chunk[T]): js.Promise[Any] = js.native
       }
+      
+      @js.native
+      class XMLDocument ()
+        extends StObject
+           with Document
       
       @js.native
       class XMLHttpRequest ()
@@ -12112,6 +12741,8 @@ object org {
         
         type DataList = HTMLDataListElement
         
+        type Dialog = HTMLDialogElement
+        
         type Div = HTMLDivElement
         
         type Document = HTMLDocument
@@ -12306,6 +12937,8 @@ object org {
           var era: js.UndefOr[String] = js.native
           
           var formatMatcher: js.UndefOr[String] = js.native
+          
+          var fractionalSecondDigits: js.UndefOr[Int] = js.native
           
           var hour: js.UndefOr[String] = js.native
           
