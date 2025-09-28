@@ -30,9 +30,9 @@ jobs:
             scala: "2.12"
           - os: ubuntu-latest
             scala: "3"
-          - os: macos-latest-large
+          - os: macos-latest
             scala: "2.12"
-          - os: macos-latest-large
+          - os: macos-latest
             scala: "3"
           - os: windows-latest
             scala: "2.12"
