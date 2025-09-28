@@ -47,9 +47,29 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     positioned(p.map(WithPos.apply)).flatMap { positionedValue =>
       positionedValue.pos match {
         case pos: OffsetPosition =>
-          val pre = pos.lineContents.take(pos.column - 1)
-          if (pre.trim.isEmpty) failure(s"`${positionedValue.value}` should not appear immediately after newline")
-          else success(positionedValue.value)
+          // Direct access to source using offset - much more efficient
+          val source             = pos.source
+          var i                  = pos.offset - 1
+          var foundNonWhitespace = false
+
+          // Walk backwards from current position to find either:
+          // 1. A newline (meaning we're at start of line)
+          // 2. Non-whitespace character (meaning we're not at start of line)
+          while (i >= 0 && !foundNonWhitespace) {
+            val ch = source.charAt(i)
+            if (ch == '\n' || ch == '\r') {
+              // Found newline before any non-whitespace - fail
+              i = -1 // Exit loop
+            } else if (!ch.isWhitespace) {
+              // Found non-whitespace before newline - success
+              foundNonWhitespace = true
+            } else {
+              i -= 1
+            }
+          }
+
+          if (foundNonWhitespace) success(positionedValue.value)
+          else failure(s"`${positionedValue.value}` should not appear immediately after newline")
         case _ => sys.error("expected position")
       }
     }
