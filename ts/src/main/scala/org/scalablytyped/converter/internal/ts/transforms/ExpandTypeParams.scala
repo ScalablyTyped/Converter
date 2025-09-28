@@ -133,7 +133,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
     val keptInBounds: Option[TsFunSig] =
       exp.toKeepInBounds.map { types =>
         val rewrittenTparams = sig.tparams.map {
-          case tparam @ TsTypeParam(_, exp.typeParam, _, _) =>
+          case tparam @ TsTypeParam(_, exp.typeParam, _, _, _) =>
             tparam.copy(upperBound = Some(TsTypeUnion(types)))
           case other => other
         }

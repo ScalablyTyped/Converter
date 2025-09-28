@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 package parser
 
+import org.scalablytyped.converter.internal.ts.Variance
 import scala.util.parsing.combinator.syntactical._
 import scala.util.parsing.input.{OffsetPosition, Positional, Reader}
 
@@ -398,8 +399,16 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   lazy val tsTypeKeyOf: Parser[TsTypeKeyOf] =
     "keyof" ~>! baseTypeDesc ^^ TsTypeKeyOf
 
-  lazy val typeParam: Parser[TsTypeParam] =
-    comments ~ tsIdent ~ ("extends" ~>! perhapsParens(tsType)).? ~ ("=" ~>! tsType).? ^^ TsTypeParam.apply
+  lazy val typeParam: Parser[TsTypeParam] = {
+    val variance: Parser[Variance] =
+      "in" ^^^ Variance.Contravariant |
+        "out" ^^^ Variance.Covariant
+
+    comments ~ variance.? ~ "const".? ~ tsIdent ~ ("extends" ~>! perhapsParens(tsType)).? ~ ("=" ~>! tsType).? ^^ {
+      case comments ~ varianceOpt ~ _ ~ name ~ upperBound ~ default =>
+        TsTypeParam(comments, name, upperBound, default, varianceOpt.getOrElse(Variance.Invariant))
+    }
+  }
 
   lazy val tsTypeParams: Parser[IArray[TsTypeParam]] =
     "<" ~>! repsep_(typeParam, ",") <~! ",".? <~ comments.? <~! ">" | success(Empty)

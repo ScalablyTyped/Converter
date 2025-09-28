@@ -323,11 +323,19 @@ final case class TsFunParam(comments: Comments, name: TsIdentSimple, tpe: Option
   override lazy val hashCode: Int = tpe.hashCode
 }
 
+sealed trait Variance
+object Variance {
+  case object Invariant extends Variance
+  case object Covariant extends Variance // out
+  case object Contravariant extends Variance // in
+}
+
 final case class TsTypeParam(
     comments:   Comments,
     name:       TsIdentSimple,
     upperBound: Option[TsType],
     default:    Option[TsType],
+    variance:   Variance = Variance.Invariant,
 ) extends TsTree
 
 object TsTypeParam {

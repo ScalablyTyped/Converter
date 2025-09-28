@@ -3481,6 +3481,32 @@ export {};
     parseAs(parenthesizedConditional, TsParser.tsType)
   }
 
+  test("variance annotations on type parameters") {
+    // Test 'in' variance (contravariant)
+    val inVariance = """interface Consumer<in T> { consume(value: T): void; }"""
+    parseAs(inVariance, TsParser.tsDeclInterface)
+
+    // Test 'out' variance (covariant)
+    val outVariance = """interface Producer<out T> { produce(): T; }"""
+    parseAs(outVariance, TsParser.tsDeclInterface)
+
+    // Test both variances
+    val bothVariances = """interface Processor<in T, out U> { process(input: T): U; }"""
+    parseAs(bothVariances, TsParser.tsDeclInterface)
+
+    // Test variance with extends constraint
+    val withConstraint = """interface Container<in T extends string> { add(item: T): void; }"""
+    parseAs(withConstraint, TsParser.tsDeclInterface)
+
+    // Test in type alias
+    val typeAlias = """type Handler<in T> = (value: T) => void"""
+    parseAs(typeAlias, TsParser.tsDeclTypeAlias)
+
+    // Test in class
+    val classDecl = """class Box<out T> { get(): T; }"""
+    parseAs(classDecl, TsParser.tsDeclClass)
+  }
+
   test("rest spread in destructured function parameters") {
     // Test rest spread in destructured object parameters
     val simple = """{ ...rest }: any"""

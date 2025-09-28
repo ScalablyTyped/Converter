@@ -348,7 +348,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
             declared   = false,
             isAbstract = false,
             TsIdent("default"),
-            IArray(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
+            IArray(TsTypeParam(NoComments, TsIdentSimple("T"), None, None, Variance.Invariant)),
             None,
             IArray(),
             IArray(),

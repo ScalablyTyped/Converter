@@ -40,7 +40,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
     "declare", "default", "delete", "do", "else", "enum", "export", "extends", "false",
     "finally", "for", "from", "function", "global", "if", "implements", "import", "in",
     "instanceof", "infer", "interface", "is", "keyof", "let", "module", "namespace", "never",
-    "new", "null", "package", "private", "protected", "public", "readonly", "require", "return",
+    "new", "null", "out", "package", "private", "protected", "public", "readonly", "require", "return",
     "static", "super", "symbol", "switch", "this", "throw", "true", "try", "type", "typeof", "undefined",
     "unique", "var", "void", "while", "with", "yield",
   )
