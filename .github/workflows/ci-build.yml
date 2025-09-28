@@ -27,7 +27,7 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-          - os: macos-latest
+          - os: macos-latest-large
           - os: windows-latest
     steps:
       - uses: actions/checkout@v3
