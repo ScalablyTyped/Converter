@@ -15,7 +15,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-open class SharedBuilder_AccordionTitleProps_420803499[R <: js.Object] (val args: js.Array[Any])
+open class SharedBuilder_AccordionTitleProps_783090146[R <: js.Object] (val args: js.Array[Any])
   extends AnyVal
      with StBuildingComponent[tag.type, R] {
   

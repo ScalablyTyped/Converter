@@ -1,15 +1,14 @@
 package org.scalablytyped.converter.internal
 package ts
 
-import io.circe013.{Decoder, Encoder, KeyDecoder, KeyEncoder}
-
-import scala.util.hashing.MurmurHash3.productHash
+import io.circe.{Decoder, Encoder, KeyDecoder, KeyEncoder}
+import org.scalablytyped.converter.internal.{HasStableHash, StableHash}
 
 sealed trait TsTree extends Serializable with Product {
 
   override def canEqual(that: Any): Boolean = that.## == ##
 
-  override lazy val hashCode: Int = productHash(this)
+  override lazy val hashCode: Int = StableHash(this)
 
   lazy val asString: String = {
     val name = this match {
@@ -320,7 +319,7 @@ final case class TsFunParam(comments: Comments, name: TsIdentSimple, tpe: Option
       case _ => false
     }
 
-  override lazy val hashCode: Int = tpe.hashCode
+  override lazy val hashCode: Int = StableHash(tpe)
 }
 
 sealed trait Variance
@@ -371,13 +370,13 @@ final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]
       case Some(scope) => TsIdentLibraryScoped(scope, fragments.head)
     }
 
-  lazy val value: String =
+  val value: String =
     scopeOpt match {
       case None        => fragments.mkString("/")
       case Some(scope) => "@" + scope + "/" + fragments.mkString("/")
     }
 
-  override lazy val hashCode: Int = value.hashCode
+  override lazy val hashCode: Int = StableHash(value)
 
   override def equals(obj: Any): Boolean =
     obj match {
@@ -396,8 +395,8 @@ object TsIdentModule {
   def simple(s: String): TsIdentModule =
     TsIdentModule(None, s :: Nil)
 
-  implicit val encodes: Encoder[TsIdentModule] = io.circe013.generic.semiauto.deriveEncoder
-  implicit val decodes: Decoder[TsIdentModule] = io.circe013.generic.semiauto.deriveDecoder
+  implicit val encodes: Encoder[TsIdentModule] = io.circe.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[TsIdentModule] = io.circe.generic.semiauto.deriveDecoder
 }
 
 sealed trait TsIdentLibrary extends TsIdent {
@@ -439,8 +438,8 @@ final case class TsIdentLibraryScoped(scope: String, name: String) extends TsIde
 }
 
 object TsIdent {
-  implicit val encodes:  Encoder[TsIdent]  = io.circe013.generic.semiauto.deriveEncoder
-  implicit val decodes:  Decoder[TsIdent]  = io.circe013.generic.semiauto.deriveDecoder
+  implicit val encodes:  Encoder[TsIdent]  = io.circe.generic.semiauto.deriveEncoder
+  implicit val decodes:  Decoder[TsIdent]  = io.circe.generic.semiauto.deriveDecoder
   implicit val ordering: Ordering[TsIdent] = Ordering[String].on[TsIdent](_.value)
 
   def apply(str: String): TsIdentSimple =
@@ -477,8 +476,8 @@ final case class TsQIdent(parts: IArray[TsIdent]) extends TsTree {
 }
 
 object TsQIdent {
-  implicit val encodes:  Encoder[TsQIdent]  = io.circe013.generic.semiauto.deriveEncoder
-  implicit val decodes:  Decoder[TsQIdent]  = io.circe013.generic.semiauto.deriveDecoder
+  implicit val encodes:  Encoder[TsQIdent]  = io.circe.generic.semiauto.deriveEncoder
+  implicit val decodes:  Decoder[TsQIdent]  = io.circe.generic.semiauto.deriveDecoder
   implicit val ordering: Ordering[TsQIdent] = Ordering.by(_.parts)
 
   def of(ss:      String*) = TsQIdent(IArray.fromTraversable(ss.map(TsIdent.apply)))

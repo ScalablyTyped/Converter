@@ -272,7 +272,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
   }
 
   test("history") {
-    withTsFile(s"parsertests${File.separator}history.d.ts") { contents: String =>
+    withTsFile(s"parsertests${File.separator}history.d.ts") { (contents: String) =>
       parseAs(contents, TsParser.parsedTsFile)
     }
   }

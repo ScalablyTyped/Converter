@@ -13,7 +13,7 @@ object AccordionContent {
   
   type Props = AccordionContentProps
   
-  implicit def make(companion: AccordionContent.type): SharedBuilder_AccordionContentProps1671366922 = new SharedBuilder_AccordionContentProps1671366922(js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: AccordionContent.type): SharedBuilder_AccordionContentProps1293740607 = new SharedBuilder_AccordionContentProps1293740607(js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: AccordionContentProps): SharedBuilder_AccordionContentProps1671366922 = new SharedBuilder_AccordionContentProps1671366922(js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: AccordionContentProps): SharedBuilder_AccordionContentProps1293740607 = new SharedBuilder_AccordionContentProps1293740607(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

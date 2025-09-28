@@ -6,10 +6,10 @@ import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 import org.scalablytyped.converter.internal.ts.modules.{ExpandedMod, Exports, Imports}
 import org.scalablytyped.converter.internal.ts.transforms.ExpandTypeMappings
+import org.scalablytyped.converter.internal.{HasStableHash, StableHash}
 import sourcecode.{Enclosing, File, Line, Text}
 
 import scala.collection.mutable
-import scala.util.hashing.MurmurHash3.{finalizeHash, mix, productHash}
 
 /**
   * The facility for looking up types and terms in a given tree.
@@ -143,7 +143,7 @@ object TsTreeScope {
 
   final case class ImportCacheKey(scope: TsTreeScope, picker: Picker[_], idents: IArray[TsIdent]) {
     override def canEqual(that: Any): Boolean = that.## == ##
-    override val hashCode: Int = productHash(this)
+    override val hashCode: Int = StableHash(this)
   }
 
   case class Cache(
@@ -178,7 +178,7 @@ object TsTreeScope {
 
   sealed trait Entry extends Product {
     override def canEqual(that: Any): Boolean = that.## == ##
-    override lazy val hashCode: Int = productHash(this)
+    override lazy val hashCode: Int = StableHash(this)
   }
   object Entry {
     final case class Idents(strings: IArray[TsIdent], scope: TsTreeScope) extends Entry
@@ -196,9 +196,10 @@ object TsTreeScope {
       val logger:            Logger[Unit],
       val cache:             Option[Cache],
       val lookupUnqualified: Boolean,
-  ) extends TsTreeScope {
+  ) extends TsTreeScope
+      with HasStableHash {
 
-    override def hashCode: Int = libName.hashCode
+    override def hashCode: Int = StableHash(libName)
 
     override val root    = this
     override def stack   = Nil
@@ -275,7 +276,8 @@ object TsTreeScope {
   }
 
   final class Scoped private[TsTreeScope] (val outer: TsTreeScope, val current: TsTree, val lookupUnqualified: Boolean)
-      extends TsTreeScope {
+      extends TsTreeScope
+      with HasStableHash {
 
     // lazy val with no locking
     private var hasHash = false
@@ -283,7 +285,7 @@ object TsTreeScope {
     override def hashCode: Int = {
       if (!hasHash) {
         hasHash = true
-        hash    = finalizeHash(mix(mix(2, outer.##), current.##), 2)
+        hash    = StableHash((outer, current))
       }
       hash
     }
@@ -566,9 +568,11 @@ object ExtendingScope {
   ): IArray[(T, TsTreeScope)] =
     scope.current match {
       case x: TsDeclNamespace =>
-        val p: Picker[TsDeclNamespace] = {
-          case xx: TsDeclNamespace if xx.codePath =/= x.codePath => Some(xx)
-          case _ => None
+        object p extends Picker[TsDeclNamespace](("Not", x.codePath)) {
+          override def unapply(t: TsNamedDecl): Option[TsDeclNamespace] = t match {
+            case xx: TsDeclNamespace if xx.codePath =/= x.codePath => Some(xx)
+            case _ => None
+          }
         }
         scope.`..`.lookupInternal(p, IArray(x.name), loopDetector).flatMap {
           case (c, extScope) =>

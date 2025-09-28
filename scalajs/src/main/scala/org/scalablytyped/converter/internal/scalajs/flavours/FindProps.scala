@@ -26,7 +26,7 @@ object FindProps {
     def map[U](f: T => U): Res[E, U] = this match {
       case Res.Error(msg)       => Res.Error(msg)
       case Res.One(name, value) => Res.One(name, f(value))
-      case Res.Many(values)     => Res.Many(values.mapValues(f))
+      case Res.Many(values)     => Res.Many(values.mapValues(f).toMap)
     }
 
     def mapError[EE](f: E => EE): Res[EE, T] = this match {
@@ -141,7 +141,7 @@ final class FindProps(
         retOpt.getOrElse {
           val msg = s"Could't extract props from ${Printer.formatTypeRef(0)(other)} because couldn't resolve ClassTree."
           Res.Error(IArray(msg))
-        },
+        }
     }
 
   def forClassTree(

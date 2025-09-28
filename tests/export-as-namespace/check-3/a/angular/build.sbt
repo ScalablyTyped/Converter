@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "angular"
-version := "1.6-8d6db2"
+version := "1.6-183d8a"
 scalaVersion := "3.3.6"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.4.2",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-5b27fc")
+  "org.scalablytyped" %%% "std" % "0.0-unknown-d0b250")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-feature", "-language:implicitConversions", "-language:higherKinds", "-language:existentials", "-no-indent")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

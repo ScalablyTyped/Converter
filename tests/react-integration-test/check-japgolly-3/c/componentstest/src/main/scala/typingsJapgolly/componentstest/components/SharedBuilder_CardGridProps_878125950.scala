@@ -7,7 +7,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-open class SharedBuilder_CardGridProps2094947949 (val args: js.Array[Any])
+open class SharedBuilder_CardGridProps_878125950 (val args: js.Array[Any])
   extends AnyVal
      with StBuildingComponent[scala.Nothing] {
   

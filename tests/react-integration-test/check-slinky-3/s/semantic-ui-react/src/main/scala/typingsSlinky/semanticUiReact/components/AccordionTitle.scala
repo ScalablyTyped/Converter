@@ -14,7 +14,7 @@ object AccordionTitle {
   
   type Props = AccordionTitleProps
   
-  implicit def make(companion: AccordionTitle.type): SharedBuilder_AccordionTitleProps_420803499[default] = new SharedBuilder_AccordionTitleProps_420803499[default](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: AccordionTitle.type): SharedBuilder_AccordionTitleProps_783090146[default] = new SharedBuilder_AccordionTitleProps_783090146[default](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: AccordionTitleProps): SharedBuilder_AccordionTitleProps_420803499[default] = new SharedBuilder_AccordionTitleProps_420803499[default](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: AccordionTitleProps): SharedBuilder_AccordionTitleProps_783090146[default] = new SharedBuilder_AccordionTitleProps_783090146[default](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

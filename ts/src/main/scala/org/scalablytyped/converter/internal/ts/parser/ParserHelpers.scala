@@ -8,7 +8,7 @@ trait ParserHelpers { self: Parsers =>
 
   @inline protected final implicit class ToParserOps[P](private val p: P) {
     def isDefined[Q](implicit ev: P => Parser[Q]): Parser[Boolean] =
-      p.? ^^ (_.isDefined)
+      opt(ev(p)) ^^ (_.isDefined)
   }
 
   @inline protected final implicit class ParserSyntax[P <: AnyRef](private val p: Parser[P]) {

@@ -1,21 +1,21 @@
-package typingsJapgolly.semanticUiReact.components
+package typingsSlinky.semanticUiReact.components
 
-import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.ReactMouseEventFrom
 import org.scalajs.dom.HTMLDivElement
-import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandCollection
-import typingsJapgolly.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
-import typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionPanelMod.AccordionPanelProps
-import typingsJapgolly.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
+import slinky.web.SyntheticMouseEvent
+import slinky.web.html.`*`.tag
+import typingsSlinky.StBuildingComponent
+import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandCollection
+import typingsSlinky.semanticUiReact.distCommonjsGenericMod.SemanticShorthandItem
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionPanelMod.AccordionPanelProps
+import typingsSlinky.semanticUiReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-open class SharedBuilder_AccordionAccordionProps600409291[R <: js.Object] (val args: js.Array[Any])
+open class SharedBuilder_AccordionAccordionProps_2001699741[R <: js.Object] (val args: js.Array[Any])
   extends AnyVal
-     with StBuildingComponent[R] {
+     with StBuildingComponent[tag.type, R] {
   
   inline def activeIndex(value: Double | js.Array[Double]): this.type = set("activeIndex", value.asInstanceOf[js.Any])
   
@@ -31,9 +31,7 @@ open class SharedBuilder_AccordionAccordionProps600409291[R <: js.Object] (val a
   
   inline def exclusive(value: Boolean): this.type = set("exclusive", value.asInstanceOf[js.Any])
   
-  inline def onTitleClick(
-    value: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
-  ): this.type = set("onTitleClick", js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => (value(t0, t1)).runNow()))
+  inline def onTitleClick(value: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit): this.type = set("onTitleClick", js.Any.fromFunction2(value))
   
   inline def panels(value: SemanticShorthandCollection[AccordionPanelProps]): this.type = set("panels", value.asInstanceOf[js.Any])
   

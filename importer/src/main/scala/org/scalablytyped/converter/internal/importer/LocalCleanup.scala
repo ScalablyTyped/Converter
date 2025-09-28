@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 
 object LocalCleanup {
-  implicit val Newest = Ordering.by[os.Path, Long](-_.toIO.lastModified)
+  implicit val Newest: Ordering[os.Path] = Ordering.by[os.Path, Long](-_.toIO.lastModified)
 
   def apply(ivyLocal: os.Path, organization: String, keepNum: Int): Unit =
     os.list(files.existing(ivyLocal / organization)).foreach { project =>

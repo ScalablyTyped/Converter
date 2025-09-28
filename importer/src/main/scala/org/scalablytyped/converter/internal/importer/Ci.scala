@@ -139,7 +139,7 @@ object Ci {
 
 class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionContext) {
   val RunId              = constants.DateTimePattern.format(LocalDateTime.now)
-  private val logsFolder = files.existing(paths.cacheFolder / 'logs)
+  private val logsFolder = files.existing(paths.cacheFolder / "logs")
 
   private val logger = {
     val logFile = new FileWriter((logsFolder / s"${RunId}.log").toIO)
@@ -163,25 +163,25 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
       if (files.exists(projectFolder)) {
         implicit val wd = projectFolder
         if (!config.offline) {
-          Try(interfaceCmd.runVerbose.git('fetch))
+          Try(interfaceCmd.runVerbose.git("fetch"))
         }
         if (!config.dontCleanProject) {
           Try(interfaceCmd.runVerbose.git("clean", "-fdX")) // remove ignored files/folders
           Try(interfaceCmd.runVerbose.git("clean", "-fd"))
-          Try(interfaceCmd.runVerbose.git('reset, "--hard", "origin/master"))
+          Try(interfaceCmd.runVerbose.git("reset", "--hard", "origin/master"))
           Try(files.deleteAll(projectFolder / ".git/gc.log"))
-          Try(interfaceCmd.runVerbose.git('prune))
+          Try(interfaceCmd.runVerbose.git("prune"))
         }
       } else
         Try {
           implicit val wd = paths.cacheFolder
-          interfaceCmd.runVerbose.git('clone, config.repo.toString)
+          interfaceCmd.runVerbose.git("clone", config.repo.toString)
         }.recover {
           case _ =>
             os.makeDir(projectFolder)
 
             implicit val wd = projectFolder
-            interfaceCmd.runVerbose.git('init)
+            interfaceCmd.runVerbose.git("init")
             interfaceCmd.runVerbose.git("remote", "add", "origin", config.repo.toString)
         }
 
@@ -223,7 +223,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
       UpToDateExternals(
         interfaceLogger,
         interfaceCmd,
-        files.existing(paths.cacheFolder / 'npm),
+        files.existing(paths.cacheFolder / "npm"),
         wanted -- config.conversion.ignoredLibs,
         config.conserveSpace,
         config.offline,
@@ -328,15 +328,16 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
     val failures: Map[LibTsSource, Either[Throwable, String]] =
       results.collect { case (_, PhaseRes.Failure(errors)) => errors }.reduceOption(_ ++ _).getOrElse(Map.empty)
 
-    val summary               = Summary(successes.keys.to[Set].map(_.libName), failures.keys.to[Set].map(_.libName))
-    val lists                 = TopLists(successes.values.to[Set])
+    val summary =
+      Summary(successes.keys.toSet[LibTsSource].map(_.libName), failures.keys.toSet[LibTsSource].map(_.libName))
+    val lists                 = TopLists(successes.values.toSet)
     val gitIgnore             = targetFolder / ".gitignore"
     val readme                = targetFolder / "readme.md"
     val librariesByName       = targetFolder / "libraries_by_name.md"
     val librariesByScore      = targetFolder / "libraries_by_score.md"
     val librariesByDependents = targetFolder / "libraries_by_dependents.md"
 
-    val locOutput = Try(interfaceCmd.run('loc)(targetFolder)).toOption.map(_.out.string)
+    val locOutput = Try(interfaceCmd.run("loc")(targetFolder)).toOption.map(_.out.string)
     files.softWrite(readme)(_.print(Readme(summary, RunId, locOutput)))
     files.softWrite(librariesByName)(_.print(lists.byName))
     files.softWrite(librariesByScore)(_.print(lists.byScore))
@@ -369,7 +370,7 @@ target/
         organization  = config.conversion.organization,
         projectName   = config.projectName,
         projectDir    = sbtProjectDir,
-        projects      = successes.values.to[Set],
+        projects      = successes.values.toSet,
         pluginVersion = RunId,
         action        = "publishLocal",
       )
@@ -377,7 +378,7 @@ target/
       CommitChanges(
         interfaceCmd,
         summary,
-        successes.values.map(_.project.baseDir).to[Vector],
+        successes.values.map(_.project.baseDir).toVector,
         Vector(sbtProjectDir, readme, librariesByScore, librariesByName, librariesByDependents, gitIgnore, summaryFile),
         formattedDiff,
       )(targetFolder)
@@ -389,7 +390,7 @@ target/
 
     logRegistry.logs.foreach {
       case (libName, storeds) =>
-        val failLog = files.existingEmpty(paths.cacheFolder / 'failures) / os.RelPath(libName.`__value` + ".log")
+        val failLog = files.existingEmpty(paths.cacheFolder / "failures") / os.RelPath(libName.`__value` + ".log")
 
         storeds.underlying.filter(_.metadata.logLevel === LogLevel.error) match {
           case empty if empty.isEmpty =>

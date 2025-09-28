@@ -1,6 +1,6 @@
 package org.scalablytyped.converter.plugin
 
-import _root_.io.circe013.syntax.*
+import _root_.io.circe.syntax.*
 import com.olvind.logging.LogLevel
 import org.scalablytyped.converter.internal.*
 import org.scalablytyped.converter.internal.RunCache.Present

@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal.phases
 
 import java.util
 
+import org.scalablytyped.converter.internal.StableHash
 import org.scalablytyped.converter.internal.phases.PhaseCache.Ref
 
 class PhaseCache[Id, U](initialCapacity: Int = 1000) {
@@ -40,6 +41,9 @@ object PhaseCache {
         case _ => false
       }
 
-    override lazy val hashCode: Int = get.##
+    override lazy val hashCode: Int = {
+      val value = get
+      if (value == null) 0 else StableHash(value)
+    }
   }
 }

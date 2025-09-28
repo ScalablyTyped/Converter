@@ -20,15 +20,24 @@ jobs:
         run: scalafmt -c .scalafmt.conf --check
 
   build:
-    name: CI Build on ${{ matrix.os }}
+    name: CI Build on ${{ matrix.os }} (Scala ${{ matrix.scala }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     strategy:
       matrix:
         include:
           - os: ubuntu-latest
-          - os: macos-latest-large
+            scala: "2.12"
+          - os: ubuntu-latest
+            scala: "3"
+          - os: macos-latest
+            scala: "2.12"
+          - os: macos-latest
+            scala: "3"
           - os: windows-latest
+            scala: "2.12"
+          - os: windows-latest
+            scala: "3"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -52,7 +61,23 @@ jobs:
           key: ${{ runner.os }}-${{ steps.get-tests-folder-sha.outputs.sha }}-test-cache-v1
 
       - name: Build and test
-        run: sbt test
+        run: |
+          if [[ "${{ matrix.scala }}" == "3" ]]; then
+            # For Scala 3, test all modules except sbt-converter (which is SBT 1.x only - Scala 2.12)
+            sbt "++3.3.4" \
+              "logging/test" \
+              "core/test" \
+              "phases/test" \
+              "ts/test" \
+              "scalajs/test" \
+              "importer-portable/test" \
+              "importer/test" \
+              "cli/test"
+          else
+            # For Scala 2.12, test everything
+            sbt "++2.12.20" test
+          fi
+        shell: bash
         env:
           CI: true
           CI_TEST_CACHE: ../test-cache
@@ -82,7 +107,7 @@ jobs:
 #
 #      - uses: coursier/setup-action@v1
 #        with:
-#          jvm: adopt:11
+#          jvm: adoptium:1.21.0.1
 #          apps: sbt
 #
 #      - name: Run scripted

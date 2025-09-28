@@ -1,6 +1,6 @@
 package org.scalablytyped.converter.internal.scalajs
 
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.stringUtils.quote
 
 import scala.xml.Elem
@@ -93,8 +93,8 @@ object Dep {
     // format: on
   }
   object Concrete {
-    implicit val encodes: Encoder[Concrete] = io.circe013.generic.semiauto.deriveEncoder
-    implicit val decodes: Decoder[Concrete] = io.circe013.generic.semiauto.deriveDecoder
+    implicit val encodes: Encoder[Concrete] = io.circe.generic.semiauto.deriveEncoder
+    implicit val decodes: Decoder[Concrete] = io.circe.generic.semiauto.deriveDecoder
   }
 
   case class Java(org: String, name: String, version: String) extends Concrete {
@@ -113,6 +113,6 @@ object Dep {
     override def version: String = dep.version
   }
 
-  implicit val decodes: Decoder[Dep] = io.circe013.generic.semiauto.deriveDecoder
-  implicit val encodes: Encoder[Dep] = io.circe013.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[Dep] = io.circe.generic.semiauto.deriveDecoder
+  implicit val encodes: Encoder[Dep] = io.circe.generic.semiauto.deriveEncoder
 }

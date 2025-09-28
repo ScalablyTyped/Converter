@@ -52,7 +52,7 @@ object Printer {
     reg.result
   }
 
-  private final case class Indenter(a: Appendable) {
+  final case class Indenter(a: Appendable) {
     private var hasIndented: Boolean = false
 
     private def doIndent(indent: Int): Unit = {
@@ -124,7 +124,8 @@ object Printer {
         s"$name.scala"
       }
 
-      files.foreach {
+      // Sort by a stable key to ensure deterministic output
+      files.toList.sortBy(_._1.hashCode).foreach {
         case (ScalaOutput.File(name), members: IArray[Tree]) =>
           reg.write(targetFolder / os.RelPath(s"${name.unescaped}.scala")) { writer =>
             val (imports, shortenedMembers) = ShortenNames(tree, scope, parentsResolver)(members)

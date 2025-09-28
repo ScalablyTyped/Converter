@@ -36,7 +36,7 @@ object ImportScalaDefinitions extends App {
       })
 
     val result = fetch.run()
-    result.files.map(_.toPath).toArray
+    result.map(_.toPath).toArray
   }
 
   val All: Array[java.nio.file.Path] = resolveDeps(

@@ -7,7 +7,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-open class SharedBuilder_RefProps_154979285[R <: js.Object] (val args: js.Array[Any])
+open class SharedBuilder_RefProps_2111033441[R <: js.Object] (val args: js.Array[Any])
   extends AnyVal
      with StBuildingComponent[R] {
   

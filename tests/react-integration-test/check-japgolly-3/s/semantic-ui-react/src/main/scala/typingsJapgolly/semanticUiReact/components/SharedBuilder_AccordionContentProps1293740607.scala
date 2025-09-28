@@ -11,7 +11,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-open class SharedBuilder_AccordionContentProps1671366922 (val args: js.Array[Any])
+open class SharedBuilder_AccordionContentProps1293740607 (val args: js.Array[Any])
   extends AnyVal
      with StBuildingComponent[scala.Nothing] {
   

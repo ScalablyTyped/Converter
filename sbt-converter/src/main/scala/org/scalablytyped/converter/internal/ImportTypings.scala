@@ -4,7 +4,7 @@ package internal
 import java.nio.file.Path
 
 import com.olvind.logging.Logger
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.importer._
 import org.scalablytyped.converter.internal.importer.build.{Compiler, IvyLayout, PublishedSbtProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
@@ -30,8 +30,8 @@ object ImportTypings {
   }
 
   object Input {
-    implicit val encodes: Encoder[Input] = io.circe013.generic.semiauto.deriveEncoder
-    implicit val decodes: Decoder[Input] = io.circe013.generic.semiauto.deriveDecoder
+    implicit val encodes: Encoder[Input] = io.circe.generic.semiauto.deriveEncoder
+    implicit val decodes: Decoder[Input] = io.circe.generic.semiauto.deriveDecoder
   }
 
   case class Output(externalDeps: Set[Dep.Concrete], allProjects: IArray[Dep.Concrete]) {
@@ -43,8 +43,8 @@ object ImportTypings {
   }
 
   object Output {
-    implicit val encodes: Encoder[Output] = io.circe013.generic.semiauto.deriveEncoder
-    implicit val decodes: Decoder[Output] = io.circe013.generic.semiauto.deriveDecoder
+    implicit val encodes: Encoder[Output] = io.circe.generic.semiauto.deriveEncoder
+    implicit val decodes: Decoder[Output] = io.circe.generic.semiauto.deriveDecoder
   }
 
   def apply(

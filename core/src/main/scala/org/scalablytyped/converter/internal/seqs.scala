@@ -1,15 +1,13 @@
 package org.scalablytyped.converter.internal
 
-import scala.collection.GenIterableLike
-import scala.collection.generic.CanBuildFrom
+import scala.collection.mutable
+import scala.collection.compat._
+import scala.collection.compat.Factory
 
 object seqs {
-  @inline final implicit class TraversableOps[C[t] <: GenIterableLike[t, C[t]], T](private val ts: C[T])
-      extends AnyVal {
-
+  @inline final implicit class TraversableOps[T](private val ts: Iterable[T]) extends AnyVal {
     def firstDefined[U](f: T => Option[U]): Option[U] = {
-      val it = ts.toIterator
-
+      val it = ts.iterator
       while (it.hasNext) {
         val res = f(it.next())
         if (res.isDefined) return res
@@ -17,13 +15,12 @@ object seqs {
       None
     }
 
-    def partitionCollect[T1](t1: PartialFunction[T, T1])(
-        implicit cbfT:           CanBuildFrom[C[T], T, C[T]],
-        cbfT1:                   CanBuildFrom[C[T], T1, C[T1]],
+    def partitionCollect[T1, C[_]](t1: PartialFunction[T, T1])(
+        implicit factoryT:             Factory[T, C[T]],
+        factoryT1:                     Factory[T1, C[T1]],
     ): (C[T1], C[T]) = {
-
-      val t1s  = cbfT1()
-      val rest = cbfT()
+      val t1s  = factoryT1.newBuilder
+      val rest = factoryT.newBuilder
 
       ts.foreach {
         case t if t1.isDefinedAt(t) => t1s += t1(t)
@@ -33,14 +30,14 @@ object seqs {
       (t1s.result(), rest.result())
     }
 
-    def partitionCollect2[T1, T2](t1: PartialFunction[T, T1], t2: PartialFunction[T, T2])(
-        implicit cbfT:                CanBuildFrom[C[T], T, C[T]],
-        cbfT1:                        CanBuildFrom[C[T], T1, C[T1]],
-        cbfT2:                        CanBuildFrom[C[T], T2, C[T2]],
+    def partitionCollect2[T1, T2, C[_]](t1: PartialFunction[T, T1], t2: PartialFunction[T, T2])(
+        implicit factoryT:                  Factory[T, C[T]],
+        factoryT1:                          Factory[T1, C[T1]],
+        factoryT2:                          Factory[T2, C[T2]],
     ): (C[T1], C[T2], C[T]) = {
-      val t1s  = cbfT1()
-      val t2s  = cbfT2()
-      val rest = cbfT()
+      val t1s  = factoryT1.newBuilder
+      val t2s  = factoryT2.newBuilder
+      val rest = factoryT.newBuilder
 
       ts.foreach {
         case t if t1.isDefinedAt(t) => t1s += t1(t)
@@ -51,21 +48,20 @@ object seqs {
       (t1s.result(), t2s.result(), rest.result())
     }
 
-    def partitionCollect3[T1, T2, T3](
+    def partitionCollect3[T1, T2, T3, C[_]](
         t1: PartialFunction[T, T1],
         t2: PartialFunction[T, T2],
         t3: PartialFunction[T, T3],
     )(
-        implicit cbfT: CanBuildFrom[C[T], T, C[T]],
-        cbfT1:         CanBuildFrom[C[T], T1, C[T1]],
-        cbfT2:         CanBuildFrom[C[T], T2, C[T2]],
-        cbfT3:         CanBuildFrom[C[T], T3, C[T3]],
+        implicit factoryT: Factory[T, C[T]],
+        factoryT1:         Factory[T1, C[T1]],
+        factoryT2:         Factory[T2, C[T2]],
+        factoryT3:         Factory[T3, C[T3]],
     ): (C[T1], C[T2], C[T3], C[T]) = {
-
-      val t1s  = cbfT1()
-      val t2s  = cbfT2()
-      val t3s  = cbfT3()
-      val rest = cbfT()
+      val t1s  = factoryT1.newBuilder
+      val t2s  = factoryT2.newBuilder
+      val t3s  = factoryT3.newBuilder
+      val rest = factoryT.newBuilder
 
       ts.foreach {
         case t if t1.isDefinedAt(t) => t1s += t1(t)
@@ -77,24 +73,23 @@ object seqs {
       (t1s.result(), t2s.result(), t3s.result(), rest.result())
     }
 
-    def partitionCollect4[T1, T2, T3, T4](
+    def partitionCollect4[T1, T2, T3, T4, C[_]](
         t1: PartialFunction[T, T1],
         t2: PartialFunction[T, T2],
         t3: PartialFunction[T, T3],
         t4: PartialFunction[T, T4],
     )(
-        implicit cbfT: CanBuildFrom[C[T], T, C[T]],
-        cbfT1:         CanBuildFrom[C[T], T1, C[T1]],
-        cbfT2:         CanBuildFrom[C[T], T2, C[T2]],
-        cbfT3:         CanBuildFrom[C[T], T3, C[T3]],
-        cbfT4:         CanBuildFrom[C[T], T4, C[T4]],
+        implicit factoryT: Factory[T, C[T]],
+        factoryT1:         Factory[T1, C[T1]],
+        factoryT2:         Factory[T2, C[T2]],
+        factoryT3:         Factory[T3, C[T3]],
+        factoryT4:         Factory[T4, C[T4]],
     ): (C[T1], C[T2], C[T3], C[T4], C[T]) = {
-
-      val t1s  = cbfT1()
-      val t2s  = cbfT2()
-      val t3s  = cbfT3()
-      val t4s  = cbfT4()
-      val rest = cbfT()
+      val t1s  = factoryT1.newBuilder
+      val t2s  = factoryT2.newBuilder
+      val t3s  = factoryT3.newBuilder
+      val t4s  = factoryT4.newBuilder
+      val rest = factoryT.newBuilder
 
       ts.foreach {
         case t if t1.isDefinedAt(t) => t1s += t1(t)
@@ -107,27 +102,26 @@ object seqs {
       (t1s.result(), t2s.result(), t3s.result(), t4s.result(), rest.result())
     }
 
-    def partitionCollect5[T1, T2, T3, T4, T5](
+    def partitionCollect5[T1, T2, T3, T4, T5, C[_]](
         t1: PartialFunction[T, T1],
         t2: PartialFunction[T, T2],
         t3: PartialFunction[T, T3],
         t4: PartialFunction[T, T4],
         t5: PartialFunction[T, T5],
     )(
-        implicit cbfT: CanBuildFrom[C[T], T, C[T]],
-        cbfT1:         CanBuildFrom[C[T], T1, C[T1]],
-        cbfT2:         CanBuildFrom[C[T], T2, C[T2]],
-        cbfT3:         CanBuildFrom[C[T], T3, C[T3]],
-        cbfT4:         CanBuildFrom[C[T], T4, C[T4]],
-        cbfT5:         CanBuildFrom[C[T], T5, C[T5]],
+        implicit factoryT: Factory[T, C[T]],
+        factoryT1:         Factory[T1, C[T1]],
+        factoryT2:         Factory[T2, C[T2]],
+        factoryT3:         Factory[T3, C[T3]],
+        factoryT4:         Factory[T4, C[T4]],
+        factoryT5:         Factory[T5, C[T5]],
     ): (C[T1], C[T2], C[T3], C[T4], C[T5], C[T]) = {
-
-      val t1s  = cbfT1()
-      val t2s  = cbfT2()
-      val t3s  = cbfT3()
-      val t4s  = cbfT4()
-      val t5s  = cbfT5()
-      val rest = cbfT()
+      val t1s  = factoryT1.newBuilder
+      val t2s  = factoryT2.newBuilder
+      val t3s  = factoryT3.newBuilder
+      val t4s  = factoryT4.newBuilder
+      val t5s  = factoryT5.newBuilder
+      val rest = factoryT.newBuilder
 
       ts.foreach {
         case t if t1.isDefinedAt(t) => t1s += t1(t)

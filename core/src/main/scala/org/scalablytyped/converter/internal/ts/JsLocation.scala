@@ -53,6 +53,8 @@ object JsLocation {
   }
 
   case class Module private (module: TsIdentModule, spec: ModuleSpec) extends JsLocation {
+    def withSpec(newSpec: ModuleSpec): Module = Module(module, newSpec)
+
     override def /(tree: TsTree): Module =
       tree match {
         case x: TsDeclModule      => Module(x.name, ModuleSpec.Namespaced)
@@ -60,6 +62,10 @@ object JsLocation {
         case x: TsNamedDecl       => Module(module, spec + x.name)
         case _ => this
       }
+  }
+
+  object Module {
+    def apply(module: TsIdentModule, spec: ModuleSpec): Module = new Module(module, spec)
   }
 
   case class Both(module: Module, global: Global) extends JsLocation {
