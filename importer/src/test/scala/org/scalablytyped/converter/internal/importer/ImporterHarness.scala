@@ -184,7 +184,7 @@ trait ImporterHarness extends AnyFunSuite {
             /* we don't checkin these files, so also don't compare them */
             os.walk(targetFolder).foreach {
               case x if x.last == ".scala-build" => files.deleteAll(x)
-              case x if x.last == ".bsp"          => files.deleteAll(x)
+              case x if x.last == ".bsp"         => files.deleteAll(x)
               case _                             => ()
             }
 
