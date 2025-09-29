@@ -4,7 +4,11 @@ package flavours
 
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
 
-class JapgollyMemberToProp(reactNames: ReactNamesProxy, rewrites: IArray[CastConversion]) extends MemberToProp {
+class JapgollyMemberToProp(
+    reactNames: ReactNamesProxy,
+    rewrites: IArray[CastConversion],
+    disableCallbackWrapping: Boolean,
+) extends MemberToProp {
   val default = new MemberToProp.Default(rewrites)
 
   override def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
@@ -27,10 +31,10 @@ class JapgollyMemberToProp(reactNames: ReactNamesProxy, rewrites: IArray[CastCon
 
   def toScalaJsReact(variant: Prop.Variant): Prop.Variant =
     variant.tpe match {
-      case TypeRef.ScalaFunction(Empty, retType) =>
+      case TypeRef.ScalaFunction(Empty, retType) if !disableCallbackWrapping =>
         Prop.Variant(CallbackTo(retType), ref => Select(ref, Name("toJsFn")), isRewritten = true, extendsAnyVal = true)
 
-      case TypeRef.ScalaFunction(paramTypes, TypeRef.Unit) =>
+      case TypeRef.ScalaFunction(paramTypes, TypeRef.Unit) if !disableCallbackWrapping =>
         def fn(ref: ExprTree): ExprTree = {
           val params = paramTypes.zipWithIndex.map {
             case (tpe, i) =>
