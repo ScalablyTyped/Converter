@@ -16,8 +16,8 @@ object Deps {
 
   val circe: Seq[ModuleID] =
     Seq(
-      "io.circe" %% "circe-generic" % "0.14.14",
-      "io.circe" %% "circe-parser" % "0.14.14",
+      "io.circe" %% "circe-generic" % "0.14.15",
+      "io.circe" %% "circe-parser" % "0.14.15",
       "io.circe" %% "circe-jackson212" % "0.14.2",
     )
 }
