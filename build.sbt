@@ -153,8 +153,6 @@ lazy val scala3   = "3.3.4"
 
 lazy val baseSettings: Project => Project =
   _.settings(
-    // sonatypeCredentialHost := Sonatype.sonatype01,
-    // sonatypeProfileName := "org.scalablytyped",
     organization := "org.scalablytyped.converter",
     licenses += ("GPL-3.0", url("https://opensource.org/licenses/GPL-3.0")),
     homepage := Some(url("https://github.com/ScalablyTyped/Converter")),
