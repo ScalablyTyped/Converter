@@ -106,10 +106,6 @@ lazy val `sbt-converter` = project
     name := "sbt-converter",
     scalaVersion := scala212, // Always use Scala 2.12 for this project
     crossScalaVersions := Seq(scala212), // For now, keep SBT 1.x only
-    // Skip when running for Scala 3 from root aggregate
-    publish / skip := CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3),
-    publishLocal / skip := CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3),
-    publishSigned / skip := CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3),
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.21.1"),
     addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.20.1"),
     sbtPlugin := true,
