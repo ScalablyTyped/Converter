@@ -164,7 +164,7 @@ lazy val baseSettings: Project => Project =
         url("https://github.com/oyvindberg"),
       ),
     ),
-    pgpSigningKey := Some("763825CAF9034C05E56A042EF5BAF6416BD9F936"),
+    pgpSigningKey := Some("09F57892D4DDA4C1978EFFE73C9C9849E1D67841"),
     scalaVersion := scala212,
     crossScalaVersions := Seq(scala212, scala3),
     scalacOptions ~= (_.filterNot(Set("-Ywarn-unused:imports", "-Ywarn-unused:params", "-Xfatal-warnings"))),
