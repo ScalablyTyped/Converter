@@ -3,10 +3,10 @@
 # that's why we don't trigger on tag
 name: Release snapshot
 on:
-  # Temporarily disabled - can be re-enabled later
   workflow_dispatch:
-  # push:
-  #   branches: [ 'master', 'mui5-support' ]
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   release-snapshot:
