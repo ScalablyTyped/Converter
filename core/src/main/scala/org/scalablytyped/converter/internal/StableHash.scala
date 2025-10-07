@@ -1,6 +1,7 @@
 package org.scalablytyped.converter.internal
 
 import java.lang.Integer.{rotateLeft => rotl}
+import scala.IterableOnce
 
 /** Marker trait for types that implement stable hashing in their hashCode method.
   *
@@ -305,7 +306,7 @@ object StableHash {
     finalizeHash(h, n)
   }
 
-  private def orderedHash(xs: TraversableOnce[Any], seed: Int): Int =
+  private def orderedHash(xs: IterableOnceIterableOnce[Any], seed: Int): Int =
     if (xs.isEmpty) {
       finalizeHash(seed, 0)
     } else {

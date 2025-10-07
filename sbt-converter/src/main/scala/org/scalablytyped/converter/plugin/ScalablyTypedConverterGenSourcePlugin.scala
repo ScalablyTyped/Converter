@@ -37,7 +37,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       },
       Keys.libraryDependencies ++= {
         val conversion = stConversionOptions.value
-        conversion.flavourImpl.dependencies.map(dep => Utils.asModuleID(dep.concrete(conversion.versions))).to[Seq]
+        conversion.flavourImpl.dependencies.map(dep => Utils.asModuleID(dep.concrete(conversion.versions))).to(Seq)
       },
       stMinimize := Selection.None,
       stMinimizeKeep := Nil,
@@ -94,7 +94,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
               os.Path(globalCacheDir),
             ) match {
               case Right(files) =>
-                val seqFiles = files.to[Seq]
+                val seqFiles = files.to(Seq)
                 Json.persist(cachedInputs)(input)
                 Json.persist(cachedOutputs)(seqFiles)
                 seqFiles
