@@ -149,7 +149,7 @@ lazy val root = project
   .aggregate(logging, core, phases, ts, scalajs, `importer-portable`, `sbt-converter`, importer, cli)
 
 lazy val scala212 = "2.12.20"
-lazy val scala3   = "3.3.4"
+lazy val scala3   = "3.3.7"
 
 lazy val baseSettings: Project => Project =
   _.settings(
