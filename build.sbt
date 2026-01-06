@@ -107,7 +107,7 @@ lazy val `sbt-converter` = project
     scalaVersion := scala212, // Always use Scala 2.12 for this project
     crossScalaVersions := Seq(scala212), // For now, keep SBT 1.x only
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.21.1"),
-    addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.20.1"),
+    addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.20.2"),
     sbtPlugin := true,
     // set up 'scripted; sbt plugin for testing sbt plugins
     scriptedBufferLog := false,
