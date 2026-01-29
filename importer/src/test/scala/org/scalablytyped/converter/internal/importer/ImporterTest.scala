@@ -26,6 +26,7 @@ trait ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   test("pixi.js")(assertImportsOk("pixi.js", pedantic                               = false))
   test("augment-module")(assertImportsOk("augment-module", pedantic                 = false))
   test("typings-json")(assertImportsOk("typings-json", pedantic                     = true))
+  test("export-default")(assertImportsOk("export-default", pedantic                 = true))
   test("export-as-namespace")(assertImportsOk("export-as-namespace", pedantic       = true))
   test("babylon")(assertImportsOk("babylon", pedantic                               = true))
   test("bigint")(assertImportsOk("bigint", pedantic                                 = true))
