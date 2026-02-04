@@ -186,6 +186,7 @@ object ImportTypingsGenSources {
       organization             = "org.scalablytyped",
       enableReactTreeShaking   = Selection.None,
       enableLongApplyMethod    = false,
+      disableCallbackWrapping  = false,
       privateWithin            = None,
       useDeprecatedModuleNames = false,
     )

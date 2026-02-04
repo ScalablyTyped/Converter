@@ -20,8 +20,8 @@ class ImporterTest3 extends ImporterTest {
 trait ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExecution {
 
   val Slinky       = SlinkyFlavour(Name("typingsSlinky"), enableLongApplyMethod     = false, version, Selection.None)
-  val Japgolly     = JapgollyFlavour(Name("typingsJapgolly"), enableLongApplyMethod = false, version, Selection.All)
-  val JapgollyLong = JapgollyFlavour(Name("typingsJapgolly"), enableLongApplyMethod = true, version, Selection.All)
+  val Japgolly     = JapgollyFlavour(Name("typingsJapgolly"), enableLongApplyMethod = false, disableCallbackWrapping = false, version, Selection.All)
+  val JapgollyLong = JapgollyFlavour(Name("typingsJapgolly"), enableLongApplyMethod = true, disableCallbackWrapping = false, version, Selection.All)
 
   test("pixi.js")(assertImportsOk("pixi.js", pedantic                               = false))
   test("augment-module")(assertImportsOk("augment-module", pedantic                 = false))

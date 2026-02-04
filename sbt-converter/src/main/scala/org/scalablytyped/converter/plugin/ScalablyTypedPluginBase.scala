@@ -48,6 +48,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       "If a given library is enabled, the react flavour will pick *longest* module names instead of shortest.",
     )
     val stEnableLongApplyMethod = settingKey[Boolean]("long apply methods instead of implicit ops builders")
+    val stDisableCallbackWrapping = settingKey[Boolean]("disable wrapping of native js function props in scalajs-react Callback")
     val stShortModuleNames = settingKey[Boolean](
       "Enables short module names. This used to be the default, and is now deprecated since it's so difficult to navigate",
     )
@@ -101,6 +102,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
           organization             = organization,
           enableReactTreeShaking   = stReactEnableTreeShaking.value.map(name => ImportName(TsIdentLibrary(name))),
           enableLongApplyMethod    = stEnableLongApplyMethod.value,
+          disableCallbackWrapping  = stDisableCallbackWrapping.value,
           privateWithin            = stPrivateWithin.value.map(Name.apply),
           useDeprecatedModuleNames = stShortModuleNames.value,
         )
