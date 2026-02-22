@@ -105,6 +105,7 @@ object Ci {
                 enableScalaJsDefined = Selection.All,
                 flavour              = flavour,
                 ignored              = Libraries.ignored.map(_.value),
+                explicitlyIncluded   = None,
                 stdLibs              = SortedSet("esnext.full"),
                 expandTypeMappings   = EnabledTypeMappingExpansion.DefaultSelection,
                 versions = Versions(
@@ -264,6 +265,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, pool: ForkJoinPool, ec: ExecutionCo
             resolve                 = bootstrapped.libraryResolver,
             ignored                 = config.conversion.ignoredLibs,
             ignoredModulePrefixes   = config.conversion.ignoredModulePrefixes,
+            explicitlyIncluded      = config.conversion.explicitlyIncludedLibs,
             pedantic                = config.pedantic,
             parser                  = PersistingParser(paths.parseCache, IArray(externalsFolder, dtFolder), logger.void),
             expandTypeMappings      = config.conversion.expandTypeMappings,

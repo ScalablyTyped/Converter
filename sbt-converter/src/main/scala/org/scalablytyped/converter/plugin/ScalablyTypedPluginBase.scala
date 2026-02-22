@@ -30,6 +30,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     val stConversionOptions = settingKey[ConversionOptions]("All conversion options")
     val stDir               = settingKey[File]("Directory used for caches, built artifacts and so on")
     val stIgnore            = settingKey[List[String]]("completely ignore libraries or modules")
+    val stExplicitInclude   = settingKey[Option[List[String]]]("explicitly select libraries or modules")
     val stFlavour           = settingKey[Flavour]("The type of react binding to use")
     val stEnableScalaJsDefined = settingKey[Selection[String]](
       "Whether to generate @ScalaJSDefined traits when possible",
@@ -67,6 +68,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       },
       stFlavour := converter.Flavour.Normal,
       stIgnore := List("typescript"),
+      stExplicitInclude := None,
       stOutputPackage := Name.typings.unescaped,
       stStdlib := List("es6", "dom"),
       stTypescriptVersion := "4.3",
@@ -97,6 +99,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
           stdLibs                  = SortedSet.empty ++ stStdlib.value,
           expandTypeMappings       = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
           ignored                  = stIgnore.value.to[Set].sorted,
+          explicitlyIncluded       = stExplicitInclude.value.map(_.to[Set].sorted),
           versions                 = versions,
           organization             = organization,
           enableReactTreeShaking   = stReactEnableTreeShaking.value.map(name => ImportName(TsIdentLibrary(name))),

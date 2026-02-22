@@ -37,6 +37,7 @@ object Main {
     enableScalaJsDefined     = Selection.All,
     flavour                  = Flavour.Normal,
     ignored                  = SortedSet("typescript"),
+    explicitlyIncluded       = None,
     stdLibs                  = SortedSet("es6"),
     expandTypeMappings       = EnabledTypeMappingExpansion.DefaultSelection,
     versions                 = Versions(Versions.Scala3, Versions.ScalaJs1),
@@ -155,6 +156,9 @@ object Main {
       opt[Seq[String]]("ignoredLibs")
         .action((x, c) => c.mapConversion(_.copy(ignored = x.toSet.sorted)))
         .text(s"Libraries you want to ignore"),
+      opt[Seq[String]]("explicitlyIncludedLibs")
+        .action((x, c) => c.mapConversion(_.copy(explicitlyIncluded = Some(x.toSet.sorted))))
+        .text(s"Libraries you want to explicitly include"),
       opt[String]("privateWithin")
         .action((x, c) => c.mapConversion(_.copy(privateWithin = Some(Name(x)))))
         .text(s"Libraries you want to ignore"),
@@ -263,6 +267,7 @@ object Main {
                 resolve                 = bootstrapped.libraryResolver,
                 ignored                 = conversion.ignoredLibs,
                 ignoredModulePrefixes   = conversion.ignoredModulePrefixes,
+                explicitlyIncluded      = conversion.explicitlyIncludedLibs,
                 pedantic                = false,
                 parser                  = PersistingParser(parseCachePath, bootstrapped.inputFolders, logger.void),
                 expandTypeMappings      = conversion.expandTypeMappings,

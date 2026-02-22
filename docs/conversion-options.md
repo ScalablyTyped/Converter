@@ -40,6 +40,28 @@ project.settings(
 )
 ```
 
+### `stExplicitInclude`
+With many js dependencies, you might want to not automatically generate code for every depenendency, that you then need to ignore.
+You can explicitly list the packages or modules that should be processed instead:
+
+```scala
+project.settings(
+  stExplicitInclude := Some(List(
+    "is-object",
+    "is-number",
+  ))
+)
+```
+
+Be aware, that `stIgnore` takes precedence if you use it together with `stExplicitInclude`.
+
+Switch back to default behavior of processing every dependency:
+```scala
+project.settings(
+  stExplicitInclude := None
+)
+```
+
 ### `stIncludeDev`
 
 By default the plugin only includes dependencies defined with `npmDependencies`. 

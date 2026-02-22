@@ -83,6 +83,7 @@ object ImportTypings {
           calculateLibraryVersion = CalculateLibraryVersion.PackageJsonOnly,
           ignored                 = input.conversion.ignoredLibs,
           ignoredModulePrefixes   = input.conversion.ignoredModulePrefixes,
+          explicitlyIncluded      = input.conversion.explicitlyIncludedLibs,
           pedantic                = false,
           parser                  = cachedParser,
           expandTypeMappings      = input.conversion.expandTypeMappings,

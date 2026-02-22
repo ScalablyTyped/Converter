@@ -87,6 +87,7 @@ trait ImporterHarness extends AnyFunSuite {
             calculateLibraryVersion = new DTVersions(DTLastChangedIndex.No, includeGitPart = false),
             ignored                 = ignored,
             ignoredModulePrefixes   = Set.empty,
+            explicitlyIncluded      = None,
             pedantic                = pedantic,
             parser                  = parser.parseFile,
             expandTypeMappings      = EnabledTypeMappingExpansion.DefaultSelection,
