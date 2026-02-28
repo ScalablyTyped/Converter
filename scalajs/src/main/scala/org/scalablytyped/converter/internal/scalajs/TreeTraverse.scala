@@ -1,6 +1,7 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
+import scala.IterableOnce
 object TreeTraverse {
   def collect[T <: AnyRef](tree: Tree)(extract: PartialFunction[Tree, T]): IArray[T] =
     collectIArray(IArray(tree))(extract)
@@ -21,7 +22,7 @@ object TreeTraverse {
     def rec(a: Any): Unit =
       a match {
         case x:  Tree if x ne tree  => go(extract, buf)(x)
-        case xs: TraversableOnce[_] => xs.foreach(rec)
+        case xs: IterableOnceIterableOnce[_] => xs.foreach(rec)
         case xs: IArray[_]          => xs.foreach(rec)
         case p:  Product            => p.productIterator.foreach(rec)
         case _ => ()
@@ -36,7 +37,7 @@ object TreeTraverse {
     def rec(a: Any): Unit =
       a match {
         case x:  AnyRef if x ne tree => foreach(x)(run)
-        case xs: TraversableOnce[_]  => xs.foreach(rec)
+        case xs: IterableOnceIterableOnce[_]  => xs.foreach(rec)
         case xs: IArray[_]           => xs.foreach(rec)
         case p:  Product             => p.productIterator.foreach(rec)
         case _ => ()
