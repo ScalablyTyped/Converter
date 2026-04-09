@@ -8,3 +8,4 @@ target/
 release-temp/
 .bsp/
 .scala-build/
+.vscode
