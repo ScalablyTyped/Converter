@@ -18,7 +18,7 @@ class TypeRewriter(base: TsTree) extends TreeTransformation[Map[TsType, TsType]]
             case TsTypeRef(_, TsQIdent(IArray.exactlyOne(one: TsIdentSimple)), _) if tparams.exists(_.name === one) =>
               false
             case _ => true
-          }
+          }.toMap
         case _ => t
       }
 }

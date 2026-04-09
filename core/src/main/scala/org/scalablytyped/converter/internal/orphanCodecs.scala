@@ -3,7 +3,7 @@ package org.scalablytyped.converter.internal
 import java.io.File
 import java.net.URI
 
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 
 import scala.collection.immutable.{SortedSet, TreeSet}
 

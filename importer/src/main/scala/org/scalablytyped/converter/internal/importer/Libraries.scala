@@ -650,7 +650,6 @@ object Libraries {
     "react-native",
     "react-native-gesture-handler",
     "react-native-vector-icons",
-    "react-navigation",
     "react-navigation-drawer",
     "react-navigation-stack",
     "react-redux",

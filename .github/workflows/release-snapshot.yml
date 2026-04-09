@@ -3,26 +3,48 @@
 # that's why we don't trigger on tag
 name: Release snapshot
 on:
+  workflow_dispatch:
   push:
     branches-ignore:
-      - '**' # disable release-snapshot
+      - "**" # disable release-snapshot
 
 jobs:
   release-snapshot:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: coursier/cache-action@v6
-      - uses: coursier/setup-action@v1.2.0-M3
+      - uses: coursier/cache-action@v6.4
+      - uses: coursier/setup-action@v1
         with:
           apps: sbt
 
-      - name: publish snapshot
+      - name: Release
         run: sbt ci-release
         env:
           PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
           PGP_SECRET: ${{ secrets.PGP_SECRET }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          # Custom release command: publish all modules for 2.12, then all except sbt-converter for 3
+          CI_RELEASE: >-
+            ++2.12.20;
+            logging/publishSigned;
+            core/publishSigned;
+            phases/publishSigned;
+            ts/publishSigned;
+            scalajs/publishSigned;
+            importer-portable/publishSigned;
+            sbt-converter/publishSigned;
+            importer/publishSigned;
+            cli/publishSigned;
+            ++3.3.4;
+            logging/publishSigned;
+            core/publishSigned;
+            phases/publishSigned;
+            ts/publishSigned;
+            scalajs/publishSigned;
+            importer-portable/publishSigned;
+            importer/publishSigned;
+            cli/publishSigned

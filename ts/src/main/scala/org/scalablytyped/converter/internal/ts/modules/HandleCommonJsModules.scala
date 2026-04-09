@@ -62,7 +62,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
 
   override def enterTsDeclModule(t: TsTreeScope)(mod: TsDeclModule): TsDeclModule =
     mod match {
-      case EqualsExport(((export, IArray.exactlyOne(target)), notExports)) =>
+      case EqualsExport(((exportDecl, IArray.exactlyOne(target)), notExports)) =>
         val (namespaces, toplevel, _rest) = notExports.partitionCollect2(
           { case x: TsDeclNamespace if x.name.value === target.value => x },
           { case x: TsNamedDecl if x.name === target                 => x },
@@ -103,7 +103,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
             }
             .map(x => SetCodePath.visitTsContainerOrDecl(mod.codePath.forceHasPath)(x))
 
-          val maybeKeepOriginalExport = if (toplevel.nonEmpty) IArray(export) else Empty
+          val maybeKeepOriginalExport = if (toplevel.nonEmpty) IArray(exportDecl) else Empty
 
           /* handle (3) */
           val patchedRest = rest.filter {

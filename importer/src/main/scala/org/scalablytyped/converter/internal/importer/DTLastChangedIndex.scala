@@ -47,7 +47,7 @@ object DTLastChangedIndex {
     val head = cmd.run.git("rev-parse", "HEAD").out.lines.head
 
     FileLocking.cachedValue((cacheDir / head).toNIO, DevNull) {
-      val res         = cmd.run.git('log, "--raw", "--pretty=format:%ct")
+      val res         = cmd.run.git("log", "--raw", "--pretty=format:%ct")
       var changedTime = System.currentTimeMillis() / 1000L
       val lastChanged = mutable.Map.empty[os.RelPath, Long]
 
@@ -77,7 +77,7 @@ object DTLastChangedIndex {
         case _ =>
       }
 
-      Impl(lastChanged.map { case (relPath, long) => (repo / relPath).toIO -> long }(collection.breakOut))
+      Impl(lastChanged.map { case (relPath, long) => (repo / relPath).toIO -> long }.toMap)
     }
   }
 }

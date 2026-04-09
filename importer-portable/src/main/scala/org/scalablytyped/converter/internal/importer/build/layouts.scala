@@ -68,10 +68,10 @@ object IvyLayout {
   def apply[T](p: Dep.Concrete, jarFile: T, sourceFile: T, ivyFile: T, pomFile: T): IvyLayout[os.RelPath, T] = {
     val libraryPath = os.RelPath(p.org) / p.mangledArtifact / os.RelPath(p.version)
     IvyLayout(
-      jarFile    = libraryPath / 'jars / s"${p.mangledArtifact}.jar" -> jarFile,
-      sourceFile = libraryPath / 'srcs / s"${p.mangledArtifact}-sources.jar" -> sourceFile,
-      ivyFile    = libraryPath / 'ivys / "ivy.xml" -> ivyFile,
-      pomFile    = libraryPath / 'poms / s"${p.mangledArtifact}.pom" -> pomFile,
+      jarFile    = libraryPath / "jars" / s"${p.mangledArtifact}.jar" -> jarFile,
+      sourceFile = libraryPath / "srcs" / s"${p.mangledArtifact}-sources.jar" -> sourceFile,
+      ivyFile    = libraryPath / "ivys" / "ivy.xml" -> ivyFile,
+      pomFile    = libraryPath / "poms" / s"${p.mangledArtifact}.pom" -> pomFile,
     )
   }
 }

@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 
 sealed trait ClassType {
   import ClassType._
@@ -24,6 +24,6 @@ object ClassType {
   case object Class extends ClassType
   case object Trait extends ClassType
 
-  implicit val encodes: Encoder[ClassType] = io.circe013.generic.semiauto.deriveEncoder
-  implicit val decodes: Decoder[ClassType] = io.circe013.generic.semiauto.deriveDecoder
+  implicit val encodes: Encoder[ClassType] = io.circe.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[ClassType] = io.circe.generic.semiauto.deriveDecoder
 }

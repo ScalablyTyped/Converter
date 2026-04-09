@@ -5,7 +5,7 @@ import ammonite.ops.{%, %%, ShelloutException}
 import com.olvind.logging
 import com.olvind.logging.{LogLevel, LogRegistry}
 import org.scalablytyped.converter.Selection
-import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, PublishedSbtProject}
+import org.scalablytyped.converter.internal.importer.build.{PublishedSbtProject, ScalaCliCompiler}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
@@ -45,17 +45,17 @@ trait ImporterHarness extends AnyFunSuite {
     case Some(value) =>
       os.pwd / os.RelPath(value)
     case None =>
-      constants.defaultCacheFolder / 'tests
+      constants.defaultCacheFolder / "tests"
   }
-  val failureCacheDir = baseDir / 'compileFailures
+  val failureCacheDir = baseDir / "compileFailures"
   os.makeDir.all(failureCacheDir)
 
   val testLogger = logging.stdout.filter(LogLevel.warn)
   def version: Versions
   def mode:    Mode
 
-  private lazy val bloop = Await.result(
-    BloopCompiler(testLogger, version, Some(failureCacheDir.toNIO))(ExecutionContext.Implicits.global),
+  private lazy val compiler = Await.result(
+    ScalaCliCompiler(testLogger, version, constants.defaultCacheFolder)(ExecutionContext.Implicits.global),
     Duration.Inf,
   )
 
@@ -108,7 +108,7 @@ trait ImporterHarness extends AnyFunSuite {
         .next(
           new Phase3Compile(
             versions                   = version,
-            compiler                   = bloop,
+            compiler                   = compiler,
             targetFolder               = targetFolder,
             organization               = "org.scalablytyped",
             publishLocalFolder         = publishLocalFolder,
@@ -154,7 +154,7 @@ trait ImporterHarness extends AnyFunSuite {
       case Mode.Skip => pending
       case run: Mode.Run =>
         val testFolder   = findTestFolder(testName)
-        val source       = InFolder(testFolder.path / 'in)
+        val source       = InFolder(testFolder.path / "in")
         val targetFolder = os.Path(Files.createTempDirectory("scalablytyped-test-"))
 
         val flavourFolderPart = flavour match {
@@ -183,8 +183,9 @@ trait ImporterHarness extends AnyFunSuite {
 
             /* we don't checkin these files, so also don't compare them */
             os.walk(targetFolder).foreach {
-              case x if x.last == ".bloop" => files.deleteAll(x)
-              case _                       => ()
+              case x if x.last == ".scala-build" => files.deleteAll(x)
+              case x if x.last == ".bsp"         => files.deleteAll(x)
+              case _                             => ()
             }
 
             if (run.update) {

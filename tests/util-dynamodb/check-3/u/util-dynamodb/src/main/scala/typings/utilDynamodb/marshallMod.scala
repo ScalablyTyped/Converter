@@ -38,8 +38,8 @@ object marshallMod {
   inline def marshall(data: js.Array[NativeAttributeValue], options: marshallOptions): js.Array[AttributeValue] = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[js.Array[AttributeValue]]
   inline def marshall(data: js.BigInt): NMember = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[NMember]
   inline def marshall(data: js.BigInt, options: marshallOptions): NMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[NMember]
-  inline def marshall(data: Any): UnknownMember = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[UnknownMember]
-  inline def marshall(data: Any, options: marshallOptions): UnknownMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[UnknownMember]
+  inline def marshall(data: Any): Any = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[Any]
+  inline def marshall(data: Any, options: marshallOptions): Any = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[Any]
   inline def marshall(data: Boolean): BOOLMember = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[BOOLMember]
   inline def marshall(data: Boolean, options: marshallOptions): BOOLMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[BOOLMember]
   inline def marshall(data: Double): NMember = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[NMember]
@@ -49,21 +49,15 @@ object marshallMod {
   inline def marshall(data: Map[String, NativeAttributeValue], options: marshallOptions): Record[String, AttributeValue] = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[Record[String, AttributeValue]]
   inline def marshall(data: Record[String, NativeAttributeValue]): Record[String, AttributeValue] = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[Record[String, AttributeValue]]
   inline def marshall(data: Record[String, NativeAttributeValue], options: marshallOptions): Record[String, AttributeValue] = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[Record[String, AttributeValue]]
-  inline def marshall(data: Set[String]): SSMember = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[SSMember]
-  inline def marshall(data: Set[String], options: marshallOptions): SSMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[SSMember]
+  inline def marshall(data: Set[NativeAttributeBinary]): BSMember = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[BSMember]
+  inline def marshall(data: Set[NativeAttributeBinary], options: marshallOptions): BSMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[BSMember]
   inline def marshall(data: NativeAttributeBinary): BMember = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[BMember]
   inline def marshall(data: NativeAttributeBinary, options: marshallOptions): BMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[BMember]
   inline def marshall(data: NumberValue): NMember = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[NMember]
   inline def marshall(data: NumberValue, options: marshallOptions): NMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[NMember]
   inline def marshall[O /* <: ConvertTopLevelContainerBoolean */](data: js.Array[NativeAttributeValue], options: marshallOptions & O): js.Array[AttributeValue] | LMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[js.Array[AttributeValue] | LMember]
-  inline def marshall[O /* <: `0` */](data: Map[String, NativeAttributeValue], options: marshallOptions & O): Record[String, AttributeValue] = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[Record[String, AttributeValue]]
-  inline def marshall[O /* <: `0` */](data: Record[String, NativeAttributeValue], options: marshallOptions & O): Record[String, AttributeValue] = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[Record[String, AttributeValue]]
-  
-  inline def marshall_Any(data: Any): Any = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[Any]
-  inline def marshall_Any(data: Any, options: marshallOptions): Any = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[Any]
-  
-  inline def marshall_BSMember(data: Set[NativeAttributeBinary]): BSMember = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[BSMember]
-  inline def marshall_BSMember(data: Set[NativeAttributeBinary], options: marshallOptions): BSMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[BSMember]
+  inline def marshall[O /* <: ConvertTopLevelContainerBoolean */](data: Map[String, NativeAttributeValue], options: marshallOptions & O): (Record[String, AttributeValue]) | MMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[(Record[String, AttributeValue]) | MMember]
+  inline def marshall[O /* <: ConvertTopLevelContainerBoolean */](data: Record[String, NativeAttributeValue], options: marshallOptions & O): (Record[String, AttributeValue]) | MMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[(Record[String, AttributeValue]) | MMember]
   
   inline def marshall_NSMember(data: Set[js.BigInt | Double | NumberValue]): NSMember = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[NSMember]
   inline def marshall_NSMember(data: Set[js.BigInt | Double | NumberValue], options: marshallOptions): NSMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[NSMember]
@@ -75,8 +69,14 @@ object marshallMod {
   inline def marshall_O_MMember[O /* <: ConvertTopLevelContainer */](data: Map[String, NativeAttributeValue], options: marshallOptions & O): MMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[MMember]
   inline def marshall_O_MMember[O /* <: ConvertTopLevelContainer */](data: Record[String, NativeAttributeValue], options: marshallOptions & O): MMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[MMember]
   
-  inline def marshall_O_Union[O /* <: ConvertTopLevelContainerBoolean */](data: Map[String, NativeAttributeValue], options: marshallOptions & O): (Record[String, AttributeValue]) | MMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[(Record[String, AttributeValue]) | MMember]
-  inline def marshall_O_Union[O /* <: ConvertTopLevelContainerBoolean */](data: Record[String, NativeAttributeValue], options: marshallOptions & O): (Record[String, AttributeValue]) | MMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[(Record[String, AttributeValue]) | MMember]
+  inline def marshall_O_Record[O /* <: `0` */](data: Map[String, NativeAttributeValue], options: marshallOptions & O): Record[String, AttributeValue] = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[Record[String, AttributeValue]]
+  inline def marshall_O_Record[O /* <: `0` */](data: Record[String, NativeAttributeValue], options: marshallOptions & O): Record[String, AttributeValue] = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[Record[String, AttributeValue]]
+  
+  inline def marshall_SSMember(data: Set[String]): SSMember = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[SSMember]
+  inline def marshall_SSMember(data: Set[String], options: marshallOptions): SSMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[SSMember]
+  
+  inline def marshall_UnknownMember(data: Any): UnknownMember = ^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any]).asInstanceOf[UnknownMember]
+  inline def marshall_UnknownMember(data: Any, options: marshallOptions): UnknownMember = (^.asInstanceOf[js.Dynamic].applyDynamic("marshall")(data.asInstanceOf[js.Any], options.asInstanceOf[js.Any])).asInstanceOf[UnknownMember]
   
   trait marshallOptions extends StObject {
     

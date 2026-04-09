@@ -29,7 +29,7 @@ object FindProps {
     def map[U](f: T => U): Res[E, U] = this match {
       case Res.Error(msg)       => Res.Error(msg)
       case Res.One(name, value) => Res.One(name, f(value))
-      case Res.Many(values)     => Res.Many(values.mapValues(f))
+      case Res.Many(values)     => Res.Many(values.mapValues(f).toMap)
     }
 
     def mapError[EE](f: E => EE): Res[EE, T] = this match {
@@ -144,7 +144,7 @@ final class FindProps(
         retOpt.getOrElse {
           val msg = s"Could't extract props from ${Printer.formatTypeRef(0)(other)} because couldn't resolve ClassTree."
           Res.Error(IArray(msg))
-        },
+        }
     }
 
   def forClassTree(
@@ -269,17 +269,19 @@ final class FindProps(
             case _ => 1
           }
 
-          val sizeCache = mutable.Map.empty[Prop, Int]
+          val sizeCache = mutable.Map.empty[TypeRef, Int]
           implicit class PropOps(prop: Prop) {
 
             /** prop size for function argument
               * acording to scalac output ` a parameter list's length cannot exceed 254 (Long and Double count as 2).`
               */
             def size: Int =
-              sizeCache.getOrElseUpdate(prop, prop match {
-                case Prop.Normal(main, _, _, _, _) => sizeOfTypeRef(main.tpe, scope)
-                case _: Prop.CompressedProp => 1
-              })
+              prop match {
+                case Prop.Normal(main, _, _, _, _) =>
+                  sizeCache.getOrElseUpdate(main.tpe, sizeOfTypeRef(main.tpe, scope))
+                case _: Prop.CompressedProp =>
+                  1
+              }
           }
 
           implicit class PropsOps(props: IArray[Prop]) {

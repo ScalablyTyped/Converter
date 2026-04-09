@@ -190,8 +190,8 @@ final class CommentTests extends AnyFunSuite with Matchers {
             TsFunSig(
               NoComments,
               IArray(
-                TsTypeParam(NoComments, TsIdent("K"), None, None),
-                TsTypeParam(NoComments, TsIdent("V"), None, None),
+                TsTypeParam(NoComments, TsIdent("K"), None, None, Variance.Invariant),
+                TsTypeParam(NoComments, TsIdent("V"), None, None, Variance.Invariant),
               ),
               IArray(
                 TsFunParam(

@@ -4,8 +4,8 @@ package importer
 import org.scalablytyped.converter.internal.phases.PhaseListener
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import fansi.Color
-import monix.execution.atomic.AtomicBoolean
 
+import java.util.concurrent.atomic.AtomicBoolean
 import scala.collection.mutable
 import scala.util.Try
 
@@ -31,7 +31,7 @@ object Interface {
     private def active    = status.collect { case (lib, x: Started[LibTsSource]) => (lib, x) }
     private def blocked   = status.collect { case (lib, x: Blocked[LibTsSource]) => (lib, x) }
     private def succeeded = status.collect { case (lib, x: Success[LibTsSource]) => lib -> x }
-    private val hasExited = AtomicBoolean(false)
+    private val hasExited = new AtomicBoolean(false)
 
     def finish(): Unit = {
       require(blocked.isEmpty)
@@ -84,11 +84,10 @@ object Interface {
       row("Seconds per library", processedPerSecond)
 
       println("Active:")
-      active.to[Vector].map(x => (Color.Green(x._1.value).render, x._2.phase)).sorted.foreach(x => println(x.toString))
+      active.toVector.map(x => (Color.Green(x._1.value).render, x._2.phase)).sorted.foreach(x => println(x.toString))
 
       println("Blocked:")
-      blocked
-        .to[Vector]
+      blocked.toVector
         .map {
           case (name, Blocked(phase, on)) =>
             s"${Color.LightGray(name.value).render} ($phase) blocked on ${(on.map(_.libName) -- succeeded.keys).map(_.value)}"

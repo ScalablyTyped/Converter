@@ -1,23 +1,31 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="ImporterTest" type="ScalaTestRunConfiguration" factoryName="ScalaTest" show_console_on_std_err="false" show_console_on_std_out="false">
-    <module name="importer" />
+    <module name="converter-root.importer.test" />
+    <option name="VMParameters" value="" />
     <option name="allowRunningInParallel" value="false" />
-    <option name="testKind" value="Class" />
+    <option name="alternativeJrePath" />
+    <option name="alternativeJrePathEnabled" value="false" />
+    <option name="classpathModifications">
+      <list />
+    </option>
+    <option name="envFilePaths">
+      <list />
+    </option>
     <option name="envs">
       <map />
     </option>
-    <option name="javaOptions" value="" />
-    <option name="jrePath" />
-    <option name="searchTest" value="Across module dependencies" />
-    <option name="showProgressMessages" value="true" />
-    <option name="testArgs" value="" />
+    <option name="passParentEnvs" value="true" />
+    <option name="programParameters" value="" />
+    <option name="projectPathOnTarget" />
+    <option name="selectedOptions">
+      <list />
+    </option>
+    <option name="testKind" value="Class" />
+    <option name="workingDirectory" value="$PROJECT_DIR$" />
     <option name="testClassPath" value="org.scalablytyped.converter.internal.importer.ImporterTest" />
-    <option name="useSbt" value="false" />
-    <option name="useUiWithSbt" value="false" />
     <option name="workingDirectory" value="$PROJECT_DIR$" />
     <method v="2">
       <option name="Make" enabled="true" />
-      <option name="BSP.BeforeRunTask" enabled="true" />
     </method>
   </configuration>
 </component>

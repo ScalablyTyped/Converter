@@ -1,18 +1,13 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-import java.util.regex.Pattern
-
 import ammonite.ops._
-import bloop.io.AbsolutePath
 import com.olvind.logging
-import org.scalablytyped.converter.internal.importer.build.BloopCompiler
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.transforms.Sorter
 
-import scala.concurrent.Await
+import java.util.regex.Pattern
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.Duration
 import scala.reflect.NameTransformer
 import scala.tools.scalap.scalax.rules.scalasig._
 
@@ -29,19 +24,29 @@ import scala.tools.scalap.scalax.rules.scalasig._
 object ImportScalaDefinitions extends App {
   private val defaultVersions: Versions = Versions(Versions.Scala213, Versions.ScalaJs1)
 
-  val All: Array[AbsolutePath] = Await
-    .result(
-      BloopCompiler.resolve(
-        defaultVersions.scalajsReact.concrete(defaultVersions),
-        defaultVersions.scalaJsDom.concrete(defaultVersions),
-        defaultVersions.slinkyWeb.concrete(defaultVersions),
-        defaultVersions.slinkyNative.concrete(defaultVersions),
-        defaultVersions.scalaJsLibrary.concrete(defaultVersions),
-        defaultVersions.runtime.concrete(defaultVersions),
-      ),
-      Duration.Inf,
-    )
-    .filter(file => file.toString.contains("sjs1") || file.toString.contains("scalajs-library"))
+  private def resolveDeps(deps: Dep.Concrete*): Array[java.nio.file.Path] = {
+    import coursier._
+    import coursier.cache.FileCache
+    import coursier.util.Task
+
+    val fetch = Fetch()
+      .withCache(FileCache[Task]())
+      .withDependencies(deps.map { dep =>
+        Dependency(Module(Organization(dep.org), ModuleName(dep.mangledArtifact)), dep.version)
+      })
+
+    val result = fetch.run()
+    result.map(_.toPath).toArray
+  }
+
+  val All: Array[java.nio.file.Path] = resolveDeps(
+    defaultVersions.scalajsReact.concrete(defaultVersions),
+    defaultVersions.scalaJsDom.concrete(defaultVersions),
+    defaultVersions.slinkyWeb.concrete(defaultVersions),
+    defaultVersions.slinkyNative.concrete(defaultVersions),
+    defaultVersions.scalaJsLibrary.concrete(defaultVersions),
+    defaultVersions.runtime.concrete(defaultVersions),
+  ).filter(file => file.toString.contains("sjs1") || file.toString.contains("scalajs-library"))
 
   val projectRoot: os.Path = {
     var current = os.pwd
@@ -174,7 +179,7 @@ object ImportScalaDefinitions extends App {
     all.mapNotNone(isJs)
   }
 
-  Json.persist[IArray[Tree]](dumpJsonTo)(flatten(allJs))
+  Json.persist[IArray[Tree]](dumpJsonTo)(flatten(allJs).sortBy(_.codePath.parts), io.circe.Printer.spaces2)
 
   {
     val inContainers: IArray[Tree] =

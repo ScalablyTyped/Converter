@@ -29,7 +29,7 @@ object Formatter {
   implicit def EitherFormatter[L: Formatter, R: Formatter]: Formatter[Either[L, R]] =
     _.fold(Formatter[L], Formatter[R])
 
-  implicit def TraversableFormatter[C[t] <: Traversable[t], T: Formatter]: Formatter[C[T]] =
+  implicit def TraversableFormatter[C[t] <: Iterable[t], T: Formatter]: Formatter[C[T]] =
     ts =>
       if (ts.isEmpty) ""
       else {

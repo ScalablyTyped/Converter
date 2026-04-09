@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 
 final case class Name(unescaped: String) {
   def withSuffix[T: ToSuffix](t: T): Name =

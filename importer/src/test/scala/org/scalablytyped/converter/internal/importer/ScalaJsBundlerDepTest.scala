@@ -1,6 +1,6 @@
 package org.scalablytyped.converter.internal.importer
 
-import io.circe013.syntax._
+import io.circe.syntax._
 import org.scalablytyped.converter.internal.Json
 import org.scalablytyped.converter.internal.importer.ScalaJsBundlerDepFile.NpmDependencies
 import org.scalatest.funsuite.AnyFunSuite

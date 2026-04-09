@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 package parser
 
+import org.scalablytyped.converter.internal.ts.Variance
 import scala.util.parsing.combinator.syntactical._
 import scala.util.parsing.input.{OffsetPosition, Positional, Reader}
 
@@ -47,9 +48,29 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     positioned(p.map(WithPos.apply)).flatMap { positionedValue =>
       positionedValue.pos match {
         case pos: OffsetPosition =>
-          val pre = pos.lineContents.take(pos.column - 1)
-          if (pre.trim.isEmpty) failure(s"`${positionedValue.value}` should not appear immediately after newline")
-          else success(positionedValue.value)
+          // Direct access to source using offset - much more efficient
+          val source             = pos.source
+          var i                  = pos.offset - 1
+          var foundNonWhitespace = false
+
+          // Walk backwards from current position to find either:
+          // 1. A newline (meaning we're at start of line)
+          // 2. Non-whitespace character (meaning we're not at start of line)
+          while (i >= 0 && !foundNonWhitespace) {
+            val ch = source.charAt(i)
+            if (ch == '\n' || ch == '\r') {
+              // Found newline before any non-whitespace - fail
+              i = -1 // Exit loop
+            } else if (!ch.isWhitespace) {
+              // Found non-whitespace before newline - success
+              foundNonWhitespace = true
+            } else {
+              i -= 1
+            }
+          }
+
+          if (foundNonWhitespace) success(positionedValue.value)
+          else failure(s"`${positionedValue.value}` should not appear immediately after newline")
         case _ => sys.error("expected position")
       }
     }
@@ -378,8 +399,16 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   lazy val tsTypeKeyOf: Parser[TsTypeKeyOf] =
     "keyof" ~>! baseTypeDesc ^^ TsTypeKeyOf
 
-  lazy val typeParam: Parser[TsTypeParam] =
-    comments ~ tsIdent ~ ("extends" ~>! perhapsParens(tsType)).? ~ ("=" ~>! tsType).? ^^ TsTypeParam.apply
+  lazy val typeParam: Parser[TsTypeParam] = {
+    val variance: Parser[Variance] =
+      "in" ^^^ Variance.Contravariant |
+        "out" ^^^ Variance.Covariant
+
+    comments ~ variance.? ~ "const".? ~ tsIdent ~ ("extends" ~>! perhapsParens(tsType)).? ~ ("=" ~>! tsType).? ^^ {
+      case comments ~ varianceOpt ~ _ ~ name ~ upperBound ~ default =>
+        TsTypeParam(comments, name, upperBound, default, varianceOpt.getOrElse(Variance.Invariant))
+    }
+  }
 
   lazy val tsTypeParams: Parser[IArray[TsTypeParam]] =
     "<" ~>! repsep_(typeParam, ",") <~! ",".? <~ comments.? <~! ">" | success(Empty)
@@ -397,13 +426,14 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   lazy val functionParam: Parser[TsFunParam] = {
 
     /** Note: we don't care about the specifics of a destructured parameter. we just want a unique name and a type **/
-    lazy val destructuredObj: Parser[TsIdentSimple] =
-      "{" ~>! rep((tsIdentLiberal | ("..." ~> tsIdent)) ~ (":" ~> (tsIdent | destructured)).? <~ ",".?) <~ "}" ^^ (
-          _ =>
-            TsIdent.Destructured,
-        )
+    lazy val destructuredObj: Parser[TsIdentSimple] = {
+      val normalProp = tsIdentLiberal ~ (":" ~> (tsIdent | destructured)).?
+      val restProp   = "..." ~> tsIdent
+      val prop       = restProp | normalProp
+      "{" ~> rep(prop <~ ",".?) <~ "}" ^^ (_ => TsIdent.Destructured)
+    }
     lazy val destructuredArray: Parser[TsIdentSimple] =
-      "[" ~>! ",".? ~> repsep("...".? ~> tsIdent <~ (":" <~ (tsIdent | destructured)).?, ",") <~ "]" ^^ (
+      "[" ~> ",".? ~> repsep("...".? ~> tsIdent <~ (":" <~ (tsIdent | destructured)).?, ",") <~ "]" ^^ (
           _ =>
             TsIdent.Destructured,
         )
@@ -455,13 +485,13 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       }
 
     ((tsIdent <~ "is") ~ tsType ^^ TsTypeIs
-      | comments ~ tsMembers ^^ TsTypeObject
       | tsTypeFunction
+      | "(" ~> tsType <~ ")"
+      | comments ~ tsMembers ^^ TsTypeObject
       | ("abstract".isDefined <~ "new") ~ tsTypeFunction ^^ TsTypeConstructor
       | "unique" ~> "symbol" ~> success(TsTypeRef(NoComments, TsQIdent.symbol, Empty))
       | "typeof" ~> tsTypeRef ^^ { case TsTypeRef(_, name, _) => TsTypeQuery(name) } // todo: targs may be used to with `typoeof f<asd>`
       | tsTypeTuple
-      | "(" ~> tsType <~ ")"
       | tsLiteral ^^ TsTypeLiteral
       | tsLiteralTemplateString ^^ (
           chars =>
@@ -507,7 +537,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val tsTypeTuple: Parser[TsTypeTuple] = {
     val repeatedElem: Parser[TsTupleElement] =
-      "..." ~>! (tsIdent <~ ":").? ~ tsType ^^ {
+      "..." ~> (tsIdent <~ ":").? ~ tsType ^^ {
         case label ~ tpe => TsTupleElement(label, TsTypeRepeated(tpe))
       }
 
@@ -525,7 +555,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
     val tupleElem = repeatedElem | nonRepeatedElem
 
-    "[" ~>! (tupleElem <~ ",".?).** <~ "]" ^^ TsTypeTuple
+    "[" ~> (tupleElem <~ ",".?).** <~ "]" ^^ TsTypeTuple
   }
 
   lazy val tsTypeRef: Parser[TsTypeRef] = {

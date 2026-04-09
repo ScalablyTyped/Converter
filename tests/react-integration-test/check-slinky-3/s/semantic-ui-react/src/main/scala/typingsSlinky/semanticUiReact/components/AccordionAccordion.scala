@@ -14,7 +14,7 @@ object AccordionAccordion {
   
   type Props = AccordionAccordionProps
   
-  implicit def make(companion: AccordionAccordion.type): SharedBuilder_AccordionAccordionProps_2090513651[default] = new SharedBuilder_AccordionAccordionProps_2090513651[default](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: AccordionAccordion.type): SharedBuilder_AccordionAccordionProps_2001699741[default] = new SharedBuilder_AccordionAccordionProps_2001699741[default](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps_2090513651[default] = new SharedBuilder_AccordionAccordionProps_2090513651[default](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: AccordionAccordionProps): SharedBuilder_AccordionAccordionProps_2001699741[default] = new SharedBuilder_AccordionAccordionProps_2001699741[default](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

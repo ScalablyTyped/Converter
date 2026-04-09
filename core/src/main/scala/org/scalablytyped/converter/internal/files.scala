@@ -6,7 +6,7 @@ import java.nio.file.{Files, Path}
 import java.util
 
 import ammonite.ops.%
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.environment.OpSystem
 
 import scala.util.Try
@@ -65,7 +65,7 @@ object files {
       folder match {
         case f if files.exists(f) =>
           os.walk(f, IgnoreProjectFiles).foreach {
-            case p if os.isFile(p) && !known(p) => deleteAll(p)
+            case p if os.isFile(p) && !known(p) => os.remove(p)
             case _                              => ()
           }
         case _ => ()

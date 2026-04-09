@@ -22,6 +22,8 @@ both `package.json` and `node_modules` can be found.
 This example uses the directory of the sbt project.
  
 ```scala
+import scala.sys.process._
+
 project.settings(
     externalNpm := {
       Process("yarn", baseDirectory.value).!

@@ -7,6 +7,57 @@ import org.scalajs.dom.DataTransfer
 import org.scalajs.dom.Element
 import org.scalajs.dom.EventTarget
 import org.scalajs.dom.FocusEvent
+import org.scalajs.dom.HTMLAnchorElement
+import org.scalajs.dom.HTMLAreaElement
+import org.scalajs.dom.HTMLAudioElement
+import org.scalajs.dom.HTMLBRElement
+import org.scalajs.dom.HTMLBaseElement
+import org.scalajs.dom.HTMLBodyElement
+import org.scalajs.dom.HTMLButtonElement
+import org.scalajs.dom.HTMLCanvasElement
+import org.scalajs.dom.HTMLDListElement
+import org.scalajs.dom.HTMLDataListElement
+import org.scalajs.dom.HTMLDivElement
+import org.scalajs.dom.HTMLElement
+import org.scalajs.dom.HTMLEmbedElement
+import org.scalajs.dom.HTMLFieldSetElement
+import org.scalajs.dom.HTMLFormElement
+import org.scalajs.dom.HTMLHRElement
+import org.scalajs.dom.HTMLHeadElement
+import org.scalajs.dom.HTMLHeadingElement
+import org.scalajs.dom.HTMLHtmlElement
+import org.scalajs.dom.HTMLIFrameElement
+import org.scalajs.dom.HTMLImageElement
+import org.scalajs.dom.HTMLInputElement
+import org.scalajs.dom.HTMLLIElement
+import org.scalajs.dom.HTMLLabelElement
+import org.scalajs.dom.HTMLLegendElement
+import org.scalajs.dom.HTMLLinkElement
+import org.scalajs.dom.HTMLMapElement
+import org.scalajs.dom.HTMLMenuElement
+import org.scalajs.dom.HTMLMetaElement
+import org.scalajs.dom.HTMLOListElement
+import org.scalajs.dom.HTMLObjectElement
+import org.scalajs.dom.HTMLOptGroupElement
+import org.scalajs.dom.HTMLOptionElement
+import org.scalajs.dom.HTMLParagraphElement
+import org.scalajs.dom.HTMLParamElement
+import org.scalajs.dom.HTMLPreElement
+import org.scalajs.dom.HTMLProgressElement
+import org.scalajs.dom.HTMLQuoteElement
+import org.scalajs.dom.HTMLScriptElement
+import org.scalajs.dom.HTMLSelectElement
+import org.scalajs.dom.HTMLSourceElement
+import org.scalajs.dom.HTMLSpanElement
+import org.scalajs.dom.HTMLStyleElement
+import org.scalajs.dom.HTMLTableCellElement
+import org.scalajs.dom.HTMLTableElement
+import org.scalajs.dom.HTMLTableRowElement
+import org.scalajs.dom.HTMLTextAreaElement
+import org.scalajs.dom.HTMLTitleElement
+import org.scalajs.dom.HTMLTrackElement
+import org.scalajs.dom.HTMLVideoElement
+import org.scalajs.dom.InputEvent
 import org.scalajs.dom.KeyboardEvent
 import org.scalajs.dom.MouseEvent
 import org.scalajs.dom.PointerEvent
@@ -16,54 +67,6 @@ import org.scalajs.dom.TransitionEvent
 import org.scalajs.dom.UIEvent
 import org.scalajs.dom.WheelEvent
 import org.scalajs.dom.Window
-import org.scalajs.dom.html.Anchor
-import org.scalajs.dom.html.Area
-import org.scalajs.dom.html.Audio
-import org.scalajs.dom.html.BR
-import org.scalajs.dom.html.Base
-import org.scalajs.dom.html.Body
-import org.scalajs.dom.html.Button
-import org.scalajs.dom.html.Canvas
-import org.scalajs.dom.html.DList
-import org.scalajs.dom.html.DataList
-import org.scalajs.dom.html.Div
-import org.scalajs.dom.html.Embed
-import org.scalajs.dom.html.FieldSet
-import org.scalajs.dom.html.Form
-import org.scalajs.dom.html.HR
-import org.scalajs.dom.html.Head
-import org.scalajs.dom.html.Heading
-import org.scalajs.dom.html.Html
-import org.scalajs.dom.html.IFrame
-import org.scalajs.dom.html.Image
-import org.scalajs.dom.html.Input
-import org.scalajs.dom.html.LI
-import org.scalajs.dom.html.Label
-import org.scalajs.dom.html.Legend
-import org.scalajs.dom.html.Link
-import org.scalajs.dom.html.Map
-import org.scalajs.dom.html.Menu
-import org.scalajs.dom.html.Meta
-import org.scalajs.dom.html.OList
-import org.scalajs.dom.html.Object
-import org.scalajs.dom.html.OptGroup
-import org.scalajs.dom.html.Paragraph
-import org.scalajs.dom.html.Param
-import org.scalajs.dom.html.Pre
-import org.scalajs.dom.html.Progress
-import org.scalajs.dom.html.Quote
-import org.scalajs.dom.html.Script
-import org.scalajs.dom.html.Select
-import org.scalajs.dom.html.Source
-import org.scalajs.dom.html.Span
-import org.scalajs.dom.html.Style
-import org.scalajs.dom.html.Table
-import org.scalajs.dom.html.TableCell
-import org.scalajs.dom.html.TableRow
-import org.scalajs.dom.html.TextArea
-import org.scalajs.dom.html.Title
-import org.scalajs.dom.html.Track
-import org.scalajs.dom.html.Video
 import slinky.core.ReactComponentClass
 import slinky.core.StatelessComponent.State
 import slinky.core.SyntheticEvent
@@ -103,7 +106,7 @@ object slinky {
     }
     
     @js.native
-    abstract class Component ()
+    class Component ()
       extends StObject
          with slinky.core.facade.React.Component {
       
@@ -143,7 +146,7 @@ object slinky {
     }
     
     @js.native
-    abstract class DefinitionBase[Props, State, Snapshot] protected ()
+    class DefinitionBase[Props, State, Snapshot] protected ()
       extends StObject
          with slinky.core.facade.React.Component {
       def this(jsProps: js.Object) = this()
@@ -227,7 +230,7 @@ object slinky {
     trait StateWriterProvider extends StObject
     
     @js.native
-    abstract class StatelessComponent ()
+    class StatelessComponent ()
       extends StObject
          with Component {
       
@@ -237,7 +240,7 @@ object slinky {
     }
     
     @js.native
-    abstract class StatelessDefinition[Props, Snapshot] protected ()
+    class StatelessDefinition[Props, Snapshot] protected ()
       extends StObject
          with DefinitionBase[Props, Unit, Snapshot] {
       def this(jsProps: js.Object) = this()
@@ -596,15 +599,25 @@ object slinky {
     @js.native
     object ReactDOM extends StObject {
       
-      def createPortal(child: ReactElement, container: Element): ReactElement = js.native
+      def createPortal(child: ReactElement, container: Element, key: js.UndefOr[String]): ReactElement = js.native
       
       def findDOMNode(instance: Component): Element = js.native
+      
+      def flushSync[T](callback: js.Function0[T]): T = js.native
       
       def hydrate(component: ReactElement, target: Element): ReactInstance = js.native
       
       def render(component: ReactElement, target: Element): ReactInstance = js.native
       
       def unmountComponentAtNode(container: Element): Unit = js.native
+    }
+    
+    @js.native
+    object ReactDOMClient extends StObject {
+      
+      def createRoot(target: Element): ReactRoot = js.native
+      
+      def hydrate(component: ReactElement, target: Element): ReactRoot = js.native
     }
     
     @js.native
@@ -617,6 +630,14 @@ object slinky {
       def renderToStaticNodeStream(element: ReactElement): js.Object = js.native
       
       def renderToString(element: ReactElement): String = js.native
+    }
+    
+    @js.native
+    trait ReactRoot extends StObject {
+      
+      def render(component: ReactElement): ReactInstance = js.native
+      
+      def unmount(): Unit = js.native
     }
     
     @js.native
@@ -653,6 +674,14 @@ object slinky {
          with SyntheticEvent[TargetType, FocusEvent] {
       
       val relatedTarget: EventTarget = js.native
+    }
+    
+    @js.native
+    trait SyntheticInputEvent[TargetType]
+      extends StObject
+         with SyntheticEvent[TargetType, InputEvent] {
+      
+      val data: String = js.native
     }
     
     @js.native
@@ -817,7 +846,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Anchor
+          type RefType = HTMLAnchorElement
         }
       }
       
@@ -825,7 +854,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -849,7 +878,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -865,7 +894,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Area
+          type RefType = HTMLAreaElement
         }
       }
       
@@ -881,7 +910,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -889,7 +918,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -905,7 +934,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Audio
+          type RefType = HTMLAudioElement
         }
       }
       
@@ -929,7 +958,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -937,7 +966,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Base
+          type RefType = HTMLBaseElement
         }
       }
       
@@ -945,7 +974,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -953,7 +982,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -961,7 +990,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -969,7 +998,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -977,7 +1006,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Body
+          type RefType = HTMLBodyElement
         }
       }
       
@@ -985,7 +1014,7 @@ object slinky {
         
         object tag {
           
-          type RefType = BR
+          type RefType = HTMLBRElement
         }
       }
       
@@ -993,7 +1022,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Button
+          type RefType = HTMLButtonElement
         }
       }
       
@@ -1001,7 +1030,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Canvas
+          type RefType = HTMLCanvasElement
         }
       }
       
@@ -1009,7 +1038,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1041,7 +1070,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1057,7 +1086,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1065,7 +1094,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1081,7 +1110,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1137,7 +1166,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1145,7 +1174,7 @@ object slinky {
         
         object tag {
           
-          type RefType = DataList
+          type RefType = HTMLDataListElement
         }
       }
       
@@ -1153,7 +1182,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1185,7 +1214,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1193,7 +1222,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1201,7 +1230,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1209,7 +1238,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1233,7 +1262,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Div
+          type RefType = HTMLDivElement
         }
       }
       
@@ -1241,7 +1270,7 @@ object slinky {
         
         object tag {
           
-          type RefType = DList
+          type RefType = HTMLDListElement
         }
       }
       
@@ -1265,7 +1294,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1273,7 +1302,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1281,7 +1310,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Embed
+          type RefType = HTMLEmbedElement
         }
       }
       
@@ -1289,7 +1318,7 @@ object slinky {
         
         object tag {
           
-          type RefType = FieldSet
+          type RefType = HTMLFieldSetElement
         }
       }
       
@@ -1297,7 +1326,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1305,7 +1334,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1313,7 +1342,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1321,7 +1350,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Form
+          type RefType = HTMLFormElement
         }
       }
       
@@ -1329,7 +1358,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Heading
+          type RefType = HTMLHeadingElement
         }
       }
       
@@ -1337,7 +1366,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Heading
+          type RefType = HTMLHeadingElement
         }
       }
       
@@ -1345,7 +1374,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Heading
+          type RefType = HTMLHeadingElement
         }
       }
       
@@ -1353,7 +1382,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Heading
+          type RefType = HTMLHeadingElement
         }
       }
       
@@ -1361,7 +1390,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Heading
+          type RefType = HTMLHeadingElement
         }
       }
       
@@ -1369,7 +1398,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Heading
+          type RefType = HTMLHeadingElement
         }
       }
       
@@ -1377,7 +1406,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Head
+          type RefType = HTMLHeadElement
         }
       }
       
@@ -1385,7 +1414,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1425,7 +1454,7 @@ object slinky {
         
         object tag {
           
-          type RefType = HR
+          type RefType = HTMLHRElement
         }
       }
       
@@ -1441,7 +1470,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Html
+          type RefType = HTMLHtmlElement
         }
       }
       
@@ -1457,7 +1486,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1481,7 +1510,7 @@ object slinky {
         
         object tag {
           
-          type RefType = IFrame
+          type RefType = HTMLIFrameElement
         }
       }
       
@@ -1489,7 +1518,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Image
+          type RefType = HTMLImageElement
         }
       }
       
@@ -1497,7 +1526,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Input
+          type RefType = HTMLInputElement
         }
       }
       
@@ -1505,7 +1534,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1521,7 +1550,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1537,7 +1566,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1553,7 +1582,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Label
+          type RefType = HTMLLabelElement
         }
       }
       
@@ -1569,7 +1598,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Legend
+          type RefType = HTMLLegendElement
         }
       }
       
@@ -1577,7 +1606,7 @@ object slinky {
         
         object tag {
           
-          type RefType = LI
+          type RefType = HTMLLIElement
         }
       }
       
@@ -1585,7 +1614,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Link
+          type RefType = HTMLLinkElement
         }
       }
       
@@ -1617,7 +1646,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1633,7 +1662,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Map
+          type RefType = HTMLMapElement
         }
       }
       
@@ -1641,7 +1670,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1665,7 +1694,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Menu
+          type RefType = HTMLMenuElement
         }
       }
       
@@ -1673,7 +1702,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1681,7 +1710,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Meta
+          type RefType = HTMLMetaElement
         }
       }
       
@@ -1689,7 +1718,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1737,7 +1766,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1761,7 +1790,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -1769,7 +1798,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Object
+          type RefType = HTMLObjectElement
         }
       }
       
@@ -1777,7 +1806,7 @@ object slinky {
         
         object tag {
           
-          type RefType = OList
+          type RefType = HTMLOListElement
         }
       }
       
@@ -1797,7 +1826,23 @@ object slinky {
         }
       }
       
+      object onAbortCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onAnimationEnd {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onAnimationEndCapture {
         
         object tag {
           
@@ -1813,7 +1858,39 @@ object slinky {
         }
       }
       
+      object onAnimationIterationCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onAnimationStart {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onAnimationStartCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onBeforeInput {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onBeforeInputCapture {
         
         object tag {
           
@@ -1829,6 +1906,14 @@ object slinky {
         }
       }
       
+      object onBlurCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onCanPlay {
         
         object tag {
@@ -1837,7 +1922,23 @@ object slinky {
         }
       }
       
+      object onCanPlayCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onCanPlayThrough {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onCanPlayThroughCapture {
         
         object tag {
           
@@ -1869,7 +1970,23 @@ object slinky {
         }
       }
       
+      object onClickCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onClose {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onCloseCapture {
         
         object tag {
           
@@ -1885,7 +2002,23 @@ object slinky {
         }
       }
       
+      object onCompositionEndCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onCompositionStart {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onCompositionStartCapture {
         
         object tag {
           
@@ -1901,7 +2034,23 @@ object slinky {
         }
       }
       
+      object onCompositionUpdateCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onContextMenu {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onContextMenuCapture {
         
         object tag {
           
@@ -1917,7 +2066,23 @@ object slinky {
         }
       }
       
+      object onCopyCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onCut {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onCutCapture {
         
         object tag {
           
@@ -1933,7 +2098,23 @@ object slinky {
         }
       }
       
+      object onDoubleClickCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onDrag {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onDragCapture {
         
         object tag {
           
@@ -1949,7 +2130,23 @@ object slinky {
         }
       }
       
+      object onDragEndCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onDragEnter {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onDragEnterCapture {
         
         object tag {
           
@@ -1981,7 +2178,23 @@ object slinky {
         }
       }
       
+      object onDragOverCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onDragStart {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onDragStartCapture {
         
         object tag {
           
@@ -1997,7 +2210,23 @@ object slinky {
         }
       }
       
+      object onDropCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onDurationChange {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onDurationChangeCapture {
         
         object tag {
           
@@ -2013,7 +2242,23 @@ object slinky {
         }
       }
       
+      object onEmptiedCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onEncrypted {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onEncryptedCapture {
         
         object tag {
           
@@ -2029,6 +2274,14 @@ object slinky {
         }
       }
       
+      object onEndedCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onError {
         
         object tag {
@@ -2037,7 +2290,23 @@ object slinky {
         }
       }
       
+      object onErrorCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onFocus {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onFocusCapture {
         
         object tag {
           
@@ -2077,7 +2346,23 @@ object slinky {
         }
       }
       
+      object onKeyDownCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onKeyPress {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onKeyPressCapture {
         
         object tag {
           
@@ -2093,7 +2378,23 @@ object slinky {
         }
       }
       
+      object onKeyUpCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onLoad {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onLoadCapture {
         
         object tag {
           
@@ -2109,6 +2410,14 @@ object slinky {
         }
       }
       
+      object onLoadStartCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onLoadedData {
         
         object tag {
@@ -2117,7 +2426,23 @@ object slinky {
         }
       }
       
+      object onLoadedDataCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onLoadedMetadata {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onLoadedMetadataCapture {
         
         object tag {
           
@@ -2134,6 +2459,14 @@ object slinky {
       }
       
       object onMouseDown {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onMouseDownCapture {
         
         object tag {
           
@@ -2173,6 +2506,14 @@ object slinky {
         }
       }
       
+      object onMouseOutCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onMouseOver {
         
         object tag {
@@ -2189,7 +2530,23 @@ object slinky {
         }
       }
       
+      object onMouseUpCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onPaste {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onPasteCapture {
         
         object tag {
           
@@ -2205,7 +2562,23 @@ object slinky {
         }
       }
       
+      object onPauseCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onPlay {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onPlayCapture {
         
         object tag {
           
@@ -2221,6 +2594,14 @@ object slinky {
         }
       }
       
+      object onPlayingCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onPointerCancel {
         
         object tag {
@@ -2229,7 +2610,23 @@ object slinky {
         }
       }
       
+      object onPointerCancelCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onPointerDown {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onPointerDownCapture {
         
         object tag {
           
@@ -2269,6 +2666,14 @@ object slinky {
         }
       }
       
+      object onPointerOutCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onPointerOver {
         
         object tag {
@@ -2285,7 +2690,23 @@ object slinky {
         }
       }
       
+      object onPointerUpCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onProgress {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onProgressCapture {
         
         object tag {
           
@@ -2301,7 +2722,23 @@ object slinky {
         }
       }
       
+      object onRateChangeCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onScroll {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onScrollCapture {
         
         object tag {
           
@@ -2317,7 +2754,23 @@ object slinky {
         }
       }
       
+      object onSeekedCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onSeeking {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onSeekingCapture {
         
         object tag {
           
@@ -2333,7 +2786,23 @@ object slinky {
         }
       }
       
+      object onSelectCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onStalled {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onStalledCapture {
         
         object tag {
           
@@ -2349,7 +2818,23 @@ object slinky {
         }
       }
       
+      object onSubmitCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onSuspend {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onSuspendCapture {
         
         object tag {
           
@@ -2365,7 +2850,23 @@ object slinky {
         }
       }
       
+      object onTimeUpdateCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onToggle {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onToggleCapture {
         
         object tag {
           
@@ -2381,7 +2882,23 @@ object slinky {
         }
       }
       
+      object onTouchCancelCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onTouchEnd {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onTouchEndCapture {
         
         object tag {
           
@@ -2397,7 +2914,23 @@ object slinky {
         }
       }
       
+      object onTouchMoveCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onTouchStart {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onTouchStartCapture {
         
         object tag {
           
@@ -2421,6 +2954,14 @@ object slinky {
         }
       }
       
+      object onVolumeChangeCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onWaiting {
         
         object tag {
@@ -2429,7 +2970,23 @@ object slinky {
         }
       }
       
+      object onWaitingCapture {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
       object onWheel {
+        
+        object tag {
+          
+          type RefType = scala.Nothing
+        }
+      }
+      
+      object onWheelCapture {
         
         object tag {
           
@@ -2449,7 +3006,7 @@ object slinky {
         
         object tag {
           
-          type RefType = OptGroup
+          type RefType = HTMLOptGroupElement
         }
       }
       
@@ -2465,7 +3022,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Option
+          type RefType = HTMLOptionElement
         }
       }
       
@@ -2473,7 +3030,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2481,7 +3038,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Paragraph
+          type RefType = HTMLParagraphElement
         }
       }
       
@@ -2489,7 +3046,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Param
+          type RefType = HTMLParamElement
         }
       }
       
@@ -2505,7 +3062,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2529,7 +3086,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Pre
+          type RefType = HTMLPreElement
         }
       }
       
@@ -2553,7 +3110,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Progress
+          type RefType = HTMLProgressElement
         }
       }
       
@@ -2561,7 +3118,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Quote
+          type RefType = HTMLQuoteElement
         }
       }
       
@@ -2633,7 +3190,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2641,7 +3198,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2649,7 +3206,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2657,7 +3214,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2665,7 +3222,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2697,7 +3254,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Script
+          type RefType = HTMLScriptElement
         }
       }
       
@@ -2713,7 +3270,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2721,7 +3278,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Select
+          type RefType = HTMLSelectElement
         }
       }
       
@@ -2761,7 +3318,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2769,7 +3326,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Source
+          type RefType = HTMLSourceElement
         }
       }
       
@@ -2777,7 +3334,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Span
+          type RefType = HTMLSpanElement
         }
       }
       
@@ -2825,7 +3382,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Style
+          type RefType = HTMLStyleElement
         }
       }
       
@@ -2833,7 +3390,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2841,7 +3398,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2849,7 +3406,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2873,7 +3430,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Table
+          type RefType = HTMLTableElement
         }
       }
       
@@ -2889,7 +3446,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2897,7 +3454,7 @@ object slinky {
         
         object tag {
           
-          type RefType = TableCell
+          type RefType = HTMLTableCellElement
         }
       }
       
@@ -2905,7 +3462,7 @@ object slinky {
         
         object tag {
           
-          type RefType = TextArea
+          type RefType = HTMLTextAreaElement
         }
       }
       
@@ -2913,7 +3470,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2921,7 +3478,7 @@ object slinky {
         
         object tag {
           
-          type RefType = TableCell
+          type RefType = HTMLTableCellElement
         }
       }
       
@@ -2929,7 +3486,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2937,7 +3494,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2945,7 +3502,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Title
+          type RefType = HTMLTitleElement
         }
       }
       
@@ -2953,7 +3510,7 @@ object slinky {
         
         object tag {
           
-          type RefType = TableRow
+          type RefType = HTMLTableRowElement
         }
       }
       
@@ -2961,7 +3518,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Track
+          type RefType = HTMLTrackElement
         }
       }
       
@@ -2977,7 +3534,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -2985,7 +3542,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -3001,7 +3558,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       
@@ -3009,7 +3566,7 @@ object slinky {
         
         object tag {
           
-          type RefType = Video
+          type RefType = HTMLVideoElement
         }
       }
       
@@ -3017,7 +3574,7 @@ object slinky {
         
         object tag {
           
-          type RefType = org.scalajs.dom.html.Element
+          type RefType = HTMLElement
         }
       }
       

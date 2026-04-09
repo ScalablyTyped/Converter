@@ -441,8 +441,8 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsTypeParam(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsTypeParam(_1, _2, _3, _4) =>
-        TsTypeParam(_1, _2, _3.map(visitTsType(tt)), _4.map(visitTsType(tt)))
+      case TsTypeParam(_1, _2, _3, _4, _5) =>
+        TsTypeParam(_1, _2, _3.map(visitTsType(tt)), _4.map(visitTsType(tt)), _5)
     }
   }
   final def visitTsTypeQuery(t: T)(x: TsTypeQuery): TsTypeQuery = {

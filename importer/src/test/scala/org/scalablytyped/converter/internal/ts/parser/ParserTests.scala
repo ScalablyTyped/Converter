@@ -160,6 +160,25 @@ final class ParserTests extends AnyFunSuite {
     shouldParseAs(content, TsParser.tsDeclInterface)(expected)
   }
 
+  test("interface with const modifier for type parameters") {
+    val content: String =
+      """interface TFunctionStrict {
+        |  <const Key extends string>(key: Key): void;
+        |}
+        |""".stripMargin
+
+    parseAs(content, TsParser.tsDeclInterface)
+
+    // Also test multiple const type parameters
+    val content2: String =
+      """interface MultiConst {
+        |  <const T, const U extends string, V>(t: T, u: U, v: V): void;
+        |}
+        |""".stripMargin
+
+    parseAs(content2, TsParser.tsDeclInterface)
+  }
+
   test("class") {
     val content: String =
       """    class Base {
@@ -1489,7 +1508,7 @@ type Readonly<T> = {
           IArray(
             TsFunParam(
               NoComments,
-              TsIdent("hasToken"),
+              TsIdent("param0"),
               Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("TokenAuthData"))), Empty)),
             ),
           ),
@@ -1745,7 +1764,7 @@ type Readonly<T> = {
           IArray(
             TsFunParam(
               NoComments,
-              TsIdentSimple("hasFacetNameFacetQueryQp"),
+              TsIdentSimple("param0"),
               Some(
                 TsTypeIntersect(
                   IArray(
@@ -1815,7 +1834,7 @@ type Readonly<T> = {
               IArray(
                 TsFunParam(
                   NoComments,
-                  TsIdentSimple("hasArgsTargetValueConfig"),
+                  TsIdentSimple("param0"),
                   Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("ApplicateOptions"))), Empty)),
                 ),
               ),
@@ -2146,7 +2165,7 @@ type Readonly<T> = {
           IArray(
             TsFunParam(
               NoComments,
-              TsIdentSimple("hasOptimisticResponseUpdateQueriesRefetchQueriesUpdateErrorPolicy"),
+              TsIdentSimple("param0"),
               Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Fpp"))), Empty)),
             ),
           ),
@@ -2258,7 +2277,7 @@ type Readonly<T> = {
                   TsFunParam(NoComments, TsIdentSimple("accum"), Some(TsTypeRef.any)),
                   TsFunParam(
                     NoComments,
-                    TsIdentSimple("hasKeyVal"),
+                    TsIdentSimple("param1"),
                     Some(
                       TsTypeTuple(
                         IArray(TsTupleElement.unlabeled(TsTypeRef.any), TsTupleElement.unlabeled(TsTypeRef.any)),
@@ -2476,8 +2495,8 @@ export {};
           NoComments,
           Empty,
           IArray(
-            TsFunParam(NoComments, TsIdentSimple("has0"), Some(TsTypeObject(NoComments, Empty))),
-            TsFunParam(NoComments, TsIdentSimple("has1"), Some(TsTypeObject(NoComments, Empty))),
+            TsFunParam(NoComments, TsIdentSimple("param0"), Some(TsTypeObject(NoComments, Empty))),
+            TsFunParam(NoComments, TsIdentSimple("param1"), Some(TsTypeObject(NoComments, Empty))),
           ),
           Some(TsTypeRef.void),
         ),
@@ -2882,7 +2901,7 @@ export {};
           IArray(
             TsFunParam(
               NoComments,
-              TsIdentSimple("hasSectionItem"),
+              TsIdentSimple("param0"),
               Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("ConfigurationSectionEntry"))), Empty)),
             ),
           ),
@@ -2907,7 +2926,7 @@ export {};
           IArray(
             TsFunParam(
               NoComments,
-              TsIdentSimple("hasCom.apple.developer.contacts.notesEntitlementsPlist"),
+              TsIdentSimple("param0"),
               Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Plist"))), Empty)),
             ),
           ),
@@ -2960,7 +2979,7 @@ export {};
                   IArray(
                     TsFunParam(
                       NoComments,
-                      TsIdentSimple("any"),
+                      TsIdentSimple("args"),
                       Some(TsTypeInfer(TsTypeParam(NoComments, TsIdentSimple("P"), None, None))),
                     ),
                   ),
@@ -3336,5 +3355,205 @@ export {};
       """typeof genComponentStyleHook<ComponentName>""".stripMargin,
       TsParser.tsType,
     )(TsTypeQuery(TsQIdent(IArray(TsIdentSimple("genComponentStyleHook")))))
+  }
+
+  test("parse Omit type with complex mapped types (parenthesized mapped type with index access)") {
+    // This test ensures mapped types work correctly inside parenthesized expressions.
+    // The fix: removed aggressive commit (~>!) from destructuredObj parser to allow backtracking
+    // when { [ pattern is a mapped type, not a destructured parameter.
+
+    // Test the full Omit type that was failing in react-bootstrap
+    val omitTypeDefinition =
+      """export type Omit<T, K extends keyof T> = Pick<T,
+        |    ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;""".stripMargin
+
+    parseAs(omitTypeDefinition, TsParser.tsContainerOrDecls)
+  }
+
+  test("indexed access types in various contexts") {
+    // Test case for Token[] in optional property (node/util.d.ts error)
+    val optionalArray = """{
+      |  values: { [longOption: string]: undefined | string | boolean | Array<string | boolean> };
+      |  positionals: string[];
+      |  tokens?: Token[];
+      |}""".stripMargin
+    parseAs(optionalArray, TsParser.tsType)
+
+    // Test case for nested indexed access T[K]['validOptions'] (jackspeak error)
+    val nestedIndexedAccess = """{
+      |  [K in keyof T]: T[K]['validOptions'] extends ReadonlyArrays ? string : never
+      |}""".stripMargin
+    parseAs(nestedIndexedAccess, TsParser.tsType)
+
+    // Test case for indexed access in conditional type (type-fest error)
+    val indexedInConditional = """Options['requireExactProps'] extends true
+      |  ? Partial<Record<string, never>>
+      |  : {}""".stripMargin
+    parseAs(indexedInConditional, TsParser.tsType)
+
+    // Test case for accessing tuple length property (rc-field-form error)
+    val tupleLength = """ParentNamePath['length'] extends 5 ? never : string"""
+    parseAs(tupleLength, TsParser.tsType)
+
+    // Test case for indexed access in intersection (storybook error)
+    val indexedInIntersection = """Parameters & (TRenderer['csf4'] extends true ? CoreTypes : unknown)"""
+    parseAs(indexedInIntersection, TsParser.tsType)
+
+    // Test case for complex conditional with indexed access (ajv error)
+    val complexConditional = """true extends IsRecord<Exclude<T, null>, false> ? (
+      |  [RequiredKeys<Exclude<T, null>>] extends [never] ? {} : { properties: {} }
+      |) : never""".stripMargin
+    parseAs(complexConditional, TsParser.tsType)
+
+    // Test the full type alias declarations as well
+    val fullTypeAlias = """type ParsedResults<T extends ParseArgsConfig> = ParseArgsConfig extends T ? {
+      |  values: { [longOption: string]: undefined | string | boolean | Array<string | boolean> };
+      |  positionals: string[];
+      |  tokens?: Token[];
+      |} : PreciseParsedResults<T>""".stripMargin
+    parseAs(fullTypeAlias, TsParser.tsContainerOrDecls)
+  }
+
+  test("simple indexed access with string literal") {
+    // This should work - basic indexed access
+    val simpleIndexed = """Options['requireExactProps']"""
+    parseAs(simpleIndexed, TsParser.tsType)
+  }
+
+  test("indexed access with string literal in conditional") {
+    // This might fail - indexed access in conditional context
+    val indexedInConditional = """Options['requireExactProps'] extends true ? yes : no"""
+    parseAs(indexedInConditional, TsParser.tsType)
+  }
+
+  test("nested indexed access") {
+    // This likely fails - T[K]['validOptions']
+    val nestedIndexed = """T[K]['validOptions']"""
+    parseAs(nestedIndexed, TsParser.tsType)
+  }
+
+  test("indexed access without parentheses") {
+    // This should work
+    val withoutParens = """TRenderer['csf4']"""
+    parseAs(withoutParens, TsParser.tsType)
+  }
+
+  test("indexed access in parentheses") {
+    // Test if parentheses cause issues
+    // This fails with: ']' expected but "csf4" found
+    // Same root cause as above - string literal tokenization issue in parenthesized context
+    val parenthesized = """(TRenderer['csf4'])"""
+    parseAs(parenthesized, TsParser.tsType)
+  }
+
+  test("string literal as type") {
+    // Test if string literals work as types
+    val stringLiteral = """'csf4'"""
+    parseAs(stringLiteral, TsParser.tsType)
+  }
+
+  test("array with string literal type") {
+    // Test if we can have string literals in array position
+    val arrayStringLit = """['csf4']"""
+    parseAs(arrayStringLit, TsParser.tsType)
+  }
+
+  test("simple type with bracket in parentheses") {
+    // Test if parentheses + bracket causes issues
+    val simpleWithBracket = """(A[B])"""
+    parseAs(simpleWithBracket, TsParser.tsType)
+  }
+
+  test("type with string literal index in parentheses - minimal") {
+    // The exact failing case - indexed access with string literal fails in parentheses
+    // Error: ']' expected but "b" found at position 4
+    // This works without parentheses: A['b']
+    // This works with identifier: (A[B])
+    // But fails with string literal in parentheses: (A['b'])
+    // Root cause: String literals are not being correctly tokenized when inside
+    // parentheses followed by brackets. The lexer seems to split 'b' into separate tokens.
+    val minimalFailing = """(A['b'])"""
+    parseAs(minimalFailing, TsParser.tsType)
+  }
+
+  test("parenthesized tuple with string literal") {
+    // Test if parentheses affect tuple parsing
+    // Even simple tuple with string literal fails: (['b'])
+    // Same issue as above - string tokenization problem
+    val parenTuple = """(['b'])"""
+    parseAs(parenTuple, TsParser.tsType)
+  }
+
+  test("string literal in brackets") {
+    // Direct test of the problematic pattern
+    val lit = """'b'"""
+    parseAs(lit, TsParser.tsType)
+
+    // Test in array context
+    val inBrackets = """['b']"""
+    parseAs(inBrackets, TsParser.tsType)
+  }
+
+  test("indexed access in conditional inside parentheses") {
+    // Test if the combination of parentheses and conditional breaks
+    val parenthesizedConditional = """(TRenderer['csf4'] extends true ? CoreTypes : unknown)"""
+    parseAs(parenthesizedConditional, TsParser.tsType)
+  }
+
+  test("variance annotations on type parameters") {
+    // Test 'in' variance (contravariant)
+    val inVariance = """interface Consumer<in T> { consume(value: T): void; }"""
+    parseAs(inVariance, TsParser.tsDeclInterface)
+
+    // Test 'out' variance (covariant)
+    val outVariance = """interface Producer<out T> { produce(): T; }"""
+    parseAs(outVariance, TsParser.tsDeclInterface)
+
+    // Test both variances
+    val bothVariances = """interface Processor<in T, out U> { process(input: T): U; }"""
+    parseAs(bothVariances, TsParser.tsDeclInterface)
+
+    // Test variance with extends constraint
+    val withConstraint = """interface Container<in T extends string> { add(item: T): void; }"""
+    parseAs(withConstraint, TsParser.tsDeclInterface)
+
+    // Test in type alias
+    val typeAlias = """type Handler<in T> = (value: T) => void"""
+    parseAs(typeAlias, TsParser.tsDeclTypeAlias)
+
+    // Test in class
+    val classDecl = """class Box<out T> { get(): T; }"""
+    parseAs(classDecl, TsParser.tsDeclClass)
+  }
+
+  test("rest spread in destructured function parameters") {
+    // Test rest spread in destructured object parameters
+    val simple = """{ ...rest }: any"""
+    parseAs(simple, TsParser.functionParam)
+
+    // Test with normal props before rest spread
+    val withProp = """{ a, ...rest }: any"""
+    parseAs(withProp, TsParser.functionParam)
+
+    // Test as arrow function type
+    val arrowFunc = """({ ...rest }: any) => void"""
+    parseAs(arrowFunc, TsParser.tsType)
+
+    // Test in full function declaration with complex type
+    val content =
+      """export declare const MaybeScreenContainer: ({ enabled, ...rest }: ViewProps & {
+        |    enabled: boolean;
+        |    hasTwoStates: boolean;
+        |    children: React.ReactNode;
+        |}) => JSX.Element;
+        |""".stripMargin
+
+    parseAs(content, TsParser.tsContainerOrDecls)
+
+    // Test in inline function type
+    val content2 =
+      """export declare const RawButton: ({ enabled, ...rest }: any) => React.JSX.Element;""".stripMargin
+
+    parseAs(content2, TsParser.tsContainerOrDecls)
   }
 }

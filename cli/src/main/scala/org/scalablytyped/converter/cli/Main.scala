@@ -3,7 +3,7 @@ package org.scalablytyped.converter.cli
 import com.olvind.logging.{stdout, storing, LogLevel, Logger}
 import fansi.{Attr, Color, Str}
 import org.scalablytyped.converter.internal.importer._
-import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, PublishedSbtProject, SbtProject}
+import org.scalablytyped.converter.internal.importer.build.{PublishedSbtProject, SbtProject, ScalaCliCompiler}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.phases.PhaseListener.NoListener
 import org.scalablytyped.converter.internal.phases.{PhaseRes, PhaseRunner, RecPhase}
@@ -24,9 +24,9 @@ import scala.util.{Failure, Success, Try}
 object Main {
   class Paths(base: os.Path) {
     lazy val out: os.Path =
-      files.existing(base / 'out)
+      files.existing(base / "out")
     val node_modules: Option[os.Path] =
-      Option(base / 'node_modules).filter(files.exists)
+      Option(base / "node_modules").filter(files.exists)
     val packageJson: Option[os.Path] =
       Option(base / "package.json").filter(files.exists)
   }
@@ -66,7 +66,7 @@ object Main {
     includeProject = false,
   )
 
-  val parseCachePath = Some(files.existing(constants.defaultCacheFolder / 'parse).toNIO)
+  val parseCachePath = Some(files.existing(constants.defaultCacheFolder / "parse").toNIO)
   val t0             = System.currentTimeMillis
 
   val logger: Logger[(Array[Logger.Stored], Unit)] =
@@ -251,7 +251,7 @@ object Main {
         )
 
         val compiler = Await.result(
-          BloopCompiler(logger.filter(LogLevel.debug).void, conversion.versions, failureCacheFolderOpt = None),
+          ScalaCliCompiler(logger.filter(LogLevel.debug).void, conversion.versions, constants.defaultCacheFolder),
           Duration.Inf,
         )
 

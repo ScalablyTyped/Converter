@@ -1,6 +1,7 @@
 package org.scalablytyped.converter
 
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, DecodingFailure, Encoder, Json}
+import io.circe.syntax._
 
 import scala.collection.immutable.{SortedSet, TreeSet}
 
@@ -49,6 +50,28 @@ object Selection {
 
   final case class Or[T](_1: Selection[T], _2: Selection[T]) extends Selection[T]
 
-  implicit def encodes[T: Encoder: Ordering]: Encoder[Selection[T]] = io.circe013.generic.semiauto.deriveEncoder
-  implicit def decodes[T: Decoder: Ordering]: Decoder[Selection[T]] = io.circe013.generic.semiauto.deriveDecoder
+  implicit def encodes[T: Encoder: Ordering]: Encoder[Selection[T]] = Encoder.instance {
+    case AllExcept(values)  => Json.obj("type" -> Json.fromString("AllExcept"), "values" -> values.asJson)
+    case NoneExcept(values) => Json.obj("type" -> Json.fromString("NoneExcept"), "values" -> values.asJson)
+    case And(s1, s2)        => Json.obj("type" -> Json.fromString("And"), "_1" -> s1.asJson, "_2" -> s2.asJson)
+    case Or(s1, s2)         => Json.obj("type" -> Json.fromString("Or"), "_1" -> s1.asJson, "_2" -> s2.asJson)
+  }
+
+  implicit def decodes[T: Decoder: Ordering]: Decoder[Selection[T]] = Decoder.instance { c =>
+    c.downField("type").as[String].flatMap {
+      case "AllExcept"  => c.downField("values").as[SortedSet[T]].map(AllExcept(_))
+      case "NoneExcept" => c.downField("values").as[SortedSet[T]].map(NoneExcept(_))
+      case "And" =>
+        for {
+          s1 <- c.downField("_1").as[Selection[T]]
+          s2 <- c.downField("_2").as[Selection[T]]
+        } yield And(s1, s2)
+      case "Or" =>
+        for {
+          s1 <- c.downField("_1").as[Selection[T]]
+          s2 <- c.downField("_2").as[Selection[T]]
+        } yield Or(s1, s2)
+      case other => Left(DecodingFailure(s"Unknown Selection type: $other", c.history))
+    }
+  }
 }

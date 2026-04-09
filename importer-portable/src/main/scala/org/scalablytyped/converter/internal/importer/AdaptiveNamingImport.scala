@@ -88,7 +88,7 @@ object AdaptiveNamingImport {
         }
     }
 
-    depsRewrites.foreach { x: AdaptiveNamingImport =>
+    depsRewrites.foreach { (x: AdaptiveNamingImport) =>
       registeredReferences ++= x.rewrites
     }
 

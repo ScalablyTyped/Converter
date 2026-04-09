@@ -2,46 +2,107 @@ package org.scalablytyped.converter.internal
 package importer
 
 import com.olvind.logging.Logger
-import gigahorse.support.okhttp.Gigahorse
-import gigahorse.{HttpClient, Request}
-import io.circe013.Decoder
-import io.circe013.generic.semiauto.deriveDecoder
-import io.circe013.syntax.EncoderOps
+import io.circe.Decoder
+import io.circe.generic.semiauto.deriveDecoder
+import io.circe.syntax.EncoderOps
 import org.scalablytyped.converter.internal.ts.{PackageJson, TsIdentLibrary}
 
-import java.util.concurrent.Executors
+import java.net.URI
+import java.net.http.{HttpClient, HttpRequest, HttpResponse}
+import java.time.{Duration => JDuration}
+import java.util.concurrent.{CompletableFuture, Executors, Semaphore}
 import scala.collection.mutable
 import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.concurrent.{Await, ExecutionContext, Future, Promise}
 import scala.util.{Failure, Success, Try}
 
 object UpToDateExternals {
-  class NpmClient(client: HttpClient) {
-    def getVersions(lib: TsIdentLibrary)(implicit ec: ExecutionContext): Future[Either[Throwable, NpmPackageVersions]] =
-      client
-        .run(Request(s"https://registry.npmjs.org/${lib.value}"))
-        .map(res => res.bodyAsString)
-        .transformWith {
-          case Failure(exception) => Future.successful(Left(exception))
-          case Success(string) =>
-            Json[NpmPackageVersions](string) match {
-              case Left(err)    => Future.successful(Left(new RuntimeException(s"couldn't parse body: $string", err)))
-              case Right(value) => Future.successful(Right(value))
-            }
+  class NpmClient(client: HttpClient, maxConcurrentRequests: Int = 50) {
+    // Semaphore to limit concurrent HTTP requests
+    private val requestSemaphore = new Semaphore(maxConcurrentRequests)
+
+    private def toFuture[T](cf: CompletableFuture[T]): Future[T] = {
+      val promise = Promise[T]()
+      cf.whenComplete { (result, error) =>
+        if (error == null) promise.success(result)
+        else promise.failure(error)
+      }
+      promise.future
+    }
+
+    private def withRateLimiting[T](f: => CompletableFuture[T])(implicit ec: ExecutionContext): Future[T] =
+      Future {
+        requestSemaphore.acquire()
+        val cf =
+          try {
+            f
+          } catch {
+            case e: Exception =>
+              requestSemaphore.release()
+              throw e
+          }
+        toFuture(cf).andThen {
+          case _ => requestSemaphore.release()
         }
+      }.flatten
+
+    def getVersions(
+        lib:       TsIdentLibrary,
+    )(implicit ec: ExecutionContext): Future[Either[Throwable, NpmPackageVersions]] = {
+      val request = HttpRequest
+        .newBuilder()
+        .uri(URI.create(s"https://registry.npmjs.org/${lib.value}"))
+        .GET()
+        .timeout(JDuration.ofSeconds(30))
+        .build()
+
+      withRateLimiting(client.sendAsync(request, HttpResponse.BodyHandlers.ofString()))
+        .map { response =>
+          if (response.statusCode() == 200) {
+            Json[NpmPackageVersions](response.body()) match {
+              case Left(err)    => Left(new RuntimeException(s"couldn't parse body: ${response.body()}", err))
+              case Right(value) => Right(value)
+            }
+          } else {
+            Left(new RuntimeException(s"HTTP ${response.statusCode()} for ${lib.value}"))
+          }
+        }
+        .recover { case ex => Left(ex) }
+    }
 
     def download(dist: PackageJson.Dist, to: os.Path)(
         implicit ec:   ExecutionContext,
-    ): Future[Either[Throwable, os.Path]] =
-      client
-        .download(Request(dist.tarball), to.toIO)
-        .map(res => os.Path(res))
-        .transformWith(tried => Future.successful(tried.toEither))
+    ): Future[Either[Throwable, os.Path]] = {
+      val request = HttpRequest
+        .newBuilder()
+        .uri(URI.create(dist.tarball))
+        .GET()
+        .timeout(JDuration.ofSeconds(60))
+        .build()
+
+      withRateLimiting(client.sendAsync(request, HttpResponse.BodyHandlers.ofFile(to.toNIO)))
+        .map { response =>
+          if (response.statusCode() == 200) {
+            Right(to)
+          } else {
+            Left(new RuntimeException(s"HTTP ${response.statusCode()} when downloading ${dist.tarball}"))
+          }
+        }
+        .recover { case ex => Left(ex) }
+    }
   }
 
   object NpmClient {
-    def apply(config: gigahorse.Config): NpmClient =
-      new NpmClient(Gigahorse.http(config))
+    def apply(maxConcurrentRequests: Int = 50): NpmClient = {
+      val client = HttpClient
+        .newBuilder()
+        .connectTimeout(JDuration.ofSeconds(10))
+        .followRedirects(HttpClient.Redirect.NORMAL)
+        .executor(Executors.newCachedThreadPool())
+        .version(HttpClient.Version.HTTP_2)
+        .build()
+      new NpmClient(client, maxConcurrentRequests)
+    }
   }
 
   case class NpmPackageVersions(
@@ -85,9 +146,9 @@ object UpToDateExternals {
         ensurePresentPackages
       }
 
-    val npmClient = NpmClient(
-      Gigahorse.config.withMaxRequestRetry(3),
-    )
+    // Limit to 30 concurrent HTTP requests to avoid "too many concurrent streams" errors
+    // HTTP/2 typically limits to 100 concurrent streams, but we use a conservative value
+    val npmClient = NpmClient(maxConcurrentRequests = 30)
     implicit val ec: ExecutionContext = ExecutionContext.fromExecutorService(Executors.newCachedThreadPool())
 
     val isStarted = mutable.Set[TsIdentLibrary]()

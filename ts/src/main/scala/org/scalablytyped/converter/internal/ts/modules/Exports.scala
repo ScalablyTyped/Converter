@@ -26,7 +26,7 @@ object Exports {
       case TsExport(_, _, exportType, TsExportee.Tree(exported)) =>
         exported match {
           case decl: TsNamedDecl =>
-            export(codePath, jsLocation, scope, exportType, decl, None, loopDetector)
+            `export`(codePath, jsLocation, scope, exportType, decl, None, loopDetector)
 
           case i @ TsImport(_, IArray.exactlyOne(TsImported.Ident(ident)), _) =>
             Imports.expandImportee(i.from, scope, loopDetector) match {
@@ -35,7 +35,7 @@ object Exports {
                   case ExpandedMod.Picked(things) =>
                     things.flatMap {
                       case (m: TsNamedDecl, newScope) =>
-                        export(codePath, jsLocation, newScope, exportType, m, Some(ident), loopDetector)
+                        `export`(codePath, jsLocation, newScope, exportType, m, Some(ident), loopDetector)
                       case _ => Empty
                     }
 
@@ -49,7 +49,7 @@ object Exports {
                       JsLocation.Zero,
                     )
                     (defaults ++ namespaceds :+ restNs).flatMap(m =>
-                      export(codePath, jsLocation, newScope, exportType, m, Some(ident), loopDetector),
+                      `export`(codePath, jsLocation, newScope, exportType, m, Some(ident), loopDetector),
                     )
                 }
 
@@ -82,7 +82,7 @@ object Exports {
             }
             found.flatMap {
               case (found, newNewScope) =>
-                export(codePath, jsLocation, newNewScope, exportType, found, asNameOpt, loopDetector)
+                `export`(codePath, jsLocation, newNewScope, exportType, found, asNameOpt, loopDetector)
             }
         }
 
@@ -95,7 +95,7 @@ object Exports {
 
             resolvedModule.nameds.flatMap {
               case n if n.name === TsIdent.default => Empty
-              case n                               => export(codePath, jsLocation, newScope, exportType, n, None, loopDetector)
+              case n                               => `export`(codePath, jsLocation, newScope, exportType, n, None, loopDetector)
             }
           case _ =>
             scope.fatalMaybe(s"Couldn't find expected module $from")
@@ -111,7 +111,7 @@ object Exports {
     ret2
   }
 
-  def export(
+  def `export`(
       ownerCp:      CodePath.HasPath,
       jsLocation:   ModuleSpec => JsLocation,
       scope:        TsTreeScope,
@@ -157,7 +157,7 @@ object Exports {
     }
   }
 
-  case class PickedExport(export: TsExport, newWanted: IArray[TsIdent])
+  case class PickedExport(`export`: TsExport, newWanted: IArray[TsIdent])
 
   /**
     * This is used when resolving. If we have an import in current scope which points
@@ -200,7 +200,7 @@ object Exports {
     */
   def rewriteLocationToOwner(jsLocation: JsLocation, ms: ModuleSpec): JsLocation =
     (jsLocation, ms) match {
-      case (m: JsLocation.Module, spec) => m.copy(spec = spec)
+      case (m: JsLocation.Module, spec) => m.withSpec(spec)
       case (JsLocation.Global(jsPath), ModuleSpec.Specified(idents)) => JsLocation.Global(jsPath ++ idents)
       case (JsLocation.Zero, _)                                      => JsLocation.Zero
       case other                                                     => sys.error(s"Unexpected $other")

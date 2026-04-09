@@ -3,7 +3,7 @@ package ts
 package modules
 
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
-import org.scalablytyped.converter.internal.ts.modules.Exports.export
+import org.scalablytyped.converter.internal.ts.modules.Exports.`export`
 import org.scalablytyped.converter.internal.ts.transforms.SetCodePath
 
 /* Skip traversing the entire tree if the module is cached */
@@ -30,7 +30,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
         case TsExport(_, _, ExportType.Named, TsExportee.Tree(tree)) =>
           tree match {
             case namedExport: TsNamedDecl =>
-              export(
+              `export`(
                 x.codePath.forceHasPath,
                 _ => x.jsLocation / namedExport, //todo
                 scope,

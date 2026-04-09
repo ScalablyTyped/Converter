@@ -92,16 +92,17 @@ object PreferTypeAlias {
     current match {
       case x: TsTypeRef =>
         val evaluated: IArray[CircularGroup] =
-          if (acc.contains(x)) IArray(CircularGroup(acc))
-          /* some types grow unbounded as we expand them without a reduction step. this may cause false positives, but it keeps code compiling */
-          else if (acc.count(_.name === x.name) > 3) IArray(CircularGroup(acc))
-          else
-            scope.lookupType(x.name).flatMap {
-              case ta: TsDeclTypeAlias =>
-                val alias = FillInTParams(ta, x.tparams).alias
-                isInRecursiveGroup(scope / ta, x :: acc, alias, x.tparams)
-              case _ => Empty
-            }
+          scope.lookupType(x.name).flatMap {
+            case ta: TsDeclTypeAlias =>
+              val alias = FillInTParams(ta, x.tparams).alias
+              val visited = scope.stack.exists {
+                case oldTa: TsDeclTypeAlias if oldTa eq ta => true
+                case _ => false
+              }
+              if (visited) IArray(CircularGroup(acc))
+              else isInRecursiveGroup(scope / ta, x :: acc, alias, x.tparams)
+            case _ => Empty
+          }
 
         evaluated ++ anyOf(scope, acc, x.tparams.filterNot(lastTypeArgs.contains), Empty)
 

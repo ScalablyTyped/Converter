@@ -4,7 +4,9 @@ package scalajs
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.internal.scalajs.TypeRef.ThisType
 
-sealed abstract class TreeScope { outer =>
+import org.scalablytyped.converter.internal.HasStableHash
+
+sealed abstract class TreeScope extends HasStableHash { outer =>
   def stack: List[Tree]
   val libName: Name
   def tparams: Map[Name, TypeParamTree]
@@ -72,7 +74,7 @@ sealed abstract class TreeScope { outer =>
       case _                                                        => false
     }
 
-  override lazy val hashCode: Int = (13 * root.libName.hashCode) * stack.hashCode
+  override lazy val hashCode: Int = StableHash((root.libName, stack))
 
   override def equals(obj: Any): Boolean =
     obj match {
@@ -99,7 +101,7 @@ object TreeScope {
   ) extends TreeScope {
 
     lazy val dependencies: Map[Name, TreeScope] =
-      _dependencies.mapValues(x => this / x)
+      _dependencies.mapValues(x => this / x).toMap
 
     override val stack: List[Tree] =
       Nil

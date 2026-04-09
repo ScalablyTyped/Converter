@@ -7,7 +7,9 @@ package scalajs
 sealed trait ScalaOutput
 
 object ScalaOutput {
-  case object PackageObject extends ScalaOutput
+  case object PackageObject extends ScalaOutput {
+    override val hashCode: Int = StableHash("PackageObject")
+  }
 
   final case class File(name: Name) extends ScalaOutput {
     // account for case insensitive file systems
@@ -17,10 +19,12 @@ object ScalaOutput {
         case _ => false
       }
     override lazy val hashCode: Int =
-      name.value.toLowerCase.hashCode
+      StableHash(name.value.toLowerCase)
   }
 
-  final case class Package(name: Name) extends ScalaOutput
+  final case class Package(name: Name) extends ScalaOutput {
+    override lazy val hashCode: Int = StableHash(("Package", name))
+  }
 
   def outputAs(s: Tree): ScalaOutput =
     s match {
