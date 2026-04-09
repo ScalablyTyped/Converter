@@ -6,11 +6,11 @@ object CommitChanges {
       implicit wd: os.Path,
   ): Unit = {
 
-    others.foreach(other => cmd.runVerbose.git('add, other))
+    others.foreach(other => cmd.runVerbose.git("add", other))
 
-    mainFolders.grouped(500).foreach(xs => cmd.runVerbose.git('add, xs.map(_.toString()).to[List]))
+    mainFolders.grouped(500).foreach(xs => cmd.runVerbose.git("add", xs.map(_.toString()).toList))
 
-    cmd.runVerbose.git('commit, "-m", formattedDiff)
+    cmd.runVerbose.git("commit", "-m", formattedDiff)
     ()
   }
 }

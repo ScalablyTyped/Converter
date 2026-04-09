@@ -62,12 +62,6 @@ object bufferMod {
     def this(str: String) = this()
     def this(str: String, encoding: String) = this()
   }
-  /**
-    * Raw data is stored in instances of the Buffer class.
-    * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
-    * Valid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
-    */
-  /* was `typeof Buffer` */
   object Buffer {
     
     @JSImport("buffer", "Buffer")
@@ -97,7 +91,6 @@ object bufferMod {
     def this(str: String) = this()
     def this(str: String, encoding: String) = this()
   }
-  /* was `typeof SlowBuffer` */
   object SlowBuffer {
     
     @JSImport("buffer", "SlowBuffer")

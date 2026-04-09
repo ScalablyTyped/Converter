@@ -7,7 +7,13 @@ import org.scalablytyped.converter.internal.ts.modules.{DeriveCopy, ReplaceExpor
 
 import scala.collection.mutable
 
-object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembers {
+/**
+  * todo: We currently only run this for each node after transforming all its children.
+  * This is suboptimal, because the transformation may produce new children, which again may have type queries.
+  *
+  * It also has a tendency to produce circular structures that way, which is why it was made less powerful now
+  */
+object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClassMembers {
   val GlobalThis = TsQIdent.of("globalThis")
 
   override def newClassMembersLeaving(scope: TsTreeScope, tree: HasClassMembers): IArray[TsMember] =
@@ -111,7 +117,7 @@ object ResolveTypeQueries extends TransformMembers with TransformLeaveClassMembe
       case other => other
     }
 
-  private case class P(x: TsTypeQuery) extends Picker[TsNamedValueDecl] {
+  private case class P(x: TsTypeQuery) extends Picker[TsNamedValueDecl](("P", x)) {
     override def unapply(t: TsNamedDecl): Option[TsNamedValueDecl] =
       t match {
         case v: TsDeclVar        => if (v.tpe.exists(_ eq x)) None else Some(v)

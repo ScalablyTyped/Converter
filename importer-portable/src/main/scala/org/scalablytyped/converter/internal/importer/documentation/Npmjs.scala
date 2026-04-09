@@ -2,8 +2,8 @@ package org.scalablytyped.converter.internal
 package importer.documentation
 
 import com.olvind.logging.Logger
-import io.circe013.generic.semiauto.{deriveDecoder, deriveEncoder}
-import io.circe013.{Decoder, Encoder}
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.importer.LibTsSource
 
 import scala.concurrent.Future
@@ -31,7 +31,7 @@ object Npmjs {
       date:        Option[DateString],
       repository:  Option[Repository],
       links:       Links,
-      releases:    List[DatedNumbers],
+      releases:    Option[List[DatedNumbers]],
   )
   case class Popularity(
       communityInterest:     Double,

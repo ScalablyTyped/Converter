@@ -1,37 +1,46 @@
 name: CI Build
 on:
   pull_request:
-    branches: [ 'develop-kci' ]
+    branches: ["develop-kci"]
   push:
-    branches: [ 'develop-kci' ]
+    branches: ["develop-kci"]
   merge_group:
     types: [checks_requested]
-    branches: [ 'develop-kci' ]
+    branches: ["develop-kci"]
 
 jobs:
   scalafmt:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: coursier/setup-action@v1.2.0-M3
+      - uses: actions/checkout@v4
+      - uses: coursier/setup-action@v1
         with:
           apps: scalafmt
 
-      - uses: coursier/cache-action@v6
+      - uses: coursier/cache-action@v6.4
 
       - name: Scalafmt
         run: scalafmt -c .scalafmt.conf --check
 
   build:
-    name: CI Build on ${{ matrix.os }}
+    name: CI Build on ${{ matrix.os }} (Scala ${{ matrix.scala }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     strategy:
       matrix:
         include:
           - os: ubuntu-latest
+            scala: "2.12"
+          - os: ubuntu-latest
+            scala: "3"
           - os: macos-latest
+            scala: "2.12"
+          - os: macos-latest
+            scala: "3"
           - os: windows-latest
+            scala: "2.12"
+          - os: windows-latest
+            scala: "3"
     steps:
       - name: Support longpaths
         if: runner.os == 'Windows'
@@ -40,11 +49,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: coursier/cache-action@v6
+      - uses: coursier/cache-action@v6.4
 
-      - uses: coursier/setup-action@v1.2.0-M3
+      - uses: coursier/setup-action@v1
         with:
-          jvm: adopt:11
+          jvm: adoptium:1.21.0.1
           apps: sbt
 
       - name: Get tests folder sha
@@ -52,13 +61,29 @@ jobs:
         run: |
           echo "sha=$(git ls-tree HEAD tests --object-only)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: test-cache
           key: ${{ runner.os }}-${{ steps.get-tests-folder-sha.outputs.sha }}-test-cache-v1
 
       - name: Build and test
-        run: sbt test
+        run: |
+          if [[ "${{ matrix.scala }}" == "3" ]]; then
+            # For Scala 3, test all modules except sbt-converter (which is SBT 1.x only - Scala 2.12)
+            sbt "++3.3.4" \
+              "logging/test" \
+              "core/test" \
+              "phases/test" \
+              "ts/test" \
+              "scalajs/test" \
+              "importer-portable/test" \
+              "importer/test" \
+              "cli/test"
+          else
+            # For Scala 2.12, test everything
+            sbt "++2.12.20" test
+          fi
+        shell: bash
         env:
           CI: true
           CI_TEST_CACHE: ../test-cache
@@ -69,26 +94,26 @@ jobs:
 #    runs-on: ubuntu-latest
 #    timeout-minutes: 25
 #    steps:
-#      - uses: actions/checkout@v3
+#      - uses: actions/checkout@v4
 #        with:
 #          fetch-depth: 0
 #
-#      - uses: coursier/cache-action@v6
+#      - uses: coursier/cache-action@v6.4
 #
 #      # cache artifacts within same date. should help a bit with the compile time
 #      - name: Get timestamp
 #        id: get-date
 #        run: |
-#          echo "::set-output name=time::$(date +%yy-%m-%d)"
+#          echo "time=$(date +%yy-%m-%d)" >> $GITHUB_OUTPUT
 #
-#      - uses: actions/cache@v3
+#      - uses: actions/cache@v4
 #        with:
 #          path: ~/.ivy2/local/org.scalablytyped
 #          key: scripted-v1-${{ steps.get-date.outputs.time }}
 #
-#      - uses: coursier/setup-action@v1.2.0-M3
+#      - uses: coursier/setup-action@v1
 #        with:
-#          jvm: adopt:11
+#          jvm: adoptium:1.21.0.1
 #          apps: sbt
 #
 #      - name: Run scripted

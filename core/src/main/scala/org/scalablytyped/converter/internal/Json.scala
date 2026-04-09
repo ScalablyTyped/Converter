@@ -4,8 +4,8 @@ import java.io.File
 import java.nio.file.{Files, Path}
 
 import cats.data.ValidatedNel
-import io.circe013._
-import io.circe013.syntax._
+import io.circe._
+import io.circe.syntax._
 
 import scala.io.Source
 import scala.util.control.NonFatal
@@ -18,7 +18,7 @@ object Json {
   object CustomJacksonParser extends Parser {
     import com.fasterxml.jackson.core.{JsonFactory, JsonParser}
     import com.fasterxml.jackson.databind.ObjectMapper
-    import io.circe013.jackson.CirceJsonModule
+    import io.circe.jackson.CirceJsonModule
 
 //    val Features = Set[JsonReadFeature](
 //      JsonReadFeature.ALLOW_JAVA_COMMENTS,
@@ -134,9 +134,9 @@ object Json {
   def opt[T: Decoder](path: Path): Option[T] =
     if (Files.exists(path)) Some(force(path)) else None
 
-  def persist[V: Encoder](file: os.Path)(value: V): Synced =
-    persist(file.toNIO)(value)
+  def persist[V: Encoder](file: os.Path)(value: V, printer: Printer = Printer.noSpaces): Synced =
+    persist(file.toNIO)(value, printer)
 
-  def persist[V: Encoder](file: Path)(value: V): Synced =
-    files.softWrite(file)(_.append(value.asJson.noSpaces))
+  def persist[V: Encoder](file: Path)(value: V, printer: Printer): Synced =
+    files.softWrite(file)(_.append(printer.print(value.asJson)))
 }

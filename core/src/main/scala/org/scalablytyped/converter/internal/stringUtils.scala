@@ -18,11 +18,11 @@ object stringUtils {
       case (-1, _) => s
       case (_, -1) => s
       case (start, end) =>
-        val `/*` = s.substring(0, start + 2)
-        val `*/` = s.substring(end)
+        val commentStart = s.substring(0, start + 2)
+        val commentEnd   = s.substring(end)
         val escaped =
           s.substring(Math.min(end, start + 2), end).replaceAll("/\\*", "/ *").replaceAll("\\*/", "* /")
-        `/*` + escaped + `*/`
+        commentStart + escaped + commentEnd
     }
 
   def formatComment(s: String): String = {

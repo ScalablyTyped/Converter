@@ -79,9 +79,10 @@ object UnionToInheritance {
         .flatMap(InvertingTypeParamRef.apply)
         .groupBy(_._1)
         .mapValues(_.map(_._2).sortBy(_.codePath.parts.last))
+        .toMap
 
     val indexedRewrites: Map[QualifiedName, Rewrite] =
-      rewrites.groupBy(_.original.codePath).mapValues(_.head)
+      rewrites.groupBy(_.original.codePath).mapValues(_.head).toMap
 
     val withRewrittenTypes =
       typesToInterfaces(tree, indexedRewrites, newParentsByCodePath)
@@ -202,7 +203,7 @@ object UnionToInheritance {
     }
 
     private def includeUnchangeds(all: IArray[Rewrite]): IArray[Rewrite] = {
-      val allIndexed = all.groupBy(_.original.codePath).mapValues(_.head)
+      val allIndexed = all.groupBy(_.original.codePath).mapValues(_.head).toMap
 
       def go(name: QualifiedName): IArray[TypeRef] =
         allIndexed.get(name) match {

@@ -12,6 +12,23 @@ object scala {
     object js {
       
       @js.native
+      class AggregateError protected ()
+        extends StObject
+           with js.Error {
+        def this(errors: js.Iterable[Any], message: String) = this()
+        
+        val errors: js.Iterable[Any] = js.native
+        def errors(): js.Array[Any] = js.native
+        
+        val message: String = js.native
+      }
+      @js.native
+      object AggregateError extends StObject {
+        
+        def apply(errors: js.Iterable[Any], message: String): js.AggregateError = js.native
+      }
+      
+      @js.native
       class Array[A] ()
         extends StObject
            with js.Iterable[A] {
@@ -67,6 +84,8 @@ object scala {
         def `&`(other: js.BigInt): js.BigInt = js.native
         
         def `*`(other: js.BigInt): js.BigInt = js.native
+        
+        def `**`(other: js.BigInt): js.BigInt = js.native
         
         def `+`(other: js.BigInt): js.BigInt = js.native
         
@@ -254,6 +273,8 @@ object scala {
         def `&&`(that: js.Dynamic): js.Dynamic = js.native
         
         def `*`(that: js.Dynamic): js.Dynamic = js.native
+        
+        def `**`(that: js.Dynamic): js.Dynamic = js.native
         
         def `+`(that: js.Dynamic): js.Dynamic = js.native
         
@@ -958,6 +979,8 @@ object scala {
         
         def ceil(x: Double): Double = js.native
         
+        def clz32(x: Int): Int = js.native
+        
         def cos(x: Double): Double = js.native
         
         def cosh(x: Double): Double = js.native
@@ -1163,6 +1186,8 @@ object scala {
         
         def apply(): js.Symbol = js.native
         def apply(description: String): js.Symbol = js.native
+        
+        val asyncIterator: js.Symbol = js.native
         
         def forKey(key: String): js.Symbol = js.native
         
@@ -2547,16 +2572,32 @@ object scala {
       }
     }
     
+    object reflect {
+      
+      object Reflect {
+        
+        @js.native
+        trait JSFunctionVarArgs
+          extends StObject
+             with js.Function {
+          
+          def apply(args: Any): Any = js.native
+        }
+      }
+    }
+    
     object runtime {
       
       @js.native
-      sealed trait LinkingInfo extends StObject {
+      trait LinkingInfo extends StObject {
         
         val assumingES6: Boolean = js.native
         
         val esVersion: Int = js.native
         
         val fileLevelThis: Any = js.native
+        
+        val isWebAssembly: Boolean = js.native
         
         val linkerVersion: String = js.native
         

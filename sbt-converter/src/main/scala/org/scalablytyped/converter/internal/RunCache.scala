@@ -1,6 +1,6 @@
 package org.scalablytyped.converter.internal
 
-import _root_.io.circe013.syntax.*
+import _root_.io.circe.syntax.*
 import com.olvind.logging.{Formatter, Logger}
 import gigahorse.support.apachehttp.Gigahorse
 import gigahorse.{HttpClient, Request}

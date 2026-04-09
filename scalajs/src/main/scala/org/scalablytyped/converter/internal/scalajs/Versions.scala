@@ -1,10 +1,10 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-import io.circe013.{Decoder, Encoder}
+import io.circe.{Decoder, Encoder}
 
 object Versions {
-  val sbtVersion = "1.9.6"
+  val sbtVersion = "1.11.6"
 
   // this accepts any nightly or milestone with the same binversion as a major release. good enough for now
   private val Version = "(\\d+).(\\d+).(\\d+).*".r
@@ -49,7 +49,7 @@ object Versions {
 
   val Scala212 = Scala("2.12.20")
   val Scala213 = Scala("2.13.16")
-  val Scala3   = Scala("3.3.1")
+  val Scala3   = Scala("3.3.6")
 
   case class ScalaJs(scalaJsVersion: String) {
     val scalaJsBinVersion: String =
@@ -68,10 +68,10 @@ object Versions {
     implicit val decodes: Decoder[ScalaJs] = Decoder[String].map(ScalaJs.apply)
   }
 
-  implicit val encodes: Encoder[Versions] = io.circe013.generic.semiauto.deriveEncoder
-  implicit val decodes: Decoder[Versions] = io.circe013.generic.semiauto.deriveDecoder
+  implicit val encodes: Encoder[Versions] = io.circe.generic.semiauto.deriveEncoder
+  implicit val decodes: Decoder[Versions] = io.circe.generic.semiauto.deriveDecoder
 
-  val ScalaJs1 = ScalaJs("1.18.2")
+  val ScalaJs1 = ScalaJs("1.20.1")
 }
 
 case class Versions(scala: Versions.Scala, scalaJs: Versions.ScalaJs) {
@@ -85,8 +85,6 @@ case class Versions(scala: Versions.Scala, scalaJs: Versions.ScalaJs) {
         "-language:higherKinds",
         "-language:existentials",
         "-no-indent",
-        "-source:future",
-//        "-Yexplicit-nulls"
       )
     else
       List(
@@ -114,8 +112,8 @@ case class Versions(scala: Versions.Scala, scalaJs: Versions.ScalaJs) {
     else Some(Dep.ScalaFullVersion(scalaJs.scalaJsOrganization, "scalajs-compiler", scalaJs.scalaJsVersion))
 
   val runtime      = Dep.ScalaJs("com.olvind", "scalablytyped-runtime", "2.4.2")
-  val scalaJsDom   = Dep.ScalaJs("org.scala-js", "scalajs-dom", "2.3.0")
-  val slinkyWeb    = Dep.ScalaJs("me.shadaj", "slinky-web", "0.7.2")
-  val slinkyNative = Dep.ScalaJs("me.shadaj", "slinky-native", "0.7.2").for3Use2_13(scala.is3)
-  val scalajsReact = Dep.ScalaJs("com.github.japgolly.scalajs-react", "core", "2.1.1")
+  val scalaJsDom   = Dep.ScalaJs("org.scala-js", "scalajs-dom", "2.8.1")
+  val slinkyWeb    = Dep.ScalaJs("me.shadaj", "slinky-web", "0.7.5")
+  val slinkyNative = Dep.ScalaJs("me.shadaj", "slinky-native", "0.7.5").for3Use2_13(scala.is3)
+  val scalajsReact = Dep.ScalaJs("com.github.japgolly.scalajs-react", "core", "2.1.3")
 }

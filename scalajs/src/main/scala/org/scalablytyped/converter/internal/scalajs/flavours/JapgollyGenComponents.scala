@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
+import org.scalablytyped.converter.internal.StableHash
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
@@ -285,8 +286,9 @@ class JapgollyGenComponents(
     val PropsDom(propsRef, resProps) = propsDom
 
     resProps.map { splitProps =>
+      val hashValue = StableHash((propsRef, group.canBeReferenced, group.tparams))
       val name = Name(
-        s"SharedBuilder_${nameFor(propsRef.ref)}${(propsRef, group.canBeReferenced, group.tparams).hashCode}"
+        s"SharedBuilder_${nameFor(propsRef.ref)}$hashValue"
           .replaceAllLiterally("-", "_"),
       )
       val hasRef = group.canBeReferenced || refFromProps(resProps).isDefined
@@ -765,6 +767,6 @@ class JapgollyGenComponents(
           codePath    = clsCodePath,
         ),
       )
-    },
+    }
   }
 }

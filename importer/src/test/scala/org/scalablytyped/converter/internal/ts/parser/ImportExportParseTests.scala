@@ -272,7 +272,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
   }
 
   test("history") {
-    withTsFile(s"parsertests${File.separator}history.d.ts") { contents: String =>
+    withTsFile(s"parsertests${File.separator}history.d.ts") { (contents: String) =>
       parseAs(contents, TsParser.parsedTsFile)
     }
   }
@@ -348,7 +348,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
             declared   = false,
             isAbstract = false,
             TsIdent("default"),
-            IArray(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
+            IArray(TsTypeParam(NoComments, TsIdentSimple("T"), None, None, Variance.Invariant)),
             None,
             IArray(),
             IArray(),

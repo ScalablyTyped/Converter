@@ -1,8 +1,9 @@
 package org.scalablytyped.converter.internal
 
-import scala.collection.generic.CanBuildFrom
 import scala.collection.immutable.{SortedMap, TreeMap}
 import scala.collection.mutable
+import scala.collection.compat._
+import scala.collection.compat.BuildFrom
 
 object maps {
   object EmptyMap {
@@ -82,9 +83,9 @@ object maps {
     }
 
     @inline def mapNotNone[VV](
-        f:          (K, V) => Option[VV],
-    )(implicit cbf: CanBuildFrom[M[K, V], (K, VV), M[K, VV]]): M[K, VV] = {
-      val b  = cbf()
+        f:         (K, V) => Option[VV],
+    )(implicit bf: BuildFrom[M[K, V], (K, VV), M[K, VV]]): M[K, VV] = {
+      val b  = bf.newBuilder(m.asInstanceOf[M[K, V]])
       val it = m.toIterator
 
       while (it.hasNext) {

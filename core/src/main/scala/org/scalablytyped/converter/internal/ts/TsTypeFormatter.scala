@@ -18,9 +18,14 @@ class TsTypeFormatter(val keepComments: Boolean) {
 
   def tparam(tparam: TsTypeParam): String =
     tparam match {
-      case TsTypeParam(_, name, bound, default) =>
+      case TsTypeParam(_, name, bound, default, variance) =>
+        val varianceStr = variance match {
+          case Variance.Covariant     => "out "
+          case Variance.Contravariant => "in "
+          case Variance.Invariant     => ""
+        }
         List[Option[String]](
-          Some(name.value),
+          Some(varianceStr + name.value),
           bound.map(b   => s"extends ${apply(b)}"),
           default.map(d => s"= " + apply(d)),
         ).flatten.mkString(" ")

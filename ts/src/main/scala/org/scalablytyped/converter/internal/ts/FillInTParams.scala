@@ -40,7 +40,7 @@ object FillInTParams {
       sig.tparams
         .zip(defaulted)
         .map {
-          case (TsTypeParam(_, name, _, _), tpe) => TsTypeRef(name) -> tpe
+          case (TsTypeParam(_, name, _, _, _), tpe) => TsTypeRef(name) -> tpe
         }
         .toMap
 
@@ -57,7 +57,7 @@ object FillInTParams {
     else {
       val rewrites: Map[TsType, TsType] =
         expectedTParams.zipWithIndex.map {
-          case (TsTypeParam(_, expected, _, default), idx) =>
+          case (TsTypeParam(_, expected, _, default, _), idx) =>
             val provided =
               if (providedTParams.lengthCompare(idx) > 0) providedTParams(idx)
               else

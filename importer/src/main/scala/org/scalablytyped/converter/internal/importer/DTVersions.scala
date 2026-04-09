@@ -33,7 +33,7 @@ class DTVersions(lastChangedIndex: DTLastChangedIndex, includeGitPart: Boolean) 
     val inGit: Option[InGit] = {
       if (!includeGitPart) None
       else
-        Try(uri(%%.git('remote, "get-url", 'origin).out.string.trim)) match {
+        Try(uri(%%.git("remote", "get-url", "origin").out.string.trim)) match {
           case Success(uri) =>
             val lastModified = ZonedDateTime.ofInstant(
               Instant.ofEpochSecond(lastChangedIndex(sourceFolder.path.toIO)),
