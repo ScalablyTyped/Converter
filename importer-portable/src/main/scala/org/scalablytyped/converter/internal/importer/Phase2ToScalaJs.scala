@@ -49,7 +49,7 @@ class Phase2ToScalaJs(
 
       val scope = new TreeScope.Root(
         libName       = scalaName,
-        _dependencies = scalaDeps.map { case (_, l) => l.scalaName -> l.packageTree },
+        _dependencies = LibScalaJs.allDependencies(scalaDeps.values),
         logger        = logger,
         pedantic      = pedantic,
         outputPkg     = outputPkg,

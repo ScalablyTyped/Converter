@@ -54,7 +54,7 @@ class Phase3Compile(
       case PublishedSbtProject.Unpack(deps) =>
         val scope = new TreeScope.Root(
           libName       = lib.scalaName,
-          _dependencies = lib.dependencies.map { case (_, lib) => lib.scalaName -> lib.packageTree },
+          _dependencies = LibScalaJs.allDependencies(lib.dependencies.values),
           logger        = logger,
           pedantic      = false,
           outputPkg     = flavour.outputPkg,

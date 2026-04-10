@@ -9,8 +9,5 @@ object distTypesProtocolS3RestXmlProtocolMod {
   
   @JSImport("@aws-sdk/middleware-sdk-s3/dist-types/protocol/S3RestXmlProtocol", "S3RestXmlProtocol")
   @js.native
-  open class S3RestXmlProtocol () extends AwsRestXmlProtocol {
-    
-    def serializeRequest(): js.Promise[Any] = js.native
-  }
+  open class S3RestXmlProtocol () extends AwsRestXmlProtocol
 }
