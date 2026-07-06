@@ -21,9 +21,9 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
   import autoImport.*
 
   private[plugin] val stImportTask = Def.taskDyn[ImportTypings.InOut] {
-    val cacheDir     = os.Path((Global / stDir).value)
-    val stLogger     = WrapSbtLogger.task.value
-    val conversion   = stConversionOptions.value
+    val cacheDir           = os.Path((Global / stDir).value)
+    val stLogger           = WrapSbtLogger.task.value
+    val conversion         = stConversionOptions.value
     val publishLocalFolder = Utils.IvyLocal.value
     val fromFolder = InFolder(
       os.Path(NpmInstall.targetDir((Compile / Keys.crossTarget).value)) / "node_modules",

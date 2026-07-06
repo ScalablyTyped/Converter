@@ -56,8 +56,9 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
     val stNpmDependencies    = settingKey[Seq[(String, String)]]("npm dependencies needed for typings generation")
     val stNpmDevDependencies = settingKey[Seq[(String, String)]]("npm dev dependencies needed for typings generation")
-    val stNpmResolutions     = settingKey[Map[String, String]]("npm `resolutions` field, for overriding transitive npm dependency versions")
-    val stUseYarn            = settingKey[Boolean]("Use yarn instead of npm to install npm dependencies")
+    val stNpmResolutions =
+      settingKey[Map[String, String]]("npm `resolutions` field, for overriding transitive npm dependency versions")
+    val stUseYarn = settingKey[Boolean]("Use yarn instead of npm to install npm dependencies")
     val stNpmInstall = taskKey[File](
       "Writes a package.json from stNpmDependencies/stNpmDevDependencies/stNpmResolutions and runs npm/yarn install. Returns the folder containing package.json and node_modules",
     )

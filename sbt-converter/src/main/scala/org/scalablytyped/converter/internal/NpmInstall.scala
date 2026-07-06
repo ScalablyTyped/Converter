@@ -42,12 +42,14 @@ object NpmInstall {
       val command = if (useYarn) "yarn" else "npm"
       log.info(s"Running `$command install` in $targetDir")
 
-      val result = os.proc(command, "install").call(
-        cwd    = targetDir,
-        stdout = os.Inherit,
-        stderr = os.Inherit,
-        check  = false,
-      )
+      val result = os
+        .proc(command, "install")
+        .call(
+          cwd    = targetDir,
+          stdout = os.Inherit,
+          stderr = os.Inherit,
+          check  = false,
+        )
       if (result.exitCode != 0)
         sys.error(s"`$command install` failed with exit code ${result.exitCode}")
 
@@ -67,12 +69,12 @@ object NpmInstall {
 
     CJson
       .obj(
-        "name"            -> CJson.fromString("scalablytyped-npm-install"),
-        "version"         -> CJson.fromString("0.0.0"),
-        "private"         -> CJson.fromBoolean(true),
-        "dependencies"    -> obj(dependencies),
+        "name" -> CJson.fromString("scalablytyped-npm-install"),
+        "version" -> CJson.fromString("0.0.0"),
+        "private" -> CJson.fromBoolean(true),
+        "dependencies" -> obj(dependencies),
         "devDependencies" -> obj(devDependencies),
-        "resolutions"     -> obj(resolutions),
+        "resolutions" -> obj(resolutions),
       )
       .spaces2
   }
