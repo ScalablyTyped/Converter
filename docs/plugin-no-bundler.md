@@ -1,9 +1,9 @@
 ---
 id: plugin-no-bundler
-title: SBT plugin without scalajs-bundler
+title: SBT plugin with externally managed npm packages
 ---
 
-- [I want to use scalajs-bundler (recommended)](plugin.md)
+- [I want the plugin to manage npm packages for me (recommended)](plugin.md)
 - [I want to use mill](https://github.com/lolgab/mill-scalablytyped)
 - [I can't/won't use sbt nor mill](cli.md)
 

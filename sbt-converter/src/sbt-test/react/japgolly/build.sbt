@@ -3,8 +3,8 @@ lazy val testProject =
     .in(file("."))
     .enablePlugins(ScalablyTypedConverterPlugin)
     .settings(
-      useYarn := true,
-      Compile / npmDependencies ++= Seq(
+      stUseYarn := true,
+      Compile / stNpmDependencies ++= Seq(
         "@types/react-dom" -> "16.9.1",
         "@types/react" -> "16.9.5",
         "@types/node" -> "12.12.14",
@@ -17,5 +17,4 @@ lazy val testProject =
       scalaJSUseMainModuleInitializer := true,
       scalaVersion := "2.13.12",
       organization := "net.leibman",
-      webpack / version := "5.88.2",
     )

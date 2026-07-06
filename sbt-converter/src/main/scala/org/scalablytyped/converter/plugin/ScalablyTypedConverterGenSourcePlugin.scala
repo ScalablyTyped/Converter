@@ -6,14 +6,14 @@ import org.scalablytyped.converter.internal.*
 import org.scalablytyped.converter.internal.orphanCodecs.{FileDecoder, FileEncoder}
 import org.scalablytyped.converter.internal.scalajs.{Name, QualifiedName}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
+import org.scalajs.sbtplugin.ScalaJSPlugin
 import os.Path
 import sbt.*
-import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
 import scala.util.Try
 
 object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
-  override def requires = ScalablyTypedPluginBase && ScalaJSBundlerPlugin
+  override def requires = ScalablyTypedPluginBase && ScalaJSPlugin
 
   object autoImport extends GenSourceKeys {
     type SourceGenMode = plugin.SourceGenMode
@@ -25,7 +25,6 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
   override lazy val projectSettings: scala.Seq[Def.Setting[_]] = {
     import ScalablyTypedPluginBase.autoImport.*
     import autoImport.*
-    import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport.*
 
     Seq(
       stSourceGenMode := SourceGenMode.ResourceGenerator,
@@ -41,8 +40,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
       },
       stMinimize := Selection.None,
       stMinimizeKeep := Nil,
-      ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
-      ScalaJsBundlerHack.adaptNpmInstallJSResources,
+      stNpmInstall := NpmInstall.task.value,
       stImportSources := {
         val stLogger   = WrapSbtLogger.task.value
         val conversion = stConversionOptions.value
@@ -55,7 +53,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
           .fromTraversable(stMinimizeKeep.value)
           .map(str => QualifiedName(conversion.outputPackage +: QualifiedName(str).parts))
 
-        (Compile / npmUpdate).value
+        (Compile / stNpmInstall).value
 
         val (toDir, overrideTargetFolder) = stSourceGenMode.value match {
           case SourceGenMode.ResourceGenerator =>
@@ -66,7 +64,7 @@ object ScalablyTypedConverterGenSourcePlugin extends AutoPlugin {
             })
         }
 
-        val nodeModulesDir = os.Path((Compile / npmUpdate / Keys.crossTarget).value / "node_modules")
+        val nodeModulesDir = os.Path(NpmInstall.targetDir((Compile / Keys.crossTarget).value)) / "node_modules"
         val globalCacheDir = (Global / stDir).value
         val cachedInputs   = os.Path(Keys.streams.value.cacheDirectory / "input.json")
         val cachedOutputs  = os.Path(Keys.streams.value.cacheDirectory / "output.json")

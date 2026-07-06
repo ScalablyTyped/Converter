@@ -3,8 +3,8 @@ lazy val testProject =
     .in(file("."))
     .enablePlugins(ScalablyTypedConverterGenSourcePlugin)
     .settings(
-      useYarn := true,
-      Compile / npmDependencies ++= Seq(
+      stUseYarn := true,
+      Compile / stNpmDependencies ++= Seq(
         "@types/express" -> "4.17.2",
       ),
       stMinimize := Selection.AllExcept("express", "node"),

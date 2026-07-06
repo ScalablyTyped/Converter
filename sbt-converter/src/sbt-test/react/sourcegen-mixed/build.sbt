@@ -11,7 +11,7 @@ lazy val app =
     .enablePlugins(ScalablyTypedConverterPlugin)
     .dependsOn(lib)
     .settings(
-      useYarn := true,
+      stUseYarn := true,
       scalaJSUseMainModuleInitializer := true,
       stOutputPackage := "mytypings",
     )
@@ -20,8 +20,8 @@ lazy val lib =
   project
     .enablePlugins(ScalablyTypedConverterGenSourcePlugin)
     .settings(
-      useYarn := true,
-      Compile / npmDependencies ++= Seq(
+      stUseYarn := true,
+      Compile / stNpmDependencies ++= Seq(
         "@types/express" -> "4.17.2",
       ),
       stMinimize := Selection.AllExcept("express", "node"),

@@ -3,10 +3,10 @@ id: plugin
 title: SBT plugin
 ---
 
-The plugin uses [scalajs-bundler](https://scalacenter.github.io/scalajs-bundler/)
-to download NPM packages, and translates typescript type definitions into Scala.js jars before your project compiles.
+The plugin downloads NPM packages itself (running `npm install`/`yarn install`), and translates
+typescript type definitions into Scala.js jars before your project compiles.
 
-- [I can't/won't use scalajs-bundler](plugin-no-bundler.md)
+- [I want to manage npm/node_modules myself](plugin-no-bundler.md)
 - [I want to use mill](https://github.com/lolgab/mill-scalablytyped)
 - [I can't/won't use sbt](cli.md)
 
@@ -21,8 +21,6 @@ Then check out the demo projects:
 
 ## Notes
 
-- Scalajs-bundler has some functionality where it picks up `npmDependencies` from your classpath.
-This plugin generates parts of the classpath, so to avoid a circular dependency that functionality is disabled.
 - You're only supposed to use the plugin once in your build. 
 If you really want more than one conversion make sure to [shade](conversion-options.md#stoutputpackage) them into different packages
 
@@ -49,7 +47,7 @@ project.enablePlugins(ScalablyTypedConverterPlugin)
 
 ```scala    
 project.settings(
-  Compile / npmDependencies ++= Seq(
+  Compile / stNpmDependencies ++= Seq(
     "react-router-dom" -> "5.1.2",
     "@types/react-router-dom" -> "5.1.2"
   )
@@ -89,11 +87,10 @@ project.settings(
 ## Use yarn instead of npm
 
 The plugin checks for updated npm dependencies on each compile, and yarn responds much faster than npm.
- 
-Configure scalajs-bundler like this:
+
 ```scala
 project.settings(
-  useYarn := true
+  stUseYarn := true
 )
 ```
 Yarn will need to be present on your system for this to work. You should also check in `yarn.lock`.
@@ -106,7 +103,7 @@ The plugin taps into the `allDependencies` task in sbt, and this has some conseq
 
 Whenever the task is evaluated, typically through a `compile` or an import into an IDE, the plugin
 
-- Runs a customized version of `installNpmDependencies` from scalajs-bundler, changed to avoid touching the classpath.
+- Writes a `package.json` from `stNpmDependencies`/`stNpmDevDependencies`/`stNpmResolutions` and runs `npm install` (or `yarn install`) if it changed
 
 - Computes a digest from the resulting `package.json` file and of the configuration of the plugin
 

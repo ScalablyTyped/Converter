@@ -53,6 +53,14 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     )
     val stPrivateWithin = settingKey[Option[String]]("generate all top-level things private to the given package")
     val stIncludeDev    = settingKey[Boolean]("generate facades for dev dependencies as well")
+
+    val stNpmDependencies    = settingKey[Seq[(String, String)]]("npm dependencies needed for typings generation")
+    val stNpmDevDependencies = settingKey[Seq[(String, String)]]("npm dev dependencies needed for typings generation")
+    val stNpmResolutions     = settingKey[Map[String, String]]("npm `resolutions` field, for overriding transitive npm dependency versions")
+    val stUseYarn            = settingKey[Boolean]("Use yarn instead of npm to install npm dependencies")
+    val stNpmInstall = taskKey[File](
+      "Writes a package.json from stNpmDependencies/stNpmDevDependencies/stNpmResolutions and runs npm/yarn install. Returns the folder containing package.json and node_modules",
+    )
   }
 
   override def requires = JvmPlugin && PlatformDepsPlugin
@@ -76,6 +84,10 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stPrivateWithin := None,
       stIncludeDev := false,
       stShortModuleNames := false,
+      stNpmDependencies := Nil,
+      stNpmDevDependencies := Nil,
+      stNpmResolutions := Map.empty,
+      stUseYarn := false,
       stConversionOptions := {
         val versions = Versions(
           Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),

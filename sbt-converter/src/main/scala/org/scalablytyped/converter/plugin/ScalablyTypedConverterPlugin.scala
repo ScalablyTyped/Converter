@@ -5,13 +5,13 @@ import _root_.io.circe.syntax.*
 import com.olvind.logging.LogLevel
 import org.scalablytyped.converter.internal.*
 import org.scalablytyped.converter.internal.RunCache.Present
+import org.scalajs.sbtplugin.ScalaJSPlugin
 import sbt.*
-import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
 import scala.concurrent.ExecutionContext
 
 object ScalablyTypedConverterPlugin extends AutoPlugin {
-  override def requires = ScalablyTypedPluginBase && ScalaJSBundlerPlugin
+  override def requires = ScalablyTypedPluginBase && ScalaJSPlugin
 
   private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
@@ -19,15 +19,16 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
 
   import ScalablyTypedPluginBase.autoImport.*
   import autoImport.*
-  import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport.*
 
   private[plugin] val stImportTask = Def.taskDyn[ImportTypings.InOut] {
-    val cacheDir           = os.Path((Global / stDir).value)
-    val stLogger           = WrapSbtLogger.task.value
-    val conversion         = stConversionOptions.value
+    val cacheDir     = os.Path((Global / stDir).value)
+    val stLogger     = WrapSbtLogger.task.value
+    val conversion   = stConversionOptions.value
     val publishLocalFolder = Utils.IvyLocal.value
-    val fromFolder         = InFolder(os.Path((Compile / npmUpdate / Keys.crossTarget).value / "node_modules"))
-    val targetFolder       = os.Path(Keys.streams.value.cacheDirectory) / "sources"
+    val fromFolder = InFolder(
+      os.Path(NpmInstall.targetDir((Compile / Keys.crossTarget).value)) / "node_modules",
+    )
+    val targetFolder = os.Path(Keys.streams.value.cacheDirectory) / "sources"
 
     val input = ImportTypings.Input(
       converterVersion = BuildInfo.version,
@@ -54,7 +55,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
         Def.task((input, output))
       case Present.No =>
         val t = Def.task {
-          (Compile / npmInstallDependencies).value
+          (Compile / stNpmInstall).value
 
           ImportTypings(
             input              = input,
@@ -88,7 +89,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
       Keys.allDependencies ++= stImport.value._2.moduleIds.toSeq,
       stImport := stImportTask.value,
       stInternalZincCompiler := ZincCompiler.task.value,
-      ScalaJsBundlerHack.adaptScalaJSBundlerPackageJson,
+      stNpmInstall := NpmInstall.task.value,
       stPublishCache := RunCache.publishCacheTask(stImport).value,
     )
 }
