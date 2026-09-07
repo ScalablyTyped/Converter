@@ -4,4 +4,4 @@ if (pluginVersion == null)
                                   |Specify this property using the scriptedLaunchOpts -D.""".stripMargin)
 else addSbtPlugin("org.scalablytyped.converter" % """sbt-converter""" % pluginVersion)
 
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.8.0")
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.22.0")

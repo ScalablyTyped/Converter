@@ -8,6 +8,7 @@ import com.olvind.logging.{LogLevel, Logger}
 import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.importer.*
 import org.scalablytyped.converter.internal.maps.*
+import org.scalablytyped.converter.internal.ParallelCompat.ParOps
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import org.scalablytyped.converter.internal.scalajs.*
 import org.scalablytyped.converter.internal.ts.*
@@ -117,7 +118,7 @@ object ImportTypingsGenSources {
 
         val outFilesByTargetFolder: IArray[(os.Path, IArray[(os.RelPath, String)])] = {
           IArray.fromTraversable {
-            libs.toArray.par.map {
+            libs.toSeq.parMap {
               case (source, lib) =>
                 val willMinimize = minimize(source.libName)
                 val minimized =
@@ -194,7 +195,7 @@ object ImportTypingsGenSources {
       ImportTypingsGenSources(
         input = Input(
           fromFolder           = InFolder(cacheDir / "npm" / "node_modules"),
-          targetFolder         = files.existing(cacheDir / 'work),
+          targetFolder         = files.existing(cacheDir / "work"),
           overrideTargetFolder = Map.empty,
           converterVersion     = BuildInfo.version,
           conversion           = conversion,

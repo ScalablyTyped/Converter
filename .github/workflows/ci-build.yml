@@ -63,18 +63,10 @@ jobs:
       - name: Build and test
         run: |
           if [[ "${{ matrix.scala }}" == "3" ]]; then
-            # For Scala 3, test all modules except sbt-converter (which is SBT 1.x only - Scala 2.12)
-            sbt "++3.3.4" \
-              "logging/test" \
-              "core/test" \
-              "phases/test" \
-              "ts/test" \
-              "scalajs/test" \
-              "importer-portable/test" \
-              "importer/test" \
-              "cli/test"
+            # Scala 3 builds the sbt 2.x plugin
+            sbt "++3.9.0" test
           else
-            # For Scala 2.12, test everything
+            # Scala 2.12 builds the sbt 1.x plugin
             sbt "++2.12.20" test
           fi
         shell: bash

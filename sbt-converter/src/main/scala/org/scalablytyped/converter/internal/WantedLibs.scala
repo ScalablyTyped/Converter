@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal
 
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import org.scalablytyped.converter.plugin.ScalablyTypedPluginBase.autoImport._
-import sbt.{Compile, Def, Test}
+import sbt._
 
 import scala.collection.immutable.SortedMap
 

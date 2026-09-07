@@ -15,6 +15,6 @@ lazy val testProject =
       stFlavour := Flavour.ScalajsReact,
       stIgnore += "csstype",
       scalaJSUseMainModuleInitializer := true,
-      scalaVersion := "2.13.12",
+      scalaVersion := "2.13.18",
       organization := "net.leibman",
     )

@@ -13,7 +13,7 @@ import scala.concurrent.ExecutionContext
 object ScalablyTypedConverterPlugin extends AutoPlugin {
   override def requires = ScalablyTypedPluginBase && ScalaJSPlugin
 
-  private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
+  @transient private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
   object autoImport extends ConverterKeys
 
@@ -84,9 +84,8 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
   }
 
   override lazy val projectSettings =
-    Seq(
-      /* This is where we add our generated artifacts to the project for compilation */
-      Keys.allDependencies ++= stImport.value._2.moduleIds.toSeq,
+    /* This is where we add our generated artifacts to the project for compilation */
+    PluginCompat.allDependenciesFromImport(stImport) ++ Seq(
       stImport := stImportTask.value,
       stInternalZincCompiler := ZincCompiler.task.value,
       stNpmInstall := NpmInstall.task.value,

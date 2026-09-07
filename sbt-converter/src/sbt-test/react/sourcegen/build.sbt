@@ -10,7 +10,7 @@ lazy val testProject =
       stMinimize := Selection.AllExcept("express", "node"),
       stStdlib := List("es5"),
       scalaJSUseMainModuleInitializer := true,
-      scalaVersion := "2.13.2",
+      scalaVersion := "2.13.18",
       organization := "com.olvind",
       stOutputPackage := "mytypings",
     )
