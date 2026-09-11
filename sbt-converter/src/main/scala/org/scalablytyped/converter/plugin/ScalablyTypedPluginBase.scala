@@ -1,6 +1,5 @@
 package org.scalablytyped.converter.plugin
 
-import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
 import org.scalablytyped.converter.internal.constants
 import org.scalablytyped.converter.internal.importer.{ConversionOptions, EnabledTypeMappingExpansion, ImportName}
@@ -9,7 +8,6 @@ import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import sbt.*
 import sbt.Tags.Tag
-import sbt.plugins.JvmPlugin
 
 import java.io.File
 import scala.collection.immutable.SortedSet
@@ -53,9 +51,18 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     )
     val stPrivateWithin = settingKey[Option[String]]("generate all top-level things private to the given package")
     val stIncludeDev    = settingKey[Boolean]("generate facades for dev dependencies as well")
+
+    val stNpmDependencies    = settingKey[Seq[(String, String)]]("npm dependencies needed for typings generation")
+    val stNpmDevDependencies = settingKey[Seq[(String, String)]]("npm dev dependencies needed for typings generation")
+    val stNpmResolutions =
+      settingKey[Map[String, String]]("npm `resolutions` field, for overriding transitive npm dependency versions")
+    val stUseYarn = settingKey[Boolean]("Use yarn instead of npm to install npm dependencies")
+    @transient val stNpmInstall = taskKey[File](
+      "Writes a package.json from stNpmDependencies/stNpmDevDependencies/stNpmResolutions and runs npm/yarn install. Returns the folder containing package.json and node_modules",
+    )
   }
 
-  override def requires = JvmPlugin && PlatformDepsPlugin
+  override def requires = PluginCompat.basePluginRequirements
 
   import autoImport.*
 
@@ -76,6 +83,10 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stPrivateWithin := None,
       stIncludeDev := false,
       stShortModuleNames := false,
+      stNpmDependencies := Nil,
+      stNpmDevDependencies := Nil,
+      stNpmResolutions := Map.empty,
+      stUseYarn := false,
       stConversionOptions := {
         val versions = Versions(
           Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),
@@ -96,7 +107,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
           enableScalaJsDefined     = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
           stdLibs                  = SortedSet.empty ++ stStdlib.value,
           expandTypeMappings       = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
-          ignored                  = stIgnore.value.to[Set].sorted,
+          ignored                  = stIgnore.value.toSet.sorted,
           versions                 = versions,
           organization             = organization,
           enableReactTreeShaking   = stReactEnableTreeShaking.value.map(name => ImportName(TsIdentLibrary(name))),
@@ -112,12 +123,17 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       Global / Keys.onLoad := (state => {
         val old               = (Global / Keys.onLoad).value
         val sbtVersionPattern = """^(\d+)\.(\d+)(\..*)?""".r
+
+        def supported(major: String, minor: String): Boolean =
+          Try(PluginCompat.isSupportedSbtVersion(major.toInt, minor.toInt)).getOrElse(false)
+
         Keys.sbtVersion.value match {
-          case sbtVersionPattern(major, minor, _) if major == "1" && Try(minor.toInt).toOption.exists(_ >= 8) =>
+          case sbtVersionPattern(major, minor, _) if supported(major, minor) =>
             old(state)
           case invalid =>
             sys.error(
-              s"This version of the ScalablyTyped plugin only supports 1.8.x or later. You're currently using $invalid",
+              s"This build of the ScalablyTyped plugin only supports sbt ${PluginCompat.supportedSbtVersions}. " +
+                s"You're currently using $invalid",
             )
         }
       }),

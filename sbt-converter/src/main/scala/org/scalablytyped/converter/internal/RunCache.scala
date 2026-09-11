@@ -63,14 +63,14 @@ object RunCache {
           val cmd             = new Cmd(logger, Some(500))
           Lock.synchronized {
             locally {
-              implicit val wd = Utils.IvyLocal.value
+              implicit val wd: os.Path = Utils.IvyLocal.value
               cmd.run("rsync", "-aR", output.allRelPaths.map(_.toString).toList, pushLocation)
             }
             // this is somewhat convoluted. we know `wc` is a prefix of `runCachePath`, but compute `relPath`
             // in order for `rsync` to create the folder if necessary
             locally {
-              implicit val wd = os.Path((Global / stDir).value)
-              val relPath: os.RelPath = runCachePath.relativeTo(wd)
+              implicit val wd: os.Path    = os.Path((Global / stDir).value)
+              val relPath:     os.RelPath = runCachePath.relativeTo(wd)
               cmd.run("rsync", "-aR", relPath, pushLocation)
             }
           }
@@ -172,9 +172,9 @@ object RunCache {
                 output.allRelPaths.toVector
                   .map(relPath => ensureDownloaded(uri = pullUri / relPath, dest = ivyLocal / relPath))
 
-              Future.sequence(files).map { presentFiles: Vector[PresentFile] =>
+              Future.sequence(files).map { (presentFiles: Vector[PresentFile]) =>
                 // format: off
-                val (errors, notFounds, cacheds, downloadeds, Vector()) =
+                val (errors, notFounds, cacheds, downloadeds, rest) =
                   presentFiles.partitionCollect4(
                     { case x: PresentFile.Err => x },
                     {
@@ -185,6 +185,9 @@ object RunCache {
                     { case ok @ PresentFile.Downloaded(_) => ok },
                   )
                 // format: on
+
+                /* the four cases above cover all of `PresentFile` */
+                require(rest.isEmpty, s"unexpected leftovers: $rest")
 
                 val msgs = IArray.fromOptions(
                   if (cacheds.nonEmpty) Some(s"${cacheds.size} cached files") else None,

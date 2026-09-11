@@ -16,7 +16,7 @@ Have a look at [mobx-slinky](https://github.com/ScalablyTyped/mobx-slinky)
 
 ## Requirements
 
-**This plugin needs sbt 1.8.x**.
+**This plugin needs sbt 1.8.x or later, or sbt 2.x.**
 
 Since we generate source code, it should work with any combination of 
 Scala 2.12 / 2.13 / 3.2.0 and Scala.js 1.11+ 
@@ -41,7 +41,7 @@ project.enablePlugins(ScalablyTypedConverterGenSourcePlugin)
 
 ```scala    
 project.settings(
-  Compile / npmDependencies ++= Seq(
+  Compile / stNpmDependencies ++= Seq(
     "react-router-dom" -> "5.1.2",
     "@types/react-router-dom" -> "5.1.2"
   )
@@ -82,10 +82,9 @@ project.settings(
 
 The plugin checks for updated npm dependencies on each compile, and yarn responds much faster than npm.
  
-Configure scalajs-bundler like this:
 ```scala
 project.settings(
-  useYarn := true
+  stUseYarn := true
 )
 ```
 Yarn will need to be present on your system for this to work. You should also check in `yarn.lock`.
@@ -158,7 +157,7 @@ The names you supply should be exactly as they appear in the generated scala cod
 ```scala
 project.settings(
   /* setup libraries */
-  Compile / npmDependencies ++= Seq(
+  Compile / stNpmDependencies ++= Seq(
     "moment" -> "2.24.0",
     "react-big-calendar" -> "0.22",
     "@types/react-big-calendar" -> "0.22.3"

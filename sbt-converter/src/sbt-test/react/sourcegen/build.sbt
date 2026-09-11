@@ -3,14 +3,14 @@ lazy val testProject =
     .in(file("."))
     .enablePlugins(ScalablyTypedConverterGenSourcePlugin)
     .settings(
-      useYarn := true,
-      Compile / npmDependencies ++= Seq(
+      stUseYarn := true,
+      Compile / stNpmDependencies ++= Seq(
         "@types/express" -> "4.17.2",
       ),
       stMinimize := Selection.AllExcept("express", "node"),
       stStdlib := List("es5"),
       scalaJSUseMainModuleInitializer := true,
-      scalaVersion := "2.13.2",
+      scalaVersion := "2.13.18",
       organization := "com.olvind",
       stOutputPackage := "mytypings",
     )

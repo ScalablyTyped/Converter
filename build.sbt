@@ -100,22 +100,47 @@ lazy val cli = project
 
 lazy val `sbt-converter` = project
   .dependsOn(`importer-portable` % "compile->compile;test->test")
-  .enablePlugins(ScriptedPlugin)
+  .enablePlugins(SbtPlugin)
   .configure(baseSettings)
   .settings(
     name := "sbt-converter",
-    scalaVersion := scala212, // Always use Scala 2.12 for this project
-    crossScalaVersions := Seq(scala212), // For now, keep SBT 1.x only
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.21.1"),
-    addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.20.1"),
-    sbtPlugin := true,
+    /* Scala 2.12 produces the sbt 1.x plugin, Scala 3 the sbt 2.x plugin */
+    crossScalaVersions := Seq(scala212, scala3),
+    pluginCrossBuild / sbtVersion := {
+      scalaBinaryVersion.value match {
+        case "2.12" => sbt1
+        case _      => sbt2
+      }
+    },
+    addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.22.0"),
+    /* `PlatformDepsPlugin` (which gives us `%%%`) only exists for sbt 1.x.
+     * sbt 2.x has cross-platform support built in, and `sbt-scalajs` no longer depends on it. */
+    libraryDependencies ++= {
+      val sbtV   = (pluginCrossBuild / sbtBinaryVersion).value
+      val scalaV = scalaBinaryVersion.value
+      if (scalaV == "2.12")
+        Seq(Defaults.sbtPluginExtra("org.portable-scala" % "sbt-platform-deps" % "1.0.2", sbtV, scalaV))
+      else Nil
+    },
+    /* sbt 2.x brings its own `scala-collection-compat_3`, while our `for3Use2_13` dependencies drag in
+     * the `_2.13` build of the very same library. They are interchangeable, so drop the 2.13 one. */
+    excludeDependencies ++= {
+      if (scalaBinaryVersion.value == "2.12") Nil
+      else Seq(ExclusionRule("org.scala-lang.modules", "scala-collection-compat_2.13"))
+    },
     // set up 'scripted; sbt plugin for testing sbt plugins
     scriptedBufferLog := false,
     scriptedLaunchOpts ++= Seq("-Xmx2048M", "-Dplugin.version=" + version.value),
+    scriptedSbt := (pluginCrossBuild / sbtVersion).value,
     watchSources ++= {
       (sourceDirectory.value ** "*").get
     },
     libraryDependencies ++= Seq(Deps.awssdkS3),
+    scalacOptions ~= (_.filterNot(_.startsWith("-scala-output-version"))),
+    /* parallel collections are built into Scala 2.12, but a separate library from 2.13 on */
+    libraryDependencies ++= {
+      if (scalaBinaryVersion.value == "2.12") Nil else Seq(Deps.parallelCollections)
+    },
   )
 
 lazy val `import-scalajs-definitions` = project
@@ -149,7 +174,14 @@ lazy val root = project
   .aggregate(logging, core, phases, ts, scalajs, `importer-portable`, `sbt-converter`, importer, cli)
 
 lazy val scala212 = "2.12.20"
-lazy val scala3   = "3.3.4"
+/* sbt 2.0.8's own Scala version. The Scala 3 axis feeds the sbt 2 plugin, and every module lands on the meta-build
+ * classpath, so nothing here may be newer than what sbt compiles build.sbt with: a newer scala3-library evicts sbt's,
+ * and newer TASTy in sbt-converter (which drops -scala-output-version) is unreadable when build.sbt is compiled. */
+lazy val scala3 = "3.8.4"
+
+/* the oldest sbt 1.x / 2.x we compile `sbt-converter` against */
+lazy val sbt1 = "1.10.11"
+lazy val sbt2 = "2.0.8"
 
 lazy val baseSettings: Project => Project =
   _.settings(
@@ -171,7 +203,10 @@ lazy val baseSettings: Project => Project =
     scalacOptions ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((3, _)) =>
-          Seq("-no-indent", "-source:3.3")
+          /* the library modules are compiled with the current LTS but keep emitting TASTy that the
+           * previous LTS (3.3) can still read, so we don't strand consumers who haven't moved yet.
+           * `sbt-converter` filters this out again, it links against sbt 2.x's own 3.8 TASTy. */
+          Seq("-no-indent", "-source:3.3", "-scala-output-version:3.3")
         case _ =>
           Seq()
       }

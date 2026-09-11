@@ -42,8 +42,8 @@ project.settings(
 
 ### `stIncludeDev`
 
-By default the plugin only includes dependencies defined with `npmDependencies`. 
-If you set this to true `npmDevDependencies` will also be included.
+By default the plugin only includes dependencies defined with `stNpmDependencies`. 
+If you set this to true `stNpmDevDependencies` will also be included.
 
 Note that dependencies from `Test` scope are included as well. 
 The resulting jars are all added to the `Compile` classpath.

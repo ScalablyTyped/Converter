@@ -14,7 +14,6 @@ import org.scalablytyped.converter.internal.importer.build.{Compiler, CompilerPa
 import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
 import sbt._
 import sbt.coursierint.CoursierInputsTasks.credentialsTask
-import sbt.coursierint.CoursierRepositoriesTasks.coursierResolversTask
 import sbt.internal.inc.classpath.ClassLoaderCache
 import sbt.internal.inc.{AnalyzingCompiler, LoggedReporter, PlainVirtualFile, ScalaInstance, ZincLmUtil, ZincUtil}
 import sbt.librarymanagement.DependencyResolution
@@ -56,7 +55,7 @@ class ZincCompiler(inputs: Inputs, logger: Logger[Unit], resolve: Dep => Array[F
               .map(p => PlainVirtualFile(p.toNIO))
               .toArray,
           )
-          .withClassesDirectory(files.existing(compilerPaths.classesDir).toNIO),
+          .withClassesDirectory(org.scalablytyped.converter.internal.files.existing(compilerPaths.classesDir).toNIO),
       )
 
     try {
@@ -88,12 +87,14 @@ object ZincCompiler {
       Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion),
     )
 
-    val resolver = DependencyResolution(
-      new CoursierDependencyResolution(
-        CoursierConfiguration()
-          .withCredentials(credentialsTask.value.toVector)
-          .withResolvers(coursierResolversTask.value.toVector),
-      ),
+    /* Deliberately assembled by hand rather than taken from `csrConfiguration`: that key depends on
+     * `allDependencies`, which we extend with the very artifacts this compiler produces, so using it
+     * deadlocks the task engine. `csrResolvers` carries the resolvers without dragging the project's
+     * dependency graph along, and exists in both sbt 1.x and 2.x. */
+    val resolver: DependencyResolution = CoursierDependencyResolution(
+      CoursierConfiguration()
+        .withCredentials(credentialsTask.value.toVector)
+        .withResolvers(csrResolvers.value.toVector),
     )
 
     def resolve(dep: Dep): Array[File] =

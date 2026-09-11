@@ -19,8 +19,16 @@ object Versions {
       if (is3) Dep.Scala(scalaOrganization, "scala3-compiler", scalaVersion)
       else Dep.Java(scalaOrganization, "scala-compiler", scalaVersion)
 
+    /* Scala 3.0-3.7 run on the Scala 2.13 standard library; from 3.8 on, `scala-library` is versioned and built
+     * with Scala 3 itself. Pairing a 3.8+ compiler with the 2.13 library fails at runtime, e.g. 3.9 dies with
+     * `NoSuchMethodError: scala.Option.orNull()` inside the compiler. */
+    val usesScala3Stdlib: Boolean = scalaVersion match {
+      case Version("3", minor, _) => minor.toInt >= 8
+      case _                      => false
+    }
+
     val library: Dep.Java =
-      if (is3) Scala213.library
+      if (is3 && !usesScala3Stdlib) Scala213.library
       else Dep.Java(scalaOrganization, "scala-library", scalaVersion)
 
     val dottyLibrary: Option[Dep.Java] =
