@@ -217,7 +217,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
                   IArray.exactlyOne(tpe),
                   ) =>
                 TypeRef(
-                  importName(TsQIdent.Array),
+                  QualifiedName.JsArray,
                   IArray(apply(scope, importName)(TsTypeUnion(rest.map(_.tpe) :+ tpe))).distinct,
                   labelComment(repeatedElem),
                 )
