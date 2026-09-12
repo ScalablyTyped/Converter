@@ -196,6 +196,8 @@ class IdentifyReactComponents(
 
     val flattenedParams = method.params.flatten
 
+    val jsName = jsNameOf(method)
+
     flattenedParams.length match {
       /* optional props and context */
       case 0 | 1 | 2 =>
@@ -204,8 +206,13 @@ class IdentifyReactComponents(
           case _ => true
         }
         val propsRef = reactNames.unpackedProps(flattenedParams.headOption.map(_.tpe).getOrElse(TypeRef.JsObject))
+        /* like mui's `export default function TextField(...)` in `@mui/material/TextField/TextField` */
+        def ownerIsJsModule = owner.annotations.exists {
+          case Annotation.JsImport(_, Imported.Namespace, _) => true
+          case _                                             => false
+        }
         def validName =
-          isUpper(method.name) || (Unnamed(method.name) && (isUpper(owner.name) || Unnamed(owner.name) || owner.name === Name.mod))
+          isUpper(method.name) || (Unnamed(jsName) && (isUpper(owner.name) || Unnamed(owner.name) || owner.name === Name.mod || ownerIsJsModule))
 
         if (!validName || !isTopLevel || !method.isNative) None
         else
@@ -226,7 +233,7 @@ class IdentifyReactComponents(
                 Component(
                   location      = Right(locationFrom(scope)),
                   scalaRef      = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
-                  fullName      = componentName(method.annotations, QualifiedName(IArray(method.name))),
+                  fullName      = componentName(method.annotations, QualifiedName(IArray(jsName))),
                   tparams       = method.tparams,
                   propsRef      = propsRef,
                   componentType = ComponentType.Function,
@@ -244,33 +251,33 @@ class IdentifyReactComponents(
       restAsPackage: PackageTree,
   )
 
+  /* also split intersections hidden behind type aliases, like
+   * mui's `type ExtendButtonBase<M> = ((props: ...) => JSX.Element) & OverridableComponent<M>` */
+  def flattenIntersections(scope: TreeScope)(tpe: TypeRef): IArray[TypeRef] =
+    tpe match {
+      case TypeRef.Intersection(types, _) => types.flatMap(flattenIntersections(scope))
+      case other =>
+        FollowAliases(scope)(other) match {
+          case TypeRef.Intersection(types, _) => types.flatMap(flattenIntersections(scope))
+          case _                              => IArray(other)
+        }
+    }
+
   def separateContainer(c: ContainerTree, scope: TreeScope): SeparatedContainer = {
     val parentRefs: IArray[TypeRef] = {
       val fromNamespaced: IArray[TypeRef] = {
         c.index
           .getOrElse(Name.namespaced, Empty)
           .collectFirst {
-            case m: ModuleTree =>
-              m.parents.flatMap {
-                case TypeRef.Intersection(types, _) => types
-                case tpe                            => IArray(tpe)
-              }
-            case f: FieldTree =>
-              f.tpe match {
-                case TypeRef.Intersection(types, _) => types
-                case other                          => IArray(other)
-              }
+            case m: ModuleTree => m.parents.flatMap(flattenIntersections(scope))
+            case f: FieldTree  => flattenIntersections(scope)(f.tpe)
           }
           .getOrElse(Empty)
       }
 
       val normal = c match {
         case _: PackageTree => Empty
-        case x: ModuleTree =>
-          x.parents.flatMap {
-            case TypeRef.Intersection(types, _) => types
-            case other                          => IArray(other)
-          }
+        case x: ModuleTree  => x.parents.flatMap(flattenIntersections(scope))
       }
 
       fromNamespaced ++ normal
@@ -290,7 +297,7 @@ class IdentifyReactComponents(
     val separated = separateContainer(c, scope)
 
     val componentOpt: Option[Component] = {
-      def fromParents = separated.parentRefs.firstDefined { tpe =>
+      def fromParents(f: FieldTree => Option[Component]) = separated.parentRefs.firstDefined { tpe =>
         val asField = FieldTree(
           annotations = c.annotations,
           level       = ProtectionLevel.Public,
@@ -302,11 +309,15 @@ class IdentifyReactComponents(
           comments    = c.comments,
           codePath    = c.codePath,
         )
-        maybeFieldComponent(asField, c, scope)
+        f(asField)
       }
       def fromApplies = separated.applyMembers.firstDefined(a => maybeMethodComponent(a, c, scope / a))
 
-      fromParents.orElse(fromApplies)
+      /* a bare function parent is tried last. mui's `ExtendButtonBase` is an intersection of a function which requires
+       * `href` and an `OverridableComponent`, and we want the latter */
+      fromParents(field => componentFromType(field, scope))
+        .orElse(fromApplies)
+        .orElse(fromParents(field => componentFromFunction(field, c, scope)))
     }
 
     componentOpt match {
@@ -318,7 +329,7 @@ class IdentifyReactComponents(
     }
   }
 
-  def maybeFieldComponent(field: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
+  def componentFromType(field: FieldTree, scope: TreeScope): Option[Component] = {
     def pointsAtComponentType(scope: TreeScope, current: TypeRef): Option[PropsRef] =
       reactNames.isComponent(current).orElse {
         scope
@@ -336,7 +347,7 @@ class IdentifyReactComponents(
           }
       }
 
-    val fieldResult = pointsAtComponentType(scope, field.tpe).map(propsRef =>
+    pointsAtComponentType(scope, field.tpe).map(propsRef =>
       Component(
         location      = Right(locationFrom(scope)),
         scalaRef      = TypeRef(field.codePath),
@@ -347,36 +358,36 @@ class IdentifyReactComponents(
         nested        = Empty,
       ),
     )
-    def isAliasToFC: Option[Component] =
-      FollowAliases(scope)(field.tpe) match {
-        case TypeRef.JsFunction(paramTypes, ret) =>
-          val params =
-            paramTypes.map(tpe =>
-              ParamTree(Name.dummy, isImplicit = false, isVal = false, tpe, NotImplemented, NoComments),
-            )
-
-          maybeMethodComponent(
-            MethodTree(
-              annotations = field.annotations,
-              level       = ProtectionLevel.Public,
-              name        = field.name,
-              tparams     = Empty,
-              params      = IArray(params),
-              impl        = field.impl,
-              resultType  = ret,
-              isOverride  = false,
-              comments    = field.comments,
-              codePath    = field.codePath,
-              isImplicit  = false,
-            ),
-            owner,
-            scope,
-          )
-        case _ => None
-      }
-
-    fieldResult.orElse(isAliasToFC)
   }
+
+  /* a field whose type is (an alias to) a function returning an element */
+  def componentFromFunction(field: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] =
+    FollowAliases(scope)(field.tpe) match {
+      case TypeRef.JsFunction(paramTypes, ret) =>
+        val params =
+          paramTypes.map(tpe =>
+            ParamTree(Name.dummy, isImplicit = false, isVal = false, tpe, NotImplemented, NoComments),
+          )
+
+        maybeMethodComponent(
+          MethodTree(
+            annotations = field.annotations,
+            level       = ProtectionLevel.Public,
+            name        = field.name,
+            tparams     = Empty,
+            params      = IArray(params),
+            impl        = field.impl,
+            resultType  = ret,
+            isOverride  = false,
+            comments    = field.comments,
+            codePath    = field.codePath,
+            isImplicit  = false,
+          ),
+          owner,
+          scope,
+        )
+      case _ => None
+    }
 
   def maybeClassComponent(cls: ClassTree, scope: TreeScope): Option[Component] =
     if (cls.classType =/= ClassType.Class) None
@@ -431,6 +442,22 @@ class IdentifyReactComponents(
 
   def isUpper(n: Name): Boolean = n.value.head.isUpper
 
+  /* the name on the javascript side. `CombineOverloads` may have renamed a method, like mui's generic
+   * `export default function TextField<Variant>` which ends up as `default_variant`.
+   * The location of `apply` and `namespaced` members points at their owner, so they keep their names */
+  def jsNameOf(tree: Tree): Name =
+    tree match {
+      case x: MemberTree if x.name =/= Name.APPLY && x.name =/= Name.namespaced =>
+        x.annotations
+          .collectFirst {
+            case Annotation.JsName(name)                                   => name
+            case Annotation.JsImport(_, Imported.Default, _)               => Name.Default
+            case Annotation.JsImport(_, Imported.Named(IArray.last(n)), _) => n
+          }
+          .getOrElse(tree.name)
+      case other => other.name
+    }
+
   def locationFrom(scope: TreeScope): LocationAnnotation = {
     var baseLocationOpt: Option[LocationAnnotation] = None
     var after = List.empty[Tree]
@@ -466,24 +493,25 @@ class IdentifyReactComponents(
       (`import`, tree) match {
         case (ann, tree) if tree.name === Name.APPLY => ann
         case (Annotation.JsImport(mod, imported, globalOpt), tree) =>
+          val jsName = jsNameOf(tree)
           val newImported: Imported =
             imported match {
               case Imported.Namespace =>
-                tree.name match {
+                jsName match {
                   case Name.Default => Imported.Default
                   case other        => Imported.Named(IArray(other))
                 }
-              case Imported.Default     => Imported.Named(IArray(Name.Default, tree.name))
-              case Imported.Named(name) => Imported.Named(name :+ tree.name)
+              case Imported.Default     => Imported.Named(IArray(Name.Default, jsName))
+              case Imported.Named(name) => Imported.Named(name :+ jsName)
             }
 
           val newGlobal = globalOpt.map {
-            case Annotation.JsGlobal(old) => Annotation.JsGlobal(old + tree.name)
+            case Annotation.JsGlobal(old) => Annotation.JsGlobal(old + jsName)
           }
 
           Annotation.JsImport(mod, newImported, newGlobal)
-        case (Annotation.JsGlobal(name), tree) => Annotation.JsGlobal(name + tree.name)
-        case (Annotation.JsGlobalScope, tree)  => Annotation.JsGlobal(QualifiedName(IArray(tree.name)))
+        case (Annotation.JsGlobal(name), tree) => Annotation.JsGlobal(name + jsNameOf(tree))
+        case (Annotation.JsGlobalScope, tree)  => Annotation.JsGlobal(QualifiedName(IArray(jsNameOf(tree))))
 
       }
 

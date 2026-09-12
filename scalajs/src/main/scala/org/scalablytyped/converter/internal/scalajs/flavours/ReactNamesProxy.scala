@@ -15,6 +15,9 @@ class ReactNamesProxy(reactNames: ReactNames, rewrites: IArray[CastConversion]) 
   val ComponentQNames: Set[QualifiedName] =
     reactNames.ComponentQNames.flatMap(withRewritten)
 
+  val ComponentConstructorQNames: Set[QualifiedName] =
+    reactNames.ComponentConstructorQNames.flatMap(withRewritten)
+
   val WrappedComponentsQNames: Set[QualifiedName] =
     reactNames.WrappedComponentsQNames.flatMap(withRewritten)
 
@@ -25,7 +28,7 @@ class ReactNamesProxy(reactNames: ReactNames, rewrites: IArray[CastConversion]) 
     tr match {
       case TypeRef.Intersection(types, _) =>
         types.firstDefined(isComponent)
-      case TypeRef(c, IArray.first(props), _) if ComponentQNames(c) =>
+      case TypeRef(c, IArray.first(props), _) if ComponentQNames(c) || ComponentConstructorQNames(c) =>
         isComponent(props).orElse(Some(unpackedProps(props)))
       case TypeRef(c, IArray.first(cc), _) if WrappedComponentsQNames(c) =>
         isComponent(cc)

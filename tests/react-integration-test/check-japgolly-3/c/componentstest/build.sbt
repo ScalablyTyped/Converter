@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "componentstest"
-version := "0.0-unknown-1f706d"
+version := "0.0-unknown-e952d3"
 scalaVersion := "3.3.6"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

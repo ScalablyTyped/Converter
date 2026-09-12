@@ -56,6 +56,11 @@ class ReactNames(val outputPkg: Name) {
     "ForwardRefExoticComponent",
   )
 
+  /* components as far as identifying them goes. kept out of `ComponentQNames` because they may be function components,
+   * and Slinky rewrites everything in `ComponentLike` to `ReactComponentClass` */
+  val ComponentConstructorQNames: Set[QualifiedName] =
+    explode("JSXElementConstructor")
+
   val ComponentLike: Set[QualifiedName] =
     ComponentQNames ++ WrappedComponentsQNames
 
