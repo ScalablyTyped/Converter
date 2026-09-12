@@ -173,7 +173,7 @@ lazy val root = project
   .configure(baseSettings)
   .aggregate(logging, core, phases, ts, scalajs, `importer-portable`, `sbt-converter`, importer, cli)
 
-lazy val scala212 = "2.12.20"
+lazy val scala212 = "2.12.21"
 /* sbt 2.0.8's own Scala version. The Scala 3 axis feeds the sbt 2 plugin, and every module lands on the meta-build
  * classpath, so nothing here may be newer than what sbt compiles build.sbt with: a newer scala3-library evicts sbt's,
  * and newer TASTy in sbt-converter (which drops -scala-output-version) is unreadable when build.sbt is compiled. */
