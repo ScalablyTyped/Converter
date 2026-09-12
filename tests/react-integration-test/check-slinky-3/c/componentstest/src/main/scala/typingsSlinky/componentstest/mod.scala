@@ -4,12 +4,18 @@ import org.scalajs.dom.Event
 import org.scalajs.dom.HTMLDivElement
 import slinky.core.ReactComponentClass
 import slinky.core.SyntheticEvent
+import slinky.core.facade.ReactElement
 import slinky.web.SyntheticMouseEvent
 import typingsSlinky.componentstest.anon.Equals
+import typingsSlinky.componentstest.anon.Href
+import typingsSlinky.componentstest.anon.hrefstringFooProps
+import typingsSlinky.componentstest.componentstestStrings.button
 import typingsSlinky.react.mod.CSSProperties
 import typingsSlinky.react.mod.FunctionComponent
+import typingsSlinky.react.mod.JSXElementConstructor
 import typingsSlinky.react.mod.MouseEventHandler
 import typingsSlinky.react.mod.RefAttributes
+import typingsSlinky.react.mod.global.JSX.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -28,13 +34,29 @@ object mod {
   @js.native
   val Grid: ReactComponentClass[CardGridProps] = js.native
   
+  @JSImport("componentstest", "Inline")
+  @js.native
+  val Inline: (js.Function1[/* props */ hrefstringFooProps, Element]) & OverridableComponent[FooTypeMap] = js.native
+  
   @JSImport("componentstest", "ObjectNames")
   @js.native
   val ObjectNames: ReactComponentClass[Equals] = js.native
   
+  @JSImport("componentstest", "Plain")
+  @js.native
+  val Plain: OverridableComponent[FooTypeMap] = js.native
+  
   @JSImport("componentstest", "VeryExotic")
   @js.native
   val VeryExotic: ReactComponentClass[ReactComponentClass[RefAttributes[HTMLDivElement]]] = js.native
+  
+  @JSImport("componentstest", "ViaAlias")
+  @js.native
+  val ViaAlias: ExtendButtonBase[FooTypeMap] = js.native
+  
+  @JSImport("componentstest", "ViaConstructor")
+  @js.native
+  val ViaConstructor: JSXElementConstructor[FooProps] = js.native
   
   trait A
     extends StObject
@@ -174,6 +196,83 @@ object mod {
     implicit open class MutableBuilder[Self <: Events] (val x: Self) extends AnyVal {
       
       inline def setOnClick(value: SyntheticEvent[Any, Event] => Unit): Self = StObject.set(x, "onClick", js.Any.fromFunction1(value))
+    }
+  }
+  
+  type ExtendButtonBase[M /* <: OverridableTypeMap */] = (js.Function1[
+    /* props */ Href & (/* import warning: importer.ImportType#apply Failed type conversion: M['props'] */ js.Any), 
+    Element
+  ]) & OverridableComponent[M]
+  
+  trait FooProps extends StObject {
+    
+    var disabled: js.UndefOr[Boolean] = js.undefined
+    
+    var label: js.UndefOr[String] = js.undefined
+  }
+  object FooProps {
+    
+    inline def apply(): FooProps = {
+      val __obj = js.Dynamic.literal()
+      __obj.asInstanceOf[FooProps]
+    }
+    
+    @scala.inline
+    implicit open class MutableBuilder[Self <: FooProps] (val x: Self) extends AnyVal {
+      
+      inline def setDisabled(value: Boolean): Self = StObject.set(x, "disabled", value.asInstanceOf[js.Any])
+      
+      inline def setDisabledUndefined: Self = StObject.set(x, "disabled", js.undefined)
+      
+      inline def setLabel(value: String): Self = StObject.set(x, "label", value.asInstanceOf[js.Any])
+      
+      inline def setLabelUndefined: Self = StObject.set(x, "label", js.undefined)
+    }
+  }
+  
+  trait FooTypeMap extends StObject {
+    
+    var defaultComponent: button
+    
+    var props: FooProps
+  }
+  object FooTypeMap {
+    
+    inline def apply(props: FooProps): FooTypeMap = {
+      val __obj = js.Dynamic.literal(defaultComponent = "button", props = props.asInstanceOf[js.Any])
+      __obj.asInstanceOf[FooTypeMap]
+    }
+    
+    @scala.inline
+    implicit open class MutableBuilder[Self <: FooTypeMap] (val x: Self) extends AnyVal {
+      
+      inline def setDefaultComponent(value: button): Self = StObject.set(x, "defaultComponent", value.asInstanceOf[js.Any])
+      
+      inline def setProps(value: FooProps): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
+    }
+  }
+  
+  @js.native
+  trait OverridableComponent[M /* <: OverridableTypeMap */] extends StObject {
+    
+    def apply(props: /* import warning: importer.ImportType#apply Failed type conversion: M['props'] */ js.Any): Element | Null = js.native
+  }
+  
+  trait OverridableTypeMap extends StObject {
+    
+    var defaultComponent: ReactElement
+  }
+  object OverridableTypeMap {
+    
+    inline def apply(defaultComponent: ReactElement): OverridableTypeMap = {
+      val __obj = js.Dynamic.literal(defaultComponent = defaultComponent.asInstanceOf[js.Any])
+      __obj.asInstanceOf[OverridableTypeMap]
+    }
+    
+    @scala.inline
+    implicit open class MutableBuilder[Self <: OverridableTypeMap] (val x: Self) extends AnyVal {
+      
+      inline def setDefaultComponent(value: ReactElement): Self = StObject.set(x, "defaultComponent", value.asInstanceOf[js.Any])
     }
   }
   
