@@ -111,9 +111,11 @@ final class FindProps(
     }
 
   /* Typescript constructs which don't survive the translation to scala, but whose props we can still find:
-   *  - `Omit<T, 'a' | 'b'>`, which is `T` in scala
+   *  - `Omit<T, 'a' | 'b'>`, which is `T` in scala. When the keys aren't known (`keyof BaseProps<M>`) the props of `T`
+   *    are kept, as before, but `T` is still inspected for the other forms
    *  - `React.ComponentPropsWithRef<'button'>` and friends, which are conditional types. mui uses these for the
    *    props of the root element of a component
+   *  - indexed access types, when an alias is nothing more than one, like `@mui/types`' `BaseProps<M> = M['props']`
    * These are looked for through type aliases, since `FollowAliases` would get rid of them */
   private def forSpecialForm(
       typeRef:            TypeRef,
@@ -123,12 +125,19 @@ final class FindProps(
       acceptNativeTraits: Boolean,
   ): Option[Res[IArray[String], IArray[Prop]]] = {
     def go(current: TypeRef, fuel: Int): Option[Res[IArray[String], IArray[Prop]]] =
+      resolveIndexedAccess(current, scope) match {
+        case Some(resolved) => Some(forType(resolved, tparams, scope, maxNum, acceptNativeTraits))
+        case None           => goUnresolved(current, fuel)
+      }
+
+    def goUnresolved(current: TypeRef, fuel: Int): Option[Res[IArray[String], IArray[Prop]]] =
       current match {
         case TypeRef(StdOmit, IArray.exactlyTwo(tpe, keys), _) =>
-          stringLiterals(keys, scope).map(_.toSet).map { omitted =>
+          val omitted = stringLiterals(keys, scope).fold(Set.empty[String])(_.toSet)
+          Some(
             forType(tpe, tparams, scope, maxNum, acceptNativeTraits)
-              .map(_.filterNot(prop => omitted(originalName(prop).unescaped)))
-          }
+              .map(_.filterNot(prop => omitted(originalName(prop).unescaped))),
+          )
         case TypeRef(name, IArray.exactlyOne(elem), _) if ComponentPropsQNames(name) =>
           stringLiterals(elem, scope)
             .collect { case IArray.exactlyOne(tag) => tag }

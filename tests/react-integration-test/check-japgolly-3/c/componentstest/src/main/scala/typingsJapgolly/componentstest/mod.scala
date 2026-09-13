@@ -46,6 +46,10 @@ object mod {
   @js.native
   val Inline: (js.Function1[/* props */ hrefstringFooProps, Element]) & OverridableComponent[FooTypeMap] = js.native
   
+  @JSImport("componentstest", "LikeBox")
+  @js.native
+  val LikeBox: TypesOverridableComponent[FooTypeMap] = js.native
+  
   @JSImport("componentstest", "ObjectNames")
   @js.native
   val ObjectNames: FC[Equals] = js.native
@@ -381,5 +385,20 @@ object mod {
       val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
       __obj.asInstanceOf[typingsJapgolly.componentstest.mod.B]
     }
+  }
+  
+  type TypesBaseProps[M /* <: OverridableTypeMap */] = /* import warning: importer.ImportType#apply Failed type conversion: M['props'] */ js.Any
+  
+  type TypesDefaultComponentProps[M /* <: OverridableTypeMap */] = TypesBaseProps[M] & (Omit[
+    ComponentPropsWithRef[
+      /* import warning: importer.ImportType#apply Failed type conversion: M['defaultComponent'] */ js.Any
+    ], 
+    /* keyof componentstest.componentstest.TypesBaseProps<M> */ String
+  ])
+  
+  @js.native
+  trait TypesOverridableComponent[M /* <: OverridableTypeMap */] extends StObject {
+    
+    def apply(props: TypesDefaultComponentProps[M]): Element | Null = js.native
   }
 }

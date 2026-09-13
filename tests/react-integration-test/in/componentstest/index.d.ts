@@ -98,3 +98,18 @@ export const Inline: ((props: { href: string } & FooProps) => JSX.Element) & Ove
 
 /* like MUI SwipeableDrawer */
 export const ViaConstructor: React.JSXElementConstructor<FooProps>;
+
+/* the same as `OverridableComponent`, as declared in @mui/types (used by MUI Box and Grid): `BaseProps` is nothing
+ * more than the indexed access, and the omitted keys aren't known */
+export type TypesBaseProps<M extends OverridableTypeMap> = M['props'];
+
+export type TypesDefaultComponentProps<M extends OverridableTypeMap> =
+    TypesBaseProps<M> & Omit<React.ComponentPropsWithRef<M['defaultComponent']>, keyof TypesBaseProps<M>>;
+
+export interface TypesOverridableComponent<M extends OverridableTypeMap> {
+    <C extends React.ElementType>(props: { component: C } & TypesBaseProps<M>): JSX.Element | null;
+    (props: TypesDefaultComponentProps<M>): JSX.Element | null;
+}
+
+/* like MUI Box/Grid */
+export const LikeBox: TypesOverridableComponent<FooTypeMap>;
