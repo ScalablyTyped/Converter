@@ -447,14 +447,7 @@ class IdentifyReactComponents(
    * The location of `apply` and `namespaced` members points at their owner, so they keep their names */
   def jsNameOf(tree: Tree): Name =
     tree match {
-      case x: MemberTree if x.name =/= Name.APPLY && x.name =/= Name.namespaced =>
-        x.annotations
-          .collectFirst {
-            case Annotation.JsName(name)                                   => name
-            case Annotation.JsImport(_, Imported.Default, _)               => Name.Default
-            case Annotation.JsImport(_, Imported.Named(IArray.last(n)), _) => n
-          }
-          .getOrElse(tree.name)
+      case x: MemberTree if x.name =/= Name.APPLY && x.name =/= Name.namespaced => x.originalName
       case other => other.name
     }
 
