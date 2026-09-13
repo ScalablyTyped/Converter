@@ -21,8 +21,9 @@ case class NormalFlavour(
   override val rewrites: IArray[CastConversion] =
     scalaJsLibNames.All ++ (if (shouldUseScalaJsDomTypes) scalaJsDomNames.All else Empty)
 
-  val memberToProp  = new MemberToProp.Default(rewrites)
-  val findProps     = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
+  val memberToProp = new MemberToProp.Default(rewrites)
+  val findProps =
+    new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver, new ReactNames(outputPkg))
   val genCompanions = new GenCompanions(findProps, enableLongApplyMethod) >> GenPromiseOps
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree =

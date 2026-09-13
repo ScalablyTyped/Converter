@@ -1,6 +1,8 @@
 package typingsJapgolly.componentstest.components
 
-import typingsJapgolly.StBuildingComponent.Default
+import org.scalajs.dom.HTMLAnchorElement
+import typingsJapgolly.componentstest.mod.DefaultComponentProps
+import typingsJapgolly.componentstest.mod.FooTypeMap
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -11,9 +13,9 @@ object Plain {
   @js.native
   val component: js.Object = js.native
   
-  type Props = /* import warning: importer.ImportType#apply Failed type conversion: M['props'] */ js.Any
+  type Props = DefaultComponentProps[FooTypeMap]
   
-  implicit def make(companion: Plain.type): Default[js.Object] = new Default[js.Object](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: Plain.type): SharedBuilder_DefaultComponentProps833350959[HTMLAnchorElement] = new SharedBuilder_DefaultComponentProps833350959[HTMLAnchorElement](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: /* import warning: importer.ImportType#apply Failed type conversion: M['props'] */ js.Any): Default[js.Object] = new Default[js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: DefaultComponentProps[FooTypeMap]): SharedBuilder_DefaultComponentProps833350959[HTMLAnchorElement] = new SharedBuilder_DefaultComponentProps833350959[HTMLAnchorElement](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

@@ -24,7 +24,9 @@ class ReactNames(val outputPkg: Name) {
   val ComponentState       = mod + Name("ComponentState")
   val Jsx                  = mod + Name.global + Name("JSX")
   val JsxIntrinsicElements = Jsx + Name("IntrinsicElements")
-  val JsxReactElement      = Jsx + Name("Element")
+  /* since @types/react 18.2.8 `JSX` lives within the `React` namespace */
+  val ReactJsxIntrinsicElements = mod + Name("JSX") + Name("IntrinsicElements")
+  val JsxReactElement           = Jsx + Name("Element")
 
   val isRef: Set[QualifiedName] = Set(Ref, LegacyRef, RefObject, RefCallback)
 

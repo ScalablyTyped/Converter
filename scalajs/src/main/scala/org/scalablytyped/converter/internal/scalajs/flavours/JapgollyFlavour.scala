@@ -14,7 +14,7 @@ case class JapgollyFlavour(
   override val rewrites      = JapgollyTypeConversions(reactNames, scalaJsDomNames, scalaJsLibNames)
   override val dependencies  = Set(versions.runtime, versions.scalajsReact)
   val memberToPro            = new JapgollyMemberToProp(reactNamesProxy, rewrites)
-  val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToPro, parentsResolver)
+  val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToPro, parentsResolver, reactNames)
   val genStBuildingComponent = new JapgollyGenStBuildingComponent(outputPkg, versions.scala)
   val genComponents =
     new JapgollyGenComponents(findProps, genStBuildingComponent, reactNamesProxy, enableLongApplyMethod)

@@ -8,8 +8,12 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object componentstestStrings {
   
   @js.native
-  sealed trait button extends StObject
-  inline def button: button = "button".asInstanceOf[button]
+  sealed trait a extends StObject
+  inline def a: a = "a".asInstanceOf[a]
+  
+  @js.native
+  sealed trait className extends StObject
+  inline def className: className = "className".asInstanceOf[className]
   
   @js.native
   sealed trait filled
@@ -28,6 +32,10 @@ object componentstestStrings {
     extends StObject
        with TextFieldVariants
   inline def standard: standard = "standard".asInstanceOf[standard]
+  
+  @js.native
+  sealed trait style extends StObject
+  inline def style: style = "style".asInstanceOf[style]
   
   @js.native
   sealed trait variant extends StObject

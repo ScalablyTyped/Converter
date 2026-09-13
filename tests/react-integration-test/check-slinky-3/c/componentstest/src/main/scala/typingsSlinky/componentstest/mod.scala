@@ -9,13 +9,17 @@ import slinky.web.SyntheticMouseEvent
 import typingsSlinky.componentstest.anon.Equals
 import typingsSlinky.componentstest.anon.Href
 import typingsSlinky.componentstest.anon.hrefstringFooProps
-import typingsSlinky.componentstest.componentstestStrings.button
+import typingsSlinky.componentstest.componentstestStrings.a
+import typingsSlinky.componentstest.componentstestStrings.className
+import typingsSlinky.componentstest.componentstestStrings.style
 import typingsSlinky.react.mod.CSSProperties
+import typingsSlinky.react.mod.ComponentPropsWithRef
 import typingsSlinky.react.mod.FunctionComponent
 import typingsSlinky.react.mod.JSXElementConstructor
 import typingsSlinky.react.mod.MouseEventHandler
 import typingsSlinky.react.mod.RefAttributes
 import typingsSlinky.react.mod.global.JSX.Element
+import typingsSlinky.std.Omit
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -108,6 +112,28 @@ object mod {
     }
   }
   
+  type BaseProps[M /* <: OverridableTypeMap */] = (/* import warning: importer.ImportType#apply Failed type conversion: M['props'] */ js.Any) & CommonProps
+  
+  trait ButtonBaseOwnProps extends StObject {
+    
+    var disableRipple: js.UndefOr[Boolean] = js.undefined
+  }
+  object ButtonBaseOwnProps {
+    
+    inline def apply(): ButtonBaseOwnProps = {
+      val __obj = js.Dynamic.literal()
+      __obj.asInstanceOf[ButtonBaseOwnProps]
+    }
+    
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ButtonBaseOwnProps] (val x: Self) extends AnyVal {
+      
+      inline def setDisableRipple(value: Boolean): Self = StObject.set(x, "disableRipple", value.asInstanceOf[js.Any])
+      
+      inline def setDisableRippleUndefined: Self = StObject.set(x, "disableRipple", js.undefined)
+    }
+  }
+  
   trait CardGridProps extends StObject {
     
     var className: js.UndefOr[String] = js.undefined
@@ -181,6 +207,39 @@ object mod {
     }
   }
   
+  trait CommonProps extends StObject {
+    
+    var className: js.UndefOr[String] = js.undefined
+    
+    var style: js.UndefOr[CSSProperties] = js.undefined
+  }
+  object CommonProps {
+    
+    inline def apply(): CommonProps = {
+      val __obj = js.Dynamic.literal()
+      __obj.asInstanceOf[CommonProps]
+    }
+    
+    @scala.inline
+    implicit open class MutableBuilder[Self <: CommonProps] (val x: Self) extends AnyVal {
+      
+      inline def setClassName(value: String): Self = StObject.set(x, "className", value.asInstanceOf[js.Any])
+      
+      inline def setClassNameUndefined: Self = StObject.set(x, "className", js.undefined)
+      
+      inline def setStyle(value: CSSProperties): Self = StObject.set(x, "style", value.asInstanceOf[js.Any])
+      
+      inline def setStyleUndefined: Self = StObject.set(x, "style", js.undefined)
+    }
+  }
+  
+  type DefaultComponentProps[M /* <: OverridableTypeMap */] = BaseProps[M] & (Omit[
+    ComponentPropsWithRef[
+      /* import warning: importer.ImportType#apply Failed type conversion: M['defaultComponent'] */ js.Any
+    ], 
+    /* keyof componentstest.componentstest.BaseProps<M> */ className | style
+  ])
+  
   trait Events extends StObject {
     
     def onClick(event: SyntheticEvent[Any, Event]): Unit
@@ -199,10 +258,36 @@ object mod {
     }
   }
   
-  type ExtendButtonBase[M /* <: OverridableTypeMap */] = (js.Function1[
-    /* props */ Href & (/* import warning: importer.ImportType#apply Failed type conversion: M['props'] */ js.Any), 
-    Element
-  ]) & OverridableComponent[M]
+  type ExtendButtonBase[M /* <: OverridableTypeMap */] = (js.Function1[/* props */ Href & DefaultComponentProps[ExtendButtonBaseTypeMap[M]], Element]) & OverridableComponent[ExtendButtonBaseTypeMap[M]]
+  
+  trait ExtendButtonBaseTypeMap[M /* <: OverridableTypeMap */] extends StObject {
+    
+    var defaultComponent: /* import warning: importer.ImportType#apply Failed type conversion: M['defaultComponent'] */ js.Any
+    
+    var props: (/* import warning: importer.ImportType#apply Failed type conversion: M['props'] */ js.Any) & ButtonBaseOwnProps
+  }
+  object ExtendButtonBaseTypeMap {
+    
+    inline def apply[M /* <: OverridableTypeMap */](
+      defaultComponent: /* import warning: importer.ImportType#apply Failed type conversion: M['defaultComponent'] */ js.Any,
+      props: (/* import warning: importer.ImportType#apply Failed type conversion: M['props'] */ js.Any) & ButtonBaseOwnProps
+    ): ExtendButtonBaseTypeMap[M] = {
+      val __obj = js.Dynamic.literal(defaultComponent = defaultComponent.asInstanceOf[js.Any], props = props.asInstanceOf[js.Any])
+      __obj.asInstanceOf[ExtendButtonBaseTypeMap[M]]
+    }
+    
+    @scala.inline
+    implicit open class MutableBuilder[Self <: ExtendButtonBaseTypeMap[?], M /* <: OverridableTypeMap */] (val x: Self & ExtendButtonBaseTypeMap[M]) extends AnyVal {
+      
+      inline def setDefaultComponent(
+        value: /* import warning: importer.ImportType#apply Failed type conversion: M['defaultComponent'] */ js.Any
+      ): Self = StObject.set(x, "defaultComponent", value.asInstanceOf[js.Any])
+      
+      inline def setProps(
+        value: (/* import warning: importer.ImportType#apply Failed type conversion: M['props'] */ js.Any) & ButtonBaseOwnProps
+      ): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
+    }
+  }
   
   trait FooProps extends StObject {
     
@@ -232,21 +317,21 @@ object mod {
   
   trait FooTypeMap extends StObject {
     
-    var defaultComponent: button
+    var defaultComponent: a
     
     var props: FooProps
   }
   object FooTypeMap {
     
     inline def apply(props: FooProps): FooTypeMap = {
-      val __obj = js.Dynamic.literal(defaultComponent = "button", props = props.asInstanceOf[js.Any])
+      val __obj = js.Dynamic.literal(defaultComponent = "a", props = props.asInstanceOf[js.Any])
       __obj.asInstanceOf[FooTypeMap]
     }
     
     @scala.inline
     implicit open class MutableBuilder[Self <: FooTypeMap] (val x: Self) extends AnyVal {
       
-      inline def setDefaultComponent(value: button): Self = StObject.set(x, "defaultComponent", value.asInstanceOf[js.Any])
+      inline def setDefaultComponent(value: a): Self = StObject.set(x, "defaultComponent", value.asInstanceOf[js.Any])
       
       inline def setProps(value: FooProps): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
     }
@@ -255,7 +340,7 @@ object mod {
   @js.native
   trait OverridableComponent[M /* <: OverridableTypeMap */] extends StObject {
     
-    def apply(props: /* import warning: importer.ImportType#apply Failed type conversion: M['props'] */ js.Any): Element | Null = js.native
+    def apply(props: DefaultComponentProps[M]): Element | Null = js.native
   }
   
   trait OverridableTypeMap extends StObject {

@@ -1,7 +1,8 @@
 package typingsSlinky.componentstest.components
 
-import slinky.web.html.`*`.tag
-import typingsSlinky.StBuildingComponent.Default
+import org.scalajs.dom.HTMLAnchorElement
+import typingsSlinky.componentstest.mod.DefaultComponentProps
+import typingsSlinky.componentstest.mod.FooTypeMap
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -12,9 +13,9 @@ object Inline {
   @js.native
   val component: js.Object = js.native
   
-  type Props = /* import warning: importer.ImportType#apply Failed type conversion: M['props'] */ js.Any
+  type Props = DefaultComponentProps[FooTypeMap]
   
-  implicit def make(companion: Inline.type): Default[tag.type, js.Object] = new Default[tag.type, js.Object](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: Inline.type): SharedBuilder_DefaultComponentProps396776592[HTMLAnchorElement] = new SharedBuilder_DefaultComponentProps396776592[HTMLAnchorElement](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: /* import warning: importer.ImportType#apply Failed type conversion: M['props'] */ js.Any): Default[tag.type, js.Object] = new Default[tag.type, js.Object](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: DefaultComponentProps[FooTypeMap]): SharedBuilder_DefaultComponentProps396776592[HTMLAnchorElement] = new SharedBuilder_DefaultComponentProps396776592[HTMLAnchorElement](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

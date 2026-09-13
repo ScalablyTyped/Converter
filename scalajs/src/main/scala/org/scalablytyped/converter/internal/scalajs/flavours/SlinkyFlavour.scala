@@ -16,7 +16,7 @@ case class SlinkyFlavour(
   override val rewrites     = SlinkyTypeConversions(scalaJsDomNames, scalaJsLibNames, reactNames, isWeb = true)
 
   val memberToProp           = new MemberToProp.Default(rewrites)
-  val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
+  val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver, reactNames)
   val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod) >> GenPromiseOps
   val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg, versions.scala)
 

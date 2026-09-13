@@ -13,7 +13,7 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object TextField {
   
   inline def apply[Variant /* <: TextFieldVariants */](): Builder[Variant] = {
-    val __props = js.Dynamic.literal(variant = "filled")
+    val __props = js.Dynamic.literal()
     new Builder[Variant](js.Array(this.component, __props.asInstanceOf[`0`[Variant] & (Omit[TextFieldProps[TextFieldVariants], variant])]))
   }
   
@@ -29,9 +29,13 @@ object TextField {
     inline def disabled(value: Boolean): this.type = set("disabled", value.asInstanceOf[js.Any])
     
     inline def label(value: String): this.type = set("label", value.asInstanceOf[js.Any])
+    
+    inline def variant(value: Variant): this.type = set("variant", value.asInstanceOf[js.Any])
   }
   
   type Props[Variant /* <: TextFieldVariants */] = `0`[Variant] & (Omit[TextFieldProps[TextFieldVariants], variant])
+  
+  implicit def make[Variant /* <: TextFieldVariants */](companion: TextField.type): Builder[Variant] = new Builder[Variant](js.Array(this.component, js.Dictionary.empty))()
   
   def withProps[Variant /* <: TextFieldVariants */](p: `0`[Variant] & (Omit[TextFieldProps[TextFieldVariants], variant])): Builder[Variant] = new Builder[Variant](js.Array(this.component, p.asInstanceOf[js.Any]))
 }
