@@ -17,9 +17,8 @@ import japgolly.scalajs.react.ReactWheelEventFrom
 import org.scalajs.dom.Element
 import org.scalajs.dom.HTMLAnchorElement
 import typingsJapgolly.StBuildingComponent
-import typingsJapgolly.componentstest.mod.DefaultComponentProps
-import typingsJapgolly.componentstest.mod.ExtendButtonBaseTypeMap
 import typingsJapgolly.componentstest.mod.FooTypeMap
+import typingsJapgolly.componentstest.mod.TypesDefaultComponentProps
 import typingsJapgolly.react.anon.Html
 import typingsJapgolly.react.mod.CSSProperties
 import typingsJapgolly.react.reactStrings.`additions text`
@@ -62,9 +61,9 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object ViaAlias {
+object LikeBox {
   
-  @JSImport("componentstest", "ViaAlias")
+  @JSImport("componentstest", "LikeBox")
   @js.native
   val component: js.Object = js.native
   
@@ -198,8 +197,6 @@ object ViaAlias {
     inline def defaultValueVarargs(value: String*): this.type = set("defaultValue", js.Array(value*))
     
     inline def dir(value: String): this.type = set("dir", value.asInstanceOf[js.Any])
-    
-    inline def disableRipple(value: Boolean): this.type = set("disableRipple", value.asInstanceOf[js.Any])
     
     inline def disabled(value: Boolean): this.type = set("disabled", value.asInstanceOf[js.Any])
     
@@ -442,9 +439,9 @@ object ViaAlias {
     inline def vocab(value: String): this.type = set("vocab", value.asInstanceOf[js.Any])
   }
   
-  type Props = DefaultComponentProps[ExtendButtonBaseTypeMap[FooTypeMap]]
+  type Props = TypesDefaultComponentProps[FooTypeMap]
   
-  implicit def make(companion: ViaAlias.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: LikeBox.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: DefaultComponentProps[ExtendButtonBaseTypeMap[FooTypeMap]]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: TypesDefaultComponentProps[FooTypeMap]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

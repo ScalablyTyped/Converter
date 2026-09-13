@@ -17,9 +17,8 @@ import slinky.web.SyntheticUIEvent
 import slinky.web.SyntheticWheelEvent
 import slinky.web.html.a.tag
 import typingsSlinky.StBuildingComponent
-import typingsSlinky.componentstest.mod.DefaultComponentProps
-import typingsSlinky.componentstest.mod.ExtendButtonBaseTypeMap
 import typingsSlinky.componentstest.mod.FooTypeMap
+import typingsSlinky.componentstest.mod.TypesDefaultComponentProps
 import typingsSlinky.react.anon.Html
 import typingsSlinky.react.mod.CSSProperties
 import typingsSlinky.react.mod.DragEvent
@@ -63,9 +62,9 @@ import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
-object ViaAlias {
+object LikeBox {
   
-  @JSImport("componentstest", "ViaAlias")
+  @JSImport("componentstest", "LikeBox")
   @js.native
   val component: js.Object = js.native
   
@@ -199,8 +198,6 @@ object ViaAlias {
     inline def defaultValueVarargs(value: String*): this.type = set("defaultValue", js.Array(value*))
     
     inline def dir(value: String): this.type = set("dir", value.asInstanceOf[js.Any])
-    
-    inline def disableRipple(value: Boolean): this.type = set("disableRipple", value.asInstanceOf[js.Any])
     
     inline def disabled(value: Boolean): this.type = set("disabled", value.asInstanceOf[js.Any])
     
@@ -443,9 +440,9 @@ object ViaAlias {
     inline def vocab(value: String): this.type = set("vocab", value.asInstanceOf[js.Any])
   }
   
-  type Props = DefaultComponentProps[ExtendButtonBaseTypeMap[FooTypeMap]]
+  type Props = TypesDefaultComponentProps[FooTypeMap]
   
-  implicit def make(companion: ViaAlias.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: LikeBox.type): Builder = new Builder(js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: DefaultComponentProps[ExtendButtonBaseTypeMap[FooTypeMap]]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: TypesDefaultComponentProps[FooTypeMap]): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
 }

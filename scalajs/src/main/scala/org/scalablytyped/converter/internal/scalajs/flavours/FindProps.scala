@@ -89,9 +89,159 @@ final class FindProps(
     cleanIllegalNames: CleanIllegalNames,
     memberToProp:      MemberToProp,
     parentsResolver:   ParentsResolver,
+    reactNames:        ReactNames,
 ) {
+  private val StdOmit = QualifiedName(IArray(reactNames.outputPkg, Name.std, Name("Omit")))
+
+  private val ComponentPropsQNames: Set[QualifiedName] =
+    reactNames.ComponentPropsWithWithoutRefQNames ++ reactNames.explode("ComponentProps")
 
   def forType(
+      typeRef:            TypeRef,
+      tparams:            IArray[TypeParamTree],
+      scope:              TreeScope,
+      maxNum:             Int,
+      acceptNativeTraits: Boolean,
+  ): Res[IArray[String], IArray[Prop]] =
+    resolveIndexedAccess(typeRef, scope) match {
+      case Some(resolved) => forType(resolved, tparams, scope, maxNum, acceptNativeTraits)
+      case None =>
+        forSpecialForm(typeRef, tparams, scope, maxNum, acceptNativeTraits)
+          .getOrElse(forResolvedType(typeRef, tparams, scope, maxNum, acceptNativeTraits))
+    }
+
+  /* Typescript constructs which don't survive the translation to scala, but whose props we can still find:
+   *  - `Omit<T, 'a' | 'b'>`, which is `T` in scala. When the keys aren't known (`keyof BaseProps<M>`) the props of `T`
+   *    are kept, as before, but `T` is still inspected for the other forms
+   *  - `React.ComponentPropsWithRef<'button'>` and friends, which are conditional types. mui uses these for the
+   *    props of the root element of a component
+   *  - indexed access types, when an alias is nothing more than one, like `@mui/types`' `BaseProps<M> = M['props']`
+   * These are looked for through type aliases, since `FollowAliases` would get rid of them */
+  private def forSpecialForm(
+      typeRef:            TypeRef,
+      tparams:            IArray[TypeParamTree],
+      scope:              TreeScope,
+      maxNum:             Int,
+      acceptNativeTraits: Boolean,
+  ): Option[Res[IArray[String], IArray[Prop]]] = {
+    def go(current: TypeRef, fuel: Int): Option[Res[IArray[String], IArray[Prop]]] =
+      resolveIndexedAccess(current, scope) match {
+        case Some(resolved) => Some(forType(resolved, tparams, scope, maxNum, acceptNativeTraits))
+        case None           => goUnresolved(current, fuel)
+      }
+
+    def goUnresolved(current: TypeRef, fuel: Int): Option[Res[IArray[String], IArray[Prop]]] =
+      current match {
+        case TypeRef(StdOmit, IArray.exactlyTwo(tpe, keys), _) =>
+          val omitted = stringLiterals(keys, scope).fold(Set.empty[String])(_.toSet)
+          Some(
+            forType(tpe, tparams, scope, maxNum, acceptNativeTraits)
+              .map(_.filterNot(prop => omitted(originalName(prop).unescaped))),
+          )
+        case TypeRef(name, IArray.exactlyOne(elem), _) if ComponentPropsQNames(name) =>
+          stringLiterals(elem, scope)
+            .collect { case IArray.exactlyOne(tag) => tag }
+            .flatMap(intrinsicProps(_, scope))
+            .map(props => forType(props, tparams, scope, maxNum, acceptNativeTraits))
+        case other if fuel > 0 =>
+          dealiasOnce(other, scope).flatMap(go(_, fuel - 1))
+        case _ => None
+      }
+
+    go(typeRef, fuel = 20)
+  }
+
+  private def dealiasOnce(tpe: TypeRef, scope: TreeScope): Option[TypeRef] =
+    if (scope.isAbstract(tpe)) None
+    else
+      scope.lookup(tpe.typeName).collectFirst {
+        case (ta: TypeAliasTree, newScope) => FillInTParams(ta, newScope, tpe.targs, Empty).alias
+      }
+
+  /* the members of the intersection `tpe` is an alias to, without dealiasing the members themselves */
+  private def asWrittenIntersection(tpe: TypeRef, scope: TreeScope): Option[IArray[TypeRef]] = {
+    def go(current: TypeRef, fuel: Int): Option[IArray[TypeRef]] =
+      current match {
+        case TypeRef.Intersection(types, _) => Some(types)
+        case other if fuel > 0              => dealiasOnce(other, scope).flatMap(go(_, fuel - 1))
+        case _                              => None
+      }
+    go(tpe, fuel = 20)
+  }
+
+  /* a string literal or a union of them, also after `FakeLiterals` has run */
+  private def stringLiterals(tpe: TypeRef, scope: TreeScope): Option[IArray[String]] = {
+    def one(t: TypeRef): Option[String] =
+      t match {
+        case TypeRef.StringLiteral(value) => Some(value)
+        case other                        => other.comments.extract { case Marker.WasLiteral(ExprTree.StringLit(v)) => v }.map(_._1)
+      }
+
+    val types = FollowAliases(scope)(resolveIndexedAccesses(tpe, scope)) match {
+      case TypeRef.Union(types, _) => types
+      case other                   => IArray(other)
+    }
+    val found = types.mapNotNone(one)
+    if (found.length === types.length) Some(found) else None
+  }
+
+  /* the props type of `JSX.IntrinsicElements[tag]` */
+  private def intrinsicProps(tag: String, scope: TreeScope): Option[TypeRef] =
+    IArray(reactNames.ReactJsxIntrinsicElements, reactNames.JsxIntrinsicElements).firstDefined(qname =>
+      scope.lookup(qname).firstDefined {
+        case (cls: ClassTree, _) => cls.members.collectFirst { case f: FieldTree if f.name.unescaped === tag => f.tpe }
+        case _ => None
+      },
+    )
+
+  private def originalName(prop: Prop): Name =
+    prop match {
+      case x: Prop.Normal         => x.originalName
+      case x: Prop.CompressedProp => x.name
+    }
+
+  /* `TypeMap['props']` is imported as `js.Any` with a `Marker.IndexedAccess`. Once type parameters are filled in we can
+   * often find the member it points at. This is how mui's `OverridableComponent` declares the props of most components */
+  private def resolveIndexedAccess(typeRef: TypeRef, scope: TreeScope): Option[TypeRef] =
+    typeRef.comments.extract { case Marker.IndexedAccess(from, key) => (from, key) }.flatMap {
+      case ((from, key), _) =>
+        owners(from, scope).mapNotNone(owner => memberType(owner, key, scope)) match {
+          case Empty => None
+          case found => Some(TypeRef.Intersection(found, NoComments))
+        }
+    }
+
+  /* a lookup may resolve to another lookup, like `ExtendButtonBaseTypeMap<M>['defaultComponent']` to `M['defaultComponent']` */
+  private def resolveIndexedAccesses(tpe: TypeRef, scope: TreeScope, fuel: Int = 20): TypeRef =
+    resolveIndexedAccess(tpe, scope) match {
+      case Some(resolved) if fuel > 0 => resolveIndexedAccesses(resolved, scope, fuel - 1)
+      case _                          => tpe
+    }
+
+  /* the types which may declare the member, `from` in `from['key']` */
+  private def owners(tpe: TypeRef, scope: TreeScope): IArray[TypeRef] =
+    FollowAliases(scope)(resolveIndexedAccesses(tpe, scope)) match {
+      case TypeRef.Intersection(types, _) => types.flatMap(owners(_, scope))
+      case other                          => IArray(other)
+    }
+
+  private def memberType(owner: TypeRef, key: String, scope: TreeScope): Option[TypeRef] =
+    if (scope.isAbstract(owner)) None
+    else
+      scope.lookup(owner.typeName).firstDefined {
+        case (_cls: ClassTree, newScope) =>
+          val cls     = FillInTParams(_cls, newScope, owner.targs, Empty)
+          val parents = parentsResolver(newScope, cls).transitiveParents.values
+          (cls +: IArray.fromTraversable(parents)).firstDefined(
+            _.members.collectFirst {
+              case f: FieldTree if realNameFrom(f.annotations, f.name).unescaped === key =>
+                Optionality(f.tpe)._2
+            },
+          )
+        case _ => None
+      }
+
+  private def forResolvedType(
       typeRef:            TypeRef,
       tparams:            IArray[TypeParamTree],
       scope:              TreeScope,
@@ -102,8 +252,10 @@ final class FindProps(
       case TypeRef.Any => // todo: now that we can resolve `Any` we need a not found type or something.
         val msg = s"Could't extract props from ${Printer.formatTypeRef(0)(typeRef)} because couldn't resolve ClassTree."
         Res.Error(IArray(msg))
-      case TypeRef.JsObject => Res.One(typeRef, Empty)
-      case TypeRef.Intersection(types, _) =>
+      case TypeRef.JsObject                        => Res.One(typeRef, Empty)
+      case TypeRef.Intersection(dealiasedTypes, _) =>
+        /* `FollowAliases` has dealiased the members, which hides the forms `forSpecialForm` looks for */
+        val types = asWrittenIntersection(typeRef, scope).getOrElse(dealiasedTypes)
         val results: IArray[Res[IArray[String], IArray[Prop]]] =
           types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits))
 

@@ -19,7 +19,7 @@ case class SlinkyNativeFlavour(
     SlinkyTypeConversions(scalaJsDomNames, scalaJsLibNames, reactNames, isWeb = false)
 
   val memberToProp           = new MemberToProp.Default(rewrites)
-  val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
+  val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver, reactNames)
   val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg, versions.scala)
   val gen                    = new SlinkyGenComponents(SlinkyGenComponents.Native(()), findProps, genStBuildingComponent, reactNamesProxy)
   val genCompanions          = new GenCompanions(findProps, enableLongApplyMethod) >> GenPromiseOps

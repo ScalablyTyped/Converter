@@ -260,7 +260,12 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case other =>
         val msg = s"Failed type conversion: ${TsTypeFormatter(other)}"
         scope.logger.info(msg)
-        TypeRef(QualifiedName.JsAny, Empty, Comments(Comment.warning(msg)))
+        val indexedAccess: List[Marker] = other match {
+          case TsTypeLookup(from, TsTypeLiteral(TsLiteral.Str(key))) =>
+            List(Marker.IndexedAccess(apply(scope, importName)(from), key))
+          case _ => Nil
+        }
+        TypeRef(QualifiedName.JsAny, Empty, Comments(Comment.warning(msg)) ++ Comments(indexedAccess))
     }
   }
 

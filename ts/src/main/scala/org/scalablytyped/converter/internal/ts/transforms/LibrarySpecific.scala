@@ -104,6 +104,26 @@ object LibrarySpecific {
       }
   }
 
+  object muiTypes extends Named {
+    override val libName = TsIdentLibraryScoped("mui", "types")
+
+    override def enterTsDeclTypeAlias(t: TsTreeScope)(x: TsDeclTypeAlias): TsDeclTypeAlias =
+      x match {
+        /* `GenerateStringUnion<Overwrite<Record<T, true>, U>>` is the union `T` plus the keys users add to `U` through
+         * module augmentation, like `ButtonPropsVariantOverrides`. The mapped types involved end up as `js.Any`, which
+         * would make props like `variant` and `size` accept anything, so keep the part we can express */
+        case TsDeclTypeAlias(_, _, TsIdentSimple("OverridableStringUnion"), IArray.first(tparam), _, _) =>
+          x.copy(
+            alias = TsTypeRef(
+              Comments(Comment.warning("Simplified from GenerateStringUnion<Overwrite<Record<T, true>, U>>")),
+              TsQIdent(IArray(tparam.name)),
+              Empty,
+            ),
+          )
+        case _ => x
+      }
+  }
+
   object node extends Named {
     override val libName = TsIdentLibrarySimple("node")
 
@@ -198,7 +218,7 @@ object LibrarySpecific {
   }
 
   val patches: Map[TsIdentLibrary, Named] =
-    IArray(aMap, node, react, semanticUiReact, std, styledComponents)
+    IArray(aMap, muiTypes, node, react, semanticUiReact, std, styledComponents)
       .map(x => x.libName -> x)
       .toMap
 

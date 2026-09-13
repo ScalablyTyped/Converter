@@ -25,6 +25,10 @@ object Marker {
   case class WasLiteral(lit:        ExprTree.Lit) extends Marker
   case class WasUnion(related:      IArray[TypeRef]) extends Marker
 
+  /* An indexed access type like `TypeMap['props']`, which we translate to `js.Any`. Kept so that it can be resolved
+   * once type parameters are filled in, see `FindProps` */
+  case class IndexedAccess(from: TypeRef, key: String) extends Marker
+
   /* Disable the minimizer for object with this marker */
   final case class MinimizationKeep(related: IArray[TypeRef]) extends Marker
 
