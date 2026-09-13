@@ -4,6 +4,7 @@ import org.scalajs.dom.Event
 import org.scalajs.dom.EventTarget
 import org.scalajs.dom.HTMLAnchorElement
 import slinky.core.SyntheticEvent
+import slinky.core.facade.ReactElement
 import slinky.web.SyntheticAnimationEvent
 import slinky.web.SyntheticClipboardEvent
 import slinky.web.SyntheticCompositionEvent
@@ -182,6 +183,8 @@ object LikeBox {
     inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     
     inline def color(value: String): this.type = set("color", value.asInstanceOf[js.Any])
+    
+    inline def component(value: ReactElement): this.type = set("component", value.asInstanceOf[js.Any])
     
     inline def contentEditable(value: Boolean): this.type = set("contentEditable", value.asInstanceOf[js.Any])
     

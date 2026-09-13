@@ -129,13 +129,14 @@ object JapgollyGenComponents {
   }
 
   case class ComponentGroupKey(
-      propsRef:        PropsRef,
-      canBeReferenced: Boolean,
-      tparams:         IArray[TypeParamTree],
+      propsRef:         PropsRef,
+      canBeReferenced:  Boolean,
+      tparams:          IArray[TypeParamTree],
+      alternativeProps: IArray[TypeRef],
   )
 
   def groupKey(c: Component): ComponentGroupKey =
-    ComponentGroupKey(c.propsRef, c.referenceTo.isDefined, c.tparams)
+    ComponentGroupKey(c.propsRef, c.referenceTo.isDefined, c.tparams, c.alternativeProps)
 
   /**
     * I know.
@@ -184,8 +185,9 @@ class JapgollyGenComponents(
       allComponentsGrouped.map {
         case (group, _) =>
           val resProps: Res[IArray[String], IArray[Prop]] =
-            findProps.forType(
+            findProps.forTypeWithAlternatives(
               typeRef            = group.propsRef.ref,
+              alternatives       = group.alternativeProps,
               tparams            = group.tparams,
               scope              = scope,
               maxNum             = Int.MaxValue,
@@ -286,7 +288,9 @@ class JapgollyGenComponents(
     val PropsDom(propsRef, resProps) = propsDom
 
     resProps.map { splitProps =>
-      val hashValue = StableHash((propsRef, group.canBeReferenced, group.tparams))
+      val hashValue =
+        if (group.alternativeProps.isEmpty) StableHash((propsRef, group.canBeReferenced, group.tparams))
+        else StableHash((propsRef, group.canBeReferenced, group.tparams, group.alternativeProps))
       val name = Name(
         s"SharedBuilder_${nameFor(propsRef.ref)}$hashValue"
           .replaceAllLiterally("-", "_"),

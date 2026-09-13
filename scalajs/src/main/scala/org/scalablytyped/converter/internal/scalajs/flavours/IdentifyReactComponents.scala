@@ -227,6 +227,8 @@ class IdentifyReactComponents(
                   propsRef      = propsRef,
                   componentType = ComponentType.Field,
                   nested        = Empty,
+                  alternativeProps =
+                    method.comments.extract { case Marker.AlternativeProps(types) => types }.map(_._1).getOrElse(Empty),
                 )
 
               case _ =>

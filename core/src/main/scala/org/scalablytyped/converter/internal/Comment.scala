@@ -29,6 +29,11 @@ object Marker {
    * once type parameters are filled in, see `FindProps` */
   case class IndexedAccess(from: TypeRef, key: String) extends Marker
 
+  /* The props parameters of `apply` overloads `CombineOverloads` had to drop, with their type parameters replaced by
+   * their bounds. Components use them for props which the kept overload doesn't have, like the `component` of mui's
+   * `OverridableComponent` */
+  case class AlternativeProps(types: IArray[TypeRef]) extends Marker
+
   /* Disable the minimizer for object with this marker */
   final case class MinimizationKeep(related: IArray[TypeRef]) extends Marker
 

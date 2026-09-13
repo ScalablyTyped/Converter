@@ -14,6 +14,7 @@ import japgolly.scalajs.react.ReactTouchEventFrom
 import japgolly.scalajs.react.ReactTransitionEventFrom
 import japgolly.scalajs.react.ReactUIEventFrom
 import japgolly.scalajs.react.ReactWheelEventFrom
+import japgolly.scalajs.react.facade.React.ElementType
 import org.scalajs.dom.Element
 import org.scalajs.dom.HTMLAnchorElement
 import typingsJapgolly.StBuildingComponent
@@ -60,7 +61,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
 
 @scala.inline
-open class SharedBuilder_DefaultComponentProps833350959[R <: js.Object] (val args: js.Array[Any])
+open class SharedBuilder_DefaultComponentProps_606679076[R <: js.Object] (val args: js.Array[Any])
   extends AnyVal
      with StBuildingComponent[R] {
   
@@ -173,6 +174,8 @@ open class SharedBuilder_DefaultComponentProps833350959[R <: js.Object] (val arg
   inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
   
   inline def color(value: String): this.type = set("color", value.asInstanceOf[js.Any])
+  
+  inline def component(value: ElementType): this.type = set("component", value.asInstanceOf[js.Any])
   
   inline def contentEditable(value: Boolean): this.type = set("contentEditable", value.asInstanceOf[js.Any])
   

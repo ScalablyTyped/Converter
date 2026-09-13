@@ -83,17 +83,31 @@ class CombineOverloads(erasure: Erasure) extends TreeTransformation {
             (tparams.length, tparams.map(_.value).mkString(","), retType.parts.map(_.value).mkString("."))
         }
 
-    val default: MethodTree =
+    val combinedDefault: MethodTree =
       combineSameErasureSameTypeParams(grouped.head._2, None)
+
+    val dropped: IArray[MethodTree] =
+      grouped.drop(1).flatMap {
+        case (_, methods) if methods.head.name === Name.APPLY || methods.head.name === Name.namespaced =>
+          scope.logger.info(
+            s"Dropping ${methods.length} incompatible `apply` overloads (have no way to express this) at $scope",
+          )
+          methods
+        case _ => Empty
+      }
+
+    /* keep the props of dropped `apply` overloads, so components can offer them. See `Marker.AlternativeProps` */
+    val default: MethodTree =
+      dropped.filter(_.name === Name.APPLY).mapNotNone(alternativeProps(scope)) match {
+        case Empty => combinedDefault
+        case types => combinedDefault.copy(comments = combinedDefault.comments + Marker.AlternativeProps(types))
+      }
 
     val suffixed: IArray[MethodTree] =
       grouped
         .drop(1)
         .mapNotNone {
           case (_, methods) if methods.head.name === Name.APPLY || methods.head.name === Name.namespaced =>
-            scope.logger.info(
-              s"Dropping ${methods.length} incompatible `apply` overloads (have no way to express this) at $scope",
-            )
             None
           case ((tparamNames, retType), methods) =>
             val returnTypeSuffix: Option[Suffix] =
@@ -104,6 +118,17 @@ class CombineOverloads(erasure: Erasure) extends TreeTransformation {
 
     default +: suffixed
   }
+
+  /* the only parameter of a method, with the method's type parameters replaced by their bounds */
+  private def alternativeProps(scope: TreeScope)(method: MethodTree): Option[TypeRef] =
+    method.params.flatten match {
+      case IArray.exactlyOne(param) =>
+        val bounds = method.tparams.map { tp =>
+          TypeRef(QualifiedName(IArray(tp.name)), Empty, NoComments) -> tp.upperBound.getOrElse(TypeRef.Any)
+        }
+        Some(TypeRewriter(bounds.toMap).visitTypeRef(scope)(param.tpe))
+      case _ => None
+    }
 
   def asUnionType(_types: IArray[TypeRef]): TypeRef =
     _types match {
