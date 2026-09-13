@@ -128,6 +128,13 @@ lazy val `sbt-converter` = project
       if (scalaBinaryVersion.value == "2.12") Nil
       else Seq(ExclusionRule("org.scala-lang.modules", "scala-collection-compat_2.13"))
     },
+    /* `excludeDependencies` only applies to this build, it is not written to the published pom. Without this, every
+     * build using the sbt 2 plugin fails with "Conflicting cross-version suffixes in: scala-collection-compat" */
+    projectDependencies := {
+      val deps = projectDependencies.value
+      if (scalaBinaryVersion.value == "2.12") deps
+      else deps.map(_.exclude("org.scala-lang.modules", "scala-collection-compat_2.13"))
+    },
     // set up 'scripted; sbt plugin for testing sbt plugins
     scriptedBufferLog := false,
     scriptedLaunchOpts ++= Seq("-Xmx2048M", "-Dplugin.version=" + version.value),
