@@ -514,6 +514,7 @@ object TsQIdent {
     val Boolean       = TsQIdent(IArray(TsIdent.std, TsIdent("Boolean")))
     val ConcatArray   = TsQIdent(IArray(TsIdent.std, TsIdent("ConcatArray")))
     val Function      = TsQIdent(IArray(TsIdent.std, TsIdent("Function")))
+    val NonNullable   = TsQIdent(IArray(TsIdent.std, TsIdent("NonNullable")))
     val Object        = TsQIdent(IArray(TsIdent.std, TsIdent("Object")))
     val Promise       = TsQIdent(IArray(TsIdent.std, TsIdent("Promise")))
     val PromiseLike   = TsQIdent(IArray(TsIdent.std, TsIdent("PromiseLike")))

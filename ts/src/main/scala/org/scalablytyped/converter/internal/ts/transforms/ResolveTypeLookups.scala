@@ -20,6 +20,18 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
   def expandLookupType(scope: TsTreeScope, lookup: TsTypeLookup): Option[TsType] =
     ExpandTypeMappings.evaluateKeys(scope, LoopDetector.initial)(lookup.key) match {
       case ExpandTypeMappings.Ok(keys, _) =>
+        def isEmptyObject(tpe: TsType): Boolean =
+          FollowAliases(scope)(tpe) match {
+            case TsTypeObject(_, Empty) => true
+            case _                      => false
+          }
+
+        def isAbstract(tpe: TsType): Boolean =
+          FollowAliases(scope)(tpe) match {
+            case TsTypeRef(_, name, _) => scope.isAbstract(name)
+            case _                     => false
+          }
+
         def go(tpe: TsType): Option[TsType] =
           FollowAliases(scope)(tpe) match {
             case TsTypeRef(_, name, _) if scope.isAbstract(name) => None
@@ -33,6 +45,16 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
                 case (Empty, ok, Empty) => Some(TsTypeUnion(ok))
                 case _                  => None
               }
+            /* `(A & B)['k']` is `A['k'] & B['k']`, from the parts which have `k`. `{}` has no members, which also makes
+             * this work through `NonNullable<T>`, defined as `T & {}`. Give up if a part could be anything */
+            case TsTypeIntersect(types) =>
+              val parts = types.filterNot(isEmptyObject)
+              if (parts.exists(isAbstract)) None
+              else
+                parts.mapNotNone(go) match {
+                  case Empty => None
+                  case found => Some(TsTypeIntersect.simplified(found))
+                }
             case _ => None
           }
         go(lookup.from)
