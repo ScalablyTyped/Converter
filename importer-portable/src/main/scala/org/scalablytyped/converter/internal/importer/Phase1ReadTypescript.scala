@@ -328,7 +328,7 @@ object Phase1ReadTypescript {
           T.InlineConstEnum >>
           T.InlineTrivial
       ).visitTsParsedFile(scope.caching),
-      T.ResolveTypeLookups
+      (T.NonNullable >> T.ResolveTypeLookups) // together, so lookups through `NonNullable<...>` resolve
         .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams
       x => T.PreferTypeAlias(x, scope), // before extract interfaces
       T.ExtractInterfaces(libName, TsIdent("anon"), scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
