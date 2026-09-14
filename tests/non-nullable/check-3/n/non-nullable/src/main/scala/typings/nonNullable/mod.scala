@@ -1,6 +1,7 @@
 package typings.nonNullable
 
 import typings.nonNullable.anon.Badge
+import typings.std.NonNullable
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -10,6 +11,10 @@ object mod {
   @JSImport("non-nullable", JSImport.Namespace)
   @js.native
   val ^ : js.Any = js.native
+  
+  @JSImport("non-nullable", "aliased")
+  @js.native
+  val aliased: NonNullable[Node] = js.native
   
   inline def badge(props: BadgeBadgeProps): Unit = ^.asInstanceOf[js.Dynamic].applyDynamic("badge")(props.asInstanceOf[js.Any]).asInstanceOf[Unit]
   
@@ -93,6 +98,8 @@ object mod {
       inline def setProps(value: AdditionalProps & BadgeOwnProps): Self = StObject.set(x, "props", value.asInstanceOf[js.Any])
     }
   }
+  
+  type Node = js.UndefOr[String | Double | Null]
   
   trait RootSlotProps extends StObject {
     

@@ -30,3 +30,7 @@ export declare const name: NonNullable<string | null | undefined>;
 
 /* of anything else it stays */
 export declare const other: NonNullable<RootSlotProps>;
+
+/* as does an alias to a union outside of lookups, like `children: NonNullable<React.ReactNode>` in @mui/material */
+export type Node = string | number | null | undefined;
+export declare const aliased: NonNullable<Node>;
