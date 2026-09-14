@@ -14,6 +14,7 @@ import japgolly.scalajs.react.ReactTouchEventFrom
 import japgolly.scalajs.react.ReactTransitionEventFrom
 import japgolly.scalajs.react.ReactUIEventFrom
 import japgolly.scalajs.react.ReactWheelEventFrom
+import japgolly.scalajs.react.facade.React.ElementType
 import org.scalajs.dom.Element
 import org.scalajs.dom.HTMLAnchorElement
 import typingsJapgolly.StBuildingComponent
@@ -181,6 +182,8 @@ object LikeBox {
     inline def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
     
     inline def color(value: String): this.type = set("color", value.asInstanceOf[js.Any])
+    
+    inline def component(value: ElementType): this.type = set("component", value.asInstanceOf[js.Any])
     
     inline def contentEditable(value: Boolean): this.type = set("contentEditable", value.asInstanceOf[js.Any])
     

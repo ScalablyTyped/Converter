@@ -15,7 +15,7 @@ object Inline {
   
   type Props = DefaultComponentProps[FooTypeMap]
   
-  implicit def make(companion: Inline.type): SharedBuilder_DefaultComponentProps833350959[HTMLAnchorElement] = new SharedBuilder_DefaultComponentProps833350959[HTMLAnchorElement](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: Inline.type): SharedBuilder_DefaultComponentProps_606679076[HTMLAnchorElement] = new SharedBuilder_DefaultComponentProps_606679076[HTMLAnchorElement](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: DefaultComponentProps[FooTypeMap]): SharedBuilder_DefaultComponentProps833350959[HTMLAnchorElement] = new SharedBuilder_DefaultComponentProps833350959[HTMLAnchorElement](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: DefaultComponentProps[FooTypeMap]): SharedBuilder_DefaultComponentProps_606679076[HTMLAnchorElement] = new SharedBuilder_DefaultComponentProps_606679076[HTMLAnchorElement](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

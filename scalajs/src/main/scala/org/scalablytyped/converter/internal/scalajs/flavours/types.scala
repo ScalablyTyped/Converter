@@ -21,6 +21,9 @@ final case class Component(
     propsRef:      PropsRef,
     componentType: ComponentType,
     nested:        IArray[Component],
+    /* props of other ways to call the component, offered as optional props when missing from `propsRef`.
+     * See `Marker.AlternativeProps` */
+    alternativeProps: IArray[TypeRef] = Empty,
 ) {
 
   def isGlobal: Boolean =
@@ -44,9 +47,10 @@ final case class Component(
 
   def rewritten(scope: TreeScope, t: TreeTransformation): Component =
     copy( // don't rewrite scalaRef
-      tparams  = tparams.map(t.visitTypeParamTree(scope)),
-      propsRef = PropsRef(t.visitTypeRef(scope)(propsRef.ref)),
-      nested   = nested.map(_.rewritten(scope, t)),
+      tparams          = tparams.map(t.visitTypeParamTree(scope)),
+      propsRef         = PropsRef(t.visitTypeRef(scope)(propsRef.ref)),
+      nested           = nested.map(_.rewritten(scope, t)),
+      alternativeProps = alternativeProps.map(t.visitTypeRef(scope)),
     )
 
   def withNested(nested: IArray[Component]): Component =

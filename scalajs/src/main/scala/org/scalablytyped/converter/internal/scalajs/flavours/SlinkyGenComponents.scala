@@ -175,13 +175,14 @@ object SlinkyGenComponents {
   }
 
   case class ComponentGroupKey(
-      propsRef:        PropsRef,
-      canBeReferenced: Boolean,
-      tparams:         IArray[TypeParamTree],
+      propsRef:         PropsRef,
+      canBeReferenced:  Boolean,
+      tparams:          IArray[TypeParamTree],
+      alternativeProps: IArray[TypeRef],
   )
 
   def groupKey(c: Component): ComponentGroupKey =
-    ComponentGroupKey(c.propsRef, c.referenceTo.isDefined, c.tparams)
+    ComponentGroupKey(c.propsRef, c.referenceTo.isDefined, c.tparams, c.alternativeProps)
 
   /**
     * I know.
@@ -226,7 +227,8 @@ class SlinkyGenComponents(
         /* this is mostly here as an optimization */
         val allResolvedProps: Map[ComponentGroupKey, PropsDom] =
           allComponentsGrouped.map {
-            case (group, _) => group -> findPropsAndInferDomInfo(scope, mode, group.propsRef, group.tparams)
+            case (group, _) =>
+              group -> findPropsAndInferDomInfo(scope, mode, group.propsRef, group.tparams, group.alternativeProps)
           }
 
         /* A component might have one or more builders shared with other components */
@@ -320,7 +322,9 @@ class SlinkyGenComponents(
     val PropsDom(propsRef, resProps, domInfo) = propsDom
 
     resProps.map { splitProps =>
-      val hashValue = StableHash((propsRef, group.canBeReferenced, group.tparams))
+      val hashValue =
+        if (group.alternativeProps.isEmpty) StableHash((propsRef, group.canBeReferenced, group.tparams))
+        else StableHash((propsRef, group.canBeReferenced, group.tparams, group.alternativeProps))
       val name = Name(
         s"SharedBuilder_${nameFor(propsRef.ref)}$hashValue"
           .replaceAllLiterally("-", "_"),
@@ -366,10 +370,12 @@ class SlinkyGenComponents(
       withDomProps: Mode[Unit, SlinkyWeb],
       propsRef:     PropsRef,
       tparams:      IArray[TypeParamTree],
+      alternatives: IArray[TypeRef],
   ): PropsDom = {
     val resProps: Res[IArray[String], IArray[Prop]] =
-      findProps.forType(
+      findProps.forTypeWithAlternatives(
         propsRef.ref,
+        alternatives,
         tparams,
         scope,
         maxNum             = Int.MaxValue,

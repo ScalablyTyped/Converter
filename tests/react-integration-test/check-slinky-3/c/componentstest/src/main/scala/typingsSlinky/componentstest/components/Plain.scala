@@ -15,7 +15,7 @@ object Plain {
   
   type Props = DefaultComponentProps[FooTypeMap]
   
-  implicit def make(companion: Plain.type): SharedBuilder_DefaultComponentProps396776592[HTMLAnchorElement] = new SharedBuilder_DefaultComponentProps396776592[HTMLAnchorElement](js.Array(this.component, js.Dictionary.empty))()
+  implicit def make(companion: Plain.type): SharedBuilder_DefaultComponentProps988386800[HTMLAnchorElement] = new SharedBuilder_DefaultComponentProps988386800[HTMLAnchorElement](js.Array(this.component, js.Dictionary.empty))()
   
-  def withProps(p: DefaultComponentProps[FooTypeMap]): SharedBuilder_DefaultComponentProps396776592[HTMLAnchorElement] = new SharedBuilder_DefaultComponentProps396776592[HTMLAnchorElement](js.Array(this.component, p.asInstanceOf[js.Any]))
+  def withProps(p: DefaultComponentProps[FooTypeMap]): SharedBuilder_DefaultComponentProps988386800[HTMLAnchorElement] = new SharedBuilder_DefaultComponentProps988386800[HTMLAnchorElement](js.Array(this.component, p.asInstanceOf[js.Any]))
 }

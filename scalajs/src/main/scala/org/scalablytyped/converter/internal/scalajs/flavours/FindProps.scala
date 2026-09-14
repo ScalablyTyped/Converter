@@ -194,6 +194,41 @@ final class FindProps(
       },
     )
 
+  /* `forType`, plus the props of `alternatives` which it doesn't have, as optional props. These are other ways to call
+   * a component, like the `component` of mui's `OverridableComponent`. See `Marker.AlternativeProps` */
+  def forTypeWithAlternatives(
+      typeRef:            TypeRef,
+      alternatives:       IArray[TypeRef],
+      tparams:            IArray[TypeParamTree],
+      scope:              TreeScope,
+      maxNum:             Int,
+      acceptNativeTraits: Boolean,
+  ): Res[IArray[String], IArray[Prop]] =
+    forType(typeRef, tparams, scope, maxNum, acceptNativeTraits) match {
+      case Res.One(name, props) if alternatives.nonEmpty =>
+        val existing = props.map(originalName(_).unescaped).toSet
+        val extra = alternatives
+          .flatMap(alternative => asWrittenIntersection(alternative, scope).getOrElse(IArray(alternative)))
+          .flatMap { part =>
+            forType(part, tparams, scope, maxNum, acceptNativeTraits) match {
+              case Res.One(_, partProps) => partProps
+              case _                     => Empty
+            }
+          }
+          .filterNot(prop => existing(originalName(prop).unescaped))
+          .distinctBy(originalName(_).unescaped)
+          .map(asOptional)
+        Res.One(name, (props ++ extra).sorted)
+      case other => other
+    }
+
+  private def asOptional(prop: Prop): Prop =
+    prop match {
+      case x: Prop.Normal if x.optionality === Optionality.No => x.copy(optionality = Optionality.Undef)
+      case x: Prop.CompressedProp                             => x.copy(isRequired  = false)
+      case other => other
+    }
+
   private def originalName(prop: Prop): Name =
     prop match {
       case x: Prop.Normal         => x.originalName
