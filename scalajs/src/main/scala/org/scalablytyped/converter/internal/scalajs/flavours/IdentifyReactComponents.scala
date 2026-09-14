@@ -4,6 +4,7 @@ package flavours
 
 import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.maps._
+import org.scalablytyped.converter.internal.scalajs.transforms.CombineOverloads
 
 class IdentifyReactComponents(
     reactNames:             ReactNamesProxy,
@@ -313,7 +314,16 @@ class IdentifyReactComponents(
         )
         f(asField)
       }
-      def fromApplies = separated.applyMembers.firstDefined(a => maybeMethodComponent(a, c, scope / a))
+      /* the other `apply` overloads which `CombineOverloads` kept, like the one of mui's `OverridableComponent` which
+       * takes `component`, contribute their props like the dropped ones do */
+      def fromApplies = separated.applyMembers.firstDefined { a =>
+        maybeMethodComponent(a, c, scope / a).map { component =>
+          val others = separated.applyMembers
+            .filter(other => (other ne a) && maybeMethodComponent(other, c, scope / other).isDefined)
+            .mapNotNone(CombineOverloads.alternativeProps(scope))
+          component.copy(alternativeProps = (component.alternativeProps ++ others).distinct)
+        }
+      }
 
       /* a bare function parent is tried last. mui's `ExtendButtonBase` is an intersection of a function which requires
        * `href` and an `OverridableComponent`, and we want the latter */
