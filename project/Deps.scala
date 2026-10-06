@@ -8,7 +8,7 @@ object Deps {
   val scalatest           = "org.scalatest" %% "scalatest" % "3.2.19"
   val fansi               = "com.lihaoyi" %% "fansi" % "0.5.1"
   val scalaXml            = "org.scala-lang.modules" %% "scala-xml" % "2.4.0"
-  val scopt               = "com.github.scopt" %% "scopt" % "4.1.0"
+  val scopt               = "com.github.scopt" %% "scopt" % "4.2.0"
   val awssdkS3            = "software.amazon.awssdk" % "s3" % "2.34.5"
   val collectionCompat    = "org.scala-lang.modules" %% "scala-collection-compat" % "2.13.0"
   val parallelCollections = "org.scala-lang.modules" %% "scala-parallel-collections" % "1.2.0"
