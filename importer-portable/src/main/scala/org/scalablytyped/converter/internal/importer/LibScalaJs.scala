@@ -3,6 +3,7 @@ package importer
 
 import org.scalablytyped.converter.internal.scalajs.{Name, PackageTree, TreeScope}
 
+import scala.collection.mutable
 import scala.collection.immutable.SortedMap
 
 case class LibScalaJs(source: LibTsSource)(
@@ -16,6 +17,20 @@ case class LibScalaJs(source: LibTsSource)(
 ) extends TreeScope.Lib
 
 object LibScalaJs {
+  def allDependencies(deps: Iterable[LibScalaJs]): Map[Name, PackageTree] = {
+    val seen = mutable.Set.empty[Name]
+    val acc  = Map.newBuilder[Name, PackageTree]
+
+    def go(lib: LibScalaJs): Unit =
+      if (seen.add(lib.scalaName)) {
+        acc += lib.scalaName -> lib.packageTree
+        lib.dependencies.values.foreach(go)
+      }
+
+    deps.foreach(go)
+    acc.result()
+  }
+
   object Unpack {
     def unapply(m: SortedMap[LibTsSource, LibScalaJs]): Some[SortedMap[LibTsSource, LibScalaJs]] =
       Some(apply(m))
