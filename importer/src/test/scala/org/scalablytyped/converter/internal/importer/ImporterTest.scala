@@ -64,6 +64,7 @@ trait ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   test("properties")(assertImportsOk("properties", pedantic                         = true))
   test("keyof")(assertImportsOk("keyof", pedantic                                   = true))
   test("tuple-rest")(assertImportsOk("tuple-rest", pedantic                         = true))
+  test("double-param-slots")(assertImportsOk("double-param-slots", pedantic         = true))
   test("antd")(assertImportsOk("antd", pedantic                                     = true))
   test("echarts")(assertImportsOk("echarts", pedantic                               = true))
   test("elasticsearch-js")(assertImportsOk("elasticsearch-js", pedantic             = true))

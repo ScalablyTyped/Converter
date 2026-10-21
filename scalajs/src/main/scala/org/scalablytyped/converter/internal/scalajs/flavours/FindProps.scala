@@ -7,8 +7,29 @@ import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 import org.scalablytyped.converter.internal.scalajs.transforms.{CleanIllegalNames, UnionToInheritance}
 
 object FindProps {
-  /* javascript limitation */
+  /* JVM limit on a method's parameter slots, which scalac also enforces for Scala.js. `Long` and `Double` take two slots */
   val MaxParamsForMethod = 254
+
+  /** Upper bound on the parameter slots a creator method for `props` needs */
+  def paramSlots(props: IArray[Prop]): Int =
+    props.foldLeft(0)(_ + slotsFor(_))
+
+  /** The longest prefix of `props` whose creator method fits in `maxSlots` parameter slots */
+  def takeParamSlots(props: IArray[Prop], maxSlots: Int): IArray[Prop] = {
+    var slots = 0
+    props.takeWhile { prop =>
+      slots += slotsFor(prop)
+      slots <= maxSlots
+    }
+  }
+
+  private def slotsFor(prop: Prop): Int = {
+    val tpe = prop match {
+      case p: Prop.Normal         => p.main.tpe
+      case p: Prop.CompressedProp => p.tpe
+    }
+    if (tpe.typeName === QualifiedName.Double || tpe.typeName === QualifiedName.Long) 2 else 1
+  }
 
   sealed trait Res[+E, +T] {
     def headOption: Option[T] = this match {
@@ -254,7 +275,9 @@ final class FindProps(
             }
 
           val valid: Option[IArray[Prop]] =
-            propsStream.find(_.length <= maxNum).orElse(propsStream.lastOption.map(filtered => filtered.take(maxNum)))
+            propsStream
+              .find(props => FindProps.paramSlots(props) <= maxNum)
+              .orElse(propsStream.lastOption.map(props => FindProps.takeParamSlots(props, maxNum)))
 
           valid match {
             case Some(props) => Res.One(selfRef, props)
