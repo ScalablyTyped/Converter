@@ -11,7 +11,7 @@ object Deps {
   val scopt               = "com.github.scopt" %% "scopt" % "4.1.0"
   val awssdkS3            = "software.amazon.awssdk" % "s3" % "2.34.5"
   val collectionCompat    = "org.scala-lang.modules" %% "scala-collection-compat" % "2.13.0"
-  val parallelCollections = "org.scala-lang.modules" %% "scala-parallel-collections" % "1.2.0"
+  val parallelCollections = "org.scala-lang.modules" %% "scala-parallel-collections" % "1.3.0"
   val coursier            = "io.get-coursier" %% "coursier" % "2.1.24"
 
   val circe: Seq[ModuleID] =
