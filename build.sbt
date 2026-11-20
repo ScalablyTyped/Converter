@@ -112,7 +112,7 @@ lazy val `sbt-converter` = project
         case _      => sbt2
       }
     },
-    addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.22.0"),
+    addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.23.0"),
     /* `PlatformDepsPlugin` (which gives us `%%%`) only exists for sbt 1.x.
      * sbt 2.x has cross-platform support built in, and `sbt-scalajs` no longer depends on it. */
     libraryDependencies ++= {
