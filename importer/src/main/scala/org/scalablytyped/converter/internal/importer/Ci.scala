@@ -116,6 +116,7 @@ object Ci {
                 organization             = organization,
                 enableReactTreeShaking   = Selection.None,
                 enableLongApplyMethod    = false,
+                disableCallbackWrapping  = false,
                 privateWithin            = None,
                 useDeprecatedModuleNames = false,
               ),
